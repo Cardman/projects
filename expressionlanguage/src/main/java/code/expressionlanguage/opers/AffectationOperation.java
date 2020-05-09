@@ -65,16 +65,16 @@ public final class AffectationOperation extends MethodOperation implements Affec
         if (settable instanceof VariableOperation) {
             VariableOperation v_ = (VariableOperation)settable;
             String inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringVariable(v_, _conf) && StringList.contains(_conf.getInfersLocalVars(), inf_)) {
+            if (ElUtil.isDeclaringVariable(v_, _conf) && StringList.contains(_conf.getAnalyzing().getLastLocalVarsInfers(), inf_)) {
                 ClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
                     ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
-                    LocalVariable lv_ = _conf.getLocalVar(inf_);
+                    LocalVariable lv_ = _conf.getAnalyzing().getLocalVar(inf_);
                     lv_.setClassName(type_);
-                    _conf.getVariablesNamesToInfer().removeString(inf_);
+                    _conf.getAnalyzing().getVariablesNamesToInfer().removeString(inf_);
                     _conf.setupDeclaratorClass(type_);
-                    _conf.setCurrentVarSetting(type_);
+                    _conf.getAnalyzing().setCurrentVarSetting(type_);
                     v_.setResultClass(n_);
                 }
             }
@@ -82,16 +82,16 @@ public final class AffectationOperation extends MethodOperation implements Affec
         if (settable instanceof MutableLoopVariableOperation) {
             MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)settable;
             String inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringLoopVariable(v_, _conf) && StringList.contains(_conf.getInfersMutableLocalVars(), inf_)) {
+            if (ElUtil.isDeclaringLoopVariable(v_, _conf) && StringList.contains(_conf.getAnalyzing().getLastMutableLoopVarsInfers(), inf_)) {
                 ClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
                     ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
-                    LoopVariable lv_ = _conf.getMutableLoopVar(inf_);
+                    LoopVariable lv_ = _conf.getAnalyzing().getMutableLoopVar(inf_);
                     lv_.setClassName(type_);
-                    _conf.getVariablesNamesLoopToInfer().removeString(inf_);
+                    _conf.getAnalyzing().getVariablesNamesLoopToInfer().removeString(inf_);
                     _conf.setupLoopDeclaratorClass(type_);
-                    _conf.setCurrentVarSetting(type_);
+                    _conf.getAnalyzing().setCurrentVarSetting(type_);
                     v_.setResultClass(n_);
                 }
             }
@@ -183,7 +183,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
     }
 
     public static void processInfer(Analyzable _cont, String _import) {
-        StringList vars_ = _cont.getVariablesNames();
+        StringList vars_ = _cont.getAnalyzing().getVariablesNames();
         if (StringList.quickEq(_import,_cont.getKeyWords().getKeyWordVar())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
@@ -194,15 +194,15 @@ public final class AffectationOperation extends MethodOperation implements Affec
                     StringList.join(vars_,"&"));
             _cont.addError(un_);
         } else {
-            for (String v: _cont.getVariablesNamesToInfer()) {
-                LocalVariable lv_ = _cont.getLocalVar(v);
+            for (String v: _cont.getAnalyzing().getVariablesNamesToInfer()) {
+                LocalVariable lv_ = _cont.getAnalyzing().getLocalVar(v);
                 lv_.setClassName(_import);
             }
         }
     }
 
     public static void processInferLoop(Analyzable _cont, String _import) {
-        StringList vars_ = _cont.getVariablesNames();
+        StringList vars_ = _cont.getAnalyzing().getVariablesNames();
         if (StringList.quickEq(_import,_cont.getKeyWords().getKeyWordVar())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
@@ -213,8 +213,8 @@ public final class AffectationOperation extends MethodOperation implements Affec
                     StringList.join(vars_,"&"));
             _cont.addError(un_);
         } else {
-            for (String v: _cont.getVariablesNamesLoopToInfer()) {
-                LoopVariable lv_ = _cont.getMutableLoopVar(v);
+            for (String v: _cont.getAnalyzing().getVariablesNamesLoopToInfer()) {
+                LoopVariable lv_ = _cont.getAnalyzing().getMutableLoopVar(v);
                 lv_.setClassName(_import);
             }
         }
@@ -245,7 +245,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
     }
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
-        Block block_ = _conf.getCurrentBlock();
+        Block block_ = _conf.getAnalyzing().getCurrentBlock();
         AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         if (vars_ instanceof AssignedBooleanLoopVariables) {
             ((AssignedBooleanLoopVariables)vars_).add(this, _conf);

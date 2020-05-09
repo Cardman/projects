@@ -148,7 +148,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             m_ = m_.getParent();
         }
         String type_ = EMPTY_STRING;
-        Block cur_ = _conf.getCurrentBlock();
+        Block cur_ = _conf.getAnalyzing().getCurrentBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
             FunctionBlock f_ = _conf.getAnalyzing().getCurrentFct();
             if (f_ instanceof NamedFunctionBlock) {
@@ -206,7 +206,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
 
     @Override
     public final void analyzeAssignmentAfter(Analyzable _conf) {
-        Block block_ = _conf.getCurrentBlock();
+        Block block_ = _conf.getAnalyzing().getCurrentBlock();
         AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();

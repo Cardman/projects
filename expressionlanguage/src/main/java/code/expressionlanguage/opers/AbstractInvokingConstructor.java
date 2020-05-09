@@ -85,7 +85,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
     }
 
     void checkPositionBasis(Analyzable _conf) {
-        Block curBlock_ = _conf.getCurrentBlock();
+        Block curBlock_ = _conf.getAnalyzing().getCurrentBlock();
         if (getParent() != null) {
             //error
             FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -117,7 +117,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         }
     }
     void checkPosition(Analyzable _conf) {
-        Block curBlock_ = _conf.getCurrentBlock();
+        Block curBlock_ = _conf.getAnalyzing().getCurrentBlock();
         if (curBlock_.getParent().getFirstChild() != curBlock_) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(curBlock_.getFile().getFileName());

@@ -44,7 +44,7 @@ final class VariablePartType extends LeafPartType {
             t_ = StringList.concat(Templates.PREFIX_VAR_TYPE,t_);
         }
         type_ = StringExpUtil.removeDottedSpaces(type_);
-        if (!_an.getAvailableVariables().contains(type_)) {
+        if (!_an.getAnalyzing().getAvailableVariables().contains(type_)) {
             return;
         }
         setAnalyzedType(t_);
@@ -68,7 +68,7 @@ final class VariablePartType extends LeafPartType {
         }
         type_ = type_.trim();
         type_ = StringExpUtil.removeDottedSpaces(type_);
-        if (!_an.getAvailableVariables().contains(type_)) {
+        if (!_an.getAnalyzing().getAvailableVariables().contains(type_)) {
             return;
         }
         setAnalyzedType(t_);

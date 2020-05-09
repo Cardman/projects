@@ -20,8 +20,6 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
 
 public abstract class ContextEl implements ExecutableCode {
@@ -248,36 +246,31 @@ public abstract class ContextEl implements ExecutableCode {
 
     @Override
     public AnalyzedBlock getCurrentAnaBlock() {
-        return getCurrentBlock();
-    }
-
-    @Override
-    public Block getCurrentBlock() {
         return analyzing.getCurrentBlock();
     }
 
     @Override
     public boolean hasDeclarator() {
-        Block bl_ = getCurrentBlock();
+        Block bl_ = analyzing.getCurrentBlock();
         return bl_.getPreviousSibling() instanceof DeclareVariable;
     }
 
     @Override
     public void setupDeclaratorClass(String _className) {
-        Block bl_ = getCurrentBlock();
+        Block bl_ = analyzing.getCurrentBlock();
         Block previousSibling_ = bl_.getPreviousSibling();
         ((DeclareVariable)previousSibling_).setImportedClassName(_className);
     }
 
     @Override
     public boolean hasLoopDeclarator() {
-        Block bl_ = getCurrentBlock();
+        Block bl_ = analyzing.getCurrentBlock();
         return bl_ instanceof ForMutableIterativeLoop;
     }
 
     @Override
     public void setupLoopDeclaratorClass(String _className) {
-        Block bl_ = getCurrentBlock();
+        Block bl_ = analyzing.getCurrentBlock();
         ((ForMutableIterativeLoop)bl_).setImportedClassName(_className);
     }
 
@@ -290,7 +283,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (isAnnotAnalysis()) {
             return true;
         }
-        Block bl_ = getCurrentBlock();
+        Block bl_ = analyzing.getCurrentBlock();
         if (bl_ instanceof InfoBlock) {
             return ((InfoBlock)bl_).isStaticField();
         }
@@ -303,6 +296,7 @@ public abstract class ContextEl implements ExecutableCode {
 
     public void setAnalyzing() {
         analyzing = new AnalyzedPageEl();
+        analyzing.setProcessKeyWord(new DefaultProcessKeyWord());
     }
 
     public void setNullAnalyzing() {
@@ -334,36 +328,6 @@ public abstract class ContextEl implements ExecutableCode {
     @Override
     public void setGlobalClass(String _globalClass) {
         analyzing.setGlobalClass(_globalClass);
-    }
-
-    @Override
-    public LoopVariable getVar(String _key) {
-        return analyzing.getVar(_key);
-    }
-
-    @Override
-    public boolean containsLocalVar(String _string) {
-        return analyzing.containsLocalVar(_string);
-    }
-
-    @Override
-    public LocalVariable getLocalVar(String _string) {
-        return analyzing.getLocalVar(_string);
-    }
-
-    @Override
-    public void putLocalVar(String _string, LocalVariable _loc) {
-        analyzing.putLocalVar(_string, _loc);
-    }
-
-    @Override
-    public LocalVariable getCatchVar(String _key) {
-        return analyzing.getCatchVar(_key);
-    }
-
-    @Override
-    public StringMap<LocalVariable> getParameters() {
-        return analyzing.getParameters();
     }
 
     public int getOffset() {
@@ -436,24 +400,22 @@ public abstract class ContextEl implements ExecutableCode {
     }
     public abstract Initializer getInit();
 
-    @Override
-    public int getCurrentChildTypeIndex(OperationNode _op, GeneType _type, String _fieldName, String _realClassName) {
+    public static int getCurrentChildTypeIndex(Analyzable _an,OperationNode _op, String _fileName, int _location,GeneType _type, String _fieldName, String _realClassName) {
         if (isEnumType(_type)) {
             if (_fieldName.isEmpty()) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(getCurrentFileName());
-                call_.setIndexFile(getCurrentLocationIndex());
+                call_.setFileName(_fileName);
+                call_.setIndexFile(_location);
                 //type len
-                call_.buildError(getAnalysisMessages().getIllegalCtorEnum());
-                addError(call_);
+                call_.buildError(_an.getContextEl().getAnalysisMessages().getIllegalCtorEnum());
+                _an.addError(call_);
                 _op.setResultClass(new ClassArgumentMatching(_realClassName));
                 return -2;
             }
-            return analyzing.getIndexChildType();
+            return _an.getAnalyzing().getIndexChildType();
         }
         return -1;
     }
-
     public static boolean isAbstractType(GeneType _type) {
         if (_type instanceof StandardInterface) {
             return true;
@@ -492,16 +454,6 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public String getCurrentVarSetting() {
-        return analyzing.getCurrentVarSetting();
-    }
-
-    @Override
-    public void setCurrentVarSetting(String _currentVarSetting) {
-        analyzing.setCurrentVarSetting(_currentVarSetting);
-    }
-
-    @Override
     public boolean isFinalVariable() {
         return analyzing.isFinalVariable();
     }
@@ -513,11 +465,6 @@ public abstract class ContextEl implements ExecutableCode {
 
     public AssignedVariablesBlock getAssignedVariables() {
         return analyzing.getAssignedVariables();
-    }
-
-    @Override
-    public CustList<StringMap<LocalVariable>> getLocalVariables() {
-        return analyzing.getLocalVars();
     }
 
     public boolean isFinalLocalVar(String _key, int _index) {
@@ -589,16 +536,6 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.getNeedInterfaces();
     }
 
-    @Override
-    public StringMap<LocalVariable> getInternVars() {
-        return analyzing.getInternVars();
-    }
-
-
-    @Override
-    public boolean isEnabledInternVars() {
-        return analyzing.isEnabledInternVars();
-    }
 
     @Override
     public StringMap<StringList> getCurrentConstraints() {
@@ -611,16 +548,16 @@ public abstract class ContextEl implements ExecutableCode {
 
     public void buildCurrentConstraintsFull() {
         StringMap<TypeVar> vars_ = getCurrentConstraintsFull();
-        getAvailableVariables().clear();
+        analyzing.getAvailableVariables().clear();
         for (EntryCust<String,TypeVar> e: vars_.entryList()) {
-            getAvailableVariables().addEntry(e.getKey(),e.getValue().getOffset());
+            analyzing.getAvailableVariables().addEntry(e.getKey(),e.getValue().getOffset());
         }
     }
     private StringMap<TypeVar> getCurrentConstraintsFull() {
         if (isAnnotAnalysis()) {
             return new StringMap<TypeVar>();
         }
-        Block bl_ = getCurrentBlock();
+        Block bl_ = analyzing.getCurrentBlock();
         AccessingImportingBlock r_ = getCurrentGlobalBlock();
         StringMap<TypeVar> vars_ = new StringMap<TypeVar>();
 
@@ -720,26 +657,6 @@ public abstract class ContextEl implements ExecutableCode {
         return null;
     }
 
-    @Override
-    public StringMap<Integer> getAvailableVariables() {
-        return analyzing.getAvailableVariables();
-    }
-
-    @Override
-    public StringList getVariablesNamesLoopToInfer() {
-        return analyzing.getVariablesNamesLoopToInfer();
-    }
-
-    @Override
-    public StringList getVariablesNamesToInfer() {
-        return analyzing.getVariablesNamesToInfer();
-    }
-
-    @Override
-    public StringList getVariablesNames() {
-        return analyzing.getVariablesNames();
-    }
-
     public boolean isAssignedStaticFields() {
         return analyzing.isAssignedStaticFields();
     }
@@ -761,33 +678,8 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public boolean containsMutableLoopVar(String _string) {
-        return analyzing.containsMutableLoopVar(_string);
-    }
-
-    @Override
-    public LoopVariable getMutableLoopVar(String _key) {
-        return analyzing.getMutableLoopVar(_key);
-    }
-
-    @Override
-    public void putMutableLoopVar(String _string, LoopVariable _loc) {
-        analyzing.putMutableLoopVar(_string, _loc);
-    }
-
-    @Override
-    public ForLoopPart getForLoopPartState() {
-        return analyzing.getForLoopPartState();
-    }
-
-    @Override
     public String getIndexClassName() {
-        return ((ForMutableIterativeLoop)getCurrentBlock()).getImportedClassIndexName();
-    }
-
-    @Override
-    public void setForLoopPartState(ForLoopPart _state) {
-        analyzing.setForLoopPartState(_state);
+        return ((ForMutableIterativeLoop)analyzing.getCurrentBlock()).getImportedClassIndexName();
     }
 
     public AnalyzingEl getAnalysisAss() {
@@ -797,7 +689,7 @@ public abstract class ContextEl implements ExecutableCode {
     @Override
     public boolean isAnnotAnalysis(OperationNode _op, OperationsSequence _seq) {
         boolean ok_ = false;
-        if (getCurrentBlock() instanceof AnnotationMethodBlock && _op == null) {
+        if (analyzing.getCurrentBlock() instanceof AnnotationMethodBlock && _op == null) {
             ok_ = true;
         } else if (_op instanceof AssocationOperation){
             ok_ = true;
@@ -827,26 +719,6 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public void putLocalVar(String _string) {
-        analyzing.putLocalVar(_string);
-    }
-
-    @Override
-    public StringList getInfersLocalVars() {
-        return analyzing.getLastLocalVarsInfers();
-    }
-
-    @Override
-    public StringList getInfersMutableLocalVars() {
-        return analyzing.getLastMutableLoopVarsInfers();
-    }
-
-    @Override
-    public void putMutableLoopVar(String _string) {
-        analyzing.putMutableLoopVar(_string);
-    }
-
-    @Override
     public String getLookLocalClass() {
         return analyzing.getLookLocalClass();
     }
@@ -864,11 +736,6 @@ public abstract class ContextEl implements ExecutableCode {
     @Override
     public void setOkNumOp(boolean _okNumOp) {
         analyzing.setOkNumOp(_okNumOp);
-    }
-
-    @Override
-    public Ints getCurrentBadIndexes() {
-        return analyzing.getCurrentBadIndexes();
     }
 
     @Override
@@ -906,7 +773,7 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     public boolean isNotVar(String _id) {
-        if (containsLocalVar(_id)) {
+        if (analyzing.containsLocalVar(_id)) {
             return false;
         }
         if (analyzing.containsCatchVar(_id)) {
@@ -918,12 +785,12 @@ public abstract class ContextEl implements ExecutableCode {
         if (analyzing.containsVar(_id)) {
             return false;
         }
-        return !getParameters().contains(_id);
+        return !analyzing.getParameters().contains(_id);
     }
 
     @Override
     public boolean isValidToken(String _id) {
-        Block b_ = getCurrentBlock();
+        Block b_ = analyzing.getCurrentBlock();
         boolean pred_ = b_.getFile().isPredefined();
         return isValidToken(_id, pred_);
     }
@@ -953,11 +820,6 @@ public abstract class ContextEl implements ExecutableCode {
             return false;
         }
         return !isDigit(_id.charAt(0));
-    }
-
-    @Override
-    public void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out) {
-        //because of looping on characters
     }
 
     @Override

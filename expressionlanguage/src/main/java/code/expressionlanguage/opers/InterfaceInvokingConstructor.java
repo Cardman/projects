@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.*;
@@ -51,7 +50,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
 
     @Override
     void checkPosition(Analyzable _conf) {
-        Block curBlock_ = _conf.getCurrentBlock();
+        Block curBlock_ = _conf.getAnalyzing().getCurrentBlock();
         Line curLine_ = (Line)curBlock_;
         BracedBlock br_ = curBlock_.getParent();
         if (br_.getParent() instanceof InterfaceBlock) {

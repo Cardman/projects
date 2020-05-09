@@ -125,16 +125,16 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             }
             _cont.setMerged(true);
             _cont.setFinalVariable(false);
-            _cont.setCurrentVarSetting(importedClassName);
+            page_.setCurrentVarSetting(importedClassName);
         } else {
             _cont.setMerged(false);
         }
-        _cont.getVariablesNames().clear();
-        _cont.getVariablesNamesLoopToInfer().clear();
+        page_.getVariablesNames().clear();
+        page_.getVariablesNamesLoopToInfer().clear();
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrInit());
-        _cont.setForLoopPartState(ForLoopPart.INIT);
+        page_.setForLoopPartState(ForLoopPart.INIT);
         _cont.setAcceptCommaInstr(true);
         if (init.trim().isEmpty()) {
             opInit = new CustList<RendDynOperationNode>();
@@ -142,7 +142,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont);
         }
         if (_cont.isMerged()) {
-            StringList vars_ = _cont.getVariablesNames();
+            StringList vars_ = page_.getVariablesNames();
             String t_ = inferOrObject(_cont,importedClassName);
             AffectationOperation.processInferLoop(_cont, t_);
             getVariableNames().addAllElts(vars_);
@@ -152,7 +152,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrCondition());
-        _cont.setForLoopPartState(ForLoopPart.CONDITION);
+        page_.setForLoopPartState(ForLoopPart.CONDITION);
         if (expression.trim().isEmpty()) {
             opExp = new CustList<RendDynOperationNode>();
         } else {
@@ -182,10 +182,10 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
-        _an.setForLoopPartState(ForLoopPart.STEP);
+        page_.setForLoopPartState(ForLoopPart.STEP);
         _an.setMerged(true);
         _an.setAcceptCommaInstr(true);
-        _an.getLocalVariables().last().clear();
+        page_.getLocalVars().last().clear();
         _an.getAnalyzingDoc().setAttribute(_an.getRendKeyWords().getAttrStep());
         if (step.trim().isEmpty()) {
             opStep = new CustList<RendDynOperationNode>();

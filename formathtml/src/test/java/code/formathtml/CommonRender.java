@@ -9,6 +9,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.util.AdvancedProcessKeyWord;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
@@ -24,6 +25,7 @@ public abstract class CommonRender {
     protected static void addImportingPage(Configuration _conf) {
         _conf.addPage(new ImportingPage());
         _conf.getContext().setAnalyzing();
+        _conf.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_conf));
     }
 
     protected static void setLocale(String _locale, Configuration _conf) {
@@ -64,6 +66,7 @@ public abstract class CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getContext().setAnalyzing();
+        conf_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(conf_));
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setDocument(doc_);
@@ -82,6 +85,7 @@ public abstract class CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getRenders().put("page1.html",rendDocumentBlock_);
         context_.getContext().setAnalyzing();
+        context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         tryInitStaticlyTypes(context_);
@@ -123,6 +127,7 @@ public abstract class CommonRender {
         context_.getRenders().put("page1.html",rendDocumentBlock_);
         context_.getRenders().put("page2.html",rendDocumentBlockSec_);
         context_.getContext().setAnalyzing();
+        context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
@@ -153,6 +158,7 @@ public abstract class CommonRender {
         context_.getRenders().put("page1.html",rendDocumentBlock_);
         context_.getRenders().put("page2.html",rendDocumentBlockSec_);
         context_.getContext().setAnalyzing();
+        context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
@@ -193,6 +199,7 @@ public abstract class CommonRender {
         context_.getRenders().put("page2.html",rendDocumentBlockSec_);
         context_.getRenders().put("page3.html",rendDocumentBlockThird_);
         context_.getContext().setAnalyzing();
+        context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);

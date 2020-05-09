@@ -12,6 +12,7 @@ import code.formathtml.*;
 import code.formathtml.classes.*;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.AdvancedProcessKeyWord;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
@@ -1471,6 +1472,7 @@ public final class NativeTest extends CommonRender {
         _nav.getSession().setBeansInfos(map_);
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         _nav.getSession().getContext().setAnalyzing();
+        _nav.getSession().getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_nav.getSession()));
         _nav.initInstancesPattern();
         _nav.setupRenders();
         tryInitStaticlyTypes(_nav.getSession());
@@ -1495,6 +1497,7 @@ public final class NativeTest extends CommonRender {
         addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getContext().setAnalyzing();
+        context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
         rendDocumentBlock_.buildFctInstructions(context_);
         context_.setDocument(doc_);
         return rendDocumentBlock_;
@@ -1511,6 +1514,7 @@ public final class NativeTest extends CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getRenders().put("page2.html",rendDocumentBlockSec_);
         conf_.getContext().setAnalyzing();
+        conf_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(conf_));
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendDocumentBlockSec_.buildFctInstructions(conf_);
         conf_.setDocument(doc_);

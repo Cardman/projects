@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.variables.LocalVariable;
@@ -67,6 +68,9 @@ public final class AnalyzedPageEl {
     private StringList initFieldsCtors = new StringList();
     private StringList assignedDeclaredFields = new StringList();
     private StringList allDeclaredFields = new StringList();
+
+    private AbstractProcessKeyWord processKeyWord;
+
     public AnalyzedPageEl() {
         setCatchVars(new CustList<StringMap<LocalVariable>>());
         setLocalVars(new CustList<StringMap<LocalVariable>>());
@@ -512,5 +516,13 @@ public final class AnalyzedPageEl {
 
     public void setDuplicatedType(boolean _duplicatedType) {
         duplicatedType = _duplicatedType;
+    }
+
+    public AbstractProcessKeyWord getProcessKeyWord() {
+        return processKeyWord;
+    }
+
+    public void setProcessKeyWord(AbstractProcessKeyWord processKeyWord) {
+        this.processKeyWord = processKeyWord;
     }
 }

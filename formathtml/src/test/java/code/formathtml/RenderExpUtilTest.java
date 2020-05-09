@@ -10,6 +10,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
+import code.formathtml.util.AdvancedProcessKeyWord;
 import code.formathtml.util.BeanCustLgNames;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -1222,7 +1223,7 @@ public final class RenderExpUtilTest extends CommonRender {
         context_.setMerged(true);
         context_.setAcceptCommaInstr(true);
         context_.getAnalyzingDoc().setCurrentBlock(nextSibling_);
-        context_.setCurrentVarSetting(context_.getStandards().getAliasLong());
+        context_.getAnalyzing().setCurrentVarSetting(context_.getStandards().getAliasLong());
         String expression_ = ((RendLine) nextSibling_).getExpression();
         processEl(expression_, context_);
         StringMap<LocalVariable> localVars_ = context_.getLastPage().getLocalVars();
@@ -2423,6 +2424,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing();
+        ctx_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
         String elr_ = "+1y";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);

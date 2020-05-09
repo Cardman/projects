@@ -1140,7 +1140,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        _conf.processInternKeyWord(_string, i_, _out);
+        _conf.getAnalyzing().getProcessKeyWord().processInternKeyWord(_string, i_, _out);
     }
     private static void processWords(String _string, char _curChar,Delimiters _d, ResultAfterDoubleDotted _out,Analyzable _an) {
         int len_ = _string.length();
@@ -1189,7 +1189,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (_an.getParameters().contains(word_)) {
+        if (_an.getAnalyzing().getParameters().contains(word_)) {
             type_ = ConstType.PARAM;
             info_.setKind(type_);
             info_.setFirstChar(beginWord_);
@@ -1209,7 +1209,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (_an.containsMutableLoopVar(word_)) {
+        if (_an.getAnalyzing().containsMutableLoopVar(word_)) {
             type_ = ConstType.LOOP_VAR;
             info_.setKind(type_);
             info_.setFirstChar(beginWord_);
@@ -1714,7 +1714,7 @@ public final class ElResolver {
     }
 
     private static boolean isAcceptCommaInstr(Analyzable _conf) {
-        return !_conf.isAcceptCommaInstr() && !(_conf.getCurrentBlock() instanceof FieldBlock);
+        return !_conf.isAcceptCommaInstr() && !(_conf.getAnalyzing().getCurrentBlock() instanceof FieldBlock);
     }
 
     static boolean isDigitOrDot(String _string, int _n) {
@@ -1725,7 +1725,7 @@ public final class ElResolver {
         int len_ = _string.length();
         String glClass_ = _conf.getGlobalClass();
         boolean field_ = isField(_conf, glClass_, _ctor, _word);
-        if (field_ || _conf.isEnabledInternVars()) {
+        if (field_ || _conf.getAnalyzing().isEnabledInternVars()) {
             ConstType type_ = ConstType.WORD;
             VariableInfo infoLoc_ = new VariableInfo();
             infoLoc_.setKind(type_);
@@ -2762,7 +2762,7 @@ public final class ElResolver {
         boolean stCtx_ = _conf.isStaticContext() || _ctor;
         field_ = true;
         ClassArgumentMatching clArg_ = new ClassArgumentMatching(_fromClass);
-        FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, stCtx_, clArg_, true, true, _word, _conf.getCurrentBlock() != null, false);
+        FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, stCtx_, clArg_, true, true, _word, _conf.getAnalyzing().getCurrentBlock() != null, false);
         if (fr_.getStatus() != SearchingMemberStatus.UNIQ) {
             field_ = false;
         }

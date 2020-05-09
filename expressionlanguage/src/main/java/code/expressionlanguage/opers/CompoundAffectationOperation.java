@@ -243,7 +243,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
-        Block block_ = _conf.getCurrentBlock();
+        Block block_ = _conf.getAnalyzing().getCurrentBlock();
         AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         OperationNode firstChild_ = (OperationNode) settable;
         OperationNode lastChild_ = getChildrenNodes().last();

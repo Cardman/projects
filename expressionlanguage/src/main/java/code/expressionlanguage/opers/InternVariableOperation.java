@@ -25,7 +25,7 @@ public final class InternVariableOperation extends LeafOperation {
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         variableName = str_;
-        LocalVariable locVar_ = _conf.getInternVars().getVal(str_);
+        LocalVariable locVar_ = _conf.getAnalyzing().getInternVars().getVal(str_);
         String c_ = locVar_.getClassName();
         setResultClass(new ClassArgumentMatching(c_));
     }

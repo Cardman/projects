@@ -3,16 +3,19 @@ package code.expressionlanguage;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
-import code.expressionlanguage.instr.*;
-import code.expressionlanguage.methods.*;
+import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.expressionlanguage.methods.AnalyzedBlock;
+import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.FieldInfo;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
-import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -29,31 +32,6 @@ public interface Analyzable {
     String getCurrentFileName();
     int getCurrentLocationIndex();
 
-    String getCurrentVarSetting();
-    void setCurrentVarSetting(String _currentVarSetting);
-    LoopVariable getVar(String _key);
-
-    boolean containsMutableLoopVar(String _string);
-    LoopVariable getMutableLoopVar(String _key);
-    void putMutableLoopVar(String _string, LoopVariable _loc);
-
-    CustList<StringMap<LocalVariable>> getLocalVariables();
-
-    boolean containsLocalVar(String _string);
-    LocalVariable getLocalVar(String _key);
-    void putLocalVar(String _string, LocalVariable _loc);
-    StringList getInfersLocalVars();
-    StringList getInfersMutableLocalVars();
-    void putLocalVar(String _string);
-    void putMutableLoopVar(String _string);
-
-    LocalVariable getCatchVar(String _key);
-
-    StringMap<LocalVariable> getParameters();
-    boolean isEnabledInternVars();
-    StringMap<LocalVariable> getInternVars();
-
-
 
     void setAnalyzedOffset(int _offset);
 
@@ -69,8 +47,6 @@ public interface Analyzable {
 
     FieldInfo getFieldInfo(ClassField _classField);
 
-    int getCurrentChildTypeIndex(OperationNode _op, GeneType _type, String _fieldName, String _className);
-
     boolean isMerged();
 
 
@@ -84,8 +60,7 @@ public interface Analyzable {
     AnalyzedPageEl getAnalyzing();
 
     boolean isStaticAccess();
-    Ints getCurrentBadIndexes();
-    Block getCurrentBlock();
+
     AnalyzedBlock getCurrentAnaBlock();
     boolean hasDeclarator();
     void setupDeclaratorClass(String _className);
@@ -97,14 +72,6 @@ public interface Analyzable {
 
     void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts);
     void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts);
-
-    StringMap<Integer> getAvailableVariables();
-    StringList getVariablesNamesLoopToInfer();
-    StringList getVariablesNamesToInfer();
-    StringList getVariablesNames();
-
-    ForLoopPart getForLoopPartState();
-    void setForLoopPartState(ForLoopPart _state);
 
     boolean isAnnotAnalysis(OperationNode _op, OperationsSequence _seq);
 
@@ -119,7 +86,7 @@ public interface Analyzable {
 
     boolean isValidSingleToken(String _id);
     boolean isValidToken(String _id);
-    void processInternKeyWord(String _exp, int _fr, ResultAfterInstKeyWord _out);
+
     boolean isHidden(AccessingImportingBlock _global, RootBlock _type);
 
     String getIndexClassName();

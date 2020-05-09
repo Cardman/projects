@@ -396,7 +396,7 @@ public abstract class OperationNode implements Operable {
         if (ct_ == ConstType.SUPER_KEYWORD) {
             return new SuperFieldOperation(_index, _indexChild, _m, _op);
         }
-        if (_an.isEnabledInternVars()) {
+        if (_an.getAnalyzing().isEnabledInternVars()) {
             return new InternVariableOperation(_index, _indexChild, _m, _op);
         }
         if (ElUtil.isDeclaringLoopVariable(_m, _an)) {
@@ -417,7 +417,7 @@ public abstract class OperationNode implements Operable {
         if (ct_ == ConstType.LOOP_INDEX) {
             return new FinalVariableOperation(_index, _indexChild, _m, _op);
         }
-        LocalVariable locParam_ = _an.getParameters().getVal(str_);
+        LocalVariable locParam_ = _an.getAnalyzing().getParameters().getVal(str_);
         if (locParam_ != null) {
             FunctionBlock fct_ = _an.getAnalyzing().getCurrentFct();
             if (fct_ instanceof OverridableBlock) {
@@ -431,19 +431,19 @@ public abstract class OperationNode implements Operable {
             }
             return new FinalVariableOperation(_index, _indexChild, _m, _op,locParam_.getClassName());
         }
-        LocalVariable catchVar_ = _an.getCatchVar(str_);
+        LocalVariable catchVar_ = _an.getAnalyzing().getCatchVar(str_);
         if (catchVar_ != null) {
             return new FinalVariableOperation(_index, _indexChild, _m, _op,catchVar_.getClassName());
         }
-        LoopVariable mutVar_ = _an.getMutableLoopVar(str_);
+        LoopVariable mutVar_ = _an.getAnalyzing().getMutableLoopVar(str_);
         if (mutVar_ != null) {
             return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, mutVar_.getClassName());
         }
-        LocalVariable locVar_ = _an.getLocalVar(str_);
+        LocalVariable locVar_ = _an.getAnalyzing().getLocalVar(str_);
         if (locVar_ != null) {
             return new VariableOperation(_index, _indexChild, _m, _op, locVar_.getClassName());
         }
-        LoopVariable lVar_ = _an.getVar(str_);
+        LoopVariable lVar_ = _an.getAnalyzing().getVar(str_);
         if (lVar_ != null) {
             return new FinalVariableOperation(_index, _indexChild, _m, _op,lVar_.getClassName());
         }
@@ -563,7 +563,7 @@ public abstract class OperationNode implements Operable {
             }
         }
         if (_import) {
-            Block curBlock_ = _cont.getCurrentBlock();
+            Block curBlock_ = _cont.getAnalyzing().getCurrentBlock();
             int maxLoc_ = maxAnc_ + 1;
             for (EntryCust<ClassField, ImportedField> e: ResolvingImportTypes.lookupImportStaticFields(_cont,curClassBase_, _name, curBlock_).entryList()) {
                 ImportedField v_ = e.getValue();
@@ -980,7 +980,7 @@ public abstract class OperationNode implements Operable {
         methods_ = new CustList<MethodInfo>();
         fetchParamClassAncMethods(_conf,_fromClasses,_staticContext,_accessFromSuper,_superClass,_uniqueId,methods_);
         if (_import) {
-            for (EntryCust<ClassMethodId, ImportedMethod> e: ResolvingImportTypes.lookupImportStaticMethods(_conf,glClass_, _name, _conf.getCurrentBlock()).entryList()) {
+            for (EntryCust<ClassMethodId, ImportedMethod> e: ResolvingImportTypes.lookupImportStaticMethods(_conf,glClass_, _name, _conf.getAnalyzing().getCurrentBlock()).entryList()) {
                 ClassMethodId m = e.getKey();
                 String clName_ = m.getClassName();
                 MethodId id_ = m.getConstraints();

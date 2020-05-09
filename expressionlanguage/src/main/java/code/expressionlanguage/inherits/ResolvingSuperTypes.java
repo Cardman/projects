@@ -37,13 +37,13 @@ public final class ResolvingSuperTypes {
             }
         }
         //No need to call Templates.isCorrect
-        _context.getAvailableVariables().clear();
-        _context.getAvailableVariables().putAllMap(variables_);
+        _context.getAnalyzing().getAvailableVariables().clear();
+        _context.getAnalyzing().getAvailableVariables().putAllMap(variables_);
         String gl_ = _currentBlock.getGenericString();
         CustList<PartOffset> partOffsets_ = _context.getCoverage().getCurrentParts();
-        _context.getCurrentBadIndexes().clear();
+        _context.getAnalyzing().getCurrentBadIndexes().clear();
         String resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, _context, _currentBlock,_currentBlock, _location,partOffsets_);
-        for (int i: _context.getCurrentBadIndexes()) {
+        for (int i: _context.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location+i);
@@ -74,14 +74,14 @@ public final class ResolvingSuperTypes {
             }
         }
         //No need to call Templates.isCorrect
-        _context.getAvailableVariables().clear();
-        _context.getAvailableVariables().putAllMap(variables_);
+        _context.getAnalyzing().getAvailableVariables().clear();
+        _context.getAnalyzing().getAvailableVariables().putAllMap(variables_);
         String gl_ = _currentBlock.getGenericString();
         CustList<PartOffset> partOffsets_ = _currentBlock.getSuperTypesParts();
         RootBlock scope_ = _currentBlock.getParentType();
-        _context.getCurrentBadIndexes().clear();
+        _context.getAnalyzing().getCurrentBadIndexes().clear();
         String resType_ = PartTypeUtil.processAnalyze(_in,true,gl_,_context,scope_,_currentBlock, _location,partOffsets_);
-        for (int i: _context.getCurrentBadIndexes()) {
+        for (int i: _context.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location+i);

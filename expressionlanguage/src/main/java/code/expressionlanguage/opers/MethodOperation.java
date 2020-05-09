@@ -31,7 +31,7 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         analyzeAssignmentBefore(_conf, _firstChild);
     }
     public void analyzeAssignmentBefore(Analyzable _conf, OperationNode _firstChild) {
-        Block block_ = _conf.getCurrentBlock();
+        Block block_ = _conf.getAnalyzing().getCurrentBlock();
         AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         StringMap<AssignmentBefore> fields_;
         CustList<StringMap<AssignmentBefore>> variables_;
@@ -48,7 +48,7 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
     }
     public abstract void analyzeAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous);
     public static void analyzeTrueAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
-        Block block_ = _conf.getCurrentBlock();
+        Block block_ = _conf.getAnalyzing().getCurrentBlock();
         AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         StringMap<Assignment> fieldsAfter_;
         CustList<StringMap<Assignment>> variablesAfter_;
@@ -61,7 +61,7 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         vars_.getMutableLoopBefore().put(_nextSibling, AssignmentsUtil.assignWhenTrue(mutableAfter_));
     }
     public static void analyzeFalseAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
-        Block block_ = _conf.getCurrentBlock();
+        Block block_ = _conf.getAnalyzing().getCurrentBlock();
         AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         StringMap<Assignment> fieldsAfter_;
         CustList<StringMap<Assignment>> variablesAfter_;
@@ -74,7 +74,7 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         vars_.getMutableLoopBefore().put(_nextSibling, AssignmentsUtil.assignWhenFalse(mutableAfter_));
     }
     public static void analyzeStdAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
-        Block block_ = _conf.getCurrentBlock();
+        Block block_ = _conf.getAnalyzing().getCurrentBlock();
         AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         StringMap<Assignment> fieldsAfter_;
         CustList<StringMap<Assignment>> variablesAfter_;
@@ -87,7 +87,7 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         vars_.getMutableLoopBefore().put(_nextSibling, AssignmentsUtil.assignBefore(mutableAfter_));
     }
     public void analyzeStdAssignmentAfter(Analyzable _conf) {
-        Block block_ = _conf.getCurrentBlock();
+        Block block_ = _conf.getAnalyzing().getCurrentBlock();
         AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(children_);

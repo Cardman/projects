@@ -361,9 +361,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         
-        context_.getAvailableVariables().addEntry("D",0);
-        context_.getAvailableVariables().addEntry("H",0);
-        context_.getAvailableVariables().addEntry("I",0);
+        context_.getAnalyzing().getAvailableVariables().addEntry("D",0);
+        context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
+        context_.getAnalyzing().getAvailableVariables().addEntry("I",0);
         String solved_ = PartTypeUtil.processAnalyze("Outer<#D>.InnerThree<#H>.InnerInner<#I>", "",context_, root_);
         assertEq("pkgtwo.OuterThree<#D>..InnerFive<#H>..InnerInner<#I>", solved_);
     }
@@ -442,9 +442,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         
-        context_.getAvailableVariables().addEntry("D",0);
-        context_.getAvailableVariables().addEntry("H",0);
-        context_.getAvailableVariables().addEntry("I",0);
+        context_.getAnalyzing().getAvailableVariables().addEntry("D",0);
+        context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
+        context_.getAnalyzing().getAvailableVariables().addEntry("I",0);
         String solved_ = PartTypeUtil.processAnalyze("Outer<#D[]>.InnerThree<#H[]>.InnerInner<#I[]>[]", "",context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("[pkgtwo.OuterThree<[#D>..InnerFive<[#H>..InnerInner<[#I>", solved_);
@@ -709,9 +709,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.D");
 
-        context_.getAvailableVariables().addEntry("D",0);
-        context_.getAvailableVariables().addEntry("H",0);
-        context_.getAvailableVariables().addEntry("I",0);
+        context_.getAnalyzing().getAvailableVariables().addEntry("D",0);
+        context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
+        context_.getAnalyzing().getAvailableVariables().addEntry("I",0);
         String solved_ = PartTypeUtil.processAnalyze("D<#D[]>.InnerThree<#H[]>.InnerInner<#I[]>[]", "",context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("[pkgtwo.OuterThree<[#D>..InnerFive<[#H>..InnerInner<[#I>", solved_);

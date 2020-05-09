@@ -27,7 +27,7 @@ public abstract class LeafOperation extends OperationNode {
     }
 
     public void analyzeAssignmentAfter(Analyzable _conf, boolean _bool) {
-        Block block_ = _conf.getCurrentBlock();
+        Block block_ = _conf.getAnalyzing().getCurrentBlock();
         AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();

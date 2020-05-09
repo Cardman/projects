@@ -59,10 +59,10 @@ public final class ResolvingImportTypes {
         if (ElUtil.isFromCustFile(from_)) {
             ref_ = ((Block)from_).getFile().getRenderFileName();
         }
-        _analyzable.getAvailableVariables().clear();
+        _analyzable.getAnalyzing().getAvailableVariables().clear();
         if (from_ != null) {
             for (TypeVar t: from_.getParamTypesMapValues()) {
-                _analyzable.getAvailableVariables().addEntry(t.getName(),t.getOffset());
+                _analyzable.getAnalyzing().getAvailableVariables().addEntry(t.getName(),t.getOffset());
                 vars_.addEntry(t.getName(), t.getConstraints());
             }
         }
@@ -103,7 +103,7 @@ public final class ResolvingImportTypes {
         CustList<PartOffset> partOffsets_ = _analyzable.getCurrentParts();
         String gl_ = _analyzable.getGlobalClass();
         int rc_ = _analyzable.getCurrentLocationIndex() + _loc;
-        _analyzable.getCurrentBadIndexes().clear();
+        _analyzable.getAnalyzing().getCurrentBadIndexes().clear();
         String resType_;
         if (_exact) {
             resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
@@ -114,7 +114,7 @@ public final class ResolvingImportTypes {
             partOffsets_.clear();
             return "";
         }
-        if (!_analyzable.getCurrentBadIndexes().isEmpty()) {
+        if (!_analyzable.getAnalyzing().getCurrentBadIndexes().isEmpty()) {
             partOffsets_.clear();
             return "";
         }
@@ -146,13 +146,13 @@ public final class ResolvingImportTypes {
         CustList<PartOffset> partOffsets_ = _analyzable.getCurrentParts();
         String gl_ = _analyzable.getGlobalClass();
         String resType_;
-        _analyzable.getCurrentBadIndexes().clear();
+        _analyzable.getAnalyzing().getCurrentBadIndexes().clear();
         if (_exact) {
             resType_ = PartTypeUtil.processAnalyze(tr_, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
         } else {
             resType_ = PartTypeUtil.processAnalyzeLine(tr_,new AlwaysReadyTypes(),false, gl_, _analyzable,a_,r_, rc_,partOffsets_);
         }
-        for (int i: _analyzable.getCurrentBadIndexes()) {
+        for (int i: _analyzable.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_analyzable.getCurrentFileName());
             un_.setIndexFile(rc_+i);

@@ -122,7 +122,7 @@ public final class ElUtil {
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));    
-            Block currentBlock_ = _conf.getCurrentBlock();
+            Block currentBlock_ = _conf.getAnalyzing().getCurrentBlock();
             currentBlock_.defaultAssignmentBefore(_conf, e_);
             e_.tryAnalyzeAssignmentAfter(_conf);
             currentBlock_.defaultAssignmentAfter(_conf, e_);
@@ -202,7 +202,7 @@ public final class ElUtil {
 
     private static CustList<OperationNode> getSortedDescNodes(OperationNode _root, ContextEl _context, String _fieldName) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
-        Block currentBlock_ = _context.getCurrentBlock();
+        Block currentBlock_ = _context.getAnalyzing().getCurrentBlock();
         currentBlock_.defaultAssignmentBefore(_context, _root);
         OperationNode c_ = _root;
         while (true) {
@@ -442,7 +442,7 @@ public final class ElUtil {
     }
 
     public static boolean isDeclaringField(Operable _var, Analyzable _an) {
-        Block bl_ = _an.getCurrentBlock();
+        Block bl_ = _an.getAnalyzing().getCurrentBlock();
         if (!(bl_ instanceof FieldBlock)) {
             return false;
         }
@@ -471,7 +471,7 @@ public final class ElUtil {
         if (!_an.hasLoopDeclarator()) {
             return false;
         }
-        return _an.getForLoopPartState() == ForLoopPart.INIT;
+        return _an.getAnalyzing().getForLoopPartState() == ForLoopPart.INIT;
     }
     public static boolean isDeclaringVariable(VariableOperation _var, Analyzable _an) {
         if (!isDeclaringVariable(_an)) {
@@ -607,8 +607,8 @@ public final class ElUtil {
     }
 
     private static boolean stepForLoop(Analyzable _conf) {
-        if (_conf.getCurrentBlock() instanceof ForMutableIterativeLoop) {
-            return _conf.getForLoopPartState() == ForLoopPart.STEP;
+        if (_conf.getAnalyzing().getCurrentBlock() instanceof ForMutableIterativeLoop) {
+            return _conf.getAnalyzing().getForLoopPartState() == ForLoopPart.STEP;
         }
         return false;
     }
@@ -1701,7 +1701,7 @@ public final class ElUtil {
         }
     }
     private static CustList<ExecOperationNode> getExecutableNodes(Analyzable _an,CustList<OperationNode> _list) {
-        Block bl_ = _an.getCurrentBlock();
+        Block bl_ = _an.getAnalyzing().getCurrentBlock();
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;

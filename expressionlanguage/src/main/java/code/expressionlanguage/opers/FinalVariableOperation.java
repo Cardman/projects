@@ -53,13 +53,13 @@ public final class FinalVariableOperation extends LeafOperation {
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
-        LoopVariable loopVar_ = _conf.getVar(str_);
+        LoopVariable loopVar_ = _conf.getAnalyzing().getVar(str_);
         if (loopVar_ != null) {
             variableName = str_;
             setResultClass(new ClassArgumentMatching(loopVar_.getIndexClassName()));
             return;
         }
-        loopVar_ = _conf.getMutableLoopVar(str_);
+        loopVar_ = _conf.getAnalyzing().getMutableLoopVar(str_);
         if (loopVar_ != null) {
             variableName = str_;
             setResultClass(new ClassArgumentMatching(loopVar_.getIndexClassName()));

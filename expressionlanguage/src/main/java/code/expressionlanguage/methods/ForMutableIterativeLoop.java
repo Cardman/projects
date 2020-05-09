@@ -195,11 +195,11 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         variables_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> mutable_;
         mutable_ = new CustList<StringMap<AssignmentBefore>>();
-        if (_an.getForLoopPartState() == ForLoopPart.INIT) {
+        if (_an.getAnalyzing().getForLoopPartState() == ForLoopPart.INIT) {
             fields_.putAllMap(AssignmentsUtil.copyBefore(vars_.getFieldsRootBefore()));
             variables_.addAllElts(AssignmentsUtil.copyBefore(vars_.getVariablesRootBefore()));
             mutable_.addAllElts(AssignmentsUtil.copyBefore(vars_.getMutableLoopRootBefore()));
-        } else if (_an.getForLoopPartState() == ForLoopPart.CONDITION) {
+        } else if (_an.getAnalyzing().getForLoopPartState() == ForLoopPart.CONDITION) {
             if (opInit.isEmpty()) {
                 fields_.putAllMap(AssignmentsUtil.copyBefore(vars_.getFieldsRootBefore()));
                 variables_.addAllElts(AssignmentsUtil.copyBefore(vars_.getVariablesRootBefore()));
@@ -251,11 +251,11 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
-        _cont.getVariablesNames().clear();
-        _cont.getVariablesNamesLoopToInfer().clear();
+        page_.getVariablesNames().clear();
+        page_.getVariablesNamesLoopToInfer().clear();
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
-        _cont.setForLoopPartState(ForLoopPart.INIT);
+        page_.setForLoopPartState(ForLoopPart.INIT);
         _cont.setAcceptCommaInstr(true);
         if (init.trim().isEmpty()) {
             opInit = new CustList<ExecOperationNode>();
@@ -265,7 +265,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         addVars(_cont);
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        _cont.setForLoopPartState(ForLoopPart.CONDITION);
+        page_.setForLoopPartState(ForLoopPart.CONDITION);
         if (expression.trim().isEmpty()) {
             opExp = new CustList<ExecOperationNode>();
         } else {
@@ -296,12 +296,12 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
-        _cont.getVariablesNames().clear();
-        _cont.getVariablesNamesLoopToInfer().clear();
+        page_.getVariablesNames().clear();
+        page_.getVariablesNamesLoopToInfer().clear();
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         _cont.setAcceptCommaInstr(true);
-        _cont.setForLoopPartState(ForLoopPart.INIT);
+        page_.setForLoopPartState(ForLoopPart.INIT);
         if (init.trim().isEmpty()) {
             opInit = new CustList<ExecOperationNode>();
         } else {
@@ -310,7 +310,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         addVars(_cont);
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        _cont.setForLoopPartState(ForLoopPart.CONDITION);
+        page_.setForLoopPartState(ForLoopPart.CONDITION);
         if (expression.trim().isEmpty()) {
             opExp = new CustList<ExecOperationNode>();
         } else {
@@ -321,7 +321,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
 
     private void addVars(ContextEl _cont) {
         if (_cont.isMerged()) {
-            StringList vars_ = _cont.getVariablesNames();
+            StringList vars_ = _cont.getAnalyzing().getVariablesNames();
             AffectationOperation.processInferLoop(_cont, importedClassName);
             getVariableNames().addAllElts(vars_);
         }
@@ -356,7 +356,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             }
             _cont.setMerged(true);
             _cont.setFinalVariable(finalVariable);
-            _cont.setCurrentVarSetting(importedClassName);
+            page_.setCurrentVarSetting(importedClassName);
         } else {
             _cont.setMerged(false);
         }
@@ -389,7 +389,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     @Override
     public void defaultAssignmentAfter(Analyzable _an, OperationNode _root) {
         AssignedVariables vars_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
-        if (_an.getForLoopPartState() == ForLoopPart.INIT) {
+        if (_an.getAnalyzing().getForLoopPartState() == ForLoopPart.INIT) {
             AssignedBooleanLoopVariables loop_ = (AssignedBooleanLoopVariables) vars_;
             StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
             loop_.getFieldsRootAfterInit().putAllMap(res_);
@@ -421,10 +421,10 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
-        _an.setForLoopPartState(ForLoopPart.STEP);
+        page_.setForLoopPartState(ForLoopPart.STEP);
         _an.setMerged(true);
         _an.setAcceptCommaInstr(true);
-        _an.getLocalVariables().last().clear();
+        page_.getLocalVars().last().clear();
         MethodAccessKind static_ = f_.getStaticContext();
         if (step.trim().isEmpty()) {
             opStep = new CustList<ExecOperationNode>();
@@ -440,10 +440,10 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
-        _an.setForLoopPartState(ForLoopPart.STEP);
+        page_.setForLoopPartState(ForLoopPart.STEP);
         _an.setMerged(true);
         _an.setAcceptCommaInstr(true);
-        _an.getLocalVariables().last().clear();
+        page_.getLocalVars().last().clear();
         MethodAccessKind static_ = f_.getStaticContext();
         if (step.trim().isEmpty()) {
             opStep = new CustList<ExecOperationNode>();

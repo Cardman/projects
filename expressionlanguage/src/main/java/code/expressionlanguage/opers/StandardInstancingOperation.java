@@ -451,7 +451,9 @@ public final class StandardInstancingOperation extends
             setResultClass(new ClassArgumentMatching(_realClassName));
             return;
         }
-        blockIndex = _conf.getCurrentChildTypeIndex(this,g_,fieldName,_realClassName);
+        String file_ = _conf.getCurrentFileName();
+        int fileIndex_ = _conf.getCurrentLocationIndex();
+        blockIndex = ContextEl.getCurrentChildTypeIndex(_conf,this,file_,fileIndex_,g_,fieldName,_realClassName);
         if (blockIndex < -1) {
             return;
         }

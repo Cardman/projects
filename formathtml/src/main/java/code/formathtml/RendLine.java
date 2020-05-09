@@ -29,23 +29,22 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
 
     @Override
     public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
-        MethodAccessKind st_ = _doc.getStaticContext();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrValue());
         opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0,_cont);
         if (_cont.isMerged()) {
-            StringList vars_ = _cont.getVariablesNames();
+            StringList vars_ = page_.getVariablesNames();
             RendDeclareVariable declaring_ = (RendDeclareVariable) getPreviousSibling();
             String import_ = declaring_.getImportedClassName();
             String t_ = inferOrObject(_cont,import_);
             AffectationOperation.processInfer(_cont, t_);
             declaring_.getVariableNames().addAllElts(vars_);
         }
-        _cont.setMerged(false);
-        _cont.setAcceptCommaInstr(false);
-        _cont.setFinalVariable(false);
+        page_.setMerged(false);
+        page_.setAcceptCommaInstr(false);
+        page_.setFinalVariable(false);
     }
 
     @Override

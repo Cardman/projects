@@ -64,7 +64,7 @@ public final class VariableOperation extends LeafOperation implements
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         if (ElUtil.isDeclaringVariable(this, _conf)) {
             AnalyzedPageEl page_ = _conf.getAnalyzing();
-            if (_conf.containsLocalVar(str_)) {
+            if (_conf.getAnalyzing().containsLocalVar(str_)) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
                 d_.setFileName(_conf.getCurrentFileName());
                 d_.setIndexFile(page_.getTraceIndex());
@@ -72,7 +72,7 @@ public final class VariableOperation extends LeafOperation implements
                 d_.buildError(_conf.getContextEl().getAnalysisMessages().getBadVariableName(),
                         str_);
                 _conf.addError(d_);
-                setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
+                setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting()));
                 return;
             }
             if (!_conf.isValidSingleToken(str_)) {
@@ -84,12 +84,12 @@ public final class VariableOperation extends LeafOperation implements
                         str_);
                 _conf.addError(b_);
             }
-            String c_ = _conf.getCurrentVarSetting();
+            String c_ = _conf.getAnalyzing().getCurrentVarSetting();
             KeyWords keyWords_ = _conf.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringList.quickEq(c_, keyWordVar_)) {
-                _conf.putLocalVar(str_);
-                _conf.getVariablesNamesToInfer().add(str_);
+                _conf.getAnalyzing().putLocalVar(str_);
+                _conf.getAnalyzing().getVariablesNamesToInfer().add(str_);
             }
             LocalVariable lv_ = new LocalVariable();
             if (StringList.quickEq(c_, keyWordVar_)) {
@@ -98,10 +98,10 @@ public final class VariableOperation extends LeafOperation implements
                 lv_.setClassName(c_);
             }
             lv_.setFinalVariable(_conf.isFinalVariable());
-            _conf.putLocalVar(str_, lv_);
-            _conf.getVariablesNames().add(str_);
+            page_.putLocalVar(str_, lv_);
+            page_.getVariablesNames().add(str_);
             variableName = str_;
-            setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
+            setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting()));
             return;
         }
         variableName = str_;
@@ -110,7 +110,7 @@ public final class VariableOperation extends LeafOperation implements
 
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
-        Block block_ = _conf.getCurrentBlock();
+        Block block_ = _conf.getAnalyzing().getCurrentBlock();
         AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
         CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(this);

@@ -86,7 +86,7 @@ public final class NullSafeOperation extends MethodOperation {
             m_ = m_.getParent();
         }
         String type_ = EMPTY_STRING;
-        Block cur_ = _conf.getCurrentBlock();
+        Block cur_ = _conf.getAnalyzing().getCurrentBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
             FunctionBlock f_ = _conf.getAnalyzing().getCurrentFct();
             if (f_ instanceof NamedFunctionBlock) {

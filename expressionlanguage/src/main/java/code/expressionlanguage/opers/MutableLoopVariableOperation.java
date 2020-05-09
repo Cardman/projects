@@ -47,7 +47,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         if (ElUtil.isDeclaringLoopVariable(this, _conf)) {
             AnalyzedPageEl page_ = _conf.getAnalyzing();
-            if (_conf.containsMutableLoopVar(str_) || _conf.getAnalyzing().containsVar(str_)) {
+            if (_conf.getAnalyzing().containsMutableLoopVar(str_) || _conf.getAnalyzing().containsVar(str_)) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
                 d_.setFileName(_conf.getCurrentFileName());
                 d_.setIndexFile(page_.getTraceIndex());
@@ -55,7 +55,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 d_.buildError(_conf.getContextEl().getAnalysisMessages().getBadVariableName(),
                         str_);
                 _conf.addError(d_);
-                setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
+                setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting()));
                 return;
             }
             if (!_conf.isValidSingleToken(str_)) {
@@ -67,12 +67,12 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                         str_);
                 _conf.addError(b_);
             }
-            String c_ = _conf.getCurrentVarSetting();
+            String c_ = _conf.getAnalyzing().getCurrentVarSetting();
             KeyWords keyWords_ = _conf.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringList.quickEq(c_, keyWordVar_)) {
-                _conf.putMutableLoopVar(str_);
-                _conf.getVariablesNamesLoopToInfer().add(str_);
+                _conf.getAnalyzing().putMutableLoopVar(str_);
+                _conf.getAnalyzing().getVariablesNamesLoopToInfer().add(str_);
             }
             LoopVariable lv_ = new LoopVariable();
             String indexClassName_ = _conf.getIndexClassName();
@@ -83,10 +83,10 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             }
             lv_.setIndexClassName(indexClassName_);
             lv_.setFinalVariable(_conf.isFinalVariable());
-            _conf.putMutableLoopVar(str_, lv_);
-            _conf.getVariablesNames().add(str_);
+            page_.putMutableLoopVar(str_, lv_);
+            page_.getVariablesNames().add(str_);
             variableName = str_;
-            setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
+            setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting()));
             return;
         }
         variableName = str_;
@@ -95,7 +95,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
 
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
-        Block block_ = _conf.getCurrentBlock();
+        Block block_ = _conf.getAnalyzing().getCurrentBlock();
         AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
         CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(this);

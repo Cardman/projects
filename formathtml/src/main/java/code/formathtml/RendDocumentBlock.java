@@ -14,8 +14,8 @@ import code.sml.Element;
 import code.util.StringList;
 import code.util.CustList;
 
-public final class RendDocumentBlock extends RendParentBlock implements FunctionBlock,AccessingImportingBlock {
-    private boolean staticContext;
+public final class RendDocumentBlock extends RendParentBlock implements AccessingImportingBlock {
+
     private Element elt;
 
     private String file;
@@ -33,7 +33,6 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
     public void buildFctInstructions(Configuration _cont) {
         beanName = elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrBean()));
         imports = StringList.splitChar(elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrAlias())),';');
-        setupStaticInfo();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
@@ -157,10 +156,6 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
         }
     }
 
-    private void setupStaticInfo() {
-        staticContext = beanName.isEmpty();
-    }
-
     static void reduce(RendBlock _block,Configuration _cont) {
         if (_cont.getAdvStandards() instanceof BeanCustLgNames && _block instanceof RendReducableOperations) {
             ((RendReducableOperations)_block).reduce(_cont);
@@ -195,14 +190,6 @@ public final class RendDocumentBlock extends RendParentBlock implements Function
                 }
             }
         }
-    }
-
-    @Override
-    public MethodAccessKind getStaticContext() {
-        if (staticContext) {
-            return MethodAccessKind.STATIC;
-        }
-        return MethodAccessKind.INSTANCE;
     }
 
     public Element getElt() {

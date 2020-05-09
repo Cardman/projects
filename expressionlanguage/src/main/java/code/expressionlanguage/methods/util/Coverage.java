@@ -78,7 +78,7 @@ public final class Coverage {
         mappingAnnotMembers.put(_block,new IdMap<ExecOperationNode, OperationNode>());
     }
     public void putBlockOperation(Analyzable _context, Block _block, OperationNode _op, ExecOperationNode _exec) {
-        if (!_context.getContextEl().isCovering() || _context.getContextEl().isEnabledInternVars()) {
+        if (!_context.getContextEl().isCovering() || _context.getContextEl().getAnalyzing().isEnabledInternVars()) {
             return;
         }
         if (_context.getContextEl().isAnnotAnalysis()) {

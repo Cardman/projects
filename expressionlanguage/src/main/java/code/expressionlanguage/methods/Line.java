@@ -55,8 +55,8 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(st_));
-        if (_cont.isMerged()) {
-            StringList vars_ = _cont.getVariablesNames();
+        if (page_.isMerged()) {
+            StringList vars_ = page_.getVariablesNames();
             DeclareVariable declaring_ = (DeclareVariable) getPreviousSibling();
             String import_ = declaring_.getImportedClassName();
             AffectationOperation.processInfer(_cont, import_);
@@ -75,8 +75,8 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         opExp = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(st_));
-        if (_cont.isMerged()) {
-            StringList vars_ = _cont.getVariablesNames();
+        if (page_.isMerged()) {
+            StringList vars_ = page_.getVariablesNames();
             DeclareVariable declaring_ = (DeclareVariable) getPreviousSibling();
             String import_ = declaring_.getImportedClassName();
             AffectationOperation.processInfer(_cont, import_);

@@ -49,9 +49,9 @@ public final class RendDeclareVariable extends RendLeaf implements RendBuildable
         _cont.setMerged(true);
         _cont.setAcceptCommaInstr(true);
         _cont.setFinalVariable(false);
-        _cont.setCurrentVarSetting(importedClassName);
-        _cont.getVariablesNames().clear();
-        _cont.getVariablesNamesToInfer().clear();
+        page_.setCurrentVarSetting(importedClassName);
+        page_.getVariablesNames().clear();
+        page_.getVariablesNamesToInfer().clear();
     }
 
     @Override

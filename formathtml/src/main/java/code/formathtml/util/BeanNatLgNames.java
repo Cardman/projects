@@ -383,5 +383,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), a_,kw_, this,4);
         _conf.setContext(context_);
         context_.setAnalyzing();
+        context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_conf));
     }
 }

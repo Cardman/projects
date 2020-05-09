@@ -75,12 +75,12 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
             importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
             partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
         }
-        _cont.setMerged(true);
-        _cont.setAcceptCommaInstr(true);
-        _cont.setFinalVariable(finalVariable);
-        _cont.setCurrentVarSetting(importedClassName);
-        _cont.getVariablesNames().clear();
-        _cont.getVariablesNamesToInfer().clear();
+        page_.setMerged(true);
+        page_.setAcceptCommaInstr(true);
+        page_.setFinalVariable(finalVariable);
+        page_.setCurrentVarSetting(importedClassName);
+        page_.getVariablesNames().clear();
+        page_.getVariablesNamesToInfer().clear();
     }
 
     @Override

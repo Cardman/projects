@@ -40,7 +40,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         if (methodName.trim().isEmpty()) {
             array = true;
             MethodOperation mOp_ = getParent();
-            Block curr_ = _conf.getCurrentBlock();
+            Block curr_ = _conf.getAnalyzing().getCurrentBlock();
             className = _conf.getStandards().getAliasObject();
             if (mOp_ == null) {
                 className = ((AnnotationMethodBlock)curr_).getImportedReturnType();

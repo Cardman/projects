@@ -33,11 +33,7 @@ import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.StdStruct;
-import code.formathtml.util.AnalyzingDoc;
-import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.IndexesFormInput;
-import code.formathtml.util.NodeContainer;
+import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
@@ -220,6 +216,7 @@ public final class Configuration implements ExecutableCode {
         renders.clear();
         analyzingDoc.setFiles(_files);
         context.setAnalyzing();
+        context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));
         getAnalyzing().setEnabledInternVars(false);
         for (String s: renderFiles) {
             String link_ = RendExtractFromResources.getRealFilePath(currentLanguage,s);
@@ -553,28 +550,8 @@ public final class Configuration implements ExecutableCode {
         return analyzingDoc.getFileName();
     }
 
-    @Override
-    public LoopVariable getVar(String _var) {
-        return context.getVar(_var);
-    }
-
     public StringMap<LoopVariable> getVars() {
         return getLastPage().getVars();
-    }
-
-    @Override
-    public LocalVariable getLocalVar(String _key) {
-        return context.getLocalVar(_key);
-    }
-
-    @Override
-    public boolean containsLocalVar(String _key) {
-        return context.containsLocalVar(_key);
-    }
-
-    @Override
-    public void putLocalVar(String _key, LocalVariable _loc) {
-        context.putLocalVar(_key, _loc);
     }
 
     public StringMap<LocalVariable> getLocalVars() {
@@ -583,16 +560,6 @@ public final class Configuration implements ExecutableCode {
 
     public StringMap<LocalVariable> getCatchVars() {
         return getLastPage().getCatchVars();
-    }
-
-    @Override
-    public LocalVariable getCatchVar(String _key) {
-        return context.getCatchVar(_key);
-    }
-
-    @Override
-    public StringMap<LocalVariable> getParameters() {
-        return context.getParameters();
     }
 
     @Override
@@ -637,30 +604,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public int getCurrentChildTypeIndex(OperationNode _op, GeneType _type, String _fieldName, String _realClassName) {
-        if (ContextEl.isEnumType(_type)) {
-            FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(getCurrentFileName());
-            call_.setIndexFile(getCurrentLocationIndex());
-            call_.buildError(context.getAnalysisMessages().getIllegalCtorEnum());
-            addError(call_);
-            _op.setResultClass(new ClassArgumentMatching(_realClassName));
-            return -2;
-        }
-        return -1;
-    }
-
-    @Override
-    public String getCurrentVarSetting() {
-        return context.getCurrentVarSetting();
-    }
-
-    @Override
-    public void setCurrentVarSetting(String _currentVarSetting) {
-        context.setCurrentVarSetting(_currentVarSetting);
-    }
-
-    @Override
     public boolean isFinalVariable() {
         return context.isFinalVariable();
     }
@@ -673,11 +616,6 @@ public final class Configuration implements ExecutableCode {
     @Override
     public AnalyzedBlock getCurrentAnaBlock() {
         return analyzingDoc.getCurrentBlock();
-    }
-
-    @Override
-    public Block getCurrentBlock() {
-        return context.getCurrentBlock();
     }
 
     @Override
@@ -706,11 +644,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public CustList<StringMap<LocalVariable>> getLocalVariables() {
-        return context.getLocalVariables();
-    }
-
-    @Override
     public PageEl getOperationPageEl() {
         return importing.last().getPageEl();
     }
@@ -723,16 +656,6 @@ public final class Configuration implements ExecutableCode {
     @Override
     public ContextEl getContextEl() {
         return context;
-    }
-
-    @Override
-    public StringMap<LocalVariable> getInternVars() {
-        return context.getInternVars();
-    }
-
-    @Override
-    public boolean isEnabledInternVars() {
-        return context.isEnabledInternVars();
     }
 
     public boolean isInternGlobal() {
@@ -782,78 +705,14 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public StringMap<Integer> getAvailableVariables() {
-        return context.getAvailableVariables();
-    }
-
-    @Override
-    public StringList getVariablesNamesLoopToInfer() {
-        return context.getVariablesNamesLoopToInfer();
-    }
-    @Override
-    public StringList getVariablesNamesToInfer() {
-        return context.getVariablesNamesToInfer();
-    }
-
-    @Override
-    public StringList getVariablesNames() {
-        return context.getVariablesNames();
-    }
-
-    @Override
-    public boolean containsMutableLoopVar(String _string) {
-        return context.containsMutableLoopVar(_string);
-    }
-
-    @Override
-    public LoopVariable getMutableLoopVar(String _key) {
-        return context.getMutableLoopVar(_key);
-    }
-
-    @Override
-    public void putMutableLoopVar(String _string, LoopVariable _loc) {
-        context.putMutableLoopVar(_string, _loc);
-    }
-
-    @Override
-    public ForLoopPart getForLoopPartState() {
-        return context.getForLoopPartState();
-    }
-
-    @Override
     public String getIndexClassName() {
         RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
         return ((RendForMutableIterativeLoop)currentBlock_).getImportedClassIndexName();
     }
 
     @Override
-    public void setForLoopPartState(ForLoopPart _state) {
-        context.setForLoopPartState(_state);
-    }
-
-    @Override
     public boolean isAnnotAnalysis(OperationNode _op, OperationsSequence _seq) {
         return false;
-    }
-
-    @Override
-    public void putLocalVar(String _string) {
-        context.putLocalVar(_string);
-    }
-
-    @Override
-    public StringList getInfersLocalVars() {
-        return context.getInfersLocalVars();
-    }
-
-    @Override
-    public StringList getInfersMutableLocalVars() {
-        return context.getInfersMutableLocalVars();
-    }
-
-    @Override
-    public void putMutableLoopVar(String _string) {
-        context.putMutableLoopVar(_string);
     }
 
     @Override
@@ -887,11 +746,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public Ints getCurrentBadIndexes() {
-        return context.getCurrentBadIndexes();
-    }
-
-    @Override
     public int getCurrentLocationIndex() {
         AnalyzedPageEl analyzing_ = context.getAnalyzing();
         int offset_ = analyzing_.getOffset();
@@ -919,7 +773,6 @@ public final class Configuration implements ExecutableCode {
         return _global.isTypeHidden(_type,this);
     }
 
-    @Override
     public void processInternKeyWord(String _string, int _fr,
             ResultAfterInstKeyWord _out) {
         KeyWords keyWords_ = getKeyWords();
@@ -947,10 +800,11 @@ public final class Configuration implements ExecutableCode {
         if (context.getAnalyzing() != null) {
             merged_ = isMerged();
             accept_ = isAcceptCommaInstr();
-            currentVarSetting_ = getCurrentVarSetting();
+            currentVarSetting_ = context.getAnalyzing().getCurrentVarSetting();
             globalClass_ = getGlobalClass();
         }
         context.setAnalyzing();
+        context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));
         context.getAnalyzing().setGlobalClass(globalClass_);
         context.getAnalyzing().initLocalVars();
         context.getAnalyzing().initMutableLoopVars();
@@ -963,7 +817,6 @@ public final class Configuration implements ExecutableCode {
         CustList<StringMap<LocalVariable>> lc_ = new CustList<StringMap<LocalVariable>>();
         lc_.add(getCatchVars());
         context.getAnalyzing().setCatchVars(lc_);
-        context.getAnalyzing().getParameters().putAllMap(getParameters());
         context.getAnalyzing().setMerged(merged_);
         context.getAnalyzing().setAcceptCommaInstr(accept_);
         context.getAnalyzing().setCurrentVarSetting(currentVarSetting_);
@@ -1134,6 +987,6 @@ public final class Configuration implements ExecutableCode {
 
     @Override
     public void buildCurrentConstraintsFull() {
-        getAvailableVariables().clear();
+        context.getAnalyzing().getAvailableVariables().clear();
     }
 }

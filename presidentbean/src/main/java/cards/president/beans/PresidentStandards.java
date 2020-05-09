@@ -288,14 +288,4 @@ public final class PresidentStandards extends BeanNatLgNames {
         return new ResultErrorStd();
     }
 
-    @Override
-    public void setupNative(Configuration _conf) {
-        DefaultLockingClass lk_ = new DefaultLockingClass();
-        DefaultInitializer di_ = new DefaultInitializer();
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kw_ = new KeyWords();
-        ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), a_,kw_, this,4);
-        _conf.setContext(context_);
-        context_.setAnalyzing();
-    }
 }

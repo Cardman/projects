@@ -273,10 +273,10 @@ final class NamePartType extends LeafPartType {
             return;
         }
         if (_an.isHidden(_global,found_)) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
+            _an.getAnalyzing().getCurrentBadIndexes().add(getIndexInType());
         }
         if (owner_.isTypeHidden(found_,_an)) {
-            _an.getCurrentBadIndexes().add(getIndexInType());
+            _an.getAnalyzing().getCurrentBadIndexes().add(getIndexInType());
         }
     }
 

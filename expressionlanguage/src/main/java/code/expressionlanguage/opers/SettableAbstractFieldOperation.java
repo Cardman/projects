@@ -231,7 +231,7 @@ public abstract class SettableAbstractFieldOperation extends
     @Override
     public final void analyzeAssignmentAfter(Analyzable _conf) {
         Argument arg_ = getArgument();
-        Block block_ = _conf.getCurrentBlock();
+        Block block_ = _conf.getAnalyzing().getCurrentBlock();
         AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
         CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(this);

@@ -80,7 +80,7 @@ public final class DimensionArrayInstancing extends
             m_ = m_.getParent();
         }
         String typeAff_ = EMPTY_STRING;
-        Block cur_ = _an.getCurrentBlock();
+        Block cur_ = _an.getAnalyzing().getCurrentBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
             FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
             if (f_ instanceof NamedFunctionBlock) {

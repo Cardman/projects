@@ -361,7 +361,7 @@ public final class PartTypeUtil {
                 if (l instanceof VariablePartType) {
                     String type_ = l.getTypeName();
                     String imported_ = l.getAnalyzedType();
-                    Integer id_ = _an.getAvailableVariables().getVal(imported_.substring(1));
+                    Integer id_ = _an.getAnalyzing().getAvailableVariables().getVal(imported_.substring(1));
                     String rel_ = "";
                     if (!_refFileName.isEmpty()) {
                         rel_ = ElUtil.relativize(curr_,_refFileName);

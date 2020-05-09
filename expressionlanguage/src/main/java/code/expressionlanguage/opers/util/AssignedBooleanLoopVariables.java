@@ -16,7 +16,7 @@ public class AssignedBooleanLoopVariables extends AssignedBooleanVariables {
     private CustList<StringMap<Assignment>> mutableLoopRootAfterInit = new CustList<StringMap<Assignment>>();
     private StringMap<Assignment> fieldsRootAfterInit = new StringMap<Assignment>();
     public void add(AffectationOperation _aff, Analyzable _an) {
-        if (_an.getForLoopPartState() == ForLoopPart.INIT) {
+        if (_an.getAnalyzing().getForLoopPartState() == ForLoopPart.INIT) {
             return;
         }
         affectations.add(_aff);
