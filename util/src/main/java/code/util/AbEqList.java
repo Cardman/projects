@@ -18,7 +18,7 @@ public abstract class AbEqList<T> extends CustList<T> {
         super(_capacity);
     }
 
-    public void removeAllElements(Listable<T> _c) {
+    public final void removeAllElements(Listable<T> _c) {
         for (T s: _c) {
             if (containsObj(s)) {
                 removeAllObj(s);
@@ -26,13 +26,13 @@ public abstract class AbEqList<T> extends CustList<T> {
         }
     }
 
-    public void removeAllObj(T _obj) {
+    public final void removeAllObj(T _obj) {
         while (containsObj(_obj)) {
             removeObj(_obj);
         }
     }
 
-    public void removeObj(T _obj) {
+    public final void removeObj(T _obj) {
         int index_ = indexOfObj(_obj);
         if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
             return;
@@ -40,7 +40,7 @@ public abstract class AbEqList<T> extends CustList<T> {
         removeAt(index_);
     }
 
-    public boolean containsAllObj(Listable<T> _list) {
+    public final boolean containsAllObj(Listable<T> _list) {
         for (T e: _list) {
             if (!containsObj(e)) {
                 return false;
@@ -48,11 +48,11 @@ public abstract class AbEqList<T> extends CustList<T> {
         }
         return true;
     }
-    public boolean containsObj(T _obj) {
+    public final boolean containsObj(T _obj) {
         return indexOfObj(_obj) != INDEX_NOT_FOUND_ELT;
     }
 
-    public int indexOfObj(T _obj) {
+    public final int indexOfObj(T _obj) {
         return indexOfObj(_obj, FIRST_INDEX);
     }
 

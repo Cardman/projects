@@ -1782,11 +1782,14 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
 
-    private ObjectMap<MethodId, StringList> toList(ObjectMap<MethodId, EqList<ClassMethodId>> _m) {
+    private ObjectMap<MethodId, StringList> toList(ObjectMap<MethodId, CustList<ClassMethodId>> _m) {
         ObjectMap<MethodId, StringList> m_ = new ObjectMap<MethodId, StringList>();
-        for (EntryCust<MethodId, EqList<ClassMethodId>> e: _m.entryList()) {
+        for (EntryCust<MethodId, CustList<ClassMethodId>> e: _m.entryList()) {
             StringList l_ = new StringList();
             for (ClassMethodId c: e.getValue()) {
+                if (StringList.contains(l_,c.getClassName())) {
+                    continue;
+                }
                 l_.add(c.getClassName());
             }
             m_.put(e.getKey(), l_);

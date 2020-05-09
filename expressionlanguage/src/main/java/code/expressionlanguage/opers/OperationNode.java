@@ -1184,13 +1184,12 @@ public abstract class OperationNode implements Operable {
             }
             _methods.add(stMeth_);
         }
-        for (EntryCust<ClassMethodId,MethodInfo> e: getPredefineStaticEnumMethods(_conf,genericString_,_anc).entryList()) {
-            ClassMethodId cId_ = e.getKey();
-            MethodId id_ = cId_.getConstraints();
+        for (MethodInfo e: getPredefineStaticEnumMethods(_conf,genericString_,_anc)) {
+            MethodId id_ = e.getConstraints();
             if (isCandidateMethod(_uniqueId,_anc, fullName_, id_)) {
                 continue;
             }
-            _methods.add(e.getValue());
+            _methods.add(e);
         }
     }
     private static boolean filterMember(boolean _accessFromSuper, boolean _superClass,StringList _superTypesBase, String _fullName) {
@@ -1285,9 +1284,9 @@ public abstract class OperationNode implements Operable {
         return mloc_;
     }
 
-    private static ObjectMap<ClassMethodId, MethodInfo> getPredefineStaticEnumMethods(Analyzable _conf, String _className, int _ancestor) {
-        ObjectMap<ClassMethodId, MethodInfo> methods_;
-        methods_ = new ObjectMap<ClassMethodId, MethodInfo>();
+    private static CustList<MethodInfo> getPredefineStaticEnumMethods(Analyzable _conf, String _className, int _ancestor) {
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
         String idClass_ = Templates.getIdFromAllTypes(_className);
         RootBlock r_ = _conf.getClasses().getClassBody(idClass_);
         if (!(r_ instanceof EnumBlock)) {
@@ -1310,8 +1309,7 @@ public abstract class OperationNode implements Operable {
         mloc_.format(true,_conf);
         mloc_.setReturnType(returnType_);
         mloc_.setAncestor(_ancestor);
-        ClassMethodId clId_ = new ClassMethodId(idClass_, realId_);
-        methods_.add(clId_, mloc_);
+        methods_.add(mloc_);
         p_ = new ParametersGroup();
         String values_ = _conf.getStandards().getAliasEnumValues();
         realId_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
@@ -1324,8 +1322,7 @@ public abstract class OperationNode implements Operable {
         returnType_ = PrimitiveTypeUtil.getPrettyArrayType(returnType_);
         mloc_.setReturnType(returnType_);
         mloc_.setAncestor(_ancestor);
-        clId_ = new ClassMethodId(idClass_, realId_);
-        methods_.add(clId_, mloc_);
+        methods_.add(mloc_);
         return methods_;
     }
     private static ClassMethodIdReturn getCustResult(Analyzable _conf, boolean _unique,int _varargOnly,

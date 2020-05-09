@@ -96,14 +96,7 @@ final class FightValues {
         }else{
             variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_JOUE),Fight.ZERO);
         }
-        EqList<TeamPosition> cbts_=FightOrder.fightersHavingToAct(_fight,true,_import);
-        cbts_.addAllElts(FightOrder.fightersHavingToAct(_fight,false,_import));
-        cbts_.removeDuplicates();
-        if (cbts_.size() == 1) {
-            variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_DER_JOUE),Fight.ONE);
-        } else {
-            variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_DER_JOUE),Fight.ZERO);
-        }
+        addPlayed(_fight, _import, variables_, Fight.FIGHTER_DER_JOUE);
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_NOM),creatureCbtLanceur_.getCurrentName());
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_MASSE),creatureCbtLanceur_.getWeight().toNumberString());
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.FIGHTER_TAILLE),creatureCbtLanceur_.getHeight().toNumberString());
@@ -345,14 +338,7 @@ final class FightValues {
         }else{
             variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_JOUE),Fight.ZERO);
         }
-        EqList<TeamPosition> cbts_=FightOrder.fightersHavingToAct(_fight,true,_import);
-        cbts_.addAllElts(FightOrder.fightersHavingToAct(_fight,false,_import));
-        cbts_.removeDuplicates();
-        if (cbts_.size() == 1) {
-            variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_DER_JOUE),Fight.ONE);
-        } else {
-            variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_DER_JOUE),Fight.ZERO);
-        }
+        addPlayed(_fight, _import, variables_, Fight.LANCEUR_DER_JOUE);
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_MASSE),creatureCbtLanceur_.getWeight().toNumberString());
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_TAILLE),creatureCbtLanceur_.getHeight().toNumberString());
         variables_.put(StringList.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_CAPACITE),creatureCbtLanceur_.getCurrentAbility());
@@ -796,5 +782,34 @@ final class FightValues {
         }
         _fight.setEnabledMessages(true);
         return variables_;
+    }
+
+    private static void addPlayed(Fight _fight, DataBase _import, StringMap<String> _variables, String fighterDerJoue) {
+        CustList<TeamPosition> cbts_ = FightOrder.fightersHavingToAct(_fight, true, _import);
+        cbts_.addAllElts(FightOrder.fightersHavingToAct(_fight, false, _import));
+        boolean onlyOne_;
+        if (cbts_.isEmpty()) {
+            onlyOne_ = false;
+        } else {
+            onlyOne_ = onlyOne(cbts_);
+        }
+        if (onlyOne_) {
+            _variables.put(StringList.concat(DataBase.VAR_PREFIX, fighterDerJoue), Fight.ONE);
+        } else {
+            _variables.put(StringList.concat(DataBase.VAR_PREFIX, fighterDerJoue), Fight.ZERO);
+        }
+    }
+
+    static boolean onlyOne(CustList<TeamPosition> _cbts) {
+        boolean onlyOne_;
+        onlyOne_ = true;
+        TeamPosition e_ = _cbts.first();
+        for (int i = 1; i < _cbts.size(); i++) {
+            if (!e_.eq(_cbts.get(i))) {
+                onlyOne_ = false;
+                break;
+            }
+        }
+        return onlyOne_;
     }
 }

@@ -1,5 +1,6 @@
 package aiki.game.fight;
 import static aiki.db.EquallablePkUtil.assertEq;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -3180,4 +3181,8 @@ public class FightValuesTest extends InitializationDataBase {
         assertEq("0",map_.getVal(StringList.concat(DataBase.VAR_PREFIX,Fight.EQUIPE_ADV_COMBATTANT_ENTRANT_NB_UTILISATION,DataBase.SEP_BETWEEN_KEYS,PICOTS)));
     }
 
+    @Test
+    public void calculateSendingVariables2Test() {
+        assertTrue(FightValues.onlyOne(new CustList<TeamPosition>(POKEMON_PLAYER_FIGHTER_ZERO,POKEMON_PLAYER_FIGHTER_ZERO)));
+    }
 }

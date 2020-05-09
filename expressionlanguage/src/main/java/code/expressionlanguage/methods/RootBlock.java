@@ -37,7 +37,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     private Ints importsOffset = new Ints();
 
-    private ObjectMap<MethodId, EqList<ClassMethodId>> allOverridingMethods;
+    private ObjectMap<MethodId, CustList<ClassMethodId>> allOverridingMethods;
 
     private CustList<TypeVar> paramTypes = new CustList<TypeVar>();
 
@@ -76,7 +76,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
               IntMap< String> _directSuperTypes, OffsetsBlock _offset) {
         super(_offset);
         categoryOffset = _categoryOffset;
-        allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
+        allOverridingMethods = new ObjectMap<MethodId, CustList<ClassMethodId>>();
         name = _name.trim();
         packageName = StringExpUtil.removeDottedSpaces(_packageName);
         access = _access.getInfo();
@@ -266,7 +266,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         String gene_ = getGenericString();
         StringList classes_ = new StringList(gene_);
         classes_.addAllElts(allGenericSuperClasses_);
-        for (EntryCust<MethodId, EqList<ClassMethodId>> e: allOverridingMethods.entryList()) {
+        for (EntryCust<MethodId, CustList<ClassMethodId>> e: allOverridingMethods.entryList()) {
             CustList<ClassMethodId> locGeneInt_ = new CustList<ClassMethodId>();
             CustList<ClassMethodId> locGeneCl_ = new CustList<ClassMethodId>();
             for (ClassMethodId c: e.getValue()) {
@@ -596,7 +596,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
      @return a map with formatted id from super types as key
      and a list of (formatted super types and id) as value
      */
-    public ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods() {
+    public ObjectMap<MethodId, CustList<ClassMethodId>> getAllOverridingMethods() {
         return allOverridingMethods;
     }
 
@@ -620,10 +620,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
 
     public final void validateIds(ContextEl _context) {
-        EqList<MethodId> idMethods_ = new EqList<MethodId>();
+        CustList<MethodId> idMethods_ = new CustList<MethodId>();
         CustList<OverridableBlock> indexersGet_ = new CustList<OverridableBlock>();
         CustList<OverridableBlock> indexersSet_ = new CustList<OverridableBlock>();
-        EqList<ConstructorId> idConstructors_ = new EqList<ConstructorId>();
+        CustList<ConstructorId> idConstructors_ = new CustList<ConstructorId>();
         StringList idsField_ = new StringList();
         StringList idsAnnotMethods_ = new StringList();
         CustList<Block> bl_;
@@ -1532,7 +1532,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public void validateConstructors(ContextEl _cont) {
         boolean opt_ = optionalCallConstr(_cont);
         CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
-        ObjectMap<ConstructorId,ConstructorBlock> ctorsId_ = new ObjectMap<ConstructorId,ConstructorBlock>();
+        IdMap<ConstructorId,ConstructorBlock> ctorsId_ = new IdMap<ConstructorId,ConstructorBlock>();
         for (Block b: Classes.getDirectChildren(this)) {
             if (b instanceof ConstructorBlock) {
                 ctors_.add((ConstructorBlock) b);
@@ -1564,13 +1564,16 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
         for (EntryCust<ConstructorId, ConstructorBlock> e: ctorsId_.entryList()) {
             ConstructorBlock f = e.getValue();
-            ConstructorId co_ = e.getKey();
+            ConstructorId co_ = convert(e.getKey());
             CustList<ConstructorId> cycle_ = new CustList<ConstructorId>();
             while (true) {
                 ConstructorBlock found_ = null;
-                if (co_ != null) {
-                    cycle_.add(co_);
-                    found_ = ctorsId_.getVal(co_);
+                cycle_.add(co_);
+                for (EntryCust<ConstructorId, ConstructorBlock> c: ctorsId_.entryList()) {
+                    if (co_.eq(c.getKey())) {
+                        found_ = c.getValue();
+                        break;
+                    }
                 }
                 if (found_ == null) {
                     break;
@@ -1590,9 +1593,15 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     _cont.addError(cyclic_);
                     break;
                 }
-                co_ = found_.getConstIdSameClass();
+                co_ = convert(found_.getConstIdSameClass());
             }
         }
+    }
+    private static ConstructorId convert(ConstructorId _ctor) {
+        if (_ctor == null) {
+            return new ConstructorId("",new StringList(),true);
+        }
+        return _ctor;
     }
 
     private boolean optionalCallConstr(ContextEl _cont) {

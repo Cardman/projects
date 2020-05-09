@@ -1,7 +1,6 @@
 package code.util;
-import code.util.ints.Equallable;
 
-public abstract class AbObjectMap<K extends Equallable<K>, V> extends AbsMap<K, V> {
+public abstract class AbObjectMap<K, V> extends AbsMap<K, V> {
 
     public AbObjectMap() {
     }

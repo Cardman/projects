@@ -87,7 +87,8 @@ final class FightOrder {
         NextUsers retour_;
         retour_=new NextUsers(_cbts, new EqList<TeamPosition>());
         int nbCombattants_=_cbts.size();
-        for(int i=CustList.FIRST_INDEX;i<nbCombattants_;i++){
+        EqList<TeamPosition> itemUsers_ = retour_.getItemUsers();
+        for(int i = CustList.FIRST_INDEX; i<nbCombattants_; i++){
             int iFighter_ = i;
             iFighter_++;
             for(int i2_=iFighter_;i2_<nbCombattants_;i2_++){
@@ -116,11 +117,22 @@ final class FightOrder {
                 TeamPosition two_ = fs_.get(i2_);
                 fs_.set(i, two_);
                 fs_.set(i2_, one_);
-                retour_.getItemUsers().add(cbtTwo_);
+                addIfPossible(itemUsers_,cbtTwo_);
             }
         }
-        retour_.getItemUsers().removeDuplicates();
         return retour_;
+    }
+    static void addIfPossible(CustList<TeamPosition> _fighters, TeamPosition _f) {
+        boolean found_ = false;
+        for (TeamPosition t: _fighters) {
+            if (_f.eq(t)) {
+                found_ = true;
+                break;
+            }
+        }
+        if (!found_) {
+            _fighters.add(_f);
+        }
     }
 
     static EqList<TeamPosition> randomFigtherHavingToAct(Fight _fight,EqList<TeamPosition> _cbts,DataBase _import) {

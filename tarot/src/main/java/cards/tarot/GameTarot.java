@@ -32,7 +32,7 @@ public final class GameTarot {
     /** Ce sont les poignees annoncees par le(s) joueur(s) */
     private CustList<EnumList<Handfuls>> declaresHandfuls = new CustList<EnumList<Handfuls>>();
     /** Ce sont les miseres annoncees par le(s) joueur(s) */
-    private EqList<EnumList<Miseres>> declaresMiseres = new EqList<EnumList<Miseres>>();
+    private CustList<EnumList<Miseres>> declaresMiseres = new CustList<EnumList<Miseres>>();
     /** Ce sont les primes annoncees par le(s) joueur(s) */
     private BooleanList declaresSlam = new BooleanList();
     /** Ce sont les petits au bout par le(s) joueur(s) */
@@ -1444,7 +1444,7 @@ public final class GameTarot {
         declaresHandfuls = _declaresHandfuls;
     }
 
-    public EqList<EnumList<Miseres>> getDeclaresMiseres() {
+    public CustList<EnumList<Miseres>> getDeclaresMiseres() {
         return declaresMiseres;
     }
 

@@ -1174,7 +1174,7 @@ public final class Classes {
             _context.getAnalyzing().setImporting(c);
             c.validateIds(_context);
         }
-        EqList<MethodId> idMethods_ = new EqList<MethodId>();
+        CustList<MethodId> idMethods_ = new CustList<MethodId>();
         _context.setGlobalClass("");
         for (OperatorBlock o: _context.getClasses().getOperators()) {
             String name_ = o.getName();

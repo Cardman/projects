@@ -193,7 +193,7 @@ public abstract class Numbers<T> extends CustList<T> {
         return -result_;
     }
 
-    public void sort() {
+    public final void sort() {
         //setModified();
         int len_ = size();
         for (int i = FIRST_INDEX; i <len_; i++) {
@@ -208,7 +208,7 @@ public abstract class Numbers<T> extends CustList<T> {
         }
     }
 
-    public long getMinimum(long _def) {
+    public final long getMinimum(long _def) {
         if (isEmpty()) {
             return _def;
         }
@@ -223,7 +223,7 @@ public abstract class Numbers<T> extends CustList<T> {
         return min_;
     }
 
-    public long getMaximum(long _def) {
+    public final long getMaximum(long _def) {
         if (isEmpty()) {
             return _def;
         }
@@ -237,7 +237,7 @@ public abstract class Numbers<T> extends CustList<T> {
         }
         return max_;
     }
-    public void removeOneNumber(long _n) {
+    public final void removeOneNumber(long _n) {
         int s_ = size();
         for (int i = 0; i < s_; i++) {
             long lg_ = getLong(i);
@@ -247,10 +247,10 @@ public abstract class Numbers<T> extends CustList<T> {
             }
         }
     }
-    public boolean contains(long _element) {
+    public final boolean contains(long _element) {
         return indexOf(_element) != INDEX_NOT_FOUND_ELT;
     }
-    public int indexOf(long _element) {
+    public final int indexOf(long _element) {
         int s_ = size();
         for (int i = 0; i < s_; i++) {
             if (_element == getLong(i)) {
@@ -261,7 +261,7 @@ public abstract class Numbers<T> extends CustList<T> {
     }
 
 
-    public void removeObj(long _obj) {
+    public final void removeObj(long _obj) {
         int index_ = indexOfObj(_obj);
         if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
             return;
@@ -269,11 +269,11 @@ public abstract class Numbers<T> extends CustList<T> {
         removeAt(index_);
     }
 
-    public boolean containsObj(long _obj) {
+    public final boolean containsObj(long _obj) {
         return indexOfObj(_obj) != INDEX_NOT_FOUND_ELT;
     }
 
-    public void removeDuplicates() {
+    public final void removeDuplicates() {
         int i_ = FIRST_INDEX;
         while (i_ < size()) {
             long e_ = getLong(i_);
@@ -289,7 +289,7 @@ public abstract class Numbers<T> extends CustList<T> {
             }
         }
     }
-    public boolean hasDuplicates() {
+    public final boolean hasDuplicates() {
         int i_ = FIRST_INDEX;
         while (i_ < size()) {
             long e_ = getLong(i_);
@@ -301,10 +301,10 @@ public abstract class Numbers<T> extends CustList<T> {
         }
         return false;
     }
-    public int indexOfObj(long _element) {
+    public final int indexOfObj(long _element) {
         return indexOfObj(_element, FIRST_INDEX);
     }
-    public int indexOfObj(long _element, int _from) {
+    public final int indexOfObj(long _element, int _from) {
         int s_ = size();
         for (int i = _from; i < s_; i++) {
             long e_ = getLong(i);
@@ -314,7 +314,7 @@ public abstract class Numbers<T> extends CustList<T> {
         }
         return INDEX_NOT_FOUND_ELT;
     }
-    public Ints indexesOfObj(long _element) {
+    public final Ints indexesOfObj(long _element) {
         Ints indexes_;
         indexes_ = new Ints();
         int i_ = FIRST_INDEX;
@@ -329,7 +329,7 @@ public abstract class Numbers<T> extends CustList<T> {
         return indexes_;
     }
 
-    public void removeAllLong(long _obj) {
+    public final void removeAllLong(long _obj) {
         int i_ = FIRST_INDEX;
         while (i_ < size()) {
             long elt_ = getLong(i_);

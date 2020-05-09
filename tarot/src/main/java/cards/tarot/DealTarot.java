@@ -106,7 +106,7 @@ public final class DealTarot implements Iterable<HandTarot> {
         int nbPlayers_ = _regles.getRepartition().getNombreJoueurs();
         int nbCards_ = _regles.getRepartition().getNombreCartesParJoueur();
         byte autresCartesTirer_;
-        EqList<LgInt> fonctionRepartition_;
+        CustList<LgInt> fonctionRepartition_;
         LgInt alea_;
         if (_choix == ChoiceTarot.HUNT_SMALL) {
             if (nbCards_ == 24) {
@@ -125,7 +125,7 @@ public final class DealTarot implements Iterable<HandTarot> {
                 minAtout_ = 10;
                 maxAtout_ = 14;
             }
-            fonctionRepartition_ = new EqList<LgInt>();
+            fonctionRepartition_ = new CustList<LgInt>();
             fonctionRepartition_.add(LgInt.multiply(
                     LgInt.among(new LgInt(minAtout_), new LgInt(21)),
                     LgInt.among(new LgInt(nbCards_), new LgInt(56))));
@@ -196,7 +196,7 @@ public final class DealTarot implements Iterable<HandTarot> {
                     maxAtout_ = 13;
                 }
             }
-            fonctionRepartition_ = new EqList<LgInt>();
+            fonctionRepartition_ = new CustList<LgInt>();
             fonctionRepartition_.add(LgInt.multiply(LgInt.among(new LgInt(
                     minAtout_), new LgInt(21)), LgInt.among(new LgInt(
                     nbCards_ - minAtout_ - 1), new LgInt(56))));
@@ -251,7 +251,7 @@ public final class DealTarot implements Iterable<HandTarot> {
         }
     }
 
-    static byte chosenTrumps(byte _minAtout, byte _maxAtout, EqList<LgInt> _fonctionRepartition, LgInt _alea) {
+    static byte chosenTrumps(byte _minAtout, byte _maxAtout, CustList<LgInt> _fonctionRepartition, LgInt _alea) {
         byte atoutsTires_ = _maxAtout;
         for (byte evenement_ = _minAtout; evenement_ <= _maxAtout; evenement_++) {
             if (LgInt.lowerEq(_alea, _fonctionRepartition.get(evenement_

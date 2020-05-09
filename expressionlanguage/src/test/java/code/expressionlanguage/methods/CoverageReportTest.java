@@ -6714,6 +6714,37 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage161_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return new ExTwo<Integer>().inst($id(ExTwo,T),null);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo<T> {\n");
+        xml_.append(" public int inst(T p){\n");
+        xml_.append("  return \"\".length();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex2", xml_.toString());
+        ContextEl cont_ = contextElCoverageEnDefault();
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">new <a title=\"pkg.ExTwo\" href=\"Ex2.html#m13\">ExTwo</a>&lt;Integer&gt;()</span>.<span class=\"f\"><a title=\"pkg.ExTwo.inst(#T)\" href=\"Ex2.html#m40\">inst</a>(<span class=\"f\">$id(<a title=\"pkg.ExTwo\" href=\"Ex2.html#m13\">ExTwo</a>,<a href=\"Ex2.html#m23\">T</a>)</span>,<span class=\"f\">null</span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverage162Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");

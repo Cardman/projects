@@ -1443,6 +1443,32 @@ public class FightOrderTest extends InitializationDataBase {
     }
 
     @Test
+    public void containsCbt1Test() {
+        CustList<TeamPosition> list_ = new CustList<TeamPosition>();
+        FightOrder.addIfPossible(list_,POKEMON_PLAYER_FIGHTER_ZERO);
+        assertEq(1,list_.size());
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, list_.get(0));
+    }
+
+    @Test
+    public void containsCbt2Test() {
+        CustList<TeamPosition> list_ = new CustList<TeamPosition>();
+        list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
+        FightOrder.addIfPossible(list_,POKEMON_PLAYER_FIGHTER_ZERO);
+        assertEq(1,list_.size());
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, list_.get(0));
+    }
+
+    @Test
+    public void containsCbt3Test() {
+        CustList<TeamPosition> list_ = new CustList<TeamPosition>();
+        list_.add(POKEMON_PLAYER_FIGHTER_ZERO);
+        FightOrder.addIfPossible(list_,POKEMON_PLAYER_FIGHTER_ONE);
+        assertEq(2,list_.size());
+        assertEq(POKEMON_PLAYER_FIGHTER_ZERO, list_.get(0));
+        assertEq(POKEMON_PLAYER_FIGHTER_ONE, list_.get(1));
+    }
+    @Test
     public void sortFightersByWornBerry1Test() {
         Fight fight_ = sortFightersByWornBerry();
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(BROUHAHA);

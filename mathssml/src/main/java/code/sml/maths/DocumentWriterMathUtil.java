@@ -54,7 +54,7 @@ public final class DocumentWriterMathUtil {
         return elt_;
     }
 
-    public static Element setListRate(EqList<Rate> _object, String _fieldName, Document _document) {
+    public static Element setListRate(CustList<Rate> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (Rate s: _object) {

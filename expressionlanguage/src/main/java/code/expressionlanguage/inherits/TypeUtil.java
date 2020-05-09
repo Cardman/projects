@@ -220,15 +220,15 @@ public final class TypeUtil {
                     StringList.concat(c.getClassName(),".",c.getConstraints().getSignature(_context)));
             _context.addError(err_);
         }
-        ObjectMap<MethodId, EqList<ClassMethodId>> allOv_ = getAllInstanceSignatures(_type, _context);
+        ObjectMap<MethodId, CustList<ClassMethodId>> allOv_ = getAllInstanceSignatures(_type, _context);
         StringMap<StringList> vars_ = new StringMap<StringList>();
         for (TypeVar t: _type.getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        for (EntryCust<MethodId, EqList<ClassMethodId>> e: allOv_.entryList()) {
+        for (EntryCust<MethodId, CustList<ClassMethodId>> e: allOv_.entryList()) {
             MethodId key_ = e.getKey();
             CustList<OverridingRelation> pairs_ = new CustList<OverridingRelation>();
-            EqList<ClassMethodId> allMethods_ = e.getValue();
+            CustList<ClassMethodId> allMethods_ = e.getValue();
             for (ClassMethodId c: allMethods_) {
                 String templClass_ = c.getClassName();
                 String typeName_ = Templates.getIdFromAllTypes(templClass_);
@@ -357,8 +357,8 @@ public final class TypeUtil {
                 eq_.put(name_, f_);
                 continue;
             }
-            EqList<ClassMethodId> finalMethods_ = new EqList<ClassMethodId>();
-            EqList<ClassMethodId> methods_ = new EqList<ClassMethodId>();
+            CustList<ClassMethodId> finalMethods_ = new CustList<ClassMethodId>();
+            CustList<ClassMethodId> methods_ = new CustList<ClassMethodId>();
             StringList all_ = new StringList();
             all_.add(name_);
             all_.addAllElts(c.getAllSuperTypes());
@@ -374,9 +374,9 @@ public final class TypeUtil {
                 }
                 //r_, as super interface of c, is a sub type of type input
                 MethodId l_ = _realId.quickFormat(v_, _conf);
-                ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
+                ObjectMap<MethodId, CustList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
                 //r_ inherit the formatted method
-                EqList<ClassMethodId> foundSuperClasses_ = new EqList<ClassMethodId>();
+                CustList<ClassMethodId> foundSuperClasses_ = new CustList<ClassMethodId>();
                 boolean found_ = false;
                 //if the overridden types contain the type input, then retrieve the sub types of the input type
                 //(which are super types of r_)
@@ -402,12 +402,12 @@ public final class TypeUtil {
                 eq_.put(name_, id_);
                 continue;
             }
-            finalMethods_ = new EqList<ClassMethodId>();
-            methods_ = new EqList<ClassMethodId>();
+            finalMethods_ = new CustList<ClassMethodId>();
+            methods_ = new CustList<ClassMethodId>();
             MethodId l_ = _realId.quickFormat(baseCond_, _conf);
-            ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = c.getAllOverridingMethods();
+            ObjectMap<MethodId, CustList<ClassMethodId>> ov_ = c.getAllOverridingMethods();
             //r_ inherit the formatted method
-            EqList<ClassMethodId> foundSuperClasses_ = new EqList<ClassMethodId>();
+            CustList<ClassMethodId> foundSuperClasses_ = new CustList<ClassMethodId>();
             boolean found_ = false;
             //if the overridden types contain the type input, then retrieve the sub types of the input type
             //(which are super types of r_)
@@ -431,7 +431,7 @@ public final class TypeUtil {
         return eq_;
     }
 
-    private static void feedMehodsLists(ContextEl _conf, EqList<ClassMethodId> finalMethods_, EqList<ClassMethodId> methods_, EqList<ClassMethodId> foundSuperClasses_) {
+    private static void feedMehodsLists(ContextEl _conf, CustList<ClassMethodId> finalMethods_, CustList<ClassMethodId> methods_, CustList<ClassMethodId> foundSuperClasses_) {
         for (ClassMethodId t: foundSuperClasses_) {
             String t_ = t.getClassName();
             String baseSuperType_ = Templates.getIdFromAllTypes(t_);
@@ -445,7 +445,7 @@ public final class TypeUtil {
             methods_.add(t);
         }
     }
-    private static ClassMethodId filterUniqId(ContextEl _conf, EqList<ClassMethodId> finalMethods_, EqList<ClassMethodId> methods_) {
+    private static ClassMethodId filterUniqId(ContextEl _conf, CustList<ClassMethodId> finalMethods_, CustList<ClassMethodId> methods_) {
         StringMap<MethodId> defs_ = new StringMap<MethodId>();
         StringList list_ = new StringList();
         for (ClassMethodId v: finalMethods_) {
@@ -492,7 +492,7 @@ public final class TypeUtil {
             }
             //r_, as super class of c, is a sub type of type input
             MethodId l_ = _realId.quickFormat(v_, _conf);
-            ObjectMap<MethodId, EqList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
+            ObjectMap<MethodId, CustList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
             //r_ inherit the formatted method
             boolean found_ = false;
             TreeMap<String,MethodId> tree_ = new TreeMap<String,MethodId>(new ComparingByTypeList(r_.getAllGenericClasses()));
@@ -526,10 +526,10 @@ public final class TypeUtil {
         }
         return null;
     }
-    private static EqList<ClassMethodId> getList( ObjectMap<MethodId, EqList<ClassMethodId>> _list, MethodId _id) {
-        EqList<ClassMethodId> out_ = _list.getVal(_id);
+    private static CustList<ClassMethodId> getList( ObjectMap<MethodId, CustList<ClassMethodId>> _list, MethodId _id) {
+        CustList<ClassMethodId> out_ = _list.getVal(_id);
         if (out_ == null) {
-            return new EqList<ClassMethodId>();
+            return new CustList<ClassMethodId>();
         }
         return out_;
     }
@@ -633,12 +633,12 @@ public final class TypeUtil {
         }
     }
 
-    private static EqList<ClassMethodId> getAllDuplicates(RootBlock _type, ContextEl _classes) {
-        EqList<ClassMethodId> list_;
-        list_ = new EqList<ClassMethodId>();
+    private static CustList<ClassMethodId> getAllDuplicates(RootBlock _type, ContextEl _classes) {
+        CustList<ClassMethodId> list_;
+        list_ = new CustList<ClassMethodId>();
         for (String s: _type.getAllGenericSuperTypes()) {
-            EqList<MethodId> all_;
-            all_ = new EqList<MethodId>();
+            CustList<MethodId> all_;
+            all_ = new CustList<MethodId>();
             String base_ = Templates.getIdFromAllTypes(s);
             RootBlock b_ = _classes.getClasses().getClassBody(base_);
             for (GeneCustMethod b: Classes.getMethodBlocks(b_)) {
@@ -647,7 +647,14 @@ public final class TypeUtil {
                 }
                 MethodId id_ = b.getId().quickFormat(s, _classes);
                 ClassMethodId formatted_ = new ClassMethodId(s, b.getId());
-                if (all_.containsObj(id_)) {
+                boolean found_ = false;
+                for (MethodId m: all_) {
+                    if (id_.eq(m)) {
+                        found_ = true;
+                        break;
+                    }
+                }
+                if (found_) {
                     list_.add(formatted_);
                 }
                 all_.add(id_);
@@ -655,15 +662,15 @@ public final class TypeUtil {
         }
         return list_;
     }
-    public static ObjectMap<MethodId, EqList<ClassMethodId>> getAllInstanceSignatures(RootBlock _type, ContextEl _classes) {
-        ObjectMap<MethodId, EqList<ClassMethodId>> map_;
-        map_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
+    public static ObjectMap<MethodId, CustList<ClassMethodId>> getAllInstanceSignatures(RootBlock _type, ContextEl _classes) {
+        ObjectMap<MethodId, CustList<ClassMethodId>> map_;
+        map_ = new ObjectMap<MethodId, CustList<ClassMethodId>>();
         for (GeneCustMethod b: Classes.getMethodBlocks(_type)) {
             if (b.hiddenInstance()) {
                 continue;
             }
             MethodId m_ = b.getId();
-            map_.put(m_, new EqList<ClassMethodId>(new ClassMethodId(_type.getGenericString(), m_)));
+            map_.put(m_, new CustList<ClassMethodId>(new ClassMethodId(_type.getGenericString(), m_)));
         }
         for (String s: _type.getAllGenericSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
@@ -679,12 +686,11 @@ public final class TypeUtil {
         return map_;
     }
 
-    private static void addClass(ObjectMap<MethodId, EqList<ClassMethodId>> _map, MethodId _key, ClassMethodId _class) {
+    private static void addClass(ObjectMap<MethodId, CustList<ClassMethodId>> _map, MethodId _key, ClassMethodId _class) {
         if (_map.contains(_key)) {
             _map.getVal(_key).add(_class);
-            _map.getVal(_key).removeDuplicates();
         } else {
-            _map.put(_key, new EqList<ClassMethodId>(_class));
+            _map.put(_key, new CustList<ClassMethodId>(_class));
         }
     }
 }

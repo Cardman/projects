@@ -370,7 +370,7 @@ public final class DocumentWriterTarotUtil {
         return elt_;
     }
 
-    private static Element setListListMiseres(EqList<EnumList<Miseres>> _object, String _fieldName, Document _document) {
+    private static Element setListListMiseres(CustList<EnumList<Miseres>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_LIST);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
         for (EnumList<Miseres> s: _object) {

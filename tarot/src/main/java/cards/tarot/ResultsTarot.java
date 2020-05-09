@@ -225,7 +225,7 @@ public final class ResultsTarot {
         return res.getRenderedPages();
     }
 
-    public EqList<Rate> getSigmas() {
+    public CustList<Rate> getSigmas() {
         return res.getSigmas();
     }
 

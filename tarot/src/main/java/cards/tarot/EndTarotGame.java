@@ -37,7 +37,7 @@ public final class EndTarotGame {
     /** Ce sont les poignees annoncees par le(s) joueur(s) */
     private CustList<EnumList<Handfuls>> declaresHandfuls;
     /** Ce sont les miseres annoncees par le(s) joueur(s) */
-    private EqList<EnumList<Miseres>> declaresMiseres;
+    private CustList<EnumList<Miseres>> declaresMiseres;
     /** Ce sont les primes annoncees par le(s) joueur(s) */
     private BooleanList declaresSlam;
     /** Ce sont les petits au bout par le(s) joueur(s) */
@@ -51,7 +51,7 @@ public final class EndTarotGame {
 
     public EndTarotGame(GameTarotTeamsRelation _relations, CustList<TrickTarot> _tricks,
                         CustList<EnumList<Handfuls>> _declaresHandfuls,
-                        EqList<EnumList<Miseres>> _declaresMiseres,
+                        CustList<EnumList<Miseres>> _declaresMiseres,
                         BooleanList _declaresSlam, BooleanList _smallBound) {
         relations = _relations;
         tricks = _tricks;
@@ -1443,7 +1443,7 @@ public final class EndTarotGame {
         return calculMiseresScorePlayer(_player, relations, declaresMiseres);
     }
 
-    static CustList<EnumMap<Miseres, Short>> calculMiseresScorePlayer(byte _player, GameTarotTeamsRelation _relations, EqList<EnumList<Miseres>> _declaresMiseres) {
+    static CustList<EnumMap<Miseres, Short>> calculMiseresScorePlayer(byte _player, GameTarotTeamsRelation _relations, CustList<EnumList<Miseres>> _declaresMiseres) {
         byte nombreDeJoueurs_ = _relations.getNombreDeJoueurs();
         CustList<EnumMap<Miseres,Short>> scores1_ = new CustList<EnumMap<Miseres,Short>>();
         for (byte joueur2_ = CustList.FIRST_INDEX; joueur2_ < nombreDeJoueurs_; joueur2_++) {
@@ -1549,7 +1549,7 @@ public final class EndTarotGame {
     static Shorts calculerScoresJoueurs(Shorts _coefficients, Shorts _primeSupplementaire,
                                         int _sumLoc, GameTarotTeamsRelation _relations,
                                         CustList<EnumList<Handfuls>> _declaresHandfuls,
-                                        EqList<EnumList<Miseres>> _declaresMiseres,
+                                        CustList<EnumList<Miseres>> _declaresMiseres,
                                         BooleanList _smallBound) {
         byte nombreJoueurs_ = _relations.getNombreDeJoueurs();
         Shorts scores_ = new Shorts();

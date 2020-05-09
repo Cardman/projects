@@ -11,7 +11,7 @@ public final class GameTarotTrickInfo {
     private TrickTarot progressingTrick;
     private CustList<TrickTarot> tricks;
 
-    private EqList<EnumList<Miseres>> declaresMiseres;
+    private CustList<EnumList<Miseres>> declaresMiseres;
 
     private CustList<HandTarot> handfuls;
     private BidTarot bid;
@@ -25,7 +25,7 @@ public final class GameTarotTrickInfo {
     private CustList<CustList<Confidence>> confidence = new CustList<CustList<Confidence>>();
 
     public GameTarotTrickInfo(TrickTarot _progressingTrick, CustList<TrickTarot> _tricks,
-                              EqList<EnumList<Miseres>> _declaresMiseres,
+                              CustList<EnumList<Miseres>> _declaresMiseres,
                               CustList<HandTarot> _handfuls, BidTarot _bid, HandTarot _calledCards,
                               Ints _handLengths) {
         progressingTrick = _progressingTrick;

@@ -51,12 +51,12 @@ public class CustList<T> implements Listable<T> {
     }
 
     @Override
-    public void addAllElts(Listable<T> _c) {
+    public final void addAllElts(Listable<T> _c) {
         for (T e: _c) {
             add(e);
         }
     }
-    public void sortElts(Comparing<T> _comp) {
+    public final void sortElts(Comparing<T> _comp) {
         int len_ = list.size();
         for (int i = FIRST_INDEX; i <len_; i++) {
             for (int j = i + 1; j <len_; j++) {
@@ -72,7 +72,7 @@ public class CustList<T> implements Listable<T> {
     }
 
     @Override
-    public boolean isValidIndex(int _index) {
+    public final boolean isValidIndex(int _index) {
         if (_index < FIRST_INDEX) {
             return false;
         }
@@ -82,63 +82,63 @@ public class CustList<T> implements Listable<T> {
         return true;
     }
     @Override
-    public T first() {
+    public final T first() {
         return get(FIRST_INDEX);
     }
 
     @Override
-    public T last() {
+    public final T last() {
         return get(getLastIndex());
     }
-    public void setLast(T _element) {
+    public final void setLast(T _element) {
         set(getLastIndex(), _element);
     }
 
-    public int getLastIndex() {
+    public final int getLastIndex() {
         int last_ = size();
         last_--;
         return last_;
     }
 
-    public T getPrev(int _i) {
+    public final T getPrev(int _i) {
         return get(_i-1);
     }
 
     @Override
-    public void removeAt(int _n) {
+    public final void removeAt(int _n) {
         list.remove(_n);
     }
 
     @Override
-    public int size() {
+    public final int size() {
         return list.size();
     }
 
     @Override
-    public boolean isEmpty() {
+    public final boolean isEmpty() {
         return list.isEmpty();
     }
 
     @Override
-    public Iterable<T> getList() {
+    public final Iterable<T> getList() {
         return list;
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public final Iterator<T> iterator() {
         return list.iterator();
     }
 
-    public Object[] toArray() {
+    public final Object[] toArray() {
         return list.toArray();
     }
 
     @Override
-    public void add(T _e) {
+    public final void add(T _e) {
         list.add(_e);
     }
 
-    public void retainAllElements(AbEqList<T> _c) {
+    public final void retainAllElements(AbEqList<T> _c) {
         int i_ = FIRST_INDEX;
         while (i_ < size()) {
             T e_ = get(i_);
@@ -151,36 +151,36 @@ public class CustList<T> implements Listable<T> {
     }
 
     @Override
-    public void clear() {
+    public final void clear() {
         list.clear();
     }
 
     @Override
-    public Object getObj(int _index) {
+    public final Object getObj(int _index) {
         return get(_index);
     }
 
-    public T get(int _index) {
+    public final T get(int _index) {
         return list.get(_index);
     }
 
     @Override
-    public void set(int _index, T _element) {
+    public final void set(int _index, T _element) {
         list.set(_index, _element);
     }
 
     @Override
-    public void add(int _index, T _element) {
+    public final void add(int _index, T _element) {
         list.add(_index, _element);
     }
 
     @Override
-    public void remove(int _index) {
+    public final void remove(int _index) {
         list.remove(_index);
     }
 
     @Override
-    public CustList<T> getReverse() {
+    public final CustList<T> getReverse() {
         CustList<T> list_ = new CustList<T>(this);
         int i_ = FIRST_INDEX;
         int j_ = list_.size();
@@ -194,13 +194,13 @@ public class CustList<T> implements Listable<T> {
     }
 
     @Override
-    public void swapIndexes(int _i, int _j) {
+    public final void swapIndexes(int _i, int _j) {
         T first_ = list.get(_i);
         list.set(_i, list.get(_j));
         list.set(_j, first_);
     }
 
-    public CustList<CustList<T>> getBaseGroupsSameCompare(Comparing<T> _cmp) {
+    public final CustList<CustList<T>> getBaseGroupsSameCompare(Comparing<T> _cmp) {
         CustList<T> copy_ = new CustList<T>(this);
         copy_.sortElts(_cmp);
         CustList<CustList<T>> groups_;
@@ -226,26 +226,26 @@ public class CustList<T> implements Listable<T> {
         return groups_;
     }
 
-    public void removeLast() {
+    public final void removeLast() {
         if (isEmpty()) {
             return;
         }
         removeAt(getLastIndex());
     }
 
-    public CustList<T> mid(int _beginIndex, int _nbElements) {
+    public final CustList<T> mid(int _beginIndex, int _nbElements) {
         if (_beginIndex+_nbElements > size()) {
             return mid(_beginIndex);
         }
         return new CustList<T>(sub(_beginIndex, _beginIndex+_nbElements));
     }
 
-    public CustList<T> mid(int _beginIndex) {
+    public final CustList<T> mid(int _beginIndex) {
         return new CustList<T>(sub(_beginIndex,size()));
     }
 
     @Override
-    public CustList<T> sub(int _from, int _to) {
+    public final CustList<T> sub(int _from, int _to) {
         if (_from > _to) {
             return new CustList<T>();
         }

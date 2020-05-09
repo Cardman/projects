@@ -10,7 +10,7 @@ public final class ResultsGame {
     private String detailResultsTitle;
     private StringMap<String> renderedPages = new StringMap<String>();
     /**Ecarts types des parties cumule&eacute;es*/
-    private EqList<Rate> sigmas=new EqList<Rate>();
+    private CustList<Rate> sigmas=new CustList<Rate>();
     /**Sommes des scores des joueurs*/
     private Longs sums=new Longs();
     private CustList<Longs> scores;
@@ -35,7 +35,7 @@ public final class ResultsGame {
         return renderedPages;
     }
 
-    public EqList<Rate> getSigmas() {
+    public CustList<Rate> getSigmas() {
         return sigmas;
     }
 
