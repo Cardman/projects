@@ -43,7 +43,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             return;
         }
         while (true) {
-            _cont.getAnalyzing().setCurrentBlock(en_);
+            page_.setCurrentBlock(en_);
+            page_.setCurrentAnaBlock(en_);
             addPossibleEmpty(en_);
             _cont.getCoverage().putBlockOperations(_cont,en_);
             if (en_ == this) {
@@ -82,7 +83,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 }
                 BracedBlock par_;
                 par_ = en_.getParent();
-                _cont.getAnalyzing().setCurrentBlock(par_);
+                page_.setCurrentBlock(par_);
+                page_.setCurrentAnaBlock(par_);
                 par_.abrupt(_cont, anEl_);
                 par_.abruptGroup(anEl_);
                 if (par_ == this) {
@@ -171,7 +173,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             return;
         }
         while (true) {
-            _cont.getAnalyzing().setCurrentBlock(en_);
+            page_.setCurrentBlock(en_);
+            page_.setCurrentAnaBlock(en_);
             addPossibleEmpty(en_);
             _cont.getCoverage().putBlockOperations(_cont,en_);
             if (en_ == this) {
@@ -205,7 +208,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 }
                 BracedBlock par_;
                 par_ = en_.getParent();
-                _cont.getAnalyzing().setCurrentBlock(par_);
+                page_.setCurrentBlock(par_);
+                page_.setCurrentAnaBlock(par_);
                 par_.abrupt(_cont, anEl_);
                 par_.abruptGroup(anEl_);
                 if (par_ == this) {

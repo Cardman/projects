@@ -533,13 +533,17 @@ public final class ElResolverTest extends ProcessMethodCommon{
         Classes classes_ = conf_.getClasses();
         RootBlock r_ = classes_.getClassBody("pkg.BeanOne");
         Block field_ = r_.getFirstChild();
-        conf_.getAnalyzing().setCurrentBlock(field_);
+        AnalyzedPageEl page_ = conf_.getAnalyzing();
+        page_.setCurrentBlock(field_);
+        page_.setCurrentAnaBlock(field_);
         ((FieldBlock)field_).retrieveNames(conf_, new StringList());
         RootBlock rTwo_ = classes_.getClassBody("pkg.Composite");
-        conf_.getAnalyzing().setCurrentBlock(rTwo_.getFirstChild());
+        page_.setCurrentBlock(rTwo_.getFirstChild());
+        page_.setCurrentAnaBlock(rTwo_.getFirstChild());
         ((FieldBlock)rTwo_.getFirstChild()).retrieveNames(conf_, new StringList());
         Block b_ = field_.getNextSibling().getFirstChild();
-        conf_.getAnalyzing().setCurrentBlock(b_);
+        page_.setCurrentBlock(b_);
+        page_.setCurrentAnaBlock(b_);
         Line l_ = (Line) b_;
         String el_ = l_.getExpression();
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -1939,10 +1943,13 @@ public final class ElResolverTest extends ProcessMethodCommon{
         Classes classes_ = conf_.getClasses();
         RootBlock r_ = classes_.getClassBody("pkg.BeanOne");
         Block field_ = r_.getFirstChild();
-        conf_.getAnalyzing().setCurrentBlock(field_);
+        AnalyzedPageEl page_ = conf_.getAnalyzing();
+        page_.setCurrentBlock(field_);
+        page_.setCurrentAnaBlock(field_);
         ((FieldBlock)field_).retrieveNames(conf_, new StringList());
         Block b_ = field_.getNextSibling().getFirstChild();
-        conf_.getAnalyzing().setCurrentBlock(b_);
+        page_.setCurrentBlock(b_);
+        page_.setCurrentAnaBlock(b_);
         Line l_ = (Line) b_;
         String el_ = l_.getExpression();
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
@@ -3273,6 +3280,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
+        conf_.getAnalyzing().setCurrentAnaBlock(b_);
         conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
@@ -3315,6 +3323,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
+        conf_.getAnalyzing().setCurrentAnaBlock(b_);
         conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
@@ -3357,6 +3366,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
+        conf_.getAnalyzing().setCurrentAnaBlock(b_);
         conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
@@ -3401,6 +3411,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
+        conf_.getAnalyzing().setCurrentAnaBlock(b_);
         conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
@@ -3453,6 +3464,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
+        conf_.getAnalyzing().setCurrentAnaBlock(b_);
         conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
@@ -3497,6 +3509,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
+        conf_.getAnalyzing().setCurrentAnaBlock(b_);
         conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();

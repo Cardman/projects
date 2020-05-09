@@ -50,7 +50,7 @@ public final class SuperFctOperation extends InvokingOperation {
         if (!isIntermediateDottedOperation()) {
             clCur_ = new ClassArgumentMatching(_conf.getGlobalClass());
             import_ = true;
-            setStaticAccess(_conf.getStaticContext());
+            setStaticAccess(_conf.getAnalyzing().getStaticContext());
         } else {
             clCur_ = getPreviousResultClass();
         }

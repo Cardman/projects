@@ -207,7 +207,7 @@ public final class PrimitiveTypeUtil {
                     String i_ = dci_.getComponent();
                     int dLoc_ = dci_.getDim();
                     i_ = Templates.getIdFromAllTypes(i_);
-                    GeneType j_ = _conf.getClassBody(i_);
+                    GeneType j_ = _conf.getContextEl().getClassBody(i_);
                     for (String u: j_.getAllGenericSuperTypes()) {
                         superTypes_.add(getPrettyArrayType(u, d_ + dLoc_));
                     }
@@ -219,7 +219,7 @@ public final class PrimitiveTypeUtil {
             }
             if (StringList.quickEq(base_, bool_)) {
                 String w_ = PrimitiveTypeUtil.toWrapper(base_, stds_);
-                GeneType g_ = _conf.getClassBody(w_);
+                GeneType g_ = _conf.getContextEl().getClassBody(w_);
                 superTypes_.add(getPrettyArrayType(w_, d_));
                 for (String t: g_.getAllGenericSuperTypes()) {
                     superTypes_.add(getPrettyArrayType(t, d_));
@@ -235,7 +235,7 @@ public final class PrimitiveTypeUtil {
                     for (String p: s.getNames()) {
                         superTypes_.add(getPrettyArrayType(p, d_));
                         String w_ = PrimitiveTypeUtil.toWrapper(p, stds_);
-                        GeneType g_ = _conf.getClassBody(w_);
+                        GeneType g_ = _conf.getContextEl().getClassBody(w_);
                         superTypes_.add(getPrettyArrayType(w_, d_));
                         for (String t: g_.getAllGenericSuperTypes()) {
                             superTypes_.add(getPrettyArrayType(t, d_));
@@ -248,7 +248,7 @@ public final class PrimitiveTypeUtil {
                 continue;
             }
             String id_ = Templates.getIdFromAllTypes(base_);
-            GeneType g_ = _conf.getClassBody(id_);
+            GeneType g_ = _conf.getContextEl().getClassBody(id_);
             for (String t: g_.getAllGenericSuperTypes()) {
                 String f_ = Templates.format(base_, t, _conf);
                 if (f_.isEmpty()) {
@@ -289,7 +289,7 @@ public final class PrimitiveTypeUtil {
                 return NullStruct.NULL_VALUE;
             }
             PrimitiveType pr_ = _an.getStandards().getPrimitiveTypes().getVal(dimCurrent_.getComponent());
-            GeneType g_ = _an.getClassBody(dimCurrent_.getComponent());
+            GeneType g_ = _an.getContextEl().getClassBody(dimCurrent_.getComponent());
             InheritedType in_ = null;
             if (pr_ != null) {
                 in_ = pr_;
@@ -322,7 +322,7 @@ public final class PrimitiveTypeUtil {
         String className_ = lgNames_.getStructClassName(current_, _an.getContextEl());
         String cl_ = Templates.getIdFromAllTypes(className_);
         StringList list_ = new StringList();
-        GeneType g_ = _an.getClassBody(cl_);
+        GeneType g_ = _an.getContextEl().getClassBody(cl_);
         while (!g_.isSubTypeOf(id_,_an)) {
             if (StringList.contains(list_, cl_)) {
                 _an.setException(new ErrorStruct(_an,cast_));
@@ -338,7 +338,7 @@ public final class PrimitiveTypeUtil {
             className_ = ((WithParentStruct)current_).getParentClassName();
             current_ = par_;
             cl_ = Templates.getIdFromAllTypes(className_);
-            g_ = _an.getClassBody(cl_);
+            g_ = _an.getContextEl().getClassBody(cl_);
         }
         return current_;
     }
@@ -425,7 +425,7 @@ public final class PrimitiveTypeUtil {
                 if (StringList.quickEq(baseSup_, baseSub_)) {
                     continue;
                 }
-                GeneType subType_ = _context.getClassBody(baseSub_);
+                GeneType subType_ = _context.getContextEl().getClassBody(baseSub_);
                 if (subType_.isSubTypeOf(baseSup_,_context)) {
                     sub_ = false;
                     break;
@@ -496,7 +496,7 @@ public final class PrimitiveTypeUtil {
                     }
                     continue;
                 }
-                if (_context.getClassBody(baseArrSub_.getComponent()).isSubTypeOf(baseArrSup_.getComponent(),_context)) {
+                if (_context.getContextEl().getClassBody(baseArrSub_.getComponent()).isSubTypeOf(baseArrSup_.getComponent(),_context)) {
                     sub_ = false;
                     break;
                 }
@@ -612,8 +612,8 @@ public final class PrimitiveTypeUtil {
     }
 
     public static int cmpTypes(String _one, String _two, Analyzable _context) {
-        GeneType one_ = _context.getClassBody(_one);
-        GeneType two_ = _context.getClassBody(_two);
+        GeneType one_ = _context.getContextEl().getClassBody(_one);
+        GeneType two_ = _context.getContextEl().getClassBody(_two);
         if (two_.isSubTypeOf(_one,_context)) {
             return CustList.SWAP_SORT;
         }

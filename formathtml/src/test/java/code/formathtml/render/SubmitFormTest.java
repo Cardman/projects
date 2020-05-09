@@ -9,6 +9,7 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
+import code.formathtml.util.AdvancedHiddenTypes;
 import code.formathtml.util.AdvancedProcessKeyWord;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
@@ -1013,6 +1014,7 @@ public final class SubmitFormTest extends CommonRender {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         _nav.getSession().getContext().setAnalyzing();
         _nav.getSession().getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_nav.getSession()));
+        _nav.getSession().getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_nav.getSession()));
         _nav.initInstancesPattern();
         _nav.getSession().setPrefix("c:");
         _nav.setupRenders();

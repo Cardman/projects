@@ -39,7 +39,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         MethodOperation mOp_ = getParent();
         AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
         String annotationClass_ = par_.getClassName();
-        GeneType type_ = _conf.getClassBody(annotationClass_);
+        GeneType type_ = _conf.getContextEl().getClassBody(annotationClass_);
         if (type_ instanceof Block) {
             annotation = annotationClass_;
         }
@@ -49,7 +49,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         MethodOperation mOp_ = getParent();
         AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
         String annotationClass_ = par_.getClassName();
-        GeneType type_ = _conf.getClassBody(annotationClass_);
+        GeneType type_ = _conf.getContextEl().getClassBody(annotationClass_);
         if (type_ instanceof Block) {
             Block ann_ = (Block) type_;
             boolean ok_ = false;

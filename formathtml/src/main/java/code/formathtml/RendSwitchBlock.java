@@ -74,7 +74,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             String id_ = Templates.getIdFromAllTypes(type_);
             if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
-                    if (!(_cont.getClassBody(id_) instanceof EnumBlock)) {
+                    if (!(_cont.getContextEl().getClassBody(id_) instanceof EnumBlock)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(valueOffset);

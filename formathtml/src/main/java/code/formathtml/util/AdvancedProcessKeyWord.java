@@ -4,7 +4,7 @@ import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.instr.ResultAfterInstKeyWord;
 import code.formathtml.Configuration;
 
-public class AdvancedProcessKeyWord implements AbstractProcessKeyWord {
+public final class AdvancedProcessKeyWord implements AbstractProcessKeyWord {
     private final Configuration configuration;
 
     public AdvancedProcessKeyWord(Configuration configuration) {

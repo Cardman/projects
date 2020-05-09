@@ -52,7 +52,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 AnnotationInstanceOperation inst_;
                 inst_ = (AnnotationInstanceOperation)mOpAss_;
                 String className_ = inst_.getClassName();
-                GeneType typeInfo_ = _conf.getClassBody(className_);
+                GeneType typeInfo_ = _conf.getContextEl().getClassBody(className_);
                 if (!(typeInfo_ instanceof Block)) {
                     className = _conf.getStandards().getAliasObject();
                     return;
@@ -75,7 +75,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     AnnotationInstanceOperation inst_;
                     inst_ = (AnnotationInstanceOperation)mOp_;
                     String className_ = inst_.getClassName();
-                    GeneType type_ = _conf.getClassBody(className_);
+                    GeneType type_ = _conf.getContextEl().getClassBody(className_);
                     if (!(type_ instanceof Block)) {
                         className = _conf.getStandards().getAliasObject();
                         return;
@@ -104,7 +104,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             String realClassName_ = methodName.trim().substring(AROBASE.length());
             realClassName_ = ResolvingImportTypes.resolveCorrectType(_conf,1,realClassName_);
             partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
-            GeneType g_ = _conf.getClassBody(realClassName_);
+            GeneType g_ = _conf.getContextEl().getClassBody(realClassName_);
             if (!(g_ instanceof AnnotationBlock)) {
                 className = _conf.getStandards().getAliasObject();
                 setResultClass(new ClassArgumentMatching(realClassName_));
@@ -175,7 +175,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
-        setStaticAccess(_conf.getStaticContext());
+        setStaticAccess(_conf.getAnalyzing().getStaticContext());
         analyzeCtor(_conf);
     }
 
@@ -195,7 +195,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             return;
         }
 
-        GeneType g_ = _conf.getClassBody(className);
+        GeneType g_ = _conf.getContextEl().getClassBody(className);
         StringMap<AnnotationFieldInfo> fields_ = new StringMap<AnnotationFieldInfo>();
         for (Block b: Classes.getDirectChildren((Block)g_)) {
             if (!(b instanceof AnnotationMethodBlock)) {

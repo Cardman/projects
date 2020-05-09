@@ -192,7 +192,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(firstChild_);
             if (ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
                 ClassField cl_ = cst_.getFieldId();
-                FieldInfo meta_ = _conf.getFieldInfo(cl_);
+                FieldInfo meta_ = _conf.getContextEl().getFieldInfo(cl_);
                 if (meta_.isFinalField()) {
                     //error if final field
                     cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);

@@ -1792,7 +1792,7 @@ public final class ElResolver {
         int nextOff_ = _from;
         int nb_ = 0;
         String start_;
-        if (_conf.getClassBody(trim_) != null) {
+        if (_conf.getContextEl().getClassBody(trim_) != null) {
             for (char c: trim_.toCharArray()) {
                 if (c == '.') {
                     nb_++;
@@ -1833,7 +1833,7 @@ public final class ElResolver {
         } else {
             n_ = k_;
         }
-        if (_conf.getClassBody(start_) == null) {
+        if (_conf.getContextEl().getClassBody(start_) == null) {
             ConstType type_ = ConstType.WORD;
             VariableInfo infoLoc_ = new VariableInfo();
             infoLoc_.setKind(type_);
@@ -2759,7 +2759,7 @@ public final class ElResolver {
 
     private static boolean isField(Analyzable _conf, String _fromClass, boolean _ctor, String _word) {
         boolean field_;
-        boolean stCtx_ = _conf.isStaticContext() || _ctor;
+        boolean stCtx_ = _conf.getAnalyzing().isStaticContext() || _ctor;
         field_ = true;
         ClassArgumentMatching clArg_ = new ClassArgumentMatching(_fromClass);
         FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, stCtx_, clArg_, true, true, _word, _conf.getAnalyzing().getCurrentBlock() != null, false);

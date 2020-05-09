@@ -62,7 +62,7 @@ public final class FctOperation extends InvokingOperation {
         } else {
             import_ = true;
             clCur_ = new ClassArgumentMatching(_conf.getGlobalClass());
-            setStaticAccess(_conf.getStaticContext());
+            setStaticAccess(_conf.getAnalyzing().getStaticContext());
         }
 
         StringList l_ = clCur_.getNames();

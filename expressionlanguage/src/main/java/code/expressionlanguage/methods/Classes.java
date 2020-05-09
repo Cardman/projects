@@ -82,6 +82,7 @@ public final class Classes {
 	}
     public void processBracedClass(RootBlock _root, ContextEl _context) {
         String fullName_ = _root.getFullName();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
         if (classesBodies.contains(fullName_)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_root.getFile().getFileName());
@@ -90,9 +91,10 @@ public final class Classes {
             d_.buildError(_context.getAnalysisMessages().getDuplicatedType(),
                     fullName_);
             _context.addError(d_);
-            _context.getAnalyzing().setDuplicatedType(true);
+            page_.setDuplicatedType(true);
         }
-        _context.getAnalyzing().setCurrentBlock(_root);
+        page_.setCurrentBlock(_root);
+        page_.setCurrentAnaBlock(_root);
         String packageName_;
         packageName_ = _root.getPackageName();
         LgNames lgNames_ = _context.getStandards();
@@ -189,7 +191,7 @@ public final class Classes {
                         id_
                 );
                 _context.addError(badCl_);
-                _context.getAnalyzing().setDuplicatedType(true);
+                page_.setDuplicatedType(true);
             }
             if (StringList.contains(namesFromParent_, id_)) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
@@ -200,7 +202,7 @@ public final class Classes {
                         id_
                 );
                 _context.addError(badCl_);
-                _context.getAnalyzing().setDuplicatedType(true);
+                page_.setDuplicatedType(true);
             }
             varTypes_.add(id_);
             StringList constraints_ = new StringList();
@@ -271,7 +273,7 @@ public final class Classes {
             d_.buildError(_context.getAnalysisMessages().getDuplicatedTypeStd(),
                     fullName_);
             _context.addError(d_);
-            _context.getAnalyzing().setDuplicatedType(true);
+            page_.setDuplicatedType(true);
         }
         if (PrimitiveTypeUtil.isPrimitive(fullName_, _context)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
@@ -282,7 +284,7 @@ public final class Classes {
                     fullName_);
             _context.addError(d_);
         }
-        _context.getAnalyzing().getFoundTypes().add(_root);
+        page_.getFoundTypes().add(_root);
         classesBodies.put(fullName_, _root);
     }
 
@@ -585,31 +587,35 @@ public final class Classes {
         Classes classes_ = _context.getClasses();
         validateInheritingClassesId(_context);
         StringList resTwo_ = new StringList();
-        for (RootBlock s: _context.getAnalyzing().getFoundTypes()) {
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        for (RootBlock s: page_.getFoundTypes()) {
             resTwo_.add(s.getFullName());
         }
-        StringList listTypesNames_ = _context.getAnalyzing().getListTypesNames();
+        StringList listTypesNames_ = page_.getListTypesNames();
         if (StringList.equalsSet(listTypesNames_,resTwo_)) {
             for (String s: listTypesNames_) {
                 RootBlock c_ = classes_.getClassBody(s);
-                _context.getAnalyzing().setCurrentBlock(c_);
+                page_.setCurrentBlock(c_);
+                page_.setCurrentAnaBlock(c_);
                 c_.buildDirectGenericSuperTypes(_context);
             }
-            for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
-                _context.getAnalyzing().setCurrentBlock(c);
+            for (RootBlock c: page_.getFoundTypes()) {
+                page_.setCurrentBlock(c);
+                page_.setCurrentAnaBlock(c);
                 c.buildMapParamType(_context);
             }
         } else {
             //Error but continue
-            for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+            for (RootBlock c: page_.getFoundTypes()) {
                 c.buildErrorDirectGenericSuperTypes(_context);
             }
-            for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
-                _context.getAnalyzing().setCurrentBlock(c);
+            for (RootBlock c: page_.getFoundTypes()) {
+                page_.setCurrentBlock(c);
+                page_.setCurrentAnaBlock(c);
                 c.buildErrorMapParamType(_context);
             }
         }
-        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+        for (RootBlock c: page_.getFoundTypes()) {
             if (c.isStaticType()) {
                 continue;
             }
@@ -1306,7 +1312,7 @@ public final class Classes {
         cls_.initStaticFields(_context);
         AnalyzedPageEl page_ = _context.getAnalyzing();
         if (!_context.getOptions().isReadOnly()) {
-            for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+            for (RootBlock c: page_.getFoundTypes()) {
                 page_.setImporting(c);
                 page_.getInitFields().clear();
                 page_.getAssignedDeclaredFields().clear();
@@ -1348,6 +1354,7 @@ public final class Classes {
                             continue;
                         }
                         page_.setCurrentBlock(b);
+                        page_.setCurrentAnaBlock(b);
                         method_.setAssignmentBefore(_context);
                         method_.buildExpressionLanguage(_context);
                         method_.setAssignmentAfter(_context);
@@ -1381,7 +1388,7 @@ public final class Classes {
 
             }
             _context.setAssignedStaticFields(true);
-            for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+            for (RootBlock c: page_.getFoundTypes()) {
                 page_.setImporting(c);
                 page_.getInitFields().clear();
                 page_.getAssignedDeclaredFields().clear();
@@ -1435,6 +1442,7 @@ public final class Classes {
                         page_.setGlobalClass(c.getGenericString());
                         FieldBlock method_ = (FieldBlock) b;
                         page_.setCurrentBlock(b);
+                        page_.setCurrentAnaBlock(b);
                         method_.setAssignmentBefore(_context);
                         method_.buildExpressionLanguage(_context);
                         method_.setAssignmentAfter(_context);
@@ -1522,7 +1530,7 @@ public final class Classes {
             StringMap<AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
             b_.clear();
 
-            for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+            for (RootBlock c: page_.getFoundTypes()) {
                 page_.setImporting(c);
                 String fullName_ = c.getFullName();
                 CustList<Block> bl_ = getDirectChildren(c);
@@ -1566,7 +1574,7 @@ public final class Classes {
                 page_.clearAllLocalVars();
             }
         } else {
-            for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+            for (RootBlock c: page_.getFoundTypes()) {
                 page_.setImporting(c);
                 page_.getInitFields().clear();
                 page_.getAssignedDeclaredFields().clear();
@@ -1600,6 +1608,7 @@ public final class Classes {
                             continue;
                         }
                         page_.setCurrentBlock(b);
+                        page_.setCurrentAnaBlock(b);
                         method_.buildExpressionLanguageReadOnly(_context);
                     }
                     if (b instanceof StaticBlock) {
@@ -1612,7 +1621,7 @@ public final class Classes {
 
             }
             _context.setAssignedStaticFields(true);
-            for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+            for (RootBlock c: page_.getFoundTypes()) {
                 page_.setImporting(c);
                 page_.getInitFields().clear();
                 page_.getAssignedDeclaredFields().clear();
@@ -1644,6 +1653,7 @@ public final class Classes {
                         page_.setGlobalClass(c.getGenericString());
                         FieldBlock method_ = (FieldBlock) b;
                         page_.setCurrentBlock(b);
+                        page_.setCurrentAnaBlock(b);
                         method_.buildExpressionLanguageReadOnly(_context);
                     }
                     if (b instanceof InstanceBlock) {
@@ -1670,7 +1680,7 @@ public final class Classes {
                 }
             }
             _context.setAssignedFields(true);
-            for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+            for (RootBlock c: page_.getFoundTypes()) {
                 page_.setImporting(c);
                 String fullName_ = c.getFullName();
                 CustList<Block> bl_ = getDirectChildren(c);
@@ -1715,14 +1725,15 @@ public final class Classes {
             }
         }
         _context.setAnnotAnalysis(true);
-        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+        for (RootBlock c: page_.getFoundTypes()) {
             page_.setImporting(c);
             _context.setGlobalClass(c.getGenericString());
             CustList<Block> annotated_ = new CustList<Block>();
             annotated_.add(c);
             annotated_.addAllElts(getDirectChildren(c));
             for (Block b:annotated_) {
-                _context.getAnalyzing().setCurrentBlock(b);
+                page_.setCurrentBlock(b);
+                page_.setCurrentAnaBlock(b);
                 if (b instanceof AnnotationMethodBlock) {
                     _context.setAnnotAnalysisField(true);
                     ((AnnotationMethodBlock)b).buildExpressionLanguage(_context);
@@ -1738,14 +1749,15 @@ public final class Classes {
         _context.setGlobalClass("");
         for (OperatorBlock o : cls_.getOperators()) {
             page_.setImporting(o);
-            _context.getAnalyzing().setCurrentBlock(o);
+            page_.setCurrentBlock(o);
+            page_.setCurrentAnaBlock(o);
             _context.setAnnotAnalysisField(false);
             _context.getCoverage().putBlockOperationsField(_context,o);
             o.buildAnnotations(_context);
         }
         _context.setAnnotAnalysis(false);
         //init annotations here
-        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+        for (RootBlock c: page_.getFoundTypes()) {
             c.validateConstructors(_context);
         }
     }
@@ -1880,7 +1892,7 @@ public final class Classes {
     void initStaticFields(ContextEl _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
 
-        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+        for (RootBlock c: page_.getFoundTypes()) {
             page_.setImporting(c);
             CustList<Block> bl_ = getDirectChildren(c);
             StringList fieldNames_ = new StringList();
@@ -1898,6 +1910,7 @@ public final class Classes {
                 FieldBlock f_ = (FieldBlock) b;
                 page_.setGlobalClass(c.getGenericString());
                 page_.setCurrentBlock(f_);
+                page_.setCurrentAnaBlock(f_);
                 f_.retrieveNames(_context,fieldNames_);
             }
         }
@@ -1937,6 +1950,7 @@ public final class Classes {
                 }
                 page_.setGlobalClass(c.getGenericString());
                 page_.setCurrentBlock(f_);
+                page_.setCurrentAnaBlock(f_);
                 f_.buildExpressionLanguageReadOnly(_context);
                 String cl_ = c.getFullName();
                 for (String f: f_.getFieldName()) {

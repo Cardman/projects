@@ -37,7 +37,7 @@ public final class ElUtil {
 
     public static CustList<PartOffsetAffect> getFieldNames(int _valueOffset, String _el, ContextEl _conf, Calculation _calcul) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
-        _conf.setAccessStaticContext(hiddenVarTypes_);
+        _conf.getAnalyzing().setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         CustList<PartOffsetAffect> names_ = new CustList<PartOffsetAffect>();
@@ -104,7 +104,7 @@ public final class ElUtil {
     }
     public static CustList<ExecOperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
-        _conf.setAccessStaticContext(hiddenVarTypes_);
+        _conf.getAnalyzing().setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
@@ -152,12 +152,12 @@ public final class ElUtil {
             ctorAcc_ = MethodAccessKind.INSTANCE;
         }
         MethodAccessKind access_ = MethodId.getKind(_hiddenVarTypes,ctorAcc_);
-        _conf.setAccessStaticContext(access_);
+        _conf.getAnalyzing().setAccessStaticContext(access_);
     }
 
     public static CustList<ExecOperationNode> getAnalyzedOperationsReadOnly(String _el, ContextEl _conf, Calculation _calcul) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
-        _conf.setAccessStaticContext(hiddenVarTypes_);
+        _conf.getAnalyzing().setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
@@ -291,7 +291,7 @@ public final class ElUtil {
                 possible_.setIntermediateDotted();
                 possible_.setPreviousArgument(Argument.createVoid());
                 MethodAccessKind access_ = MethodAccessKind.STATIC_CALL;
-                if (!(_next instanceof LambdaOperation) && ((StaticCallAccessOperation)_current).isImplicit() && _context.getStaticContext() == MethodAccessKind.STATIC) {
+                if (!(_next instanceof LambdaOperation) && ((StaticCallAccessOperation)_current).isImplicit() && _context.getAnalyzing().getStaticContext() == MethodAccessKind.STATIC) {
                     access_ = MethodAccessKind.STATIC;
                 }
                 possible_.setPreviousResultClass(_current.getResultClass(), access_);
@@ -552,7 +552,7 @@ public final class ElUtil {
     public static boolean checkFinalFieldReadOnly(Analyzable _conf, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass) {
         boolean fromCurClass_ = _cst.isFromCurrentClassReadOnly(_conf);
         ClassField cl_ = _cst.getFieldIdReadOnly();
-        FieldInfo meta_ = _conf.getFieldInfo(cl_);
+        FieldInfo meta_ = _conf.getContextEl().getFieldInfo(cl_);
         if (meta_ == null) {
             return false;
         }
@@ -564,7 +564,7 @@ public final class ElUtil {
         if (_conf.getContextEl().isAssignedFields()) {
             checkFinal_ = true;
         } else if (_conf.getContextEl().isAssignedStaticFields()) {
-            FieldInfo meta_ = _conf.getFieldInfo(_cl);
+            FieldInfo meta_ = _conf.getContextEl().getFieldInfo(_cl);
             if (meta_.isStaticField()) {
                 checkFinal_ = true;
             } else if (!_fromCurClass) {

@@ -12,10 +12,7 @@ import code.formathtml.*;
 import code.formathtml.classes.*;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.StdStruct;
-import code.formathtml.util.AdvancedProcessKeyWord;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.NodeContainer;
-import code.formathtml.util.NodeInformations;
+import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.*;
@@ -1473,6 +1470,7 @@ public final class NativeTest extends CommonRender {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         _nav.getSession().getContext().setAnalyzing();
         _nav.getSession().getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_nav.getSession()));
+        _nav.getSession().getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_nav.getSession()));
         _nav.initInstancesPattern();
         _nav.setupRenders();
         tryInitStaticlyTypes(_nav.getSession());
@@ -1498,6 +1496,7 @@ public final class NativeTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getContext().setAnalyzing();
         context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
+        context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(context_));
         rendDocumentBlock_.buildFctInstructions(context_);
         context_.setDocument(doc_);
         return rendDocumentBlock_;
@@ -1515,6 +1514,7 @@ public final class NativeTest extends CommonRender {
         conf_.getRenders().put("page2.html",rendDocumentBlockSec_);
         conf_.getContext().setAnalyzing();
         conf_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(conf_));
+        conf_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(conf_));
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendDocumentBlockSec_.buildFctInstructions(conf_);
         conf_.setDocument(doc_);

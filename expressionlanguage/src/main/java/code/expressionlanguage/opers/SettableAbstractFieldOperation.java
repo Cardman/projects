@@ -45,7 +45,7 @@ public abstract class SettableAbstractFieldOperation extends
         boolean import_ = false;
         if (!isIntermediateDottedOperation()) {
             import_ = true;
-            staticAccess = _conf.getStaticContext();
+            staticAccess = _conf.getAnalyzing().getStaticContext();
         }
         LgNames stds_ = _conf.getStandards();
         ClassArgumentMatching cl_ = getFrom(_conf);
@@ -275,7 +275,7 @@ public abstract class SettableAbstractFieldOperation extends
         if (cl_ == null) {
             procField_ = false;
         } else if (_conf.getContextEl().isAssignedStaticFields()) {
-            FieldInfo meta_ = _conf.getFieldInfo(cl_);
+            FieldInfo meta_ = _conf.getContextEl().getFieldInfo(cl_);
             if (meta_.isStaticField()) {
                 procField_ = false;
             }
@@ -286,7 +286,7 @@ public abstract class SettableAbstractFieldOperation extends
         if (procField_) {
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                 if (StringList.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
-                    FieldInfo meta_ = _conf.getFieldInfo(cl_);
+                    FieldInfo meta_ = _conf.getContextEl().getFieldInfo(cl_);
                     if (meta_.isFinalField() && !ElUtil.isDeclaringField(this, _conf)) {
                         //error if final field
                         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);

@@ -10,6 +10,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
+import code.formathtml.util.AdvancedHiddenTypes;
 import code.formathtml.util.AdvancedProcessKeyWord;
 import code.formathtml.util.BeanCustLgNames;
 import code.sml.Document;
@@ -2425,6 +2426,7 @@ public final class RenderExpUtilTest extends CommonRender {
         ContextEl ctx_ = context_.getContext();
         ctx_.setAnalyzing();
         ctx_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
+        ctx_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(context_));
         String elr_ = "+1y";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
@@ -9544,7 +9546,7 @@ public final class RenderExpUtilTest extends CommonRender {
 
     private static boolean setupStaticCtx(Analyzable _ctx, Argument _argGl) {
         boolean static_ = _argGl == null || _argGl.isNull();
-        _ctx.setAccessStaticContext(MethodId.getKind(static_));
+        _ctx.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
         return static_;
     }
 

@@ -1,6 +1,7 @@
 package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
@@ -24,10 +25,12 @@ public final class TypeUtil {
 
     public static void checkInterfaces(ContextEl _context) {
         Classes classes_ = _context.getClasses();
-        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
-            _context.getAnalyzing().setImporting(c);
-            _context.getAnalyzing().setCurrentBlock(c);
-            _context.getAnalyzing().setGlobalClass(c.getGenericString());
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        for (RootBlock c: page_.getFoundTypes()) {
+            page_.setImporting(c);
+            page_.setCurrentBlock(c);
+            page_.setCurrentAnaBlock(c);
+            page_.setGlobalClass(c.getGenericString());
             String d_ = c.getFile().getFileName();
             StringList ints_ = c.getStaticInitInterfaces();
             int len_ = ints_.size();
@@ -44,9 +47,10 @@ public final class TypeUtil {
             for (int i = 0; i < len_; i++) {
                 int offset_ = c.getStaticInitInterfacesOffset().get(i);
                 String base_ = StringExpUtil.removeDottedSpaces(ints_.get(i));
-                _context.getAnalyzing().setCurrentBlock(c);
-                _context.getAnalyzing().setGlobalOffset(offset_);
-                _context.getAnalyzing().setOffset(0);
+                page_.setCurrentBlock(c);
+                page_.setCurrentAnaBlock(c);
+                page_.setGlobalOffset(offset_);
+                page_.setOffset(0);
                 base_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,base_);
                 RootBlock r_ = classes_.getClassBody(base_);
                 if (!(r_ instanceof InterfaceBlock)) {
@@ -65,10 +69,11 @@ public final class TypeUtil {
             for (int i = 0; i < len_; i++) {
                 String sup_ = StringExpUtil.removeDottedSpaces(ints_.get(i));
                 int offsetSup_ = c.getStaticInitInterfacesOffset().get(i);
-                _context.getAnalyzing().setCurrentBlock(c);
-                _context.getAnalyzing().setGlobalClass(c.getGenericString());
-                _context.getAnalyzing().setGlobalOffset(offsetSup_);
-                _context.getAnalyzing().setOffset(0);
+                page_.setCurrentBlock(c);
+                page_.setCurrentAnaBlock(c);
+                page_.setGlobalClass(c.getGenericString());
+                page_.setGlobalOffset(offsetSup_);
+                page_.setOffset(0);
                 sup_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sup_);
                 RootBlock rs_ = classes_.getClassBody(sup_);
                 if (rs_ == null) {
@@ -78,10 +83,11 @@ public final class TypeUtil {
                 for (int j = i + 1; j < len_; j++) {
                     String sub_ = StringExpUtil.removeDottedSpaces(ints_.get(j));
                     int offsetSub_ = c.getStaticInitInterfacesOffset().get(j);
-                    _context.getAnalyzing().setCurrentBlock(c);
-                    _context.getAnalyzing().setGlobalClass(c.getGenericString());
-                    _context.getAnalyzing().setGlobalOffset(offsetSub_);
-                    _context.getAnalyzing().setOffset(0);
+                    page_.setCurrentBlock(c);
+                    page_.setCurrentAnaBlock(c);
+                    page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalOffset(offsetSub_);
+                    page_.setOffset(0);
                     sub_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sub_);
                     rs_ = classes_.getClassBody(sub_);
                     if (rs_ == null) {
@@ -102,7 +108,7 @@ public final class TypeUtil {
                 }
             }
         }
-        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
+        for (RootBlock c: page_.getFoundTypes()) {
             if (!(c instanceof UniqueRootedBlock)) {
                 continue;
             }
@@ -558,7 +564,7 @@ public final class TypeUtil {
         while (true) {
             StringList new_ = new StringList();
             for (String s: ids_) {
-                GeneType g_ = _an.getClassBody(s);
+                GeneType g_ = _an.getContextEl().getClassBody(s);
                 if (!(g_ instanceof RootBlock)) {
                     continue;
                 }
@@ -583,7 +589,7 @@ public final class TypeUtil {
             StringList new_ = new StringList();
             for (String s: ids_) {
                 String id_ = Templates.getIdFromAllTypes(s);
-                GeneType g_ = _an.getClassBody(id_);
+                GeneType g_ = _an.getContextEl().getClassBody(id_);
                 if (!(g_ instanceof RootBlock)) {
                     continue;
                 }
@@ -592,7 +598,7 @@ public final class TypeUtil {
                 for (String t: sub_.getImportedDirectSuperTypes()) {
                     if (!Templates.correctNbParameters(s,_an)) {
                         String format_ = Templates.getIdFromAllTypes(t);
-                        GeneType sup_ = _an.getClassBody(format_);
+                        GeneType sup_ = _an.getContextEl().getClassBody(format_);
                         if (!sup_.isStaticType()) {
                             continue;
                         }

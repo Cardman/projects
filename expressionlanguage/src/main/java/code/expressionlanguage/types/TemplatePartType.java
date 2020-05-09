@@ -69,7 +69,7 @@ final class TemplatePartType extends BinaryType {
         String tempCl_ = f_.getAnalyzedType();
         String tempClFull_ = fetchTemplate();
         tempCl_ = Templates.getIdFromAllTypes(tempCl_);
-        GeneType type_ = _an.getClassBody(tempCl_);
+        GeneType type_ = _an.getContextEl().getClassBody(tempCl_);
         if (!Templates.correctNbParameters(tempClFull_, _an)) {
             return;
         }

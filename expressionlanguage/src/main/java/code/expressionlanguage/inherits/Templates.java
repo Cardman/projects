@@ -371,7 +371,7 @@ public final class Templates {
         return StringExpUtil.removeDottedSpaces(tr_);
     }
     public static String tryInfer(String _erased, StringMap<String> _vars, String _declaring, Analyzable _context) {
-        GeneType g_ = _context.getClassBody(_erased);
+        GeneType g_ = _context.getContextEl().getClassBody(_erased);
         String idParam_ = getIdFromAllTypes(_declaring);
         String gene_ = g_.getGenericString();
         String type_ = "";
@@ -534,7 +534,7 @@ public final class Templates {
         if (StringList.quickEq(_superType, _context.getStandards().getAliasVoid())) {
             return "";
         }
-        String geneSubType_ = _context.getClassBody(baseArr_).getGenericString();
+        String geneSubType_ = _context.getContextEl().getClassBody(baseArr_).getGenericString();
         String generic_ = getSuperGeneric(_context, dim_, classParam_, geneSubType_);
         return format(_subType, generic_, _context);
     }
@@ -572,7 +572,7 @@ public final class Templates {
         if (StringList.quickEq(idArg_,idSuperType_)) {
             return _subType;
         }
-        String geneSubType_ = _context.getClassBody(baseArr_).getGenericString();
+        String geneSubType_ = _context.getContextEl().getClassBody(baseArr_).getGenericString();
         String generic_ = getSuperGeneric(_context, dim_, classParam_, geneSubType_);
         return quickFormat(_subType, generic_, _context);
     }
@@ -621,7 +621,7 @@ public final class Templates {
         if (StringList.quickEq(idArg_,idSuperType_)) {
             return _arg;
         }
-        String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
+        String geneSubType_ = _context.getContextEl().getClassBody(idArg_).getGenericString();
         StringList curClasses_ = new StringList(geneSubType_);
         StringList visitedClasses_ = new StringList(geneSubType_);
         while (true) {
@@ -666,7 +666,7 @@ public final class Templates {
         DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_second);
         StringList types_ = getAllTypes(_first);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        GeneType root_ = _classes.getClassBody(className_);
+        GeneType root_ = _classes.getContextEl().getClassBody(className_);
         CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
         String objType_ = _classes.getStandards().getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
@@ -712,7 +712,7 @@ public final class Templates {
         DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_second);
         StringList types_ = getAllTypes(_first);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        GeneType root_ = _classes.getClassBody(className_);
+        GeneType root_ = _classes.getContextEl().getClassBody(className_);
         CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
         String objType_ = _classes.getStandards().getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
@@ -787,12 +787,7 @@ public final class Templates {
         StringMap<String> varTypes_ = getVarTypes(_first, _context);
         return getQuickFormattedType(_second, varTypes_);
     }
-    public static String getGenericString(String _className, Analyzable _classes) {
-        String types_ = getIdFromAllTypes(_className);
-        String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_).getComponent();
-        GeneType root_ = _classes.getClassBody(className_);
-        return root_.getGenericString();
-    }
+
     public static String getMadeVarTypes(String _className, StringList _classNames,ExecutableCode _context) {
         String type_ = getIdFromAllTypes(_className);
         String fct_ = _context.getStandards().getAliasFct();
@@ -822,7 +817,7 @@ public final class Templates {
             str_.append(Templates.TEMPLATE_END);
             return str_.toString();
         }
-        GeneType root_ = _context.getClassBody(type_);
+        GeneType root_ = _context.getContextEl().getClassBody(type_);
         if (root_ == null) {
             return null;
         }
@@ -864,7 +859,7 @@ public final class Templates {
     public static StringMap<String> getVarTypes(String _className, Analyzable _context) {
         StringList types_ = getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        GeneType root_ = _context.getClassBody(className_);
+        GeneType root_ = _context.getContextEl().getClassBody(className_);
         StringMap<String> varTypes_ = new StringMap<String>();
         if (root_ == null) {
             return varTypes_;
@@ -2007,7 +2002,7 @@ public final class Templates {
     }
 
     private static StringList getSuperInterfaceNames(String _className, Analyzable _context) {
-        GeneType r_ = _context.getClassBody(_className);
+        GeneType r_ = _context.getContextEl().getClassBody(_className);
         if (r_ instanceof RootBlock) {
             return ((RootBlock)r_).getImportedDirectSuperTypes();
         }
@@ -2041,7 +2036,7 @@ public final class Templates {
         //From analyze
         String idCl_ = getIdFromAllTypes(_genericClass);
         String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(idCl_).getComponent();
-        GeneType info_ = _context.getClassBody(compo_);
+        GeneType info_ = _context.getContextEl().getClassBody(compo_);
         if (info_ == null) {
             if (PrimitiveTypeUtil.isPrimitive(compo_,_context)) {
                 return true;

@@ -1,18 +1,13 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.common.GeneType;
+
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.AnalyzedBlock;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -37,16 +32,6 @@ public interface Analyzable {
 
     void setOffset(int _offset);
 
-    MethodAccessKind getStaticContext();
-    boolean isStaticContext();
-
-    void setAccessStaticContext(MethodAccessKind _staticContext);
-
-    GeneType getClassBody(String _type);
-
-
-    FieldInfo getFieldInfo(ClassField _classField);
-
     boolean isMerged();
 
 
@@ -61,7 +46,6 @@ public interface Analyzable {
 
     boolean isStaticAccess();
 
-    AnalyzedBlock getCurrentAnaBlock();
     boolean hasDeclarator();
     void setupDeclaratorClass(String _className);
     boolean hasLoopDeclarator();
@@ -86,8 +70,6 @@ public interface Analyzable {
 
     boolean isValidSingleToken(String _id);
     boolean isValidToken(String _id);
-
-    boolean isHidden(AccessingImportingBlock _global, RootBlock _type);
 
     String getIndexClassName();
 

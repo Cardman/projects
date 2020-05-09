@@ -112,6 +112,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         page_.setGlobalOffset(tempClassOffset);
         page_.setOffset(0);
         page_.setCurrentBlock(this);
+        page_.setCurrentAnaBlock(this);
         int len_ = -className.length();
         String fullClassName_ = StringList.concat(className, tempClass);
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,len_,fullClassName_);

@@ -3,6 +3,7 @@ package code.expressionlanguage;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.util.MethodAccessKind;
+import code.expressionlanguage.types.AbstractHiddenTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
@@ -11,6 +12,7 @@ public final class AnalyzedPageEl {
 
     /**Only used while throwing exception*/
     private Block currentBlock;
+    private AnalyzedBlock currentAnaBlock;
 
     private String globalClass = "";
 
@@ -70,6 +72,7 @@ public final class AnalyzedPageEl {
     private StringList allDeclaredFields = new StringList();
 
     private AbstractProcessKeyWord processKeyWord;
+    private AbstractHiddenTypes hiddenTypes;
 
     public AnalyzedPageEl() {
         setCatchVars(new CustList<StringMap<LocalVariable>>());
@@ -524,5 +527,21 @@ public final class AnalyzedPageEl {
 
     public void setProcessKeyWord(AbstractProcessKeyWord processKeyWord) {
         this.processKeyWord = processKeyWord;
+    }
+
+    public AnalyzedBlock getCurrentAnaBlock() {
+        return currentAnaBlock;
+    }
+
+    public void setCurrentAnaBlock(AnalyzedBlock currentAnaBlock) {
+        this.currentAnaBlock = currentAnaBlock;
+    }
+
+    public AbstractHiddenTypes getHiddenTypes() {
+        return hiddenTypes;
+    }
+
+    public void setHiddenTypes(AbstractHiddenTypes hiddenTypes) {
+        this.hiddenTypes = hiddenTypes;
     }
 }

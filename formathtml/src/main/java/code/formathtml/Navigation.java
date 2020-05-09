@@ -227,6 +227,7 @@ public final class Navigation {
             ip_.setGlobalArgumentStruct(bean_, session);
             session.getContext().setAnalyzing();
             session.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(session));
+            session.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(session));
             session.getContext().setGlobalClass(ip_.getGlobalClass());
             Struct return_;
             if (htmlPage_.isForm()) {

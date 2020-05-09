@@ -161,7 +161,7 @@ public final class StandardInstancingOperation extends
             m_ = m_.getParent();
         }
         String typeAff_ = EMPTY_STRING;
-        AnalyzedBlock cur_ = _an.getCurrentAnaBlock();
+        AnalyzedBlock cur_ = _an.getAnalyzing().getCurrentAnaBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
             FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
             if (f_ instanceof NamedFunctionBlock) {
@@ -234,7 +234,7 @@ public final class StandardInstancingOperation extends
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         if (!isIntermediateDottedOperation()) {
-            setStaticAccess(_conf.getStaticContext());
+            setStaticAccess(_conf.getAnalyzing().getStaticContext());
             if (!typeInfer.isEmpty()) {
                 realClassName_ = typeInfer;
             } else if (fieldName.isEmpty()) {
@@ -245,7 +245,7 @@ public final class StandardInstancingOperation extends
                 realClassName_ = realClassName_.trim();
             }
             String base_ = Templates.getIdFromAllTypes(realClassName_);
-            GeneType g_ = _conf.getClassBody(base_);
+            GeneType g_ = _conf.getContextEl().getClassBody(base_);
             if (g_ != null && !g_.withoutInstance()) {
                 String glClass_ = _conf.getGlobalClass();
                 StringList parts_ = Templates.getAllInnerTypes(realClassName_);
@@ -398,7 +398,7 @@ public final class StandardInstancingOperation extends
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         String base_ = Templates.getIdFromAllTypes(_realClassName);
-        GeneType g_ = _conf.getClassBody(base_);
+        GeneType g_ = _conf.getContextEl().getClassBody(base_);
         if (g_ == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getCurrentFileName());

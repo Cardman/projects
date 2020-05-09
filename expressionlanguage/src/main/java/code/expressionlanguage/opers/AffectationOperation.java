@@ -322,7 +322,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
             ClassField cl_ = cst_.getFieldId();
             if (ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
-                FieldInfo meta_ = _conf.getFieldInfo(cl_);
+                FieldInfo meta_ = _conf.getContextEl().getFieldInfo(cl_);
                 if (meta_.isFinalField()) {
                     //error if final field
                     cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
@@ -369,7 +369,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
         Operable lastChild_ = _current.getChildrenOperable().get(1);
         Argument value_ = lastChild_.getArgument();
         ClassField id_ = fieldRef_.getFieldId();
-        FieldInfo fm_ = _conf.getFieldInfo(id_);
+        FieldInfo fm_ = _conf.getContextEl().getFieldInfo(id_);
         Struct str_ = value_.getStruct();
         LgNames stds_ = _conf.getStandards();
         String to_ = fm_.getType();

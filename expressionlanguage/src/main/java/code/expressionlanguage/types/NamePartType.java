@@ -235,7 +235,7 @@ final class NamePartType extends LeafPartType {
         if (!res_.isEmpty()) {
             if (!_line) {
                 if (_an.isStaticAccess()) {
-                    if (!_an.getClassBody(res_).isStaticType()) {
+                    if (!_an.getContextEl().getClassBody(res_).isStaticType()) {
                         return;
                     }
                 }
@@ -272,7 +272,7 @@ final class NamePartType extends LeafPartType {
         if (found_ == null) {
             return;
         }
-        if (_an.isHidden(_global,found_)) {
+        if (_an.getAnalyzing().getHiddenTypes().isHidden(_global,found_)) {
             _an.getAnalyzing().getCurrentBadIndexes().add(getIndexInType());
         }
         if (owner_.isTypeHidden(found_,_an)) {

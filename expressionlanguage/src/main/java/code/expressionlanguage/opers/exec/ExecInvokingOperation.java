@@ -129,7 +129,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                                            int _blockIndex, boolean _format) {
         LgNames stds_ = _conf.getStandards();
         String idCl_ = Templates.getIdFromAllTypes(_className);
-        GeneType g_ = _conf.getClassBody(idCl_);
+        GeneType g_ = _conf.getContextEl().getClassBody(idCl_);
         Argument needed_ = new Argument();
         if (g_ instanceof RootBlock) {
             RootBlock r_ = (RootBlock) g_;
@@ -626,7 +626,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             LambdaFieldStruct l_ =  (LambdaFieldStruct) ls_;
             boolean aff_ = l_.isAffect();
             ClassField idField_ = l_.getFid();
-            FieldInfo fi_ = _conf.getFieldInfo(idField_);
+            FieldInfo fi_ = _conf.getContextEl().getFieldInfo(idField_);
             boolean static_ = fi_.isStaticField();
             int nbAncestors_ = l_.getAncestor();
             boolean final_ = fi_.isFinalField();

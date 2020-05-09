@@ -52,7 +52,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             m_ = m_.getParent();
         }
         String type_ = EMPTY_STRING;
-        AnalyzedBlock cur_ = _conf.getCurrentAnaBlock();
+        AnalyzedBlock cur_ = _conf.getAnalyzing().getCurrentAnaBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
             FunctionBlock f_ = _conf.getAnalyzing().getCurrentFct();
             if (f_ instanceof NamedFunctionBlock) {

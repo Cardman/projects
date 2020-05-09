@@ -7,7 +7,6 @@ import code.bean.validator.ValidatorInfo;
 import code.expressionlanguage.*;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.NotInitializedClass;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.errors.stds.StdErrorList;
@@ -17,7 +16,6 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.*;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
@@ -217,6 +215,7 @@ public final class Configuration implements ExecutableCode {
         analyzingDoc.setFiles(_files);
         context.setAnalyzing();
         context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));
+        context.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(this));
         getAnalyzing().setEnabledInternVars(false);
         for (String s: renderFiles) {
             String link_ = RendExtractFromResources.getRealFilePath(currentLanguage,s);
@@ -465,10 +464,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public GeneType getClassBody(String _type) {
-        return getContext().getClassBody(_type);
-    }
-    @Override
     public LgNames getStandards() {
         return getAdvStandards();
     }
@@ -576,23 +571,8 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public MethodAccessKind getStaticContext() {
-        return MethodId.getKind(staticContext);
-    }
-
-    @Override
-    public boolean isStaticContext() {
-        return isStaticAccess();
-    }
-
-    @Override
     public boolean isStaticAccess() {
         return staticContext;
-    }
-
-    @Override
-    public void setAccessStaticContext(MethodAccessKind _staticContext) {
-        staticContext = _staticContext == MethodAccessKind.STATIC;
     }
 
     public int getNextIndex() {
@@ -611,11 +591,6 @@ public final class Configuration implements ExecutableCode {
     @Override
     public void setFinalVariable(boolean _finalVariable) {
         context.setFinalVariable(_finalVariable);
-    }
-
-    @Override
-    public AnalyzedBlock getCurrentAnaBlock() {
-        return analyzingDoc.getCurrentBlock();
     }
 
     @Override
@@ -691,11 +666,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public FieldInfo getFieldInfo(ClassField _classField) {
-        return context.getFieldInfo(_classField);
-    }
-
-    @Override
     public AnalyzedPageEl getAnalyzing() {
         return context.getAnalyzing();
     }
@@ -765,14 +735,6 @@ public final class Configuration implements ExecutableCode {
         return context.isValidToken(_id,false);
     }
 
-    @Override
-    public boolean isHidden(AccessingImportingBlock _global, RootBlock _type) {
-        if (_global == null) {
-            return false;
-        }
-        return _global.isTypeHidden(_type,this);
-    }
-
     public void processInternKeyWord(String _string, int _fr,
             ResultAfterInstKeyWord _out) {
         KeyWords keyWords_ = getKeyWords();
@@ -805,6 +767,7 @@ public final class Configuration implements ExecutableCode {
         }
         context.setAnalyzing();
         context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));
+        context.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(this));
         context.getAnalyzing().setGlobalClass(globalClass_);
         context.getAnalyzing().initLocalVars();
         context.getAnalyzing().initMutableLoopVars();

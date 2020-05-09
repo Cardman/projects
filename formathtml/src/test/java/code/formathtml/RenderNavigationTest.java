@@ -9,10 +9,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.*;
 
-import code.formathtml.util.AdvancedProcessKeyWord;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.NodeContainer;
-import code.formathtml.util.NodeInformations;
+import code.formathtml.util.*;
 import code.util.*;
 import org.junit.Test;
 
@@ -5893,6 +5890,7 @@ public final class RenderNavigationTest extends CommonRender {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         _nav.getSession().getContext().setAnalyzing();
         _nav.getSession().getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_nav.getSession()));
+        _nav.getSession().getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_nav.getSession()));
         _nav.initInstancesPattern();
         _nav.setupRenders();
         tryInitStaticlyTypes(_nav.getSession());

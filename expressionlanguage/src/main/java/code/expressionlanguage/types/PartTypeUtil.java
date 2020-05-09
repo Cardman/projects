@@ -348,7 +348,7 @@ public final class PartTypeUtil {
                     String type_ = l.getTypeName();
                     String imported_ = l.getAnalyzedType();
                     String idCl_ = Templates.getIdFromAllTypes(imported_);
-                    GeneType g_ = _an.getClassBody(idCl_);
+                    GeneType g_ = _an.getContextEl().getClassBody(idCl_);
                     if (ElUtil.isFromCustFile(g_)) {
                         String ref_ = ((RootBlock) g_).getFile().getRenderFileName();
                         String rel_ = ElUtil.relativize(curr_,ref_);

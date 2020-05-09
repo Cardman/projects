@@ -902,6 +902,7 @@ public class ApplyCoreMethodUtil {
         //local names
         LgNames stds_ = _context.getStandards();
         _context.getAnalyzing().setCurrentBlock(null);
+        _context.getAnalyzing().setCurrentAnaBlock(null);
         _context.getAnalyzing().setEnabledInternVars(true);
         Classes cl_ = _context.getClasses();
         String next_ = stds_.getAliasNext();

@@ -827,7 +827,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         if (!isIntermediateDottedOperation()) {
             String id_ = Templates.getIdFromAllTypes(clFrom_);
-            GeneType g_ = _conf.getClassBody(id_);
+            GeneType g_ = _conf.getContextEl().getClassBody(id_);
             if (ContextEl.isAbstractType(g_)) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFileName(_conf.getCurrentFileName());
@@ -1024,7 +1024,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
         }
         String id_ = Templates.getIdFromAllTypes(_cl);
-        GeneType g_ = _conf.getClassBody(id_);
+        GeneType g_ = _conf.getContextEl().getClassBody(id_);
         if (ContextEl.isAbstractType(g_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getCurrentFileName());

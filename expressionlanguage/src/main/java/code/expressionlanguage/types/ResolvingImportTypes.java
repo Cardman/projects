@@ -54,7 +54,7 @@ public final class ResolvingImportTypes {
         AccessingImportingBlock r_ = _analyzable.getCurrentGlobalBlock();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         String idFromType_ = Templates.getIdFromAllTypes(_fromType);
-        GeneType from_ = _analyzable.getClassBody(idFromType_);
+        GeneType from_ = _analyzable.getContextEl().getClassBody(idFromType_);
         String ref_ = "";
         if (ElUtil.isFromCustFile(from_)) {
             ref_ = ((Block)from_).getFile().getRenderFileName();
@@ -319,7 +319,7 @@ public final class ResolvingImportTypes {
         }
         String defPkg_ = _an.getStandards().getDefaultPkg();
         String type_ = StringExpUtil.removeDottedSpaces(StringList.concat(defPkg_,".",_type));
-        if (_an.getClassBody(type_) != null) {
+        if (_an.getContextEl().getClassBody(type_) != null) {
             return type_;
         }
         return "";
@@ -337,7 +337,7 @@ public final class ResolvingImportTypes {
         String foundCandidate_ = StringList.join(Templates.getAllInnerTypes(typeInner_, _an), "..");
         StringList allInnerTypes_ = Templates.getAllInnerTypes(foundCandidate_);
         String owner_ = allInnerTypes_.first();
-        GeneType cl_ = _an.getClassBody(owner_);
+        GeneType cl_ = _an.getContextEl().getClassBody(owner_);
         String res_ = owner_;
         boolean addImport_ = true;
         if (cl_ != null) {
@@ -385,7 +385,7 @@ public final class ResolvingImportTypes {
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 String foundCandidate_ = resolveCandidate(_analyzable,typeLoc_);
-                GeneType root_ = _analyzable.getClassBody(foundCandidate_);
+                GeneType root_ = _analyzable.getContextEl().getClassBody(foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
@@ -415,7 +415,7 @@ public final class ResolvingImportTypes {
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 String foundCandidate_ = resolveCandidate(_analyzable,typeLoc_);
-                GeneType root_ = _analyzable.getClassBody(foundCandidate_);
+                GeneType root_ = _analyzable.getContextEl().getClassBody(foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
@@ -430,7 +430,7 @@ public final class ResolvingImportTypes {
 
     private static void fetchImportStaticMethods(Analyzable _analyzable,String _glClass, String _method, ObjectMap<ClassMethodId, ImportedMethod> _methods, int _import, String _typeLoc, StringList _typesLoc) {
         for (String s: _typesLoc) {
-            GeneType super_ = _analyzable.getClassBody(s);
+            GeneType super_ = _analyzable.getContextEl().getClassBody(s);
             for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
                 if (!e.isStaticMethod()) {
                     continue;
@@ -471,7 +471,7 @@ public final class ResolvingImportTypes {
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 String foundCandidate_ = resolveCandidate(_analyzable,typeLoc_);
-                GeneType root_ = _analyzable.getClassBody(foundCandidate_);
+                GeneType root_ = _analyzable.getContextEl().getClassBody(foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
@@ -501,7 +501,7 @@ public final class ResolvingImportTypes {
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 String foundCandidate_ = resolveCandidate(_analyzable,typeLoc_);
-                GeneType root_ = _analyzable.getClassBody(foundCandidate_);
+                GeneType root_ = _analyzable.getContextEl().getClassBody(foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
@@ -517,7 +517,7 @@ public final class ResolvingImportTypes {
     public static String resolveCandidate(Analyzable _analyzable,String _c) {
         StringList allInnerTypes_ = getParts(_analyzable,_c);
         String owner_ = allInnerTypes_.first();
-        GeneType cl_ = _analyzable.getClassBody(owner_);
+        GeneType cl_ = _analyzable.getContextEl().getClassBody(owner_);
         String res_ = owner_;
         if (cl_ != null) {
             for (String i: allInnerTypes_.mid(1)) {
@@ -545,7 +545,7 @@ public final class ResolvingImportTypes {
 
     public static void fetchImportStaticFields(Analyzable _analyzable,String _glClass, String _method, ObjectMap<ClassField, ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc) {
         for (String s: _typesLoc) {
-            GeneType super_ = _analyzable.getClassBody(s);
+            GeneType super_ = _analyzable.getContextEl().getClassBody(s);
             if (super_ instanceof StandardType) {
                 for (StandardField m: ((StandardType)super_).getFields().values()) {
                     if (notMatch(_method, m)) {

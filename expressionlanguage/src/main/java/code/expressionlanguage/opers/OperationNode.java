@@ -541,7 +541,7 @@ public abstract class OperationNode implements Operable {
             for (TypeInfo t: g) {
                 String f_ = t.getType();
                 String cl_ = Templates.getIdFromAllTypes(f_);
-                GeneType root_ = _cont.getClassBody(cl_);
+                GeneType root_ = _cont.getContextEl().getClassBody(cl_);
                 fetchFieldsType(_cont,!_baseClass,_superClass,t.getAncestor(),t.getScope() == MethodAccessKind.STATIC,_aff,_name,glClass_,ancestors_,f_,root_,baseTypes_,superTypesBaseAncBis_);
                 maxAnc_ = Math.max(maxAnc_, t.getAncestor());
             }
@@ -569,7 +569,7 @@ public abstract class OperationNode implements Operable {
                 ImportedField v_ = e.getValue();
                 max_ = Math.max(max_, v_.getImported() +maxAnc_);
                 FieldResult res_ = new FieldResult();
-                FieldInfo fi_ = _cont.getFieldInfo(e.getKey());
+                FieldInfo fi_ = _cont.getContextEl().getFieldInfo(e.getKey());
                 String realType_ = fi_.getType();
                 boolean finalField_ = fi_.isFinalField();
                 String formatted_ = e.getKey().getClassName();
@@ -621,7 +621,7 @@ public abstract class OperationNode implements Operable {
         String genericString_ = _root.getGenericString();
         String id_ = Templates.getIdFromAllTypes(fullName_);
         ClassField candidate_ = new ClassField(id_, _name);
-        FieldInfo fi_ = _conf.getFieldInfo(candidate_);
+        FieldInfo fi_ = _conf.getContextEl().getFieldInfo(candidate_);
         if (fi_ == null) {
             return;
         }
@@ -849,7 +849,7 @@ public abstract class OperationNode implements Operable {
                 continue;
             }
             String type_ = p.getClassName();
-            if (_context.getClassBody(type_) instanceof GeneInterface) {
+            if (_context.getContextEl().getClassBody(type_) instanceof GeneInterface) {
                 continue;
             }
             nonAbs_.add(p);
@@ -965,7 +965,7 @@ public abstract class OperationNode implements Operable {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         String id_ = Templates.getIdFromAllTypes(_fromClass);
-        GeneType root_ = _conf.getClassBody(id_);
+        GeneType root_ = _conf.getContextEl().getClassBody(id_);
         StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
         superTypesBaseAncBis_.addEntry(id_,id_);
         fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, root_, superTypesBaseAncBis_);
@@ -1035,7 +1035,7 @@ public abstract class OperationNode implements Operable {
             for (TypeInfo t: g) {
                 String f_ = t.getType();
                 String cl_ = Templates.getIdFromAllTypes(f_);
-                GeneType root_ = _conf.getClassBody(cl_);
+                GeneType root_ = _conf.getContextEl().getClassBody(cl_);
                 fetchParamClassMethods(_conf,_accessFromSuper,_superClass,t.getAncestor(),t.getScope(),_uniqueId,glClass_,_methods,f_,root_,baseTypes_,superTypesBaseAncBis_);
             }
         }
@@ -1046,12 +1046,11 @@ public abstract class OperationNode implements Operable {
         IntTreeMap<CustList<TypeInfo>> typeInfosMap_ = new IntTreeMap<CustList<TypeInfo>>();
         for (String s: _fromClasses) {
             String baseCurName_ = Templates.getIdFromAllTypes(s);
-            GeneType root_ = _conf.getClassBody(baseCurName_);
+            GeneType root_ = _conf.getContextEl().getClassBody(baseCurName_);
             if (root_ == null) {
                 continue;
             }
             String gene_ = root_.getGenericString();
-            root_.getGenericString();
             addToList(_conf,typeInfos_,_staticContext,s,gene_,0,true);
             for (String m : root_.getAllGenericSuperTypes()) {
                 addToList(_conf,typeInfos_,_staticContext,s,m,0,false);
@@ -1061,7 +1060,7 @@ public abstract class OperationNode implements Operable {
         for (TypeInfo t: typeInfos_) {
             String f_ = t.getType();
             String cl_ = Templates.getIdFromAllTypes(f_);
-            GeneType root_ = _conf.getClassBody(cl_);
+            GeneType root_ = _conf.getContextEl().getClassBody(cl_);
             if (!(root_ instanceof RootBlock)) {
                 continue;
             }
@@ -1077,7 +1076,7 @@ public abstract class OperationNode implements Operable {
         for (TypeInfo t: typeInfos_) {
             String f_ = t.getType();
             String cl_ = Templates.getIdFromAllTypes(f_);
-            GeneType root_ = _conf.getClassBody(cl_);
+            GeneType root_ = _conf.getContextEl().getClassBody(cl_);
             if (!(root_ instanceof RootBlock)) {
                 continue;
             }
@@ -1112,7 +1111,7 @@ public abstract class OperationNode implements Operable {
                 return;
             }
         }
-        GeneType info_ = _conf.getClassBody(id_);
+        GeneType info_ = _conf.getContextEl().getClassBody(id_);
         t_.setBase(_base);
         t_.setSuperTypes(info_.getAllSuperTypes());
         _list.add(t_);
@@ -1649,7 +1648,7 @@ public abstract class OperationNode implements Operable {
                 }
                 String type_ = m_.getClassName();
                 type_ = Templates.getIdFromAllTypes(type_);
-                if (context_.getClassBody(type_) instanceof GeneInterface) {
+                if (context_.getContextEl().getClassBody(type_) instanceof GeneInterface) {
                     continue;
                 }
                 nonAbs_.add(p);

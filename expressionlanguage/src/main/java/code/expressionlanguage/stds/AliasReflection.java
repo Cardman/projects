@@ -951,7 +951,7 @@ public final class AliasReflection {
                 Classes classesInfo_ = _cont.getClasses();
                 for (RootBlock c: classesInfo_.getClassBodies()) {
                     String k_ = c.getFullName();
-                    String forName_ = Templates.getGenericString(k_, _cont);
+                    String forName_ = c.getGenericString();
                     classes_.add(Classes.getClassMetaInfo(c, forName_, _cont));
                 }
                 for (EntryCust<String, StandardType> c: _cont.getStandards().getStandards().entryList()) {

@@ -9,6 +9,7 @@ import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.MethodAccessKind;
+import code.formathtml.util.AnalyzingDoc;
 import code.formathtml.util.BeanCustLgNames;
 import code.sml.Element;
 import code.util.StringList;
@@ -36,9 +37,9 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessin
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
-        _cont.setAccessStaticContext(MethodAccessKind.STATIC);
+        page_.setAccessStaticContext(MethodAccessKind.STATIC);
         if (_cont.getBeansInfos().contains(beanName)) {
-            _cont.setAccessStaticContext(MethodAccessKind.INSTANCE);
+            page_.setAccessStaticContext(MethodAccessKind.INSTANCE);
             String clName_ = _cont.getBeansInfos().getVal(beanName).getClassName();
             page_.setGlobalClass(clName_);
             _cont.getContext().setGlobalClass(clName_);
@@ -50,10 +51,12 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessin
         CustList<RendLoop> parentsContinuable_ = new CustList<RendLoop>();
         CustList<RendEval> parentsReturnable_ = new CustList<RendEval>();
         StringList labels_ = new StringList();
-        _cont.getAnalyzingDoc().setFileName(fileName);
-        _cont.getAnalyzingDoc().setCurrentDoc(this);
+        AnalyzingDoc analyzingDoc_ = _cont.getAnalyzingDoc();
+        analyzingDoc_.setFileName(fileName);
+        analyzingDoc_.setCurrentDoc(this);
         while (true) {
-            _cont.getAnalyzingDoc().setCurrentBlock(en_);
+            analyzingDoc_.setCurrentBlock(en_);
+            page_.setCurrentAnaBlock(en_);
             if (en_ instanceof RendStdElement) {
                 if (StringList.quickEq(((RendStdElement)en_).getRead().getTagName(),_cont.getRendKeyWords().getKeyWordBody())) {
                     bodies.add(en_);

@@ -195,6 +195,7 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
         page_.setGlobalOffset(getClassNameOffset());
         page_.setOffset(0);
         page_.setCurrentBlock(this);
+        page_.setCurrentAnaBlock(this);
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
         partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
     }

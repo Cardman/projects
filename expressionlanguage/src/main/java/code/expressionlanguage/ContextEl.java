@@ -20,6 +20,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.types.DefaultHiddenTypes;
 import code.util.*;
 
 public abstract class ContextEl implements ExecutableCode {
@@ -121,7 +122,7 @@ public abstract class ContextEl implements ExecutableCode {
         }
         return methods_;
     }
-    @Override
+
     public GeneType getClassBody(String _type) {
         if (classes.isCustomType(_type)) {
             return classes.getClassBody(_type);
@@ -245,11 +246,6 @@ public abstract class ContextEl implements ExecutableCode {
     }
 
     @Override
-    public AnalyzedBlock getCurrentAnaBlock() {
-        return analyzing.getCurrentBlock();
-    }
-
-    @Override
     public boolean hasDeclarator() {
         Block bl_ = analyzing.getCurrentBlock();
         return bl_.getPreviousSibling() instanceof DeclareVariable;
@@ -297,6 +293,7 @@ public abstract class ContextEl implements ExecutableCode {
     public void setAnalyzing() {
         analyzing = new AnalyzedPageEl();
         analyzing.setProcessKeyWord(new DefaultProcessKeyWord());
+        analyzing.setHiddenTypes(new DefaultHiddenTypes(this));
     }
 
     public void setNullAnalyzing() {
@@ -342,11 +339,6 @@ public abstract class ContextEl implements ExecutableCode {
     @Override
     public void setOffset(int _offset) {
         getLastPage().setOffset(_offset);
-    }
-
-    @Override
-    public boolean isStaticContext() {
-        return analyzing.isStaticContext();
     }
 
     public boolean callsOrException() {
@@ -582,16 +574,6 @@ public abstract class ContextEl implements ExecutableCode {
         return vars_;
     }
 
-    @Override
-    public void setAccessStaticContext(MethodAccessKind _staticContext) {
-        analyzing.setAccessStaticContext(_staticContext);
-    }
-
-    @Override
-    public MethodAccessKind getStaticContext() {
-        return analyzing.getStaticContext();
-    }
-
     private boolean isExplicitFct(FunctionBlock _fct) {
         return _fct instanceof OverridableBlock && StringList.quickEq(((OverridableBlock) _fct).getName(),keyWords.getKeyWordExplicit());
     }
@@ -624,7 +606,6 @@ public abstract class ContextEl implements ExecutableCode {
         return _char >= '0' && _char <= '9';
     }
 
-    @Override
     public FieldInfo getFieldInfo(ClassField _classField) {
         GeneType g_ = getClassBody(_classField.getClassName());
         String search_ = _classField.getFieldName();
@@ -793,11 +774,6 @@ public abstract class ContextEl implements ExecutableCode {
         Block b_ = analyzing.getCurrentBlock();
         boolean pred_ = b_.getFile().isPredefined();
         return isValidToken(_id, pred_);
-    }
-
-    @Override
-    public boolean isHidden(AccessingImportingBlock _global, RootBlock _type) {
-        return _global.isTypeHidden(_type,this);
     }
 
     public boolean isValidToken(String _id, boolean _pred) {

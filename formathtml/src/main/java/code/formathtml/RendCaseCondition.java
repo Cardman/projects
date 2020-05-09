@@ -73,7 +73,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         String type_ = resSwitch_.getSingleNameOrEmpty();
         if (!type_.isEmpty()) {
             String id_ = Templates.getIdFromAllTypes(type_);
-            GeneType g_ = _cont.getClassBody(id_);
+            GeneType g_ = _cont.getContextEl().getClassBody(id_);
             if (g_ instanceof EnumBlock) {
                 for (InfoBlock f: ContextEl.getFieldBlocks((RootBlock) g_)) {
                     if (!(f instanceof InnerTypeOrElement)) {
@@ -84,7 +84,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                         continue;
                     }
                     _cont.setLookLocalClass(id_);
-                    _cont.setAccessStaticContext(MethodAccessKind.STATIC);
+                    page_.setAccessStaticContext(MethodAccessKind.STATIC);
                     Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
                     OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
                     OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);

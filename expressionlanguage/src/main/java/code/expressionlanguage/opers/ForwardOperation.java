@@ -119,7 +119,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             staticChoiceMethod = true;
         }
         if (!isIntermediateDottedOperation()) {
-            if (_conf.getStaticContext() != MethodAccessKind.INSTANCE) {
+            if (_conf.getAnalyzing().getStaticContext() != MethodAccessKind.INSTANCE) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFileName(_conf.getCurrentFileName());
                 static_.setIndexFile(_conf.getCurrentLocationIndex());

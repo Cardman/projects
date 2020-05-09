@@ -58,7 +58,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
             String idArg_ = Templates.getIdFromAllTypes(argCl_);
             if (StringList.quickEq(idArg_, _conf.getStandards().getAliasFct())) {
                 String id_ = Templates.getIdFromAllTypes(_className);
-                GeneType r_ = _conf.getClassBody(id_);
+                GeneType r_ = _conf.getContextEl().getClassBody(id_);
                 if (r_ instanceof InterfaceBlock && r_.isStaticType()) {
                     int instEltCount_ = 0;
                     StringList superType_ = new StringList(id_);

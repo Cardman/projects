@@ -83,7 +83,7 @@ public final class CaseCondition extends SwitchPartBlock {
                     continue;
                 }
                 _cont.setLookLocalClass(id_);
-                _cont.setAccessStaticContext(MethodAccessKind.STATIC);
+                page_.setAccessStaticContext(MethodAccessKind.STATIC);
                 Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
                 OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
                 OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);
@@ -143,7 +143,7 @@ public final class CaseCondition extends SwitchPartBlock {
                     continue;
                 }
                 _cont.setLookLocalClass(id_);
-                _cont.setAccessStaticContext(MethodAccessKind.STATIC);
+                page_.setAccessStaticContext(MethodAccessKind.STATIC);
                 Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
                 OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
                 OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);

@@ -124,7 +124,7 @@ public final class RenderExpUtil {
         _conf.setupAnalyzing();
         Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
-        _conf.setAccessStaticContext(MethodId.getKind(static_));
+        _conf.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {

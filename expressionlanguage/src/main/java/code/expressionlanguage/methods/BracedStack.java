@@ -84,7 +84,7 @@ public abstract class BracedStack extends BracedBlock {
             String key_ = e.getKey();
             String cl_ = Templates.getIdFromAllTypes(_an.getGlobalClass());
             ClassField id_ = new ClassField(cl_,key_);
-            FieldInfo meta_ = _an.getFieldInfo(id_);
+            FieldInfo meta_ = _an.getContextEl().getFieldInfo(id_);
             if (!meta_.isFinalField()) {
                 continue;
             }

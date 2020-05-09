@@ -213,12 +213,14 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public final void buildImportedTypes(Analyzable _stds) {
         StringList params_ = new StringList();
         int i_ = 0;
-        _stds.getAnalyzing().setCurrentBlock(this);
-        _stds.getAnalyzing().setCurrentFct(this);
+        AnalyzedPageEl page_ = _stds.getAnalyzing();
+        page_.setCurrentBlock(this);
+        page_.setCurrentAnaBlock(this);
+        page_.setCurrentFct(this);
         for (String p: parametersTypes) {
             CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-            _stds.getAnalyzing().setGlobalOffset(parametersTypesOffset.get(i_));
-            _stds.getAnalyzing().setOffset(0);
+            page_.setGlobalOffset(parametersTypesOffset.get(i_));
+            page_.setOffset(0);
             params_.add(ResolvingImportTypes.resolveCorrectType(_stds,p));
             partOffsets_.addAllElts(_stds.getContextEl().getCoverage().getCurrentParts());
             partOffsetsParams.add(partOffsets_);
@@ -235,9 +237,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             importedReturnType = void_;
             return;
         }
-        _stds.getAnalyzing().setCurrentBlock(this);
-        _stds.getAnalyzing().setGlobalOffset(returnTypeOffset);
-        _stds.getAnalyzing().setOffset(0);
+        AnalyzedPageEl page_ = _stds.getAnalyzing();
+        page_.setCurrentBlock(this);
+        page_.setCurrentAnaBlock(this);
+        page_.setGlobalOffset(returnTypeOffset);
+        page_.setOffset(0);
         importedReturnType = ResolvingImportTypes.resolveCorrectType(_stds,returnType);
         partOffsetsReturn.addAllElts(_stds.getContextEl().getCoverage().getCurrentParts());
     }

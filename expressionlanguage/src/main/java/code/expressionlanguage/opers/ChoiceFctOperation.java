@@ -46,7 +46,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         boolean import_ = false;
         if (!isIntermediateDottedOperation()) {
             import_ = true;
-            setStaticAccess(_conf.getStaticContext());
+            setStaticAccess(_conf.getAnalyzing().getStaticContext());
         }
         String className_ = methodName.substring(0, methodName.lastIndexOf(PAR_RIGHT));
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
