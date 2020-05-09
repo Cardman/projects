@@ -1123,7 +1123,7 @@ public abstract class OperationNode implements Operable {
         String type_ = _second;
         if (Templates.correctNbParameters(_first,_conf)) {
             String f_ = Templates.format(_first, _second, _conf);
-            if (f_ == null) {
+            if (f_.isEmpty()) {
                 k_ = MethodAccessKind.STATIC;
             } else {
                 type_ = f_;

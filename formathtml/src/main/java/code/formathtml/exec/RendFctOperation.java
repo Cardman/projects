@@ -89,7 +89,7 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
             if (staticChoiceMethod) {
                 String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
-                String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
+                String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 methodId_ = classMethodId.getConstraints();
@@ -98,7 +98,7 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
                 ContextEl context_ = _conf.getContextEl();
                 ClassMethodId methodToCall_ = ExecInvokingOperation.polymorph(context_, previous_, classMethodId);
                 String argClassName_ = stds_.getStructClassName(previous_, context_);
-                String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
+                String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 methodId_ = methodToCall_.getConstraints();

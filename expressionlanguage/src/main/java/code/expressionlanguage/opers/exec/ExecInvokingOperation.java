@@ -527,7 +527,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String classFormat_ = _classNameFound;
         if (!_methodId.isStaticMethod()) {
             String className_ = stds_.getStructClassName(_previous.getStruct(), _conf.getContextEl());
-            classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
+            classFormat_ = Templates.getQuickFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_.isEmpty()) {
                 _conf.setException(new ErrorStruct(_conf,cast_));
                 return "";
@@ -685,7 +685,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             } else {
                 met_ = MethodModifier.NORMAL;
             }
-            MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC, id_, fid_, met_, "", fid_, "");
+            String from_ = id_;
+            if (id_.startsWith("[")) {
+                from_ = PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject());
+            }
+            MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC, from_, fid_, met_, "", fid_, "");
             Argument pr_ = new Argument();
             pr_.setStruct(m_);
             Argument instance_ = l_.getInstanceCall();
@@ -962,7 +966,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
             return Argument.createVoid();
         }
-        classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
+        classNameFound_ = Templates.getSuperGeneric(argClassName_, classNameFound_, _conf);
         String fieldType_;
         fieldType_ = _returnType;
         fieldType_ = Templates.quickFormat(classNameFound_, fieldType_, _conf);

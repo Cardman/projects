@@ -104,7 +104,7 @@ final class TemplatePartType extends BinaryType {
             for (String e: t) {
                 Mapping m_ = new Mapping();
                 String param_ = Templates.format(tempClFull_, e, _an);
-                if (param_ == null) {
+                if (param_.isEmpty()) {
                     return;
                 }
                 m_.setParam(param_);

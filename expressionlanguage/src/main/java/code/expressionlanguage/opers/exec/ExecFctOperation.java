@@ -71,18 +71,18 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
         if (!staticMethod) {
             classNameFound_ = classMethodId.getClassName();
             Struct argPrev_ = _previous.getStruct();
-            if (argPrev_ instanceof ArrayStruct) {
-                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-                return callPrepare(_conf, classNameFound_, methodId_, _previous, firstArgs_, null);
-            }
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, argPrev_, _conf));
             if (_conf.callsOrException()) {
                 return new Argument();
             }
+            if (prev_.getStruct() instanceof ArrayStruct) {
+                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+                return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+            }
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
             if (staticChoiceMethod) {
                 String argClassName_ = prev_.getObjectClassName(_conf);
-                String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
+                String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 methodId_ = classMethodId.getConstraints();
@@ -90,7 +90,7 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
                 Struct previous_ = prev_.getStruct();
                 ClassMethodId methodToCall_ = polymorph(_conf, previous_, classMethodId);
                 String argClassName_ = stds_.getStructClassName(previous_, _conf);
-                String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
+                String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 methodId_ = methodToCall_.getConstraints();

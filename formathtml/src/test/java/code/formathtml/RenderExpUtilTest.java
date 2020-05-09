@@ -5609,9 +5609,11 @@ public final class RenderExpUtilTest extends CommonRender {
     public void processEl307Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
-        processEl("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.Number[]{})", context_);
+        Argument arg_ = processEl("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.Number[]{})", context_);
         assertTrue(context_.isEmptyErrors());
-        assertNotNull(getException(context_));
+        assertTrue(arg_.getStruct() instanceof ArrayStruct);
+        assertEq("[java.lang.Number",arg_.getStruct().getClassName(context_));
+        assertEq(0,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
     }
     @Test
     public void processEl308Test() {

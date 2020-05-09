@@ -141,7 +141,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
                 _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
                 return new Argument();
             }
-            String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
+            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             methodId_ = classMethodId.getConstraints();
@@ -150,7 +150,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             ContextEl context_ = _conf.getContextEl();
             ClassMethodId methodToCall_ = ExecInvokingOperation.polymorph(context_, previous_, classMethodId);
             String argClassName_ = stds_.getStructClassName(previous_, context_);
-            String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
+            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             methodId_ = methodToCall_.getConstraints();

@@ -3142,8 +3142,11 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
-        calculateError("pkg.ExTwo", id_, args_, cont_);
-        assertNotNull(getException(cont_));
+        Argument arg_;
+        arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertTrue(arg_.getStruct() instanceof ArrayStruct);
+        assertEq("[java.lang.Number",arg_.getStruct().getClassName(cont_));
+        assertEq(0,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
     }
     @Test
     public void processEl308Test() {

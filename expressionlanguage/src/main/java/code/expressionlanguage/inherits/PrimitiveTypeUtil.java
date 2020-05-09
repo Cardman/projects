@@ -251,7 +251,7 @@ public final class PrimitiveTypeUtil {
             GeneType g_ = _conf.getClassBody(id_);
             for (String t: g_.getAllGenericSuperTypes()) {
                 String f_ = Templates.format(base_, t, _conf);
-                if (f_ == null) {
+                if (f_.isEmpty()) {
                     continue;
                 }
                 superTypes_.add(getPrettyArrayType(f_, d_));

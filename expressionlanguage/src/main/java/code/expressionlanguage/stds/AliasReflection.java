@@ -1033,12 +1033,14 @@ public final class AliasReflection {
                 if (args_.length == 0) {
                     if (cl_.isTypeArray()) {
                         String instClassName_ = cl_.getName();
+                        String realInstClassName_ = PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasObject());
                         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getAliasClone(), new StringList());
                         AccessEnum acc_ = AccessEnum.PUBLIC;
                         String idCl_ = Templates.getIdFromAllTypes(instClassName_);
+                        String idRealCl_ = Templates.getIdFromAllTypes(realInstClassName_);
                         String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
                         Struct[] methodsArr_ = new Struct[1];
-                        methodsArr_[0] = new MethodMetaInfo(acc_, idCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
+                        methodsArr_[0] = new MethodMetaInfo(acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
                         ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                         result_.setResult(str_);
                         return result_;
@@ -1062,11 +1064,13 @@ public final class AliasReflection {
                         return result_;
                     }
                     String instClassName_ = cl_.getName();
+                    String realInstClassName_ = PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasObject());
                     AccessEnum acc_ = AccessEnum.PUBLIC;
                     String idCl_ = Templates.getIdFromAllTypes(instClassName_);
+                    String idRealCl_ = Templates.getIdFromAllTypes(realInstClassName_);
                     String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
                     Struct[] methodsArr_ = new Struct[1];
-                    methodsArr_[0] = new MethodMetaInfo(acc_, idCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
+                    methodsArr_[0] = new MethodMetaInfo(acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
                     ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                     result_.setResult(str_);
                     return result_;

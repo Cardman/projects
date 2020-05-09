@@ -629,7 +629,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "?#W";
-        assertNull(Templates.format(first_, second_, cont_));
+        assertEq("",Templates.format(first_, second_, cont_));
     }
 
 
@@ -664,7 +664,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "?#W";
-        assertNull(Templates.format(first_, second_, cont_));
+        assertEq("",Templates.format(first_, second_, cont_));
     }
 
 
@@ -1608,9 +1608,81 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Object>";
         String second_ = "pkg.ExTwo";
-        String t_ = Templates.getFullTypeByBases(first_, second_, context_);
+        String t_ = Templates.getFullObject(first_, second_, context_);
         assertEq("pkg.ExTwo<java.lang.$iterable<?java.lang.Object>>",t_);
     }
+
+    @Test
+    public void getGenericTypeByBases4Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<$iterable<?T>> {}\n");
+        xml_.append("$public $class pkg.ExTwo<T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.Object>";
+        String second_ = "[pkg.ExTwo";
+        String t_ = Templates.getQuickFullTypeByBases(first_, second_, context_);
+        assertEq("",t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases5Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<$iterable<?T>> {}\n");
+        xml_.append("$public $class pkg.ExTwo<T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "[pkg.Ex<java.lang.Object>";
+        String second_ = "pkg.ExTwo";
+        String t_ = Templates.getQuickFullTypeByBases(first_, second_, context_);
+        assertEq("",t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases7Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<$iterable<?T>> {}\n");
+        xml_.append("$public $class pkg.ExTwo<T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex";
+        String second_ = "pkg.ExTwo";
+        String t_ = Templates.getFullObject(first_, second_, context_);
+        assertEq("",t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases16Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<$iterable<?T>> {}\n");
+        xml_.append("$public $class pkg.ExTwo<T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.String>";
+        String second_ = "";
+        String t_ = Templates.getSuperGeneric(first_, second_, context_);
+        assertEq("",t_);
+    }
+
+
+    @Test
+    public void getGenericTypeByBases17Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<$iterable<?T>> {}\n");
+        xml_.append("$public $class pkg.ExTwo<T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex";
+        String second_ = "";
+        String t_ = Templates.getSuperGeneric(first_, second_, context_);
+        assertEq("",t_);
+    }
+
 
 
 
@@ -4586,7 +4658,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.ExTwo<?[#T>";
         String res_ = Templates.format(first_, second_, cont_);
-        assertNull(res_);
+        assertEq("",res_);
     }
 
 

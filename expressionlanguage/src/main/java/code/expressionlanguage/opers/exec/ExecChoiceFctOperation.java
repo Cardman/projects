@@ -78,7 +78,7 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation implemen
                 return new Argument();
             }
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
-            String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
+            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             methodId_ = realId;

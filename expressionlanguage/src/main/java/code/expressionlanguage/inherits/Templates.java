@@ -2,7 +2,6 @@ package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.common.GeneCustMethod;
-import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.methods.*;
@@ -503,7 +502,7 @@ public final class Templates {
         if (!correctNbParameters(_subType,_context)) {
             return "";
         }
-        String idArg_ = Templates.getIdFromAllTypes(_subType);
+        String idArg_ = getIdFromAllTypes(_subType);
         String idSuperType_ = getIdFromAllTypes(_superType);
         if (StringList.quickEq(idArg_,idSuperType_)) {
             return _subType;
@@ -536,29 +535,72 @@ public final class Templates {
             return "";
         }
         String geneSubType_ = _context.getClassBody(baseArr_).getGenericString();
-        String generic_ = null;
-        StringList curClasses_ = new StringList(geneSubType_);
-        StringList visitedClasses_ = new StringList(geneSubType_);
+        String generic_ = getSuperGeneric(_context, dim_, classParam_, geneSubType_);
+        return format(_subType, generic_, _context);
+    }
+
+    public static String getQuickFullTypeByBases(String _subType, String _superType, Analyzable _context) {
+        String idSuperType_ = getIdFromAllTypes(_superType);
+        DimComp dBaseParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(idSuperType_);
+        String classParam_ = dBaseParam_.getComponent();
+        int dim_ = dBaseParam_.getDim();
+        String idArg_ = getIdFromAllTypes(_subType);
+        DimComp dBaseArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(idArg_);
+        if (StringList.quickEq(classParam_, _context.getStandards().getAliasObject())) {
+            if (dBaseArg_.getDim() < dim_) {
+                return "";
+            }
+            return _superType;
+        }
+        if (dBaseArg_.getDim() != dim_) {
+            return "";
+        }
+        return getFullObject(_subType, _superType,_context);
+    }
+
+    public static String getFullObject(String _subType, String _superType, Analyzable _context) {
+        String idSuperType_ = getIdFromAllTypes(_superType);
+        DimComp dBaseParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(idSuperType_);
+        int dim_ = dBaseParam_.getDim();
+        String classParam_ = dBaseParam_.getComponent();
+        String idArg_ = getIdFromAllTypes(_subType);
+        DimComp dBaseArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(idArg_);
+        String baseArr_ = dBaseArg_.getComponent();
+        if (!correctNbParameters(_subType,_context)) {
+            return "";
+        }
+        if (StringList.quickEq(idArg_,idSuperType_)) {
+            return _subType;
+        }
+        String geneSubType_ = _context.getClassBody(baseArr_).getGenericString();
+        String generic_ = getSuperGeneric(_context, dim_, classParam_, geneSubType_);
+        return quickFormat(_subType, generic_, _context);
+    }
+
+    private static String getSuperGeneric(Analyzable _context, int _dim, String _classParam, String _geneSubType) {
+        String generic_ = "";
+        StringList curClasses_ = new StringList(_geneSubType);
+        StringList visitedClasses_ = new StringList(_geneSubType);
         while (true) {
             StringList nextClasses_ = new StringList();
-            for (String c: curClasses_) {
+            for (String c : curClasses_) {
                 String baseClass_ = getIdFromAllTypes(c);
                 baseClass_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseClass_).getComponent();
-                for (String s: getSuperInterfaceNames(baseClass_, _context)) {
+                for (String s : getSuperInterfaceNames(baseClass_, _context)) {
                     String id_ = getIdFromAllTypes(s);
                     String geneSuperInterface_;
                     geneSuperInterface_ = quickFormat(c, s, _context);
-                    if (StringList.quickEq(id_, classParam_)) {
-                        generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperInterface_, dim_);
+                    if (StringList.quickEq(id_, _classParam)) {
+                        generic_ = PrimitiveTypeUtil.getPrettyArrayType(geneSuperInterface_, _dim);
                         break;
                     }
                     addTypeIdNotYet(visitedClasses_, nextClasses_, geneSuperInterface_);
                 }
-                if (generic_ != null) {
+                if (!generic_.isEmpty()) {
                     break;
                 }
             }
-            if (generic_ != null) {
+            if (!generic_.isEmpty()) {
                 break;
             }
             if (nextClasses_.isEmpty()) {
@@ -566,12 +608,50 @@ public final class Templates {
             }
             curClasses_ = nextClasses_;
         }
-        if (generic_ == null) {
-            return "";
-        }
-        return quickFormat(_subType, generic_, _context);
+        return generic_;
     }
 
+    public static String getSuperGeneric(String _arg, String _classParam, Analyzable _context) {
+        if (!correctNbParameters(_arg,_context)) {
+            return "";
+        }
+        String generic_ = "";
+        String idArg_ = getIdFromAllTypes(_arg);
+        String idSuperType_ = getIdFromAllTypes(_classParam);
+        if (StringList.quickEq(idArg_,idSuperType_)) {
+            return _arg;
+        }
+        String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
+        StringList curClasses_ = new StringList(geneSubType_);
+        StringList visitedClasses_ = new StringList(geneSubType_);
+        while (true) {
+            StringList nextClasses_ = new StringList();
+            for (String c : curClasses_) {
+                String baseClass_ = getIdFromAllTypes(c);
+                for (String s : getSuperInterfaceNames(baseClass_, _context)) {
+                    String id_ = getIdFromAllTypes(s);
+                    String geneSuperInterface_;
+                    geneSuperInterface_ = quickFormat(c, s, _context);
+                    if (StringList.quickEq(id_, idSuperType_)) {
+                        generic_ = geneSuperInterface_;
+                        break;
+                    }
+                    addTypeIdNotYet(visitedClasses_, nextClasses_, geneSuperInterface_);
+                }
+                if (!generic_.isEmpty()) {
+                    break;
+                }
+            }
+            if (!generic_.isEmpty()) {
+                break;
+            }
+            if (nextClasses_.isEmpty()) {
+                break;
+            }
+            curClasses_ = nextClasses_;
+        }
+        return quickFormat(_arg, generic_, _context);
+    }
     public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context) {
         return isCorrectTemplateAll(_className, _inherit, _context, true);
     }
@@ -832,22 +912,13 @@ public final class Templates {
         return str_.toString();
     }
     private static void quickReplaceType(StringBuilder _str, String _type, StringMap<String> _varTypes, int _diese, int _max) {
-        int j_ = getMaxIndex(_str, _str.length() - 1);
         String sub_ = _type.substring(_diese+1, _max);
         String value_ = _varTypes.getVal(sub_);
         if (value_ == null) {
             _str.append(sub_);
             return;
         }
-        if (value_.startsWith(SUB_TYPE)) {
-            _str.insert(j_ +1, SUB_TYPE);
-            _str.append(value_.substring(SUB_TYPE.length()));
-        } else if (value_.startsWith(SUP_TYPE)) {
-            _str.insert(j_ +1, SUP_TYPE);
-            _str.append(value_.substring(SUP_TYPE.length()));
-        } else {
-            _str.append(value_);
-        }
+        _str.append(value_);
     }
     static String getFormattedType(String _type, StringMap<String> _varTypes) {
         if (_varTypes.isEmpty()) {
@@ -873,7 +944,7 @@ public final class Templates {
             String sub_ = _type.substring(diese_+1, i);
             if (_varTypes.contains(sub_)) {
                 if (!tryReplaceType(_varTypes, str_, sub_)) {
-                    return null;
+                    return "";
                 }
             } else {
                 sub_ = _type.substring(diese_, i);
@@ -886,7 +957,7 @@ public final class Templates {
             String sub_ = _type.substring(diese_+1);
             if (_varTypes.contains(sub_)) {
                 if (!tryReplaceType(_varTypes, str_, sub_)) {
-                    return null;
+                    return "";
                 }
             } else {
                 sub_ = _type.substring(diese_);
