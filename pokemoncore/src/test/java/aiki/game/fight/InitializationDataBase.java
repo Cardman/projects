@@ -34,12 +34,12 @@ import aiki.util.Point;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteral.EvolvedMathFactory;
+import code.maths.montecarlo.DefaultGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.EnumMap;
 import code.util.*;
 import code.util.ObjectMap;
 import code.util.StringMap;
-import org.junit.BeforeClass;
 
 public class InitializationDataBase {
 
@@ -991,7 +991,7 @@ public class InitializationDataBase {
         return data_;
     }
     protected static DataBase coreDataBase() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = new DataBase(new DefaultGenerator());
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();

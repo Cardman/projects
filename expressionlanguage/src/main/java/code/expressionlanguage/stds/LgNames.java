@@ -1,27 +1,12 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.errors.stds.ErrorCat;
-import code.expressionlanguage.errors.stds.StdWordError;
-import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.inherits.TypeUtil;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.PredefinedClasses;
-import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.exec.ExecCatOperation;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.ResolvingImportTypes;
-import code.expressionlanguage.variables.LocalVariable;
-import code.maths.montecarlo.AbMonteCarlo;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
 
 public abstract class LgNames {
@@ -330,6 +315,11 @@ public abstract class LgNames {
     private ConstructorMetaInfo constructorMetaInfo;
     private FieldMetaInfo fieldMetaInfo;
     private ClassMetaInfo classMetaInfo;
+    private final AbstractGenerator generator;
+
+    protected LgNames(AbstractGenerator generator) {
+        this.generator = generator;
+    }
 
     /**Called after setters*/
     public void build() {
@@ -2727,5 +2717,9 @@ public abstract class LgNames {
 
     public void setClassMetaInfo(ClassMetaInfo classMetaInfo) {
         this.classMetaInfo = classMetaInfo;
+    }
+
+    public AbstractGenerator getGenerator() {
+        return generator;
     }
 }

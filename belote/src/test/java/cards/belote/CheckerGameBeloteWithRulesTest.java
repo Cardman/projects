@@ -2,6 +2,7 @@ package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -30,13 +31,17 @@ public class CheckerGameBeloteWithRulesTest {
         assertEq(1, game_.getRamasseur());
     }
 
+    private static void initDonneLoc(RulesBelote rules_, DealBelote deal_) {
+        deal_.initDonne(rules_, new DisplayingBelote(), new DefaultGenerator());
+    }
+
     @Test
     public void check2Test() {
         RulesBelote rules_ = new RulesBelote();
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         CheckerGameBeloteWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -51,7 +56,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -71,7 +76,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -193,7 +198,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -218,7 +223,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -249,7 +254,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -283,7 +288,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1136,7 +1141,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getEncheresAutorisees().put(BidBelote.ALL_TRUMP, true);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1352,7 +1357,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1395,7 +1400,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1420,7 +1425,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1450,7 +1455,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1471,7 +1476,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1495,7 +1500,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1519,7 +1524,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1555,7 +1560,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.getEncheresAutorisees().put(BidBelote.NO_TRUMP, true);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -1677,7 +1682,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2035,7 +2040,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2054,7 +2059,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getDistribution().getDeal().add(new HandBelote());
         CheckerGameBeloteWithRules.check(game_);
@@ -2067,7 +2072,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         HandBelote hand_ = game_.getDistribution().derniereMain();
         hand_.ajouter(game_.getDistribution().hand().jouer(0));
@@ -2205,7 +2210,7 @@ public class CheckerGameBeloteWithRulesTest {
         rules_.setRepartition(DealingBelote.COINCHE_2_VS_2);
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         BidBeloteSuit bid_;
@@ -2298,7 +2303,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getDeclares().clear();
         CheckerGameBeloteWithRules.check(game_);
@@ -2310,7 +2315,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getDeclaresBeloteRebelote().clear();
         CheckerGameBeloteWithRules.check(game_);
@@ -2322,7 +2327,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getScoresRef().clear();
         CheckerGameBeloteWithRules.check(game_);
@@ -2334,7 +2339,7 @@ public class CheckerGameBeloteWithRulesTest {
         RulesBelote rules_ = new RulesBelote();
         DealBelote deal_ = new DealBelote(0, HandBelote.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_, new DisplayingBelote());
+        initDonneLoc(rules_, deal_);
         GameBelote game_ = new GameBelote(GameType.RANDOM, deal_, rules_);
         game_.getWonLastTrick().clear();
         CheckerGameBeloteWithRules.check(game_);

@@ -5,6 +5,7 @@ import cards.president.comparators.GameStrengthCardPresidentComparator;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.*;
@@ -138,7 +139,7 @@ public final class GamePresident {
         }
     }
 
-    public void simulate(int _nbTimes, SimulatingPresident _simu) {
+    public void simulate(int _nbTimes, SimulatingPresident _simu, AbstractGenerator _gene) {
         ended = false;
         _simu.prepare();
         _simu.sleepSimu(500);
@@ -236,7 +237,7 @@ public final class GamePresident {
             byte dealer_ = getDistribution().getDonneur();
             deal = new DealPresident(noDeal_ + 1, stackNext_);
             deal.donneurSuivant(dealer_,rules);
-            deal.initDonne(rules);
+            deal.initDonne(rules,_gene);
             tricks = new CustList<TrickPresident>();
             ranks = new Bytes(ranks_);
             setLastStatus();

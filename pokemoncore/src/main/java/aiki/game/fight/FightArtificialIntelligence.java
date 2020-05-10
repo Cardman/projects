@@ -382,7 +382,7 @@ final class FightArtificialIntelligence {
                 loi_.addEvent(e,DataBase.defElementaryEvent());
             }
             LgInt maxRd_ = _import.getMaxRd();
-            String attaqueUtilisee_=loi_.editNumber(maxRd_);
+            String attaqueUtilisee_=loi_.editNumber(maxRd_,_import.getGenerator());
             setFirstChosenMove(_fight, Fight.toFoeFighter((byte) 0), attaqueUtilisee_, _diff, _import);
             return;
         }

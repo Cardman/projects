@@ -897,7 +897,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         GameBelote game_=Net.getGames().partieBelote();
         DealBelote deal_=new DealBelote(nb_,game_.empiler());
         deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getNombreDeJoueurs());
-        deal_.initDonne(game_.getRegles(),getDisplayingBelote());
+        deal_.initDonne(game_.getRegles(),getDisplayingBelote(),getOwner().getGenerator());
         Net.getGames().jouerBelote(new GameBelote(GameType.RANDOM,deal_,game_.getRegles()));
         getOwner().sendObject(new PlayGame());
     }
@@ -964,8 +964,8 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         DealBelote deal_ = new DealBelote(0, pile_);
         deal_.setRandomDealer(rulesBeloteMulti.getRepartition()
-                .getNombreJoueurs());
-        deal_.initDonne(rulesBeloteMulti, getDisplayingBelote());
+                .getNombreJoueurs(),getOwner().getGenerator());
+        deal_.initDonne(rulesBeloteMulti, getDisplayingBelote(),getOwner().getGenerator());
         Net.getGames().jouerBelote(new GameBelote(
                 GameType.RANDOM, deal_, rulesBeloteMulti));
         getOwner().sendObject(new PlayGame());

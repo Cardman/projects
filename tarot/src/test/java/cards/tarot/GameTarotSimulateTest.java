@@ -6,6 +6,7 @@ import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.ModeTarot;
+import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -19,19 +20,24 @@ public final class GameTarotSimulateTest {
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_);
+        initDonneLoc(rules_, deal_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         game_.bidSimulate(game_.playerAfter(game_.getDistribution().getDealer()),s_);
         assertEq(1,game_.getBids().size());
     }
+
+    private static void initDonneLoc(RulesTarot rules_, DealTarot deal_) {
+        deal_.initDonne(rules_,new DefaultGenerator());
+    }
+
     @Test
     public void bidSimulate2Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMixedCards(MixCardsChoice.NEVER);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_);
+        initDonneLoc(rules_, deal_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         SimulatingTarotNormal s_ = new SimulatingTarotNormal();
         game_.setContrat(game_.allowedBids().last());

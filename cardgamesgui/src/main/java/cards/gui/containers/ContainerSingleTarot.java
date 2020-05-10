@@ -185,7 +185,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getPause().setEnabledMenu(false);
         setaJoueCarte(false);
         DealTarot donne_=new DealTarot(0L);
-        donne_.initDonne(_ct, getReglesTarot());
+        donne_.initDonne(_ct, getReglesTarot(),getOwner().getGenerator());
         getPar().jouerTarot(new GameTarot(GameType.TRAINING,donne_,getReglesTarot()));
         mettreEnPlaceIhmTarot();
     }
@@ -1070,14 +1070,14 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         if(nb_==0||!getPar().enCoursDePartie()) {
             setChangerPileFin(true);
             donne_=new DealTarot(nb_,pile_);
-            donne_.setRandomDealer(getReglesTarot());
-            donne_.initDonne(getReglesTarot());
+            donne_.setRandomDealer(getReglesTarot(),getOwner().getGenerator());
+            donne_.initDonne(getReglesTarot(),getOwner().getGenerator());
             getPar().jouerTarot(new GameTarot(GameType.RANDOM,donne_,getReglesTarot()));
         } else {
             GameTarot partie_=partieTarot();
             donne_=new DealTarot(nb_,partie_.empiler());
             donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getRegles());
-            donne_.initDonne(partie_.getRegles());
+            donne_.initDonne(partie_.getRegles(),getOwner().getGenerator());
             getPar().jouerTarot(new GameTarot(GameType.RANDOM,donne_,partie_.getRegles()));
         }
         mettreEnPlaceIhmTarot();
@@ -1431,7 +1431,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         HandTarot main_=partie_.empiler();
         DealTarot donne_=new DealTarot(0L,main_);
         donne_.donneurSuivant(partie_.getDistribution().getDealer(),partie_.getRegles());
-        donne_.initDonne(partie_.getRegles());
+        donne_.initDonne(partie_.getRegles(),getOwner().getGenerator());
         getPar().jouerTarot(new GameTarot(GameType.EDIT,donne_,partie_.getRegles()));
         mettreEnPlaceIhmTarot();
     }

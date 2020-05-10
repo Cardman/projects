@@ -2,6 +2,7 @@ package cards.belote;
 import static cards.belote.EquallableBeloteUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.maths.montecarlo.DefaultGenerator;
 import org.junit.Test;
 
 import cards.belote.enumerations.CardBelote;
@@ -50,7 +51,7 @@ public class DealBeloteTest {
         RulesBelote regles_=new RulesBelote();
         regles_.setCartesBattues(MixCardsChoice.NEVER);
         donne_.setDealer((byte) 3);
-        donne_.initDonne(regles_,new DisplayingBelote());
+        initDonneLoc(donne_, regles_);
         assertTrue(donne_.hand().contient(CardBelote.DIAMOND_QUEEN));
         assertTrue(donne_.hand().contient(CardBelote.HEART_10));
         assertTrue(donne_.hand().contient(CardBelote.SPADE_9));
@@ -124,7 +125,7 @@ public class DealBeloteTest {
         RulesBelote regles_=new RulesBelote();
         regles_.setCartesBattues(MixCardsChoice.EACH_LAUNCHING);
         donne_.setDealer((byte) 3);
-        donne_.initDonne(regles_,new DisplayingBelote());
+        initDonneLoc(donne_, regles_);
         assertEq(12,donne_.derniereMain().total());
     }
 
@@ -167,7 +168,7 @@ public class DealBeloteTest {
         RulesBelote regles_=new RulesBelote();
         regles_.setCartesBattues(MixCardsChoice.EACH_DEAL);
         donne_.setDealer((byte) 3);
-        donne_.initDonne(regles_,new DisplayingBelote());
+        initDonneLoc(donne_, regles_);
         assertEq(12,donne_.derniereMain().total());
     }
     @Test
@@ -209,7 +210,7 @@ public class DealBeloteTest {
         RulesBelote regles_=new RulesBelote();
         regles_.setCartesBattues(MixCardsChoice.ONCE_ONLY);
         donne_.setDealer((byte) 3);
-        donne_.initDonne(regles_,new DisplayingBelote());
+        initDonneLoc(donne_, regles_);
         assertEq(12,donne_.derniereMain().total());
     }
 
@@ -252,7 +253,7 @@ public class DealBeloteTest {
         RulesBelote regles_=new RulesBelote();
         regles_.setCartesBattues(MixCardsChoice.ONCE_ONLY);
         donne_.setDealer((byte) 3);
-        donne_.initDonne(regles_,new DisplayingBelote());
+        initDonneLoc(donne_, regles_);
         assertEq(12,donne_.derniereMain().total());
     }
 
@@ -295,7 +296,7 @@ public class DealBeloteTest {
         RulesBelote regles_=new RulesBelote();
         regles_.setCartesBattues(MixCardsChoice.EACH_LAUNCHING);
         donne_.setDealer((byte) 3);
-        donne_.initDonne(regles_,new DisplayingBelote());
+        initDonneLoc(donne_, regles_);
         assertEq(12,donne_.derniereMain().total());
     }
     @Test
@@ -337,7 +338,7 @@ public class DealBeloteTest {
         RulesBelote regles_=new RulesBelote();
         regles_.setCartesBattues(MixCardsChoice.NEVER);
         donne_.setDealer((byte) 3);
-        donne_.initDonne(regles_,new DisplayingBelote());
+        initDonneLoc(donne_, regles_);
         donne_.completerDonne((byte) 0,regles_);
         assertTrue(donne_.hand().contient(CardBelote.DIAMOND_QUEEN));
         assertTrue(donne_.hand().contient(CardBelote.HEART_10));
@@ -385,7 +386,7 @@ public class DealBeloteTest {
         assertTrue(donne_.derniereMain().contient(CardBelote.DIAMOND_7));
         donne_ = new DealBelote(0, new HandBelote(main_));
         donne_.setDealer((byte) 3);
-        donne_.initDonne(regles_,new DisplayingBelote());
+        initDonneLoc(donne_, regles_);
         donne_.completerDonne((byte) 1,regles_);
         assertTrue(donne_.hand().contient(CardBelote.DIAMOND_QUEEN));
         assertTrue(donne_.hand().contient(CardBelote.HEART_10));
@@ -438,7 +439,7 @@ public class DealBeloteTest {
 
         donne_ = new DealBelote(0, new HandBelote(main_));
         donne_.setDealer((byte) 3);
-        donne_.initDonne(regles_,new DisplayingBelote());
+        initDonneLoc(donne_, regles_);
         donne_.completerDonne((byte) 2,regles_);
         assertTrue(donne_.hand().contient(CardBelote.DIAMOND_QUEEN));
         assertTrue(donne_.hand().contient(CardBelote.HEART_10));
@@ -491,7 +492,7 @@ public class DealBeloteTest {
 
         donne_ = new DealBelote(0, new HandBelote(main_));
         donne_.setDealer((byte) 3);
-        donne_.initDonne(regles_,new DisplayingBelote());
+        initDonneLoc(donne_, regles_);
         donne_.completerDonne((byte) 3,regles_);
         assertTrue(donne_.hand().contient(CardBelote.DIAMOND_QUEEN));
         assertTrue(donne_.hand().contient(CardBelote.HEART_10));
@@ -541,5 +542,9 @@ public class DealBeloteTest {
         assertTrue(donne_.derniereMain().contient(CardBelote.HEART_9));
         assertTrue(donne_.derniereMain().contient(CardBelote.SPADE_KING));
         assertTrue(donne_.derniereMain().contient(CardBelote.DIAMOND_7));
+    }
+
+    private static void initDonneLoc(DealBelote donne_, RulesBelote regles_) {
+        donne_.initDonne(regles_,new DisplayingBelote(), new DefaultGenerator());
     }
 }

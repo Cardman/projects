@@ -2,11 +2,11 @@ package aiki.map.levels;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.maths.montecarlo.DefaultGenerator;
 import org.junit.Test;
 
 import aiki.db.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
-import aiki.map.tree.util.Dims;
 import aiki.util.Point;
 import code.images.Image;
 import code.util.*;
@@ -56,15 +56,19 @@ public class BlockTest {
     @Test
     public void isValidForEditing1Test() {
         Block blockOne_ = new Block((short)0, (short)3, EnvironmentType.ROAD, "");
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.getMap().setSideLength(1);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
+    }
+
+    private static DataBase newData() {
+        return new DataBase(new DefaultGenerator());
     }
 
     @Test
     public void isValidForEditing2Test() {
         Block blockOne_ = new Block((short)3, (short)0, EnvironmentType.ROAD, "");
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.getMap().setSideLength(1);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
     }
@@ -80,7 +84,7 @@ public class BlockTest {
     @Test
     public void isValidForEditing3Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", getImageByString(StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(getPixels(), Image.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
@@ -89,7 +93,7 @@ public class BlockTest {
     @Test
     public void isValidForEditing4Test() {
         Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", getImageByString(StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(getPixels(), Image.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.hasValidImage(dataBase_));
@@ -98,7 +102,7 @@ public class BlockTest {
     @Test
     public void isValidForEditing5Test() {
         Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", getImageByString(StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(getPixels(), Image.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.hasValidImage(dataBase_));
@@ -109,7 +113,7 @@ public class BlockTest {
     @Test
     public void isValidForEditing6Test() {
         Block blockOne_ = new Block((short)3, (short)2, EnvironmentType.ROAD, "tile.png");
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", getImageByString(StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(getPixels(), Image.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(blockOne_.hasValidImage(dataBase_));
@@ -120,7 +124,7 @@ public class BlockTest {
     @Test
     public void isValidForEditing7Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", getImageByString(StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(getPixels(), Image.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
@@ -131,7 +135,7 @@ public class BlockTest {
     @Test
     public void isValidForEditing8Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile2.png");
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", getImageByString(StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(getPixels(), Image.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(2);
         assertTrue(!blockOne_.hasValidImage(dataBase_));
@@ -140,7 +144,7 @@ public class BlockTest {
     @Test
     public void isValidForEditing9Test() {
         Block blockOne_ = new Block((short)2, (short)3, EnvironmentType.ROAD, "tile.png");
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.addImage("tile.png", getImageByString(StringList.concat("6",String.valueOf(Image.SEPARATOR_CHAR), StringList.join(getPixels(), Image.SEPARATOR_CHAR))));
         dataBase_.getMap().setSideLength(3);
         assertTrue(!blockOne_.hasValidImage(dataBase_));

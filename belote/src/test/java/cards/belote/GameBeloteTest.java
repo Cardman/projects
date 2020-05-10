@@ -2,6 +2,7 @@ package cards.belote;
 
 import cards.belote.enumerations.CardBelote;
 import cards.consts.GameType;
+import code.maths.montecarlo.DefaultGenerator;
 import code.util.BooleanList;
 import code.util.Bytes;
 import code.util.CustList;
@@ -44,6 +45,6 @@ public final class GameBeloteTest extends CommonGameBelote {
         assertEq(0,g_.getDeal().hand().total());
         g_.isSameTeam(new Bytes());
         g_.playersBelongingToSameTeam();
-        d_.setRandomDealer(4);
+        d_.setRandomDealer(4, new DefaultGenerator());
     }
 }

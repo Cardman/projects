@@ -83,7 +83,7 @@ public final class GuiProcess implements Runnable {
         opt_.setReadOnly(true);
         opt_.setFailIfNotAllInit(true);
         opt_.getComments().addAllElts(exec_.getComments());
-        LgNamesGui stds_ = new LgNamesGui(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(), new DefaultFileSystem(), new DefaultReporter()));
+        LgNamesGui stds_ = new LgNamesGui(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(), new DefaultFileSystem(), new DefaultReporter(), _window.getGenerator()));
         GuiContextEl cont_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,_window,opt_, exec_, stds_, zipFiles_, exec_.getTabWidth());
         if (cont_ == null) {
             return null;

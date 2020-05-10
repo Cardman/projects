@@ -25,9 +25,9 @@ public final class SimulationGameTarot implements Runnable,SimulationGame {
         HandTarot pile_=HandTarot.pileBase();
         DealTarot donne_=new DealTarot(0L,pile_);
         RulesTarot regles_ = container.getWindow().getReglesTarot();
-        donne_.setRandomDealer(regles_);
+        donne_.setRandomDealer(regles_,container.getWindow().getGenerator());
         regles_.setCartesBattues(MixCardsChoice.EACH_DEAL);
-        donne_.initDonne(regles_);
+        donne_.initDonne(regles_,container.getWindow().getGenerator());
         GameTarot gt_ = new GameTarot(GameType.EDIT,donne_,regles_);
         partieSimulee.jouerTarot(gt_);
         stopButton=new LabelButton(container.getMessages().getVal(MainWindow.STOP_DEMO));

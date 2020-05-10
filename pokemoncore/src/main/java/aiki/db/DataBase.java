@@ -76,6 +76,7 @@ import code.maths.Rate;
 import code.maths.litteral.EvolvedBooleanString;
 import code.maths.litteral.EvolvedMathFactory;
 import code.maths.litteral.EvolvedNumString;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
@@ -371,6 +372,11 @@ public class DataBase {
     private StringList legPks = new StringList();
     private StringMap<String> displayLanguages = new StringMap<String>();
     private String language = "";
+    private final AbstractGenerator generator;
+
+    public DataBase(AbstractGenerator generator) {
+        this.generator = generator;
+    }
 
     public LgInt getMaxRd() {
         return standardMathFactory.getMaxRandomNb();
@@ -3622,4 +3628,9 @@ public class DataBase {
     public StringList getLegPks() {
         return legPks;
     }
+
+    public AbstractGenerator getGenerator() {
+        return generator;
+    }
+
 }

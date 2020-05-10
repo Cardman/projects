@@ -146,7 +146,7 @@ public class MonteCarloTest {
     public void editNumber1Test() {
         MonteCarloNb law_ = new MonteCarloNb();
         law_.addEvent(2L, new LgInt(1));
-        assertEq(2, law_.editNumber(new LgInt(8)));
+        assertEq(2, law_.editNumber(new LgInt(8), new DefaultGenerator()));
     }
 
     @Test
@@ -238,7 +238,7 @@ public class MonteCarloTest {
     public void editNumber9Test() {
         MonteCarloNb law_ = new MonteCarloNb();
         law_.addEvent(3L, new LgInt(5));
-        assertEq(3, law_.editNumber(new LgInt(8)));
+        assertEq(3, law_.editNumber(new LgInt(8), new DefaultGenerator()));
     }
 
     @Test
@@ -246,7 +246,7 @@ public class MonteCarloTest {
         MonteCarloNb law_ = new MonteCarloNb();
         law_.addEvent(2L, new LgInt(0));
         law_.addEvent(3L, new LgInt(5));
-        assertEq(3, law_.editNumber(new LgInt(8)));
+        assertEq(3, law_.editNumber(new LgInt(8), new DefaultGenerator()));
     }
 
     @Test

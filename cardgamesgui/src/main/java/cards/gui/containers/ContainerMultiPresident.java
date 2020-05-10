@@ -699,7 +699,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         Bytes rk_ = game_.getNewRanks();
         DealPresident deal_=new DealPresident(nb_,game_.empiler());
         deal_.donneurSuivant(game_.getDistribution().getDonneur(),game_.getRegles());
-        deal_.initDonne(game_.getRegles());
+        deal_.initDonne(game_.getRegles(),getOwner().getGenerator());
         Net.getGames().jouerPresident(new GamePresident(GameType.RANDOM,deal_,game_.getRegles(), rk_));
         getOwner().sendObject(new PlayGame());
     }
@@ -767,8 +767,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
             pile_ = HandPresident.stack(nbStack_);
         }
         DealPresident deal_ = new DealPresident(0, pile_);
-        deal_.setRandomDealer(rulesPresidentMulti);
-        deal_.initDonne(rulesPresidentMulti);
+        deal_.setRandomDealer(rulesPresidentMulti,getOwner().getGenerator());
+        deal_.initDonne(rulesPresidentMulti,getOwner().getGenerator());
         Net.getGames().jouerPresident(new GamePresident(
                 GameType.RANDOM, deal_, rulesPresidentMulti, new Bytes()));
         getOwner().sendObject(new PlayGame());

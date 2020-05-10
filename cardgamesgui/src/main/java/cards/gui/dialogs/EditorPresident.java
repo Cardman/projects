@@ -291,7 +291,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         byte donneur_ = (byte) liste.getSelectedIndex();
         if (donneur_ == nombreDeJoueurs_) {
 //            donneur_=(byte)Math.floor(nombreDeJoueurs_*MonteCarlo.randomDouble());
-            donneur_=(byte)AbMonteCarlo.randomLong(nombreDeJoueurs_);
+            donneur_=(byte)AbMonteCarlo.randomLong(nombreDeJoueurs_,getMain().getGenerator());
         }
         DealPresident donne_=new DealPresident(mains_,donneur_);
         partie = new GamePresident(GameType.EDIT,donne_,getReglesPresident(), new Bytes());

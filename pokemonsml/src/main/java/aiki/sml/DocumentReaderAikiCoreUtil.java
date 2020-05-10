@@ -208,6 +208,7 @@ import code.images.BaseSixtyFourUtil;
 import code.images.Image;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.resources.ResourceFiles;
@@ -983,9 +984,9 @@ public final class DocumentReaderAikiCoreUtil {
     private static final String TYPE_TRAINER_MULTI_FIGHTS = "TrainerMultiFights";
 
     // Load rom option
-    public static void loadRomAndCheck(FacadeGame _f, String _fileName,
+    public static void loadRomAndCheck(AbstractGenerator _gene, FacadeGame _f, String _fileName,
                                        StringMap<String> _files, PerCent _p, LoadFlag _l) {
-        DataBase data_ = loadedRom(_f,_files,_p,_l);
+        DataBase data_ = loadedRom(_gene,_f,_files,_p,_l);
         if (data_ == null) {
             _f.setLoadedData(false);
             return;
@@ -1013,8 +1014,8 @@ public final class DocumentReaderAikiCoreUtil {
         _f.setLoadedData(true);
     }
     // Load rom first
-    private static DataBase loadedRom(FacadeGame _f,StringMap<String> _files, PerCent _p, LoadFlag _l) {
-        DataBase data_ = new DataBase();
+    private static DataBase loadedRom(AbstractGenerator _gene, FacadeGame _f, StringMap<String> _files, PerCent _p, LoadFlag _l) {
+        DataBase data_ = new DataBase(_gene);
         data_.setLanguages(_f.getLanguages());
         data_.setDisplayLanguages(_f.getDisplayLanguages());
         _l.set(true);
@@ -1031,8 +1032,8 @@ public final class DocumentReaderAikiCoreUtil {
         data_.getMap().initializeLinks();
         return data_;
     }
-    public static void loadResources(FacadeGame _f, PerCent _p,LoadFlag _l) {
-        DataBase data_ = new DataBase();
+    public static void loadResources(AbstractGenerator _gene, FacadeGame _f, PerCent _p,LoadFlag _l) {
+        DataBase data_ = new DataBase(_gene);
         data_.setLanguages(_f.getLanguages());
         data_.setDisplayLanguages(_f.getDisplayLanguages());
         _l.set(true);

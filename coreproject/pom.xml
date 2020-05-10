@@ -16,14 +16,14 @@
 		<module>../resources</module>
 		<module>../util</module>
 		<module>../sml</module>
-		<module>../stream</module>
-		<module>../formatconst</module>
 		<module>../maths</module>
 		<module>../mathssml</module>
 		<module>../expressionlanguage</module>
-		<module>../expressionlanguageutil</module>
 		<module>../images</module>
 		<module>../formathtml</module>
+		<module>../stream</module>
+		<module>../expressionlanguageutil</module>
+		<module>../formatconst</module>
 		<module>../guicommon</module>
 		<module>../network</module>
 		<module>../expressionlanguageunit</module>

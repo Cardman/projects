@@ -120,7 +120,7 @@ public final class MainWindow extends GroupFrame {
                 }
             }
         }
-        BeanCustLgNames lgNames_ = new LgNamesRenderUtils();
+        BeanCustLgNames lgNames_ = new LgNamesRenderUtils(getGenerator());
         DefaultInitialization.basicStandards(lgNames_);
         basicCustStandards(lgNames_);
         session.initNav();

@@ -2,6 +2,7 @@ package cards.president;
 import static cards.president.EquallablePresidentUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.maths.montecarlo.DefaultGenerator;
 import org.junit.Test;
 
 import cards.consts.GameType;
@@ -1866,7 +1867,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_ = g_.getNewRanks();
         d_ = new DealPresident(1, h_);
         d_.donneurSuivant(g_.getDistribution().getDonneur(),r_);
-        d_.initDonne(r_);
+        initDonneLoc(r_, d_);
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -2047,7 +2048,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_ = g_.getNewRanks();
         d_ = new DealPresident(1, h_);
         d_.donneurSuivant(g_.getDistribution().getDonneur(),r_);
-        d_.initDonne(r_);
+        initDonneLoc(r_, d_);
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -3588,7 +3589,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_ = g_.getNewRanks();
         d_ = new DealPresident(1, h_);
         d_.donneurSuivant(g_.getDistribution().getDonneur(),r_);
-        d_.initDonne(r_);
+        initDonneLoc(r_, d_);
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -3770,7 +3771,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_ = g_.getNewRanks();
         d_ = new DealPresident(1, h_);
         d_.donneurSuivant(g_.getDistribution().getDonneur(),r_);
-        d_.initDonne(r_);
+        initDonneLoc(r_, d_);
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -4111,7 +4112,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_ = g_.getNewRanks();
         d_ = new DealPresident(1, h_);
         d_.donneurSuivant(g_.getDistribution().getDonneur(),r_);
-        d_.initDonne(r_);
+        initDonneLoc(r_, d_);
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -5164,7 +5165,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_ = g_.getNewRanks();
         d_ = new DealPresident(1, h_);
         d_.donneurSuivant(g_.getDistribution().getDonneur(),r_);
-        d_.initDonne(r_);
+        initDonneLoc(r_, d_);
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();
@@ -5175,6 +5176,10 @@ public class CheckerGamePresidentWithRulesTest {
         //
         CheckerGamePresidentWithRules.check(g_);
         assertTrue(!g_.getError().isEmpty());
+    }
+
+    private static void initDonneLoc(RulesPresident r_, DealPresident d_) {
+        d_.initDonne(r_, new DefaultGenerator());
     }
 
     @Test
@@ -5330,7 +5335,7 @@ public class CheckerGamePresidentWithRulesTest {
         rk_ = g_.getNewRanks();
         d_ = new DealPresident(1, h_);
         d_.donneurSuivant(g_.getDistribution().getDonneur(),r_);
-        d_.initDonne(r_);
+        initDonneLoc(r_, d_);
         g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         g_.donnerMeilleuresCartes();

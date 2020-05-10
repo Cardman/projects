@@ -2,6 +2,7 @@ package aiki.fight.pokemon;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.maths.montecarlo.DefaultGenerator;
 import code.util.*;
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ public class PokemonFamilyTest {
 
     @Test
     public void new_PokemonFamily_DataBase_String_1Test() {
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.initializeMembers();
         PokemonData pkData_ = newPokemonData("PIKACHU");
         dataBase_.completeMembers("PIKACHU", pkData_);
@@ -39,9 +40,13 @@ public class PokemonFamilyTest {
         assertTrue(StringList.contains(pk_.getAllPokemon(), "PIKACHU"));
     }
 
+    private static DataBase newData() {
+        return new DataBase(new DefaultGenerator());
+    }
+
     @Test
     public void new_PokemonFamily_DataBase_String_2Test() {
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.initializeMembers();
         PokemonData pkData_ = newPokemonData("PTITARD");
         PokemonData pkDataTwo_ = newPokemonData("TETARTE");
@@ -76,7 +81,7 @@ public class PokemonFamilyTest {
 
     @Test
     public void new_PokemonFamily_DataBase_String_1FailTest() {
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.initializeMembers();
         PokemonData pkData_ = newPokemonData("PIKACHU");
         pkData_.getEvolutions().put("PIKACHU", new EvolutionHappiness());
@@ -87,7 +92,7 @@ public class PokemonFamilyTest {
 
     @Test
     public void new_PokemonFamily_DataBase_String_2FailTest() {
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.initializeMembers();
         PokemonData pkData_ = newPokemonData("PIKACHU");
         PokemonData pkDataTwo_ = newPokemonData("RAICHU");
@@ -101,7 +106,7 @@ public class PokemonFamilyTest {
 
     @Test
     public void new_PokemonFamily_DataBase_String_3FailTest() {
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.initializeMembers();
         PokemonData pkData_ = newPokemonData("PIKACHU");
         PokemonData pkDataTwo_ = newPokemonData("RAICHU");

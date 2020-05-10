@@ -353,6 +353,7 @@ public class LgNamesUtils extends LgNames {
     private FileInfos infos;
 
     public LgNamesUtils(FileInfos _infos) {
+        super(_infos.getGenerator());
         infos = _infos;
     }
     @Override

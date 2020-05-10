@@ -8,6 +8,7 @@ import cards.tarot.enumerations.ChoiceTarot;
 import cards.tarot.enumerations.DealingTarot;
 import code.maths.LgInt;
 import code.maths.montecarlo.AbMonteCarlo;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
@@ -61,10 +62,10 @@ public final class DealTarot implements Iterable<HandTarot> {
     }
 
     /** Initialise de maniere aleatoire le premier donneur */
-    public void setRandomDealer(RulesTarot _regles) {
+    public void setRandomDealer(RulesTarot _regles, AbstractGenerator _gene) {
         // On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
 //        dealer = (byte) (_regles.getRepartition().getNombreJoueurs() * MonteCarlo.randomDouble());
-        dealer = (byte)AbMonteCarlo.randomLong(_regles.getRepartition().getNombreJoueurs());
+        dealer = (byte)AbMonteCarlo.randomLong(_regles.getRepartition().getNombreJoueurs(),_gene);
     }
 
     /**
@@ -82,13 +83,13 @@ public final class DealTarot implements Iterable<HandTarot> {
     Distribue les cartes de maniere aleatoire ou non selon les parametres de
     distribution, on ne tient pas compte du sens de distribution
     */
-    public void initDonne(RulesTarot _regles) {
+    public void initDonne(RulesTarot _regles,AbstractGenerator _gene) {
         if (_regles.getCartesBattues() == MixCardsChoice.EACH_DEAL) {
-            donnerEnBattant(_regles);
+            donnerEnBattant(_regles,_gene);
         } else if (_regles.getCartesBattues() == MixCardsChoice.EACH_LAUNCHING
                 || _regles.getCartesBattues() == MixCardsChoice.ONCE_ONLY) {
             if (nbDeals == 0) {
-                donnerEnBattant(_regles);
+                donnerEnBattant(_regles,_gene);
             } else {
                 donnerSansBattre(_regles);
             }
@@ -99,7 +100,7 @@ public final class DealTarot implements Iterable<HandTarot> {
 
     /** Pour l&#39;entra&icirc;nement surtout au tarot */
     public void initDonne(ChoiceTarot _choix,
-                          RulesTarot _regles) {
+                          RulesTarot _regles, AbstractGenerator _gene) {
         /* Les deux_ nombres_ donnent_ le_ nombre_ d atouts_ avec_ Excuse */
         byte minAtout_ = 0;
         byte maxAtout_ = 0;
@@ -138,7 +139,7 @@ public final class DealTarot implements Iterable<HandTarot> {
                                 new LgInt(nbCards_ - evenement_),
                                 new LgInt(56)))));
             }
-            alea_ = AbMonteCarlo.randomLgInt(fonctionRepartition_.last());
+            alea_ = AbMonteCarlo.randomLgInt(fonctionRepartition_.last(),_gene);
             byte atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
             autresCartesTirer_ = (byte) (nbCards_ - atoutsTires_);
             for (int i = CustList.FIRST_INDEX; i <= nbPlayers_; i++) {
@@ -149,7 +150,7 @@ public final class DealTarot implements Iterable<HandTarot> {
             atouts_.ajouter(CardTarot.excuse());
             atouts_.ajouterCartes(HandTarot.atoutsSansExcuse());
             autresCartes_.ajouterCartes(HandTarot.cartesCouleurs());
-            feedUserHand(autresCartesTirer_, atoutsTires_, atouts_, autresCartes_);
+            feedUserHand(autresCartesTirer_, atoutsTires_, atouts_, autresCartes_,_gene);
             deck = new HandTarot();
             deck.ajouterCartes(atouts_);
             deck.ajouterCartes(autresCartes_);
@@ -159,13 +160,13 @@ public final class DealTarot implements Iterable<HandTarot> {
                     continue;
                 }
                 for (byte indiceCarte_ = CustList.SIZE_EMPTY; indiceCarte_ < nbCards_; indiceCarte_++) {
-                    deal.get(joueur_).ajouter(deck.tirerUneCarteAleatoire());
+                    deal.get(joueur_).ajouter(deck.tirerUneCarteAleatoire(_gene));
                 }
             }
             for (int i = CustList.SIZE_EMPTY; i < reste_; i++) {
                 deal.last().ajouter(deck.jouer(0));
             }
-            setRandomDealer(_regles);
+            setRandomDealer(_regles,_gene);
         } else {
             if (_choix == ChoiceTarot.SAVE_SMALL) {
                 minAtout_ = 1;
@@ -209,7 +210,7 @@ public final class DealTarot implements Iterable<HandTarot> {
                                         new LgInt(nbCards_ - evenement_
                                                 - 1), new LgInt(56)))));
             }
-            alea_ = AbMonteCarlo.randomLgInt(fonctionRepartition_.last());
+            alea_ = AbMonteCarlo.randomLgInt(fonctionRepartition_.last(),_gene);
             byte atoutsTires_ = chosenTrumps(minAtout_, maxAtout_, fonctionRepartition_, alea_);
             autresCartesTirer_ = (byte) (nbCards_ - atoutsTires_ - 1);
             for (int i = CustList.FIRST_INDEX; i <= nbPlayers_; i++) {
@@ -222,7 +223,7 @@ public final class DealTarot implements Iterable<HandTarot> {
             HandTarot autresCartes_ = new HandTarot();
             autresCartes_.ajouterCartes(HandTarot.cartesCouleurs());
             deal.first().ajouter(CardTarot.petit());
-            feedUserHand(autresCartesTirer_, atoutsTires_, atouts_, autresCartes_);
+            feedUserHand(autresCartesTirer_, atoutsTires_, atouts_, autresCartes_,_gene);
             deck = new HandTarot();
             deck.ajouterCartes(atouts_);
             deck.ajouterCartes(autresCartes_);
@@ -232,22 +233,22 @@ public final class DealTarot implements Iterable<HandTarot> {
                     continue;
                 }
                 for (byte indiceCarte_ = CustList.SIZE_EMPTY; indiceCarte_ < nbCards_; indiceCarte_++) {
-                    deal.get(joueur_).ajouter(deck.tirerUneCarteAleatoire());
+                    deal.get(joueur_).ajouter(deck.tirerUneCarteAleatoire(_gene));
                 }
             }
             for (int i = CustList.SIZE_EMPTY; i < reste_; i++) {
                 deal.last().ajouter(deck.jouer(0));
             }
-            setRandomDealer(_regles);
+            setRandomDealer(_regles,_gene);
         }
     }
 
-    public void feedUserHand(byte _autresCartesTirer, byte _atoutsTires, HandTarot _atouts, HandTarot _autresCartes) {
+    public void feedUserHand(byte _autresCartesTirer, byte _atoutsTires, HandTarot _atouts, HandTarot _autresCartes,AbstractGenerator _gene) {
         for (byte tirage_ = CustList.SIZE_EMPTY; tirage_ < _atoutsTires; tirage_++) {
-            deal.get(NUMERO_UTILISATEUR).ajouter(_atouts.tirerUneCarteAleatoire());
+            deal.get(NUMERO_UTILISATEUR).ajouter(_atouts.tirerUneCarteAleatoire(_gene));
         }
         for (byte tirage_ = CustList.SIZE_EMPTY; tirage_ < _autresCartesTirer; tirage_++) {
-            deal.get(NUMERO_UTILISATEUR).ajouter(_autresCartes.tirerUneCarteAleatoire());
+            deal.get(NUMERO_UTILISATEUR).ajouter(_autresCartes.tirerUneCarteAleatoire(_gene));
         }
     }
 
@@ -268,7 +269,7 @@ public final class DealTarot implements Iterable<HandTarot> {
     solitaire car la fin de partie de solitaire ne depend pas a priori de la
     distribution au debut
     */
-    private void donnerEnBattant(RulesTarot _regles) {
+    private void donnerEnBattant(RulesTarot _regles,AbstractGenerator _gene) {
 
         byte nbJrs_ = (byte) _regles.getRepartition().getNombreJoueurs();
         for (int i = CustList.FIRST_INDEX; i <= nbJrs_; i++) {
@@ -281,7 +282,7 @@ public final class DealTarot implements Iterable<HandTarot> {
                 .getNombreCartesChien();
 
         for (int i = CustList.FIRST_INDEX; i < nombreTotalCarteJoueurs_; i++) {
-            deal.get(i % nbJrs_).ajouter(m.tirerUneCarteAleatoire());
+            deal.get(i % nbJrs_).ajouter(m.tirerUneCarteAleatoire(_gene));
         }
         for (int i = CustList.FIRST_INDEX; i < nombreCarteChien_; i++) {
             deal.last().ajouter(m.jouer(CustList.FIRST_INDEX));

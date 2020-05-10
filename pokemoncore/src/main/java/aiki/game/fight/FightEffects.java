@@ -900,7 +900,7 @@ final class FightEffects {
         byte nbCoups_ = (byte) randomRate(_fight, _import, repetCoup_, _target).ll();
         boolean coupCritique_ = false;
         for (int i = CustList.FIRST_INDEX;i<nbCoups_;i++){
-            Rate degatsBase_ = _laws.getBase().getVal(_fighter).editNumber(maxRd_);
+            Rate degatsBase_ = _laws.getBase().getVal(_fighter).editNumber(maxRd_,_import.getGenerator());
             Rate cc_ = randomRate(_fight, _import,_laws.getCriticalHit().getVal(_fighter), _target);
             if(cc_.greaterThanOne()){
                 coupCritique_ = true;
@@ -930,12 +930,12 @@ final class FightEffects {
         Fighter creatureCible_=_fight.getFighter(_target);
         MonteCarloNumber loiRand_ = _laws.getRandomRate();
         LgInt maxRd_ = _import.getMaxRd();
-        byte nbCoups_ = (byte) _laws.getNumberHits().getVal(_fighter).editNumber(maxRd_).ll();
+        byte nbCoups_ = (byte) _laws.getNumberHits().getVal(_fighter).editNumber(maxRd_,_import.getGenerator()).ll();
         boolean coupCritique_ = false;
         boolean keepProcessing_ = true;
         int nbHits_ = 0;
         for (int i = CustList.FIRST_INDEX;i<nbCoups_;i++){
-            Rate degatsBase_ = _laws.getBase().getVal(_fighter).editNumber(maxRd_);
+            Rate degatsBase_ = _laws.getBase().getVal(_fighter).editNumber(maxRd_,_import.getGenerator());
             Rate cc_ = randomRate(_fight, _import, _laws.getCriticalHit().getVal(_fighter), _target);
             if(cc_.greaterThanOne()){
                 coupCritique_=true;
@@ -1053,7 +1053,7 @@ final class FightEffects {
                 cc_=_lawCriticalHitRate.maximum();
             }
         }else{
-            cc_=_lawCriticalHitRate.editNumber(maxRd_);
+            cc_=_lawCriticalHitRate.editNumber(maxRd_,_import.getGenerator());
         }
         return cc_;
     }

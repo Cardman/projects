@@ -22,6 +22,7 @@ import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.maths.montecarlo.AbMonteCarlo;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
 
 public class ApplyCoreMethodUtil {
@@ -535,10 +536,11 @@ public class ApplyCoreMethodUtil {
             /** mathematics "random" calls in order to facilitate uses,
              * despite of the difference between the JAVA names and the user choice names (parameterized in a text file)*/
             StringList paramList_ = _method.getConstraints().getParametersTypes();
+            AbstractGenerator generator_ = lgNames_.getGenerator();
             if (paramList_.isEmpty()) {
-                result_.setResult(new DoubleStruct(Math.random()));
+                result_.setResult(new DoubleStruct(generator_.pick()));
             } else {
-                result_.setResult(new LongStruct(AbMonteCarlo.randomLong(ClassArgumentMatching.convertToNumber(args_[0]).longStruct())));
+                result_.setResult(new LongStruct(AbMonteCarlo.randomLong(ClassArgumentMatching.convertToNumber(args_[0]).longStruct(),generator_)));
             }
             return result_;
         }

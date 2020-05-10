@@ -15,6 +15,8 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.ResolvingImportTypes;
 import code.formathtml.*;
 import code.formathtml.structs.*;
+import code.maths.montecarlo.AbstractGenerator;
+import code.maths.montecarlo.DefaultGenerator;
 import code.sml.Element;
 import code.util.*;
 import code.util.ints.*;
@@ -32,6 +34,10 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     private static final String TYPE_ENTRIES = "$custentries";
     private StringMapObject storedForms;
     private StringMap<String> iterables = new StringMap<String>();
+
+    public BeanNatLgNames() {
+        super(new DefaultGenerator());
+    }
 
     private static Object[] adaptedArgs(StringList _params, Struct... _args) {
         int len_ = _params.size();

@@ -1147,7 +1147,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         GameTarot game_ = Net.getGames().partieTarot();
         DealTarot deal_=new DealTarot(nb_,game_.empiler());
         deal_.donneurSuivant(game_.getDistribution().getDealer(),game_.getRegles());
-        deal_.initDonne(game_.getRegles());
+        deal_.initDonne(game_.getRegles(),getOwner().getGenerator());
         Net.getGames().jouerTarot(new GameTarot(GameType.RANDOM,deal_,game_.getRegles()));
         getOwner().sendObject(new PlayGame());
     }
@@ -1208,8 +1208,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             pile_ = HandTarot.pileBase();
         }
         DealTarot deal_ = new DealTarot(0,pile_);
-        deal_.setRandomDealer(rulesTarotMulti);
-        deal_.initDonne(rulesTarotMulti);
+        deal_.setRandomDealer(rulesTarotMulti,getOwner().getGenerator());
+        deal_.initDonne(rulesTarotMulti,getOwner().getGenerator());
         Net.getGames().jouerTarot(new GameTarot(GameType.RANDOM,deal_,rulesTarotMulti));
         getOwner().sendObject(new PlayGame());
     }

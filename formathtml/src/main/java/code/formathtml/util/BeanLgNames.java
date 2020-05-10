@@ -4,7 +4,6 @@ import code.bean.validator.Message;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.instr.NumberInfos;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
@@ -13,6 +12,7 @@ import code.formathtml.Configuration;
 import code.formathtml.RendImport;
 import code.formathtml.RenderExpUtil;
 import code.formathtml.exec.RendDynOperationNode;
+import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Element;
 import code.util.*;
 
@@ -20,6 +20,10 @@ public abstract class BeanLgNames extends LgNames {
 
     public static final String OFF = "off";
     public static final String ON = "on";
+
+    public BeanLgNames(AbstractGenerator _gene) {
+        super(_gene);
+    }
 
     public static int parseInt(String _string, int _def) {
         String value_ = _string.trim();

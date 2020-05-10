@@ -23,6 +23,7 @@ import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.RealInstanceStruct;
 import code.formathtml.structs.StdStruct;
+import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Element;
 import code.util.*;
 
@@ -177,6 +178,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private String aliasMessageFormat="format";
     private String aliasMessageGetArgs="getArgs";
     private String aliasMessageSetArgs="setArgs";
+
+    public BeanCustLgNames(AbstractGenerator _gene) {
+        super(_gene);
+    }
 
     @Override
     public void buildOther() {

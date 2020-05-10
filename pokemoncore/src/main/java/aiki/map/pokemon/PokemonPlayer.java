@@ -230,12 +230,12 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
             loiGenre_.addEvent(g,DataBase.defElementaryEvent());
         }
         LgInt maxRd_ = _import.getMaxRd();
-        setGender(loiGenre_.editNumber(maxRd_));
+        setGender(loiGenre_.editNumber(maxRd_,_import.getGenerator()));
         MonteCarloString loiCapac_ = new MonteCarloString();
         for(String e:fPk_.getAbilities()){
             loiCapac_.addEvent(e,DataBase.defElementaryEvent());
         }
-        setAbility(loiCapac_.editNumber(maxRd_));
+        setAbility(loiCapac_.editNumber(maxRd_,_import.getGenerator()));
     }
 
     void initAttaques(DataBase _import, boolean _initEv){

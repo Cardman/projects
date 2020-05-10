@@ -510,15 +510,15 @@ public final class MainWindow extends NetGroupFrame {
         if (!_file.isEmpty()) {
             //startThread = true;
             StringMap<String> files_ = StreamFolderFile.getFiles(_file);
-            DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,_file, files_,_p,loadFlag);
+            DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,_file, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
-                DocumentReaderAikiCoreUtil.loadResources(facade,_p,loadFlag);
+                DocumentReaderAikiCoreUtil.loadResources(getGenerator(),facade,_p,loadFlag);
             }
             if (!loadFlag.get()) {
                 return;
             }
         } else {
-            DocumentReaderAikiCoreUtil.loadResources(facade,_p,loadFlag);
+            DocumentReaderAikiCoreUtil.loadResources(getGenerator(),facade,_p,loadFlag);
             if (!loadFlag.get()) {
                 return;
             }
@@ -540,15 +540,15 @@ public final class MainWindow extends NetGroupFrame {
             }
             path_ = StringList.replaceBackSlash(path_);
             StringMap<String> files_ = StreamFolderFile.getFiles(path_);
-            DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,path_, files_,_p,loadFlag);
+            DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,path_, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
-                DocumentReaderAikiCoreUtil.loadResources(facade,_p,loadFlag);
+                DocumentReaderAikiCoreUtil.loadResources(getGenerator(),facade,_p,loadFlag);
             }
             if (!loadFlag.get()) {
                 return;
             }
         } else {
-            DocumentReaderAikiCoreUtil.loadResources(facade,_p,loadFlag);
+            DocumentReaderAikiCoreUtil.loadResources(getGenerator(),facade,_p,loadFlag);
             if (!loadFlag.get()) {
                 return;
             }
@@ -1040,9 +1040,9 @@ public final class MainWindow extends NetGroupFrame {
 
     public void processLoad(String _fileName, PerCent _p) {
         StringMap<String> files_ = StreamFolderFile.getFiles(_fileName);
-        DocumentReaderAikiCoreUtil.loadRomAndCheck(facade,_fileName, files_,_p,loadFlag);
+        DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
-            DocumentReaderAikiCoreUtil.loadResources(facade,_p,loadFlag);
+            DocumentReaderAikiCoreUtil.loadResources(getGenerator(),facade,_p,loadFlag);
         }
         if (!loadFlag.get()) {
             return;

@@ -4,6 +4,7 @@ import java.util.Iterator;
 import cards.president.comparators.GameStrengthCardPresidentComparator;
 import cards.president.enumerations.CardPresident;
 import code.maths.montecarlo.AbMonteCarlo;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.*;
@@ -127,9 +128,9 @@ public final class HandPresident implements Iterable<CardPresident> {
     <li>puis retire la carte choisie de la main courante et la retourne</li>
     </ol>
     @return la carte aleatoire choisie*/
-    CardPresident tirerUneCarteAleatoire() {
+    CardPresident tirerUneCarteAleatoire(AbstractGenerator _gene) {
 //        return jouer((int)Math.floor(total()*MonteCarlo.randomDouble()));
-        return jouer((int) AbMonteCarlo.randomLong(total()));
+        return jouer((int) AbMonteCarlo.randomLong(total(),_gene));
         //0<=total()*Math.random()<total()
         //Donc 0<=Math.floor(total()*Math.random())<Math.floor(total())=total()
     }

@@ -7,6 +7,7 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.montecarlo.DefaultGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.resources.ResourceFiles;
 import code.stream.StreamImageFile;
@@ -76,7 +77,7 @@ public final class VideoLoading {
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             law_.addEvent(new Rate(i), LgInt.one());
         }
-        return new CustList<BufferedImage>(images.get((int) law_.editNumber(maxRd).ll()));
+        return new CustList<BufferedImage>(images.get((int) law_.editNumber(maxRd, new DefaultGenerator()).ll()));
     }
     public CustList<CustList<BufferedImage>> getImages() {
         return images;

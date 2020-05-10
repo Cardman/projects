@@ -539,12 +539,12 @@ final class FightEndRound {
         LgInt maxRd_ = _import.getMaxRd();
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
-                resterActif_=loiSachant_.editNumber(maxRd_);
+                resterActif_=loiSachant_.editNumber(maxRd_,_import.getGenerator());
             }else{
                 resterActif_=Numbers.eq(_fighter.getTeam(), Fight.FOE);
             }
         }else{
-            resterActif_=loiSachant_.editNumber(maxRd_);
+            resterActif_=loiSachant_.editNumber(maxRd_,_import.getGenerator());
         }
         activity_.keepEnabled(resterActif_);
         if (!resterActif_) {
@@ -599,12 +599,12 @@ final class FightEndRound {
         boolean resterActif_;
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
-                resterActif_=loiSachant_.editNumber(maxRd_);
+                resterActif_=loiSachant_.editNumber(maxRd_,_import.getGenerator());
             }else{
                 resterActif_=Numbers.eq(_team,Fight.FOE);
             }
         }else{
-            resterActif_=loiSachant_.editNumber(maxRd_);
+            resterActif_=loiSachant_.editNumber(maxRd_,_import.getGenerator());
         }
         activity_.keepEnabled(resterActif_);
         _fight.addDisabledTeamMoveMessage(_team, _move, activity_, _import);
@@ -675,12 +675,12 @@ final class FightEndRound {
         boolean resterActif_;
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
-                resterActif_=loiSachant_.editNumber(maxRd_);
+                resterActif_=loiSachant_.editNumber(maxRd_,_import.getGenerator());
             }else{
                 resterActif_=Numbers.eq(_team,Fight.FOE);
             }
         }else{
-            resterActif_=loiSachant_.editNumber(maxRd_);
+            resterActif_=loiSachant_.editNumber(maxRd_,_import.getGenerator());
         }
         activity_.keepEnabled(resterActif_);
     }
@@ -1066,12 +1066,12 @@ final class FightEndRound {
                 boolean resterActif_;
                 if(_fight.getSimulation()){
                     if(loiSachant_.events().size()==1){
-                        resterActif_=loiSachant_.editNumber(maxRd_);
+                        resterActif_=loiSachant_.editNumber(maxRd_,_import.getGenerator());
                     }else{
                         resterActif_=Numbers.eq(_combattant.getTeam(),Fight.FOE);
                     }
                 }else{
-                    resterActif_=loiSachant_.editNumber(maxRd_);
+                    resterActif_=loiSachant_.editNumber(maxRd_,_import.getGenerator());
                 }
                 actifNbTour_.keepEnabled(resterActif_);
                 _fight.messageDisabling(actifNbTour_, c.getTeamPosition(), _attaque, _combattant, _import);
@@ -1166,12 +1166,12 @@ final class FightEndRound {
         LgInt maxRd_ = _import.getMaxRd();
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
-                resterActif_=loiSachant_.editNumber(maxRd_);
+                resterActif_=loiSachant_.editNumber(maxRd_,_import.getGenerator());
             }else{
                 resterActif_=Numbers.eq(_combattant.getTeam(),Fight.PLAYER);
             }
         }else{
-            resterActif_=loiSachant_.editNumber(maxRd_);
+            resterActif_=loiSachant_.editNumber(maxRd_,_import.getGenerator());
         }
         if(!resterActif_){
             creature_.supprimerStatut(_nomStatut);
@@ -1259,12 +1259,12 @@ final class FightEndRound {
         LgInt maxRd_ = _import.getMaxRd();
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
-                resterActif_=loiSachant_.editNumber(maxRd_);
+                resterActif_=loiSachant_.editNumber(maxRd_,_import.getGenerator());
             }else{
                 resterActif_=Numbers.eq(_cible.getTeam(),Fight.PLAYER);
             }
         }else{
-            resterActif_=loiSachant_.editNumber(maxRd_);
+            resterActif_=loiSachant_.editNumber(maxRd_,_import.getGenerator());
         }
         if(!resterActif_){
             creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);

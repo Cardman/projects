@@ -3,6 +3,7 @@ import java.util.Iterator;
 
 import cards.consts.MixCardsChoice;
 import code.maths.montecarlo.AbMonteCarlo;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.*;
 
@@ -54,11 +55,11 @@ public final class DealPresident implements Iterable<HandPresident> {
     }
 
     /** Initialise de maniere aleatoire le premier donneur */
-    public void setRandomDealer(RulesPresident _regles) {
+    public void setRandomDealer(RulesPresident _regles, AbstractGenerator _gene) {
         // On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
 //        dealer = (byte) (_regles.getNbPlayers() * MonteCarlo
 //                .randomDouble());
-        dealer = (byte)AbMonteCarlo.randomLong(_regles.getNbPlayers());
+        dealer = (byte)AbMonteCarlo.randomLong(_regles.getNbPlayers(),_gene);
     }
 
     /**
@@ -76,13 +77,13 @@ public final class DealPresident implements Iterable<HandPresident> {
     Distribue les cartes de maniere aleatoire ou non selon les parametres de
     distribution, on ne tient pas compte du sens de distribution
     */
-    public void initDonne(RulesPresident _regles) {
+    public void initDonne(RulesPresident _regles,AbstractGenerator _gene) {
         if (_regles.getMixedCards() == MixCardsChoice.EACH_DEAL) {
-            donnerEnBattant(_regles);
+            donnerEnBattant(_regles,_gene);
         } else if (_regles.getMixedCards() == MixCardsChoice.EACH_LAUNCHING
                 || _regles.getMixedCards() == MixCardsChoice.ONCE_ONLY) {
             if (nbDeals == 0) {
-                donnerEnBattant(_regles);
+                donnerEnBattant(_regles,_gene);
             } else {
                 donnerSansBattre(_regles);
             }
@@ -96,7 +97,7 @@ public final class DealPresident implements Iterable<HandPresident> {
     solitaire car la fin de partie de solitaire ne depend pas a priori de la
     distribution au debut
     */
-    private void donnerEnBattant(RulesPresident _regles) {
+    private void donnerEnBattant(RulesPresident _regles,AbstractGenerator _gene) {
 
         byte nbJrs_ = (byte) _regles.getNbPlayers();
         for (int i = CustList.FIRST_INDEX; i < nbJrs_; i++) {
@@ -109,7 +110,7 @@ public final class DealPresident implements Iterable<HandPresident> {
         byte nombreTotalCarteJoueurs_ = (byte) (m.total());
 
         for (int i = CustList.FIRST_INDEX; i < nombreTotalCarteJoueurs_; i++) {
-            deal.get(i % nbJrs_).ajouter(m.tirerUneCarteAleatoire());
+            deal.get(i % nbJrs_).ajouter(m.tirerUneCarteAleatoire(_gene));
         }
     }
 

@@ -860,7 +860,7 @@ public final class Game {
 
     Egg productedEgg(Coords _coords,DataBase _d){
         LgInt maxRd_ = _d.getMaxRd();
-        return new Egg(lawForProductedEgg(_coords, _d).editNumber(maxRd_));
+        return new Egg(lawForProductedEgg(_coords, _d).editNumber(maxRd_,_d.getGenerator()));
     }
 
     MonteCarloString lawForProductedEgg(Coords _coords,DataBase _d) {
@@ -2346,7 +2346,7 @@ public final class Game {
     void newRandomPokemon(MonteCarloEq<WildPk> _law, DataBase _d) {
         MonteCarloEq<WildPk> lawCopy_ = lawCopy(_law, _d);
         LgInt maxRd_ = _d.getMaxRd();
-        WildPk pkAlea_=lawCopy_.editNumber(maxRd_);
+        WildPk pkAlea_=lawCopy_.editNumber(maxRd_,_d.getGenerator());
         if(pkAlea_.hasJustBeenCreated()){
             return;
         }

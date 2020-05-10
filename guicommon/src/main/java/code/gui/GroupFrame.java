@@ -5,7 +5,9 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
+import code.maths.montecarlo.AbstractGenerator;
 import code.sml.stream.ExtractFromFiles;
+import code.stream.AdvancedGenerator;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -25,11 +27,20 @@ public abstract class GroupFrame extends CommonFrame {
 
     private boolean opened;
 
+    private AbstractGenerator generator;
+
     protected GroupFrame(String _lg) {
         super(_lg);
         FRAMES.add(this);
         if (FRAMES.size() == 1) {
+            generator = new AdvancedGenerator();
             FRAMES.first().messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _lg,ACCESS);
+        }
+        if (generator == null) {
+            generator = FRAMES.first().generator;
+        }
+        if (generator == null) {
+            generator = new AdvancedGenerator();
         }
     }
 
@@ -156,4 +167,8 @@ public abstract class GroupFrame extends CommonFrame {
     }
 
     public abstract void changeLanguage(String _language);
+
+    public AbstractGenerator getGenerator() {
+        return generator;
+    }
 }

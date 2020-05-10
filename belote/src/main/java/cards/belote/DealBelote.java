@@ -6,6 +6,7 @@ import cards.consts.MixCardsChoice;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.maths.montecarlo.AbMonteCarlo;
+import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.*;
@@ -51,10 +52,10 @@ public final class DealBelote implements Iterable<HandBelote> {
         nbDeals = _deal.nbDeals;
     }
     /**Initialise de maniere aleatoire le premier donneur*/
-    public void setRandomDealer(int _nbJoueurs) {
+    public void setRandomDealer(int _nbJoueurs, AbstractGenerator _gene) {
         //On recupere_ le_ nombre_ de_ joueurs_ dans_ le_ cas_ d'un_ jeu_ non_ solitaire_
 //        dealer=(byte)(_nbJoueurs*MonteCarlo.randomDouble());
-        dealer = (byte)AbMonteCarlo.randomLong(_nbJoueurs);
+        dealer = (byte)AbMonteCarlo.randomLong(_nbJoueurs,_gene);
     }
     /**Apres une partie la joueur apres le donneur actuel devient le nouveau donneur*/
     public void donneurSuivant(byte _nouveauDonneur,int _nbJoueurs) {
@@ -64,12 +65,12 @@ public final class DealBelote implements Iterable<HandBelote> {
         dealer%=_nbJoueurs;
     }
     /**Distribue les cartes de maniere aleatoire ou non selon les parametres de distribution, on ne tient pas compte du sens de distribution*/
-    public void initDonne(RulesBelote _regles, DisplayingBelote _display) {
+    public void initDonne(RulesBelote _regles, DisplayingBelote _display,AbstractGenerator _gene) {
         if(_regles.getCartesBattues()==MixCardsChoice.EACH_DEAL) {
-            donnerEnBattant(_regles,_display);
+            donnerEnBattant(_regles,_display,_gene);
         } else if(_regles.getCartesBattues()==MixCardsChoice.EACH_LAUNCHING||_regles.getCartesBattues()==MixCardsChoice.ONCE_ONLY) {
             if(nbDeals==0) {
-                donnerEnBattant(_regles,_display);
+                donnerEnBattant(_regles,_display,_gene);
             } else {
                 donnerSansBattre(_regles);
             }
@@ -111,7 +112,7 @@ public final class DealBelote implements Iterable<HandBelote> {
     /**On distribue les cartes en les battant
     ceci est essentiel pour le solitaire car la fin de partie de solitaire
     ne depend pas a priori de la distribution au debut*/
-    private void donnerEnBattant(RulesBelote _regles, DisplayingBelote _displaying) {
+    private void donnerEnBattant(RulesBelote _regles, DisplayingBelote _displaying,AbstractGenerator _gene) {
         int nbJoueurs_ = _regles.getRepartition().getNombreJoueurs();
         int nbHands_ = nbJoueurs_;
         nbHands_++;
@@ -123,12 +124,12 @@ public final class DealBelote implements Iterable<HandBelote> {
         int nbCartesJoueursDebut_ = nbCartesJoueurDebut_ * _regles.getRepartition().getNombreJoueurs();
         for (int i = CustList.FIRST_INDEX; i < nbCartesJoueursDebut_; i++) {
             //On distribue_ les_ 1eres cartes_ des_ joueurs_ aleatoirement_
-            deal.get(i/nbCartesJoueurDebut_).ajouter(m.tirerUneCarteAleatoire());
+            deal.get(i/nbCartesJoueurDebut_).ajouter(m.tirerUneCarteAleatoire(_gene));
         }
         if (!_regles.dealAll()) {
             int total_ = m.total();
             for (int i = CustList.SECOND_INDEX; i < total_; i++) {
-                deal.last().ajouter(m.tirerUneCarteAleatoire());
+                deal.last().ajouter(m.tirerUneCarteAleatoire(_gene));
             }
             deal.last().ajouter(m.premiereCarte());
         }

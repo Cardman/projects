@@ -426,15 +426,15 @@ public class ContainerSinglePresident extends ContainerPresident implements
             setNbStacks(getReglesPresident().getNbStacks());
             setChangerPileFin(true);
             donne_=new DealPresident(nb_,pile_);
-            donne_.setRandomDealer(getReglesPresident());
-            donne_.initDonne(getReglesPresident());
+            donne_.setRandomDealer(getReglesPresident(),getOwner().getGenerator());
+            donne_.initDonne(getReglesPresident(),getOwner().getGenerator());
             getPar().jouerPresident(new GamePresident(GameType.RANDOM,donne_,getReglesPresident(), new Bytes()));
         } else {
             GamePresident partie_=partiePresident();
             Bytes newRanks_ = partie_.getNewRanks();
             donne_=new DealPresident(nb_,partie_.empiler());
             donne_.donneurSuivant(partie_.getDistribution().getDonneur(),partie_.getRegles());
-            donne_.initDonne(partie_.getRegles());
+            donne_.initDonne(partie_.getRegles(),getOwner().getGenerator());
             getPar().jouerPresident(new GamePresident(GameType.RANDOM,donne_,partie_.getRegles(), newRanks_));
         }
         mettreEnPlaceIhmPresident();
@@ -809,7 +809,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         Bytes newRanks_ = partie_.getNewRanks();
         DealPresident donne_=new DealPresident(0L,main_);
         donne_.donneurSuivant(partie_.getDistribution().getDonneur(),partie_.getRegles());
-        donne_.initDonne(partie_.getRegles());
+        donne_.initDonne(partie_.getRegles(),getOwner().getGenerator());
         getPar().jouerPresident(new GamePresident(GameType.EDIT,donne_,partie_.getRegles(),newRanks_));
         mettreEnPlaceIhmPresident();
     }

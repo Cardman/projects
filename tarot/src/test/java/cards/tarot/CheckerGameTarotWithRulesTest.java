@@ -2,6 +2,7 @@ package cards.tarot;
 import static cards.tarot.EquallableTarotUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -23,7 +24,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_);
+        initDonneLoc(rules_, deal_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -36,13 +37,17 @@ public class CheckerGameTarotWithRulesTest {
         assertEq(1, game_.getRamasseur());
     }
 
+    private static void initDonneLoc(RulesTarot rules_, DealTarot deal_) {
+        deal_.initDonne(rules_, new DefaultGenerator());
+    }
+
     @Test
     public void check2Test() {
         RulesTarot rules_ = new RulesTarot();
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_);
+        initDonneLoc(rules_, deal_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -60,7 +65,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.MISERE);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_);
+        initDonneLoc(rules_, deal_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         CheckerGameTarotWithRules.check(game_);
         assertTrue(game_.getError().isEmpty());
@@ -78,7 +83,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.MISERE);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_);
+        initDonneLoc(rules_, deal_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
@@ -98,7 +103,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_);
+        initDonneLoc(rules_, deal_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         game_.setEntameur(game_.playerAfter(deal_.getDealer()));
         game_.setPliEnCours(true);
@@ -118,7 +123,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_);
+        initDonneLoc(rules_, deal_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -138,7 +143,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.NORMAL);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_);
+        initDonneLoc(rules_, deal_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -166,7 +171,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setDealing(DealingTarot.DEAL_2_VS_3_CALL_CHAR);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_);
+        initDonneLoc(rules_, deal_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         int first_ = game_.playerAfter(deal_.getDealer());
         game_.ajouterContrat(BidTarot.FOLD, (byte) first_);
@@ -3685,7 +3690,7 @@ public class CheckerGameTarotWithRulesTest {
         rules_.setMode(ModeTarot.ONE_FOR_ONE);
         DealTarot deal_ = new DealTarot(0, HandTarot.pileBase());
         deal_.setDealer((byte) 0);
-        deal_.initDonne(rules_);
+        initDonneLoc(rules_, deal_);
         GameTarot game_ = new GameTarot(GameType.RANDOM, deal_, rules_);
         game_.getScoresRef().clear();
         CheckerGameTarotWithRules.check(game_);

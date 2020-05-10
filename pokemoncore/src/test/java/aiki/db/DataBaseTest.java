@@ -15,6 +15,7 @@ import aiki.map.enums.Direction;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.util.ScreenCoords;
 import aiki.util.LawNumber;
+import code.maths.montecarlo.DefaultGenerator;
 import org.junit.Test;
 
 import aiki.fight.abilities.AbilityData;
@@ -81,7 +82,7 @@ public class DataBaseTest {
 
     @Test
     public void test0() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initTranslations();
         data_.setLanguages(new StringList());
         data_.setLanguage("");
@@ -147,13 +148,17 @@ public class DataBaseTest {
         assertTrue(!data_.isError());
     }
 
+    private static DataBase newData() {
+        return new DataBase(new DefaultGenerator());
+    }
+
     @Test
     public void toUpperCaseTest() {
         assertEq("Aa!<>_{}[]?".length(), DataBase.toUpperCase("Aa!<>_{}[]?").length());
     }
     @Test
     public void checkCaseOfFiles1Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StringList files_ = new StringList();
         data_.checkCaseOfFiles("folder", files_);
@@ -162,7 +167,7 @@ public class DataBaseTest {
 
     @Test
     public void checkCaseOfFiles2Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StringList files_ = new StringList();
         files_.add("file_one");
@@ -173,7 +178,7 @@ public class DataBaseTest {
 
     @Test
     public void checkCaseOfFiles3Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StringList files_ = new StringList();
         files_.add("file_one");
@@ -186,7 +191,7 @@ public class DataBaseTest {
 
     @Test
     public void checkCaseOfFiles4Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StringList files_ = new StringList();
         files_.add("file_one");
@@ -200,7 +205,7 @@ public class DataBaseTest {
 
     @Test
     public void checkCaseOfFiles5Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StringList files_ = new StringList();
         files_.add("!file_one");
@@ -214,7 +219,7 @@ public class DataBaseTest {
 
     @Test
     public void checkCaseOfFiles6Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StringList files_ = new StringList();
         files_.add("<file_one");
@@ -233,7 +238,7 @@ public class DataBaseTest {
     }
     @Test
     public void completeMembers1Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         DamagingMoveData moveDamage_;
         moveDamage_ = new DamagingMoveData();
@@ -253,7 +258,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers2Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         DamagingMoveData moveDamage_;
         moveDamage_ = new DamagingMoveData();
@@ -273,7 +278,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers3Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -290,7 +295,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers4Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -307,7 +312,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers5Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -323,7 +328,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers6Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         DamagingMoveData moveDamage_;
         moveDamage_ = new DamagingMoveData();
@@ -344,7 +349,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers7Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         DamagingMoveData moveDamage_;
         moveDamage_ = new DamagingMoveData();
@@ -365,7 +370,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers8Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         DamagingMoveData moveDamage_;
         moveDamage_ = new DamagingMoveData();
@@ -386,7 +391,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers9Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         DamagingMoveData moveDamage_;
         moveDamage_ = new DamagingMoveData();
@@ -408,7 +413,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers10Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -429,7 +434,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers11Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -451,7 +456,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers12Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -473,7 +478,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers13Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -493,7 +498,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers14Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -514,7 +519,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers15Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -534,7 +539,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers16Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -555,7 +560,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers17Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -575,7 +580,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers18Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -595,7 +600,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers19Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -618,7 +623,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers20Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -642,7 +647,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers21Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -663,7 +668,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers22Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -684,7 +689,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers23Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -709,7 +714,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers24Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -735,7 +740,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers25Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -761,7 +766,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers26Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -787,7 +792,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers27Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -812,7 +817,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers28Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -831,7 +836,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers29Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -850,7 +855,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers30Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -869,7 +874,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers31Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -888,7 +893,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers32Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -907,7 +912,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers33Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -927,7 +932,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers34Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -948,7 +953,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers35Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -970,7 +975,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers36Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -992,7 +997,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers37Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1014,7 +1019,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers38Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1037,7 +1042,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers39Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1061,7 +1066,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers40Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1082,7 +1087,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers41Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1102,7 +1107,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers42Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1135,7 +1140,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers43Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1163,7 +1168,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers44Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1191,7 +1196,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers45Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1219,7 +1224,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers46Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1248,7 +1253,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers47Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1277,7 +1282,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers48Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1310,7 +1315,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers49Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1333,7 +1338,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers50Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1358,7 +1363,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers51Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1384,7 +1389,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers52Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1408,7 +1413,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers53Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         Berry berry_;
         berry_ = new Berry();
@@ -1418,7 +1423,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers54Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         ItemForBattle berry_;
         berry_ = new ItemForBattle();
@@ -1433,7 +1438,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers55Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         ItemForBattle berry_;
         berry_ = new ItemForBattle();
@@ -1458,7 +1463,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers56Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         AbilityData ability_;
         ability_ = new AbilityData();
@@ -1473,7 +1478,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers57Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         AbilityData ability_;
         ability_ = new AbilityData();
@@ -1498,7 +1503,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers58Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         Status status_;
         status_ = new StatusSimple();
@@ -1509,7 +1514,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers59Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         Status status_;
         status_ = new StatusSimple();
@@ -1528,7 +1533,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers60Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         Status status_;
         status_ = new StatusSimple();
@@ -1547,7 +1552,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers61Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         Status status_;
         status_ = new StatusSimple();
@@ -1566,7 +1571,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers62Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         Status status_;
         status_ = new StatusSimple();
@@ -1585,7 +1590,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers63Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         EffectCombo eff_;
         eff_ = new EffectCombo();
@@ -1596,7 +1601,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers64Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         EffectCombo eff_;
         eff_ = new EffectCombo();
@@ -1613,7 +1618,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers65Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         EffectCombo eff_;
         eff_ = new EffectCombo();
@@ -1632,7 +1637,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers66Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1655,7 +1660,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers67Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1679,7 +1684,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers68Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1699,7 +1704,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers69Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1725,7 +1730,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembers70Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
@@ -1751,7 +1756,7 @@ public class DataBaseTest {
 
     @Test
     public void completeMembersCombos1Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         EffectCombo eff_;
         eff_ = new EffectCombo();
@@ -1772,7 +1777,7 @@ public class DataBaseTest {
 
     @Test
     public void completeVariables1Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         DamagingMoveData moveDamage_;
         moveDamage_ = new DamagingMoveData();
@@ -1796,14 +1801,14 @@ public class DataBaseTest {
     }
     @Test
     public void calculateAvgPound1Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         data_.calculateAvgPound();
         assertEq(Rate.newRate("0"),data_.getAvgWeight());
     }
     @Test
     public void calculateAvgPoun2Test() {
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         data_.initializeMembers();
         PokemonData pokemon_ = Instances.newPokemonData();
         pokemon_.setWeight(Rate.one());

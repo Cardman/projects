@@ -1,6 +1,7 @@
 package aiki.fight.pokemon;
 import static org.junit.Assert.assertTrue;
 
+import code.maths.montecarlo.DefaultGenerator;
 import org.junit.Test;
 
 import aiki.db.DataBase;
@@ -14,7 +15,6 @@ import aiki.fight.util.StatBaseEv;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -62,7 +62,7 @@ public class PokemonFamilyFailTest {
 
     @Test
     public void new_PokemonFamily_DataBase_String_1FailTest() {
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.initializeMembers();
         PokemonData pkData_ = dataBase1("PIKACHU");
         pkData_.getEvolutions().put("PIKACHU", new EvolutionHappiness());
@@ -71,9 +71,13 @@ public class PokemonFamilyFailTest {
         assertTrue(dataBase_.isError());
     }
 
+    private static DataBase newData() {
+        return new DataBase(new DefaultGenerator());
+    }
+
     @Test
     public void new_PokemonFamily_DataBase_String_2FailTest() {
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.initializeMembers();
         PokemonData pkData_ = dataBase1("PIKACHU");
         PokemonData pkDataTwo_ = dataBase1("RAICHU");
@@ -87,7 +91,7 @@ public class PokemonFamilyFailTest {
 
     @Test
     public void new_PokemonFamily_DataBase_String_3FailTest() {
-        DataBase dataBase_ = new DataBase();
+        DataBase dataBase_ = newData();
         dataBase_.initializeMembers();
         PokemonData pkData_ = dataBase1("PIKACHU");
         PokemonData pkDataTwo_ = dataBase1("RAICHU");

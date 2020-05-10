@@ -16,6 +16,7 @@ import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.structs.StdStruct;
 import code.formathtml.util.BeanCustLgNames;
+import code.maths.montecarlo.AbstractGenerator;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
@@ -137,6 +138,11 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
     private String aliasTableVarSecond;
 
     private AbstractResourcesReader reader = new DefaultResourcesReader();
+
+    public LgNamesRenderUtils(AbstractGenerator _gene) {
+        super(_gene);
+    }
+
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> stds_ = super.buildFiles(_context);

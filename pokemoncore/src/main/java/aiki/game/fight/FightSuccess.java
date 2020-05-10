@@ -1349,28 +1349,28 @@ final class FightSuccess {
 
     static boolean tirage(DataBase _db, Rate _probaActif){
         LgInt maxRd_ = _db.getMaxRd();
-        return AbMonteCarlo.booleanLaw(_probaActif).editNumber(maxRd_);
+        return AbMonteCarlo.booleanLaw(_probaActif).editNumber(maxRd_,_db.getGenerator());
     }
     static Statistic random(DataBase _db, MonteCarloEnum<Statistic> _law) {
         LgInt maxRd_ = _db.getMaxRd();
-        return _law.editNumber(maxRd_);
+        return _law.editNumber(maxRd_,_db.getGenerator());
     }
 
     static boolean random(DataBase _db, MonteCarloBoolean _law) {
         LgInt maxRd_ = _db.getMaxRd();
-        return _law.editNumber(maxRd_);
+        return _law.editNumber(maxRd_,_db.getGenerator());
     }
     static String random(DataBase _db, MonteCarloString _law) {
         LgInt maxRd_ = _db.getMaxRd();
         if (_law.events().isEmpty()) {
             return DataBase.EMPTY_STRING;
         }
-        return _law.editNumber(maxRd_);
+        return _law.editNumber(maxRd_,_db.getGenerator());
     }
 
     static Rate random(DataBase _db, MonteCarloNumber _law) {
         LgInt maxRd_ = _db.getMaxRd();
-        return _law.editNumber(maxRd_);
+        return _law.editNumber(maxRd_,_db.getGenerator());
     }
 
     static boolean isBadSimulation(Fight _fight,IntMonteCarlo _law) {

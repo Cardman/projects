@@ -48,6 +48,7 @@ import aiki.util.SortingPokemonPlayer;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
@@ -63,7 +64,7 @@ import aiki.facade.enums.SelectedBoolean;
 
 public class FacadeGame {
 
-    private DataBase data = new DataBase();
+    private DataBase data;
 
     private boolean loadedData;
 

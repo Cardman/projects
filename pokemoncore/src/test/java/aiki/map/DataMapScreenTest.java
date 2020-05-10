@@ -2,6 +2,7 @@ package aiki.map;
 import static aiki.db.EquallablePkUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
+import code.maths.montecarlo.DefaultGenerator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -471,7 +472,7 @@ public class DataMapScreenTest {
     @Test
     public void calculateBackgroundImagesFromTiles1Test() {
         dataMap.setSideLength(2);
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         StringMap<int[][]> images_ = new StringMap<int[][]>();
         StringList list_ = new StringList("3","4","5","6");
         StringList voie_ = new StringList("6");
@@ -548,10 +549,14 @@ public class DataMapScreenTest {
         assertTrue(backGroundImages_.contains(new ScreenCoords(8,8)));
     }
 
+    private static DataBase newData() {
+        return new DataBase(new DefaultGenerator());
+    }
+
     @Test
     public void calculateBackgroundImagesFromTiles2Test() {
         dataMap.setSideLength(2);
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         StringMap<int[][]> images_ = new StringMap<int[][]>();
         StringList list_ = new StringList("3","4","5","6");
         StringList voie_ = new StringList("6");
@@ -628,7 +633,7 @@ public class DataMapScreenTest {
     @Test
     public void calculateBackgroundImagesFromTiles3Test() {
         dataMap.setSideLength(2);
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         StringMap<int[][]> images_ = new StringMap<int[][]>();
         StringList list_ = new StringList("3","4","5","6");
         StringList voie_ = new StringList("6");
@@ -699,7 +704,7 @@ public class DataMapScreenTest {
     @Test
     public void calculateBackgroundImagesFromTiles4Test() {
         dataMap.setSideLength(2);
-        DataBase data_ = new DataBase();
+        DataBase data_ = newData();
         StringMap<int[][]> images_ = new StringMap<int[][]>();
         StringList list_ = new StringList("3","4","5","6");
         StringList voie_ = new StringList("6");

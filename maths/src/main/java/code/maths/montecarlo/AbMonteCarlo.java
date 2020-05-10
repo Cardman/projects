@@ -30,42 +30,42 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         loi_.addEvent(false,p_.getDiffDenNumerator());
         return loi_;
     }
-    public E editNumber(LgInt _lgInt) {
+    public E editNumber(LgInt _lgInt,AbstractGenerator _gene) {
         Listable<E> cles_ = events();
         if(cles_.size() == CustList.SECOND_INDEX - CustList.FIRST_INDEX){
             return cles_.first();
         }
-        return editNumberSeed(randomNumberSe(randomNumbersSeed(_lgInt),_lgInt));
+        return editNumberSeed(randomNumberSe(randomNumbersSeed(_lgInt,_gene),_lgInt));
     }
-    private static EqList<LgInt> randomNumbersSeed(LgInt _lgInt) {
+    private static EqList<LgInt> randomNumbersSeed(LgInt _lgInt,AbstractGenerator _gene) {
         EqList<LgInt> numbers_ = new EqList<LgInt>();
         for(int i = CustList.FIRST_INDEX; i < NB_RAND; i++){
 //          numbers_.add(MAX_RANDOM.multiply(randomDouble()));
-            numbers_.add(randomLgIntSeed(_lgInt));
+            numbers_.add(randomLgIntSeed(_lgInt,_gene));
         }
         return numbers_;
     }
 
-    public static LgInt randomLgIntSeed(LgInt _lgInt) {
-        return randomLgInt(_lgInt);
+    public static LgInt randomLgIntSeed(LgInt _lgInt,AbstractGenerator _gene) {
+        return randomLgInt(_lgInt,_gene);
     }
 
-    public static LgInt randomLgInt(LgInt _excludeMax) {
-        return Rate.multiply(randomRate(), new Rate(_excludeMax)).intPart();
+    public static LgInt randomLgInt(LgInt _excludeMax,AbstractGenerator _gene) {
+        return Rate.multiply(randomRate(_gene), new Rate(_excludeMax)).intPart();
     }
 
-    public static Rate randomRate() {
-        return new Rate(randomInt(), Integer.MAX_VALUE + 1l);
+    public static Rate randomRate(AbstractGenerator _gene) {
+        return new Rate(randomInt(_gene), Integer.MAX_VALUE + 1l);
     }
 
-    public static int randomInt() {
-        return (int)randomLong(Integer.MAX_VALUE + 1l);
+    public static int randomInt(AbstractGenerator _gene) {
+        return (int)randomLong(Integer.MAX_VALUE + 1l,_gene);
     }
 
     /**@param _excludeMax the maximum of possible returned values
     @return an long from 0 inclusive to the argument excluded*/
-    public static long randomLong(long _excludeMax) {
-        return (long) (Math.random() * _excludeMax);
+    public static long randomLong(long _excludeMax, AbstractGenerator _gene) {
+        return (long) (_gene.pick() * _excludeMax);
     }
 
     protected static LgInt maxNumber(LgInt _max) {

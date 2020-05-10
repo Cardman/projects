@@ -2,6 +2,7 @@ package cards.president;
 
 import cards.consts.GameType;
 import cards.president.enumerations.CardPresident;
+import code.maths.montecarlo.DefaultGenerator;
 import code.util.Bytes;
 import code.util.CustList;
 import org.junit.Test;
@@ -17,8 +18,8 @@ public final class GamePresidentSimulateTest {
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         d_.setDealer((byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
-        SimulatingPresidentAbrupt s_ = new SimulatingPresidentAbrupt(g_);
-        g_.simulate(2,s_);
+        AbstractSimulatingPresident s_ = new SimulatingPresidentAbrupt(g_);
+        simulateLoc(g_, s_);
         assertTrue(!g_.isEnded());
     }
     @Test
@@ -29,9 +30,13 @@ public final class GamePresidentSimulateTest {
         DealPresident d_ = new DealPresident(hs_, (byte) 0);
         d_.setDealer((byte) 3);
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
-        SimulatingPresidentNormal s_ = new SimulatingPresidentNormal();
-        g_.simulate(2,s_);
+        AbstractSimulatingPresident s_ = new SimulatingPresidentNormal();
+        simulateLoc(g_, s_);
         assertTrue(g_.isEnded());
+    }
+
+    private static void simulateLoc(GamePresident g_, AbstractSimulatingPresident s_) {
+        g_.simulate(2,s_, new DefaultGenerator());
     }
 
     static CustList<HandPresident> deal1() {

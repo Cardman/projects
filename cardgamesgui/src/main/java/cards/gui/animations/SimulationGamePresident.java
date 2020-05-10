@@ -23,9 +23,9 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
         RulesPresident regles_ = container.getWindow().getReglesPresident();
         HandPresident pile_=HandPresident.stack(regles_.getNbStacks());
         DealPresident donne_=new DealPresident(0L,pile_);
-        donne_.setRandomDealer(regles_);
+        donne_.setRandomDealer(regles_,container.getWindow().getGenerator());
         regles_.setMixedCards(MixCardsChoice.EACH_DEAL);
-        donne_.initDonne(regles_);
+        donne_.initDonne(regles_,container.getWindow().getGenerator());
         GamePresident gp_ = new GamePresident(GameType.EDIT,donne_,regles_, new Bytes());
         partieSimulee.jouerPresident(gp_);
 //        partieSimulee.sauvegarderPartieEnCours("demos/deal10.cdgame");
@@ -56,7 +56,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
     @Override
     public void setSimulationGui() {
         int maxDeals_ = Math.min(FileConst.MAX_DEALS, container.getDisplayingPresident().getNbDeals());
-        partiePresidentSimulee().simulate(maxDeals_,simulatingPresident);
+        partiePresidentSimulee().simulate(maxDeals_,simulatingPresident,container.getWindow().getGenerator());
     }
 
 }

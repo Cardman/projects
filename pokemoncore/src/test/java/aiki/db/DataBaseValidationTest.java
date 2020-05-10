@@ -26,6 +26,7 @@ import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.montecarlo.DefaultGenerator;
 import code.util.*;
 import org.junit.Test;
 
@@ -41,7 +42,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     private static final String TYPE_FORMULA = "type";
     @Test
     public void failEvoTest() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -68,6 +69,11 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.validateEvolutions();
         assertTrue(data_.isError());
     }
+
+    private static DataBase newData() {
+        return new DataBase(new DefaultGenerator());
+    }
+
     @Test
     public void fail1Test() {
         PokemonData pkData_ = Instances.newPokemonData();
@@ -81,7 +87,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         move_.setTargetChoice(TargetChoice.TOUS_ADV);
         move_.setTypes(new StringList(ELECTRICK));
         Ball ball_ = Instances.newBall();
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -130,7 +136,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
 
     @Test
     public void fail2Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -174,7 +180,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
 
     @Test
     public void fail3Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -215,7 +221,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
 
     @Test
     public void fail4Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -304,7 +310,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
 
     @Test
     public void fail5Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -398,7 +404,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
 
     @Test
     public void fail6Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -492,7 +498,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
 
     @Test
     public void fail7Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -531,7 +537,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
 
     @Test
     public void fail8Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -570,7 +576,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
 
     @Test
     public void fail9Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -608,7 +614,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void fail10Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -621,7 +627,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void fail11Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -643,7 +649,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void fail12Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -665,7 +671,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
 
     @Test
     public void fail13Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -687,7 +693,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
 
     @Test
     public void fail14Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -724,7 +730,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
 
     @Test
     public void fail15Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -760,7 +766,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration1Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -775,7 +781,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration2Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -792,7 +798,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration3Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -809,7 +815,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration4Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -826,7 +832,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration5Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -843,7 +849,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration6Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -860,7 +866,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration7Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -877,7 +883,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration8Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -894,7 +900,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration9Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -912,7 +918,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration10Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -930,7 +936,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration11Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -947,7 +953,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration12Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -964,7 +970,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration13Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -981,7 +987,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration14Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -998,7 +1004,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration15Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1015,7 +1021,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration16Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1032,7 +1038,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration17Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1050,7 +1056,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration18Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1068,7 +1074,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration19Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1085,7 +1091,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration20Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1102,7 +1108,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration21Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1120,7 +1126,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void nextIteration22Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1138,7 +1144,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves1Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1155,7 +1161,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves01Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1173,7 +1179,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves02Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1201,7 +1207,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves03Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1229,7 +1235,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves04Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1258,7 +1264,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves2Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1275,7 +1281,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves3Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1292,7 +1298,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves4Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1311,7 +1317,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves5Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1330,7 +1336,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves6Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1349,7 +1355,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves7Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1371,7 +1377,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves8Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1389,7 +1395,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves9Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1407,7 +1413,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves10Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1426,7 +1432,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves11Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1445,7 +1451,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves12Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1464,7 +1470,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves13Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1483,7 +1489,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves14Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1502,7 +1508,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void strongMoves15Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1521,7 +1527,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations1Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1548,7 +1554,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations2Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1575,7 +1581,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations3Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1602,7 +1608,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations4Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1629,7 +1635,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations5Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1659,7 +1665,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations6Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1686,7 +1692,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations7Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1713,7 +1719,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations8Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1740,7 +1746,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations9Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1770,7 +1776,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations10Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1800,7 +1806,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations11Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1826,7 +1832,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations12Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1855,7 +1861,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations13Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1884,7 +1890,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations14Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1913,7 +1919,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations15Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1939,7 +1945,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations16Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -1965,7 +1971,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     }
     @Test
     public void checkTranslations17Test() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
@@ -2218,7 +2224,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("a sec move TREMPETTE", desc_.getValue(1));
     }
     private DataBase init() {
-        DataBase data_ =new DataBase();
+        DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
