@@ -145,7 +145,7 @@ public abstract class OperationNode implements Operable {
             return new DeclaringOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
-            if (_an.isAnnotAnalysis(_m,_op)) {
+            if (_an.getAnalyzing().getAnnotationAnalysis().isAnnotAnalysis(_m,_op)) {
                 return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
             }
             String fctName_ = _op.getFctName().trim();
@@ -734,7 +734,7 @@ public abstract class OperationNode implements Operable {
             signatures_.add(mloc_);
         }
         StringMap<StringList> map_;
-        map_ = _conf.getCurrentConstraints();
+        map_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_);
         ConstructorInfo cInfo_ = sortCtors(signatures_, gr_);
         if (cInfo_ == null) {
@@ -1345,7 +1345,7 @@ public abstract class OperationNode implements Operable {
             signatures_.add(e);
         }
         StringMap<StringList> map_;
-        map_ = _conf.getCurrentConstraints();
+        map_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_);
         MethodInfo found_ = sortFct(signatures_, gr_);
         if (found_ == null) {
@@ -1399,7 +1399,7 @@ public abstract class OperationNode implements Operable {
                 }
             }
         }
-        StringMap<StringList> mapCtr_ = _context.getCurrentConstraints();
+        StringMap<StringList> mapCtr_ = _context.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         boolean allNotBoxUnbox_ = true;
         for (int i = CustList.FIRST_INDEX; i < nbDem_; i++) {
             String wc_ = params_.get(i);

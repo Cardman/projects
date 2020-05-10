@@ -420,5 +420,8 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         context_.setAnalyzing();
         context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_conf));
         context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_conf));
+        context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_conf));
+        context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
     }
 }

@@ -157,7 +157,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(compo_);
                 mapping_.setParam(importedClassName);
-                StringMap<StringList> vars_ = _cont.getCurrentConstraints();
+                StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -213,7 +213,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             } else {
                 mapping_.setArg(paramArg_);
                 mapping_.setParam(importedClassName);
-                StringMap<StringList> vars_ = _cont.getCurrentConstraints();
+                StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();

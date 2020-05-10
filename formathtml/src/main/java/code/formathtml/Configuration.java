@@ -212,6 +212,9 @@ public final class Configuration implements ExecutableCode {
         context.setAnalyzing();
         context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));
         context.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(this));
+        context.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(this));
+        context.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        context.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         getAnalyzing().setEnabledInternVars(false);
         for (String s: renderFiles) {
             String link_ = RendExtractFromResources.getRealFilePath(currentLanguage,s);
@@ -623,16 +626,6 @@ public final class Configuration implements ExecutableCode {
         return analyzingDoc.getInternGlobalClass();
     }
 
-    @Override
-    public void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts) {
-        //implement
-    }
-
-    @Override
-    public void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts) {
-        //implement
-    }
-
     private static AccessingImportingBlock getAccessingImportingBlock(AccessingImportingBlock _r, RootBlock _root) {
         AccessingImportingBlock a_;
         if (_root != null) {
@@ -659,11 +652,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public boolean isAnnotAnalysis(OperationNode _op, OperationsSequence _seq) {
-        return false;
-    }
-
-    @Override
     public String getLookLocalClass() {
         return context.getLookLocalClass();
     }
@@ -686,11 +674,6 @@ public final class Configuration implements ExecutableCode {
     @Override
     public KeyWords getKeyWords() {
         return context.getKeyWords();
-    }
-
-    @Override
-    public StringMap<StringList> getCurrentConstraints() {
-        return new StringMap<StringList>();
     }
 
     @Override
@@ -746,6 +729,9 @@ public final class Configuration implements ExecutableCode {
         context.setAnalyzing();
         context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));
         context.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(this));
+        context.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(this));
+        context.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        context.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         context.getAnalyzing().setGlobalClass(globalClass_);
         context.getAnalyzing().initLocalVars();
         context.getAnalyzing().initMutableLoopVars();
@@ -909,21 +895,16 @@ public final class Configuration implements ExecutableCode {
         beanName = _beanName;
     }
 
-    @Override
+
     public AccessingImportingBlock getCurrentGlobalBlock() {
-        return analyzingDoc.getCurrentDoc();
+        return getAnalyzingDoc().getCurrentDoc();
     }
 
-    @Override
+
     public AccessingImportingBlock getCurrentGlobalBlock(AccessingImportingBlock _bl) {
         String gl_ = getGlobalClass();
         RootBlock root_ = getContext().getClasses().getClassBody(Templates.getIdFromAllTypes(gl_));
         return getAccessingImportingBlock(_bl, root_);
-    }
-
-    @Override
-    public CustList<PartOffset> getCurrentParts() {
-        return new CustList<PartOffset>();
     }
 
     @Override

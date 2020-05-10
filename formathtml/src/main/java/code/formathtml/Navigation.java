@@ -228,6 +228,9 @@ public final class Navigation {
             session.getContext().setAnalyzing();
             session.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(session));
             session.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(session));
+            session.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(session));
+            session.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+            session.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
             session.getContext().setGlobalClass(ip_.getGlobalClass());
             Struct return_;
             if (htmlPage_.isForm()) {

@@ -68,7 +68,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             Mapping map_ = new Mapping();
             map_.setParam(classType);
             map_.setArg(getResultClass());
-            StringMap<StringList> mapping_ = _conf.getCurrentConstraints();
+            StringMap<StringList> mapping_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
             map_.setMapping(mapping_);
             if (!Templates.isCorrectOrNumbers(map_, _conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -104,7 +104,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             Mapping map_ = new Mapping();
             map_.setParam(classType);
             map_.setArg(getResultClass());
-            StringMap<StringList> mapping_ = _conf.getCurrentConstraints();
+            StringMap<StringList> mapping_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
             map_.setMapping(mapping_);
             if (!Templates.isCorrectOrNumbers(map_, _conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();

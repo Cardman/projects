@@ -51,7 +51,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             return;
         }
         StringMap<StringList> map_;
-        map_ = _conf.getCurrentConstraints();
+        map_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         String eltType_ = PrimitiveTypeUtil.getQuickComponentType(className_);
         Mapping mapping_ = new Mapping();
         mapping_.setParam(eltType_);

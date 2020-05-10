@@ -61,7 +61,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             ClassArgumentMatching name_ = _children.first().getResultClass();
             StringMap<StringList> map_;
-            map_ = _conf.getCurrentConstraints();
+            map_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
             Mapping mapping_ = new Mapping();
             mapping_.setParam(name_);
             for (OperationNode o: optArgsNodes_) {

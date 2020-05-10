@@ -135,7 +135,7 @@ public final class StandardInstancingOperation extends
             String id_ = Templates.getIdFromAllTypes(sup_);
             type_ = StringList.concat(id_,"..",idClass_);
             int begin_ = newKeyWord_.length()+local_;
-            _an.appendParts(begin_,begin_+inferForm_.length(),type_,partOffsets_);
+            _an.getContextEl().appendParts(begin_,begin_+inferForm_.length(),type_,partOffsets_);
             current_ = getParent();
             m_ = current_.getParent();
         }
@@ -213,7 +213,7 @@ public final class StandardInstancingOperation extends
         partOffsets.addAllElts(partOffsets_);
         int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
         int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-        _an.appendTitleParts(begin_,end_,infer_,partOffsets);
+        _an.getContextEl().appendTitleParts(begin_,end_,infer_,partOffsets);
         typeInfer = infer_;
     }
 
@@ -259,7 +259,7 @@ public final class StandardInstancingOperation extends
                             realClassName_);
                     _conf.addError(static_);
                 } else {
-                    StringMap<StringList> vars_ = _conf.getCurrentConstraints();
+                    StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                     Mapping m_ = new Mapping();
                     m_.setArg(glClass_);
                     m_.setParam(outer_);
@@ -377,7 +377,7 @@ public final class StandardInstancingOperation extends
         } else {
             realClassName_ = StringList.concat(sup_,"..",idClass_,"<", StringList.join(partsArgs_, ","),">");
         }
-        StringMap<StringList> vars_ = _conf.getCurrentConstraints();
+        StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         if (!Templates.isCorrectTemplateAll(realClassName_, vars_, _conf)) {
             int rc_ = _conf.getCurrentLocationIndex();
             FoundErrorInterpret un_ = new FoundErrorInterpret();

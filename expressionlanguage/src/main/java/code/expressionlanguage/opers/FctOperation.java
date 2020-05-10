@@ -101,7 +101,7 @@ public final class FctOperation extends InvokingOperation {
             Mapping map_ = new Mapping();
             map_.setParam(className_);
             map_.setArg(clCur_);
-            StringMap<StringList> mapping_ = _conf.getCurrentConstraints();
+            StringMap<StringList> mapping_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
             map_.setMapping(mapping_);
             if (!Templates.isCorrectOrNumbers(map_, _conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();

@@ -3,6 +3,9 @@ package code.expressionlanguage;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.util.MethodAccessKind;
+import code.expressionlanguage.types.AbstractAnnotationAnalysis;
+import code.expressionlanguage.types.AbstractCurrentConstraints;
+import code.expressionlanguage.types.AbstractCurrentGlobalBlock;
 import code.expressionlanguage.types.AbstractHiddenTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -73,6 +76,9 @@ public final class AnalyzedPageEl {
 
     private AbstractProcessKeyWord processKeyWord;
     private AbstractHiddenTypes hiddenTypes;
+    private AbstractCurrentConstraints currentConstraints;
+    private AbstractAnnotationAnalysis annotationAnalysis;
+    private AbstractCurrentGlobalBlock currentGlobalBlock;
 
     public AnalyzedPageEl() {
         setCatchVars(new CustList<StringMap<LocalVariable>>());
@@ -543,5 +549,29 @@ public final class AnalyzedPageEl {
 
     public void setHiddenTypes(AbstractHiddenTypes hiddenTypes) {
         this.hiddenTypes = hiddenTypes;
+    }
+
+    public AbstractCurrentConstraints getCurrentConstraints() {
+        return currentConstraints;
+    }
+
+    public void setCurrentConstraints(AbstractCurrentConstraints currentConstraints) {
+        this.currentConstraints = currentConstraints;
+    }
+
+    public AbstractAnnotationAnalysis getAnnotationAnalysis() {
+        return annotationAnalysis;
+    }
+
+    public void setAnnotationAnalysis(AbstractAnnotationAnalysis annotationAnalysis) {
+        this.annotationAnalysis = annotationAnalysis;
+    }
+
+    public AbstractCurrentGlobalBlock getCurrentGlobalBlock() {
+        return currentGlobalBlock;
+    }
+
+    public void setCurrentGlobalBlock(AbstractCurrentGlobalBlock currentGlobalBlock) {
+        this.currentGlobalBlock = currentGlobalBlock;
     }
 }

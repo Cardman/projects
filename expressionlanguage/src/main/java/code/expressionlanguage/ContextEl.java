@@ -20,6 +20,9 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.types.DefaultAnnotationAnalysis;
+import code.expressionlanguage.types.DefaultCurrentConstraints;
+import code.expressionlanguage.types.DefaultCurrentGlobalBlock;
 import code.expressionlanguage.types.DefaultHiddenTypes;
 import code.util.*;
 
@@ -294,6 +297,9 @@ public abstract class ContextEl implements ExecutableCode {
         analyzing = new AnalyzedPageEl();
         analyzing.setProcessKeyWord(new DefaultProcessKeyWord());
         analyzing.setHiddenTypes(new DefaultHiddenTypes(this));
+        analyzing.setCurrentConstraints(new DefaultCurrentConstraints(this));
+        analyzing.setAnnotationAnalysis(new DefaultAnnotationAnalysis(this));
+        analyzing.setCurrentGlobalBlock(new DefaultCurrentGlobalBlock(this));
     }
 
     public void setNullAnalyzing() {
@@ -528,8 +534,6 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.getNeedInterfaces();
     }
 
-
-    @Override
     public StringMap<StringList> getCurrentConstraints() {
         StringMap<StringList> vars_ = new StringMap<StringList>();
         for (EntryCust<String,TypeVar> e: getCurrentConstraintsFull().entryList()) {
@@ -578,8 +582,11 @@ public abstract class ContextEl implements ExecutableCode {
         return _fct instanceof OverridableBlock && StringList.quickEq(((OverridableBlock) _fct).getName(),keyWords.getKeyWordExplicit());
     }
 
-    @Override
+
     public void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts) {
+        if (!isCovering()) {
+            return;
+        }
         GeneType g_ = getClassBody(_in);
         if (!ElUtil.isFromCustFile(g_)) {
             return;
@@ -594,8 +601,10 @@ public abstract class ContextEl implements ExecutableCode {
         _parts.add(new PartOffset("</a>",rc_+_end));
     }
 
-    @Override
     public void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts) {
+        if (!isCovering()) {
+            return;
+        }
         int rc_ = getCurrentLocationIndex();
         _parts.add(new PartOffset("<a title=\""+ElUtil.transform(_in)+"\">",rc_+_begin));
         _parts.add(new PartOffset("</a>",rc_+_end));
@@ -667,7 +676,6 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.getAnalysisAss();
     }
 
-    @Override
     public boolean isAnnotAnalysis(OperationNode _op, OperationsSequence _seq) {
         boolean ok_ = false;
         if (analyzing.getCurrentBlock() instanceof AnnotationMethodBlock && _op == null) {
@@ -835,21 +843,16 @@ public abstract class ContextEl implements ExecutableCode {
         return comments;
     }
 
-    @Override
+
     public AccessingImportingBlock getCurrentGlobalBlock() {
-        return analyzing.getImporting();
+        return getAnalyzing().getImporting();
     }
 
-    @Override
+
     public AccessingImportingBlock getCurrentGlobalBlock(AccessingImportingBlock _bl) {
-        CustList<PartOffset> offs_ = coverage.getCurrentParts();
+        CustList<PartOffset> offs_ = getCoverage().getCurrentParts();
         offs_.clear();
         return _bl;
-    }
-
-    @Override
-    public CustList<PartOffset> getCurrentParts() {
-        return coverage.getCurrentParts();
     }
 
     public InitializingTypeInfos getInitializingTypeInfos() {

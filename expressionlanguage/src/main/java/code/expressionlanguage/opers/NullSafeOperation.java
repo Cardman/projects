@@ -46,7 +46,7 @@ public final class NullSafeOperation extends MethodOperation {
         Argument secondArg_ = opThree_.getArgument();
         StringList one_ = clMatchTwo_.getNames();
         StringList two_ = clMatchThree_.getNames();
-        StringMap<StringList> vars_ = _conf.getCurrentConstraints();
+        StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         String void_ = stds_.getAliasVoid();
         if (StringList.contains(one_, void_)) {
             setRelativeOffsetPossibleAnalyzable(opTwo_.getIndexInEl(), _conf);

@@ -118,7 +118,7 @@ public final class DimensionArrayInstancing extends
         partOffsets.addAllElts(partOffsets_);
         int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
         int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-        _an.appendTitleParts(begin_,end_,infer_,partOffsets);
+        _an.getContextEl().appendTitleParts(begin_,end_,infer_,partOffsets);
         typeInfer = infer_;
     }
 

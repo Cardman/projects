@@ -220,6 +220,9 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         context_.getAnalyzing().setEnabledInternVars(true);
         context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_context));
         context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_context));
+        context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_context));
+        context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         String locName_ = context_.getNextTempVar();
         String exp_;
         LocalVariable locVar_ = new LocalVariable();

@@ -123,7 +123,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         }
         setClassName(classNameFinal_);
         StringMap<StringList> map_;
-        map_ = _conf.getCurrentConstraints();
+        map_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setParam(classNameFinal_);
         for (OperationNode o: chidren_) {

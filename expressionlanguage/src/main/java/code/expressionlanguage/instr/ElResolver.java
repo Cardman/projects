@@ -1799,7 +1799,7 @@ public final class ElResolver {
                 }
             }
             start_ = trim_;
-            _conf.appendParts(_from, _from +inns_.first().length(),trim_,partOffsets_);
+            _conf.getContextEl().appendParts(_from, _from +inns_.first().length(),trim_,partOffsets_);
             nextOff_ += inns_.first().length() + 1;
         } else {
             start_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from,inns_.first(), false);
@@ -1822,7 +1822,7 @@ public final class ElResolver {
                 break;
             }
             start_ = res_.first();
-            _conf.appendParts(nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_);
+            _conf.getContextEl().appendParts(nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_);
             nextOff_ += fullPart_.length() + 1;
             nb_++;
             iPart_++;

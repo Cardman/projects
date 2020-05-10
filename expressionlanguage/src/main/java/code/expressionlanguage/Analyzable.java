@@ -3,16 +3,9 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
 
 public interface Analyzable {
 
@@ -52,15 +45,6 @@ public interface Analyzable {
     void setupLoopDeclaratorClass(String _className);
 
 
-    StringMap<StringList> getCurrentConstraints();
-
-    void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts);
-    void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts);
-
-    boolean isAnnotAnalysis(OperationNode _op, OperationsSequence _seq);
-
-
-
     boolean isOkNumOp();
 
     void setOkNumOp(boolean _okNumOp);
@@ -73,9 +57,6 @@ public interface Analyzable {
 
     String getIndexClassName();
 
-    AccessingImportingBlock getCurrentGlobalBlock();
-    AccessingImportingBlock getCurrentGlobalBlock(AccessingImportingBlock _bl);
-    CustList<PartOffset> getCurrentParts();
 
     void buildCurrentConstraintsFull();
 }

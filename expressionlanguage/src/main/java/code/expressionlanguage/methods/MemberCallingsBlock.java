@@ -21,7 +21,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         Block firstChild_ = getFirstChild();
-        StringMap<StringList> vars_ = _cont.getCurrentConstraints();
+        StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         AnalyzingEl anEl_ = new AnalyzingEl(mapping_);
@@ -153,7 +153,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         Block firstChild_ = getFirstChild();
-        StringMap<StringList> vars_ = _cont.getCurrentConstraints();
+        StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         AnalyzingEl anEl_ = new AnalyzingEl(mapping_);

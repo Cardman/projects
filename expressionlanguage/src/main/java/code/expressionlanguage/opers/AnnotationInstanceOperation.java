@@ -221,7 +221,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 String paramName_ = fields_.getValue(0).getType();
                 ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
                 Mapping mapping_ = new Mapping();
-                mapping_.setMapping(_conf.getCurrentConstraints());
+                mapping_.setMapping(_conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints());
                 mapping_.setArg(arg_);
                 mapping_.setParam(param_);
                 if (!Templates.isCorrectOrNumbers(mapping_,_conf)) {
@@ -320,7 +320,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
                 ClassArgumentMatching arg_ = e.getValue();
                 Mapping mapping_ = new Mapping();
-                mapping_.setMapping(_conf.getCurrentConstraints());
+                mapping_.setMapping(_conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints());
                 mapping_.setArg(arg_);
                 mapping_.setParam(param_);
                 if (!Templates.isCorrectOrNumbers(mapping_,_conf)) {

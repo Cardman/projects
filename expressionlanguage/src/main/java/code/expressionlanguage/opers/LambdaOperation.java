@@ -966,7 +966,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String sup_ = ownersMap_.values().first();
         String idSup_ = Templates.getIdFromAllTypes(sup_);
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        _conf.appendParts(offset_,offset_+idClass_.length(),StringList.concat(idSup_,"..",idClass_),partOffsets_);
+        _conf.getContextEl().appendParts(offset_,offset_+idClass_.length(),StringList.concat(idSup_,"..",idClass_),partOffsets_);
         offset_ += idClass_.length() + 1;
         StringList partsArgs_ = new StringList();
         for (String a: Templates.getAllTypes(cl_).mid(1)) {
@@ -984,7 +984,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         } else {
             cl_ = StringList.concat(sup_,"..",idClass_,"<", StringList.join(partsArgs_, ","),">");
         }
-        StringMap<StringList> vars_ = _conf.getCurrentConstraints();
+        StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         if (!Templates.isCorrectTemplateAll(cl_, vars_, _conf)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_conf.getCurrentFileName());
@@ -1320,7 +1320,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
 
     private static void getRefConstraints(Analyzable _conf, StringMap<StringList> _map) {
-        _map.putAllMap(_conf.getCurrentConstraints());
+        _map.putAllMap(_conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints());
     }
 
     private void processOperator(Analyzable _conf, LgNames _stds,

@@ -111,7 +111,7 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
     }
     private void checkTypes(ContextEl _cont, String _retType) {
         LgNames stds_ = _cont.getStandards();
-        StringMap<StringList> vars_ = _cont.getCurrentConstraints();
+        StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         mapping_.setArg(opRet.last().getResultClass());

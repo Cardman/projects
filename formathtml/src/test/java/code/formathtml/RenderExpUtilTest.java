@@ -10,9 +10,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
-import code.formathtml.util.AdvancedHiddenTypes;
-import code.formathtml.util.AdvancedProcessKeyWord;
-import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import org.junit.Test;
@@ -27,7 +25,6 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -2427,6 +2424,9 @@ public final class RenderExpUtilTest extends CommonRender {
         ctx_.setAnalyzing();
         ctx_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
         ctx_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(context_));
+        ctx_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
+        ctx_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        ctx_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         String elr_ = "+1y";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);

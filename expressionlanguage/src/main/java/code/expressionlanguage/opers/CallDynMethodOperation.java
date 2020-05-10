@@ -73,7 +73,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
         }
         if (!allParamWildCard_) {
             int nb_ = param_.size();
-            StringMap<StringList> map_ = _conf.getCurrentConstraints();
+            StringMap<StringList> map_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
             for (int i = 0; i < nb_; i++) {
                 ClassArgumentMatching a_ = firstArgs_.get(i);
                 String pa_ = param_.get(i);

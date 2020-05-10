@@ -414,7 +414,7 @@ public class ApplyCoreMethodUtil {
     }
     public static IterableAnalysisResult getCustomTypeBase(StringList _names, ContextEl _context) {
         StringList out_ = new StringList();
-        StringMap<StringList> vars_ = _context.getCurrentConstraints();
+        StringMap<StringList> vars_ = _context.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         LgNames stds_ = _context.getStandards();
@@ -430,7 +430,7 @@ public class ApplyCoreMethodUtil {
     public static IterableAnalysisResult getCustomTableType(StringList _names, ContextEl _context) {
         StringList out_ = new StringList();
         LgNames stds_ = _context.getStandards();
-        StringMap<StringList> vars_ = _context.getCurrentConstraints();
+        StringMap<StringList> vars_ = _context.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         for (String f: _names) {

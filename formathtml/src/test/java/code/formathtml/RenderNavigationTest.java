@@ -5891,6 +5891,9 @@ public final class RenderNavigationTest extends CommonRender {
         _nav.getSession().getContext().setAnalyzing();
         _nav.getSession().getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_nav.getSession()));
         _nav.getSession().getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_nav.getSession()));
+        _nav.getSession().getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_nav.getSession()));
+        _nav.getSession().getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        _nav.getSession().getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         _nav.initInstancesPattern();
         _nav.setupRenders();
         tryInitStaticlyTypes(_nav.getSession());

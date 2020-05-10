@@ -1426,6 +1426,9 @@ public final class NativeTest extends CommonRender {
         _nav.getSession().getContext().setAnalyzing();
         _nav.getSession().getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_nav.getSession()));
         _nav.getSession().getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_nav.getSession()));
+        _nav.getSession().getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_nav.getSession()));
+        _nav.getSession().getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        _nav.getSession().getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         _nav.initInstancesPattern();
         _nav.setupRenders();
         tryInitStaticlyTypes(_nav.getSession());
@@ -1452,6 +1455,9 @@ public final class NativeTest extends CommonRender {
         context_.getContext().setAnalyzing();
         context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
         context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(context_));
+        context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
+        context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         rendDocumentBlock_.buildFctInstructions(context_);
         context_.setDocument(doc_);
         return rendDocumentBlock_;
@@ -1470,6 +1476,9 @@ public final class NativeTest extends CommonRender {
         conf_.getContext().setAnalyzing();
         conf_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(conf_));
         conf_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(conf_));
+        conf_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(conf_));
+        conf_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        conf_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendDocumentBlockSec_.buildFctInstructions(conf_);
         conf_.setDocument(doc_);

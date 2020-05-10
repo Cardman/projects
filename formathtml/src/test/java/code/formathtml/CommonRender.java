@@ -9,10 +9,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.util.AdvancedHiddenTypes;
-import code.formathtml.util.AdvancedProcessKeyWord;
-import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.CustList;
@@ -28,6 +25,9 @@ public abstract class CommonRender {
         _conf.getContext().setAnalyzing();
         _conf.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_conf));
         _conf.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_conf));
+        _conf.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_conf));
+        _conf.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        _conf.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
     }
 
     protected static void setLocale(String _locale, Configuration _conf) {
@@ -70,6 +70,9 @@ public abstract class CommonRender {
         conf_.getContext().setAnalyzing();
         conf_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(conf_));
         conf_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(conf_));
+        conf_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(conf_));
+        conf_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        conf_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setDocument(doc_);
@@ -90,6 +93,9 @@ public abstract class CommonRender {
         context_.getContext().setAnalyzing();
         context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
         context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(context_));
+        context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
+        context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         tryInitStaticlyTypes(context_);
@@ -133,6 +139,9 @@ public abstract class CommonRender {
         context_.getContext().setAnalyzing();
         context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
         context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(context_));
+        context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
+        context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
@@ -165,6 +174,9 @@ public abstract class CommonRender {
         context_.getContext().setAnalyzing();
         context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
         context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(context_));
+        context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
+        context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
@@ -207,6 +219,9 @@ public abstract class CommonRender {
         context_.getContext().setAnalyzing();
         context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
         context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(context_));
+        context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
+        context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);

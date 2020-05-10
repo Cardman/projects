@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
 
-public class DefaultHiddenTypes implements AbstractHiddenTypes {
+public final class DefaultHiddenTypes implements AbstractHiddenTypes {
     private final ContextEl context;
 
     public DefaultHiddenTypes(ContextEl context) {

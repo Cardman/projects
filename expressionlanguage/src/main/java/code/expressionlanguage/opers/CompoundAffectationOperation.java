@@ -192,7 +192,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 _conf.addError(cast_);
                 return;
             }
-            StringMap<StringList> vars_ = _conf.getCurrentConstraints();
+            StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
             Mapping mapping_ = new Mapping();
             mapping_.setMapping(vars_);
             mapping_.setArg(clMatchRight_);
