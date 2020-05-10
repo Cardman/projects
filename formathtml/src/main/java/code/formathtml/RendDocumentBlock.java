@@ -160,7 +160,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessin
     }
 
     static void reduce(RendBlock _block,Configuration _cont) {
-        if (_cont.getAdvStandards() instanceof BeanCustLgNames && _block instanceof RendReducableOperations) {
+        if (_block instanceof RendReducableOperations) {
             ((RendReducableOperations)_block).reduce(_cont);
         }
     }

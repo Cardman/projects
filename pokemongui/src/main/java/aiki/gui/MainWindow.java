@@ -995,7 +995,7 @@ public final class MainWindow extends NetGroupFrame {
         //JTextArea area_ = new JTextArea();
         RenderedPage session_;
         session_ = new RenderedPage(new ScrollPane());
-        session_.setProcess(videoLoading.getVideo());
+        session_.setProcess(videoLoading.getVideo(getGenerator()));
         FrameHtmlData dialog_ = new FrameHtmlData(this, messages.getVal(TITLE_WEB), session_);
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
         dialog_.initSessionLg(facade.getData(),preparedDataWebTask.getNavigation(),facade.getLanguage());

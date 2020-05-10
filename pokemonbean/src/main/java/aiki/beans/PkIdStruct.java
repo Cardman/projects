@@ -4,17 +4,26 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
-import aiki.facade.enums.SelectedBoolean;
+import code.util.CustList;
 
-public final class SelectedBooleanStruct implements RealInstanceStruct {
+public final class PkIdStruct implements RealInstanceStruct {
 
-    private final SelectedBoolean instance;
+    private final Object instance;
 
     private final String className;
 
-    public SelectedBooleanStruct(SelectedBoolean _instance, String _className) {
+    PkIdStruct(Object _instance, String _className) {
         instance = _instance;
         className = _className;
+    }
+    static Struct newPkIdStruct(Object _instance,
+                                CustList<PkIdStruct> _selected) {
+        for (PkIdStruct s: _selected) {
+            if (s.instance == _instance) {
+                return s;
+            }
+        }
+        return NullStruct.NULL_VALUE;
     }
     @Override
     public Object getInstance() {
@@ -33,10 +42,6 @@ public final class SelectedBooleanStruct implements RealInstanceStruct {
 
     @Override
     public boolean sameReference(Struct _other) {
-        if (!(_other instanceof SelectedBooleanStruct)) {
-            return false;
-        }
-        SelectedBooleanStruct other_ = (SelectedBooleanStruct) _other;
-        return getInstance() == other_.getInstance();
+        return this == _other;
     }
 }

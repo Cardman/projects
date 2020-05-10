@@ -1,5 +1,6 @@
 package aiki.beans.solution;
 import aiki.beans.AikiBeansStd;
+import aiki.beans.DefaultStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -14,7 +15,6 @@ import code.formathtml.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.structs.StdStruct;
 import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -53,7 +53,7 @@ public final class AikiBeansSolutionStd {
         SolutionBean instance_ = (SolutionBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,STEPS)) {
-            res_.setResult(new StdStruct(instance_.getSteps(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getSteps(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;

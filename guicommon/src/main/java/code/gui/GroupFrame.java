@@ -31,16 +31,26 @@ public abstract class GroupFrame extends CommonFrame {
 
     protected GroupFrame(String _lg) {
         super(_lg);
-        FRAMES.add(this);
+        addInstance();
         if (FRAMES.size() == 1) {
-            generator = new AdvancedGenerator();
+            initGeneIfNull();
             FRAMES.first().messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _lg,ACCESS);
         }
         if (generator == null) {
             generator = FRAMES.first().generator;
         }
+        initGeneIfNull();
+    }
+
+    private void addInstance() {
+        FRAMES.add(this);
+    }
+
+    private void initGeneIfNull() {
         if (generator == null) {
-            generator = new AdvancedGenerator();
+            AdvancedGenerator generator_ = new AdvancedGenerator();
+            generator_.setSeed(System.currentTimeMillis());
+            generator = generator_;
         }
     }
 

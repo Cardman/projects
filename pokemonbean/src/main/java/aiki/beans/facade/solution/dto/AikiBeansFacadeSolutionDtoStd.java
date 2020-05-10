@@ -1,4 +1,5 @@
 package aiki.beans.facade.solution.dto;
+import aiki.beans.DefaultStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -13,7 +14,6 @@ import code.formathtml.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.structs.StdStruct;
 import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -122,11 +122,11 @@ public final class AikiBeansFacadeSolutionDtoStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_POKEMON)) {
-            res_.setResult(new StdStruct(instance_.getPokemon(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getPokemon(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_NAMES)) {
-            res_.setResult(new StdStruct(instance_.getNames(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getNames(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;

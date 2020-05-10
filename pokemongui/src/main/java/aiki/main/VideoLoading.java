@@ -7,7 +7,7 @@ import code.gui.images.ConverterGraphicBufferedImage;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.maths.montecarlo.DefaultGenerator;
+import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.resources.ResourceFiles;
 import code.stream.StreamImageFile;
@@ -24,7 +24,7 @@ public final class VideoLoading {
     private boolean initialized;
     private LgInt maxRd = LgInt.getMaxLongPlusOne();
 
-    public CustList<BufferedImage> getVideo() {
+    public CustList<BufferedImage> getVideo(AbstractGenerator _abs) {
         if (!initialized) {
             String path_ = VIDEO;
             File file_ = new File(path_);
@@ -77,7 +77,7 @@ public final class VideoLoading {
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             law_.addEvent(new Rate(i), LgInt.one());
         }
-        return new CustList<BufferedImage>(images.get((int) law_.editNumber(maxRd, new DefaultGenerator()).ll()));
+        return new CustList<BufferedImage>(images.get((int) law_.editNumber(maxRd, _abs).ll()));
     }
     public CustList<CustList<BufferedImage>> getImages() {
         return images;

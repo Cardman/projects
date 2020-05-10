@@ -1,5 +1,6 @@
 package aiki.beans.map.elements;
 import aiki.beans.AikiBeansStd;
+import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
@@ -16,7 +17,6 @@ import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.structs.StdStruct;
 import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -188,7 +188,7 @@ public final class AikiBeansMapElementsStd {
         AreaBean instance_ = (AreaBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,AREA)) {
-            res_.setResult(StdStruct.newInstance(instance_.getArea(),PokemonStandards.TYPE_AREA_APPARITION));
+            res_.setResult(DefaultStruct.newInstance(instance_.getArea(),PokemonStandards.TYPE_AREA_APPARITION));
             return res_;
         }
         return res_;
@@ -198,7 +198,7 @@ public final class AikiBeansMapElementsStd {
         LegendaryPokemonBean instance_ = (LegendaryPokemonBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,POKEMON)) {
-            res_.setResult(StdStruct.newInstance(instance_.getPokemon(),PokemonStandards.TYPE_POKEMON));
+            res_.setResult(DefaultStruct.newInstance(instance_.getPokemon(),PokemonStandards.TYPE_POKEMON));
             return res_;
         }
         return res_;
@@ -241,7 +241,7 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
-            res_.setResult(new StdStruct(instance_.getMovesAtLevel((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getMovesAtLevel((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVE)) {
@@ -281,7 +281,7 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MOVES_AT_LEVEL_FISHING)) {
-            res_.setResult(new StdStruct(instance_.getMovesAtLevelFishing((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getMovesAtLevelFishing((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVE_FISHING)) {
@@ -336,7 +336,7 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
-            res_.setResult(new StdStruct(instance_.getMovesAtLevel(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getMovesAtLevel(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_MOVE)) {

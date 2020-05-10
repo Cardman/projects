@@ -21,8 +21,8 @@ import code.formathtml.*;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.structs.IdStruct;
 import code.formathtml.structs.RealInstanceStruct;
-import code.formathtml.structs.StdStruct;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Element;
 import code.util.*;
@@ -928,10 +928,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String name_ = _method.getConstraints().getName();
         if (StringList.quickEq(name_, aliasNewMessage)) {
             if (list_.isEmpty()) {
-                res_.setResult(StdStruct.newInstance(Message.newStandardMessage(),aliasMessage));
+                res_.setResult(IdStruct.newInstance(Message.newStandardMessage(),aliasMessage));
             } else {
                 String value_ = ((StringStruct) _args[0]).getInstance();
-                res_.setResult(StdStruct.newInstance(Message.newStandardMessage(value_),aliasMessage));
+                res_.setResult(IdStruct.newInstance(Message.newStandardMessage(value_),aliasMessage));
             }
             return res_;
         }
@@ -1205,7 +1205,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (arg_.isNull()) {
             return null;
         }
-        return (Message)((StdStruct)arg_.getStruct()).getInstance();
+        return (Message)((RealInstanceStruct)arg_.getStruct()).getInstance();
     }
     @Override
     public String getStringKey(Configuration _conf, Struct _instance) {

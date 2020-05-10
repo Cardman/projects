@@ -168,19 +168,8 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         opList = ElUtil.getReducedNodes(r_);
     }
     private StringList getCustomType(StringList _names, ContextEl _context) {
-        StringList out_ = new StringList();
         LgNames stds_ = _context.getStandards();
-        StringMap<StringList> vars_ = _context.getCurrentConstraints();
-        Mapping mapping_ = new Mapping();
-        mapping_.setMapping(vars_);
-        for (String f: _names) {
-            String iterable_ = stds_.getAliasIterableTable();
-            String type_ = Templates.getGeneric(f,iterable_,_context,mapping_);
-            if (!type_.isEmpty()) {
-                out_.add(type_);
-            }
-        }
-        return out_;
+        return stds_.getCustomTableType(_names,_context,"","").getClassName();
     }
 
     public String getClassIndexName() {

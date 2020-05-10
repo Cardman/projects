@@ -1,4 +1,5 @@
 package aiki.beans.facade.game.dto;
+import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -14,7 +15,6 @@ import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.structs.StdStruct;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -73,7 +73,7 @@ public final class AikiBeansFacadeGameDtoStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_RATE)) {
-            res_.setResult(new StdStruct(instance_.getRate(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new DefaultStruct(instance_.getRate(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         return res_;

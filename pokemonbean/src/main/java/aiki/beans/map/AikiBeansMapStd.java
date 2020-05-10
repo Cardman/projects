@@ -1,5 +1,6 @@
 package aiki.beans.map;
 import aiki.beans.AikiBeansStd;
+import aiki.beans.DefaultStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -16,7 +17,6 @@ import code.formathtml.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.structs.StdStruct;
 import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -173,7 +173,7 @@ public final class AikiBeansMapStd {
         MapBean instance_ = (MapBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,PLACES)) {
-            res_.setResult(new StdStruct(instance_.getPlaces(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getPlaces(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -212,7 +212,7 @@ public final class AikiBeansMapStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TILES)) {
-            res_.setResult(new StdStruct(instance_.getTiles(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getTiles(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PROPONE_TILE)) {
@@ -228,7 +228,7 @@ public final class AikiBeansMapStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DIRS)) {
-            res_.setResult(new StdStruct(instance_.getDirs(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getDirs(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return res_;
@@ -243,7 +243,7 @@ public final class AikiBeansMapStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,LAYERS)) {
-            res_.setResult(new StdStruct(instance_.layers((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.layers((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_LEVEL)) {

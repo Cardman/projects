@@ -1,4 +1,5 @@
 package aiki.beans.facade.map.dto;
+import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
@@ -14,7 +15,6 @@ import code.expressionlanguage.structs.IntStruct;
 import code.formathtml.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.structs.StdStruct;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -61,7 +61,7 @@ public final class AikiBeansFacadeMapDtoStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_PLACE)) {
-            res_.setResult(StdStruct.newInstance(instance_.getPlace(),PokemonStandards.TYPE_PLACE));
+            res_.setResult(DefaultStruct.newInstance(instance_.getPlace(),PokemonStandards.TYPE_PLACE));
             return res_;
         }
         return res_;

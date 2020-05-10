@@ -10,8 +10,8 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.structs.IdStruct;
 import code.formathtml.util.*;
-import code.formathtml.structs.StdStruct;
 import code.sml.*;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -89,7 +89,7 @@ public final class Navigation {
         dataBase = _dataBase;
         if (dataBase != null) {
             String className_ = session.getDataBaseClassName();
-            setDataBaseStruct(StdStruct.newInstance(dataBase, className_));
+            setDataBaseStruct(IdStruct.newInstance(dataBase, className_));
         } else {
             setDataBaseStruct(NullStruct.NULL_VALUE);
         }

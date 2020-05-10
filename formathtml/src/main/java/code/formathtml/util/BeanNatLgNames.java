@@ -1,5 +1,6 @@
 package code.formathtml.util;
 
+import code.bean.Bean;
 import code.bean.BeanInfo;
 import code.bean.validator.Message;
 import code.bean.validator.Validator;
@@ -14,6 +15,7 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.ResolvingImportTypes;
 import code.formathtml.*;
+import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.DefaultGenerator;
@@ -32,6 +34,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     protected static final String TYPE_ITERATOR = "code.util.SimpleItr";
     protected static final String TYPE_COUNTABLE = "code.util.ints.Countable";
     private static final String TYPE_ENTRIES = "$custentries";
+    private static final String NO_PARAM = "()";
     private StringMapObject storedForms;
     private StringMap<String> iterables = new StringMap<String>();
 
@@ -86,9 +89,27 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public void initBeans(Configuration _conf,String _language,Struct _db) {
         int index_ = 0;
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
-            _conf.getBuiltBeans().setValue(index_, _conf.newSimpleBean(_language, _db, e.getValue()));
+            _conf.getBuiltBeans().setValue(index_, newSimpleBean(_language, _db, e.getValue(),_conf));
             index_++;
         }
+    }
+
+    private Struct newSimpleBean(String _language, Struct _dataBase, BeanInfo _bean, Configuration _conf) {
+        _conf.addPage(new ImportingPage());
+        String keyWordNew_ = _conf.getKeyWords().getKeyWordNew();
+        Struct strBean_ = RenderExpUtil.processQuickEl(StringList.concat(keyWordNew_," ",_bean.getClassName(),NO_PARAM), 0, _conf).getStruct();
+        BeanStruct str_ = (BeanStruct) strBean_;
+        Bean bean_ = str_.getBean();
+        Object db_ = null;
+        if (_dataBase instanceof RealInstanceStruct) {
+            db_ = ((RealInstanceStruct)_dataBase).getInstance();
+        }
+        bean_.setDataBase(db_);
+        bean_.setForms(new StringMapObject());
+        bean_.setLanguage(_language);
+        bean_.setScope(_bean.getScope());
+        _conf.removeLastPage();
+        return strBean_;
     }
     @Override
     public String getInputClass(Element _write, Configuration _conf) {
@@ -150,6 +171,11 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return validator_.validate(ad_);
     }
 
+    @Override
+    public boolean checkOpers(CustList<RendDynOperationNode> _opRead) {
+        return false;
+    }
+
     public static ResultErrorStd getField(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanNatLgNames lgNames_ = (BeanNatLgNames) _cont.getStandards();
         return lgNames_.getOtherResult(_cont, _classField, _instance);
@@ -208,20 +234,28 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public IterableAnalysisResult getCustomType(StringList _names, ContextEl _context) {
+    public IterableAnalysisResult getCustomType(StringList _names, String _first, ContextEl _context) {
         StringList out_ = new StringList();
         for (String f: _names) {
-            String type_ = getIterableFullTypeByStds(f);
-            if (type_ != null) {
-                out_.add(type_);
-            }
+            String type_ = getIterableFullTypeByStds(f,_first);
+            out_.add(type_);
         }
         return new IterableAnalysisResult(out_);
     }
-    private String getIterableFullTypeByStds(String _subType) {
+
+    @Override
+    public IterableAnalysisResult getCustomTableType(StringList _names, ContextEl _context, String _first, String _second) {
+        String type_ = StringList.concat(getAliasIterableTable(), "<", _first, "," + _second + ">");
+        return new IterableAnalysisResult(new StringList(type_));
+    }
+
+    private String getIterableFullTypeByStds(String _subType, String _first) {
         String it_ = getIterables().getVal(_subType);
         if (it_ == null) {
-            return null;
+            it_ = getAliasObject();
+        }
+        if (StringList.quickEq(it_, getAliasObject())) {
+            it_ = _first;
         }
         return StringList.concat(getAliasIterable(),"<",it_,">");
     }
@@ -236,11 +270,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     public ResultErrorStd getName(ContextEl _cont, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (_instance instanceof DisplayableStruct) {
-            res_.setResult(_instance);
-            return res_;
-        }
         return getOtherName(_cont, _instance);
     }
     public abstract ResultErrorStd getOtherName(ContextEl _cont, Struct _instance);
@@ -269,7 +298,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleIterable db_ = ((SimpleEntries)instance_).entries();
         SimpleItr it_ = db_.simpleIterator();
-        return new Argument(StdStruct.newInstance(it_, StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN, TYPE_ENTRY,Templates.TEMPLATE_END)));
+        return new Argument(IdStruct.newInstance(it_, StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN, TYPE_ENTRY,Templates.TEMPLATE_END)));
     }
 
     @Override
@@ -282,8 +311,8 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     @Override
     public Argument nextPair(Struct _arg, Configuration _conf) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
-        Object resObj_ = ((SimpleItr)instance_).next();
-        return new Argument(StdStruct.newInstance(resObj_, TYPE_ENTRY));
+        SimpleEntry resObj_ = (SimpleEntry) ((SimpleItr)instance_).next();
+        return new Argument(IdStruct.newInstance(resObj_, TYPE_ENTRY));
     }
 
     @Override
@@ -305,7 +334,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         String typeInst_ = getStructClassName(_arg, _cont.getContext());
         String it_ = getIterables().getVal(typeInst_);
-        return new Argument(StdStruct.newInstance(((SimpleIterable) instance_).simpleIterator(), StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
+        return new Argument(IdStruct.newInstance(((SimpleIterable) instance_).simpleIterator(), StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
     }
 
     @Override
@@ -322,7 +351,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return new Argument(BooleanStruct.of(it_.hasNext()));
     }
 
-    protected abstract Struct wrapStd(Object _element, ExecutableCode _ex);
+    public abstract Struct wrapStd(Object _element, ExecutableCode _ex);
     public abstract ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context);
 
     @Override

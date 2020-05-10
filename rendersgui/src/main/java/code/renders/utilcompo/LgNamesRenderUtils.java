@@ -14,7 +14,6 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
-import code.formathtml.structs.StdStruct;
 import code.formathtml.util.BeanCustLgNames;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.DocumentBuilder;
@@ -406,17 +405,17 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         }
         if (StringList.quickEq(_id,aliasAtomicBoolean)) {
             AtomicBoolean at_ = new AtomicBoolean();
-            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicBoolean);
+            DefaultStruct std_ = DefaultStruct.newInstance(at_, aliasAtomicBoolean);
             return new Argument(std_);
         }
         if (StringList.quickEq(_id,aliasAtomicInteger)) {
             AtomicInteger at_ = new AtomicInteger();
-            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
+            DefaultStruct std_ = DefaultStruct.newInstance(at_, aliasAtomicInteger);
             return new Argument(std_);
         }
         if (StringList.quickEq(_id,aliasAtomicLong)) {
             AtomicLong at_ = new AtomicLong();
-            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
+            DefaultStruct std_ = DefaultStruct.newInstance(at_, aliasAtomicLong);
             return new Argument(std_);
         }
         return Argument.createVoid();
@@ -432,36 +431,36 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         if (StringList.quickEq(name_,aliasAtomicBoolean)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AtomicBoolean at_ = new AtomicBoolean();
-                StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicBoolean);
+                DefaultStruct std_ = DefaultStruct.newInstance(at_, aliasAtomicBoolean);
                 res_.setResult(std_);
                 return res_;
             }
             AtomicBoolean at_ = new AtomicBoolean(((BooleanStruct)_args[0]).getInstance());
-            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicBoolean);
+            DefaultStruct std_ = DefaultStruct.newInstance(at_, aliasAtomicBoolean);
             res_.setResult(std_);
             return res_;
         }
         if (StringList.quickEq(name_,aliasAtomicInteger)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AtomicInteger at_ = new AtomicInteger();
-                StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
+                DefaultStruct std_ = DefaultStruct.newInstance(at_, aliasAtomicInteger);
                 res_.setResult(std_);
                 return res_;
             }
             AtomicInteger at_ = new AtomicInteger(((NumberStruct)_args[0]).intStruct());
-            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
+            DefaultStruct std_ = DefaultStruct.newInstance(at_, aliasAtomicInteger);
             res_.setResult(std_);
             return res_;
         }
         if (StringList.quickEq(name_,aliasAtomicLong)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AtomicLong at_ = new AtomicLong();
-                StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
+                DefaultStruct std_ = DefaultStruct.newInstance(at_, aliasAtomicLong);
                 res_.setResult(std_);
                 return res_;
             }
             AtomicLong at_ = new AtomicLong(((NumberStruct)_args[0]).longStruct());
-            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
+            DefaultStruct std_ = DefaultStruct.newInstance(at_, aliasAtomicLong);
             res_.setResult(std_);
             return res_;
         }
@@ -479,7 +478,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         if (StringList.quickEq(className_,aliasAtomicBoolean)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasGetAtomic)) {
-                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+                AtomicBoolean re_ = (AtomicBoolean) ((DefaultStruct) _instance).getInstance();
                 boolean held_ = re_.get();
                 res_.setResult(BooleanStruct.of(held_));
                 return res_;
@@ -490,22 +489,22 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSetAtomic)) {
-                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+                AtomicBoolean re_ = (AtomicBoolean) ((DefaultStruct) _instance).getInstance();
                 re_.set(((BooleanStruct)_args[0]).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
-                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+                AtomicBoolean re_ = (AtomicBoolean) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(BooleanStruct.of(re_.compareAndSet(((BooleanStruct)_args[0]).getInstance(),((BooleanStruct)_args[1]).getInstance())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {
-                AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+                AtomicBoolean re_ = (AtomicBoolean) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(BooleanStruct.of(re_.getAndSet(((BooleanStruct)_args[0]).getInstance())));
                 return res_;
             }
-            AtomicBoolean re_ = (AtomicBoolean) ((StdStruct) _instance).getInstance();
+            AtomicBoolean re_ = (AtomicBoolean) ((DefaultStruct) _instance).getInstance();
             re_.lazySet(((BooleanStruct)_args[0]).getInstance());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
@@ -513,7 +512,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         if (StringList.quickEq(className_,aliasAtomicInteger)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasGetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = (AtomicInteger) ((DefaultStruct) _instance).getInstance();
                 int held_ = re_.get();
                 res_.setResult(new IntStruct(held_));
                 return res_;
@@ -524,52 +523,52 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = (AtomicInteger) ((DefaultStruct) _instance).getInstance();
                 re_.set(((NumberStruct)_args[0]).intStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = (AtomicInteger) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(BooleanStruct.of(re_.compareAndSet(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = (AtomicInteger) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.getAndSet(((NumberStruct)_args[0]).intStruct())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndAddAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = (AtomicInteger) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.getAndAdd(((NumberStruct)_args[0]).intStruct())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasAddAndGetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = (AtomicInteger) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.addAndGet(((NumberStruct)_args[0]).intStruct())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndIncrementAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = (AtomicInteger) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.getAndIncrement()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIncrementAndGetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = (AtomicInteger) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.incrementAndGet()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndDecrementAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = (AtomicInteger) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.getAndDecrement()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasDecrementAndGetAtomic)) {
-                AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+                AtomicInteger re_ = (AtomicInteger) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new IntStruct(re_.decrementAndGet()));
                 return res_;
             }
-            AtomicInteger re_ = (AtomicInteger) ((StdStruct) _instance).getInstance();
+            AtomicInteger re_ = (AtomicInteger) ((DefaultStruct) _instance).getInstance();
             re_.lazySet(((NumberStruct)_args[0]).intStruct());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
@@ -577,7 +576,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         if (StringList.quickEq(className_,aliasAtomicLong)) {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasGetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = (AtomicLong) ((DefaultStruct) _instance).getInstance();
                 long held_ = re_.get();
                 res_.setResult(new LongStruct(held_));
                 return res_;
@@ -588,52 +587,52 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = (AtomicLong) ((DefaultStruct) _instance).getInstance();
                 re_.set(((NumberStruct)_args[0]).longStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = (AtomicLong) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(BooleanStruct.of(re_.compareAndSet(((NumberStruct)_args[0]).longStruct(),((NumberStruct)_args[1]).longStruct())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = (AtomicLong) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.getAndSet(((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndAddAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = (AtomicLong) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.getAndAdd(((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasAddAndGetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = (AtomicLong) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.addAndGet(((NumberStruct)_args[0]).longStruct())));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndIncrementAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = (AtomicLong) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.getAndIncrement()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasIncrementAndGetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = (AtomicLong) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.incrementAndGet()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndDecrementAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = (AtomicLong) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.getAndDecrement()));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasDecrementAndGetAtomic)) {
-                AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+                AtomicLong re_ = (AtomicLong) ((DefaultStruct) _instance).getInstance();
                 res_.setResult(new LongStruct(re_.decrementAndGet()));
                 return res_;
             }
-            AtomicLong re_ = (AtomicLong) ((StdStruct) _instance).getInstance();
+            AtomicLong re_ = (AtomicLong) ((DefaultStruct) _instance).getInstance();
             re_.lazySet(((NumberStruct)_args[0]).longStruct());
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;

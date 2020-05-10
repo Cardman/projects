@@ -1,8 +1,10 @@
 package code.formathtml.classes;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
@@ -1937,7 +1939,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     }
 
     @Override
-    protected Struct wrapStd(Object _element, ExecutableCode _ex) {
+    public Struct wrapStd(Object _element, ExecutableCode _ex) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
         }
@@ -2012,6 +2014,12 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
+        if (!(_instance instanceof RealInstanceStruct)) {
+            Struct arg_ = Argument.getNull(_instance);
+            Struct disp_ = ExecCatOperation.getDisplayable(new Argument(arg_), _cont);
+            res_.setResult(disp_);
+            return res_;
+        }
         if (((RealInstanceStruct)_instance).getInstance() instanceof EnumNumber) {
             res_.setResult(new StringStruct(((EnumNumber)((RealInstanceStruct)_instance).getInstance()).name()));
             return res_;

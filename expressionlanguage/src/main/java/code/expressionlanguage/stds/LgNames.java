@@ -894,6 +894,7 @@ public abstract class LgNames {
         return ApplyCoreMethodUtil.invokeBase(_cont, _method, _struct, _args);
     }
 
+    /**@param  _instance l'instance*/
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args);
     }
@@ -916,10 +917,16 @@ public abstract class LgNames {
         return ApplyCoreMethodUtil.getSimpleResultBase(_conf, _classField);
     }
 
-    public IterableAnalysisResult getCustomType(StringList _names, ContextEl _context) {
+    /**@param _first le premier*/
+    public IterableAnalysisResult getCustomType(StringList _names, String _first, ContextEl _context) {
         return ApplyCoreMethodUtil.getCustomTypeBase(_names, _context);
     }
 
+    /**@param _first le premier
+    @param _second le second*/
+    public IterableAnalysisResult getCustomTableType(StringList _names, ContextEl _context, String _first, String _second) {
+        return ApplyCoreMethodUtil.getCustomTableType(_names, _context);
+    }
 
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> files_ = new StringMap<String>();

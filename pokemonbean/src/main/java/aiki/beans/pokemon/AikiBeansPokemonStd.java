@@ -1,7 +1,7 @@
 package aiki.beans.pokemon;
 import aiki.beans.AikiBeansStd;
+import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
-import aiki.beans.SelectedBooleanStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -21,7 +21,6 @@ import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.structs.StdStruct;
 import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -247,7 +246,7 @@ public final class AikiBeansPokemonStd {
         _std.getStandards().put(TYPE_POKEMON_BEAN, type_);
     }
     public static ResultErrorStd getResultPokedexBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanLgNames std_ = (BeanLgNames) _cont.getStandards();
+        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
         ResultErrorStd res_ = new ResultErrorStd();
         PokedexBean instance_ = (PokedexBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -272,19 +271,19 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,BOOLEANS)) {
-            res_.setResult(new StdStruct(instance_.getBooleans(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getBooleans(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_EVO)) {
-            res_.setResult(new SelectedBooleanStruct(instance_.getIsEvo(),((PokemonStandards)std_).getSelectedBoolean()));
+            res_.setResult(std_.wrapStd(instance_.getIsEvo(),_cont));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_LEG)) {
-            res_.setResult(new SelectedBooleanStruct(instance_.getIsLeg(),((PokemonStandards)std_).getSelectedBoolean()));
+            res_.setResult(std_.wrapStd(instance_.getIsLeg(),_cont));
             return res_;
         }
         if (StringList.quickEq(fieldName_,POKEDEX)) {
-            res_.setResult(new StdStruct(instance_.getPokedex(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getPokedex(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -307,23 +306,23 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,WEIGHT)) {
-            res_.setResult(new StdStruct(instance_.getWeight(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new DefaultStruct(instance_.getWeight(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HEIGHT)) {
-            res_.setResult(new StdStruct(instance_.getHeight(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new DefaultStruct(instance_.getHeight(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringList.quickEq(fieldName_,POSSIBLE_GENDERS)) {
-            res_.setResult(new StdStruct(instance_.getPossibleGenders(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getPossibleGenders(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPES)) {
-            res_.setResult(new StdStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getAbilities(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CATCHING_RATE)) {
@@ -331,7 +330,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,EVOLUTIONS)) {
-            res_.setResult(new StdStruct(instance_.getEvolutions(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getEvolutions(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,NAME)) {
@@ -347,7 +346,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS)) {
-            res_.setResult(new StdStruct(instance_.getMapVars(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getMapVars(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EXP_RATE)) {
@@ -355,39 +354,39 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATISTICS)) {
-            res_.setResult(new StdStruct(instance_.getStatistics(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getStatistics(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,LEV_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getLevMoves(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getLevMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TECHNICAL_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getTechnicalMoves(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getTechnicalMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HIDDEN_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getHiddenMoves(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getHiddenMoves(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVE_TUTORS)) {
-            res_.setResult(new StdStruct(instance_.getMoveTutors(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getMoveTutors(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EGG_GROUPS_PK)) {
-            res_.setResult(new StdStruct(instance_.getEggGroupsPk(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getEggGroupsPk(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HATCHING_STEPS)) {
-            res_.setResult(new StdStruct(instance_.getHatchingSteps(),PokemonStandards.TYPE_LG_INT));
+            res_.setResult(new DefaultStruct(instance_.getHatchingSteps(),PokemonStandards.TYPE_LG_INT));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PLACES)) {
-            res_.setResult(new StdStruct(instance_.getPlaces(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getPlaces(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IMAGES)) {
-            res_.setResult(new StdStruct(instance_.getImages(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getImages(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return res_;
@@ -533,7 +532,7 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,LAYERS)) {
-            res_.setResult(new StdStruct(instance_.layers((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.layers((Long)_args[0]), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,IS_APPEARING)) {

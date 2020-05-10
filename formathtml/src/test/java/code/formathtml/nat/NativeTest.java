@@ -407,7 +407,7 @@ public final class NativeTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\"code.formathtml.classes.EnumNumbers\" id=\"combo\" default=\"\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -441,39 +441,12 @@ public final class NativeTest extends CommonRender {
         nav_.getSession().getRenderFiles().add("page2.html");
         initSession(nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
-        containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
-        NodeContainer nc_;
-        NodeInformations ni_;
-        StringList values_;
-        nc_ = containers_.getVal(0L);
-        nc_.setEnabled(true);
-        ni_ = nc_.getNodeInformation();
-        values_ = new StringList();
-        values_.add("TWO");
-        values_.add("THREE");
-        ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
-        bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMapObject map_ = bean_.getForms();
-        assertEq(3, map_.size());
-        StringList stLi_ = (StringList) map_.getVal("selectedStrings");
-        assertEq(2, stLi_.size());
-        assertEq("ONE", stLi_.first());
-        assertEq("FOUR", stLi_.last());
-        EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
-        assertEq(2, l_.size());
-        assertEq(EnumNumber.TWO, l_.first());
-        assertEq(EnumNumber.THREE, l_.last());
-        assertTrue(map_.contains("chosenNumbersNull"));
-        assertNull(map_.getVal("chosenNumbersNull"));
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -1289,13 +1262,48 @@ public final class NativeTest extends CommonRender {
     }
 
     @Test
+    public void processNav18Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String htmlTwo_ = "<html c:bean=\"bean_one\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><c:select className='code.formathtml.classes.EnumNumber' id=\"combo\" default=\"\" name=\"chosenNumber\" varValue=\"chosenNumber\" map=\"map\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page2.html", htmlTwo_);
+        BeanOne bean_ = new BeanOne();
+        bean_.setScope("request");
+        Configuration conf_ = contextElSec();
+
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page2.html");
+        conf_.setValidators(new StringMap<Validator>());
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setDataBase(new Composite());
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page2.html");
+        initSession(nav_);
+        assertEq("page2.html", nav_.getCurrentUrl());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><select id=\"combo\" name=\"bean_one.chosenNumber\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
+
+    }
+    @Test
     public void refreshTest() {
         String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\"code.formathtml.classes.EnumNumbers\" id=\"combo\" default=\"\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -1329,20 +1337,6 @@ public final class NativeTest extends CommonRender {
         nav_.getSession().getRenderFiles().add("page2.html");
         initSession(nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
-        containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
-        NodeContainer nc_;
-        NodeInformations ni_;
-        StringList values_;
-        nc_ = containers_.getVal(0L);
-        nc_.setEnabled(true);
-        ni_ = nc_.getNodeInformation();
-        values_ = new StringList();
-        values_.add("TWO");
-        values_.add("THREE");
-        ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
         setupBeansAfter(conf_);
@@ -1350,19 +1344,6 @@ public final class NativeTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
-        bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMapObject map_ = bean_.getForms();
-        assertEq(3, map_.size());
-        StringList stLi_ = (StringList) map_.getVal("selectedStrings");
-        assertEq(2, stLi_.size());
-        assertEq("ONE", stLi_.first());
-        assertEq("FOUR", stLi_.last());
-        EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
-        assertEq(2, l_.size());
-        assertEq(EnumNumber.TWO, l_.first());
-        assertEq(EnumNumber.THREE, l_.last());
-        assertTrue(map_.contains("chosenNumbersNull"));
-        assertNull(map_.getVal("chosenNumbersNull"));
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
@@ -1375,7 +1356,7 @@ public final class NativeTest extends CommonRender {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><c:select className=\"code.formathtml.classes.EnumNumbers\" id=\"combo\" default=\"\" name=\"chosenNumbers\" varValue=\"chosenNumbers\" map=\"translations\" multiple=\"multiple\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -1409,42 +1390,16 @@ public final class NativeTest extends CommonRender {
         nav_.getSession().getRenderFiles().add("page2.html");
         initSession(nav_);
         assertEq("page2.html", nav_.getCurrentUrl());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
-        containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
-        NodeContainer nc_;
-        NodeInformations ni_;
-        StringList values_;
-        nc_ = containers_.getVal(0L);
-        nc_.setEnabled(true);
-        ni_ = nc_.getNodeInformation();
-        values_ = new StringList();
-        values_.add("TWO");
-        values_.add("THREE");
-        ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
         setupBeansAfter(conf_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
-        bean_ = (BeanOne) conf_.getBeans().getVal("bean_one");
-        StringMapObject map_ = bean_.getForms();
-        assertEq(3, map_.size());
-        StringList stLi_ = (StringList) map_.getVal("selectedStrings");
-        assertEq(2, stLi_.size());
-        assertEq("ONE", stLi_.first());
-        assertEq("FOUR", stLi_.last());
-        EnumNumbers l_ = (EnumNumbers) map_.getVal("chosenNumbers");
-        assertEq(2, l_.size());
-        assertEq(EnumNumber.TWO, l_.first());
-        assertEq(EnumNumber.THREE, l_.last());
-        assertTrue(map_.contains("chosenNumbersNull"));
-        assertNull(map_.getVal("chosenNumbersNull"));
         assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
+//        new StdStruct()
 
     }
     private static void setupBeansAfter(Configuration _conf) {

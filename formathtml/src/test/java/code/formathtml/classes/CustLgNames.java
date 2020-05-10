@@ -518,7 +518,7 @@ public final class CustLgNames extends BeanNatLgNames {
     }
 
     @Override
-    protected Struct wrapStd(Object _element, ExecutableCode _ex) {
+    public Struct wrapStd(Object _element, ExecutableCode _ex) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
         }

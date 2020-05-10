@@ -29,8 +29,6 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.structs.BeanStruct;
-import code.formathtml.structs.StdStruct;
 import code.formathtml.util.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -38,8 +36,6 @@ import code.sml.DocumentResult;
 import code.util.*;
 
 public final class Configuration implements ExecutableCode {
-
-    private static final String NO_PARAM = "()";
 
     private static final String RETURN_LINE = "\n";
 
@@ -256,24 +252,6 @@ public final class Configuration implements ExecutableCode {
         formsVars = new CustList<StringList>();
         formsNames = new StringList();
         currentForm = 0;
-    }
-
-    public Struct newSimpleBean(String _language, Struct _dataBase, BeanInfo _bean) {
-        addPage(new ImportingPage());
-        String keyWordNew_ = getKeyWords().getKeyWordNew();
-        Struct strBean_ = RenderExpUtil.processQuickEl(StringList.concat(keyWordNew_," ",_bean.getClassName(),NO_PARAM), 0, this).getStruct();
-        BeanStruct str_ = (BeanStruct) strBean_;
-        Bean bean_ = str_.getBean();
-        Object db_ = null;
-        if (_dataBase instanceof StdStruct) {
-            db_ = ((StdStruct)_dataBase).getInstance();
-        }
-        bean_.setDataBase(db_);
-        bean_.setForms(new StringMapObject());
-        bean_.setLanguage(_language);
-        bean_.setScope(_bean.getScope());
-        removeLastPage();
-        return strBean_;
     }
 
     Struct newBean(String _language, Struct _bean, BeanInfo _info) {

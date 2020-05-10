@@ -427,6 +427,21 @@ public class ApplyCoreMethodUtil {
         }
         return new IterableAnalysisResult(out_);
     }
+    public static IterableAnalysisResult getCustomTableType(StringList _names, ContextEl _context) {
+        StringList out_ = new StringList();
+        LgNames stds_ = _context.getStandards();
+        StringMap<StringList> vars_ = _context.getCurrentConstraints();
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(vars_);
+        for (String f: _names) {
+            String iterable_ = stds_.getAliasIterableTable();
+            String type_ = Templates.getGeneric(f,iterable_,_context,mapping_);
+            if (!type_.isEmpty()) {
+                out_.add(type_);
+            }
+        }
+        return new IterableAnalysisResult(out_);
+    }
     public static ResultErrorStd getSimpleResultBase(Analyzable _conf, ClassField _classField) {
         ResultErrorStd result_ = new ResultErrorStd();
         String type_ = _classField.getClassName();
@@ -533,8 +548,6 @@ public class ApplyCoreMethodUtil {
                 _cont.getInitializingTypeInfos().failInitEnums();
                 return result_;
             }
-            /** mathematics "random" calls in order to facilitate uses,
-             * despite of the difference between the JAVA names and the user choice names (parameterized in a text file)*/
             StringList paramList_ = _method.getConstraints().getParametersTypes();
             AbstractGenerator generator_ = lgNames_.getGenerator();
             if (paramList_.isEmpty()) {

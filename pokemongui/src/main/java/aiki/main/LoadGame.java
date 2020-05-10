@@ -14,7 +14,7 @@ public final class LoadGame implements Runnable {
     public LoadGame(MainWindow _frame, PerCent _p) {
         frame = _frame;
         VideoLoading video_ = frame.getVideoLoading();
-        frame.getDialog().init(frame, video_.getVideo(), false);
+        frame.getDialog().init(frame, video_.getVideo(frame.getGenerator()), false);
         perCent = _p;
     }
 

@@ -1,5 +1,6 @@
 package aiki.beans.effects;
 import aiki.beans.AikiBeansStd;
+import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
 import aiki.fight.effects.EffectWhileSending;
 import code.expressionlanguage.ContextEl;
@@ -21,7 +22,6 @@ import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.structs.StdStruct;
 import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -205,7 +205,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,COMBOS)) {
-            res_.setResult(StdStruct.newInstance(instance_.getCombos(),AikiBeansEffectsStd.TYPE_COMBO_DTO));
+            res_.setResult(DefaultStruct.newInstance(instance_.getCombos(),AikiBeansEffectsStd.TYPE_COMBO_DTO));
             return res_;
         }
         return res_;
@@ -216,7 +216,7 @@ public final class AikiBeansEffectsStd {
         EffectComboBean instance_ = (EffectComboBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,MOVES)) {
-            res_.setResult(new StdStruct(instance_.getMoves(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,INDEX)) {
@@ -232,19 +232,19 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,REASONS_END_ROUND)) {
-            res_.setResult(new StdStruct(instance_.getReasonsEndRound(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getReasonsEndRound(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_FAIL_END_ROUND)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsFailEndRound(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getMapVarsFailEndRound(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_EVT_RATE_SEC_EFF)) {
-            res_.setResult(new StdStruct(instance_.getMultEvtRateSecEff(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new DefaultStruct(instance_.getMultEvtRateSecEff(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_STATISTIC_FOE)) {
-            res_.setResult(new StdStruct(instance_.getMultStatisticFoe(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getMultStatisticFoe(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,RANK_INCREMENT_NB_ROUND)) {
@@ -252,7 +252,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,REPEATED_ROUNDS_LAW)) {
-            res_.setResult(new StdStruct(instance_.getRepeatedRoundsLaw(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getRepeatedRoundsLaw(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         return res_;
@@ -279,7 +279,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MULT_WEIGHT)) {
-            res_.setResult(new StdStruct(instance_.getMultWeight(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new DefaultStruct(instance_.getMultWeight(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATISTIC)) {
@@ -287,15 +287,15 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,REASONS)) {
-            res_.setResult(new StdStruct(instance_.getReasons(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getReasons(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_FAIL)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsFail(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getMapVarsFail(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EVT_RATE)) {
-            res_.setResult(new StdStruct(instance_.getEvtRate(),PokemonStandards.TYPE_RATE));
+            res_.setResult(new DefaultStruct(instance_.getEvtRate(),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EVT_RATE_PER_CENT)) {
@@ -303,19 +303,19 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,STATIS_VAR_RANK)) {
-            res_.setResult(new StdStruct(instance_.getStatisVarRank(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getStatisVarRank(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_STATISTICS)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsStatistics(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getMapVarsStatistics(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SWAP_BOOST_STATIS)) {
-            res_.setResult(new StdStruct(instance_.getSwapBoostStatis(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getSwapBoostStatis(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCEL_LOW_STAT)) {
-            res_.setResult(new StdStruct(instance_.getCancelLowStat(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getCancelLowStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DEFAULT_BOOST)) {
@@ -323,11 +323,11 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANCEL_CHGT_STAT)) {
-            res_.setResult(new StdStruct(instance_.getCancelChgtStat(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getCancelChgtStat(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,COPY_BOOST)) {
-            res_.setResult(new StdStruct(instance_.getCopyBoost(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getCopyBoost(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -365,7 +365,7 @@ public final class AikiBeansEffectsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_COMBOS_KEY)) {
-            res_.setResult(new StdStruct(instance_.getCombosKey(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getCombosKey(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -413,7 +413,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_RATE)) {
-            res_.setResult(new StdStruct(instance_.getRate((Long)_args[0]),PokemonStandards.TYPE_RATE));
+            res_.setResult(new DefaultStruct(instance_.getRate((Long)_args[0]),PokemonStandards.TYPE_RATE));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_SWAP_FAIL)) {

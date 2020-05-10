@@ -74,8 +74,60 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         int offMap_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrMap());
         opsMap = RenderExpUtil.getAnalyzedOperations(map_,offMap_, 0, _cont);
         String converterValue_ = elt.getAttribute(_cont.getRendKeyWords().getAttrConvertValue());
-        if (_cont.getAdvStandards() instanceof BeanCustLgNames) {
-            if (multiple) {
+        if (multiple) {
+            if (converterValue_.trim().isEmpty()) {
+                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setIndexFile(getOffset().getOffsetTrim());
+                badEl_.buildError(_cont.getRendAnalysisMessages().getEmptyAttr(),
+                        _cont.getRendKeyWords().getAttrConvertValue());
+                _cont.addError(badEl_);
+            }
+            String string_ = _cont.getStandards().getAliasString();
+            StringList varNames_ = new StringList();
+            String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+            varNames_.add(varLoc_);
+            varNameConverter = varLoc_;
+            LocalVariable lv_ = new LocalVariable();
+            arrayConverter = true;
+            lv_.setClassName(PrimitiveTypeUtil.getPrettyArrayType(string_));
+            _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+            String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR,BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),RendBlock.RIGHT_PAR);
+            int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertValue());
+            opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont);
+            for (String v:varNames_) {
+                _cont.getLocalVarsAna().last().removeKey(v);
+            }
+            StringList names_ = opsValue.last().getResultClass().getNames();
+            if (!opsValue.last().getResultClass().isVariable()) {
+                IterableAnalysisResult it_ = _cont.getStandards().getCustomType(names_,"", _cont.getContext());
+                StringList candidates_ = it_.getClassName();
+                if (!candidates_.onlyOneElt()) {
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setIndexFile(offConvValue_);
+                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedType(),
+                            StringList.join(candidates_,AND_ERR));
+                    _cont.addError(badEl_);
+                }
+                Mapping m_ = new Mapping();
+                m_.setArg(opsConverter.last().getResultClass());
+                m_.setParam(opsRead.last().getResultClass());
+                if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setIndexFile(getOffset().getOffsetTrim());
+                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(opsConverter.last().getResultClass().getNames(),AND_ERR),
+                            StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR));
+                    _cont.addError(badEl_);
+                }
+            }
+        } else if (_cont.getAdvStandards().checkOpers(opsRead)){
+            Mapping m_ = new Mapping();
+            m_.setArg(opsRead.last().getResultClass());
+            m_.setParam(_cont.getStandards().getAliasCharSequence());
+            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
@@ -90,8 +142,33 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 varNames_.add(varLoc_);
                 varNameConverter = varLoc_;
                 LocalVariable lv_ = new LocalVariable();
-                arrayConverter = true;
-                lv_.setClassName(PrimitiveTypeUtil.getPrettyArrayType(string_));
+                lv_.setClassName(string_);
+                _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+                int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertValue());
+                String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR,BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),RendBlock.RIGHT_PAR);
+                opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont);
+                for (String v:varNames_) {
+                    _cont.getLocalVarsAna().last().removeKey(v);
+                }
+                m_.setArg(opsConverter.last().getResultClass());
+                m_.setParam(opsRead.last().getResultClass());
+                if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setIndexFile(offConvValue_);
+                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(opsConverter.last().getResultClass().getNames(),AND_ERR),
+                            StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR));
+                    _cont.addError(badEl_);
+                }
+            } else if (!converterValue_.trim().isEmpty()) {
+                String string_ = _cont.getStandards().getAliasString();
+                StringList varNames_ = new StringList();
+                String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                varNames_.add(varLoc_);
+                varNameConverter = varLoc_;
+                LocalVariable lv_ = new LocalVariable();
+                lv_.setClassName(string_);
                 _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
                 String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR,BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),RendBlock.RIGHT_PAR);
                 int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertValue());
@@ -99,95 +176,16 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 for (String v:varNames_) {
                     _cont.getLocalVarsAna().last().removeKey(v);
                 }
-                StringList names_ = opsValue.last().getResultClass().getNames();
-                if (!opsValue.last().getResultClass().isVariable()) {
-                    IterableAnalysisResult it_ = _cont.getStandards().getCustomType(names_, _cont.getContext());
-                    StringList candidates_ = it_.getClassName();
-                    if (!candidates_.onlyOneElt()) {
-                        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                        badEl_.setFileName(_cont.getCurrentFileName());
-                        badEl_.setIndexFile(offConvValue_);
-                        badEl_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedType(),
-                                StringList.join(candidates_,AND_ERR));
-                        _cont.addError(badEl_);
-                    }
-                    Mapping m_ = new Mapping();
-                    m_.setArg(opsConverter.last().getResultClass());
-                    m_.setParam(opsRead.last().getResultClass());
-                    if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                        badEl_.setFileName(_cont.getCurrentFileName());
-                        badEl_.setIndexFile(getOffset().getOffsetTrim());
-                        badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
-                                StringList.join(opsConverter.last().getResultClass().getNames(),AND_ERR),
-                                StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR));
-                        _cont.addError(badEl_);
-                    }
-                }
-            } else if (!opsRead.isEmpty()){
-                Mapping m_ = new Mapping();
-                m_.setArg(opsRead.last().getResultClass());
-                m_.setParam(_cont.getStandards().getAliasCharSequence());
+                m_.setArg(opsConverter.last().getResultClass());
+                m_.setParam(opsRead.last().getResultClass());
                 if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                    if (converterValue_.trim().isEmpty()) {
-                        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                        badEl_.setFileName(_cont.getCurrentFileName());
-                        badEl_.setIndexFile(getOffset().getOffsetTrim());
-                        badEl_.buildError(_cont.getRendAnalysisMessages().getEmptyAttr(),
-                                _cont.getRendKeyWords().getAttrConvertValue());
-                        _cont.addError(badEl_);
-                    }
-                    String string_ = _cont.getStandards().getAliasString();
-                    StringList varNames_ = new StringList();
-                    String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
-                    varNames_.add(varLoc_);
-                    varNameConverter = varLoc_;
-                    LocalVariable lv_ = new LocalVariable();
-                    lv_.setClassName(string_);
-                    _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
-                    int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertValue());
-                    String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR,BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),RendBlock.RIGHT_PAR);
-                    opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont);
-                    for (String v:varNames_) {
-                        _cont.getLocalVarsAna().last().removeKey(v);
-                    }
-                    m_.setArg(opsConverter.last().getResultClass());
-                    m_.setParam(opsRead.last().getResultClass());
-                    if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                        badEl_.setFileName(_cont.getCurrentFileName());
-                        badEl_.setIndexFile(offConvValue_);
-                        badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
-                                StringList.join(opsConverter.last().getResultClass().getNames(),AND_ERR),
-                                StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR));
-                        _cont.addError(badEl_);
-                    }
-                } else if (!converterValue_.trim().isEmpty()) {
-                    String string_ = _cont.getStandards().getAliasString();
-                    StringList varNames_ = new StringList();
-                    String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
-                    varNames_.add(varLoc_);
-                    varNameConverter = varLoc_;
-                    LocalVariable lv_ = new LocalVariable();
-                    lv_.setClassName(string_);
-                    _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
-                    String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR,BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),RendBlock.RIGHT_PAR);
-                    int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertValue());
-                    opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont);
-                    for (String v:varNames_) {
-                        _cont.getLocalVarsAna().last().removeKey(v);
-                    }
-                    m_.setArg(opsConverter.last().getResultClass());
-                    m_.setParam(opsRead.last().getResultClass());
-                    if (!Templates.isCorrectOrNumbers(m_,_cont)) {
-                        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                        badEl_.setFileName(_cont.getCurrentFileName());
-                        badEl_.setIndexFile(offConvValue_);
-                        badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
-                                StringList.join(opsConverter.last().getResultClass().getNames(),AND_ERR),
-                                StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR));
-                        _cont.addError(badEl_);
-                    }
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setIndexFile(offConvValue_);
+                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(opsConverter.last().getResultClass().getNames(),AND_ERR),
+                            StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR));
+                    _cont.addError(badEl_);
                 }
             }
         }
@@ -277,7 +275,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     _cont.addError(badEl_);
                 }
             } else {
-                IterableAnalysisResult it_ = _cont.getStandards().getCustomType(opsDefault.last().getResultClass().getNames(), _cont.getContext());
+                IterableAnalysisResult it_ = _cont.getStandards().getCustomType(opsDefault.last().getResultClass().getNames(),"", _cont.getContext());
                 StringList candidates_ = it_.getClassName();
                 if (!candidates_.onlyOneElt()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -352,10 +350,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     elt.getAttribute(_cont.getRendKeyWords().getAttrValidator()));
         }
         docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrName(), name_);
-        if (!(_cont.getAdvStandards() instanceof BeanCustLgNames)) {
-            docElementSelect_.setAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrClassName()),
-                    elt.getAttribute(_cont.getRendKeyWords().getAttrClassName()));
-        }
         write_.appendChild(docElementSelect_);
         if (!name_.isEmpty()) {
             processIndexes(_cont,elt,docElementSelect_);
@@ -384,9 +378,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 return;
             }
             docElementSelect_.setAttribute(e.getKey(),txt_);
-        }
-        if (!(_cont.getAdvStandards() instanceof BeanCustLgNames)) {
-            docElementSelect_.removeAttribute(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrClassName()));
         }
         processBlock(_cont);
     }

@@ -5,28 +5,20 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultInitializer;
-import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.*;
-import code.formathtml.Configuration;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.RealInstanceStruct;
-import code.formathtml.structs.StdStruct;
 import code.formathtml.util.*;
 import code.formathtml.DefaultInitialization;
 import code.maths.Rate;
@@ -376,11 +368,11 @@ public final class TarotStandards extends BeanNatLgNames {
 //                return res_;
 //            }
             if (StringList.quickEq(fieldName_, NICKNAMES)) {
-                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
                 return res_;
             }
 //            if (StringList.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
-//                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getScores(), getCustList()));
+//                res_.setResult(new DefaultStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getScores(), getCustList()));
 //                return res_;
 //            }
         }
@@ -427,23 +419,23 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, LINES_DECLARING)) {
-                res_.setResult(new StdStruct(instance_.getLinesDeclaring(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getLinesDeclaring(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, PLAYERS_SCORES)) {
-                res_.setResult(new StdStruct(instance_.getPlayersScores(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getPlayersScores(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, ORDERED_PLAYERS)) {
-                res_.setResult(new StdStruct(instance_.getOrderedPlayers(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getOrderedPlayers(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, POINTS_PLAYERS)) {
-                res_.setResult(new StdStruct(instance_.getPointsPlayers(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getPointsPlayers(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, BONUSES)) {
-                res_.setResult(new StdStruct(instance_.getBonuses(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getBonuses(), TYPE_LIST));
                 return res_;
             }
         }
@@ -462,18 +454,18 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, HANDFULS)) {
-                res_.setResult(new StdStruct(instance_.getHandfuls(), TYPE_MAP));
+                res_.setResult(new DefaultStruct(instance_.getHandfuls(), TYPE_MAP));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, MISERES)) {
-                res_.setResult(new StdStruct(instance_.getMiseres(), TYPE_MAP));
+                res_.setResult(new DefaultStruct(instance_.getMiseres(), TYPE_MAP));
                 return res_;
             }
         }
         if (((RealInstanceStruct)_instance).getInstance() instanceof ScoresPlayers) {
             ScoresPlayers instance_ = (ScoresPlayers) ((RealInstanceStruct)_instance).getInstance();
             if (StringList.quickEq(fieldName_, SUM)) {
-                res_.setResult(new StdStruct(instance_.getRate(),TYPE_RATE));
+                res_.setResult(new DefaultStruct(instance_.getRate(),TYPE_RATE));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, NICKNAME)) {
@@ -535,11 +527,11 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, DIFFERENCE_SCORE)) {
-                res_.setResult(new StdStruct(instance_.getDifferenceScore(), TYPE_RATE));
+                res_.setResult(new DefaultStruct(instance_.getDifferenceScore(), TYPE_RATE));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, POINTS_TRICKS)) {
-                res_.setResult(new StdStruct(instance_.getPointsTricks(), TYPE_RATE));
+                res_.setResult(new DefaultStruct(instance_.getPointsTricks(), TYPE_RATE));
                 return res_;
             }
         }
@@ -609,15 +601,15 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, CALLED_PLAYERS)) {
-                res_.setResult(new StdStruct(instance_.getCalledPlayers(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getCalledPlayers(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, CALLED_CARDS_LIST)) {
-                res_.setResult(new StdStruct(instance_.getCalledCardsList(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getCalledCardsList(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, LINES_DEAL)) {
-                res_.setResult(new StdStruct(instance_.getLinesDeal(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getLinesDeal(), TYPE_LIST));
                 return res_;
             }
         }
@@ -628,7 +620,7 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, SCORES)) {
-                res_.setResult(StdStruct.newListLong(instance_.getScores(), TYPE_LIST));
+                res_.setResult(DefaultStruct.newListLong(instance_.getScores(), TYPE_LIST));
                 return res_;
             }
         }
@@ -655,15 +647,15 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, CONTRATS)) {
-                res_.setResult(new StdStruct(instance_.getContrats(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getContrats(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, POIGNEES_AUTORISEES)) {
-                res_.setResult(new StdStruct(instance_.getPoigneesAutorisees(), TYPE_MAP));
+                res_.setResult(new DefaultStruct(instance_.getPoigneesAutorisees(), TYPE_MAP));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, MISERES)) {
-                res_.setResult(new StdStruct(instance_.getMiseres(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getMiseres(), TYPE_LIST));
                 return res_;
             }
         }
@@ -683,11 +675,11 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_NICKNAMES)) {
-                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
-                res_.setResult(new StdStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getScores(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(((TarotBean)((RealInstanceStruct)_instance).getInstance()).getScores(), TYPE_LIST));
                 return res_;
             }
         }
@@ -803,7 +795,7 @@ public final class TarotStandards extends BeanNatLgNames {
     }
 
     @Override
-    protected Struct wrapStd(Object _element, ExecutableCode _ex) {
+    public Struct wrapStd(Object _element, ExecutableCode _ex) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
         }
@@ -837,12 +829,8 @@ public final class TarotStandards extends BeanNatLgNames {
         if (_element instanceof StringBuilder) {
             return new StringBuilderStruct((StringBuilder) _element);
         }
-        String aliasObject_ = getAliasObject();
         String className_ = getOtherBeanStructClassName(_element);
-        if (StringList.quickEq(className_, getAliasObject())) {
-            return StdStruct.newInstance(_element, aliasObject_);
-        }
-        return StdStruct.newInstance(_element, className_);
+        return DefaultStruct.newInstance(_element, className_);
     }
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         return new ResultErrorStd();

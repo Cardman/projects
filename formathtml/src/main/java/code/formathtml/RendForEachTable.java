@@ -120,22 +120,8 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     }
 
     private StringList getCustomType(StringList _names, Configuration _context) {
-        StringList out_ = new StringList();
         BeanLgNames stds_ = _context.getAdvStandards();
-        if (!(stds_ instanceof BeanCustLgNames)) {
-            return _names;
-        }
-        StringMap<StringList> vars_ = _context.getCurrentConstraints();
-        Mapping mapping_ = new Mapping();
-        mapping_.setMapping(vars_);
-        for (String f : _names) {
-            String iterable_ = stds_.getAliasIterableTable();
-            String type_ = Templates.getGeneric(f,iterable_,_context,mapping_);
-            if (!type_.isEmpty()) {
-                out_.add(type_);
-            }
-        }
-        return out_;
+        return stds_.getCustomTableType(_names,_context.getContext(),importedClassNameFirst,importedClassNameSecond).getClassName();
     }
 
     public void buildEl(Configuration _cont,RendDocumentBlock _doc) {
@@ -222,9 +208,6 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
 
     public void checkIterableCandidates(StringList _types, Configuration _cont) {
         if (_types.onlyOneElt()) {
-            if (!(_cont.getStandards() instanceof BeanCustLgNames)) {
-                return;
-            }
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = Templates.getAllTypes(type_).get(1);
@@ -320,18 +303,12 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     }
 
     private boolean toInferFirst(Configuration _cont) {
-        if (!(_cont.getAdvStandards() instanceof BeanCustLgNames)) {
-            return false;
-        }
         KeyWords keyWords_ = _cont.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         return StringList.quickEq(classNameFirst.trim(), keyWordVar_) || classNameFirst.trim().isEmpty();
     }
 
     private boolean toInferSecond(Configuration _cont) {
-        if (!(_cont.getAdvStandards() instanceof BeanCustLgNames)) {
-            return false;
-        }
         KeyWords keyWords_ = _cont.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         return StringList.quickEq(classNameSecond.trim(), keyWordVar_) || classNameSecond.trim().isEmpty();

@@ -1,4 +1,5 @@
 package aiki.beans.facade.dto;
+import aiki.beans.DefaultStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -16,7 +17,6 @@ import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.structs.StdStruct;
 import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -188,7 +188,7 @@ public final class AikiBeansFacadeDtoStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPES)) {
-            res_.setResult(new StdStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EVOLUTIONS)) {
@@ -211,7 +211,7 @@ public final class AikiBeansFacadeDtoStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;

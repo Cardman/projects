@@ -4,28 +4,20 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultInitializer;
-import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.*;
-import code.formathtml.Configuration;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.RealInstanceStruct;
-import code.formathtml.structs.StdStruct;
 import code.formathtml.util.*;
 import code.formathtml.DefaultInitialization;
 import code.util.*;
@@ -244,13 +236,13 @@ public final class BeloteStandards extends BeanNatLgNames {
         String fieldName_ = _classField.getFieldName();
         if (((RealInstanceStruct)_instance).getInstance() instanceof DetailsResultsBeloteBean) {
             if (StringList.quickEq(fieldName_, DECLARING)) {
-                res_.setResult(new StdStruct(((DetailsResultsBeloteBean)((RealInstanceStruct)_instance).getInstance()).getDeclaring(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(((DetailsResultsBeloteBean)((RealInstanceStruct)_instance).getInstance()).getDeclaring(), TYPE_LIST));
                 return res_;
             }
         }
         if (((RealInstanceStruct)_instance).getInstance() instanceof SumDeclaringPlayer) {
             if (StringList.quickEq(fieldName_, DECLARING)) {
-                res_.setResult(new StdStruct(((SumDeclaringPlayer)((RealInstanceStruct)_instance).getInstance()).getDeclaring(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(((SumDeclaringPlayer)((RealInstanceStruct)_instance).getInstance()).getDeclaring(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, SUM)) {
@@ -315,11 +307,11 @@ public final class BeloteStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, CALLED_PLAYERS_LIST)) {
-                res_.setResult(new StdStruct(instance_.getCalledPlayersList(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getCalledPlayersList(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, LINES_DEAL)) {
-                res_.setResult(new StdStruct(instance_.getLinesDeal(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getLinesDeal(), TYPE_LIST));
                 return res_;
             }
         }
@@ -330,7 +322,7 @@ public final class BeloteStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, SCORES)) {
-                res_.setResult(StdStruct.newListLong(instance_.getScores(), TYPE_LIST));
+                res_.setResult(DefaultStruct.newListLong(instance_.getScores(), TYPE_LIST));
                 return res_;
             }
         }
@@ -345,7 +337,7 @@ public final class BeloteStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, ENCHERES_AUTORISEES)) {
-                res_.setResult(new StdStruct(instance_.getEncheresAutorisees(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getEncheresAutorisees(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, SOUS_COUPE_ADV)) {
@@ -353,7 +345,7 @@ public final class BeloteStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, ANNONCES_AUTORISEES)) {
-                res_.setResult(new StdStruct(instance_.getAnnoncesAutorisees(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(instance_.getAnnoncesAutorisees(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, GESTION_COUPE_PARTENAIRE)) {
@@ -407,7 +399,7 @@ public final class BeloteStandards extends BeanNatLgNames {
     }
 
     @Override
-    protected Struct wrapStd(Object _element, ExecutableCode _ex) {
+    public Struct wrapStd(Object _element, ExecutableCode _ex) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
         }
@@ -441,12 +433,8 @@ public final class BeloteStandards extends BeanNatLgNames {
         if (_element instanceof StringBuilder) {
             return new StringBuilderStruct((StringBuilder) _element);
         }
-        String aliasObject_ = getAliasObject();
         String className_ = getOtherBeanStructClassName(_element);
-        if (StringList.quickEq(className_, getAliasObject())) {
-            return StdStruct.newInstance(_element, aliasObject_);
-        }
-        return StdStruct.newInstance(_element, className_);
+        return DefaultStruct.newInstance(_element, className_);
     }
 
     @Override
@@ -459,11 +447,11 @@ public final class BeloteStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_NICKNAMES)) {
-                res_.setResult(new StdStruct(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).getNicknames(), TYPE_LIST));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_SCORES)) {
-                res_.setResult(new StdStruct(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).getScores(), TYPE_LIST));
+                res_.setResult(new DefaultStruct(((BeloteBean)((RealInstanceStruct)_instance).getInstance()).getScores(), TYPE_LIST));
                 return res_;
             }
         }

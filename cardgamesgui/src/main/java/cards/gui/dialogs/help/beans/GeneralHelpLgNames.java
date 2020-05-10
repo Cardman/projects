@@ -17,7 +17,7 @@ public final class GeneralHelpLgNames extends BeanNatLgNames {
     public GeneralHelpLgNames() {
         DefaultInitialization.basicStandards(this);
     }
-    protected Struct wrapStd(Object _element, ExecutableCode _ex){
+    public Struct wrapStd(Object _element, ExecutableCode _ex){
         return NullStruct.NULL_VALUE;
     }
 

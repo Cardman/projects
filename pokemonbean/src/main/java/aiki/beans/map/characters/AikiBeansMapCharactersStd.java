@@ -1,5 +1,6 @@
 package aiki.beans.map.characters;
 import aiki.beans.AikiBeansStd;
+import aiki.beans.DefaultStruct;
 import aiki.beans.PokemonStandards;
 import aiki.map.characters.Ally;
 import code.expressionlanguage.ContextEl;
@@ -17,7 +18,6 @@ import code.formathtml.structs.RealInstanceStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.structs.StdStruct;
 import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -234,7 +234,7 @@ public final class AikiBeansMapCharactersStd {
         AllyBean instance_ = (AllyBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,TEAM)) {
-            res_.setResult(new StdStruct(instance_.getTeam(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getTeam(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -260,7 +260,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLY)) {
-            res_.setResult(StdStruct.newInstance(instance_.getAlly(),PokemonStandards.TYPE_ALLY));
+            res_.setResult(DefaultStruct.newInstance(instance_.getAlly(),PokemonStandards.TYPE_ALLY));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PAGE_TEAM)) {
@@ -268,7 +268,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TRAINER)) {
-            res_.setResult(StdStruct.newInstance(instance_.getTrainer(),PokemonStandards.TYPE_TEMP_TRAINER));
+            res_.setResult(DefaultStruct.newInstance(instance_.getTrainer(),PokemonStandards.TYPE_TEMP_TRAINER));
             return res_;
         }
         return res_;
@@ -290,7 +290,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TRAINER)) {
-            res_.setResult(StdStruct.newInstance(instance_.getTrainer(),PokemonStandards.TYPE_TRAINER));
+            res_.setResult(DefaultStruct.newInstance(instance_.getTrainer(),PokemonStandards.TYPE_TRAINER));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVE)) {
@@ -358,7 +358,7 @@ public final class AikiBeansMapCharactersStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_ITEMS)) {
-            res_.setResult(new StdStruct(instance_.getItems(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_ITEM)) {
@@ -370,7 +370,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ALL_TM)) {
-            res_.setResult(new StdStruct(instance_.getAllTm(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getAllTm(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_TM)) {
@@ -389,7 +389,7 @@ public final class AikiBeansMapCharactersStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_ITEMS)) {
-            res_.setResult(new StdStruct(instance_.getItems(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_ITEM)) {
@@ -401,7 +401,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_ALL_TM)) {
-            res_.setResult(new StdStruct(instance_.getAllTm(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getAllTm(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_TM)) {
@@ -420,7 +420,7 @@ public final class AikiBeansMapCharactersStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_TEAMS_REWARDS)) {
-            res_.setResult(new StdStruct(instance_.getTeamsRewards(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getTeamsRewards(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_NAME)) {

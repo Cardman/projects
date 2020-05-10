@@ -285,7 +285,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
     }
 
     public StringList getInferredIterable(StringList _types, ContextEl _cont) {
-        IterableAnalysisResult it_ = _cont.getStandards().getCustomType(_types, _cont);
+        IterableAnalysisResult it_ = _cont.getStandards().getCustomType(_types,"", _cont);
         return it_.getClassName();
     }
 

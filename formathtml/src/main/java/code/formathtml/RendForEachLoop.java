@@ -193,7 +193,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         putVariable(_cont);
     }
     public StringList getInferredIterable(StringList _types, Configuration _cont) {
-        IterableAnalysisResult it_ = _cont.getStandards().getCustomType(_types, _cont.getContext());
+        IterableAnalysisResult it_ = _cont.getStandards().getCustomType(_types,importedClassName, _cont.getContext());
         return it_.getClassName();
     }
     public void checkIterableCandidates(StringList _types,Configuration _cont) {
@@ -215,8 +215,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 mapping_.setParam(importedClassName);
                 StringMap<StringList> vars_ = _cont.getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                BeanLgNames stds_ = _cont.getAdvStandards();
-                if (stds_ instanceof BeanCustLgNames && !Templates.isCorrectOrNumbers(mapping_, _cont)) {
+                if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);

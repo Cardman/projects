@@ -1,5 +1,6 @@
 package aiki.beans.moves;
 import aiki.beans.AikiBeansStd;
+import aiki.beans.DefaultStruct;
 import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
 import aiki.beans.facade.dto.MoveLine;
 import code.expressionlanguage.ContextEl;
@@ -21,7 +22,6 @@ import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.structs.StdStruct;
 import code.formathtml.util.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -423,7 +423,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,BOOSTED_TYPES)) {
-            res_.setResult(new StdStruct(instance_.getBoostedTypes(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getBoostedTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,HAS_DEFAULT_TYPES)) {
@@ -431,15 +431,15 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPES)) {
-            res_.setResult(new StdStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPES_BY_OWNED_ITEMS)) {
-            res_.setResult(new StdStruct(instance_.getTypesByOwnedItems(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getTypesByOwnedItems(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPES_BY_WEATHERS)) {
-            res_.setResult(new StdStruct(instance_.getTypesByWeathers(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getTypesByWeathers(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CATEGORY)) {
@@ -459,7 +459,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MAP_VARS_ACCURACY)) {
-            res_.setResult(new StdStruct(instance_.getMapVarsAccuracy(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getMapVarsAccuracy(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IGN_VAR_ACCUR_USER_NEG)) {
@@ -479,23 +479,23 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DELETED_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getDeletedStatus(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getDeletedStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,REQUIRED_STATUS)) {
-            res_.setResult(new StdStruct(instance_.getRequiredStatus(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getRequiredStatus(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ACHIEVE_DISAPPEARED_PK_USING_MOVE)) {
-            res_.setResult(new StdStruct(instance_.getAchieveDisappearedPkUsingMove(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getAchieveDisappearedPkUsingMove(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ABILITIES)) {
-            res_.setResult(new StdStruct(instance_.getAbilities(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getAbilities(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ITEMS)) {
-            res_.setResult(new StdStruct(instance_.getItems(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getItems(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CANNOT_KO)) {
@@ -503,15 +503,15 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,AFFECTED_BY_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getAffectedByMoves(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getAffectedByMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SEC_EFFECTS_BY_ITEM)) {
-            res_.setResult(new StdStruct(instance_.getSecEffectsByItem(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getSecEffectsByItem(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,EFFECTS)) {
-            res_.setResult(StdStruct.newListInt(instance_.getEffects(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(DefaultStruct.newListInt(instance_.getEffects(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SEC_EFFECT_IF_NO_DAMAGE)) {
@@ -535,23 +535,23 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,REPEAT_ROUND_LAW)) {
-            res_.setResult(new StdStruct(instance_.getRepeatRoundLaw(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getRepeatRoundLaw(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_LEVEL_LEARNT_BY_POKEMON)) {
-            res_.setResult(new StdStruct(instance_.getMovesLevelLearntByPokemon(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getMovesLevelLearntByPokemon(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_TM_LEARNT_BY_POKEMON)) {
-            res_.setResult(new StdStruct(instance_.getMovesTmLearntByPokemon(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getMovesTmLearntByPokemon(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_HM_LEARNT_BY_POKEMON)) {
-            res_.setResult(new StdStruct(instance_.getMovesHmLearntByPokemon(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getMovesHmLearntByPokemon(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_MT_LEARNT_BY_POKEMON)) {
-            res_.setResult(new StdStruct(instance_.getMovesMtLearntByPokemon(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getMovesMtLearntByPokemon(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
@@ -574,7 +574,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TYPES)) {
-            res_.setResult(new StdStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getTypes(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CATEGORY)) {
@@ -582,7 +582,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVE_LINE)) {
-            res_.setResult(StdStruct.newInstance(instance_.getMoveLine(),AikiBeansFacadeDtoStd.TYPE_MOVE_LINE));
+            res_.setResult(DefaultStruct.newInstance(instance_.getMoveLine(),AikiBeansFacadeDtoStd.TYPE_MOVE_LINE));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PRIORITY)) {
@@ -609,7 +609,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,CATEGORIES)) {
-            res_.setResult(new StdStruct(instance_.getCategories(), BeanNatLgNames.TYPE_MAP));
+            res_.setResult(new DefaultStruct(instance_.getCategories(), BeanNatLgNames.TYPE_MAP));
             return res_;
         }
         if (StringList.quickEq(fieldName_,CATEGORY)) {
@@ -641,7 +641,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES)) {
-            res_.setResult(new StdStruct(instance_.getMoves(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVES_BEAN)) {
@@ -649,7 +649,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SORTED_MOVES)) {
-            res_.setResult(new StdStruct(instance_.getSortedMoves(), BeanNatLgNames.TYPE_LIST));
+            res_.setResult(new DefaultStruct(instance_.getSortedMoves(), BeanNatLgNames.TYPE_LIST));
             return res_;
         }
         return res_;
