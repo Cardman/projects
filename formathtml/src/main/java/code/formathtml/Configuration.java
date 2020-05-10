@@ -469,11 +469,6 @@ public final class Configuration implements ExecutableCode {
         return context.getGlobalClass();
     }
 
-    @Override
-    public void setGlobalClass(String _globalClass) {
-        getLastPage().setGlobalClass(_globalClass);
-    }
-
     public String getLocationFile(String _fileName, int _sum) {
         return StringList.concat(Integer.toString(_sum));
     }

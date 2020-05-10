@@ -138,10 +138,6 @@ public final class ImportingPage {
         pageEl.setGlobalArgumentStruct(_obj);
     }
 
-    public void setGlobalClass(String _className) {
-        pageEl.setGlobalClass(_className);
-    }
-
     public StringMap<LoopVariable> getVars() {
         return pageEl.getVars();
     }

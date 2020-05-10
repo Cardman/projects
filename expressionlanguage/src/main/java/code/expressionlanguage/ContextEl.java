@@ -328,7 +328,6 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.getGlobalClass();
     }
 
-    @Override
     public void setGlobalClass(String _globalClass) {
         analyzing.setGlobalClass(_globalClass);
     }

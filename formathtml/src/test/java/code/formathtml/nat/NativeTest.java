@@ -385,7 +385,6 @@ public final class NativeTest extends CommonRender {
     }
     private static void addBean(Configuration _conf, Object _bean) {
         _conf.getLastPage().setGlobalArgumentStruct(StdStruct.newInstance(_bean, NativeTest.ALIAS_BEAN_ONE),_conf);
-        _conf.setGlobalClass(NativeTest.ALIAS_BEAN_ONE);
         _conf.getContext().setGlobalClass(NativeTest.ALIAS_BEAN_ONE);
     }
     private Configuration contextEl() {

@@ -15,7 +15,7 @@ public interface Analyzable {
     String getGlobalClass();
     String getLookLocalClass();
     void setLookLocalClass(String _lookLocalClass);
-    void setGlobalClass(String _globalClass);
+
     Classes getClasses();
     String getCurrentFileName();
     int getCurrentLocationIndex();
