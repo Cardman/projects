@@ -323,22 +323,12 @@ public abstract class ContextEl implements ExecutableCode {
         standards = _standards;
     }
 
-    @Override
-    public String getGlobalClass() {
-        return analyzing.getGlobalClass();
-    }
-
     public void setGlobalClass(String _globalClass) {
         analyzing.setGlobalClass(_globalClass);
     }
 
     public int getOffset() {
         return analyzing.getOffset();
-    }
-
-    @Override
-    public void setAnalyzedOffset(int _offset) {
-        analyzing.setOffset(_offset);
     }
 
     @Override
@@ -428,36 +418,6 @@ public abstract class ContextEl implements ExecutableCode {
 
     public void setCurrentChildTypeIndex(int _index) {
         analyzing.setIndexChildType(_index);
-    }
-
-    @Override
-    public boolean isMerged() {
-        return analyzing.isMerged();
-    }
-
-    @Override
-    public void setMerged(boolean _merged) {
-        analyzing.setMerged(_merged);
-    }
-
-    @Override
-    public boolean isAcceptCommaInstr() {
-        return analyzing.isAcceptCommaInstr();
-    }
-
-    @Override
-    public void setAcceptCommaInstr(boolean _merged) {
-        analyzing.setAcceptCommaInstr(_merged);
-    }
-
-    @Override
-    public boolean isFinalVariable() {
-        return analyzing.isFinalVariable();
-    }
-
-    @Override
-    public void setFinalVariable(boolean _finalVariable) {
-        analyzing.setFinalVariable(_finalVariable);
     }
 
     public AssignedVariablesBlock getAssignedVariables() {
@@ -704,26 +664,6 @@ public abstract class ContextEl implements ExecutableCode {
 
     public void setAnnotAnalysisField(boolean _ana) {
         analyzing.setAnnotAnalysisField(_ana);
-    }
-
-    @Override
-    public String getLookLocalClass() {
-        return analyzing.getLookLocalClass();
-    }
-
-    @Override
-    public void setLookLocalClass(String _lookLocalClass) {
-        analyzing.setLookLocalClass(_lookLocalClass);
-    }
-
-    @Override
-    public boolean isOkNumOp() {
-        return analyzing.isOkNumOp();
-    }
-
-    @Override
-    public void setOkNumOp(boolean _okNumOp) {
-        analyzing.setOkNumOp(_okNumOp);
     }
 
     @Override

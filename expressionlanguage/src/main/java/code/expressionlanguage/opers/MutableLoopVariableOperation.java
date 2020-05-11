@@ -82,7 +82,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 lv_.setClassName(c_);
             }
             lv_.setIndexClassName(indexClassName_);
-            lv_.setFinalVariable(_conf.isFinalVariable());
+            lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
             page_.putMutableLoopVar(str_, lv_);
             page_.getVariablesNames().add(str_);
             variableName = str_;

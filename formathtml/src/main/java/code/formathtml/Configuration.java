@@ -15,7 +15,6 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.*;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
@@ -119,10 +118,6 @@ public final class Configuration implements ExecutableCode {
     private final StdErrorList stdErrorDet = new StdErrorList();
     private final ErrorList errorsDet = new ErrorList();
     private final WarningList warningsDet = new WarningList();
-    @Override
-    public boolean isMerged() {
-        return context.isMerged();
-    }
 
     @Override
     public ExecutableCode getExecutingInstance() {
@@ -154,20 +149,6 @@ public final class Configuration implements ExecutableCode {
         String fileName_ = call_.getReadUrl();
         String currentClassName_ = call_.getGlobalClass();
         return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,"");
-    }
-    @Override
-    public void setMerged(boolean _merged) {
-        context.setMerged(_merged);
-    }
-
-    @Override
-    public boolean isAcceptCommaInstr() {
-        return context.isAcceptCommaInstr();
-    }
-
-    @Override
-    public void setAcceptCommaInstr(boolean _merged) {
-        context.setAcceptCommaInstr(_merged);
     }
 
     public void init() {
@@ -464,9 +445,9 @@ public final class Configuration implements ExecutableCode {
         dataBaseClassName = _dataBaseClassName;
     }
 
-    @Override
+
     public String getGlobalClass() {
-        return context.getGlobalClass();
+        return getAnalyzing().getGlobalClass();
     }
 
     public String getLocationFile(String _fileName, int _sum) {
@@ -534,11 +515,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public void setAnalyzedOffset(int _offset) {
-        context.setAnalyzedOffset(_offset);
-    }
-
-    @Override
     public void setOffset(int _offset) {
         getLastPage().setOffset(_offset);
     }
@@ -557,16 +533,6 @@ public final class Configuration implements ExecutableCode {
 
     public void setNextIndex(int _nextIndex) {
         nextIndex = _nextIndex;
-    }
-
-    @Override
-    public boolean isFinalVariable() {
-        return context.isFinalVariable();
-    }
-
-    @Override
-    public void setFinalVariable(boolean _finalVariable) {
-        context.setFinalVariable(_finalVariable);
     }
 
     @Override
@@ -647,26 +613,6 @@ public final class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String getLookLocalClass() {
-        return context.getLookLocalClass();
-    }
-
-    @Override
-    public void setLookLocalClass(String _lookLocalClass) {
-        context.setLookLocalClass(_lookLocalClass);
-    }
-
-    @Override
-    public boolean isOkNumOp() {
-        return context.isOkNumOp();
-    }
-
-    @Override
-    public void setOkNumOp(boolean _okNumOp) {
-        context.setOkNumOp(_okNumOp);
-    }
-
-    @Override
     public KeyWords getKeyWords() {
         return context.getKeyWords();
     }
@@ -716,8 +662,8 @@ public final class Configuration implements ExecutableCode {
         String currentVarSetting_ = "";
         String globalClass_ = "";
         if (context.getAnalyzing() != null) {
-            merged_ = isMerged();
-            accept_ = isAcceptCommaInstr();
+            merged_ = getAnalyzing().isMerged();
+            accept_ = getAnalyzing().isAcceptCommaInstr();
             currentVarSetting_ = context.getAnalyzing().getCurrentVarSetting();
             globalClass_ = getGlobalClass();
         }

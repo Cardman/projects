@@ -19,7 +19,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
     @Override
     ClassArgumentMatching getFrom(Analyzable _conf) {
         Classes classes_ = _conf.getClasses();
-        String clCurName_ = _conf.getGlobalClass();
+        String clCurName_ = _conf.getAnalyzing().getGlobalClass();
         String base_ = Templates.getIdFromAllTypes(clCurName_);
         RootBlock clBody_ = classes_.getClassBody(base_);
         if (!(clBody_ instanceof UniqueRootedBlock)) {

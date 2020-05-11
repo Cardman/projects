@@ -27,7 +27,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));
-        String glClass_ = _conf.getGlobalClass();
+        String glClass_ = _conf.getAnalyzing().getGlobalClass();
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
             classStr_ = ResolvingImportTypes.resolveCorrectType(_conf,str_.indexOf(PAR_LEFT)+1,realCl_);

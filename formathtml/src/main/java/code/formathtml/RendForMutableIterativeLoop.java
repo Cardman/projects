@@ -123,11 +123,11 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             } else {
                 importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
             }
-            _cont.setMerged(true);
-            _cont.setFinalVariable(false);
+            page_.setMerged(true);
+            page_.setFinalVariable(false);
             page_.setCurrentVarSetting(importedClassName);
         } else {
-            _cont.setMerged(false);
+            page_.setMerged(false);
         }
         page_.getVariablesNames().clear();
         page_.getVariablesNamesLoopToInfer().clear();
@@ -135,20 +135,20 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrInit());
         page_.setForLoopPartState(ForLoopPart.INIT);
-        _cont.setAcceptCommaInstr(true);
+        page_.setAcceptCommaInstr(true);
         if (init.trim().isEmpty()) {
             opInit = new CustList<RendDynOperationNode>();
         } else {
             opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont);
         }
-        if (_cont.isMerged()) {
+        if (page_.isMerged()) {
             StringList vars_ = page_.getVariablesNames();
             String t_ = inferOrObject(_cont,importedClassName);
             AffectationOperation.processInferLoop(_cont, t_);
             getVariableNames().addAllElts(vars_);
         }
-        _cont.setMerged(false);
-        _cont.setAcceptCommaInstr(false);
+        page_.setMerged(false);
+        page_.setAcceptCommaInstr(false);
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrCondition());
@@ -178,13 +178,13 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
     }
 
     public void buildIncrementPart(Configuration _an, RendDocumentBlock _doc) {
-        _an.setMerged(false);
         AnalyzedPageEl page_ = _an.getAnalyzing();
+        page_.setMerged(false);
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         page_.setForLoopPartState(ForLoopPart.STEP);
-        _an.setMerged(true);
-        _an.setAcceptCommaInstr(true);
+        page_.setMerged(true);
+        page_.setAcceptCommaInstr(true);
         page_.getLocalVars().last().clear();
         _an.getAnalyzingDoc().setAttribute(_an.getRendKeyWords().getAttrStep());
         if (step.trim().isEmpty()) {
@@ -192,8 +192,8 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         } else {
             opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0, _an);
         }
-        _an.setMerged(false);
-        _an.setAcceptCommaInstr(false);
+        page_.setMerged(false);
+        page_.setAcceptCommaInstr(false);
     }
     @Override
     public void reduce(Configuration _context) {

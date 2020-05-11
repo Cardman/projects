@@ -243,7 +243,7 @@ public final class ElUtil {
         }
         OperationNode current_ = _current;
         while (true) {
-            _context.setOkNumOp(true);
+            _context.getAnalyzing().setOkNumOp(true);
             current_.analyze(_context);
             current_.setOrder(_sortedNodes.size());
             tryCalculateNode(_context, current_);
@@ -258,7 +258,7 @@ public final class ElUtil {
                 return next_;
             }
             if (par_ == _root) {
-                _context.setOkNumOp(true);
+                _context.getAnalyzing().setOkNumOp(true);
                 par_.analyze(_context);
                 ClassArgumentMatching cl_ = par_.getResultClass();
                 unwrapPrimitive(_context, par_, cl_);
@@ -316,7 +316,7 @@ public final class ElUtil {
         }
         OperationNode current_ = _current;
         while (true) {
-            _context.setOkNumOp(true);
+            _context.getAnalyzing().setOkNumOp(true);
             current_.analyze(_context);
             current_.setOrder(_sortedNodes.size());
             tryCalculateNode(_context, current_);
@@ -329,7 +329,7 @@ public final class ElUtil {
                 return next_;
             }
             if (par_ == _root) {
-                _context.setOkNumOp(true);
+                _context.getAnalyzing().setOkNumOp(true);
                 par_.analyze(_context);
                 ClassArgumentMatching cl_ = par_.getResultClass();
                 unwrapPrimitive(_context, par_, cl_);
@@ -465,7 +465,7 @@ public final class ElUtil {
         return isDeclaringVariable(_par);
     }
     static boolean isDeclaringLoopVariable(Analyzable _an) {
-        if (!_an.isMerged()) {
+        if (!_an.getAnalyzing().isMerged()) {
             return false;
         }
         if (!_an.hasLoopDeclarator()) {
@@ -486,7 +486,7 @@ public final class ElUtil {
         return isDeclaringVariable(_par);
     }
     static boolean isDeclaringVariable(Analyzable _an) {
-        if (!_an.isMerged()) {
+        if (!_an.getAnalyzing().isMerged()) {
             return false;
         }
         return _an.hasDeclarator();

@@ -107,7 +107,7 @@ public abstract class OperationNode implements Operable {
     }
 
     public final void setRelativeOffsetPossibleAnalyzable(int _offset, Analyzable _cont) {
-        _cont.setAnalyzedOffset(operations.getDelimiter().getIndexBegin()+_offset);
+        _cont.getAnalyzing().setOffset(operations.getDelimiter().getIndexBegin()+_offset);
     }
 
     public static OperationNode createOperationNode(int _index,
@@ -524,7 +524,7 @@ public abstract class OperationNode implements Operable {
     private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class,
                                                              boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
         ObjectMap<ClassField,FieldResult> ancestors_ = new ObjectMap<ClassField,FieldResult>();
-        String glClass_ = _cont.getGlobalClass();
+        String glClass_ = _cont.getAnalyzing().getGlobalClass();
         String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
         int maxAnc_ = 0;
         MethodAccessKind k_;
@@ -667,7 +667,7 @@ public abstract class OperationNode implements Operable {
             ConstructorId _uniqueId, ClassArgumentMatching... _args) {
         String clCurName_ = _class.getName();
         LgNames stds_ = _conf.getStandards();
-        String glClass_ = _conf.getGlobalClass();
+        String glClass_ = _conf.getAnalyzing().getGlobalClass();
         int varargOnly_ = _varargOnly;
         boolean uniq_ = false;
         if (_uniqueId != null) {
@@ -961,7 +961,7 @@ public abstract class OperationNode implements Operable {
     private static CustList<MethodInfo>
     getDeclaredCustCast(Analyzable _conf,
                         String _fromClass, ClassMethodId _uniqueId) {
-        String glClass_ = _conf.getGlobalClass();
+        String glClass_ = _conf.getAnalyzing().getGlobalClass();
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         String id_ = Templates.getIdFromAllTypes(_fromClass);
@@ -975,7 +975,7 @@ public abstract class OperationNode implements Operable {
     private static CustList<MethodInfo>
     getDeclaredCustMethodByType(Analyzable _conf, MethodAccessKind _staticContext, boolean _accessFromSuper,
                                 boolean _superClass, StringList _fromClasses, String _name, boolean _import, ClassMethodIdAncestor _uniqueId) {
-        String glClass_ = _conf.getGlobalClass();
+        String glClass_ = _conf.getAnalyzing().getGlobalClass();
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         fetchParamClassAncMethods(_conf,_fromClasses,_staticContext,_accessFromSuper,_superClass,_uniqueId,methods_);
@@ -1027,7 +1027,7 @@ public abstract class OperationNode implements Operable {
     private static void fetchParamClassAncMethods(Analyzable _conf, StringList _fromClasses, MethodAccessKind _staticContext, boolean _accessFromSuper,
                                                   boolean _superClass, ClassMethodIdAncestor _uniqueId, CustList<MethodInfo> _methods) {
         CustList<CustList<TypeInfo>> typeInfosGroups_ = typeLists(_conf,_fromClasses,_staticContext);
-        String glClass_ = _conf.getGlobalClass();
+        String glClass_ = _conf.getAnalyzing().getGlobalClass();
         for (CustList<TypeInfo> g: typeInfosGroups_) {
             StringList baseTypes_ = new StringList();
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();

@@ -21,7 +21,7 @@ public final class SuperFieldOperation extends
         if (isIntermediateDottedOperation()) {
             cl_ = getPreviousResultClass();
         } else {
-            cl_ = new ClassArgumentMatching(_conf.getGlobalClass());
+            cl_ = new ClassArgumentMatching(_conf.getAnalyzing().getGlobalClass());
         }
         return cl_;
     }

@@ -12,28 +12,13 @@ public interface Analyzable {
     ContextEl getContextEl();
 
     LgNames getStandards();
-    String getGlobalClass();
-    String getLookLocalClass();
-    void setLookLocalClass(String _lookLocalClass);
 
     Classes getClasses();
     String getCurrentFileName();
     int getCurrentLocationIndex();
 
-
-    void setAnalyzedOffset(int _offset);
-
     void setOffset(int _offset);
 
-    boolean isMerged();
-
-
-    void setMerged(boolean _merged);
-    boolean isAcceptCommaInstr();
-    void setAcceptCommaInstr(boolean _acceptCommaInstr);
-
-    boolean isFinalVariable();
-    void setFinalVariable(boolean _finalVariable);
 
     AnalyzedPageEl getAnalyzing();
 
@@ -45,9 +30,6 @@ public interface Analyzable {
     void setupLoopDeclaratorClass(String _className);
 
 
-    boolean isOkNumOp();
-
-    void setOkNumOp(boolean _okNumOp);
     KeyWords getKeyWords();
     void addWarning(FoundWarningInterpret _warning);
     void addError(FoundErrorInterpret _error);

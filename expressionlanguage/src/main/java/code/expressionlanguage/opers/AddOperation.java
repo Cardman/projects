@@ -66,7 +66,7 @@ public final class AddOperation extends NumericOperation {
                 res_.setCatString(true);
                 return res_;
             }
-            _cont.setOkNumOp(false);
+            _cont.getAnalyzing().setOkNumOp(false);
             String exp_ = _cont.getStandards().getAliasNumber();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_cont.getCurrentLocationIndex());

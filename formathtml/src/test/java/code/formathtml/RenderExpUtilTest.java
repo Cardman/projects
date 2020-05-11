@@ -1218,8 +1218,8 @@ public final class RenderExpUtilTest extends CommonRender {
         Document document_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c;", document_, html_);
         RendBlock nextSibling_ = rendDocumentBlock_.getFirstChild().getFirstChild().getNextSibling();
-        context_.setMerged(true);
-        context_.setAcceptCommaInstr(true);
+        context_.getAnalyzing().setMerged(true);
+        context_.getAnalyzing().setAcceptCommaInstr(true);
         context_.getAnalyzingDoc().setCurrentBlock(nextSibling_);
         context_.getAnalyzing().setCurrentVarSetting(context_.getStandards().getAliasLong());
         String expression_ = ((RendLine) nextSibling_).getExpression();

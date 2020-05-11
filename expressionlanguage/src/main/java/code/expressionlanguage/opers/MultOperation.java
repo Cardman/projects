@@ -50,7 +50,7 @@ public final class MultOperation extends NumericOperation {
                     ),";"),
                     getOp());
             _cont.addError(un_);
-            _cont.setOkNumOp(false);
+            _cont.getAnalyzing().setOkNumOp(false);
             ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
             res_.setResult(arg_);
             return res_;

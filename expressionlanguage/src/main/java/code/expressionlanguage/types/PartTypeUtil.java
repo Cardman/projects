@@ -18,7 +18,11 @@ public final class PartTypeUtil {
 
     private PartTypeUtil() {}
 
-    public static boolean isCorrectType(String _input) {
+    static boolean isCorrectType(String _input) {
+        return isCorrectType(_input,new StringList());
+    }
+
+    public static boolean isCorrectType(String _input, CustList<String> _excludedWords) {
         Ints indexes_ = ParserType.getIndexes(_input, new StringList());
         if (indexes_ == null) {
             return false;
@@ -43,7 +47,7 @@ public final class PartTypeUtil {
                 }
                 if (current_ instanceof NamePartType) {
                     String typeName_ = ((LeafPartType) current_).getTypeName();
-                    if (isKoForWord(typeName_)) {
+                    if (isKoForWord(typeName_,_excludedWords)) {
                         return false;
                     }
                 }
@@ -55,7 +59,7 @@ public final class PartTypeUtil {
                         return false;
                     }
                     String typeName_ = ((LeafPartType) current_).getTypeName();
-                    if (isKoForWord(typeName_)) {
+                    if (isKoForWord(typeName_,_excludedWords)) {
                         return false;
                     }
                 }
@@ -94,11 +98,17 @@ public final class PartTypeUtil {
     }
 
     static boolean isKoForWord(String _type) {
+        return isKoForWord(_type, new StringList());
+    }
+    private static boolean isKoForWord(String _type, CustList<String> _excludedWords) {
         String typeName_ = _type.trim();
         if (typeName_.startsWith("#")) {
             typeName_ = typeName_.substring("#".length()).trim();
         }
         if (!StringExpUtil.isTypeLeafPart(typeName_)) {
+            return true;
+        }
+        if (StringList.contains(_excludedWords,typeName_)) {
             return true;
         }
         return ContextEl.isDigit(typeName_.charAt(0));
@@ -284,7 +294,7 @@ public final class PartTypeUtil {
     }
 
 
-    public static String processAnalyzeAccessibleId(String _input, Analyzable _an, AccessingImportingBlock _rooted, String _refFileName, int _loc, CustList<PartOffset> _offs) {
+    static String processAnalyzeAccessibleId(String _input, Analyzable _an, AccessingImportingBlock _rooted, String _refFileName, int _loc, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return "";

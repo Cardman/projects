@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.methods.RootBlock;
+import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -1357,5 +1358,13 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     @Test
     public void isCorrectType50Test() {
         assertTrue(!PartTypeUtil.isCorrectType("a<b..c,>"));
+    }
+    @Test
+    public void isCorrectType51Test() {
+        assertTrue(!PartTypeUtil.isCorrectType("a.new", new StringList("new")));
+    }
+    @Test
+    public void isCorrectType52Test() {
+        assertTrue(PartTypeUtil.isCorrectType("a.int", new StringList("new")));
     }
 }

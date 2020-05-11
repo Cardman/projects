@@ -264,7 +264,7 @@ final class AfterUnaryParts {
             boolean ternary_ = false;
             boolean dot_ = false;
             if (StringExpUtil.nextCharIs(_string, index + 1, len_, DOT_VAR)) {
-                int n_ = ElResolver.nextPrintChar(index + 2, len_, _string);
+                int n_ = StringExpUtil.nextPrintChar(index + 2, len_, _string);
                 if (ElResolver.isDigitOrDot(_string,n_)) {
                     ternary_ = true;
                 } else {

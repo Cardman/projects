@@ -97,7 +97,7 @@ public final class VariableOperation extends LeafOperation implements
             } else {
                 lv_.setClassName(c_);
             }
-            lv_.setFinalVariable(_conf.isFinalVariable());
+            lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
             page_.putLocalVar(str_, lv_);
             page_.getVariablesNames().add(str_);
             variableName = str_;

@@ -79,7 +79,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
     }
 
     private void checkAssignments(Analyzable _an, EntryCust<String, SimpleAssignment> _pair, boolean _add) {
-        String cl_ = Templates.getIdFromAllTypes(_an.getGlobalClass());
+        String cl_ = Templates.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
         String name_ = _pair.getKey();
         ClassField key_ = new ClassField(cl_, name_);
         FieldInfo finfo_ = _an.getContextEl().getFieldInfo(key_);

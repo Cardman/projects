@@ -15,9 +15,7 @@ public final class FileResolver {
     private static final char END_LINE = ';';
     private static final char END_IMPORTS = END_LINE;
     private static final char PKG = '.';
-    private static final char TYPE_VAR = '#';
     private static final String EMPTY_STRING = "";
-    private static final String VARARG = "...";
     private static final char SEP_ENUM_CONST = ',';
     private static final char BEGIN_TEMPLATE = '<';
     private static final char END_TEMPLATE = '>';
@@ -69,20 +67,11 @@ public final class FileResolver {
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (current_ != null) {
-                boolean endedComment_ = false;
-                for (String e: current_.getEnd()) {
-                    if (_file.startsWith(e,i_)) {
-                        i_ += e.length();
-                        if (e.trim().isEmpty()) {
-                            fileBlock_.getEndComments().add(i_-2);
-                        } else {
-                            fileBlock_.getEndComments().add(i_-1);
-                        }
-                        endedComment_ = true;
-                        break;
-                    }
-                }
-                if (endedComment_) {
+                String endCom_ = getEndCom(_file, i_, current_);
+                int length_ = endCom_.length();
+                if (length_ > 0) {
+                    i_ += length_;
+                    appendEnd(fileBlock_, i_, endCom_);
                     current_ = null;
                     continue;
                 }
@@ -261,20 +250,11 @@ public final class FileResolver {
             while (i_ < len_) {
                 char currentChar_ = _file.charAt(i_);
                 if (current_ != null) {
-                    boolean endedComment_ = false;
-                    for (String e: current_.getEnd()) {
-                        if (_file.startsWith(e,i_)) {
-                            i_ += e.length();
-                            if (e.trim().isEmpty()) {
-                                fileBlock_.getEndComments().add(i_ - 2);
-                            } else {
-                                fileBlock_.getEndComments().add(i_ - 1);
-                            }
-                            endedComment_ = true;
-                            break;
-                        }
-                    }
-                    if (endedComment_) {
+                    String endCom_ = getEndCom(_file, i_, current_);
+                    int length_ = endCom_.length();
+                    if (length_ > 0) {
+                        i_ += length_;
+                        appendEnd(fileBlock_, i_, endCom_);
                         current_ = null;
                         continue;
                     }
@@ -324,6 +304,7 @@ public final class FileResolver {
             input_.setNextIndex(i_);
         }
     }
+
     private static ResultCreation createType(ContextEl _context, String _file, InputTypeCreation _input) {
         KeyWords keyWords_ = _context.getKeyWords();
         ResultCreation out_ = new ResultTypeCreation();
@@ -702,7 +683,7 @@ public final class FileResolver {
         String keyWordCase_ = keyWords_.getKeyWordCase();
         String keyWordDefault_ = keyWords_.getKeyWordDefault();
         StringBuilder instruction_ = new StringBuilder();
-        int instLen_ = 0;
+        boolean printableInst_ = false;
         int instructionLocation_ = -1;
         FileBlock fileBlock_ = _input.getFile();
         Ints badIndexes_ = _input.getBadIndexes();
@@ -720,27 +701,17 @@ public final class FileResolver {
         after_.setEnabledEnumHeader(enableByEndLine_);
         after_.setIndex(i_);
         after_.setParent(currentParent_);
-        int ltGt_ = 0;
         CommentDelimiters current_ = null;
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (current_ != null) {
-                boolean ended_ = false;
-                for (String e: current_.getEnd()) {
-                    if (_file.startsWith(e,i_)) {
-                        i_ += e.length();
-                        if (StringList.quickEq(e,"\n")) {
-                            fileBlock_.getEndComments().add(i_-2);
-                        } else {
-                            fileBlock_.getEndComments().add(i_-1);
-                        }
-                        ended_ = true;
-                        break;
-                    }
-                }
-                if (ended_) {
+                String endCom_ = getEndCom(_file, i_, current_);
+                int length_ = endCom_.length();
+                if (length_ > 0) {
+                    i_ += length_;
+                    appendEnd(fileBlock_, i_, endCom_);
                     instruction_.delete(0, instruction_.length());
-                    instLen_ = 0;
+                    printableInst_ = false;
                     current_ = null;
                     continue;
                 }
@@ -748,7 +719,7 @@ public final class FileResolver {
                 continue;
             }
             if (constChar_) {
-                instLen_++;
+                printableInst_ = true;
                 instruction_.append(currentChar_);
                 if (currentChar_ == ESCAPE) {
                     if (i_ + 1 >= len_) {
@@ -756,7 +727,6 @@ public final class FileResolver {
                         badIndexes_.add(i_);
                         break;
                     }
-                    instLen_++;
                     instruction_.append(_file.charAt(i_+1));
 
                     i_ = i_ + 1;
@@ -775,7 +745,7 @@ public final class FileResolver {
                 continue;
             }
             if (constString_) {
-                instLen_++;
+                printableInst_ = true;
                 instruction_.append(currentChar_);
                 if (currentChar_ == ESCAPE) {
                     if (i_ + 1 >= len_) {
@@ -783,7 +753,6 @@ public final class FileResolver {
                         badIndexes_.add(i_);
                         break;
                     }
-                    instLen_++;
                     instruction_.append(_file.charAt(i_+1));
 
                     i_ = i_ + 1;
@@ -802,7 +771,7 @@ public final class FileResolver {
                 continue;
             }
             if (constText_) {
-                instLen_++;
+                printableInst_ = true;
                 instruction_.append(currentChar_);
                 if (i_ + 1 >= len_) {
                     //ERROR
@@ -816,7 +785,6 @@ public final class FileResolver {
                         constText_ = false;
                         continue;
                     }
-                    instLen_++;
                     instruction_.append(_file.charAt(i_+1));
 
                     i_ = i_ + 1;
@@ -828,7 +796,7 @@ public final class FileResolver {
                 i_ = i_ + 1;
                 continue;
             }
-            if (instLen_ == 0) {
+            if (!printableInst_) {
                 boolean skip_= false;
                 for (CommentDelimiters c: _context.getComments()) {
                     if (_file.startsWith(c.getBegin(),i_)) {
@@ -847,7 +815,7 @@ public final class FileResolver {
                 if (instruction_.length() == 0) {
                     instructionLocation_ = i_;
                 }
-                instLen_++;
+                printableInst_ = true;
                 instruction_.append(currentChar_);
                 constChar_ = true;
 
@@ -858,7 +826,7 @@ public final class FileResolver {
                 if (instruction_.length() == 0) {
                     instructionLocation_ = i_;
                 }
-                instLen_++;
+                printableInst_ = true;
                 instruction_.append(currentChar_);
                 constString_ = true;
 
@@ -869,7 +837,7 @@ public final class FileResolver {
                 if (instruction_.length() == 0) {
                     instructionLocation_ = i_;
                 }
-                instLen_++;
+                printableInst_ = true;
                 instruction_.append(currentChar_);
                 constText_ = true;
 
@@ -891,7 +859,7 @@ public final class FileResolver {
                         currentParent_ = currentParent_.getParent();
                     }
                 }
-                if (currentChar_ == SEP_ENUM_CONST && enableByEndLine_ && ltGt_ == 0) {
+                if (currentChar_ == SEP_ENUM_CONST && enableByEndLine_) {
                     endInstruction_ = true;
                 }
                 if (currentChar_ == END_BLOCK) {
@@ -908,10 +876,12 @@ public final class FileResolver {
                 }
                 if (enableByEndLine_) {
                     if (currentChar_ == BEGIN_TEMPLATE) {
-                        ltGt_++;
-                    }
-                    if (currentChar_ == END_TEMPLATE) {
-                        ltGt_--;
+                        //increment to last greater
+                        printableInst_ = true;
+                        ParsedTemplatedType par_ = new ParsedTemplatedType(instruction_,i_);
+                        par_.parse(_file);
+                        i_ = par_.getCurrent();
+                        continue;
                     }
                 }
                 //End line
@@ -923,7 +893,7 @@ public final class FileResolver {
                 instruction_.append(currentChar_);
             }
             if (!Character.isWhitespace(currentChar_)) {
-                instLen_++;
+                printableInst_ = true;
             }
             if (currentChar_ == BEGIN_CALLING) {
                 parentheses_.add(i_);
@@ -967,7 +937,7 @@ public final class FileResolver {
                 after_ = processInstruction(_context,currentChar_, _input,_pkgName, currentChar_, currentParent_,
                         instructionLocation_,
                         instruction_, _file, declType_, i_, _nextIndex, enableByEndLine_);
-                instLen_ = 0;
+                printableInst_ = false;
                 if (after_ == null) {
                     badIndexes_.add(_nextIndex);
                     return _out;
@@ -994,6 +964,15 @@ public final class FileResolver {
         _out.setOk(okType_);
         return _out;
     }
+
+    private static void appendEnd(FileBlock _fileBlock, int _i, String _e) {
+        if (_e.trim().isEmpty()) {
+            _fileBlock.getEndComments().add(_i -2);
+        } else {
+            _fileBlock.getEndComments().add(_i -1);
+        }
+    }
+
     private static EndInstruction endInstruction(BracedBlock _parent, StringBuilder _instruction,
                                                  boolean _enableByEndLine, ContextEl _context) {
         String tr_ = _instruction.toString().trim();
@@ -1234,7 +1213,6 @@ public final class FileResolver {
         Ints badIndexes_ = _input.getBadIndexes();
         BracedBlock currentParent_ = _currentParent;
         int instructionLocation_ = _instructionLocation;
-        int i_ = _i;
         Block br_ = null;
         String found_ = _instruction.toString();
         String trimmedInstruction_ = found_.trim();
@@ -1441,7 +1419,7 @@ public final class FileResolver {
                 enableByEndLine_ = false;
             }
         } else if (_currentChar != END_BLOCK) {
-            Block bl_ = processInstructionBlock(_context, badIndexes_, _file, instructionLocation_, instructionRealLocation_, i_, currentParent_, trimmedInstruction_);
+            Block bl_ = processInstructionBlock(_context, badIndexes_, instructionLocation_, instructionRealLocation_, _i, currentParent_, trimmedInstruction_);
             if (bl_ == null) {
                 if (_declType || currentParent_ instanceof RootBlock) {
                     //fields, constructors or methods
@@ -1461,7 +1439,7 @@ public final class FileResolver {
                         }
                         br_ = built_;
                     } else {
-                        br_ = processTypeMember(_context,_end,_input, _instruction, instructionLocation_, i_, currentParent_);
+                        br_ = processTypeMember(_context,_end,_input, _instruction, instructionLocation_, _i, currentParent_);
                         if (br_ == null) {
                             return null;
                         }
@@ -1515,7 +1493,7 @@ public final class FileResolver {
             }
             boolean emptySwitchPart_ = false;
             if (br_ instanceof SwitchPartBlock) {
-                int c_ = afterComments(_context,_file, i_ + 1);
+                int c_ = afterComments(_context,_file, _i + 1);
                 if (c_ < 0) {
                     badIndexes_.add(_file.length());
                     return null;
@@ -1544,7 +1522,7 @@ public final class FileResolver {
             currentParent_ = currentParent_.getParent();
         }
         _instruction.delete(0, _instruction.length());
-        after_.setIndex(i_);
+        after_.setIndex(_i);
         after_.setParent(currentParent_);
         after_.setEnabledEnumHeader(enableByEndLine_);
         return after_;
@@ -2138,7 +2116,7 @@ public final class FileResolver {
         }
         return br_;
     }
-    private static Block processInstructionBlock(ContextEl _context, Ints _badIndexes, String _file,
+    private static Block processInstructionBlock(ContextEl _context, Ints _badIndexes,
                                                  int _instructionLocation,
                                                  int _instructionRealLocation, int _i, BracedBlock _currentParent, String _trimmedInstruction) {
         KeyWords keyWords_ = _context.getKeyWords();
@@ -2727,187 +2705,15 @@ public final class FileResolver {
     }
 
     private static String getDeclaringParamType(String _found) {
-        int indexInstr_ = 0;
-        int instLen_ = _found.length();
-        boolean typeDeclaring_ = false;
-        StringBuilder declTypeName_ = new StringBuilder();
-        int nbOpenedTmp_ = 0;
-        char prev_ = ' ';
-        while (indexInstr_ < instLen_) {
-            char currentCharFound_ = _found.charAt(indexInstr_);
-            if (declTypeName_.toString().trim().endsWith(VARARG)) {
-                typeDeclaring_ = true;
-                break;
-            }
-            if (currentCharFound_ == END_ARRAY && nbOpenedTmp_ == 0) {
-                String after_ = _found.substring(indexInstr_ + 1);
-                String nextPart_ = after_.trim();
-                if (nextIsWordChar(nextPart_)) {
-                    declTypeName_.append(currentCharFound_);
-                    typeDeclaring_ = true;
-                    break;
-                }
-            }
-            if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
-                if (StringList.isDollarWordChar(prev_)) {
-                    String nextPart_ = _found.substring(indexInstr_).trim();
-                    if (nextIsWordChar(nextPart_)) {
-                        typeDeclaring_ = true;
-                        break;
-                    }
-                }
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == BEGIN_TEMPLATE) {
-                nbOpenedTmp_++;
-                prev_ = currentCharFound_;
-            }
-            if (currentCharFound_ == END_TEMPLATE) {
-                nbOpenedTmp_--;
-                if (nbOpenedTmp_ == 0) {
-                    declTypeName_.append(currentCharFound_);
-                    String after_ = _found.substring(indexInstr_ + 1);
-                    String nextPart_ = after_.trim();
-                    if (nextPart_.startsWith(".") && !nextPart_.startsWith(VARARG)) {
-                        indexInstr_++;
-                        prev_ = currentCharFound_;
-                        continue;
-                    }
-                    if (nextPart_.startsWith("[")) {
-                        indexInstr_++;
-                        prev_ = currentCharFound_;
-                        continue;
-                    }
-                    if (nextPart_.startsWith(VARARG)) {
-                        int offset_ = StringList.getFirstPrintableCharIndex(after_);
-                        for (int i = CustList.FIRST_INDEX; i < offset_; i++) {
-                            declTypeName_.append(_found.charAt(indexInstr_ + 1 + i));
-                        }
-                        declTypeName_.append(VARARG);
-                    }
-                    typeDeclaring_ = true;
-                    break;
-                }
-            }
-            declTypeName_.append(currentCharFound_);
-            indexInstr_++;
-            if (!Character.isWhitespace(currentCharFound_)) {
-                prev_ = currentCharFound_;
-            }
-        }
-        if (typeDeclaring_) {
-            return declTypeName_.toString();
-        }
-        return EMPTY_STRING;
-    }
-
-    private static boolean nextIsWordChar(String _nextPart) {
-        return !_nextPart.isEmpty()&&StringList.isDollarWordChar(_nextPart.charAt(0));
+        ParsedType p_ = new ParsedType();
+        p_.parse(_found);
+        return p_.getInstruction().toString();
     }
 
     private static String getDeclaringTypeOper(String _found) {
-        int indexInstr_ = 0;
-        int instLen_ = _found.length();
-        StringBuilder declTypeName_ = new StringBuilder();
-        int nbOpenedTmp_ = 0;
-        char prev_ = ' ';
-        while (indexInstr_ < instLen_) {
-            char currentCharFound_ = _found.charAt(indexInstr_);
-            if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
-                String nextPart_ = _found.substring(indexInstr_).trim();
-                if (StringList.isDollarWordChar(prev_) && nextPart_.trim().startsWith(String.valueOf(BEGIN_CALLING))) {
-                    break;
-                }
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == BEGIN_TEMPLATE) {
-                nbOpenedTmp_++;
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                prev_ = currentCharFound_;
-                continue;
-            }
-            if (currentCharFound_ == END_TEMPLATE) {
-                nbOpenedTmp_--;
-                if (nbOpenedTmp_ == 0) {
-                    String nextPart_ = _found.substring(indexInstr_+1).trim();
-                    if (nextPart_.startsWith(".")) {
-                        declTypeName_.append(currentCharFound_);
-                        indexInstr_++;
-                        prev_ = currentCharFound_;
-                        continue;
-                    }
-                    if (nextPart_.startsWith(String.valueOf(BEGIN_ARRAY))) {
-                        declTypeName_.append(currentCharFound_);
-                        indexInstr_++;
-                        prev_ = currentCharFound_;
-                        continue;
-                    }
-                    declTypeName_.append(currentCharFound_);
-                    break;
-                }
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                prev_ = currentCharFound_;
-                continue;
-            }
-            if (nbOpenedTmp_ > 0) {
-                if (!Character.isWhitespace(currentCharFound_)) {
-                    prev_ = currentCharFound_;
-                }
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            prev_ = currentCharFound_;
-            // !Character.isWhitespace(currentCharFound_)
-            if (StringList.isDollarWordChar(currentCharFound_)) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == PKG) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == TYPE_VAR) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            // !Character.isWhitespace(currentCharFound_)
-            break;
-        }
-        if (indexInstr_ < instLen_) {
-            char currentCharFound_ = _found.charAt(indexInstr_);
-            if (currentCharFound_ == BEGIN_ARRAY) {
-                while (indexInstr_ < instLen_) {
-                    currentCharFound_ = _found.charAt(indexInstr_);
-                    if (Character.isWhitespace(currentCharFound_)) {
-                        declTypeName_.append(currentCharFound_);
-                        indexInstr_++;
-                        continue;
-                    }
-                    if (currentCharFound_ == BEGIN_ARRAY) {
-                        declTypeName_.append(currentCharFound_);
-                        indexInstr_++;
-                        continue;
-                    }
-                    if (currentCharFound_ == END_ARRAY) {
-                        declTypeName_.append(currentCharFound_);
-                        indexInstr_++;
-                        continue;
-                    }
-                    break;
-                }
-            }
-        }
-        return declTypeName_.toString();
+        ParsedType p_ = new ParsedType();
+        p_.parse(_found);
+        return p_.getInstruction().toString();
     }
     private static boolean isOperatorCharacter(char _char) {
         if (_char == '+') {
@@ -2949,260 +2755,18 @@ public final class FileResolver {
         return _char == '~';
     }
     private static String getDeclaringTypeBlock(String _found) {
-        int indexInstr_ = 0;
-        int instLen_ = _found.length();
-        StringBuilder declTypeName_ = new StringBuilder();
-        int nbOpenedTmp_ = 0;
-        while (indexInstr_ < instLen_) {
-            char currentCharFound_ = _found.charAt(indexInstr_);
-            if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
-                String trimmed_ = declTypeName_.toString().trim();
-                String nextPart_ = _found.substring(indexInstr_).trim();
-                int length_ = trimmed_.length();
-                if (length_ > 0) {
-                    char ch_ = trimmed_.charAt(length_ - 1);
-                    if (StringList.isDollarWordChar(ch_) && !nextPart_.isEmpty() && StringList.isDollarWordChar(nextPart_.charAt(0))) {
-                        break;
-                    }
-                }
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == BEGIN_TEMPLATE) {
-                nbOpenedTmp_++;
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == END_TEMPLATE) {
-                nbOpenedTmp_--;
-                if (nbOpenedTmp_ == 0) {
-                    String nextPart_ = _found.substring(indexInstr_+1).trim();
-                    if (nextPart_.startsWith(".")) {
-                        declTypeName_.append(currentCharFound_);
-                        indexInstr_++;
-                        continue;
-                    }
-                    if (nextPart_.startsWith(String.valueOf(BEGIN_ARRAY))) {
-                        declTypeName_.append(currentCharFound_);
-                        indexInstr_++;
-                        continue;
-                    }
-                    declTypeName_.append(currentCharFound_);
-                    break;
-                }
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (nbOpenedTmp_ > 0) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            // !Character.isWhitespace(currentCharFound_)
-            if (StringList.isDollarWordChar(currentCharFound_)) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == PKG) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == TYPE_VAR) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            // !Character.isWhitespace(currentCharFound_)
-            break;
-        }
-
-
-        if (indexInstr_ < instLen_) {
-            char currentCharFound_ = _found.charAt(indexInstr_);
-            if (currentCharFound_ == BEGIN_ARRAY) {
-                while (indexInstr_ < instLen_) {
-                    currentCharFound_ = _found.charAt(indexInstr_);
-                    if (Character.isWhitespace(currentCharFound_)) {
-                        declTypeName_.append(currentCharFound_);
-                        indexInstr_++;
-                        continue;
-                    }
-                    if (currentCharFound_ == BEGIN_ARRAY) {
-                        declTypeName_.append(currentCharFound_);
-                        indexInstr_++;
-                        continue;
-                    }
-                    if (currentCharFound_ == END_ARRAY) {
-                        declTypeName_.append(currentCharFound_);
-                        indexInstr_++;
-                        continue;
-                    }
-                    break;
-                }
-            }
-        }
-        return declTypeName_.toString();
+        ParsedType p_ = new ParsedType();
+        p_.parse(_found);
+        return p_.getInstruction().toString();
     }
     private static String getDeclaringTypeInstr(String _found, KeyWords _options) {
         String keyWordNew_ = _options.getKeyWordNew();
-        int indexInstr_ = 0;
-        int instLen_ = _found.length();
-        boolean typeDeclaring_ = false;
-        StringBuilder declTypeName_ = new StringBuilder();
-        int nbOpenedTmp_ = 0;
-        char prevPrintChar_ = ' ';
-        while (indexInstr_ < instLen_) {
-            char currentCharFound_ = _found.charAt(indexInstr_);
-            if (Character.isWhitespace(currentCharFound_)) {
-                String trimmed_ = declTypeName_.toString().trim();
-                if (StringList.quickEq(trimmed_,keyWordNew_)) {
-                    break;
-                }
-                if (trimmed_.endsWith(keyWordNew_)) {
-                    //there exist a character before the pseudo key word
-                    int lenDeclTypeName_ = trimmed_.length() - keyWordNew_.length();
-                    String firstPart_ = trimmed_.substring(0, lenDeclTypeName_).trim();
-                    char last_ = firstPart_.charAt(firstPart_.length() - 1);
-                    if (last_ == PKG) {
-                        break;
-                    }
-                }
-                String nextPart_ = _found.substring(indexInstr_).trim();
-                if (trimmed_.length() > 0) {
-                    char ch_ = trimmed_.charAt(trimmed_.length() - 1);
-                    if (StringList.isDollarWordChar(ch_) && !nextPart_.isEmpty() && StringList.isDollarWordChar(nextPart_.charAt(0))) {
-                        typeDeclaring_ = true;
-                        break;
-                    }
-                }
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == BEGIN_TEMPLATE) {
-                nbOpenedTmp_++;
-                declTypeName_.append(currentCharFound_);
-                prevPrintChar_ = currentCharFound_;
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == END_TEMPLATE) {
-                nbOpenedTmp_--;
-                if (nbOpenedTmp_ == 0) {
-                    String nextPart_ = _found.substring(indexInstr_+1).trim();
-                    if (nextPart_.startsWith(".")) {
-                        declTypeName_.append(currentCharFound_);
-                        prevPrintChar_ = currentCharFound_;
-                        indexInstr_++;
-                        continue;
-                    }
-                    if (nextPart_.startsWith(String.valueOf(BEGIN_ARRAY))) {
-                        declTypeName_.append(currentCharFound_);
-                        prevPrintChar_ = currentCharFound_;
-                        indexInstr_++;
-                        continue;
-                    }
-                    declTypeName_.append(currentCharFound_);
-                    typeDeclaring_ = true;
-                    break;
-                }
-                declTypeName_.append(currentCharFound_);
-                prevPrintChar_ = currentCharFound_;
-                indexInstr_++;
-                continue;
-            }
-            if (nbOpenedTmp_ > 0) {
-                if (currentCharFound_ == SEP_CALLING
-                   || currentCharFound_ == BEGIN_ARRAY) {
-                    declTypeName_.append(currentCharFound_);
-                    prevPrintChar_ = currentCharFound_;
-                    indexInstr_++;
-                    continue;
-                }
-                if (currentCharFound_ == END_ARRAY) {
-                    if (prevPrintChar_ == BEGIN_ARRAY) {
-                        declTypeName_.append(currentCharFound_);
-                        prevPrintChar_ = currentCharFound_;
-                        indexInstr_++;
-                        continue;
-                    }
-                    break;
-                }
-                if (currentCharFound_ == Templates.SUB_TYPE_CHAR
-                   || currentCharFound_ == Templates.SUP_TYPE_CHAR) {
-                    if (prevPrintChar_ == SEP_CALLING
-                            || prevPrintChar_ == BEGIN_TEMPLATE) {
-                        declTypeName_.append(currentCharFound_);
-                        prevPrintChar_ = currentCharFound_;
-                        indexInstr_++;
-                        continue;
-                    }
-                    break;
-                }
-            }
-            // !Character.isWhitespace(currentCharFound_)
-            if (StringList.isDollarWordChar(currentCharFound_)) {
-                declTypeName_.append(currentCharFound_);
-                prevPrintChar_ = currentCharFound_;
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == PKG) {
-                declTypeName_.append(currentCharFound_);
-                prevPrintChar_ = currentCharFound_;
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == TYPE_VAR) {
-                declTypeName_.append(currentCharFound_);
-                prevPrintChar_ = currentCharFound_;
-                indexInstr_++;
-                continue;
-            }
-            // !Character.isWhitespace(currentCharFound_)
-            break;
+        ParsedType p_ = new ParsedType();
+        p_.parse(_found);
+        if (p_.isOk(new CustList<String>(keyWordNew_))) {
+            return p_.getInstruction().toString();
         }
-
-        boolean ok_ = false;
-        if (indexInstr_ < instLen_) {
-            char currentCharFound_ = _found.charAt(indexInstr_);
-            if (currentCharFound_ == BEGIN_ARRAY) {
-                ok_ = true;
-                while (indexInstr_ < instLen_) {
-                    currentCharFound_ = _found.charAt(indexInstr_);
-                    if (Character.isWhitespace(currentCharFound_)) {
-                        declTypeName_.append(currentCharFound_);
-                        indexInstr_++;
-                        continue;
-                    }
-                    if (currentCharFound_ == BEGIN_ARRAY) {
-                        declTypeName_.append(currentCharFound_);
-                        ok_ = false;
-                        indexInstr_++;
-                        continue;
-                    }
-                    if (currentCharFound_ == END_ARRAY) {
-                        declTypeName_.append(currentCharFound_);
-                        ok_ = true;
-                        indexInstr_++;
-                        continue;
-                    }
-                    break;
-                }
-            }
-        }
-        if (ok_) {
-            typeDeclaring_ = true;
-        }
-        if (typeDeclaring_) {
-            return declTypeName_.toString();
-        }
-        return EMPTY_STRING;
+        return "";
     }
     private static int getIndex(String _info, char _endLine) {
         return getIndex(0,_info,_endLine);
@@ -3210,7 +2774,7 @@ public final class FileResolver {
     private static int getIndex(int _from,String _info, char _endLine) {
         int indexInstr_ = _from;
         int instrLen_ = _info.length();
-        Ints localCallings_ = new Ints();
+        int localCallings_ = 0;
         boolean localConstChar_ = false;
         boolean localConstString_ = false;
         boolean localConstText_ = false;
@@ -3256,7 +2820,7 @@ public final class FileResolver {
                 indexInstr_++;
                 continue;
             }
-            if (localCallings_.isEmpty() && locChar_ == _endLine) {
+            if (localCallings_ == 0 && locChar_ == _endLine) {
                 return indexInstr_;
             }
             if (locChar_ == DEL_CHAR) {
@@ -3269,22 +2833,22 @@ public final class FileResolver {
                 localConstText_ = true;
             }
             if (locChar_ == BEGIN_CALLING) {
-                localCallings_.add(indexInstr_);
+                localCallings_++;
             }
             if (locChar_ == END_CALLING) {
-                localCallings_.removeLast();
+                localCallings_--;
             }
             if (locChar_ == BEGIN_ARRAY) {
-                localCallings_.add(indexInstr_);
+                localCallings_++;
             }
             if (locChar_ == END_ARRAY) {
-                localCallings_.removeLast();
+                localCallings_--;
             }
             if (locChar_ == BEGIN_BLOCK) {
-                localCallings_.add(indexInstr_);
+                localCallings_++;
             }
             if (locChar_ == END_BLOCK) {
-                localCallings_.removeLast();
+                localCallings_--;
             }
             indexInstr_++;
         }
@@ -3298,15 +2862,10 @@ public final class FileResolver {
         while (i_ < len_) {
             char cur_ = _file.charAt(i_);
             if (current_ != null) {
-                boolean ended_ = false;
-                for (String e: current_.getEnd()) {
-                    if (_file.startsWith(e,i_)) {
-                        i_ += e.length();
-                        ended_ = true;
-                        break;
-                    }
-                }
-                if (ended_) {
+                String endCom_ = getEndCom(_file,i_,current_);
+                int length_ = endCom_.length();
+                if (length_ > 0) {
+                    i_ += length_;
                     current_ = null;
                     continue;
                 }
@@ -3345,5 +2904,16 @@ public final class FileResolver {
             nextIndex_ = nextIndex_ + 1;
         }
         return nextIndex_;
+    }
+
+    private static String getEndCom(String _file, int _i, CommentDelimiters _current) {
+        String endCom_ = "";
+        for (String e: _current.getEnd()) {
+            if (_file.startsWith(e, _i)) {
+                endCom_ = e;
+                break;
+            }
+        }
+        return endCom_;
     }
 }

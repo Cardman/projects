@@ -5896,7 +5896,9 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
         cont_.setGlobalClass(_className);
         ExpressionLanguage el_ = new ExpressionLanguage(list_);
-        return ElUtil.tryToCalculate(cont_,el_,0);
+        Argument arg_ = ElUtil.tryToCalculate(cont_, el_, 0);
+        assertNull(getException(cont_));
+        return arg_;
 
     }
 
@@ -5922,7 +5924,9 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
         cont_.setGlobalClass(_className);
         ExpressionLanguage el_ = new ExpressionLanguage(list_);
-        return ElUtil.tryToCalculate(cont_,el_,0);
+        Argument arg_ = ElUtil.tryToCalculate(cont_, el_, 0);
+        assertNull(getException(cont_));
+        return arg_;
 
     }
 
@@ -5950,7 +5954,9 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
         cont_.setGlobalClass(_className);
         ExpressionLanguage el_ = new ExpressionLanguage(list_);
-        return ElUtil.tryToCalculate(cont_,el_,0);
+        Argument arg_ = ElUtil.tryToCalculate(cont_, el_, 0);
+        assertNull(getException(cont_));
+        return arg_;
     }
 
     private static Argument calculatePrepareStaticResult(ContextEl _context, boolean _exc) {

@@ -77,7 +77,7 @@ public abstract class QuickOperation extends MethodOperation {
                 un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
                         StringList.join(clMatch_.getNames(),"&"));
                 _conf.addError(un_);
-                _conf.setOkNumOp(false);
+                _conf.getAnalyzing().setOkNumOp(false);
                 okNum = false;
             }
         }

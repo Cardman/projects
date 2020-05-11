@@ -256,7 +256,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         page_.setForLoopPartState(ForLoopPart.INIT);
-        _cont.setAcceptCommaInstr(true);
+        page_.setAcceptCommaInstr(true);
         if (init.trim().isEmpty()) {
             opInit = new CustList<ExecOperationNode>();
         } else {
@@ -300,7 +300,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         page_.getVariablesNamesLoopToInfer().clear();
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
-        _cont.setAcceptCommaInstr(true);
+        page_.setAcceptCommaInstr(true);
         page_.setForLoopPartState(ForLoopPart.INIT);
         if (init.trim().isEmpty()) {
             opInit = new CustList<ExecOperationNode>();
@@ -320,13 +320,14 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     }
 
     private void addVars(ContextEl _cont) {
-        if (_cont.isMerged()) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        if (page_.isMerged()) {
             StringList vars_ = _cont.getAnalyzing().getVariablesNames();
             AffectationOperation.processInferLoop(_cont, importedClassName);
             getVariableNames().addAllElts(vars_);
         }
-        _cont.setMerged(false);
-        _cont.setAcceptCommaInstr(false);
+        page_.setMerged(false);
+        page_.setAcceptCommaInstr(false);
     }
 
     private void processVariables(ContextEl _cont) {
@@ -354,11 +355,11 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
                 partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
             }
-            _cont.setMerged(true);
-            _cont.setFinalVariable(finalVariable);
+            page_.setMerged(true);
+            page_.setFinalVariable(finalVariable);
             page_.setCurrentVarSetting(importedClassName);
         } else {
-            _cont.setMerged(false);
+            page_.setMerged(false);
         }
     }
     private void checkBoolCondition(ContextEl _cont) {
@@ -416,14 +417,14 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         vars_.getMutableLoopRoot().addAllElts(AssignmentsUtil.assignClassic(mutableRes_));
     }
     public void buildIncrementPart(Analyzable _an) {
-        _an.setMerged(false);
         FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _an.getAnalyzing();
+        page_.setMerged(false);
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         page_.setForLoopPartState(ForLoopPart.STEP);
-        _an.setMerged(true);
-        _an.setAcceptCommaInstr(true);
+        page_.setMerged(true);
+        page_.setAcceptCommaInstr(true);
         page_.getLocalVars().last().clear();
         MethodAccessKind static_ = f_.getStaticContext();
         if (step.trim().isEmpty()) {
@@ -431,18 +432,18 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         } else {
             opStep = ElUtil.getAnalyzedOperations(step, (ContextEl) _an, Calculation.staticCalculation(static_));
         }
-        _an.setMerged(false);
-        _an.setAcceptCommaInstr(false);
+        page_.setMerged(false);
+        page_.setAcceptCommaInstr(false);
     }
     public void buildIncrementPartReadOnly(Analyzable _an) {
-        _an.setMerged(false);
         FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _an.getAnalyzing();
+        page_.setMerged(false);
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         page_.setForLoopPartState(ForLoopPart.STEP);
-        _an.setMerged(true);
-        _an.setAcceptCommaInstr(true);
+        page_.setMerged(true);
+        page_.setAcceptCommaInstr(true);
         page_.getLocalVars().last().clear();
         MethodAccessKind static_ = f_.getStaticContext();
         if (step.trim().isEmpty()) {
@@ -450,8 +451,8 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         } else {
             opStep = ElUtil.getAnalyzedOperationsReadOnly(step, (ContextEl) _an, Calculation.staticCalculation(static_));
         }
-        _an.setMerged(false);
-        _an.setAcceptCommaInstr(false);
+        page_.setMerged(false);
+        page_.setAcceptCommaInstr(false);
     }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {

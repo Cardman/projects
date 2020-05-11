@@ -32,7 +32,7 @@ public final class ResolvingImportTypes {
         }
         AccessingImportingBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
         int rc_ = _analyzable.getCurrentLocationIndex()+_loc;
-        String gl_ = _analyzable.getGlobalClass();
+        String gl_ = _analyzable.getAnalyzing().getGlobalClass();
         AccessingImportingBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         CustList<PartOffset> offs_ = _analyzable.getContextEl().getCoverage().getCurrentParts();
         return PartTypeUtil.processAnalyzeLine(_in,new AlwaysReadyTypes(),false,gl_,_analyzable,a_,r_, rc_, offs_);
@@ -101,7 +101,7 @@ public final class ResolvingImportTypes {
         _analyzable.buildCurrentConstraintsFull();
         AccessingImportingBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         CustList<PartOffset> partOffsets_ = _analyzable.getContextEl().getCoverage().getCurrentParts();
-        String gl_ = _analyzable.getGlobalClass();
+        String gl_ = _analyzable.getAnalyzing().getGlobalClass();
         int rc_ = _analyzable.getCurrentLocationIndex() + _loc;
         _analyzable.getAnalyzing().getCurrentBadIndexes().clear();
         String resType_;
@@ -144,7 +144,7 @@ public final class ResolvingImportTypes {
         _analyzable.buildCurrentConstraintsFull();
         AccessingImportingBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         CustList<PartOffset> partOffsets_ = _analyzable.getContextEl().getCoverage().getCurrentParts();
-        String gl_ = _analyzable.getGlobalClass();
+        String gl_ = _analyzable.getAnalyzing().getGlobalClass();
         String resType_;
         _analyzable.getAnalyzing().getCurrentBadIndexes().clear();
         if (_exact) {

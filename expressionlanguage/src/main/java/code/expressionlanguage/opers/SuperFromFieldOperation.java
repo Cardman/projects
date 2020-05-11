@@ -36,7 +36,7 @@ public final class SuperFromFieldOperation extends
         partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         ClassArgumentMatching clCur_;
         if (!isIntermediateDottedOperation()) {
-            clCur_ = new ClassArgumentMatching(_conf.getGlobalClass());
+            clCur_ = new ClassArgumentMatching(_conf.getAnalyzing().getGlobalClass());
         } else {
             clCur_ = getPreviousResultClass();
         }

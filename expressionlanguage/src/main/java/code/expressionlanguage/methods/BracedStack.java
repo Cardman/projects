@@ -82,7 +82,7 @@ public abstract class BracedStack extends BracedBlock {
                 continue;
             }
             String key_ = e.getKey();
-            String cl_ = Templates.getIdFromAllTypes(_an.getGlobalClass());
+            String cl_ = Templates.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
             ClassField id_ = new ClassField(cl_,key_);
             FieldInfo meta_ = _an.getContextEl().getFieldInfo(id_);
             if (!meta_.isFinalField()) {
@@ -213,7 +213,7 @@ public abstract class BracedStack extends BracedBlock {
                 continue;
             }
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) set_;
-            String cl_ = Templates.getIdFromAllTypes(_an.getGlobalClass());
+            String cl_ = Templates.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
             ClassField key_ = new ClassField(cl_,_field);
             if (!cst_.matchFieldId(key_)) {
                 continue;

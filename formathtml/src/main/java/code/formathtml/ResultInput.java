@@ -61,7 +61,7 @@ public final class ResultInput {
                 if (((RendSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
                     pr_ = ((RendSettableFieldOperation) settable_).getPrevious();
                 } else {
-                    pr_ = new ClassArgumentMatching(_cont.getGlobalClass());
+                    pr_ = new ClassArgumentMatching(_cont.getAnalyzing().getGlobalClass());
                 }
                 StringList varNames_ = new StringList();
                 String varPrevLoc_ = RendBlock.lookForVar(_cont, varNames_);

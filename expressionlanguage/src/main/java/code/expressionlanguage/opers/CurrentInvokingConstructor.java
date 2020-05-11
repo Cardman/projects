@@ -13,7 +13,7 @@ public final class CurrentInvokingConstructor extends AbstractInvokingConstructo
 
     @Override
     ClassArgumentMatching getFrom(Analyzable _conf) {
-        String clCurName_ = _conf.getGlobalClass();
+        String clCurName_ = _conf.getAnalyzing().getGlobalClass();
         return new ClassArgumentMatching(clCurName_);
     }
 

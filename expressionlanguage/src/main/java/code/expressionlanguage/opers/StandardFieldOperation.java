@@ -22,9 +22,9 @@ public final class StandardFieldOperation extends
         if (isIntermediateDottedOperation()) {
             cl_ = getPreviousResultClass();
         } else {
-            String look_ = _conf.getLookLocalClass();
+            String look_ = _conf.getAnalyzing().getLookLocalClass();
             if (look_.isEmpty()) {
-                cl_ = new ClassArgumentMatching(_conf.getGlobalClass());
+                cl_ = new ClassArgumentMatching(_conf.getAnalyzing().getGlobalClass());
             } else {
                 cl_ = new ClassArgumentMatching(look_);
             }

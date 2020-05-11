@@ -40,7 +40,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
         if (isIntermediateDottedOperation()) {
             setResultClass(new ClassArgumentMatching(previousResultClass.getNames()));
         } else {
-            String arg_ = _conf.getGlobalClass();
+            String arg_ = _conf.getAnalyzing().getGlobalClass();
             setResultClass(new ClassArgumentMatching(arg_));
         }
         KeyWords keyWords_ = _conf.getKeyWords();

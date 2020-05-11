@@ -36,7 +36,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             un_.buildError(_cont.getContextEl().getAnalysisMessages().getUnexpectedType(),
                     StringList.join(_a.getNames(),"&"));
             _cont.addError(un_);
-            _cont.setOkNumOp(false);
+            _cont.getAnalyzing().setOkNumOp(false);
             ok_ = false;
         }
         int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
@@ -48,7 +48,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             un_.buildError(_cont.getContextEl().getAnalysisMessages().getUnexpectedType(),
                     StringList.join(_a.getNames(),"&"));
             _cont.addError(un_);
-            _cont.setOkNumOp(false);
+            _cont.getAnalyzing().setOkNumOp(false);
             ok_ = false;
         }
         if (!ok_) {
@@ -106,7 +106,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             chidren_.last().cancelArgumentString();
         }
         setCatenize(r_);
-        okNum = _conf.isOkNumOp();
+        okNum = _conf.getAnalyzing().isOkNumOp();
         a_ = r_.getResult();
         setResultClass(new ClassArgumentMatching(a_));
     }

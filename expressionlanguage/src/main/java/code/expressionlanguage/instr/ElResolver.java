@@ -1,6 +1,7 @@
 package code.expressionlanguage.instr;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ExpPartDelimiters;
 import code.expressionlanguage.common.StringExpUtil;
@@ -1189,7 +1190,8 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (_an.getAnalyzing().getParameters().contains(word_)) {
+        AnalyzedPageEl ana_ = _an.getAnalyzing();
+        if (ana_.getParameters().contains(word_)) {
             type_ = ConstType.PARAM;
             info_.setKind(type_);
             info_.setFirstChar(beginWord_);
@@ -1199,7 +1201,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (_an.getAnalyzing().containsCatchVar(word_)) {
+        if (ana_.containsCatchVar(word_)) {
             type_ = ConstType.CATCH_VAR;
             info_.setKind(type_);
             info_.setFirstChar(beginWord_);
@@ -1209,7 +1211,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (_an.getAnalyzing().containsMutableLoopVar(word_)) {
+        if (ana_.containsMutableLoopVar(word_)) {
             type_ = ConstType.LOOP_VAR;
             info_.setKind(type_);
             info_.setFirstChar(beginWord_);
@@ -1219,7 +1221,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (_an.getAnalyzing().containsVar(word_)) {
+        if (ana_.containsVar(word_)) {
             type_ = ConstType.LOOP_VAR;
             info_.setKind(type_);
             info_.setFirstChar(beginWord_);
@@ -1229,7 +1231,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (_an.getAnalyzing().containsLocalVar(word_)) {
+        if (ana_.containsLocalVar(word_)) {
             type_ = ConstType.LOC_VAR;
             info_.setKind(type_);
             info_.setFirstChar(beginWord_);
@@ -1244,7 +1246,7 @@ public final class ElResolver {
         info_.setFirstChar(beginWord_);
         info_.setLastChar(i_);
         info_.setName(word_);
-        String look_ = _an.getLookLocalClass();
+        String look_ = ana_.getLookLocalClass();
         if (!look_.isEmpty()) {
             _d.getVariables().add(info_);
             _out.setNextIndex(i_);
@@ -1268,7 +1270,7 @@ public final class ElResolver {
     }
 
     private static int nextPrintCharIs(int _j, int _len, String _string, char _ch) {
-        int j_ = nextPrintChar(_j,_len,_string);
+        int j_ = StringExpUtil.nextPrintChar(_j,_len,_string);
         if (j_ < 0) {
             return -1;
         }
@@ -1277,19 +1279,7 @@ public final class ElResolver {
         }
         return j_;
     }
-    static int nextPrintChar(int _j, int _len, String _string) {
-        int j_ = _j;
-        while (j_ < _len) {
-            if (!Character.isWhitespace(_string.charAt(j_))) {
-                break;
-            }
-            j_++;
-        }
-        if (j_ >= _len) {
-            return -1;
-        }
-        return j_;
-    }
+
     private static void processOperators(int _beginIndex, int _minIndex, String _string, boolean _delimiters,
                                          Delimiters _dout, ResultAfterOperators _out, Analyzable _conf) {
         IntTreeMap<Character> parsBrackets_;
@@ -1340,7 +1330,7 @@ public final class ElResolver {
             return;
         }
         if (curChar_ == DOT_VAR) {
-            int n_ = nextPrintChar(i_ + 1, len_, _string);
+            int n_ = StringExpUtil.nextPrintChar(i_ + 1, len_, _string);
             if (isDigitOrDot(_string,n_)) {
                 NumberInfosOutput res_ = processNb(keyWords_, i_ + 1, len_, _string, true);
                 int nextIndex_ = res_.getNextIndex();
@@ -1454,7 +1444,7 @@ public final class ElResolver {
         if (curChar_ == BEGIN_TERNARY) {
             boolean ternary_ = false;
             if (nextCharIs(_string, i_ + 1, len_, DOT_VAR)) {
-                int n_ = nextPrintChar(i_ + 2, len_, _string);
+                int n_ = StringExpUtil.nextPrintChar(i_ + 2, len_, _string);
                 if (isDigitOrDot(_string,n_)) {
                     ternary_ = true;
                 }
@@ -1575,7 +1565,7 @@ public final class ElResolver {
                 j_++;
             }
             if (nullSafe_ && nextCharIs(_string, j_, len_, DOT_VAR)) {
-                int n_ = nextPrintChar(j_ + 1, len_, _string);
+                int n_ = StringExpUtil.nextPrintChar(j_ + 1, len_, _string);
                 if (!isDigitOrDot(_string,n_)) {
                     j_++;
                 }
@@ -1714,7 +1704,8 @@ public final class ElResolver {
     }
 
     private static boolean isAcceptCommaInstr(Analyzable _conf) {
-        return !_conf.isAcceptCommaInstr() && !(_conf.getAnalyzing().getCurrentBlock() instanceof FieldBlock);
+        AnalyzedPageEl ana_ = _conf.getAnalyzing();
+        return !ana_.isAcceptCommaInstr() && !(ana_.getCurrentBlock() instanceof FieldBlock);
     }
 
     static boolean isDigitOrDot(String _string, int _n) {
@@ -1723,9 +1714,10 @@ public final class ElResolver {
 
     private static int processFieldsStaticAccess(Analyzable _conf, boolean _ctor, String _string, int _from, String _word, int _to, Delimiters _d) {
         int len_ = _string.length();
-        String glClass_ = _conf.getGlobalClass();
+        AnalyzedPageEl ana_ = _conf.getAnalyzing();
+        String glClass_ = ana_.getGlobalClass();
         boolean field_ = isField(_conf, glClass_, _ctor, _word);
-        if (field_ || _conf.getAnalyzing().isEnabledInternVars()) {
+        if (field_ || ana_.isEnabledInternVars()) {
             ConstType type_ = ConstType.WORD;
             VariableInfo infoLoc_ = new VariableInfo();
             infoLoc_.setKind(type_);
@@ -2095,7 +2087,7 @@ public final class ElResolver {
         while (j_ < _max) {
             char current_ = _string.charAt(j_);
             if (!StringList.isDollarWordChar(current_)) {
-                int n_ = nextPrintChar(j_ + 1, _max, _string);
+                int n_ = StringExpUtil.nextPrintChar(j_ + 1, _max, _string);
                 if (current_ == DOT_VAR) {
                     if (_seenDot) {
                         nbInfos_.setError(true);
@@ -2348,7 +2340,7 @@ public final class ElResolver {
             exp_.append(_string.charAt(j_));
             j_++;
         }
-        int n_ = nextPrintChar(j_, _max, _string);
+        int n_ = StringExpUtil.nextPrintChar(j_, _max, _string);
         if (n_ > -1 && _string.charAt(n_) == DOT_VAR) {
             _output.getInfos().setError(true);
             j_ = n_;
@@ -2729,7 +2721,7 @@ public final class ElResolver {
             _d.getDelLoopVars().add(indexParRight_);
             return indexParRight_ + 1;
         }
-        int next_ = nextPrintChar(indexParRight_+1,_string.length(),_string);
+        int next_ = StringExpUtil.nextPrintChar(indexParRight_+1,_string.length(),_string);
         for (String s: StringList.wrapStringArray("+=","-=",
                 "*=","/=","%=",
                 "^=","&=","|=",
@@ -2741,7 +2733,7 @@ public final class ElResolver {
             }
         }
         if (_string.startsWith(".",next_)) {
-            int n_ = nextPrintChar(next_ + 1, _string.length(), _string);
+            int n_ = StringExpUtil.nextPrintChar(next_ + 1, _string.length(), _string);
             if (!isDigitOrDot(_string,n_)) {
                 return _from;
             }

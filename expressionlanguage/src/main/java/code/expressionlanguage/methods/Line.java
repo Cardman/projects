@@ -62,9 +62,9 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
             AffectationOperation.processInfer(_cont, import_);
             declaring_.getVariableNames().addAllElts(vars_);
         }
-        _cont.setMerged(false);
-        _cont.setAcceptCommaInstr(false);
-        _cont.setFinalVariable(false);
+        page_.setMerged(false);
+        page_.setAcceptCommaInstr(false);
+        page_.setFinalVariable(false);
     }
 
     @Override
@@ -82,9 +82,9 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
             AffectationOperation.processInfer(_cont, import_);
             declaring_.getVariableNames().addAllElts(vars_);
         }
-        _cont.setMerged(false);
-        _cont.setAcceptCommaInstr(false);
-        _cont.setFinalVariable(false);
+        page_.setMerged(false);
+        page_.setAcceptCommaInstr(false);
+        page_.setFinalVariable(false);
     }
 
     @Override

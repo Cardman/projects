@@ -13,6 +13,19 @@ public final class StringExpUtil {
         }
         return _str.charAt(_i) == _value;
     }
+    public static int nextPrintChar(int _j, int _len, String _string) {
+        int j_ = _j;
+        while (j_ < _len) {
+            if (!Character.isWhitespace(_string.charAt(j_))) {
+                break;
+            }
+            j_++;
+        }
+        if (j_ >= _len) {
+            return -1;
+        }
+        return j_;
+    }
     public static boolean isOper(String _op) {
         if(StringList.quickEq(_op, "+")) {
             return true;
@@ -121,15 +134,20 @@ public final class StringExpUtil {
             return false;
         }
         for (char c: _string.toCharArray()) {
-            if (StringList.isDollarWordChar(c)) {
-                continue;
+            if (!isTypeLeafChar(c)) {
+                return false;
             }
-            if (c == Templates.PREFIX_VAR_TYPE_CHAR) {
-                continue;
-            }
-            return false;
         }
         return true;
+    }
+    public static boolean isTypeLeafChar(char _ch) {
+        if (StringList.isDollarWordChar(_ch)) {
+            return true;
+        }
+        if (_ch == Templates.PREFIX_VAR_TYPE_CHAR) {
+            return true;
+        }
+        return false;
     }
 
     public static String removeDottedSpaces(String _type) {

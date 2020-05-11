@@ -35,7 +35,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             MethodOperation m_ = getParent();
             OperationNode o_ = m_.getFirstChild();
             if (!(o_ instanceof StaticAccessOperation)) {
-                String arg_ = _conf.getGlobalClass();
+                String arg_ = _conf.getAnalyzing().getGlobalClass();
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFileName(_conf.getCurrentFileName());
                 static_.setIndexFile(_conf.getCurrentLocationIndex());
@@ -48,7 +48,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             }
             String access_ = previousResultClass.getName();
             String id_ = Templates.getIdFromAllTypes(access_);
-            String gl_ = _conf.getGlobalClass();
+            String gl_ = _conf.getAnalyzing().getGlobalClass();
             gl_ = Templates.getIdFromAllTypes(gl_);
             GeneType g_ = _conf.getContextEl().getClassBody(gl_);
             RootBlock r_ = (RootBlock) g_;
@@ -105,7 +105,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        String arg_ = _conf.getGlobalClass();
+        String arg_ = _conf.getAnalyzing().getGlobalClass();
         if (_conf.getAnalyzing().getStaticContext() != MethodAccessKind.INSTANCE) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_conf.getCurrentFileName());

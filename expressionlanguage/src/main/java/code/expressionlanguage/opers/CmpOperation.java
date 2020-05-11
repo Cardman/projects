@@ -40,7 +40,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         okNum = true;
         if (chidren_.size() != 2) {
             okNum = false;
-            _conf.setOkNumOp(false);
+            _conf.getAnalyzing().setOkNumOp(false);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFileName(_conf.getCurrentFileName());
@@ -88,7 +88,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         }
         if (first_.matchClass(stringType_) || second_.matchClass(stringType_)) {
             okNum = false;
-            _conf.setOkNumOp(false);
+            _conf.getAnalyzing().setOkNumOp(false);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -119,7 +119,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
                 return;
             }
             okNum = false;
-            _conf.setOkNumOp(false);
+            _conf.getAnalyzing().setOkNumOp(false);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -137,7 +137,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             return;
         }
         okNum = false;
-        _conf.setOkNumOp(false);
+        _conf.getAnalyzing().setOkNumOp(false);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
         StringList expectedTypes_ = new StringList();
         expectedTypes_.add(stds_.getAliasPrimDouble());
@@ -160,7 +160,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     void checkNull(Argument _arg, Analyzable _an) {
         if (Argument.isNullValue(_arg)) {
             okNum = false;
-            _an.setOkNumOp(false);
+            _an.getAnalyzing().setOkNumOp(false);
         }
         super.checkNull(_arg,_an);
     }

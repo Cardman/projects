@@ -82,14 +82,14 @@ public final class CaseCondition extends SwitchPartBlock {
                 if (!match(f)) {
                     continue;
                 }
-                _cont.setLookLocalClass(id_);
+                page_.setLookLocalClass(id_);
                 page_.setAccessStaticContext(MethodAccessKind.STATIC);
                 Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
                 OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
                 OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);
                 defaultAssignmentBefore(_cont, op_);
                 op_.analyze(_cont);
-                _cont.setLookLocalClass(EMPTY_STRING);
+                page_.setLookLocalClass(EMPTY_STRING);
                 op_.tryAnalyzeAssignmentAfter(_cont);
                 op_.setOrder(0);
                 builtEnum = true;
@@ -142,13 +142,13 @@ public final class CaseCondition extends SwitchPartBlock {
                 if (!match(f)) {
                     continue;
                 }
-                _cont.setLookLocalClass(id_);
+                page_.setLookLocalClass(id_);
                 page_.setAccessStaticContext(MethodAccessKind.STATIC);
                 Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
                 OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
                 OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);
                 op_.analyze(_cont);
-                _cont.setLookLocalClass(EMPTY_STRING);
+                page_.setLookLocalClass(EMPTY_STRING);
                 op_.setOrder(0);
                 builtEnum = true;
                 typeEnum = id_;

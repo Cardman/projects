@@ -52,7 +52,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         int order_ = PrimitiveTypeUtil.getIntOrderClass(clMatch_, _conf);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (order_ == 0) {
-            _conf.setOkNumOp(false);
+            _conf.getAnalyzing().setOkNumOp(false);
             String exp_ = _conf.getStandards().getAliasNumber();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());

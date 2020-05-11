@@ -1175,16 +1175,17 @@ public final class Classes {
     }
 
     public static void validateIds(ContextEl _context) {
-        for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
-            _context.setGlobalClass(c.getGenericString());
-            _context.getAnalyzing().setImporting(c);
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        for (RootBlock c: page_.getFoundTypes()) {
+            page_.setGlobalClass(c.getGenericString());
+            page_.setImporting(c);
             c.validateIds(_context);
         }
         CustList<MethodId> idMethods_ = new CustList<MethodId>();
-        _context.setGlobalClass("");
+        page_.setGlobalClass("");
         for (OperatorBlock o: _context.getClasses().getOperators()) {
             String name_ = o.getName();
-            _context.getAnalyzing().setImporting(o);
+            page_.setImporting(o);
             o.buildImportedTypes(_context);
             if (!StringExpUtil.isOper(name_)) {
                 FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
@@ -1561,7 +1562,7 @@ public final class Classes {
                     }
                 }
             }
-            _context.setGlobalClass("");
+            page_.setGlobalClass("");
             _context.getCoverage().putCalls(_context,"");
             for (OperatorBlock o : cls_.getOperators()) {
                 page_.setImporting(o);
@@ -1711,7 +1712,7 @@ public final class Classes {
                     }
                 }
             }
-            _context.setGlobalClass("");
+            page_.setGlobalClass("");
             _context.getCoverage().putCalls(_context,"");
             for (OperatorBlock o : cls_.getOperators()) {
                 page_.setImporting(o);
@@ -1727,7 +1728,7 @@ public final class Classes {
         _context.setAnnotAnalysis(true);
         for (RootBlock c: page_.getFoundTypes()) {
             page_.setImporting(c);
-            _context.setGlobalClass(c.getGenericString());
+            page_.setGlobalClass(c.getGenericString());
             CustList<Block> annotated_ = new CustList<Block>();
             annotated_.add(c);
             annotated_.addAllElts(getDirectChildren(c));
@@ -1746,7 +1747,7 @@ public final class Classes {
                 }
             }
         }
-        _context.setGlobalClass("");
+        page_.setGlobalClass("");
         for (OperatorBlock o : cls_.getOperators()) {
             page_.setImporting(o);
             page_.setCurrentBlock(o);

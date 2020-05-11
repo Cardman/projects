@@ -186,7 +186,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         String objectClassName_ = stds_.getAliasObject();
         StringList bounds_ = new StringList();
         if (_cl.startsWith(Templates.PREFIX_VAR_TYPE)) {
-            String glClass_ = _conf.getGlobalClass();
+            String glClass_ = _conf.getAnalyzing().getGlobalClass();
             String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
             GeneType gl_ = _conf.getContextEl().getClassBody(curClassBase_);
             StringMap<StringList> mapping_ = new StringMap<StringList>();

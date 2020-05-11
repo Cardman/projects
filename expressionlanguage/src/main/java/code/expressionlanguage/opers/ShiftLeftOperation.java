@@ -30,7 +30,7 @@ public final class ShiftLeftOperation extends NumericOperation {
             res_.setResult(out_);
             return res_;
         }
-        _cont.setOkNumOp(false);
+        _cont.getAnalyzing().setOkNumOp(false);
         String exp_ = _cont.getStandards().getAliasNumber();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         un_.setIndexFile(_cont.getCurrentLocationIndex());

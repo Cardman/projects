@@ -71,7 +71,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         int orderClass_ = PrimitiveTypeUtil.getOrderClass(clMatch_, _conf);
         if (orderClass_ == 0) {
-            _conf.setOkNumOp(false);
+            _conf.getAnalyzing().setOkNumOp(false);
             String exp_ = _conf.getStandards().getAliasNumber();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getCurrentLocationIndex());

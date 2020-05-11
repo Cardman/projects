@@ -247,7 +247,7 @@ public final class StandardInstancingOperation extends
             String base_ = Templates.getIdFromAllTypes(realClassName_);
             GeneType g_ = _conf.getContextEl().getClassBody(base_);
             if (g_ != null && !g_.withoutInstance()) {
-                String glClass_ = _conf.getGlobalClass();
+                String glClass_ = _conf.getAnalyzing().getGlobalClass();
                 StringList parts_ = Templates.getAllInnerTypes(realClassName_);
                 String outer_ = StringList.join(parts_.mid(0, parts_.size() - 1),"..");
                 if (isStaticAccess() != MethodAccessKind.INSTANCE) {
