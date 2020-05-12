@@ -210,14 +210,17 @@ public final class FctOperation extends InvokingOperation {
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
         int delta_ = StringList.getFirstPrintableCharIndex(methodName);
         if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
-            delta_ += trimMeth_.indexOf('.')+1;
-            delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(delta_));
+            int after_ = trimMeth_.indexOf('.') + 1;
+            delta_ += after_;
+            delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(after_));
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThat_)) {
-            delta_ += trimMeth_.indexOf('.')+1;
-            delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(delta_));
+            int after_ = trimMeth_.indexOf('.') + 1;
+            delta_ += after_;
+            delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(after_));
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
-            delta_ += trimMeth_.lastIndexOf(PAR_RIGHT) + 1;
-            delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(delta_));
+            int lastAfter_ = trimMeth_.lastIndexOf(PAR_RIGHT) + 1;
+            delta_ += lastAfter_;
+            delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(lastAfter_));
         }
         delta = delta_;
     }
