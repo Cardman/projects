@@ -10797,6 +10797,46 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage284Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("pkg.Ex.ExInner;\n");
+        xml_.append("public enum pkg.Ex {;\n");
+        xml_.append("public enum ExInner {\n");
+        xml_.append(" ONE{};\n");
+        xml_.append("}\n");
+        xml_.append("public static boolean field = thisaccess( Ex) method($id(Ex,static,ExInner..ONE),ExInner.ONE);\n");
+        xml_.append("public static boolean method(ExInner..ONE e){\n");
+        xml_.append(" return e instanceof ExInner..ONE;\n");
+        xml_.append("}\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>pkg.Ex.ExInner;\n" +
+                "public enum <a name=\"m28\">pkg.Ex </a>{;\n" +
+                "public enum <a name=\"m50\">ExInner </a>{\n" +
+                " <a name=\"m61\">ONE</a>{};\n" +
+                "}\n" +
+                "public static boolean <span class=\"q\"><span class=\"g\"><a name=\"m92\">field</a> </span>=<span class=\"q\"> thisaccess( <a title=\"pkg.Ex\" href=\"#m28\">Ex</a>) <a title=\"pkg.Ex.static method(pkg.Ex..ExInner-ONE)\" href=\"#m187\">method</a>(<span class=\"g\">$id(<a title=\"pkg.Ex\" href=\"#m28\">Ex</a>,static,<a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m61\">ONE</a>)</span>,<span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner.ONE\" href=\"#m61\">ONE</a></span></span>)</span></span>;\n" +
+                "public static boolean <a name=\"m187\">method</a>(<a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m61\">ONE</a> <a name=\"m207\">e</a>){\n" +
+                " return <span class=\"q\"><span class=\"g\"><a href=\"#m207\">e</a> </span>instanceof <a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m61\">ONE</a></span>;\n" +
+                "}\n" +
+                " public static int <a name=\"m267\">exmeth</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
