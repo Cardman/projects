@@ -550,14 +550,20 @@ public final class TypeUtil {
     public static StringList getOwners(String _root, String _innerName, Analyzable _an) {
          return getOwners(_root,_innerName,false,_an);
     }
-    public static StringList getInners(String _root, String _innerName, boolean _staticOnly, Analyzable _an) {
+    public static StringList getInners(String _root, String _sep, String _innerName, boolean _staticOnly, Analyzable _an) {
         StringList inners_ = new StringList();
-        for (String o: getOwners(_root, _innerName,_staticOnly, _an)) {
-            inners_.add(StringList.concat(o,"..",_innerName));
+        if (StringList.quickEq(_sep,".")) {
+            for (String o: getOwners(_root, _innerName,_staticOnly, _an)) {
+                inners_.add(StringList.concat(o,"..",_innerName));
+            }
+        } else {
+            for (String o: getEnumOwners(_root, _innerName, _an)) {
+                inners_.add(StringList.concat(o,"-",_innerName));
+            }
         }
         return inners_;
     }
-    public static StringList getOwners(String _root, String _innerName, boolean _staticOnly, Analyzable _an) {
+    private static StringList getOwners(String _root, String _innerName, boolean _staticOnly, Analyzable _an) {
         StringList ids_ = new StringList(_root);
         StringList owners_ = new StringList();
         StringList visited_ = new StringList();
@@ -638,7 +644,24 @@ public final class TypeUtil {
             }
         }
     }
-
+    public static StringList getEnumOwners(String _root, String _innerName, Analyzable _an) {
+        StringList owners_ = new StringList();
+        String id_ = Templates.getIdFromAllTypes(_root);
+        GeneType g_ = _an.getContextEl().getClassBody(id_);
+        if (g_ instanceof RootBlock) {
+            RootBlock sub_ = (RootBlock)g_;
+            addedInnerElement(_innerName, owners_, _root, sub_);
+        }
+        return owners_;
+    }
+    private static void addedInnerElement(String _innerName, StringList owners_, String s, RootBlock sub_) {
+        for (RootBlock b: Classes.accessedInnerElements(sub_)) {
+            String name_ = b.getName();
+            if (StringList.quickEq(name_, _innerName)) {
+                owners_.add(s);
+            }
+        }
+    }
     private static CustList<ClassMethodId> getAllDuplicates(RootBlock _type, ContextEl _classes) {
         CustList<ClassMethodId> list_;
         list_ = new CustList<ClassMethodId>();
@@ -668,7 +691,7 @@ public final class TypeUtil {
         }
         return list_;
     }
-    public static ObjectMap<MethodId, CustList<ClassMethodId>> getAllInstanceSignatures(RootBlock _type, ContextEl _classes) {
+    private static ObjectMap<MethodId, CustList<ClassMethodId>> getAllInstanceSignatures(RootBlock _type, ContextEl _classes) {
         ObjectMap<MethodId, CustList<ClassMethodId>> map_;
         map_ = new ObjectMap<MethodId, CustList<ClassMethodId>>();
         for (GeneCustMethod b: Classes.getMethodBlocks(_type)) {

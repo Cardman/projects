@@ -36,8 +36,6 @@ public abstract class ContextEl implements ExecutableCode {
 
     private Options options;
 
-    private Struct memoryError;
-
     private LocalThrowing throwing;
 
     private CallingState callingState;
@@ -79,16 +77,6 @@ public abstract class ContextEl implements ExecutableCode {
     protected ContextEl() {
         setExecutingInstance(this);
     }
-
-    protected void processTags() {
-        ExecutingUtil.processTagsBase(this);
-    }
-
-    protected EndCallValue removeCall() {
-        return ExecutingUtil.removeCallBase(this);
-    }
-
-    public abstract void initError();
 
     public static CustList<AnnotationMethodBlock> getAnnotationMethods(GeneType _element) {
         CustList<AnnotationMethodBlock> methods_ = new CustList<AnnotationMethodBlock>();
@@ -306,10 +294,6 @@ public abstract class ContextEl implements ExecutableCode {
         analyzing = null;
     }
 
-    public String getNextTempVar() {
-        return analyzing.getNextTempVar();
-    }
-
     public AbstractPageEl getLastPage() {
         return importing.last();
     }
@@ -340,7 +324,7 @@ public abstract class ContextEl implements ExecutableCode {
         return callsOrExceptionBase(this);
     }
 
-    static boolean callsOrExceptionBase(ContextEl _context) {
+    private static boolean callsOrExceptionBase(ContextEl _context) {
         if (_context.callingState != null) {
             return true;
         }
@@ -378,13 +362,6 @@ public abstract class ContextEl implements ExecutableCode {
         callingState = _callingState;
     }
 
-    public Struct getMemoryError() {
-        return memoryError;
-    }
-
-    public void setMemoryError(Struct _memoryError) {
-        memoryError = _memoryError;
-    }
     public abstract Initializer getInit();
 
     public static int getCurrentChildTypeIndex(Analyzable _an,OperationNode _op, String _fileName, int _location,GeneType _type, String _fieldName, String _realClassName) {
@@ -754,7 +731,7 @@ public abstract class ContextEl implements ExecutableCode {
         if (StringList.quickEq(curClass_, idClass_)) {
             return false;
         }
-        if (classes_.isCustomType(_className)) {
+        if (classes_.isCustomType(idClass_)) {
             DefaultLockingClass locks_ = classes_.getLocks();
             if (getInitializingTypeInfos().isInitEnums()) {
                 InitClassState res_ = locks_.getState(idClass_);
@@ -764,13 +741,13 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 return false;
             }
-            InitClassState res_ = locks_.getState(getContextEl(), _className);
+            InitClassState res_ = locks_.getState(getContextEl(), idClass_);
             if (res_ == InitClassState.NOT_YET) {
-                getContextEl().setCallingState(new NotInitializedClass(_className));
+                getContextEl().setCallingState(new NotInitializedClass(idClass_));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {
-                CausingErrorStruct causing_ = new CausingErrorStruct(_className, this);
+                CausingErrorStruct causing_ = new CausingErrorStruct(idClass_, this);
                 setException(causing_);
                 return true;
             }

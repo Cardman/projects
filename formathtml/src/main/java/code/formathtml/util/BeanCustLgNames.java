@@ -223,7 +223,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_context));
         context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
         context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
-        String locName_ = context_.getNextTempVar();
+        StringList l_ = new StringList();
+        String locName_ = tr(l_,_context.getContext());
         String exp_;
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIterable(),"<?>"));
@@ -232,7 +233,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String simpleIterator_ = getAliasIterator();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(simpleIterator_,PARS));
         expsIterator = RenderExpUtil.getAnalyzedOperations(exp_,0, _context);
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -240,7 +241,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String hasNext_ = getAliasHasNext();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
         expsHasNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -258,21 +259,21 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String iteratorTable_ = getAliasIteratorTable();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iteratorTable_,PARS));
         expsIteratorTableCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         hasNextPairVarCust= locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNextPair_,PARS));
         expsHasNextPairCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         nextPairVarCust= locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(nextPair_,PARS));
         expsNextPairCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -280,7 +281,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String first_ = getAliasGetFirst();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(first_,PARS));
         expsFirstCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -289,7 +290,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(second_,PARS));
         expsSecondCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasBean()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -298,17 +299,17 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(beforeDisplaying_,PARS));
         expsBeforeDisplaying= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         putVarCust = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasString()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         putVarCustKey = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasObject()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -317,12 +318,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         exp_ = StringList.concat(putVarCust, LOC_VAR, StringList.concat(put_,"(",putVarCustKey,",",putVarCustValue,")"));
         expsPut= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         putAllVarCust = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -331,12 +332,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         exp_ = StringList.concat(putAllVarCust, LOC_VAR, StringList.concat(putAll_,"(",putAllVarCustArg,")"));
         expsPutAll= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         getValVar = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasString()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -345,12 +346,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         exp_ = StringList.concat(getValVar, LOC_VAR, StringList.concat(getVal_,"(",getValVarArg,")"));
         expsGetVal= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasBean()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         setFormsVar = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -359,7 +360,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         exp_ = StringList.concat(setFormsVar, LOC_VAR, StringList.concat(setForms_,"(",setFormsVarArg,")"));
         expsSetForms= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasBean()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -368,12 +369,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         exp_ = StringList.concat(getFormsVar, LOC_VAR, StringList.concat(getForms_,PARS));
         expsGetForms= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasBean()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         setDataBaseVar = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasObject()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -382,7 +383,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         exp_ = StringList.concat(setDataBaseVar, LOC_VAR, StringList.concat(setDataBase_,"(",setDataBaseVarArg,")"));
         expsSetDataBase= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasBean()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -391,12 +392,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         exp_ = StringList.concat(getDataBaseVar, LOC_VAR, StringList.concat(getDataBase_,PARS));
         expsGetDataBase= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasBean()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         setScopeVar = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasString()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -405,7 +406,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         exp_ = StringList.concat(setScopeVar, LOC_VAR, StringList.concat(setScope_,"(",setScopeVarArg,")"));
         expsSetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasBean()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -414,12 +415,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         exp_ = StringList.concat(getScopeVar, LOC_VAR, StringList.concat(getScope_,PARS));
         expsGetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasBean()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         setLanguageVar = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasString()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -429,42 +430,42 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         expsSetLanguage= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
 
         StringList vars_ = new StringList();
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(aliasValidator));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         validateVar = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasObject()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         vars_.add(locName_);
         validateVarArgNewValue = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasObject()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         vars_.add(locName_);
         validateVarArgOldValue = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasObject()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         vars_.add(locName_);
         validateVarArgBean = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasObject()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         vars_.add(locName_);
         validateVarArgForm = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasString()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         vars_.add(locName_);
         validateVarArgClassField = locName_;
-        locName_ = context_.getNextTempVar();
+        locName_ = tr(l_,_context.getContext());
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasString()));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -806,6 +807,20 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         files_.put(aliasValidator, file_.toString());
         getPredefinedInterfacesInitOrder().add(aliasValidator);
         return files_;
+    }
+    private static String tr(StringList _list, ContextEl _context) {
+        CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
+        allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.add(_context.getStandards().getAliasVoid());
+        allKeysWords_.addAllElts(_list);
+        String candidate_ = "tmp";
+        int index_ = 0;
+        while (StringList.contains(allKeysWords_,candidate_)) {
+            candidate_ = StringList.concatNbs("tmp",index_);
+            index_++;
+        }
+        _list.add(candidate_);
+        return candidate_;
     }
     private static String tr(String _var, ContextEl _context) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();

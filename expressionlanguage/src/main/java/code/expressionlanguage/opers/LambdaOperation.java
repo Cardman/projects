@@ -270,7 +270,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 i_ = idUpdate_.getIndex();
                 int offset_ = className.indexOf('(')+1;
                 offset_ += StringList.getFirstPrintableCharIndex(_args.first());
-                String type_ = _conf.getStandards().checkCorrectType(_conf,offset_,_fromType, staticFlag_ != MethodAccessKind.STATIC);
+                String type_ = ResolvingImportTypes.resolveCorrectType(_conf, offset_, _fromType, staticFlag_ != MethodAccessKind.STATIC);
                 partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
                 str_ = InvokingOperation.getBounds(type_, _conf);
                 String cl_ = Templates.getIdFromAllTypes(type_);
@@ -534,7 +534,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             i_ = idUpdate_.getIndex();
             int offset_ = className.indexOf('(')+1;
             offset_ += StringList.getFirstPrintableCharIndex(_args.first());
-            String type_ = _conf.getStandards().checkCorrectType(_conf,offset_,_fromType, stCtx_ != MethodAccessKind.STATIC);
+            String type_ = ResolvingImportTypes.resolveCorrectType(_conf, offset_, _fromType, stCtx_ != MethodAccessKind.STATIC);
             partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
             str_ = InvokingOperation.getBounds(type_, _conf);
             String cl_ = Templates.getIdFromAllTypes(type_);
@@ -1552,7 +1552,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private StringList resolveCorrectTypes(Analyzable _an, boolean _exact, String _type, StringList _args) {
         int offset_ = className.indexOf('(')+1;
         offset_ += StringList.getFirstPrintableCharIndex(_args.first());
-        String type_ = _an.getStandards().checkCorrectType(_an,offset_,_type, _exact);
+        String type_ = ResolvingImportTypes.resolveCorrectType(_an, offset_, _type, _exact);
         partOffsets.addAllElts(_an.getContextEl().getCoverage().getCurrentParts());
         return InvokingOperation.getBounds(type_, _an);
     }

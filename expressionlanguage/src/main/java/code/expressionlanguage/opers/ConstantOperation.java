@@ -27,8 +27,7 @@ public final class ConstantOperation extends LeafOperation {
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         String argClName_;
         Argument a_ = new Argument();
         LgNames stds_ = _conf.getStandards();

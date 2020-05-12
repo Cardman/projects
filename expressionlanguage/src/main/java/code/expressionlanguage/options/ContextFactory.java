@@ -97,6 +97,5 @@ public final class ContextFactory {
         }
         _definedLgNames.build();
         ApplyCoreMethodUtil.setupOverrides(_context);
-        _context.initError();
     }
 }

@@ -22,8 +22,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         LgNames stds_ = _conf.getStandards();
         ClassArgumentMatching cl_ = getPreviousResultClass();
         String aliasLength_ = _conf.getStandards().getAliasLength();

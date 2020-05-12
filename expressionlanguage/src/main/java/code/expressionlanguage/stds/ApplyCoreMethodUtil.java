@@ -924,7 +924,8 @@ public class ApplyCoreMethodUtil {
         String hasNext_ = stds_.getAliasHasNext();
         String nextPair_ = stds_.getAliasNextPair();
         String hasNextPair_ = stds_.getAliasHasNextPair();
-        String locName_ = _context.getNextTempVar();
+        StringList l_ = new StringList();
+        String locName_ = tr(l_,_context);
         String exp_;
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(stds_.getAliasIterable(),"<?>"));
@@ -933,14 +934,14 @@ public class ApplyCoreMethodUtil {
         String iterator_ = stds_.getAliasIterator();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iterator_,PARS));
         cl_.setExpsIteratorCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
-        locName_ = _context.getNextTempVar();
+        locName_ = tr(l_,_context);
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(stds_.getAliasIteratorType(),"<?>"));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         cl_.setHasNextVarCust(locName_);
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
         cl_.setExpsHasNextCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
-        locName_ = _context.getNextTempVar();
+        locName_ = tr(l_,_context);
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(stds_.getAliasIteratorType(),"<?>"));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -955,21 +956,21 @@ public class ApplyCoreMethodUtil {
         String iteratorTable_ = stds_.getAliasIteratorTable();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iteratorTable_,PARS));
         cl_.setExpsIteratorTableCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
-        locName_ = _context.getNextTempVar();
+        locName_ = tr(l_,_context);
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         cl_.setHasNextPairVarCust(locName_);
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNextPair_,PARS));
         cl_.setExpsHasNextPairCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
-        locName_ = _context.getNextTempVar();
+        locName_ = tr(l_,_context);
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         cl_.setNextPairVarCust(locName_);
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(nextPair_,PARS));
         cl_.setExpsNextPairCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
-        locName_ = _context.getNextTempVar();
+        locName_ = tr(l_,_context);
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(stds_.getAliasPairType(),"<?,?>"));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -977,7 +978,7 @@ public class ApplyCoreMethodUtil {
         String first_ = stds_.getAliasGetFirst();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(first_,PARS));
         cl_.setExpsFirstCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
-        locName_ = _context.getNextTempVar();
+        locName_ = tr(l_,_context);
         locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(stds_.getAliasPairType(),"<?,?>"));
         _context.getAnalyzing().getInternVars().put(locName_, locVar_);
@@ -985,5 +986,19 @@ public class ApplyCoreMethodUtil {
         String second_ = stds_.getAliasGetSecond();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(second_,PARS));
         cl_.setExpsSecondCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
+    }
+    private static String tr(StringList _list, ContextEl _context) {
+        CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
+        allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.add(_context.getStandards().getAliasVoid());
+        allKeysWords_.addAllElts(_list);
+        String candidate_ = "tmp";
+        int index_ = 0;
+        while (StringList.contains(allKeysWords_,candidate_)) {
+            candidate_ = StringList.concatNbs("tmp",index_);
+            index_++;
+        }
+        _list.add(candidate_);
+        return candidate_;
     }
 }

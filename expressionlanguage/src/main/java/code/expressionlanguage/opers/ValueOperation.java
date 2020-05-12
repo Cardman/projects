@@ -13,9 +13,7 @@ public final class ValueOperation extends LeafOperation {
     private String className;
     public ValueOperation(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op, String _className) {
         super(_indexInEl, _indexChild, _m, _op);
-        int relativeOff_ = _op.getOffset();
-        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
-        off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        off = _op.getOffset();
         className = _className;
     }
 

@@ -23,9 +23,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
     public ThisOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
-        int relativeOff_ = _op.getOffset();
-        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
-        off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        off = _op.getOffset();
     }
 
     @Override
@@ -100,11 +98,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             setResultClass(new ClassArgumentMatching(arg_));
             return;
         }
-        OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off, _conf);
         String arg_ = _conf.getAnalyzing().getGlobalClass();
         if (_conf.getAnalyzing().getStaticContext() != MethodAccessKind.INSTANCE) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();

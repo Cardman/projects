@@ -9,6 +9,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -39,7 +40,7 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
         }
         int off_ = StringList.getFirstPrintableCharIndex(realCl_);
         String classStr_;
-        classStr_ = _conf.getStandards().checkCorrectType(_conf,afterLeftPar_+off_,realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
+        classStr_ = ResolvingImportTypes.resolveCorrectType(_conf, afterLeftPar_ + off_, realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
         partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         className = classStr_;
         setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClassType()));

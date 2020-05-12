@@ -701,14 +701,15 @@ public final class Configuration implements ExecutableCode {
     @Override
     public boolean hasToExit(String _className) {
         Classes classes_ = getClasses();
-        if (classes_.isCustomType(_className)) {
-            InitClassState res_ = classes_.getLocks().getState(getContextEl(), _className);
+        String idCl_ = Templates.getIdFromAllTypes(_className);
+        if (classes_.isCustomType(idCl_)) {
+            InitClassState res_ = classes_.getLocks().getState(getContextEl(), idCl_);
             if (res_ == InitClassState.NOT_YET) {
-                getContextEl().setCallingState(new NotInitializedClass(_className));
+                getContextEl().setCallingState(new NotInitializedClass(idCl_));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {
-                CausingErrorStruct causing_ = new CausingErrorStruct(_className,this);
+                CausingErrorStruct causing_ = new CausingErrorStruct(idCl_,this);
                 setException(causing_);
                 return true;
             }

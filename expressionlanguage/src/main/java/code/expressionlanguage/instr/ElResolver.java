@@ -1729,6 +1729,7 @@ public final class ElResolver {
         }
         Ints indexes_ = new Ints();
         StringList partsFields_ = new StringList();
+        StringList partsSeps_ = new StringList();
         StringBuilder part_ = new StringBuilder();
         int j_ = _from;
         int k_ = _from;
@@ -1750,6 +1751,12 @@ public final class ElResolver {
                 partsFields_.add(partStr_);
                 part_.delete(0,part_.length());
                 j_++;
+                if (nextCharIs(_string,j_,len_,DOT_VAR)) {
+                    partsSeps_.add("..");
+                    j_++;
+                } else {
+                    partsSeps_.add(".");
+                }
                 continue;
             }
             if (locChar_ != PAR_LEFT) {
@@ -1759,6 +1766,7 @@ public final class ElResolver {
             break;
         }
         StringList partsFieldsBisFields_ = new StringList();
+        int partFieldIndex_ = 0;
         for (String p: partsFields_) {
             int f_ = StringList.getFirstPrintableCharIndex(p);
             int l_= StringList.getLastPrintableCharIndex(p);
@@ -1776,9 +1784,13 @@ public final class ElResolver {
                 break;
             }
             partsFieldsBisFields_.add(p);
+            if (partsFields_.isValidIndex(partFieldIndex_+1)) {
+                partsFieldsBisFields_.add(partsSeps_.get(partFieldIndex_));
+            }
+            partFieldIndex_++;
         }
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        String join_ = StringList.join(partsFieldsBisFields_, ".");
+        String join_ = StringList.join(partsFieldsBisFields_, "");
         StringList inns_ = Templates.getAllInnerTypes(join_, _conf);
         String trim_ = inns_.first().trim();
         int nextOff_ = _from;
@@ -1799,12 +1811,25 @@ public final class ElResolver {
             nb_ = 0;
             nextOff_ += inns_.first().length() + 1;
         }
-        int iPart_ = 1;
+        int iPart_ = 2;
         int lenPart_ = inns_.size();
         while (iPart_ < lenPart_) {
             String fullPart_ = inns_.get(iPart_);
             int locOff_ = StringList.getFirstPrintableCharIndex(fullPart_);
             String p_ = fullPart_.trim();
+            if (StringList.quickEq("..",inns_.get(iPart_-1))) {
+                StringList res_;
+                res_ = TypeUtil.getEnumOwners(start_, p_, _conf);
+                if (!res_.onlyOneElt()) {
+                    break;
+                }
+                start_ = StringList.concat(res_.first(),"-",p_);
+                _conf.getContextEl().appendParts(nextOff_+1+locOff_,nextOff_+1+locOff_+p_.length(),start_,partOffsets_);
+                nextOff_ += fullPart_.length() + 1;
+                nb_++;
+                iPart_+=2;
+                continue;
+            }
             boolean fieldLoc_ = isField(_conf, start_,_ctor, p_);
             if (fieldLoc_) {
                 break;
@@ -1817,7 +1842,7 @@ public final class ElResolver {
             _conf.getContextEl().appendParts(nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_);
             nextOff_ += fullPart_.length() + 1;
             nb_++;
-            iPart_++;
+            iPart_+=2;
         }
         int n_;
         if (indexes_.isValidIndex(nb_)) {

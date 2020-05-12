@@ -333,10 +333,6 @@ public abstract class LgNames {
         buildOther();
     }
 
-    public static String checkCorrectType(Analyzable _an,int _loc,String _in, boolean _exact) {
-        return ResolvingImportTypes.resolveCorrectType(_an,_loc,_in,_exact);
-    }
-
     public DisplayableStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         return ApplyCoreMethodUtil.getStringOfObjectBase(_cont, _arg);
     }

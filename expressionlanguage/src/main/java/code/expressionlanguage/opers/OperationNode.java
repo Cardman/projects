@@ -523,7 +523,7 @@ public abstract class OperationNode implements Operable {
     }
     private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class,
                                                              boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
-        ObjectMap<ClassField,FieldResult> ancestors_ = new ObjectMap<ClassField,FieldResult>();
+        StringMap<FieldResult> ancestors_ = new StringMap<FieldResult>();
         String glClass_ = _cont.getAnalyzing().getGlobalClass();
         String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
         int maxAnc_ = 0;
@@ -549,49 +549,47 @@ public abstract class OperationNode implements Operable {
         int max_ = maxAnc_;
         for (int i = 0; i <= maxAnc_; i++) {
             StringList subClasses_ = new StringList();
-            for (EntryCust<ClassField,FieldResult> e: ancestors_.entryList()) {
+            for (EntryCust<String,FieldResult> e: ancestors_.entryList()) {
                 if (e.getValue().getAnc() != i) {
                     continue;
                 }
-                subClasses_.add(e.getKey().getClassName());
+                subClasses_.add(e.getKey());
             }
             StringList subs_ = PrimitiveTypeUtil.getSubclasses(subClasses_, _cont);
-            if (subs_.onlyOneElt()) {
-                String cl_ = subs_.first();
-                ClassField id_ = new ClassField(cl_, _name);
-                return ancestors_.getVal(id_);
+            FieldResult res_ = getRes(ancestors_, subs_);
+            if (res_ != null) {
+                return res_;
             }
         }
         if (_import) {
             Block curBlock_ = _cont.getAnalyzing().getCurrentBlock();
             int maxLoc_ = maxAnc_ + 1;
-            for (EntryCust<ClassField, ImportedField> e: ResolvingImportTypes.lookupImportStaticFields(_cont,curClassBase_, _name, curBlock_).entryList()) {
+            for (EntryCust<String, ImportedField> e: ResolvingImportTypes.lookupImportStaticFields(_cont,curClassBase_, _name, curBlock_).entryList()) {
                 ImportedField v_ = e.getValue();
                 max_ = Math.max(max_, v_.getImported() +maxAnc_);
                 FieldResult res_ = new FieldResult();
-                FieldInfo fi_ = _cont.getContextEl().getFieldInfo(e.getKey());
+                FieldInfo fi_ = _cont.getContextEl().getFieldInfo(new ClassField(e.getKey(),_name.trim()));
                 String realType_ = fi_.getType();
                 boolean finalField_ = fi_.isFinalField();
-                String formatted_ = e.getKey().getClassName();
+                String formatted_ = e.getKey();
                 FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff,v_.getReturnType());
                 res_.setId(if_);
                 res_.setAnc(v_.getImported() +maxAnc_);
                 res_.setStatus(SearchingMemberStatus.UNIQ);
-                ancestors_.add(e.getKey(),res_);
+                addIfNotExist(ancestors_,e.getKey(),res_);
             }
             for (int i = maxLoc_; i <= max_; i++) {
                 StringList subClasses_ = new StringList();
-                for (EntryCust<ClassField,FieldResult> e: ancestors_.entryList()) {
+                for (EntryCust<String,FieldResult> e: ancestors_.entryList()) {
                     if (e.getValue().getAnc() != i) {
                         continue;
                     }
-                    subClasses_.add(e.getKey().getClassName());
+                    subClasses_.add(e.getKey());
                 }
                 StringList subs_ = PrimitiveTypeUtil.getSubclasses(subClasses_, _cont);
-                if (subs_.size() == CustList.ONE_ELEMENT) {
-                    String cl_ = subs_.first();
-                    ClassField id_ = new ClassField(cl_, _name);
-                    return ancestors_.getVal(id_);
+                FieldResult res_ = getRes(ancestors_, subs_);
+                if (res_ != null) {
+                    return res_;
                 }
             }
         }
@@ -615,7 +613,7 @@ public abstract class OperationNode implements Operable {
 
     private static void fetchFieldsType(Analyzable _conf, boolean _accessFromSuper, boolean _superClass, int _anc, boolean _static,
                                         boolean _aff,
-                                        String _name, String _glClass, ObjectMap<ClassField, FieldResult> _ancestors,
+                                        String _name, String _glClass, StringMap<FieldResult> _ancestors,
                                         String _cl, GeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap) {
         String fullName_ = _root.getFullName();
         String genericString_ = _root.getGenericString();
@@ -660,7 +658,21 @@ public abstract class OperationNode implements Operable {
         res_.setId(if_);
         res_.setAnc(_anc);
         res_.setStatus(SearchingMemberStatus.UNIQ);
-        _ancestors.add(candidate_, res_);
+        addIfNotExist(_ancestors,id_, res_);
+    }
+    private static FieldResult getRes(StringMap<FieldResult> _ancestors, StringList _classes) {
+        if (_classes.onlyOneElt()) {
+            return _ancestors.getVal(_classes.first());
+        }
+        return null;
+    }
+    private static void addIfNotExist(StringMap<FieldResult> _ancestors, String _cl, FieldResult _res) {
+        for (EntryCust<String, FieldResult> e: _ancestors.entryList()) {
+            if (StringList.quickEq(e.getKey(), _cl)) {
+                return;
+            }
+        }
+        _ancestors.addEntry(_cl,_res);
     }
     static ConstrustorIdVarArg getDeclaredCustConstructor(Analyzable _conf, int _varargOnly, ClassArgumentMatching _class,
             GeneType _type,

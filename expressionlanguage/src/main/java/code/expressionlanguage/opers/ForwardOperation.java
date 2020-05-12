@@ -35,8 +35,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         if (isIntermediateDottedOperation()) {
             setResultClass(new ClassArgumentMatching(previousResultClass.getNames()));
         } else {

@@ -5,7 +5,6 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.stream.Locking;
 
@@ -38,7 +37,6 @@ public class RunnableContextEl extends ContextEl implements Locking {
         setStandards(_context.getStandards());
         setTabWidth(_context.getTabWidth());
         setStackOverFlow(_context.getStackOverFlow());
-        setMemoryError(_context.getMemoryError());
         setAnalysisMessages(_context.getAnalysisMessages());
         setKeyWords(_context.getKeyWords());
         setThrowing(_context.getThrowing());
@@ -77,10 +75,6 @@ public class RunnableContextEl extends ContextEl implements Locking {
         idDate = _idDate;
     }
 
-    @Override
-    public void initError() {
-        setMemoryError(new ErrorStruct(this, getStandards().getAliasError()));
-    }
     @Override
     public Initializer getInit() {
         return getCustInit();

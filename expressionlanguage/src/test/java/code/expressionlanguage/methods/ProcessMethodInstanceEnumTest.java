@@ -909,6 +909,177 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
     @Test
+    public void initializeClass28Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $int first($int add){$return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static pkg.Ex.ExInner..ONE INSTANCE = ExInner.ONE;\n");
+        xml_.append("$public $static $int field = INSTANCE.first(2);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(6, ((NumberStruct)field_).intStruct());
+    }
+    @Test
+    public void initializeClass29Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $static $int first($int add){$return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $int field = pkg.Ex.ExInner..ONE.first(2);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(6, ((NumberStruct)field_).intStruct());
+    }
+    @Test
+    public void initializeClass30Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $static $int first($int add){$return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $int field = Ex.ExInner..ONE.first(2);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(6, ((NumberStruct)field_).intStruct());
+    }
+    @Test
+    public void initializeClass31Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $static $int first($int add){$return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $int field = ExInner..ONE.first(2);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(6, ((NumberStruct)field_).intStruct());
+    }
+    @Test
+    public void initializeClass32Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("pkg.Ex.ExInner..ONE;\n");
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $static $int first($int add){$return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $int field = $static(ONE).first(2);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(6, ((NumberStruct)field_).intStruct());
+    }
+    @Test
+    public void initializeClass33Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("pkg.Ex.ExInner..ONE;\n");
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $static $final $int FIRST = 6;};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $int field = ExInner..ONE.FIRST;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(6, ((NumberStruct)field_).intStruct());
+    }
+    @Test
+    public void initializeClass34Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("pkg.Ex.ExInner..ONE;\n");
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $boolean field = ExInner.ONE $instanceof ExInner..ONE;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        assertTrue(BooleanStruct.of(true).sameReference(field_));
+    }
+    @Test
     public void initializeClass1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.Ex {\n");
@@ -1073,5 +1244,130 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+    }
+    @Test
+    public void initializeClass6FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $int first($int add){$return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static pkg.Ex.ExInner..TWO INSTANCE = ExInner.ONE;\n");
+        xml_.append("$public $static $int field = INSTANCE.first(2);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void initializeClass7FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $static $int first($int add){$return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $int field = pkg.Ex.ExInner..TWO.first(2);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void initializeClass8FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $static $int first($int add){$return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $int field = Ex.ExInner..TWO.first(2);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void initializeClass9FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $static $int first($int add){$return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $int field = ExInner..TWO.first(2);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void initializeClass10FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("pkg.Ex.ExInner..ONE;\n");
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $static $int first($int add){$return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $int field = $static(TWO).first(2);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void initializeClass11FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("pkg.Ex.ExInner..ONE;\n");
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{$public $static $final $int FIRST = 6;};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $int field = ExInner..TWO.FIRST;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void initializeClass12FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("pkg.Ex.ExInner..ONE;\n");
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $boolean field = ExInner.ONE $instanceof ExInner..TWO;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void initializeClass13FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("pkg.Ex.ExInner..ONE;\n");
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $boolean field = ExInner.ONE $instanceof Object..TWO;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
     }
 }

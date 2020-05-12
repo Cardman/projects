@@ -97,14 +97,6 @@ public final class AnalyzedPageEl {
         return globalOffset + offset + translatedOffset;
     }
 
-    public String getNextTempVar() {
-        int i_ = CustList.FIRST_INDEX;
-        while (internVars.contains(StringList.concatNbs(Classes.TEMP_PREFIX, i_))) {
-            i_++;
-        }
-        return StringList.concatNbs(Classes.TEMP_PREFIX,i_);
-    }
-
     public boolean isEnabledInternVars() {
         return enabledInternVars;
     }

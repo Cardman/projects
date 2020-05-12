@@ -10411,6 +10411,272 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage275Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.Ex {;\n");
+        xml_.append("public enum ExInner {\n");
+        xml_.append(" ONE{public int first(int add){return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("public static pkg.Ex.ExInner..ONE INSTANCE = ExInner.ONE;\n");
+        xml_.append("public static int field = INSTANCE.first(2);\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.Ex </a>{;\n" +
+                "public enum <a name=\"m34\">ExInner </a>{\n" +
+                " <a name=\"m45\">ONE</a>{public int <a name=\"m60\">first</a>(int <a name=\"m70\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m70\">add</a></span></span>;}};\n" +
+                "}\n" +
+                "public static <a title=\"pkg.Ex\" href=\"#m12\">pkg.Ex</a>.<a title=\"pkg.Ex..ExInner\" href=\"#m34\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m45\">ONE</a> <span class=\"g\"><span class=\"g\"><a name=\"m129\">INSTANCE</a> </span>=<span class=\"g\"><span class=\"g\"> <a title=\"pkg.Ex..ExInner\" href=\"#m34\">ExInner</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner.ONE\" href=\"#m45\">ONE</a></span></span></span>;\n" +
+                "public static int <span class=\"g\"><span class=\"g\"><a name=\"m171\">field</a> </span>=<span class=\"g\"><span class=\"g\"> <a title=\"pkg.Ex.INSTANCE\" href=\"#m129\">INSTANCE</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner-ONE.first(int)\" href=\"#m60\">first</a>(<span class=\"g\">2</span>)</span></span></span>;\n" +
+                " public static int <a name=\"m217\">exmeth</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage276Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.Ex {;\n");
+        xml_.append("public enum ExInner {\n");
+        xml_.append(" ONE{public static int first(int add){return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("public static int field = pkg.Ex.ExInner..ONE.first(2);\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.Ex </a>{;\n" +
+                "public enum <a name=\"m34\">ExInner </a>{\n" +
+                " <a name=\"m45\">ONE</a>{public static int <a name=\"m67\">first</a>(int <a name=\"m77\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m77\">add</a></span></span>;}};\n" +
+                "}\n" +
+                "public static int <span class=\"g\"><span class=\"g\"><a name=\"m120\">field</a> </span>=<span class=\"g\"><span class=\"g\"> <a title=\"pkg.Ex\" href=\"#m12\">pkg.Ex</a>.<a title=\"pkg.Ex..ExInner\" href=\"#m34\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m45\">ONE</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner-ONE.static first(int)\" href=\"#m67\">first</a>(<span class=\"g\">2</span>)</span></span></span>;\n" +
+                " public static int <a name=\"m177\">exmeth</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage277Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.Ex {;\n");
+        xml_.append("public enum ExInner {\n");
+        xml_.append(" ONE{public static int first(int add){return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("public static int field = Ex.ExInner..ONE.first(2);\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.Ex </a>{;\n" +
+                "public enum <a name=\"m34\">ExInner </a>{\n" +
+                " <a name=\"m45\">ONE</a>{public static int <a name=\"m67\">first</a>(int <a name=\"m77\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m77\">add</a></span></span>;}};\n" +
+                "}\n" +
+                "public static int <span class=\"g\"><span class=\"g\"><a name=\"m120\">field</a> </span>=<span class=\"g\"><span class=\"g\"> <a title=\"pkg.Ex\" href=\"#m12\">Ex</a>.<a title=\"pkg.Ex..ExInner\" href=\"#m34\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m45\">ONE</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner-ONE.static first(int)\" href=\"#m67\">first</a>(<span class=\"g\">2</span>)</span></span></span>;\n" +
+                " public static int <a name=\"m173\">exmeth</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage278Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.Ex {;\n");
+        xml_.append("public enum ExInner {\n");
+        xml_.append(" ONE{public static int first(int add){return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("public static int field = ExInner..ONE.first(2);\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.Ex </a>{;\n" +
+                "public enum <a name=\"m34\">ExInner </a>{\n" +
+                " <a name=\"m45\">ONE</a>{public static int <a name=\"m67\">first</a>(int <a name=\"m77\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m77\">add</a></span></span>;}};\n" +
+                "}\n" +
+                "public static int <span class=\"g\"><span class=\"g\"><a name=\"m120\">field</a> </span>=<span class=\"g\"><span class=\"g\"> <a title=\"pkg.Ex..ExInner\" href=\"#m34\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m45\">ONE</a></span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner-ONE.static first(int)\" href=\"#m67\">first</a>(<span class=\"g\">2</span>)</span></span></span>;\n" +
+                " public static int <a name=\"m170\">exmeth</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage279Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("pkg.Ex.ExInner;\n");
+        xml_.append("public enum pkg.Ex {;\n");
+        xml_.append("public enum ExInner {\n");
+        xml_.append(" ONE{public static int first(int add){return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("public static int field = static(ExInner..ONE).first(2);\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>pkg.Ex.ExInner;\n" +
+                "public enum <a name=\"m28\">pkg.Ex </a>{;\n" +
+                "public enum <a name=\"m50\">ExInner </a>{\n" +
+                " <a name=\"m61\">ONE</a>{public static int <a name=\"m83\">first</a>(int <a name=\"m93\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m93\">add</a></span></span>;}};\n" +
+                "}\n" +
+                "public static int <span class=\"g\"><span class=\"g\"><a name=\"m136\">field</a> </span>=<span class=\"g\"><span class=\"g\"> static(<a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>..<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m61\">ONE</a>)</span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner-ONE.static first(int)\" href=\"#m83\">first</a>(<span class=\"g\">2</span>)</span></span></span>;\n" +
+                " public static int <a name=\"m194\">exmeth</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage279_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("pkg.Ex.ExInner;\n");
+        xml_.append("public enum pkg.Ex {;\n");
+        xml_.append("public enum ExInner {\n");
+        xml_.append(" ;\n");
+        xml_.append(" public static int first(int add){return 4i+add;}\n");
+        xml_.append("}\n");
+        xml_.append("public static int field = static(ExInner).first(2);\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>pkg.Ex.ExInner;\n" +
+                "public enum <a name=\"m28\">pkg.Ex </a>{;\n" +
+                "public enum <a name=\"m50\">ExInner </a>{\n" +
+                " ;\n" +
+                " public static int <a name=\"m82\">first</a>(int <a name=\"m92\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m92\">add</a></span></span>;}\n" +
+                "}\n" +
+                "public static int <span class=\"g\"><span class=\"g\"><a name=\"m133\">field</a> </span>=<span class=\"g\"><span class=\"g\"> static(<a title=\"pkg.Ex..ExInner\" href=\"#m50\">ExInner</a>)</span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner.static first(int)\" href=\"#m82\">first</a>(<span class=\"g\">2</span>)</span></span></span>;\n" +
+                " public static int <a name=\"m186\">exmeth</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage279__Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.Ex {;\n");
+        xml_.append("public static int field = static(Ex).exmeth2();\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth2(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.Ex </a>{;\n" +
+                "public static int <span class=\"g\"><span class=\"g\"><a name=\"m40\">field</a> </span>=<span class=\"g\"><span class=\"g\"> static(<a title=\"pkg.Ex\" href=\"#m12\">Ex</a>)</span>.<span class=\"g\"><a title=\"pkg.Ex.static exmeth2()\" href=\"#m133\">exmeth2</a>()</span></span></span>;\n" +
+                " public static int <a name=\"m89\">exmeth</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m133\">exmeth2</a>(){\n" +
+                "  return <span class=\"g\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage280Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("pkg.Ex.ExInner..ONE;\n");
+        xml_.append("public enum pkg.Ex {;\n");
+        xml_.append("public enum ExInner {\n");
+        xml_.append(" ONE{public static int first(int add){return 4i+add;}};\n");
+        xml_.append("}\n");
+        xml_.append("public static int field = static(ONE).first(2);\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>pkg.Ex.ExInner..ONE;\n" +
+                "public enum <a name=\"m33\">pkg.Ex </a>{;\n" +
+                "public enum <a name=\"m55\">ExInner </a>{\n" +
+                " <a name=\"m66\">ONE</a>{public static int <a name=\"m88\">first</a>(int <a name=\"m98\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m98\">add</a></span></span>;}};\n" +
+                "}\n" +
+                "public static int <span class=\"g\"><span class=\"g\"><a name=\"m141\">field</a> </span>=<span class=\"g\"><span class=\"g\"> static(<a title=\"pkg.Ex..ExInner-ONE\" href=\"#m66\">ONE</a>)</span>.<span class=\"g\"><a title=\"pkg.Ex..ExInner-ONE.static first(int)\" href=\"#m88\">first</a>(<span class=\"g\">2</span>)</span></span></span>;\n" +
+                " public static int <a name=\"m190\">exmeth</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

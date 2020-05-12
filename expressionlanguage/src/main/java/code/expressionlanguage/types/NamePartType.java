@@ -36,6 +36,16 @@ final class NamePartType extends LeafPartType {
     private void analyzeGenericOnwer(Analyzable _an, AccessingImportingBlock _rooted, PartType _part, String _type) {
         String owner_ = _part.getAnalyzedType();
         Classes classes_ = _an.getClasses();
+        if (StringList.quickEq("..",getPreviousSeparator())) {
+            StringList foundOwners_ = TypeUtil.getEnumOwners(owner_, _type, _an);
+            if (!foundOwners_.onlyOneElt()) {
+                return;
+            }
+            String idOwner_= Templates.getIdFromAllTypes(foundOwners_.first());
+            setAnalyzedType(StringList.concat(idOwner_,"-", _type));
+            checkAccess(_an,_rooted,owner_);
+            return;
+        }
         StringList foundOwners_ = TypeUtil.getGenericOwners(owner_, _type, _an);
         if (!foundOwners_.onlyOneElt()) {
             return;
@@ -116,6 +126,16 @@ final class NamePartType extends LeafPartType {
         String owner_ = _part.getAnalyzedType();
         String id_ = Templates.getIdFromAllTypes(owner_);
         if (!_ready.isReady(id_)) {
+            return;
+        }
+        if (StringList.quickEq("..",getPreviousSeparator())) {
+            StringList foundOwners_ = TypeUtil.getEnumOwners(id_, _type, _an);
+            if (!foundOwners_.onlyOneElt()) {
+                return;
+            }
+            String idOwner_= Templates.getIdFromAllTypes(foundOwners_.first());
+            setAnalyzedType(StringList.concat(idOwner_,"-", _type));
+            checkAccess(_an,_rooted,id_);
             return;
         }
         StringList foundOwners_ = TypeUtil.getOwners(id_, _type, _an);

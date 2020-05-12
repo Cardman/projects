@@ -39,9 +39,7 @@ public abstract class SettableAbstractFieldOperation extends
     public final void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         boolean import_ = false;
         if (!isIntermediateDottedOperation()) {
             import_ = true;

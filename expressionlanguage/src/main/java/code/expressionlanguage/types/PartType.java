@@ -30,6 +30,10 @@ abstract class PartType {
         }
         IntTreeMap<String> operators_ = _analyze.getOperators();
         if (operators_.isEmpty()) {
+            String str_ = ".";
+            if (_parent instanceof InnerPartType && _index > 0) {
+                str_ = ((InnerPartType) _parent).getOperators().get(_index - 1);
+            }
             if (_analyze.getKind() == KindPartType.TYPE_NAME) {
                 String type_ = _dels.getValue(_index);
                 type_ = StringExpUtil.removeDottedSpaces(type_);
@@ -40,14 +44,14 @@ abstract class PartType {
                     okVarType_ = true;
                 }
                 if (_an.getAnalyzing().getAvailableVariables().contains(type_) && okVarType_) {
-                    return new VariablePartType(_parent, _index, _indexInType, type_,"");
+                    return new VariablePartType(_parent, _index, _indexInType, type_,str_);
                 }
-                return new NamePartType(_parent, _index, _indexInType, type_,"");
+                return new NamePartType(_parent, _index, _indexInType, type_,str_);
             }
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
-                return new EmptyWildCardPart(_parent, _index, _indexInType, _dels.getValue(_index),"");
+                return new EmptyWildCardPart(_parent, _index, _indexInType, _dels.getValue(_index),str_);
             }
-            return new VariablePartType(_parent, _index, _indexInType, _dels.getValue(_index),"");
+            return new VariablePartType(_parent, _index, _indexInType, _dels.getValue(_index),str_);
         }
         if (_analyze.getPrio() == ParserType.TMP_PRIO) {
             return new TemplatePartType(_parent, _index, _indexInType);
@@ -66,14 +70,18 @@ abstract class PartType {
         }
         IntTreeMap<String> operators_ = _analyze.getOperators();
         if (operators_.isEmpty()) {
+            String str_ = ".";
+            if (_parent instanceof InnerPartType && _index > 0) {
+                str_ = ((InnerPartType) _parent).getOperators().get(_index - 1);
+            }
             if (_analyze.getKind() == KindPartType.TYPE_NAME) {
                 String type_ = _dels.getValue(_index);
-                return new NamePartType(_parent, _index, _indexInType, type_.trim(),"");
+                return new NamePartType(_parent, _index, _indexInType, type_.trim(),str_);
             }
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
-                return new EmptyWildCardPart(_parent, _index, _indexInType, _dels.getValue(_index),"");
+                return new EmptyWildCardPart(_parent, _index, _indexInType, _dels.getValue(_index),str_);
             }
-            return new VariablePartType(_parent, _index, _indexInType, _dels.getValue(_index),"");
+            return new VariablePartType(_parent, _index, _indexInType, _dels.getValue(_index),str_);
         }
         if (_analyze.getPrio() == ParserType.TMP_PRIO) {
             return new TemplatePartType(_parent, _index, _indexInType);

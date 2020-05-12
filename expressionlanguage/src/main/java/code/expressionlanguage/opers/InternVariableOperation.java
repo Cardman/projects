@@ -19,10 +19,9 @@ public final class InternVariableOperation extends LeafOperation {
     @Override
     public void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
+        int off_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         variableName = str_;
         LocalVariable locVar_ = _conf.getAnalyzing().getInternVars().getVal(str_);

@@ -9,6 +9,7 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class InstanceOfOperation extends AbstractUnaryOperation {
@@ -34,7 +35,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         int off_ = StringList.getFirstPrintableCharIndex(sub_);
         String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(sub_).getComponent();
         boolean exact_ = compo_.contains(Templates.TEMPLATE_BEGIN);
-        sub_ = _conf.getStandards().checkCorrectType(_conf,begin_+off_,sub_, exact_);
+        sub_ = ResolvingImportTypes.resolveCorrectType(_conf, begin_ + off_, sub_, exact_);
         partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         if (!exact_) {
             RootBlock r_ = _conf.getClasses().getClassBody(Templates.getIdFromAllTypes(sub_));

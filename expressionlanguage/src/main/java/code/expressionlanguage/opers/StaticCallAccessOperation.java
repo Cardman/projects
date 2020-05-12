@@ -9,7 +9,6 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class StaticCallAccessOperation extends LeafOperation {
     private CustList<PartOffset> partOffsets;
@@ -24,8 +23,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
         String classStr_;

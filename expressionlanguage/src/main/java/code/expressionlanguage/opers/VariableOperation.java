@@ -60,8 +60,7 @@ public final class VariableOperation extends LeafOperation implements
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         if (ElUtil.isDeclaringVariable(this, _conf)) {
             AnalyzedPageEl page_ = _conf.getAnalyzing();
             if (_conf.getAnalyzing().containsLocalVar(str_)) {

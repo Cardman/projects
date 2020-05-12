@@ -59,6 +59,12 @@ public final class ParserType {
                 continue;
             }
             if (curChar_ == Templates.SEP_CLASS_CHAR) {
+                if (nextCharIsDot(_input, len_, i_)) {
+                    indexes_.add(i_);
+                    id_.delete(0,id_.length());
+                    i_+=2;
+                    continue;
+                }
                 String tr_ = StringExpUtil.removeDottedSpaces(id_.toString());
                 if (!StringList.contains(_pkg,tr_)) {
                     addDot_ = true;
@@ -224,12 +230,18 @@ public final class ParserType {
                     operators_.put(i_,Templates.TEMPLATE_END);
                 }
             }
-            if (curChar_ == Templates.SEP_CLASS_CHAR && count_ == 0) {
-                if (prio_ > INT_PRIO) {
-                    operators_.clear();
-                    prio_ = INT_PRIO;
+            if (count_ == 0) {
+                if (curChar_ == Templates.SEP_CLASS_CHAR) {
+                    if (prio_ > INT_PRIO) {
+                        operators_.clear();
+                        prio_ = INT_PRIO;
+                    }
+                    if (nextCharIsDot(_string, len_, i_)) {
+                        operators_.put(i_,"..");
+                    } else {
+                        operators_.put(i_,".");
+                    }
                 }
-                operators_.put(i_,".");
             }
             i_++;
         }

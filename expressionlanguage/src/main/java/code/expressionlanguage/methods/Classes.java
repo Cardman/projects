@@ -1266,6 +1266,18 @@ public final class Classes {
         return inners_;
     }
 
+    public static CustList<RootBlock> accessedInnerElements(RootBlock _clOwner) {
+        CustList<RootBlock> inners_ = new CustList<RootBlock>();
+        for (Block b: Classes.getDirectChildren(_clOwner)) {
+            if (!(b instanceof InnerElementBlock)) {
+                continue;
+            }
+            RootBlock r_ = (RootBlock) b;
+            inners_.add(r_);
+        }
+        return inners_;
+    }
+
     public static boolean canAccess(String _className, Block _block, Analyzable _context) {
         if (!(_block instanceof AccessibleBlock)) {
             return true;

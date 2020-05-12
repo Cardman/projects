@@ -15,7 +15,6 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardType;
@@ -229,9 +228,17 @@ public final class ResolvingImportTypes {
         }
         int offset_ = _loc;
         offset_ += inners_.first().length();
-        offset_ ++;
-        for (String i: inners_.mid(1)) {
-            String resId_ = StringList.concat(res_,"..",i.trim());
+        int size_ = inners_.size();
+        for (int i = 2; i < size_; i += 2) {
+            String i_ = inners_.get(i);
+            String resId_;
+            int delta_ = 1;
+            if (StringList.quickEq(".",inners_.get(i-1))) {
+                resId_ = StringList.concat(res_,"..",i_.trim());
+            } else {
+                delta_ = 2;
+                resId_ = StringList.concat(res_,"-",i_.trim());
+            }
             RootBlock inner_ = _analyzable.getClasses().getClassBody(resId_);
             if (inner_ == null) {
                 //ERROR
@@ -245,17 +252,17 @@ public final class ResolvingImportTypes {
                 _analyzable.addError(undef_);
                 return "";
             }
-            _analyzable.getContextEl().appendParts(offset_,offset_ + i.trim().length(),resId_,partOffsets_);
+            _analyzable.getContextEl().appendParts(offset_+delta_,offset_+delta_ + i_.trim().length(),resId_,partOffsets_);
             res_ = resId_;
-            offset_ += i.length() + 1;
+            offset_ += i_.length() + delta_;
         }
         return res_;
     }
     public static String resolveCorrectType(Analyzable _an,String _in) {
-        return _an.getStandards().checkCorrectType(_an,0,_in,true);
+        return resolveCorrectType(_an, 0, _in, true);
     }
     public static String resolveCorrectType(Analyzable _an,int _loc, String _in) {
-        return _an.getStandards().checkCorrectType(_an,_loc,_in,true);
+        return resolveCorrectType(_an, _loc, _in, true);
     }
 
     public static String lookupImportType(Analyzable _an,String _type, AccessingImportingBlock _rooted, ReadyTypes _ready) {
@@ -334,19 +341,19 @@ public final class ResolvingImportTypes {
             stQualifier_ = true;
         }
         String typeInner_ = StringList.concat(beginImp_, _look);
-        String foundCandidate_ = StringList.join(Templates.getAllInnerTypes(typeInner_, _an), "..");
-        StringList allInnerTypes_ = Templates.getAllInnerTypes(foundCandidate_);
+        StringList allInnerTypes_ = Templates.getAllInnerTypes(typeInner_, _an);
         String owner_ = allInnerTypes_.first();
         GeneType cl_ = _an.getContextEl().getClassBody(owner_);
         String res_ = owner_;
         boolean addImport_ = true;
         if (cl_ != null) {
-            for (String i: allInnerTypes_.mid(1)) {
-                String i_ = i.trim();
+            int size_ = allInnerTypes_.size();
+            for (int i = 2; i < size_; i+=2) {
+                String i_ = allInnerTypes_.get(i).trim();
                 if (!_ready.isReady(res_)) {
                     return true;
                 }
-                StringList builtInners_ = TypeUtil.getInners(res_, i_, stQualifier_, _an);
+                StringList builtInners_ = TypeUtil.getInners(res_, allInnerTypes_.get(i-1), i_, stQualifier_, _an);
                 if (builtInners_.onlyOneElt()) {
                     res_ = builtInners_.first();
                     continue;
@@ -447,13 +454,21 @@ public final class ResolvingImportTypes {
                     }
                 }
                 ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                _methods.add(clMet_, new ImportedMethod(_import,e.getImportedReturnType()));
+                addImportMethod(_methods,clMet_, new ImportedMethod(_import,e.getImportedReturnType()));
             }
         }
     }
+    private static void addImportMethod(ObjectMap<ClassMethodId, ImportedMethod> _methods, ClassMethodId _class, ImportedMethod _value) {
+        for (EntryCust<ClassMethodId, ImportedMethod> e: _methods.entryList()) {
+            if (e.getKey().eq(_class)) {
+                return;
+            }
+        }
+        _methods.addEntry(_class,_value);
+    }
 
-    public static ObjectMap<ClassField,ImportedField> lookupImportStaticFields(Analyzable _analyzable,String _glClass, String _method, Block _rooted) {
-        ObjectMap<ClassField,ImportedField> methods_ = new ObjectMap<ClassField,ImportedField>();
+    public static StringMap<ImportedField> lookupImportStaticFields(Analyzable _analyzable,String _glClass, String _method, Block _rooted) {
+        StringMap<ImportedField> methods_ = new StringMap<ImportedField>();
         int import_ = 1;
         AccessingImportingBlock type_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
         CustList<StringList> imports_ = new CustList<StringList>();
@@ -520,11 +535,13 @@ public final class ResolvingImportTypes {
         GeneType cl_ = _analyzable.getContextEl().getClassBody(owner_);
         String res_ = owner_;
         if (cl_ != null) {
-            for (String i: allInnerTypes_.mid(1)) {
-                String i_ = i.trim();
-                StringList builtInners_ = TypeUtil.getOwners(res_, i_, false, _analyzable);
+            int size_ = allInnerTypes_.size();
+            for (int i = 2; i < size_; i+=2) {
+                String i_ = allInnerTypes_.get(i).trim();
+                String part_ = allInnerTypes_.get(i-1);
+                StringList builtInners_ = TypeUtil.getInners(res_,part_,i_,false,_analyzable);
                 if (builtInners_.onlyOneElt()) {
-                    res_ = StringList.concat(builtInners_.first(),"..",i_);
+                    res_ = builtInners_.first();
                     continue;
                 }
                 break;
@@ -539,11 +556,11 @@ public final class ResolvingImportTypes {
         return allInnerTypes_;
     }
 
-    private static void fetchImportStaticFieldsTmp(Analyzable _analyzable,String _glClass, String _method, ObjectMap<ClassField, ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc) {
+    private static void fetchImportStaticFieldsTmp(Analyzable _analyzable,String _glClass, String _method, StringMap<ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc) {
         fetchImportStaticFields(_analyzable,_glClass,_method,_methods,_import,_typeLoc,_typesLoc);
     }
 
-    public static void fetchImportStaticFields(Analyzable _analyzable,String _glClass, String _method, ObjectMap<ClassField, ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc) {
+    public static void fetchImportStaticFields(Analyzable _analyzable,String _glClass, String _method, StringMap<ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc) {
         for (String s: _typesLoc) {
             GeneType super_ = _analyzable.getContextEl().getClassBody(s);
             if (super_ instanceof StandardType) {
@@ -551,8 +568,7 @@ public final class ResolvingImportTypes {
                     if (notMatch(_method, m)) {
                         continue;
                     }
-                    ClassField field_ = new ClassField(s, _method);
-                    _methods.add(field_, new ImportedField(_import,m));
+                    addImport(_methods,s, new ImportedField(_import,m));
                 }
             } else {
                 for (InfoBlock e: ContextEl.getFieldBlocks((RootBlock) super_)) {
@@ -567,11 +583,18 @@ public final class ResolvingImportTypes {
                             continue;
                         }
                     }
-                    ClassField field_ = new ClassField(s, _method);
-                    _methods.add(field_, new ImportedField(_import,e));
+                    addImport(_methods,s, new ImportedField(_import,e));
                 }
             }
         }
+    }
+    private static void addImport(StringMap<ImportedField> _methods, String _class, ImportedField _value) {
+        for (EntryCust<String, ImportedField> e: _methods.entryList()) {
+            if (StringList.quickEq(e.getKey(), _class)) {
+                return;
+            }
+        }
+        _methods.addEntry(_class,_value);
     }
     private static boolean notMatch(String _method, GeneField _field) {
         if (!_field.isStaticField()) {

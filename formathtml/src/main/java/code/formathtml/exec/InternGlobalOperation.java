@@ -16,18 +16,14 @@ public final class InternGlobalOperation extends LeafOperation {
     public InternGlobalOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
-        int relativeOff_ = _op.getOffset();
-        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
-        off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        off = _op.getOffset();
     }
 
     @Override
     public void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         String arg_ = ((Configuration)_conf).getInternGlobalClass();
         if (_conf.getAnalyzing().isStaticContext()) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();

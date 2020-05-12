@@ -32,9 +32,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
                                         MethodOperation _m, OperationsSequence _op, String _className) {
         super(_indexInEl, _indexChild, _m, _op);
-        int relativeOff_ = _op.getOffset();
-        String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
-        off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        off = _op.getOffset();
         className = _className;
     }
     @Override
@@ -43,8 +41,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         if (ElUtil.isDeclaringLoopVariable(this, _conf)) {
             AnalyzedPageEl page_ = _conf.getAnalyzing();
             if (_conf.getAnalyzing().containsMutableLoopVar(str_) || _conf.getAnalyzing().containsVar(str_)) {

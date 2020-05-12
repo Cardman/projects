@@ -27,7 +27,6 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyStdError());
         assertTrue(cont_.isEmptyErrors());
         assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
-        assertNotNull(cont_.getMemoryError());
         assertEq(0, AssignmentsUtil.getOrEmptyBefore(new CustList<StringMap<AssignmentBefore>>(),0).size());
         assertEq(0, AssignmentsUtil.getOrEmpty(new CustList<StringMap<Assignment>>(),0).size());
         assertEq(0, AssignmentsUtil.getOrEmptyBool(new CustList<StringMap<BooleanAssignment>>(),0).size());

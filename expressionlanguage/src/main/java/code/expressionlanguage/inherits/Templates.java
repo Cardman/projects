@@ -212,6 +212,12 @@ public final class Templates {
                 //if builtId_.toString() is a type => inner_ is true
                 types_.add(builtId_.toString());
                 builtId_.delete(0, builtId_.length());
+                if (StringExpUtil.nextCharIs(_type,i_+1,len_,SEP_CLASS_CHAR)) {
+                    i_++;
+                    types_.add("..");
+                } else {
+                    types_.add(".");
+                }
             } else {
                 builtId_.append(cur_);
             }

@@ -428,7 +428,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getAllInnerTypesSingleDotted4_Test(){
-        assertEq(new StringList("pkg.Ex","Inner"),Templates.getAllInnerTypes("pkg.Ex.Inner", new StringList("pkg")));
+        assertEq(new StringList("pkg.Ex",".","Inner"),Templates.getAllInnerTypes("pkg.Ex.Inner", new StringList("pkg")));
     }
     @Test
     public void getAllInnerTypesSingleDotted5_Test(){
@@ -436,19 +436,23 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getAllInnerTypesSingleDotted6_Test(){
-        assertEq(new StringList("pkg.Ex","Inner"),Templates.getAllInnerTypes("pkg.Ex.Inner", new StringList("pkg")));
+        assertEq(new StringList("pkg.Ex",".","Inner"),Templates.getAllInnerTypes("pkg.Ex.Inner", new StringList("pkg")));
     }
     @Test
     public void getAllInnerTypesSingleDotted7_Test(){
-        assertEq(new StringList("Ex","Inner"),Templates.getAllInnerTypes("Ex.Inner", new StringList("pkg")));
+        assertEq(new StringList("Ex",".","Inner"),Templates.getAllInnerTypes("Ex.Inner", new StringList("pkg")));
     }
     @Test
     public void getAllInnerTypesSingleDotted8_Test(){
-        assertEq(new StringList("Ex","pkg","Inner"),Templates.getAllInnerTypes("Ex.pkg.Inner", new StringList("pkg")));
+        assertEq(new StringList("Ex",".","pkg",".","Inner"),Templates.getAllInnerTypes("Ex.pkg.Inner", new StringList("pkg")));
     }
     @Test
     public void getAllInnerTypesSingleDotted9_Test(){
-        assertEq(new StringList("Ex","pkg","Inner","Outer"),Templates.getAllInnerTypes("Ex.pkg.Inner.Outer", new StringList("pkg")));
+        assertEq(new StringList("Ex",".","pkg",".","Inner",".","Outer"),Templates.getAllInnerTypes("Ex.pkg.Inner.Outer", new StringList("pkg")));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted10_Test(){
+        assertEq(new StringList("pkg.Ex",".","Inner","..","Outer"),Templates.getAllInnerTypes("pkg.Ex.Inner..Outer", new StringList("pkg")));
     }
     @Test
     public void getAllInnerTypes1Test(){

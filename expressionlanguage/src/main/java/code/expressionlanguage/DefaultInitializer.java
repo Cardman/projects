@@ -82,7 +82,7 @@ public class DefaultInitializer implements Initializer {
     @Override
     public final void loopCalling(ContextEl _owner) {
         while (true) {
-            EndCallValue res_ = _owner.removeCall();
+            EndCallValue res_ = ExecutingUtil.removeCallBase(_owner);
             if (res_ == EndCallValue.EXIT) {
                 break;
             }
@@ -90,7 +90,7 @@ public class DefaultInitializer implements Initializer {
                 continue;
             }
             if (!_owner.callsOrException()) {
-                _owner.processTags();
+                ExecutingUtil.processTagsBase(_owner);
             }
             if (exitAfterCall(_owner)) {
                 break;

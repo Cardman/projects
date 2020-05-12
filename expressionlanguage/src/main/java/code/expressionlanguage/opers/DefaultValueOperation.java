@@ -9,6 +9,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ReductibleOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -27,13 +28,12 @@ public final class DefaultValueOperation extends LeafOperation implements Reduct
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         int afterLeftPar_ = str_.indexOf(PAR_LEFT) + 1;
         String realCl_ = str_.substring(afterLeftPar_, str_.lastIndexOf(PAR_RIGHT));
         int offLoc_ = StringList.getFirstPrintableCharIndex(realCl_);
         String classStr_;
-        classStr_ = _conf.getStandards().checkCorrectType(_conf,afterLeftPar_+offLoc_,realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
+        classStr_ = ResolvingImportTypes.resolveCorrectType(_conf, afterLeftPar_ + offLoc_, realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
         partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         className = classStr_;
         setResultClass(new ClassArgumentMatching(className));
