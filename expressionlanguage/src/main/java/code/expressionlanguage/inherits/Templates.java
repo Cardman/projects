@@ -199,7 +199,7 @@ public final class Templates {
                 //if builtId_.toString() is a type => inner_ is true
                 String foundId_ = builtId_.toString();
                 String tr_ = StringExpUtil.removeDottedSpaces(foundId_);
-                if (!StringList.contains(_pkg,tr_)) {
+                if (StringExpUtil.nextCharIs(_type,i_+1,len_,SEP_CLASS_CHAR)||!StringList.contains(_pkg,tr_)) {
                     break;
                 }
             }
@@ -224,6 +224,51 @@ public final class Templates {
             i_++;
         }
         types_.add(builtId_.toString());
+        return types_;
+    }
+    public static StringList getAllPartInnerTypes(String _type) {
+        StringList types_ = new StringList();
+        StringBuilder out_ = new StringBuilder();
+        int i_ = CustList.FIRST_INDEX;
+        int count_ = 0;
+        int len_ = _type.length();
+        while (i_ < len_) {
+            char curChar_ = _type.charAt(i_);
+            if (count_ > 0) {
+                if (curChar_ == Templates.LT) {
+                    count_++;
+                }
+                if (curChar_ == Templates.GT) {
+                    count_--;
+                }
+                out_.append(curChar_);
+                i_++;
+                continue;
+            }
+            if (curChar_ == Templates.LT) {
+                out_.append(curChar_);
+                count_++;
+                i_++;
+                continue;
+            }
+            if (curChar_ == '-') {
+                types_.add(out_.toString());
+                types_.add("-");
+                out_.delete(0, out_.length());
+                i_++;
+                continue;
+            }
+            if (_type.startsWith(INNER_TYPE,i_)) {
+                types_.add(out_.toString());
+                types_.add(INNER_TYPE);
+                out_.delete(0, out_.length());
+                i_++;
+            } else {
+                out_.append(curChar_);
+            }
+            i_++;
+        }
+        types_.add(out_.toString());
         return types_;
     }
     /** Splits by double dots the input string into parts<br/>

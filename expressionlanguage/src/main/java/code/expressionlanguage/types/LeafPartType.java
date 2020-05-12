@@ -8,7 +8,7 @@ abstract class LeafPartType extends PartType {
 
     private String typeName;
     private String importedTypeName = EMPTY_STRING;
-    private String previousSeparator = "..";
+    private String previousSeparator;
     LeafPartType(ParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator) {
         super(_parent, _index, _indexInType);
         typeName = _type;

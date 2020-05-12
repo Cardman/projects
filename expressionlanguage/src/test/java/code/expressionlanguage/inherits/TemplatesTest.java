@@ -455,6 +455,10 @@ public final class TemplatesTest extends ProcessMethodCommon {
         assertEq(new StringList("pkg.Ex",".","Inner","..","Outer"),Templates.getAllInnerTypes("pkg.Ex.Inner..Outer", new StringList("pkg")));
     }
     @Test
+    public void getAllInnerTypesSingleDotted11_Test(){
+        assertEq(new StringList("pkg","..","Outer"),Templates.getAllInnerTypes("pkg..Outer", new StringList("pkg")));
+    }
+    @Test
     public void getAllInnerTypes1Test(){
         assertEq(new StringList("String"), Templates.getAllInnerTypes("String"));
     }
@@ -526,7 +530,90 @@ public final class TemplatesTest extends ProcessMethodCommon {
     public void getAllInnerTypes18Test(){
         assertEq(new StringList("Map<[String..Character,Rate>","Inner<Boolean,Number>"), Templates.getAllInnerTypes("Map<[String..Character,Rate>..Inner<Boolean,Number>"));
     }
-
+    @Test
+    public void getAllPartInnerTypes1Test(){
+        assertEq(new StringList("String"), Templates.getAllPartInnerTypes("String"));
+    }
+    @Test
+    public void getAllPartInnerTypes2Test(){
+        assertEq(new StringList("Map<String,Rate>"), Templates.getAllPartInnerTypes("Map<String,Rate>"));
+    }
+    @Test
+    public void getAllPartInnerTypes3Test(){
+        assertEq(new StringList("Map<String,Map<String,Rate>>"), Templates.getAllPartInnerTypes("Map<String,Map<String,Rate>>"));
+    }
+    @Test
+    public void getAllPartInnerTypes4Test(){
+        assertEq(new StringList("List<Boolean>"), Templates.getAllPartInnerTypes("List<Boolean>"));
+    }
+    @Test
+    public void getAllPartInnerTypes5Test(){
+        assertEq(new StringList("CustList<BooleanList>"), Templates.getAllPartInnerTypes("CustList<BooleanList>"));
+    }
+    @Test
+    public void getAllPartInnerTypes6Test(){
+        assertEq(new StringList("Outer","..","Map"), Templates.getAllPartInnerTypes("Outer..Map"));
+    }
+    @Test
+    public void getAllPartInnerTypes7Test(){
+        assertEq(new StringList("","..","Map"), Templates.getAllPartInnerTypes("..Map"));
+    }
+    @Test
+    public void getAllPartInnerTypes8Test(){
+        assertEq(new StringList("Map<String,Rate>","..","Inner"), Templates.getAllPartInnerTypes("Map<String,Rate>..Inner"));
+    }
+    @Test
+    public void getAllPartInnerTypes9Test(){
+        assertEq(new StringList("Map<String,Rate>","..","Inner<Boolean,Number>"), Templates.getAllPartInnerTypes("Map<String,Rate>..Inner<Boolean,Number>"));
+    }
+    @Test
+    public void getAllPartInnerTypes10Test(){
+        assertEq(new StringList("Map<String,Rate..Denominator>","..","Inner<Boolean,Number>"), Templates.getAllPartInnerTypes("Map<String,Rate..Denominator>..Inner<Boolean,Number>"));
+    }
+    @Test
+    public void getAllPartInnerTypes11Test(){
+        assertEq(new StringList("Map<String..Character,Rate>","..","Inner<Boolean,Number>"), Templates.getAllPartInnerTypes("Map<String..Character,Rate>..Inner<Boolean,Number>"));
+    }
+    @Test
+    public void getAllPartInnerTypes12Test(){
+        assertEq(new StringList("Map<String>","..","Inner"), Templates.getAllPartInnerTypes("Map<String>..Inner"));
+    }
+    @Test
+    public void getAllPartInnerTypes13Test(){
+        assertEq(new StringList("[String"), Templates.getAllPartInnerTypes("[String"));
+    }
+    @Test
+    public void getAllPartInnerTypes14Test(){
+        assertEq(new StringList("Map<[String,Rate>"), Templates.getAllPartInnerTypes("Map<[String,Rate>"));
+    }
+    @Test
+    public void getAllPartInnerTypes15Test(){
+        assertEq(new StringList("[Map<String,Rate>"), Templates.getAllPartInnerTypes("[Map<String,Rate>"));
+    }
+    @Test
+    public void getAllPartInnerTypes16Test(){
+        assertEq(new StringList("[Map<String>","..","Inner"), Templates.getAllPartInnerTypes("[Map<String>..Inner"));
+    }
+    @Test
+    public void getAllPartInnerTypes17Test(){
+        assertEq(new StringList("Map<String,[Rate..Denominator>","..","Inner<Boolean,Number>"), Templates.getAllPartInnerTypes("Map<String,[Rate..Denominator>..Inner<Boolean,Number>"));
+    }
+    @Test
+    public void getAllPartInnerTypes18Test(){
+        assertEq(new StringList("Map<[String..Character,Rate>","..","Inner<Boolean,Number>"), Templates.getAllPartInnerTypes("Map<[String..Character,Rate>..Inner<Boolean,Number>"));
+    }
+    @Test
+    public void getAllPartInnerTypes19Test(){
+        assertEq(new StringList("Map<Rate<Int>>","..","Inner<Boolean,Number>"), Templates.getAllPartInnerTypes("Map<Rate<Int>>..Inner<Boolean,Number>"));
+    }
+    @Test
+    public void getAllPartInnerTypes20Test(){
+        assertEq(new StringList("Map<Rate<Int>>","-","Inner<Boolean,Number>"), Templates.getAllPartInnerTypes("Map<Rate<Int>>-Inner<Boolean,Number>"));
+    }
+    @Test
+    public void getAllPartInnerTypes21Test(){
+        assertEq(new StringList("Map<Rate<Int>>","..","Inner<Boolean-Number>"), Templates.getAllPartInnerTypes("Map<Rate<Int>>..Inner<Boolean-Number>"));
+    }
     @Test
     public void getAllSepCommaTypes1Test(){
         assertEq(new StringList("Number","<<","$int"), Templates.getAllSepCommaTypes("Number,<<,$int"));

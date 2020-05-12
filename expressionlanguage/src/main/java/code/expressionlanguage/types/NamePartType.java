@@ -266,18 +266,18 @@ final class NamePartType extends LeafPartType {
     }
 
     private void checkAccess(Analyzable _an, AccessingImportingBlock _global) {
-        StringList parts_ = Templates.getAllInnerTypes(getAnalyzedType());
+        StringList parts_ = Templates.getAllPartInnerTypes(getAnalyzedType());
         String idFound_ = Templates.getIdFromAllTypes(parts_.first());
         StringBuilder id_ = new StringBuilder(idFound_);
         StringBuilder idOwner_ = new StringBuilder(idFound_);
         checkAccess(_an,_global,idFound_,idFound_);
         int len_ = parts_.size();
-        for (int i = 1; i < len_; i++) {
+        for (int i = 2; i < len_; i+=2) {
             idFound_ = Templates.getIdFromAllTypes(parts_.get(i));
-            id_.append("..");
+            id_.append(parts_.get(i-1));
             id_.append(idFound_);
             checkAccess(_an,_global,id_.toString(),idOwner_.toString());
-            idOwner_.append("..");
+            idOwner_.append(parts_.get(i-1));
             idOwner_.append(idFound_);
         }
     }
@@ -308,20 +308,26 @@ final class NamePartType extends LeafPartType {
         if (part_ != null) {
             String owner_ = part_.getAnalyzedType();
             String id_ = Templates.getIdFromAllTypes(owner_);
-            String in_ = StringList.concat(id_,"..",type_);
+            String sep_;
+            if (StringList.quickEq("..",getPreviousSeparator())) {
+                sep_ = "-";
+            } else {
+                sep_ = "..";
+            }
+            String in_ = StringList.concat(id_,sep_,type_);
             Classes classes_ = _an.getClasses();
             RootBlock inner_ = classes_.getClassBody(in_);
             if (inner_ == null) {
                 return;
             }
             if (inner_.isStaticType()) {
-                setAnalyzedType(StringList.concat(id_,"..",type_));
+                setAnalyzedType(StringList.concat(id_,sep_,type_));
                 return;
             }
             if (!Templates.correctNbParameters(owner_, _an)) {
                 return;
             }
-            setAnalyzedType(StringList.concat(owner_,"..",type_));
+            setAnalyzedType(StringList.concat(owner_,sep_,type_));
             return;
         }
         if (_an.getClasses().isCustomType(type_)) {

@@ -57,7 +57,7 @@ public final class SuperFctOperation extends InvokingOperation {
         String className_ = methodName.substring(0, methodName.lastIndexOf(PAR_RIGHT));
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
-        int loc_ = StringList.getFirstPrintableCharIndex(className_);
+        int loc_ = StringList.getFirstPrintableCharIndex(className_)-off_;
         className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
         partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
         String clCurName_ = className_;

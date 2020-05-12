@@ -872,8 +872,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             StringList parts_ = new StringList();
             if (!g_.isStaticType()) {
                 //From analyze
-                StringList innerParts_ = Templates.getAllInnerTypes(clFrom_);
-                parts_.add(StringList.join(innerParts_.mid(0, innerParts_.size() - 1), ".."));
+                StringList innerParts_ = Templates.getAllPartInnerTypes(clFrom_);
+                parts_.add(StringList.join(innerParts_.mid(0, innerParts_.size() - 2), ""));
             }
             StringList params_ = fid_.getParametersTypes();
             if (fid_.isVararg()) {

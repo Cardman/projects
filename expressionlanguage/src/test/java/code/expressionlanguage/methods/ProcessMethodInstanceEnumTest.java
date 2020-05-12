@@ -1080,6 +1080,33 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(BooleanStruct.of(true).sameReference(field_));
     }
     @Test
+    public void initializeClass35Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("pkg.Ex.ExInner;\n");
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{};\n");
+        xml_.append("}\n");
+        xml_.append("$public $static $boolean field = method($id(Ex,$static,ExInner..ONE),ExInner.ONE);\n");
+        xml_.append("$public $static $boolean method(ExInner..ONE e){\n");
+        xml_.append(" $return e $instanceof ExInner..ONE;\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        assertTrue(BooleanStruct.of(true).sameReference(field_));
+    }
+    @Test
     public void initializeClass1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.Ex {\n");

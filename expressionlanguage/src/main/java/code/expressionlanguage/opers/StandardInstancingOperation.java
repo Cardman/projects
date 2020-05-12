@@ -75,9 +75,6 @@ public final class StandardInstancingOperation extends
         StringMap<String> ownersMap_ = new StringMap<String>();
         StringMap<String> vars_ = new StringMap<String>();
         if (isIntermediateDottedOperation()) {
-            if (className_.trim().startsWith("..")) {
-                return;
-            }
             if (arg_.isArray()) {
                 return;
             }
@@ -248,8 +245,8 @@ public final class StandardInstancingOperation extends
             GeneType g_ = _conf.getContextEl().getClassBody(base_);
             if (g_ != null && !g_.withoutInstance()) {
                 String glClass_ = _conf.getAnalyzing().getGlobalClass();
-                StringList parts_ = Templates.getAllInnerTypes(realClassName_);
-                String outer_ = StringList.join(parts_.mid(0, parts_.size() - 1),"..");
+                StringList parts_ = Templates.getAllPartInnerTypes(realClassName_);
+                String outer_ = StringList.join(parts_.mid(0, parts_.size() - 2),"");
                 if (isStaticAccess() != MethodAccessKind.INSTANCE) {
                     FoundErrorInterpret static_ = new FoundErrorInterpret();
                     static_.setFileName(_conf.getCurrentFileName());
@@ -285,18 +282,6 @@ public final class StandardInstancingOperation extends
         }
         int offset_ = StringList.getFirstPrintableCharIndex(realClassName_);
         realClassName_ = realClassName_.trim();
-        if (realClassName_.startsWith("..")) {
-            FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_conf.getCurrentFileName());
-            static_.setIndexFile(_conf.getCurrentLocationIndex());
-            //original type len
-            static_.buildError(_conf.getContextEl().getAnalysisMessages().getIllegalCtorUnknown(),
-                    realClassName_);
-            _conf.addError(static_);
-            LgNames stds_ = _conf.getStandards();
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
         ClassArgumentMatching arg_ = getPreviousResultClass();
         if (arg_.isArray()) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();

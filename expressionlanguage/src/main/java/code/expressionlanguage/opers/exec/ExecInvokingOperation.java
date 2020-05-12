@@ -135,8 +135,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             RootBlock r_ = (RootBlock) g_;
             if (!r_.withoutInstance()) {
                 //From analyze
-                StringList parts_ = Templates.getAllInnerTypes(_className);
-                String param_ = StringList.join(parts_.sub(0, parts_.size()-1), "..");
+                StringList parts_ = Templates.getAllPartInnerTypes(_className);
+                String param_ = StringList.join(parts_.sub(0, parts_.size()-2), "");
                 if (_previous.isNull()) {
                     String npe_;
                     npe_ = stds_.getAliasNullPe();
@@ -376,8 +376,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                         }
                         String argCl_ = stds_.getStructClassName(par_, _conf.getContextEl());
                         //From analyze
-                        StringList inners_ = Templates.getAllInnerTypes(className_);
-                        String param_ = StringList.join(inners_.mid(0, inners_.size() - 1), "..");
+                        StringList inners_ = Templates.getAllPartInnerTypes(className_);
+                        String param_ = StringList.join(inners_.mid(0, inners_.size() - 2), "");
                         if (!Templates.isCorrectExecute(argCl_, param_, cont_)) {
                             _conf.setException(new ErrorStruct(_conf,cast_));
                             return Argument.createVoid();

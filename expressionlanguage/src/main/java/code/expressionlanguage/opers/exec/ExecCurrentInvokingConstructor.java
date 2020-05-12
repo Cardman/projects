@@ -2,6 +2,7 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.InstancingStep;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.CurrentInvokingConstructor;
@@ -20,11 +21,12 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
 
-        Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
-        String gl_ = _conf.getOperationPageEl().getGlobalClass();
+        PageEl page_ = _conf.getOperationPageEl();
+        Argument arg_ = page_.getGlobalArgument();
+        String gl_ = page_.getGlobalClass();
         CustList<Argument> firstArgs_;
         String lastType_ = getLastType();
-        lastType_ = Templates.quickFormat(gl_, lastType_, _conf);
+        lastType_ = page_.formatVarType(lastType_, _conf);
         int natvararg_ = getNaturalVararg();
         ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments, _conf);
