@@ -654,7 +654,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     continue;
                 }
                 if (b instanceof RootBlock) {
-                    if (((RootBlock)b).isStaticType() || this instanceof InnerElementBlock) {
+                    if (((RootBlock)b).isStaticType()) {
                         int where_ = b.getOffset().getOffsetTrim();
                         FoundErrorInterpret unexp_ = new FoundErrorInterpret();
                         unexp_.setFileName(getFile().getFileName());

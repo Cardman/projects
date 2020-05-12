@@ -1222,7 +1222,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $enum pkg.Ex {\n");
         xml_.append(" ONE{\n");
         xml_.append(" (){$super(4);}\n");
-        xml_.append(" $public $class Sample{}\n");
+        xml_.append(" $public $static $class Sample{}\n");
         xml_.append(" },TWO;\n");
         xml_.append(" $public $int first;\n");
         xml_.append(" $public Ex(){\n");
