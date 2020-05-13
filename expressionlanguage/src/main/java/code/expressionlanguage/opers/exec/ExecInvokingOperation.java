@@ -356,7 +356,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
                 CustList<RootBlock> needRoot_;
                 needRoot_ = ((RootBlock)type_).getSelfAndParentTypes();
-                first_ = needRoot_.first().getFullName();
+                RootBlock firstType_ = needRoot_.first();
+                first_ = firstType_.getFullName();
                 for (RootBlock r: needRoot_) {
                     need_.add(r);
                 }
@@ -392,8 +393,22 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     return a_;
                 }
                 Struct parent_ = NullStruct.NULL_VALUE;
+                int start_ = 0;
+                if (firstType_ instanceof InnerElementBlock) {
+                    InnerElementBlock i_ = (InnerElementBlock) firstType_;
+                    String fieldName_ = i_.getUniqueFieldName();
+                    String classFieldName_ = i_.getRealImportedClassName();
+                    String idCl_ = Templates.getIdFromAllTypes(classFieldName_);
+                    Struct staticField_ = _conf.getClasses().getStaticField(new ClassField(idCl_, fieldName_));
+                    if (staticField_ == null) {
+                        hasToExit(_conf, idCl_);
+                        return Argument.createVoid();
+                    }
+                    parent_ = staticField_;
+                    start_ = 1;
+                }
                 Initializer in_ = cont_.getInit();
-                for (GeneType r: need_) {
+                for (GeneType r: need_.mid(start_)) {
                     String genStr_ = r.getGenericString();
                     String form_ = Templates.quickFormat(className_, genStr_, cont_);
                     parent_ = in_.processInit(cont_, parent_, form_, EMPTY_STRING, 0);

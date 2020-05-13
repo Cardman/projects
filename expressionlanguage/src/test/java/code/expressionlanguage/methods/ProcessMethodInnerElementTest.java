@@ -8,6 +8,7 @@ import code.util.StringMap;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
@@ -127,5 +128,75 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
+    }
+    @Test
+    public void calculate5Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{\n");
+        xml_.append(" $public $class InnerInner<T>{\n");
+        xml_.append("  $public T field = (T)6;\n");
+        xml_.append(" }\n");
+        xml_.append(" };\n");
+        xml_.append("}\n");
+        xml_.append("$public $static pkg.Ex.ExInner..ONE.InnerInner<$int> INSTANCE2 =\n");
+        xml_.append("(pkg.Ex.ExInner..ONE.InnerInner<$int>)\n");
+        xml_.append("$class(pkg.Ex.ExInner..ONE.InnerInner<$int>).defaultInstance();\n");
+        xml_.append("$public $static $int field = INSTANCE2.field;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(0, ((NumberStruct)field_).intStruct());
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "INSTANCE2"));
+        assertEq("pkg.Ex..ExInner-ONE..InnerInner<$int>", field_.getClassName(cont_));
+        assertEq("pkg.Ex..ExInner-ONE", field_.getParent().getClassName(cont_));
+        assertSame(str_, field_.getParent());
+    }
+    @Test
+    public void calculate6Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner {\n");
+        xml_.append(" ONE{\n");
+        xml_.append(" $public $class InnerInner<T>{\n");
+        xml_.append("  $public T field = (T)6;\n");
+        xml_.append(" }\n");
+        xml_.append(" };\n");
+        xml_.append("}\n");
+        xml_.append("$public $static pkg.Ex.ExInner..ONE.InnerInner<$int> INSTANCE2 =\n");
+        xml_.append("(pkg.Ex.ExInner..ONE.InnerInner<$int>)\n");
+        xml_.append("$class(pkg.Ex.ExInner..ONE.InnerInner<$int>).defaultInstance(ExInner.ONE);\n");
+        xml_.append("$public $static $int field = INSTANCE2.field;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
+        assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
+        Struct field_;
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(0, ((NumberStruct)field_).intStruct());
+        field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "INSTANCE2"));
+        assertEq("pkg.Ex..ExInner-ONE..InnerInner<$int>", field_.getClassName(cont_));
+        assertEq("pkg.Ex..ExInner-ONE", field_.getParent().getClassName(cont_));
+        assertSame(str_, field_.getParent());
     }
 }
