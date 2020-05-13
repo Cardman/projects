@@ -327,6 +327,7 @@ public final class ElResolver {
         String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThis_ = keyWords_.getKeyWordThis();
+        String keyWordParent_ = keyWords_.getKeyWordParent();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
         String keyWordTrue_ = keyWords_.getKeyWordTrue();
         String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
@@ -1106,7 +1107,7 @@ public final class ElResolver {
             return;
         }
         boolean foundValue_ = false;
-        for (String s: StringList.wrapStringArray(keyWordTrue_,keyWordFalse_,keyWordNull_)) {
+        for (String s: StringList.wrapStringArray(keyWordTrue_,keyWordFalse_,keyWordNull_,keyWordParent_)) {
             if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
                 int afterSuper_ = i_ + s.length();
                 while (afterSuper_ < len_) {
@@ -2477,6 +2478,7 @@ public final class ElResolver {
         String keyWordFalse_ = keyWords_.getKeyWordFalse();
         String keyWordNull_ = keyWords_.getKeyWordNull();
         String keyWordThis_ = keyWords_.getKeyWordThis();
+        String keyWordParent_ = keyWords_.getKeyWordParent();
         String keyWordTrue_ = keyWords_.getKeyWordTrue();
         int firstPrintChar_ = i_;
         int lastPrintChar_ = len_ - 1;
@@ -2632,6 +2634,14 @@ public final class ElResolver {
         if (StringList.quickEq(sub_, keyWordThis_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.THIS_KEYWORD);
+            op_.setOperators(new IntTreeMap< String>());
+            op_.setValue(_string, firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        if (StringList.quickEq(sub_, keyWordParent_)) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.PARENT_KEY_WORD);
             op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);

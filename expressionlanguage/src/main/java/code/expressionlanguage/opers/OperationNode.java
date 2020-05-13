@@ -378,6 +378,9 @@ public abstract class OperationNode implements Operable {
         if (ct_ == ConstType.THIS_KEYWORD) {
             return new ThisOperation(_index, _indexChild, _m, _op);
         }
+        if (ct_ == ConstType.PARENT_KEY_WORD) {
+            return new ParentInstanceOperation(_index, _indexChild, _m, _op);
+        }
         if (ct_ == ConstType.TRUE_CST) {
             return new ConstantOperation(_index, _indexChild, _m, _op);
         }

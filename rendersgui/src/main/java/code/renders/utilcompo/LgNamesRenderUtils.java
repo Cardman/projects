@@ -1997,6 +1997,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         _kw.setKeyWordNbExpDec(get(_util,_cust, KeyWords.NB_EXP_DEC));
         _kw.setKeyWordProtected(get(_util,_cust, KeyWords.PROTECTED));
         _kw.setKeyWordDefault(get(_util,_cust, KeyWords.DEFAULT));
+        _kw.setKeyWordParent(get(_util,_cust, KeyWords.PARENT));
     }
 
 

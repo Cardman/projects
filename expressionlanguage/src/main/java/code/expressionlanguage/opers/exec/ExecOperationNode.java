@@ -203,6 +203,10 @@ public abstract class ExecOperationNode implements Operable {
             ThisOperation f_ = (ThisOperation) _anaNode;
             return new ExecThisOperation(f_);
         }
+        if (_anaNode instanceof ParentInstanceOperation) {
+            ParentInstanceOperation f_ = (ParentInstanceOperation) _anaNode;
+            return new ExecParentInstanceOperation(f_);
+        }
         if (_anaNode instanceof ForwardOperation) {
             ForwardOperation f_ = (ForwardOperation) _anaNode;
             return new ExecForwardOperation(f_);

@@ -3701,6 +3701,7 @@ public class LgNamesUtils extends LgNames {
         _kw.setKeyWordNbExpDec(get(_util,_cust, KeyWords.NB_EXP_DEC));
         _kw.setKeyWordProtected(get(_util,_cust, KeyWords.PROTECTED));
         _kw.setKeyWordDefault(get(_util,_cust, KeyWords.DEFAULT));
+        _kw.setKeyWordParent(get(_util,_cust, KeyWords.PARENT));
     }
     public void otherAlias(String _lang, StringMap<String>_cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"types");

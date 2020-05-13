@@ -179,6 +179,8 @@ public final class KeyWordsMap {
         fr_.setKeyWordVararg("$vararg");
         en_.setKeyWordWhile("while");
         fr_.setKeyWordWhile("tantque");
+        en_.setKeyWordParent("$parent");
+        fr_.setKeyWordParent("$parent");
         keyWords.put("en", en_);
         keyWords.put("fr", fr_);
     }

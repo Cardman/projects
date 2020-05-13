@@ -200,6 +200,10 @@ public abstract class RendDynOperationNode {
             ThisOperation f_ = (ThisOperation) _anaNode;
             return new RendThisOperation(f_);
         }
+        if (_anaNode instanceof ParentInstanceOperation) {
+            ParentInstanceOperation f_ = (ParentInstanceOperation) _anaNode;
+            return new RendParentInstanceOperation(f_);
+        }
         if (_anaNode instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) _anaNode;
             if (s_.getFieldId() == null) {

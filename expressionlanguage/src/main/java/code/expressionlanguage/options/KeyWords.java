@@ -93,6 +93,7 @@ public final class KeyWords {
     public static final String NB_EXP_DEC = "NbExpDec";
     public static final String PROTECTED = "Protected";
     public static final String DEFAULT = "Default";
+    public static final String PARENT = "Parent";
     private String keyWordValue = "$value";
     private String keyWordVar = "$var";
     private String keyWordInterfaces = "$interfaces";
@@ -185,6 +186,7 @@ public final class KeyWords {
     private String keyWordNull = "$null";
     private String keyWordTrue = "$true";
     private String keyWordFalse = "$false";
+    private String keyWordParent = "$parent";
     public void validateKeyWordContents(ContextEl _cont, StringMap<String> _list) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
@@ -569,6 +571,7 @@ public final class KeyWords {
         keyWords_.addEntry(NULL,keyWordNull);
         keyWords_.addEntry(TRUE,keyWordTrue);
         keyWords_.addEntry(FALSE,keyWordFalse);
+        keyWords_.addEntry(PARENT,keyWordParent);
         return keyWords_;
     }
     public StringMap<String> allEscapings() {
@@ -1182,5 +1185,12 @@ public final class KeyWords {
     public void setKeyWordFalse(String _keyWordFalse) {
         keyWordFalse = _keyWordFalse;
     }
-    
+
+    public String getKeyWordParent() {
+        return keyWordParent;
+    }
+
+    public void setKeyWordParent(String keyWordParent) {
+        this.keyWordParent = keyWordParent;
+    }
 }
