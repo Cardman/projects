@@ -39,7 +39,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
 
     @Test
@@ -72,7 +72,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument3Test() {
@@ -104,7 +104,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument4Test() {
@@ -141,7 +141,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument5Test() {
@@ -178,7 +178,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument6Test() {
@@ -215,7 +215,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument7Test() {
@@ -252,7 +252,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument8Test() {
@@ -289,7 +289,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument9Test() {
@@ -330,7 +330,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument10Test() {
@@ -371,7 +371,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument11Test() {
@@ -408,7 +408,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument12Test() {
@@ -448,7 +448,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument13Test() {
@@ -488,7 +488,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument14Test() {
@@ -532,7 +532,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument15Test() {
@@ -579,7 +579,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument16Test() {
@@ -616,7 +616,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument17Test() {
@@ -657,7 +657,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument18Test() {
@@ -697,7 +697,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument19Test() {
@@ -740,7 +740,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument20Test() {
@@ -782,7 +782,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument21Test() {
@@ -827,7 +827,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument22Test() {
@@ -868,7 +868,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument23Test() {
@@ -913,7 +913,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument24Test() {
@@ -958,7 +958,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument25Test() {
@@ -1009,7 +1009,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument26Test() {
@@ -1066,7 +1066,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument27Test() {
@@ -1153,7 +1153,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument28Test() {
@@ -1204,7 +1204,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument29Test() {
@@ -1247,7 +1247,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument30Test() {
@@ -1318,7 +1318,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument31Test() {
@@ -1349,7 +1349,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument32Test() {
@@ -1380,7 +1380,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument33Test() {
@@ -1407,7 +1407,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument34Test() {
@@ -1439,7 +1439,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument35Test() {
@@ -1470,7 +1470,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument36Test() {
@@ -1500,7 +1500,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument37Test() {
@@ -1535,7 +1535,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument38Test() {
@@ -1573,7 +1573,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4))", getString(ret_));
     }
     @Test
     public void calculateArgument39Test() {
@@ -1612,7 +1612,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=6))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=6))", getString(ret_));
     }
     @Test
     public void calculateArgument40Test() {
@@ -1651,7 +1651,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={6,7}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={6,7}))", getString(ret_));
     }
     @Test
     public void calculateArgument41Test() {
@@ -1693,7 +1693,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={ONE,TWO}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={ONE,TWO}))", getString(ret_));
     }
     @Test
     public void calculateArgument42Test() {
@@ -1735,7 +1735,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={pkg.ExTwo}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={pkg.ExTwo}))", getString(ret_));
     }
     @Test
     public void calculateArgument43Test() {
@@ -1777,7 +1777,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\"}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\"}))", getString(ret_));
     }
     @Test
     public void calculateArgument44Test() {
@@ -1818,7 +1818,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={pkg.ExTwo<pkg.Ex>}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={pkg.ExTwo<pkg.Ex>}))", getString(ret_));
     }
     @Test
     public void calculateArgument45Test() {
@@ -1859,7 +1859,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={45}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={45}))", getString(ret_));
     }
     @Test
     public void calculateArgument46Test() {
@@ -1900,7 +1900,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={1}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={1}))", getString(ret_));
     }
 
     @Test
@@ -1933,7 +1933,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument48Test() {
@@ -1972,7 +1972,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={6,7,15}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={6,7,15}))", getString(ret_));
     }
     @Test
     public void calculateArgument49Test() {
@@ -2011,7 +2011,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={}))", getString(ret_));
     }
     @Test
     public void calculateArgument50Test() {
@@ -2050,7 +2050,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=;))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=;))", getString(ret_));
     }
     @Test
     public void calculateArgument51Test() {
@@ -2091,7 +2091,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument52Test() {
@@ -2131,7 +2131,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument53Test() {
@@ -2171,7 +2171,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument54Test() {
@@ -2205,7 +2205,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument55Test() {
@@ -2238,7 +2238,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument56Test() {
@@ -2274,7 +2274,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument57Test() {
@@ -2313,7 +2313,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument58Test() {
@@ -2349,7 +2349,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
 
     @Test
@@ -2379,7 +2379,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument60Test() {
@@ -2420,7 +2420,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={0}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={0}))", getString(ret_));
     }
     @Test
     public void calculateArgument61Test() {
@@ -2461,7 +2461,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={0}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={0}))", getString(ret_));
     }
     @Test
     public void calculateArgument62Test() {
@@ -2485,7 +2485,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot()", ret_.getString());
+        assertEq("@pkg.MyAnnot()", getString(ret_));
     }
     @Test
     public void calculateArgument63Test() {
@@ -2514,7 +2514,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument64Test() {
@@ -2546,7 +2546,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument65Test() {
@@ -2579,7 +2579,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument66Test() {
@@ -2612,7 +2612,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument67Test() {
@@ -2668,7 +2668,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument68Test() {
@@ -2725,7 +2725,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument69Test() {
@@ -2760,7 +2760,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument70Test() {
@@ -2786,7 +2786,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument71Test() {
@@ -2818,7 +2818,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument72Test() {
@@ -2844,7 +2844,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument73Test() {
@@ -2870,7 +2870,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument74Test() {
@@ -2896,7 +2896,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument75Test() {
@@ -2930,7 +2930,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument76Test() {
@@ -2970,7 +2970,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument77Test() {
@@ -3007,7 +3007,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument78Test() {
@@ -3044,7 +3044,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument79Test() {
@@ -3076,7 +3076,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument80Test() {
@@ -3109,7 +3109,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument801Test() {
@@ -3142,7 +3142,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument81Test() {
@@ -3236,7 +3236,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\\\\"}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\\\\"}))", getString(ret_));
     }
     @Test
     public void calculateArgument83Test() {
@@ -3278,7 +3278,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\\"\"}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\\"\"}))", getString(ret_));
     }
     @Test
     public void calculateArgument84Test() {
@@ -3320,7 +3320,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0000\"}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0000\"}))", getString(ret_));
     }
     @Test
     public void calculateArgument85Test() {
@@ -3362,7 +3362,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0001\"}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0001\"}))", getString(ret_));
     }
     @Test
     public void calculateArgument86Test() {
@@ -3404,7 +3404,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0010\"}))", ret_.getString());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={\"$class(ExTwo)\\u0010\"}))", getString(ret_));
     }
     @Test
     public void calculateArgument87Test() {
@@ -3607,7 +3607,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument92Test() {
@@ -3637,7 +3637,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument93Test() {
@@ -3678,7 +3678,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument94Test() {
@@ -3716,7 +3716,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument95Test() {
@@ -3758,7 +3758,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument96Test() {
@@ -3806,7 +3806,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument97Test() {
@@ -3848,7 +3848,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument98Test() {
@@ -3896,7 +3896,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument99Test() {
@@ -3925,7 +3925,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument100Test() {
@@ -4063,7 +4063,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument0FailTest() {

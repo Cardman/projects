@@ -2663,7 +2663,7 @@ public class LgNamesGui extends LgNamesUtils {
                 r_.setResult(new FontStruct(((NumberStruct)_args[0]).intStruct()));
                 return r_;
             }
-            r_.setResult(new FontStruct(_args[0],((BooleanStruct)_args[1]).getInstance(),((BooleanStruct)_args[2]).getInstance(),((NumberStruct)_args[3]).intStruct()));
+            r_.setResult(new FontStruct(_args[0],BooleanStruct.of(true).sameReference(_args[1]),BooleanStruct.of(true).sameReference(_args[2]),((NumberStruct)_args[3]).intStruct()));
             return r_;
         }
         if (StringList.quickEq(name_,aliasColor)) {
@@ -2672,7 +2672,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return r_;
             }
             if (_method.getParametersTypes().size() == 2) {
-                r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct(),((BooleanStruct)_args[1]).getInstance()));
+                r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct(),BooleanStruct.of(true).sameReference(_args[1])));
                 return r_;
             }
             if (_method.getParametersTypes().size() == 3) {
@@ -2683,7 +2683,7 @@ public class LgNamesGui extends LgNamesUtils {
             return r_;
         }
         if (StringList.quickEq(name_,aliasImage)) {
-            r_.setResult(new ImageStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((BooleanStruct)_args[2]).getInstance()));
+            r_.setResult(new ImageStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),BooleanStruct.of(true).sameReference(_args[2])));
             return r_;
         }
         if (StringList.quickEq(name_,aliasDimension)) {
@@ -2748,7 +2748,7 @@ public class LgNamesGui extends LgNamesUtils {
                 r_.setResult(NullStruct.NULL_VALUE);
                 return r_;
             }
-            r_.setResult(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,((BooleanStruct)_args[0]).getInstance()));
+            r_.setResult(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,BooleanStruct.of(true).sameReference(_args[0])));
             return r_;
         }
         if (StringList.quickEq(name_, aliasCombo)) {
@@ -2997,7 +2997,7 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             if (StringList.quickEq(name_, aliasSetVisible)) {
-                inst_.setVisible(((BooleanStruct)_args[0]).getInstance());
+                inst_.setVisible(BooleanStruct.of(true).sameReference(_args[0]));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -3138,7 +3138,7 @@ public class LgNamesGui extends LgNamesUtils {
         if (StringList.quickEq(type_, aliasDialog)) {
             OtherDialog inst_ = ((DialogStruct)_instance).getDialog();
             if (StringList.quickEq(name_, aliasDialogSetModal)) {
-                inst_.setModal(((BooleanStruct)_args[0]).getInstance());
+                inst_.setModal(BooleanStruct.of(true).sameReference(_args[0]));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }

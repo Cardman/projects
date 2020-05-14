@@ -74,7 +74,7 @@ public final class ProcessMethodToStringBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("15,1", ret_.getString());
+        assertEq("15,1", getString(ret_));
     }
     @Test
     public void calculate36Test() {
@@ -140,7 +140,7 @@ public final class ProcessMethodToStringBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("20,3", ret_.getString());
+        assertEq("20,3", getString(ret_));
     }
     @Test
     public void calculate37Test() {
@@ -171,7 +171,7 @@ public final class ProcessMethodToStringBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate41Test() {
@@ -231,7 +231,7 @@ public final class ProcessMethodToStringBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("5,0", ret_.getString());
+        assertEq("5,0", getString(ret_));
     }
     @Test
     public void calculate42Test() {
@@ -291,7 +291,7 @@ public final class ProcessMethodToStringBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("6,1", ret_.getString());
+        assertEq("6,1", getString(ret_));
     }
 
     @Test
@@ -352,6 +352,6 @@ public final class ProcessMethodToStringBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("str1:5,1;str2:15,2", ret_.getString());
+        assertEq("str1:5,1;str2:15,2", getString(ret_));
     }
 }

@@ -10,6 +10,7 @@ import aiki.gui.dialogs.events.SeePkDetailEvent;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import aiki.map.pokemon.UsablePokemon;
 import code.formathtml.Navigation;
+import code.formathtml.util.BeanNatLgNames;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;
@@ -91,7 +92,7 @@ public final class SelectPokemon extends SelectDialog {
         }
         RenderedPage session_;
         session_ = new RenderedPage(new ScrollPane());
-        showHtmlDialog(session_,facade,task_.getNavigation(),facade.getLanguage());
+        showHtmlDialog(session_,facade,task_.getNavigation(),task_.getBeanNatLgNames(),facade.getLanguage());
     }
 
     @Override
@@ -121,9 +122,9 @@ public final class SelectPokemon extends SelectDialog {
         return DIALOG.isOk();
     }
 
-    private void showHtmlDialog(RenderedPage _session, Object _dataBase, Navigation _navigation, String _lg) {
+    private void showHtmlDialog(RenderedPage _session, Object _dataBase, Navigation _navigation, BeanNatLgNames _bean, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(window, DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session,_dataBase,_navigation,_lg);
+        DialogHtmlData.setDialogHtmlData(window, DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session,_dataBase,_navigation,_bean,_lg);
     }
 
     public static void setVisible() {

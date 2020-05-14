@@ -36,7 +36,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
 
     @Test
@@ -61,7 +61,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
 
     @Test
@@ -86,7 +86,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
 
     @Test
@@ -111,7 +111,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
 
     @Test
@@ -136,7 +136,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(4, ret_.getNumber());
+        assertEq(4, getNumber(ret_));
     }
 
     @Test
@@ -161,7 +161,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
 
     @Test
@@ -186,7 +186,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(4, ret_.getNumber());
+        assertEq(4, getNumber(ret_));
     }
 
     @Test
@@ -211,7 +211,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
 
     @Test
@@ -234,7 +234,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
 
     @Test
@@ -261,6 +261,6 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(23, ret_.getNumber());
+        assertEq(23, getNumber(ret_));
     }
 }

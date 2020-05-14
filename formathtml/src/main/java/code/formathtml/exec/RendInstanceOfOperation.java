@@ -6,6 +6,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.InstanceOfOperation;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -33,7 +34,7 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
         Argument objArg_ = _arguments.first();
         if (objArg_.isNull()) {
             Argument arg_ = new Argument();
-            arg_.setObject(false);
+            arg_.setStruct(BooleanStruct.of(false));
             return arg_;
         }
         String className_ = stds_.getStructClassName(objArg_.getStruct(), _conf.getContextEl());
@@ -41,7 +42,7 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
         String str_ = page_.formatVarType(className, _conf);
         boolean res_ = Templates.isCorrectExecute(className_, str_, _conf);
         Argument arg_ = new Argument();
-        arg_.setObject(res_);
+        arg_.setStruct(BooleanStruct.of(res_));
         return arg_;
     }
 }

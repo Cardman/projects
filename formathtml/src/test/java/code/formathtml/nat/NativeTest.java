@@ -6,6 +6,7 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.*;
@@ -50,7 +51,7 @@ public final class NativeTest extends CommonRender {
         BeanOne b_ = new BeanOne();
         addBean(context_, b_);
         Argument arg_ = processEl("composite.integer", context_);
-        assertEq(0, arg_.getNumber());
+        assertEq(0, ((NumberStruct)arg_.getStruct()).longStruct());
     }
 
     @Test
@@ -432,7 +433,7 @@ public final class NativeTest extends CommonRender {
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(conf_);
-        nav_.setDataBase(new Composite());
+        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -811,7 +812,7 @@ public final class NativeTest extends CommonRender {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        nav_.setDataBase(new Composite());
+        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -847,7 +848,7 @@ public final class NativeTest extends CommonRender {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        nav_.setDataBase(new Composite());
+        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -883,7 +884,7 @@ public final class NativeTest extends CommonRender {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        nav_.setDataBase(new Composite());
+        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -919,7 +920,7 @@ public final class NativeTest extends CommonRender {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        nav_.setDataBase(new Composite());
+        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1285,7 +1286,7 @@ public final class NativeTest extends CommonRender {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        nav_.setDataBase(new Composite());
+        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1328,7 +1329,7 @@ public final class NativeTest extends CommonRender {
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(conf_);
-        nav_.setDataBase(new Composite());
+        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(new Composite());
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);
@@ -1381,7 +1382,7 @@ public final class NativeTest extends CommonRender {
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(conf_);
-        nav_.setDataBase(null);
+        ((BeanNatLgNames)nav_.getSession().getStandards()).setDataBase(null);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
         nav_.setFiles(files_);

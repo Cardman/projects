@@ -438,6 +438,11 @@ public final class BeloteStandards extends BeanNatLgNames {
     }
 
     @Override
+    protected Struct newId(Object _obj, String _className) {
+        return DefaultStruct.newInstance(_obj, _className);
+    }
+
+    @Override
     public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();

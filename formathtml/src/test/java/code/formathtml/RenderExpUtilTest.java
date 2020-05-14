@@ -38,98 +38,98 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("5", context_);
-        assertEq(5L, arg_.getNumber());
+        assertEq(5L, getNumber(arg_));
     }
     @Test
     public void processEl2Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static(java.lang.Long).MAX_VALUE", context_);
-        assertEq(Long.MAX_VALUE, arg_.getNumber());
+        assertEq(Long.MAX_VALUE, getNumber(arg_));
     }
     @Test
     public void processEl3Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("(1+2)*3", context_);
-        assertEq(9L, arg_.getNumber());
+        assertEq(9L, getNumber(arg_));
     }
     @Test
     public void processEl4Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("1- -1", context_);
-        assertEq(2L, arg_.getNumber());
+        assertEq(2L, getNumber(arg_));
     }
     @Test
     public void processEl5Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("1+2*3", context_);
-        assertEq(7L, arg_.getNumber());
+        assertEq(7L, getNumber(arg_));
     }
     @Test
     public void processEl6Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("- -1", context_);
-        assertEq(1L, arg_.getNumber());
+        assertEq(1L, getNumber(arg_));
     }
     @Test
     public void processEl7Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($math).abs(-8l)", context_);
-        assertEq(8L, arg_.getNumber());
+        assertEq(8L, getNumber(arg_));
     }
     @Test
     public void processEl8Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($math).abs(8l)", context_);
-        assertEq(8L, arg_.getNumber());
+        assertEq(8L, getNumber(arg_));
     }
     @Test
     public void processEl10Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("40908c", context_);
-        assertEq(40908, arg_.getNumber());
+        assertEq(40908, getNumber(arg_));
     }
     @Test
     public void processEl11Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("'\\u9fcb'", context_);
-        assertEq(40907, arg_.getNumber());
+        assertEq(40907, getNumber(arg_));
     }
     @Test
     public void processEl12Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("'\\\\'", context_);
-        assertEq('\\', arg_.getNumber());
+        assertEq('\\', getNumber(arg_));
     }
     @Test
     public void processEl13Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("'\\''", context_);
-        assertEq('\'', arg_.getNumber());
+        assertEq('\'', getNumber(arg_));
     }
     @Test
     public void processEl14Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("'\"'", context_);
-        assertEq('"', arg_.getNumber());
+        assertEq('"', getNumber(arg_));
     }
     @Test
     public void processEl15Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("'\\n'", context_);
-        assertEq('\n', arg_.getNumber());
+        assertEq('\n', getNumber(arg_));
     }
     @Test
     public void processEl16Test() {
@@ -150,7 +150,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("v.inst", context_);
-        assertEq(2, arg_.getNumber());
+        assertEq(2, getNumber(arg_));
     }
     @Test
     public void processEl17Test() {
@@ -171,7 +171,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("v", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
         Argument arg_ = processEl("v.inst", context_);
-        assertEq(2, arg_.getNumber());
+        assertEq(2, getNumber(arg_));
     }
     @Test
     public void processEl18Test() {
@@ -248,42 +248,42 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($math).abs(-8i)", context_);
-        assertEq(8, arg_.getNumber());
+        assertEq(8, getNumber(arg_));
     }
     @Test
     public void processEl32Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($math).abs(8i)", context_);
-        assertEq(8, arg_.getNumber());
+        assertEq(8, getNumber(arg_));
     }
     @Test
     public void processEl33Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($math).abs(-8I)", context_);
-        assertEq(8, arg_.getNumber());
+        assertEq(8, getNumber(arg_));
     }
     @Test
     public void processEl34Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($math).abs(8I)", context_);
-        assertEq(8, arg_.getNumber());
+        assertEq(8, getNumber(arg_));
     }
     @Test
     public void processEl35Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($math).abs(-8L)", context_);
-        assertEq(8L, arg_.getNumber());
+        assertEq(8L, getNumber(arg_));
     }
     @Test
     public void processEl36Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($math).abs(8L)", context_);
-        assertEq(8L, arg_.getNumber());
+        assertEq(8L, getNumber(arg_));
     }
     @Test
     public void processEl39Test() {
@@ -312,7 +312,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("f.format($vararg(java.lang.String),$firstopt(v),d,v)", context_);
-        assertEq("varargs;7 8 7",arg_.getString());
+        assertEq("varargs;7 8 7",getString(arg_));
     }
     @Test
     public void processEl59Test() {
@@ -334,7 +334,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("f.format($vararg(java.lang.String))", context_);
-        assertEq("varargs;{0} {1} {2}",arg_.getString());
+        assertEq("varargs;{0} {1} {2}",getString(arg_));
     }
     @Test
     public void processEl60Test() {
@@ -356,7 +356,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("f.format(v,d,v)", context_);
-        assertEq("varargs;7 8 7",arg_.getString());
+        assertEq("varargs;7 8 7",getString(arg_));
     }
     @Test
     public void processEl61Test() {
@@ -378,7 +378,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("f.format()", context_);
-        assertEq("varargs;{0} {1} {2}",arg_.getString());
+        assertEq("varargs;{0} {1} {2}",getString(arg_));
     }
     @Test
     public void processEl63Test() {
@@ -436,7 +436,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("arrays[0i]", context_);
-        assertEq(0, arg_.getNumber());
+        assertEq(0, getNumber(arg_));
     }
     @Test
     public void processEl69Test() {
@@ -458,7 +458,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("arrays[0i].length", context_);
-        assertEq(2, arg_.getNumber());
+        assertEq(2, getNumber(arg_));
     }
     @Test
     public void processEl70Test() {
@@ -472,35 +472,35 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static(java.lang.Byte).MAX_VALUE", context_);
-        assertEq((byte)127, arg_.getNumber());
+        assertEq((byte)127, getNumber(arg_));
     }
     @Test
     public void processEl77Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("(\"Hello\\\\\"+\"World\").length()", context_);
-        assertEq(11, arg_.getNumber());
+        assertEq(11, getNumber(arg_));
     }
     @Test
     public void processEl78Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("(\"Hello\\\"\"+\"World\").length()", context_);
-        assertEq(11, arg_.getNumber());
+        assertEq(11, getNumber(arg_));
     }
     @Test
     public void processEl79Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("(\"Hello\\\\\"+'\\\\').length()", context_);
-        assertEq(7, arg_.getNumber());
+        assertEq(7, getNumber(arg_));
     }
     @Test
     public void processEl80Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("(\"Hello\\\"\"+'\\'').length()", context_);
-        assertEq(7, arg_.getNumber());
+        assertEq(7, getNumber(arg_));
     }
     @Test
     public void processEl81Test() {
@@ -522,7 +522,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("(f.format($vararg(java.lang.String),$firstopt(v),d,v)+'\\'').length()", context_);
-        assertEq(14, arg_.getNumber());
+        assertEq(14, getNumber(arg_));
     }
     @Test
     public void processEl82Test() {
@@ -537,7 +537,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("$static($math).abs(v[0i]+2)*2", context_);
-        assertEq(20L, arg_.getNumber());
+        assertEq(20L, getNumber(arg_));
     }
     @Test
     public void processEl83Test() {
@@ -552,7 +552,7 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("(v[0i]+2)*2", context_);
-        assertEq(20L, arg_.getNumber());
+        assertEq(20L, getNumber(arg_));
     }
     @Test
     public void processEl87Test() {
@@ -561,7 +561,7 @@ public final class RenderExpUtilTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("$bool(1>0,0i,1i)", context_);
-        assertEq(0, arg_.getNumber());
+        assertEq(0, getNumber(arg_));
     }
     @Test
     public void processEl88Test() {
@@ -570,7 +570,7 @@ public final class RenderExpUtilTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("$bool(1<0,0i,1i)", context_);
-        assertEq(1, arg_.getNumber());
+        assertEq(1, getNumber(arg_));
     }
     @Test
     public void processEl89Test() {
@@ -579,7 +579,7 @@ public final class RenderExpUtilTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("$bool(1>0,0i,1i/0i)", context_);
-        assertEq(0, arg_.getNumber());
+        assertEq(0, getNumber(arg_));
     }
     @Test
     public void processEl90Test() {
@@ -588,7 +588,7 @@ public final class RenderExpUtilTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("$bool(1<0,1i/0i,1i)", context_);
-        assertEq(1, arg_.getNumber());
+        assertEq(1, getNumber(arg_));
     }
     @Test
     public void processEl95Test() {
@@ -597,7 +597,7 @@ public final class RenderExpUtilTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = processEl("($new $int[1i])[0i]", context_);
-        assertEq(0, arg_.getNumber());
+        assertEq(0, getNumber(arg_));
     }
     @Test
     public void processEl96Test() {
@@ -649,7 +649,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"} ", context_, 2);
-        assertEq("9 hello world {every body ;)",arg_.getString());
+        assertEq("9 hello world {every body ;)",getString(arg_));
         assertEq(43, context_.getNextIndex());
     }
     @Test
@@ -657,7 +657,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl(" {(\"hello \"+\"world\").length()} ", context_, 2);
-        assertEq(11, arg_.getNumber());
+        assertEq(11, getNumber(arg_));
         assertEq(30, context_.getNextIndex());
     }
     @Test
@@ -675,7 +675,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.Ex).exmeth()", cont_);
-        assertEq(9, arg_.getNumber());
+        assertEq(9, getNumber(arg_));
     }
     @Test
     public void processEl106Test() {
@@ -692,7 +692,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.Ex).exmeth(6i)", cont_);
-        assertEq(15, arg_.getNumber());
+        assertEq(15, getNumber(arg_));
     }
     @Test
     public void processEl107Test() {
@@ -727,7 +727,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$classchoice(pkg.Ex)exmeth(6i)", cont_);
-        assertEq(15, arg_.getNumber());
+        assertEq(15, getNumber(arg_));
     }
     @Test
     public void processEl110Test() {
@@ -745,7 +745,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$classchoice(pkg.Ex)inst", cont_);
-        assertEq(2, arg_.getNumber());
+        assertEq(2, getNumber(arg_));
     }
     @Test
     public void processEl112Test() {
@@ -766,35 +766,35 @@ public final class RenderExpUtilTest extends CommonRender {
         localVars_.put("v", lv_);
         context_.getLastPage().getCatchVars().putAllMap(localVars_);
         Argument arg_ = processEl("v.inst", context_);
-        assertEq(2, arg_.getNumber());
+        assertEq(2, getNumber(arg_));
     }
     @Test
     public void processEl119Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("(1y+2y)*3", context_);
-        assertEq(9L, arg_.getNumber());
+        assertEq(9L, getNumber(arg_));
     }
     @Test
     public void processEl120Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("(1s+2y)*3", context_);
-        assertEq(9L, arg_.getNumber());
+        assertEq(9L, getNumber(arg_));
     }
     @Test
     public void processEl121Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("- -1y", context_);
-        assertEq(1, arg_.getNumber());
+        assertEq(1, getNumber(arg_));
     }
     @Test
     public void processEl122Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("-1y", context_);
-        assertEq(-1, arg_.getNumber());
+        assertEq(-1, getNumber(arg_));
     }
     @Test
     public void processEl123Test() {
@@ -802,39 +802,39 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         Argument arg_ = processEl("java.lang.Byte.MAX_VALUE+java.lang.Byte.MAX_VALUE", context_);
         int max_ = Byte.MAX_VALUE+Byte.MAX_VALUE;
-        assertEq(max_, arg_.getNumber());
+        assertEq(max_, getNumber(arg_));
     }
     @Test
     public void processEl123FailTest() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("+1y", context_);
-        assertEq(1, arg_.getNumber());
+        assertEq(1, getNumber(arg_));
     }
     @Test
     public void processEl124Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("+-1y", context_);
-        assertEq(-1, arg_.getNumber());
+        assertEq(-1, getNumber(arg_));
     }
     @Test
     public void processEl125Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("-.25e0+.5", context_);
-        assertEq(0.25d, arg_.getDouble());
+        assertEq(0.25d, getDouble(arg_));
     }
     @Test
     public void processEl126Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", context_, 2);
-        assertEq("9 hello world {every body ;)",arg_.getString());
+        assertEq("9 hello world {every body ;)",getString(arg_));
         int nextIndex_ = context_.getNextIndex();
         assertEq(43, nextIndex_);
         arg_ = processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", context_, nextIndex_+1);
-        assertEq(40, arg_.getNumber());
+        assertEq(40, getNumber(arg_));
         nextIndex_ = context_.getNextIndex();
         assertEq(48, nextIndex_);
         }
@@ -843,11 +843,11 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl(" {(\"hello \"+\"world\").length()}{5*8} ", context_, 2);
-        assertEq(11, arg_.getNumber());
+        assertEq(11, getNumber(arg_));
         int nextIndex_ = context_.getNextIndex();
         assertEq(30, nextIndex_);
         arg_ = processEl(" {(\"hello \"+\"world\").length()}{5*8} ", context_, nextIndex_+1);
-        assertEq(40, arg_.getNumber());
+        assertEq(40, getNumber(arg_));
         nextIndex_ = context_.getNextIndex();
         assertEq(35, nextIndex_);
     }
@@ -856,21 +856,21 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("1_0+2*3", context_);
-        assertEq(16L, arg_.getNumber());
+        assertEq(16L, getNumber(arg_));
     }
     @Test
     public void processEl129Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($math).mod(-8l,3l)", context_);
-        assertEq(1L, arg_.getNumber());
+        assertEq(1L, getNumber(arg_));
     }
     @Test
     public void processEl130Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($math).quot(-8l,3l)", context_);
-        assertEq(-3L, arg_.getNumber());
+        assertEq(-3L, getNumber(arg_));
     }
     @Test
     public void processEl131Test() {
@@ -900,315 +900,315 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("(1 + 2) * 3.0", context_);
-        assertEq(9L, arg_.getNumber());
+        assertEq(9L, getNumber(arg_));
     }
     @Test
     public void processEl134Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl(" 2.0 + $static($math). quot( -8l, 3l) + 3.0", context_);
-        assertEq(2L, arg_.getNumber());
+        assertEq(2L, getNumber(arg_));
     }
     @Test
     public void processEl135Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("1 + 2 ", context_);
-        assertEq(3L, arg_.getNumber());
+        assertEq(3L, getNumber(arg_));
     }
     @Test
     public void processEl136Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("1. + 2. ", context_);
-        assertEq(3L, arg_.getNumber());
+        assertEq(3L, getNumber(arg_));
     }
     @Test
     public void processEl137Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("1.d + 2.d ", context_);
-        assertEq(3L, arg_.getNumber());
+        assertEq(3L, getNumber(arg_));
     }
     @Test
     public void processEl138Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("-.2_5e0+.5", context_);
-        assertEq(0.25d, arg_.getDouble());
+        assertEq(0.25d, getDouble(arg_));
     }
     @Test
     public void processEl139Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("-.25e0_0+.5", context_);
-        assertEq(0.25d, arg_.getDouble());
+        assertEq(0.25d, getDouble(arg_));
     }
     @Test
     public void processEl140Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("1_0.d + 2.d ", context_);
-        assertEq(12L, arg_.getNumber());
+        assertEq(12L, getNumber(arg_));
     }
     @Test
     public void processEl141Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("1.05e1", context_);
-        assertEq(10.5d, arg_.getDouble());
+        assertEq(10.5d, getDouble(arg_));
     }
     @Test
     public void processEl142Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("1.00625e1", context_);
-        assertEq(10.0625d, arg_.getDouble());
+        assertEq(10.0625d, getDouble(arg_));
     }
     @Test
     public void processEl143Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("100.625e-1", context_);
-        assertEq(10.0625d, arg_.getDouble());
+        assertEq(10.0625d, getDouble(arg_));
     }
     @Test
     public void processEl144Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("100.625", context_);
-        assertEq(100.625d, arg_.getDouble());
+        assertEq(100.625d, getDouble(arg_));
     }
     @Test
     public void processEl145Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("123456789123456789123456789.0", context_);
-        assertEq(1.2345678912345678912e26, arg_.getDouble());
+        assertEq(1.2345678912345678912e26, getDouble(arg_));
     }
     @Test
     public void processEl147Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("123456789123456789123456789.", context_);
-        assertEq(1.2345678912345678912e26, arg_.getDouble());
+        assertEq(1.2345678912345678912e26, getDouble(arg_));
     }
     @Test
     public void processEl148Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("123456789123456789123456789.e-1", context_);
-        assertEq(1.2345678912345678912e25, arg_.getDouble());
+        assertEq(1.2345678912345678912e25, getDouble(arg_));
     }
     @Test
     public void processEl149Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("123456789123456789123456789.e1", context_);
-        assertEq(1.2345678912345678912e27, arg_.getDouble());
+        assertEq(1.2345678912345678912e27, getDouble(arg_));
     }
     @Test
     public void processEl150Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("123456.e1", context_);
-        assertEq(1234560, arg_.getDouble());
+        assertEq(1234560, getDouble(arg_));
     }
     @Test
     public void processEl151Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl(".078125e-1", context_);
-        assertEq(.078125e-1, arg_.getDouble());
+        assertEq(.078125e-1, getDouble(arg_));
     }
     @Test
     public void processEl152Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("123456789123456789123456789.0e-36", context_);
-        assertEq(1.2345678912345678912e-10, arg_.getDouble());
+        assertEq(1.2345678912345678912e-10, getDouble(arg_));
     }
     @Test
     public void processEl153Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("0.0e-36", context_);
-        assertEq(0.0, arg_.getDouble());
+        assertEq(0.0, getDouble(arg_));
     }
     @Test
     public void processEl154Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("-0.0e-36", context_);
-        assertEq(-0.0, arg_.getDouble());
+        assertEq(-0.0, getDouble(arg_));
     }
     @Test
     public void processEl155Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("0.625e-1", context_);
-        assertEq(0.0625, arg_.getDouble());
+        assertEq(0.0625, getDouble(arg_));
     }
     @Test
     public void processEl156Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl(".625e-1", context_);
-        assertEq(0.0625, arg_.getDouble());
+        assertEq(0.0625, getDouble(arg_));
     }
     @Test
     public void processEl157Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("0.625e1", context_);
-        assertEq(6.25, arg_.getDouble());
+        assertEq(6.25, getDouble(arg_));
     }
     @Test
     public void processEl158Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl(".625e1", context_);
-        assertEq(6.25, arg_.getDouble());
+        assertEq(6.25, getDouble(arg_));
     }
     @Test
     public void processEl159Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("0.625e0", context_);
-        assertEq(0.625, arg_.getDouble());
+        assertEq(0.625, getDouble(arg_));
     }
     @Test
     public void processEl160Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl(".625e0", context_);
-        assertEq(0.625, arg_.getDouble());
+        assertEq(0.625, getDouble(arg_));
     }
     @Test
     public void processEl161Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("-.625e1", context_);
-        assertEq(-6.25, arg_.getDouble());
+        assertEq(-6.25, getDouble(arg_));
     }
     @Test
     public void processEl162Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("-.6e1", context_);
-        assertEq(-6.0, arg_.getDouble());
+        assertEq(-6.0, getDouble(arg_));
     }
     @Test
     public void processEl163Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("-.60e1", context_);
-        assertEq(-6.0, arg_.getDouble());
+        assertEq(-6.0, getDouble(arg_));
     }
     @Test
     public void processEl164Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl(".6e1", context_);
-        assertEq(6.0, arg_.getDouble());
+        assertEq(6.0, getDouble(arg_));
     }
     @Test
     public void processEl165Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl(".6e2", context_);
-        assertEq(60.0, arg_.getDouble());
+        assertEq(60.0, getDouble(arg_));
     }
     @Test
     public void processEl166Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("123456789123456789123456789.1e1", context_);
-        assertEq(1.2345678912345678912e27, arg_.getDouble());
+        assertEq(1.2345678912345678912e27, getDouble(arg_));
     }
     @Test
     public void processEl167Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("100.e-1", context_);
-        assertEq(10.0, arg_.getDouble());
+        assertEq(10.0, getDouble(arg_));
     }
     @Test
     public void processEl168Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("-100.e-1", context_);
-        assertEq(-10.0, arg_.getDouble());
+        assertEq(-10.0, getDouble(arg_));
     }
     @Test
     public void processEl169Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("-1.e1", context_);
-        assertEq(-10.0, arg_.getDouble());
+        assertEq(-10.0, getDouble(arg_));
     }
     @Test
     public void processEl170Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("-1.", context_);
-        assertEq(-1.0, arg_.getDouble());
+        assertEq(-1.0, getDouble(arg_));
     }
     @Test
     public void processEl171Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("1e-123456789123456789123", context_);
-        assertEq(0.0, arg_.getDouble());
+        assertEq(0.0, getDouble(arg_));
     }
     @Test
     public void processEl172Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("-1e-123456789123456789123", context_);
-        assertEq(-0.0, arg_.getDouble());
+        assertEq(-0.0, getDouble(arg_));
     }
     @Test
     public void processEl173Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("1e123456789123456789123", context_);
-        assertEq(Double.POSITIVE_INFINITY, arg_.getDouble());
+        assertEq(Double.POSITIVE_INFINITY, getDouble(arg_));
     }
     @Test
     public void processEl174Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("-1e123456789123456789123", context_);
-        assertEq(Double.NEGATIVE_INFINITY, arg_.getDouble());
+        assertEq(Double.NEGATIVE_INFINITY, getDouble(arg_));
     }
     @Test
     public void processEl175Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("'\\u9FCB'", context_);
-        assertEq(40907, arg_.getNumber());
+        assertEq(40907, getNumber(arg_));
     }
     @Test
     public void processEl176Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("\"\\u9FCB\"", context_);
-        assertEq("\u9fcb",arg_.getString());
+        assertEq("\u9fcb",getString(arg_));
     }
     @Test
     public void processEl177Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("\"\\u9fcb\"", context_);
-        assertEq("\u9fcb",arg_.getString());
+        assertEq("\u9fcb",getString(arg_));
     }
     @Test
     public void processEl178Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static(java.lang.Long) .MAX_VALUE", context_);
-        assertEq(Long.MAX_VALUE, arg_.getNumber());
+        assertEq(Long.MAX_VALUE, getNumber(arg_));
     }
     @Test
     public void processEl330Test() {
@@ -1255,7 +1255,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("arg<<2", context_);
-        assertEq(8,argument_.getNumber());
+        assertEq(8,getNumber(argument_));
     }
 
     @Test
@@ -1269,7 +1269,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("arg>>2", context_);
-        assertEq(2,argument_.getNumber());
+        assertEq(2,getNumber(argument_));
     }
 
     @Test
@@ -1283,7 +1283,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("arg<<<2", context_);
-        assertEq(8,argument_.getNumber());
+        assertEq(8,getNumber(argument_));
     }
 
     @Test
@@ -1297,7 +1297,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("arg>>>2", context_);
-        assertEq(2,argument_.getNumber());
+        assertEq(2,getNumber(argument_));
     }
 
     @Test
@@ -1311,7 +1311,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("arg<<<<2", context_);
-        assertEq(8,argument_.getNumber());
+        assertEq(8,getNumber(argument_));
     }
 
     @Test
@@ -1325,7 +1325,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("arg>>>>2", context_);
-        assertEq(2,argument_.getNumber());
+        assertEq(2,getNumber(argument_));
     }
 
     @Test
@@ -1405,7 +1405,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("arg&3", context_);
-        assertEq(2,argument_.getNumber());
+        assertEq(2,getNumber(argument_));
     }
 
     @Test
@@ -1419,7 +1419,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("arg|2", context_);
-        assertEq(10,argument_.getNumber());
+        assertEq(10,getNumber(argument_));
     }
 
     @Test
@@ -1433,7 +1433,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("arg^3", context_);
-        assertEq(6,argument_.getNumber());
+        assertEq(6,getNumber(argument_));
     }
 
     @Test
@@ -1513,7 +1513,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("~arg", context_);
-        assertEq(-6,argument_.getNumber());
+        assertEq(-6,getNumber(argument_));
     }
 
     @Test
@@ -1527,7 +1527,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("+arg", context_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
 
     @Test
@@ -1569,7 +1569,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("$bool(arg,5,6)", context_);
-        assertEq(6,argument_.getNumber());
+        assertEq(6,getNumber(argument_));
     }
     @Test
     public void processEl354Test() {
@@ -1582,7 +1582,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("$bool(arg,5,6)", context_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
 
     @Test
@@ -1596,7 +1596,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("arg%3", context_);
-        assertEq(2,argument_.getNumber());
+        assertEq(2,getNumber(argument_));
     }
     @Test
     public void processEl356Test() {
@@ -1612,7 +1612,7 @@ public final class RenderExpUtilTest extends CommonRender {
         setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
         context_.getLastPage().setGlobalArgumentStruct(str_,context_);
         Argument arg_ = processEl("$this.inst", context_);
-        assertEq(2, arg_.getNumber());
+        assertEq(2, getNumber(arg_));
     }
 
     @Test
@@ -1630,7 +1630,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("$bool(arg,5+arg2,6+arg2)", context_);
-        assertEq(6,argument_.getNumber());
+        assertEq(6,getNumber(argument_));
     }
     @Test
     public void processEl358Test() {
@@ -1647,7 +1647,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("$bool(arg,5+arg2,6+arg2)", context_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl500Test() {
@@ -2136,7 +2136,7 @@ public final class RenderExpUtilTest extends CommonRender {
         ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(3, arg_.getNumber());
+        assertEq(3, getNumber(arg_));
     }
     @Test
     public void processEl188Test() {
@@ -2164,7 +2164,7 @@ public final class RenderExpUtilTest extends CommonRender {
         ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(4, arg_.getNumber());
+        assertEq(4, getNumber(arg_));
     }
     @Test
     public void processEl189Test() {
@@ -2194,7 +2194,7 @@ public final class RenderExpUtilTest extends CommonRender {
         ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(6, ((NumberStruct) in_[0]).intStruct());
-        assertEq(5, arg_.getNumber());
+        assertEq(5, getNumber(arg_));
     }
     @Test
     public void processEl190Test() {
@@ -2224,7 +2224,7 @@ public final class RenderExpUtilTest extends CommonRender {
         ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(6, ((NumberStruct) in_[0]).intStruct());
-        assertEq(6, arg_.getNumber());
+        assertEq(6, getNumber(arg_));
     }
     @Test
     public void processEl191Test() {
@@ -2252,7 +2252,7 @@ public final class RenderExpUtilTest extends CommonRender {
         ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(5, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(5, arg_.getNumber());
+        assertEq(5, getNumber(arg_));
     }
     @Test
     public void processEl192Test() {
@@ -2282,7 +2282,7 @@ public final class RenderExpUtilTest extends CommonRender {
         ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(8, ((NumberStruct) in_[0]).intStruct());
-        assertEq(8, arg_.getNumber());
+        assertEq(8, getNumber(arg_));
     }
     @Test
     public void processEl193Test() {
@@ -2315,7 +2315,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument arg_ = calculate(all_, context_);
         assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(15, arg_.getNumber());
+        assertEq(15, getNumber(arg_));
     }
     @Test
     public void processEl194Test() {
@@ -2348,7 +2348,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument arg_ = calculate(all_, context_);
         assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
         assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(-9, arg_.getNumber());
+        assertEq(-9, getNumber(arg_));
     }
     @Test
     public void processEl195Test() {
@@ -2381,7 +2381,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument arg_ = calculate(all_, context_);
         assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
         assertEq(13, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(13, arg_.getNumber());
+        assertEq(13, getNumber(arg_));
     }
     @Test
     public void processEl196Test() {
@@ -2414,7 +2414,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument arg_ = calculate(all_, context_);
         assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
         assertEq(13, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(13, arg_.getNumber());
+        assertEq(13, getNumber(arg_));
     }
     @Test
     public void processEl197Test() {
@@ -2440,21 +2440,21 @@ public final class RenderExpUtilTest extends CommonRender {
         assertTrue(context_.isEmptyErrors());
         ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
-        assertEq(1, arg_.getNumber());
+        assertEq(1, getNumber(arg_));
     }
     @Test
     public void processEl198Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$(java.lang.Number)5", context_);
-        assertEq(5L, arg_.getNumber());
+        assertEq(5L, getNumber(arg_));
     }
     @Test
     public void processEl199Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$($byte)5", context_);
-        assertEq(5L, arg_.getNumber());
+        assertEq(5L, getNumber(arg_));
     }
     @Test
     public void processEl200Test() {
@@ -2641,21 +2641,21 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("'1'+'2'", context_);
-        assertEq(99, arg_.getNumber());
+        assertEq(99, getNumber(arg_));
     }
     @Test
     public void processEl211Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("\"\"+$new $char[]{'1','2'}[0]+$new $char[]{'1','2'}[1]", context_);
-        assertEq("12",arg_.getString());
+        assertEq("12",getString(arg_));
     }
     @Test
     public void processEl212Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("('1'+'2')*3i", context_);
-        assertEq(297, arg_.getNumber());
+        assertEq(297, getNumber(arg_));
     }
     @Test
     public void processEl213Test() {
@@ -2704,28 +2704,28 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("('1'+'2')*'3'", context_);
-        assertEq(5049, arg_.getNumber());
+        assertEq(5049, getNumber(arg_));
     }
     @Test
     public void processEl219Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("6 + $($int) - $static($math).quot(8,5) - 2", context_);
-        assertEq(3, arg_.getNumber());
+        assertEq(3, getNumber(arg_));
     }
     @Test
     public void processEl220Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$class($int).getName()", context_);
-        assertEq("$int",arg_.getString());
+        assertEq("$int",getString(arg_));
     }
     @Test
     public void processEl221Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$class(java.lang.Integer).getName()", context_);
-        assertEq("java.lang.Integer",arg_.getString());
+        assertEq("java.lang.Integer",getString(arg_));
     }
     @Test
     public void processEl222Test() {
@@ -2743,7 +2743,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$class(pkg.Ex).getName()", cont_);
-        assertEq("pkg.Ex",arg_.getString());
+        assertEq("pkg.Ex",getString(arg_));
     }
     @Test
     public void processEl223Test() {
@@ -2755,7 +2755,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$class(pkg.Ex).getName()", cont_);
-        assertEq("pkg.Ex",arg_.getString());
+        assertEq("pkg.Ex",getString(arg_));
     }
     @Test
     public void processEl224Test() {
@@ -2770,7 +2770,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$new pkg.Ex<java.lang.Integer>().exmeth()", cont_);
-        assertEq("java.lang.Integer",arg_.getString());
+        assertEq("java.lang.Integer",getString(arg_));
     }
     @Test
     public void processEl225Test() {
@@ -2785,21 +2785,21 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$new pkg.Ex<java.lang.Integer>().exmeth()", cont_);
-        assertEq("pkg.Ex<java.lang.Integer>",arg_.getString());
+        assertEq("pkg.Ex<java.lang.Integer>",getString(arg_));
     }
     @Test
     public void processEl226Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($Class).getClass(\"\").getName()", context_);
-        assertEq("java.lang.String",arg_.getString());
+        assertEq("java.lang.String",getString(arg_));
     }
     @Test
     public void processEl227Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($Class).getClass(1i).getName()", context_);
-        assertEq("java.lang.Integer",arg_.getString());
+        assertEq("java.lang.Integer",getString(arg_));
     }
     @Test
     public void processEl228Test() {
@@ -2822,21 +2822,21 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static($Class).getClass($new pkg.Ex<java.lang.Integer>()).getName()", cont_);
-        assertEq("pkg.Ex<java.lang.Integer>",arg_.getString());
+        assertEq("pkg.Ex<java.lang.Integer>",getString(arg_));
     }
     @Test
     public void processEl230Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$class($int[]).getName()", context_);
-        assertEq("[$int",arg_.getString());
+        assertEq("[$int",getString(arg_));
     }
     @Test
     public void processEl231Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$class(java.lang.Integer[]).getName()", context_);
-        assertEq("[java.lang.Integer",arg_.getString());
+        assertEq("[java.lang.Integer",getString(arg_));
     }
     @Test
     public void processEl232Test() {
@@ -2854,7 +2854,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$class(pkg.Ex[]).getName()", cont_);
-        assertEq("[pkg.Ex",arg_.getString());
+        assertEq("[pkg.Ex",getString(arg_));
     }
     @Test
     public void processEl233Test() {
@@ -2866,7 +2866,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$class(pkg.Ex[]).getName()", cont_);
-        assertEq("[pkg.Ex",arg_.getString());
+        assertEq("[pkg.Ex",getString(arg_));
     }
     @Test
     public void processEl234Test() {
@@ -2878,7 +2878,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$class(pkg.Ex<java.lang.Integer>[]).getName()", cont_);
-        assertEq("[pkg.Ex<java.lang.Integer>",arg_.getString());
+        assertEq("[pkg.Ex<java.lang.Integer>",getString(arg_));
     }
     @Test
     public void processEl235Test() {
@@ -2893,7 +2893,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$new pkg.Ex<java.lang.Integer>().exmeth()", cont_);
-        assertEq("[java.lang.Integer",arg_.getString());
+        assertEq("[java.lang.Integer",getString(arg_));
     }
     @Test
     public void processEl236Test() {
@@ -2908,14 +2908,14 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$new pkg.Ex<java.lang.Integer>().exmeth()", cont_);
-        assertEq("pkg.Ex<[java.lang.Integer>",arg_.getString());
+        assertEq("pkg.Ex<[java.lang.Integer>",getString(arg_));
     }
     @Test
     public void processEl237Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($Class).getClass($new $int[]{1i}).getName()", context_);
-        assertEq("[$int",arg_.getString());
+        assertEq("[$int",getString(arg_));
     }
     @Test
     public void processEl238Test() {
@@ -2933,7 +2933,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static($Class).forName(\"pkg.Ex\",$true).getName()", cont_);
-        assertEq("pkg.Ex",arg_.getString());
+        assertEq("pkg.Ex",getString(arg_));
     }
     @Test
     public void processEl239Test() {
@@ -2959,7 +2959,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq("pkg.Ex",arg_.getString());
+        assertEq("pkg.Ex",getString(arg_));
         assertEq(14, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intStruct());
     }
     @Test
@@ -2967,14 +2967,14 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$class($void).getName()", context_);
-        assertEq("$void",arg_.getString());
+        assertEq("$void",getString(arg_));
     }
     @Test
     public void processEl241Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$static($Class).forName(\"$void\",$true).getName()", context_);
-        assertEq("$void",arg_.getString());
+        assertEq("$void",getString(arg_));
     }
     @Test
     public void processEl242Test() {
@@ -3184,14 +3184,14 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(14, arg_.getNumber());
+        assertEq(14, getNumber(arg_));
     }
     @Test
     public void processEl251Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,3i)", context_);
-        assertEq(1, arg_.getNumber());
+        assertEq(1, getNumber(arg_));
     }
     @Test
     public void processEl252Test() {
@@ -3230,7 +3230,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(15, arg_.getNumber());
+        assertEq(15, getNumber(arg_));
         NumberStruct res_ = (NumberStruct) cont_.getContextEl().getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         assertEq(14, res_.intStruct());
     }
@@ -3271,7 +3271,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(14, arg_.getNumber());
+        assertEq(14, getNumber(arg_));
     }
     @Test
     public void processEl254Test() {
@@ -3310,7 +3310,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq("out",arg_.getString());
+        assertEq("out",getString(arg_));
     }
     @Test
     public void processEl255Test() {
@@ -3351,7 +3351,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq("super",arg_.getString());
+        assertEq("super",getString(arg_));
     }
     @Test
     public void processEl256Test() {
@@ -3395,7 +3395,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(19, arg_.getNumber());
+        assertEq(19, getNumber(arg_));
     }
     @Test
     public void processEl257Test() {
@@ -3436,7 +3436,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(14, arg_.getNumber());
+        assertEq(14, getNumber(arg_));
     }
     @Test
     public void processEl258Test() {
@@ -3480,7 +3480,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(19, arg_.getNumber());
+        assertEq(19, getNumber(arg_));
     }
     @Test
     public void processEl259Test() {
@@ -3526,7 +3526,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(9, arg_.getNumber());
+        assertEq(9, getNumber(arg_));
     }
     @Test
     public void processEl260Test() {
@@ -3573,7 +3573,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(19, arg_.getNumber());
+        assertEq(19, getNumber(arg_));
     }
     @Test
     public void processEl261Test() {
@@ -3913,7 +3913,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(19, arg_.getNumber());
+        assertEq(19, getNumber(arg_));
     }
     @Test
     public void processEl268Test() {
@@ -3961,7 +3961,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(22, arg_.getNumber());
+        assertEq(22, getNumber(arg_));
     }
     @Test
     public void processEl269Test() {
@@ -4009,7 +4009,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(28, arg_.getNumber());
+        assertEq(28, getNumber(arg_));
     }
     @Test
     public void processEl270Test() {
@@ -4059,7 +4059,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(32, arg_.getNumber());
+        assertEq(32, getNumber(arg_));
     }
     @Test
     public void processEl271Test() {
@@ -4111,7 +4111,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(19, arg_.getNumber());
+        assertEq(19, getNumber(arg_));
     }
     @Test
     public void processEl272Test() {
@@ -4312,7 +4312,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(19, arg_.getNumber());
+        assertEq(19, getNumber(arg_));
     }
     @Test
     public void processEl276Test() {
@@ -4358,7 +4358,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(19, arg_.getNumber());
+        assertEq(19, getNumber(arg_));
     }
     @Test
     public void processEl277Test() {
@@ -4413,7 +4413,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(15, arg_.getNumber());
+        assertEq(15, getNumber(arg_));
     }
     @Test
     public void processEl279Test() {
@@ -4597,7 +4597,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(15, arg_.getNumber());
+        assertEq(15, getNumber(arg_));
     }
     @Test
     public void processEl283Test() {
@@ -4642,7 +4642,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq("hello", arg_.getString());
+        assertEq("hello", getString(arg_));
     }
     @Test
     public void processEl284Test() {
@@ -5019,7 +5019,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ =processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(16, arg_.getNumber());
+        assertEq(16, getNumber(arg_));
     }
     @Test
     public void processEl292Test() {
@@ -5115,7 +5115,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ =processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(16, arg_.getNumber());
+        assertEq(16, getNumber(arg_));
     }
     @Test
     public void processEl294Test() {
@@ -5384,7 +5384,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(15, arg_.getNumber());
+        assertEq(15, getNumber(arg_));
     }
     @Test
     public void processEl300Test() {
@@ -5426,7 +5426,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(15, arg_.getNumber());
+        assertEq(15, getNumber(arg_));
     }
     @Test
     public void processEl301Test() {
@@ -5468,7 +5468,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(15, arg_.getNumber());
+        assertEq(15, getNumber(arg_));
     }
     @Test
     public void processEl302Test() {
@@ -5510,7 +5510,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(15, arg_.getNumber());
+        assertEq(15, getNumber(arg_));
     }
     @Test
     public void processEl303Test() {
@@ -5599,7 +5599,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv2_.getStruct()).intStruct());
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(4, arg_.getNumber());
+        assertEq(4, getNumber(arg_));
     }
     @Test
     public void processEl306Test() {
@@ -5658,7 +5658,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl("$math.abs(-8l)", context_);
-        assertEq(8L, arg_.getNumber());
+        assertEq(8L, getNumber(arg_));
     }
     @Test
     public void processEl312Test() {
@@ -5675,14 +5675,14 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("pkg.Ex.exmeth()", cont_);
-        assertEq(9, arg_.getNumber());
+        assertEq(9, getNumber(arg_));
     }
     @Test
     public void processEl317Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         Argument arg_ = processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\\\\\\\"\"+$new $int[]{0i,1i}.length} ", context_, 2);
-        assertEq("9 hello world {every body ;)\\\"2",arg_.getString());
+        assertEq("9 hello world {every body ;)\\\"2",getString(arg_));
         assertEq(73, context_.getNextIndex());
     }
     @Test
@@ -5709,7 +5709,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq("[pkg.Ex",arg_.getString());
+        assertEq("[pkg.Ex",getString(arg_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
     }
     @Test
@@ -5736,7 +5736,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq("[pkg.Ex",arg_.getString());
+        assertEq("[pkg.Ex",getString(arg_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
     }
     @Test
@@ -5764,7 +5764,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$static(pkg.ExTwo).exmeth()+pkg.Ex.inst", cont_);
-        assertEq(6,arg_.getNumber());
+        assertEq(6,getNumber(arg_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
@@ -5793,7 +5793,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_,false);
         addImportingPage(cont_);
         Argument arg_ = processEl("$new{} pkg.Ex().inst", cont_);
-        assertEq(1,arg_.getNumber());
+        assertEq(1,getNumber(arg_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
@@ -5825,7 +5825,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$new pkg.Ex().$new Inner().inst", cont_);
-        assertEq(5,arg_.getNumber());
+        assertEq(5,getNumber(arg_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
@@ -5885,7 +5885,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_,false);
         addImportingPage(conf_);
         Argument arg_ = processEl("$new{} pkg.Ex().inst", conf_);
-        assertEq(1,arg_.getNumber());
+        assertEq(1,getNumber(arg_));
         assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
@@ -5918,7 +5918,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_,false);
         addImportingPage(conf_);
         Argument arg_ = processEl("$new{} pkg.Ex(5).inst", conf_);
-        assertEq(5,arg_.getNumber());
+        assertEq(5,getNumber(arg_));
         assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
@@ -5935,7 +5935,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setVars(localVars_);
         Argument argument_ = processEl("([arg])", context_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl362Test() {
@@ -6020,7 +6020,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("pkg.ExTwo.exmeth($vararg($int),4,$firstopt(8))", cont_);
-        assertEq(12,arg_.getNumber());
+        assertEq(12,getNumber(arg_));
     }
     @Test
     public void processEl365Test() {
@@ -6054,7 +6054,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("(String)arg", context_);
-        assertEq("str",argument_.getString());
+        assertEq("str",getString(argument_));
     }
     @Test
     public void processEl367Test() {
@@ -6221,7 +6221,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("pkg.ExTwo.exmeth($id(pkg.ExTwo,$static,$int,$int...),4,8)", cont_);
-        assertEq(12,arg_.getNumber());
+        assertEq(12,getNumber(arg_));
     }
     @Test
     public void processEl378Test() {
@@ -6237,7 +6237,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("pkg.ExTwo.exmeth($id(pkg.ExTwo,$static,$int,$int),4,8)", cont_);
-        assertEq(12,arg_.getNumber());
+        assertEq(12,getNumber(arg_));
     }
     @Test
     public void procesAffect0Test() {
@@ -6312,7 +6312,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument arg_ = processEl("++pkg.Ex.inst", conf_);
-        assertEq(2,arg_.getNumber());
+        assertEq(2,getNumber(arg_));
         assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
@@ -6344,7 +6344,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument arg_ = processEl("pkg.Ex.inst++", conf_);
-        assertEq(1,arg_.getNumber());
+        assertEq(1,getNumber(arg_));
         assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
@@ -6376,7 +6376,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument arg_ = processEl("pkg.Ex.inst+=5", conf_);
-        assertEq(6,arg_.getNumber());
+        assertEq(6,getNumber(arg_));
         assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
@@ -6466,7 +6466,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_,false);
         addImportingPage(conf_);
         Argument argument_ = processEl("$new{} pkg.Ex(5).inst=10", conf_);
-        assertEq(10,argument_.getNumber());
+        assertEq(10,getNumber(argument_));
     }
     @Test
     public void processEl384FailTest() {
@@ -6584,7 +6584,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_,false);
         addImportingPage(conf_);
         Argument argument_ = processEl("pkg.Ex.inst=10", conf_);
-        assertEq(10,argument_.getNumber());
+        assertEq(10,getNumber(argument_));
     }
     @Test
     public void processEl388Test() {
@@ -6645,7 +6645,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_,false);
         addImportingPage(conf_);
         Argument argument_ = processEl("$new{} pkg.Ex(52).$that.res(8)", conf_);
-        assertEq(60,argument_.getNumber());
+        assertEq(60,getNumber(argument_));
     }
     @Test
     public void processEl390Test() {
@@ -6678,7 +6678,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("pkg.Ex.res(8)", conf_);
-        assertEq(9,argument_.getNumber());
+        assertEq(9,getNumber(argument_));
     }
     @Test
     public void processEl391Test() {
@@ -6777,7 +6777,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$new pkg.Ex(52).$classchoice(pkg.Ex)res(8)", conf_);
-        assertEq(60,argument_.getNumber());
+        assertEq(60,getNumber(argument_));
     }
     @Test
     public void processEl394Test() {
@@ -6810,7 +6810,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("pkg.Ex.$classchoice(pkg.Ex)res(8)", conf_);
-        assertEq(9,argument_.getNumber());
+        assertEq(9,getNumber(argument_));
     }
     @Test
     public void processEl395Test() {
@@ -6938,7 +6938,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$new pkg.Ex(52).$superaccess(pkg.Ex)res(8)", conf_);
-        assertEq(60,argument_.getNumber());
+        assertEq(60,getNumber(argument_));
     }
     @Test
     public void processEl399Test() {
@@ -6971,7 +6971,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("pkg.Ex.$superaccess(pkg.Ex)res(8)", conf_);
-        assertEq(9,argument_.getNumber());
+        assertEq(9,getNumber(argument_));
     }
     @Test
     public void processEl400Test() {
@@ -7058,7 +7058,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$values(pkg.ExTwo).length", conf_);
-        assertEq(2,argument_.getNumber());
+        assertEq(2,getNumber(argument_));
     }
     @Test
     public void processEl403Test() {
@@ -7079,7 +7079,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$valueOf(pkg.ExTwo,\"ONE\").myval", conf_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl404Test() {
@@ -7100,7 +7100,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$valueOf(pkg.ExTwo,\"TWO\").myval", conf_);
-        assertEq(7,argument_.getNumber());
+        assertEq(7,getNumber(argument_));
     }
     @Test
     public void processEl405Test() {
@@ -7176,7 +7176,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$values(pkg.ExTwo).length", conf_);
-        assertEq(2,argument_.getNumber());
+        assertEq(2,getNumber(argument_));
     }
     @Test
     public void processEl409Test() {
@@ -7191,7 +7191,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$valueOf(pkg.ExTwo,\"ONE\").myval", conf_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl410Test() {
@@ -7206,7 +7206,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$valueOf(pkg.ExTwo,\"TWO\").myval", conf_);
-        assertEq(7,argument_.getNumber());
+        assertEq(7,getNumber(argument_));
     }
     @Test
     public void processEl411Test() {
@@ -7219,7 +7219,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$lambda(pkg.Ex,,inst,$int).call(4)", conf_);
-        assertEq(4,argument_.getNumber());
+        assertEq(4,getNumber(argument_));
     }
     @Test
     public void processEl412Test() {
@@ -7232,7 +7232,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$lambda(java.lang.String,length).call(\"mystr\")", conf_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl413Test() {
@@ -7245,7 +7245,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("((java.lang.String)$lambda(java.lang.String,$new,$char...).call($new $char[]{'m','y','s','t','r'})).length()", conf_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl414Test() {
@@ -7258,7 +7258,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("\"mystr\".$lambda(java.lang.String,length).call()", conf_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl415Test() {
@@ -7278,7 +7278,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("pkg.Ex.inst.$lambda(java.lang.String,length).call()", conf_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl416Test() {
@@ -7298,7 +7298,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$lambda(pkg.Ex,,inst,java.lang.String).call(\"mystr\")", conf_);
-        assertEq("mystr",argument_.getString());
+        assertEq("mystr",getString(argument_));
     }
     @Test
     public void processEl417Test() {
@@ -7320,7 +7320,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("($new pkg.Ex(6)+$new pkg.Ex(8)).inst", conf_);
-        assertEq(14,argument_.getNumber());
+        assertEq(14,getNumber(argument_));
     }
     @Test
     public void processEl417_Test() {
@@ -7342,7 +7342,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$operator(+)($new pkg.Ex(6),$new pkg.Ex(8)).inst", conf_);
-        assertEq(14,argument_.getNumber());
+        assertEq(14,getNumber(argument_));
     }
     @Test
     public void processEl418___Test() {
@@ -7355,7 +7355,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int)())).pl(6,8)", conf_);
-        assertEq(14,argument_.getNumber());
+        assertEq(14,getNumber(argument_));
     }
     @Test
     public void processEl419___Test() {
@@ -7370,7 +7370,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int2)(),$interfaces(pkg.Int)())).pl(6,8)", conf_);
-        assertEq(14,argument_.getNumber());
+        assertEq(14,getNumber(argument_));
     }
     @Test
     public void processEl420___Test() {
@@ -7413,7 +7413,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$($int)(1??2)", conf_);
-        assertEq(1,argument_.getNumber());
+        assertEq(1,getNumber(argument_));
     }
     @Test
     public void processEl423___Test() {
@@ -7427,7 +7427,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$($int)($null??2)", conf_);
-        assertEq(2,argument_.getNumber());
+        assertEq(2,getNumber(argument_));
     }
     @Test
     public void processEl424___Test() {
@@ -7441,7 +7441,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("\"\"?.length()", conf_);
-        assertEq(0,argument_.getNumber());
+        assertEq(0,getNumber(argument_));
     }
     @Test
     public void processEl425___Test() {
@@ -7454,7 +7454,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("($new pkg.Cl().str)?.length()", conf_);
-        assertEq(0,argument_.getNumber());
+        assertEq(0,getNumber(argument_));
     }
     @Test
     public void processEl426___Test() {
@@ -7467,7 +7467,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$new pkg.Cl()?.str=\"hello\"", conf_);
-        assertEq("hello",argument_.getString());
+        assertEq("hello",getString(argument_));
     }
     @Test
     public void processEl427___Test() {
@@ -7497,7 +7497,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$new pkg.Cl()?.str+=\"hello\"", conf_);
-        assertEq("hello",argument_.getString());
+        assertEq("hello",getString(argument_));
     }
     @Test
     public void processEl429___Test() {
@@ -7527,7 +7527,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$new pkg.Cl()?.str++", conf_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl431___Test() {
@@ -7540,7 +7540,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("++$new pkg.Cl()?.str", conf_);
-        assertEq(6,argument_.getNumber());
+        assertEq(6,getNumber(argument_));
     }
     @Test
     public void processEl432___Test() {
@@ -7557,7 +7557,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         Argument argument_ = processEl("$new pkg.ClOwner()?.owner?.str++", conf_);
         assertNull(getException(conf_));
-        assertEq(0,argument_.getNumber());
+        assertEq(0,getNumber(argument_));
     }
     @Test
     public void processEl433___Test() {
@@ -7574,7 +7574,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         Argument argument_ = processEl("++$new pkg.ClOwner()?.owner?.str", conf_);
         assertNull(getException(conf_));
-        assertEq(0,argument_.getNumber());
+        assertEq(0,getNumber(argument_));
     }
     @Test
     public void processEl418Test() {
@@ -7597,7 +7597,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("(pkg.Ex.res+=$new pkg.Ex(8)).inst", conf_);
-        assertEq(14,argument_.getNumber());
+        assertEq(14,getNumber(argument_));
     }
     @Test
     public void processEl419Test() {
@@ -7620,7 +7620,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("(pkg.Ex.res++).inst", conf_);
-        assertEq(6,argument_.getNumber());
+        assertEq(6,getNumber(argument_));
     }
     @Test
     public void processEl420Test() {
@@ -7643,7 +7643,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("(++pkg.Ex.res).inst", conf_);
-        assertEq(7,argument_.getNumber());
+        assertEq(7,getNumber(argument_));
     }
     @Test
     public void processEl421Test() {
@@ -7666,7 +7666,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("(pkg.Ex.res[0]+=$new pkg.Ex(8)).inst", conf_);
-        assertEq(14,argument_.getNumber());
+        assertEq(14,getNumber(argument_));
     }
     @Test
     public void processEl422Test() {
@@ -7689,7 +7689,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("(pkg.Ex.res[0]++).inst", conf_);
-        assertEq(6,argument_.getNumber());
+        assertEq(6,getNumber(argument_));
     }
     @Test
     public void processEl423Test() {
@@ -7712,7 +7712,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("(++pkg.Ex.res[0]).inst", conf_);
-        assertEq(7,argument_.getNumber());
+        assertEq(7,getNumber(argument_));
     }
     @Test
     public void processEl424Test() {
@@ -7738,7 +7738,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("(pkg.Ex.res.res[0]+=$new pkg.Ex(8)).inst", conf_);
-        assertEq(14,argument_.getNumber());
+        assertEq(14,getNumber(argument_));
     }
     @Test
     public void processEl425Test() {
@@ -7764,7 +7764,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("(pkg.Ex.res.res[0]++).inst", conf_);
-        assertEq(6,argument_.getNumber());
+        assertEq(6,getNumber(argument_));
     }
     @Test
     public void processEl426Test() {
@@ -7790,7 +7790,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("(++pkg.Ex.res.res[0]).inst", conf_);
-        assertEq(7,argument_.getNumber());
+        assertEq(7,getNumber(argument_));
     }
     @Test
     public void processEl427Test() {
@@ -7816,7 +7816,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("(pkg.Ex.res.res+=$new pkg.Ex(8)).inst", conf_);
-        assertEq(14,argument_.getNumber());
+        assertEq(14,getNumber(argument_));
     }
     @Test
     public void processEl428Test() {
@@ -7842,7 +7842,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("(pkg.Ex.res.res++).inst", conf_);
-        assertEq(6,argument_.getNumber());
+        assertEq(6,getNumber(argument_));
     }
     @Test
     public void processEl429Test() {
@@ -7868,7 +7868,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("(++pkg.Ex.res.res).inst", conf_);
-        assertEq(7,argument_.getNumber());
+        assertEq(7,getNumber(argument_));
     }
     @Test
     public void processEl430Test() {
@@ -7903,7 +7903,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("(v+=$new pkg.Ex(8)).inst", conf_);
-        assertEq(14,argument_.getNumber());
+        assertEq(14,getNumber(argument_));
         assertEq(14,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
     }
 
@@ -7940,7 +7940,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("(v++).inst", conf_);
-        assertEq(6,argument_.getNumber());
+        assertEq(6,getNumber(argument_));
         assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
     }
     @Test
@@ -7976,7 +7976,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("(++v).inst", conf_);
-        assertEq(7,argument_.getNumber());
+        assertEq(7,getNumber(argument_));
         assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
     }
     @Test
@@ -8009,7 +8009,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("$new pkg.Ex(5)[0]", conf_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl435Test() {
@@ -8041,7 +8041,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("$new pkg.Ex(5)[0]=15", conf_);
-        assertEq(15,argument_.getNumber());
+        assertEq(15,getNumber(argument_));
     }
     @Test
     public void processEl436Test() {
@@ -8073,7 +8073,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("$new pkg.Ex(5)[0]+=15", conf_);
-        assertEq(20,argument_.getNumber());
+        assertEq(20,getNumber(argument_));
     }
     @Test
     public void processEl437Test() {
@@ -8105,7 +8105,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("++$new pkg.Ex(5)[0]", conf_);
-        assertEq(6,argument_.getNumber());
+        assertEq(6,getNumber(argument_));
     }
     @Test
     public void processEl438Test() {
@@ -8137,7 +8137,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("$new pkg.Ex(5)[0]++", conf_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl439Test() {
@@ -8176,7 +8176,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("$new pkg.Ex(5)[0].myval", conf_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl440Test() {
@@ -8215,7 +8215,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("($new pkg.Ex(5)[0]=$new pkg.ExTwo(15)).myval", conf_);
-        assertEq(15,argument_.getNumber());
+        assertEq(15,getNumber(argument_));
     }
     @Test
     public void processEl441Test() {
@@ -8259,7 +8259,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("($new pkg.Ex(5)[0]+=$new pkg.ExTwo(15)).myval", conf_);
-        assertEq(20,argument_.getNumber());
+        assertEq(20,getNumber(argument_));
     }
     @Test
     public void processEl442Test() {
@@ -8303,7 +8303,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("(++$new pkg.Ex(5)[0]).myval", conf_);
-        assertEq(6,argument_.getNumber());
+        assertEq(6,getNumber(argument_));
     }
     @Test
     public void processEl443Test() {
@@ -8347,7 +8347,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("($new pkg.Ex(5)[0]++).myval", conf_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl444Test() {
@@ -8430,7 +8430,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         conf_.getLastPage().setLocalVars(localVars_);
         Argument argument_ = processEl("$new pkg.ExSub(5).$super[0].myval", conf_);
-        assertEq(5,argument_.getNumber());
+        assertEq(5,getNumber(argument_));
     }
     @Test
     public void processEl446Test() {
@@ -8560,7 +8560,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("pkg.Apply.test()", cont_);
-        assertEq("2,4",arg_.getString());
+        assertEq("2,4",getString(arg_));
     }
     @Test
     public void processEl450Test() {
@@ -8608,7 +8608,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument argument_ = processEl("$defaultValue($char)", cont_);
-        assertEq(0,argument_.getChar());
+        assertEq(0,getChar(argument_));
     }
     @Test
     public void processEl453Test() {
@@ -8651,7 +8651,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,#T),15)", conf_);
-        assertEq(29,argument_.getNumber());
+        assertEq(29,getNumber(argument_));
     }
     @Test
     public void processEl455Test() {
@@ -8749,7 +8749,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.Ex,#T),15)", conf_);
-        assertEq(29,argument_.getNumber());
+        assertEq(29,getNumber(argument_));
     }
     @Test
     public void processEl461Test() {
@@ -8803,7 +8803,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration conf_ = getConfiguration5(files_);
         addImportingPage(conf_);
         Argument argument_ = processEl("$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.Ex,#T),15)", conf_);
-        assertEq(29,argument_.getNumber());
+        assertEq(29,getNumber(argument_));
     }
     @Test
     public void processEl464Test() {
@@ -8830,7 +8830,7 @@ public final class RenderExpUtilTest extends CommonRender {
         addImportingPage(conf_);
         Argument arg_ = processEl("explicit($int)5", conf_);
         assertTrue(conf_.isEmptyErrors());
-        assertEq(5, arg_.getNumber());
+        assertEq(5, getNumber(arg_));
 
     }
     @Test
@@ -8880,7 +8880,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$staticCall(pkg.Ex).exmeth()", cont_);
-        assertEq(9, arg_.getNumber());
+        assertEq(9, getNumber(arg_));
     }
 
     @Test
@@ -8894,7 +8894,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("((pkg.Interface) $static($math).$lambda($math,plus,$int,$int)).opTwo(1,2)", cont_);
-        assertEq(3, arg_.getNumber());
+        assertEq(3, getNumber(arg_));
     }
     @Test
     public void processEl470Test() {
@@ -8911,7 +8911,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Configuration cont_ = getConfiguration4(files_);
         addImportingPage(cont_);
         Argument arg_ = processEl("$staticCall(pkg.Ex<$int>).exmeth()", cont_);
-        assertEq(9, arg_.getNumber());
+        assertEq(9, getNumber(arg_));
     }
     @Test
     public void procesAffect00Test() {
@@ -9009,7 +9009,7 @@ public final class RenderExpUtilTest extends CommonRender {
         cont_.getLastPage().setLocalVars(localVars_);
         Argument res_ = processEl("v.integer-=12i", cont_);
         assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
-        assertEq(-12, res_.getNumber());
+        assertEq(-12, getNumber(res_));
     }
     @Test
     public void processAffect7Test() {
@@ -9025,7 +9025,7 @@ public final class RenderExpUtilTest extends CommonRender {
         context_.getLastPage().setLocalVars(localVars_);
         Argument res_ = processEl("v[0i]-=12i", context_);
         assertEq(-12, ((NumberStruct) in_[0]).intStruct());
-        assertEq(-12, res_.getNumber());
+        assertEq(-12, getNumber(res_));
     }
     @Test
     public void processAffect8Test() {
@@ -9044,7 +9044,7 @@ public final class RenderExpUtilTest extends CommonRender {
         context_.getLastPage().setLocalVars(localVars_);
         Argument res_ = processEl("v[0i][0i]-=12i", context_);
         assertEq(-12, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
-        assertEq(-12, res_.getNumber());
+        assertEq(-12, getNumber(res_));
     }
     @Test
     public void processAffect9Test() {
@@ -9063,7 +9063,7 @@ public final class RenderExpUtilTest extends CommonRender {
         context_.getLastPage().setLocalVars(localVars_);
         Argument res_ = processEl("v[0i][0i]++", context_);
         assertEq(1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
-        assertEq(0, res_.getNumber());
+        assertEq(0, getNumber(res_));
     }
     @Test
     public void processAffect10Test() {
@@ -9082,7 +9082,7 @@ public final class RenderExpUtilTest extends CommonRender {
         context_.getLastPage().setLocalVars(localVars_);
         Argument res_ = processEl("v[0i][0i]--", context_);
         assertEq(-1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
-        assertEq(0, res_.getNumber());
+        assertEq(0, getNumber(res_));
     }
     @Test
     public void processAffect11Test() {
@@ -9101,7 +9101,7 @@ public final class RenderExpUtilTest extends CommonRender {
         context_.getLastPage().setLocalVars(localVars_);
         Argument res_ = processEl("++v[0i][0i]", context_);
         assertEq(1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
-        assertEq(1, res_.getNumber());
+        assertEq(1, getNumber(res_));
     }
     @Test
     public void processAffect12Test() {
@@ -9120,7 +9120,7 @@ public final class RenderExpUtilTest extends CommonRender {
         context_.getLastPage().setLocalVars(localVars_);
         Argument res_ = processEl("--v[0i][0i]", context_);
         assertEq(-1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
-        assertEq(-1, res_.getNumber());
+        assertEq(-1, getNumber(res_));
     }
     @Test
     public void processAffect21Test() {
@@ -9276,7 +9276,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument res_ = processEl("v.integer++", cont_);
         assertEq("pkg.Composite", lv_.getClassName());
         assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
-        assertEq(0, res_.getNumber());
+        assertEq(0, getNumber(res_));
     }
     @Test
     public void processAffect29Test() {
@@ -9299,7 +9299,7 @@ public final class RenderExpUtilTest extends CommonRender {
         Argument res_ = processEl("++v.integer", cont_);
         assertEq("pkg.Composite", lv_.getClassName());
         assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
-        assertEq(1, res_.getNumber());
+        assertEq(1, getNumber(res_));
     }
 
     @Test
@@ -9322,7 +9322,7 @@ public final class RenderExpUtilTest extends CommonRender {
         cont_.getLastPage().setLocalVars(localVars_);
         Argument res_ = processEl("(v.integer-=12i)", cont_);
         assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
-        assertEq(-12, res_.getNumber());
+        assertEq(-12, getNumber(res_));
     }
     @Test
     public void processAffect31Test() {
@@ -9587,5 +9587,17 @@ public final class RenderExpUtilTest extends CommonRender {
     private static Configuration getConfiguration5(StringMap<String> _files, boolean _init) {
         Configuration conf_ = getConfiguration(_files, _init);
         return conf_;
+    }
+    static String getString(Argument _arg) {
+        return ((CharSequenceStruct)_arg.getStruct()).toStringInstance();
+    }
+    static long getNumber(Argument _arg) {
+        return ((NumberStruct)_arg.getStruct()).longStruct();
+    }
+    static double getDouble(Argument _arg) {
+        return ((NumberStruct)_arg.getStruct()).doubleStruct();
+    }
+    static char getChar(Argument _arg) {
+        return ((CharStruct)_arg.getStruct()).getChar();
     }
 }

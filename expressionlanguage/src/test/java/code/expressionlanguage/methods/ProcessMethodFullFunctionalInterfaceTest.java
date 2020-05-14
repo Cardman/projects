@@ -139,7 +139,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(15, ret_.getNumber());
+        assertEq(15, getNumber(ret_));
     }
     @Test
     public void calculateReturnTest() {
@@ -171,7 +171,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(26, ret_.getNumber());
+        assertEq(26, getNumber(ret_));
     }
     @Test
     public void calculate0Test() {
@@ -194,7 +194,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
     }
 
     @Test
@@ -221,7 +221,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("simple", ret_.getString());
+        assertEq("simple", getString(ret_));
     }
     @Test
     public void calculate2Test() {
@@ -244,7 +244,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
     }
 
     @Test
@@ -274,7 +274,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
     }
     @Test
     public void calculate4Test() {
@@ -306,7 +306,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculate5Test() {
@@ -341,7 +341,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
     @Test
     public void calculate6Test() {
@@ -379,7 +379,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
     @Test
     public void calculate7Test() {
@@ -417,7 +417,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
     @Test
     public void calculate8Test() {
@@ -455,7 +455,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
 
     @Test
@@ -494,7 +494,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
     @Test
     public void calculate10Test() {
@@ -518,7 +518,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
     }
     @Test
     public void calculate11Test() {
@@ -550,7 +550,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(16, ret_.getNumber());
+        assertEq(16, getNumber(ret_));
     }
     @Test
     public void calculate12Test() {
@@ -590,7 +590,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(16, ret_.getNumber());
+        assertEq(16, getNumber(ret_));
     }
     @Test
     public void calculate13Test() {
@@ -619,7 +619,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ =getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("simple call here", ret_.getString());
+        assertEq("simple call here", getString(ret_));
     }
     @Test
     public void calculate14Test() {
@@ -648,7 +648,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         MethodId id_ =getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("simple 0", ret_.getString());
+        assertEq("simple 0", getString(ret_));
     }
     @Test
     public void calculate1ExTest() {

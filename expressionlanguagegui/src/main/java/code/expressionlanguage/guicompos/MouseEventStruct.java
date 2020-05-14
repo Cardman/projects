@@ -43,27 +43,27 @@ public class MouseEventStruct implements Struct {
     }
 
     public void setAlt(Struct _alt) {
-        alt = ((BooleanStruct)_alt).getInstance();
+        alt = BooleanStruct.of(true).sameReference(_alt);
     }
 
     public void setCtrl(Struct _ctrl) {
-        ctrl = ((BooleanStruct)_ctrl).getInstance();
+        ctrl = BooleanStruct.of(true).sameReference(_ctrl);
     }
 
     public void setShift(Struct _shift) {
-        shift = ((BooleanStruct)_shift).getInstance();
+        shift = BooleanStruct.of(true).sameReference(_shift);
     }
 
     public void setLeft(Struct _left) {
-        left = ((BooleanStruct)_left).getInstance();
+        left = BooleanStruct.of(true).sameReference(_left);
     }
 
     public void setMiddle(Struct _middle) {
-        middle = ((BooleanStruct)_middle).getInstance();
+        middle = BooleanStruct.of(true).sameReference(_middle);
     }
 
     public void setRight(Struct _right) {
-        right = ((BooleanStruct)_right).getInstance();
+        right = BooleanStruct.of(true).sameReference(_right);
     }
 
     public void setClicks(Struct _clicks) {

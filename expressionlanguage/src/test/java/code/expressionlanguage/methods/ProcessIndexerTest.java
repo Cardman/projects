@@ -44,7 +44,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate2Test() {
@@ -77,7 +77,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculate3Test() {
@@ -109,7 +109,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate4Test() {
@@ -141,7 +141,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculate5Test() {
@@ -173,7 +173,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(15, ret_.getNumber());
+        assertEq(15, getNumber(ret_));
     }
     @Test
     public void calculate6Test() {
@@ -227,7 +227,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculate7Test() {
@@ -281,7 +281,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate8Test() {
@@ -335,7 +335,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculate9Test() {
@@ -367,7 +367,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate10Test() {
@@ -399,7 +399,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate11Test() {
@@ -455,7 +455,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(15, ret_.getNumber());
+        assertEq(15, getNumber(ret_));
     }
     @Test
     public void calculate12Test() {
@@ -578,7 +578,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(20, ret_.getNumber());
+        assertEq(20, getNumber(ret_));
     }
     @Test
     public void calculate15Test() {
@@ -620,7 +620,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(20, ret_.getNumber());
+        assertEq(20, getNumber(ret_));
     }
     @Test
     public void calculate16Test() {
@@ -764,7 +764,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate20Test() {
@@ -806,7 +806,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate21Test() {
@@ -848,7 +848,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(20, ret_.getNumber());
+        assertEq(20, getNumber(ret_));
     }
     @Test
     public void calculate22Test() {
@@ -880,7 +880,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate23Test() {
@@ -912,7 +912,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate24Test() {
@@ -954,7 +954,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(20, ret_.getNumber());
+        assertEq(20, getNumber(ret_));
     }
     @Test
     public void calculate25Test() {
@@ -996,7 +996,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(20, ret_.getNumber());
+        assertEq(20, getNumber(ret_));
     }
     @Test
     public void calculate27Test() {
@@ -1036,7 +1036,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate28Test() {
@@ -1070,7 +1070,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate29Test() {
@@ -1104,7 +1104,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate30Test() {
@@ -1211,7 +1211,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(20, ret_.getNumber());
+        assertEq(20, getNumber(ret_));
     }
     @Test
     public void calculate33Test() {
@@ -1244,7 +1244,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate34Test() {
@@ -1277,7 +1277,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate35Test() {
@@ -1310,7 +1310,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate36Test() {
@@ -1343,7 +1343,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate37Test() {
@@ -1376,7 +1376,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate38Test() {
@@ -1409,7 +1409,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate39Test() {
@@ -1442,7 +1442,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate40Test() {
@@ -1475,7 +1475,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate41Test() {
@@ -1516,7 +1516,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate42Test() {
@@ -1556,7 +1556,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate43Test() {
@@ -1608,7 +1608,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate44Test() {
@@ -1640,7 +1640,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate45Test() {
@@ -1672,7 +1672,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculate48Test() {
@@ -1726,7 +1726,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculate49Test() {
@@ -1780,7 +1780,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(15, ret_.getNumber());
+        assertEq(15, getNumber(ret_));
     }
     @Test
     public void calculate50Test() {
@@ -1834,7 +1834,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculate51Test() {
@@ -1887,7 +1887,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate52Test() {
@@ -1940,7 +1940,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(15, ret_.getNumber());
+        assertEq(15, getNumber(ret_));
     }
     @Test
     public void calculate53Test() {
@@ -1993,7 +1993,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculate54Test() {
@@ -2042,7 +2042,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculate55Test() {
@@ -2091,7 +2091,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate56Test() {
@@ -2140,7 +2140,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculate57Test() {
@@ -2189,7 +2189,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(20, ret_.getNumber());
+        assertEq(20, getNumber(ret_));
     }
     @Test
     public void calculate58Test() {

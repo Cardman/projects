@@ -10,6 +10,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.*;
+import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -546,7 +547,7 @@ public abstract class RendDynOperationNode {
         }
         if (convert_) {
             Argument outConv_ = new Argument();
-            outConv_.setStruct(((DisplayableStruct)out_.getStruct()).getDisplayedString(ctx_));
+            outConv_.setStruct(ExecCatOperation.getDisplayable(out_,_conf).getDisplayedString(ctx_));
             out_ = outConv_;
         }
         return out_;

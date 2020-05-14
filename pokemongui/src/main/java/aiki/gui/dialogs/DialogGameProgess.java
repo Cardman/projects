@@ -12,6 +12,7 @@ import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import code.formathtml.Navigation;
+import code.formathtml.util.BeanNatLgNames;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;
@@ -33,11 +34,11 @@ public final class DialogGameProgess extends Dialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setGameProgress(MainWindow _window, String _title, FacadeGame _facade, Navigation _navigation) {
-        DIALOG.init(_window, _title, _facade,_navigation);
+    public static void setGameProgress(MainWindow _window, String _title, FacadeGame _facade,BeanNatLgNames _bean, Navigation _navigation) {
+        DIALOG.init(_window, _title, _facade,_bean,_navigation);
     }
 
-    private void init(MainWindow _window, String _title, FacadeGame _facade, Navigation _navigation) {
+    private void init(MainWindow _window, String _title, FacadeGame _facade, BeanNatLgNames _bean, Navigation _navigation) {
         //super(_window, true);
         setDialogIcon(_window);
         messages = getMessages(_window,Resources.MESSAGES_FOLDER);
@@ -47,7 +48,7 @@ public final class DialogGameProgess extends Dialog {
         ScrollPane scrollSession_ = new ScrollPane();
         session = new RenderedPage(scrollSession_);
         session.setFrame(this);
-        session.initializeOnlyConf(_facade,_navigation,_facade.getLanguage());
+        session.initializeOnlyConf(_facade,_bean,_navigation,_facade.getLanguage());
         Panel panel_ = Panel.newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         TextField field_;

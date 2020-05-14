@@ -5,6 +5,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.DimensionArrayInstancing;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -42,7 +43,7 @@ public final class RendDimensionArrayInstancing extends
         args_ = new int[filter_.size()];
         int i_ = CustList.FIRST_INDEX;
         for (RendDynOperationNode o: filter_) {
-            NumberStruct n_ = (NumberStruct)_arguments.get(i_).getStruct();
+            NumberStruct n_ = ClassArgumentMatching.convertToNumber(_arguments.get(i_).getStruct());
             setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
             int dim_ = n_.intStruct();
             if (dim_ < 0) {

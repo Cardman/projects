@@ -572,8 +572,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         editor_.setLanguage(lg_);
-        editor_.setDataBase(res_);
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT, new PresidentStandards());
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,res_, new PresidentStandards());
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         if(partie_.getType()==GameType.RANDOM) {

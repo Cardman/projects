@@ -45,7 +45,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -84,7 +84,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -123,7 +123,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument4Test() {
@@ -155,7 +155,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument5Test() {
@@ -193,7 +193,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument6Test() {
@@ -231,7 +231,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument7Test() {
@@ -269,7 +269,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument8Test() {
@@ -307,7 +307,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(20, ret_.getNumber());
+        assertEq(20, getNumber(ret_));
     }
     @Test
     public void calculateArgument9Test() {
@@ -345,7 +345,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument10Test() {
@@ -384,7 +384,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(26, ret_.getNumber());
+        assertEq(26, getNumber(ret_));
     }
     @Test
     public void calculateArgument11Test() {
@@ -423,7 +423,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(26, ret_.getNumber());
+        assertEq(26, getNumber(ret_));
     }
     @Test
     public void calculateArgument12Test() {
@@ -458,7 +458,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument13Test() {
@@ -493,7 +493,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument14Test() {
@@ -532,7 +532,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(26, ret_.getNumber());
+        assertEq(26, getNumber(ret_));
     }
     @Test
     public void calculateArgument15Test() {
@@ -571,7 +571,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(26, ret_.getNumber());
+        assertEq(26, getNumber(ret_));
     }
     @Test
     public void calculateArgument18Test() {
@@ -590,7 +590,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("java.lang.$Fct<java.lang.Number,$int>", ret_.getString());
+        assertEq("java.lang.$Fct<java.lang.Number,$int>", getString(ret_));
     }
     @Test
     public void calculateArgument19Test() {
@@ -618,7 +618,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -647,7 +647,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument23Test() {
@@ -687,7 +687,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(26, ret_.getNumber());
+        assertEq(26, getNumber(ret_));
     }
     @Test
     public void calculateArgument24Test() {
@@ -727,7 +727,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
     @Test
     public void calculateArgument25Test() {
@@ -767,7 +767,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
     @Test
     public void calculateArgument26Test() {
@@ -807,7 +807,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
     @Test
     public void calculateArgument27Test() {
@@ -847,7 +847,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
 
     @Test
@@ -884,7 +884,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -921,7 +921,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -964,7 +964,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(15, ret_.getNumber());
+        assertEq(15, getNumber(ret_));
     }
 
     @Test
@@ -1007,7 +1007,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -1048,7 +1048,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -1075,7 +1075,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -1104,7 +1104,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -1133,7 +1133,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -1164,7 +1164,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -1195,7 +1195,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -1217,7 +1217,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument39Test() {
@@ -1247,7 +1247,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument40Test() {
@@ -1284,7 +1284,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument41Test() {
@@ -1321,7 +1321,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument42Test() {
@@ -1355,7 +1355,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument43Test() {
@@ -1390,7 +1390,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument44Test() {
@@ -1416,7 +1416,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument45Test() {
@@ -1442,7 +1442,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument46Test() {
@@ -1478,7 +1478,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument47Test() {
@@ -1513,7 +1513,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument48Test() {
@@ -1552,7 +1552,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(26, ret_.getNumber());
+        assertEq(26, getNumber(ret_));
     }
     @Test
     public void calculateArgument49Test() {
@@ -1601,7 +1601,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument50Test() {
@@ -1628,7 +1628,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument51Test() {
@@ -1655,7 +1655,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument52Test() {
@@ -1693,7 +1693,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument53Test() {
@@ -1732,7 +1732,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(36, ret_.getNumber());
+        assertEq(36, getNumber(ret_));
     }
     @Test
     public void calculateArgument54Test() {
@@ -1770,7 +1770,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument55Test() {
@@ -1809,7 +1809,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(36, ret_.getNumber());
+        assertEq(36, getNumber(ret_));
     }
     @Test
     public void calculateArgument56Test() {
@@ -1838,7 +1838,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument57Test() {
@@ -1868,7 +1868,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(28, ret_.getNumber());
+        assertEq(28, getNumber(ret_));
     }
     @Test
     public void calculateArgument58Test() {
@@ -1906,7 +1906,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument59Test() {
@@ -1945,7 +1945,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(36, ret_.getNumber());
+        assertEq(36, getNumber(ret_));
     }
     @Test
     public void calculateArgument60Test() {
@@ -1983,7 +1983,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument61Test() {
@@ -2022,7 +2022,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(36, ret_.getNumber());
+        assertEq(36, getNumber(ret_));
     }
     @Test
     public void calculateArgument62Test() {
@@ -2060,7 +2060,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument63Test() {
@@ -2099,7 +2099,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(36, ret_.getNumber());
+        assertEq(36, getNumber(ret_));
     }
     @Test
     public void calculateArgument64Test() {
@@ -2137,7 +2137,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument65Test() {
@@ -2176,7 +2176,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(36, ret_.getNumber());
+        assertEq(36, getNumber(ret_));
     }
     @Test
     public void calculateArgument66Test() {
@@ -2200,7 +2200,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument67Test() {
@@ -2225,7 +2225,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(36, ret_.getNumber());
+        assertEq(36, getNumber(ret_));
     }
     @Test
     public void calculateArgument68Test() {
@@ -2249,7 +2249,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument69Test() {
@@ -2274,7 +2274,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(36, ret_.getNumber());
+        assertEq(36, getNumber(ret_));
     }
     @Test
     public void calculateArgument70Test() {
@@ -2306,7 +2306,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(24, ret_.getNumber());
+        assertEq(24, getNumber(ret_));
     }
     @Test
     public void calculateArgument71Test() {
@@ -2338,7 +2338,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(24, ret_.getNumber());
+        assertEq(24, getNumber(ret_));
     }
     @Test
     public void calculateArgument70_Test() {
@@ -2370,7 +2370,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(24, ret_.getNumber());
+        assertEq(24, getNumber(ret_));
     }
     @Test
     public void calculateArgument70__Test() {
@@ -2407,7 +2407,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(24, ret_.getNumber());
+        assertEq(24, getNumber(ret_));
     }
     @Test
     public void calculateArgument71_Test() {
@@ -2439,7 +2439,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(24, ret_.getNumber());
+        assertEq(24, getNumber(ret_));
     }
     @Test
     public void calculateArgument73_Test() {
@@ -2471,7 +2471,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(24, ret_.getNumber());
+        assertEq(24, getNumber(ret_));
     }
     @Test
     public void calculateArgument74_Test() {
@@ -2503,7 +2503,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(24, ret_.getNumber());
+        assertEq(24, getNumber(ret_));
     }
     @Test
     public void calculateArgument76_Test() {
@@ -2537,7 +2537,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(28, ret_.getNumber());
+        assertEq(28, getNumber(ret_));
     }
     @Test
     public void calculateArgument__FailTest() {
@@ -2611,7 +2611,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
     @Test
     public void calculateArgument72_Test() {
@@ -2651,7 +2651,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
     @Test
     public void calculateArgument73Test() {
@@ -2689,7 +2689,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(20, ret_.getNumber());
+        assertEq(20, getNumber(ret_));
     }
     @Test
     public void calculateArgument74Test() {
@@ -2728,7 +2728,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(26, ret_.getNumber());
+        assertEq(26, getNumber(ret_));
     }
     @Test
     public void calculateArgument75Test() {
@@ -2762,7 +2762,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(26, ret_.getNumber());
+        assertEq(26, getNumber(ret_));
     }
     @Test
     public void calculateArgument75_Test() {
@@ -2796,7 +2796,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(26, ret_.getNumber());
+        assertEq(26, getNumber(ret_));
     }
     @Test
     public void calculateArgument76Test() {
@@ -2824,7 +2824,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -2853,7 +2853,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -2884,7 +2884,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -2915,7 +2915,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
 
     @Test
@@ -3382,7 +3382,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(28, ret_.getNumber());
+        assertEq(28, getNumber(ret_));
     }
     @Test
     public void calculateArgument108Test() {
@@ -3405,7 +3405,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(28, ret_.getNumber());
+        assertEq(28, getNumber(ret_));
     }
     @Test
     public void calculateArgument108_Test() {
@@ -3428,7 +3428,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(28, ret_.getNumber());
+        assertEq(28, getNumber(ret_));
     }
     @Test
     public void calculateArgument109Test() {
@@ -3451,7 +3451,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(28, ret_.getNumber());
+        assertEq(28, getNumber(ret_));
     }
     @Test
     public void calculateArgument109_Test() {
@@ -3474,7 +3474,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(28, ret_.getNumber());
+        assertEq(28, getNumber(ret_));
     }
     @Test
     public void calculateArgument110Test() {
@@ -3497,7 +3497,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(28, ret_.getNumber());
+        assertEq(28, getNumber(ret_));
     }
     @Test
     public void calculateArgument111Test() {
@@ -3520,7 +3520,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(28, ret_.getNumber());
+        assertEq(28, getNumber(ret_));
     }
     @Test
     public void calculateArgument111_Test() {
@@ -3543,7 +3543,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(28, ret_.getNumber());
+        assertEq(28, getNumber(ret_));
     }
     @Test
     public void calculateArgument112_Test() {
@@ -3568,7 +3568,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex..Inner", id_, args_, cont_);
-        assertEq(28, ret_.getNumber());
+        assertEq(28, getNumber(ret_));
     }
     @Test
     public void calculateArgument112Test() {
@@ -3594,7 +3594,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument113Test() {
@@ -3634,7 +3634,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
 
     @Test
@@ -3671,7 +3671,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument115Test() {
@@ -3697,7 +3697,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument116Test() {
@@ -3723,7 +3723,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument117Test() {
@@ -3749,7 +3749,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument118Test() {
@@ -3787,7 +3787,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument119Test() {
@@ -3826,7 +3826,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(36, ret_.getNumber());
+        assertEq(36, getNumber(ret_));
     }
     @Test
     public void calculateArgument120Test() {
@@ -3864,7 +3864,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument121Test() {
@@ -3903,7 +3903,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(36, ret_.getNumber());
+        assertEq(36, getNumber(ret_));
     }
     @Test
     public void calculateArgument122Test() {
@@ -3935,7 +3935,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument123Test() {
@@ -3967,7 +3967,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument124Test() {
@@ -3999,7 +3999,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument125Test() {
@@ -4031,7 +4031,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void calculateArgument126Test() {
@@ -4129,7 +4129,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument129Test() {
@@ -4164,7 +4164,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument130Test() {
@@ -4200,7 +4200,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument131Test() {
@@ -4235,7 +4235,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument132Test() {
@@ -4270,7 +4270,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument133Test() {
@@ -4305,7 +4305,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument134Test() {
@@ -4341,7 +4341,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument135Test() {
@@ -4376,7 +4376,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument136Test() {
@@ -4412,7 +4412,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument137Test() {
@@ -4447,7 +4447,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument138Test() {
@@ -4482,7 +4482,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument139Test() {
@@ -4517,7 +4517,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("sample", ret_.getString());
+        assertEq("sample", getString(ret_));
     }
     @Test
     public void calculateArgument140Test() {
@@ -4623,7 +4623,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument143Test() {
@@ -4659,7 +4659,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument144Test() {

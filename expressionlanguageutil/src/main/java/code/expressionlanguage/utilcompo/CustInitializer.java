@@ -10,8 +10,10 @@ import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
@@ -64,10 +66,10 @@ public class CustInitializer extends DefaultInitializer {
                 if (!_cont.hasException()) {
                     if (convert_) {
                         Argument outConv_ = new Argument();
-                        outConv_.setStruct(((DisplayableStruct)out_.getStruct()).getDisplayedString(_cont));
+                        outConv_.setStruct(ExecCatOperation.getDisplayable(out_,_cont).getDisplayedString(_cont));
                         out_ = outConv_;
                     }
-                    String text_ = out_.getString();
+                    String text_ = ApplyCoreMethodUtil.getString(out_.getStruct()).getInstance();
                     log(_cont,text_);
                 } else {
                     log(_cont,_cont.getStandards().getDisplayedStrings().getNullString());

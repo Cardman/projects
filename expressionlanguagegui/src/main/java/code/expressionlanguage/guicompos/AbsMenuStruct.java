@@ -25,11 +25,11 @@ public abstract class AbsMenuStruct implements Struct {
     }
 
     public void setEnabled(Struct _str) {
-        getMenu().setEnabled(((BooleanStruct)_str).getInstance());
+        getMenu().setEnabled(BooleanStruct.of(true).sameReference(_str));
     }
 
     public void setDeepEnabled(Struct _str) {
-        getMenu().setEnabledMenu(((BooleanStruct)_str).getInstance());
+        getMenu().setEnabledMenu(BooleanStruct.of(true).sameReference(_str));
     }
     public Struct getText() {
         String txt_ = getMenu().getText();

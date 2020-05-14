@@ -556,6 +556,10 @@ public final class CustLgNames extends BeanNatLgNames {
         return StdStruct.newInstance(_element, aliasObject_);
     }
 
+    @Override
+    protected Struct newId(Object _obj, String _className) {
+        return StdStruct.newInstance(_obj, _className);
+    }
     public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
         return new ResultErrorStd();
     }

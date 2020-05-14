@@ -12,7 +12,6 @@ import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
 import cards.gui.dialogs.help.NodeHelp;
 import cards.gui.dialogs.help.beans.GeneralHelpLgNames;
-import code.formathtml.util.BeanLgNames;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
@@ -199,8 +198,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         arbre_.setRootVisible(false);
         arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_));
         editor.setLanguage(lg_);
-        BeanLgNames bean_ = new GeneralHelpLgNames();
-        editor.initialize(racineBis.getFile(), bean_);
+        editor.initialize(racineBis.getFile(),null, new GeneralHelpLgNames());
         if (field == null) {
             field = new TextField(20);
             search = new LabelButton();

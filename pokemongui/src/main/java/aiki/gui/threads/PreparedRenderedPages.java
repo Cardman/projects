@@ -3,6 +3,7 @@ package aiki.gui.threads;
 import aiki.beans.PokemonStandards;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
+import code.formathtml.util.BeanNatLgNames;
 import code.resources.ResourceFiles;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringList;
@@ -13,6 +14,7 @@ public final class PreparedRenderedPages implements Runnable {
     private Navigation navigation;
     private String relative;
     private String conf;
+    private BeanNatLgNames beanNatLgNames;
 
     public PreparedRenderedPages(String _relative, String _conf) {
         relative = _relative;
@@ -25,6 +27,7 @@ public final class PreparedRenderedPages implements Runnable {
         navigation.setSession(new Configuration());
         navigation.setLanguages(Constants.getAvailableLanguages());
         PokemonStandards stds_ = new PokemonStandards();
+        beanNatLgNames = stds_;
         String content_ = ResourceFiles.ressourceFichier(conf);
         navigation.loadConfiguration(content_,"", stds_);
         StringMap<String> files_ = new StringMap<String>();
@@ -49,5 +52,9 @@ public final class PreparedRenderedPages implements Runnable {
 
     public Navigation getNavigation() {
         return navigation;
+    }
+
+    public BeanNatLgNames getBeanNatLgNames() {
+        return beanNatLgNames;
     }
 }

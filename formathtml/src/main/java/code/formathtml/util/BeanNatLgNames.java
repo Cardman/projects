@@ -13,11 +13,9 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.types.ResolvingImportTypes;
 import code.formathtml.*;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.structs.*;
-import code.maths.montecarlo.AbstractGenerator;
 import code.maths.montecarlo.DefaultGenerator;
 import code.sml.Element;
 import code.util.*;
@@ -37,6 +35,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     private static final String NO_PARAM = "()";
     private StringMapObject storedForms;
     private StringMap<String> iterables = new StringMap<String>();
+    private Object dataBase;
 
     public BeanNatLgNames() {
         super(new DefaultGenerator());
@@ -48,9 +47,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         for (int i = 0; i < len_; i++) {
             Struct argStruct_ = _args[i];
             if (argStruct_ instanceof IntStruct) {
-                args_[i] = ((NumberStruct) argStruct_).intStruct();
+                args_[i] = ClassArgumentMatching.convertToNumber(argStruct_).intStruct();
             } else {
-                args_[i] = ((NumberStruct) argStruct_).longStruct();
+                args_[i] = ClassArgumentMatching.convertToNumber(argStruct_).longStruct();
             }
         }
         return args_;
@@ -89,22 +88,18 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public void initBeans(Configuration _conf,String _language,Struct _db) {
         int index_ = 0;
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
-            _conf.getBuiltBeans().setValue(index_, newSimpleBean(_language, _db, e.getValue(),_conf));
+            _conf.getBuiltBeans().setValue(index_, newSimpleBean(_language, e.getValue(),_conf));
             index_++;
         }
     }
 
-    private Struct newSimpleBean(String _language, Struct _dataBase, BeanInfo _bean, Configuration _conf) {
+    private Struct newSimpleBean(String _language, BeanInfo _bean, Configuration _conf) {
         _conf.addPage(new ImportingPage());
         String keyWordNew_ = _conf.getKeyWords().getKeyWordNew();
         Struct strBean_ = RenderExpUtil.processQuickEl(StringList.concat(keyWordNew_," ",_bean.getClassName(),NO_PARAM), 0, _conf).getStruct();
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
-        Object db_ = null;
-        if (_dataBase instanceof RealInstanceStruct) {
-            db_ = ((RealInstanceStruct)_dataBase).getInstance();
-        }
-        bean_.setDataBase(db_);
+        bean_.setDataBase(dataBase);
         bean_.setForms(new StringMapObject());
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
@@ -298,7 +293,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleIterable db_ = ((SimpleEntries)instance_).entries();
         SimpleItr it_ = db_.simpleIterator();
-        return new Argument(IdStruct.newInstance(it_, StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN, TYPE_ENTRY,Templates.TEMPLATE_END)));
+        return new Argument(newId(it_, StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN, TYPE_ENTRY,Templates.TEMPLATE_END)));
     }
 
     @Override
@@ -312,7 +307,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public Argument nextPair(Struct _arg, Configuration _conf) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         SimpleEntry resObj_ = (SimpleEntry) ((SimpleItr)instance_).next();
-        return new Argument(IdStruct.newInstance(resObj_, TYPE_ENTRY));
+        return new Argument(newId(resObj_, TYPE_ENTRY));
     }
 
     @Override
@@ -334,7 +329,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         String typeInst_ = getStructClassName(_arg, _cont.getContext());
         String it_ = getIterables().getVal(typeInst_);
-        return new Argument(IdStruct.newInstance(((SimpleIterable) instance_).simpleIterator(), StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
+        return new Argument(newId(((SimpleIterable) instance_).simpleIterator(), StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
     }
 
     @Override
@@ -350,6 +345,8 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         SimpleItr it_ = (SimpleItr) instance_;
         return new Argument(BooleanStruct.of(it_.hasNext()));
     }
+
+    protected abstract Struct newId(Object _obj, String _className);
 
     public abstract Struct wrapStd(Object _element, ExecutableCode _ex);
     public abstract ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context);
@@ -423,5 +420,8 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_conf));
         context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
         context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+    }
+    public void setDataBase(Object _dataBase){
+        dataBase = _dataBase;
     }
 }

@@ -24,9 +24,10 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
         StringList converted_ = new StringList();
         if (isIntermediateDottedOperation()) {
             for (String p:previousResultClass.getNames()) {
-                if (!p.startsWith("#")) {
-                    converted_.add(p);
+                if (p.startsWith(Templates.ARR_BEG_STRING)) {
+                    continue;
                 }
+                converted_.addAllElts(InvokingOperation.getBounds(p,_conf));
             }
         } else {
             converted_.add(_conf.getAnalyzing().getGlobalClass());

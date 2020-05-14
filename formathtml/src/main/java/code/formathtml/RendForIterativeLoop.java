@@ -295,9 +295,9 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             return;
         }
         String prLong_ = stds_.getAliasPrimLong();
-        fromValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argFrom_.getStruct(), stds_)).longStruct();
-        long toValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argTo_.getStruct(), stds_)).longStruct();
-        stepValue_ = ((NumberStruct)PrimitiveTypeUtil.unwrapObject(prLong_, argStep_.getStruct(), stds_)).longStruct();
+        fromValue_ = ClassArgumentMatching.convertToNumber(PrimitiveTypeUtil.unwrapObject(prLong_, argFrom_.getStruct(), stds_)).longStruct();
+        long toValue_ = ClassArgumentMatching.convertToNumber(PrimitiveTypeUtil.unwrapObject(prLong_, argTo_.getStruct(), stds_)).longStruct();
+        stepValue_ = ClassArgumentMatching.convertToNumber(PrimitiveTypeUtil.unwrapObject(prLong_, argStep_.getStruct(), stds_)).longStruct();
         if (stepValue_ > 0) {
             if (fromValue_ > toValue_) {
                 stepValue_ = -stepValue_;
@@ -388,7 +388,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         _l.setIndex(_l.getIndex() + 1);
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
-        long o_ = ((NumberStruct) lv_.getStruct()).longStruct()+lv_.getStep();
+        long o_ = ClassArgumentMatching.convertToNumber(lv_.getStruct()).longStruct()+lv_.getStep();
         lv_.setStruct(PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(o_), _conf.getStandards()));
         lv_.setIndex(lv_.getIndex() + 1);
     }

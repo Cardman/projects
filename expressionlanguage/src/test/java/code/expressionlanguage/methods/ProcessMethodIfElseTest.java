@@ -38,7 +38,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
 
     @Test
@@ -66,7 +66,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
 
     @Test
@@ -97,7 +97,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
 
     @Test
@@ -128,7 +128,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
 
     @Test
@@ -156,7 +156,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
 
 
@@ -188,7 +188,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
     }
 
     @Test
@@ -216,7 +216,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(-1, ret_.getNumber());
+        assertEq(-1, getNumber(ret_));
     }
 
     @Test
@@ -247,7 +247,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
 
     @Test
@@ -278,7 +278,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
 
     @Test
@@ -307,7 +307,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
 
     @Test
@@ -339,7 +339,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
 
     @Test
@@ -374,7 +374,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
 
     @Test
@@ -406,7 +406,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
 
     @Test
@@ -438,7 +438,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
     @Test
     public void calculateArgument32Test() {
@@ -466,7 +466,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(8, ret_.getNumber());
+        assertEq(8, getNumber(ret_));
     }
     @Test
     public void calculateArgument33Test() {
@@ -497,7 +497,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(4, ret_.getNumber());
+        assertEq(4, getNumber(ret_));
     }
     @Test
     public void calculateArgument34Test() {
@@ -529,7 +529,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(4, ret_.getNumber());
+        assertEq(4, getNumber(ret_));
     }
 
     @Test
@@ -560,7 +560,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument36Test() {
@@ -589,7 +589,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(8, ret_.getNumber());
+        assertEq(8, getNumber(ret_));
     }
 
     @Test
@@ -623,7 +623,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
     }
 
     @Test
@@ -657,7 +657,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
     @Test
     public void calculateArgument39Test() {
@@ -684,7 +684,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument40Test() {
@@ -713,7 +713,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
 
     @Test
@@ -751,7 +751,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
 
     @Test
@@ -786,7 +786,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
     @Test
     public void calculateArgument5FailTest() {

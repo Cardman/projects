@@ -1980,6 +1980,11 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         }
         return StdStruct.newInstance(_element, className_);
     }
+
+    @Override
+    protected Struct newId(Object _obj, String _className) {
+        return StdStruct.newInstance(_obj, _className);
+    }
     @Override
     public ResultErrorStd getOtherStructToBeValidated(StringList _values,
             String _className, ContextEl _context) {

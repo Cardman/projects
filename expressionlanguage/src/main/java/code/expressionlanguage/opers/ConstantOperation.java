@@ -10,6 +10,8 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.CharStruct;
+import code.expressionlanguage.structs.StringStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -35,14 +37,14 @@ public final class ConstantOperation extends LeafOperation {
         stringType_ = stds_.getAliasString();
         if (op_.getConstType() == ConstType.TRUE_CST) {
             argClName_ = stds_.getAliasPrimBoolean();
-            a_.setObject(true);
+            a_.setStruct(BooleanStruct.of(true));
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         if (op_.getConstType() == ConstType.FALSE_CST) {
             argClName_ = stds_.getAliasPrimBoolean();
-            a_.setObject(false);
+            a_.setStruct(BooleanStruct.of(false));
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
@@ -54,7 +56,7 @@ public final class ConstantOperation extends LeafOperation {
             return;
         }
         if (op_.getConstType() == ConstType.STRING) {
-            a_.setObject(originalStr_);
+            a_.setStruct(new StringStruct(originalStr_));
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(stringType_));
             return;
@@ -62,7 +64,7 @@ public final class ConstantOperation extends LeafOperation {
         if (op_.getConstType() == ConstType.CHARACTER) {
             argClName_ = stds_.getAliasPrimChar();
             if (!originalStr_.isEmpty()) {
-                a_.setObject(originalStr_.charAt(0));
+                a_.setStruct(new CharStruct(originalStr_.charAt(0)));
             } else {
                 FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
                 badFormat_.setFileName(_conf.getCurrentFileName());

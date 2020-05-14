@@ -15,6 +15,7 @@ import aiki.map.places.Place;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
 import code.formathtml.Navigation;
+import code.formathtml.util.BeanNatLgNames;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.EqList;
@@ -118,11 +119,11 @@ public final class ConsultHosts extends Dialog {
         facade.setHostedPokemon(_first, _coords);
         RenderedPage session_;
         session_ = new RenderedPage(new ScrollPane());
-        showHtmlDialog(session_,facade,task_.getNavigation(),facade.getLanguage());
+        showHtmlDialog(session_,facade,task_.getNavigation(),task_.getBeanNatLgNames(),facade.getLanguage());
     }
 
-    private void showHtmlDialog(RenderedPage _session, Object _dataBase, Navigation _navigation, String _lg) {
+    private void showHtmlDialog(RenderedPage _session, Object _dataBase, Navigation _navigation, BeanNatLgNames _bean, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(this, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(window, this, messages.getVal(TITLE_DETAIL), _session,_dataBase,_navigation,_lg);
+        DialogHtmlData.setDialogHtmlData(window, this, messages.getVal(TITLE_DETAIL), _session,_dataBase,_navigation,_bean,_lg);
     }
 }

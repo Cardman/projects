@@ -49,7 +49,7 @@ public final class GraphicComboStruct extends InputStruct {
 
     @Override
     public void setEnabled(Struct _enabled) {
-        graphicCombo.setEnabled(((BooleanStruct)_enabled).getInstance());
+        graphicCombo.setEnabled(BooleanStruct.of(true).sameReference(_enabled));
     }
 
     public Struct getSelectedItem() {

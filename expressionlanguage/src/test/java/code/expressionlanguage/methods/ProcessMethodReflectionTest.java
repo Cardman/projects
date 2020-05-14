@@ -37,7 +37,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Ex-ONE", ret_.getString());
+        assertEq("pkg.Ex-ONE", getString(ret_));
     }
 
     @Test
@@ -62,7 +62,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Cl..Ex-ONE", ret_.getString());
+        assertEq("pkg.Cl..Ex-ONE", getString(ret_));
     }
 
     @Test
@@ -85,7 +85,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Ex-ONE", ret_.getString());
+        assertEq("pkg.Ex-ONE", getString(ret_));
     }
 
     @Test
@@ -110,7 +110,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Cl..Ex-ONE", ret_.getString());
+        assertEq("pkg.Cl..Ex-ONE", getString(ret_));
     }
     @Test
     public void processEl238Test() {
@@ -137,7 +137,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Ex", ret_.getString());
+        assertEq("pkg.Ex", getString(ret_));
     }
     @Test
     public void processEl239Test() {
@@ -172,7 +172,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Ex", ret_.getString());
+        assertEq("pkg.Ex", getString(ret_));
         assertEq(14, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intStruct());
     }
 
@@ -193,7 +193,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("$void", ret_.getString());
+        assertEq("$void", getString(ret_));
     }
     @Test
     public void processEl242Test() {
@@ -483,7 +483,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void processEl251Test() {
@@ -502,7 +502,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void processEl252Test() {
@@ -550,7 +550,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(15, ret_.getNumber());
+        assertEq(15, getNumber(ret_));
         NumberStruct res_ = (NumberStruct) cont_.getContextEl().getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         assertEq(14, res_.intStruct());
     }
@@ -600,7 +600,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void processEl254Test() {
@@ -648,7 +648,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("out", ret_.getString());
+        assertEq("out", getString(ret_));
     }
     @Test
     public void processEl255Test() {
@@ -693,7 +693,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("super", ret_.getString());
+        assertEq("super", getString(ret_));
     }
     @Test
     public void processEl256Test() {
@@ -741,7 +741,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(19, ret_.getNumber());
+        assertEq(19, getNumber(ret_));
     }
     @Test
     public void processEl257Test() {
@@ -786,7 +786,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void processEl258Test() {
@@ -834,7 +834,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(19, ret_.getNumber());
+        assertEq(19, getNumber(ret_));
     }
     @Test
     public void processEl259Test() {
@@ -884,7 +884,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(9, ret_.getNumber());
+        assertEq(9, getNumber(ret_));
     }
     @Test
     public void processEl260Test() {
@@ -935,7 +935,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(19, ret_.getNumber());
+        assertEq(19, getNumber(ret_));
     }
     @Test
     public void processEl261Test() {
@@ -1292,7 +1292,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(19, ret_.getNumber());
+        assertEq(19, getNumber(ret_));
     }
     @Test
     public void processEl268Test() {
@@ -1344,7 +1344,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(22, ret_.getNumber());
+        assertEq(22, getNumber(ret_));
     }
     @Test
     public void processEl269Test() {
@@ -1396,7 +1396,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-         assertEq(28, ret_.getNumber());
+         assertEq(28, getNumber(ret_));
     }
     @Test
     public void processEl270Test() {
@@ -1450,7 +1450,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(32, ret_.getNumber());
+        assertEq(32, getNumber(ret_));
     }
     @Test
     public void processEl271Test() {
@@ -1506,7 +1506,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(19, ret_.getNumber());
+        assertEq(19, getNumber(ret_));
     }
     @Test
     public void processEl272Test() {
@@ -1717,7 +1717,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(19, ret_.getNumber());
+        assertEq(19, getNumber(ret_));
     }
     @Test
     public void processEl276Test() {
@@ -1767,7 +1767,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(19, ret_.getNumber());
+        assertEq(19, getNumber(ret_));
     }
 
     @Test
@@ -1820,7 +1820,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(15, ret_.getNumber());
+        assertEq(15, getNumber(ret_));
     }
     @Test
     public void processEl279Test() {
@@ -2062,7 +2062,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(15, ret_.getNumber());
+        assertEq(15, getNumber(ret_));
     }
     @Test
     public void processEl283Test() {
@@ -2111,7 +2111,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("hello", ret_.getString());
+        assertEq("hello", getString(ret_));
     }
     @Test
     public void processEl284Test() {
@@ -2561,7 +2561,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(16, ret_.getNumber());
+        assertEq(16, getNumber(ret_));
     }
     @Test
     public void processEl292Test() {
@@ -2664,7 +2664,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(16, ret_.getNumber());
+        assertEq(16, getNumber(ret_));
     }
     @Test
     public void processEl294Test() {
@@ -2855,7 +2855,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(cont_.getStandards().getAliasNullPe(), arg_.getString());
+        assertEq(cont_.getStandards().getAliasNullPe(), getString(arg_));
     }
     @Test
     public void processEl2962Test() {
@@ -2902,7 +2902,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("", arg_.getString());
+        assertEq("", getString(arg_));
     }
     @Test
     public void processEl2963Test() {
@@ -2949,7 +2949,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(cont_.getStandards().getAliasNullPe(), arg_.getString());
+        assertEq(cont_.getStandards().getAliasNullPe(), getString(arg_));
     }
     @Test
     public void processEl297Test() {
@@ -3246,7 +3246,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("[pkg.Ex", ret_.getString());
+        assertEq("[pkg.Ex", getString(ret_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
     @Test
@@ -3277,7 +3277,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("[pkg.Ex", ret_.getString());
+        assertEq("[pkg.Ex", getString(ret_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
     @Test
@@ -3333,7 +3333,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(16, ret_.getNumber());
+        assertEq(16, getNumber(ret_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
     @Test
@@ -3388,7 +3388,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(15, ret_.getNumber());
+        assertEq(15, getNumber(ret_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
     @Test
@@ -3602,7 +3602,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ =  calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(35, ret_.getNumber());
+        assertEq(35, getNumber(ret_));
     }
     @Test
     public void processEl326Test() {
@@ -3656,7 +3656,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ =  calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(35, ret_.getNumber());
+        assertEq(35, getNumber(ret_));
     }
     @Test
     public void processEl327Test() {
@@ -3699,7 +3699,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(14, ret_.getNumber());
+        assertEq(14, getNumber(ret_));
     }
     @Test
     public void processEl328Test() {
@@ -3742,7 +3742,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Ex", ret_.getString());
+        assertEq("pkg.Ex", getString(ret_));
     }
     @Test
     public void processEl330Test() {
@@ -3856,7 +3856,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Ex", ret_.getString());
+        assertEq("pkg.Ex", getString(ret_));
     }
     @Test
     public void calculateArgument15Test() {
@@ -3917,7 +3917,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void processEl335Test() {
@@ -4003,7 +4003,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
         arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(15, arg_.getNumber());
+        assertEq(15, getNumber(arg_));
         assertNull(getException(cont_));
     }
     @Test
@@ -4161,7 +4161,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument argument_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("[java.lang.String",argument_.getString());
+        assertEq("[java.lang.String",getString(argument_));
     }
     @Test
     public void processEl344Test() {
@@ -4203,7 +4203,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument argument_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(1,argument_.getNumber());
+        assertEq(1,getNumber(argument_));
     }
     @Test
     public void processEl346Test() {
@@ -4289,7 +4289,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument argument_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("hello",argument_.getString());
+        assertEq("hello",getString(argument_));
     }
     @Test
     public void processEl350Test() {
@@ -4420,7 +4420,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument argument_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("world",argument_.getString());
+        assertEq("world",getString(argument_));
     }
     @Test
     public void processEl355Test() {
@@ -4461,7 +4461,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("",out_.getString());
+        assertEq("",getString(out_));
     }
     @Test
     public void processEl356_Test() {
@@ -4481,7 +4481,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("",out_.getString());
+        assertEq("",getString(out_));
     }
     @Test
     public void processEl356__Test() {
@@ -4501,7 +4501,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("1",out_.getString());
+        assertEq("1",getString(out_));
     }
     @Test
     public void processEl357Test() {
@@ -4521,7 +4521,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(0,out_.getNumber());
+        assertEq(0,getNumber(out_));
     }
     @Test
     public void processEl358Test() {
@@ -4561,7 +4561,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("",out_.getString());
+        assertEq("",getString(out_));
     }
     @Test
     public void processEl359_Test() {
@@ -4581,7 +4581,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("",out_.getString());
+        assertEq("",getString(out_));
     }
     @Test
     public void processEl359__Test() {
@@ -4601,7 +4601,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("HELLO",out_.getString());
+        assertEq("HELLO",getString(out_));
     }
     @Test
     public void processEl360Test() {
@@ -4821,7 +4821,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("ONE",out_.getString());
+        assertEq("ONE",getString(out_));
     }
     @Test
     public void processEl460Test() {
@@ -4848,7 +4848,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("TWO",out_.getString());
+        assertEq("TWO",getString(out_));
     }
     @Test
     public void processEl461Test() {
@@ -4875,7 +4875,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq(1,out_.getNumber());
+        assertEq(1,getNumber(out_));
     }
     @Test
     public void processEl462Test() {
@@ -4925,7 +4925,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Ex", ret_.getString());
+        assertEq("pkg.Ex", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
     }
@@ -4955,7 +4955,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Ex", ret_.getString());
+        assertEq("pkg.Ex", getString(ret_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
     }
@@ -4985,7 +4985,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Ex<java.lang.Number,java.lang.String>", ret_.getString());
+        assertEq("pkg.Ex<java.lang.Number,java.lang.String>", getString(ret_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
     }
@@ -5015,7 +5015,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("[pkg.Ex", ret_.getString());
+        assertEq("[pkg.Ex", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
     }
@@ -5045,7 +5045,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("[pkg.Ex", ret_.getString());
+        assertEq("[pkg.Ex", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
     }
@@ -5075,7 +5075,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("[pkg.Ex", ret_.getString());
+        assertEq("[pkg.Ex", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
     }
@@ -5105,7 +5105,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("[pkg.Ex", ret_.getString());
+        assertEq("[pkg.Ex", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
     }
@@ -5135,7 +5135,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("[pkg.Ex", ret_.getString());
+        assertEq("[pkg.Ex", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
     }
@@ -5166,7 +5166,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Ex..ExTwo", ret_.getString());
+        assertEq("pkg.Ex..ExTwo", getString(ret_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -5198,7 +5198,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.ExThree<pkg.Ex..ExTwo>", ret_.getString());
+        assertEq("pkg.ExThree<pkg.Ex..ExTwo>", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -5231,7 +5231,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.ExFour<pkg.ExThree<java.lang.Number,pkg.Ex..ExTwo>>", ret_.getString());
+        assertEq("pkg.ExFour<pkg.ExThree<java.lang.Number,pkg.Ex..ExTwo>>", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -5263,7 +5263,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Ex..ExTwo<java.lang.Number,pkg.ExThree>", ret_.getString());
+        assertEq("pkg.Ex..ExTwo<java.lang.Number,pkg.ExThree>", getString(ret_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -5295,7 +5295,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.ExThree<?pkg.Ex..ExTwo>", ret_.getString());
+        assertEq("pkg.ExThree<?pkg.Ex..ExTwo>", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -5327,7 +5327,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.ExThree<!pkg.Ex..ExTwo>", ret_.getString());
+        assertEq("pkg.ExThree<!pkg.Ex..ExTwo>", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -5359,7 +5359,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.ExThree<?>", ret_.getString());
+        assertEq("pkg.ExThree<?>", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -5391,7 +5391,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("[pkg.ExThree<java.lang.Number,?java.lang.Number>", ret_.getString());
+        assertEq("[pkg.ExThree<java.lang.Number,?java.lang.Number>", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -5423,7 +5423,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("java.lang.$Fct<java.lang.Number,$void>", ret_.getString());
+        assertEq("java.lang.$Fct<java.lang.Number,$void>", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -5455,7 +5455,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("$int", ret_.getString());
+        assertEq("$int", getString(ret_));
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
@@ -5626,7 +5626,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument res_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Ex..ExTwo..ExThree",res_.getString());
+        assertEq("pkg.Ex..ExTwo..ExThree",getString(res_));
     }
     @Test
     public void processEl1471Test() {
@@ -6313,7 +6313,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(127, ret_.getNumber());
+        assertEq(127, getNumber(ret_));
     }
 
     @Test
@@ -6405,7 +6405,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         args_.add(new Argument(s_));
         Argument out_ = ProcessMethod.reflectArgument(new Argument(m_), args_, cont_, ReflectingType.METHOD, false);
         assertNull(getException(cont_));
-        assertEq(1, out_.getNumber());
+        assertEq(1, getNumber(out_));
     }
     @Test
     public void reflect2Test() {
@@ -6423,6 +6423,6 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         args_.add(new Argument(s_));
         Argument out_ = ProcessMethod.reflectArgument(new Argument(m_), args_, cont_, ReflectingType.DIRECT, false);
         assertNull(getException(cont_));
-        assertEq(1, out_.getNumber());
+        assertEq(1, getNumber(out_));
     }
 }

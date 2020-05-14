@@ -61,7 +61,7 @@ public final class SplitPaneStruct extends CustComponentStruct {
     }
 
     public void setContinuousLayout(Struct _b) {
-        splitPane.setContinuousLayout(((BooleanStruct)_b).getInstance());
+        splitPane.setContinuousLayout(BooleanStruct.of(true).sameReference(_b));
     }
 
     public BooleanStruct isOneTouchExpandable() {
@@ -69,7 +69,7 @@ public final class SplitPaneStruct extends CustComponentStruct {
     }
 
     public void setOneTouchExpandable(Struct _b) {
-        splitPane.setOneTouchExpandable(((BooleanStruct)_b).getInstance());
+        splitPane.setOneTouchExpandable(BooleanStruct.of(true).sameReference(_b));
     }
 
     public IntStruct getDividerLocation() {

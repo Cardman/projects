@@ -36,7 +36,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate2Test() {
@@ -58,7 +58,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Ex", ret_.getString());
+        assertEq("pkg.Ex", getString(ret_));
     }
     @Test
     public void calculate3Test() {
@@ -85,7 +85,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate4Test() {
@@ -114,7 +114,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate5Test() {
@@ -172,7 +172,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("5,0", ret_.getString());
+        assertEq("5,0", getString(ret_));
     }
     @Test
     public void calculate6Test() {
@@ -230,7 +230,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("6,1", ret_.getString());
+        assertEq("6,1", getString(ret_));
     }
     @Test
     public void calculate7Test() {
@@ -256,7 +256,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate8Test() {
@@ -284,7 +284,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate9Test() {
@@ -347,7 +347,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("20,3", ret_.getString());
+        assertEq("20,3", getString(ret_));
     }
     @Test
     public void calculate10Test() {
@@ -410,7 +410,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("5,1", ret_.getString());
+        assertEq("5,1", getString(ret_));
     }
     @Test
     public void calculate11Test() {
@@ -467,7 +467,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("5,0", ret_.getString());
+        assertEq("5,0", getString(ret_));
     }
     @Test
     public void calculate12Test() {
@@ -524,7 +524,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("6,1", ret_.getString());
+        assertEq("6,1", getString(ret_));
     }
     @Test
     public void calculate13Test() {
@@ -586,7 +586,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("20,4", ret_.getString());
+        assertEq("20,4", getString(ret_));
     }
     @Test
     public void calculate14Test() {
@@ -648,7 +648,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("15,1", ret_.getString());
+        assertEq("15,1", getString(ret_));
     }
     @Test
     public void calculate15Test() {
@@ -682,7 +682,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4,6,8", ret_.getString());
+        assertEq("2,4,6,8", getString(ret_));
     }
     @Test
     public void calculate16Test() {
@@ -716,7 +716,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4,6,8", ret_.getString());
+        assertEq("2,4,6,8", getString(ret_));
     }
     @Test
     public void calculate17Test() {
@@ -747,7 +747,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4,6,8", ret_.getString());
+        assertEq("2,4,6,8", getString(ret_));
     }
     @Test
     public void calculate18Test() {
@@ -778,7 +778,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4,6,8", ret_.getString());
+        assertEq("2,4,6,8", getString(ret_));
     }
     @Test
     public void calculate19Test() {
@@ -815,7 +815,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4,6,8", ret_.getString());
+        assertEq("2,4,6,8", getString(ret_));
     }
     @Test
     public void calculate20Test() {
@@ -847,7 +847,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate21Test() {
@@ -885,7 +885,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate22Test() {
@@ -920,7 +920,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate23Test() {
@@ -945,7 +945,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("static", ret_.getString());
+        assertEq("static", getString(ret_));
     }
     @Test
     public void calculate24Test() {
@@ -971,7 +971,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("static", ret_.getString());
+        assertEq("static", getString(ret_));
     }
     @Test
     public void calculate25Test() {
@@ -998,7 +998,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("false", ret_.getString());
+        assertEq("false", getString(ret_));
     }
     @Test
     public void calculate26Test() {
@@ -1025,7 +1025,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("true", ret_.getString());
+        assertEq("true", getString(ret_));
     }
     @Test
     public void calculate27Test() {
@@ -1083,7 +1083,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("5,0", ret_.getString());
+        assertEq("5,0", getString(ret_));
     }
     @Test
     public void calculate28Test() {
@@ -1145,7 +1145,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("15,1", ret_.getString());
+        assertEq("15,1", getString(ret_));
     }
     @Test
     public void calculate29Test() {
@@ -1207,7 +1207,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("15,1", ret_.getString());
+        assertEq("15,1", getString(ret_));
     }
     @Test
     public void calculate31Test() {
@@ -1227,7 +1227,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("code.util.Replacement", ret_.getString());
+        assertEq("code.util.Replacement", getString(ret_));
     }
     @Test
     public void calculate32Test() {
@@ -1247,7 +1247,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("code.util.Replacement", ret_.getString());
+        assertEq("code.util.Replacement", getString(ret_));
     }
     @Test
     public void calculate33Test() {
@@ -1276,7 +1276,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate34Test() {
@@ -1339,7 +1339,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("20,3", ret_.getString());
+        assertEq("20,3", getString(ret_));
     }
     @Test
     public void calculate35Test() {
@@ -1402,7 +1402,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("20,3", ret_.getString());
+        assertEq("20,3", getString(ret_));
     }
     @Test
     public void calculate38Test() {
@@ -1431,7 +1431,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate39Test() {
@@ -1487,7 +1487,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("5,0", ret_.getString());
+        assertEq("5,0", getString(ret_));
     }
     @Test
     public void calculate40Test() {
@@ -1543,7 +1543,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("6,1", ret_.getString());
+        assertEq("6,1", getString(ret_));
     }
    
     @Test
@@ -1602,7 +1602,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("5,0", ret_.getString());
+        assertEq("5,0", getString(ret_));
     }
     @Test
     public void calculate44Test() {
@@ -1660,7 +1660,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("6,1", ret_.getString());
+        assertEq("6,1", getString(ret_));
     }
     @Test
     public void calculate45Test() {
@@ -1718,7 +1718,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("4,-1", ret_.getString());
+        assertEq("4,-1", getString(ret_));
     }
     @Test
     public void calculate46Test() {
@@ -1744,7 +1744,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("[$int", ret_.getString());
+        assertEq("[$int", getString(ret_));
     }
     @Test
     public void calculate47Test() {
@@ -1763,7 +1763,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("string", ret_.getString());
+        assertEq("string", getString(ret_));
     }
     @Test
     public void calculate48Test() {
@@ -1789,7 +1789,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate49Test() {
@@ -1818,7 +1818,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("static:4", ret_.getString());
+        assertEq("static:4", getString(ret_));
     }
     @Test
     public void calculate50Test() {
@@ -1851,7 +1851,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("static:", ret_.getString());
+        assertEq("static:", getString(ret_));
     }
     @Test
     public void calculate52Test() {
@@ -1873,7 +1873,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("ONE", ret_.getString());
+        assertEq("ONE", getString(ret_));
     }
     @Test
     public void calculate53Test() {
@@ -1900,7 +1900,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate54Test() {
@@ -1922,7 +1922,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("ONE", ret_.getString());
+        assertEq("ONE", getString(ret_));
     }
     @Test
     public void calculate55Test() {
@@ -1949,7 +1949,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate56Test() {
@@ -2006,7 +2006,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate59Test() {
@@ -2037,7 +2037,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate60Test() {
@@ -2074,7 +2074,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4,6,8", ret_.getString());
+        assertEq("2,4,6,8", getString(ret_));
     }
     @Test
     public void calculate61Test() {
@@ -2111,7 +2111,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4,6,8", ret_.getString());
+        assertEq("2,4,6,8", getString(ret_));
     }
     @Test
     public void calculate62Test() {
@@ -2143,7 +2143,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4", ret_.getString());
+        assertEq("2,4", getString(ret_));
     }
     @Test
     public void calculate63Test() {
@@ -2177,7 +2177,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("2,4,6,8", ret_.getString());
+        assertEq("2,4,6,8", getString(ret_));
     }
     @Test
     public void calculate64Test() {
@@ -2198,7 +2198,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("@pkg.Annot()", ret_.getString());
+        assertEq("@pkg.Annot()", getString(ret_));
     }
     @Test
     public void calculate65Test() {
@@ -2219,7 +2219,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Apply", ret_.getString());
+        assertEq("pkg.Apply", getString(ret_));
     }
     @Test
     public void calculate66Test() {
@@ -2240,7 +2240,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("[pkg.Apply", ret_.getString());
+        assertEq("[pkg.Apply", getString(ret_));
     }
     @Test
     public void calculate67Test() {
@@ -2261,7 +2261,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Apply;pkg.Apply()", ret_.getString());
+        assertEq("pkg.Apply;pkg.Apply()", getString(ret_));
     }
     @Test
     public void calculate68Test() {
@@ -2282,7 +2282,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Apply.$static test()", ret_.getString());
+        assertEq("pkg.Apply.$static test()", getString(ret_));
     }
     @Test
     public void calculate69Test() {
@@ -2304,7 +2304,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Apply.test", ret_.getString());
+        assertEq("pkg.Apply.test", getString(ret_));
     }
     @Test
     public void calculate70Test() {
@@ -2325,6 +2325,6 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq("pkg.Apply<java.lang.String>;#T", ret_.getString());
+        assertEq("pkg.Apply<java.lang.String>;#T", getString(ret_));
     }
 }

@@ -13,8 +13,7 @@ import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.FieldableStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -471,5 +470,17 @@ public abstract class ProcessMethodCommon {
             return (Struct) str_;
         }
         return null;
+    }
+    protected static String getString(Argument _arg) {
+        return ((CharSequenceStruct)_arg.getStruct()).toStringInstance();
+    }
+    protected static long getNumber(Argument _arg) {
+        return ((NumberStruct)_arg.getStruct()).longStruct();
+    }
+    protected static double getDouble(Argument _arg) {
+        return ((NumberStruct)_arg.getStruct()).doubleStruct();
+    }
+    protected static char getChar(Argument _arg) {
+        return ((CharStruct)_arg.getStruct()).getChar();
     }
 }

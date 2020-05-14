@@ -689,18 +689,16 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         editor_.setLanguage(lg_);
-        editor_.setDataBase(res_);
         stds_ = new BeloteStandards();
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,stds_);
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,res_,stds_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         if(partie_.getContrat().jouerDonne()) {
             scroll_=new ScrollPane();
             editor_ = new RenderedPage(scroll_);
             editor_.setLanguage(lg_);
-            editor_.setDataBase(res_);
             stds_ = new BeloteStandards();
-            editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE, stds_);
+            editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,res_, stds_);
             scroll_.setPreferredSize(new Dimension(300,300));
             onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),scroll_);
         }

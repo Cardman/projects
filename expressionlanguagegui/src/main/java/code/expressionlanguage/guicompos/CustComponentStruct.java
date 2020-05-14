@@ -110,14 +110,14 @@ public abstract class CustComponentStruct implements Struct {
         return BooleanStruct.of(getVisibleComponent().isFocusable());
     }
     public void setFocusable(Struct _focusable) {
-        getVisibleComponent().setFocusable(((BooleanStruct)_focusable).getInstance());
+        getVisibleComponent().setFocusable(BooleanStruct.of(true).sameReference(_focusable));
     }
     public BooleanStruct isOpaque() {
         return BooleanStruct.of(getVisibleComponent().isOpaque());
     }
 
     public void setOpaque(Struct _b) {
-        getVisibleComponent().setOpaque(((BooleanStruct)_b).getInstance());
+        getVisibleComponent().setOpaque(BooleanStruct.of(true).sameReference(_b));
     }
 
     public IntStruct getXcoords() {
@@ -202,7 +202,7 @@ public abstract class CustComponentStruct implements Struct {
         return BooleanStruct.of(getComponent().isVisible());
     }
     public void setVisible(Struct _b) {
-        getComponent().setVisible(((BooleanStruct)_b).getInstance());
+        getComponent().setVisible(BooleanStruct.of(true).sameReference(_b));
     }
     protected CustComponent getVisibleComponent() {
         return getComponent();
@@ -242,7 +242,7 @@ public abstract class CustComponentStruct implements Struct {
         return BooleanStruct.of(getComponent().isAutoscrolls());
     }
     public void setAutoscrolls(Struct _autoscrolls) {
-        getComponent().setAutoscrolls(((BooleanStruct)_autoscrolls).getInstance());
+        getComponent().setAutoscrolls(BooleanStruct.of(true).sameReference(_autoscrolls));
     }
     @Override
     public boolean sameReference(Struct _other) {

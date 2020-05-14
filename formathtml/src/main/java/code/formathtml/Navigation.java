@@ -10,7 +10,6 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.structs.IdStruct;
 import code.formathtml.util.*;
 import code.sml.*;
 import code.util.CustList;
@@ -52,7 +51,6 @@ public final class Navigation {
 
     private StringMap<String> files = new StringMap<String>();
 
-    private Object dataBase;
     private Struct dataBaseStruct = NullStruct.NULL_VALUE;
 
     private String title = EMPTY_STRING;
@@ -68,7 +66,6 @@ public final class Navigation {
             return;
         }
         session = new Configuration();
-        session.setDataBaseClassName(_lgNames.getAliasObject());
         session.setStandards(_lgNames);
         ReadConfiguration.load(session,_lgCode,doc_);
         if (session.getContext() == null) {
@@ -83,16 +80,6 @@ public final class Navigation {
     public void setLanguage(String _language) {
         language = _language;
         session.setCurrentLanguage(language);
-    }
-
-    public void setDataBase(Object _dataBase) {
-        dataBase = _dataBase;
-        if (dataBase != null) {
-            String className_ = session.getDataBaseClassName();
-            setDataBaseStruct(IdStruct.newInstance(dataBase, className_));
-        } else {
-            setDataBaseStruct(NullStruct.NULL_VALUE);
-        }
     }
 
     public String getHtmlText() {

@@ -39,7 +39,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(24, ret_.getNumber());
+        assertEq(24, getNumber(ret_));
     }
 
     @Test
@@ -66,7 +66,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
 
     @Test
@@ -95,7 +95,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(24, ret_.getNumber());
+        assertEq(24, getNumber(ret_));
     }
 
     @Test
@@ -128,7 +128,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
 
     @Test
@@ -158,7 +158,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(30, ret_.getNumber());
+        assertEq(30, getNumber(ret_));
     }
     @Test
     public void calculateArgument73Test() {
@@ -190,7 +190,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(5, ret_.getNumber());
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculateArgument74Test() {

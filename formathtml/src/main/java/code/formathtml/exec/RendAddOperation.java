@@ -3,6 +3,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.AddOperation;
 import code.expressionlanguage.opers.exec.ExecCatOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -31,9 +32,11 @@ public final class RendAddOperation extends RendStdNumericOperation {
             if (catString) {
                 return ExecCatOperation.localSumDiff(_a, _b, _cont);
             }
-            return new Argument(NumberStruct.calculateSum((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
+            return new Argument(NumberStruct.calculateSum(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+                    ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
         }
-        return new Argument(NumberStruct.calculateDiff((NumberStruct) _a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
+        return new Argument(NumberStruct.calculateDiff(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
     }
 
 }

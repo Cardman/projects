@@ -268,7 +268,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, out_.getNumber());
+        assertEq(3, getNumber(out_));
         assertEq(2, cont_.getCoverage().getCalls().getVal("").size());
         assertTrue(cont_.getCoverage().getCalls().getVal("").firstValue());
         assertTrue(!cont_.getCoverage().getCalls().getVal("").lastValue());

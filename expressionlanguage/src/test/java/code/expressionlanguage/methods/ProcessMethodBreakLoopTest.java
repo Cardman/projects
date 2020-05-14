@@ -39,7 +39,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(23, ret_.getNumber());
+        assertEq(23, getNumber(ret_));
     }
 
     @Test
@@ -71,7 +71,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(23, ret_.getNumber());
+        assertEq(23, getNumber(ret_));
     }
     @Test
     public void calculateArgument31Test() {
@@ -102,7 +102,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(23, ret_.getNumber());
+        assertEq(23, getNumber(ret_));
     }
     @Test
     public void calculateArgument32Test() {
@@ -135,7 +135,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(23, ret_.getNumber());
+        assertEq(23, getNumber(ret_));
     }
     @Test
     public void calculateArgument33Test() {
@@ -165,7 +165,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(23, ret_.getNumber());
+        assertEq(23, getNumber(ret_));
     }
     @Test
     public void calculateArgument34Test() {
@@ -202,7 +202,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(23, ret_.getNumber());
+        assertEq(23, getNumber(ret_));
     }
     @Test
     public void calculateArgument35Test() {
@@ -235,7 +235,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(29, ret_.getNumber());
+        assertEq(29, getNumber(ret_));
     }
 
     @Test
@@ -276,7 +276,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(30, ret_.getNumber());
+        assertEq(30, getNumber(ret_));
     }
     @Test
     public void calculateArgument37Test() {
@@ -319,7 +319,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(30, ret_.getNumber());
+        assertEq(30, getNumber(ret_));
     }
     @Test
     public void calculateArgument38Test() {
@@ -352,7 +352,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(29, ret_.getNumber());
+        assertEq(29, getNumber(ret_));
     }
 
     @Test
@@ -389,7 +389,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(29, ret_.getNumber());
+        assertEq(29, getNumber(ret_));
     }
 
     @Test
@@ -418,7 +418,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(23, ret_.getNumber());
+        assertEq(23, getNumber(ret_));
     }
     @Test
     public void calculateArgument41Test() {
@@ -452,7 +452,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(457, ret_.getNumber());
+        assertEq(457, getNumber(ret_));
     }
     @Test
     public void calculateArgument42Test() {
@@ -493,7 +493,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(467, ret_.getNumber());
+        assertEq(467, getNumber(ret_));
     }
     @Test
     public void calculateArgument43Test() {
@@ -534,7 +534,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(467, ret_.getNumber());
+        assertEq(467, getNumber(ret_));
     }
 
     @Test
@@ -573,7 +573,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument9FailTest() {

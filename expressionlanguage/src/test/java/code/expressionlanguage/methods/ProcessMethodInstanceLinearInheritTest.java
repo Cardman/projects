@@ -1170,7 +1170,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
 
@@ -1218,7 +1218,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
 
@@ -1266,7 +1266,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
 
@@ -1309,7 +1309,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
 
@@ -1349,7 +1349,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
 
@@ -1397,7 +1397,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
 
@@ -4128,7 +4128,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         Argument ret_;
         ret_ = calculateNormal("pkg.ExThree", id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void instanceArgumentFailTest() {

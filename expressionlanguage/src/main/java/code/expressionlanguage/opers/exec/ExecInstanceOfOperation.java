@@ -8,6 +8,7 @@ import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.InstanceOfOperation;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -34,14 +35,14 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
         Argument objArg_ = _arguments.first();
         if (objArg_.isNull()) {
             Argument arg_ = new Argument();
-            arg_.setObject(false);
+            arg_.setStruct(BooleanStruct.of(false));
             return arg_;
         }
         PageEl page_ = _conf.getOperationPageEl();
         String str_ = page_.formatVarType(className, _conf);
         boolean res_ = Templates.safeObject(str_, objArg_, _conf) == ErrorType.NOTHING;
         Argument arg_ = new Argument();
-        arg_.setObject(res_);
+        arg_.setStruct(BooleanStruct.of(res_));
         return arg_;
     }
 }

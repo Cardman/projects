@@ -138,8 +138,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         ScrollPane scroll_ = new ScrollPane();
         editor = new RenderedPage(scroll_);
         editor.setLanguage(lg_);
-        editor.setDataBase(rulesPresidentMulti);
-        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT, new PresidentStandards());
+        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT,rulesPresidentMulti, new PresidentStandards());
 
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
@@ -217,8 +216,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         rulesPresidentMulti = _rules;
         String lg_ = getOwner().getLanguageKey();
         editor.setLanguage(lg_);
-        editor.setDataBase(rulesPresidentMulti);
-        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT, new PresidentStandards());
+        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT,rulesPresidentMulti, new PresidentStandards());
     }
 
     public void updateForBeginningGame(DealtHandPresident _hand) {
@@ -647,8 +645,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         editor_.setLanguage(lg_);
-        editor_.setDataBase(_res);
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT, new PresidentStandards());
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT,_res, new PresidentStandards());
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         container_.add(onglets_,BorderLayout.CENTER);

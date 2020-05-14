@@ -598,7 +598,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
 
@@ -652,7 +652,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
 
@@ -709,7 +709,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
 
@@ -765,7 +765,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
 
@@ -821,7 +821,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
 
@@ -877,7 +877,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
 
@@ -934,7 +934,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
 
@@ -995,7 +995,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
 
@@ -1055,7 +1055,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.ExThree",cont_.getStandards().getAliasPrimInteger());
 
@@ -3755,7 +3755,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(11, ret_.getNumber());
+        assertEq(11, getNumber(ret_));
     }
     @Test
     public void calculateArgument114Test() {
@@ -3781,7 +3781,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(11, ret_.getNumber());
+        assertEq(11, getNumber(ret_));
     }
     @Test
     public void calculateArgument75Test() {

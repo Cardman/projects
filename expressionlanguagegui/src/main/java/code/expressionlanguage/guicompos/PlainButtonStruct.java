@@ -43,7 +43,7 @@ public final class PlainButtonStruct extends InputStruct {
     }
     @Override
     public void setEnabled(Struct b) {
-        plainButton.setEnabled(((BooleanStruct)b).getInstance());
+        plainButton.setEnabled(BooleanStruct.of(true).sameReference(b));
     }
     public void addActionListener(Struct _list) {
         if (_list instanceof ActionListener) {

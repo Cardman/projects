@@ -901,7 +901,7 @@ public class ApplyCoreMethodUtil {
         if (_arg instanceof EnumerableStruct) {
             str_ = ((EnumerableStruct)_arg).getName();
         } else {
-            str_ = _arg.getClassName(_cont);
+            str_ =  Argument.getNull(_arg).getClassName(_cont);
         }
         return new StringStruct(str_);
     }

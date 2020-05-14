@@ -36,7 +36,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(9, ret_.getNumber());
+        assertEq(9, getNumber(ret_));
     }
 
     @Test
@@ -61,7 +61,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
 
     @Test
@@ -98,7 +98,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmethsec");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
     @Test
     public void calculateArgument1007Test() {
@@ -121,7 +121,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:3,11:68\npkg.Ex.$static exmeth();pkg/Ex:6,31:151\npkg.Ex.$static exmethsec();2", ret_.getString());
+        assertEq("pkg/Ex:3,11:68\npkg.Ex.$static exmeth();pkg/Ex:6,31:151\npkg.Ex.$static exmethsec();2", getString(ret_));
     }
     @Test
     public void calculateArgument1008Test() {
@@ -144,7 +144,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:3,11:68\npkg.Ex.$static exmeth();pkg/Ex:6,33:151\npkg.Ex.$static exmethsec();2", ret_.getString());
+        assertEq("pkg/Ex:3,11:68\npkg.Ex.$static exmeth();pkg/Ex:6,33:151\npkg.Ex.$static exmethsec();2", getString(ret_));
     }
     @Test
     public void calculateArgument1009Test() {
@@ -167,6 +167,6 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         MethodId id_ = new MethodId(MethodAccessKind.STATIC_CALL,"exmeth", new StringList());
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:3,11:72\npkg.Ex.$staticCall exmeth();pkg/Ex:6,31:155\npkg.Ex.$static exmethsec();2", ret_.getString());
+        assertEq("pkg/Ex:3,11:72\npkg.Ex.$staticCall exmeth();pkg/Ex:6,31:155\npkg.Ex.$static exmethsec();2", getString(ret_));
     }
 }

@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.structs.FieldableStruct;
+import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -100,7 +101,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
 
@@ -135,7 +136,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
-        arg_.setObject(8);
+        arg_.setStruct(new IntStruct(8));
         args_.add(arg_);
         ConstructorId id_ = getConstructorId("pkg.Ex",cont_.getStandards().getAliasPrimInteger());
 

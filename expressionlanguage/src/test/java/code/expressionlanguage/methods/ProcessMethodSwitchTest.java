@@ -35,7 +35,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("110", ret_.getString());
+        assertEq("110", getString(ret_));
     }
     @Test
     public void calculateArgument2Test() {
@@ -60,7 +60,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(11, ret_.getNumber());
+        assertEq(11, getNumber(ret_));
     }
 
     @Test
@@ -87,7 +87,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
 
 
@@ -115,7 +115,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
 
     @Test
@@ -142,7 +142,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
 
     @Test
@@ -171,7 +171,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(22, ret_.getNumber());
+        assertEq(22, getNumber(ret_));
     }
 
     @Test
@@ -199,7 +199,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
 
 
@@ -228,7 +228,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(17, ret_.getNumber());
+        assertEq(17, getNumber(ret_));
     }
 
     @Test
@@ -257,7 +257,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(17, ret_.getNumber());
+        assertEq(17, getNumber(ret_));
     }
 
     @Test
@@ -286,7 +286,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
 
     @Test
@@ -314,7 +314,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
 
 
@@ -344,7 +344,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
 
     @Test
@@ -372,7 +372,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(17, ret_.getNumber());
+        assertEq(17, getNumber(ret_));
     }
 
     @Test
@@ -402,7 +402,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(17, ret_.getNumber());
+        assertEq(17, getNumber(ret_));
     }
 
     @Test
@@ -428,7 +428,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
     @Test
     public void calculateArgument44Test() {
@@ -456,7 +456,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument45Test() {
@@ -484,7 +484,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
 
     @Test
@@ -513,7 +513,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
 
     @Test
@@ -538,7 +538,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument66Test() {
@@ -564,7 +564,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
     }
     @Test
     public void calculateArgument67Test() {
@@ -590,7 +590,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument68Test() {
@@ -617,7 +617,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument69Test() {
@@ -644,7 +644,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument70Test() {
@@ -673,7 +673,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(17, ret_.getNumber());
+        assertEq(17, getNumber(ret_));
     }
     @Test
     public void calculateArgument71Test() {
@@ -706,7 +706,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
     @Test
     public void calculateArgument72Test() {
@@ -739,7 +739,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
     @Test
     public void calculateArgument73Test() {
@@ -787,7 +787,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
     @Test
     public void calculateArgument74Test() {
@@ -835,7 +835,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(17, ret_.getNumber());
+        assertEq(17, getNumber(ret_));
     }
     @Test
     public void calculateArgument75Test() {
@@ -865,7 +865,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(17, ret_.getNumber());
+        assertEq(17, getNumber(ret_));
     }
     @Test
     public void calculateArgument76Test() {
@@ -896,7 +896,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(13, ret_.getNumber());
+        assertEq(13, getNumber(ret_));
     }
     @Test
     public void calculateArgument77Test() {
@@ -926,7 +926,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(17, ret_.getNumber());
+        assertEq(17, getNumber(ret_));
     }
     @Test
     public void calculateArgument78Test() {
@@ -959,7 +959,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(17, ret_.getNumber());
+        assertEq(17, getNumber(ret_));
     }
     @Test
     public void calculateArgument79Test() {
@@ -994,7 +994,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(22, ret_.getNumber());
+        assertEq(22, getNumber(ret_));
     }
     @Test
     public void calculateArgument80Test() {
@@ -1027,7 +1027,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(20, ret_.getNumber());
+        assertEq(20, getNumber(ret_));
     }
     @Test
     public void calculateArgument81Test() {
@@ -1059,7 +1059,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(20, ret_.getNumber());
+        assertEq(20, getNumber(ret_));
     }
 
     @Test

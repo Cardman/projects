@@ -770,7 +770,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(25, ret_.getNumber());
+        assertEq(25, getNumber(ret_));
     }
     @Test
     public void instanceArgument139Test() {

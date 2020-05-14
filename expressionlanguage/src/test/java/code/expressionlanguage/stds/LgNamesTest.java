@@ -1564,7 +1564,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         Argument argGlLoc_ = new Argument();
         Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_,null);
         assertNull(getException(contextEl_));
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
     @Test
     public void success2Test() {
@@ -1595,7 +1595,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         Argument argGlLoc_ = new Argument();
         Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_,null);
         assertNull(getException(contextEl_));
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
     @Test
     public void parseLineArg1Test() {

@@ -129,11 +129,13 @@ public abstract class BeanLgNames extends LgNames {
     public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_className, getAliasString())) {
+            String v_;
             if (_values.isEmpty()) {
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
+                v_ = null;
+            } else {
+                v_ = _values.first();
             }
-            res_.setResult(new StringStruct(_values.first()));
+            res_.setResult(wrapStd(v_));
             return res_;
         }
         if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_className,_context)) {
@@ -170,7 +172,12 @@ public abstract class BeanLgNames extends LgNames {
         }
         return getOtherStructToBeValidated(_values, _className, _context.getContext());
     }
-
+    protected static Struct wrapStd(String _element) {
+        if (_element == null) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new StringStruct(_element);
+    }
     public void setBeanForms(Configuration _conf, Struct _mainBean,
                              RendImport _node, boolean _keepField, String _beanName) {
         if (_mainBean == null) {

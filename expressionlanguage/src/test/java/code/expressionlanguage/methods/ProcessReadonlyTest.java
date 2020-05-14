@@ -45,7 +45,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
     @Test
     public void calculate8Test() {
@@ -72,7 +72,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
     @Test
     public void calculate9Test() {
@@ -99,7 +99,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
     @Test
     public void calculate10Test() {
@@ -125,7 +125,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(50, ret_.getNumber());
+        assertEq(50, getNumber(ret_));
     }
     @Test
     public void calculate11Test() {
@@ -421,7 +421,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(4, ret_.getNumber());
+        assertEq(4, getNumber(ret_));
     }
     @Test
     public void calculate21Test() {
@@ -445,7 +445,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, ret_.getNumber());
+        assertEq(10, getNumber(ret_));
     }
     @Test
     public void calculate22Test() {
@@ -479,7 +479,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(25, ret_.getNumber());
+        assertEq(25, getNumber(ret_));
     }
     @Test
     public void calculate26Test() {

@@ -435,7 +435,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
                 res_.setResult(std_);
                 return res_;
             }
-            AtomicBoolean at_ = new AtomicBoolean(((BooleanStruct)_args[0]).getInstance());
+            AtomicBoolean at_ = new AtomicBoolean(BooleanStruct.of(true).sameReference(_args[0]));
             DefaultStruct std_ = DefaultStruct.newInstance(at_, aliasAtomicBoolean);
             res_.setResult(std_);
             return res_;
@@ -490,22 +490,22 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
             }
             if (StringList.quickEq(name_,aliasSetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) ((DefaultStruct) _instance).getInstance();
-                re_.set(((BooleanStruct)_args[0]).getInstance());
+                re_.set(BooleanStruct.of(true).sameReference(_args[0]));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) ((DefaultStruct) _instance).getInstance();
-                res_.setResult(BooleanStruct.of(re_.compareAndSet(((BooleanStruct)_args[0]).getInstance(),((BooleanStruct)_args[1]).getInstance())));
+                res_.setResult(BooleanStruct.of(re_.compareAndSet(BooleanStruct.of(true).sameReference(_args[0]),BooleanStruct.of(true).sameReference(_args[1]))));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) ((DefaultStruct) _instance).getInstance();
-                res_.setResult(BooleanStruct.of(re_.getAndSet(((BooleanStruct)_args[0]).getInstance())));
+                res_.setResult(BooleanStruct.of(re_.getAndSet(BooleanStruct.of(true).sameReference(_args[0]))));
                 return res_;
             }
             AtomicBoolean re_ = (AtomicBoolean) ((DefaultStruct) _instance).getInstance();
-            re_.lazySet(((BooleanStruct)_args[0]).getInstance());
+            re_.lazySet(BooleanStruct.of(true).sameReference(_args[0]));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

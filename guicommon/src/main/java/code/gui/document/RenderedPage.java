@@ -10,6 +10,7 @@ import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.BeanNatLgNames;
 import code.gui.*;
 import code.resources.ResourceFiles;
 import code.sml.Document;
@@ -75,17 +76,14 @@ public final class RenderedPage implements ProcessingSession {
         navigation.setLanguages(Constants.getAvailableLanguages());
     }
 
-    public void setDataBase(Object _dataBase) {
-        navigation.setDataBase(_dataBase);
-    }
-
     public void setProcess(CustList<BufferedImage> _process) {
         process = _process;
     }
 
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
-    public void initialize(String _conf, BeanLgNames _stds) {
+    public void initialize(String _conf, Object _db,BeanNatLgNames _stds) {
         start();
+        _stds.setDataBase(_db);
         standards = _stds;
         String content_ = ResourceFiles.ressourceFichier(_conf);
         navigation.loadConfiguration(content_,"", _stds);
@@ -99,12 +97,12 @@ public final class RenderedPage implements ProcessingSession {
     }
 
 
-    public void initializeOnlyConf(Object _dataBase,Navigation _navigation, String _lg) {
+    public void initializeOnlyConf(Object _dataBase, BeanNatLgNames _stds,Navigation _navigation, String _lg) {
         if (processing.get()) {
             return;
         }
         navigation = _navigation;
-        navigation.setDataBase(_dataBase);
+        _stds.setDataBase(_dataBase);
         navigation.setLanguage(_lg);
         standards = _navigation.getSession().getAdvStandards();
         threadAction = CustComponent.newThread(new ThreadActions(this));

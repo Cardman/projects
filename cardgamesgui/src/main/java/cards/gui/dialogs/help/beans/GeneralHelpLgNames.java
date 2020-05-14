@@ -1,5 +1,6 @@
 package cards.gui.dialogs.help.beans;
 
+import cards.belote.beans.DefaultStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
@@ -19,6 +20,10 @@ public final class GeneralHelpLgNames extends BeanNatLgNames {
     }
     public Struct wrapStd(Object _element, ExecutableCode _ex){
         return NullStruct.NULL_VALUE;
+    }
+    @Override
+    protected Struct newId(Object _obj, String _className) {
+        return DefaultStruct.newInstance(_obj, _className);
     }
 
     public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {

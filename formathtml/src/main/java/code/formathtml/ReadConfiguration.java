@@ -41,10 +41,6 @@ public final class ReadConfiguration {
                 _configuration.setMessagesFolder(c.getAttribute("value"));
                 continue;
             }
-            if (StringList.quickEq(fieldName_, "dataBaseClassName")) {
-                _configuration.setDataBaseClassName(c.getAttribute("value"));
-                continue;
-            }
             if (stds_ instanceof BeanNatLgNames && StringList.quickEq(fieldName_, "validators")) {
                 _configuration.setValidators(loadValidator(c, (BeanNatLgNames) stds_));
                 continue;

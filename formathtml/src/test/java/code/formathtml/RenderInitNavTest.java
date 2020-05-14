@@ -3,6 +3,7 @@ package code.formathtml;
 import code.bean.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 import org.junit.Test;
@@ -189,6 +190,7 @@ public final class RenderInitNavTest extends CommonRender {
         conf_.getBeansInfos().addEntry("bean_one",i_);
         conf_.init();
         Navigation n_ = new Navigation();
+        n_.setDataBaseStruct(NullStruct.NULL_VALUE);
         n_.setSession(conf_);
         n_.setFiles(files_);
         n_.setupRendClassesInit();

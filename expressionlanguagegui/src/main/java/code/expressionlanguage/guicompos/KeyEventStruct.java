@@ -33,15 +33,15 @@ public final class KeyEventStruct implements Struct {
     }
 
     public void setAlt(Struct _alt) {
-        alt = ((BooleanStruct)_alt).getInstance();
+        alt = BooleanStruct.of(true).sameReference(_alt);
     }
 
     public void setCtrl(Struct _ctrl) {
-        ctrl = ((BooleanStruct)_ctrl).getInstance();
+        ctrl = BooleanStruct.of(true).sameReference(_ctrl);
     }
 
     public void setShift(Struct _shift) {
-        shift = ((BooleanStruct)_shift).getInstance();
+        shift = BooleanStruct.of(true).sameReference(_shift);
     }
 
     public void setKeyChar(Struct _clicks) {

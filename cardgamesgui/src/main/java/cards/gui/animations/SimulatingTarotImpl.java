@@ -200,8 +200,7 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         editor_.setLanguage(lg_);
-        editor_.setDataBase(res_);
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT, new TarotStandards());
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,res_, new TarotStandards());
         scroll_.setPreferredSize(new Dimension(300,300));
 
         Panel panneau_=Panel.newPageBox();

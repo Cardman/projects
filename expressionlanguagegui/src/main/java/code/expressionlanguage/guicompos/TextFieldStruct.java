@@ -34,7 +34,7 @@ public final class TextFieldStruct extends InputStruct {
 
     @Override
     public void setEnabled(Struct _enabled) {
-        textField.setEnabled(((BooleanStruct)_enabled).getInstance());
+        textField.setEnabled(BooleanStruct.of(true).sameReference(_enabled));
     }
 
     public void setText(Struct t) {

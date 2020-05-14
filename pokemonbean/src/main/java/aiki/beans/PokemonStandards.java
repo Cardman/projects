@@ -2971,6 +2971,11 @@ public final class PokemonStandards extends BeanNatLgNames {
         String className_ = getOtherBeanStructClassName(_element);
         return DefaultStruct.newInstance(_element, className_);
     }
+
+    @Override
+    protected Struct newId(Object _obj, String _className) {
+        return DefaultStruct.newInstance(_obj, _className);
+    }
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();

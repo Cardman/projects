@@ -264,8 +264,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         editor = new RenderedPage(scroll_);
 
         editor.setLanguage(lg_);
-        editor.setDataBase(rulesTarotMulti);
-        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT, new TarotStandards());
+        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT,rulesTarotMulti, new TarotStandards());
 
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
@@ -326,8 +325,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         rulesTarotMulti = _rules;
         String lg_ = getOwner().getLanguageKey();
         editor.setLanguage(lg_);
-        editor.setDataBase(rulesTarotMulti);
-        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT, new TarotStandards());
+        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT,rulesTarotMulti, new TarotStandards());
     }
     public void updateForBeginningGame(DealtHandTarot _hand) {
         repTarot = _hand.getRep();
@@ -1088,15 +1086,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ScrollPane scroll_=new ScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         editor_.setLanguage(lg_);
-        editor_.setDataBase(_res);
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT, new TarotStandards());
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT,_res, new TarotStandards());
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         ascenseur_=new ScrollPane();
         editor_ = new RenderedPage(ascenseur_);
         editor_.setLanguage(lg_);
-        editor_.setDataBase(_res);
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT, new TarotStandards());
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT,_res, new TarotStandards());
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);

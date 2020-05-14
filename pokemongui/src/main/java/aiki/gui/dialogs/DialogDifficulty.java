@@ -8,6 +8,7 @@ import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.threads.AfterSettingDifficutyThread;
 import code.formathtml.Navigation;
+import code.formathtml.util.BeanNatLgNames;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;
@@ -33,11 +34,11 @@ public final class DialogDifficulty extends Dialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setDialogDifficulty(MainWindow _window, String _title, FacadeGame _facade,Navigation _navigation) {
-        DIALOG.init(_window, _title, _facade,_navigation);
+    public static void setDialogDifficulty(MainWindow _window, String _title, FacadeGame _facade,BeanNatLgNames _bean,Navigation _navigation) {
+        DIALOG.init(_window, _title, _facade,_bean,_navigation);
     }
 
-    private void init(MainWindow _window, String _title, FacadeGame _facade, Navigation _navigation) {
+    private void init(MainWindow _window, String _title, FacadeGame _facade, BeanNatLgNames _bean, Navigation _navigation) {
         setDialogIcon(_window);
         facade = _facade;
         window = _window;
@@ -49,7 +50,7 @@ public final class DialogDifficulty extends Dialog {
         ScrollPane scrollSession_ = new ScrollPane();
         session = new RenderedPage(scrollSession_);
         session.setFrame(this);
-        session.initializeOnlyConf(facade,_navigation,_facade.getLanguage());
+        session.initializeOnlyConf(facade,_bean,_navigation,_facade.getLanguage());
         Panel panel_ = Panel.newPageBox();
         TextLabel area_ = new TextLabel(TEXT);
         TextField field_;

@@ -9,7 +9,8 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.exec.ExecArrayFieldOperation;
+import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
@@ -21,7 +22,7 @@ import code.formathtml.*;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.structs.IdStruct;
+import code.formathtml.structs.MessageStruct;
 import code.formathtml.structs.RealInstanceStruct;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Element;
@@ -910,11 +911,15 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 index_++;
                 continue;
             }
-            Struct map_ = RenderExpUtil.calculateReuse(opsMap, _conf).getStruct();
-            ((FieldableStruct)strBean_).getEntryStruct(new ClassField(getAliasBean(),getAliasForms())).setValue(map_);
-            ((FieldableStruct)strBean_).getEntryStruct(new ClassField(getAliasBean(),getAliasDataBaseField())).setValue(_db);
-            ((FieldableStruct)strBean_).getEntryStruct(new ClassField(getAliasBean(),getAliasLanguage())).setValue(new StringStruct(_language));
-            ((FieldableStruct)strBean_).getEntryStruct(new ClassField(getAliasBean(),getAliasScope())).setValue(new StringStruct(info_.getScope()));
+            Argument mapArg_ = RenderExpUtil.calculateReuse(opsMap, _conf);
+            ExecInvokingOperation.setInstanceField(getAliasBean(),getAliasForms(),getAliasStringMapObject(),
+                    new Argument(strBean_),mapArg_, _conf);
+            ExecInvokingOperation.setInstanceField(getAliasBean(),getAliasDataBaseField(),getAliasObject(),
+                    new Argument(strBean_),new Argument(_db), _conf);
+            ExecInvokingOperation.setInstanceField(getAliasBean(),getAliasLanguage(),getAliasString(),
+                    new Argument(strBean_),new Argument(new StringStruct(_language)), _conf);
+            ExecInvokingOperation.setInstanceField(getAliasBean(),getAliasScope(),getAliasString(),
+                    new Argument(strBean_),new Argument(new StringStruct(info_.getScope())), _conf);
             _conf.removeLastPage();
             _conf.getBuiltBeans().setValue(index_,strBean_);
             index_++;
@@ -944,16 +949,16 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             return super.getOtherResult(_cont,_instance,_method,_args);
         }
         String name_ = _method.getConstraints().getName();
+        MessageStruct instance_ = getMessageStruct(_instance);
         if (StringList.quickEq(name_, aliasNewMessage)) {
             if (list_.isEmpty()) {
-                res_.setResult(IdStruct.newInstance(Message.newStandardMessage(),aliasMessage));
+                res_.setResult(MessageStruct.newInstance(Message.newStandardMessage(),aliasMessage));
             } else {
-                String value_ = ((StringStruct) _args[0]).getInstance();
-                res_.setResult(IdStruct.newInstance(Message.newStandardMessage(value_),aliasMessage));
+                String value_ = ApplyCoreMethodUtil.getString(_args[0]).getInstance();
+                res_.setResult(MessageStruct.newInstance(Message.newStandardMessage(value_),aliasMessage));
             }
             return res_;
         }
-        Message instance_ = (Message) ((RealInstanceStruct)_instance).getInstance();
         if (StringList.quickEq(name_, aliasMessageFormat)) {
             res_.setResult(wrapStd(instance_.getMessage()));
             return res_;
@@ -969,25 +974,28 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             res_.setResult(arr_);
             return res_;
         }
-        Struct[] argsInst_ = ((ArrayStruct) _args[0]).getInstance();
+        Struct[] argsInst_ = ExecArrayFieldOperation.getArray(_args[0],_cont).getInstance();
         int len_ = argsInst_.length;
         String[] resArgs_ = new String[len_];
         for (int i = 0; i < len_; i++){
             Struct argInst_ = argsInst_[i];
             if (argInst_ instanceof StringStruct) {
                 resArgs_[i] = ((StringStruct)argInst_).getInstance();
+            } else {
+                resArgs_[i] = _cont.getStandards().getDisplayedStrings().getNullString();
             }
         }
         instance_.setArgs(resArgs_);
         res_.setResult(NullStruct.NULL_VALUE);
         return res_;
     }
-    private static Struct wrapStd(String _element) {
-        if (_element == null) {
-            return NullStruct.NULL_VALUE;
+    private MessageStruct getMessageStruct(Struct _str) {
+        if (_str instanceof MessageStruct) {
+            return (MessageStruct) _str;
         }
-        return new StringStruct(_element);
+        return MessageStruct.newInstance(Message.newStandardMessage(),aliasMessage);
     }
+
     @Override
     public void forwardDataBase(Struct _bean, Struct _to, Configuration _conf) {
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_bean,_conf);
@@ -1223,7 +1231,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (arg_.isNull()) {
             return null;
         }
-        return (Message)((RealInstanceStruct)arg_.getStruct()).getInstance();
+        return getMessageStruct(arg_.getStruct()).getInstance();
     }
     @Override
     public String getStringKey(Configuration _conf, Struct _instance) {
@@ -1257,7 +1265,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (_cont.getContext().hasException() || argument_.isNull()) {
             return "";
         }
-        return argument_.getString();
+        return ApplyCoreMethodUtil.getString(argument_.getStruct()).getInstance();
     }
     public void setScope(Struct _bean, String _scope,Configuration _cont) {
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_bean,_cont);
@@ -1384,7 +1392,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (_cont.getContext().hasException()) {
             return "";
         }
-        return arg_.getString();
+        return ApplyCoreMethodUtil.getString(arg_.getStruct()).getInstance();
     }
 
     public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {

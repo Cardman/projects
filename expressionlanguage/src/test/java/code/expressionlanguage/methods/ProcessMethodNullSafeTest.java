@@ -32,7 +32,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument1Test() {
@@ -51,7 +51,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument2Test() {
@@ -70,7 +70,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
     @Test
     public void calculateArgument3Test() {
@@ -89,7 +89,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument4Test() {
@@ -108,7 +108,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -128,7 +128,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument6Test() {
@@ -148,7 +148,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument7Test() {
@@ -167,7 +167,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument8Test() {
@@ -191,7 +191,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -217,7 +217,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -239,7 +239,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
     @Test
     public void calculateArgument11Test() {
@@ -260,7 +260,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument12Test() {
@@ -281,7 +281,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument13Test() {
@@ -302,7 +302,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument14Test() {
@@ -323,7 +323,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
     @Test
     public void calculateArgument15Test() {
@@ -345,7 +345,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -368,7 +368,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -391,7 +391,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -414,7 +414,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -437,7 +437,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -460,7 +460,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -483,7 +483,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -506,7 +506,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -529,7 +529,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -552,7 +552,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -575,7 +575,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -598,7 +598,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -621,7 +621,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -644,7 +644,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -667,7 +667,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -691,7 +691,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -714,7 +714,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -737,7 +737,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -761,7 +761,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -783,7 +783,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -806,7 +806,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -828,7 +828,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -851,7 +851,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -874,7 +874,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -897,7 +897,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -920,7 +920,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -944,7 +944,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -968,7 +968,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -992,7 +992,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1015,7 +1015,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1038,7 +1038,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1061,7 +1061,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1085,7 +1085,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1109,7 +1109,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1133,7 +1133,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1156,7 +1156,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1179,7 +1179,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1202,7 +1202,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1226,7 +1226,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1250,7 +1250,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1274,7 +1274,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1298,7 +1298,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1322,7 +1322,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1346,7 +1346,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1370,7 +1370,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1394,7 +1394,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1418,7 +1418,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1448,7 +1448,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1478,7 +1478,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1509,7 +1509,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1540,7 +1540,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1570,7 +1570,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1600,7 +1600,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1631,7 +1631,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1662,7 +1662,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1692,7 +1692,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1722,7 +1722,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1753,7 +1753,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1784,7 +1784,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -1805,7 +1805,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument75Test() {
@@ -1825,7 +1825,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
     }
     @Test
     public void calculateArgument76Test() {
@@ -1846,7 +1846,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ab", ret_.getString());
+        assertEq("ab", getString(ret_));
     }
     @Test
     public void calculateArgument77Test() {
@@ -1867,7 +1867,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ba", ret_.getString());
+        assertEq("ba", getString(ret_));
     }
     @Test
     public void calculateArgument78Test() {
@@ -1888,7 +1888,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ab", ret_.getString());
+        assertEq("ab", getString(ret_));
     }
     @Test
     public void calculateArgument79Test() {
@@ -1909,7 +1909,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ab", ret_.getString());
+        assertEq("ab", getString(ret_));
     }
     @Test
     public void calculateArgument80Test() {
@@ -1930,7 +1930,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ba", ret_.getString());
+        assertEq("ba", getString(ret_));
     }
     @Test
     public void calculateArgument81Test() {
@@ -1951,7 +1951,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ab", ret_.getString());
+        assertEq("ab", getString(ret_));
     }
     @Test
     public void calculateArgument82Test() {
@@ -1973,7 +1973,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ab", ret_.getString());
+        assertEq("ab", getString(ret_));
     }
     @Test
     public void calculateArgument83Test() {
@@ -1995,7 +1995,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ba", ret_.getString());
+        assertEq("ba", getString(ret_));
     }
     @Test
     public void calculateArgument84Test() {
@@ -2017,7 +2017,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ab", ret_.getString());
+        assertEq("ab", getString(ret_));
     }
     @Test
     public void calculateArgument86Test() {
@@ -2039,7 +2039,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ab", ret_.getString());
+        assertEq("ab", getString(ret_));
     }
     @Test
     public void calculateArgument87Test() {
@@ -2061,7 +2061,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ba", ret_.getString());
+        assertEq("ba", getString(ret_));
     }
     @Test
     public void calculateArgument88Test() {
@@ -2083,7 +2083,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ab", ret_.getString());
+        assertEq("ab", getString(ret_));
     }
     @Test
     public void calculateArgument89Test() {
@@ -2104,7 +2104,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ab", ret_.getString());
+        assertEq("ab", getString(ret_));
     }
     @Test
     public void calculateArgument90Test() {
@@ -2125,7 +2125,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("ab", ret_.getString());
+        assertEq("ab", getString(ret_));
     }
     @Test
     public void calculateArgument91Test() {
@@ -2154,7 +2154,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculateArgument92Test() {
@@ -2180,7 +2180,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculateArgument91_Test() {
@@ -2200,7 +2200,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getNumber());
+        assertEq(2, getNumber(ret_));
     }
     @Test
     public void calculateArgument92_Test() {
@@ -2230,7 +2230,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculateArgument93Test() {
@@ -2256,7 +2256,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculateArgument94Test() {
@@ -2285,7 +2285,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(6, ret_.getNumber());
+        assertEq(6, getNumber(ret_));
     }
     @Test
     public void calculateArgument95Test() {
@@ -2306,7 +2306,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -2328,7 +2328,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getNumber());
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -2350,7 +2350,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(3, ret_.getNumber());
+        assertEq(3, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -2372,7 +2372,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getNumber());
+        assertEq(0, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -2394,7 +2394,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(2, ret_.getChar());
+        assertEq(2, getChar(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -2416,7 +2416,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, ret_.getChar());
+        assertEq(1, getChar(ret_));
         assertNull(getException(cont_));
     }
     @Test
@@ -2438,7 +2438,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(0, ret_.getChar());
+        assertEq(0, getChar(ret_));
         assertNull(getException(cont_));
     }
     @Test

@@ -275,8 +275,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         ScrollPane scroll_ = new ScrollPane();
         editor = new RenderedPage(scroll_);
         editor.setLanguage(lg_);
-        editor.setDataBase(rulesBeloteMulti);
-        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE, new BeloteStandards());
+        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,rulesBeloteMulti, new BeloteStandards());
 
         scroll_.setPreferredSize(new Dimension(300,400));
         container_.add(scroll_);
@@ -352,8 +351,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
         rulesBeloteMulti = _rules;
         String lg_ = getOwner().getLanguageKey();
         editor.setLanguage(lg_);
-        editor.setDataBase(rulesBeloteMulti);
-        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE, new BeloteStandards());
+        editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE,rulesBeloteMulti, new BeloteStandards());
     }
 
     public void updateForBeginningGame(DealtHandBelote _hand) {
@@ -837,17 +835,15 @@ public class ContainerMultiBelote extends ContainerBelote implements
         RenderedPage editor_ = new RenderedPage(scroll_);
         BeloteStandards stds_;
         editor_.setLanguage(lg_);
-        editor_.setDataBase(_res);
         stds_ = new BeloteStandards();
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,stds_);
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE,_res,stds_);
         scroll_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.RESULTS_PAGE),scroll_);
         ScrollPane ascenseur_=new ScrollPane();
         editor_ = new RenderedPage(ascenseur_);
         editor_.setLanguage(lg_);
-        editor_.setDataBase(_res);
         stds_ = new BeloteStandards();
-        editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,stds_);
+        editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE,_res,stds_);
         ascenseur_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,BorderLayout.CENTER);

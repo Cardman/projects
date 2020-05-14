@@ -67,7 +67,6 @@ public final class Configuration implements ExecutableCode {
 
     private String prefix = EMPTY_STRING;
     private BeanLgNames standards;
-    private String dataBaseClassName = EMPTY_STRING;
 
     private int nextIndex;
 
@@ -435,14 +434,6 @@ public final class Configuration implements ExecutableCode {
     }
     public void setStandards(BeanLgNames _standards) {
         standards = _standards;
-    }
-
-    public String getDataBaseClassName() {
-        return dataBaseClassName;
-    }
-
-    public void setDataBaseClassName(String _dataBaseClassName) {
-        dataBaseClassName = _dataBaseClassName;
     }
 
 

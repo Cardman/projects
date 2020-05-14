@@ -1,6 +1,9 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.DisplayableStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class Argument {
@@ -77,38 +80,11 @@ public final class Argument {
         return object == NullStruct.NULL_VALUE;
     }
 
-    public String getString() {
-        return ((CharSequenceStruct)object).toStringInstance();
-    }
-    public char getChar() {
-        return ((CharStruct)object).getChar();
-    }
-    public long getNumber() {
-        return ((NumberStruct)object).longStruct();
-    }
-    public double getDouble() {
-        return ((NumberStruct)object).doubleStruct();
-    }
-
     public boolean isTrue() {
         return BooleanStruct.of(true).sameReference(object);
     }
     public boolean isFalse() {
         return BooleanStruct.of(false).sameReference(object);
-    }
-
-    public void setObject(char _object) {
-        object = new CharStruct(_object);
-    }
-    public void setObject(boolean _object) {
-        object = BooleanStruct.of(_object);
-    }
-    public void setObject(String _object) {
-        object = new StringStruct(_object);
-    }
-
-    public void setObject(int _object) {
-        object = new IntStruct(_object);
     }
 
     public String getObjectClassName(ContextEl _context) {

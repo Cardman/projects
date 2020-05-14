@@ -293,6 +293,6 @@ public class GraphicListStruct extends InputStruct {
 
     @Override
     public void setEnabled(Struct _enabled) {
-        enabledList = ((BooleanStruct)_enabled).getInstance();
+        enabledList = BooleanStruct.of(true).sameReference(_enabled);
     }
 }
