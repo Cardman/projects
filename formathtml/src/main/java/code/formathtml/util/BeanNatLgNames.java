@@ -15,8 +15,10 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.exec.RendSettableFieldOperation;
 import code.formathtml.structs.*;
 import code.maths.montecarlo.DefaultGenerator;
+import code.sml.Document;
 import code.sml.Element;
 import code.util.*;
 import code.util.ints.*;
@@ -147,6 +149,51 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
+    protected void specificLoad(Configuration _configuration, String _lgCode, Document _document) {
+        for (Element c: _document.getDocumentElement().getChildElements()) {
+            String fieldName_ = c.getAttribute("field");
+            if (StringList.quickEq(fieldName_, "validators")) {
+                _configuration.setValidators(loadValidator(c));
+            }
+        }
+        setupNative(_configuration);
+    }
+
+    @Override
+    public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf) {
+        ClassField fieldId_ = _rend.getFieldMetaInfo().getClassField();
+        Struct default_ = _previous.getStruct();
+        ContextEl _cont = _conf.getContextEl();
+        ResultErrorStd res_ = getOtherResult(_cont, fieldId_, default_);
+        Argument a_ = new Argument();
+        a_.setStruct(res_.getResult());
+        return a_;
+    }
+
+    @Override
+    public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right) {
+        ClassField fieldId_ = _rend.getFieldMetaInfo().getClassField();
+        ContextEl _cont = _conf.getContextEl();
+        Object value_ = adaptedArg(_right.getStruct());
+        setOtherResult(_cont, fieldId_, _previous.getStruct(), value_);
+        return _right;
+    }
+
+    private StringMap<Validator> loadValidator(Element _elt) {
+        StringMap<Validator> validators_ = new StringMap<Validator>();
+        int i_ = 0;
+        String key_ = "";
+        for (Element c: _elt.getChildElements()) {
+            if (i_ % 2 == 0) {
+                key_ = c.getAttribute("value");
+            } else {
+                validators_.put(key_, buildValidator(c));
+            }
+            i_++;
+        }
+        return validators_;
+    }
+    @Override
     public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId) {
         Validator validator_ = _conf.getValidators().getVal(_validatorId);
         if (validator_ == null) {
@@ -169,11 +216,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     @Override
     public boolean checkOpers(CustList<RendDynOperationNode> _opRead) {
         return false;
-    }
-
-    public static ResultErrorStd getField(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames lgNames_ = (BeanNatLgNames) _cont.getStandards();
-        return lgNames_.getOtherResult(_cont, _classField, _instance);
     }
 
     public abstract ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance);
@@ -365,12 +407,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         }
         ContextEl context_ = _cont.getContext();
         return _arg.getObjectClassName(context_);
-    }
-
-    public static ResultErrorStd setField(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value) {
-        BeanNatLgNames lgNames_ = (BeanNatLgNames) _cont.getStandards();
-        Object value_ = adaptedArg(_value);
-        return lgNames_.setOtherResult(_cont, _classField, _instance, value_);
     }
 
     @Override

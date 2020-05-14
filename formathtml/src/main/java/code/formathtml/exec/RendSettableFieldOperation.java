@@ -1,24 +1,16 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.calls.util.NotInitializedClass;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
-import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.exec.ExecNumericOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.util.BeanNatLgNames;
 import code.util.IdMap;
 
 public final class RendSettableFieldOperation extends
@@ -55,31 +47,10 @@ public final class RendSettableFieldOperation extends
 
     @Override
     Argument getCommonArgument(Argument _previous, Configuration _conf) {
-        int off_ = getOff();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        String fieldName_ = fieldId_.getFieldName();
-        boolean staticField_ = fieldMetaInfo.isStaticField();
         if (resultCanBeSet()) {
             return Argument.createVoid();
         }
-        Classes classes_ = _conf.getClasses();
-        if (!classes_.isCustomType(className_)) {
-            Struct default_ = _previous.getStruct();
-            ResultErrorStd res_ = BeanNatLgNames.getField(_conf.getContextEl(), fieldId_, default_);
-            Argument a_ = new Argument();
-            a_.setStruct(res_.getResult());
-            return a_;
-        }
-        Argument previous_ = new Argument();
-        if (!staticField_) {
-            previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
-        }
-        if (_conf.getContextEl().hasException()) {
-            return Argument.createVoid();
-        }
-        String fieldType_ = fieldMetaInfo.getRealType();
-        return ExecInvokingOperation.getField(className_, fieldName_, staticField_,fieldType_, previous_, _conf, off_);
+        return _conf.getAdvStandards().getCommonArgument(this,_previous,_conf);
     }
 
     @Override
@@ -114,28 +85,8 @@ public final class RendSettableFieldOperation extends
         return getCommonSemiSetting(previous_, store_, _conf, _op, _post);
     }
 
-    Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right) {
-        int off_ = getOff();
-        String fieldType_ = fieldMetaInfo.getRealType();
-        boolean isStatic_ = fieldMetaInfo.isStaticField();
-        boolean isFinal_ = fieldMetaInfo.isFinalField();
-        ClassField fieldId_ = fieldMetaInfo.getClassField();
-        String className_ = fieldId_.getClassName();
-        String fieldName_ = fieldId_.getFieldName();
-        Classes classes_ = _conf.getClasses();
-        if (!classes_.isCustomType(className_)) {
-            BeanNatLgNames.setField(_conf.getContextEl(), fieldId_, _previous.getStruct(), _right.getStruct());
-            return _right;
-        }
-        Argument previous_ = new Argument();
-        if (!isStatic_) {
-            previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
-        }
-        if (_conf.getContextEl().hasException()) {
-            return Argument.createVoid();
-        }
-        //Come from code directly so constant static fields can be initialized here
-        return ExecInvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
+    Argument getCommonSetting(Argument _previous, Configuration _conf, Argument _right) {
+        return _conf.getAdvStandards().getCommonSetting(this,_previous,_conf,_right);
     }
     Argument getCommonCompoundSetting(Argument _previous, Struct _store, Configuration _conf, String _op, Argument _right) {
         int off_ = getOff();
@@ -179,6 +130,10 @@ public final class RendSettableFieldOperation extends
 
     public FieldInfo getFieldMetaInfo() {
         return fieldMetaInfo;
+    }
+
+    public int getAnc() {
+        return anc;
     }
 
     public ClassArgumentMatching getPrevious() {

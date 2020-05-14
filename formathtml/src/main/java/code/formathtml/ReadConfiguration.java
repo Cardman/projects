@@ -1,7 +1,6 @@
 package code.formathtml;
 
 import code.bean.BeanInfo;
-import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultInitializer;
 import code.expressionlanguage.DefaultLockingClass;
@@ -14,7 +13,6 @@ import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.BeanNatLgNames;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.ElementList;
@@ -26,67 +24,9 @@ public final class ReadConfiguration {
     }
     public static void load(Configuration _configuration, String _lgCode,Document _document) {
         BeanLgNames stds_ = _configuration.getAdvStandards();
-        boolean found_ = false;
-        for (Element c: _document.getDocumentElement().getChildElements()) {
-            String fieldName_ = c.getAttribute("field");
-            if (StringList.quickEq(fieldName_, "firstUrl")) {
-                _configuration.setFirstUrl(c.getAttribute("value"));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "prefix")) {
-                _configuration.setPrefix(c.getAttribute("value"));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "messagesFolder")) {
-                _configuration.setMessagesFolder(c.getAttribute("value"));
-                continue;
-            }
-            if (stds_ instanceof BeanNatLgNames && StringList.quickEq(fieldName_, "validators")) {
-                _configuration.setValidators(loadValidator(c, (BeanNatLgNames) stds_));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "lateValidators")) {
-                _configuration.setLateValidators(loadStringMapString(c));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "beans")) {
-                _configuration.setBeansInfos(loadBeans(c));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "properties")) {
-                _configuration.setProperties(loadStringMapString(c));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "navigation")) {
-                _configuration.setNavigation(loadStringMapStrings(c));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "tabWidth")) {
-                _configuration.setTabWidth(Numbers.parseInt(c.getAttribute("value")));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "filesConfName")) {
-                _configuration.setFilesConfName(c.getAttribute("value"));
-                continue;
-            }
-            if (stds_ instanceof BeanCustLgNames &&StringList.quickEq(fieldName_, "context")) {
-                found_ = true;
-                loadContext(c, _lgCode, (BeanCustLgNames) stds_,_configuration);
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "addedFiles")) {
-                _configuration.setAddedFiles(getStringList(c));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "renderFiles")) {
-                _configuration.setRenderFiles(getStringList(c));
-            }
-        }
-        if (!found_ && stds_ instanceof BeanNatLgNames) {
-            ((BeanNatLgNames)stds_).setupNative(_configuration);
-        }
+        stds_.load(_configuration,_lgCode,_document);
     }
-    private static void loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf) {
+    public static void loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
@@ -159,7 +99,7 @@ public final class ReadConfiguration {
         }
         return options_;
     }
-    private static StringMap<BeanInfo> loadBeans(Element _elt) {
+    public static StringMap<BeanInfo> loadBeans(Element _elt) {
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>();
         StringList keys_ = new StringList();
         CustList<BeanInfo> values_ = new CustList<BeanInfo>();
@@ -190,21 +130,8 @@ public final class ReadConfiguration {
         }
         return bean_;
     }
-    private static StringMap<Validator> loadValidator(Element _elt, BeanNatLgNames _stds) {
-        StringMap<Validator> validators_ = new StringMap<Validator>();
-        int i_ = 0;
-        String key_ = "";
-        for (Element c: _elt.getChildElements()) {
-            if (i_ % 2 == 0) {
-                key_ = c.getAttribute("value");
-            } else {
-                validators_.put(key_, _stds.buildValidator(c));
-            }
-            i_++;
-        }
-        return validators_;
-    }
-    private static StringMap<StringMap<String>> loadStringMapStrings(Element _elt) {
+
+    public static StringMap<StringMap<String>> loadStringMapStrings(Element _elt) {
         StringMap<StringMap<String>> navigation_;
         navigation_ = new StringMap<StringMap<String>>();
         StringList keys_ = new StringList();
@@ -222,7 +149,7 @@ public final class ReadConfiguration {
         }
         return navigation_;
     }
-    private static StringMap<String> loadStringMapString(Element _elt) {
+    public static StringMap<String> loadStringMapString(Element _elt) {
         StringMap<String> map_ = new StringMap<String>();
         StringList keys_ = new StringList();
         StringList values_ = new StringList();
@@ -240,7 +167,7 @@ public final class ReadConfiguration {
         return map_;
     }
 
-    private static StringList getStringList(Element _elt) {
+    public static StringList getStringList(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         StringList list_ = new StringList(new CollCapacity(len_));
@@ -249,7 +176,7 @@ public final class ReadConfiguration {
         }
         return list_;
     }
-    static String getString(Element _elt) {
+    public static String getString(Element _elt) {
         return _elt.getAttribute("value");
     }
 }

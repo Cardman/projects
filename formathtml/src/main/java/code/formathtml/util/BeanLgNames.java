@@ -9,10 +9,13 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.Configuration;
+import code.formathtml.ReadConfiguration;
 import code.formathtml.RendImport;
 import code.formathtml.RenderExpUtil;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.exec.RendSettableFieldOperation;
 import code.maths.montecarlo.AbstractGenerator;
+import code.sml.Document;
 import code.sml.Element;
 import code.util.*;
 
@@ -190,6 +193,47 @@ public abstract class BeanLgNames extends LgNames {
         gearFw(_conf, _mainBean, _node, _keepField, bean_);
     }
 
+    public void load(Configuration _configuration, String _lgCode,Document _document) {
+        for (Element c: _document.getDocumentElement().getChildElements()) {
+            String fieldName_ = c.getAttribute("field");
+            if (StringList.quickEq(fieldName_, "firstUrl")) {
+                _configuration.setFirstUrl(c.getAttribute("value"));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "prefix")) {
+                _configuration.setPrefix(c.getAttribute("value"));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "messagesFolder")) {
+                _configuration.setMessagesFolder(c.getAttribute("value"));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "beans")) {
+                _configuration.setBeansInfos(ReadConfiguration.loadBeans(c));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "properties")) {
+                _configuration.setProperties(ReadConfiguration.loadStringMapString(c));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "navigation")) {
+                _configuration.setNavigation(ReadConfiguration.loadStringMapStrings(c));
+                continue;
+            }
+
+            if (StringList.quickEq(fieldName_, "addedFiles")) {
+                _configuration.setAddedFiles(ReadConfiguration.getStringList(c));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "renderFiles")) {
+                _configuration.setRenderFiles(ReadConfiguration.getStringList(c));
+            }
+        }
+        specificLoad(_configuration,_lgCode,_document);
+    }
+    protected abstract void specificLoad(Configuration _configuration, String _lgCode,Document _document);
+    public abstract Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf);
+    public abstract Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right);
     protected abstract void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean);
 
     public abstract void forwardDataBase(Struct _bean, Struct _to, Configuration _conf);

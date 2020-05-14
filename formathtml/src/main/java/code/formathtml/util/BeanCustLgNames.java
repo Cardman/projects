@@ -9,8 +9,10 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.exec.ExecArrayFieldOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
@@ -22,9 +24,10 @@ import code.formathtml.*;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.exec.RendSettableFieldOperation;
 import code.formathtml.structs.MessageStruct;
-import code.formathtml.structs.RealInstanceStruct;
 import code.maths.montecarlo.AbstractGenerator;
+import code.sml.Document;
 import code.sml.Element;
 import code.util.*;
 
@@ -1088,6 +1091,67 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             putAllMap(forms_.getStruct(),formsMap_.getStruct(),_conf);
         }
         _conf.getLastPage().setEnabledOp(true);
+    }
+
+    @Override
+    protected void specificLoad(Configuration _configuration, String _lgCode, Document _document) {
+        for (Element c: _document.getDocumentElement().getChildElements()) {
+            String fieldName_ = c.getAttribute("field");
+            if (StringList.quickEq(fieldName_, "lateValidators")) {
+                _configuration.setLateValidators(ReadConfiguration.loadStringMapString(c));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "tabWidth")) {
+                _configuration.setTabWidth(Numbers.parseInt(c.getAttribute("value")));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "filesConfName")) {
+                _configuration.setFilesConfName(c.getAttribute("value"));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "context")) {
+                ReadConfiguration.loadContext(c, _lgCode, this,_configuration);
+            }
+        }
+    }
+
+    @Override
+    public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf) {
+        int off_ =_rend.getOff();
+        ClassField fieldId_ = _rend.getFieldMetaInfo().getClassField();
+        String className_ = fieldId_.getClassName();
+        String fieldName_ = fieldId_.getFieldName();
+        boolean staticField_ = _rend.getFieldMetaInfo().isStaticField();
+        Argument previous_ = new Argument();
+        if (!staticField_) {
+            previous_.setStruct(PrimitiveTypeUtil.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf));
+        }
+        if (_conf.getContextEl().hasException()) {
+            return Argument.createVoid();
+        }
+        String fieldType_ = _rend.getFieldMetaInfo().getRealType();
+        return ExecInvokingOperation.getField(className_, fieldName_, staticField_,fieldType_, previous_, _conf, off_);
+    }
+
+    @Override
+    public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right) {
+        int off_ = _rend.getOff();
+        String fieldType_ = _rend.getFieldMetaInfo().getRealType();
+        boolean isStatic_ = _rend.getFieldMetaInfo().isStaticField();
+        boolean isFinal_ = _rend.getFieldMetaInfo().isFinalField();
+        ClassField fieldId_ = _rend.getFieldMetaInfo().getClassField();
+        String className_ = fieldId_.getClassName();
+        String fieldName_ = fieldId_.getFieldName();
+        Classes classes_ = _conf.getClasses();
+        Argument previous_ = new Argument();
+        if (!isStatic_) {
+            previous_.setStruct(PrimitiveTypeUtil.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf));
+        }
+        if (_conf.getContextEl().hasException()) {
+            return Argument.createVoid();
+        }
+        //Come from code directly so constant static fields can be initialized here
+        return ExecInvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
     }
 
     private void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf) {
