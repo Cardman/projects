@@ -73,7 +73,6 @@ public abstract class CommonRender {
         conf_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(conf_));
         conf_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
         conf_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
-        conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(conf_);
@@ -96,7 +95,6 @@ public abstract class CommonRender {
         context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
         context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
         context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
-        context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         tryInitStaticlyTypes(context_);
         addImportingPage(context_);
@@ -115,7 +113,6 @@ public abstract class CommonRender {
         RendDocumentBlock rendSecDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", secDoc_, htmlTwo_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getRenders().put("page2.html",rendSecDocumentBlock_);
-        conf_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendSecDocumentBlock_.buildFctInstructions(conf_);
         tryInitStaticlyTypes(conf_);
@@ -142,7 +139,6 @@ public abstract class CommonRender {
         context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
         context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
         context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
-        context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         tryInitStaticlyTypes(context_);
@@ -177,7 +173,6 @@ public abstract class CommonRender {
         context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
         context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
         context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
-        context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         tryInitStaticlyTypes(context_);
@@ -222,7 +217,6 @@ public abstract class CommonRender {
         context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
         context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
         context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
-        context_.getAnalyzing().setEnabledInternVars(false);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         rendDocumentBlockThird_.buildFctInstructions(context_);

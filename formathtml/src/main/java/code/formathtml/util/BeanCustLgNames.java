@@ -9,13 +9,9 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.exec.ExecArrayFieldOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
@@ -23,8 +19,7 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.*;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
-import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.exec.RendSettableFieldOperation;
+import code.formathtml.exec.*;
 import code.formathtml.structs.MessageStruct;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Document;
@@ -221,269 +216,264 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         ContextEl context_ = _context.getContext();
         _context.getImporting().add(new ImportingPage());
         context_.setAnalyzing();
-        context_.getAnalyzing().setEnabledInternVars(true);
         context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_context));
         context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_context));
         context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_context));
         context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
         context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        StringMap<String> args_ = new StringMap<String>();
         StringList l_ = new StringList();
-        String locName_ = tr(l_,_context.getContext());
-        String exp_;
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasIterable(),"<?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        String locName_ = tr(l_);
         iteratorVar = locName_;
         String simpleIterator_ = getAliasIterator();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(simpleIterator_,PARS));
-        expsIterator = RenderExpUtil.getAnalyzedOperations(exp_,0, _context);
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        expsIterator= newCall(iteratorVar,StringList.concat(getAliasIterable(),"<?>"),
+                new ClassMethodId(getAliasIterable(),new MethodId(MethodAccessKind.INSTANCE,simpleIterator_,new StringList(
+                ))),
+                StringList.concat(getAliasIteratorType(),"<?>"), args_);
+        locName_ = tr(l_);
         hasNextVar = locName_;
         String hasNext_ = getAliasHasNext();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
-        expsHasNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasIteratorType(),"<?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        expsHasNext= newCall(hasNextVar,StringList.concat(getAliasIteratorType(),"<?>"),
+                new ClassMethodId(getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,hasNext_,new StringList(
+                ))),
+                getAliasPrimBoolean(), args_);
+        locName_ = tr(l_);
         nextVar = locName_;
         String next_ = getAliasNext();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
-        expsNext = RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
+        expsNext= newCall(nextVar,StringList.concat(getAliasIteratorType(),"<?>"),
+                new ClassMethodId(getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,next_,new StringList(
+                ))),
+                getAliasObject(), args_);
 
         String nextPair_ = getAliasNextPair();
         String hasNextPair_ = getAliasHasNextPair();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasIterableTable(),"<?,?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         iteratorTableVarCust= locName_;
         String iteratorTable_ = getAliasIteratorTable();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iteratorTable_,PARS));
-        expsIteratorTableCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        expsIteratorTableCust= newCall(iteratorTableVarCust,StringList.concat(getAliasIterableTable(),"<?,?>"),
+                new ClassMethodId(getAliasIterableTable(),new MethodId(MethodAccessKind.INSTANCE,iteratorTable_,new StringList(
+                ))),
+                StringList.concat(getAliasIteratorTableType(),"<?,?>"), args_);
+        locName_ = tr(l_);
         hasNextPairVarCust= locName_;
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNextPair_,PARS));
-        expsHasNextPairCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        expsHasNextPairCust= newCall(hasNextPairVarCust,StringList.concat(getAliasIteratorTableType(),"<?,?>"),
+                new ClassMethodId(getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,hasNextPair_,new StringList(
+                ))),
+                getAliasPrimBoolean(), args_);
+        locName_ = tr(l_);
         nextPairVarCust= locName_;
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(nextPair_,PARS));
-        expsNextPairCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        expsNextPairCust= newCall(nextPairVarCust,StringList.concat(getAliasIteratorTableType(),"<?,?>"),
+                new ClassMethodId(getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,nextPair_,new StringList(
+                ))),
+                StringList.concat(getAliasPairType(),"<?,?>"), args_);
+        locName_ = tr(l_);
         firstVarCust= locName_;
         String first_ = getAliasGetFirst();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(first_,PARS));
-        expsFirstCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        expsFirstCust= newCall(firstVarCust,StringList.concat(getAliasPairType(),"<?,?>"),
+                new ClassMethodId(getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,first_,new StringList(
+                ))),
+                getAliasObject(), args_);
+        locName_ = tr(l_);
         secondVarCust= locName_;
         String second_ = getAliasGetSecond();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(second_,PARS));
-        expsSecondCust= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
+        expsSecondCust= newCall(secondVarCust,StringList.concat(getAliasPairType(),"<?,?>"),
+                new ClassMethodId(getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_,new StringList(
+                ))),
+                getAliasObject(), args_);
 
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasBean()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         beforeDisplayingVar = locName_;
         String beforeDisplaying_ = getAliasBeforeDisplaying();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(beforeDisplaying_,PARS));
-        expsBeforeDisplaying= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
+        expsBeforeDisplaying= newCall(beforeDisplayingVar,getAliasBean(),
+                new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,beforeDisplaying_,new StringList(
+                ))),
+                getAliasObject(), args_);
 
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         putVarCust = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasString()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         putVarCustKey = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasObject()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         putVarCustValue = locName_;
         String put_ = getAliasMapPut();
-        exp_ = StringList.concat(putVarCust, LOC_VAR, StringList.concat(put_,"(",putVarCustKey,",",putVarCustValue,")"));
-        expsPut= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
+        args_ = new StringMap<String>();
+        args_.addEntry(putVarCustKey,getAliasString());
+        args_.addEntry(putVarCustValue,getAliasObject());
+        expsPut= newCall(putVarCust,getAliasStringMapObject(),
+                new ClassMethodId(getAliasStringMapObject(),new MethodId(MethodAccessKind.INSTANCE,put_,new StringList(
+                        getAliasString(),
+                        getAliasObject()
+                ))),
+                getAliasObject(), args_);
 
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         putAllVarCust = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         putAllVarCustArg = locName_;
         String putAll_ = getAliasMapPutAll();
-        exp_ = StringList.concat(putAllVarCust, LOC_VAR, StringList.concat(putAll_,"(",putAllVarCustArg,")"));
-        expsPutAll= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
+        args_ = new StringMap<String>();
+        args_.addEntry(putAllVarCustArg,getAliasStringMapObject());
+        expsPutAll= newCall(putAllVarCust,getAliasStringMapObject(),
+                new ClassMethodId(getAliasStringMapObject(),new MethodId(MethodAccessKind.INSTANCE,putAll_,new StringList(
+                        getAliasStringMapObject()
+                ))),
+                getAliasObject(), args_);
 
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         getValVar = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasString()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         getValVarArg = locName_;
         String getVal_ = getAliasMapGetVal();
-        exp_ = StringList.concat(getValVar, LOC_VAR, StringList.concat(getVal_,"(",getValVarArg,")"));
-        expsGetVal= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
+        args_ = new StringMap<String>();
+        args_.addEntry(getValVarArg,getAliasString());
+        expsGetVal= newCall(getValVar,getAliasStringMapObject(),
+                new ClassMethodId(getAliasStringMapObject(),new MethodId(MethodAccessKind.INSTANCE,getVal_,new StringList(
+                        getAliasString()
+                ))),
+                getAliasObject(), args_);
 
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasBean()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         setFormsVar = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasStringMapObject()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         setFormsVarArg = locName_;
         String setForms_ = getAliasSetForms();
-        exp_ = StringList.concat(setFormsVar, LOC_VAR, StringList.concat(setForms_,"(",setFormsVarArg,")"));
-        expsSetForms= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
+        args_ = new StringMap<String>();
+        args_.addEntry(setFormsVarArg,getAliasStringMapObject());
+        expsSetForms= newCall(setFormsVar,getAliasBean(),
+                new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,setForms_,new StringList(
+                        getAliasStringMapObject()
+                ))),
+                getAliasObject(), args_);
 
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasBean()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         getFormsVar = locName_;
         String getForms_ = getAliasGetForms();
-        exp_ = StringList.concat(getFormsVar, LOC_VAR, StringList.concat(getForms_,PARS));
-        expsGetForms= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
+        args_ = new StringMap<String>();
+        expsGetForms= newCall(getFormsVar,getAliasBean(),
+                new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,getForms_,new StringList(
+                ))),
+                getAliasStringMapObject(), args_);
 
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasBean()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         setDataBaseVar = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasObject()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         setDataBaseVarArg = locName_;
         String setDataBase_ = getAliasSetDataBase();
-        exp_ = StringList.concat(setDataBaseVar, LOC_VAR, StringList.concat(setDataBase_,"(",setDataBaseVarArg,")"));
-        expsSetDataBase= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
+        args_ = new StringMap<String>();
+        args_.addEntry(setDataBaseVarArg,getAliasObject());
+        expsSetDataBase= newCall(setDataBaseVar,getAliasBean(),
+                new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,setDataBase_,new StringList(
+                        getAliasObject()
+                ))),
+                getAliasObject(), args_);
 
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasBean()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         getDataBaseVar = locName_;
         String getDataBase_ = getAliasGetDataBase();
-        exp_ = StringList.concat(getDataBaseVar, LOC_VAR, StringList.concat(getDataBase_,PARS));
-        expsGetDataBase= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
+        args_ = new StringMap<String>();
+        expsGetDataBase= newCall(getDataBaseVar,getAliasBean(),
+                new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,getDataBase_,new StringList(
+                ))),
+                getAliasObject(), args_);
 
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasBean()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         setScopeVar = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasString()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         setScopeVarArg = locName_;
         String setScope_ = getAliasSetScope();
-        exp_ = StringList.concat(setScopeVar, LOC_VAR, StringList.concat(setScope_,"(",setScopeVarArg,")"));
-        expsSetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
+        args_ = new StringMap<String>();
+        args_.addEntry(setScopeVarArg,getAliasString());
+        expsSetScope= newCall(setScopeVar,getAliasBean(),
+                new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,setScope_,new StringList(
+                        getAliasString()
+                ))),
+                getAliasObject(), args_);
 
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasBean()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         getScopeVar = locName_;
         String getScope_ = getAliasGetScope();
-        exp_ = StringList.concat(getScopeVar, LOC_VAR, StringList.concat(getScope_,PARS));
-        expsGetScope= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
+        args_ = new StringMap<String>();
+        expsGetScope= newCall(getScopeVar,getAliasBean(),
+                new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,getScope_,new StringList(
+                ))),
+                getAliasString(), args_);
 
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasBean()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         setLanguageVar = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasString()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         setLanguageVarArg = locName_;
         String setLanguage_ = getAliasSetLanguage();
-        exp_ = StringList.concat(setLanguageVar, LOC_VAR, StringList.concat(setLanguage_,"(",setLanguageVarArg,")"));
-        expsSetLanguage= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
+        args_ = new StringMap<String>();
+        args_.addEntry(setLanguageVarArg,getAliasString());
+        expsSetLanguage= newCall(setLanguageVar,getAliasBean(),
+                new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,setLanguage_,new StringList(
+                        getAliasString()
+                ))),
+                getAliasObject(), args_);
 
-        StringList vars_ = new StringList();
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(aliasValidator));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
+        locName_ = tr(l_);
         validateVar = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasObject()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
-        vars_.add(locName_);
+        locName_ = tr(l_);
         validateVarArgNewValue = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasObject()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
-        vars_.add(locName_);
+        locName_ = tr(l_);
         validateVarArgOldValue = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasObject()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
-        vars_.add(locName_);
+        locName_ = tr(l_);
         validateVarArgBean = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasObject()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
-        vars_.add(locName_);
+        locName_ = tr(l_);
         validateVarArgForm = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasString()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
-        vars_.add(locName_);
+        locName_ = tr(l_);
         validateVarArgClassField = locName_;
-        locName_ = tr(l_,_context.getContext());
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(getAliasString()));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
-        vars_.add(locName_);
+        locName_ = tr(l_);
         vlidateVarArgNameField = locName_;
 
         String validate_ = aliasValidate;
-        exp_ = StringList.concat(validateVar, LOC_VAR, StringList.concat(validate_,"(",StringList.join(vars_,','),")"));
-        expsValidate= RenderExpUtil.getAnalyzedOperations(exp_, 0,_context);
-        String aliasStringMapObject_ = getAliasStringMapObject();
-        String keyWordNew_ = _context.getKeyWords().getKeyWordNew();
-        opsMap = RenderExpUtil.getAnalyzedOperations(StringList.concat(keyWordNew_, " ", aliasStringMapObject_, "()"), 0, _context);
-
+        args_ = new StringMap<String>();
+        args_.addEntry(validateVarArgNewValue,getAliasObject());
+        args_.addEntry(validateVarArgOldValue,getAliasObject());
+        args_.addEntry(validateVarArgBean,getAliasObject());
+        args_.addEntry(validateVarArgForm,getAliasObject());
+        args_.addEntry(validateVarArgClassField,getAliasString());
+        args_.addEntry(vlidateVarArgNameField,getAliasString());
+        expsValidate = newCall(validateVar,aliasValidator,
+                new ClassMethodId(aliasValidator,new MethodId(MethodAccessKind.INSTANCE,validate_,new StringList(
+                        getAliasObject(),
+                        getAliasObject(),
+                        getAliasObject(),
+                        getAliasObject(),
+                        getAliasString(),
+                        getAliasString()
+                ))),
+                getAliasObject(), args_);
+        newInstance();
         _context.clearPages();
+    }
+
+    private CustList<RendDynOperationNode> newCall(String _varPrevious,String _previous,
+                                                   ClassMethodId _id,
+                                                   String _res,
+                                                   StringMap<String> _args) {
+        CustList<RendDynOperationNode> ops_ = new CustList<RendDynOperationNode>();
+        RendDotOperation dot_ = new RendDotOperation(0,new ClassArgumentMatching(_res),_args.size()+2);
+        RendInternVariableOperation r_ = new RendInternVariableOperation(0,new ClassArgumentMatching(_previous),0,_varPrevious);
+        ops_.add(r_);
+        dot_.appendChild(r_);
+        RendFctOperation f_ = new RendFctOperation(new ClassArgumentMatching(_res),_id,1,_args.size()+1);
+        int i_ = 1;
+        for (EntryCust<String,String> e: _args.entryList()) {
+            RendInternVariableOperation a_ = new RendInternVariableOperation(i_-1,new ClassArgumentMatching(e.getValue()),i_,e.getKey());
+            f_.appendChild(a_);
+            ops_.add(a_);
+            i_++;
+        }
+        dot_.appendChild(f_);
+        r_.setSiblingSet(f_);
+        ops_.add(f_);
+        ops_.add(dot_);
+        return ops_;
+    }
+    private void newInstance() {
+        opsMap = new CustList<RendDynOperationNode>();
+        String aliasStringMapObject_ = getAliasStringMapObject();
+        opsMap.add(new RendStandardInstancingOperation(new ClassArgumentMatching(aliasStringMapObject_),new ConstructorId(aliasStringMapObject_,new StringList(),false)));
     }
 
     @Override
@@ -812,14 +802,11 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         getPredefinedInterfacesInitOrder().add(aliasValidator);
         return files_;
     }
-    private static String tr(StringList _list, ContextEl _context) {
-        CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getStandards().getAliasVoid());
-        allKeysWords_.addAllElts(_list);
+
+    private static String tr(StringList _list) {
         String candidate_ = "tmp";
         int index_ = 0;
-        while (StringList.contains(allKeysWords_,candidate_)) {
+        while (StringList.contains(_list,candidate_)) {
             candidate_ = StringList.concatNbs("tmp",index_);
             index_++;
         }
@@ -848,7 +835,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             candidate_ = StringList.concatNbs(_var,index_);
             index_++;
         }
-        String suffix_ = String.valueOf(':');
         String suffixLoop_ = "";
         return StringList.concat(candidate_,suffixLoop_);
     }
@@ -862,7 +848,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             candidate_ = StringList.concatNbs(_var,index_);
             index_++;
         }
-        String suffix_ = String.valueOf(':');
         String suffixParam_ = "";
         return StringList.concat(candidate_,suffixParam_);
     }
@@ -876,13 +861,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             candidate_ = StringList.concatNbs(_var,index_);
             index_++;
         }
-        return sufficLocal(_context, candidate_);
-    }
-
-    public static String sufficLocal(ContextEl _context, String _candidate) {
-        String suffix_ = String.valueOf(':');
-        String suffixLocal_ = "";
-        return StringList.concat(_candidate,suffixLocal_);
+        return candidate_;
     }
 
     @Override
@@ -1142,7 +1121,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         ClassField fieldId_ = _rend.getFieldMetaInfo().getClassField();
         String className_ = fieldId_.getClassName();
         String fieldName_ = fieldId_.getFieldName();
-        Classes classes_ = _conf.getClasses();
         Argument previous_ = new Argument();
         if (!isStatic_) {
             previous_.setStruct(PrimitiveTypeUtil.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf));
@@ -1275,9 +1253,9 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().getInternVars().put(validateVarArgBean, locVar_);
         locVar_ = LocalVariable.newLocalVariable(_cont.getStruct(),getAliasObject());
         _conf.getLastPage().getInternVars().put(validateVarArgForm, locVar_);
-        locVar_ = LocalVariable.newLocalVariable(new StringStruct(_cont.getIdField().getClassName()),_conf);
+        locVar_ = LocalVariable.newLocalVariable(new StringStruct(_cont.getIdFieldClass()),_conf);
         _conf.getLastPage().getInternVars().put(validateVarArgClassField, locVar_);
-        locVar_ = LocalVariable.newLocalVariable(new StringStruct(_cont.getIdField().getFieldName()),_conf);
+        locVar_ = LocalVariable.newLocalVariable(new StringStruct(_cont.getIdFieldName()),_conf);
         _conf.getLastPage().getInternVars().put(vlidateVarArgNameField, locVar_);
         _conf.getLastPage().setEnabledOp(false);
         Argument arg_ = RenderExpUtil.calculateReuse(expsValidate, _conf);

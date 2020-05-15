@@ -27,13 +27,10 @@ public final class AnalyzedPageEl {
     private CustList<StringMap<LocalVariable>> localVars;
     private CustList<StringList> localVarsInfers = new CustList<StringList>();
     private CustList<StringList> mutableLocalVarsInfers = new CustList<StringList>();
-    private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
 
     private StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
 
     private AssignedVariablesBlock assignedVariables = new AssignedVariablesBlock();
-
-    private boolean enabledInternVars;
 
     private FunctionBlock currentFct;
     private AccessingImportingBlock importing;
@@ -95,14 +92,6 @@ public final class AnalyzedPageEl {
 
     public int getTraceIndex() {
         return globalOffset + offset + translatedOffset;
-    }
-
-    public boolean isEnabledInternVars() {
-        return enabledInternVars;
-    }
-
-    public void setEnabledInternVars(boolean _enabledInternVars) {
-        enabledInternVars = _enabledInternVars;
     }
 
     public Block getCurrentBlock() {
@@ -394,9 +383,7 @@ public final class AnalyzedPageEl {
     public StringList getNeedInterfaces() {
         return needInterfaces;
     }
-    public StringMap<LocalVariable> getInternVars() {
-        return internVars;
-    }
+
     public StringMap<Integer> getAvailableVariables() {
         return availableVariables;
     }

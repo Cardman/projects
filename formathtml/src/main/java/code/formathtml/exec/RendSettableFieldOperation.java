@@ -85,10 +85,10 @@ public final class RendSettableFieldOperation extends
         return getCommonSemiSetting(previous_, store_, _conf, _op, _post);
     }
 
-    Argument getCommonSetting(Argument _previous, Configuration _conf, Argument _right) {
+    private Argument getCommonSetting(Argument _previous, Configuration _conf, Argument _right) {
         return _conf.getAdvStandards().getCommonSetting(this,_previous,_conf,_right);
     }
-    Argument getCommonCompoundSetting(Argument _previous, Struct _store, Configuration _conf, String _op, Argument _right) {
+    private Argument getCommonCompoundSetting(Argument _previous, Struct _store, Configuration _conf, String _op, Argument _right) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument(_store);
@@ -98,7 +98,7 @@ public final class RendSettableFieldOperation extends
         res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
         return getCommonSetting(_previous,_conf,res_);
     }
-    Argument getCommonSemiSetting(Argument _previous, Struct _store, Configuration _conf, String _op, boolean _post) {
+    private Argument getCommonSemiSetting(Argument _previous, Struct _store, Configuration _conf, String _op, boolean _post) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument(_store);
@@ -124,8 +124,7 @@ public final class RendSettableFieldOperation extends
             prev_ = getPreviousArg(this, _nodes, _conf);
         }
         getCommonSetting(prev_,_conf,_right);
-        Argument a_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        return a_;
+        return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
     public FieldInfo getFieldMetaInfo() {

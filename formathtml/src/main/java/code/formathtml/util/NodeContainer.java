@@ -14,6 +14,8 @@ public class NodeContainer {
     private Struct typedField = NullStruct.NULL_VALUE;
 
     private ClassField idField;
+    private String idFieldClass;
+    private String idFieldName;
     private String varPrevName;
     private String varName;
     private String varNameConvert;
@@ -49,6 +51,16 @@ public class NodeContainer {
 
     public void setIdField(ClassField _idField) {
         idField = _idField;
+        idFieldClass = _idField.getClassName();
+        idFieldName = _idField.getFieldName();
+    }
+
+    public String getIdFieldClass() {
+        return idFieldClass;
+    }
+
+    public String getIdFieldName() {
+        return idFieldName;
     }
 
     public NodeInformations getNodeInformation() {

@@ -10,6 +10,7 @@ import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.FctOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -47,6 +48,15 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         anc = _fct.getAnc();
     }
 
+    public RendFctOperation(ClassArgumentMatching _res,
+                            ClassMethodId _classMethodId,
+                            int _child, int _order) {
+        super(_child,_res,_order,true,null);
+        classMethodId = _classMethodId;
+        methodName = classMethodId.getConstraints().getName();
+        naturalVararg = -1;
+        lastType = "";
+    }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);

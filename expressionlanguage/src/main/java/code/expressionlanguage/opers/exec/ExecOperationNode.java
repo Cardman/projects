@@ -64,6 +64,12 @@ public abstract class ExecOperationNode implements Operable {
         order = _oper.getOrder();
     }
 
+    ExecOperationNode(int _indexChild, ClassArgumentMatching _res, int _order) {
+        indexChild = _indexChild;
+        resultClass = _res;
+        order = _order;
+    }
+
     public void setParent(ExecMethodOperation _parent) {
         parent = _parent;
     }
@@ -225,10 +231,6 @@ public abstract class ExecOperationNode implements Operable {
         if (_anaNode instanceof ArrayFieldOperation) {
             ArrayFieldOperation s_ = (ArrayFieldOperation) _anaNode;
             return new ExecArrayFieldOperation(s_);
-        }
-        if (_anaNode instanceof InternVariableOperation) {
-            InternVariableOperation s_ = (InternVariableOperation) _anaNode;
-            return new ExecInternVariableOperation(s_);
         }
         if (_anaNode instanceof MutableLoopVariableOperation) {
             MutableLoopVariableOperation m_ = (MutableLoopVariableOperation) _anaNode;

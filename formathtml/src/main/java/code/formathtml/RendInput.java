@@ -5,12 +5,9 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.*;
-import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.FieldUpdates;
 import code.sml.Element;
 import code.util.CustList;
@@ -52,7 +49,7 @@ public abstract class RendInput extends RendElement {
                 LocalVariable lv_ = new LocalVariable();
                 lv_.setClassName(string_);
                 _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
-                String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR,BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),RendBlock.RIGHT_PAR);
+                String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
                 int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertValue()));
                 opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont);
                 for (String v:varNames_) {
@@ -81,7 +78,7 @@ public abstract class RendInput extends RendElement {
             LocalVariable lv_ = new LocalVariable();
             lv_.setClassName(object_);
             _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
-            String preRend_ = StringList.concat(converterField_,RendBlock.LEFT_PAR,BeanCustLgNames.sufficLocal(_cont.getContext(),varLoc_),RendBlock.RIGHT_PAR);
+            String preRend_ = StringList.concat(converterField_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertField()));
             opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont);
             for (String v:varNames_) {

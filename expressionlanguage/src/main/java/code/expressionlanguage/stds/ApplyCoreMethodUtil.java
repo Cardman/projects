@@ -13,22 +13,19 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
-import code.expressionlanguage.instr.DefaultProcessKeyWord;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.exec.ExecDotOperation;
+import code.expressionlanguage.opers.exec.ExecFctOperation;
+import code.expressionlanguage.opers.exec.ExecInternVariableOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.variables.LocalVariable;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
 
 public class ApplyCoreMethodUtil {
-    protected static final String LOC_VAR = ".";
 
-    protected static final String PARS = "()";
     private ApplyCoreMethodUtil() {
     }
 
@@ -918,7 +915,6 @@ public class ApplyCoreMethodUtil {
         LgNames stds_ = _context.getStandards();
         _context.getAnalyzing().setCurrentBlock(null);
         _context.getAnalyzing().setCurrentAnaBlock(null);
-        _context.getAnalyzing().setEnabledInternVars(true);
         Classes cl_ = _context.getClasses();
         String next_ = stds_.getAliasNext();
         String hasNext_ = stds_.getAliasHasNext();
@@ -926,66 +922,65 @@ public class ApplyCoreMethodUtil {
         String hasNextPair_ = stds_.getAliasHasNextPair();
         StringList l_ = new StringList();
         String locName_ = tr(l_,_context);
-        String exp_;
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(stds_.getAliasIterable(),"<?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         cl_.setIteratorVarCust(locName_);
         String iterator_ = stds_.getAliasIterator();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iterator_,PARS));
-        cl_.setExpsIteratorCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
+        cl_.setExpsIteratorCust(newCall(cl_.getIteratorVarCust(),StringList.concat(stds_.getAliasIterable(),"<?>"),
+                new ClassMethodId(stds_.getAliasIterable(),new MethodId(MethodAccessKind.INSTANCE,iterator_, new StringList())),
+                StringList.concat(stds_.getAliasIteratorType(),"<?>")));
         locName_ = tr(l_,_context);
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(stds_.getAliasIteratorType(),"<?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         cl_.setHasNextVarCust(locName_);
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
-        cl_.setExpsHasNextCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
+        cl_.setExpsHasNextCust(newCall(cl_.getHasNextVarCust(),StringList.concat(stds_.getAliasIteratorType(),"<?>"),
+                new ClassMethodId(stds_.getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,hasNext_, new StringList())),
+                stds_.getAliasPrimBoolean()));
         locName_ = tr(l_,_context);
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(stds_.getAliasIteratorType(),"<?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         cl_.setNextVarCust(locName_);
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
-        cl_.setExpsNextCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
+        cl_.setExpsNextCust(newCall(cl_.getNextVarCust(),StringList.concat(stds_.getAliasIteratorType(),"<?>"),
+                new ClassMethodId(stds_.getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,next_, new StringList())),
+                stds_.getAliasObject()));
 
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(stds_.getAliasIterableTable(),"<?,?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         cl_.setIteratorTableVarCust(locName_);
         String iteratorTable_ = stds_.getAliasIteratorTable();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iteratorTable_,PARS));
-        cl_.setExpsIteratorTableCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
+        cl_.setExpsIteratorTableCust(newCall(cl_.getIteratorTableVarCust(),StringList.concat(stds_.getAliasIterableTable(),"<?,?>"),
+                new ClassMethodId(stds_.getAliasIterableTable(),new MethodId(MethodAccessKind.INSTANCE,iteratorTable_, new StringList())),
+                StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>")));
         locName_ = tr(l_,_context);
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         cl_.setHasNextPairVarCust(locName_);
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNextPair_,PARS));
-        cl_.setExpsHasNextPairCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
+        cl_.setExpsHasNextPairCust(newCall(cl_.getHasNextPairVarCust(),StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"),
+                new ClassMethodId(stds_.getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,hasNextPair_, new StringList())),
+                stds_.getAliasPrimBoolean()));
         locName_ = tr(l_,_context);
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         cl_.setNextPairVarCust(locName_);
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(nextPair_,PARS));
-        cl_.setExpsNextPairCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
+        cl_.setExpsNextPairCust(newCall(cl_.getNextPairVarCust(),StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"),
+                new ClassMethodId(stds_.getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,nextPair_, new StringList())),
+                StringList.concat(stds_.getAliasPairType(),"<?,?>")));
         locName_ = tr(l_,_context);
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(stds_.getAliasPairType(),"<?,?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         cl_.setFirstVarCust(locName_);
         String first_ = stds_.getAliasGetFirst();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(first_,PARS));
-        cl_.setExpsFirstCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
+        cl_.setExpsFirstCust(newCall(cl_.getFirstVarCust(),StringList.concat(stds_.getAliasPairType(),"<?,?>"),
+                new ClassMethodId(stds_.getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,first_, new StringList())),
+                stds_.getAliasObject()));
         locName_ = tr(l_,_context);
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(stds_.getAliasPairType(),"<?,?>"));
-        _context.getAnalyzing().getInternVars().put(locName_, locVar_);
         cl_.setSecondVarCust(locName_);
         String second_ = stds_.getAliasGetSecond();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(second_,PARS));
-        cl_.setExpsSecondCust(ElUtil.getAnalyzedOperationsReadOnly(exp_, _context, Calculation.staticCalculation(MethodAccessKind.STATIC)));
+        cl_.setExpsSecondCust(newCall(cl_.getSecondVarCust(),StringList.concat(stds_.getAliasPairType(),"<?,?>"),
+                new ClassMethodId(stds_.getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_, new StringList())),
+                stds_.getAliasObject()));
+    }
+
+    private static CustList<ExecOperationNode> newCall(String _varPrevious,String _previous,
+                                                   ClassMethodId _id,
+                                                   String _res) {
+        CustList<ExecOperationNode> ops_ = new CustList<ExecOperationNode>();
+        ExecDotOperation dot_ = new ExecDotOperation(0,new ClassArgumentMatching(_res),2);
+        ExecInternVariableOperation r_ = new ExecInternVariableOperation(0,new ClassArgumentMatching(_previous),0,_varPrevious);
+        ops_.add(r_);
+        dot_.appendChild(r_);
+        ExecFctOperation f_ = new ExecFctOperation(new ClassArgumentMatching(_res),_id,1,1);
+        dot_.appendChild(f_);
+        r_.setSiblingSet(f_);
+        ops_.add(f_);
+        ops_.add(dot_);
+        return ops_;
     }
     private static String tr(StringList _list, ContextEl _context) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();

@@ -10,6 +10,7 @@ import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.StandardInstancingOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.formathtml.Configuration;
 import code.util.CustList;
@@ -41,6 +42,13 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         lastType = _s.getLastType();
     }
 
+    public RendStandardInstancingOperation(ClassArgumentMatching _res,
+                                 ConstructorId _constId) {
+        super(0,_res,0,false,null);
+        constId = _constId;
+        className = constId.getName();
+        methodName = constId.getName();
+    }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();

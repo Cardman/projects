@@ -195,7 +195,6 @@ public final class Configuration implements ExecutableCode {
         context.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(this));
         context.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
         context.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
-        getAnalyzing().setEnabledInternVars(false);
         for (String s: renderFiles) {
             String link_ = RendExtractFromResources.getRealFilePath(currentLanguage,s);
             String file_ = _files.getVal(link_);

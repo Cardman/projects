@@ -2,7 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.opers.InternVariableOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
@@ -11,11 +11,11 @@ import code.util.IdMap;
 public final class RendInternVariableOperation extends RendLeafOperation implements RendCalculableOperation {
 
     private String variableName;
-    RendInternVariableOperation(InternVariableOperation _i) {
-        super(_i);
-        variableName = _i.getVariableName();
-    }
 
+    public RendInternVariableOperation(int _indexChild, ClassArgumentMatching _res, int _order, String _varName) {
+        super(_indexChild,_res,_order);
+        variableName = _varName;
+    }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();

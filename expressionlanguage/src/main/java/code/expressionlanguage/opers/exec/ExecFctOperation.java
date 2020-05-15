@@ -6,6 +6,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.FctOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -45,6 +46,15 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
         delta = _fct.getDelta();
     }
 
+    public ExecFctOperation(ClassArgumentMatching _res,
+                            ClassMethodId _classMethodId,
+                            int _child, int _order) {
+        super(_child,_res,_order,true,null);
+        classMethodId = _classMethodId;
+        methodName = classMethodId.getConstraints().getName();
+        naturalVararg = -1;
+        lastType = "";
+    }
     @Override
     public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);

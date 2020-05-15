@@ -467,7 +467,7 @@ public final class ResolvingImportTypes {
         _methods.addEntry(_class,_value);
     }
 
-    public static StringMap<ImportedField> lookupImportStaticFields(Analyzable _analyzable,String _glClass, String _method, Block _rooted) {
+    public static StringMap<ImportedField> lookupImportStaticFields(Analyzable _analyzable, String _glClass, String _method) {
         StringMap<ImportedField> methods_ = new StringMap<ImportedField>();
         int import_ = 1;
         AccessingImportingBlock type_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();

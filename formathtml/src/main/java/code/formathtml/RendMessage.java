@@ -2,14 +2,10 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
-import code.formathtml.util.*;
 import code.sml.*;
 import code.util.*;
 
@@ -80,7 +76,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 LocalVariable lv_ = new LocalVariable();
                 lv_.setClassName(_cont.getStandards().getAliasPrimInteger());
                 _cont.getLocalVarsAna().last().addEntry(v,lv_);
-                formArg_.add(StringList.concat(RendBlock.LEFT_PAR, BeanCustLgNames.sufficLocal(_cont.getContext(),v),RendBlock.RIGHT_PAR));
+                formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
             }
             for (EntryCust<String,String> e: preformatted.entryList()) {
                 String preRend_;

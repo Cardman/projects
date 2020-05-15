@@ -1718,7 +1718,7 @@ public final class ElResolver {
         AnalyzedPageEl ana_ = _conf.getAnalyzing();
         String glClass_ = ana_.getGlobalClass();
         boolean field_ = isField(_conf, glClass_, _ctor, _word);
-        if (field_ || ana_.isEnabledInternVars()) {
+        if (field_) {
             ConstType type_ = ConstType.WORD;
             VariableInfo infoLoc_ = new VariableInfo();
             infoLoc_.setKind(type_);
@@ -2789,7 +2789,7 @@ public final class ElResolver {
         boolean stCtx_ = _conf.getAnalyzing().isStaticContext() || _ctor;
         field_ = true;
         ClassArgumentMatching clArg_ = new ClassArgumentMatching(_fromClass);
-        FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, stCtx_, clArg_, true, true, _word, _conf.getAnalyzing().getCurrentBlock() != null, false);
+        FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, stCtx_, clArg_, true, true, _word, true, false);
         if (fr_.getStatus() != SearchingMemberStatus.UNIQ) {
             field_ = false;
         }

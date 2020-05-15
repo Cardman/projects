@@ -7,6 +7,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.InvokingOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.util.CustList;
@@ -24,6 +25,12 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         previousArgument = _inter.getPreviousArgument();
     }
 
+    public RendInvokingOperation(int _indexChild, ClassArgumentMatching _res, int _order,
+                                 boolean _intermediate, Argument _previousArgument) {
+        super(_indexChild,_res,_order);
+        intermediate = _intermediate;
+        previousArgument = _previousArgument;
+    }
     static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ExecutableCode _context) {
         if (!_children.isEmpty() && _children.first() instanceof RendVarargOperation) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();

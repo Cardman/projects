@@ -95,10 +95,6 @@ public abstract class RendDynOperationNode {
             ConstantOperation c_ = (ConstantOperation) _anaNode;
             return new RendConstantOperation(c_);
         }
-        if (_anaNode instanceof InternVariableOperation) {
-            InternVariableOperation c_ = (InternVariableOperation) _anaNode;
-            return new RendInternVariableOperation(c_);
-        }
         if (_anaNode instanceof CallDynMethodOperation) {
             CallDynMethodOperation c_ = (CallDynMethodOperation) _anaNode;
             return new RendCallDynMethodOperation(c_);

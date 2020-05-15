@@ -7,14 +7,12 @@ import code.expressionlanguage.calls.ReflectAnnotationPageEl;
 import code.expressionlanguage.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.opers.CompoundAffectationOperation;
 import code.expressionlanguage.opers.NullSafeOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SafeDotOperation;
-import code.expressionlanguage.opers.exec.ExecInternVariableOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.util.CustList;
 import code.util.IdMap;
@@ -78,7 +76,7 @@ public final class Coverage {
         mappingAnnotMembers.put(_block,new IdMap<ExecOperationNode, OperationNode>());
     }
     public void putBlockOperation(Analyzable _context, Block _block, OperationNode _op, ExecOperationNode _exec) {
-        if (!_context.getContextEl().isCovering() || _context.getContextEl().getAnalyzing().isEnabledInternVars()) {
+        if (!_context.getContextEl().isCovering()) {
             return;
         }
         if (_context.getContextEl().isAnnotAnalysis()) {

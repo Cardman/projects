@@ -30,6 +30,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         setPreviousArgument(_inter.getPreviousArgument());
     }
 
+    public ExecInvokingOperation(int _indexChild, ClassArgumentMatching _res, int _order,
+                                 boolean _intermediate, Argument _previousArgument) {
+        super(_indexChild,_res,_order);
+        intermediate = _intermediate;
+        setPreviousArgument(_previousArgument);
+    }
+
     static CustList<Argument> listArguments(CustList<ExecOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ExecutableCode _context) {
         if (!_children.isEmpty() && _children.first() instanceof ExecVarargOperation) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();

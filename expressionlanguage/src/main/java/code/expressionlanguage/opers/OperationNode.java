@@ -399,9 +399,6 @@ public abstract class OperationNode implements Operable {
         if (ct_ == ConstType.SUPER_KEYWORD) {
             return new SuperFieldOperation(_index, _indexChild, _m, _op);
         }
-        if (_an.getAnalyzing().isEnabledInternVars()) {
-            return new InternVariableOperation(_index, _indexChild, _m, _op);
-        }
         if (ElUtil.isDeclaringLoopVariable(_m, _an)) {
             return new MutableLoopVariableOperation(_index, _indexChild, _m, _op);
         }
@@ -565,9 +562,8 @@ public abstract class OperationNode implements Operable {
             }
         }
         if (_import) {
-            Block curBlock_ = _cont.getAnalyzing().getCurrentBlock();
             int maxLoc_ = maxAnc_ + 1;
-            for (EntryCust<String, ImportedField> e: ResolvingImportTypes.lookupImportStaticFields(_cont,curClassBase_, _name, curBlock_).entryList()) {
+            for (EntryCust<String, ImportedField> e: ResolvingImportTypes.lookupImportStaticFields(_cont,curClassBase_, _name).entryList()) {
                 ImportedField v_ = e.getValue();
                 max_ = Math.max(max_, v_.getImported() +maxAnc_);
                 FieldResult res_ = new FieldResult();
