@@ -935,7 +935,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        _strings.removeAt(index_);
+        _strings.remove(index_);
     }
 
     public boolean containsAllObj(CustList<String> _list) {
@@ -1298,7 +1298,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
             boolean rem_ = false;
             int next_ = indexOf(this, e_, i_ + 1);
             while (next_ != INDEX_NOT_FOUND_ELT) {
-                removeAt(next_);
+                remove(next_);
                 rem_ = true;
                 next_ = indexOf(this, e_, i_ + 1);
             }
@@ -1338,7 +1338,7 @@ public final class StringList extends CustList<String> implements Equallable<Str
         while (i_ < _strings.size()) {
             String e_ = _strings.get(i_);
             if (!contains(_c, e_)) {
-                _strings.removeAt(i_);
+                _strings.remove(i_);
             } else {
                 i_++;
             }

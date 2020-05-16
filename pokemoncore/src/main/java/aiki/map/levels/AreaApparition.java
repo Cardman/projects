@@ -59,7 +59,7 @@ public final class AreaApparition {
             int j_ = i_ + 1;
             while (j_ < wildPokemonCopy_.size()) {
                 if (WildPk.eq(wildPokemonCopy_.get(j_), pk_)) {
-                    wildPokemonCopy_.removeAt(j_);
+                    wildPokemonCopy_.remove(j_);
                 } else {
                     j_++;
                 }

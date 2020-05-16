@@ -369,7 +369,7 @@ public class MainWindow extends GroupFrame {
             int rem_ = (int) AbMonteCarlo.randomLong(len_,_gene);
             //rem_ >= 0 && rem_ < len_
             indexesEdited_.add(indexes_.get(rem_));
-            indexes_.removeAt(rem_);
+            indexes_.remove(rem_);
         }
         StringList newList_ = new StringList();
         for (int i: indexesEdited_) {

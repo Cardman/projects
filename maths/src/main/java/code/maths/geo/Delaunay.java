@@ -210,9 +210,9 @@ public final class Delaunay {
         convexHull.add(first_);
         convexHull.add(second_);
         convexHull.add(third_);
-        points_.removeAt(index_);
-        points_.removeAt(CustList.SECOND_INDEX);
-        points_.removeAt(CustList.FIRST_INDEX);
+        points_.remove(index_);
+        points_.remove((int) CustList.SECOND_INDEX);
+        points_.remove((int) CustList.FIRST_INDEX);
         EqList<CustPoint> all_ = new EqList<CustPoint>();
         all_.add(first_);
         all_.add(second_);
@@ -494,7 +494,7 @@ public final class Delaunay {
                     break;
                 }
                 if (_edges.get(i_).isSame(_edges.get(j_))) {
-                    _edges.removeAt(j_);
+                    _edges.remove(j_);
                 } else {
                     j_++;
                 }
@@ -561,9 +561,9 @@ public final class Delaunay {
         CustPoint thirdPoint_ = new CustPoint(xMin_, yMax_ + yMax_ - yMin_);
         superTriangle_ = new Triangle(firstPoint_, secondPoint_, thirdPoint_);
         triangles.add(superTriangle_);
-        points_.removeAt(index_);
-        points_.removeAt(CustList.SECOND_INDEX);
-        points_.removeAt(CustList.FIRST_INDEX);
+        points_.remove(index_);
+        points_.remove((int) CustList.SECOND_INDEX);
+        points_.remove((int) CustList.FIRST_INDEX);
         EqList<CustPoint> all_ = new EqList<CustPoint>();
         all_.add(first_);
         all_.add(second_);

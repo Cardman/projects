@@ -25,7 +25,7 @@ public final class MathList extends CustList<String> {
         while (i_ < size()) {
             String v_ = get(i_);
             if (StringList.quickEq(v_, _obj)) {
-                removeAt(i_);
+                remove(i_);
             } else {
                 i_++;
             }
@@ -61,7 +61,7 @@ public final class MathList extends CustList<String> {
             boolean rem_ = false;
             int next_ = indexOfObj(e_, i_ + 1);
             while (next_ != INDEX_NOT_FOUND_ELT) {
-                removeAt(next_);
+                remove(next_);
                 rem_ = true;
                 next_ = indexOfObj(e_, i_ + 1);
             }

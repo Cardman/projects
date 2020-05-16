@@ -39,8 +39,6 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
-import code.util.*;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -446,8 +444,8 @@ public final class Player {
 
     public void storeIntoBox(DataBase _import){
         UsablePokemon pk_ = team.get(chosenTeamPokemon);
-        team.removeAt(chosenTeamPokemon);
-//        UsablePokemon pk_=team.removeAtAndGet(chosenTeamPokemon);
+        team.remove((int) chosenTeamPokemon);
+        //        UsablePokemon pk_=team.removeAtAndGet(chosenTeamPokemon);
         if (pk_ instanceof PokemonPlayer) {
             ((PokemonPlayer) pk_).fullHeal(_import);
         }
@@ -468,7 +466,7 @@ public final class Player {
             return;
         }
         UsablePokemon pk_ = box.get(_box);
-        box.removeAt(_box);
+        box.remove(_box);
         team.add(pk_);
 //        team.add(box.removeAtAndGet(_box));
     }
@@ -540,7 +538,7 @@ public final class Player {
                 getItem(obj_);
             }
         }
-        box.removeAt(_box);
+        box.remove(_box);
     }
 
     public void setPokemonAbleToHoldObject() {
@@ -1463,8 +1461,8 @@ public final class Player {
     }
 
     public void reindexAfterStoringToHost(short _pos1,short _pos2){
-        team.removeAt(Math.max(_pos1,_pos2));
-        team.removeAt(Math.min(_pos1,_pos2));
+        team.remove(Math.max(_pos1,_pos2));
+        team.remove(Math.min(_pos1,_pos2));
     }
 
     public void takeHostedPokemon(PokemonPlayer _pk1,PokemonPlayer _pk2){

@@ -305,7 +305,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
     public CustList<RootPol> racines() {
         if(numbers.last().isZero()) {
             Polynom copy_ = new Polynom();
-            copy_.numbers.removeAt(0);
+            copy_.numbers.remove(0);
             boolean written_=false;
             int multZero_=0;
             for(long i=dg();i>-1;i--) {
@@ -637,7 +637,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
 
     public void add(Rate _nb) {
         if(size()==CustList.ONE_ELEMENT&&numbers.first().isZero()) {
-            numbers.removeAt(CustList.FIRST_INDEX);
+            numbers.remove((int) CustList.FIRST_INDEX);
         }
         numbers.add(_nb);
     }

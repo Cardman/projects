@@ -266,7 +266,7 @@ public abstract class Numbers<T> extends CustList<T> {
         if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        removeAt(index_);
+        remove(index_);
     }
 
     public final boolean containsObj(long _obj) {
@@ -280,7 +280,7 @@ public abstract class Numbers<T> extends CustList<T> {
             boolean rem_ = false;
             int next_ = indexOfObj(e_, i_ + 1);
             while (next_ != INDEX_NOT_FOUND_ELT) {
-                removeAt(next_);
+                remove(next_);
                 rem_ = true;
                 next_ = indexOfObj(e_, i_ + 1);
             }

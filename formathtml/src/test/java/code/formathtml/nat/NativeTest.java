@@ -1419,7 +1419,7 @@ public final class NativeTest extends CommonRender {
             BeanInfo i_ = new BeanInfo();
             i_.setClassName(e.getValue().getClassName());
             i_.setScope(e.getValue().getScope());
-            map_.add(e.getKey(),i_);
+            map_.addEntry(e.getKey(),i_);
         }
         _nav.getSession().setBeansInfos(map_);
         _nav.setLanguages(new StringList(_nav.getLanguage()));

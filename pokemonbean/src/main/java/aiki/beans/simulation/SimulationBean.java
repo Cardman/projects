@@ -698,7 +698,7 @@ public class SimulationBean extends CommonBean {
         }
         if (selectedFoeAction == TeamCrud.REMOVE) {
             int index_ = selectedFoePk;
-            foeTeam.removeAt(index_);
+            foeTeam.remove(index_);
             int size_ = foeTeam.size();
             for (int i = index_; i < size_;i++) {
                 foeTeam.get(i).setIndex(i);
@@ -771,7 +771,7 @@ public class SimulationBean extends CommonBean {
         }
         if (selectedAllyAction == TeamCrud.REMOVE) {
             int index_ = selectedAllyPk;
-            allyTeam.removeAt(index_);
+            allyTeam.remove(index_);
             int size_ = allyTeam.size();
             for (int i = index_; i < size_;i++) {
                 allyTeam.get(i).setIndex(i);
@@ -857,7 +857,7 @@ public class SimulationBean extends CommonBean {
         }
         if (selectedAction == TeamCrud.REMOVE) {
             int index_ = selectedPk;
-            team.removeAt(index_);
+            team.remove(index_);
             int size_ = team.size();
             for (int i = index_; i < size_;i++) {
                 team.get(i).setIndex(i);

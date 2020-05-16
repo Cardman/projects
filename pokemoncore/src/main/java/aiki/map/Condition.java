@@ -27,7 +27,7 @@ public final class Condition extends CustList<Coords> {
             boolean rem_ = false;
             int next_ = indexOfObj(e_, i_ + 1);
             while (next_ != INDEX_NOT_FOUND_ELT) {
-                removeAt(next_);
+                remove(next_);
                 rem_ = true;
                 next_ = indexOfObj(e_, i_ + 1);
             }

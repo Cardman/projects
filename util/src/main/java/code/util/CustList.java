@@ -105,11 +105,6 @@ public class CustList<T> implements Listable<T> {
     }
 
     @Override
-    public final void removeAt(int _n) {
-        list.remove(_n);
-    }
-
-    @Override
     public final int size() {
         return list.size();
     }
@@ -143,7 +138,7 @@ public class CustList<T> implements Listable<T> {
         while (i_ < size()) {
             T e_ = get(i_);
             if (!_c.containsObj(e_)) {
-                removeAt(i_);
+                remove(i_);
             } else {
                 i_++;
             }
@@ -153,11 +148,6 @@ public class CustList<T> implements Listable<T> {
     @Override
     public final void clear() {
         list.clear();
-    }
-
-    @Override
-    public final Object getObj(int _index) {
-        return get(_index);
     }
 
     public final T get(int _index) {
@@ -230,7 +220,7 @@ public class CustList<T> implements Listable<T> {
         if (isEmpty()) {
             return;
         }
-        removeAt(getLastIndex());
+        remove(getLastIndex());
     }
 
     public final CustList<T> mid(int _beginIndex, int _nbElements) {

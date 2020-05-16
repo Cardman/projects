@@ -37,7 +37,7 @@ public abstract class AbEqList<T> extends CustList<T> {
         if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        removeAt(index_);
+        remove(index_);
     }
 
     public final boolean containsAllObj(Listable<T> _list) {

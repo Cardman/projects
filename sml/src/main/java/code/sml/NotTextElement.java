@@ -142,7 +142,7 @@ public final class NotTextElement implements Element {
                 continue;
             }
             e_.setParentNode(null);
-            childElements.removeAt(i);
+            childElements.remove(i);
             return;
         }
     }

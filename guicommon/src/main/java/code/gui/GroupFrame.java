@@ -91,7 +91,7 @@ public abstract class GroupFrame extends CommonFrame {
         int index_ = CustList.FIRST_INDEX;
         for (GroupFrame g: FRAMES) {
             if (g == this) {
-                FRAMES.removeAt(index_);
+                FRAMES.remove(index_);
                 setVisible(false);
                 nativeDispose();
                 break;

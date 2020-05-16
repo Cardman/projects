@@ -858,7 +858,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             if (resultatChiffres_.first() != 0) {
                 break;
             }
-            resultatChiffres_.removeAt(CustList.FIRST_INDEX);
+            resultatChiffres_.remove((int) CustList.FIRST_INDEX);
         }
         return resultat_;
     }
@@ -1630,7 +1630,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     private void removeBeginningZeros() {
         //setModified();
         while (grDigits.size() > 1 && grDigits.first() == 0) {
-            grDigits.removeAt(CustList.FIRST_INDEX);
+            grDigits.remove((int) CustList.FIRST_INDEX);
         }
     }
 

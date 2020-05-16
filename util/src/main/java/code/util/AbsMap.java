@@ -64,11 +64,6 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         return list;
     }
 
-    @Override
-    public Object getObj(int _index) {
-        return list.get(_index);
-    }
-
     public void setKey(int _i, K _k) {
         EntryCust<K,V> bk_ = list.get(_i);
         list.set(_i, new EntryCust<K,V>(_k, bk_.getValue()));
@@ -90,10 +85,11 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
     }
 
     public void add(K _key,V _v) {
-        if (contains(_key)) {
+        int index_ = indexOfEntry(_key);
+        if (index_ != CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        put(_key, _v);
+        addEntry(_key,_v);
     }
     public void set(K _key,V _v) {
         int index_ = indexOfEntry(_key);
@@ -182,7 +178,7 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
         if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        getList().removeAt(index_);
+        getList().remove(index_);
     }
 
     public void addEntry(K _k, V _v) {
