@@ -430,7 +430,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         args_.addEntry(validateVarArgNewValue,getAliasObject());
         args_.addEntry(validateVarArgOldValue,getAliasObject());
         args_.addEntry(validateVarArgBean,getAliasObject());
-        args_.addEntry(validateVarArgForm,getAliasObject());
+        args_.addEntry(validateVarArgForm,PrimitiveTypeUtil.getPrettyArrayType(getAliasObject()));
         args_.addEntry(validateVarArgClassField,getAliasString());
         args_.addEntry(vlidateVarArgNameField,getAliasString());
         expsValidate = newCall(validateVar,aliasValidator,
@@ -438,7 +438,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                         getAliasObject(),
                         getAliasObject(),
                         getAliasObject(),
-                        getAliasObject(),
+                        PrimitiveTypeUtil.getPrettyArrayType(getAliasObject()),
                         getAliasString(),
                         getAliasString()
                 ))),
@@ -792,7 +792,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         file_.append(object_).append(" ").append(tr("newValue",_context)).append(",");
         file_.append(object_).append(" ").append(tr("oldValue",_context)).append(",");
         file_.append(object_).append(" ").append(tr("bean",_context)).append(",");
-        file_.append(object_).append(" ").append(tr("form",_context)).append(",");
+        file_.append(object_).append("[] ").append(tr("form",_context)).append(",");
         file_.append(string_).append(" ").append(tr("className",_context)).append(",");
         file_.append(string_).append(" ").append(tr("fieldName",_context));
         file_.append(")");
@@ -1251,7 +1251,14 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().getInternVars().put(validateVarArgOldValue, locVar_);
         locVar_ = LocalVariable.newLocalVariable(_cont.getBean(),getAliasObject());
         _conf.getLastPage().getInternVars().put(validateVarArgBean, locVar_);
-        locVar_ = LocalVariable.newLocalVariable(_cont.getStruct(),getAliasObject());
+        CustList<Struct> params_ = _cont.getStructParam();
+        int size_ = params_.size();
+        ArrayStruct arr_ = new ArrayStruct(new Struct[size_ +1],PrimitiveTypeUtil.getPrettyArrayType(getAliasObject()));
+        arr_.getInstance()[0] = _cont.getUpdated();
+        for (int i = 0; i < size_; i++) {
+            arr_.getInstance()[i+1] = params_.get(i);
+        }
+        locVar_ = LocalVariable.newLocalVariable(arr_,PrimitiveTypeUtil.getPrettyArrayType(getAliasObject()));
         _conf.getLastPage().getInternVars().put(validateVarArgForm, locVar_);
         locVar_ = LocalVariable.newLocalVariable(new StringStruct(_cont.getIdFieldClass()),_conf);
         _conf.getLastPage().getInternVars().put(validateVarArgClassField, locVar_);

@@ -1,6 +1,5 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.opers.util.ClassField;
 import code.formathtml.exec.RendDynOperationNode;
 import code.util.CustList;
 
@@ -8,18 +7,12 @@ public final class FieldUpdates {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
     private String varName = "";
-    private ClassField idField;
+    private String id = "";
+    private String idClass = "";
+    private String idName = "";
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private String varNameConverter = "";
     private boolean arrayConverter;
-
-    public ClassField getIdField() {
-        return idField;
-    }
-
-    public void setIdField(ClassField _idField) {
-        idField = _idField;
-    }
 
     public CustList<RendDynOperationNode> getOpsRead() {
         return opsRead;
@@ -67,5 +60,30 @@ public final class FieldUpdates {
 
     public void setArrayConverter(boolean _arrayConverter) {
         arrayConverter = _arrayConverter;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIdClass() {
+        return idClass;
+    }
+
+    public void setIdClass(String idClass) {
+        this.idClass = idClass;
+    }
+
+    public String getIdName() {
+        return idName;
+    }
+
+    public void setIdName(String idName) {
+        this.idName = idName;
     }
 }

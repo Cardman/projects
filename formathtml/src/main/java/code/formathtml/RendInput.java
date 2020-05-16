@@ -5,7 +5,6 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.*;
 import code.formathtml.util.FieldUpdates;
@@ -20,9 +19,11 @@ public abstract class RendInput extends RendElement {
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
     private String varName = EMPTY_STRING;
-    private ClassField idField;
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
+    private String id = EMPTY_STRING;
+    private String idClass = EMPTY_STRING;
+    private String idName = EMPTY_STRING;
     RendInput(Element _elt, OffsetsBlock _offset) {
         super(_elt, _offset);
     }
@@ -34,7 +35,9 @@ public abstract class RendInput extends RendElement {
         opsValue = r_.getOpsValue();
         opsWrite = r_.getOpsWrite();
         varName = r_.getVarName();
-        idField = r_.getIdField();
+        id = r_.getId();
+        idClass = r_.getIdClass();
+        idName = r_.getIdName();
         String converterValue_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         if (!converterValue_.trim().isEmpty()) {
             Mapping m_ = new Mapping();
@@ -110,7 +113,9 @@ public abstract class RendInput extends RendElement {
     }
     protected Argument processIndexes(Configuration _cont, Element _read, Element _write) {
         FieldUpdates f_ = new FieldUpdates();
-        f_.setIdField(idField);
+        f_.setId(id);
+        f_.setIdClass(idClass);
+        f_.setIdName(idName);
         f_.setOpsRead(opsRead);
         f_.setOpsWrite(opsWrite);
         f_.setVarName(varName);

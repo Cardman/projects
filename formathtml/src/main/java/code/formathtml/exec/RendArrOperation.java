@@ -5,7 +5,6 @@ import code.expressionlanguage.opers.ArrOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.exec.ExecNumericOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.CustList;
@@ -16,13 +15,19 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     private boolean variable;
 
     private boolean catString;
-
+    private ClassArgumentMatching previous;
     public RendArrOperation(ArrOperation _arr) {
         super(_arr);
         variable = _arr.isVariable();
         catString = _arr.isCatString();
+        previous = _arr.getPreviousResultClass();
     }
-
+    public RendArrOperation(RendArrOperation _arr,int _indexChild, ClassArgumentMatching _res, int _order,
+                                 boolean _intermediate, Argument _previousArgument) {
+        super(_indexChild,_res,_order, _intermediate, _previousArgument);
+        previous = _arr.previous;
+        variable = true;
+    }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
@@ -102,14 +107,14 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         return a_;
     }
 
-    Struct affectArray(Struct _array, Argument _index, int _indexEl, Argument _right, Configuration _conf) {
+    private Struct affectArray(Struct _array, Argument _index, int _indexEl, Argument _right, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Struct o_ = _index.getStruct();
         ExecInvokingOperation.setElement(_array, o_, _right.getStruct(), _conf);
         return _right.getStruct();
     }
 
-    Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, Configuration _conf) {
+    private Struct compoundAffectArray(Struct _array, Struct _stored, Argument _index, int _indexEl, String _op, Argument _right, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Struct o_ = _index.getStruct();
         Argument left_ = new Argument();
@@ -123,7 +128,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
         return res_.getStruct();
     }
-    Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, Configuration _conf) {
+    private Struct semiAffectArray(Struct _array, Struct _stored, Argument _index, int _indexEl, String _op, boolean _post, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Struct o_ = _index.getStruct();
         Argument left_ = new Argument();
@@ -150,7 +155,10 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         RendDynOperationNode lastElement_ = chidren_.last();
         Argument index_ = getArgument(_nodes,lastElement_);
         ExecInvokingOperation.setElement(array_, index_.getStruct(), _right.getStruct(), _conf);
-        Argument out_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        return out_;
+        return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
+    }
+
+    public ClassArgumentMatching getPrevious() {
+        return previous;
     }
 }

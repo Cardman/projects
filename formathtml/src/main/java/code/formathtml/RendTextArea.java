@@ -4,7 +4,6 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
@@ -28,7 +27,9 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
     private String varName = EMPTY_STRING;
-    private ClassField idField;
+    private String id = EMPTY_STRING;
+    private String idClass = EMPTY_STRING;
+    private String idName = EMPTY_STRING;
     private Element elt;
     RendTextArea(Element _elt, OffsetsBlock _offset) {
         super(_offset);
@@ -43,7 +44,9 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         opsValue = r_.getOpsValue();
         opsWrite = r_.getOpsWrite();
         varName = r_.getVarName();
-        idField = r_.getIdField();
+        id = r_.getId();
+        idClass = r_.getIdClass();
+        idName = r_.getIdName();
         String converterValue_ = elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         if (!opsRead.isEmpty()){
             Mapping m_ = new Mapping();
@@ -166,7 +169,9 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         Element docElementSelect_ = doc_.createElement(_cont.getRendKeyWords().getKeyWordTextarea());
         write_.appendChild(docElementSelect_);
         FieldUpdates f_ = new FieldUpdates();
-        f_.setIdField(idField);
+        f_.setId(id);
+        f_.setIdClass(idClass);
+        f_.setIdName(idName);
         f_.setOpsRead(opsRead);
         f_.setOpsWrite(opsWrite);
         f_.setVarName(varName);

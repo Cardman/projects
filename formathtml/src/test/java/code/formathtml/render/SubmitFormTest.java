@@ -315,7 +315,7 @@ public final class SubmitFormTest extends CommonRender {
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
-        file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
         file_.append("  $var mess = Message.newStandardMessage();");
         file_.append("  $return mess;");
         file_.append(" }");
@@ -385,7 +385,7 @@ public final class SubmitFormTest extends CommonRender {
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
-        file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
         file_.append("  $var mess = Message.newStandardMessage();");
         file_.append("  $return mess;");
         file_.append(" }");
@@ -455,7 +455,7 @@ public final class SubmitFormTest extends CommonRender {
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
-        file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
         file_.append("  $var mess = Message.newStandardMessage();");
         file_.append("  $return mess;");
         file_.append(" }");
@@ -583,7 +583,7 @@ public final class SubmitFormTest extends CommonRender {
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
-        file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
         file_.append("  $var mess = Message.newStandardMessage();");
         file_.append("  $return mess;");
         file_.append(" }");
@@ -664,7 +664,7 @@ public final class SubmitFormTest extends CommonRender {
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
-        file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
         file_.append("  $var mess = Message.newStandardMessage();");
         file_.append("  $return mess;");
         file_.append(" }");
@@ -743,7 +743,7 @@ public final class SubmitFormTest extends CommonRender {
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
-        file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
         file_.append("  $var mess = Message.newStandardMessage();");
         file_.append("  $return mess;");
         file_.append(" }");

@@ -4,7 +4,6 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.*;
 import code.sml.Element;
 import code.util.CustList;
@@ -18,7 +17,9 @@ public final class ResultInput {
     private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
     private String varName = EMPTY_STRING;
-    private ClassField idField;
+    private String id = EMPTY_STRING;
+    private String idClass = EMPTY_STRING;
+    private String idName = EMPTY_STRING;
     public void build(Configuration _cont, RendBlock _bl, RendDocumentBlock _doc, Element _read,String _varValue) {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
@@ -31,73 +32,158 @@ public final class ResultInput {
                 res_ = last_;
             }
             RendSettableElResult settable_ = RendAffectationOperation.castDottedTo(res_);
-            if (!(settable_ instanceof RendSettableFieldOperation)) {
+            if (!(settable_ instanceof RendPossibleIntermediateDotted)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                 badEl_.buildError(_cont.getRendAnalysisMessages().getBadInputName());
                 _cont.addError(badEl_);
             } else {
-                FieldInfo infoField_ = ((RendSettableFieldOperation) settable_).getFieldMetaInfo();
-                if (infoField_.isStaticField()) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_cont.getCurrentFileName());
-                    badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
-                    badEl_.buildError(_cont.getRendAnalysisMessages().getStaticInputName(),
-                            infoField_.getClassField().getFieldName());
-                    _cont.addError(badEl_);
-                }
-                if (infoField_.isFinalField()) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_cont.getCurrentFileName());
-                    badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
-                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getFinalField(),
-                            infoField_.getClassField().getFieldName());
-                    _cont.addError(badEl_);
-                }
-                idField = infoField_.getClassField();
-                String cl_ = ((RendSettableFieldOperation) settable_).getResultClass().getSingleNameOrEmpty();
-                ClassArgumentMatching pr_;
-                if (((RendSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
-                    pr_ = ((RendSettableFieldOperation) settable_).getPrevious();
+                if (settable_ instanceof RendSettableFieldOperation) {
+                    FieldInfo infoField_ = ((RendSettableFieldOperation) settable_).getFieldMetaInfo();
+                    ClassField clField_ = infoField_.getClassField();
+                    if (infoField_.isStaticField()) {
+                        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                        badEl_.setFileName(_cont.getCurrentFileName());
+                        badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
+                        badEl_.buildError(_cont.getRendAnalysisMessages().getStaticInputName(),
+                                clField_.getFieldName());
+                        _cont.addError(badEl_);
+                    }
+                    if (infoField_.isFinalField()) {
+                        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                        badEl_.setFileName(_cont.getCurrentFileName());
+                        badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
+                        badEl_.buildError(_cont.getContext().getAnalysisMessages().getFinalField(),
+                                clField_.getFieldName());
+                        _cont.addError(badEl_);
+                    }
+                    idClass = clField_.getClassName();
+                    idName = clField_.getFieldName();
+                    id = StringList.concat(idClass,".",idName);
+                    String cl_ = ((RendSettableFieldOperation) settable_).getResultClass().getSingleNameOrEmpty();
+                    ClassArgumentMatching pr_;
+                    if (((RendSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
+                        pr_ = ((RendSettableFieldOperation) settable_).getPrevious();
+                    } else {
+                        pr_ = new ClassArgumentMatching(_cont.getAnalyzing().getGlobalClass());
+                    }
+                    StringList varNames_ = new StringList();
+                    String varPrevLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                    varNames_.add(varPrevLoc_);
+                    String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                    varNames_.add(varLoc_);
+                    varName = StringList.concat(varPrevLoc_,RendBlock.COMMA,varLoc_);
+
+                    RendAffectationOperation rendAff_ = new RendAffectationOperation(0,pr_,4);
+                    ClassArgumentMatching clResField_ = new ClassArgumentMatching(cl_);
+                    RendDotOperation rendDot_ = new RendDotOperation(0, clResField_,2);
+                    RendVariableOperation rendPrevVar_ = new RendVariableOperation(0, varPrevLoc_,pr_,0);
+                    RendSettableFieldOperation rendField_ = new RendSettableFieldOperation((RendSettableFieldOperation) settable_, 1, clResField_, 1, true);
+                    rendPrevVar_.setSiblingSet(rendField_);
+                    rendDot_.appendChild(rendPrevVar_);
+                    rendDot_.appendChild(rendField_);
+                    rendAff_.appendChild(rendDot_);
+                    RendVariableOperation rendVar_ = new RendVariableOperation(0, varLoc_, clResField_,3);
+                    rendAff_.appendChild(rendVar_);
+                    rendAff_.setup();
+
+                    opsWrite.add(rendPrevVar_);
+                    opsWrite.add(rendField_);
+                    opsWrite.add(rendDot_);
+                    opsWrite.add(rendVar_);
+                    opsWrite.add(rendAff_);
                 } else {
-                    pr_ = new ClassArgumentMatching(_cont.getAnalyzing().getGlobalClass());
-                }
-                StringList varNames_ = new StringList();
-                String varPrevLoc_ = RendBlock.lookForVar(_cont, varNames_);
-                varNames_.add(varPrevLoc_);
-                String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
-                varNames_.add(varLoc_);
-                varName = StringList.concat(varPrevLoc_,RendBlock.COMMA,varLoc_);
-                LocalVariable lv_ = new LocalVariable();
-                String clPrev_ = pr_.getSingleNameOrEmpty();
-                lv_.setClassName(clPrev_);
-                _cont.getLocalVarsAna().last().addEntry(varPrevLoc_,lv_);
-                lv_ = new LocalVariable();
-                lv_.setClassName(cl_);
-                _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
-
-                RendAffectationOperation rendAff_ = new RendAffectationOperation(0,pr_,4);
-                ClassArgumentMatching clResField_ = new ClassArgumentMatching(cl_);
-                RendDotOperation rendDot_ = new RendDotOperation(0, clResField_,2);
-                RendVariableOperation rendPrevVar_ = new RendVariableOperation(0, varPrevLoc_,pr_,0);
-                RendSettableFieldOperation rendField_ = new RendSettableFieldOperation((RendSettableFieldOperation) settable_, 1, clResField_, 1, true);
-                rendPrevVar_.setSiblingSet(rendField_);
-                rendDot_.appendChild(rendPrevVar_);
-                rendDot_.appendChild(rendField_);
-                rendAff_.appendChild(rendDot_);
-                RendVariableOperation rendVar_ = new RendVariableOperation(0, varLoc_, clResField_,3);
-                rendAff_.appendChild(rendVar_);
-                rendAff_.setup();
-
-                opsWrite.add(rendPrevVar_);
-                opsWrite.add(rendField_);
-                opsWrite.add(rendDot_);
-                opsWrite.add(rendVar_);
-                opsWrite.add(rendAff_);
-
-                for (String v:varNames_) {
-                    _cont.getLocalVarsAna().last().removeKey(v);
+                    if (settable_ instanceof RendArrOperation) {
+                        String cl_ = ((RendArrOperation) settable_).getResultClass().getSingleNameOrEmpty();
+                        CustList<RendDynOperationNode> childrenNodes_ = ((RendArrOperation) settable_).getChildrenNodes();
+                        StringList varNames_ = new StringList();
+                        String varPrevLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                        varNames_.add(varPrevLoc_);
+                        ClassArgumentMatching pr_ = ((RendArrOperation) settable_).getPrevious();
+                        idClass = pr_.getSingleNameOrEmpty();
+                        RendAffectationOperation rendAff_ = new RendAffectationOperation(0,pr_,4+childrenNodes_.size());
+                        ClassArgumentMatching clResField_ = new ClassArgumentMatching(cl_);
+                        RendDotOperation rendDot_ = new RendDotOperation(0, clResField_,2+childrenNodes_.size());
+                        RendVariableOperation rendPrevVar_ = new RendVariableOperation(0, varPrevLoc_,pr_,0);
+                        RendArrOperation arr_ = new RendArrOperation((RendArrOperation) settable_, 1, pr_, childrenNodes_.size() + 1, true, null);
+                        int i_ = 1;
+                        CustList<RendDynOperationNode> list_ = new CustList<RendDynOperationNode>();
+                        StringList varParamNames_ = new StringList();
+                        StringList typeNames_ = new StringList();
+                        for (RendDynOperationNode o: childrenNodes_) {
+                            String varParam_ = RendBlock.lookForVar(_cont, varNames_);
+                            RendVariableOperation rendVar_ = new RendVariableOperation(i_-1, varParam_, o.getResultClass(),i_);
+                            arr_.appendChild(rendVar_);
+                            list_.add(rendVar_);
+                            varNames_.add(varParam_);
+                            varParamNames_.add(varParam_);
+                            typeNames_.add(_cont.getStandards().getAliasPrimInteger());
+                            i_++;
+                        }
+                        idName = StringList.concat("[](", StringList.join(typeNames_,","),")");
+                        id = StringList.concat(idClass,".",idName);
+                        String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                        varNames_.add(varLoc_);
+                        varName = StringList.concat(varPrevLoc_,RendBlock.COMMA, StringList.join(varParamNames_,RendBlock.COMMA),RendBlock.COMMA,varLoc_);
+                        rendPrevVar_.setSiblingSet(arr_);
+                        rendDot_.appendChild(rendPrevVar_);
+                        rendDot_.appendChild(arr_);
+                        rendAff_.appendChild(rendDot_);
+                        RendVariableOperation rendVar_ = new RendVariableOperation(0, varLoc_, clResField_,childrenNodes_.size() + 3);
+                        rendAff_.appendChild(rendVar_);
+                        rendAff_.setup();
+                        opsWrite.add(rendPrevVar_);
+                        opsWrite.addAllElts(list_);
+                        opsWrite.add(arr_);
+                        opsWrite.add(rendDot_);
+                        opsWrite.add(rendVar_);
+                        opsWrite.add(rendAff_);
+                    } else {
+                        String cl_ = ((RendCustArrOperation) settable_).getResultClass().getSingleNameOrEmpty();
+                        CustList<RendDynOperationNode> childrenNodes_ = ((RendCustArrOperation) settable_).getChildrenNodes();
+                        StringList varNames_ = new StringList();
+                        String varPrevLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                        varNames_.add(varPrevLoc_);
+                        ClassArgumentMatching pr_ = ((RendCustArrOperation) settable_).getPrevious();
+                        idClass = pr_.getSingleNameOrEmpty();
+                        RendAffectationOperation rendAff_ = new RendAffectationOperation(0,pr_,4+childrenNodes_.size());
+                        ClassArgumentMatching clResField_ = new ClassArgumentMatching(cl_);
+                        RendDotOperation rendDot_ = new RendDotOperation(0, clResField_,2+childrenNodes_.size());
+                        RendVariableOperation rendPrevVar_ = new RendVariableOperation(0, varPrevLoc_,pr_,0);
+                        RendCustArrOperation arr_ = new RendCustArrOperation((RendCustArrOperation) settable_, 1, pr_, childrenNodes_.size() + 1, true, null);
+                        int i_ = 1;
+                        CustList<RendDynOperationNode> list_ = new CustList<RendDynOperationNode>();
+                        StringList varParamNames_ = new StringList();
+                        for (RendDynOperationNode o: childrenNodes_) {
+                            String varParam_ = RendBlock.lookForVar(_cont, varNames_);
+                            RendVariableOperation rendVar_ = new RendVariableOperation(i_-1, varParam_, o.getResultClass(),i_);
+                            arr_.appendChild(rendVar_);
+                            list_.add(rendVar_);
+                            varNames_.add(varParam_);
+                            varParamNames_.add(varParam_);
+                            i_++;
+                        }
+                        String sgn_ = ((RendCustArrOperation) settable_).getClassMethodId().getConstraints().getSignature(_cont);
+                        idName = StringList.concat("[]", sgn_);
+                        id = StringList.concat(idClass,".",idName);
+                        String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                        varNames_.add(varLoc_);
+                        varName = StringList.concat(varPrevLoc_,RendBlock.COMMA, StringList.join(varParamNames_,RendBlock.COMMA),RendBlock.COMMA,varLoc_);
+                        rendPrevVar_.setSiblingSet(arr_);
+                        rendDot_.appendChild(rendPrevVar_);
+                        rendDot_.appendChild(arr_);
+                        rendAff_.appendChild(rendDot_);
+                        RendVariableOperation rendVar_ = new RendVariableOperation(0, varLoc_, clResField_,childrenNodes_.size() + 3);
+                        rendAff_.appendChild(rendVar_);
+                        rendAff_.setup();
+                        opsWrite.add(rendPrevVar_);
+                        opsWrite.addAllElts(list_);
+                        opsWrite.add(arr_);
+                        opsWrite.add(rendDot_);
+                        opsWrite.add(rendVar_);
+                        opsWrite.add(rendAff_);
+                    }
                 }
             }
         }
@@ -123,7 +209,15 @@ public final class ResultInput {
         return varName;
     }
 
-    public ClassField getIdField() {
-        return idField;
+    public String getId() {
+        return id;
+    }
+
+    public String getIdClass() {
+        return idClass;
+    }
+
+    public String getIdName() {
+        return idName;
     }
 }

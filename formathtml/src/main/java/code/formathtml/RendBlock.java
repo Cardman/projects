@@ -9,7 +9,6 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.AnalyzedBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.errors.RendKeyWords;
@@ -717,12 +716,12 @@ public abstract class RendBlock implements AnalyzedBlock {
         if (name_.isEmpty()) {
             return Argument.createVoid();
         }
-        Struct obj_;
+        CustList<Struct> obj_;
         Struct currentField_;
         long found_ = -1;
         CustList<RendDynOperationNode> opsRead_ = _f.getOpsRead();
         CustList<RendDynOperationNode> opsWrite_ = _f.getOpsWrite();
-        ClassField idField_ = _f.getIdField();
+        String idCl_ = _f.getId();
         String varName_ = _f.getVarName();
         IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(opsRead_, _cont);
         if (_cont.getContext().hasException()) {
@@ -736,22 +735,33 @@ public abstract class RendBlock implements AnalyzedBlock {
             res_ = root_;
         }
         RendSettableElResult settable_ = RendAffectationOperation.castDottedTo(res_);
-        ArgumentsPair pair_ = args_.getValue(((RendSettableFieldOperation) settable_).getOrder());
-        if (((RendSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
-            obj_ = pair_.getPreviousArgument().getStruct();
+        Argument arg_;
+        if (settable_ instanceof RendSettableFieldOperation) {
+            ArgumentsPair pair_ = args_.getValue(((RendSettableFieldOperation) settable_).getOrder());
+            if (((RendSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
+                obj_ = new CustList<Struct>(pair_.getPreviousArgument().getStruct());
+            } else {
+                obj_ = new CustList<Struct>(_cont.getLastPage().getGlobalArgument().getStruct());
+            }
+            arg_ = pair_.getArgument();
         } else {
-            obj_ = _cont.getLastPage().getGlobalArgument().getStruct();
+            ArgumentsPair pair_ = args_.getValue(((RendMethodOperation) settable_).getOrder());
+            obj_ = new CustList<Struct>(pair_.getPreviousArgument().getStruct());
+            arg_ = pair_.getArgument();
+            for (RendDynOperationNode r: ((RendMethodOperation) settable_).getChildrenNodes()) {
+                pair_ = args_.getValue(r.getOrder());
+                obj_.add(pair_.getArgument().getStruct());
+            }
         }
-        Argument arg_ = pair_.getArgument();
         CustList<LongTreeMap<NodeContainer>> stack_ = _cont.getContainersMapStack();
         if (stack_.isEmpty()) {
             return arg_;
         }
         for (EntryCust<Long, NodeContainer> e: stack_.last().entryList()) {
-            if (!e.getValue().getStruct().sameReference(obj_)) {
+            if (!e.getValue().eqObj(obj_)) {
                 continue;
             }
-            if (!e.getValue().getIdField().eq(idField_)) {
+            if (!StringList.quickEq(e.getValue().getIdClass(),idCl_)) {
                 continue;
             }
             found_ = e.getKey();
@@ -761,12 +771,15 @@ public abstract class RendBlock implements AnalyzedBlock {
         if (found_ == -1) {
             long currentInput_ = _cont.getInputs().last();
             NodeContainer nodeCont_ = new NodeContainer();
-            nodeCont_.setIdField(idField_);
+            nodeCont_.setIdFieldClass(_f.getIdClass());
+            nodeCont_.setIdFieldName(_f.getIdName());
+            nodeCont_.setIdClass(idCl_);
             nodeCont_.setTypedStruct(currentField_);
             nodeCont_.setStruct(obj_);
-            StringList strings_ = StringList.splitInTwo(varName_, varName_.indexOf(','));
-            nodeCont_.setVarPrevName(StringList.removeChars(strings_.first(),','));
-            nodeCont_.setVarName(StringList.removeChars(strings_.last(),','));
+            StringList strings_ = StringList.splitChar(varName_, ',');
+            nodeCont_.setVarPrevName(strings_.first());
+            nodeCont_.setVarParamName(strings_.mid(1,strings_.size()-2));
+            nodeCont_.setVarName(strings_.last());
             nodeCont_.setOpsWrite(opsWrite_);
             nodeCont_.setOpsConvert(_f.getOpsConverter());
             nodeCont_.setVarNameConvert(_f.getVarNameConverter());
@@ -933,7 +946,7 @@ public abstract class RendBlock implements AnalyzedBlock {
         String varLoc_ = TMP_LOC;
         int indexLoc_ = 0;
         while (!_cont.getContext().isNotVar(varLoc_) || StringList.contains(_varNames,varLoc_)) {
-            varLoc_ = StringList.concatNbs(varLoc_,indexLoc_);
+            varLoc_ = StringList.concatNbs(TMP_LOC,indexLoc_);
             indexLoc_++;
         }
         return varLoc_;

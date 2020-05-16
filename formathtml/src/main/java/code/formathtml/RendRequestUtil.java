@@ -53,13 +53,20 @@ final class RendRequestUtil {
     }
     static void setRendObject(Configuration _conf, NodeContainer _nodeContainer,
                           Struct _attribute) {
-        Struct obj_ = _nodeContainer.getStruct();
+        Struct obj_ = _nodeContainer.getUpdated();
         String attrName_ = _nodeContainer.getVarName();
         String prev_ = _nodeContainer.getVarPrevName();
         CustList<RendDynOperationNode> wr_ = _nodeContainer.getOpsWrite();
         ImportingPage ip_ = _conf.getLastPage();
         LocalVariable lv_ = LocalVariable.newLocalVariable(obj_, _conf);
         ip_.putLocalVar(prev_, lv_);
+        int i_ = 0;
+        for (String p: _nodeContainer.getVarParamName()) {
+            Struct arg_ = _nodeContainer.getStructParam().get(i_);
+            lv_ = LocalVariable.newLocalVariable(arg_, _conf);
+            ip_.putLocalVar(p, lv_);
+            i_++;
+        }
         lv_ = LocalVariable.newLocalVariable(_attribute,_conf);
         ip_.putLocalVar(attrName_, lv_);
         RenderExpUtil.calculateReuse(wr_,_conf);

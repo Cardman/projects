@@ -8,15 +8,16 @@ import code.util.StringList;
 
 public class NodeContainer {
 
-    private Struct object = NullStruct.NULL_VALUE;
+    private CustList<Struct> object = new CustList<Struct>();
     private Struct bean = NullStruct.NULL_VALUE;
 
     private Struct typedField = NullStruct.NULL_VALUE;
 
-    private ClassField idField;
+    private String idClass;
     private String idFieldClass;
     private String idFieldName;
     private String varPrevName;
+    private CustList<String> varParamName;
     private String varName;
     private String varNameConvert;
     private CustList<RendDynOperationNode> opsWrite;
@@ -27,10 +28,27 @@ public class NodeContainer {
 
     private boolean enabled;
 
-    public Struct getStruct() {
-        return object;
+    public boolean eqObj(CustList<Struct> _object) {
+        int size_ = _object.size();
+        if (object.size() != size_) {
+            return false;
+        }
+        for (int i = 0; i < size_; i++) {
+            if (!object.get(i).sameReference(_object.get(i))) {
+                return false;
+            }
+        }
+        return true;
     }
-    public void setStruct(Struct _struct) {
+
+    public Struct getUpdated() {
+        return object.first();
+    }
+    public CustList<Struct> getStructParam() {
+        return object.mid(1);
+    }
+
+    public void setStruct(CustList<Struct> _struct) {
         object = _struct;
     }
 
@@ -46,21 +64,31 @@ public class NodeContainer {
     }
 
     public ClassField getIdField() {
-        return idField;
+        return new ClassField(idFieldClass,idFieldName);
     }
 
-    public void setIdField(ClassField _idField) {
-        idField = _idField;
-        idFieldClass = _idField.getClassName();
-        idFieldName = _idField.getFieldName();
+    public String getIdClass() {
+        return idClass;
+    }
+
+    public void setIdClass(String idClass) {
+        this.idClass = idClass;
     }
 
     public String getIdFieldClass() {
         return idFieldClass;
     }
 
+    public void setIdFieldClass(String idFieldClass) {
+        this.idFieldClass = idFieldClass;
+    }
+
     public String getIdFieldName() {
         return idFieldName;
+    }
+
+    public void setIdFieldName(String idFieldName) {
+        this.idFieldName = idFieldName;
     }
 
     public NodeInformations getNodeInformation() {
@@ -81,6 +109,14 @@ public class NodeContainer {
 
     public void setVarPrevName(String _varPrevName) {
         varPrevName = _varPrevName;
+    }
+
+    public  CustList<String> getVarParamName() {
+        return varParamName;
+    }
+
+    public void setVarParamName(CustList<String> varParamName) {
+        this.varParamName = varParamName;
     }
 
     public String getVarName() {

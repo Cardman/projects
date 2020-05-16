@@ -6,7 +6,6 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stds.IterableAnalysisResult;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -30,7 +29,9 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
     private StringMap<ResultText> attributesText = new StringMap<ResultText>();
     private StringMap<ResultText> attributes = new StringMap<ResultText>();
     private String varName = EMPTY_STRING;
-    private ClassField idField;
+    private String id = EMPTY_STRING;
+    private String idClass = EMPTY_STRING;
+    private String idName = EMPTY_STRING;
     private Element elt;
     private boolean multiple;
     private String varNameConverter = EMPTY_STRING;
@@ -50,7 +51,9 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         opsValue = r_.getOpsValue();
         opsWrite = r_.getOpsWrite();
         varName = r_.getVarName();
-        idField = r_.getIdField();
+        id = r_.getId();
+        idClass = r_.getIdClass();
+        idName = r_.getIdName();
         String id_ = elt.getAttribute(_cont.getRendKeyWords().getAttrId());
         if (!id_.isEmpty()) {
             ResultText rId_ = new ResultText();
@@ -506,17 +509,18 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         }
         return obj_;
     }
-    private Argument processIndexes(Configuration _cont, Element _read, Element _write) {
+    private void processIndexes(Configuration _cont, Element _read, Element _write) {
         FieldUpdates f_ = new FieldUpdates();
-        f_.setIdField(idField);
+        f_.setId(id);
+        f_.setIdClass(idClass);
+        f_.setIdName(idName);
         f_.setOpsRead(opsRead);
         f_.setOpsWrite(opsWrite);
         f_.setVarName(varName);
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
         f_.setArrayConverter(arrayConverter);
-        Argument arg_ = fetchName(_cont, _read, _write, f_);
+        fetchName(_cont, _read, _write, f_);
         fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField);
-        return arg_;
     }
 }

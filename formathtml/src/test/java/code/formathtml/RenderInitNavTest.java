@@ -208,7 +208,7 @@ public final class RenderInitNavTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
-        file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
         file_.append("  $return $null;");
         file_.append(" }");
         file_.append("}");
@@ -288,7 +288,7 @@ public final class RenderInitNavTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
-        file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
         file_.append("  $return $null;");
         file_.append(" }");
         file_.append("}");
@@ -373,7 +373,7 @@ public final class RenderInitNavTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
-        file_.append(" $public Message validate(Object n,Object o,Object b,Object f,String c,String fd){");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
         file_.append("  $return $null;");
         file_.append(" }");
         file_.append("}");

@@ -32,6 +32,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     private int anc;
 
     private boolean staticChoiceMethod;
+    private ClassArgumentMatching previous;
 
     public RendCustArrOperation(ArrOperation _arr) {
         super(_arr);
@@ -42,8 +43,19 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         naturalVararg = _arr.getNaturalVararg();
         anc = _arr.getAnc();
         staticChoiceMethod = _arr.isStaticChoiceMethod();
+        previous = _arr.getPreviousResultClass();
     }
-
+    public RendCustArrOperation(RendCustArrOperation _arr,int _indexChild, ClassArgumentMatching _res, int _order,
+                            boolean _intermediate, Argument _previousArgument) {
+        super(_indexChild,_res,_order, _intermediate, _previousArgument);
+        previous = _arr.previous;
+        classMethodId = _arr.classMethodId;
+        lastType = _arr.lastType;
+        naturalVararg = _arr.naturalVararg;
+        anc = _arr.anc;
+        staticChoiceMethod = _arr.staticChoiceMethod;
+        variable = true;
+    }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         if (resultCanBeSet()) {
@@ -160,5 +172,13 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             methodId_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
         }
         return ExecInvokingOperation.callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, _right);
+    }
+
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
+    }
+
+    public ClassArgumentMatching getPrevious() {
+        return previous;
     }
 }

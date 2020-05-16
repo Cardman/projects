@@ -421,7 +421,7 @@ public final class Navigation {
                 return;
             }
             newObj_ = res_.getResult();
-            Struct procObj_ = e.getValue().getStruct();
+            Struct procObj_ = e.getValue().getUpdated();
             session.getLastPage().setGlobalArgumentStruct(procObj_, session);
             RendRequestUtil.setRendObject(session, e.getValue(), newObj_);
             if (session.getContext().hasException()) {
