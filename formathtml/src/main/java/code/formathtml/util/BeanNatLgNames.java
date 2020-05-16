@@ -6,6 +6,7 @@ import code.bean.validator.Message;
 import code.bean.validator.Validator;
 import code.expressionlanguage.*;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.ContextFactory;
@@ -15,6 +16,8 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.exec.RendFctOperation;
+import code.formathtml.exec.RendInvokingOperation;
 import code.formathtml.exec.RendSettableFieldOperation;
 import code.formathtml.structs.*;
 import code.maths.montecarlo.DefaultGenerator;
@@ -177,6 +180,29 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Object value_ = adaptedArg(_right.getStruct());
         setOtherResult(_cont, fieldId_, _previous.getStruct(), value_);
         return _right;
+    }
+
+    @Override
+    public Argument getCommonFctArgument(RendFctOperation _rend, Argument _previous, CustList<Argument> _arguments, Configuration _conf) {
+        CustList<RendDynOperationNode> chidren_ = _rend.getChildrenNodes();
+        int off_ = StringList.getFirstPrintableCharIndex(_rend.getMethodName());
+        _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _conf);
+        CustList<Argument> firstArgs_;
+        String lastType_ = _rend.getLastType();
+        int naturalVararg_ = _rend.getNaturalVararg();
+        Argument prev_ = new Argument();
+        prev_.setStruct(_previous.getStruct());
+        firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+        int i_ =0;
+        ClassMethodId classMethodId_ = _rend.getClassMethodId();
+        for (Argument a: firstArgs_) {
+            a.setStruct(PrimitiveTypeUtil.convertObject(new ClassArgumentMatching(classMethodId_.getConstraints().getParametersTypes().get(i_)),a.getStruct(),this));
+            i_++;
+        }
+        ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContextEl(), classMethodId_, _previous.getStruct(), Argument.toArgArray(firstArgs_));
+        Argument argRes_ = new Argument();
+        argRes_.setStruct(res_.getResult());
+        return argRes_;
     }
 
     private StringMap<Validator> loadValidator(Element _elt) {

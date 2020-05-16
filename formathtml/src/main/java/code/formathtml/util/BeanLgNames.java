@@ -13,6 +13,7 @@ import code.formathtml.ReadConfiguration;
 import code.formathtml.RendImport;
 import code.formathtml.RenderExpUtil;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.exec.RendFctOperation;
 import code.formathtml.exec.RendSettableFieldOperation;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Document;
@@ -232,8 +233,13 @@ public abstract class BeanLgNames extends LgNames {
         specificLoad(_configuration,_lgCode,_document);
     }
     protected abstract void specificLoad(Configuration _configuration, String _lgCode,Document _document);
+
+
     public abstract Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf);
     public abstract Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right);
+    public abstract Argument getCommonFctArgument(RendFctOperation _rend, Argument _previous, CustList<Argument> _arguments, Configuration _conf);
+
+
     protected abstract void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean);
 
     public abstract void forwardDataBase(Struct _bean, Struct _to, Configuration _conf);
@@ -244,6 +250,7 @@ public abstract class BeanLgNames extends LgNames {
     public abstract Message validate(Configuration _conf,NodeContainer _cont, String _validatorId);
 
     public abstract ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context);
+
 
     public boolean checkOpers(CustList<RendDynOperationNode> _opRead) {
         return !_opRead.isEmpty();

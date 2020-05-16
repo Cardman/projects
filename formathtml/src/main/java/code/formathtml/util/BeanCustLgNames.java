@@ -1132,6 +1132,57 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return ExecInvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
     }
 
+    @Override
+    public Argument getCommonFctArgument(RendFctOperation _rend, Argument _previous, CustList<Argument> _arguments, Configuration _conf) {
+        CustList<RendDynOperationNode> chidren_ = _rend.getChildrenNodes();
+        int off_ = StringList.getFirstPrintableCharIndex(_rend.getMethodName());
+        _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _conf);
+        LgNames stds_ = _conf.getStandards();
+        CustList<Argument> firstArgs_;
+        MethodId methodId_ = _rend.getClassMethodId().getConstraints();
+        String lastType_ = _rend.getLastType();
+        int naturalVararg_ = _rend.getNaturalVararg();
+        String classNameFound_;
+        Argument prev_ = new Argument();
+        if (!_rend.isStaticMethod()) {
+            classNameFound_ = _rend.getClassMethodId().getClassName();
+            prev_.setStruct(PrimitiveTypeUtil.getParent(_rend.getAnc(), classNameFound_, _previous.getStruct(), _conf));
+            if (_conf.getContextEl().hasException()) {
+                Argument a_ = new Argument();
+                return a_;
+            }
+            if (prev_.getStruct() instanceof ArrayStruct) {
+                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+                return ExecInvokingOperation.callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+            }
+            String base_ = Templates.getIdFromAllTypes(classNameFound_);
+            if (_rend.isStaticChoiceMethod()) {
+                String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
+                String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
+                lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
+                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+                methodId_ = _rend.getClassMethodId().getConstraints();
+            } else {
+                Struct previous_ = prev_.getStruct();
+                ContextEl context_ = _conf.getContextEl();
+                ClassMethodId methodToCall_ = ExecInvokingOperation.polymorph(context_, previous_, _rend.getClassMethodId());
+                String argClassName_ = stds_.getStructClassName(previous_, context_);
+                String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
+                lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
+                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+                methodId_ = methodToCall_.getConstraints();
+                classNameFound_ = methodToCall_.getClassName();
+            }
+        } else {
+            firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            classNameFound_ = _rend.getClassMethodId().getClassName();
+            if (ExecInvokingOperation.hasToExit(_conf, classNameFound_)) {
+                return Argument.createVoid();
+            }
+        }
+        return ExecInvokingOperation.callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+    }
+
     private void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf) {
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_map,_conf);
         _conf.getLastPage().getInternVars().put(getValVar, locVar_);

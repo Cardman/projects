@@ -31,7 +31,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         intermediate = _intermediate;
         previousArgument = _previousArgument;
     }
-    static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ExecutableCode _context) {
+    public static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ExecutableCode _context) {
         if (!_children.isEmpty() && _children.first() instanceof RendVarargOperation) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
