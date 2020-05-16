@@ -488,8 +488,7 @@ public final class StandardInstancingOperation extends
             return;
         }
         CustList<Argument> firstArgs_ = quickListArguments(filter_, _naturalVararg, _lastType, arguments_, _conf);
-        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstanceStd(_conf, _constId, Argument.toArgArray(firstArgs_));
-        Struct out_ = res_.getResult();
+        Struct out_ = ApplyCoreMethodUtil.newAnalyzisInstanceStd(_conf, _constId, Argument.toArgArray(firstArgs_));
         if (out_ == null) {
             return;
         }

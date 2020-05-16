@@ -1,9 +1,6 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.DisplayableStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
 public final class Argument {
@@ -36,6 +33,13 @@ public final class Argument {
     public static Struct getNull(Struct _arg) {
         if (_arg != null) {
             return _arg;
+        }
+        return NullStruct.NULL_VALUE;
+    }
+
+    public static Struct wrapStr(String _arg) {
+        if (_arg != null) {
+            return new StringStruct(_arg);
         }
         return NullStruct.NULL_VALUE;
     }

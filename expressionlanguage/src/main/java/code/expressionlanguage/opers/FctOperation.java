@@ -264,9 +264,8 @@ public final class FctOperation extends InvokingOperation {
             str_ = NullStruct.NULL_VALUE;
         }
         CustList<Argument> firstArgs_ = quickListArguments(chidren_, _naturalVararg, _lastType, arguments_, _conf);
-        ResultErrorStd res_ = ApplyCoreMethodUtil.invokeStdMethod(_conf, _classMethodId, str_, Argument.toArgArray(firstArgs_));
-        Struct out_ = res_.getResult();
-        if (out_ == null || out_ instanceof ArrayStruct) {
+        Struct out_ = ApplyCoreMethodUtil.invokeAnalyzisStdMethod(_conf, _classMethodId, str_, Argument.toArgArray(firstArgs_));
+        if (out_ == null) {
             return;
         }
         Argument arg_ = Argument.createVoid();

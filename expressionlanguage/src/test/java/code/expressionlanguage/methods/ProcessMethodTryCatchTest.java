@@ -1647,7 +1647,8 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("code.util.exceptions.NullObjectException\n", getString(ret_));
+        assertEq("code.util.exceptions.NullObjectException\n\npkg/Ex:7,32:163\n" +
+                "pkg.Ex.$static catching()", getString(ret_));
     }
     @Test
     public void calculateArgument991Test() {

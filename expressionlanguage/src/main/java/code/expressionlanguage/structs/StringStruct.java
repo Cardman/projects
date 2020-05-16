@@ -31,10 +31,6 @@ public final class StringStruct extends CharSequenceStruct {
         StringList list_ = _method.getParametersTypes();
         String bytePrimType_ = _stds.getAliasPrimByte();
         String charPrimType_ = _stds.getAliasPrimChar();
-        if (list_.size() == 0) {
-            newStringStruct(_res);
-            return;
-        }
         if (list_.size() == 1) {
             if (StringList.quickEq(list_.first(), bytePrimType_)) {
                 newStringStructByByteArray(_args[0], _stds, _res);
@@ -53,9 +49,7 @@ public final class StringStruct extends CharSequenceStruct {
         }
         newStringStructByCharArray(_args[2], _args[0], _args[1], _stds, _res);
     }
-    private static void newStringStruct(ResultErrorStd _res) {
-        _res.setResult(new StringStruct(""));
-    }
+
     private static void newStringStructByCharArray(Struct _arg, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
         if (!(_arg instanceof ArrayStruct)) {
@@ -185,17 +179,10 @@ public final class StringStruct extends CharSequenceStruct {
             first_.compareToString(_args[1], lgNames_, _res);
             return;
         }
-        Struct arg_;
-        if (list_.size() == 1) {
-            arg_ = _args[0];
-        } else {
-            arg_ = _args[2];
-        }
-        if (list_.size() == 1) {
-            if (arg_ instanceof DisplayableStruct) {
-                _res.setResult(ExecCatOperation.getDisplayable(new Argument(arg_),_cont.getContextEl()).getDisplayedString(_cont));
-                return;
-            }
+        Struct arg_ = getArg(list_, _args);
+        if (isDisplay(list_, arg_)) {
+            _res.setResult(ExecCatOperation.getDisplayable(new Argument(arg_), _cont.getContextEl()).getDisplayedString(_cont));
+            return;
         }
         if (!(arg_ instanceof ArrayStruct)) {
             String nullPe_ = lgNames_.getAliasNullPe();
@@ -203,6 +190,45 @@ public final class StringStruct extends CharSequenceStruct {
             return;
         }
         tryGetCharArray(_res, list_, lgNames_, (ArrayStruct) arg_, _args);
+    }
+
+    private static boolean isDisplay(StringList list_, Struct arg_) {
+        return list_.size() == 1 && arg_ instanceof DisplayableStruct;
+    }
+
+    public static Struct calculateString(Analyzable _cont, ClassMethodId _method, Struct _struct, Struct... _args) {
+        if (!_method.getConstraints().isStaticMethod()) {
+            return ApplyCoreMethodUtil.getString(_struct).calculateLocString(_cont, _method, _args);
+        }
+        String name_ = _method.getConstraints().getName();
+        StringList list_ = _method.getConstraints().getParametersTypes();
+        LgNames lgNames_ = _cont.getStandards();
+        if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
+            Struct arg_ = _args[0];
+            if (!(arg_ instanceof StringStruct)) {
+                return null;
+            }
+            StringStruct first_ = (StringStruct) arg_;
+            return first_.compareToString(_args[1]);
+        }
+        Struct arg_ = getArg(list_, _args);
+        if (isDisplay(list_, arg_)) {
+            return ExecCatOperation.getDisplayable(new Argument(arg_), _cont.getContextEl()).getDisplayedString(_cont);
+        }
+        if (!(arg_ instanceof ArrayStruct)) {
+            return null;
+        }
+        return tryGetCharArray(list_, (ArrayStruct) arg_, _args);
+    }
+
+    private static Struct getArg(StringList list_, Struct[] _args) {
+        Struct arg_;
+        if (list_.size() == 1) {
+            arg_ = _args[0];
+        } else {
+            arg_ = _args[2];
+        }
+        return arg_;
     }
 
     private static void tryGetCharArray(ResultErrorStd _res, StringList _list, LgNames _lgNames, ArrayStruct _arg, Struct[] _args) {
@@ -218,7 +244,7 @@ public final class StringStruct extends CharSequenceStruct {
         }
         int one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
         int two_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
-        if (one_ < 0 || two_ < 0 || one_ + two_ > arr_.length) {
+        if (okArray(arr_, one_, two_)) {
             if (one_ < 0) {
                 _res.setErrorMessage(StringList.concat(Long.toString(one_),"<0"));
             } else if (two_ < 0) {
@@ -230,6 +256,27 @@ public final class StringStruct extends CharSequenceStruct {
             return;
         }
         _res.setResult(new StringStruct(String.valueOf(arr_,one_,two_)));
+    }
+    private static Struct tryGetCharArray(StringList _list, ArrayStruct _arg, Struct[] _args) {
+        Struct[] argArr_ = _arg.getInstance();
+        int len_ = argArr_.length;
+        char[] arr_ = new char[len_];
+        for (int i = 0; i < len_; i++) {
+            arr_[i] = ClassArgumentMatching.convertToChar(argArr_[i]).getChar();
+        }
+        if (_list.size() == 1) {
+            return new StringStruct(String.valueOf(arr_));
+        }
+        int one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
+        int two_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
+        if (okArray(arr_, one_, two_)) {
+            return null;
+        }
+        return new StringStruct(String.valueOf(arr_,one_,two_));
+    }
+
+    private static boolean okArray(char[] arr_, int one_, int two_) {
+        return one_ < 0 || two_ < 0 || one_ + two_ > arr_.length;
     }
 
     private void calculateLocString(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
@@ -282,6 +329,47 @@ public final class StringStruct extends CharSequenceStruct {
         _res.setResult(new StringStruct(StringList.toUpperCase(one_)));
     }
 
+    private Struct calculateLocString(Analyzable _cont, ClassMethodId _method, Struct... _args) {
+        String name_ = _method.getConstraints().getName();
+        StringList list_ = _method.getConstraints().getParametersTypes();
+        LgNames lgNames_ = _cont.getStandards();
+        String stringType_ = lgNames_.getAliasString();
+        if (StringList.quickEq(name_, lgNames_.getAliasRegionMatches())) {
+            return regionMatches(ClassArgumentMatching.convertToBoolean(_args[0]),ClassArgumentMatching.convertToNumber(_args[1]), _args[2],
+                    ClassArgumentMatching.convertToNumber(_args[3]), ClassArgumentMatching.convertToNumber(_args[4]));
+        }
+        if (StringList.quickEq(name_, lgNames_.getAliasReplace())) {
+            if (StringList.quickEq(list_.first(), stringType_)) {
+                return replaceString(_args[0], _args[1]);
+            }
+            return replace(ClassArgumentMatching.convertToChar(_args[0]), ClassArgumentMatching.convertToChar(_args[1]));
+        }
+        if (StringList.quickEq(name_, lgNames_.getAliasReplaceMultiple())) {
+            return replaceMultiple(_args[0]);
+        }
+        String one_ = getInstance();
+        if (StringList.quickEq(name_, lgNames_.getAliasCompareToIgnoreCase())) {
+            Struct two_ = _args[0];
+            if (!(two_ instanceof StringStruct)) {
+                return null;
+            }
+            StringStruct t_ = (StringStruct) two_;
+            return new IntStruct(one_.compareToIgnoreCase(t_.getInstance()));
+        }
+        if (StringList.quickEq(name_, lgNames_.getAliasEqualsIgnoreCase())) {
+            Struct two_ = _args[0];
+            if (!(two_ instanceof StringStruct)) {
+                return BooleanStruct.of(false);
+            }
+            StringStruct t_ = (StringStruct) two_;
+            return BooleanStruct.of(one_.equalsIgnoreCase(t_.getInstance()));
+        }
+        if (StringList.quickEq(name_, lgNames_.getAliasToLowerCase())) {
+            return new StringStruct(StringList.toLowerCase(one_));
+        }
+        return new StringStruct(StringList.toUpperCase(one_));
+    }
+
     private void compareToString(Struct _anotherString, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
         if (!(_anotherString instanceof StringStruct)) {
@@ -292,6 +380,13 @@ public final class StringStruct extends CharSequenceStruct {
         _res.setResult(new IntStruct(instance.compareTo(st_.instance)));
     }
 
+    private Struct compareToString(Struct _anotherString) {
+        if (!(_anotherString instanceof StringStruct)) {
+            return null;
+        }
+        StringStruct st_ = (StringStruct)_anotherString;
+        return new IntStruct(instance.compareTo(st_.instance));
+    }
     private void regionMatches(BooleanStruct _case,NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
             NumberStruct _len, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
@@ -307,27 +402,56 @@ public final class StringStruct extends CharSequenceStruct {
         _res.setResult(BooleanStruct.of(instance.regionMatches(case_,to_, other_.instance, po_, comLen_)));
     }
 
+    private Struct regionMatches(BooleanStruct _case, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
+                                 NumberStruct _len) {
+        if (!(_other instanceof StringStruct)) {
+            return null;
+        }
+        boolean case_ = BooleanStruct.of(true).sameReference(_case);
+        StringStruct other_ = (StringStruct) _other;
+        int comLen_ = _len.intStruct();
+        int to_ = _toffset.intStruct();
+        int po_ = _ooffset.intStruct();
+        return BooleanStruct.of(instance.regionMatches(case_,to_, other_.instance, po_, comLen_));
+    }
+
     private void replace(CharStruct _oldChar, CharStruct _newChar, ResultErrorStd _res) {
         char oldChar_ = _oldChar.getChar();
         char newChar_ = _newChar.getChar();
         _res.setResult(new StringStruct(instance.replace(oldChar_, newChar_)));
     }
 
+    private Struct replace(CharStruct _oldChar, CharStruct _newChar) {
+        char oldChar_ = _oldChar.getChar();
+        char newChar_ = _newChar.getChar();
+        return new StringStruct(instance.replace(oldChar_, newChar_));
+    }
     private void replaceString(Struct _oldChar, Struct _newChar, ResultErrorStd _res) {
+        String old_;
+        old_ = getString(_oldChar);
+        String new_;
+        new_ = getString(_newChar);
+        String out_ = StringList.replace(instance, old_, new_);
+        _res.setResult(new StringStruct(out_));
+    }
+
+    private Struct replaceString(Struct _oldChar, Struct _newChar) {
+        String old_;
+        old_ = getString(_oldChar);
+        String new_;
+        new_ = getString(_newChar);
+        String out_ = StringList.replace(instance, old_, new_);
+        return new StringStruct(out_);
+    }
+
+    private static String getString(Struct _oldChar) {
         String old_;
         if (_oldChar instanceof StringStruct) {
             old_ = ((StringStruct)_oldChar).instance;
         } else {
             old_ = null;
         }
-        String new_;
-        if (_newChar instanceof StringStruct) {
-            new_ = ((StringStruct)_newChar).instance;
-        } else {
-            new_ = null;
-        }
-        String out_ = StringList.replace(instance, old_, new_);
-        _res.setResult(new StringStruct(out_));
+        return old_;
     }
 
     private void replaceMultiple(Struct _seps, LgNames _stds,ResultErrorStd _res) {
@@ -359,6 +483,29 @@ public final class StringStruct extends CharSequenceStruct {
         _res.setResult(new StringStruct(StringList.replaceMult(instance, seps_)));
     }
 
+    private Struct replaceMultiple(Struct _seps) {
+        if (!(_seps instanceof ArrayStruct)) {
+            return null;
+        }
+        ArrayStruct arrSep_ = (ArrayStruct) _seps;
+        Struct[] arrStructSep_ = arrSep_.getInstance();
+        int lenSeps_ = arrStructSep_.length;
+        Replacement[] seps_ = new Replacement[lenSeps_];
+        for (int i = 0; i < lenSeps_; i++) {
+            Struct curSep_ = arrStructSep_[i];
+            if (!(curSep_ instanceof ReplacementStruct)) {
+                return null;
+            }
+            seps_[i] = ApplyCoreMethodUtil.getReplacement(curSep_).getInstance();
+            if (seps_[i].getNewString() == null) {
+                return null;
+            }
+            if (seps_[i].getOldString() == null) {
+                return null;
+            }
+        }
+        return new StringStruct(StringList.replaceMult(instance, seps_));
+    }
     @Override
     public String getClassName(ExecutableCode _contextEl) {
         return _contextEl.getStandards().getAliasString();

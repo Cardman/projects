@@ -31,6 +31,11 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     private static final String COMPOSITE = "code.formathtml.classes.Composite";
 
     @Test
+    public void processEl0Test() {
+        Argument arg_ = directCalculate("$math.mod(5,2)");
+        assertEq(1L, getNumber(arg_));
+    }
+    @Test
     public void processEl1Test() {
         Argument arg_ = directCalculate("5");
         assertEq(5L, getNumber(arg_));

@@ -183,6 +183,76 @@ public abstract class NumberStruct implements DisplayableStruct {
             }
         }
     }
+
+    public static Struct instantiate(Analyzable _cont, ConstructorId _method, Struct... _args) {
+        String type_ = _method.getName();
+        StringList list_ = _method.getParametersTypes();
+        LgNames lgNames_ = _cont.getStandards();
+        String booleanType_ = lgNames_.getAliasBoolean();
+        String charType_ = lgNames_.getAliasCharacter();
+        String stringType_ = lgNames_.getAliasString();
+        String byteType_ = lgNames_.getAliasByte();
+        String shortType_ = lgNames_.getAliasShort();
+        String intType_ = lgNames_.getAliasInteger();
+        String longType_ = lgNames_.getAliasLong();
+        String floatType_ = lgNames_.getAliasFloat();
+        if (StringList.quickEq(type_, booleanType_)) {
+            if (StringList.quickEq(list_.first(), stringType_)) {
+                String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
+                if (StringList.quickEq(one_, lgNames_.getDisplayedStrings().getTrueString())) {
+                    return(BooleanStruct.of(true));
+                } else {
+                    return(BooleanStruct.of(false));
+                }
+            } else {
+                return(ClassArgumentMatching.convertToBoolean(_args[0]));
+            }
+        } else if (StringList.quickEq(type_, charType_)) {
+            return(_args[0]);
+        } else if (StringList.quickEq(type_, byteType_)) {
+            if (StringList.quickEq(list_.first(), stringType_)) {
+                return parseByte(list_,_args,true);
+            } else {
+                Byte one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getByte();
+                return(new ByteStruct(one_));
+            }
+        } else if (StringList.quickEq(type_, shortType_)) {
+            if (StringList.quickEq(list_.first(), stringType_)) {
+                return parseShort(list_,_args,true);
+            } else {
+                Short one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getShort();
+                return(new ShortStruct(one_));
+            }
+        } else if (StringList.quickEq(type_, intType_)) {
+            if (StringList.quickEq(list_.first(), stringType_)) {
+                return parseInt(list_,_args,true);
+            } else {
+                Integer one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getInt();
+                return(new IntStruct(one_));
+            }
+        } else if (StringList.quickEq(type_, longType_)) {
+            if (StringList.quickEq(list_.first(), stringType_)) {
+                return parseLong(list_,_args,true);
+            } else {
+                Long one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getLong();
+                return(new LongStruct(one_));
+            }
+        } else if (StringList.quickEq(type_, floatType_)) {
+            if (StringList.quickEq(list_.first(), stringType_)) {
+                return parseFloat(_args[0],true);
+            } else {
+                Float one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
+                return (new FloatStruct(one_));
+            }
+        } else {
+            if (StringList.quickEq(list_.first(), stringType_)) {
+                return parseDouble(_args[0],true);
+            } else {
+                Double one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getDouble();
+                return(new DoubleStruct(one_));
+            }
+        }
+    }
     public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
@@ -396,22 +466,10 @@ public abstract class NumberStruct implements DisplayableStruct {
                     }
                 } else {
                     if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
-                        Double one_;
-                        if (list_.isEmpty()) {
-                            NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
-                            one_ = instance_.getDouble();
-                        } else {
-                            one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getDouble();
-                        }
+                        Double one_ = getaDouble(_struct, list_, _args);
                         _res.setResult(BooleanStruct.of(Double.isNaN(one_)));
                     } else if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
-                        Double one_;
-                        if (list_.isEmpty()) {
-                            NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
-                            one_ = instance_.getDouble();
-                        } else {
-                            one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getDouble();
-                        }
+                        Double one_ = getaDouble(_struct, list_, _args);
                         _res.setResult(BooleanStruct.of(Double.isInfinite(one_)));
                     } else if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
                         Double one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getDouble();
@@ -472,7 +530,299 @@ public abstract class NumberStruct implements DisplayableStruct {
             }
         }
     }
+    public static Struct calculate(Analyzable _cont, ClassMethodId _method, Struct _struct, Struct... _args) {
+        String type_ = _method.getClassName();
+        String name_ = _method.getConstraints().getName();
+        StringList list_ = _method.getConstraints().getParametersTypes();
+        LgNames lgNames_ = _cont.getStandards();
+        String booleanType_ = lgNames_.getAliasBoolean();
+        String charType_ = lgNames_.getAliasCharacter();
+        String byteType_ = lgNames_.getAliasByte();
+        String shortType_ = lgNames_.getAliasShort();
+        String intType_ = lgNames_.getAliasInteger();
+        String longType_ = lgNames_.getAliasLong();
+        String floatType_ = lgNames_.getAliasFloat();
+        String doubleType_ = lgNames_.getAliasDouble();
+        String nbType_ = lgNames_.getAliasNumber();
+        String booleanPrimType_ = lgNames_.getAliasPrimBoolean();
+        if (StringList.quickEq(type_, booleanType_)) {
+            if (StringList.quickEq(name_, lgNames_.getAliasBooleanValue())) {
+                return(ClassArgumentMatching.convertToBoolean(_struct));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
+                return(cmpBool((ClassArgumentMatching.convertToBoolean(_args[0])),(ClassArgumentMatching.convertToBoolean(_args[1]))));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
+                BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
+                return(cmpBool(instance_,(ClassArgumentMatching.convertToBoolean(_args[0]))));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
+                BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
+                return(BooleanStruct.of(instance_.sameReference(_args[0])));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasParseBoolean())) {
+                StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont.getContextEl()).getDisplayedString(_cont);
+                if (StringList.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
+                    return(BooleanStruct.of(true));
+                }
+                return(BooleanStruct.of(false));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                if (!list_.isEmpty()) {
+                    return ((ClassArgumentMatching.convertToBoolean(_args[0])).getDisplayedString(_cont));
+                }
+                BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
+                return (instance_.getDisplayedString(_cont));
+            }
+            if (StringList.quickEq(list_.first(), booleanPrimType_)) {
+                return (_args[0]);
+            }
+            StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]), _cont.getContextEl()).getDisplayedString(_cont);
+            if (StringList.quickEq(disp_.getInstance(), lgNames_.getDisplayedStrings().getTrueString())) {
+                return (BooleanStruct.of(true));
+            }
+            return (BooleanStruct.of(false));
+        }
+        if (StringList.quickEq(type_, charType_)) {
+            if (_method.getConstraints().isStaticMethod()) {
+                if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    char two_ = ClassArgumentMatching.convertToChar(_args[1]).getChar();
+                    return(new IntStruct(Numbers.compareLg(one_,two_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasDigit())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    Integer two_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
+                    return(new IntStruct(Character.digit(one_, two_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasForDigit())) {
+                    Integer one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
+                    Integer two_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
+                    return(new CharStruct(Character.forDigit(one_, two_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasGetDirectionality())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    return(new ByteStruct(Character.getDirectionality(one_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasGetType())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    return(new IntStruct(Character.getType(one_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasIsDigit())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    return(BooleanStruct.of(ContextEl.isDigit(one_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasIsLetter())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    return(BooleanStruct.of(Character.isLetter(one_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasIsLetterOrDigit())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    return(BooleanStruct.of(Character.isLetterOrDigit(one_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasIsLowerCase())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    return(BooleanStruct.of(Character.isLowerCase(one_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasIsUpperCase())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    return(BooleanStruct.of(Character.isUpperCase(one_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasIsSpace())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    return(BooleanStruct.of(Character.isWhitespace(one_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasIsWhitespace())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    return(BooleanStruct.of(Character.isWhitespace(one_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasIsWordChar())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    return(BooleanStruct.of(StringList.isWordChar(one_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasToLowerCase())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    return(new CharStruct(Character.toLowerCase(one_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasToUpperCase())) {
+                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    return(new CharStruct(Character.toUpperCase(one_)));
+                }
+                char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                return(new StringStruct(Character.toString(one_)));
+            }
+            CharStruct ch_ = ClassArgumentMatching.convertToChar(_struct);
+            if (StringList.quickEq(name_, lgNames_.getAliasCharValue())) {
+                return(new CharStruct(ch_.getChar()));
+            }
+            if (!(_args[0] instanceof CharStruct)) {
+                return null;
+            }
+            char one_ = ch_.getChar();
+            char two_ = ((CharStruct) _args[0]).getChar();
+            return(new IntStruct(Numbers.compareLg(one_,two_)));
+        }
+        if (StringList.quickEq(type_, byteType_)
+                || StringList.quickEq(type_, shortType_)
+                || StringList.quickEq(type_, intType_)
+                || StringList.quickEq(type_, longType_)
+                || StringList.quickEq(type_, floatType_)
+                || StringList.quickEq(type_, doubleType_)) {
+            if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
+                return(new IntStruct(compare(ClassArgumentMatching.convertToNumber(_args[0]),ClassArgumentMatching.convertToNumber(_args[1]))));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
+                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                return(new IntStruct(compare(instance_,ClassArgumentMatching.convertToNumber(_args[0]))));
+            }
+            if (StringList.quickEq(type_, byteType_)) {
+                if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                    Byte one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getByte();
+                    return (new StringStruct(Integer.toString(one_)));
+                }
+                boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseByte());
+                return parseByte(list_, _args, exc_);
+            }
+            if (StringList.quickEq(type_, shortType_)) {
+                if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                    Short one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getShort();
+                    return (new StringStruct(Integer.toString(one_)));
+                }
+                boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseShort());
+                return parseShort(list_, _args, exc_);
+            }
+            if (StringList.quickEq(type_, intType_)) {
+                if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                    Integer one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
+                    return (new StringStruct(Integer.toString(one_)));
+                }
+                boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseInt());
+                return parseInt(list_, _args, exc_);
+            }
+            if (StringList.quickEq(type_, longType_)) {
+                if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                    Long one_ = (ClassArgumentMatching.convertToNumber(_args[0])).longStruct();
+                    return (new StringStruct(Long.toString(one_)));
+                }
+                boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseLong());
+                return parseLong(list_, _args, exc_);
+            }
+            if (StringList.quickEq(type_, floatType_)) {
+                if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
+                    Float one_;
+                    one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
+                    return (BooleanStruct.of(Double.isNaN(one_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
+                    Float one_;
+                    one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
+                    return (BooleanStruct.of(Double.isInfinite(one_)));
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                    Float one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
+                    return (new StringStruct(Float.toString(one_)));
+                }
+                boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseFloat());
+                return parseFloat(_args[0], exc_);
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
+                Double one_ = getaDouble(_struct, list_, _args);
+                return (BooleanStruct.of(Double.isNaN(one_)));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
+                Double one_ = getaDouble(_struct, list_, _args);
+                return (BooleanStruct.of(Double.isInfinite(one_)));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                Double one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getDouble();
+                return (new StringStruct(Double.toString(one_)));
+            }
+            boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseDouble());
+            return parseDouble(_args[0], exc_);
+        }
+        if (StringList.quickEq(type_, nbType_)) {
+            if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
+                if (!(_args[0] instanceof  NumberStruct)) {
+                    return null;
+                }
+                if (!(_args[1] instanceof  NumberStruct)) {
+                    return null;
+                }
+                return(new IntStruct(compareGene(ClassArgumentMatching.convertToNumber(_args[0]), ClassArgumentMatching.convertToNumber(_args[1]))));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
+                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                if (!(_args[0] instanceof  NumberStruct)) {
+                    return null;
+                }
+                return(new IntStruct(compareGene(instance_, ClassArgumentMatching.convertToNumber(_args[0]))));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
+                return(BooleanStruct.of(_struct.sameReference(_args[0])));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasByteValue())) {
+                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                return(new ByteStruct(instance_.byteStruct()));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasShortValue())) {
+                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                return(new ShortStruct(instance_.shortStruct()));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasIntValue())) {
+                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                return(new IntStruct(instance_.intStruct()));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasLongValue())) {
+                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                return(new LongStruct(instance_.longStruct()));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasFloatValue())) {
+                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                return(new FloatStruct(instance_.floatStruct()));
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasDoubleValue())) {
+                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                return(new DoubleStruct(instance_.doubleStruct()));
+            }
+            if (list_.isEmpty()) {
+                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                return(instance_.getDisplayedString(_cont));
+            }
+            return(ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont.getContextEl())
+                    .getDisplayedString(_cont));
+        }
+        return null;
+    }
 
+    private static Double getaDouble(Struct _struct, StringList list_, Struct[] _args) {
+        Double one_;
+        if (list_.isEmpty()) {
+            NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+            one_ = instance_.getDouble();
+        } else {
+            one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getDouble();
+        }
+        return one_;
+    }
+
+    private static Struct parseDouble(Struct _arg, boolean _exception) {
+        if (!(_arg instanceof CharSequenceStruct)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        }
+        String one_ = ApplyCoreMethodUtil.getCharSeq(_arg).toStringInstance();
+        DoubleInfo v_ = NumParsers.splitDouble(one_);
+        if (!v_.isValid()) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        } else {
+            return(new DoubleStruct(v_.getValue()));
+        }
+    }
     private static void parseDouble(ResultErrorStd _res, LgNames _stds, Struct _arg, boolean _exception) {
         if (!(_arg instanceof CharSequenceStruct)) {
             if (!_exception) {
@@ -525,7 +875,31 @@ public abstract class NumberStruct implements DisplayableStruct {
             _res.setResult(new FloatStruct((float) d_));
         }
     }
-
+    private static Struct parseFloat(Struct _arg, boolean _exception) {
+        if (!(_arg instanceof CharSequenceStruct)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        }
+        String one_ = ApplyCoreMethodUtil.getCharSeq(_arg).toStringInstance();
+        boolean valid_ = true;
+        DoubleInfo v_ = NumParsers.splitDouble(one_);
+        double d_ = 0;
+        if (v_.outOfRange(Float.MIN_VALUE,Float.MAX_VALUE)) {
+            valid_ = false;
+        } else {
+            d_ = v_.getValue();
+        }
+        if (!valid_) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        } else {
+            return(new FloatStruct((float) d_));
+        }
+    }
     private static void parseLong(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args, boolean _exception) {
         if (!(_args[0] instanceof CharSequenceStruct)) {
             if (!_exception) {
@@ -537,10 +911,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
         String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
         LongInfo lg_;
-        int radix_ = DEFAULT_RADIX;
-        if (_list.size() != 1) {
-            radix_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
-        }
+        int radix_ = getRadix(_list, _args);
         lg_ = NumParsers.parseLong(one_, radix_);
         if (!lg_.isValid()) {
             if (!_exception) {
@@ -554,6 +925,26 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
     }
 
+    private static Struct parseLong(StringList _list, Struct[] _args, boolean _exception) {
+        if (!(_args[0] instanceof CharSequenceStruct)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        }
+        String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
+        LongInfo lg_;
+        int radix_ = getRadix(_list, _args);
+        lg_ = NumParsers.parseLong(one_, radix_);
+        if (!lg_.isValid()) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        } else {
+            return(new LongStruct(lg_.getValue()));
+        }
+    }
     private static void parseInt(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args, boolean _exception) {
         if (!(_args[0] instanceof CharSequenceStruct)) {
             if (!_exception) {
@@ -565,10 +956,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
         String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
         LongInfo lg_;
-        int radix_ = DEFAULT_RADIX;
-        if (_list.size() != 1) {
-            radix_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
-        }
+        int radix_ = getRadix(_list, _args);
         lg_ = NumParsers.parseLong(one_, radix_);
         if (lg_.outOfRange(Integer.MIN_VALUE,Integer.MAX_VALUE)) {
             if (!_exception) {
@@ -581,7 +969,26 @@ public abstract class NumberStruct implements DisplayableStruct {
             _res.setResult(new IntStruct((int) lg_.getValue()));
         }
     }
-
+    private static Struct parseInt(StringList _list, Struct[] _args, boolean _exception) {
+        if (!(_args[0] instanceof CharSequenceStruct)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        }
+        String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
+        LongInfo lg_;
+        int radix_ = getRadix(_list, _args);
+        lg_ = NumParsers.parseLong(one_, radix_);
+        if (lg_.outOfRange(Integer.MIN_VALUE,Integer.MAX_VALUE)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        } else {
+            return(new IntStruct((int) lg_.getValue()));
+        }
+    }
     private static void parseShort(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args, boolean _exception) {
         if (!(_args[0] instanceof CharSequenceStruct)) {
             if (!_exception) {
@@ -593,10 +1000,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
         String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
         LongInfo lg_;
-        int radix_ = DEFAULT_RADIX;
-        if (_list.size() != 1) {
-            radix_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
-        }
+        int radix_ = getRadix(_list, _args);
         lg_ = NumParsers.parseLong(one_, radix_);
         if (lg_.outOfRange(Short.MIN_VALUE,Short.MAX_VALUE)) {
             if (!_exception) {
@@ -609,7 +1013,26 @@ public abstract class NumberStruct implements DisplayableStruct {
             _res.setResult(new ShortStruct((short) lg_.getValue()));
         }
     }
-
+    private static Struct parseShort(StringList _list, Struct[] _args, boolean _exception) {
+        if (!(_args[0] instanceof CharSequenceStruct)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        }
+        String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
+        LongInfo lg_;
+        int radix_ = getRadix(_list, _args);
+        lg_ = NumParsers.parseLong(one_, radix_);
+        if (lg_.outOfRange(Short.MIN_VALUE,Short.MAX_VALUE)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        } else {
+            return(new ShortStruct((short) lg_.getValue()));
+        }
+    }
     private static void parseByte(ResultErrorStd _res, StringList _list, LgNames _stds, Struct[] _args, boolean _exception) {
         if (!(_args[0] instanceof CharSequenceStruct)) {
             if (!_exception) {
@@ -621,10 +1044,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
         String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
         LongInfo lg_;
-        int radix_ = DEFAULT_RADIX;
-        if (_list.size() != 1) {
-            radix_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
-        }
+        int radix_ = getRadix(_list, _args);
         lg_ = NumParsers.parseLong(one_, radix_);
         if (lg_.outOfRange(Byte.MIN_VALUE,Byte.MAX_VALUE)) {
             if (!_exception) {
@@ -636,6 +1056,34 @@ public abstract class NumberStruct implements DisplayableStruct {
         } else {
             _res.setResult(new ByteStruct((byte)lg_.getValue()));
         }
+    }
+    private static Struct parseByte(StringList _list, Struct[] _args, boolean _exception) {
+        if (!(_args[0] instanceof CharSequenceStruct)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        }
+        String one_ = ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance();
+        LongInfo lg_;
+        int radix_ = getRadix(_list, _args);
+        lg_ = NumParsers.parseLong(one_, radix_);
+        if (lg_.outOfRange(Byte.MIN_VALUE,Byte.MAX_VALUE)) {
+            if (!_exception) {
+                return(NullStruct.NULL_VALUE);
+            }
+            return null;
+        } else {
+            return(new ByteStruct((byte)lg_.getValue()));
+        }
+    }
+
+    private static int getRadix(StringList _list, Struct[] _args) {
+        int radix_ = DEFAULT_RADIX;
+        if (_list.size() != 1) {
+            radix_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
+        }
+        return radix_;
     }
 
     public static BooleanStruct quickCalculateLowerNb(Struct _a, Struct _b) {

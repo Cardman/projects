@@ -1,6 +1,7 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
@@ -18,6 +19,16 @@ public final class ReplacementStruct implements Struct {
     }
 
     public static void instantiate(ResultErrorStd _res, Struct... _args) {
+        Replacement rep_ = getReplacement(_args);
+        _res.setResult(new ReplacementStruct(rep_));
+    }
+
+    public static Struct instantiate(Struct... _args) {
+        Replacement rep_ = getReplacement(_args);
+        return(new ReplacementStruct(rep_));
+    }
+
+    private static Replacement getReplacement(Struct[] _args) {
         Replacement rep_ = new Replacement();
         if (_args[0] instanceof CharSequenceStruct) {
             rep_.setOldString(ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance());
@@ -25,7 +36,7 @@ public final class ReplacementStruct implements Struct {
         if (_args[1] instanceof CharSequenceStruct) {
             rep_.setNewString(ApplyCoreMethodUtil.getCharSeq(_args[1]).toStringInstance());
         }
-        _res.setResult(new ReplacementStruct(rep_));
+        return rep_;
     }
 
     public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct) {
@@ -39,22 +50,27 @@ public final class ReplacementStruct implements Struct {
         rp_.getOldString(_res);
         
     }
+
+    public static Struct calculate(Analyzable _cont, ClassMethodId _method, Struct _struct) {
+        String name_ = _method.getConstraints().getName();
+        LgNames lgNames_ = _cont.getStandards();
+        ReplacementStruct rp_ = ApplyCoreMethodUtil.getReplacement(_struct);
+        if (StringList.quickEq(name_, lgNames_.getAliasGetNewString())) {
+            String old_ = rp_.instance.getNewString();
+            return Argument.wrapStr(old_);
+        }
+        String new_ = rp_.instance.getOldString();
+        return Argument.wrapStr(new_);
+
+    }
     private void getOldString(ResultErrorStd _res) {
         String oldStr_ = instance.getOldString();
-        if (oldStr_ == null) {
-            _res.setResult(NullStruct.NULL_VALUE);
-            return;
-        }
-        _res.setResult(new StringStruct(oldStr_));
+        _res.setResult(Argument.wrapStr(oldStr_));
     }
 
     private void getNewString(ResultErrorStd _res) {
         String newStr_ = instance.getNewString();
-        if (newStr_ == null) {
-            _res.setResult(NullStruct.NULL_VALUE);
-            return;
-        }
-        _res.setResult(new StringStruct(newStr_));
+        _res.setResult(Argument.wrapStr(newStr_));
     }
 
     @Override

@@ -440,7 +440,16 @@ public final class AliasCharSequence {
         CharSequenceStruct.calculateCharSeq(_cont, result_, _method, _struct, args_);
         return result_;
     }
-
+    static Struct invokeAnalyzisStdMethod(Analyzable _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
+        Struct[] args_ = ApplyCoreMethodUtil.getObjects(_args);
+        LgNames lgNames_ = _cont.getStandards();
+        String type_ = _method.getClassName();
+        String stringType_ = lgNames_.getAliasString();
+        if (StringList.quickEq(type_, stringType_)) {
+            return StringStruct.calculateString(_cont, _method, _struct, args_);
+        }
+        return CharSequenceStruct.calculateCharSeq(_cont, _method, _struct, args_);
+    }
     public String getAliasCharSequence() {
         return aliasCharSequence;
     }
