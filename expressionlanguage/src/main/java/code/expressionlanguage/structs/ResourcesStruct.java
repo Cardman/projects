@@ -1,7 +1,10 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.util.CustList;
 import code.util.StringMap;
 
 public final class ResourcesStruct {
@@ -20,14 +23,24 @@ public final class ResourcesStruct {
 		}
 		return new ArrayStruct(arr_, cl_);
 	}
+	public static Struct getResourceNamesLength(Analyzable _contextEl) {
+		StringMap<String> res_ = _contextEl.getClasses().getResources();
+		return new IntStruct(res_.size());
+	}
 	public static Struct getResource(Analyzable _contextEl,StringStruct _in) {
 		String name_ = _in.getInstance();
 		StringMap<String> res_ = _contextEl.getClasses().getResources();
 		String content_ = res_.getVal(name_);
-		if (content_ == null) {
-			return NullStruct.NULL_VALUE;
+		return Argument.wrapStr(content_);
+	}
+	public static Struct getResourceIndex(Analyzable _contextEl,Struct _in) {
+		int name_ = ClassArgumentMatching.convertToNumber(_in).intStruct();
+		StringMap<String> res_ = _contextEl.getClasses().getResources();
+		CustList<String> values_ = res_.getKeys();
+		if (values_.isValidIndex(name_)) {
+			return  Argument.wrapStr(values_.get(name_));
 		}
-		return new StringStruct(content_);
+		return NullStruct.NULL_VALUE;
 	}
 
 }

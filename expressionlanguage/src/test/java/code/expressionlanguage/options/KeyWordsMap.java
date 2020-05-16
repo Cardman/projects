@@ -313,7 +313,9 @@ public final class KeyWordsMap {
         _lgNames.setAliasErrorInitClass("$core.DefErrorClass");
         _lgNames.setAliasClone("clone");
         _lgNames.setAliasReadResources("readContent");
+        _lgNames.setAliasReadResourcesIndex("index");
         _lgNames.setAliasReadResourcesNames("readNames");
+        _lgNames.setAliasReadResourcesNamesLength("nbNames");
         _lgNames.setAliasResources("$core.Resources");
         _lgNames.setAliasEnumValues("values");
         _lgNames.setAliasInvokeTarget("$core.InvokeTarget");
@@ -596,7 +598,9 @@ public final class KeyWordsMap {
         _lgNames.setAliasErrorInitClass("$coeur.ErrorDefClasse");
         _lgNames.setAliasClone("clone");
         _lgNames.setAliasReadResources("lireContenu");
+        _lgNames.setAliasReadResourcesIndex("indice");
         _lgNames.setAliasReadResourcesNames("lireNoms");
+        _lgNames.setAliasReadResourcesNamesLength("nbNoms");
         _lgNames.setAliasResources("$coeur.Ressources");
         _lgNames.setAliasEnumValues("valeurs");
         _lgNames.setAliasInvokeTarget("$coeur.InvoqueCible");

@@ -3862,10 +3862,12 @@ public class LgNamesUtils extends LgNames {
         setAliasGetString(get(_util,_cust, GET_STRING));
         setAliasGetAnnotationsParameters(get(_util,_cust, GET_ANNOTATIONS_PARAMETERS));
         setAliasReadResourcesNames(get(_util,_cust, READ_RESOURCES_NAMES));
+        setAliasReadResourcesNamesLength(get(_util,_cust, READ_RESOURCES_NAMES_LENGTH));
         setAliasInvokeTarget(get(_util,_cust, INVOKE_TARGET));
         setAliasGetAnnotations(get(_util,_cust, GET_ANNOTATIONS));
         setAliasGetVariableOwner(get(_util,_cust, GET_VARIABLE_OWNER));
         setAliasReadResources(get(_util,_cust, READ_RESOURCES));
+        setAliasReadResourcesIndex(get(_util,_cust, READ_RESOURCES_INDEX));
         setAliasResources(get(_util,_cust, RESOURCES));
         setAliasClassNotFoundError(get(_util,_cust, CLASS_NOT_FOUND_ERROR));
         setAliasEnumValues(get(_util,_cust, ENUM_VALUES));

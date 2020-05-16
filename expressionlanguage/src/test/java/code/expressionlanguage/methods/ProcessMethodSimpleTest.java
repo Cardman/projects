@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertSame;
 
 
 public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
@@ -257,12 +258,110 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
     }
+
+    @Test
+    public void calculateArgument42_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return Resources.nbNames();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        srcFiles_.put("pkg/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        cont_.getClasses().addResources(all_);
+        Classes.validateAll(srcFiles_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
     @Test
     public void calculateArgument43Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static String exmeth(){\n");
         xml_.append("  $return Resources.readNames()[1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        srcFiles_.put("pkg/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        cont_.getClasses().addResources(all_);
+        Classes.validateAll(srcFiles_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("pkg/hello_res.txt", getString(ret_));
+    }
+    @Test
+    public void calculateArgument43_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return Resources.index(1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        srcFiles_.put("pkg/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        cont_.getClasses().addResources(all_);
+        Classes.validateAll(srcFiles_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("pkg/hello_res.txt", getString(ret_));
+    }
+    @Test
+    public void calculateArgument43_0Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $return Resources.index(-1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> srcFiles_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        srcFiles_.put("pkg/Ex", xml_.toString());
+        StringMap<String> others_ = new StringMap<String>();
+        others_.put("pkg/hello_res.txt", "content");
+        StringMap<String> all_ = new StringMap<String>();
+        all_.putAllMap(srcFiles_);
+        all_.putAllMap(others_);
+        cont_.getClasses().addResources(all_);
+        Classes.validateAll(srcFiles_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE, ret_.getStruct());
+    }
+    @Test
+    public void calculateArgument43_1Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $var i = 1;\n");
+        xml_.append("  $return Resources.index(i);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> srcFiles_ = new StringMap<String>();

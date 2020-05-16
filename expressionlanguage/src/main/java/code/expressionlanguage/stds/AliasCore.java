@@ -41,6 +41,8 @@ public final class AliasCore {
     private String aliasSetParent;
     private String aliasReadResourcesNames;
     private String aliasReadResources;
+    private String aliasReadResourcesNamesLength;
+    private String aliasReadResourcesIndex;
     private String aliasResources;
     private String aliasStringUtil;
 
@@ -193,6 +195,12 @@ public final class AliasCore {
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_lgNames.getAliasString());
         method_ = new StandardMethod(aliasReadResources, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasReadResourcesNamesLength, params_, _lgNames.getAliasPrimInteger(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(_lgNames.getAliasPrimInteger());
+        method_ = new StandardMethod(aliasReadResourcesIndex, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         standards_.put(aliasResources, stdcl_);
     }
@@ -405,7 +413,15 @@ public final class AliasCore {
 		aliasReadResourcesNames = _aliasReadResourcesNames;
 	}
 
-	public String getAliasReadResources() {
+    public String getAliasReadResourcesNamesLength() {
+        return aliasReadResourcesNamesLength;
+    }
+
+    public void setAliasReadResourcesNamesLength(String aliasReadResourcesNamesLength) {
+        this.aliasReadResourcesNamesLength = aliasReadResourcesNamesLength;
+    }
+
+    public String getAliasReadResources() {
 		return aliasReadResources;
 	}
 
@@ -413,7 +429,15 @@ public final class AliasCore {
 		aliasReadResources = _aliasReadResources;
 	}
 
-	public String getAliasResources() {
+    public String getAliasReadResourcesIndex() {
+        return aliasReadResourcesIndex;
+    }
+
+    public void setAliasReadResourcesIndex(String aliasReadResourcesIndex) {
+        this.aliasReadResourcesIndex = aliasReadResourcesIndex;
+    }
+
+    public String getAliasResources() {
 		return aliasResources;
 	}
 

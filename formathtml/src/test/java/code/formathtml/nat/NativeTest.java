@@ -1632,7 +1632,9 @@ public final class NativeTest extends CommonRender {
         _lgNames.setAliasErrorInitClass("java.lang.$defErrorClass");
         _lgNames.setAliasClone("clone");
         _lgNames.setAliasReadResources("readContent");
+        _lgNames.setAliasReadResourcesIndex("index");
         _lgNames.setAliasReadResourcesNames("readNames");
+        _lgNames.setAliasReadResourcesNamesLength("nbNames");
         _lgNames.setAliasResources("java.lang.Resources");
         _lgNames.setAliasEnumValues("values");
         _lgNames.setAliasInvokeTarget("java.lang.$invokeTaget");

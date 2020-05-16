@@ -693,12 +693,15 @@ public class ApplyCoreMethodUtil {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
         String mathType_ = lgNames_.getAliasMath();
-        String booleanType_ = lgNames_.getAliasBoolean();
-        String charType_ = lgNames_.getAliasCharacter();
-        String nbType_ = lgNames_.getAliasNumber();
         String stringType_ = lgNames_.getAliasString();
         String replType_ = lgNames_.getAliasReplacement();
         if (StringList.quickEq(type_, lgNames_.getAliasResources())) {
+            if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesNamesLength())) {
+                return ResourcesStruct.getResourceNamesLength(_cont);
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesIndex())) {
+                return ResourcesStruct.getResourceIndex(_cont,args_[0]);
+            }
             if (StringList.quickEq(name_, lgNames_.getAliasReadResources())) {
                 result_ = ResourcesStruct.getResource(_cont, getString(args_[0]));
             }
@@ -741,7 +744,9 @@ public class ApplyCoreMethodUtil {
         String stringType_ = lgNames_.getAliasString();
         String replType_ = lgNames_.getAliasReplacement();
         if (StringList.quickEq(type_, lgNames_.getAliasResources())) {
-            if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesNames())) {
+            if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesIndex())) {
+                result_.setResult(ResourcesStruct.getResourceIndex(_cont,args_[0]));
+            } else if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesNames())) {
                 result_.setResult(ResourcesStruct.getResourceNames(_cont));
             } else {
                 result_.setResult(ResourcesStruct.getResource(_cont, getString(args_[0])));

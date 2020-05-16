@@ -160,10 +160,12 @@ public abstract class LgNames {
     public static final String GET_STRING = "GetString";
     public static final String GET_ANNOTATIONS_PARAMETERS = "GetAnnotationsParameters";
     public static final String READ_RESOURCES_NAMES = "ReadResourcesNames";
+    public static final String READ_RESOURCES_NAMES_LENGTH = "ReadResourcesNamesLength";
     public static final String INVOKE_TARGET = "InvokeTarget";
     public static final String GET_ANNOTATIONS = "GetAnnotations";
     public static final String GET_VARIABLE_OWNER = "GetVariableOwner";
     public static final String READ_RESOURCES = "ReadResources";
+    public static final String READ_RESOURCES_INDEX = "ReadResourcesIndex";
     public static final String RESOURCES = "Resources";
     public static final String CLASS_NOT_FOUND_ERROR = "ClassNotFoundError";
     public static final String ENUM_VALUES = "EnumValues";
@@ -557,7 +559,9 @@ public abstract class LgNames {
                 new KeyValueMemberName(VALUE_OF_METHOD,getAliasValueOfMethod())));
         map_.addEntry(getAliasResources(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(READ_RESOURCES_NAMES,getAliasReadResourcesNames()),
-                new KeyValueMemberName(READ_RESOURCES,getAliasReadResources())));
+                new KeyValueMemberName(READ_RESOURCES_NAMES_LENGTH,getAliasReadResourcesNamesLength()),
+                new KeyValueMemberName(READ_RESOURCES,getAliasReadResources()),
+                new KeyValueMemberName(READ_RESOURCES_INDEX,getAliasReadResourcesIndex())));
         map_.addEntry(getAliasEnumType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ENUM_NAME,getAliasEnumName()),
                 new KeyValueMemberName(ENUM_ORDINAL,getAliasEnumOrdinal()),
@@ -1842,11 +1846,23 @@ public abstract class LgNames {
     public void setAliasReadResourcesNames(String _aliasReadResourcesNames) {
     	coreNames.setAliasReadResourcesNames(_aliasReadResourcesNames);
     }
+    public String getAliasReadResourcesNamesLength() {
+        return coreNames.getAliasReadResourcesNamesLength();
+    }
+    public void setAliasReadResourcesNamesLength(String _aliasReadResourcesNames) {
+        coreNames.setAliasReadResourcesNamesLength(_aliasReadResourcesNames);
+    }
     public String getAliasReadResources() {
         return coreNames.getAliasReadResources();
     }
     public void setAliasReadResources(String _aliasReadResources) {
         coreNames.setAliasReadResources(_aliasReadResources);
+    }
+    public String getAliasReadResourcesIndex() {
+        return coreNames.getAliasReadResourcesIndex();
+    }
+    public void setAliasReadResourcesIndex(String _aliasReadResources) {
+        coreNames.setAliasReadResourcesIndex(_aliasReadResources);
     }
     public String getAliasResources() {
         return coreNames.getAliasResources();
