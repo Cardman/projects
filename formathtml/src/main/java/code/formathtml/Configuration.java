@@ -1,8 +1,6 @@
 package code.formathtml;
 
-import code.bean.Bean;
 import code.bean.BeanInfo;
-import code.bean.validator.Validator;
 import code.bean.validator.ValidatorInfo;
 import code.expressionlanguage.*;
 import code.expressionlanguage.calls.PageEl;
@@ -46,9 +44,6 @@ public final class Configuration implements ExecutableCode {
 
     private String firstUrl = EMPTY_STRING;
 
-    private StringMap<Validator> validators = new StringMap<Validator>();
-
-    private StringMap<Bean> beans = new StringMap<Bean>();
     private StringMap<BeanInfo> beansInfos = new StringMap<BeanInfo>();
 
     private StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
@@ -281,28 +276,12 @@ public final class Configuration implements ExecutableCode {
         setCurrentUrl(currentUrl);
     }
 
-    public StringMap<Validator> getValidators() {
-        return validators;
-    }
-
-    public void setValidators(StringMap<Validator> _validators) {
-        validators = _validators;
-    }
-
     public StringMap<BeanInfo> getBeansInfos() {
         return beansInfos;
     }
 
     public void setBeansInfos(StringMap<BeanInfo> _beansInfos) {
         beansInfos = _beansInfos;
-    }
-
-    public StringMap<Bean> getBeans() {
-        return beans;
-    }
-
-    public void setBeans(StringMap<Bean> _beans) {
-        beans = _beans;
     }
 
     public StringMap<StringMap<String>> getNavigation() {

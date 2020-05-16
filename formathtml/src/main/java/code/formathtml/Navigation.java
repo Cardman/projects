@@ -1,5 +1,4 @@
 package code.formathtml;
-import code.bean.Bean;
 import code.bean.BeanInfo;
 import code.bean.validator.Message;
 import code.bean.validator.ValidatorInfo;
@@ -170,13 +169,6 @@ public final class Navigation {
         }
     }
 
-    public void rendRefresh() {
-        for (Bean b: session.getBeans().values()) {
-            b.setLanguage(language);
-        }
-        session.setCurrentLanguage(language);
-        processRendAnchorRequest(currentUrl);
-    }
     public void processRendAnchorRequest(String _anchorRef) {
         if (_anchorRef.contains(CALL_METHOD)) {
             session.clearPages();

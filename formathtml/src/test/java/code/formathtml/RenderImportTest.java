@@ -58,7 +58,7 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -77,7 +77,7 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -96,7 +96,7 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -115,7 +115,7 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -134,7 +134,7 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -153,7 +153,7 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -172,7 +172,7 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -227,7 +227,7 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);

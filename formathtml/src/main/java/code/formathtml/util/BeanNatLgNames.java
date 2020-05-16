@@ -41,6 +41,8 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     private StringMapObject storedForms;
     private StringMap<String> iterables = new StringMap<String>();
     private Object dataBase;
+    private StringMap<Bean> beans = new StringMap<Bean>();
+    private StringMap<Validator> validators = new StringMap<Validator>();
 
     public BeanNatLgNames() {
         super(new DefaultGenerator());
@@ -156,7 +158,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "validators")) {
-                _configuration.setValidators(loadValidator(c));
+                setValidators(loadValidator(c));
             }
         }
         setupNative(_configuration);
@@ -221,7 +223,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
     @Override
     public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId) {
-        Validator validator_ = _conf.getValidators().getVal(_validatorId);
+        Validator validator_ = validators.getVal(_validatorId);
         if (validator_ == null) {
             return null;
         }
@@ -485,5 +487,29 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
     public void setDataBase(Object _dataBase){
         dataBase = _dataBase;
+    }
+
+    public void rendRefresh(Navigation _navigation) {
+        for (Bean b: beans.values()) {
+            b.setLanguage(_navigation.getLanguage());
+        }
+        _navigation.getSession().setCurrentLanguage(_navigation.getLanguage());
+        _navigation.processRendAnchorRequest(_navigation.getCurrentUrl());
+    }
+
+    public StringMap<Bean> getBeans() {
+        return beans;
+    }
+
+    public void setBeans(StringMap<Bean> _beans) {
+        beans = _beans;
+    }
+
+    public StringMap<Validator> getValidators() {
+        return validators;
+    }
+
+    public void setValidators(StringMap<Validator> _validators) {
+        validators = _validators;
     }
 }

@@ -992,7 +992,7 @@ public final class SubmitFormTest extends CommonRender {
         Configuration conf_ = contextElThird(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);

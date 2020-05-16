@@ -44,8 +44,6 @@ public final class ThreadActions implements Runnable {
 
     private BeanLgNames stds;
 
-    private boolean refresh;
-
     private boolean form;
 
     private Timer timer;
@@ -54,36 +52,38 @@ public final class ThreadActions implements Runnable {
 
     private String methodName;
 
+    private ThreadActions(){}
     ThreadActions(RenderedPage _page) {
         page = _page;
         page.start();
         directFirst = true;
     }
 
-    ThreadActions(RenderedPage _page, BeanLgNames _lgNames, String _anchor, String _fileName, boolean _form, boolean _refresh, boolean _usedFirstUrl) {
-        page = _page;
-        page.start();
-        stds = _lgNames;
-        anchor = _anchor;
-        form = _form;
-        refresh = _refresh;
-        fileName = _fileName;
-        usedFirstUrl = _usedFirstUrl;
+    static ThreadActions inst(RenderedPage _page, BeanLgNames _lgNames, String _anchor, String _fileName, boolean _form, boolean _usedFirstUrl) {
+        ThreadActions t_ = new ThreadActions();
+        t_.page = _page;
+        t_.page.start();
+        t_.stds = _lgNames;
+        t_.anchor = _anchor;
+        t_.form = _form;
+        t_.fileName = _fileName;
+        t_.usedFirstUrl = _usedFirstUrl;
+        return t_;
     }
 
-    ThreadActions(RenderedPage _page, BeanLgNames _lgNames, String _lgCode, String _anchor, String _fileName, StringMap<String> _fileNames, boolean _form, boolean _refresh, boolean _usedFirstUrl) {
-        page = _page;
-        page.start();
-        stds = _lgNames;
-        lgCode = _lgCode;
-        anchor = _anchor;
-        form = _form;
-        refresh = _refresh;
-        fileName = _fileName;
-        fileNames = _fileNames;
-        usedFirstUrl = _usedFirstUrl;
+    static ThreadActions inst(RenderedPage _page, BeanLgNames _lgNames, String _lgCode, String _anchor, String _fileName, StringMap<String> _fileNames) {
+        ThreadActions t_ = new ThreadActions();
+        t_.page = _page;
+        t_.page.start();
+        t_.stds = _lgNames;
+        t_.lgCode = _lgCode;
+        t_.anchor = _anchor;
+        t_.form = false;
+        t_.fileName = _fileName;
+        t_.fileNames = _fileNames;
+        t_.usedFirstUrl = true;
+        return t_;
     }
-
     void setClassDbName(String _classDbName) {
         classDbName = _classDbName;
     }
@@ -96,11 +96,6 @@ public final class ThreadActions implements Runnable {
     public void run() {
         if (directFirst) {
             page.getNavigation().initializeRendSession();
-            afterAction();
-            return;
-        }
-        if (refresh) {
-            page.getNavigation().rendRefresh();
             afterAction();
             return;
         }

@@ -28,10 +28,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -59,10 +59,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -89,10 +89,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -119,10 +119,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -149,10 +149,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -182,10 +182,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -215,10 +215,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -248,10 +248,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -278,10 +278,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -308,10 +308,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -338,10 +338,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -368,10 +368,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -409,10 +409,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -441,10 +441,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -473,10 +473,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -512,10 +512,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -553,10 +553,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -588,7 +588,7 @@ public final class RenderTextAreaTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -619,7 +619,7 @@ public final class RenderTextAreaTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -648,10 +648,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -678,10 +678,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());

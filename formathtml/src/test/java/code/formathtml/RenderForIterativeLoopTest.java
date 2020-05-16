@@ -23,7 +23,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -44,7 +44,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -65,7 +65,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -86,7 +86,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -107,7 +107,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -128,7 +128,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -154,7 +154,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -175,7 +175,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -196,7 +196,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -217,7 +217,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -238,7 +238,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -259,7 +259,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -280,7 +280,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -301,7 +301,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -322,7 +322,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -343,7 +343,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -364,7 +364,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -385,7 +385,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -406,7 +406,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -427,7 +427,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -448,7 +448,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -469,7 +469,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -490,7 +490,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -511,7 +511,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -532,7 +532,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -551,7 +551,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -570,7 +570,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -589,7 +589,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -608,7 +608,7 @@ public final class RenderForIterativeLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);

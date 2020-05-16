@@ -817,44 +817,28 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getStandards().getAliasVoid());
-        String candidate_ = _var;
-        int index_ = 0;
-        while (StringList.contains(allKeysWords_,candidate_)) {
-            candidate_ = StringList.concatNbs(_var,index_);
-            index_++;
-        }
-        return candidate_;
+        return getCandidate(_var, allKeysWords_);
     }
     private static String trLoop(String _var, ContextEl _context) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getStandards().getAliasVoid());
-        String candidate_ = _var;
-        int index_ = 0;
-        while (StringList.contains(allKeysWords_,candidate_)) {
-            candidate_ = StringList.concatNbs(_var,index_);
-            index_++;
-        }
-        String suffixLoop_ = "";
-        return StringList.concat(candidate_,suffixLoop_);
+        return getCandidate(_var, allKeysWords_);
     }
     private static String trParam(String _var, ContextEl _context) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getStandards().getAliasVoid());
-        String candidate_ = _var;
-        int index_ = 0;
-        while (StringList.contains(allKeysWords_,candidate_)) {
-            candidate_ = StringList.concatNbs(_var,index_);
-            index_++;
-        }
-        String suffixParam_ = "";
-        return StringList.concat(candidate_,suffixParam_);
+        return getCandidate(_var, allKeysWords_);
     }
     private static String trLoc(String _var, ContextEl _context) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getStandards().getAliasVoid());
+        return getCandidate(_var, allKeysWords_);
+    }
+
+    private static String getCandidate(String _var, CustList<String> allKeysWords_) {
         String candidate_ = _var;
         int index_ = 0;
         while (StringList.contains(allKeysWords_,candidate_)) {

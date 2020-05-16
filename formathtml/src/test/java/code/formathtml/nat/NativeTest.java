@@ -68,7 +68,7 @@ public final class NativeTest extends CommonRender {
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
         Configuration context_ = contextElSec();
-        context_.setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)context_.getStandards()).setBeans(new StringMap<Bean>());
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -89,7 +89,7 @@ public final class NativeTest extends CommonRender {
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
         Configuration context_ = contextElSec();
-        context_.setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)context_.getStandards()).setBeans(new StringMap<Bean>());
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -111,7 +111,7 @@ public final class NativeTest extends CommonRender {
         BeanOne bean_ = new BeanOne();
         bean_.getComposite().setInteger(5);
         Configuration context_ = contextElSec();
-        context_.setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)context_.getStandards()).setBeans(new StringMap<Bean>());
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -134,7 +134,7 @@ public final class NativeTest extends CommonRender {
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
         Configuration context_ = contextElSec();
-        context_.setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)context_.getStandards()).setBeans(new StringMap<Bean>());
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -158,7 +158,7 @@ public final class NativeTest extends CommonRender {
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
         Configuration context_ = contextElSec();
-        context_.setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)context_.getStandards()).setBeans(new StringMap<Bean>());
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -182,7 +182,7 @@ public final class NativeTest extends CommonRender {
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);
         Configuration context_ = contextElSec();
-        context_.setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)context_.getStandards()).setBeans(new StringMap<Bean>());
         context_.setMessagesFolder(folder_);
         context_.setProperties(new StringMap<String>());
         context_.getProperties().put("msg_example", relative_);
@@ -206,7 +206,7 @@ public final class NativeTest extends CommonRender {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         Configuration conf_ = contextElSec();
-        conf_.setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -232,7 +232,7 @@ public final class NativeTest extends CommonRender {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         Configuration conf_ = contextElSec();
-        conf_.setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -258,7 +258,7 @@ public final class NativeTest extends CommonRender {
         bean_.getTree().put("ONE", 1);
         bean_.getTree().put("TWO", 2);
         Configuration conf_ = contextElSec();
-        conf_.setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -418,12 +418,12 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setScope("request");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
-        conf_.getBeans().put("bean_two", beanTwo_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_one", bean_);
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_two", beanTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page2.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
 
@@ -447,7 +447,7 @@ public final class NativeTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
-        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+        assertSame(((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_one").getForms(), ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -476,7 +476,7 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setTypedString("TITLE");
         beanTwo_.setForms(new StringMapObject());
         Configuration conf_ = contextElSec();
-        conf_.setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
         conf_.setFirstUrl("page1.html");
         bean_.getForms().put("key", "sample_value");
         conf_.setMessagesFolder(folder_);
@@ -547,12 +547,12 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setScope("request");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_two", beanTwo_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_two", beanTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.getValidators().put("rate_val", new MyValidator());
+        
+        ((BeanNatLgNames)conf_.getStandards()).getValidators().put("rate_val", new MyValidator());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -583,10 +583,10 @@ public final class NativeTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.goToPage\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"text\" name=\"bean_two.selectedString\" c:validator=\"rate_val\" n-i=\"0\" value=\"ONE_TWO\"/><span c:for=\"txt\">ONE_TWO is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanOne) conf_.getBeans().getVal("bean_two");
+        beanTwo_ = (BeanOne) ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
-        assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
+        assertEq(0, ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -606,12 +606,12 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setScope("request");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_two", beanTwo_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_two", beanTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.getValidators().put("rate_val", new MyValidator());
+        
+        ((BeanNatLgNames)conf_.getStandards()).getValidators().put("rate_val", new MyValidator());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -642,10 +642,10 @@ public final class NativeTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"number\" name=\"bean_two.typedInt\" c:validator=\"rate_val\" n-i=\"0\" value=\"0\"/><span c:for=\"txt\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
+        beanTwo_ = (BeanTwo) ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
-        assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
+        assertEq(0, ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -665,12 +665,12 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setScope("request");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_two", beanTwo_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_two", beanTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.getValidators().put("rate_val", new MyValidator());
+        
+        ((BeanNatLgNames)conf_.getStandards()).getValidators().put("rate_val", new MyValidator());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -707,10 +707,10 @@ public final class NativeTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"number\" name=\"bean_two.typedInt\" c:validator=\"rate_val\" n-i=\"0\" value=\"0\"/><span c:for=\"txt\"/><input id=\"txt2\" type=\"text\" name=\"bean_two.typedString\" n-i=\"1\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
+        beanTwo_ = (BeanTwo) ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
-        assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
+        assertEq(0, ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -734,13 +734,13 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setScope("request");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_two", beanTwo_);
-        conf_.getBeans().put("bean_one", beanOne_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_two", beanTwo_);
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_one", beanOne_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.getValidators().put("rate_val", new MyValidator());
+        
+        ((BeanNatLgNames)conf_.getStandards()).getValidators().put("rate_val", new MyValidator());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -778,10 +778,10 @@ public final class NativeTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"number\" name=\"bean_two.typedInt\" c:validator=\"rate_val\" n-i=\"0\" value=\"0\"/><span c:for=\"txt\"/><input id=\"txt2\" type=\"text\" name=\"bean_one.selectedString\" n-i=\"1\" value=\"ONE\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
+        beanTwo_ = (BeanTwo) ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(0, map_.size());
-        assertEq(0, conf_.getBeans().getVal("bean_two").getForms().size());
+        assertEq(0, ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -801,11 +801,11 @@ public final class NativeTest extends CommonRender {
         bean_.setScope("request");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page2.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
 
@@ -837,11 +837,11 @@ public final class NativeTest extends CommonRender {
         bean_.setScope("request");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page2.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
 
@@ -873,11 +873,11 @@ public final class NativeTest extends CommonRender {
         bean_.setScope("request");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page2.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
 
@@ -909,11 +909,11 @@ public final class NativeTest extends CommonRender {
         bean_.setScope("request");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page2.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
 
@@ -945,12 +945,12 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setScope("session");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_two", beanTwo_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_two", beanTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.getValidators().put("rate_val", new MyValidator());
+        
+        ((BeanNatLgNames)conf_.getStandards()).getValidators().put("rate_val", new MyValidator());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -981,10 +981,10 @@ public final class NativeTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"number\" name=\"bean_two.nullableInt\" n-i=\"0\" value=\"10\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
+        beanTwo_ = (BeanTwo) ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
-        assertEq(8, conf_.getBeans().getVal("bean_two").getForms().size());
+        assertEq(8, ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -1004,12 +1004,12 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setScope("session");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_two", beanTwo_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_two", beanTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.getValidators().put("rate_val", new MyValidator());
+        
+        ((BeanNatLgNames)conf_.getStandards()).getValidators().put("rate_val", new MyValidator());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -1040,10 +1040,10 @@ public final class NativeTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"number\" name=\"bean_two.nullableInt\" n-i=\"0\" value=\"\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
+        beanTwo_ = (BeanTwo) ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
-        assertEq(8, conf_.getBeans().getVal("bean_two").getForms().size());
+        assertEq(8, ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -1063,12 +1063,12 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setScope("session");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_two", beanTwo_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_two", beanTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.getValidators().put("rate_val", new MyValidator());
+        
+        ((BeanNatLgNames)conf_.getStandards()).getValidators().put("rate_val", new MyValidator());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -1099,10 +1099,10 @@ public final class NativeTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_two.checked\" n-i=\"0\" checked=\"checked\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
+        beanTwo_ = (BeanTwo) ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
-        assertEq(8, conf_.getBeans().getVal("bean_two").getForms().size());
+        assertEq(8, ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -1122,12 +1122,12 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setScope("session");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_two", beanTwo_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_two", beanTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.getValidators().put("rate_val", new MyValidator());
+        
+        ((BeanNatLgNames)conf_.getStandards()).getValidators().put("rate_val", new MyValidator());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -1158,10 +1158,10 @@ public final class NativeTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input c:className=\"code.formathtml.classes.Rate\" type=\"text\" name=\"bean_two.rate\" n-i=\"0\" value=\"1/2\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
+        beanTwo_ = (BeanTwo) ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
-        assertEq(8, conf_.getBeans().getVal("bean_two").getForms().size());
+        assertEq(8, ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -1181,12 +1181,12 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setScope("session");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_two", beanTwo_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_two", beanTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.getValidators().put("rate_val", new MyValidator());
+        
+        ((BeanNatLgNames)conf_.getStandards()).getValidators().put("rate_val", new MyValidator());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -1217,10 +1217,10 @@ public final class NativeTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"number\" name=\"bean_two.typedShort\" n-i=\"0\" value=\"12\"/></form></body></html>", nav_.getHtmlText());
-        beanTwo_ = (BeanTwo) conf_.getBeans().getVal("bean_two");
+        beanTwo_ = (BeanTwo) ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two");
         StringMapObject map_ = beanTwo_.getForms();
         assertEq(8, map_.size());
-        assertEq(8, conf_.getBeans().getVal("bean_two").getForms().size());
+        assertEq(8, ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -1240,12 +1240,12 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setScope("session");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_two", beanTwo_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_two", beanTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
-        conf_.getValidators().put("rate_val", new MyValidator());
+        
+        ((BeanNatLgNames)conf_.getStandards()).getValidators().put("rate_val", new MyValidator());
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -1275,11 +1275,11 @@ public final class NativeTest extends CommonRender {
         bean_.setScope("request");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_one", bean_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page2.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
 
@@ -1314,12 +1314,12 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setScope("request");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
-        conf_.getBeans().put("bean_two", beanTwo_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_one", bean_);
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_two", beanTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page2.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
 
@@ -1340,11 +1340,11 @@ public final class NativeTest extends CommonRender {
         nav_.getHtmlPage().setUrl(0);
         nav_.processRendFormRequest();
         setupBeansAfter(conf_);
-        nav_.rendRefresh();
+        ((BeanNatLgNames)nav_.getSession().getStandards()).rendRefresh(nav_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
-        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+        assertSame(((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_one").getForms(), ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -1367,12 +1367,12 @@ public final class NativeTest extends CommonRender {
         beanTwo_.setScope("request");
         Configuration conf_ = contextElSec();
 
-        conf_.setBeans(new StringMap<Bean>());
-        conf_.getBeans().put("bean_one", bean_);
-        conf_.getBeans().put("bean_two", beanTwo_);
+        ((BeanNatLgNames)conf_.getStandards()).setBeans(new StringMap<Bean>());
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_one", bean_);
+        ((BeanNatLgNames)conf_.getStandards()).getBeans().put("bean_two", beanTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page2.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
 
@@ -1396,7 +1396,7 @@ public final class NativeTest extends CommonRender {
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
-        assertSame(conf_.getBeans().getVal("bean_one").getForms(), conf_.getBeans().getVal("bean_two").getForms());
+        assertSame(((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_one").getForms(), ((BeanNatLgNames)conf_.getStandards()).getBeans().getVal("bean_two").getForms());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 //        new StdStruct()
@@ -1405,17 +1405,17 @@ public final class NativeTest extends CommonRender {
     private static void setupBeansAfter(Configuration _conf) {
         cleanBeans(_conf);
         for (EntryCust<String, Struct> e: _conf.getBuiltBeans().entryList()) {
-            _conf.getBeans().put(e.getKey(), (Bean) ((BeanStruct) e.getValue()).getInstance());
+            ((BeanNatLgNames)_conf.getStandards()).getBeans().put(e.getKey(), (Bean) ((BeanStruct) e.getValue()).getInstance());
         }
     }
 
     private static void cleanBeans(Configuration _conf) {
-        _conf.getBeans().clear();
+        ((BeanNatLgNames)_conf.getStandards()).getBeans().clear();
     }
 
     private static void initSession(Navigation _nav) {
         StringMap<BeanInfo> map_ = new StringMap<BeanInfo>();
-        for (EntryCust<String, Bean> e: _nav.getSession().getBeans().entryList()) {
+        for (EntryCust<String, Bean> e: ((BeanNatLgNames)_nav.getSession().getStandards()).getBeans().entryList()) {
             BeanInfo i_ = new BeanInfo();
             i_.setClassName(e.getValue().getClassName());
             i_.setScope(e.getValue().getScope());
@@ -1449,7 +1449,7 @@ public final class NativeTest extends CommonRender {
     private static RendDocumentBlock buildRendWithOneNativeBean(String html_, BeanOne bean_, Configuration context_) {
         setLocale("en", context_);
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        context_.getBeans().put("bean_one", bean_);
+        ((BeanNatLgNames)context_.getStandards()).getBeans().put("bean_one", bean_);
         addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getContext().setAnalyzing();

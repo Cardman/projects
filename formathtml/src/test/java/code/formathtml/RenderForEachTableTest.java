@@ -345,7 +345,7 @@ public final class RenderForEachTableTest extends CommonRender {
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
@@ -382,7 +382,7 @@ public final class RenderForEachTableTest extends CommonRender {
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);

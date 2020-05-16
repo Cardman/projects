@@ -18,7 +18,7 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", ".classTest{color:blue;}");
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getAnalyzingDoc().setFiles(files_);
@@ -35,7 +35,7 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getAnalyzingDoc().setFiles(files_);
@@ -52,7 +52,7 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getAnalyzingDoc().setFiles(files_);
@@ -69,7 +69,7 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getAnalyzingDoc().setFiles(files_);
@@ -86,7 +86,7 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", ".classTest{color:blue;}");
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getAnalyzingDoc().setFiles(files_);
@@ -103,7 +103,7 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", ".classTest{color:blue;}");
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getAnalyzingDoc().setFiles(files_);
@@ -121,7 +121,7 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", ".classTest{color:blue;}");
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getAnalyzingDoc().setFiles(files_);
@@ -138,7 +138,7 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main1.css", ".classTest{color:blue;}");
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getAnalyzingDoc().setFiles(files_);
@@ -155,7 +155,7 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
         Configuration conf_ = contextElFive();
-        conf_.setBeans(new StringMap<Bean>());
+        
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getAnalyzingDoc().setFiles(files_);

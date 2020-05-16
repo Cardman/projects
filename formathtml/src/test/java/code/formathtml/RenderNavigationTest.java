@@ -43,7 +43,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page2.html", htmlTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -93,7 +93,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page2.html", htmlTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -134,7 +134,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page2.html", htmlTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -185,7 +185,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page2.html", htmlTwo_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -292,7 +292,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -337,7 +337,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page3.html", htmlThree_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -398,7 +398,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page3.html", htmlThree_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -459,7 +459,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page3.html", htmlThree_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -520,7 +520,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page3.html", htmlThree_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -581,7 +581,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page3.html", htmlThree_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -647,7 +647,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page3.html", htmlThree_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -712,7 +712,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page3.html", htmlThree_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
@@ -793,7 +793,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -880,7 +880,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -979,7 +979,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -1068,7 +1068,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -1162,7 +1162,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -1259,7 +1259,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -1361,7 +1361,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -1452,7 +1452,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -1537,7 +1537,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -1628,7 +1628,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -1711,7 +1711,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
 
@@ -3734,7 +3734,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
 
@@ -3829,7 +3829,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -3914,7 +3914,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -3989,7 +3989,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -4064,7 +4064,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -4139,7 +4139,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -4189,7 +4189,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -4252,7 +4252,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -4315,7 +4315,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -4377,7 +4377,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -4439,7 +4439,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -4512,7 +4512,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -4586,7 +4586,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -4660,7 +4660,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -5557,7 +5557,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry("bean_one.validate",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.validate").addEntry("val1","page2.html");
@@ -5928,7 +5928,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -5970,7 +5970,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -6000,7 +6000,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive(filesSec_);
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
@@ -6029,7 +6029,7 @@ public final class RenderNavigationTest extends CommonRender {
         Configuration conf_ = contextElFive();
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
-        conf_.setValidators(new StringMap<Validator>());
+        
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);

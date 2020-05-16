@@ -115,7 +115,7 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         standards = _stds;
-        ThreadActions actions_ = new ThreadActions(this, _stds, _lgCode,"", _conf, _files, false, false, true);
+        ThreadActions actions_ = ThreadActions.inst(this, _stds, _lgCode,"", _conf, _files);
         actions_.setClassDbName(_clName);
         actions_.setMethodName(_methodName);
         threadAction = CustComponent.newThread(actions_);
@@ -136,7 +136,10 @@ public final class RenderedPage implements ProcessingSession {
         if (processing.get()) {
             return;
         }
-        threadAction = CustComponent.newThread(new ThreadActions(this, standards, "", "", false, true, false));
+        if (!(standards instanceof BeanNatLgNames)) {
+            return;
+        }
+        threadAction = CustComponent.newThread(new ThreadRefresh(this, (BeanNatLgNames) standards, "", "", false, true, false));
         threadAction.start();
         animateProcess();
     }
@@ -146,7 +149,7 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         standards = _lgNames;
-        threadAction = CustComponent.newThread(new ThreadActions(this, _lgNames, "", navigation.getSession().getFirstUrl(), false, false, true));
+        threadAction = CustComponent.newThread(ThreadActions.inst(this, _lgNames, "", navigation.getSession().getFirstUrl(), false, true));
         threadAction.start();
         animateProcess();
     }
