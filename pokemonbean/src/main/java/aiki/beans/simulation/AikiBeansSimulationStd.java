@@ -590,9 +590,9 @@ public final class AikiBeansSimulationStd {
         fields_.put(CHOSEN_EVO,new StandardField(CHOSEN_EVO,_std.getAliasString(),false,false,type_));
         fields_.put(LEVEL_EVO,new StandardField(LEVEL_EVO,_std.getAliasPrimShort(),false,false,type_));
         fields_.put(ROUND,new StandardField(ROUND, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        fields_.put(SELECTED_ROUND,new StandardField(SELECTED_ROUND,_std.getAliasPrimInteger(),false,false,type_));
+        fields_.put(SELECTED_ROUND,new StandardField(SELECTED_ROUND,_std.getAliasString(),false,false,type_));
         fields_.put(PLACES_FIGHT,new StandardField(PLACES_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        fields_.put(PLACE_FIGHT,new StandardField(PLACE_FIGHT,_std.getAliasPrimInteger(),false,false,type_));
+        fields_.put(PLACE_FIGHT,new StandardField(PLACE_FIGHT,_std.getAliasString(),false,false,type_));
         fields_.put(DISPLAY_IF_ERROR,new StandardField(DISPLAY_IF_ERROR,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(ABILITIES,new StandardField(ABILITIES, BeanNatLgNames.TYPE_MAP,false,false,type_));
         fields_.put(CURRENT_ABILITY,new StandardField(CURRENT_ABILITY,_std.getAliasString(),false,false,type_));
@@ -601,7 +601,7 @@ public final class AikiBeansSimulationStd {
         fields_.put(SELECTED_MOVE,new StandardField(SELECTED_MOVE,_std.getAliasPrimInteger(),false,false,type_));
         fields_.put(ALLY_CHOICE,new StandardField(ALLY_CHOICE,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(TARGET_FIGHT,new StandardField(TARGET_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        fields_.put(TARGET,new StandardField(TARGET,_std.getAliasPrimInteger(),false,false,type_));
+        fields_.put(TARGET,new StandardField(TARGET,_std.getAliasString(),false,false,type_));
         fields_.put(COMMENTS,new StandardField(COMMENTS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(TEAM_AFTER_FIGHT,new StandardField(TEAM_AFTER_FIGHT, BeanNatLgNames.TYPE_LIST,false,false,type_));
         fields_.put(EVOLUTIONS_AFTER_FIGHT,new StandardField(EVOLUTIONS_AFTER_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,type_));
@@ -1368,7 +1368,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_ROUND)) {
-            res_.setResult(new IntStruct(instance_.getSelectedRound()));
+            res_.setResult(new StringStruct(instance_.getSelectedRound()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PLACES_FIGHT)) {
@@ -1376,7 +1376,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,PLACE_FIGHT)) {
-            res_.setResult(new IntStruct(instance_.getPlaceFight()));
+            res_.setResult(new StringStruct(instance_.getPlaceFight()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DISPLAY_IF_ERROR)) {
@@ -1412,7 +1412,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TARGET)) {
-            res_.setResult(new IntStruct(instance_.getTarget()));
+            res_.setResult(new StringStruct(instance_.getTarget()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,COMMENTS)) {
@@ -1835,12 +1835,12 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_ROUND)) {
-            instance_.setSelectedRound((Integer) _value);
+            instance_.setSelectedRound((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,PLACE_FIGHT)) {
-            instance_.setPlaceFight((Integer) _value);
+            instance_.setPlaceFight((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -1860,7 +1860,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TARGET)) {
-            instance_.setTarget((Integer) _value);
+            instance_.setTarget((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

@@ -110,12 +110,12 @@ public class SimulationBean extends CommonBean {
     private Difficulty difficulty = new Difficulty();
 
     private int noFight;
-    private int selectedRound;
+    private String selectedRound ="0";
     private IntTreeMap< Integer> round = new IntTreeMap< Integer>();
 
-    private int placeFight = Fighter.BACK;
+    private String placeFight = Integer.toString(Fighter.BACK);
     private IntTreeMap< String> placesFight = new IntTreeMap< String>();
-    private int target;
+    private String target ="0";
     private IntTreeMap< String> targetFight = new IntTreeMap< String>();
     private String currentAbility = DataBase.EMPTY_STRING;
     private TreeMap<String,String> abilities;
@@ -369,7 +369,7 @@ public class SimulationBean extends CommonBean {
                     targetFight.put(i, Integer.toString(i));
                 }
                 movesSet.clear();
-                if (selectedRound == 0) {
+                if (Numbers.parseInt(selectedRound) == 0) {
                     StringMap<String> translationsMoves_;
                     translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
                     StringMap<String> translationsTypes_;
@@ -411,7 +411,7 @@ public class SimulationBean extends CommonBean {
                 translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
                 StringMap<String> translationsCategories_;
                 translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-                StringList moves_ = simulation.getKeptMoves().getVal((byte) selectedPk).getVal(new KeyFightRound(CustList.FIRST_INDEX, (byte)(selectedRound -1)));
+                StringList moves_ = simulation.getKeptMoves().getVal((byte) selectedPk).getVal(new KeyFightRound(CustList.FIRST_INDEX, (byte)(Numbers.parseInt(selectedRound) -1)));
                 for (String k: moves_) {
                     MoveData moveData_ = data_.getMoves().getVal(k);
                     RadioLineMove line_ = new RadioLineMove();
@@ -1042,7 +1042,7 @@ public class SimulationBean extends CommonBean {
         if (selectedPk == CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        simulation.getFrontFighters().first().get(selectedRound).put((byte) selectedPk, (byte) placeFight);
+        simulation.getFrontFighters().first().get(Numbers.parseInt(selectedRound)).put((byte) selectedPk, (byte) Numbers.parseInt(placeFight));
     }
     public void cancelFrontFighters() {
         displayIfError = false;
@@ -1143,7 +1143,7 @@ public class SimulationBean extends CommonBean {
         }
         String move_ = movesSet.get(selectedMove).getName();
         DataBase data_ = (DataBase) getDataBase();
-        simulation.chooseMoveFirstFight(selectedRound, selectedPk, move_, allyChoice, target, data_);
+        simulation.chooseMoveFirstFight(Numbers.parseInt(selectedRound), selectedPk, move_, allyChoice, Numbers.parseInt(target), data_);
     }
     public void cancelMovesEvos() {
         displayIfError = false;
@@ -1829,11 +1829,11 @@ public class SimulationBean extends CommonBean {
         return round;
     }
 
-    public int getSelectedRound() {
+    public String getSelectedRound() {
         return selectedRound;
     }
 
-    public void setSelectedRound(int _selectedRound) {
+    public void setSelectedRound(String _selectedRound) {
         selectedRound = _selectedRound;
     }
 
@@ -1841,11 +1841,11 @@ public class SimulationBean extends CommonBean {
         return placesFight;
     }
 
-    public int getPlaceFight() {
+    public String getPlaceFight() {
         return placeFight;
     }
 
-    public void setPlaceFight(int _placeFight) {
+    public void setPlaceFight(String _placeFight) {
         placeFight = _placeFight;
     }
 
@@ -1893,11 +1893,11 @@ public class SimulationBean extends CommonBean {
         return targetFight;
     }
 
-    public int getTarget() {
+    public String getTarget() {
         return target;
     }
 
-    public void setTarget(int _target) {
+    public void setTarget(String _target) {
         target = _target;
     }
 
