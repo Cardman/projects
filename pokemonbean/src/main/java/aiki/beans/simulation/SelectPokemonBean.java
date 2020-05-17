@@ -1,38 +1,39 @@
 package aiki.beans.simulation;
 import aiki.beans.CommonBean;
+import aiki.beans.PokemonStandards;
+import aiki.beans.facade.comparators.ComparatorTrString;
 import aiki.beans.facade.dto.PokemonLine;
-import aiki.beans.facade.comparators.ComparatorTrStringBoolean;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.facade.CriteriaForSearching;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import code.images.BaseSixtyFourUtil;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 import aiki.facade.enums.SelectedBoolean;
 
 public class SelectPokemonBean extends CommonBean {
     private CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
     private String typedName = DataBase.EMPTY_STRING;
     private String typedType = DataBase.EMPTY_STRING;
-    private SelectedBoolean hasEvo = SelectedBoolean.YES_AND_NO;
-    private SelectedBoolean isEvo = SelectedBoolean.YES_AND_NO;
-    private SelectedBoolean isLeg = SelectedBoolean.YES_AND_NO;
+    private String hasEvo = SelectedBoolean.YES_AND_NO.name();
+    private String isEvo = SelectedBoolean.YES_AND_NO.name();
+    private String isLeg = SelectedBoolean.YES_AND_NO.name();
     private boolean wholeWord;
-    private TreeMap<SelectedBoolean,String> booleans;
+    private TreeMap<String,String> booleans;
 
     @Override
     public void beforeDisplaying() {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<SelectedBoolean,String> translatedBooleans_;
         translatedBooleans_ = data_.getTranslatedBooleans().getVal(getLanguage());
-        booleans = new TreeMap<SelectedBoolean, String>(new ComparatorTrStringBoolean(translatedBooleans_));
+        StringMap<String> translated_ = new StringMap<String>();
+        for (EntryCust<SelectedBoolean,String> s: translatedBooleans_.entryList()) {
+            translated_.addEntry(s.getKey().name(),s.getValue());
+        }
+        booleans = new TreeMap<String, String>(new ComparatorTrString(translated_));
         for (SelectedBoolean s: translatedBooleans_.getKeys()) {
-            booleans.put(s, translatedBooleans_.getVal(s));
+            booleans.put(s.name(), translatedBooleans_.getVal(s));
         }
         StringList pokedex_ = (StringList) getForms().getVal(POKEMON_SET);
         pokedex.clear();
@@ -93,13 +94,13 @@ public class SelectPokemonBean extends CommonBean {
             if (!atLeastMatchType_) {
                 continue;
             }
-            if (!CriteriaForSearching.match(hasEvo,pkData_.getEvolutions().isEmpty())) {
+            if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(hasEvo),pkData_.getEvolutions().isEmpty())) {
                 continue;
             }
-            if (!CriteriaForSearching.match(isEvo,!StringList.quickEq(k, pkData_.getBaseEvo()))) {
+            if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(isEvo),!StringList.quickEq(k, pkData_.getBaseEvo()))) {
                 continue;
             }
-            if (!CriteriaForSearching.match(isLeg,pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {
+            if (!CriteriaForSearching.match(PokemonStandards.getBoolByName(isLeg),pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {
                 continue;
             }
             pokedex_.add(k);
@@ -148,31 +149,31 @@ public class SelectPokemonBean extends CommonBean {
         return wholeWord;
     }
 
-    public TreeMap<SelectedBoolean,String> getBooleans() {
+    public TreeMap<String,String> getBooleans() {
         return booleans;
     }
 
-    public SelectedBoolean getHasEvo() {
+    public String getHasEvo() {
         return hasEvo;
     }
 
-    public void setHasEvo(SelectedBoolean _hasEvo) {
+    public void setHasEvo(String _hasEvo) {
         hasEvo = _hasEvo;
     }
 
-    public SelectedBoolean getIsEvo() {
+    public String getIsEvo() {
         return isEvo;
     }
 
-    public void setIsEvo(SelectedBoolean _isEvo) {
+    public void setIsEvo(String _isEvo) {
         isEvo = _isEvo;
     }
 
-    public SelectedBoolean getIsLeg() {
+    public String getIsLeg() {
         return isLeg;
     }
 
-    public void setIsLeg(SelectedBoolean _isLeg) {
+    public void setIsLeg(String _isLeg) {
         isLeg = _isLeg;
     }
 

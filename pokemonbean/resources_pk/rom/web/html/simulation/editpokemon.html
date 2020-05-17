@@ -77,7 +77,7 @@
 				<c:message value="msg_simulation,exp_pk"/>
 				<input c:validator="positive_rate_validator" c:varValue="experience" id="experienceId" name="experience" type="text"/><span c:for="experienceId" class="errormessage" c:valueMessage="msg_simulation,rate_issue"> </span><br/>
 				<c:message value="msg_simulation,catching_ball"/>
-				<c:select className="java.lang.String" default="" map="balls" name="ball" update="" varValue="ball"/><br/>
+				<c:select default="" map="balls" name="ball" update="" varValue="ball"/><br/>
 				<c:message value="msg_simulation,happiness_pk"/>
 				<input c:validator="short_validator" c:varValue="happiness" id="happinessId" name="happiness" type="text"/><span c:for="happinessId" class="errormessage" c:valueMessage="msg_simulation,short_issue"> </span><br/>
 				<c:message value="msg_simulation,remaining_hp"/>

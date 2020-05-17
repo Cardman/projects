@@ -1,4 +1,5 @@
 package aiki.beans.game;
+import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.ComparatorDifficultyModelLaw;
 import aiki.beans.facade.comparators.ComparatorDifficultyWinPointsFight;
 import aiki.db.DataBase;
@@ -16,14 +17,14 @@ import code.util.TreeMap;
 public class DifficultyBean extends Bean {
     private boolean allowCatchingKo;
     private boolean allowedSwitchPlacesEndRound;
-    private DifficultyWinPointsFight diffWinningExpPtsFight;
-    private TreeMap<DifficultyWinPointsFight, String> winPointsFight;
+    private String diffWinningExpPtsFight;
+    private TreeMap<String, String> winPointsFight;
     private Rate rateWinningExpPtsFight;
     private Rate winTrainerExp;
-    private TreeMap<DifficultyModelLaw, String> damageRates;
-    private DifficultyModelLaw damageRatePlayer;
+    private TreeMap<String, String> damageRates;
+    private String damageRatePlayer;
     private NatCmpTreeMap<Rate,Rate> damageRatePlayerTable;
-    private DifficultyModelLaw damageRateLawFoe;
+    private String damageRateLawFoe;
     private NatCmpTreeMap<Rate,Rate> damageRateFoeTable;
     private boolean endFightIfOneTeamKo;
     private Rate rateWinMoneyBase;
@@ -41,17 +42,17 @@ public class DifficultyBean extends Bean {
         FacadeGame facadeGame_ = (FacadeGame) getDataBase();
         DataBase data_ = facadeGame_.getData();
         Difficulty diff_ = facadeGame_.getGame().getDifficulty();
-        damageRates = new TreeMap<DifficultyModelLaw, String>(new ComparatorDifficultyModelLaw());
-        winPointsFight = new TreeMap<DifficultyWinPointsFight, String>(new ComparatorDifficultyWinPointsFight());
+        damageRates = new TreeMap<String, String>(new ComparatorDifficultyModelLaw());
+        winPointsFight = new TreeMap<String, String>(new ComparatorDifficultyWinPointsFight());
         EnumMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
         for (DifficultyWinPointsFight k: trWinPts_.getKeys()) {
 //            winPointsFight.put(k, XmlParser.transformSpecialChars(trWinPts_.getVal(k)));
-            winPointsFight.put(k, trWinPts_.getVal(k));
+            winPointsFight.put(k.name(), trWinPts_.getVal(k));
         }
         EnumMap<DifficultyModelLaw, String> trWinLaw_ = data_.getTranslatedDiffModelLaw().getVal(getLanguage());
         for (DifficultyModelLaw k: trWinLaw_.getKeys()) {
 //            damageRates.put(k, XmlParser.transformSpecialChars(trWinLaw_.getVal(k)));
-            damageRates.put(k, trWinLaw_.getVal(k));
+            damageRates.put(k.name(), trWinLaw_.getVal(k));
         }
 
 //        damageRates = new TreeMap<new>(new);
@@ -59,7 +60,7 @@ public class DifficultyBean extends Bean {
 //        Map<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
 //        winPointsFight.putAll(trWinPts_);
 //        damageRates.putAll(data_.getTranslatedDiffModelLaw().getVal(getLanguage()));
-        diffWinningExpPtsFight = diff_.getDiffWinningExpPtsFight();
+        diffWinningExpPtsFight = diff_.getDiffWinningExpPtsFight().name();
         allowCatchingKo = diff_.getAllowCatchingKo();
         allowedSwitchPlacesEndRound = diff_.getAllowedSwitchPlacesEndRound();
         winTrainerExp = diff_.getWinTrainerExp();
@@ -74,16 +75,16 @@ public class DifficultyBean extends Bean {
         enabledClosing = diff_.getEnabledClosing();
         randomWildFight = diff_.getRandomWildFight();
         skipLearningMovesWhileNotGrowingLevel = diff_.isSkipLearningMovesWhileNotGrowingLevel();
-        damageRatePlayer = diff_.getDamageRatePlayer();
-        damageRateLawFoe = diff_.getDamageRateLawFoe();
+        damageRatePlayer = diff_.getDamageRatePlayer().name();
+        damageRateLawFoe = diff_.getDamageRateLawFoe().name();
         damageRatePlayerTable = new NatCmpTreeMap<Rate, Rate>();
         MonteCarloNumber law_;
-        law_ = data_.getLawsDamageRate().getVal(damageRatePlayer).getLaw();
+        law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRatePlayer)).getLaw();
         for (Rate e: law_.events()) {
             damageRatePlayerTable.put(e, law_.normalizedRate(e));
         }
         damageRateFoeTable = new NatCmpTreeMap<Rate, Rate>();
-        law_ = data_.getLawsDamageRate().getVal(damageRateLawFoe).getLaw();
+        law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRateLawFoe)).getLaw();
         for (Rate e: law_.events()) {
             damageRateFoeTable.put(e, law_.normalizedRate(e));
         }
@@ -91,7 +92,7 @@ public class DifficultyBean extends Bean {
     public void change() {
         FacadeGame facadeGame_ = (FacadeGame) getDataBase();
         Difficulty diff_ = facadeGame_.getGame().getDifficulty();
-        diff_.setDiffWinningExpPtsFight(diffWinningExpPtsFight);
+        diff_.setDiffWinningExpPtsFight(PokemonStandards.getDiffWonPtsByName(diffWinningExpPtsFight));
         diff_.setAllowCatchingKo(allowCatchingKo);
         diff_.setAllowedSwitchPlacesEndRound(allowedSwitchPlacesEndRound);
         diff_.setWinTrainerExp(winTrainerExp);
@@ -106,20 +107,20 @@ public class DifficultyBean extends Bean {
         diff_.setRandomWildFight(randomWildFight);
         diff_.setStillPossibleFlee(stillPossibleFlee);
         diff_.setSkipLearningMovesWhileNotGrowingLevel(skipLearningMovesWhileNotGrowingLevel);
-        diff_.setDamageRateLawFoe(damageRateLawFoe);
-        diff_.setDamageRatePlayer(damageRatePlayer);
+        diff_.setDamageRateLawFoe(PokemonStandards.getModelByName(damageRateLawFoe));
+        diff_.setDamageRatePlayer(PokemonStandards.getModelByName(damageRatePlayer));
         diff_.validate(facadeGame_.getData());
     }
 
-    public TreeMap<DifficultyWinPointsFight,String> getWinPointsFight() {
+    public TreeMap<String,String> getWinPointsFight() {
         return winPointsFight;
     }
 
-    public DifficultyWinPointsFight getDiffWinningExpPtsFight() {
+    public String getDiffWinningExpPtsFight() {
         return diffWinningExpPtsFight;
     }
 
-    public void setDiffWinningExpPtsFight(DifficultyWinPointsFight _diffWinningExpPtsFight) {
+    public void setDiffWinningExpPtsFight(String _diffWinningExpPtsFight) {
         diffWinningExpPtsFight = _diffWinningExpPtsFight;
     }
 
@@ -235,15 +236,15 @@ public class DifficultyBean extends Bean {
         return skipLearningMovesWhileNotGrowingLevel;
     }
 
-    public TreeMap<DifficultyModelLaw,String> getDamageRates() {
+    public TreeMap<String,String> getDamageRates() {
         return damageRates;
     }
 
-    public DifficultyModelLaw getDamageRatePlayer() {
+    public String getDamageRatePlayer() {
         return damageRatePlayer;
     }
 
-    public void setDamageRatePlayer(DifficultyModelLaw _damageRatePlayer) {
+    public void setDamageRatePlayer(String _damageRatePlayer) {
         damageRatePlayer = _damageRatePlayer;
     }
 
@@ -251,11 +252,11 @@ public class DifficultyBean extends Bean {
         return damageRatePlayerTable;
     }
 
-    public DifficultyModelLaw getDamageRateLawFoe() {
+    public String getDamageRateLawFoe() {
         return damageRateLawFoe;
     }
 
-    public void setDamageRateLawFoe(DifficultyModelLaw _damageRateLawFoe) {
+    public void setDamageRateLawFoe(String _damageRateLawFoe) {
         damageRateLawFoe = _damageRateLawFoe;
     }
 

@@ -121,7 +121,7 @@ public final class AikiBeansGameStd {
         fields_ = new StringMap<StandardField>();
         type_ = new StandardClass(TYPE_DIFFICULTY_BEAN, fields_, constructors_, methods_, BeanNatLgNames.TYPE_BEAN, MethodModifier.NORMAL);
         fields_.put(WIN_POINTS_FIGHT,new StandardField(WIN_POINTS_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        fields_.put(DIFF_WINNING_EXP_PTS_FIGHT,new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,PokemonStandards.TYPE_DIFFICULTY_WIN_POINTS_FIGHT,false,false,type_));
+        fields_.put(DIFF_WINNING_EXP_PTS_FIGHT,new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,_std.getAliasString(),false,false,type_));
         fields_.put(ALLOW_CATCHING_KO,new StandardField(ALLOW_CATCHING_KO,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(ALLOWED_SWITCH_PLACES_END_ROUND,new StandardField(ALLOWED_SWITCH_PLACES_END_ROUND,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(WIN_TRAINER_EXP,new StandardField(WIN_TRAINER_EXP,PokemonStandards.TYPE_RATE,false,false,type_));
@@ -137,9 +137,9 @@ public final class AikiBeansGameStd {
         fields_.put(STILL_POSSIBLE_FLEE,new StandardField(STILL_POSSIBLE_FLEE,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL,new StandardField(SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL,_std.getAliasPrimBoolean(),false,false,type_));
         fields_.put(DAMAGE_RATES,new StandardField(DAMAGE_RATES, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        fields_.put(DAMAGE_RATE_PLAYER,new StandardField(DAMAGE_RATE_PLAYER,PokemonStandards.TYPE_DIFFICULTY_MODEL_LAW,false,false,type_));
+        fields_.put(DAMAGE_RATE_PLAYER,new StandardField(DAMAGE_RATE_PLAYER,_std.getAliasString(),false,false,type_));
         fields_.put(DAMAGE_RATE_PLAYER_TABLE,new StandardField(DAMAGE_RATE_PLAYER_TABLE, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        fields_.put(DAMAGE_RATE_LAW_FOE,new StandardField(DAMAGE_RATE_LAW_FOE,PokemonStandards.TYPE_DIFFICULTY_MODEL_LAW,false,false,type_));
+        fields_.put(DAMAGE_RATE_LAW_FOE,new StandardField(DAMAGE_RATE_LAW_FOE,_std.getAliasString(),false,false,type_));
         fields_.put(DAMAGE_RATE_FOE_TABLE,new StandardField(DAMAGE_RATE_FOE_TABLE, BeanNatLgNames.TYPE_MAP,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(CHANGE,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL,type_);
@@ -505,7 +505,7 @@ public final class AikiBeansGameStd {
         DifficultyBean instance_ = (DifficultyBean) ((RealInstanceStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
-            instance_.setDiffWinningExpPtsFight((DifficultyWinPointsFight) _value);
+            instance_.setDiffWinningExpPtsFight((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -580,12 +580,12 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
-            instance_.setDamageRatePlayer((DifficultyModelLaw) _value);
+            instance_.setDamageRatePlayer((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
-            instance_.setDamageRateLawFoe((DifficultyModelLaw) _value);
+            instance_.setDamageRateLawFoe((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

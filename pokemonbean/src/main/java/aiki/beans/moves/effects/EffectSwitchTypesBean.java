@@ -1,5 +1,6 @@
 package aiki.beans.moves.effects;
-import aiki.beans.facade.comparators.ComparatorTrStringEnv;
+import aiki.beans.PokemonStandards;
+import aiki.beans.facade.comparators.ComparatorTrString;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
@@ -9,13 +10,10 @@ import aiki.fight.moves.effects.EffectSwitchTypes;
 import aiki.fight.moves.effects.enums.ConstValuesType;
 import aiki.fight.moves.effects.enums.ExchangeType;
 import aiki.map.levels.enums.EnvironmentType;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 
 public class EffectSwitchTypesBean extends EffectBean {
-    private TreeMap<EnvironmentType, String> chgtTypeByEnv;
+    private TreeMap<String, String> chgtTypeByEnv;
     private StringList globalMoves;
 
     private ConstValuesType constValuesType;
@@ -30,14 +28,18 @@ public class EffectSwitchTypesBean extends EffectBean {
         EffectSwitchTypes effect_ = (EffectSwitchTypes) getEffect();
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<EnvironmentType,String> translatedEnvironments_ = data_.getTranslatedEnvironment().getVal(getLanguage());
+        StringMap<String> translated_ = new StringMap<String>();
+        for (EntryCust<EnvironmentType,String> s: translatedEnvironments_.entryList()) {
+            translated_.addEntry(s.getKey().name(),s.getValue());
+        }
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        TreeMap<EnvironmentType, String> chgtTypeByEnv_;
-        chgtTypeByEnv_ = new TreeMap<EnvironmentType, String>(new ComparatorTrStringEnv(translatedEnvironments_));
+        TreeMap<String, String> chgtTypeByEnv_;
+        chgtTypeByEnv_ = new TreeMap<String, String>(new ComparatorTrString(translated_));
         for (EnvironmentType env_: effect_.getChgtTypeByEnv().getKeys()) {
             String type_;
             type_ = effect_.getChgtTypeByEnv().getVal(env_);
-            chgtTypeByEnv_.put(env_, translatedTypes_.getVal(type_));
+            chgtTypeByEnv_.put(env_.name(), translatedTypes_.getVal(type_));
         }
         chgtTypeByEnv = chgtTypeByEnv_;
         StringList globalMoves_;
@@ -85,7 +87,7 @@ public class EffectSwitchTypesBean extends EffectBean {
         return constValuesType == ConstValuesType.LANCEUR_ATTAQUES_TYPES;
     }
     public String getTrEnv(Long _index) {
-        EnvironmentType env_ = chgtTypeByEnv.getKey(_index.intValue());
+        EnvironmentType env_ = PokemonStandards.getEnvByName(chgtTypeByEnv.getKey(_index.intValue()));
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<EnvironmentType,String> translatedTypes_ = data_.getTranslatedEnvironment().getVal(getLanguage());
         return translatedTypes_.getVal(env_);
@@ -126,7 +128,7 @@ public class EffectSwitchTypesBean extends EffectBean {
         return translatedTypes_.getVal(type_);
     }
 
-    public TreeMap<EnvironmentType,String> getChgtTypeByEnv() {
+    public TreeMap<String,String> getChgtTypeByEnv() {
         return chgtTypeByEnv;
     }
 

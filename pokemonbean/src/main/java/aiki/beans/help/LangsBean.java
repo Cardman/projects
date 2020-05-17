@@ -1,11 +1,6 @@
 package aiki.beans.help;
 import aiki.beans.CommonBean;
-import aiki.beans.facade.comparators.ComparatorLanguageEnvType;
-import aiki.beans.facade.comparators.ComparatorLanguageGender;
-import aiki.beans.facade.comparators.ComparatorLanguageSelectedBoolean;
-import aiki.beans.facade.comparators.ComparatorLanguageStatisic;
 import aiki.beans.facade.comparators.ComparatorLanguageString;
-import aiki.beans.facade.comparators.ComparatorLanguageTargetChoice;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
@@ -17,11 +12,11 @@ import aiki.facade.enums.SelectedBoolean;
 
 public class LangsBean extends CommonBean {
     private TreeMap<LanguageElementStringKey,String> translatedCategories;
-    private TreeMap<LanguageElementKey,String> translatedEnvironment;
-    private TreeMap<LanguageElementKey,String> translatedBooleans;
-    private TreeMap<LanguageElementKey,String> translatedGenders;
-    private TreeMap<LanguageElementKey,String> translatedStatistics;
-    private TreeMap<LanguageElementKey,String> translatedTargets;
+    private TreeMap<LanguageElementStringKey,String> translatedEnvironment;
+    private TreeMap<LanguageElementStringKey,String> translatedBooleans;
+    private TreeMap<LanguageElementStringKey,String> translatedGenders;
+    private TreeMap<LanguageElementStringKey,String> translatedStatistics;
+    private TreeMap<LanguageElementStringKey,String> translatedTargets;
     private TreeMap<LanguageElementStringKey,String> translatedTypes;
     private TreeMap<LanguageElementStringKey,String> translatedPokemon;
     private TreeMap<LanguageElementStringKey,String> translatedMoves;
@@ -46,11 +41,51 @@ public class LangsBean extends CommonBean {
             languages.add(l);
         }
         translatedCategories = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedCategories(), curLg_, languages));
-        translatedEnvironment = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageEnvType(data_.getTranslatedEnvironment(), curLg_, languages));
-        translatedBooleans = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageSelectedBoolean(data_.getTranslatedBooleans(), curLg_, languages));
-        translatedGenders = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageGender(data_.getTranslatedGenders(), curLg_, languages));
-        translatedStatistics = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageStatisic(data_.getTranslatedStatistics(), curLg_, languages));
-        translatedTargets = new TreeMap<LanguageElementKey, String>(new ComparatorLanguageTargetChoice(data_.getTranslatedTargets(), curLg_, languages));
+        StringMap<StringMap<String>> translatedEnvironment_ = new StringMap<StringMap<String>>();
+        for (EntryCust<String,EnumMap<EnvironmentType, String>> e:data_.getTranslatedEnvironment().entryList()) {
+            StringMap<String> tr_ = new StringMap<String>();
+            for (EntryCust<EnvironmentType, String> f:e.getValue().entryList()) {
+                tr_.addEntry(f.getKey().name(),f.getValue());
+            }
+            translatedEnvironment_.addEntry(e.getKey(),tr_);
+        }
+        translatedEnvironment = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedEnvironment_, curLg_, languages));
+        StringMap<StringMap<String>> translatedBooleans_ = new StringMap<StringMap<String>>();
+        for (EntryCust<String,EnumMap<SelectedBoolean, String>> e:data_.getTranslatedBooleans().entryList()) {
+            StringMap<String> tr_ = new StringMap<String>();
+            for (EntryCust<SelectedBoolean, String> f:e.getValue().entryList()) {
+                tr_.addEntry(f.getKey().name(),f.getValue());
+            }
+            translatedBooleans_.addEntry(e.getKey(),tr_);
+        }
+        translatedBooleans = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedBooleans_, curLg_, languages));
+        StringMap<StringMap<String>> translatedGenders_ = new StringMap<StringMap<String>>();
+        for (EntryCust<String,EnumMap<Gender, String>> e:data_.getTranslatedGenders().entryList()) {
+            StringMap<String> tr_ = new StringMap<String>();
+            for (EntryCust<Gender, String> f:e.getValue().entryList()) {
+                tr_.addEntry(f.getKey().name(),f.getValue());
+            }
+            translatedGenders_.addEntry(e.getKey(),tr_);
+        }
+        translatedGenders = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedGenders_, curLg_, languages));
+        StringMap<StringMap<String>> translatedStatistics_ = new StringMap<StringMap<String>>();
+        for (EntryCust<String,EnumMap<Statistic, String>> e:data_.getTranslatedStatistics().entryList()) {
+            StringMap<String> tr_ = new StringMap<String>();
+            for (EntryCust<Statistic, String> f:e.getValue().entryList()) {
+                tr_.addEntry(f.getKey().name(),f.getValue());
+            }
+            translatedStatistics_.addEntry(e.getKey(),tr_);
+        }
+        translatedStatistics = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedStatistics_, curLg_, languages));
+        StringMap<StringMap<String>> translatedTargets_ = new StringMap<StringMap<String>>();
+        for (EntryCust<String,EnumMap<TargetChoice, String>> e:data_.getTranslatedTargets().entryList()) {
+            StringMap<String> tr_ = new StringMap<String>();
+            for (EntryCust<TargetChoice, String> f:e.getValue().entryList()) {
+                tr_.addEntry(f.getKey().name(),f.getValue());
+            }
+            translatedTargets_.addEntry(e.getKey(),tr_);
+        }
+        translatedTargets = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedTargets_, curLg_, languages));
         translatedTypes = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedTypes(), curLg_, languages));
         translatedPokemon = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedPokemon(), curLg_, languages));
         translatedMoves = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedMoves(), curLg_, languages));
@@ -71,19 +106,19 @@ public class LangsBean extends CommonBean {
                 translatedCategories.put(new LanguageElementStringKey(l,c), data_.getTranslatedCategories().getVal(l).getVal(c));
             }
             for (EnvironmentType e: EnvironmentType.values()) {
-                translatedEnvironment.put(new LanguageElementKey(l,e), data_.getTranslatedEnvironment().getVal(l).getVal(e));
+                translatedEnvironment.put(new LanguageElementStringKey(l,e.name()), data_.getTranslatedEnvironment().getVal(l).getVal(e));
             }
             for (SelectedBoolean e: SelectedBoolean.values()) {
-                translatedBooleans.put(new LanguageElementKey(l,e), data_.getTranslatedBooleans().getVal(l).getVal(e));
+                translatedBooleans.put(new LanguageElementStringKey(l,e.name()), data_.getTranslatedBooleans().getVal(l).getVal(e));
             }
             for (Gender e: Gender.values()) {
-                translatedGenders.put(new LanguageElementKey(l,e), data_.getTranslatedGenders().getVal(l).getVal(e));
+                translatedGenders.put(new LanguageElementStringKey(l,e.name()), data_.getTranslatedGenders().getVal(l).getVal(e));
             }
             for (Statistic e: Statistic.values()) {
-                translatedStatistics.put(new LanguageElementKey(l,e), data_.getTranslatedStatistics().getVal(l).getVal(e));
+                translatedStatistics.put(new LanguageElementStringKey(l,e.name()), data_.getTranslatedStatistics().getVal(l).getVal(e));
             }
             for (TargetChoice e: TargetChoice.values()) {
-                translatedTargets.put(new LanguageElementKey(l,e), data_.getTranslatedTargets().getVal(l).getVal(e));
+                translatedTargets.put(new LanguageElementStringKey(l,e.name()), data_.getTranslatedTargets().getVal(l).getVal(e));
             }
             for (String e: data_.getTypes()) {
                 translatedTypes.put(new LanguageElementStringKey(l,e), data_.getTranslatedTypes().getVal(l).getVal(e));
@@ -124,40 +159,40 @@ public class LangsBean extends CommonBean {
 //        return getRowByKey(translatedCategories, getKeys(translatedCategories).get(_index.intValue()));
         return getRowByStringKey(languages, translatedCategories, _index.intValue());
     }
-    public EnumList<EnvironmentType> getKeysEnvironments() {
-        return getEnvKeys(translatedEnvironment);
+    public StringList getKeysEnvironments() {
+        return getStringKeys(translatedEnvironment);
     }
     public StringList getRowEnvironment(Long _index) {
 //        return getRowByKey(translatedEnvironment, getKeys(translatedEnvironment).get(_index.intValue()));
-        return getEnvRowByKey(languages, translatedEnvironment, _index.intValue());
+        return getRowByStringKey(languages, translatedEnvironment, _index.intValue());
     }
-    public EnumList<SelectedBoolean> getKeysBooleans() {
-        return getSelectedBooleanKeys(translatedBooleans);
+    public StringList getKeysBooleans() {
+        return getStringKeys(translatedBooleans);
     }
     public StringList getRowBoolean(Long _index) {
 //        return getRowByKey(translatedBooleans, getKeys(translatedBooleans).get(_index.intValue()));
-        return getSelectedBooleanRowByKey(languages, translatedBooleans, _index.intValue());
+        return getRowByStringKey(languages, translatedBooleans, _index.intValue());
     }
-    public EnumList<Gender> getKeysGenders() {
-        return getGenderKeys(translatedGenders);
+    public StringList getKeysGenders() {
+        return getStringKeys(translatedGenders);
     }
     public StringList getRowGender(Long _index) {
 //        return getRowByKey(translatedGenders, getKeys(translatedGenders).get(_index.intValue()));
-        return getGenderRowByKey(languages, translatedGenders, _index.intValue());
+        return getRowByStringKey(languages, translatedGenders, _index.intValue());
     }
-    public EnumList<Statistic> getKeysStatistics() {
-        return getStatisticKeys(translatedStatistics);
+    public StringList getKeysStatistics() {
+        return getStringKeys(translatedStatistics);
     }
     public StringList getRowStatistic(Long _index) {
 //        return getRowByKey(translatedStatistics, getKeys(translatedStatistics).get(_index.intValue()));
-        return getStatisticRowByKey(languages, translatedStatistics, _index.intValue());
+        return getRowByStringKey(languages, translatedStatistics, _index.intValue());
     }
-    public EnumList<TargetChoice> getKeysTargets() {
-        return getTargetKeys(translatedTargets);
+    public StringList getKeysTargets() {
+        return getStringKeys(translatedTargets);
     }
     public StringList getRowTarget(Long _index) {
 //        return getRowByKey(translatedTargets, getKeys(translatedTargets).get(_index.intValue()));
-        return getTargetRowByKey(languages, translatedTargets, _index.intValue());
+        return getRowByStringKey(languages, translatedTargets, _index.intValue());
     }
     public StringList getKeysTypes() {
         return getStringKeys(translatedTypes);
@@ -229,124 +264,12 @@ public class LangsBean extends CommonBean {
 //        }
 //        return null;
 //    }
-    private static EnumList<Statistic> getStatisticKeys(TreeMap<LanguageElementKey,String> _treeMap) {
-        EnumList<Statistic> list_ = new EnumList<Statistic>();
-        for (LanguageElementKey k: _treeMap.getKeys()) {
-            list_.add((Statistic) k.getKey());
-        }
-        list_.removeDuplicates();
-        return list_;
-    }
-    private static EnumList<SelectedBoolean> getSelectedBooleanKeys(TreeMap<LanguageElementKey,String> _treeMap) {
-        EnumList<SelectedBoolean> list_ = new EnumList<SelectedBoolean>();
-        for (LanguageElementKey k: _treeMap.getKeys()) {
-            list_.add((SelectedBoolean) k.getKey());
-        }
-        list_.removeDuplicates();
-        return list_;
-    }
-    private static EnumList<EnvironmentType> getEnvKeys(TreeMap<LanguageElementKey,String> _treeMap) {
-        EnumList<EnvironmentType> list_ = new EnumList<EnvironmentType>();
-        for (LanguageElementKey k: _treeMap.getKeys()) {
-            list_.add((EnvironmentType) k.getKey());
-        }
-        list_.removeDuplicates();
-        return list_;
-    }
-    private static EnumList<Gender> getGenderKeys(TreeMap<LanguageElementKey,String> _treeMap) {
-        EnumList<Gender> list_ = new EnumList<Gender>();
-        for (LanguageElementKey k: _treeMap.getKeys()) {
-            list_.add((Gender) k.getKey());
-        }
-        list_.removeDuplicates();
-        return list_;
-    }
-    private static EnumList<TargetChoice> getTargetKeys(TreeMap<LanguageElementKey,String> _treeMap) {
-        EnumList<TargetChoice> list_ = new EnumList<TargetChoice>();
-        for (LanguageElementKey k: _treeMap.getKeys()) {
-            list_.add((TargetChoice) k.getKey());
-        }
-        list_.removeDuplicates();
-        return list_;
-    }
-
     private static StringList getStringKeys(TreeMap<LanguageElementStringKey,String> _treeMap) {
         StringList list_ = new StringList();
         for (LanguageElementStringKey k: _treeMap.getKeys()) {
             list_.add(k.getKey());
         }
         list_.removeDuplicates();
-        return list_;
-    }
-    private static StringList getTargetRowByKey(
-            StringList _languages,
-            TreeMap<LanguageElementKey,String> _treeMap,int _index) {
-        StringList list_ = new StringList();
-        int nbLangs_ = _languages.size();
-        int begin_ = _index * nbLangs_;
-        int end_ = begin_ + nbLangs_;
-        CustList<String> entries_;
-        entries_ = _treeMap.values();
-        for (int i = begin_; i < end_; i++) {
-            list_.add(entries_.get(i));
-        }
-        return list_;
-    }
-    private static StringList getEnvRowByKey(
-            StringList _languages,
-            TreeMap<LanguageElementKey,String> _treeMap,int _index) {
-        StringList list_ = new StringList();
-        int nbLangs_ = _languages.size();
-        int begin_ = _index * nbLangs_;
-        int end_ = begin_ + nbLangs_;
-        CustList<String> entries_;
-        entries_ = _treeMap.values();
-        for (int i = begin_; i < end_; i++) {
-            list_.add(entries_.get(i));
-        }
-        return list_;
-    }
-    private static StringList getGenderRowByKey(
-            StringList _languages,
-            TreeMap<LanguageElementKey,String> _treeMap,int _index) {
-        StringList list_ = new StringList();
-        int nbLangs_ = _languages.size();
-        int begin_ = _index * nbLangs_;
-        int end_ = begin_ + nbLangs_;
-        CustList<String> entries_;
-        entries_ = _treeMap.values();
-        for (int i = begin_; i < end_; i++) {
-            list_.add(entries_.get(i));
-        }
-        return list_;
-    }
-    private static StringList getSelectedBooleanRowByKey(
-            StringList _languages,
-            TreeMap<LanguageElementKey,String> _treeMap,int _index) {
-        StringList list_ = new StringList();
-        int nbLangs_ = _languages.size();
-        int begin_ = _index * nbLangs_;
-        int end_ = begin_ + nbLangs_;
-        CustList<String> entries_;
-        entries_ = _treeMap.values();
-        for (int i = begin_; i < end_; i++) {
-            list_.add(entries_.get(i));
-        }
-        return list_;
-    }
-
-    private static StringList getStatisticRowByKey(
-            StringList _languages,
-            TreeMap<LanguageElementKey,String> _treeMap,int _index) {
-        StringList list_ = new StringList();
-        int nbLangs_ = _languages.size();
-        int begin_ = _index * nbLangs_;
-        int end_ = begin_ + nbLangs_;
-        CustList<String> entries_;
-        entries_ = _treeMap.values();
-        for (int i = begin_; i < end_; i++) {
-            list_.add(entries_.get(i));
-        }
         return list_;
     }
 

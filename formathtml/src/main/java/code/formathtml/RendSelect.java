@@ -124,7 +124,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                     _cont.addError(badEl_);
                 }
             }
-        } else if (_cont.getAdvStandards().checkOpers(opsRead)){
+        } else if (!opsRead.isEmpty()){
             Mapping m_ = new Mapping();
             m_.setArg(opsRead.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());

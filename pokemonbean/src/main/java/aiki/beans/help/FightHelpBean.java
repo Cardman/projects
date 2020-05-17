@@ -1,5 +1,6 @@
 package aiki.beans.help;
 import aiki.beans.CommonBean;
+import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.ComparatorDifficultyModelLaw;
 import aiki.beans.facade.comparators.ComparatorDifficultyWinPointsFight;
 import aiki.beans.facade.comparators.ComparatorStringList;
@@ -216,9 +217,9 @@ public class FightHelpBean extends CommonBean {
     private NatStringTreeMap<String> varFleeingFormula;
     private int happinessPoints;
     private Rate strongMove;
-    private TreeMap<DifficultyWinPointsFight, String> rates;
+    private TreeMap<String, String> rates;
     private NatStringTreeMap< String> varRates;
-    private TreeMap<DifficultyModelLaw,NatCmpTreeMap<Rate,Rate>> lawsRates;
+    private TreeMap<String,NatCmpTreeMap<Rate,Rate>> lawsRates;
     private EnumList<Statistic> statisticAnim;
 
     @Override
@@ -2028,22 +2029,22 @@ public class FightHelpBean extends CommonBean {
         fleeingFormula = data_.getFormula(data_.getFleeingFormula(), getLanguage());
         varFleeingFormula = new NatStringTreeMap<String>();
         varFleeingFormula.putAllMap(data_.getDescriptions(data_.getFleeingFormula(), getLanguage()));
-        rates = new TreeMap<DifficultyWinPointsFight, String>(new ComparatorDifficultyWinPointsFight());
+        rates = new TreeMap<String, String>(new ComparatorDifficultyWinPointsFight());
         for (DifficultyWinPointsFight d: data_.getRates().getKeys()) {
-            rates.put(d, data_.getFormula(data_.getRates().getVal(d), getLanguage()));
+            rates.put(d.name(), data_.getFormula(data_.getRates().getVal(d), getLanguage()));
         }
         varRates = new NatStringTreeMap<String>();
         for (DifficultyWinPointsFight d: data_.getRates().getKeys()) {
             varRates.putAllMap(data_.getDescriptions(data_.getRates().getVal(d), getLanguage()));
         }
-        lawsRates = new TreeMap<DifficultyModelLaw, NatCmpTreeMap<Rate, Rate>>(new ComparatorDifficultyModelLaw());
+        lawsRates = new TreeMap<String, NatCmpTreeMap<Rate, Rate>>(new ComparatorDifficultyModelLaw());
         for (DifficultyModelLaw d: data_.getLawsDamageRate().getKeys()) {
             NatCmpTreeMap<Rate,Rate> tree_ = new NatCmpTreeMap<Rate, Rate>();
             MonteCarloNumber law_ = data_.getLawsDamageRate().getVal(d).getLaw();
             for (Rate e: law_.events()) {
                 tree_.put(e, law_.normalizedRate(e));
             }
-            lawsRates.put(d, tree_);
+            lawsRates.put(d.name(), tree_);
         }
         statisticAnim = Statistic.getStatisticsWithBoost();
     }
@@ -2063,12 +2064,12 @@ public class FightHelpBean extends CommonBean {
         return BaseSixtyFourUtil.getStringByImage(data_.getAnimAbsorb());
     }
     public String getTrLawRate(Long _index) {
-        DifficultyModelLaw d_ = lawsRates.getKey(_index.intValue());
+        DifficultyModelLaw d_ = PokemonStandards.getModelByName(lawsRates.getKey(_index.intValue()));
         DataBase data_ = (DataBase) getDataBase();
         return data_.getTranslatedDiffModelLaw().getVal(getLanguage()).getVal(d_);
     }
     public String getTrDifficulty(Long _index) {
-        DifficultyWinPointsFight diff_ = rates.getKey(_index.intValue());
+        DifficultyWinPointsFight diff_ = PokemonStandards.getDiffWonPtsByName(rates.getKey(_index.intValue()));
         DataBase data_ = (DataBase) getDataBase();
 //        return XmlParser.transformSpecialChars(data_.getTranslatedDiffWinPts().getVal(getLanguage()).getVal(diff_));
         return data_.getTranslatedDiffWinPts().getVal(getLanguage()).getVal(diff_);
@@ -4802,7 +4803,7 @@ public class FightHelpBean extends CommonBean {
         return itemsFighterStatus;
     }
 
-    public TreeMap<DifficultyModelLaw,NatCmpTreeMap<Rate,Rate>> getLawsRates() {
+    public TreeMap<String,NatCmpTreeMap<Rate,Rate>> getLawsRates() {
         return lawsRates;
     }
 
@@ -4890,7 +4891,7 @@ public class FightHelpBean extends CommonBean {
         return movesChangingAttOrder;
     }
 
-    public TreeMap<DifficultyWinPointsFight,String> getRates() {
+    public TreeMap<String,String> getRates() {
         return rates;
     }
 

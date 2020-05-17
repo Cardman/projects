@@ -78,7 +78,7 @@
 		</c:if>
 		<c:if condition="!dirs.isEmpty()">
 			<ul>
-				<c:for key="d" keyClassName="aiki.map.enums.Direction" varClassName="java.lang.Object"  map="dirs" value="e">
+				<c:for key="d" keyClassName="java.lang.Object" varClassName="java.lang.Object"  map="dirs" value="e">
 					<c:if condition="isUp(([d]))">
 						<li><a c:command="$clickDirectedLink({([d])})"><c:message value="msg_levelmap,UP"/></a></li>
 					</c:if>

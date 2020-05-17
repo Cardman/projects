@@ -6,7 +6,7 @@
 	<body>
 		<form c:command="$change" name="changingDiff">
 			<c:message value="msg_difficulty,win_pts"/>
-			<c:select className="aiki.game.params.enums.DifficultyWinPointsFight" default="" map="winPointsFight" name="diffWinningExpPtsFight" update="" varValue="diffWinningExpPtsFight"/><br/>
+			<c:select default="" map="winPointsFight" name="diffWinningExpPtsFight" update="" varValue="diffWinningExpPtsFight"/><br/>
 			<c:message value="msg_difficulty,allow_catching_ko"/>
 			<input c:varValue="allowCatchingKo" name="allowCatchingKo" type="checkbox"/><br/>
 			<c:message value="msg_difficulty,allow_switch_places"/>
@@ -36,7 +36,7 @@
 			<c:message value="msg_difficulty,skip_learn"/>
 			<input c:varValue="skipLearningMovesWhileNotGrowingLevel" name="skipLearningMovesWhileNotGrowingLevel" type="checkbox"/><br/>
 			<c:message value="msg_difficulty,law_choice_player"/>
-			<c:select className="aiki.game.params.enums.DifficultyModelLaw" default="" map="damageRates" name="damageRatePlayer" update="" varValue="damageRatePlayer"/><br/>
+			<c:select default="" map="damageRates" name="damageRatePlayer" update="" varValue="damageRatePlayer"/><br/>
 			<table>
 				<thead>
 					<tr>
@@ -54,7 +54,7 @@
 				</tbody>
 			</table>
 			<c:message value="msg_difficulty,law_choice_foe"/>
-			<c:select className="aiki.game.params.enums.DifficultyModelLaw" default="" map="damageRates" name="damageRateLawFoe" update="" varValue="damageRateLawFoe"/><br/>
+			<c:select default="" map="damageRates" name="damageRateLawFoe" update="" varValue="damageRateLawFoe"/><br/>
 			<table>
 				<thead>
 					<tr>

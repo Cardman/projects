@@ -1,12 +1,12 @@
 package aiki.beans.facade.comparators;
 
-import aiki.game.params.enums.DifficultyModelLaw;
+import aiki.beans.PokemonStandards;
 import code.util.Numbers;
 import code.util.ints.Comparing;
 
-public final class ComparatorDifficultyModelLaw implements Comparing<DifficultyModelLaw> {
+public final class ComparatorDifficultyModelLaw implements Comparing<String> {
     @Override
-    public int compare(DifficultyModelLaw _one, DifficultyModelLaw _two) {
-        return Numbers.compareLg(_one.ordinal(),_two.ordinal());
+    public int compare(String _one, String _two) {
+        return Numbers.compareLg(PokemonStandards.getModelByName(_one).ordinal(),PokemonStandards.getModelByName(_two).ordinal());
     }
 }

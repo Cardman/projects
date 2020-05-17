@@ -61,7 +61,7 @@ public class MapLevelBean extends CommonBean {
     private boolean proponeLink;
     private boolean proponeTile;
     private boolean seeArea;
-    private TreeMap<Direction, Boolean> dirs;
+    private TreeMap<String, Boolean> dirs;
     private String placeName;
     private int levelIndex;
     private boolean outside;
@@ -129,7 +129,7 @@ public class MapLevelBean extends CommonBean {
         proponeLink = (Boolean)getForms().getVal(PROPONE_LINK);
         proponeTile = (Boolean)getForms().getVal(PROPONE_TILE);
         seeArea = (Boolean)getForms().getVal(SEE_AREA);
-        dirs = new TreeMap<Direction, Boolean>(new ComparatorDirection());
+        dirs = new TreeMap<String, Boolean>(new ComparatorDirection());
         for (String s: getForms().getKeys()) {
             if (!s.startsWith(PROPONE_LINK_VAR)) {
                 continue;
@@ -139,8 +139,7 @@ public class MapLevelBean extends CommonBean {
                 continue;
             }
             String dirStr_ = s.substring(PROPONE_LINK_VAR.length());
-            Direction dir_ = Direction.getDirectionByName(dirStr_);
-            dirs.put(dir_, true);
+            dirs.put(dirStr_, true);
         }
     }
     public int getMapWidth() {
@@ -382,7 +381,7 @@ public class MapLevelBean extends CommonBean {
     }
     public String clickDirectedLink(Long _index) {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
-        Direction dir_ = dirs.getKey(_index.intValue());
+        Direction dir_ = Direction.getDirectionByName(dirs.getKey(_index.intValue()));
         Short pl_ = (Short) getForms().getVal(PLACE_MAP_INDEX);
         Byte lev_ = (Byte) getForms().getVal(LEVEL_MAP_INDEX);
         DataBase data_ = (DataBase) getDataBase();
@@ -415,19 +414,19 @@ public class MapLevelBean extends CommonBean {
     }
 
     public boolean isUp(Long _index) {
-        return dirs.getKey(_index.intValue()) == Direction.UP;
+        return Direction.getDirectionByName(dirs.getKey(_index.intValue())) == Direction.UP;
     }
 
     public boolean isDown(Long _index) {
-        return dirs.getKey(_index.intValue()) == Direction.DOWN;
+        return Direction.getDirectionByName(dirs.getKey(_index.intValue())) == Direction.DOWN;
     }
 
     public boolean isLeft(Long _index) {
-        return dirs.getKey(_index.intValue()) == Direction.LEFT;
+        return Direction.getDirectionByName(dirs.getKey(_index.intValue())) == Direction.LEFT;
     }
 
     public boolean isRight(Long _index) {
-        return dirs.getKey(_index.intValue()) == Direction.RIGHT;
+        return Direction.getDirectionByName(dirs.getKey(_index.intValue())) == Direction.RIGHT;
     }
     public String clickLink() {
         Point pt_ = (Point) getForms().getVal(CURRENT_TILE);
@@ -792,7 +791,7 @@ public class MapLevelBean extends CommonBean {
         return seeArea;
     }
 
-    public TreeMap<Direction,Boolean> getDirs() {
+    public TreeMap<String,Boolean> getDirs() {
         return dirs;
     }
 }

@@ -1,26 +1,22 @@
 package aiki.beans.simulation;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
+import aiki.beans.facade.comparators.ComparatorTrString;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.TeamCrud;
-import aiki.beans.facade.comparators.ComparatorTrStringGender;
 import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.map.pokemon.enums.Gender;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 
 public class EditTrainerPokemonBean extends CommonBean {
     private boolean add;
     private String namePk = DataBase.EMPTY_STRING;
     private String ability = DataBase.EMPTY_STRING;
-    private Gender gender = Gender.NO_GENDER;
+    private String gender = Gender.NO_GENDER.name();
     private short level;
-    private TreeMap<Gender,String> genders;
+    private TreeMap<String,String> genders;
     private String item = DataBase.EMPTY_STRING;
     private CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
     private boolean allyPk;
@@ -32,7 +28,7 @@ public class EditTrainerPokemonBean extends CommonBean {
         namePk = (String) getForms().getVal(POKEMON_NAME_EDIT);
         item = (String) getForms().getVal(ITEM_EDIT);
         ability = (String) getForms().getVal(POKEMON_ABILITY_EDIT);
-        gender = (Gender) getForms().getVal(POKEMON_GENDER_EDIT);
+        gender = ((Gender) getForms().getVal(POKEMON_GENDER_EDIT)).name();
         level = (Short) getForms().getVal(POKEMON_LEVEL_EDIT);
 
         moves.clear();
@@ -74,8 +70,13 @@ public class EditTrainerPokemonBean extends CommonBean {
 //        abilities = new TreeMap<new>(new ComparatorTrString<>(translatedAbilities_));
         EnumMap<Gender,String> translatedGenders_;
         translatedGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
-        genders = new TreeMap<Gender, String>(new ComparatorTrStringGender(translatedGenders_));
-        genders.putAllMap(translatedGenders_);
+        StringMap<String> translated_;
+        translated_ = new StringMap<String>();
+        for (EntryCust<Gender,String> s: translatedGenders_.entryList()) {
+            translated_.addEntry(s.getKey().name(),s.getValue());
+        }
+        genders = new TreeMap<String, String>(new ComparatorTrString(translated_));
+        genders.putAllMap(translated_);
     }
     public String cancel() {
         getForms().put(ADDING_TRAINER_PK, TeamCrud.NOTHING);
@@ -166,15 +167,15 @@ public class EditTrainerPokemonBean extends CommonBean {
         return moves;
     }
 
-    public TreeMap<Gender,String> getGenders() {
+    public TreeMap<String,String> getGenders() {
         return genders;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender _gender) {
+    public void setGender(String _gender) {
         gender = _gender;
     }
 

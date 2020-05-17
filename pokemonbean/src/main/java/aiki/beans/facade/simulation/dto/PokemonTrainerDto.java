@@ -1,12 +1,12 @@
 package aiki.beans.facade.simulation.dto;
+import aiki.beans.PokemonStandards;
 import aiki.map.pokemon.PkTrainer;
-import aiki.map.pokemon.enums.Gender;
 import code.util.StringList;
 
 public final class PokemonTrainerDto {
     private String name;
     private short level;
-    private Gender gender;
+    private String gender;
     private String ability;
     private String item;
     private StringList moves = new StringList();
@@ -19,7 +19,7 @@ public final class PokemonTrainerDto {
         pk_.setLevel(_pk.getLevel());
         pk_.setAbility(_pk.getAbility());
         pk_.setItem(_pk.getItem());
-        pk_.setGender(_pk.getGender());
+        pk_.setGender(_pk.getGender().name());
         pk_.setMoves(new StringList(_pk.getMoves()));
         return pk_;
     }
@@ -31,7 +31,7 @@ public final class PokemonTrainerDto {
         pk_.setLevel(level);
         pk_.setAbility(ability);
         pk_.setItem(item);
-        pk_.setGender(gender);
+        pk_.setGender(PokemonStandards.getGenderByName(gender));
         pk_.setMoves(new StringList(moves));
         return pk_;
     }
@@ -52,11 +52,11 @@ public final class PokemonTrainerDto {
         level = _level;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender _gender) {
+    public void setGender(String _gender) {
         gender = _gender;
     }
 

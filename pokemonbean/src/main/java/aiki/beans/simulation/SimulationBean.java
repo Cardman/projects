@@ -1,5 +1,6 @@
 package aiki.beans.simulation;
 import aiki.beans.CommonBean;
+import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.*;
 import aiki.beans.facade.dto.KeptMovesAfterFight;
 import aiki.beans.facade.map.dto.PlaceIndex;
@@ -9,9 +10,9 @@ import aiki.beans.facade.simulation.dto.RadioLineMove;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.beans.facade.simulation.enums.TeamCrud;
-import aiki.beans.facade.comparators.ComparatorTrStringEnv;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
+import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
@@ -58,14 +59,14 @@ import code.util.TreeMap;
 public class SimulationBean extends CommonBean {
     private boolean allowCatchingKo;
     private boolean allowedSwitchPlacesEndRound;
-    private DifficultyWinPointsFight diffWinningExpPtsFight;
-    private TreeMap<DifficultyWinPointsFight, String> winPointsFight;
+    private String diffWinningExpPtsFight;
+    private TreeMap<String, String> winPointsFight;
     private Rate rateWinningExpPtsFight;
     private Rate winTrainerExp;
-    private TreeMap<DifficultyModelLaw, String> damageRates;
-    private DifficultyModelLaw damageRatePlayer;
+    private TreeMap<String, String> damageRates;
+    private String damageRatePlayer;
     private NatCmpTreeMap<Rate,Rate> damageRatePlayerTable;
-    private DifficultyModelLaw damageRateLawFoe;
+    private String damageRateLawFoe;
     private NatCmpTreeMap<Rate,Rate> damageRateFoeTable;
     private boolean endFightIfOneTeamKo;
     private Rate rateWinMoneyBase;
@@ -88,15 +89,15 @@ public class SimulationBean extends CommonBean {
     private int multiplicity = 1;
 
     private int nbMaxActions;
-    private EnvironmentType environment = EnvironmentType.ROAD;
-    private TreeMap<EnvironmentType, String> environments;
+    private String environment = EnvironmentType.ROAD.name();
+    private TreeMap<String, String> environments;
 
     private boolean enableEvolutions = true;
     private CustList<PokemonPlayerDto> team = new CustList<PokemonPlayerDto>();
     private int selectedPk = CustList.INDEX_NOT_FOUND_ELT;
-    private TeamCrud selectedFoeAction = TeamCrud.NOTHING;
-    private TeamCrud selectedAllyAction = TeamCrud.NOTHING;
-    private TeamCrud selectedAction = TeamCrud.NOTHING;
+    private String selectedFoeAction = TeamCrud.NOTHING.name();
+    private String selectedAllyAction = TeamCrud.NOTHING.name();
+    private String selectedAction = TeamCrud.NOTHING.name();
 
     private StringMap<Short> availableEvosLevel = new StringMap<Short>();
     private TreeMap<String, String> availableEvos;
@@ -140,19 +141,20 @@ public class SimulationBean extends CommonBean {
         SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
         DataBase data_ = (DataBase) getDataBase();
         if (simu_ == SimulationSteps.DIFF) {
-            damageRates = new TreeMap<DifficultyModelLaw, String>(new ComparatorDifficultyModelLaw());
-            winPointsFight = new TreeMap<DifficultyWinPointsFight, String>(new ComparatorDifficultyWinPointsFight());
+
+            damageRates = new TreeMap<String, String>(new ComparatorDifficultyModelLaw());
+            winPointsFight = new TreeMap<String, String>(new ComparatorDifficultyWinPointsFight());
             EnumMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
             for (DifficultyWinPointsFight k: trWinPts_.getKeys()) {
 //                winPointsFight.put(k, XmlParser.transformSpecialChars(trWinPts_.getVal(k)));
-                winPointsFight.put(k, trWinPts_.getVal(k));
+                winPointsFight.put(k.name(), trWinPts_.getVal(k));
             }
             EnumMap<DifficultyModelLaw, String> trWinLaw_ = data_.getTranslatedDiffModelLaw().getVal(getLanguage());
             for (DifficultyModelLaw k: trWinLaw_.getKeys()) {
 //                damageRates.put(k, XmlParser.transformSpecialChars(trWinLaw_.getVal(k)));
-                damageRates.put(k, trWinLaw_.getVal(k));
+                damageRates.put(k.name(), trWinLaw_.getVal(k));
             }
-            diffWinningExpPtsFight = difficulty.getDiffWinningExpPtsFight();
+            diffWinningExpPtsFight = difficulty.getDiffWinningExpPtsFight().name();
             allowCatchingKo = difficulty.getAllowCatchingKo();
             allowedSwitchPlacesEndRound = difficulty.getAllowedSwitchPlacesEndRound();
             winTrainerExp = difficulty.getWinTrainerExp();
@@ -167,16 +169,16 @@ public class SimulationBean extends CommonBean {
             enabledClosing = difficulty.getEnabledClosing();
             randomWildFight = difficulty.getRandomWildFight();
             skipLearningMovesWhileNotGrowingLevel = difficulty.isSkipLearningMovesWhileNotGrowingLevel();
-            damageRatePlayer = difficulty.getDamageRatePlayer();
-            damageRateLawFoe = difficulty.getDamageRateLawFoe();
+            damageRatePlayer = difficulty.getDamageRatePlayer().name();
+            damageRateLawFoe = difficulty.getDamageRateLawFoe().name();
             damageRatePlayerTable = new NatCmpTreeMap<Rate, Rate>();
             MonteCarloNumber law_;
-            law_ = data_.getLawsDamageRate().getVal(damageRatePlayer).getLaw();
+            law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRatePlayer)).getLaw();
             for (Rate e: law_.events()) {
                 damageRatePlayerTable.put(e, law_.normalizedRate(e));
             }
             damageRateFoeTable = new NatCmpTreeMap<Rate, Rate>();
-            law_ = data_.getLawsDamageRate().getVal(damageRateLawFoe).getLaw();
+            law_ = data_.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRateLawFoe)).getLaw();
             for (Rate e: law_.events()) {
                 damageRateFoeTable.put(e, law_.normalizedRate(e));
             }
@@ -201,7 +203,7 @@ public class SimulationBean extends CommonBean {
                     pk_.getMoves().addAllElts((StringList) getForms().getVal(POKEMON_MOVES_EDIT));
                     pk_.setAbility((String) getForms().getVal(POKEMON_ABILITY_EDIT));
                     pk_.setName((String) getForms().getVal(POKEMON_NAME_EDIT));
-                    pk_.setGender((Gender) getForms().getVal(POKEMON_GENDER_EDIT));
+                    pk_.setGender(((Gender) getForms().getVal(POKEMON_GENDER_EDIT)).name());
                     pk_.setItem((String) getForms().getVal(ITEM_EDIT));
                     pk_.setLevel((Short) getForms().getVal(POKEMON_LEVEL_EDIT));
                     if (foe_) {
@@ -223,7 +225,7 @@ public class SimulationBean extends CommonBean {
                     pk_.getMoves().addAllElts((StringList) getForms().getVal(POKEMON_MOVES_EDIT));
                     pk_.setAbility((String) getForms().getVal(POKEMON_ABILITY_EDIT));
                     pk_.setName((String) getForms().getVal(POKEMON_NAME_EDIT));
-                    pk_.setGender((Gender) getForms().getVal(POKEMON_GENDER_EDIT));
+                    pk_.setGender(((Gender) getForms().getVal(POKEMON_GENDER_EDIT)).name());
                     pk_.setItem((String) getForms().getVal(ITEM_EDIT));
                     pk_.setLevel((Short) getForms().getVal(POKEMON_LEVEL_EDIT));
                 }
@@ -570,7 +572,7 @@ public class SimulationBean extends CommonBean {
     public void validateDiffChoice() {
         ok = true;
         DataBase data_ = (DataBase) getDataBase();
-        difficulty.setDiffWinningExpPtsFight(diffWinningExpPtsFight);
+        difficulty.setDiffWinningExpPtsFight(PokemonStandards.getDiffWonPtsByName(diffWinningExpPtsFight));
         difficulty.setAllowCatchingKo(allowCatchingKo);
         difficulty.setAllowedSwitchPlacesEndRound(allowedSwitchPlacesEndRound);
         difficulty.setWinTrainerExp(winTrainerExp);
@@ -585,24 +587,26 @@ public class SimulationBean extends CommonBean {
         difficulty.setRandomWildFight(randomWildFight);
         difficulty.setStillPossibleFlee(stillPossibleFlee);
         difficulty.setSkipLearningMovesWhileNotGrowingLevel(skipLearningMovesWhileNotGrowingLevel);
-        difficulty.setDamageRateLawFoe(damageRateLawFoe);
-        difficulty.setDamageRatePlayer(damageRatePlayer);
+        difficulty.setDamageRateLawFoe(PokemonStandards.getModelByName(damageRateLawFoe));
+        difficulty.setDamageRatePlayer(PokemonStandards.getModelByName(damageRatePlayer));
         difficulty.validate(data_);
         simulation = new FightSimulation(difficulty, data_);
         getForms().put(SIMULATION_STATE, SimulationSteps.FOE);
         stepNumber++;
+        StringMap<String> translated_ = new StringMap<String>();
+        EnumMap<EnvironmentType, String> tr_;
+        tr_ = data_.getTranslatedEnvironment().getVal(getLanguage());
+        for (EntryCust<EnvironmentType,String> s: tr_.entryList()) {
+            translated_.addEntry(s.getKey().name(),s.getValue());
+        }
         if (freeTeams) {
             getForms().put(ADDING_TRAINER_PK, TeamCrud.NOTHING);
-            EnumMap<EnvironmentType, String> tr_;
-            tr_ = data_.getTranslatedEnvironment().getVal(getLanguage());
-            environments = new TreeMap<EnvironmentType, String>(new ComparatorTrStringEnv(tr_));
-            environments.putAllMap(tr_);
+            environments = new TreeMap<String, String>(new ComparatorTrString(translated_));
+            environments.putAllMap(translated_);
             selectedFoePk = CustList.INDEX_NOT_FOUND_ELT;
             selectedAllyPk = CustList.INDEX_NOT_FOUND_ELT;
         } else {
-            EnumMap<EnvironmentType, String> tr_;
-            tr_ = data_.getTranslatedEnvironment().getVal(getLanguage());
-            environments = new TreeMap<EnvironmentType, String>(new ComparatorTrStringEnv(tr_));
+            environments = new TreeMap<String, String>(new ComparatorTrString(translated_));
         }
     }
     public void cancelDiffChoice() {
@@ -630,7 +634,7 @@ public class SimulationBean extends CommonBean {
             foeTeam.add(PokemonTrainerDto.fromPokemonTrainer(p));
         }
         selectedPk = CustList.INDEX_NOT_FOUND_ELT;
-        selectedAction = TeamCrud.NOTHING;
+        selectedAction = TeamCrud.NOTHING.name();
         getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber++;
     }
@@ -656,7 +660,7 @@ public class SimulationBean extends CommonBean {
     public String getGenderFoe(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonTrainerDto pk_ = foeTeam.get(_index.intValue());
-        return data_.translateGenders(pk_.getGender());
+        return data_.translateGenders(PokemonStandards.getGenderByName(pk_.getGender()));
     }
     public StringList getMovesFoe(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -677,13 +681,13 @@ public class SimulationBean extends CommonBean {
         return data_.translateItem(pk_.getItem());
     }
     public String selectFoePk() {
-        if (selectedFoeAction == TeamCrud.NOTHING) {
+        if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.NOTHING) {
             return DataBase.EMPTY_STRING;
         }
         if (selectedFoePk == CustList.INDEX_NOT_FOUND_ELT) {
             return DataBase.EMPTY_STRING;
         }
-        if (selectedFoeAction == TeamCrud.EDIT) {
+        if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.EDIT) {
             getForms().put(POKEMON_FOE, true);
             getForms().put(ITEMS_SET_EDIT, new StringList());
             getForms().put(POKEMON_INDEX_EDIT, selectedFoePk);
@@ -696,7 +700,7 @@ public class SimulationBean extends CommonBean {
             getForms().put(ADDING_TRAINER_PK, TeamCrud.EDIT);
             return POKEMON_EDIT;
         }
-        if (selectedFoeAction == TeamCrud.REMOVE) {
+        if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.REMOVE) {
             int index_ = selectedFoePk;
             foeTeam.remove(index_);
             int size_ = foeTeam.size();
@@ -729,7 +733,7 @@ public class SimulationBean extends CommonBean {
     public String getGenderAlly(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonTrainerDto pk_ = allyTeam.get(_index.intValue());
-        return data_.translateGenders(pk_.getGender());
+        return data_.translateGenders(PokemonStandards.getGenderByName(pk_.getGender()));
     }
     public StringList getMovesAlly(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -750,13 +754,13 @@ public class SimulationBean extends CommonBean {
         return data_.translateItem(pk_.getItem());
     }
     public String selectAllyPk() {
-        if (selectedAllyAction == TeamCrud.NOTHING) {
+        if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.NOTHING) {
             return DataBase.EMPTY_STRING;
         }
         if (selectedAllyPk == CustList.INDEX_NOT_FOUND_ELT) {
             return DataBase.EMPTY_STRING;
         }
-        if (selectedAllyAction == TeamCrud.EDIT) {
+        if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.EDIT) {
             getForms().put(POKEMON_FOE, false);
             getForms().put(ITEMS_SET_EDIT, new StringList());
             getForms().put(POKEMON_INDEX_EDIT, selectedAllyPk);
@@ -769,7 +773,7 @@ public class SimulationBean extends CommonBean {
             getForms().put(ADDING_TRAINER_PK, TeamCrud.EDIT);
             return POKEMON_EDIT;
         }
-        if (selectedAllyAction == TeamCrud.REMOVE) {
+        if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.REMOVE) {
             int index_ = selectedAllyPk;
             allyTeam.remove(index_);
             int size_ = allyTeam.size();
@@ -823,22 +827,22 @@ public class SimulationBean extends CommonBean {
         for (PokemonTrainerDto p: foeTeam) {
             foe_.add(p.toPokemonTrainer());
         }
-        simulation.setTeams(ally_, foe_, multiplicity, nbMaxActions, environment, coords);
+        simulation.setTeams(ally_, foe_, multiplicity, nbMaxActions, PokemonStandards.getEnvByName(environment), coords);
         selectedPk = CustList.INDEX_NOT_FOUND_ELT;
-        selectedAction = TeamCrud.NOTHING;
+        selectedAction = TeamCrud.NOTHING.name();
         getForms().removeKey(POKEMON_INDEX_EDIT);
         getForms().removeKey(POKEMON_ADDED);
         getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber++;
     }
     public String selectPk() {
-        if (selectedAction == TeamCrud.NOTHING) {
+        if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.NOTHING) {
             return DataBase.EMPTY_STRING;
         }
         if (selectedPk == CustList.INDEX_NOT_FOUND_ELT) {
             return DataBase.EMPTY_STRING;
         }
-        if (selectedAction == TeamCrud.EDIT) {
+        if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.EDIT) {
             getForms().put(ITEMS_SET_EDIT, new StringList());
             getForms().put(POKEMON_INDEX_EDIT, selectedPk);
             getForms().put(POKEMON_NAME_EDIT, team.get(selectedPk).getPokemon().getName());
@@ -855,7 +859,7 @@ public class SimulationBean extends CommonBean {
             }
             return EDIT_POKEMON_PLAYER;
         }
-        if (selectedAction == TeamCrud.REMOVE) {
+        if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.REMOVE) {
             int index_ = selectedPk;
             team.remove(index_);
             int size_ = team.size();
@@ -970,7 +974,7 @@ public class SimulationBean extends CommonBean {
         simulation.cancelEvolutions();
         getForms().removeKey(POKEMON_INDEX_EDIT);
         selectedPk = CustList.INDEX_NOT_FOUND_ELT;
-        selectedAction = TeamCrud.NOTHING;
+        selectedAction = TeamCrud.NOTHING.name();
         getForms().put(SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber--;
     }
@@ -1051,7 +1055,7 @@ public class SimulationBean extends CommonBean {
             stepNumber--;
             return;
         }
-        selectedAction = TeamCrud.NOTHING;
+        selectedAction = TeamCrud.NOTHING.name();
         getForms().put(SIMULATION_STATE, SimulationSteps.EVOLUTIONS);
         stepNumber--;
     }
@@ -1553,15 +1557,15 @@ public class SimulationBean extends CommonBean {
         return LEVEL;
     }
 
-    public TreeMap<DifficultyWinPointsFight,String> getWinPointsFight() {
+    public TreeMap<String,String> getWinPointsFight() {
         return winPointsFight;
     }
 
-    public DifficultyWinPointsFight getDiffWinningExpPtsFight() {
+    public String getDiffWinningExpPtsFight() {
         return diffWinningExpPtsFight;
     }
 
-    public void setDiffWinningExpPtsFight(DifficultyWinPointsFight _diffWinningExpPtsFight) {
+    public void setDiffWinningExpPtsFight(String _diffWinningExpPtsFight) {
         diffWinningExpPtsFight = _diffWinningExpPtsFight;
     }
 
@@ -1677,15 +1681,15 @@ public class SimulationBean extends CommonBean {
         return skipLearningMovesWhileNotGrowingLevel;
     }
 
-    public TreeMap<DifficultyModelLaw,String> getDamageRates() {
+    public TreeMap<String,String> getDamageRates() {
         return damageRates;
     }
 
-    public DifficultyModelLaw getDamageRatePlayer() {
+    public String getDamageRatePlayer() {
         return damageRatePlayer;
     }
 
-    public void setDamageRatePlayer(DifficultyModelLaw _damageRatePlayer) {
+    public void setDamageRatePlayer(String _damageRatePlayer) {
         damageRatePlayer = _damageRatePlayer;
     }
 
@@ -1693,11 +1697,11 @@ public class SimulationBean extends CommonBean {
         return damageRatePlayerTable;
     }
 
-    public DifficultyModelLaw getDamageRateLawFoe() {
+    public String getDamageRateLawFoe() {
         return damageRateLawFoe;
     }
 
-    public void setDamageRateLawFoe(DifficultyModelLaw _damageRateLawFoe) {
+    public void setDamageRateLawFoe(String _damageRateLawFoe) {
         damageRateLawFoe = _damageRateLawFoe;
     }
 
@@ -1721,15 +1725,15 @@ public class SimulationBean extends CommonBean {
         return multiplicity;
     }
 
-    public TreeMap<EnvironmentType,String> getEnvironments() {
+    public TreeMap<String,String> getEnvironments() {
         return environments;
     }
 
-    public EnvironmentType getEnvironment() {
+    public String getEnvironment() {
         return environment;
     }
 
-    public void setEnvironment(EnvironmentType _environment) {
+    public void setEnvironment(String _environment) {
         environment = _environment;
     }
 
@@ -1745,11 +1749,11 @@ public class SimulationBean extends CommonBean {
         return selectedFoePk;
     }
 
-    public void setSelectedFoeAction(TeamCrud _selectedFoeAction) {
+    public void setSelectedFoeAction(String _selectedFoeAction) {
         selectedFoeAction = _selectedFoeAction;
     }
 
-    public TeamCrud getSelectedFoeAction() {
+    public String getSelectedFoeAction() {
         return selectedFoeAction;
     }
 
@@ -1765,11 +1769,11 @@ public class SimulationBean extends CommonBean {
         return selectedAllyPk;
     }
 
-    public void setSelectedAllyAction(TeamCrud _selectedAllyAction) {
+    public void setSelectedAllyAction(String _selectedAllyAction) {
         selectedAllyAction = _selectedAllyAction;
     }
 
-    public TeamCrud getSelectedAllyAction() {
+    public String getSelectedAllyAction() {
         return selectedAllyAction;
     }
 
@@ -1793,11 +1797,11 @@ public class SimulationBean extends CommonBean {
         return selectedPk;
     }
 
-    public void setSelectedAction(TeamCrud _selectedAction) {
+    public void setSelectedAction(String _selectedAction) {
         selectedAction = _selectedAction;
     }
 
-    public TeamCrud getSelectedAction() {
+    public String getSelectedAction() {
         return selectedAction;
     }
 

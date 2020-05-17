@@ -241,11 +241,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return validator_.validate(ad_);
     }
 
-    @Override
-    public boolean checkOpers(CustList<RendDynOperationNode> _opRead) {
-        return false;
-    }
-
     public abstract ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance);
 
     public abstract ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value);

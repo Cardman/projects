@@ -1,5 +1,6 @@
 package aiki.beans.moves.effects;
-import aiki.beans.facade.comparators.ComparatorTrStringEnv;
+import aiki.beans.PokemonStandards;
+import aiki.beans.facade.comparators.ComparatorTrString;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
@@ -8,13 +9,10 @@ import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.effects.EffectInvoke;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 
 public class EffectInvokeBean extends EffectBean {
-    private TreeMap<EnvironmentType, String> moveFctEnv;
+    private TreeMap<String, String> moveFctEnv;
     private StringList globalMoves;
     private boolean invokingMoveButUser;
     private boolean invokingTargetChosenMove;
@@ -34,10 +32,14 @@ public class EffectInvokeBean extends EffectBean {
         EnumMap<EnvironmentType,String> translatedEnvironments_ = data_.getTranslatedEnvironment().getVal(getLanguage());
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        TreeMap<EnvironmentType, String> moveFctEnv_;
-        moveFctEnv_ = new TreeMap<EnvironmentType, String>(new ComparatorTrStringEnv(translatedEnvironments_));
+        StringMap<String> translated_ = new StringMap<String>();
+        for (EntryCust<EnvironmentType,String> s: translatedEnvironments_.entryList()) {
+            translated_.addEntry(s.getKey().name(),s.getValue());
+        }
+        TreeMap<String, String> moveFctEnv_;
+        moveFctEnv_ = new TreeMap<String, String>(new ComparatorTrString(translated_));
         for (EnvironmentType e: effect_.getMoveFctEnv().getKeys()) {
-            moveFctEnv_.put(e, effect_.getMoveFctEnv().getVal(e));
+            moveFctEnv_.put(e.name(), effect_.getMoveFctEnv().getVal(e));
         }
         moveFctEnv = moveFctEnv_;
         StringList globalMoves_;
@@ -87,7 +89,7 @@ public class EffectInvokeBean extends EffectBean {
     public String getTrEnv(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         EnumMap<EnvironmentType,String> translatedMoves_ = data_.getTranslatedEnvironment().getVal(getLanguage());
-        EnvironmentType st_ = moveFctEnv.getKey(_index.intValue());
+        EnvironmentType st_ = PokemonStandards.getEnvByName(moveFctEnv.getKey(_index.intValue()));
         return translatedMoves_.getVal(st_);
     }
     public String getTrMoveFctEnv(Long _index) {
@@ -168,7 +170,7 @@ public class EffectInvokeBean extends EffectBean {
         return rateInvokationMove;
     }
 
-    public TreeMap<EnvironmentType,String> getMoveFctEnv() {
+    public TreeMap<String,String> getMoveFctEnv() {
         return moveFctEnv;
     }
 

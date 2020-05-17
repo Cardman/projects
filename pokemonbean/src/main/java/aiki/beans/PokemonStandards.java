@@ -25,12 +25,7 @@ import aiki.beans.facade.AikiBeansFacadeStd;
 import aiki.beans.facade.comparators.AikiBeansFacadeComparatorsStd;
 import aiki.beans.facade.comparators.ComparatorCategoryMult;
 import aiki.beans.facade.comparators.ComparatorDirection;
-import aiki.beans.facade.comparators.ComparatorLanguageEnvType;
-import aiki.beans.facade.comparators.ComparatorLanguageGender;
-import aiki.beans.facade.comparators.ComparatorLanguageSelectedBoolean;
-import aiki.beans.facade.comparators.ComparatorLanguageStatisic;
 import aiki.beans.facade.comparators.ComparatorLanguageString;
-import aiki.beans.facade.comparators.ComparatorLanguageTargetChoice;
 import aiki.beans.facade.comparators.ComparatorMiniMapCoords;
 import aiki.beans.facade.comparators.ComparatorMoveTarget;
 import aiki.beans.facade.comparators.ComparatorMoveTeamPosition;
@@ -292,11 +287,7 @@ public final class PokemonStandards extends BeanNatLgNames {
     public static final String TYPE_TRAINER_ONE_FIGHT = "aiki.map.characters.TrainerOneFight";
     public static final String TYPE_TRAINER = "aiki.map.characters.Trainer";
     public static final String TYPE_PERSON = "aiki.map.characters.Person";
-    public static final String TYPE_GENDER = "aiki.map.pokemon.enums.Gender";
-    public static final String TYPE_DIFFICULTY_WIN_POINTS_FIGHT = "aiki.game.params.enums.DifficultyWinPointsFight";
-    public static final String TYPE_DIFFICULTY_MODEL_LAW = "aiki.game.params.enums.DifficultyModelLaw";
-    public static final String TYPE_ENVIRONMENT_TYPE = "aiki.map.levels.enums.EnvironmentType";
-    public static final String TYPE_DIRECTION = "aiki.map.enums.Direction";
+
     public static final String TYPE_FULL_RATE_VALIDATOR = "aiki.beans.validators.RateValidator";
     public static final String TYPE_FULL_POSITIVE_RATE_VALIDATOR = "aiki.beans.validators.PositiveRateValidator";
     public static final String TYPE_FULL_SHORT_VALIDATOR = "aiki.beans.validators.ShortValidator";
@@ -346,32 +337,10 @@ public final class PokemonStandards extends BeanNatLgNames {
     private static final String GET_MULT_DAMAGE_AGAINST_FOE = "getMultDamageAgainstFoe";
     private static final String GET_TRAINER = "getTrainer";
     private static final String GET_PLACE = "getPlace";
-    private static final String ALIAS_SB = "sb";
     private CustList<PkIdStruct> selected = new CustList<PkIdStruct>();
     public PokemonStandards() {
         PokemonStandards val_ = this;
         DefaultInitialization.basicStandards(val_);
-        for (SelectedBoolean s: SelectedBoolean.values()) {
-            selected.add(new PkIdStruct(s,getSelectedBoolean()));
-        }
-        for (Gender s: Gender.values()) {
-            selected.add(new PkIdStruct(s,TYPE_GENDER));
-        }
-        for (TeamCrud s: TeamCrud.values()) {
-            selected.add(new PkIdStruct(s,AikiBeansFacadeSimulationEnumsStd.TYPE_TEAM_CRUD));
-        }
-        for (DifficultyWinPointsFight s: DifficultyWinPointsFight.values()) {
-            selected.add(new PkIdStruct(s,TYPE_DIFFICULTY_WIN_POINTS_FIGHT));
-        }
-        for (DifficultyModelLaw s: DifficultyModelLaw.values()) {
-            selected.add(new PkIdStruct(s,TYPE_DIFFICULTY_MODEL_LAW));
-        }
-        for (EnvironmentType s: EnvironmentType.values()) {
-            selected.add(new PkIdStruct(s,TYPE_ENVIRONMENT_TYPE));
-        }
-        for (Direction s: Direction.values()) {
-            selected.add(new PkIdStruct(s,TYPE_DIRECTION));
-        }
     }
     @Override
     public void buildOther() {
@@ -437,16 +406,10 @@ public final class PokemonStandards extends BeanNatLgNames {
         buildTrainerOneFight(this);
         buildTrainer(this);
         buildPerson(this);
-        buildGender(this);
-        buildDifficultyWinPointsFight(this);
-        buildDifficultyModelLaw(this);
-        buildEnvironmentType(this);
-        buildDirection(this);
         buildRateValidator(this);
         buildPositiveRateValidator(this);
         buildShortValidator(this);
         buildUnselectedRadio(this);
-        buildSelectedBoolean(this);
     }
     private static void buildActivityOfMove(BeanLgNames _std) {
         StandardClass type_;
@@ -1007,61 +970,7 @@ public final class PokemonStandards extends BeanNatLgNames {
         type_ = new StandardClass(TYPE_PERSON, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         _std.getStandards().put(TYPE_PERSON, type_);
     }
-    private static void buildGender(BeanLgNames _std) {
-        StandardClass type_;
-        StringMap<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        type_ = new StandardClass(TYPE_GENDER, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_GENDER, type_);
-    }
-    private static void buildDifficultyWinPointsFight(BeanLgNames _std) {
-        StandardClass type_;
-        StringMap<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        type_ = new StandardClass(TYPE_DIFFICULTY_WIN_POINTS_FIGHT, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_DIFFICULTY_WIN_POINTS_FIGHT, type_);
-    }
-    private static void buildDifficultyModelLaw(BeanLgNames _std) {
-        StandardClass type_;
-        StringMap<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        type_ = new StandardClass(TYPE_DIFFICULTY_MODEL_LAW, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_DIFFICULTY_MODEL_LAW, type_);
-    }
-    private static void buildEnvironmentType(BeanLgNames _std) {
-        StandardClass type_;
-        StringMap<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        type_ = new StandardClass(TYPE_ENVIRONMENT_TYPE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_ENVIRONMENT_TYPE, type_);
-    }
-    private static void buildDirection(BeanLgNames _std) {
-        StandardClass type_;
-        StringMap<StandardField> fields_;
-        CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        type_ = new StandardClass(TYPE_DIRECTION, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_DIRECTION, type_);
-    }
+
     private static void buildRateValidator(BeanLgNames _std) {
         StandardClass type_;
         StringMap<StandardField> fields_;
@@ -1107,16 +1016,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         _std.getStandards().put(TYPE_UNSELECTED_RADIO, type_);
     }
 
-    private static void buildSelectedBoolean(BeanLgNames _std) {
-        StringMap<StandardField> fields_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        StandardClass stdcl_ = new StandardClass(ALIAS_SB, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.FINAL);
-        _std.getStandards().put(ALIAS_SB, stdcl_);
-    }
     @Override
     public Validator buildValidator(Element _element) {
         String clName_ = _element.getTagName();
@@ -2636,9 +2535,6 @@ public final class PokemonStandards extends BeanNatLgNames {
     }
 
     private String getOtherBeanStructClassName(Object _struct) {
-        if (_struct instanceof SelectedBoolean) {
-            return getSelectedBoolean();
-        }
         if (_struct instanceof ComboDto) {
             return AikiBeansEffectsStd.TYPE_COMBO_DTO;
         }
@@ -2648,23 +2544,8 @@ public final class PokemonStandards extends BeanNatLgNames {
         if (_struct instanceof ComparatorDirection) {
             return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_DIRECTION;
         }
-        if (_struct instanceof ComparatorLanguageEnvType) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_LANGUAGE_ENV_TYPE;
-        }
-        if (_struct instanceof ComparatorLanguageGender) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_LANGUAGE_GENDER;
-        }
-        if (_struct instanceof ComparatorLanguageSelectedBoolean) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_LANGUAGE_SELECTED_BOOLEAN;
-        }
-        if (_struct instanceof ComparatorLanguageStatisic) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_LANGUAGE_STATISIC;
-        }
         if (_struct instanceof ComparatorLanguageString) {
             return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_LANGUAGE_STRING;
-        }
-        if (_struct instanceof ComparatorLanguageTargetChoice) {
-            return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_LANGUAGE_TARGET_CHOICE;
         }
         if (_struct instanceof ComparatorMiniMapCoords) {
             return AikiBeansFacadeComparatorsStd.TYPE_COMPARATOR_MINI_MAP_COORDS;
@@ -2777,9 +2658,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         if (_struct instanceof SimulationSteps) {
             return AikiBeansFacadeSimulationEnumsStd.TYPE_SIMULATION_STEPS;
         }
-        if (_struct instanceof TeamCrud) {
-            return AikiBeansFacadeSimulationEnumsStd.TYPE_TEAM_CRUD;
-        }
         if (_struct instanceof PlaceTrainerDto) {
             return AikiBeansFacadeSolutionDtoStd.TYPE_PLACE_TRAINER_DTO;
         }
@@ -2870,21 +2748,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         if (_struct instanceof TempTrainer) {
             return PokemonStandards.TYPE_TEMP_TRAINER;
         }
-        if (_struct instanceof Gender) {
-            return PokemonStandards.TYPE_GENDER;
-        }
-        if (_struct instanceof DifficultyWinPointsFight) {
-            return PokemonStandards.TYPE_DIFFICULTY_WIN_POINTS_FIGHT;
-        }
-        if (_struct instanceof DifficultyModelLaw) {
-            return PokemonStandards.TYPE_DIFFICULTY_MODEL_LAW;
-        }
-        if (_struct instanceof EnvironmentType) {
-            return PokemonStandards.TYPE_ENVIRONMENT_TYPE;
-        }
-        if (_struct instanceof Direction) {
-            return PokemonStandards.TYPE_DIRECTION;
-        }
         if (_struct instanceof MoveLine) {
             return AikiBeansFacadeDtoStd.TYPE_MOVE_LINE;
         }
@@ -2959,15 +2822,6 @@ public final class PokemonStandards extends BeanNatLgNames {
         if (_element instanceof StringBuilder) {
             return new StringBuilderStruct((StringBuilder) _element);
         }
-        if (_element instanceof SelectedBoolean
-            ||_element instanceof Gender
-            ||_element instanceof TeamCrud
-                ||_element instanceof DifficultyWinPointsFight
-                ||_element instanceof DifficultyModelLaw
-                ||_element instanceof EnvironmentType
-                ||_element instanceof Direction) {
-            return PkIdStruct.newPkIdStruct(_element,selected);
-        }
         String className_ = getOtherBeanStructClassName(_element);
         return DefaultStruct.newInstance(_element, className_);
     }
@@ -2979,40 +2833,9 @@ public final class PokemonStandards extends BeanNatLgNames {
     @Override
     public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (!(_instance instanceof RealInstanceStruct)) {
-            Struct arg_ = Argument.getNull(_instance);
-            Struct disp_ = ExecCatOperation.getDisplayable(new Argument(arg_), _cont);
-            res_.setResult(disp_);
-            return res_;
-        }
-        Object instance_ = ((RealInstanceStruct)_instance).getInstance();
-        if (_instance instanceof DefaultStruct) {
-            Object r_ = ((DefaultStruct) _instance).getInstance();
-            if (r_ instanceof SelectedBoolean) {
-                res_.setResult(new StringStruct(((SelectedBoolean)r_).name()));
-                return res_;
-            }
-        }
-        if (instance_ instanceof Gender) {
-            res_.setResult(new StringStruct(((Gender)instance_).name()));
-            return res_;
-        }
-        if (instance_ instanceof DifficultyWinPointsFight) {
-            res_.setResult(new StringStruct(((DifficultyWinPointsFight)instance_).name()));
-            return res_;
-        }
-        if (instance_ instanceof DifficultyModelLaw) {
-            res_.setResult(new StringStruct(((DifficultyModelLaw)instance_).name()));
-            return res_;
-        }
-        if (instance_ instanceof EnvironmentType) {
-            res_.setResult(new StringStruct(((EnvironmentType)instance_).name()));
-            return res_;
-        }
-        if (instance_ instanceof TeamCrud) {
-            res_.setResult(new StringStruct(((TeamCrud)instance_).name()));
-            return res_;
-        }
+        Struct arg_ = Argument.getNull(_instance);
+        Struct disp_ = ExecCatOperation.getDisplayable(new Argument(arg_), _cont);
+        res_.setResult(disp_);
         return res_;
     }
     @Override
@@ -3024,41 +2847,12 @@ public final class PokemonStandards extends BeanNatLgNames {
         } else {
             value_ = _values.first();
         }
-        if (StringList.quickEq(_className, getSelectedBoolean())) {
-            SelectedBoolean en_ = getBoolByName(value_);
-            res_.setResult(wrapStd(en_,_context));
-            return res_;
-        }
         if (StringList.quickEq(_className,TYPE_RATE)){
             if (!Rate.isValid(value_)) {
                 res_.setResult(new DefaultStruct(Rate.zero(),TYPE_RATE));
                 return res_;
             }
             res_.setResult(new DefaultStruct(new Rate(value_),TYPE_RATE));
-            return res_;
-        }
-        if (StringList.quickEq(_className,AikiBeansFacadeSimulationEnumsStd.TYPE_TEAM_CRUD)){
-            res_.setResult(wrapStd(TeamCrud.getTeamCrudByName(value_), _context));
-            return res_;
-        }
-        if (StringList.quickEq(_className,TYPE_GENDER)){
-            res_.setResult(wrapStd(getGenderByName(value_), _context));
-            return res_;
-        }
-        if (StringList.quickEq(_className,TYPE_DIFFICULTY_WIN_POINTS_FIGHT)){
-            res_.setResult(wrapStd(getDiffWonPtsByName(value_), _context));
-            return res_;
-        }
-        if (StringList.quickEq(_className,TYPE_DIFFICULTY_MODEL_LAW)){
-            res_.setResult(wrapStd(getModelByName(value_), _context));
-            return res_;
-        }
-        if (StringList.quickEq(_className,TYPE_ENVIRONMENT_TYPE)){
-            res_.setResult(wrapStd(getEnvByName(value_), _context));
-            return res_;
-        }
-        if (StringList.quickEq(_className,TYPE_DIRECTION)){
-            res_.setResult(wrapStd(Direction.getDirectionByName(value_), _context));
             return res_;
         }
         res_.setResult(NullStruct.NULL_VALUE);
@@ -3414,9 +3208,6 @@ public final class PokemonStandards extends BeanNatLgNames {
             return res_;
         }
         return res_;
-    }
-    public String getSelectedBoolean() {
-        return ALIAS_SB;
     }
 
 

@@ -116,8 +116,8 @@ public final class AikiBeansPokemonStd {
         fields_.put(TYPED_MIN_NB_POSS_EVOS,new StandardField(TYPED_MIN_NB_POSS_EVOS,_std.getAliasString(),false,false,type_));
         fields_.put(TYPED_MAX_NB_POSS_EVOS,new StandardField(TYPED_MAX_NB_POSS_EVOS,_std.getAliasString(),false,false,type_));
         fields_.put(BOOLEANS,new StandardField(BOOLEANS, BeanNatLgNames.TYPE_MAP,false,false,type_));
-        fields_.put(IS_EVO,new StandardField(IS_EVO,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
-        fields_.put(IS_LEG,new StandardField(IS_LEG,((PokemonStandards)_std).getSelectedBoolean(),false,false,type_));
+        fields_.put(IS_EVO,new StandardField(IS_EVO,_std.getAliasString(),false,false,type_));
+        fields_.put(IS_LEG,new StandardField(IS_LEG,_std.getAliasString(),false,false,type_));
         fields_.put(POKEDEX,new StandardField(POKEDEX, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList();
         method_ = new StandardMethod(SEARCH,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
@@ -421,12 +421,12 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_EVO)) {
-            instance_.setIsEvo((SelectedBoolean) _value);
+            instance_.setIsEvo((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_LEG)) {
-            instance_.setIsLeg((SelectedBoolean) _value);
+            instance_.setIsLeg((String) _value);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

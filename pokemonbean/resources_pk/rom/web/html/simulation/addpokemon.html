@@ -10,9 +10,9 @@
 			<form action="" c:command="$add" method="post" name="adding">
 				<fieldset>
 					<c:message value="msg_simulation,ability_pk"/>
-					<c:select className="java.lang.String" default="" map="abilities" name="ability" update="" varValue="ability"/><br/>
+					<c:select default="" map="abilities" name="ability" update="" varValue="ability"/><br/>
 					<c:message value="msg_simulation,gender_pk"/>
-					<c:select className="aiki.map.pokemon.enums.Gender" default="" map="genders" name="gender" update="" varValue="gender"/><br/>
+					<c:select default="" map="genders" name="gender" update="" varValue="gender"/><br/>
 					<c:message value="msg_simulation,level_pk"/>
 					<input c:varValue="level" name="level" type="text"/><br/>
 					<c:submit message="msg_simulation,add_pk_player"/>
@@ -28,11 +28,11 @@
 				<c:message value="msg_pokedex,content_type_whole"/>
 				<input c:varValue="wholeWord" name="wholeWord" type="checkbox"/><br/>
 				<c:message value="msg_pokedex,has_evo"/>
-				<c:select className="sb" default="" map="booleans" name="hasEvo" update="" varValue="hasEvo"/><br/>
+				<c:select default="" map="booleans" name="hasEvo" update="" varValue="hasEvo"/><br/>
 				<c:message value="msg_pokedex,is_evo"/>
-				<c:select className="sb" default="" map="booleans" name="isEvo" update="" varValue="isEvo"/><br/>
+				<c:select default="" map="booleans" name="isEvo" update="" varValue="isEvo"/><br/>
 				<c:message value="msg_pokedex,leg"/>
-				<c:select className="sb" default="" map="booleans" name="isLeg" update="" varValue="isLeg"/><br/>
+				<c:select default="" map="booleans" name="isLeg" update="" varValue="isLeg"/><br/>
 				<c:submit message="msg_simulation,search_pk_player"/>
 			</fieldset>
 		</form>

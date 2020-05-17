@@ -233,7 +233,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         StringList params_;
         StandardClass cl_;
         cl_ = new StandardClass(TYPE_BEAN_ONE, fields_, constructors_, methods_, TYPE_BEAN, MethodModifier.FINAL);
-        fields_.put(CHOSEN_NUMBER,new StandardField(CHOSEN_NUMBER,TYPE_ENUM_NUMBER,false,false,cl_));
+        fields_.put(CHOSEN_NUMBER,new StandardField(CHOSEN_NUMBER,getAliasString(),false,false,cl_));
         fields_.put(CHOSEN_NUMBERS,new StandardField(CHOSEN_NUMBERS,TYPE_ENUM_NUMBERS,false,false,cl_));
         fields_.put(COMBOBOX,new StandardField(COMBOBOX,TYPE_ENUM_NUMBERS,false,false,cl_));
         fields_.put(COMMON_CLASS,new StandardField(COMMON_CLASS,getAliasString(),false,false,cl_));
@@ -1104,7 +1104,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         if (StringList.quickEq(className_,TYPE_BEAN_ONE)) {
             BeanOne i_ = (BeanOne)instance_;
             if (StringList.quickEq(fieldName_,CHOSEN_NUMBER)) {
-                i_.setChosenNumber((EnumNumber)_value);
+                i_.setChosenNumber((String)_value);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }

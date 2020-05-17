@@ -252,7 +252,4 @@ public abstract class BeanLgNames extends LgNames {
     public abstract ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context);
 
 
-    public boolean checkOpers(CustList<RendDynOperationNode> _opRead) {
-        return !_opRead.isEmpty();
-    }
 }

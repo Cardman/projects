@@ -14,7 +14,7 @@
 		<c:if condition="isDiffState()">
 			<form action="" c:command="$validateDiffChoice" method="post">
 				<c:message value="msg_simulation,win_pts"/>
-				<c:select className="aiki.game.params.enums.DifficultyWinPointsFight" default="" map="winPointsFight" name="diffWinningExpPtsFight" update="" varValue="diffWinningExpPtsFight"/><br/>
+				<c:select default="" map="winPointsFight" name="diffWinningExpPtsFight" update="" varValue="diffWinningExpPtsFight"/><br/>
 				<c:message value="msg_simulation,allow_catching_ko"/>
 				<input c:varValue="allowCatchingKo" name="allowCatchingKo" type="checkbox"/><br/>
 				<c:message value="msg_simulation,allow_switch_places"/>
@@ -44,7 +44,7 @@
 				<c:message value="msg_simulation,skip_learn"/>
 				<input c:varValue="skipLearningMovesWhileNotGrowingLevel" name="skipLearningMovesWhileNotGrowingLevel" type="checkbox"/><br/>
 				<c:message value="msg_simulation,law_choice_player"/>
-				<c:select className="aiki.game.params.enums.DifficultyModelLaw" default="" map="damageRates" name="damageRatePlayer" update="" varValue="damageRatePlayer"/><br/>
+				<c:select default="" map="damageRates" name="damageRatePlayer" update="" varValue="damageRatePlayer"/><br/>
 				<table>
 					<thead>
 						<tr>
@@ -62,7 +62,7 @@
 					</tbody>
 				</table>
 				<c:message value="msg_simulation,law_choice_foe"/>
-				<c:select className="aiki.game.params.enums.DifficultyModelLaw" default="" map="damageRates" name="damageRateLawFoe" update="" varValue="damageRateLawFoe"/><br/>
+				<c:select default="" map="damageRates" name="damageRateLawFoe" update="" varValue="damageRateLawFoe"/><br/>
 				<table>
 					<thead>
 						<tr>
@@ -212,7 +212,7 @@
 					<c:message value="msg_simulation,multiplicity_fight"/>
 					<input c:varValue="multiplicity" name="multiplicity" type="text"/><br/>
 					<c:message value="msg_simulation,env_fight"/>
-					<c:select className="aiki.map.levels.enums.EnvironmentType" default="" map="environments" name="environment" update="" varValue="environment"/><br/>
+					<c:select default="" map="environments" name="environment" update="" varValue="environment"/><br/>
 					<c:submit message="msg_simulation,next_button"/>
 				</form>
 				<c:if condition="!ok">
@@ -402,7 +402,7 @@
 			<c:if condition="selectedIndex()">
 				<c:if condition="!availableEvos.isEmpty()">
 					<form action="" c:command="$validateEvo" method="post" name="chooseevo">
-						<c:select className="java.lang.String" default="" map="availableEvos" name="chosenEvo" update="" varValue="chosenEvo"/><br/>
+						<c:select default="" map="availableEvos" name="chosenEvo" update="" varValue="chosenEvo"/><br/>
 						<c:message value="msg_simulation,level_pk"/>
 						<input c:varValue="levelEvo" name="levelEvo" type="text"/><br/>
 						<c:submit message="msg_simulation,select"/>
@@ -520,9 +520,9 @@
 				</table>
 				<span c:for="pkTable" class="errormessage" c:valueMessage="msg_simulation,unselected_pk"> </span><br/>
 				<c:message value="msg_simulation,round"/>
-				<c:select className="java.lang.Integer" default="" map="round" name="selectedRound" update="" varValue="selectedRound"/><br/>
+				<c:select default="" map="round" name="selectedRound" update="" varValue="selectedRound"/><br/>
 				<c:message value="msg_simulation,multiplicity"/>
-				<c:select className="java.lang.Integer" default="" map="placesFight" name="placeFight" update="" varValue="placeFight"/><br/>
+				<c:select default="" map="placesFight" name="placeFight" update="" varValue="placeFight"/><br/>
 				<c:submit message="msg_simulation,select"/>
 			</form>
 			<br/>
@@ -646,7 +646,7 @@
 					<form action="" c:command="$validateMoves" method="post" name="moves">
 						<c:if condition="isAvailableAbilities()">
 							<c:message value="msg_simulation,ability_pk"/>
-							<c:select className="java.lang.String" default="" map="abilities" name="currentAbility" update="" varValue="currentAbility"/><br/>
+							<c:select default="" map="abilities" name="currentAbility" update="" varValue="currentAbility"/><br/>
 						</c:if>
 						<table>
 							<caption><c:message value="msg_moves,moves"/></caption>
@@ -823,7 +823,7 @@
 				</table>
 				<span c:for="pkTable" class="errormessage" c:valueMessage="msg_simulation,unselected_pk"> </span><br/>
 				<c:message value="msg_simulation,round"/>
-				<c:select className="java.lang.Integer" default="" map="round" name="selectedRound" update="" varValue="selectedRound"/><br/>
+				<c:select default="" map="round" name="selectedRound" update="" varValue="selectedRound"/><br/>
 				<c:submit message="msg_simulation,select"/>
 			</form>
 			<c:if condition="selectedIndexForMoves()">
@@ -886,7 +886,7 @@
 					<c:message value="msg_simulation,ally_choice"/>
 					<input c:varValue="allyChoice" name="allyChoice" type="checkbox"/><br/>
 					<c:message value="msg_simulation,multiplicity"/>
-					<c:select className="java.lang.Integer" default="" map="targetFight" name="target" update="" varValue="target"/>
+					<c:select default="" map="targetFight" name="target" update="" varValue="target"/>
 					<c:submit message="msg_simulation,validate_move_target"/><br/>
 				</form>
 			</c:if>
@@ -1151,7 +1151,7 @@
 			<c:if condition="selectedIndexForMoves()">
 				<form action="" c:command="$validateEvolutionAfterFight" method="post" name="changeEvo">
 					<c:message value="msg_simulation,evolution"/>
-					<c:select className="java.lang.String" default="" map="evolutionsAfterFight" name="evolutionAfterFight" update="" varValue="evolutionAfterFight"/>
+					<c:select default="" map="evolutionsAfterFight" name="evolutionAfterFight" update="" varValue="evolutionAfterFight"/>
 					<c:submit message="msg_simulation,select"/>
 				</form>
 				<form action="" c:command="$cancelEvolutionsAfterFight" method="post" name="cancelEvos">
@@ -1159,7 +1159,7 @@
 				</form>
 				<form action="" c:command="$validateMovesAbilityAfterFight" method="post" name="changeMoves">
 					<c:message value="msg_simulation,ability_pk"/>
-					<c:select className="java.lang.String" default="" map="abilitiesAfterFight" name="abilityAfterFight" update="" varValue="abilityAfterFight"/>
+					<c:select default="" map="abilitiesAfterFight" name="abilityAfterFight" update="" varValue="abilityAfterFight"/>
 					<table>
 						<caption><c:message value="msg_moves,moves"/></caption>
 						<thead>

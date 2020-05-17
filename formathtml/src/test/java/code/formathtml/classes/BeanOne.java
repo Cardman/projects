@@ -18,7 +18,7 @@ public class BeanOne extends Bean {
 
     private NatStringTreeMap<Ints> numbers = new NatStringTreeMap<Ints>();
 
-    private EnumNumber chosenNumber = EnumNumber.ONE;
+    private String chosenNumber = EnumNumber.ONE.name();
 
     private EnumNumbers chosenNumbers = new EnumNumbers(EnumNumber.ONE,EnumNumber.FOUR);
 
@@ -133,10 +133,7 @@ public class BeanOne extends Bean {
     }
 
     public EnumNumber getDefaultChoice() {
-        if (chosenNumber == null) {
-            return EnumNumber.THREE;
-        }
-        return EnumNumber.values()[EnumNumber.values().length - chosenNumber.ordinal() - 1];
+        return EnumNumber.THREE;
     }
 
     public String goToPage() {
@@ -175,11 +172,11 @@ public class BeanOne extends Bean {
         numbers = _numbers;
     }
 
-    public EnumNumber getChosenNumber() {
+    public String getChosenNumber() {
         return chosenNumber;
     }
 
-    public void setChosenNumber(EnumNumber _chosenNumber) {
+    public void setChosenNumber(String _chosenNumber) {
         chosenNumber = _chosenNumber;
     }
 
