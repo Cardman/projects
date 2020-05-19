@@ -1,7 +1,7 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 
 public class LambdaFieldStruct implements Struct {
@@ -60,7 +60,7 @@ public class LambdaFieldStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return className;
     }
 

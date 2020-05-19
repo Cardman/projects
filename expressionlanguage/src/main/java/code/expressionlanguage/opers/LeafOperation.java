@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -15,20 +15,20 @@ public abstract class LeafOperation extends OperationNode {
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
     }
-    public void analyzeNotBoolAssignmentAfter(Analyzable _conf) {
+    public void analyzeNotBoolAssignmentAfter(ContextEl _conf) {
         analyzeAssignmentAfter(_conf, false);
     }
 
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(ContextEl _conf) {
         boolean isBool_;
         isBool_ = getResultClass().isBoolType(_conf);
         analyzeAssignmentAfter(_conf, isBool_);
     }
 
-    public void analyzeAssignmentAfter(Analyzable _conf, boolean _bool) {
+    public void analyzeAssignmentAfter(ContextEl _conf, boolean _bool) {
         Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();

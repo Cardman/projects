@@ -2,7 +2,6 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
@@ -76,7 +75,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return className;
     }
 

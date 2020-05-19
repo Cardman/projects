@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.InstancingStep;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -29,7 +28,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;
             }
-            String form_ = _conf.getOperationPageEl().formatVarType(className, _conf);
+            String form_ = _conf.getLastPage().formatVarType(className, _conf);
             Argument ref_ = new Argument(lda_.getStruct());
             ExecCastOperation.wrapFct(form_,true,new CustList<Argument>(ref_),_conf);
             if (!Templates.checkObject(form_, ref_, _conf)) {
@@ -50,13 +49,13 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         setSimpleArgument(res_, _conf, _nodes);
     }
     @Override
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument arg_ = _arguments.first();
         CustList<Argument> firstArgs_;
-        String superClass_ = _conf.getOperationPageEl().formatVarType(getClassFromName(),_conf);
+        String superClass_ = _conf.getLastPage().formatVarType(getClassFromName(),_conf);
         String lastType_ = getLastType();
         lastType_ = Templates.quickFormat(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();

@@ -1,6 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -53,7 +53,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements Access
     }
 
     @Override
-    public String getSignature(Analyzable _ana) {
+    public String getSignature(ContextEl _ana) {
         return getId().getSignature(_ana);
     }
 
@@ -131,17 +131,17 @@ public final class OverridableBlock extends NamedFunctionBlock implements Access
     }
 
     @Override
-    public void setAssignmentAfterCallReadOnly(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl) {
         checkReturnFct(_an, _anEl);
     }
 
     @Override
-    public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfterCall(ContextEl _an, AnalyzingEl _anEl) {
         setAssignmentAfter(_an, _anEl);
         checkReturnFct(_an, _anEl);
     }
 
-    private void checkReturnFct(Analyzable _an, AnalyzingEl _anEl) {
+    private void checkReturnFct(ContextEl _an, AnalyzingEl _anEl) {
         LgNames stds_ = _an.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {
@@ -150,9 +150,9 @@ public final class OverridableBlock extends NamedFunctionBlock implements Access
                 miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
                 //return type len
-                miss_.buildError(_an.getContextEl().getAnalysisMessages().getMissingAbrupt(),
-                        _an.getContextEl().getKeyWords().getKeyWordThrow(),
-                        _an.getContextEl().getKeyWords().getKeyWordReturn(),
+                miss_.buildError(_an.getAnalysisMessages().getMissingAbrupt(),
+                        _an.getKeyWords().getKeyWordThrow(),
+                        _an.getKeyWords().getKeyWordReturn(),
                         getPseudoSignature(_an));
                 _an.addError(miss_);
             }

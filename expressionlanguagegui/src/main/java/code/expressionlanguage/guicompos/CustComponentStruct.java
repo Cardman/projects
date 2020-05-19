@@ -1,6 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.structs.*;
 import code.gui.CustComponent;
@@ -48,7 +48,7 @@ public abstract class CustComponentStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return className;
     }
     protected Struct getParentComponent() {

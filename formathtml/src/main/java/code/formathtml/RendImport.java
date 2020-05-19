@@ -90,14 +90,14 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
             return;
         }
         if (newBean_ != null) {
-            String className_ = newBean_.getClassName(_cont);
+            String className_ = newBean_.getClassName(_cont.getContext());
             for (RendBlock p: getDirectChildren(this)) {
                 for (RendBlock c: getDirectChildren(p)) {
                     if (!(c instanceof RendClass)) {
                         continue;
                     }
                     RendClass cl_ = (RendClass) c;
-                    if (!Templates.isCorrectExecute(className_,cl_.getFullName(),_cont)) {
+                    if (!Templates.isCorrectExecute(className_,cl_.getFullName(),_cont.getContext())) {
                         continue;
                     }
                     for (RendBlock f: getDirectChildren(c)) {

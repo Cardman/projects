@@ -41,7 +41,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         }
         if (!initClass) {
             initClass = true;
-            if (static_ && ExecInvokingOperation.hasToExit(_context, res_)) {
+            if (static_ && _context.hasToExit(res_)) {
                 setWrapException(true);
                 return false;
             }
@@ -82,7 +82,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                 previous_ = args_.first();
                 args_ = args_.mid(1);
             }
-            Argument arg_ = ExecInvokingOperation.instancePrepare(_context, res_, mid_, previous_, args_);
+            Argument arg_ = ExecInvokingOperation.instancePrepare(_context.getLastPage(),_context, res_, mid_, previous_, args_);
             if (_context.callsOrException()) {
                 setWrapException(_context.calls());
                 return false;

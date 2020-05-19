@@ -1,6 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.OtherFrame;
@@ -14,8 +14,8 @@ public final class FrameStruct extends WindowStruct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
-        return ((LgNamesGui) _contextEl.getContextEl().getStandards()).getAliasFrame();
+    public String getClassName(ContextEl _contextEl) {
+        return ((LgNamesGui) _contextEl.getStandards()).getAliasFrame();
     }
 
     @Override

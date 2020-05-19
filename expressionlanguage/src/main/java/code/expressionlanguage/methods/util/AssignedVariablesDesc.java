@@ -1,6 +1,6 @@
 package code.expressionlanguage.methods.util;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.util.EntryCust;
@@ -10,11 +10,11 @@ public final class AssignedVariablesDesc {
     private final AssignedVariables varsWhile;
     private final IdMap<Block, AssignedVariables> allDesc;
 
-    public AssignedVariablesDesc(Analyzable _an,Block _b) {
+    public AssignedVariablesDesc(ContextEl _an, Block _b) {
         IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
         boolean add_ = false;
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables varsWhile_ = null;
         for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
             if (e.getKey() == _b) {

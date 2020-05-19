@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
@@ -48,21 +47,21 @@ public abstract class Block implements AnalyzedBlock {
     public final OffsetsBlock getOffset() {
         return offset;
     }
-    protected void buildEmptyEl(Analyzable _cont) {
-        AssignedVariablesBlock glAss_ = _cont.getContextEl().getAssignedVariables();
+    protected void buildEmptyEl(ContextEl _cont) {
+        AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
         ass_.getFieldsRoot().putAllMap(AssignmentsUtil.assignAfterClassic(ass_.getFieldsRootBefore()));
         ass_.getVariablesRoot().addAllElts(AssignmentsUtil.assignAfterClassic(ass_.getVariablesRootBefore()));
         ass_.getMutableLoopRoot().addAllElts(AssignmentsUtil.assignAfterClassic(ass_.getMutableLoopRootBefore()));
     }
-    public void defaultAssignmentBefore(Analyzable _an, OperationNode _root) {
-        AssignedVariables vars_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
+    public void defaultAssignmentBefore(ContextEl _an, OperationNode _root) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         vars_.getFieldsBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getFieldsRootBefore()));
         vars_.getVariablesBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getVariablesRootBefore()));
         vars_.getMutableLoopBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getMutableLoopRootBefore()));
     }
-    public void defaultAssignmentAfter(Analyzable _an, OperationNode _root) {
-        AssignedVariables vars_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
+    public void defaultAssignmentAfter(ContextEl _an, OperationNode _root) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
         vars_.getFieldsRoot().putAllMap(AssignmentsUtil.assignClassic(res_));
         if (_root instanceof CurrentInvokingConstructor) {
@@ -79,8 +78,8 @@ public abstract class Block implements AnalyzedBlock {
         mutableRes_ = vars_.getLastMutableLoopOrEmpty();
         vars_.getMutableLoopRoot().addAllElts(AssignmentsUtil.assignClassic(mutableRes_));
     }
-    public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+    public void setAssignmentBeforeNextSibling(ContextEl _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables prevAss_ = id_.getVal(this);
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
@@ -89,7 +88,7 @@ public abstract class Block implements AnalyzedBlock {
         assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.assignSimpleBefore(prevAss_.getMutableLoopRoot()));
         id_.put(nextSibling_, assBl_);
     }
-    public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBefore(ContextEl _an, AnalyzingEl _anEl) {
         BracedBlock br_ = getParent();
         Block prev_ = getPreviousSibling();
         if (prev_ == null) {
@@ -135,7 +134,7 @@ public abstract class Block implements AnalyzedBlock {
     protected AssignedVariables buildNewAssignedVariable() {
         return new AssignedVariables();
     }
-    public void reach(Analyzable _an, AnalyzingEl _anEl) {
+    public void reach(ContextEl _an, AnalyzingEl _anEl) {
         Block prev_ = getPreviousSibling();
         if (_anEl.canCompleteNormallyGroup(prev_)) {
             _anEl.reach(this);
@@ -152,15 +151,15 @@ public abstract class Block implements AnalyzedBlock {
         return true;
     }
 
-    public abstract void abrupt(Analyzable _an, AnalyzingEl _anEl);
-    public abstract void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl);
-    public abstract void checkTree(Analyzable _an, AnalyzingEl _anEl);
-    protected StringMap<AssignmentBefore> makeHypothesisFields(Analyzable _an) {
-        AssignedVariables vars_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
+    public abstract void abrupt(ContextEl _an, AnalyzingEl _anEl);
+    public abstract void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl);
+    public abstract void checkTree(ContextEl _an, AnalyzingEl _anEl);
+    protected StringMap<AssignmentBefore> makeHypothesisFields(ContextEl _an) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         return AssignmentsUtil.getHypoAssignmentBefore(vars_.getFieldsRootBefore());
     }
-    protected CustList<StringMap<AssignmentBefore>> makeHypothesisVars(Analyzable _an) {
-        AssignedVariables vars_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
+    protected CustList<StringMap<AssignmentBefore>> makeHypothesisVars(ContextEl _an) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         CustList<StringMap<AssignmentBefore>> variables_;
         variables_ = new CustList<StringMap<AssignmentBefore>>();
         for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
@@ -168,8 +167,8 @@ public abstract class Block implements AnalyzedBlock {
         }
         return variables_;
     }
-    protected CustList<StringMap<AssignmentBefore>> makeHypothesisMutableLoop(Analyzable _an) {
-        AssignedVariables vars_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
+    protected CustList<StringMap<AssignmentBefore>> makeHypothesisMutableLoop(ContextEl _an) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         CustList<StringMap<AssignmentBefore>> variables_;
         variables_ = new CustList<StringMap<AssignmentBefore>>();
         for (StringMap<AssignmentBefore> s: vars_.getMutableLoopRootBefore()) {

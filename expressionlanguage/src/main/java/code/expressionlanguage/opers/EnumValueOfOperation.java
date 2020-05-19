@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -33,7 +33,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeUnary(Analyzable _conf) {
+    public void analyzeUnary(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+argOffset, _conf);
         CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
         firstArgs_.add(getFirstChild().getResultClass());
@@ -44,12 +44,12 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         RootBlock r_ = classes_.getClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_conf.getCurrentFileName());
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //className len
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     clName_);
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
             String argClName_ = _conf.getStandards().getAliasObject();
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
@@ -57,31 +57,31 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
         if (!Classes.canAccess(curClassBase_, r_, _conf)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
-            badAccess_.setFileName(_conf.getCurrentFileName());
+            badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //className len
-            badAccess_.buildError(_conf.getContextEl().getAnalysisMessages().getInaccessibleType(),
+            badAccess_.buildError(_conf.getAnalysisMessages().getInaccessibleType(),
                     clName_,
                     curClassBase_);
-            _conf.addError(badAccess_);
+            _conf.getAnalyzing().getLocalizer().addError(badAccess_);
         }
         ClassArgumentMatching argCl_ = firstArgs_.first();
         String stringType_ = _conf.getStandards().getAliasString();
         if (!argCl_.matchClass(stringType_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_conf.getCurrentFileName());
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //separator after className
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(argCl_.getNames(),"&"));
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
         }
         className = r_.getWildCardElement();
         setResultClass(new ClassArgumentMatching(className));
     }
 
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(ContextEl _conf) {
         analyzeStdAssignmentAfter(_conf);
     }
 

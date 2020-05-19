@@ -1,9 +1,6 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.opers.util.ClassField;
-import code.util.EntryCust;
-import code.util.ObjectMap;
+import code.expressionlanguage.ContextEl;
 
 public final class FunctionalInstance implements AbstractFunctionalInstance {
 
@@ -26,7 +23,7 @@ public final class FunctionalInstance implements AbstractFunctionalInstance {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return className;
     }
 

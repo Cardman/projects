@@ -37,7 +37,7 @@ public final class RendLocalThrowing implements RendCallingFinally {
                                 continue;
                             }
                             Argument arg_ = new Argument(custCause_);
-                            if (Templates.safeObject(name_, arg_, _conf) == ErrorType.NOTHING) {
+                            if (Templates.safeObject(name_, arg_, _conf.getContext()) == ErrorType.NOTHING) {
                                 catchElt_ = ca_;
                                 bl_.setCurrentVisitedBlock(ca_);
                                 break;
@@ -57,7 +57,7 @@ public final class RendLocalThrowing implements RendCallingFinally {
                         if (catchElt_ instanceof RendCatchEval) {
                             RendCatchEval c_ = (RendCatchEval) catchElt_;
                             String var_ = c_.getVariableName();
-                            LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,_conf);
+                            LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,_conf.getContext());
                             bkIp_.getCatchVars().put(var_, lv_);
                         }
                         bkIp_.getRendReadWrite().setRead(childCatch_);

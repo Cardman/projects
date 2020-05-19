@@ -91,8 +91,8 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         return importedClassName;
     }
     public void buildEl(Configuration _cont,RendDocumentBlock _doc) {
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
-        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
+        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
@@ -131,7 +131,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         if (!toInfer(_cont)) {
-            importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
+            importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
         } else {
             importedClassName = EMPTY_STRING;
         }
@@ -159,11 +159,11 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 mapping_.setParam(importedClassName);
                 StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
+                if (!Templates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
-                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(compo_.getNames(),AND_ERR),
                             importedClassName);
                     _cont.addError(cast_);
@@ -215,11 +215,11 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 mapping_.setParam(importedClassName);
                 StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
+                if (!Templates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
-                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassName);
                     _cont.addError(cast_);
@@ -232,7 +232,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(expressionOffset);
-            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
                     _cont.getStandards().getAliasObject(),
                     _cont.getStandards().getAliasIterable());
             _cont.addError(cast_);
@@ -281,7 +281,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         } else {
             if (its_ == NullStruct.NULL_VALUE) {
                 String npe_ = _cont.getStandards().getAliasNullPe();
-                _cont.setException(new ErrorStruct(_cont, npe_));
+                _cont.setException(new ErrorStruct(_cont.getContext(), npe_));
                 return;
             }
             Argument arg_ = iterator(its_,_cont);
@@ -313,7 +313,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             return ((ArrayStruct)_str).getInstance().length;
         }
         String npe_ = _cont.getStandards().getAliasNullPe();
-        _cont.setException(new ErrorStruct(_cont, npe_));
+        _cont.setException(new ErrorStruct(_cont.getContext(), npe_));
         return -1;
     }
     Struct processLoop(Configuration _conf) {
@@ -394,7 +394,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         } else {
             Struct container_ = lv_.getContainer();
             LongStruct lg_ = new LongStruct(_l.getIndex());
-            element_ = ExecInvokingOperation.getElement(container_, lg_, _conf);
+            element_ = ExecInvokingOperation.getElement(container_, lg_, _conf.getContext());
         }
         if (_conf.getContext().hasException()) {
             return;
@@ -404,7 +404,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         } else {
             arg_ = new Argument(element_);
         }
-        if (!Templates.checkObject(importedClassName, arg_, _conf)) {
+        if (!Templates.checkObject(importedClassName, arg_, _conf.getContext())) {
             return;
         }
         lv_.setStruct(element_);

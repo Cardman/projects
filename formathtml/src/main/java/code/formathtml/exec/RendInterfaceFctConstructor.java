@@ -38,14 +38,14 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
             //init and test
             int order_ = getParent().getFirstChild().getOrder();
             Argument lda_ = _nodes.getValue(order_).getArgument();
-            if (!Templates.checkObject(_conf.getStandards().getAliasFct(), lda_, _conf)) {
+            if (!Templates.checkObject(_conf.getStandards().getAliasFct(), lda_, _conf.getContext())) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;
             }
-            String form_ = _conf.getOperationPageEl().formatVarType(className, _conf);
+            String form_ = _conf.getPageEl().formatVarType(className, _conf.getContext());
             Argument ref_ = new Argument(lda_.getStruct());
-            ExecCastOperation.wrapFct(form_,true,new CustList<Argument>(ref_),_conf);
-            if (!Templates.checkObject(form_, ref_, _conf)) {
+            ExecCastOperation.wrapFct(form_,true,new CustList<Argument>(ref_),_conf.getContext());
+            if (!Templates.checkObject(form_, ref_, _conf.getContext())) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;
             }
@@ -67,13 +67,13 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetOper, _conf);
         Argument arg_ = _arguments.first();
         CustList<Argument> firstArgs_;
-        String superClass_ = _conf.getOperationPageEl().formatVarType(classFromName,_conf);
+        String superClass_ = _conf.getPageEl().formatVarType(classFromName,_conf.getContext());
         String lastType_ = getLastType();
-        lastType_ = Templates.quickFormat(superClass_, lastType_, _conf);
+        lastType_ = Templates.quickFormat(superClass_, lastType_, _conf.getContext());
         int natvararg_ = getNaturalVararg();
         ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments.mid(1), _conf);
-        ExecInvokingOperation.checkParameters(_conf, superClass_, ctorId_, arg_, firstArgs_, true,false,InstancingStep.USING_SUPER,null);
+        ExecInvokingOperation.checkParameters(_conf.getContext(), superClass_, ctorId_, arg_, firstArgs_, true,false,InstancingStep.USING_SUPER,null);
         return Argument.createVoid();
     }
 

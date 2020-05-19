@@ -21,20 +21,20 @@ public abstract class RendMethodOperation extends RendDynOperationNode {
         super(_indexChild,_res,_order);
     }
     void processCall(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, Argument _res) {
-        CallingState callingState_ = _conf.getContextEl().getCallingState();
+        CallingState callingState_ = _conf.getContext().getCallingState();
         Argument res_;
         if (callingState_ instanceof CustomFoundConstructor) {
             CustomFoundConstructor ctor_ = (CustomFoundConstructor)callingState_;
-            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(),ctor_.getType(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
+            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(),ctor_.getType(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContext());
         } else if (callingState_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) callingState_;
-            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _conf.getContextEl(),method_.getRight());
+            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _conf.getContext(),method_.getRight());
         } else if (callingState_ instanceof CustomReflectMethod) {
             CustomReflectMethod ref_ = (CustomReflectMethod) callingState_;
-            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContextEl(), ref_.getReflect(), ref_.isLambda());
+            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContext(), ref_.getReflect(), ref_.isLambda());
         } else if (callingState_ instanceof CustomFoundCast) {
             CustomFoundCast cast_ = (CustomFoundCast) callingState_;
-            res_ = ProcessMethod.castArgument(cast_.getClassName(),cast_.getId(), cast_.getArguments(), _conf.getContextEl());
+            res_ = ProcessMethod.castArgument(cast_.getClassName(),cast_.getId(), cast_.getArguments(), _conf.getContext());
         } else {
             res_ = _res;
         }

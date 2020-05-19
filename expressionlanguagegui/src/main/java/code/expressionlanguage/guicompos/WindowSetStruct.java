@@ -1,6 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -24,7 +24,7 @@ public final class WindowSetStruct implements Struct {
         return NullStruct.NULL_VALUE;
     }
 
-    public ArrayStruct toSnapshotArray(ExecutableCode _contextEl) {
+    public ArrayStruct toSnapshotArray(ContextEl _contextEl) {
         CustList<WindowStruct> instantKeys_ = new CustList<WindowStruct>();
         for (WindowStruct s: elementSet.keySet()) {
             instantKeys_.add(s);
@@ -35,7 +35,7 @@ public final class WindowSetStruct implements Struct {
         ArrayStruct arr_ = new ArrayStruct(innArr_,PrimitiveTypeUtil.getPrettyArrayType(thClass_));
         for (int i = 0; i < len_; i++) {
             Struct e_ = instantKeys_.get(i);
-            _contextEl.getContextEl().getInitializingTypeInfos().addSensibleField(this,e_);
+            _contextEl.getInitializingTypeInfos().addSensibleField(this,e_);
             innArr_[i] = e_;
         }
         return arr_;
@@ -65,8 +65,8 @@ public final class WindowSetStruct implements Struct {
         return BooleanStruct.of(elementSet.containsKey(_key));
     }
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
-        return ((LgNamesGui)_contextEl).getAliasWindowSet();
+    public String getClassName(ContextEl _contextEl) {
+        return ((LgNamesGui)_contextEl.getStandards()).getAliasWindowSet();
     }
 
     @Override

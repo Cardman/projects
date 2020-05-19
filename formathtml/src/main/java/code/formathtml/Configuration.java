@@ -32,7 +32,7 @@ import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 import code.util.*;
 
-public final class Configuration implements ExecutableCode {
+public final class Configuration {
 
     private static final String RETURN_LINE = "\n";
 
@@ -64,8 +64,6 @@ public final class Configuration implements ExecutableCode {
     private BeanLgNames standards;
 
     private int nextIndex;
-
-    private boolean staticContext;
 
     private final StringMap<Struct> builtBeans = new StringMap<Struct>();
     private final StringMap<Struct> builtValidators = new StringMap<Struct>();
@@ -113,12 +111,6 @@ public final class Configuration implements ExecutableCode {
     private final ErrorList errorsDet = new ErrorList();
     private final WarningList warningsDet = new WarningList();
 
-    @Override
-    public ExecutableCode getExecutingInstance() {
-        return this;
-    }
-
-    @Override
     public ArrayStruct newStackTraceElementArray() {
         int count_ = importing.size();
         int lenArrCtx_ = context.nbPages();
@@ -134,8 +126,7 @@ public final class Configuration implements ExecutableCode {
         return new ArrayStruct(arr_, cl_);
     }
 
-    @Override
-    public StackTraceElementStruct newStackTraceElement(int _index) {
+    private StackTraceElementStruct newStackTraceElement(int _index) {
         ImportingPage call_ = importing.get(_index);
         int indexFileType_ = call_.getSum();
         int row_ = call_.getRowFile(indexFileType_);
@@ -184,12 +175,7 @@ public final class Configuration implements ExecutableCode {
     public void setupRenders(StringMap<String> _files) {
         renders.clear();
         analyzingDoc.setFiles(_files);
-        context.setAnalyzing();
-        context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));
-        context.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(this));
-        context.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(this));
-        context.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        context.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        setupInts();
         for (String s: renderFiles) {
             String link_ = RendExtractFromResources.getRealFilePath(currentLanguage,s);
             String file_ = _files.getVal(link_);
@@ -402,7 +388,6 @@ public final class Configuration implements ExecutableCode {
         return builtValidators;
     }
 
-    @Override
     public LgNames getStandards() {
         return getAdvStandards();
     }
@@ -427,7 +412,7 @@ public final class Configuration implements ExecutableCode {
         _warning.setLocationFile(getLocationFile(_warning.getFileName(),_warning.getIndexFile()));
         warningsDet.add(_warning);
     }
-    @Override
+
     public void addError(FoundErrorInterpret _error) {
         _error.setLocationFile(getLocationFile(_error.getFileName(),_error.getIndexFile()));
         errorsDet.add(_error);
@@ -461,12 +446,10 @@ public final class Configuration implements ExecutableCode {
         return errorsDet;
     }
 
-    @Override
     public Classes getClasses() {
         return getContext().getClasses();
     }
 
-    @Override
     public String getCurrentFileName() {
         return analyzingDoc.getFileName();
     }
@@ -483,7 +466,6 @@ public final class Configuration implements ExecutableCode {
         return getLastPage().getCatchVars();
     }
 
-    @Override
     public void setOffset(int _offset) {
         getLastPage().setOffset(_offset);
     }
@@ -491,9 +473,8 @@ public final class Configuration implements ExecutableCode {
         getLastPage().setOpOffset(_offset);
     }
 
-    @Override
     public boolean isStaticAccess() {
-        return staticContext;
+        return context.getAnalyzing().isStaticContext();
     }
 
     public int getNextIndex() {
@@ -504,44 +485,33 @@ public final class Configuration implements ExecutableCode {
         nextIndex = _nextIndex;
     }
 
-    @Override
     public boolean hasDeclarator() {
         RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
         return currentBlock_.getPreviousSibling() instanceof RendDeclareVariable;
     }
 
-    @Override
     public void setupDeclaratorClass(String _className) {
         RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
         RendBlock previousSibling_ = currentBlock_.getPreviousSibling();
         ((RendDeclareVariable)previousSibling_).setImportedClassName(_className);
     }
 
-    @Override
     public boolean hasLoopDeclarator() {
         RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
         return currentBlock_ instanceof RendForMutableIterativeLoop;
     }
 
-    @Override
     public void setupLoopDeclaratorClass(String _className) {
         RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
         ((RendForMutableIterativeLoop)currentBlock_).setImportedClassName(_className);
     }
 
-    @Override
-    public PageEl getOperationPageEl() {
+    public PageEl getPageEl() {
         return importing.last().getPageEl();
     }
 
-    @Override
     public void setException(Struct _struct) {
         context.setException(_struct);
-    }
-
-    @Override
-    public ContextEl getContextEl() {
-        return context;
     }
 
     public boolean isInternGlobal() {
@@ -566,7 +536,6 @@ public final class Configuration implements ExecutableCode {
         return a_;
     }
 
-    @Override
     public AnalyzedPageEl getAnalyzing() {
         return context.getAnalyzing();
     }
@@ -575,25 +544,21 @@ public final class Configuration implements ExecutableCode {
         return context.getAnalyzing().getLocalVars();
     }
 
-    @Override
     public String getIndexClassName() {
         RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
         return ((RendForMutableIterativeLoop)currentBlock_).getImportedClassIndexName();
     }
 
-    @Override
     public KeyWords getKeyWords() {
         return context.getKeyWords();
     }
 
-    @Override
     public int getCurrentLocationIndex() {
         AnalyzedPageEl analyzing_ = context.getAnalyzing();
         int offset_ = analyzing_.getOffset();
         return analyzingDoc.getSum(offset_)+analyzing_.getTraceIndex()-offset_;
     }
 
-    @Override
     public boolean isValidSingleToken(String _id) {
         if (!isValidToken(_id)) {
             return false;
@@ -601,7 +566,6 @@ public final class Configuration implements ExecutableCode {
         return context.idDisjointToken(_id);
     }
 
-    @Override
     public boolean isValidToken(String _id) {
         return context.isValidToken(_id,false);
     }
@@ -636,12 +600,7 @@ public final class Configuration implements ExecutableCode {
             currentVarSetting_ = context.getAnalyzing().getCurrentVarSetting();
             globalClass_ = getGlobalClass();
         }
-        context.setAnalyzing();
-        context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));
-        context.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(this));
-        context.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(this));
-        context.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        context.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        setupInts();
         context.getAnalyzing().setGlobalClass(globalClass_);
         context.getAnalyzing().initLocalVars();
         context.getAnalyzing().initMutableLoopVars();
@@ -659,6 +618,20 @@ public final class Configuration implements ExecutableCode {
         context.getAnalyzing().setCurrentVarSetting(currentVarSetting_);
     }
 
+    public void setupInts() {
+        context.setAnalyzing();
+        context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));
+        context.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(this));
+        context.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(this));
+        context.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
+        context.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        context.getAnalyzing().setLoopDeclaring(new AdvancedLoopDeclaring(this));
+        context.getAnalyzing().setLocalDeclaring(new AdvancedLocalDeclaring(this));
+        context.getAnalyzing().setBuildingConstraints(new AdvancedBuildingConstraints(this));
+        context.getAnalyzing().setLocalizer(new AdvancedLocalizer(this));
+        context.getAnalyzing().setTokenValidation(new AdvancedTokenValidation(this));
+    }
+
     public StringList getAddedFiles() {
         return addedFiles;
     }
@@ -667,18 +640,17 @@ public final class Configuration implements ExecutableCode {
         addedFiles = _addedFiles;
     }
 
-    @Override
     public boolean hasToExit(String _className) {
         Classes classes_ = getClasses();
         String idCl_ = Templates.getIdFromAllTypes(_className);
         if (classes_.isCustomType(idCl_)) {
-            InitClassState res_ = classes_.getLocks().getState(getContextEl(), idCl_);
+            InitClassState res_ = classes_.getLocks().getState(getContext(), idCl_);
             if (res_ == InitClassState.NOT_YET) {
-                getContextEl().setCallingState(new NotInitializedClass(idCl_));
+                getContext().setCallingState(new NotInitializedClass(idCl_));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {
-                CausingErrorStruct causing_ = new CausingErrorStruct(idCl_,this);
+                CausingErrorStruct causing_ = new CausingErrorStruct(idCl_,context);
                 setException(causing_);
                 return true;
             }
@@ -818,7 +790,6 @@ public final class Configuration implements ExecutableCode {
         return getAccessingImportingBlock(_bl, root_);
     }
 
-    @Override
     public void buildCurrentConstraintsFull() {
         context.getAnalyzing().getAvailableVariables().clear();
     }

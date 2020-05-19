@@ -1,9 +1,7 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -40,7 +38,7 @@ public final class ExecStandardInstancingOperation extends
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         StandardInstancingOperation.tryGetArg(this,_conf,naturalVararg, constId,lastType);
     }
 
@@ -53,28 +51,28 @@ public final class ExecStandardInstancingOperation extends
         setSimpleArgument(res_, _conf, _nodes);
     }
     Argument getArgument(Argument _previous,CustList<Argument> _arguments,
-            ExecutableCode _conf) {
+                         ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         CustList<ExecOperationNode> filter_ = filterInvoking(chidren_);
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         if (!fieldName.isEmpty()) {
-            off_ -= _conf.getContextEl().getLastPage().getTranslatedOffset();
+            off_ -= _conf.getLastPage().getTranslatedOffset();
             off_ -= fieldName.length();
             off_ --;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_;
-        PageEl page_ = _conf.getOperationPageEl();
+        PageEl page_ = _conf.getLastPage();
         className_ = page_.formatVarType(className, _conf);
         if (fieldName.isEmpty()) {
             String base_ = Templates.getIdFromAllTypes(className_);
-            if (ExecInvokingOperation.hasToExit(_conf, base_)) {
+            if (_conf.hasToExit(base_)) {
                 return Argument.createVoid();
             }
         }
         String lastType_ = Templates.quickFormat(className_, lastType, _conf);
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments, _conf);
-        return instancePrepare(_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex, true);
+        return instancePrepare(_conf.getLastPage(),_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex, true);
     }
 
     public String getClassName() {

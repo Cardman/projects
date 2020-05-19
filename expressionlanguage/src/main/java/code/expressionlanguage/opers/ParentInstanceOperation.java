@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -19,7 +19,7 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         StringList converted_ = new StringList();
         if (isIntermediateDottedOperation()) {

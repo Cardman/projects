@@ -1,6 +1,6 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -32,7 +32,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
         }
         return true;
     }
-    public static void calculateCharSeq(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
+    public static void calculateCharSeq(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
             ApplyCoreMethodUtil.getCharSeq(_struct).calculateLocCharSeq(_cont, _res, _method, _args);
             return;
@@ -43,7 +43,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
         }
         _res.setResult(BooleanStruct.of(sameEq(ApplyCoreMethodUtil.getCharSeq(_args[0]),_args[1])));
     }
-    public static Struct calculateCharSeq(Analyzable _cont, ClassMethodId _method, Struct _struct, Struct... _args) {
+    public static Struct calculateCharSeq(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
             return ApplyCoreMethodUtil.getCharSeq(_struct).calculateLocCharSeq(_cont, _method, _args);
         }
@@ -52,7 +52,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
         }
         return BooleanStruct.of(sameEq(ApplyCoreMethodUtil.getCharSeq(_args[0]),_args[1]));
     }
-    private void calculateLocCharSeq(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
+    private void calculateLocCharSeq(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
@@ -178,7 +178,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
         }
         _res.setResult(getDisplayedString(_cont));
     }
-    private Struct calculateLocCharSeq(Analyzable _cont, ClassMethodId _method, Struct... _args) {
+    private Struct calculateLocCharSeq(ContextEl _cont, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
@@ -715,7 +715,7 @@ public abstract class CharSequenceStruct implements DisplayableStruct {
         return new StringStruct(StringList.simpleStringsFormat(toStringInstance(), seps_));
     }
     @Override
-    public StringStruct getDisplayedString(Analyzable _an) {
+    public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(toStringInstance());
     }
 

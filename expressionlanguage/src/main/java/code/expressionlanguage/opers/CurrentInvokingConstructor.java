@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 
@@ -12,7 +12,7 @@ public final class CurrentInvokingConstructor extends AbstractInvokingConstructo
     }
 
     @Override
-    ClassArgumentMatching getFrom(Analyzable _conf) {
+    ClassArgumentMatching getFrom(ContextEl _conf) {
         String clCurName_ = _conf.getAnalyzing().getGlobalClass();
         return new ClassArgumentMatching(clCurName_);
     }

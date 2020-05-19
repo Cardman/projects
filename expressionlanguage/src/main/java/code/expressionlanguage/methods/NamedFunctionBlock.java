@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -150,17 +149,17 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     @Override
-    public void setAssignmentAfterCallReadOnly(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl) {
         checkReturnFct(_an, _anEl);
     }
 
     @Override
-    public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfterCall(ContextEl _an, AnalyzingEl _anEl) {
         setAssignmentAfter(_an,_anEl);
         checkReturnFct(_an, _anEl);
     }
 
-    private void checkReturnFct(Analyzable _an, AnalyzingEl _anEl) {
+    private void checkReturnFct(ContextEl _an, AnalyzingEl _anEl) {
         LgNames stds_ = _an.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (_anEl.canCompleteNormally(this)) {
@@ -169,9 +168,9 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                 miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
                 //return type len
-                miss_.buildError(_an.getContextEl().getAnalysisMessages().getMissingAbrupt(),
-                        _an.getContextEl().getKeyWords().getKeyWordThrow(),
-                        _an.getContextEl().getKeyWords().getKeyWordReturn(),
+                miss_.buildError(_an.getAnalysisMessages().getMissingAbrupt(),
+                        _an.getKeyWords().getKeyWordThrow(),
+                        _an.getKeyWords().getKeyWordReturn(),
                         getPseudoSignature(_an));
                 _an.addError(miss_);
             }
@@ -210,7 +209,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return new StringList(parametersTypes);
     }
 
-    public final void buildImportedTypes(Analyzable _stds) {
+    public final void buildImportedTypes(ContextEl _stds) {
         StringList params_ = new StringList();
         int i_ = 0;
         AnalyzedPageEl page_ = _stds.getAnalyzing();
@@ -222,7 +221,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             page_.setGlobalOffset(parametersTypesOffset.get(i_));
             page_.setOffset(0);
             params_.add(ResolvingImportTypes.resolveCorrectType(_stds,p));
-            partOffsets_.addAllElts(_stds.getContextEl().getCoverage().getCurrentParts());
+            partOffsets_.addAllElts(_stds.getCoverage().getCurrentParts());
             partOffsetsParams.add(partOffsets_);
             i_++;
         }
@@ -231,7 +230,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         buildImportedReturnTypes(_stds);
     }
 
-    public void buildImportedReturnTypes(Analyzable _stds) {
+    public void buildImportedReturnTypes(ContextEl _stds) {
         String void_ = _stds.getStandards().getAliasVoid();
         if (StringList.quickEq(returnType.trim(), void_)) {
             importedReturnType = void_;
@@ -243,7 +242,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         page_.setGlobalOffset(returnTypeOffset);
         page_.setOffset(0);
         importedReturnType = ResolvingImportTypes.resolveCorrectType(_stds,returnType);
-        partOffsetsReturn.addAllElts(_stds.getContextEl().getCoverage().getCurrentParts());
+        partOffsetsReturn.addAllElts(_stds.getCoverage().getCurrentParts());
     }
     public String getReturnType() {
         return returnType;
@@ -263,10 +262,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return access;
     }
     @Override
-    public void setAssignmentBeforeCall(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeCall(ContextEl _an, AnalyzingEl _anEl) {
         AssignedVariables ass_;
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
-        ass_ = _an.getContextEl().getAssignedVariables().getFinalVariablesGlobal();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
         id_.put(this, ass_);
     }
 

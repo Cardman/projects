@@ -1,6 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneCustMethod;
@@ -293,7 +293,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         err_.setFileName(getFile().getFileName());
                         err_.setIndexFile(supCl_.getAccessOffset());
                         //key word access or method name
-                        err_.buildError(_context.getContextEl().getAnalysisMessages().getMethodsAccesses(),
+                        err_.buildError(_context.getAnalysisMessages().getMethodsAccesses(),
                                 name_,
                                 id_.getSignature(_context),
                                 nameCl_,
@@ -685,9 +685,49 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 String name_ = method_.getName();
                 if (method_ instanceof OverridableBlock) {
                     OverridableBlock m_ = (OverridableBlock) method_;
-                    if (m_.getKind() == MethodKind.STD_METHOD) {
+                    if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
                         m_.buildImportedTypes(_context);
-                        if (!_context.isValidToken(name_) && !StringList.quickEq(name_, keyWords_.getKeyWordToString()) && !StringList.quickEq(name_, keyWords_.getKeyWordExplicit())) {
+                        if (!StringList.quickEq(m_.getImportedReturnType(),getGenericString())) {
+                            int r_ = m_.getNameOffset();
+                            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                            badMeth_.setFileName(getFile().getFileName());
+                            badMeth_.setIndexFile(r_);
+                            //method name len
+                            badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
+                                    m_.getSignature(_context),
+                                    getGenericString());
+                            _context.addError(badMeth_);
+                        } else if (m_.getParametersTypes().size() != 1) {
+                            int r_ = m_.getNameOffset();
+                            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                            badMeth_.setFileName(getFile().getFileName());
+                            badMeth_.setIndexFile(r_);
+                            //method name len
+                            badMeth_.buildError(_context.getAnalysisMessages().getBadParams(),
+                                    m_.getSignature(_context));
+                            _context.addError(badMeth_);
+                        } else if (!m_.isStaticMethod()) {
+                            int r_ = m_.getNameOffset();
+                            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                            badMeth_.setFileName(getFile().getFileName());
+                            badMeth_.setIndexFile(r_);
+                            //method name len
+                            badMeth_.buildError(_context.getAnalysisMessages().getBadMethodModifier(),
+                                    m_.getSignature(_context));
+                            _context.addError(badMeth_);
+                        } else if (m_.isVarargs()) {
+                            int r_ = m_.getNameOffset();
+                            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                            badMeth_.setFileName(getFile().getFileName());
+                            badMeth_.setIndexFile(r_);
+                            //method name len
+                            badMeth_.buildError(_context.getAnalysisMessages().getBadMethodVararg(),
+                                    m_.getSignature(_context));
+                            _context.addError(badMeth_);
+                        }
+                    } else if (m_.getKind() == MethodKind.STD_METHOD) {
+                        m_.buildImportedTypes(_context);
+                        if (!_context.isValidToken(name_) && !StringList.quickEq(name_, keyWords_.getKeyWordToString())) {
                             int r_ = m_.getNameOffset();
                             FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                             badMeth_.setFileName(getFile().getFileName());
@@ -715,45 +755,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 //method name len
                                 badMeth_.buildError(_context.getAnalysisMessages().getBadAccess(),
                                         name_);
-                                _context.addError(badMeth_);
-                            }
-                        } else if (StringList.quickEq(name_, keyWords_.getKeyWordExplicit())) {
-                            if (!StringList.quickEq(m_.getImportedReturnType(),getGenericString())) {
-                                int r_ = m_.getNameOffset();
-                                FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                                badMeth_.setFileName(getFile().getFileName());
-                                badMeth_.setIndexFile(r_);
-                                //method name len
-                                badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
-                                        m_.getSignature(_context),
-                                        getGenericString());
-                                _context.addError(badMeth_);
-                            } else if (m_.getParametersTypes().size() != 1) {
-                                int r_ = m_.getNameOffset();
-                                FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                                badMeth_.setFileName(getFile().getFileName());
-                                badMeth_.setIndexFile(r_);
-                                //method name len
-                                badMeth_.buildError(_context.getAnalysisMessages().getBadParams(),
-                                        m_.getSignature(_context));
-                                _context.addError(badMeth_);
-                            } else if (!m_.isStaticMethod()) {
-                                int r_ = m_.getNameOffset();
-                                FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                                badMeth_.setFileName(getFile().getFileName());
-                                badMeth_.setIndexFile(r_);
-                                //method name len
-                                badMeth_.buildError(_context.getAnalysisMessages().getBadMethodModifier(),
-                                        m_.getSignature(_context));
-                                _context.addError(badMeth_);
-                            } else if (m_.isVarargs()) {
-                                int r_ = m_.getNameOffset();
-                                FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                                badMeth_.setFileName(getFile().getFileName());
-                                badMeth_.setIndexFile(r_);
-                                //method name len
-                                badMeth_.buildError(_context.getAnalysisMessages().getBadMethodVararg(),
-                                        m_.getSignature(_context));
                                 _context.addError(badMeth_);
                             }
                         }
@@ -802,7 +803,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 }
                 if (method_ instanceof OverridableBlock) {
                     OverridableBlock m_ = (OverridableBlock) method_;
-                    if (m_.getKind() == MethodKind.STD_METHOD) {
+                    if (m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.EXPLICIT_CAST) {
                         MethodId id_ = m_.getId();
                         if (ContextEl.isEnumType(this)) {
                             String valueOf_ = stds_.getAliasEnumPredValueOf();
@@ -1046,7 +1047,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public abstract void buildDirectGenericSuperTypes(ContextEl _classes);
     public abstract void buildErrorDirectGenericSuperTypes(ContextEl _classes);
 
-    public final StringList getAllGenericSuperTypes(Analyzable _classes) {
+    public final StringList getAllGenericSuperTypes(ContextEl _classes) {
         Classes classes_ = _classes.getClasses();
         StringList current_ = new StringList(getGenericString());
         StringList all_ = new StringList();
@@ -1078,7 +1079,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return all_;
     }
 
-    public final StringList getAllGenericClasses(Analyzable _classes) {
+    public final StringList getAllGenericClasses(ContextEl _classes) {
         Classes classes_ = _classes.getClasses();
         StringList current_ = new StringList(getGenericString());
         StringList all_ = new StringList();
@@ -1668,7 +1669,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     public abstract boolean mustImplement();
 
-    public boolean isSubTypeOf(String _fullName, Analyzable _an) {
+    public boolean isSubTypeOf(String _fullName, ContextEl _an) {
         if (StringList.quickEq(getFullName(),_fullName)) {
             return true;
         }
@@ -1676,7 +1677,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
 
     @Override
-    public boolean isTypeHidden(RootBlock _class, Analyzable _analyzable) {
+    public boolean isTypeHidden(RootBlock _class, ContextEl _analyzable) {
         return !Classes.canAccess(getFullName(), _class, _analyzable);
     }
 }

@@ -1,6 +1,6 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.util.CustList;
 import code.util.*;
 
@@ -31,5 +31,5 @@ abstract class ParentPartType extends PartType {
         return firstChild;
     }
 
-    abstract boolean analyzeTree(ExecutableCode _an, CustList<IntTreeMap<String>> _dels);
+    abstract boolean analyzeTree(ContextEl _an, CustList<IntTreeMap<String>> _dels);
 }

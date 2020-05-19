@@ -2,12 +2,12 @@ package code.formathtml.classes;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.formathtml.Configuration;
 import code.formathtml.DefaultInitialization;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.RealInstanceStruct;
@@ -1939,7 +1939,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
     }
 
     @Override
-    public Struct wrapStd(Object _element, ExecutableCode _ex) {
+    public Struct wrapStd(Object _element) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
         }

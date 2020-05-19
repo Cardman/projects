@@ -8,6 +8,7 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.types.DefaultLoopDeclaring;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.*;
 import code.sml.Document;
@@ -22,12 +23,7 @@ public abstract class CommonRender {
 
     protected static void addImportingPage(Configuration _conf) {
         _conf.addPage(new ImportingPage());
-        _conf.getContext().setAnalyzing();
-        _conf.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_conf));
-        _conf.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_conf));
-        _conf.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_conf));
-        _conf.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        _conf.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        setupAna(_conf);
     }
 
     protected static void setLocale(String _locale, Configuration _conf) {
@@ -40,7 +36,7 @@ public abstract class CommonRender {
         ContextEl context_ = _conf.getContext();
         BeanLgNames standards_ = (BeanLgNames) context_.getStandards();
         nav_.getSession().setStandards(standards_);
-        context_.setExecutingInstance(nav_.getSession());
+        context_.setFullStack(new AdvancedFullStack(nav_.getSession()));
         return nav_;
     }
 
@@ -54,7 +50,7 @@ public abstract class CommonRender {
         
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         conf_.setContext(cont_);
-        cont_.setExecutingInstance(conf_);
+        cont_.setFullStack(new AdvancedFullStack(conf_));
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
         Classes.validateWithoutInit(_files, cont_);
@@ -67,12 +63,7 @@ public abstract class CommonRender {
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getContext().setAnalyzing();
-        conf_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(conf_));
-        conf_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(conf_));
-        conf_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(conf_));
-        conf_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        conf_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        setupAna(conf_);
         rendDocumentBlock_.buildFctInstructions(conf_);
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(conf_);
@@ -89,12 +80,7 @@ public abstract class CommonRender {
         context_.getBeansInfos().addEntry("bean_one",b_);
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getRenders().put("page1.html",rendDocumentBlock_);
-        context_.getContext().setAnalyzing();
-        context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
-        context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(context_));
-        context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
-        context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        setupAna(context_);
         rendDocumentBlock_.buildFctInstructions(context_);
         tryInitStaticlyTypes(context_);
         addImportingPage(context_);
@@ -133,12 +119,7 @@ public abstract class CommonRender {
         RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(context_, "c:", docSec_, htmlTwo_);
         context_.getRenders().put("page1.html",rendDocumentBlock_);
         context_.getRenders().put("page2.html",rendDocumentBlockSec_);
-        context_.getContext().setAnalyzing();
-        context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
-        context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(context_));
-        context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
-        context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        setupAna(context_);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         tryInitStaticlyTypes(context_);
@@ -149,6 +130,11 @@ public abstract class CommonRender {
         context_.setDocument(doc_);
         return rendDocumentBlock_;
     }
+
+    protected static void setupAna(Configuration context_) {
+        context_.setupInts();
+    }
+
     protected static RendDocumentBlock buildTwoPagesTwo(String html_, String htmlTwo_, Configuration context_) {
         setLocale("en", context_);
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
@@ -167,12 +153,7 @@ public abstract class CommonRender {
         RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(context_, "c:", docSec_, htmlTwo_);
         context_.getRenders().put("page1.html",rendDocumentBlock_);
         context_.getRenders().put("page2.html",rendDocumentBlockSec_);
-        context_.getContext().setAnalyzing();
-        context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
-        context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(context_));
-        context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
-        context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        setupAna(context_);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         tryInitStaticlyTypes(context_);
@@ -211,12 +192,7 @@ public abstract class CommonRender {
         context_.getRenders().put("page1.html",rendDocumentBlock_);
         context_.getRenders().put("page2.html",rendDocumentBlockSec_);
         context_.getRenders().put("page3.html",rendDocumentBlockThird_);
-        context_.getContext().setAnalyzing();
-        context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
-        context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(context_));
-        context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
-        context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        setupAna(context_);
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         rendDocumentBlockThird_.buildFctInstructions(context_);

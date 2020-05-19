@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -51,7 +51,7 @@ public final class FctOperation extends InvokingOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
@@ -97,7 +97,7 @@ public final class FctOperation extends InvokingOperation {
             className_ = className_.substring(lenPref_);
             int loc_ = StringList.getFirstPrintableCharIndex(className_);
             className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
             Mapping map_ = new Mapping();
             map_.setParam(className_);
             map_.setArg(clCur_);
@@ -105,13 +105,13 @@ public final class FctOperation extends InvokingOperation {
             map_.setMapping(mapping_);
             if (!Templates.isCorrectOrNumbers(map_, _conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 //type len
-                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(clCur_.getNames(),"&"),
                         className_);
-                _conf.addError(cast_);
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
@@ -141,13 +141,13 @@ public final class FctOperation extends InvokingOperation {
         if (!arrayBounds_.isEmpty()) {
             if (!StringList.quickEq(trimMeth_, stds_.getAliasClone())) {
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-                undefined_.setFileName(_conf.getCurrentFileName());
-                undefined_.setIndexFile(_conf.getCurrentLocationIndex());
+                undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //trimMeth_ len
-                undefined_.buildError(_conf.getContextEl().getAnalysisMessages().getArrayCloneOnly(),
+                undefined_.buildError(_conf.getAnalysisMessages().getArrayCloneOnly(),
                         stds_.getAliasClone(),
                         StringList.join(arrayBounds_,"&"));
-                _conf.addError(undefined_);
+                _conf.getAnalyzing().getLocalizer().addError(undefined_);
                 return;
             }
             String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject());
@@ -169,14 +169,14 @@ public final class FctOperation extends InvokingOperation {
             if (clMeth_.isAbstractMethod()) {
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
                 FoundErrorInterpret abs_ = new FoundErrorInterpret();
-                abs_.setIndexFile(_conf.getCurrentLocationIndex());
-                abs_.setFileName(_conf.getCurrentFileName());
+                abs_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                abs_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 //method name len
                 abs_.buildError(
-                        _conf.getContextEl().getAnalysisMessages().getAbstractMethodRef(),
+                        _conf.getAnalysisMessages().getAbstractMethodRef(),
                         clMeth_.getRealClass(),
                         clMeth_.getRealId().getSignature(_conf));
-                _conf.addError(abs_);
+                _conf.getAnalyzing().getLocalizer().addError(abs_);
                 setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
                 return;
             }
@@ -202,7 +202,7 @@ public final class FctOperation extends InvokingOperation {
             checkNull(arg_,_conf);
         }
     }
-    private void setDelta(Analyzable _conf) {
+    private void setDelta(ContextEl _conf) {
         String trimMeth_ = methodName.trim();
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
@@ -235,11 +235,11 @@ public final class FctOperation extends InvokingOperation {
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         tryGetArg(this, getPreviousArgument(),_conf, classMethodId, naturalVararg, lastType);
     }
 
-    public static void tryGetArg(PossibleIntermediateDottedOperable _current, Argument _pr,Analyzable _conf,
+    public static void tryGetArg(PossibleIntermediateDottedOperable _current, Argument _pr,ContextEl _conf,
                                  ClassMethodId _classMethodId, int _naturalVararg, String _lastType) {
         CustList<Operable> chidren_ = ((ParentOperable)_current).getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();

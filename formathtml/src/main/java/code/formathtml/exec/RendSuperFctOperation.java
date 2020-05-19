@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -13,6 +12,7 @@ import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.formathtml.Configuration;
+import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -44,11 +44,11 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         Argument argres_ = getArgument(previous_, arguments_, _conf);
-        CallingState state_ = _conf.getContextEl().getCallingState();
+        CallingState state_ = _conf.getContext().getCallingState();
         if (state_ instanceof NotInitializedClass) {
             NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
+            if (_conf.getContext().hasException()) {
                 return;
             }
             argres_ = getArgument(previous_, arguments_, _conf);
@@ -69,24 +69,24 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
         if (!staticMethod) {
             prev_.setStruct(_previous.getStruct());
             classNameFound_ = classMethodId.getClassName();
-            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, prev_.getStruct(), _conf));
-            if (_conf.getContextEl().hasException()) {
+            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, prev_.getStruct(), _conf.getContext()));
+            if (_conf.getContext().hasException()) {
                 Argument a_ = new Argument();
                 return a_;
             }
-            String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
+            String argClassName_ = prev_.getObjectClassName(_conf.getContext());
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
-            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
-            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
+            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf.getContext());
+            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             methodId_ = classMethodId.getConstraints();
         } else {
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             classNameFound_ = classMethodId.getClassName();
-            if (ExecInvokingOperation.hasToExit(_conf, classNameFound_)) {
+            if (_conf.hasToExit(classNameFound_)) {
                 return Argument.createVoid();
             }
         }
-        return ExecInvokingOperation.callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 }

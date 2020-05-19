@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.ContextEl;
@@ -52,11 +51,11 @@ public final class IfCondition extends Condition implements BlockCondition {
     }
 
     @Override
-    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeChild(ContextEl _an, AnalyzingEl _anEl) {
         assignWhenTrue(_an);
     }
     @Override
-    public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeNextSibling(ContextEl _an, AnalyzingEl _anEl) {
         if (!canBeIncrementedCurGroup()) {
             super.setAssignmentBeforeNextSibling(_an, _anEl);
             return;
@@ -64,12 +63,12 @@ public final class IfCondition extends Condition implements BlockCondition {
         assignWhenFalse(false, _an, _anEl);
     }
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
         if (canBeIncrementedCurGroup()) {
             return;
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         CustList<StringMap<SimpleAssignment>> afterVars_;

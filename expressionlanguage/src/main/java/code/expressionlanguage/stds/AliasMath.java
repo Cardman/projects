@@ -1,7 +1,7 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -258,7 +258,7 @@ public final class AliasMath {
         method_ = new StandardMethod(aliasRandom, params_, aliasPrimDouble_, false, MethodModifier.STATIC,std_);
         methods_.put(method_.getId(), method_);
     }
-    public static ResultErrorStd invokeStdMethod(Analyzable _cont, ClassMethodId _method, Argument... _args) {
+    public static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Struct[] args_ = getObjects(_args);
         String name_ = _method.getConstraints().getName();
@@ -422,7 +422,7 @@ public final class AliasMath {
         }
         return result_;
     }
-    public static Struct invokeAnalyzisStdMethod(Analyzable _cont, ClassMethodId _method, Argument... _args) {
+    public static Struct invokeAnalyzisStdMethod(ContextEl _cont, ClassMethodId _method, Argument... _args) {
         Struct[] args_ = getObjects(_args);
         String name_ = _method.getConstraints().getName();
         StringList paramList_ = _method.getConstraints().getParametersTypes();

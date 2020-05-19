@@ -2,8 +2,6 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.exec.ExecExplicitOperation;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
@@ -32,11 +30,11 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
     }
 
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        return ExecExplicitOperation.prepare(direct,_mid,_args,_className,_context, _mid.getKind() == MethodAccessKind.STATIC_CALL);
+        return ExecExplicitOperation.prepare(direct,_mid,_args,_className,_context.getLastPage(),_context, _mid.getKind() == MethodAccessKind.STATIC_CALL);
     }
 
     @Override
-    public String formatVarType(String _varType, ExecutableCode _cont) {
+    public String formatVarType(String _varType, ContextEl _cont) {
         return _varType;
     }
 }

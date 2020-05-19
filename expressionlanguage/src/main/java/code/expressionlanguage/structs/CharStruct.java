@@ -1,7 +1,6 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 
 public final class CharStruct extends NumberStruct {
 
@@ -13,12 +12,12 @@ public final class CharStruct extends NumberStruct {
 
 
     @Override
-    public StringStruct getDisplayedString(Analyzable _an) {
+    public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(Character.toString(value));
     }
 
     @Override
-    public String getClassName(ExecutableCode _context) {
+    public String getClassName(ContextEl _context) {
         return _context.getStandards().getAliasCharacter();
     }
 

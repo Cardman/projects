@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractArrayInstancingOperation;
 import code.util.CustList;
@@ -33,5 +32,5 @@ public abstract class ExecAbstractArrayInstancingOperation extends ExecInvokingO
         setSimpleArgument(res_, _conf, _nodes);
     }
     abstract Argument getArgument(CustList<Argument> _arguments,
-            ExecutableCode _conf);
+                                  ContextEl _conf);
 }

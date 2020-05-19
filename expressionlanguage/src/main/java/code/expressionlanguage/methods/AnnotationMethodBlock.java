@@ -1,13 +1,11 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.FieldInitPageEl;
 import code.expressionlanguage.common.GeneCustMethod;
-import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetAccessInfo;
@@ -65,7 +63,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
-    public void buildImportedReturnTypes(Analyzable _stds) {
+    public void buildImportedReturnTypes(ContextEl _stds) {
         super.buildImportedReturnTypes(_stds);
         LgNames stds_ = _stds.getStandards();
         String string_ = stds_.getAliasString();
@@ -79,7 +77,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         if (PrimitiveTypeUtil.isPrimitiveOrWrapper(type_, _stds)) {
             return;
         }
-        GeneType r_ = _stds.getContextEl().getClassBody(type_);
+        GeneType r_ = _stds.getClassBody(type_);
         if (r_ instanceof AnnotationBlock) {
             return;
         }
@@ -93,10 +91,10 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             return;
         }
         FoundErrorInterpret cast_ = new FoundErrorInterpret();
-        cast_.setFileName(_stds.getCurrentFileName());
-        cast_.setIndexFile(_stds.getCurrentLocationIndex());
+        cast_.setFileName(_stds.getAnalyzing().getLocalizer().getCurrentFileName());
+        cast_.setIndexFile(_stds.getAnalyzing().getLocalizer().getCurrentLocationIndex());
         //return type len
-        cast_.buildError(_stds.getContextEl().getAnalysisMessages().getUnexpectedType(),
+        cast_.buildError(_stds.getAnalysisMessages().getUnexpectedType(),
                 itype_);
         _stds.addError(cast_);
     }
@@ -165,7 +163,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(defaultValueOffset);
             //parentheses
-            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(arg_.getNames(),"&"),
                     import_);
             _cont.addError(cast_);

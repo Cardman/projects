@@ -1,6 +1,6 @@
 package cards.tarot.beans;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.RealInstanceStruct;
@@ -58,7 +58,7 @@ public final class DefaultStruct implements RealInstanceStruct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return className;
     }
 

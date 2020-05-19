@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ConstType;
@@ -35,10 +34,10 @@ public final class ExecFinalVariableOperation extends ExecLeafOperation implemen
         Argument arg_ = getCommonArgument(_conf);
         setSimpleArgument(arg_, _conf, _nodes);
     }
-    Argument getCommonArgument(ExecutableCode _conf) {
+    Argument getCommonArgument(ContextEl _conf) {
         Argument a_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
+        PageEl ip_ = _conf.getLastPage();
         if (type == ConstType.PARAM) {
             LocalVariable locVar_ = ip_.getParameters().getVal(variableName);
             a_ = new Argument();

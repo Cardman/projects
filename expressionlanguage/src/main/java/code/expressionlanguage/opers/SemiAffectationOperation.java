@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -26,19 +26,19 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     }
 
     @Override
-    public void analyzeUnary(Analyzable _conf) {
+    public void analyzeUnary(ContextEl _conf) {
         OperationNode leftEl_ = getFirstChild();
         LgNames stds_ = _conf.getStandards();
         settable = AffectationOperation.tryGetSettable(this);
         if (settable == null) {
             leftEl_.setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _conf);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_conf.getCurrentFileName());
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //operator
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedAffect(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedAffect(),
                     oper);
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -48,12 +48,12 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             if (ElUtil.checkFinalFieldReadOnly(_conf, cst_, fieldsAfterLast_)) {
                 cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setIndexFile(_conf.getCurrentLocationIndex());
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //field name len
-                un_.buildError(_conf.getContextEl().getAnalysisMessages().getFinalField(),
+                un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
-                _conf.addError(un_);
+                _conf.getAnalyzing().getLocalizer().addError(un_);
             }
         }
         setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.toPrimitive(settable.getResultClass(),_conf)));
@@ -78,13 +78,13 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             map_.setParam(settable.getResultClass());
             if (!Templates.isCorrectOrNumbers(map_, _conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //operator
-                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(out_.getNames(),"&"),
                         StringList.join(settable.getResultClass().getNames(),"&"));
-                _conf.addError(cast_);
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
             }
             return;
         }
@@ -95,12 +95,12 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             mapping_.setArg(clMatchLeft_);
             mapping_.setParam(_conf.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setIndexFile(_conf.getCurrentLocationIndex());
+            cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //operator
-            cast_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            cast_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(clMatchLeft_.getNames(),"&"));
-            _conf.addError(cast_);
+            _conf.getAnalyzing().getLocalizer().addError(cast_);
             return;
         }
         clMatchLeft_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf));
@@ -108,9 +108,9 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     }
 
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(ContextEl _conf) {
         Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();
@@ -127,13 +127,13 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey())) {
                         if (!e.getValue().isUnassignedAfter()) {
-                            if (_conf.getContextEl().isFinalLocalVar(str_,index_)) {
+                            if (_conf.isFinalLocalVar(str_,index_)) {
                                 //error
                                 firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                                un_.setFileName(_conf.getCurrentFileName());
-                                un_.setIndexFile(_conf.getCurrentLocationIndex());
-                                un_.buildError(_conf.getContextEl().getAnalysisMessages().getFinalField(),
+                                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                                un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                                         str_);
                                 _conf.addError(un_);
                             }
@@ -160,13 +160,13 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey())) {
                         if (!e.getValue().isUnassignedAfter()) {
-                            if (_conf.getContextEl().isFinalMutableLoopVar(str_,index_)) {
+                            if (_conf.isFinalMutableLoopVar(str_,index_)) {
                                 //error
                                 firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                                un_.setFileName(_conf.getCurrentFileName());
-                                un_.setIndexFile(_conf.getCurrentLocationIndex());
-                                un_.buildError(_conf.getContextEl().getAnalysisMessages().getFinalField(),
+                                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                                un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                                         str_);
                                 _conf.addError(un_);
                             }
@@ -192,14 +192,14 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(firstChild_);
             if (ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
                 ClassField cl_ = cst_.getFieldId();
-                FieldInfo meta_ = _conf.getContextEl().getFieldInfo(cl_);
+                FieldInfo meta_ = _conf.getFieldInfo(cl_);
                 if (meta_.isFinalField()) {
                     //error if final field
                     cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_conf.getCurrentFileName());
-                    un_.setIndexFile(_conf.getCurrentLocationIndex());
-                    un_.buildError(_conf.getContextEl().getAnalysisMessages().getFinalField(),
+                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                             cl_.getFieldName());
                     _conf.addError(un_);
                 }

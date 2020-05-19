@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.ContextEl;
@@ -44,12 +43,12 @@ public final class WhileCondition extends Condition implements Loop {
     }
 
     @Override
-    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeChild(ContextEl _an, AnalyzingEl _anEl) {
         assignWhenTrue(_an);
     }
 
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
         AssignedVariablesDesc ass_ = new AssignedVariablesDesc(_an,this);
         AssignedVariables varsWhile_ = ass_.getVarsWhile();
         IdMap<Block, AssignedVariables> allDesc_ = ass_.getAllDesc();
@@ -80,14 +79,14 @@ public final class WhileCondition extends Condition implements Loop {
         varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
     }
 
-    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(ContextEl _an, AnalyzingEl _anEl) {
         Block last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         StringMap<AssignmentBefore> list_;
         list_ = makeHypothesisFields(_an);
         int contLen_ = continues_.size();
@@ -106,14 +105,14 @@ public final class WhileCondition extends Condition implements Loop {
         }
         return invalidateHypothesis(list_, new StringMap<SimpleAssignment>(), breakAss_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(ContextEl _an, AnalyzingEl _anEl) {
         Block last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> list_;
@@ -141,14 +140,14 @@ public final class WhileCondition extends Condition implements Loop {
         
         return varsList_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(ContextEl _an, AnalyzingEl _anEl) {
         Block last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> list_;

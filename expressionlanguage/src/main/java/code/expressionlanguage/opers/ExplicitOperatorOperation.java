@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -23,7 +23,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         String cl_ = methodName;
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
         int varargOnly_ = lookOnlyForVarArg();
@@ -39,16 +39,16 @@ public final class ExplicitOperatorOperation extends InvokingOperation {
         ClassMethodIdReturn cust_ = getOperator(_conf, id_,varargOnly_,false,cl_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!cust_.isFoundMethod()) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-            undefined_.setFileName(_conf.getCurrentFileName());
-            undefined_.setIndexFile(_conf.getCurrentLocationIndex());
+            undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //_name len
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: firstArgs_) {
                 classesNames_.add(StringList.join(c.getNames(), "&"));
             }
-            undefined_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedMethod(),
+            undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
                     new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(_conf));
-            _conf.addError(undefined_);
+            _conf.getAnalyzing().getLocalizer().addError(undefined_);
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }

@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -24,30 +24,30 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         opOffset = _op.getOperators().firstKey();
     }
 
-    static ClassArgumentMatching getResultClass(ClassArgumentMatching _a, Analyzable _cont, ClassArgumentMatching _b) {
+    static ClassArgumentMatching getResultClass(ClassArgumentMatching _a, ContextEl _cont, ClassArgumentMatching _b) {
         int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
         String exp_ = _cont.getStandards().getAliasNumber();
         boolean ok_ = true;
         if (oa_ == 0) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_cont.getCurrentLocationIndex());
-            un_.setFileName(_cont.getCurrentFileName());
+            un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
             //operator
-            un_.buildError(_cont.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(_a.getNames(),"&"));
-            _cont.addError(un_);
+            _cont.getAnalyzing().getLocalizer().addError(un_);
             _cont.getAnalyzing().setOkNumOp(false);
             ok_ = false;
         }
         int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
         if (ob_ == 0) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_cont.getCurrentLocationIndex());
-            un_.setFileName(_cont.getCurrentFileName());
+            un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
             //operator
-            un_.buildError(_cont.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(_a.getNames(),"&"));
-            _cont.addError(un_);
+            _cont.getAnalyzing().getLocalizer().addError(un_);
             _cont.getAnalyzing().setOkNumOp(false);
             ok_ = false;
         }
@@ -57,7 +57,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         return getQuickResultClass(_a, oa_, _cont, _b, ob_);
     }
 
-    static ClassArgumentMatching getQuickResultClass(ClassArgumentMatching _a, int _oa, Analyzable _cont, ClassArgumentMatching _b, int _ob) {
+    static ClassArgumentMatching getQuickResultClass(ClassArgumentMatching _a, int _oa, ContextEl _cont, ClassArgumentMatching _b, int _ob) {
         ClassArgumentMatching arg_;
         int max_ = Math.max(_oa, _ob);
         if (_oa > _ob) {
@@ -74,7 +74,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     }
 
     @Override
-    public final void analyze(Analyzable _conf) {
+    public final void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         ClassArgumentMatching a_ = chidren_.first().getResultClass();
         ResultOperand r_;
@@ -111,20 +111,20 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         setResultClass(new ClassArgumentMatching(a_));
     }
 
-    abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, Analyzable _cont);
+    abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont);
     @Override
-    public final void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+    public final void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
             OperationNode _nextSibling, OperationNode _previous) {
         analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
     @Override
-    public final void analyzeAssignmentAfter(Analyzable _conf) {
+    public final void analyzeAssignmentAfter(ContextEl _conf) {
         analyzeStdAssignmentAfter(_conf);
     }
-    abstract Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _an);
+    abstract Argument calculateOperAna(Argument _a, String _op, Argument _b, ContextEl _an);
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         if (classMethodId != null || !okNum) {
             return;
         }

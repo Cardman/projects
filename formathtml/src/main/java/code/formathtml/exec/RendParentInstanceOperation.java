@@ -26,7 +26,7 @@ public class RendParentInstanceOperation extends RendLeafOperation implements Re
 
     Argument getCommonArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
+        PageEl ip_ = _conf.getPageEl();
         Struct struct_;
         if (isIntermediateDottedOperation()) {
             Argument previous_ = getPreviousArg(this, _nodes, _conf);
@@ -35,7 +35,7 @@ public class RendParentInstanceOperation extends RendLeafOperation implements Re
             struct_ = ip_.getGlobalArgument().getStruct();
         }
         Argument a_ = new Argument();
-        a_.setStruct(ClassArgumentMatching.convert(getResultClass(),struct_.getParent(),_conf));
+        a_.setStruct(ClassArgumentMatching.convert(_conf.getPageEl(),getResultClass(),struct_.getParent(),_conf.getContext()));
         return a_;
     }
     @Override

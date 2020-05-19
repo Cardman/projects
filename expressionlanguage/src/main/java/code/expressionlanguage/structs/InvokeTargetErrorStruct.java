@@ -1,8 +1,6 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.util.CollCapacity;
 import code.util.StringList;
 
@@ -14,16 +12,15 @@ public final class InvokeTargetErrorStruct implements ErroneousStruct {
     private final Struct cause;
     private final String message;
 
-    public InvokeTargetErrorStruct(Struct _cause, ExecutableCode _cont) {
+    public InvokeTargetErrorStruct(Struct _cause, ContextEl _cont) {
         this("", _cause, _cont);
     }
 
-    private InvokeTargetErrorStruct(String _message, Struct _cause, ExecutableCode _cont) {
+    private InvokeTargetErrorStruct(String _message, Struct _cause, ContextEl _cont) {
         message = _message;
         cause = _cause;
-        ContextEl cont_ = _cont.getContextEl();
-        stack = cont_.newStackTraceElementArray();
-        fullStack = _cont.getExecutingInstance().newStackTraceElementArray();
+        stack = _cont.newStackTraceElementArray();
+        fullStack = _cont.newStackTraceElementArrayFull();
     }
 
     @Override
@@ -38,7 +35,7 @@ public final class InvokeTargetErrorStruct implements ErroneousStruct {
 
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getAliasInvokeTarget();
     }
 
@@ -48,7 +45,7 @@ public final class InvokeTargetErrorStruct implements ErroneousStruct {
     }
 
     @Override
-    public StringStruct getDisplayedString(Analyzable _an) {
+    public StringStruct getDisplayedString(ContextEl _an) {
         Struct[] calls_ = stack.getInstance();
         return new StringStruct(getStringRep(_an,calls_));
     }
@@ -68,9 +65,9 @@ public final class InvokeTargetErrorStruct implements ErroneousStruct {
         return new StringStruct(message);
     }
 
-    public String getStringRep(Analyzable _an,Struct[] _arr) {
+    public String getStringRep(ContextEl _an,Struct[] _arr) {
         StringList str_ = new StringList(new CollCapacity(_arr.length+2));
-        str_.add(getClassName(_an.getContextEl()));
+        str_.add(getClassName(_an));
         str_.add(message);
         for (Struct s: _arr) {
             str_.add(StackTraceElementStruct.getStack(s).getStringRep());

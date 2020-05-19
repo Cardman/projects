@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers.util;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.StringList;
@@ -28,7 +28,7 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         }
     }
     
-    public ConstructorId reflectFormat(String _genericClass, Analyzable _classes) {
+    public ConstructorId reflectFormat(String _genericClass, ContextEl _classes) {
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
@@ -41,7 +41,7 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
     }
 
     @Override
-    public String getSignature(Analyzable _ana) {
+    public String getSignature(ContextEl _ana) {
         String suf_ = EMPTY;
         if (vararg) {
             suf_ = VARARG;

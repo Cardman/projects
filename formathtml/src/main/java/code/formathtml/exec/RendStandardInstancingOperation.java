@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.calls.util.NotInitializedClass;
@@ -58,11 +57,11 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         }
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         Argument argres_ = getArgument(previous_, arguments_, _conf);
-        CallingState state_ = _conf.getContextEl().getCallingState();
+        CallingState state_ = _conf.getContext().getCallingState();
         if (state_ instanceof NotInitializedClass) {
             NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
+            if (_conf.getContext().hasException()) {
                 return;
             }
             argres_ = getArgument(previous_, arguments_, _conf);
@@ -77,15 +76,15 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_;
-        PageEl page_ = _conf.getOperationPageEl();
-        className_ = page_.formatVarType(className, _conf);
+        PageEl page_ = _conf.getPageEl();
+        className_ = page_.formatVarType(className, _conf.getContext());
         String base_ = Templates.getIdFromAllTypes(className_);
-        if (ExecInvokingOperation.hasToExit(_conf, base_)) {
+        if (_conf.hasToExit(base_)) {
             return Argument.createVoid();
         }
-        String lastType_ = Templates.quickFormat(className_, lastType, _conf);
+        String lastType_ = Templates.quickFormat(className_, lastType, _conf.getContext());
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments, _conf);
-        return ExecInvokingOperation.instancePrepare(_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex, true);
+        return ExecInvokingOperation.instancePrepare(_conf.getPageEl(),_conf.getContext(), className_, constId, _previous, firstArgs_, fieldName, blockIndex, true);
     }
 
 }

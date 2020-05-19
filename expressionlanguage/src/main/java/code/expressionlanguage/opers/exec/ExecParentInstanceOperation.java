@@ -29,7 +29,7 @@ public class ExecParentInstanceOperation extends ExecLeafOperation implements At
 
     Argument getCommonArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
+        PageEl ip_ = _conf.getLastPage();
         Struct struct_;
         if (isIntermediateDottedOperation()) {
             Argument previous_ = getPreviousArg(this, _nodes, _conf);
@@ -38,7 +38,7 @@ public class ExecParentInstanceOperation extends ExecLeafOperation implements At
             struct_ = ip_.getGlobalArgument().getStruct();
         }
         Argument a_ = new Argument();
-        a_.setStruct(ClassArgumentMatching.convert(getResultClass(),struct_.getParent(),_conf));
+        a_.setStruct(ClassArgumentMatching.convert(_conf.getLastPage(),getResultClass(),struct_.getParent(),_conf));
         return a_;
     }
 

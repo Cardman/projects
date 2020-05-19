@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.exec.StandardFieldOperable;
@@ -17,7 +17,7 @@ public final class StandardFieldOperation extends
     }
 
     @Override
-    ClassArgumentMatching getFrom(Analyzable _conf) {
+    ClassArgumentMatching getFrom(ContextEl _conf) {
         ClassArgumentMatching cl_;
         if (isIntermediateDottedOperation()) {
             cl_ = getPreviousResultClass();

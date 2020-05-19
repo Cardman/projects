@@ -3,7 +3,6 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ErrorType;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -30,7 +29,7 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
         setSimpleArgument(argres_, _conf, _nodes);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         Argument objArg_ = _arguments.first();
         if (objArg_.isNull()) {
@@ -38,7 +37,7 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
             arg_.setStruct(BooleanStruct.of(false));
             return arg_;
         }
-        PageEl page_ = _conf.getOperationPageEl();
+        PageEl page_ = _conf.getLastPage();
         String str_ = page_.formatVarType(className, _conf);
         boolean res_ = Templates.safeObject(str_, objArg_, _conf) == ErrorType.NOTHING;
         Argument arg_ = new Argument();

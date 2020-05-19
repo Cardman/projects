@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -19,7 +19,7 @@ public final class BitXorOperation extends NumericOperation {
 
     @Override
     ResultOperand analyzeOper(ClassArgumentMatching _a, String _op,
-            ClassArgumentMatching _b, Analyzable _cont) {
+            ClassArgumentMatching _b, ContextEl _cont) {
         ResultOperand res_ = new ResultOperand();
         if (_a.isBoolType(_cont) && _b.isBoolType(_cont)) {
             String bool_ = _cont.getStandards().getAliasPrimBoolean();
@@ -40,16 +40,16 @@ public final class BitXorOperation extends NumericOperation {
         _cont.getAnalyzing().setOkNumOp(false);
         String exp_ = _cont.getStandards().getAliasNumber();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setIndexFile(_cont.getCurrentLocationIndex());
-        un_.setFileName(_cont.getCurrentFileName());
+        un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+        un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
         //oper
-        un_.buildError(_cont.getContextEl().getAnalysisMessages().getUnexpectedOperandTypes(),
+        un_.buildError(_cont.getAnalysisMessages().getUnexpectedOperandTypes(),
                 StringList.join(new StringList(
                         StringList.join(_a.getNames(),"&"),
                         StringList.join(_b.getNames(),"&")
                 ),";"),
                 getOp());
-        _cont.addError(un_);
+        _cont.getAnalyzing().getLocalizer().addError(un_);
         ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
         res_.setResult(arg_);
         return res_;
@@ -57,8 +57,8 @@ public final class BitXorOperation extends NumericOperation {
 
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
-            Analyzable _an) {
-        return new Argument(NumberStruct.calculateXor(_a.getStruct(), _b.getStruct(), _an.getContextEl(), getResultClass()));
+            ContextEl _an) {
+        return new Argument(NumberStruct.calculateXor(_a.getStruct(), _b.getStruct(), _an, getResultClass()));
     }
 
     @Override

@@ -351,7 +351,6 @@ public final class NativeTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setExecutingInstance(conf_);
         conf_.setFirstUrl("page2.html");
         conf_.getRenderFiles().add("page1.html");
         conf_.getRenderFiles().add("page2.html");
@@ -396,7 +395,6 @@ public final class NativeTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setExecutingInstance(conf_);
         return conf_;
     }
 
@@ -1423,12 +1421,7 @@ public final class NativeTest extends CommonRender {
         }
         _nav.getSession().setBeansInfos(map_);
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        _nav.getSession().getContext().setAnalyzing();
-        _nav.getSession().getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_nav.getSession()));
-        _nav.getSession().getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_nav.getSession()));
-        _nav.getSession().getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_nav.getSession()));
-        _nav.getSession().getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        _nav.getSession().getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        setupAna(_nav.getSession());
         _nav.initInstancesPattern();
         _nav.setupRenders();
         tryInitStaticlyTypes(_nav.getSession());
@@ -1442,7 +1435,6 @@ public final class NativeTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setExecutingInstance(conf_);
         return conf_;
     }
 
@@ -1452,12 +1444,7 @@ public final class NativeTest extends CommonRender {
         ((BeanNatLgNames)context_.getStandards()).getBeans().put("bean_one", bean_);
         addBeanInfo(context_,"bean_one",new BeanStruct(bean_));
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
-        context_.getContext().setAnalyzing();
-        context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(context_));
-        context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(context_));
-        context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(context_));
-        context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        setupAna(context_);
         rendDocumentBlock_.buildFctInstructions(context_);
         context_.setDocument(doc_);
         return rendDocumentBlock_;
@@ -1473,12 +1460,7 @@ public final class NativeTest extends CommonRender {
         RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(conf_, "c:", docSec_, htmlTwo_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         conf_.getRenders().put("page2.html",rendDocumentBlockSec_);
-        conf_.getContext().setAnalyzing();
-        conf_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(conf_));
-        conf_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(conf_));
-        conf_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(conf_));
-        conf_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        conf_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        setupAna(conf_);
         rendDocumentBlock_.buildFctInstructions(conf_);
         rendDocumentBlockSec_.buildFctInstructions(conf_);
         conf_.setDocument(doc_);
@@ -1499,7 +1481,7 @@ public final class NativeTest extends CommonRender {
 
     private static void addBeanInfo(Configuration _conf, String _id, Struct _str) {
         BeanInfo b_ = new BeanInfo();
-        b_.setClassName(_str.getClassName(_conf));
+        b_.setClassName(_str.getClassName(_conf.getContext()));
         _conf.getBeansInfos().addEntry(_id,b_);
         _conf.getBuiltBeans().addEntry(_id,_str);
     }

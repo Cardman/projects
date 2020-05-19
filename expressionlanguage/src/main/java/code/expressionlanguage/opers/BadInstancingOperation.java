@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -11,18 +11,18 @@ public final class BadInstancingOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         String argClName_;
         FoundErrorInterpret emptyPart_ = new FoundErrorInterpret();
-        emptyPart_.setFileName(_conf.getCurrentFileName());
-        emptyPart_.setIndexFile(_conf.getCurrentLocationIndex());
+        emptyPart_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+        emptyPart_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
         //if parent is null => all text
         //if parent is not null => use parent header
-        emptyPart_.buildError(_conf.getContextEl().getAnalysisMessages().getEmptyExpressionPart());
-        _conf.addError(emptyPart_);
+        emptyPart_.buildError(_conf.getAnalysisMessages().getEmptyExpressionPart());
+        _conf.getAnalyzing().getLocalizer().addError(emptyPart_);
         argClName_ = _conf.getStandards().getAliasObject();
         setResultClass(new ClassArgumentMatching(argClName_));
     }

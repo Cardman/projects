@@ -1,6 +1,6 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.MultOperation;
 import code.expressionlanguage.opers.exec.ExecNumericOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -15,7 +15,7 @@ public final class RendMultOperation extends RendStdNumericOperation {
     }
 
     @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
+    Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont) {
         if (StringList.quickEq(_op.trim(), MULT)) {
             return new Argument(NumberStruct.calculateMult(ClassArgumentMatching.convertToNumber(_a.getStruct()),
                     ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));

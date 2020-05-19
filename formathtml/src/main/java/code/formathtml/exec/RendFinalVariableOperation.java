@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ConstType;
@@ -38,7 +37,7 @@ public final class RendFinalVariableOperation extends RendLeafOperation implemen
     Argument getCommonArgument(Configuration _conf) {
         Argument a_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
+        PageEl ip_ = _conf.getPageEl();
         if (type == ConstType.CATCH_VAR) {
             LocalVariable locVar_ = ip_.getCatchVars().getVal(variableName);
             a_ = new Argument();

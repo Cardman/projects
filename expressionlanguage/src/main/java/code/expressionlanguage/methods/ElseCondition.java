@@ -1,8 +1,6 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
@@ -42,7 +40,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     }
 
     @Override
-    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeChild(ContextEl _an, AnalyzingEl _anEl) {
         assignWhenFalse(true, _an, _anEl);
     }
     @Override
@@ -55,19 +53,19 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     }
 
     @Override
-    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
+    public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof IfCondition)) {
             if (!(pBlock_ instanceof ElseIfCondition)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
-                un_.buildError(_an.getContextEl().getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                        _an.getContextEl().getKeyWords().getKeyWordElse(),
+                un_.buildError(_an.getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                        _an.getKeyWords().getKeyWordElse(),
                         StringList.join(
                                 new StringList(
-                                        _an.getContextEl().getKeyWords().getKeyWordIf(),
-                                        _an.getContextEl().getKeyWords().getKeyWordElseif()
+                                        _an.getKeyWords().getKeyWordIf(),
+                                        _an.getKeyWords().getKeyWordElseif()
                                 ),
                                 "|"));
                 //key word len
@@ -77,7 +75,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     }
 
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
         Block pBlock_ = getPreviousSibling();
         CustList<Block> prev_ = new CustList<Block>();
@@ -94,7 +92,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         if (pBlock_ != null) {
             prev_.add(pBlock_);
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         CustList<StringMap<SimpleAssignment>> afterVars_;
@@ -128,7 +126,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     }
 
     @Override
-    public void reach(Analyzable _an, AnalyzingEl _anEl) {
+    public void reach(ContextEl _an, AnalyzingEl _anEl) {
         Block p_ = getPreviousSibling();
         if (_anEl.isReachable(p_) && p_.accessibleForNext()) {
             _anEl.reach(this);

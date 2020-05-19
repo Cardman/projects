@@ -70,7 +70,6 @@ import aiki.beans.facade.simulation.dto.RadioLineMove;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.AikiBeansFacadeSimulationEnumsStd;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
-import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.beans.facade.solution.dto.AikiBeansFacadeSolutionDtoStd;
 import aiki.beans.facade.solution.dto.PlaceTrainerDto;
 import aiki.beans.facade.solution.dto.StepDto;
@@ -220,7 +219,6 @@ import aiki.map.characters.Person;
 import aiki.map.characters.TempTrainer;
 import aiki.map.characters.Trainer;
 import aiki.map.characters.TrainerOneFight;
-import aiki.map.enums.Direction;
 import aiki.map.levels.AreaApparition;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Place;
@@ -233,7 +231,6 @@ import code.bean.Bean;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -242,6 +239,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.formathtml.Configuration;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.RealInstanceStruct;
 import code.formathtml.util.*;
@@ -337,7 +335,6 @@ public final class PokemonStandards extends BeanNatLgNames {
     private static final String GET_MULT_DAMAGE_AGAINST_FOE = "getMultDamageAgainstFoe";
     private static final String GET_TRAINER = "getTrainer";
     private static final String GET_PLACE = "getPlace";
-    private CustList<PkIdStruct> selected = new CustList<PkIdStruct>();
     public PokemonStandards() {
         PokemonStandards val_ = this;
         DefaultInitialization.basicStandards(val_);
@@ -2788,7 +2785,7 @@ public final class PokemonStandards extends BeanNatLgNames {
     }
 
     @Override
-    public Struct wrapStd(Object _element, ExecutableCode _ex) {
+    public Struct wrapStd(Object _element) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
         }

@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -26,7 +26,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeUnary(Analyzable _conf) {
+    public void analyzeUnary(ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
         OperationNode child_ = getFirstChild();
@@ -34,14 +34,13 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         clMatch_ = child_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (!clMatch_.isBoolType(_conf)) {
-            ClassArgumentMatching cl_ = child_.getResultClass();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //operator
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(clMatch_.getNames(),"&"));
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
         }
         clMatch_.setUnwrapObject(booleanPrimType_);
         child_.cancelArgument();
@@ -49,11 +48,11 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         tryGetArg(this,_conf);
     }
 
-    public static void tryGetArg(ParentOperable _par, Analyzable _conf) {
+    public static void tryGetArg(ParentOperable _par, ContextEl _conf) {
         CustList<Operable> chidren_ = _par.getChildrenOperable();
         Argument arg_ = chidren_.first().getArgument();
         Struct value_ = arg_.getStruct();
@@ -67,9 +66,9 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(ContextEl _conf) {
         Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         OperationNode last_ = getFirstChild();
         StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);

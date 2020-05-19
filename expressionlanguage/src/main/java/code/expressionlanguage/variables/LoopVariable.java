@@ -1,5 +1,4 @@
 package code.expressionlanguage.variables;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 

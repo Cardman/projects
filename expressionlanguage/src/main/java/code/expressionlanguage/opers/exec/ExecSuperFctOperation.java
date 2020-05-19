@@ -2,7 +2,7 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -73,11 +73,11 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation implement
             classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
             lastType_ = classMethodId.formatType(classNameFound_,lastType_,_conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-            if (hasToExit(_conf, classNameFound_)) {
+            if (_conf.hasToExit(classNameFound_)) {
                 return Argument.createVoid();
             }
         }
-        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
     @Override

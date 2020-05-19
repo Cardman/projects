@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
@@ -84,7 +83,7 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
     }
 
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
         buildEmptyEl(_an);
     }
 

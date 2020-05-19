@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.ArrayFieldOperation;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -17,7 +17,7 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
     }
 
     @Override
-    Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
+    Argument getCommonArgument(Argument _previous, ContextEl _conf) {
         Argument a_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOff(), _conf);
         Struct inst_ = _previous.getStruct();
@@ -30,7 +30,7 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
         String npe_;
         npe_ = _conf.getStandards().getAliasNullPe();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        String argCl_ = _previous.getObjectClassName(_conf.getContextEl());
+        String argCl_ = _previous.getObjectClassName(_conf);
         String arrObj_ = _conf.getStandards().getAliasObject();
         arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(arrObj_);
         _conf.setException(new ErrorStruct(_conf, StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),npe_));
@@ -38,11 +38,11 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
         return a_;
     }
 
-    public static int getLength(Struct _str, ExecutableCode _cont) {
+    public static int getLength(Struct _str, ContextEl _cont) {
         return getArray(_str,_cont).getInstance().length;
     }
 
-    public static ArrayStruct getArray(Struct _str, ExecutableCode _cont) {
+    public static ArrayStruct getArray(Struct _str, ContextEl _cont) {
         if (_str instanceof ArrayStruct) {
             return (ArrayStruct) _str;
         }

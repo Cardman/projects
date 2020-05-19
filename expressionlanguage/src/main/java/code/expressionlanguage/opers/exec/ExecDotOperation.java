@@ -1,5 +1,4 @@
 package code.expressionlanguage.opers.exec;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.DotOperation;
@@ -20,7 +19,7 @@ public final class ExecDotOperation extends ExecAbstractDotOperation {
         calculateDot(_nodes,_conf);
     }
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         DotOperation.setArg(this,_conf);
     }
 

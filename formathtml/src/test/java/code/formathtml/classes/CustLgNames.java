@@ -1,7 +1,6 @@
 package code.formathtml.classes;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -14,6 +13,7 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
+import code.formathtml.Configuration;
 import code.formathtml.util.BeanNatLgNames;
 import code.formathtml.structs.RealInstanceStruct;
 import code.formathtml.structs.StdStruct;
@@ -518,7 +518,7 @@ public final class CustLgNames extends BeanNatLgNames {
     }
 
     @Override
-    public Struct wrapStd(Object _element, ExecutableCode _ex) {
+    public Struct wrapStd(Object _element) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
         }

@@ -57,7 +57,7 @@ public final class AliasStackTraceElement {
             return result_;
         }
         if (StringList.quickEq(name_, ref_.aliasCurrentFullStack)) {
-            result_.setResult(_cont.getExecutingInstance().newStackTraceElementArray());
+            result_.setResult(_cont.newStackTraceElementArrayFull());
             return result_;
         }
         result_.setResult(StackTraceElementStruct.getStack(_struct).getDisplayedString(_cont));

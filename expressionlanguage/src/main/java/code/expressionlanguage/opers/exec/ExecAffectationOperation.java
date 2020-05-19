@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -49,7 +49,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         return settable;
     }
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         AffectationOperation.setArg(_conf, this, settable);
     }
 
@@ -60,7 +60,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
             ExecOperationNode left_ = ((ExecOperationNode) settable).getParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ClassArgumentMatching.convert(getResultClass(),NullStruct.NULL_VALUE,_conf));
+                leftArg_ = new Argument(ClassArgumentMatching.convert(_conf.getLastPage(),getResultClass(),NullStruct.NULL_VALUE,_conf));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
                 return;
             }

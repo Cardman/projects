@@ -1,8 +1,8 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 
 public interface ReductibleOperable {
 
-    void tryCalculateNode(Analyzable _conf);
+    void tryCalculateNode(ContextEl _conf);
 }

@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -25,7 +25,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeUnary(Analyzable _conf) {
+    public void analyzeUnary(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
         KeyWords keyWords_ = _conf.getKeyWords();
@@ -36,7 +36,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(sub_).getComponent();
         boolean exact_ = compo_.contains(Templates.TEMPLATE_BEGIN);
         sub_ = ResolvingImportTypes.resolveCorrectType(_conf, begin_ + off_, sub_, exact_);
-        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         if (!exact_) {
             RootBlock r_ = _conf.getClasses().getClassBody(Templates.getIdFromAllTypes(sub_));
             if (r_ != null) {

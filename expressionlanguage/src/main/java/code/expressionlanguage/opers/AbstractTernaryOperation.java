@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.DeadCodeTernary;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -41,10 +41,10 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         return offsetLocal;
     }
     @Override
-    public final void tryCalculateNode(Analyzable _conf) {
+    public final void tryCalculateNode(ContextEl _conf) {
         tryGetResult(_conf, this);
     }
-    public static void tryGetResult(Analyzable _conf, ParentOperable _to) {
+    public static void tryGetResult(ContextEl _conf, ParentOperable _to) {
         CustList<Operable> chidren_ = _to.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (Operable o: chidren_) {
@@ -70,7 +70,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         _to.setSimpleArgumentAna(arg_, _conf);
     }
     @Override
-    public final void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+    public final void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
             OperationNode _nextSibling, OperationNode _previous) {
         OperationNode firstChild_ = getFirstChild();
         if (firstChild_ == _previous) {
@@ -81,7 +81,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
     }
 
     @Override
-    public final void analyze(Analyzable _conf) {
+    public final void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offsetLocal, _conf);
         LgNames stds_ = _conf.getStandards();
@@ -91,12 +91,12 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         if (!clMatch_.isBoolType(_conf)) {
             setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //after first arg separator len
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(clMatch_.getNames(),"&"));
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
         }
         opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
         opOne_.cancelArgument();
@@ -113,22 +113,22 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         if (StringList.contains(one_, void_)) {
             setRelativeOffsetPossibleAnalyzable(opTwo_.getIndexInEl(), _conf);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //after first arg separator len
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getVoidType(),
+            un_.buildError(_conf.getAnalysisMessages().getVoidType(),
                     void_);
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
         }
         if (StringList.contains(two_, void_)) {
             setRelativeOffsetPossibleAnalyzable(opThree_.getIndexInEl(), _conf);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //after second arg separator len
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getVoidType(),
+            un_.buildError(_conf.getAnalysisMessages().getVoidType(),
                     void_);
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
         }
         OperationNode current_ = this;
         MethodOperation m_ = getParent();
@@ -195,19 +195,19 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         checkDeadCode(_conf, opOne_);
     }
 
-    private void checkDeadCode(Analyzable _conf, OperationNode _opOne) {
+    private void checkDeadCode(ContextEl _conf, OperationNode _opOne) {
         if (_opOne.getArgument() != null) {
             DeadCodeTernary d_ = new DeadCodeTernary();
-            d_.setIndexFile(_conf.getCurrentLocationIndex());
-            d_.setFileName(_conf.getCurrentFileName());
-            _conf.addWarning(d_);
+            d_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            d_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            _conf.getAnalyzing().getLocalizer().addWarning(d_);
         }
     }
 
     @Override
-    public final void analyzeAssignmentAfter(Analyzable _conf) {
+    public final void analyzeAssignmentAfter(ContextEl _conf) {
         Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();

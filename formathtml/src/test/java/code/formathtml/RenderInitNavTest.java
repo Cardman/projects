@@ -4,6 +4,7 @@ import code.bean.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.NullStruct;
+import code.formathtml.util.AdvancedFullStack;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 import org.junit.Test;
@@ -37,7 +38,7 @@ public final class RenderInitNavTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setExecutingInstance(conf_);
+        cont_.setFullStack(new AdvancedFullStack(conf_));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -82,7 +83,7 @@ public final class RenderInitNavTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setExecutingInstance(conf_);
+        cont_.setFullStack(new AdvancedFullStack(conf_));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -133,7 +134,7 @@ public final class RenderInitNavTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setExecutingInstance(conf_);
+        cont_.setFullStack(new AdvancedFullStack(conf_));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -176,7 +177,7 @@ public final class RenderInitNavTest extends CommonRender {
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setExecutingInstance(conf_);
+        cont_.setFullStack(new AdvancedFullStack(conf_));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

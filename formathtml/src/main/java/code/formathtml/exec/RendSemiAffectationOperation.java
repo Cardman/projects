@@ -35,7 +35,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             RendDynOperationNode left_ = ((RendDynOperationNode) settable).getParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ClassArgumentMatching.convert(getResultClass(),NullStruct.NULL_VALUE,_conf));
+                leftArg_ = new Argument(ClassArgumentMatching.convert(_conf.getPageEl(),getResultClass(),NullStruct.NULL_VALUE,_conf.getContext()));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
                 return;
             }
@@ -50,7 +50,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             String classNameFound_ = classMethodId.getClassName();
             MethodId id_ = classMethodId.getConstraints();
             Argument res_;
-            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl(),null);
+            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContext(),null);
             settable.endCalculate(_nodes,_conf, post, stored_, res_);
             res_ = getPrePost(post,stored_,res_);
             setSimpleArgument(res_, _conf,_nodes);

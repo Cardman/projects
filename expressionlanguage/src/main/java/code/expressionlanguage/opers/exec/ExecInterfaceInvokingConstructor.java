@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.util.InstancingStep;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.InterfaceInvokingConstructor;
@@ -15,14 +15,14 @@ public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvoking
     }
 
     @Override
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
 
-        Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
+        Argument arg_ = _conf.getLastPage().getGlobalArgument();
         CustList<Argument> firstArgs_;
-        String superClass_ = _conf.getOperationPageEl().formatVarType(getClassFromName(),_conf);
+        String superClass_ = _conf.getLastPage().formatVarType(getClassFromName(),_conf);
         String lastType_ = getLastType();
         lastType_ = Templates.quickFormat(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();

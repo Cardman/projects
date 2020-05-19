@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
@@ -18,7 +18,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         super(_indexInEl, _indexChild, _m, _op);
     }
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
@@ -29,7 +29,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
             classStr_ = ResolvingImportTypes.resolveCorrectType(_conf,str_.indexOf(PAR_LEFT)+1,realCl_);
-            partOffsets = new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts());
+            partOffsets = new CustList<PartOffset>(_conf.getCoverage().getCurrentParts());
         } else {
             implicit = true;
             classStr_ = glClass_;
@@ -37,21 +37,21 @@ public final class StaticCallAccessOperation extends LeafOperation {
         }
         if (classStr_.startsWith(Templates.PREFIX_VAR_TYPE)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
-            badAccess_.setFileName(_conf.getCurrentFileName());
+            badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //type len
-            badAccess_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            badAccess_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     classStr_);
-            _conf.addError(badAccess_);
+            _conf.getAnalyzing().getLocalizer().addError(badAccess_);
         }
         if (classStr_.startsWith(Templates.ARR_BEG_STRING)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
-            badAccess_.setFileName(_conf.getCurrentFileName());
+            badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //type len
-            badAccess_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            badAccess_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     classStr_);
-            _conf.addError(badAccess_);
+            _conf.getAnalyzing().getLocalizer().addError(badAccess_);
         }
         boolean ok_ = true;
         for (String p: Templates.getAllTypes(classStr_).mid(1)) {
@@ -64,12 +64,12 @@ public final class StaticCallAccessOperation extends LeafOperation {
         }
         if (!ok_) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
-            badAccess_.setFileName(_conf.getCurrentFileName());
+            badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //type len
-            badAccess_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            badAccess_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     classStr_);
-            _conf.addError(badAccess_);
+            _conf.getAnalyzing().getLocalizer().addError(badAccess_);
         }
         checkClassAccess(_conf, glClass_, classStr_);
         Argument a_ = new Argument();

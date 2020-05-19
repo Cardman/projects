@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
@@ -146,7 +145,7 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
     }
 
     @Override
-    public void setAssignmentBefore(Analyzable _an) {
+    public void setAssignmentBefore(ContextEl _an) {
         Block prev_ = getPreviousSibling();
         while (prev_ != null) {
             if (prev_ instanceof InitBlock) {
@@ -163,11 +162,11 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
         }
         AssignedVariables ass_;
         if (prev_ == null) {
-            ass_ = _an.getContextEl().getAssignedVariables().getFinalVariablesGlobal();
-            IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+            ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
+            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
             id_.put(this, ass_);
         } else {
-            IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
             AssignedVariables parAss_ = id_.getVal(prev_);
             AssignedVariables assBl_ = buildNewAssignedVariable();
             assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
@@ -177,7 +176,7 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
     }
 
     @Override
-    public void setAssignmentAfter(Analyzable _an) {
+    public void setAssignmentAfter(ContextEl _an) {
         AnalyzedPageEl page_ = _an.getAnalyzing();
         AssignedVariablesBlock asBlock_ = page_.getAssignedVariables();
         StringMap<SimpleAssignment> fieldsRoot_ = asBlock_.getFinalVariables().getVal(this).getFieldsRoot();

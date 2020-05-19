@@ -1,9 +1,7 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -74,7 +72,7 @@ public abstract class ExecOperationNode implements Operable {
         parent = _parent;
     }
 
-    public final void setRelativeOffsetPossibleLastPage(int _offset, ExecutableCode _cont) {
+    public final void setRelativeOffsetPossibleLastPage(int _offset, ContextEl _cont) {
         _cont.setOffset(getIndexBegin()+_offset);
     }
 
@@ -611,7 +609,7 @@ public abstract class ExecOperationNode implements Operable {
         return out_;
     }
     @Override
-    public final void setSimpleArgumentAna(Argument _argument, Analyzable _conf) {
+    public final void setSimpleArgumentAna(Argument _argument, ContextEl _conf) {
         OperationNode.setArgAna(this, _argument, _conf);
     }
 

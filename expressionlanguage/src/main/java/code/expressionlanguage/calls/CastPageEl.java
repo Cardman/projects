@@ -2,7 +2,6 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.Templates;
 
 public final class CastPageEl extends AbstractMethodPageEl {
@@ -11,7 +10,7 @@ public final class CastPageEl extends AbstractMethodPageEl {
     }
 
     @Override
-    public String formatVarType(String _varType, ExecutableCode _cont) {
+    public String formatVarType(String _varType, ContextEl _cont) {
         return Templates.quickFormat(getGlobalClass(),_varType,_cont);
     }
 }

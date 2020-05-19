@@ -1,7 +1,6 @@
 package code.expressionlanguage.opers.exec;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.AddOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.IntStruct;
@@ -16,27 +15,27 @@ public final class ExecAddOperation extends ExecStdNumericOperation {
         super(_a);
     }
 
-    static NumberStruct addOne(NumberStruct _arg, ExecutableCode _cont, ClassArgumentMatching _cl) {
+    static NumberStruct addOne(NumberStruct _arg, ContextEl _cont, ClassArgumentMatching _cl) {
         return NumberStruct.calculateSum(_arg, new IntStruct(1), _cont, _cl);
     }
 
-    static NumberStruct removeOne(NumberStruct _arg, ExecutableCode _cont, ClassArgumentMatching _cl) {
+    static NumberStruct removeOne(NumberStruct _arg, ContextEl _cont, ClassArgumentMatching _cl) {
         return NumberStruct.calculateDiff(_arg, new IntStruct(1), _cont, _cl);
     }
 
     @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
+    Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont) {
         return localSumDiff(_a, _op, _b, _cont);
     }
 
 
     @Override
-    Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _cont) {
-        return localSumDiff(_a, _op, _b, _cont.getContextEl());
+    Argument calculateOperAna(Argument _a, String _op, Argument _b, ContextEl _cont) {
+        return localSumDiff(_a, _op, _b, _cont);
     }
 
     private Argument localSumDiff(Argument _a, String _op, Argument _b,
-            ExecutableCode _cont) {
+                                  ContextEl _cont) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
             return new Argument(NumberStruct.calculateSum(ClassArgumentMatching.convertToNumber(_a.getStruct()),
                     ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));

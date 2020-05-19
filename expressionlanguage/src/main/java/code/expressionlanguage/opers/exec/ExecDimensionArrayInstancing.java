@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.DimensionArrayInstancing;
@@ -24,7 +24,7 @@ public final class ExecDimensionArrayInstancing extends
 
     @Override
     Argument getArgument(CustList<Argument> _arguments,
-            ExecutableCode _conf) {
+                         ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         String size_;
         size_ = stds_.getAliasBadSize();
@@ -33,7 +33,7 @@ public final class ExecDimensionArrayInstancing extends
         int off_ = StringList.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = getClassName();
-        PageEl page_ = _conf.getOperationPageEl();
+        PageEl page_ = _conf.getLastPage();
         className_ = page_.formatVarType(className_, _conf);
         className_ = PrimitiveTypeUtil.getPrettyArrayType(className_, countArrayDims);
 

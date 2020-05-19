@@ -1,6 +1,6 @@
 package code.expressionlanguage.instr;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ExpPartDelimiters;
@@ -100,16 +100,16 @@ public final class ElResolver {
     private ElResolver() {
     }
 
-    public static Delimiters checkSyntaxDelimiters(String _string, Analyzable _conf, int _minIndex) {
+    public static Delimiters checkSyntaxDelimiters(String _string, ContextEl _conf, int _minIndex) {
         Delimiters d_ = new Delimiters();
         d_.setPartOfString(true);
         return commonCheck(_string, _conf, _minIndex, true, d_);
     }
 
-    public static Delimiters checkSyntax(String _string, Analyzable _conf, int _elOffest) {
+    public static Delimiters checkSyntax(String _string, ContextEl _conf, int _elOffest) {
         return commonCheck(_string, _conf, _elOffest, false,new Delimiters());
     }
-    private static Delimiters commonCheck(String _string, Analyzable _conf, int _minIndex, boolean _delimiters, Delimiters _d) {
+    private static Delimiters commonCheck(String _string, ContextEl _conf, int _minIndex, boolean _delimiters, Delimiters _d) {
         boolean partOfString_ = _d.isPartOfString();
 
         Delimiters d_ = new Delimiters();
@@ -304,7 +304,7 @@ public final class ElResolver {
         d_.setBadOffset(i_);
         return d_;
     }
-    private static void processAfterInstuctionKeyWord(int _beginIndex,String _string,Delimiters _d, ResultAfterInstKeyWord _out, Analyzable _conf) {
+    private static void processAfterInstuctionKeyWord(int _beginIndex,String _string,Delimiters _d, ResultAfterInstKeyWord _out, ContextEl _conf) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _conf.getKeyWords();
@@ -1144,7 +1144,7 @@ public final class ElResolver {
         }
         _conf.getAnalyzing().getProcessKeyWord().processInternKeyWord(_string, i_, _out);
     }
-    private static void processWords(String _string, char _curChar,Delimiters _d, ResultAfterDoubleDotted _out,Analyzable _an) {
+    private static void processWords(String _string, char _curChar,Delimiters _d, ResultAfterDoubleDotted _out,ContextEl _an) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         boolean ctorCall_ = _out.isCallCtor();
@@ -1282,7 +1282,7 @@ public final class ElResolver {
     }
 
     private static void processOperators(int _beginIndex, int _minIndex, String _string, boolean _delimiters,
-                                         Delimiters _dout, ResultAfterOperators _out, Analyzable _conf) {
+                                         Delimiters _dout, ResultAfterOperators _out, ContextEl _conf) {
         IntTreeMap<Character> parsBrackets_;
         parsBrackets_ = _out.getParsBrackets();
 
@@ -1299,7 +1299,7 @@ public final class ElResolver {
         String keyWordCast_ = keyWords_.getKeyWordCast();
         String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
         char curChar_ = _string.charAt(i_);
-        if (_conf.getContextEl().isAnnotAnalysis() && curChar_ == ANNOT) {
+        if (_conf.isAnnotAnalysis() && curChar_ == ANNOT) {
             int j_ = i_ + 1;
             int last_ = i_;
             while (j_ < len_) {
@@ -1704,7 +1704,7 @@ public final class ElResolver {
         doubleDotted_.setNextIndex(i_);
     }
 
-    private static boolean isAcceptCommaInstr(Analyzable _conf) {
+    private static boolean isAcceptCommaInstr(ContextEl _conf) {
         AnalyzedPageEl ana_ = _conf.getAnalyzing();
         return !ana_.isAcceptCommaInstr() && !(ana_.getCurrentBlock() instanceof FieldBlock);
     }
@@ -1713,7 +1713,7 @@ public final class ElResolver {
         return _n > -1 && (ContextEl.isDigit(_string.charAt(_n)) || _string.charAt(_n) == DOT_VAR);
     }
 
-    private static int processFieldsStaticAccess(Analyzable _conf, boolean _ctor, String _string, int _from, String _word, int _to, Delimiters _d) {
+    private static int processFieldsStaticAccess(ContextEl _conf, boolean _ctor, String _string, int _from, String _word, int _to, Delimiters _d) {
         int len_ = _string.length();
         AnalyzedPageEl ana_ = _conf.getAnalyzing();
         String glClass_ = ana_.getGlobalClass();
@@ -1797,18 +1797,18 @@ public final class ElResolver {
         int nextOff_ = _from;
         int nb_ = 0;
         String start_;
-        if (_conf.getContextEl().getClassBody(trim_) != null) {
+        if (_conf.getClassBody(trim_) != null) {
             for (char c: trim_.toCharArray()) {
                 if (c == '.') {
                     nb_++;
                 }
             }
             start_ = trim_;
-            _conf.getContextEl().appendParts(_from, _from +inns_.first().length(),trim_,partOffsets_);
+            _conf.appendParts(_from, _from +inns_.first().length(),trim_,partOffsets_);
             nextOff_ += inns_.first().length() + 1;
         } else {
             start_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from,inns_.first(), false);
-            partOffsets_.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            partOffsets_.addAllElts(_conf.getCoverage().getCurrentParts());
             nb_ = 0;
             nextOff_ += inns_.first().length() + 1;
         }
@@ -1825,7 +1825,7 @@ public final class ElResolver {
                     break;
                 }
                 start_ = StringList.concat(res_.first(),"-",p_);
-                _conf.getContextEl().appendParts(nextOff_+1+locOff_,nextOff_+1+locOff_+p_.length(),start_,partOffsets_);
+                _conf.appendParts(nextOff_+1+locOff_,nextOff_+1+locOff_+p_.length(),start_,partOffsets_);
                 nextOff_ += fullPart_.length() + 1;
                 nb_++;
                 iPart_+=2;
@@ -1840,7 +1840,7 @@ public final class ElResolver {
                 break;
             }
             start_ = res_.first();
-            _conf.getContextEl().appendParts(nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_);
+            _conf.appendParts(nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_);
             nextOff_ += fullPart_.length() + 1;
             nb_++;
             iPart_+=2;
@@ -1851,7 +1851,7 @@ public final class ElResolver {
         } else {
             n_ = k_;
         }
-        if (_conf.getContextEl().getClassBody(start_) == null) {
+        if (_conf.getClassBody(start_) == null) {
             ConstType type_ = ConstType.WORD;
             VariableInfo infoLoc_ = new VariableInfo();
             infoLoc_.setKind(type_);
@@ -2415,7 +2415,7 @@ public final class ElResolver {
         return n_ == DOT_VAR;
     }
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
-            Analyzable _conf, Delimiters _d) {
+            ContextEl _conf, Delimiters _d) {
         OperationsSequence seq_ = tryGetSequence(_offset, _string, _conf, _d);
         if (seq_ != null) {
             return seq_;
@@ -2457,7 +2457,7 @@ public final class ElResolver {
         return StringExpUtil.nextCharIs(_str,_i,_len,_value);
     }
     private static OperationsSequence tryGetSequence(int _offset, String _string,
-            Analyzable _conf, Delimiters _d) {
+            ContextEl _conf, Delimiters _d) {
         int len_ = _string.length();
         int i_ = CustList.FIRST_INDEX;
         while (i_ < len_) {
@@ -2739,7 +2739,7 @@ public final class ElResolver {
         return _begin > CustList.INDEX_NOT_FOUND_ELT && _begin + 1 == _end;
     }
 
-    private static int indexAfterPossibleCast(Analyzable _conf, String _string, int _from, Delimiters _d) {
+    private static int indexAfterPossibleCast(ContextEl _conf, String _string, int _from, Delimiters _d) {
         int indexParRight_ = _string.indexOf(PAR_RIGHT, _from +1);
         if (indexParRight_ < 0) {
             return _from;
@@ -2778,13 +2778,13 @@ public final class ElResolver {
             _d.getDelCast().add(_from);
             _d.getDelCast().add(indexParRight_);
             _d.getDelCastExtract().add(typeOut_);
-            _d.getCastParts().add(new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts()));
+            _d.getCastParts().add(new CustList<PartOffset>(_conf.getCoverage().getCurrentParts()));
             return indexParRight_ + 1;
         }
         return _from;
     }
 
-    private static boolean isField(Analyzable _conf, String _fromClass, boolean _ctor, String _word) {
+    private static boolean isField(ContextEl _conf, String _fromClass, boolean _ctor, String _word) {
         boolean field_;
         boolean stCtx_ = _conf.getAnalyzing().isStaticContext() || _ctor;
         field_ = true;

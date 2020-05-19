@@ -551,7 +551,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(15, getNumber(ret_));
-        NumberStruct res_ = (NumberStruct) cont_.getContextEl().getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        NumberStruct res_ = (NumberStruct) cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         assertEq(14, res_.intStruct());
     }
     @Test

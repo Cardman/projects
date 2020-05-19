@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Classes;
@@ -20,11 +20,11 @@ public final class StaticInitOperation extends LeafOperation implements StaticIn
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         setStaticResultClass(new ClassArgumentMatching(EMPTY_STRING));
     }
 
-    void setInit(Analyzable _conf, String _base, boolean _staticType) {
+    void setInit(ContextEl _conf, String _base, boolean _staticType) {
         if (!_staticType) {
             possibleInitClass = false;
             String argClName_ = _conf.getStandards().getAliasObject();

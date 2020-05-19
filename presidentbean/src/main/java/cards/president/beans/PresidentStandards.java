@@ -2,7 +2,6 @@ package cards.president.beans;
 
 import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -14,6 +13,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.*;
+import code.formathtml.Configuration;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.RealInstanceStruct;
 import code.formathtml.util.*;
@@ -229,7 +229,7 @@ public final class PresidentStandards extends BeanNatLgNames {
     }
 
     @Override
-    public Struct wrapStd(Object _element, ExecutableCode _ex) {
+    public Struct wrapStd(Object _element) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
         }

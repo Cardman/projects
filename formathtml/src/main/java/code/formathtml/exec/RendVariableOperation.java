@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.VariableOperation;
@@ -53,7 +52,7 @@ public final class RendVariableOperation extends RendLeafOperation implements
 
     Argument getCommonArgument(Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
+        PageEl ip_ = _conf.getPageEl();
         if (resultCanBeSet()) {
             return Argument.createVoid();
         }
@@ -86,34 +85,34 @@ public final class RendVariableOperation extends RendLeafOperation implements
 
     Argument getCommonSetting(Configuration _conf, Argument _right) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
+        PageEl ip_ = _conf.getPageEl();
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        return ExecVariableOperation.checkSet(_conf,locVar_,_right);
+        return ExecVariableOperation.checkSet(_conf.getContext(),locVar_,_right);
     }
     Argument getCommonCompoundSetting(Configuration _conf, Struct _store, String _op, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
+        PageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
         String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
+        formattedClassVar_ = _conf.getPageEl().formatVarType(formattedClassVar_, _conf.getContext());
         left_.setStruct(_store);
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
         res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-        ExecVariableOperation.setVar(_conf, locVar_, res_);
+        ExecVariableOperation.setVar(_conf.getContext(), locVar_, res_);
         return res_;
     }
     Argument getCommonSemiSetting(Configuration _conf, Struct _store, String _op, boolean _post) {
-        PageEl ip_ = _conf.getOperationPageEl();
+        PageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
         left_.setStruct(_store);
         ClassArgumentMatching cl_ = getResultClass();
         Argument res_;
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        ExecVariableOperation.setVar(_conf, locVar_, res_);
+        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf.getContext(), _op, cl_);
+        ExecVariableOperation.setVar(_conf.getContext(), locVar_, res_);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
@@ -124,10 +123,10 @@ public final class RendVariableOperation extends RendLeafOperation implements
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
+        PageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        ExecVariableOperation.checkSet(_conf, locVar_, _right);
+        ExecVariableOperation.checkSet(_conf.getContext(), locVar_, _right);
         Argument out_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
         return out_;
     }

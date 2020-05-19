@@ -2,11 +2,9 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ArrOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -113,27 +111,27 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         return a_;
     }
 
-    Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ExecutableCode _conf) {
+    Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Struct o_ = _index.getStruct();
         ExecInvokingOperation.setElement(_array, o_, _right.getStruct(), _conf);
         return _right.getStruct();
     }
 
-    Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, ExecutableCode _conf, ClassArgumentMatching _arg) {
+    Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, ContextEl _conf, ClassArgumentMatching _arg) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Struct o_ = _index.getStruct();
         Argument left_ = new Argument();
         left_.setStruct(_stored);
         Argument res_;
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
-        if (_conf.getContextEl().callsOrException()) {
+        if (_conf.callsOrException()) {
             return _stored;
         }
         ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
         return res_.getStruct();
     }
-    Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ExecutableCode _conf) {
+    Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Struct o_ = _index.getStruct();
         Argument left_ = new Argument();

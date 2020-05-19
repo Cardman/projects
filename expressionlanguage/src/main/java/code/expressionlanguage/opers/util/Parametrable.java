@@ -1,8 +1,5 @@
 package code.expressionlanguage.opers.util;
 
-import code.expressionlanguage.Analyzable;
-import code.util.StringList;
-
 public interface Parametrable {
 
     ParametersGroup getParameters();

@@ -1,6 +1,5 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.UnaryBinOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -28,7 +27,7 @@ public final class RendUnaryBinOperation extends RendAbstractUnaryOperation {
         Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         ClassArgumentMatching res_ = getResultClass();
-        out_.setStruct(NumberStruct.negBinNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, res_));
+        out_.setStruct(NumberStruct.negBinNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf.getContext(), res_));
         return out_;
     }
 }

@@ -275,11 +275,11 @@ public final class AikiBeansPokemonStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_EVO)) {
-            res_.setResult(std_.wrapStd(instance_.getIsEvo(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getIsEvo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_LEG)) {
-            res_.setResult(std_.wrapStd(instance_.getIsLeg(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getIsLeg()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,POKEDEX)) {

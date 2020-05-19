@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.SymbolOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -20,16 +20,16 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         opOffset = _n.getOpOffset();
     }
 
-    static Argument calculateAffect(Argument _left,ExecutableCode _conf, Argument _right, String _op, boolean _catString, ClassArgumentMatching _arg) {
+    static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, String _op, boolean _catString, ClassArgumentMatching _arg) {
         ResultErrorStd res_= new ResultErrorStd();
         if (_right == null) {
-            NumberStruct.calculateOperator(_conf, res_, _arg, _op, _catString, _left.getStruct(), NullStruct.NULL_VALUE);
+            NumberStruct.calculateOperator(_conf.getLastPage(),_conf, res_, _arg, _op, _catString, _left.getStruct(), NullStruct.NULL_VALUE);
         } else {
-            NumberStruct.calculateOperator(_conf, res_, _arg, _op, _catString, _left.getStruct(), _right.getStruct());
+            NumberStruct.calculateOperator(_conf.getLastPage(),_conf, res_, _arg, _op, _catString, _left.getStruct(), _right.getStruct());
         }
         return new Argument(res_.getResult());
     }
-    public static Argument calculateIncrDecr(Argument _left,ExecutableCode _conf, String _op, ClassArgumentMatching _arg) {
+    public static Argument calculateIncrDecr(Argument _left,ContextEl _conf, String _op, ClassArgumentMatching _arg) {
         Argument o_;
         if (StringList.quickEq(_op, Block.INCR)) {
             o_ = new Argument(ExecAddOperation.addOne(ClassArgumentMatching.convertToNumber(_left.getStruct()), _conf, _arg));
@@ -39,7 +39,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         return o_;
     }
 
-    public static Argument calculateDivEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
+    public static Argument calculateDivEx(Argument _a, ContextEl _cont, Argument _b,ClassArgumentMatching _order) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();
@@ -50,7 +50,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         }
         return new Argument(res_);
     }
-    public static Argument calculateModEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
+    public static Argument calculateModEx(Argument _a, ContextEl _cont, Argument _b,ClassArgumentMatching _order) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();

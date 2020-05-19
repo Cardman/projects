@@ -111,7 +111,7 @@ public final class Templates {
      Sample 4: "my.pkg.MyThirdClass.Inner.SecInner" => ["my.pkg.MySecondClass","Inner","SecInner"]<br/>
      Sample 5: "List&lt;my.pkg.MyThirdClass.Inner.SecInner&gt;" => ["List&lt;my.pkg.MyThirdClass.Inner.SecInner&gt;"]<br/>
      */
-    static StringList getAllInnerTypesSingleDotted(String _type, Analyzable _an) {
+    static StringList getAllInnerTypesSingleDotted(String _type, ContextEl _an) {
         StringList types_ = new StringList();
         int len_ = _type.length();
         boolean inner_ = false;
@@ -185,7 +185,7 @@ public final class Templates {
      Sample 3: "my.pkg.MySecondClass.Inner" => ["my.pkg.MySecondClass","Inner"]<br/>
      Sample 4: "my.pkg.MyThirdClass.Inner.SecInner" => ["my.pkg.MySecondClass","Inner","SecInner"]<br/>
      */
-    public static StringList getAllInnerTypes(String _type, Analyzable _an) {
+    public static StringList getAllInnerTypes(String _type, ContextEl _an) {
         return getAllInnerTypes(_type,_an.getClasses().getPackagesFound());
     }
     public static StringList getAllInnerTypes(String _type, StringList _pkg) {
@@ -370,7 +370,7 @@ public final class Templates {
     }
 
     /**Calls Templates.isCorrect*/
-    public static String correctClassPartsDynamic(String _className, ExecutableCode _context, boolean _exact, boolean _wildCard) {
+    public static String correctClassPartsDynamic(String _className, ContextEl _context, boolean _exact, boolean _wildCard) {
         String className_ = PartTypeUtil.processExec(_className, _context);
         if (className_.isEmpty()) {
             return "";
@@ -421,8 +421,8 @@ public final class Templates {
         }
         return StringExpUtil.removeDottedSpaces(tr_);
     }
-    public static String tryInfer(String _erased, StringMap<String> _vars, String _declaring, Analyzable _context) {
-        GeneType g_ = _context.getContextEl().getClassBody(_erased);
+    public static String tryInfer(String _erased, StringMap<String> _vars, String _declaring, ContextEl _context) {
+        GeneType g_ = _context.getClassBody(_erased);
         String idParam_ = getIdFromAllTypes(_declaring);
         String gene_ = g_.getGenericString();
         String type_ = "";
@@ -549,7 +549,7 @@ public final class Templates {
      Sample 3: "my.pkg.MySecondClass&lt;long,int&gt;" - "my.pkg.MyClass" => null<br/>
      Sample 4: "my.pkg.MyClass&lt;long,int&gt;" - "my.pkg.MySecondClass[]" => "my.pkg.MySecondClass&lt;long,int&gt;[]"<br/>
      */
-    public static String getFullTypeByBases(String _subType, String _superType, Analyzable _context) {
+    public static String getFullTypeByBases(String _subType, String _superType, ContextEl _context) {
         if (!correctNbParameters(_subType,_context)) {
             return "";
         }
@@ -585,12 +585,22 @@ public final class Templates {
         if (StringList.quickEq(_superType, _context.getStandards().getAliasVoid())) {
             return "";
         }
-        String geneSubType_ = _context.getContextEl().getClassBody(baseArr_).getGenericString();
+        String geneSubType_ = _context.getClassBody(baseArr_).getGenericString();
         String generic_ = getSuperGeneric(_context, dim_, classParam_, geneSubType_);
         return format(_subType, generic_, _context);
     }
+    public static String getOverridingFullTypeByBases(String _subType, String _superType, ContextEl _context) {
+        String idArg_ = getIdFromAllTypes(_subType);
+        String idSuperType_ = getIdFromAllTypes(_superType);
+        if (StringList.quickEq(idArg_,idSuperType_)) {
+            return _subType;
+        }
+        String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
+        String generic_ = getSuperGeneric(_context, 0, idSuperType_, geneSubType_);
+        return quickFormat(_subType, generic_, _context);
+    }
 
-    public static String getQuickFullTypeByBases(String _subType, String _superType, Analyzable _context) {
+    public static String getQuickFullTypeByBases(String _subType, String _superType, ContextEl _context) {
         String idSuperType_ = getIdFromAllTypes(_superType);
         DimComp dBaseParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(idSuperType_);
         String classParam_ = dBaseParam_.getComponent();
@@ -609,7 +619,7 @@ public final class Templates {
         return getFullObject(_subType, _superType,_context);
     }
 
-    public static String getFullObject(String _subType, String _superType, Analyzable _context) {
+    public static String getFullObject(String _subType, String _superType, ContextEl _context) {
         String idSuperType_ = getIdFromAllTypes(_superType);
         DimComp dBaseParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(idSuperType_);
         int dim_ = dBaseParam_.getDim();
@@ -623,12 +633,12 @@ public final class Templates {
         if (StringList.quickEq(idArg_,idSuperType_)) {
             return _subType;
         }
-        String geneSubType_ = _context.getContextEl().getClassBody(baseArr_).getGenericString();
+        String geneSubType_ = _context.getClassBody(baseArr_).getGenericString();
         String generic_ = getSuperGeneric(_context, dim_, classParam_, geneSubType_);
         return quickFormat(_subType, generic_, _context);
     }
 
-    private static String getSuperGeneric(Analyzable _context, int _dim, String _classParam, String _geneSubType) {
+    private static String getSuperGeneric(ContextEl _context, int _dim, String _classParam, String _geneSubType) {
         String generic_ = "";
         StringList curClasses_ = new StringList(_geneSubType);
         StringList visitedClasses_ = new StringList(_geneSubType);
@@ -662,7 +672,7 @@ public final class Templates {
         return generic_;
     }
 
-    public static String getSuperGeneric(String _arg, String _classParam, Analyzable _context) {
+    public static String getSuperGeneric(String _arg, String _classParam, ContextEl _context) {
         if (!correctNbParameters(_arg,_context)) {
             return "";
         }
@@ -672,7 +682,7 @@ public final class Templates {
         if (StringList.quickEq(idArg_,idSuperType_)) {
             return _arg;
         }
-        String geneSubType_ = _context.getContextEl().getClassBody(idArg_).getGenericString();
+        String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
         StringList curClasses_ = new StringList(geneSubType_);
         StringList visitedClasses_ = new StringList(geneSubType_);
         while (true) {
@@ -703,21 +713,21 @@ public final class Templates {
         }
         return quickFormat(_arg, generic_, _context);
     }
-    public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context) {
+    public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, ContextEl _context) {
         return isCorrectTemplateAll(_className, _inherit, _context, true);
     }
-    public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context, boolean _exact) {
+    public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, ContextEl _context, boolean _exact) {
         return PartTypeUtil.processAnalyzeConstraints(_className,_inherit,_context,_exact);
     }
 
-    public static String wildCardFormatReturn(String _first, String _second, Analyzable _classes) {
+    public static String wildCardFormatReturn(String _first, String _second, ContextEl _classes) {
         if (!_second.contains(PREFIX_VAR_TYPE)) {
             return _second;
         }
         DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_second);
         StringList types_ = getAllTypes(_first);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        GeneType root_ = _classes.getContextEl().getClassBody(className_);
+        GeneType root_ = _classes.getClassBody(className_);
         CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
         String objType_ = _classes.getStandards().getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
@@ -756,14 +766,14 @@ public final class Templates {
         }
         return getWildCardFormattedTypeReturn(_second, varTypes_);
     }
-    public static String wildCardFormatParam(String _first, String _second, Analyzable _classes) {
+    public static String wildCardFormatParam(String _first, String _second, ContextEl _classes) {
         if (!_second.contains(PREFIX_VAR_TYPE)) {
             return _second;
         }
         DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_second);
         StringList types_ = getAllTypes(_first);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        GeneType root_ = _classes.getContextEl().getClassBody(className_);
+        GeneType root_ = _classes.getClassBody(className_);
         CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
         String objType_ = _classes.getStandards().getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
@@ -799,7 +809,7 @@ public final class Templates {
         }
         return getWildCardFormattedTypeParam(objType_,_second, varTypes_);
     }
-    public static String reflectFormat(String _first, String _second, Analyzable _context) {
+    public static String reflectFormat(String _first, String _second, ContextEl _context) {
         StringMap<String> varTypes_ = getVarTypes(_first, _context);
         return getReflectFormattedType(_second, varTypes_);
     }
@@ -816,7 +826,7 @@ public final class Templates {
      Sample 2: "my.pkg.MyClass&lt;?long,int&gt;" - "#K" => "long"<br/>
      Sample 3: "my.pkg.MyClass&lt;?long,int&gt;" - "?#K" => null<br/>
      */
-    public static String format(String _first, String _second, Analyzable _context) {
+    public static String format(String _first, String _second, ContextEl _context) {
         StringMap<String> varTypes_ = getVarTypes(_first, _context);
         return getFormattedType(_second, varTypes_);
     }
@@ -834,12 +844,12 @@ public final class Templates {
      Sample 3: "my.pkg.MySecondClass&lt;long&gt;..Inner&lt;int&gt;" - "#K" => "long"<br/>
      Sample 4: "my.pkg.MyThirdClass..Inner&lt;int&gt;" - "#V" => "int"<br/>
      */
-    public static String quickFormat(String _first, String _second, Analyzable _context) {
+    public static String quickFormat(String _first, String _second, ContextEl _context) {
         StringMap<String> varTypes_ = getVarTypes(_first, _context);
         return getQuickFormattedType(_second, varTypes_);
     }
 
-    public static String getMadeVarTypes(String _className, StringList _classNames,ExecutableCode _context) {
+    public static String getMadeVarTypes(String _className, StringList _classNames,ContextEl _context) {
         String type_ = getIdFromAllTypes(_className);
         String fct_ = _context.getStandards().getAliasFct();
         if (StringList.quickEq(type_, fct_)) {
@@ -868,7 +878,7 @@ public final class Templates {
             str_.append(Templates.TEMPLATE_END);
             return str_.toString();
         }
-        GeneType root_ = _context.getContextEl().getClassBody(type_);
+        GeneType root_ = _context.getClassBody(type_);
         if (root_ == null) {
             return null;
         }
@@ -907,10 +917,10 @@ public final class Templates {
      Sample 3: "my.pkg.MyThirdClass..Inner&lt;int&gt;" => ["V"-"int"]<br/>
      Sample 4: "my.pkg.MyClass&lt;long,int&gt;[]" => ["K"-"long","V"-"int"]<br/>
      */
-    public static StringMap<String> getVarTypes(String _className, Analyzable _context) {
+    public static StringMap<String> getVarTypes(String _className, ContextEl _context) {
         StringList types_ = getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        GeneType root_ = _context.getContextEl().getClassBody(className_);
+        GeneType root_ = _context.getClassBody(className_);
         StringMap<String> varTypes_ = new StringMap<String>();
         if (root_ == null) {
             return varTypes_;
@@ -1271,7 +1281,7 @@ public final class Templates {
         }
     }
 
-    public static boolean checkObject(String _param, Argument _arg, ExecutableCode _context) {
+    public static boolean checkObject(String _param, Argument _arg, ContextEl _context) {
     	Struct ex_ = checkObjectEx(_param,_arg,_context);
         if (ex_ != null) {
             _context.setException(ex_);
@@ -1280,7 +1290,7 @@ public final class Templates {
         return true;
     }
 
-    public static Struct checkObjectEx(String _param, Argument _arg, ExecutableCode _context) {
+    public static Struct checkObjectEx(String _param, Argument _arg, ContextEl _context) {
         ErrorType err_ = safeObject(_param, _arg, _context);
         LgNames stds_ = _context.getStandards();
         if (err_ == ErrorType.CAST) {
@@ -1293,13 +1303,13 @@ public final class Templates {
         }
         return null;
     }
-    public static void setCheckedElements(CustList<Argument> _args, Struct _arr, ExecutableCode _context) {
+    public static void setCheckedElements(CustList<Argument> _args, Struct _arr, ContextEl _context) {
         int len_ = _args.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             Argument chArg_ = _args.get(i);
             IntStruct ind_ = new IntStruct(i);
             ExecInvokingOperation.setElement(_arr, ind_, chArg_.getStruct(), _context);
-            if (_context.getContextEl().callsOrException()) {
+            if (_context.callsOrException()) {
                 return;
             }
         }
@@ -1311,7 +1321,7 @@ public final class Templates {
             arr_[i] = _args.get(i).getStruct();
         }
     }
-    public static Struct okArgsEx(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ExecutableCode _conf, Argument _right) {
+    public static Struct okArgsEx(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
         StringList params_ = new StringList();
         boolean hasFormat_;
         if (_id instanceof MethodId) {
@@ -1380,7 +1390,7 @@ public final class Templates {
                             String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
                             ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
                             Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, s, stds_);
-                            String arg_ = stds_.getStructClassName(conv_, _conf.getContextEl());
+                            String arg_ = stds_.getStructClassName(conv_, _conf);
                             String cast_ = stds_.getAliasStore();
                             StringBuilder mess_ = new StringBuilder();
                             mess_.append(arg_);
@@ -1414,7 +1424,7 @@ public final class Templates {
         }
         return null;
     }
-    public static boolean okArgs(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ExecutableCode _conf, Argument _right) {
+    public static boolean okArgs(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
         Struct ex_ = okArgsEx(_id, _format, _classNameFound, _firstArgs, _conf, _right);
         if (ex_ != null) {
             _conf.setException(ex_);
@@ -1422,14 +1432,14 @@ public final class Templates {
         }
         return true;
     }
-    public static ErrorType safeObject(String _param, Argument _arg, Analyzable _context) {
+    public static ErrorType safeObject(String _param, Argument _arg, ContextEl _context) {
         Struct str_ = _arg.getStruct();
         LgNames stds_ = _context.getStandards();
         ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
         _arg.setStruct(PrimitiveTypeUtil.convertObject(cl_, str_, stds_));
         str_ = _arg.getStruct();
         if (str_ != NullStruct.NULL_VALUE) {
-            String a_ = stds_.getStructClassName(str_, _context.getContextEl());
+            String a_ = stds_.getStructClassName(str_, _context);
             String param_ = PrimitiveTypeUtil.toWrapper(_param, stds_);
             if (!Templates.isCorrectExecute(a_, param_, _context)) {
                 return ErrorType.CAST;
@@ -1440,7 +1450,7 @@ public final class Templates {
         }
         return ErrorType.NOTHING;
     }
-    public static void gearErrorWhenContain(Struct _array, Struct _index, Struct _value, ExecutableCode _context) {
+    public static void gearErrorWhenContain(Struct _array, Struct _index, Struct _value, ContextEl _context) {
         ErrorType err_ = Templates.getErrorWhenContain(_array, _index, _value, _context);
         LgNames stds_ = _context.getStandards();
         if (err_ == ErrorType.NOTHING) {
@@ -1451,8 +1461,8 @@ public final class Templates {
             String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
             ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
             Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
-            if (_context.getContextEl().getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
-                _context.getContextEl().getInitializingTypeInfos().failInitEnums();
+            if (_context.getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
+                _context.getInitializingTypeInfos().failInitEnums();
                 return;
             }
             inst_[index_] = conv_;
@@ -1491,7 +1501,7 @@ public final class Templates {
         String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
         ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
         Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
-        String arg_ = stds_.getStructClassName(conv_, _context.getContextEl());
+        String arg_ = stds_.getStructClassName(conv_, _context);
         String cast_ = stds_.getAliasStore();
         StringBuilder mess_ = new StringBuilder();
         mess_.append(arg_);
@@ -1499,7 +1509,7 @@ public final class Templates {
         mess_.append(param_);
         _context.setException(new ErrorStruct(_context,mess_.toString(),cast_));
     }
-    public static ErrorType getErrorWhenContain(Struct _array, Struct _index, Struct _value, Analyzable _context) {
+    public static ErrorType getErrorWhenContain(Struct _array, Struct _index, Struct _value, ContextEl _context) {
         if (_array == NullStruct.NULL_VALUE) {
             return ErrorType.NPE;
         }
@@ -1527,7 +1537,7 @@ public final class Templates {
         if (_value != NullStruct.NULL_VALUE) {
             ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
             Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
-            String arg_ = stds_.getStructClassName(conv_, _context.getContextEl());
+            String arg_ = stds_.getStructClassName(conv_, _context);
             param_ = PrimitiveTypeUtil.toWrapper(param_, stds_);
             if (!Templates.isCorrectExecute(arg_, param_, _context)) {
                 return ErrorType.STORE;
@@ -1535,7 +1545,7 @@ public final class Templates {
         }
         return ErrorType.NOTHING;
     }
-    public static ErrorType checkElement(ArrayStruct _arr, Struct _value, Analyzable _context) {
+    public static ErrorType checkElement(ArrayStruct _arr, Struct _value, ContextEl _context) {
         String arrType_ = _arr.getClassName();
         String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
         LgNames stds_ = _context.getStandards();
@@ -1545,7 +1555,7 @@ public final class Templates {
         if (_value != NullStruct.NULL_VALUE) {
             ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
             Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
-            String arg_ = stds_.getStructClassName(conv_, _context.getContextEl());
+            String arg_ = stds_.getStructClassName(conv_, _context);
             param_ = PrimitiveTypeUtil.toWrapper(param_, stds_);
             if (!Templates.isCorrectExecute(arg_, param_, _context)) {
                 return ErrorType.STORE;
@@ -1553,7 +1563,7 @@ public final class Templates {
         }
         return ErrorType.NOTHING;
     }
-    public static Struct gearErrorWhenIndex(Struct _array, Struct _index, ExecutableCode _context) {
+    public static Struct gearErrorWhenIndex(Struct _array, Struct _index, ContextEl _context) {
         ErrorType err_ = Templates.getErrorWhenIndex(_array, _index);
         LgNames stds_ = _context.getStandards();
         if (err_ == ErrorType.NOTHING) {
@@ -1610,7 +1620,7 @@ public final class Templates {
         }
         return ErrorType.NOTHING;
     }
-    public static boolean isReturnCorrect(String _p, String _a, StringMap<StringList> _mapping,Analyzable _context) {
+    public static boolean isReturnCorrect(String _p, String _a, StringMap<StringList> _mapping,ContextEl _context) {
         if (PrimitiveTypeUtil.isPrimitive(_p, _context)) {
             if (!PrimitiveTypeUtil.isPrimitive(_a, _context)) {
                 return false;
@@ -1629,7 +1639,7 @@ public final class Templates {
         map_.setMapping(_mapping);
         return isCorrectOrNumbers(map_, _context);
     }
-    public static boolean isCorrectOrNumbers(Mapping _m, Analyzable _context) {
+    public static boolean isCorrectOrNumbers(Mapping _m, ContextEl _context) {
         ClassArgumentMatching a_ = _m.getArg();
         ClassArgumentMatching p_ = _m.getParam();
         if (PrimitiveTypeUtil.isPrimitive(p_, _context)) {
@@ -1673,7 +1683,7 @@ public final class Templates {
         return isCorrect(_m, _context);
     }
 
-    static boolean isCorrect(Mapping _m, Analyzable _context) {
+    static boolean isCorrect(Mapping _m, ContextEl _context) {
         ClassArgumentMatching arg_ = _m.getArg();
         ClassArgumentMatching param_ = _m.getParam();
         StringMap<StringList> generalMapping_ = _m.getMapping();
@@ -1746,7 +1756,7 @@ public final class Templates {
         }
         return true;
     }
-    public static boolean isCorrectExecute(String _a, String _p, Analyzable _context) {
+    public static boolean isCorrectExecute(String _a, String _p, ContextEl _context) {
         CustList<Matching> matchs_ = new CustList<Matching>();
         Matching match_ = new Matching();
         match_.setArg(_a);
@@ -1798,7 +1808,7 @@ public final class Templates {
         }
         return okTree_;
     }
-    private static MappingPairs getSimpleMapping(String _arg, String _param, StringMap<StringList> _inherit, Analyzable _context) {
+    private static MappingPairs getSimpleMapping(String _arg, String _param, StringMap<StringList> _inherit, ContextEl _context) {
         StringList typesArg_ = getAllTypes(_arg);
         StringList typesParam_ = getAllTypes(_param);
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
@@ -1853,7 +1863,7 @@ public final class Templates {
         return newMappingPairs(generic_, typesParam_);
     }
 
-    public static String getGeneric(String _arg, String _param, Analyzable _context, Mapping map_) {
+    public static String getGeneric(String _arg, String _param, ContextEl _context, Mapping map_) {
         String objType_ = _context.getStandards().getAliasObject();
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
         String baseArrayArg_ = dArg_.getComponent();
@@ -1873,7 +1883,7 @@ public final class Templates {
         return generic_;
     }
 
-    private static MappingPairs getExecutingCorrect(String _arg, String _param, Analyzable _context) {
+    private static MappingPairs getExecutingCorrect(String _arg, String _param, ContextEl _context) {
         StringList typesArg_ = getAllTypes(_arg);
         StringList typesParam_ = getAllTypes(_param);
         DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
@@ -1912,7 +1922,7 @@ public final class Templates {
         return newMappingPairs(generic_, typesParam_);
     }
 
-    private static MappingPairs getMappingFctPairs(Analyzable _context, DimComp _dArg, DimComp _dParam, String _baseArrayParam) {
+    private static MappingPairs getMappingFctPairs(ContextEl _context, DimComp _dArg, DimComp _dParam, String _baseArrayParam) {
         if (StringList.quickEq(_baseArrayParam, _context.getStandards().getAliasObject())) {
             int dim_ = _dArg.getDim();
             if (dim_ >= _dParam.getDim()) {
@@ -2052,8 +2062,8 @@ public final class Templates {
         }
     }
 
-    private static StringList getSuperInterfaceNames(String _className, Analyzable _context) {
-        GeneType r_ = _context.getContextEl().getClassBody(_className);
+    private static StringList getSuperInterfaceNames(String _className, ContextEl _context) {
+        GeneType r_ = _context.getClassBody(_className);
         if (r_ instanceof RootBlock) {
             return ((RootBlock)r_).getImportedDirectSuperTypes();
         }
@@ -2083,11 +2093,11 @@ public final class Templates {
     Sample 11: my.pkg.MyThirdClass&lt;Integer&gt;..Inner&lt;Integer&gt; => false<br/>
     Sample 12: my.pkg.MyThirdClass..Inner&lt;Integer,Integer&gt; => false<br/>
     */
-    public static boolean correctNbParameters(String _genericClass, Analyzable _context) {
+    public static boolean correctNbParameters(String _genericClass, ContextEl _context) {
         //From analyze
         String idCl_ = getIdFromAllTypes(_genericClass);
         String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(idCl_).getComponent();
-        GeneType info_ = _context.getContextEl().getClassBody(compo_);
+        GeneType info_ = _context.getClassBody(compo_);
         if (info_ == null) {
             if (PrimitiveTypeUtil.isPrimitive(compo_,_context)) {
                 return true;

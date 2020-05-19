@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -20,7 +19,6 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
-import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 
 public final class SwitchBlock extends BracedStack implements BreakableBlock, WithNotEmptyEl,BuildableElMethod {
@@ -82,9 +80,9 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         opValue = ElUtil.getReducedNodes(r_);
     }
     @Override
-    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeChild(ContextEl _an, AnalyzingEl _anEl) {
         Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignBefore(parAss_.getLastFieldsOrEmpty()));
@@ -188,7 +186,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
     }
 
     @Override
-    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+    public void abrupt(ContextEl _an, AnalyzingEl _anEl) {
         Block ch_ = getFirstChild();
         if (ch_ == null) {
             return;
@@ -216,7 +214,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         }
     }
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
         Block ch_ = getFirstChild();
         if (ch_ == null) {
             super.setAssignmentAfter(_an, _anEl);
@@ -226,7 +224,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         while (ch_.getNextSibling() != null) {
             ch_ = ch_.getNextSibling();
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         CustList<StringMap<SimpleAssignment>> afterVars_;

@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers.util;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.util.StringList;
 import code.util.ints.Equallable;
@@ -15,14 +15,14 @@ public final class ClassMethodId implements Equallable<ClassMethodId> {
         constraints = _constraints;
     }
 
-    public String formatType(String _type, ExecutableCode _conf) {
+    public String formatType(String _type, ContextEl _conf) {
         if (getConstraints().getKind() == MethodAccessKind.STATIC_CALL) {
-            return _conf.getOperationPageEl().formatVarType(_type,_conf);
+            return _conf.getLastPage().formatVarType(_type,_conf);
         }
         return _type;
     }
 
-    public String formatType(String _owner, String _formatted,ExecutableCode _conf) {
+    public String formatType(String _owner, String _formatted,ContextEl _conf) {
         if (getConstraints().getKind() == MethodAccessKind.STATIC_CALL) {
             return Templates.quickFormat(_owner, _formatted, _conf);
         }

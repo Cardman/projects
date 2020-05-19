@@ -105,8 +105,8 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
-        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
+        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
@@ -119,10 +119,10 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
         String cl_ = importedClassName;
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
-        if (!PrimitiveTypeUtil.isPureNumberClass(elementClass_, _cont)) {
+        if (!PrimitiveTypeUtil.isPureNumberClass(elementClass_, _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(elementClass_);
             mapping_.setParam(_cont.getStandards().getAliasLong());
@@ -167,14 +167,14 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         Mapping m_ = new Mapping();
         m_.setArg(initEl_.getResultClass());
         m_.setParam(elementClass_);
-        if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+        if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(initEl_.getResultClass());
             mapping_.setParam(elementClass_);
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(initOffset);
-            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(elementClass_.getNames(),AND_ERR),
                     StringList.join(initEl_.getResultClass().getNames(),AND_ERR));
             _cont.addError(cast_);
@@ -186,14 +186,14 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         RendDynOperationNode expressionEl_ = opExp.last();
         m_.setArg(expressionEl_.getResultClass());
         m_.setParam(elementClass_);
-        if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+        if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(expressionEl_.getResultClass());
             mapping_.setParam(elementClass_);
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(expressionOffset);
-            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(elementClass_.getNames(),AND_ERR),
                     StringList.join(expressionEl_.getResultClass().getNames(),AND_ERR));
             _cont.addError(cast_);
@@ -205,14 +205,14 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         RendDynOperationNode stepEl_ = opStep.last();
         m_.setArg(stepEl_.getResultClass());
         m_.setParam(elementClass_);
-        if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+        if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(stepEl_.getResultClass());
             mapping_.setParam(elementClass_);
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_cont.getCurrentFileName());
             cast_.setIndexFile(stepOffset);
-            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(elementClass_.getNames(),AND_ERR),
                     StringList.join(stepEl_.getResultClass().getNames(),AND_ERR));
             _cont.addError(cast_);
@@ -271,7 +271,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             return;
         }
         if (argFrom_.isNull()) {
-            _conf.setException(new ErrorStruct(_conf,null_));
+            _conf.setException(new ErrorStruct(_conf.getContext(),null_));
             return;
         }
         ip_.setOffset(expressionOffset);
@@ -281,7 +281,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             return;
         }
         if (argTo_.isNull()) {
-            _conf.setException(new ErrorStruct(_conf,null_));
+            _conf.setException(new ErrorStruct(_conf.getContext(),null_));
             return;
         }
         ip_.setOffset(stepOffset);
@@ -291,7 +291,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             return;
         }
         if (argStep_.isNull()) {
-            _conf.setException(new ErrorStruct(_conf,null_));
+            _conf.setException(new ErrorStruct(_conf.getContext(),null_));
             return;
         }
         String prLong_ = stds_.getAliasPrimLong();

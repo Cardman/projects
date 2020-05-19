@@ -34,7 +34,7 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         opCondition = RenderExpUtil.getAnalyzedOperations(condition,conditionOffset,0, _cont);
         RendDynOperationNode elCondition_ = opCondition.last();
         LgNames stds_ = _cont.getStandards();
-        if (!elCondition_.getResultClass().isBoolType(_cont)) {
+        if (!elCondition_.getResultClass().isBoolType(_cont.getContext())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(conditionOffset);

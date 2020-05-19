@@ -25,13 +25,13 @@ public final class StaticInitPageEl extends AbstractPageEl {
             String superClass_ = Templates.getIdFromAllTypes(gene_);
             if (classes_.getClassBody(superClass_) != null) {
                 //initialize the super class first
-                if (ExecInvokingOperation.hasToExit(_context, superClass_)) {
+                if (_context.hasToExit(superClass_)) {
                     return false;
                 }
             }
             for (String i: root_.getStaticInitImportedInterfaces()) {
                 //then initialize the additional super interfaces (not provided by the super class)
-                if (ExecInvokingOperation.hasToExit(_context, i)) {
+                if (_context.hasToExit(i)) {
                     return false;
                 }
             }

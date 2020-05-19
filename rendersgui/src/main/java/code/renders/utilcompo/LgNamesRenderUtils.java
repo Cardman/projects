@@ -2,7 +2,6 @@ package code.renders.utilcompo;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -399,7 +398,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         getStandards().put(aliasAtomicLong, std_);
     }
     @Override
-    public Argument defaultInstance(ExecutableCode _cont, String _id) {
+    public Argument defaultInstance(ContextEl _cont, String _id) {
         if (StringList.quickEq(_id,getAliasObject())) {
             return super.defaultInstance(_cont,_id);
         }

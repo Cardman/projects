@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
@@ -10,7 +9,6 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.stacks.AbruptCallingFinally;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
-import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdList;
@@ -102,7 +100,7 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
     }
 
     @Override
-    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+    public void abrupt(ContextEl _an, AnalyzingEl _anEl) {
         super.abrupt(_an, _anEl);
         boolean childOfLoop_ = false;
         BracedBlock b_ = getParent();

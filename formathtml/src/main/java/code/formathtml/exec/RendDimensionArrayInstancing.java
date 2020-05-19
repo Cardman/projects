@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.DimensionArrayInstancing;
@@ -34,8 +33,8 @@ public final class RendDimensionArrayInstancing extends
         int off_ = StringList.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_ = getClassName();
-        PageEl page_ = _conf.getOperationPageEl();
-        className_ = page_.formatVarType(className_, _conf);
+        PageEl page_ = _conf.getPageEl();
+        className_ = page_.formatVarType(className_, _conf.getContext());
         className_ = PrimitiveTypeUtil.getPrettyArrayType(className_, countArrayDims);
 
         int[] args_;
@@ -47,7 +46,7 @@ public final class RendDimensionArrayInstancing extends
             setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
             int dim_ = n_.intStruct();
             if (dim_ < 0) {
-                _conf.setException(new ErrorStruct(_conf,StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE),size_));
+                _conf.setException(new ErrorStruct(_conf.getContext(),StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE),size_));
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -60,7 +59,7 @@ public final class RendDimensionArrayInstancing extends
         for (int d: args_) {
             dims_.add(d);
         }
-        a_.setStruct(PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf));
+        a_.setStruct(PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf.getContext()));
         return a_;
     }
 

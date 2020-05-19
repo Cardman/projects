@@ -2,7 +2,7 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ValuesOperation;
 import code.util.IdMap;
@@ -26,9 +26,9 @@ public final class ExecValuesOperation extends ExecLeafOperation implements
         Argument arg_ = getCommonArgument(_conf);
         setSimpleArgument(arg_, _conf, _nodes);
     }
-    Argument getCommonArgument(ExecutableCode _conf) {
+    Argument getCommonArgument(ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+argOffset, _conf);
-        return ExecInvokingOperation.getEnumValues(className, _conf);
+        return ExecInvokingOperation.getEnumValues(new DefaultExiting(_conf),className, _conf);
     }
 
 }

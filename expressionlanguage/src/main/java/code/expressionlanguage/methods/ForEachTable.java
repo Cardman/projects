@@ -115,9 +115,9 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     }
 
     @Override
-    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeChild(ContextEl _an, AnalyzingEl _anEl) {
         Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
@@ -297,7 +297,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
                     //separator char before expression
-                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassNameFirst);
                     _cont.addError(cast_);
@@ -324,7 +324,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
                     //separator char before expression
-                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassNameSecond);
                     _cont.addError(cast_);
@@ -338,7 +338,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
             //separator char before expression
-            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
                     _cont.getStandards().getAliasObject(),
                     _cont.getStandards().getAliasIterableTable());
             _cont.addError(cast_);
@@ -378,7 +378,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     }
 
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
         AssignedVariablesDesc ass_ = new AssignedVariablesDesc(_an,this);
         AssignedVariables varsWhile_ = ass_.getVarsWhile();
         IdMap<Block, AssignedVariables> allDesc_ = ass_.getAllDesc();
@@ -409,7 +409,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
     }
 
-    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(ContextEl _an, AnalyzingEl _anEl) {
         Block first_ = getFirstChild();
         Block last_ = first_;
         while (last_.getNextSibling() != null) {
@@ -417,7 +417,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         StringMap<AssignmentBefore> list_;
         list_ = first_.makeHypothesisFields(_an);
         int contLen_ = continues_.size();
@@ -436,7 +436,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         }
         return invalidateHypothesis(list_, new StringMap<SimpleAssignment>(), breakAss_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(ContextEl _an, AnalyzingEl _anEl) {
         Block first_ = getFirstChild();
         Block last_ = first_;
         while (last_.getNextSibling() != null) {
@@ -444,7 +444,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> list_;
@@ -473,7 +473,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         
         return varsList_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(ContextEl _an, AnalyzingEl _anEl) {
         Block first_ = getFirstChild();
         Block last_ = first_;
         while (last_.getNextSibling() != null) {
@@ -481,7 +481,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> list_;

@@ -1,9 +1,6 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.AccessedBlock;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.util.CustList;
 import code.util.*;
@@ -50,17 +47,17 @@ final class InnerPartType extends BinaryType {
     }
 
     @Override
-    boolean analyzeTree(ExecutableCode _an, CustList<IntTreeMap< String>> _dels) {
+    boolean analyzeTree(ContextEl _an, CustList<IntTreeMap< String>> _dels) {
         return true;
     }
 
     @Override
-    void analyze(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyze(ContextEl _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         analyzeLine(_an,null,_dels,_globalType,_local,_rooted);
     }
 
     @Override
-    void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+    void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {
@@ -72,7 +69,7 @@ final class InnerPartType extends BinaryType {
     }
 
     @Override
-    void analyzeLine(Analyzable _an, ReadyTypes _ready,CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {
@@ -84,7 +81,7 @@ final class InnerPartType extends BinaryType {
     }
 
     @Override
-    void analyzeAccessibleId(Analyzable _an,
+    void analyzeAccessibleId(ContextEl _an,
             CustList<IntTreeMap< String>> _dels,
                              AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();

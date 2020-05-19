@@ -1,7 +1,7 @@
 package code.formathtml.structs;
 
 import code.bean.validator.Message;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
@@ -32,7 +32,7 @@ public final class MessageStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return className;
     }
 

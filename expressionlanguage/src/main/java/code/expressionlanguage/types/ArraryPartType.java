@@ -1,9 +1,7 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.util.CustList;
 import code.util.*;
@@ -35,24 +33,24 @@ final class ArraryPartType extends ParentPartType {
     }
 
     @Override
-    boolean analyzeTree(ExecutableCode _an, CustList<IntTreeMap< String>> _dels) {
+    boolean analyzeTree(ContextEl _an, CustList<IntTreeMap< String>> _dels) {
         return true;
     }
 
     @Override
-    void analyze(Analyzable _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyze(ContextEl _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
     }
     @Override
-    void analyzeLine(Analyzable _an, ReadyTypes _ready,CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
     }
     @Override
-    void analyzeAccessibleId(Analyzable _an,
+    void analyzeAccessibleId(ContextEl _an,
             CustList<IntTreeMap< String>> _dels,
                              AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();
@@ -61,7 +59,7 @@ final class ArraryPartType extends ParentPartType {
     }
 
     @Override
-    void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+    void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);

@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -17,7 +17,7 @@ public final class ExecNullSafeOperation extends ExecMethodOperation implements 
     }
 
     @Override
-    public void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(ContextEl _conf) {
         NullSafeOperation.tryGetResult(_conf,this);
     }
 
@@ -28,14 +28,14 @@ public final class ExecNullSafeOperation extends ExecMethodOperation implements 
         Argument f_ = getArgument(_nodes,first_);
         Struct abs_ = f_.getStruct();
         if (abs_ != NullStruct.NULL_VALUE) {
-            f_ = new Argument(ClassArgumentMatching.convert(getResultClass(),abs_,_conf));
+            f_ = new Argument(ClassArgumentMatching.convert(_conf.getLastPage(),getResultClass(),abs_,_conf));
             setQuickConvertSimpleArgument(f_, _conf, _nodes);
             return;
         }
         ExecOperationNode last_ = chidren_.last();
         setRelativeOffsetPossibleLastPage(last_.getIndexInEl(), _conf);
         Argument a_ = getArgument(_nodes,last_);
-        a_ = new Argument(ClassArgumentMatching.convert(getResultClass(),a_.getStruct(),_conf));
+        a_ = new Argument(ClassArgumentMatching.convert(_conf.getLastPage(),getResultClass(),a_.getStruct(),_conf));
         setSimpleArgument(a_, _conf, _nodes);
 
     }

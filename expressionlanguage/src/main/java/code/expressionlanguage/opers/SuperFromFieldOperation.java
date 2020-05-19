@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
@@ -24,7 +24,7 @@ public final class SuperFromFieldOperation extends
     }
 
     @Override
-    ClassArgumentMatching getFrom(Analyzable _conf) {
+    ClassArgumentMatching getFrom(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         LgNames stds_ = _conf.getStandards();
@@ -33,7 +33,7 @@ public final class SuperFromFieldOperation extends
         className_ = className_.substring(lenPref_);
         int loc_ = StringList.getFirstPrintableCharIndex(className_);
         className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         ClassArgumentMatching clCur_;
         if (!isIntermediateDottedOperation()) {
             clCur_ = new ClassArgumentMatching(_conf.getAnalyzing().getGlobalClass());
@@ -47,13 +47,13 @@ public final class SuperFromFieldOperation extends
         map_.setMapping(mapping_);
         if (!Templates.isCorrectOrNumbers(map_, _conf)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setIndexFile(_conf.getCurrentLocationIndex());
-            cast_.setFileName(_conf.getCurrentFileName());
+            cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //type len
-            cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(clCur_.getNames(),"&"),
                     className_);
-            _conf.addError(cast_);
+            _conf.getAnalyzing().getLocalizer().addError(cast_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return null;
         }

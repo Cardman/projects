@@ -6188,12 +6188,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     private static void initSession(Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        _nav.getSession().getContext().setAnalyzing();
-        _nav.getSession().getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_nav.getSession()));
-        _nav.getSession().getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_nav.getSession()));
-        _nav.getSession().getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_nav.getSession()));
-        _nav.getSession().getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        _nav.getSession().getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        setupAna(_nav.getSession());
         _nav.initInstancesPattern();
         _nav.setupRenders();
         tryInitStaticlyTypes(_nav.getSession());

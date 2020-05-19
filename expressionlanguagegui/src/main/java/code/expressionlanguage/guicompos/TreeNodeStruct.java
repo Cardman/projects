@@ -1,6 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -179,7 +179,7 @@ public final class TreeNodeStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return ((LgNamesGui)_contextEl.getStandards()).getAliasTreeNode();
     }
 

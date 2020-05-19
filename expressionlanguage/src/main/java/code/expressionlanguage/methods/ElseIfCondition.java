@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.ContextEl;
@@ -87,7 +86,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         }
     }
     @Override
-    public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeNextSibling(ContextEl _an, AnalyzingEl _anEl) {
         if (!canBeIncrementedCurGroup()) {
             super.setAssignmentBeforeNextSibling(_an, _anEl);
             return;
@@ -95,24 +94,24 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         assignWhenFalse(false, _an, _anEl);
     }
     @Override
-    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeChild(ContextEl _an, AnalyzingEl _anEl) {
         assignWhenTrue(_an);
     }
 
     @Override
-    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
+    public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof IfCondition)) {
             if (!(pBlock_ instanceof ElseIfCondition)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
-                un_.buildError(_an.getContextEl().getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                        _an.getContextEl().getKeyWords().getKeyWordElseif(),
+                un_.buildError(_an.getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                        _an.getKeyWords().getKeyWordElseif(),
                         StringList.join(
                                 new StringList(
-                                        _an.getContextEl().getKeyWords().getKeyWordIf(),
-                                        _an.getContextEl().getKeyWords().getKeyWordElseif()
+                                        _an.getKeyWords().getKeyWordIf(),
+                                        _an.getKeyWords().getKeyWordElseif()
                                 ),
                                 "|"));
                 //key word len
@@ -122,7 +121,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
     }
 
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
         Block pBlock_ = getPreviousSibling();
         if (canBeIncrementedCurGroup()) {
@@ -142,7 +141,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         if (pBlock_ != null) {
             prev_.add(pBlock_);
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         CustList<StringMap<SimpleAssignment>> afterVars_;
@@ -220,7 +219,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         }
     }
     @Override
-    public void reach(Analyzable _an, AnalyzingEl _anEl) {
+    public void reach(ContextEl _an, AnalyzingEl _anEl) {
         Block p_ = getPreviousSibling();
         if (_anEl.isReachable(p_) && p_.accessibleForNext()) {
             _anEl.reach(this);

@@ -1,6 +1,6 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -17,7 +17,7 @@ public final class ParserType {
     static final int TMP_PRIO = 4;
     private ParserType(){}
 
-    public static Ints getIndexes(String _input, Analyzable _an) {
+    public static Ints getIndexes(String _input, ContextEl _an) {
         return getIndexes(_input,_an.getClasses().getPackagesFound());
     }
     public static Ints getIndexes(String _input, StringList _pkg) {

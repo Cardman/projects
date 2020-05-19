@@ -1,22 +1,17 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
-import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.util.AbstractCoverageResult;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.StandardInstancingOperation;
 import code.expressionlanguage.opers.exec.ExecAffectationOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ExecStandardInstancingOperation;
@@ -119,15 +114,15 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         partOffsets.addAllElts(_cont.getCoverage().getCurrentParts().mid(2));
     }
     @Override
-    public void setAssignmentBefore(Analyzable _an) {
+    public void setAssignmentBefore(ContextEl _an) {
         Block prev_ = getPreviousSibling();
         AssignedVariables ass_;
         if (prev_ == null) {
-            ass_ = _an.getContextEl().getAssignedVariables().getFinalVariablesGlobal();
-            IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+            ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
+            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
             id_.put(this, ass_);
         } else {
-            IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
             AssignedVariables parAss_ = id_.getVal(prev_);
             AssignedVariables assBl_ = buildNewAssignedVariable();
             assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
@@ -218,8 +213,8 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         return annotationsIndexes;
     }
 
-    public void setAssignmentAfter(Analyzable _an) {
-        AssignedVariablesBlock glAss_ = _an.getContextEl().getAssignedVariables();
+    public void setAssignmentAfter(ContextEl _an) {
+        AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
         StringMap<SimpleAssignment> as_ = varsAss_.getFieldsRoot();
         as_.putAllMap(AssignmentsUtil.assignAfterClassic(varsAss_.getFieldsRootBefore()));

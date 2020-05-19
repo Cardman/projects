@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
@@ -53,8 +52,8 @@ public final class TryEval extends BracedStack implements Eval {
     }
 
     @Override
-    public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+    public void setAssignmentBeforeNextSibling(ContextEl _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         CustList<AbstractCatchEval> catchs_ = new CustList<AbstractCatchEval>();
@@ -65,7 +64,7 @@ public final class TryEval extends BracedStack implements Eval {
     }
 
     @Override
-    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
+    public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
         Block nBlock_ = getNextSibling();
         if (!(nBlock_ instanceof AbstractCatchEval)) {
             if (!(nBlock_ instanceof FinallyEval)) {
@@ -73,12 +72,12 @@ public final class TryEval extends BracedStack implements Eval {
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
                 //key word len
-                un_.buildError(_an.getContextEl().getAnalysisMessages().getUnexpectedDoTry(),
-                        _an.getContextEl().getKeyWords().getKeyWordTry(),
+                un_.buildError(_an.getAnalysisMessages().getUnexpectedDoTry(),
+                        _an.getKeyWords().getKeyWordTry(),
                         StringList.join(
                                 new StringList(
-                                        _an.getContextEl().getKeyWords().getKeyWordCatch(),
-                                        _an.getContextEl().getKeyWords().getKeyWordFinally()
+                                        _an.getKeyWords().getKeyWordCatch(),
+                                        _an.getKeyWords().getKeyWordFinally()
                                 ),
                                 "|"));
                 _an.addError(un_);

@@ -1,7 +1,6 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.AccessEnum;
 import code.util.StringList;
 
@@ -77,7 +76,7 @@ public final class FieldMetaInfo implements AnnotatedStruct {
 
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getAliasField();
     }
 
@@ -94,7 +93,7 @@ public final class FieldMetaInfo implements AnnotatedStruct {
     }
 
     @Override
-    public StringStruct getDisplayedString(Analyzable _an) {
+    public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(StringList.concat(declaringClass,".",name));
     }
 }

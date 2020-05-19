@@ -1,7 +1,8 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 
 public class LambdaMethodStruct implements Struct {
@@ -22,6 +23,7 @@ public class LambdaMethodStruct implements Struct {
     private final boolean abstractMethod;
 
     private boolean directCast;
+    private boolean expCast;
     public LambdaMethodStruct(String _className,String _formClassName, MethodId _fid,
             boolean _polymorph, boolean _shiftInstance, int _ancestor, boolean _abstractMethod) {
         className = _className;
@@ -64,6 +66,9 @@ public class LambdaMethodStruct implements Struct {
         return abstractMethod;
     }
 
+    public boolean isStaticCall() {
+        return fid.getKind() == MethodAccessKind.STATIC_CALL || directCast || expCast;
+    }
     public boolean isDirectCast() {
         return directCast;
     }
@@ -72,13 +77,17 @@ public class LambdaMethodStruct implements Struct {
         directCast = _directCast;
     }
 
+    public void setExpCast(boolean expCast) {
+        this.expCast = expCast;
+    }
+
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return className;
     }
 

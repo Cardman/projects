@@ -1,6 +1,6 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
@@ -102,7 +102,7 @@ public abstract class StandardType implements GeneType {
         return methods;
     }
 
-    public boolean isSubTypeOf(String _fullName, Analyzable _an) {
+    public boolean isSubTypeOf(String _fullName, ContextEl _an) {
         if (StringList.quickEq(getFullName(),_fullName)) {
             return true;
         }

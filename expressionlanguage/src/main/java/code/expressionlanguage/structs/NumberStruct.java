@@ -1,9 +1,8 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -20,7 +19,7 @@ public abstract class NumberStruct implements DisplayableStruct {
     public final Struct getParent() {
         return NullStruct.NULL_VALUE;
     }
-    public static void calculateOperator(ExecutableCode _cont, ResultErrorStd _res, ClassArgumentMatching _order,
+    public static void calculateOperator(PageEl _page, ContextEl _cont, ResultErrorStd _res, ClassArgumentMatching _order,
                                          String _op, boolean _catString,
                                          Struct _first, Struct _second) {
         if (_catString) {
@@ -86,10 +85,10 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
         if (StringList.quickEq(op_, "??")) {
             if (_first != NullStruct.NULL_VALUE) {
-                _res.setResult(ClassArgumentMatching.convert(_order, _first,_cont));
+                _res.setResult(ClassArgumentMatching.convert(_page,_order, _first,_cont));
                 return;
             }
-            _res.setResult(ClassArgumentMatching.convert(_order, _second,_cont));
+            _res.setResult(ClassArgumentMatching.convert(_page,_order, _second,_cont));
             return;
         }
         if (StringList.quickEq(op_, "&&")) {
@@ -109,12 +108,12 @@ public abstract class NumberStruct implements DisplayableStruct {
         _res.setResult(ClassArgumentMatching.convertToBoolean(_second));
     }
 
-  private static void catenize(Analyzable _cont, ResultErrorStd _res, Struct _first, Struct _second) {
-      Argument arg_ = ExecCatOperation.localSumDiff(new Argument(_first), new Argument(_second), _cont.getContextEl());
+  private static void catenize(ContextEl _cont, ResultErrorStd _res, Struct _first, Struct _second) {
+      Argument arg_ = ExecCatOperation.localSumDiff(new Argument(_first), new Argument(_second), _cont);
       _res.setResult(arg_.getStruct());
   }
 
-  public static void instantiate(Analyzable _cont, ResultErrorStd _res, ConstructorId _method, Struct... _args) {
+  public static void instantiate(ContextEl _cont, ResultErrorStd _res, ConstructorId _method, Struct... _args) {
       String type_ = _method.getName();
         StringList list_ = _method.getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
@@ -184,7 +183,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
     }
 
-    public static Struct instantiate(Analyzable _cont, ConstructorId _method, Struct... _args) {
+    public static Struct instantiate(ContextEl _cont, ConstructorId _method, Struct... _args) {
         String type_ = _method.getName();
         StringList list_ = _method.getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
@@ -253,7 +252,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             }
         }
     }
-    public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
+    public static void calculate(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
@@ -281,7 +280,7 @@ public abstract class NumberStruct implements DisplayableStruct {
                 BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
                 _res.setResult(BooleanStruct.of(instance_.sameReference(_args[0])));
             } else if (StringList.quickEq(name_, lgNames_.getAliasParseBoolean())) {
-                StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont.getContextEl()).getDisplayedString(_cont);
+                StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont).getDisplayedString(_cont);
                 if (StringList.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
                     _res.setResult(BooleanStruct.of(true));
                 } else {
@@ -298,7 +297,7 @@ public abstract class NumberStruct implements DisplayableStruct {
                 if (StringList.quickEq(list_.first(), booleanPrimType_)) {
                     _res.setResult(_args[0]);
                 } else {
-                    StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont.getContextEl()).getDisplayedString(_cont);
+                    StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont).getDisplayedString(_cont);
                     if (StringList.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
                         _res.setResult(BooleanStruct.of(true));
                     } else {
@@ -524,13 +523,13 @@ public abstract class NumberStruct implements DisplayableStruct {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
                 _res.setResult(instance_.getDisplayedString(_cont));
             } else {
-                StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont.getContextEl())
+                StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont)
                         .getDisplayedString(_cont);
                 _res.setResult(disp_);
             }
         }
     }
-    public static Struct calculate(Analyzable _cont, ClassMethodId _method, Struct _struct, Struct... _args) {
+    public static Struct calculate(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct... _args) {
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
@@ -561,7 +560,7 @@ public abstract class NumberStruct implements DisplayableStruct {
                 return(BooleanStruct.of(instance_.sameReference(_args[0])));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasParseBoolean())) {
-                StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont.getContextEl()).getDisplayedString(_cont);
+                StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont).getDisplayedString(_cont);
                 if (StringList.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
                     return(BooleanStruct.of(true));
                 }
@@ -577,7 +576,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             if (StringList.quickEq(list_.first(), booleanPrimType_)) {
                 return (_args[0]);
             }
-            StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]), _cont.getContextEl()).getDisplayedString(_cont);
+            StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]), _cont).getDisplayedString(_cont);
             if (StringList.quickEq(disp_.getInstance(), lgNames_.getDisplayedStrings().getTrueString())) {
                 return (BooleanStruct.of(true));
             }
@@ -788,7 +787,7 @@ public abstract class NumberStruct implements DisplayableStruct {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
                 return(instance_.getDisplayedString(_cont));
             }
-            return(ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont.getContextEl())
+            return(ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont)
                     .getDisplayedString(_cont));
         }
         return null;
@@ -1110,11 +1109,11 @@ public abstract class NumberStruct implements DisplayableStruct {
         String second_ = ApplyCoreMethodUtil.getCharSeq(_b).toStringInstance();
         return BooleanStruct.of(first_.compareTo(second_) > 0);
     }
-    public static NumberStruct idNumber(NumberStruct _a, Analyzable _an,ClassArgumentMatching _order) {
+    public static NumberStruct idNumber(NumberStruct _a, ContextEl _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
         return PrimitiveTypeUtil.convertToNumber(_order, _a, stds_);
     }
-    public static NumberStruct negBinNumber(NumberStruct _a, Analyzable _an,ClassArgumentMatching _order) {
+    public static NumberStruct negBinNumber(NumberStruct _a, ContextEl _an,ClassArgumentMatching _order) {
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
         if (_order.matchClass(intPrim_)) {
             int left_ = _a.getInt();
@@ -1133,7 +1132,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
         return new LongStruct(NumParsers.toLong(bits_));
     }
-    public static NumberStruct calculateSum(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static NumberStruct calculateSum(NumberStruct _a, NumberStruct _b, ContextEl _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
@@ -1156,7 +1155,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         return new DoubleStruct(nb_);
     }
 
-    public static NumberStruct opposite(NumberStruct _a, Analyzable _an,ClassArgumentMatching _order) {
+    public static NumberStruct opposite(NumberStruct _a, ContextEl _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         Struct tmp_;
@@ -1168,7 +1167,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         LgNames stds_ = _an.getStandards();
         return PrimitiveTypeUtil.convertToNumber(_order, tmp_, stds_);
     }
-    public static NumberStruct calculateDiff(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static NumberStruct calculateDiff(NumberStruct _a, NumberStruct _b, ContextEl _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
@@ -1190,7 +1189,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
         return new DoubleStruct(nb_);
     }
-    public static NumberStruct calculateMult(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static NumberStruct calculateMult(NumberStruct _a, NumberStruct _b, ContextEl _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
@@ -1212,18 +1211,17 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
         return new DoubleStruct(nb_);
     }
-    private static Struct calculateDivEx(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+    private static Struct calculateDivEx(NumberStruct _a, NumberStruct _b, ContextEl _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();
-        ContextEl c_ = _an.getContextEl();
         Struct res_ = calculateDiv(_a,_b, _an, _order);
         if (res_ == NullStruct.NULL_VALUE) {
-            c_.setException(new ErrorStruct(c_,div_));
+            _an.setException(new ErrorStruct(_an,div_));
         }
         return res_;
     }
-    public static Struct calculateDiv(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static Struct calculateDiv(NumberStruct _a, NumberStruct _b, ContextEl _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
@@ -1248,18 +1246,17 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
         return new DoubleStruct(nb_);
     }
-    private static Struct calculateModEx(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+    private static Struct calculateModEx(NumberStruct _a, NumberStruct _b, ContextEl _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();
-        ContextEl c_ = _an.getContextEl();
         Struct res_ = calculateMod(_a,_b, _an, _order);
         if (res_ == NullStruct.NULL_VALUE) {
-            c_.setException(new ErrorStruct(c_,div_));
+            _an.setException(new ErrorStruct(_an,div_));
         }
         return res_;
     }
-    public static Struct calculateMod(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static Struct calculateMod(NumberStruct _a, NumberStruct _b, ContextEl _an,ClassArgumentMatching _order) {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
@@ -1285,7 +1282,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         return new DoubleStruct(nb_);
     }
 
-    public static Struct calculateAnd(Struct _a, Struct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static Struct calculateAnd(Struct _a, Struct _b, ContextEl _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
         String bool_ = stds_.getAliasPrimBoolean();
         String int_ = stds_.getAliasPrimInteger();
@@ -1318,7 +1315,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         return new LongStruct(value_);
     }
 
-    public static Struct calculateOr(Struct _a, Struct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static Struct calculateOr(Struct _a, Struct _b, ContextEl _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
         String bool_ = stds_.getAliasPrimBoolean();
         String int_ = stds_.getAliasPrimInteger();
@@ -1351,7 +1348,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         return new LongStruct(value_);
     }
 
-    public static Struct calculateXor(Struct _a, Struct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static Struct calculateXor(Struct _a, Struct _b, ContextEl _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
         String bool_ = stds_.getAliasPrimBoolean();
         String int_ = stds_.getAliasPrimInteger();
@@ -1383,7 +1380,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         long value_ = NumParsers.toLong(bits_);
         return new LongStruct(value_);
     }
-    public static NumberStruct calculateShiftLeft(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static NumberStruct calculateShiftLeft(NumberStruct _a, NumberStruct _b, ContextEl _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(int_)) {
@@ -1407,7 +1404,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
         return new LongStruct(left_*power_);
     }
-    public static NumberStruct calculateShiftRight(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static NumberStruct calculateShiftRight(NumberStruct _a, NumberStruct _b, ContextEl _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(int_)) {
@@ -1431,7 +1428,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
         return new LongStruct(Numbers.quot(left_, power_));
     }
-    public static NumberStruct calculateBitShiftLeft(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static NumberStruct calculateBitShiftLeft(NumberStruct _a, NumberStruct _b, ContextEl _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(int_)) {
@@ -1468,7 +1465,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         _bits[_i] = _bits[_i + _value];
     }
 
-    public static NumberStruct calculateBitShiftRight(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static NumberStruct calculateBitShiftRight(NumberStruct _a, NumberStruct _b, ContextEl _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(int_)) {
@@ -1504,7 +1501,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
         return new LongStruct(NumParsers.toLong(bitsLeft_));
     }
-    public static NumberStruct calculateRotateLeft(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static NumberStruct calculateRotateLeft(NumberStruct _a, NumberStruct _b, ContextEl _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(int_)) {
@@ -1543,7 +1540,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         shift(1, _bits, _j);
     }
 
-    public static NumberStruct calculateRotateRight(NumberStruct _a, NumberStruct _b, Analyzable _an,ClassArgumentMatching _order) {
+    public static NumberStruct calculateRotateRight(NumberStruct _a, NumberStruct _b, ContextEl _an,ClassArgumentMatching _order) {
         LgNames stds_ = _an.getStandards();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(int_)) {
@@ -1629,7 +1626,7 @@ public abstract class NumberStruct implements DisplayableStruct {
     }
 
     @Override
-    public StringStruct getDisplayedString(Analyzable _an) {
+    public StringStruct getDisplayedString(ContextEl _an) {
         return getStringValue();
     }
 

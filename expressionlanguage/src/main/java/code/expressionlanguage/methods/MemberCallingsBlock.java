@@ -1,6 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -312,14 +312,14 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
-    public String getPseudoSignature(Analyzable _an) {
+    public String getPseudoSignature(ContextEl _an) {
         if (this instanceof ReturnableWithSignature) {
             return ((ReturnableWithSignature)this).getSignature(_an);
         }
         return EMPTY_STRING;
     }
-    public abstract void setAssignmentBeforeCall(Analyzable _an, AnalyzingEl _anEl);
-    public abstract void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl);
-    public abstract void setAssignmentAfterCallReadOnly(Analyzable _an, AnalyzingEl _anEl);
+    public abstract void setAssignmentBeforeCall(ContextEl _an, AnalyzingEl _anEl);
+    public abstract void setAssignmentAfterCall(ContextEl _an, AnalyzingEl _anEl);
+    public abstract void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl);
 
 }

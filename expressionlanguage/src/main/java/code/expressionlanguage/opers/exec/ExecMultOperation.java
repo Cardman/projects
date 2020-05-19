@@ -1,7 +1,6 @@
 package code.expressionlanguage.opers.exec;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.MultOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.NumberStruct;
@@ -16,7 +15,7 @@ public final class ExecMultOperation extends ExecStdNumericOperation {
 
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
-            Analyzable _an) {
+            ContextEl _an) {
         if (StringList.quickEq(_op.trim(), MULT)) {
             return new Argument(NumberStruct.calculateMult(ClassArgumentMatching.convertToNumber(_a.getStruct()),
                     ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
@@ -30,7 +29,7 @@ public final class ExecMultOperation extends ExecStdNumericOperation {
     }
 
     @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
+    Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont) {
         if (StringList.quickEq(_op.trim(), MULT)) {
             return new Argument(NumberStruct.calculateMult(ClassArgumentMatching.convertToNumber(_a.getStruct()),
                     ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));

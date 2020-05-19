@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.util.StringList;
 
@@ -71,7 +71,7 @@ public final class ConstructorInfo implements Parametrable {
         varArgWrap = _v;
     }
 
-    public void format(Analyzable _an) {
+    public void format(ContextEl _an) {
         StringList params_ = new StringList();
         for (String p: constraints.getParametersTypes()) {
             params_.add(Templates.wildCardFormatParam(className,p,_an));

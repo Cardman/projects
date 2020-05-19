@@ -1,8 +1,8 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.AccessEnum;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.StringList;
@@ -23,6 +23,7 @@ public final class MethodMetaInfo implements AnnotatedStruct {
 
     private final String returnType;
     private String fileName = EMPTY_STRING;
+    private boolean expCast;
     public MethodMetaInfo(AccessEnum _access, String _className, MethodId _realId, MethodModifier _modifier, String _returnType,
                           MethodId _fid, String _formClassName) {
         access = _access;
@@ -41,6 +42,10 @@ public final class MethodMetaInfo implements AnnotatedStruct {
 
     public void setFileName(String _fileName) {
         fileName = _fileName;
+    }
+
+    public void setExpCast(boolean expCast) {
+        this.expCast = expCast;
     }
 
     @Override
@@ -113,7 +118,7 @@ public final class MethodMetaInfo implements AnnotatedStruct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getAliasMethod();
     }
 
@@ -130,7 +135,11 @@ public final class MethodMetaInfo implements AnnotatedStruct {
     }
 
     @Override
-    public StringStruct getDisplayedString(Analyzable _an) {
+    public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(StringList.concat(className,".",realId.getSignature(_an)));
+    }
+
+    public boolean canAccessParamTypesStatic() {
+        return realId.getKind() == MethodAccessKind.STATIC_CALL||expCast;
     }
 }

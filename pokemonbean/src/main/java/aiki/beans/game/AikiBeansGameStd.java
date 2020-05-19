@@ -253,7 +253,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
-            res_.setResult(std_.wrapStd(instance_.getDiffWinningExpPtsFight(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getDiffWinningExpPtsFight()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLOW_CATCHING_KO)) {
@@ -317,7 +317,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
-            res_.setResult(std_.wrapStd(instance_.getDamageRatePlayer(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getDamageRatePlayer()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER_TABLE)) {
@@ -325,7 +325,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
-            res_.setResult(std_.wrapStd(instance_.getDamageRateLawFoe(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getDamageRateLawFoe()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_FOE_TABLE)) {

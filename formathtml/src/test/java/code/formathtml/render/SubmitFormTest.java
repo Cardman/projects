@@ -821,7 +821,7 @@ public final class SubmitFormTest extends CommonRender {
         
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         conf_.setContext(cont_);
-        cont_.setExecutingInstance(conf_);
+        cont_.setFullStack(new AdvancedFullStack(conf_));
         Classes.validateWithoutInit(_files, cont_);
         assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
@@ -1009,12 +1009,7 @@ public final class SubmitFormTest extends CommonRender {
 
     private static void initSession(Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        _nav.getSession().getContext().setAnalyzing();
-        _nav.getSession().getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_nav.getSession()));
-        _nav.getSession().getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_nav.getSession()));
-        _nav.getSession().getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_nav.getSession()));
-        _nav.getSession().getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        _nav.getSession().getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        setupAna(_nav.getSession());
         _nav.initInstancesPattern();
         _nav.getSession().setPrefix("c:");
         _nav.setupRenders();

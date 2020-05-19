@@ -57,11 +57,11 @@ public final class RendSettableFieldOperation extends
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         Argument arg_ = getCommonSetting(previous_, _conf, _right);
-        CallingState state_ = _conf.getContextEl().getCallingState();
+        CallingState state_ = _conf.getContext().getCallingState();
         if (state_ instanceof NotInitializedClass) {
             NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
+            if (_conf.getContext().hasException()) {
                 return arg_;
             }
             arg_ = getCommonSetting(previous_, _conf, _right);
@@ -105,7 +105,7 @@ public final class RendSettableFieldOperation extends
         Argument res_;
 
         ClassArgumentMatching cl_ = getResultClass();
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
+        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf.getContext(), _op, cl_);
         getCommonSetting(_previous,_conf,res_);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }

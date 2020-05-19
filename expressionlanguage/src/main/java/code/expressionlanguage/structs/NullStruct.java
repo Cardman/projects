@@ -1,7 +1,6 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 
 public final class NullStruct implements DisplayableStruct {
 
@@ -15,13 +14,13 @@ public final class NullStruct implements DisplayableStruct {
     }
 
     @Override
-    public StringStruct getDisplayedString(Analyzable _an) {
+    public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(_an.getStandards().getDisplayedStrings().getNullString());
     }
 
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return "";
     }
 

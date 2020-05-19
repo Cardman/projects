@@ -13,6 +13,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
+import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -89,7 +90,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
         res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
-        if (_conf.getContextEl().hasException()) {
+        if (_conf.getContext().hasException()) {
             return res_;
         }
         return processCalling(_nodes,_conf,res_);
@@ -104,7 +105,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         left_.setStruct(store_);
         ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
+        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf.getContext(), _op, clArg_);
         return processCalling(_nodes,_conf,res_);
     }
 
@@ -138,32 +139,32 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         Argument prev_ = new Argument();
         classNameFound_ = classMethodId.getClassName();
         Struct argPrev_ = _previous.getStruct();
-        prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, argPrev_, _conf));
-        if (_conf.getContextEl().hasException()) {
+        prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, argPrev_, _conf.getContext()));
+        if (_conf.getContext().hasException()) {
             return new Argument();
         }
         String base_ = Templates.getIdFromAllTypes(classNameFound_);
         if (staticChoiceMethod) {
-            String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
-            classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
-            if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
+            String argClassName_ = prev_.getObjectClassName(_conf.getContext());
+            classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf.getContext());
+            if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf.getContext())) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                 String cast_;
                 cast_ = stds_.getAliasCastType();
-                _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
+                _conf.setException(new ErrorStruct(_conf.getContext(), StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
                 return new Argument();
             }
-            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
-            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
+            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf.getContext());
+            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             methodId_ = classMethodId.getConstraints();
         } else {
             Struct previous_ = prev_.getStruct();
-            ContextEl context_ = _conf.getContextEl();
+            ContextEl context_ = _conf.getContext();
             ClassMethodId methodToCall_ = ExecInvokingOperation.polymorph(context_, previous_, classMethodId);
             String argClassName_ = stds_.getStructClassName(previous_, context_);
-            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
-            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
+            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf.getContext());
+            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             methodId_ = methodToCall_.getConstraints();
             classNameFound_ = methodToCall_.getClassName();
@@ -171,7 +172,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         if (_right != null) {
             methodId_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
         }
-        return ExecInvokingOperation.callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, _right);
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, _right);
     }
 
     public ClassMethodId getClassMethodId() {

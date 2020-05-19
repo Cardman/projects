@@ -1,8 +1,6 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -120,10 +118,10 @@ public final class PartTypeUtil {
         _l.add((LeafPartType) _p);
     }
 
-    static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted) {
+    static String processAnalyze(String _input, String _globalType, ContextEl _an, AccessingImportingBlock _rooted) {
         return processAnalyze(_input, false,_globalType,_an,_rooted,_rooted, 0,new CustList<PartOffset>());
     }
-    public static String processAnalyze(String _input, boolean _rootName, String _globalType, Analyzable _an, AccessingImportingBlock _local, AccessingImportingBlock _rooted, int _loc, CustList<PartOffset> _offs) {
+    public static String processAnalyze(String _input, boolean _rootName, String _globalType, ContextEl _an, AccessingImportingBlock _local, AccessingImportingBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return "";
@@ -180,7 +178,7 @@ public final class PartTypeUtil {
         return root_.getAnalyzedType();
     }
 
-    public static boolean processAnalyzeConstraints(String _className, StringMap<StringList> _inherit, Analyzable _context, boolean _exact) {
+    public static boolean processAnalyzeConstraints(String _className, StringMap<StringList> _inherit, ContextEl _context, boolean _exact) {
         if (!_exact && !_className.contains(Templates.TEMPLATE_BEGIN)) {
             return true;
         }
@@ -229,10 +227,10 @@ public final class PartTypeUtil {
         }
         return !root_.getAnalyzedType().isEmpty();
     }
-    static String processAnalyzeLine(String _input, Analyzable _an, AccessingImportingBlock _rooted) {
+    static String processAnalyzeLine(String _input, ContextEl _an, AccessingImportingBlock _rooted) {
         return processAnalyzeLine(_input, new AlwaysReadyTypes(),false,"",_an,_rooted,_rooted, 0,new CustList<PartOffset>());
     }
-    public static String processAnalyzeLine(String _input, ReadyTypes _ready, boolean _rootName, String _globalType, Analyzable _an, AccessingImportingBlock _local, AccessingImportingBlock _rooted, int _loc, CustList<PartOffset> _offs) {
+    public static String processAnalyzeLine(String _input, ReadyTypes _ready, boolean _rootName, String _globalType, ContextEl _an, AccessingImportingBlock _local, AccessingImportingBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return "";
@@ -294,7 +292,7 @@ public final class PartTypeUtil {
     }
 
 
-    static String processAnalyzeAccessibleId(String _input, Analyzable _an, AccessingImportingBlock _rooted, String _refFileName, int _loc, CustList<PartOffset> _offs) {
+    static String processAnalyzeAccessibleId(String _input, ContextEl _an, AccessingImportingBlock _rooted, String _refFileName, int _loc, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return "";
@@ -349,16 +347,16 @@ public final class PartTypeUtil {
         return root_.getAnalyzedType();
     }
 
-    private static void addTypeParts(Analyzable _an, AccessingImportingBlock _rooted,
+    private static void addTypeParts(ContextEl _an, AccessingImportingBlock _rooted,
                                      String _refFileName, int _loc, CustList<PartOffset> _offs, CustList<LeafPartType> _leaves) {
-        if (_an.getContextEl().isCovering()) {
+        if (_an.isCovering()) {
             String curr_ = ((Block)_rooted).getFile().getRenderFileName();
             for (LeafPartType l: _leaves){
                 if (l instanceof NamePartType) {
                     String type_ = l.getTypeName();
                     String imported_ = l.getAnalyzedType();
                     String idCl_ = Templates.getIdFromAllTypes(imported_);
-                    GeneType g_ = _an.getContextEl().getClassBody(idCl_);
+                    GeneType g_ = _an.getClassBody(idCl_);
                     if (ElUtil.isFromCustFile(g_)) {
                         String ref_ = ((RootBlock) g_).getFile().getRenderFileName();
                         String rel_ = ElUtil.relativize(curr_,ref_);
@@ -485,7 +483,7 @@ public final class PartTypeUtil {
         }
         return out_.toString();
     }
-    public static String processExec(String _input,ExecutableCode _an) {
+    public static String processExec(String _input,ContextEl _an) {
         StringBuilder out_ = new StringBuilder();
         Ints indexes_ = ParserType.getIndexesExec(_input);
         if (indexes_ == null) {
@@ -573,7 +571,7 @@ public final class PartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    private static PartType createFirstChild(Analyzable _an, boolean _rootName,PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+    private static PartType createFirstChild(ContextEl _an, boolean _rootName,PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
         if (!(_parent instanceof ParentPartType)) {
             return null;
         }
@@ -668,7 +666,7 @@ public final class PartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    private static PartType createNextSibling(Analyzable _an,boolean _rootName, PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+    private static PartType createNextSibling(ContextEl _an,boolean _rootName, PartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
         ParentPartType par_ = _parent.getParent();
         if (!(par_ instanceof BinaryType)) {
             return null;

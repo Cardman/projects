@@ -17,6 +17,6 @@ public final class AdvancedHiddenTypes implements AbstractHiddenTypes {
         if (_global == null) {
             return false;
         }
-        return _global.isTypeHidden(_type, configuration);
+        return _global.isTypeHidden(_type, configuration.getContext());
     }
 }

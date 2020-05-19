@@ -1,6 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.CheckBoxMenuItem;
@@ -26,8 +26,8 @@ public final class MenuItemCheckStruct extends AbsMenuItemStruct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
-        return ((LgNamesGui) _contextEl.getContextEl().getStandards()).getAliasMenuItemCheck();
+    public String getClassName(ContextEl _contextEl) {
+        return ((LgNamesGui) _contextEl.getStandards()).getAliasMenuItemCheck();
     }
 
     public CheckBoxMenuItem getComponent() {

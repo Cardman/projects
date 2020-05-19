@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
@@ -29,8 +28,8 @@ public abstract class SwitchPartBlock extends BracedStack implements
         }
     }
     @Override
-    public final void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+    public final void setAssignmentBeforeNextSibling(ContextEl _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         assBl_.getFieldsRootBefore().putAllMap(buildFieldsSwitchPart(_an, _anEl));
@@ -40,9 +39,9 @@ public abstract class SwitchPartBlock extends BracedStack implements
         assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(nextSibling_, assBl_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildVariablesSwitchPart(Analyzable _an, AnalyzingEl _anEl){
+    protected CustList<StringMap<AssignmentBefore>> buildVariablesSwitchPart(ContextEl _an, AnalyzingEl _anEl){
         BracedBlock br_ = getParent();
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(br_);
         AssignedVariables prevAss_ = id_.getVal(this);
         CustList<StringMap<AssignmentBefore>> out_;
@@ -62,9 +61,9 @@ public abstract class SwitchPartBlock extends BracedStack implements
         }
         return out_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildMutableLoopSwitchPart(Analyzable _an, AnalyzingEl _anEl){
+    protected CustList<StringMap<AssignmentBefore>> buildMutableLoopSwitchPart(ContextEl _an, AnalyzingEl _anEl){
         BracedBlock br_ = getParent();
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(br_);
         AssignedVariables prevAss_ = id_.getVal(this);
         CustList<StringMap<AssignmentBefore>> out_;
@@ -84,9 +83,9 @@ public abstract class SwitchPartBlock extends BracedStack implements
         }
         return out_;
     }
-    protected StringMap<AssignmentBefore> buildFieldsSwitchPart(Analyzable _an, AnalyzingEl _anEl){
+    protected StringMap<AssignmentBefore> buildFieldsSwitchPart(ContextEl _an, AnalyzingEl _anEl){
         BracedBlock br_ = getParent();
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(br_);
         AssignedVariables prevAss_ = id_.getVal(this);
         StringMap<SimpleAssignment> current_;

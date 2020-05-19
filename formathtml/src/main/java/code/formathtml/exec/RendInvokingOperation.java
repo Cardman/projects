@@ -1,17 +1,12 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.calls.util.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.*;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.util.CustList;
-import code.util.IdMap;
 
 public abstract class RendInvokingOperation extends RendMethodOperation implements RendPossibleIntermediateDotted {
     private boolean intermediate;
@@ -31,7 +26,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         intermediate = _intermediate;
         previousArgument = _previousArgument;
     }
-    public static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ExecutableCode _context) {
+    public static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, Configuration _context) {
         if (!_children.isEmpty() && _children.first() instanceof RendVarargOperation) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
@@ -55,7 +50,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
             }
             Argument argRem_ = new Argument();
             String g_ = _children.first().getResultClass().getName();
-            g_ = _context.getOperationPageEl().formatVarType(g_, _context);
+            g_ = _context.getPageEl().formatVarType(g_, _context.getContext());
             int len_ = optArgs_.size();
             Struct[] array_ = new Struct[len_];
             String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);

@@ -44,7 +44,7 @@ public final class RendDeclareVariable extends RendLeaf implements RendBuildable
         if (StringList.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = keyWordVar_;
         } else {
-            importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
+            importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
         }
         page_.setMerged(true);
         page_.setAcceptCommaInstr(true);
@@ -57,7 +57,7 @@ public final class RendDeclareVariable extends RendLeaf implements RendBuildable
     @Override
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
-        Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont);
+        Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont.getContext());
         for (String v: getVariableNames()) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,importedClassName);
             ip_.putLocalVar(v, lv_);

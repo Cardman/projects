@@ -1,7 +1,8 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
@@ -36,7 +37,7 @@ public abstract class SettableAbstractFieldOperation extends
         super(_indexInEl, _indexChild, _m, _op);
     }
     @Override
-    public final void analyze(Analyzable _conf) {
+    public final void analyze(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
@@ -88,7 +89,7 @@ public abstract class SettableAbstractFieldOperation extends
         }
     }
 
-    abstract ClassArgumentMatching getFrom(Analyzable _an);
+    abstract ClassArgumentMatching getFrom(ContextEl _an);
     abstract String getFieldName();
     abstract boolean isBaseAccess();
     abstract boolean isSuperAccess();
@@ -135,7 +136,7 @@ public abstract class SettableAbstractFieldOperation extends
         }
         return fieldMetaInfo.getClassField().eq(_id);
     }
-    public final boolean isFromCurrentClass(Analyzable _an) {
+    public final boolean isFromCurrentClass(ContextEl _an) {
         if (notMatchCurrentType(_an)) {
             return false;
         }
@@ -158,7 +159,7 @@ public abstract class SettableAbstractFieldOperation extends
         }
         return false;
     }
-    public final boolean isFromCurrentClassReadOnly(Analyzable _an) {
+    public final boolean isFromCurrentClassReadOnly(ContextEl _an) {
         if (notMatchCurrentType(_an)) {
             return false;
         }
@@ -178,7 +179,7 @@ public abstract class SettableAbstractFieldOperation extends
         }
         return false;
     }
-    private boolean notMatchCurrentType(Analyzable _an) {
+    private boolean notMatchCurrentType(ContextEl _an) {
         if (fieldMetaInfo == null) {
             return true;
         }
@@ -192,10 +193,10 @@ public abstract class SettableAbstractFieldOperation extends
     }
 
     @Override
-    public final void tryCalculateNode(Analyzable _conf) {
+    public final void tryCalculateNode(ContextEl _conf) {
         trySet(_conf, this, fieldMetaInfo);
     }
-    public static void trySet(Analyzable _conf, Operable _oper, FieldInfo _info) {
+    public static void trySet(ContextEl _conf, Operable _oper, FieldInfo _info) {
         if (_info == null) {
             return;
         }
@@ -227,10 +228,10 @@ public abstract class SettableAbstractFieldOperation extends
         }
     }
     @Override
-    public final void analyzeAssignmentAfter(Analyzable _conf) {
+    public final void analyzeAssignmentAfter(ContextEl _conf) {
         Argument arg_ = getArgument();
         Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
         CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(this);
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
@@ -272,26 +273,26 @@ public abstract class SettableAbstractFieldOperation extends
         }
         if (cl_ == null) {
             procField_ = false;
-        } else if (_conf.getContextEl().isAssignedStaticFields()) {
-            FieldInfo meta_ = _conf.getContextEl().getFieldInfo(cl_);
+        } else if (_conf.isAssignedStaticFields()) {
+            FieldInfo meta_ = _conf.getFieldInfo(cl_);
             if (meta_.isStaticField()) {
                 procField_ = false;
             }
         }
-        if (_conf.getContextEl().isAssignedFields()) {
+        if (_conf.isAssignedFields()) {
             procField_ = false;
         }
         if (procField_) {
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                 if (StringList.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
-                    FieldInfo meta_ = _conf.getContextEl().getFieldInfo(cl_);
+                    FieldInfo meta_ = _conf.getFieldInfo(cl_);
                     if (meta_.isFinalField() && !ElUtil.isDeclaringField(this, _conf)) {
                         //error if final field
                         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_conf.getCurrentFileName());
-                        un_.setIndexFile(_conf.getCurrentLocationIndex());
-                        un_.buildError(_conf.getContextEl().getAnalysisMessages().getFinalField(),
+                        un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                        un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                        un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                                 cl_.getFieldName());
                         _conf.addError(un_);
                     }

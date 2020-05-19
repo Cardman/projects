@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
@@ -43,18 +42,18 @@ public final class DoBlock extends BracedStack implements Loop {
     }
 
     @Override
-    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
+    public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
         Block nextSibling_ = getNextSibling();
         if (nextSibling_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             //key word len
-            un_.buildError(_an.getContextEl().getAnalysisMessages().getUnexpectedDoTry(),
-                    _an.getContextEl().getKeyWords().getKeyWordDo(),
+            un_.buildError(_an.getAnalysisMessages().getUnexpectedDoTry(),
+                    _an.getKeyWords().getKeyWordDo(),
                     StringList.join(
                             new StringList(
-                                    _an.getContextEl().getKeyWords().getKeyWordWhile()
+                                    _an.getKeyWords().getKeyWordWhile()
                             ),
                             "|"));
             _an.addError(un_);
@@ -65,11 +64,11 @@ public final class DoBlock extends BracedStack implements Loop {
             un_.setFileName(nextSibling_.getFile().getFileName());
             un_.setIndexFile(nextSibling_.getOffset().getOffsetTrim());
             //key word len
-            un_.buildError(_an.getContextEl().getAnalysisMessages().getUnexpectedDoTry(),
-                    _an.getContextEl().getKeyWords().getKeyWordDo(),
+            un_.buildError(_an.getAnalysisMessages().getUnexpectedDoTry(),
+                    _an.getKeyWords().getKeyWordDo(),
                     StringList.join(
                             new StringList(
-                                    _an.getContextEl().getKeyWords().getKeyWordWhile()
+                                    _an.getKeyWords().getKeyWordWhile()
                             ),
                             "|"));
             _an.addError(un_);
@@ -82,10 +81,10 @@ public final class DoBlock extends BracedStack implements Loop {
     }
 
     @Override
-    public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeNextSibling(ContextEl _an, AnalyzingEl _anEl) {
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         assBl_.getFieldsRootBefore().putAllMap(buildAssListFieldBeforeIncrPart(_an, _anEl));
         assBl_.getVariablesRootBefore().addAllElts(buildAssListLocVarBeforeIncrPart(_an, _anEl));
         assBl_.getMutableLoopRootBefore().addAllElts(buildAssListMutableLoopBeforeIncrPart(_an, _anEl));

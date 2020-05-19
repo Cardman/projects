@@ -42,7 +42,6 @@ public class RunnableContextEl extends ContextEl implements Locking {
         setThrowing(_context.getThrowing());
         setCovering(_context.isCovering());
         setCoverage(_context.getCoverage());
-        setExecutingInstance(this);
         executingOptions = ((RunnableContextEl)_context).executingOptions;
         interrupt = ((RunnableContextEl)_context).interrupt;
         custInit = ((RunnableContextEl)_context).getCustInit();

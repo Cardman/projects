@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.opers.AffectationOperation;
@@ -15,7 +15,7 @@ public class AssignedBooleanLoopVariables extends AssignedBooleanVariables {
     private CustList<StringMap<Assignment>> variablesRootAfterInit = new CustList<StringMap<Assignment>>();
     private CustList<StringMap<Assignment>> mutableLoopRootAfterInit = new CustList<StringMap<Assignment>>();
     private StringMap<Assignment> fieldsRootAfterInit = new StringMap<Assignment>();
-    public void add(AffectationOperation _aff, Analyzable _an) {
+    public void add(AffectationOperation _aff, ContextEl _an) {
         if (_an.getAnalyzing().getForLoopPartState() == ForLoopPart.INIT) {
             return;
         }

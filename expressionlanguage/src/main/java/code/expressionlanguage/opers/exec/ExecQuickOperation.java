@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers.exec;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -17,7 +17,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
     }
 
     @Override
-    public void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(ContextEl _conf) {
         Struct abs_ = absorbingStruct();
         QuickOperation.tryGetResult(_conf, this, abs_,true);
     }

@@ -1,8 +1,6 @@
 package code.expressionlanguage.opers.exec;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.UnaryBinOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -26,11 +24,11 @@ public final class ExecUnaryBinOperation extends ExecAbstractUnaryOperation {
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         UnaryBinOperation.tryGetArg(this,null,_conf);
     }
 
-    Argument getArgument(ExecutableCode _conf,
+    Argument getArgument(ContextEl _conf,
             Argument _in) {
         Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);

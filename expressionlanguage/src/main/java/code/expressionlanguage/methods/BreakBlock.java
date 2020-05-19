@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
@@ -7,7 +6,6 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.stacks.*;
 import code.expressionlanguage.structs.Struct;
@@ -112,7 +110,7 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
     }
 
     @Override
-    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+    public void abrupt(ContextEl _an, AnalyzingEl _anEl) {
         super.abrupt(_an, _anEl);
         boolean childOfBreakable_ = false;
         BracedBlock b_ = getParent();

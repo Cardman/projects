@@ -73,7 +73,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         String type_ = resSwitch_.getSingleNameOrEmpty();
         if (!type_.isEmpty()) {
             String id_ = Templates.getIdFromAllTypes(type_);
-            GeneType g_ = _cont.getContextEl().getClassBody(id_);
+            GeneType g_ = _cont.getContext().getClassBody(id_);
             if (g_ instanceof EnumBlock) {
                 for (InfoBlock f: ContextEl.getFieldBlocks((RootBlock) g_)) {
                     if (!(f instanceof InnerTypeOrElement)) {
@@ -85,10 +85,10 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                     }
                     page_.setLookLocalClass(id_);
                     page_.setAccessStaticContext(MethodAccessKind.STATIC);
-                    Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
-                    OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
-                    OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);
-                    op_.analyze(_cont);
+                    Delimiters d_ = ElResolver.checkSyntax(value, _cont.getContext(), CustList.FIRST_INDEX);
+                    OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont.getContext(), d_);
+                    OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont.getContext());
+                    op_.analyze(_cont.getContext());
                     page_.setLookLocalClass(EMPTY_STRING);
                     op_.setOrder(0);
                     opValue = new CustList<RendDynOperationNode>();
@@ -115,11 +115,11 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont);
         RendDynOperationNode op_ = opValue.last();
         ClassArgumentMatching resCase_ = op_.getResultClass();
-        if (resCase_.matchVoid(_cont)) {
+        if (resCase_.matchVoid(_cont.getContext())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getCurrentFileName());
             un_.setIndexFile(valueOffset);
-            un_.buildError(_cont.getContextEl().getAnalysisMessages().getVoidType(),
+            un_.buildError(_cont.getContext().getAnalysisMessages().getVoidType(),
                     _cont.getStandards().getAliasVoid());
             _cont.addError(un_);
             return;
@@ -138,13 +138,13 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
             Mapping m_ = new Mapping();
             m_.setArg(resCase_);
             m_.setParam(resSwitch_);
-            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+            if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(valueOffset);
                 un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseValue(),
                         _cont.getKeyWords().getKeyWordCase(),
-                        ExecCatOperation.getString(arg_,_cont),
+                        ExecCatOperation.getString(arg_,_cont.getContext()),
                         StringList.join(resSwitch_.getNames(),AND_ERR));
                 _cont.addError(un_);
             }
@@ -166,7 +166,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                         un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
                         un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseDup(),
                                 _cont.getKeyWords().getKeyWordCase(),
-                                ExecCatOperation.getString(_arg,_cont),
+                                ExecCatOperation.getString(_arg,_cont.getContext()),
                                 _cont.getKeyWords().getKeyWordSwitch());
                         _cont.addError(un_);
                         break;

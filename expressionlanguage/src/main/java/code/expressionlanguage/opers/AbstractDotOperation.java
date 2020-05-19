@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.util.CustList;
 import code.util.IntTreeMap;
@@ -11,17 +11,17 @@ public abstract class AbstractDotOperation extends MethodOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setResultClass(chidren_.last().getResultClass());
     }
     @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
                                                    OperationNode _nextSibling, OperationNode _previous) {
         analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(ContextEl _conf) {
         analyzeStdAssignmentAfter(_conf);
     }
     @Override

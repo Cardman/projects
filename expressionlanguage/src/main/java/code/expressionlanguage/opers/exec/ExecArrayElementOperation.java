@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -19,13 +19,13 @@ public final class ExecArrayElementOperation extends
     }
 
     @Override
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         String me_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(me_);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String cl_ = getClassName();
         String className_;
-        PageEl page_ = _conf.getOperationPageEl();
+        PageEl page_ = _conf.getLastPage();
         className_ = page_.formatVarType(cl_, _conf);
 
         int nbCh_ = _arguments.size();

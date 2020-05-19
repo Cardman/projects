@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers.util;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.StringList;
@@ -70,7 +70,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         return MethodAccessKind.INSTANCE;
     }
     @Override
-    public String getSignature(Analyzable _ana) {
+    public String getSignature(ContextEl _ana) {
         String pref_ = EMPTY;
         if (kind == MethodAccessKind.STATIC) {
             pref_ = StringList.concat(_ana.getStandards().getDisplayedStrings().getStaticString()," ");
@@ -115,7 +115,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         return true;
     }
 
-    public MethodId reflectFormat(String _genericClass, Analyzable _context) {
+    public MethodId reflectFormat(String _genericClass, ContextEl _context) {
         String name_ = getName();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
@@ -128,7 +128,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         return new MethodId(kind, name_, pTypes_, isVararg());
     }
     
-    public MethodId quickFormat(String _genericClass, Analyzable _context) {
+    public MethodId quickFormat(String _genericClass, ContextEl _context) {
         String name_ = getName();
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
@@ -147,9 +147,6 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         return name;
     }
 
-    public boolean canAccessParamTypesStatic(Analyzable _an) {
-        return kind == MethodAccessKind.STATIC_CALL || StringList.quickEq(name,_an.getKeyWords().getKeyWordExplicit());
-    }
     public boolean canAccessParamTypes() {
         return kind != MethodAccessKind.STATIC;
     }

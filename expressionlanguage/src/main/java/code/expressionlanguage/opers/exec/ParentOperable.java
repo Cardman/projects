@@ -1,11 +1,11 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.util.CustList;
 
 public interface ParentOperable extends Operable {
     Operable getFirstChildOperable();
     CustList<Operable> getChildrenOperable();
 
-    void quickCalculate(Analyzable _conf);
+    void quickCalculate(ContextEl _conf);
 }

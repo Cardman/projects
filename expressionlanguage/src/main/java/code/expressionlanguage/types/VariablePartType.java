@@ -1,6 +1,6 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -17,18 +17,18 @@ final class VariablePartType extends LeafPartType {
     }
 
     @Override
-    void analyze(Analyzable _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyze(ContextEl _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         analyzeLine(_an,null,_dels,_globalType,_local,_rooted);
     }
 
     @Override
-    void analyzeTemplate(Analyzable _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+    void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         String type_ = getTypeName();
         setAnalyzedType(type_);
     }
 
     @Override
-    void analyzeLine(Analyzable _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         if (getParent() instanceof InnerPartType) {
             return;
         }
@@ -50,7 +50,7 @@ final class VariablePartType extends LeafPartType {
         setAnalyzedType(t_);
     }
     @Override
-    void analyzeAccessibleId(Analyzable _an,
+    void analyzeAccessibleId(ContextEl _an,
             CustList<IntTreeMap< String>> _dels,
                              AccessingImportingBlock _rooted) {
         if (getParent() instanceof InnerPartType) {
@@ -74,7 +74,7 @@ final class VariablePartType extends LeafPartType {
         setAnalyzedType(t_);
     }
     @Override
-    void checkDynExistence(Analyzable _an,CustList<IntTreeMap< String>>_dels) {
+    void checkDynExistence(ContextEl _an,CustList<IntTreeMap< String>>_dels) {
         
     }
 }

@@ -1,6 +1,6 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.InheritedType;
 import code.util.StringList;
 import code.util.StringMap;
@@ -35,7 +35,7 @@ public final class PrimitiveType implements InheritedType {
     public String getDirectUpperPrimitiveInherit() {
         return directUpperPrimitiveInherit;
     }
-    public StringList getAllSuperType(Analyzable _cont) {
+    public StringList getAllSuperType(ContextEl _cont) {
         StringList all_ = new StringList();
         LgNames stds_ = _cont.getStandards();
         StringMap<PrimitiveType> p_ = stds_.getPrimitiveTypes();
@@ -52,7 +52,7 @@ public final class PrimitiveType implements InheritedType {
         all_.add(stds_.getAliasObject());
         return all_;
     }
-    public StringList getAllPrimSuperType(Analyzable _cont) {
+    public StringList getAllPrimSuperType(ContextEl _cont) {
         StringList all_ = new StringList();
         LgNames stds_ = _cont.getStandards();
         StringMap<PrimitiveType> p_ = stds_.getPrimitiveTypes();
@@ -71,7 +71,7 @@ public final class PrimitiveType implements InheritedType {
     }
 
     @Override
-    public boolean isSubTypeOf(String _fullName, Analyzable _an) {
+    public boolean isSubTypeOf(String _fullName, ContextEl _an) {
         return StringList.contains(getAllSuperType(_an),_fullName);
     }
 }

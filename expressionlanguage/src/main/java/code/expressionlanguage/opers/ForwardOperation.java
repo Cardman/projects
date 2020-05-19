@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -31,7 +31,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
@@ -63,7 +63,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             className_ = className_.substring(lenPref_);
             int loc_ = StringList.getFirstPrintableCharIndex(className_);
             classType = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
             Mapping map_ = new Mapping();
             map_.setParam(classType);
             map_.setArg(getResultClass());
@@ -71,13 +71,13 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             map_.setMapping(mapping_);
             if (!Templates.isCorrectOrNumbers(map_, _conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 //type len
-                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(getResultClass().getNames(),"&"),
                         classType);
-                _conf.addError(cast_);
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
             }
             accessSuperTypes = false;
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordClasschoice_)) {
@@ -87,7 +87,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             className_ = className_.substring(lenPref_);
             int loc_ = StringList.getFirstPrintableCharIndex(className_);
             classType = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
             setResultClass(new ClassArgumentMatching(classType));
             accessSuperTypes = false;
             staticChoiceMethod = true;
@@ -98,7 +98,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             className_ = className_.substring(lenPref_);
             int loc_ = StringList.getFirstPrintableCharIndex(className_);
             className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
             classType = className_;
             Mapping map_ = new Mapping();
             map_.setParam(classType);
@@ -107,25 +107,25 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             map_.setMapping(mapping_);
             if (!Templates.isCorrectOrNumbers(map_, _conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setIndexFile(_conf.getCurrentLocationIndex());
-                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 //type len
-                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(getResultClass().getNames(),"&"),
                         classType);
-                _conf.addError(cast_);
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
             }
             staticChoiceMethod = true;
         }
         if (!isIntermediateDottedOperation()) {
             if (_conf.getAnalyzing().getStaticContext() != MethodAccessKind.INSTANCE) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
-                static_.setFileName(_conf.getCurrentFileName());
-                static_.setIndexFile(_conf.getCurrentLocationIndex());
+                static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //kw_ len
-                static_.buildError(_conf.getContextEl().getAnalysisMessages().getStaticAccess(),
+                static_.buildError(_conf.getAnalysisMessages().getStaticAccess(),
                         kw_);
-                _conf.addError(static_);
+                _conf.getAnalyzing().getLocalizer().addError(static_);
             }
         }
     }

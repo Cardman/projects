@@ -111,7 +111,7 @@ public abstract class BeanLgNames extends LgNames {
         ResultErrorStd out_ = getStructToBeValidated(values_, className_, _conf);
         if (out_.getError() != null) {
             String err_ = out_.getError();
-            _conf.getContext().setException(new ErrorStruct(_conf,err_));
+            _conf.getContext().setException(new ErrorStruct(_conf.getContext(),err_));
         }
         return out_;
     }
@@ -123,10 +123,10 @@ public abstract class BeanLgNames extends LgNames {
             for (int i = 0; i < len_; i++) {
                 arr_.getInstance()[i] = new StringStruct(values_.get(i));
             }
-            return LocalVariable.newLocalVariable(arr_,_conf);
+            return LocalVariable.newLocalVariable(arr_,_conf.getContext());
         }
         if (!values_.isEmpty()) {
-            return LocalVariable.newLocalVariable(new StringStruct(values_.first()),_conf);
+            return LocalVariable.newLocalVariable(new StringStruct(values_.first()),_conf.getContext());
         }
         return LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,getAliasString());
     }
@@ -142,7 +142,7 @@ public abstract class BeanLgNames extends LgNames {
             res_.setResult(wrapStd(v_));
             return res_;
         }
-        if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_className,_context)) {
+        if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_className,_context.getContext())) {
             if (_values.isEmpty() || _values.first().trim().isEmpty()) {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -156,7 +156,7 @@ public abstract class BeanLgNames extends LgNames {
                 res_.setResult(new CharStruct(_values.first().trim().charAt(0)));
                 return res_;
             }
-            int order_ = PrimitiveTypeUtil.getIntOrderClass(cl_, _context);
+            int order_ = PrimitiveTypeUtil.getIntOrderClass(cl_, _context.getContext());
             if (order_ == 0) {
                 DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
                 if (!doubleInfo_.isValid()) {

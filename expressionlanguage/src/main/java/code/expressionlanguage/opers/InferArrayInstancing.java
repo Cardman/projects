@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -22,7 +22,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         setClassName(_conf.getStandards().getAliasObject());
@@ -84,12 +84,12 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (type_.isEmpty() || StringList.quickEq(type_, keyWordVar_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //first separator char
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     type_);
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
             return;
@@ -98,12 +98,12 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         String cp_ = PrimitiveTypeUtil.getQuickComponentType(n_, nbParentsInfer_);
         if (cp_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //first separator char
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     n_);
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
             return;
@@ -111,12 +111,12 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         String classNameFinal_ = PrimitiveTypeUtil.getQuickComponentType(cp_);
         if (classNameFinal_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //first separator char
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     cp_);
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
             return;
@@ -133,13 +133,13 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             mapping_.setMapping(map_);
             if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //first separator char child
-                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(argType_.getNames(),"&"),
                         classNameFinal_);
-                _conf.addError(cast_);
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
             }
             if (PrimitiveTypeUtil.isPrimitive(classNameFinal_, _conf)) {
                 o.getResultClass().setUnwrapObject(classNameFinal_);

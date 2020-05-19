@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -131,7 +130,7 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
             //original type
-            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(opRet.last().getResultClass().getNames(),"&"),
                     _retType);
             _cont.addError(cast_);
@@ -151,7 +150,7 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
     }
 
     @Override
-    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+    public void abrupt(ContextEl _an, AnalyzingEl _anEl) {
         super.abrupt(_an, _anEl);
         BracedBlock par_ = getParent();
         IdList<BracedBlock> pars_ = new IdList<BracedBlock>();
@@ -185,17 +184,17 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
     }
 
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
         if (isEmpty()) {
             super.setAssignmentAfter(_an, _anEl);
         }
-        AssignedVariables vars_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         StringMap<SimpleAssignment> ass_;
         ass_ = new StringMap<SimpleAssignment>();
         for (EntryCust<String, SimpleAssignment> e: vars_.getFieldsRoot().entryList()) {
             ass_.put(e.getKey(), e.getValue().assign());
         }
-        _an.getContextEl().getAssignedVariables().getAssignments().put(this, ass_);
+        _an.getAssignedVariables().getAssignments().put(this, ass_);
     }
 
     @Override

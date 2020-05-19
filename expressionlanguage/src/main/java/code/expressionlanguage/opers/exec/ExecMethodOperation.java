@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers.exec;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
@@ -16,10 +16,10 @@ public abstract class ExecMethodOperation extends ExecOperationNode implements R
         super(_indexChild,_res,_order);
     }
     @Override
-    public void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(ContextEl _conf) {
         MethodOperation.tryCalculateNode(this, _conf);
     }
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
     }
 
     public final void appendChild(ExecOperationNode _child) {

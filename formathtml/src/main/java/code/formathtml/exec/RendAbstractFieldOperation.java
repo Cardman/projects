@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
@@ -39,13 +38,13 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         Argument argres_ = getCommonArgument(previous_, _conf);
-        if (_conf.getContextEl().hasException()) {
+        if (_conf.getContext().hasException()) {
             return;
         }
-        CallingState state_ = _conf.getContextEl().getCallingState();
+        CallingState state_ = _conf.getContext().getCallingState();
         if (state_ instanceof NotInitializedClass) {
             NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
             argres_ = getCommonArgument(previous_, _conf);
         }
         Argument arg_ = argres_;

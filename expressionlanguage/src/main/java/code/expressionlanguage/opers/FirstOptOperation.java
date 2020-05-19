@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.Operable;
@@ -28,29 +28,29 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements F
     }
 
     @Override
-    public void analyzeUnary(Analyzable _conf) {
+    public void analyzeUnary(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
         if (m_ == null ||!m_.isCallMethodCtor()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setIndexFile(_conf.getCurrentLocationIndex());
+            varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            varg_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            varg_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getContextEl().getKeyWords().getKeyWordFirstopt());
-            _conf.addError(varg_);
+            varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getKeyWords().getKeyWordFirstopt());
+            _conf.getAnalyzing().getLocalizer().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         if (isFirstChildInParent()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setIndexFile(_conf.getCurrentLocationIndex());
+            varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            varg_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            varg_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getContextEl().getKeyWords().getKeyWordFirstopt());
-            _conf.addError(varg_);
+            varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getKeyWords().getKeyWordFirstopt());
+            _conf.getAnalyzing().getLocalizer().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -59,11 +59,11 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements F
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         setArg(_conf,this);
     }
 
-    public static void setArg(Analyzable _conf, ParentOperable _par) {
+    public static void setArg(ContextEl _conf, ParentOperable _par) {
         CustList<Operable> chidren_ = _par.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (Operable o: chidren_) {

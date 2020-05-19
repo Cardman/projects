@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -35,7 +35,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
@@ -53,7 +53,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         className_ = className_.substring(lenPref_);
         int loc_ = StringList.getFirstPrintableCharIndex(className_)-off_;
         className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _conf);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
@@ -85,14 +85,14 @@ public final class ChoiceFctOperation extends InvokingOperation {
         if (clMeth_.isAbstractMethod()) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
             FoundErrorInterpret abs_ = new FoundErrorInterpret();
-            abs_.setIndexFile(_conf.getCurrentLocationIndex());
-            abs_.setFileName(_conf.getCurrentFileName());
+            abs_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            abs_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //method name len
             abs_.buildError(
-                    _conf.getContextEl().getAnalysisMessages().getAbstractMethodRef(),
+                    _conf.getAnalysisMessages().getAbstractMethodRef(),
                     clMeth_.getRealClass(),
                     clMeth_.getRealId().getSignature(_conf));
-            _conf.addError(abs_);
+            _conf.getAnalyzing().getLocalizer().addError(abs_);
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;
         }

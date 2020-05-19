@@ -1,6 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.util.*;
@@ -68,7 +68,7 @@ public final class AnalyzingEl {
     public void setArgMapping(String _arg) {
         mapping.setArg(_arg);
     }
-    public boolean isCorrectMapping(Analyzable _an) {
+    public boolean isCorrectMapping(ContextEl _an) {
         return Templates.isCorrectOrNumbers(mapping, _an);
     }
 

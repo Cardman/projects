@@ -1,9 +1,7 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -12,7 +10,6 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.util.CustList;
 import code.util.StringList;
 
 public final class StringBuilderStruct extends CharSequenceStruct {
@@ -28,7 +25,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         return this == _other;
     }
 
-    public static void instantiate(Analyzable _cont, ResultErrorStd _res, ConstructorId _method, Struct... _args) {
+    public static void instantiate(ContextEl _cont, ResultErrorStd _res, ConstructorId _method, Struct... _args) {
         StringList list_ = _method.getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
         String intPrimType_ = lgNames_.getAliasPrimInteger();
@@ -64,7 +61,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _res.setResult(new StringBuilderStruct(new StringBuilder(one_)));
     }
 
-    public static void calculateStrBuilder(ExecutableCode _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
+    public static void calculateStrBuilder(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
@@ -80,14 +77,14 @@ public final class StringBuilderStruct extends CharSequenceStruct {
                 return;
             }
             if (list_.size() == 1) {
-                one_.append(ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont.getContextEl()), _cont, _res);
+                one_.append(ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont), _cont, _res);
                 return;
             }
             if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
                 one_.appendChars(_args[0], ClassArgumentMatching.convertToNumber(_args[1]), ClassArgumentMatching.convertToNumber(_args[2]), _cont, _res);
                 return;
             }
-            one_.append(ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont.getContextEl()), ClassArgumentMatching.convertToNumber(_args[1]), ClassArgumentMatching.convertToNumber(_args[2]), _cont, _res);
+            one_.append(ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont), ClassArgumentMatching.convertToNumber(_args[1]), ClassArgumentMatching.convertToNumber(_args[2]), _cont, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasCapacity())) {
@@ -117,7 +114,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             }
             if (list_.size() == 2) {
                 one_.insert(ClassArgumentMatching.convertToNumber(_args[0]),
-                        ExecCatOperation.getDisplayable(new Argument(_args[1]),_cont.getContextEl()), _cont, _res);
+                        ExecCatOperation.getDisplayable(new Argument(_args[1]),_cont), _cont, _res);
                 return;
             }
             if (StringList.quickEq(list_.get(1), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
@@ -125,7 +122,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
                 return;
             }
             one_.insert(ClassArgumentMatching.convertToNumber(_args[0]),
-                    ExecCatOperation.getDisplayable(new Argument(_args[1]),_cont.getContextEl()), ClassArgumentMatching.convertToNumber(_args[2]), ClassArgumentMatching.convertToNumber(_args[3]), _cont, _res);
+                    ExecCatOperation.getDisplayable(new Argument(_args[1]),_cont), ClassArgumentMatching.convertToNumber(_args[2]), ClassArgumentMatching.convertToNumber(_args[3]), _cont, _res);
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasReplace())) {
@@ -146,8 +143,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         }
         one_.trimToSize(_cont, _res);
     }
-    private void ensureCapacity(NumberStruct _minimumCapacity, ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void ensureCapacity(NumberStruct _minimumCapacity, ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -156,8 +153,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void trimToSize(ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void trimToSize(ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -166,8 +163,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void setLength(NumberStruct _newLength, ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void setLength(NumberStruct _newLength, ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -183,8 +180,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void append(DisplayableStruct _s, NumberStruct _start, NumberStruct _end, ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void append(DisplayableStruct _s, NumberStruct _start, NumberStruct _end, ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -208,8 +205,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void appendChars(Struct _str, ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void appendChars(Struct _str, ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -229,8 +226,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void appendChars(Struct _str, NumberStruct _offset, NumberStruct _len, ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void appendChars(Struct _str, NumberStruct _offset, NumberStruct _len, ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -263,8 +260,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void append(DisplayableStruct _b, ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void append(DisplayableStruct _b, ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -273,8 +270,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void delete(NumberStruct _start, NumberStruct _end, ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void delete(NumberStruct _start, NumberStruct _end, ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -297,8 +294,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void deleteCharAt(NumberStruct _index, ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void deleteCharAt(NumberStruct _index, ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -318,8 +315,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void replace(NumberStruct _start, NumberStruct _end, Struct _str, ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void replace(NumberStruct _start, NumberStruct _end, Struct _str, ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -347,8 +344,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void insertChars(NumberStruct _index, Struct _str, NumberStruct _offset, NumberStruct _len, ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void insertChars(NumberStruct _index, Struct _str, NumberStruct _offset, NumberStruct _len, ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -391,8 +388,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void insertChars(NumberStruct _offset, Struct _str, ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void insertChars(NumberStruct _offset, Struct _str, ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -422,8 +419,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void insert(NumberStruct _dstOffset,DisplayableStruct _s, ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void insert(NumberStruct _dstOffset,DisplayableStruct _s, ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -444,8 +441,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
     }
 
     private void insert(NumberStruct _dstOffset, DisplayableStruct _s, NumberStruct _start,
-            NumberStruct _end, ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+            NumberStruct _end, ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -481,8 +478,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void clear(ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void clear(ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -490,8 +487,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         instance.delete(0, instance.length());
         _out.setResult(this);
     }
-    private void reverse(ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void reverse(ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -500,8 +497,8 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         _out.setResult(this);
     }
 
-    private void setCharAt(NumberStruct _index, CharStruct _ch,ExecutableCode _an, ResultErrorStd _out) {
-        ContextEl cont_ = _an.getContextEl();
+    private void setCharAt(NumberStruct _index, CharStruct _ch,ContextEl _an, ResultErrorStd _out) {
+        ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(this)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
@@ -526,7 +523,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getAliasStringBuilder();
     }
 

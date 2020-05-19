@@ -1,9 +1,7 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
+import code.expressionlanguage.*;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -40,7 +38,7 @@ public final class ExecSettableFieldOperation extends
     }
 
     @Override
-    Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
+    Argument getCommonArgument(Argument _previous, ContextEl _conf) {
         int off_ = getOff();
         ClassField fieldId_ = fieldMetaInfo.getClassField();
         String className_ = fieldId_.getClassName();
@@ -53,11 +51,11 @@ public final class ExecSettableFieldOperation extends
         if (!staticField_) {
             previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
         }
-        if (_conf.getContextEl().callsOrException()) {
+        if (_conf.callsOrException()) {
             return Argument.createVoid();
         }
         String fieldType_ = fieldMetaInfo.getRealType();
-        return ExecInvokingOperation.getField(className_, fieldName_, staticField_,fieldType_, previous_, _conf, off_);
+        return ExecInvokingOperation.getField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),className_, fieldName_, staticField_,fieldType_, previous_, _conf, off_);
     }
     
     public ClassField getFieldId() {
@@ -65,7 +63,7 @@ public final class ExecSettableFieldOperation extends
     }
 
     @Override
-    public void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(ContextEl _conf) {
         SettableAbstractFieldOperation.trySet(_conf,this,fieldMetaInfo);
     }
     @Override
@@ -96,7 +94,7 @@ public final class ExecSettableFieldOperation extends
         Argument arg_ = getCommonSemiSetting(previous_, store_, _conf, _op, _post);
         return arg_;
     }
-    Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right) {
+    private Argument getCommonSetting(Argument _previous, ContextEl _conf, Argument _right) {
         int off_ = getOff();
         String fieldType_ = fieldMetaInfo.getRealType();
         boolean isStatic_ = fieldMetaInfo.isStaticField();
@@ -108,13 +106,13 @@ public final class ExecSettableFieldOperation extends
         if (!isStatic_) {
             previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
         }
-        if (_conf.getContextEl().callsOrException()) {
+        if (_conf.callsOrException()) {
             return Argument.createVoid();
         }
         //Come from code directly so constant static fields can be initialized here
-        return ExecInvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
+        return ExecInvokingOperation.setField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
     }
-    Argument getCommonCompoundSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, Argument _right, ClassArgumentMatching _arg) {
+    Argument getCommonCompoundSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, Argument _right, ClassArgumentMatching _arg) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument();
@@ -122,12 +120,12 @@ public final class ExecSettableFieldOperation extends
 
         left_.setStruct(_store);
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
-        if (_conf.getContextEl().callsOrException()) {
+        if (_conf.callsOrException()) {
             return res_;
         }
         return getCommonSetting(_previous,_conf,res_);
     }
-    Argument getCommonSemiSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, boolean _post) {
+    Argument getCommonSemiSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, boolean _post) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument();

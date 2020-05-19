@@ -57,7 +57,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
             _cont.addError(b_);
         }
         page_.setGlobalOffset(classNameOffset);
-        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
+        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(importedClassName);
         _cont.getAnalyzing().putCatchVar(variableName, lv_);

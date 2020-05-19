@@ -2,6 +2,7 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -27,7 +28,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         if (!initClass) {
             initClass = true;
             if (initType(_context)) {
-                if (ExecInvokingOperation.hasToExit(_context, method_.getClassName())) {
+                if (_context.hasToExit(method_.getClassName())) {
                     setWrapException(true);
                     return false;
                 }
@@ -116,7 +117,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     }
 
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        return ExecInvokingOperation.callPrepare(_context, _className, _mid, _instance, _args, _right);
+        return ExecInvokingOperation.callPrepare(new DefaultExiting(_context), _context, _className, _mid, _instance, _args, _right);
     }
 
     abstract boolean initType(ContextEl _context);

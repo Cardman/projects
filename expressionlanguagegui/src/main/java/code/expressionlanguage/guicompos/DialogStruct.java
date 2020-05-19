@@ -1,6 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.OtherDialog;
@@ -41,7 +41,7 @@ public final class DialogStruct extends WindowStruct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
-        return ((LgNamesGui) _contextEl.getContextEl().getStandards()).getAliasDialog();
+    public String getClassName(ContextEl _contextEl) {
+        return ((LgNamesGui) _contextEl.getStandards()).getAliasDialog();
     }
 }

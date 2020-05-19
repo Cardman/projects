@@ -1,6 +1,6 @@
 package code.expressionlanguage.instr;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
@@ -109,8 +109,8 @@ public final class ElUtil {
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            badEl_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //badOffset char
             badEl_.buildError(_conf.getAnalysisMessages().getBadExpression(),
                     possibleChar(badOffset_,_el),
@@ -162,8 +162,8 @@ public final class ElUtil {
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            badEl_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //badOffset char
             badEl_.buildError(_conf.getAnalysisMessages().getBadExpression(),
                     possibleChar(badOffset_,_el),
@@ -441,7 +441,7 @@ public final class ElUtil {
         return out_;
     }
 
-    public static boolean isDeclaringField(Operable _var, Analyzable _an) {
+    public static boolean isDeclaringField(Operable _var, ContextEl _an) {
         Block bl_ = _an.getAnalyzing().getCurrentBlock();
         if (!(bl_ instanceof FieldBlock)) {
             return false;
@@ -452,44 +452,44 @@ public final class ElUtil {
         return isDeclaringVariable(_var);
     }
 
-    public static boolean isDeclaringLoopVariable(MutableLoopVariableOperation _var, Analyzable _an) {
+    public static boolean isDeclaringLoopVariable(MutableLoopVariableOperation _var, ContextEl _an) {
         if (!isDeclaringLoopVariable(_an)) {
             return false;
         }
         return isDeclaringVariable(_var);
     }
-    public static boolean isDeclaringLoopVariable(MethodOperation _par, Analyzable _an) {
+    public static boolean isDeclaringLoopVariable(MethodOperation _par, ContextEl _an) {
         if (!isDeclaringLoopVariable(_an)) {
             return false;
         }
         return isDeclaringVariable(_par);
     }
-    static boolean isDeclaringLoopVariable(Analyzable _an) {
+    static boolean isDeclaringLoopVariable(ContextEl _an) {
         if (!_an.getAnalyzing().isMerged()) {
             return false;
         }
-        if (!_an.hasLoopDeclarator()) {
+        if (!_an.getAnalyzing().getLoopDeclaring().hasLoopDeclarator()) {
             return false;
         }
         return _an.getAnalyzing().getForLoopPartState() == ForLoopPart.INIT;
     }
-    public static boolean isDeclaringVariable(VariableOperation _var, Analyzable _an) {
+    public static boolean isDeclaringVariable(VariableOperation _var, ContextEl _an) {
         if (!isDeclaringVariable(_an)) {
             return false;
         }
         return isDeclaringVariable(_var);
     }
-    public static boolean isDeclaringVariable(MethodOperation _par, Analyzable _an) {
+    public static boolean isDeclaringVariable(MethodOperation _par, ContextEl _an) {
         if (!isDeclaringVariable(_an)) {
             return false;
         }
         return isDeclaringVariable(_par);
     }
-    static boolean isDeclaringVariable(Analyzable _an) {
+    static boolean isDeclaringVariable(ContextEl _an) {
         if (!_an.getAnalyzing().isMerged()) {
             return false;
         }
-        return _an.hasDeclarator();
+        return _an.getAnalyzing().getLocalDeclaring().hasDeclarator();
     }
     private static boolean isDeclaringVariable(Operable _var) {
         ParentOperable par_ = _var.getParentOperable();
@@ -526,13 +526,13 @@ public final class ElUtil {
         }
         return false;
     }
-    public static boolean checkFinalVar(Analyzable _conf, Assignment _ass) {
+    public static boolean checkFinalVar(ContextEl _conf, Assignment _ass) {
         if (!_ass.isUnassignedAfter()) {
             return true;
         }
         return stepForLoop(_conf);
     }
-    public static boolean checkFinalField(Analyzable _conf, SettableAbstractFieldOperation _cst, StringMap<Assignment> _ass) {
+    public static boolean checkFinalField(ContextEl _conf, SettableAbstractFieldOperation _cst, StringMap<Assignment> _ass) {
         boolean fromCurClass_ = _cst.isFromCurrentClass(_conf);
         ClassField cl_ = _cst.getFieldId();
         if (cl_ == null) {
@@ -549,22 +549,22 @@ public final class ElUtil {
         return checkFinalReadOnly(_conf, _cst, ass_, fromCurClass_, cl_, fieldName_);
     }
 
-    public static boolean checkFinalFieldReadOnly(Analyzable _conf, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass) {
+    public static boolean checkFinalFieldReadOnly(ContextEl _conf, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass) {
         boolean fromCurClass_ = _cst.isFromCurrentClassReadOnly(_conf);
         ClassField cl_ = _cst.getFieldIdReadOnly();
-        FieldInfo meta_ = _conf.getContextEl().getFieldInfo(cl_);
+        FieldInfo meta_ = _conf.getFieldInfo(cl_);
         if (meta_ == null) {
             return false;
         }
         String fieldName_ = cl_.getFieldName();
         return meta_.isFinalField() && checkFinalReadOnly(_conf, _cst, _ass, fromCurClass_, cl_, fieldName_);
     }
-    private static boolean checkFinalReadOnly(Analyzable _conf, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, ClassField _cl, String _fieldName) {
+    private static boolean checkFinalReadOnly(ContextEl _conf, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, ClassField _cl, String _fieldName) {
         boolean checkFinal_;
-        if (_conf.getContextEl().isAssignedFields()) {
+        if (_conf.isAssignedFields()) {
             checkFinal_ = true;
-        } else if (_conf.getContextEl().isAssignedStaticFields()) {
-            FieldInfo meta_ = _conf.getContextEl().getFieldInfo(_cl);
+        } else if (_conf.isAssignedStaticFields()) {
+            FieldInfo meta_ = _conf.getFieldInfo(_cl);
             if (meta_.isStaticField()) {
                 checkFinal_ = true;
             } else if (!_fromCurClass) {
@@ -606,7 +606,7 @@ public final class ElUtil {
         return checkFinal_;
     }
 
-    private static boolean stepForLoop(Analyzable _conf) {
+    private static boolean stepForLoop(ContextEl _conf) {
         if (_conf.getAnalyzing().getCurrentBlock() instanceof ForMutableIterativeLoop) {
             return _conf.getAnalyzing().getForLoopPartState() == ForLoopPart.STEP;
         }
@@ -1700,18 +1700,18 @@ public final class ElUtil {
             ind_ = ExecOperationNode.getNextIndex(curr_, a_.getStruct());
         }
     }
-    private static CustList<ExecOperationNode> getExecutableNodes(Analyzable _an,CustList<OperationNode> _list) {
+    private static CustList<ExecOperationNode> getExecutableNodes(ContextEl _an,CustList<OperationNode> _list) {
         Block bl_ = _an.getAnalyzing().getCurrentBlock();
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
         ExecOperationNode exp_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(current_);
-        _an.getContextEl().getCoverage().putBlockOperation(_an,bl_,current_,exp_);
+        _an.getCoverage().putBlockOperation(_an,bl_,current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof ExecMethodOperation && op_ != null) {
                 ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_);
-                _an.getContextEl().getCoverage().putBlockOperation(_an,bl_,op_,loc_);
+                _an.getCoverage().putBlockOperation(_an,bl_,op_,loc_);
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -1731,7 +1731,7 @@ public final class ElUtil {
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
                     ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_);
-                    _an.getContextEl().getCoverage().putBlockOperation(_an,bl_,op_,loc_);
+                    _an.getCoverage().putBlockOperation(_an,bl_,op_,loc_);
                     ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof AbstractDotOperation && loc_ instanceof ExecPossibleIntermediateDotted) {

@@ -1,6 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -19,7 +19,7 @@ public final class ThreadSetStruct implements Struct {
         return NullStruct.NULL_VALUE;
     }
 
-    public ArrayStruct toSnapshotArray(ExecutableCode _contextEl) {
+    public ArrayStruct toSnapshotArray(ContextEl _contextEl) {
         CustList<Struct> instantKeys_ = new CustList<Struct>();
         for (Thread s: elementSet.keySet()) {
             instantKeys_.add(new ThreadStruct(s));
@@ -30,7 +30,7 @@ public final class ThreadSetStruct implements Struct {
         ArrayStruct arr_ = new ArrayStruct(innArr_,PrimitiveTypeUtil.getPrettyArrayType(thClass_));
         for (int i = 0; i < len_; i++) {
             Struct e_ = instantKeys_.get(i);
-            _contextEl.getContextEl().getInitializingTypeInfos().addSensibleField(this,e_);
+            _contextEl.getInitializingTypeInfos().addSensibleField(this,e_);
             innArr_[i] = e_;
         }
         return arr_;
@@ -54,7 +54,7 @@ public final class ThreadSetStruct implements Struct {
         return BooleanStruct.of(elementSet.containsKey(((ThreadStruct) _key).getThread()));
     }
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return ((LgNamesUtils)_contextEl.getStandards()).getAliasThreadSet();
     }
 

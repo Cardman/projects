@@ -21,7 +21,7 @@ public final class ExecStaticInitOperation extends ExecLeafOperation implements 
         Argument arg_ = Argument.createVoid();
         if (possibleInitClass) {
             String className_ = getResultClass().getName();
-            ExecInvokingOperation.hasToExit(_conf, className_);
+            _conf.hasToExit(className_);
         }
         setSimpleArgument(arg_, _conf, _nodes);
     }

@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -23,15 +23,15 @@ public final class AndOperation extends QuickOperation {
     }
 
     @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
             OperationNode _nextSibling, OperationNode _previous) {
         analyzeTrueAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
 
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(ContextEl _conf) {
         Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
         OperationNode last_ = children_.last();
         OperationNode prev_ = children_.get(children_.size() - 2);

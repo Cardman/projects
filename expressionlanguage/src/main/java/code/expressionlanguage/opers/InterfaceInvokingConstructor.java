@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -21,27 +21,27 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
     }
 
     @Override
-    ClassArgumentMatching getFrom(Analyzable _conf) {
+    ClassArgumentMatching getFrom(ContextEl _conf) {
         String cl_ = getMethodName();
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
         cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,cl_.indexOf(PAR_LEFT)+1,cl_);
         if (!(_conf.getClasses().getClassBody(cl_) instanceof InterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getCurrentFileName());
-            call_.setIndexFile(_conf.getCurrentLocationIndex());
+            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntFromSuperInt());
+            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _conf.addError(call_);
             return null;
         }
         String clCurName_ = _conf.getAnalyzing().getGlobalClass();
-        String superClass_ = Templates.getFullTypeByBases(clCurName_, cl_, _conf);
+        String superClass_ = Templates.getOverridingFullTypeByBases(clCurName_, cl_, _conf);
         if (superClass_.isEmpty()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getCurrentFileName());
-            call_.setIndexFile(_conf.getCurrentLocationIndex());
+            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntFromSuperInt());
+            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _conf.addError(call_);
             return null;
         }
@@ -49,7 +49,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
     }
 
     @Override
-    void checkPosition(Analyzable _conf) {
+    void checkPosition(ContextEl _conf) {
         Block curBlock_ = _conf.getAnalyzing().getCurrentBlock();
         Line curLine_ = (Line)curBlock_;
         BracedBlock br_ = curBlock_.getParent();
@@ -58,7 +58,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             call_.setFileName(curLine_.getFile().getFileName());
             call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
             //key word len
-            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntNotFromInt());
+            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntNotFromInt());
             _conf.addError(call_);
         }
         Block f_ = br_.getFirstChild();
@@ -85,7 +85,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         call_.setFileName(curLine_.getFile().getFileName());
                         call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
                         //key word len
-                        call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntAfterSuperThis());
+                        call_.buildError(_conf.getAnalysisMessages().getCallCtorIntAfterSuperThis());
                         _conf.addError(call_);
                     } else {
                         ExecOperationNode root_ = ((Line)f_).getExp().last();
@@ -95,7 +95,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                             call_.setFileName(curLine_.getFile().getFileName());
                             call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
                             //key word len
-                            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntAfterSuperThis());
+                            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntAfterSuperThis());
                             _conf.addError(call_);
                         }
                     }
@@ -126,17 +126,17 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
     
     }
 
-    private static void checkInherits(Analyzable _conf, StringList _previousInts, Block _n, String _cl) {
+    private static void checkInherits(ContextEl _conf, StringList _previousInts, Block _n, String _cl) {
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
-            RootBlock supType_ = _conf.getContextEl().getClasses().getClassBody(sup_);
+            RootBlock supType_ = _conf.getClasses().getClassBody(sup_);
             if (supType_.isSubTypeOf(_cl,_conf)) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
                 undef_.setFileName(_n.getFile().getFileName());
                 undef_.setIndexFile(0);
                 //current type len
-                undef_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntInherits(),
+                undef_.buildError(_conf.getAnalysisMessages().getCallCtorIntInherits(),
                         sup_,
                         _cl
                 );

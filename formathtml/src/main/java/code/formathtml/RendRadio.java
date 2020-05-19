@@ -54,7 +54,7 @@ public final class RendRadio extends RendInput {
             Mapping m_ = new Mapping();
             m_.setArg(opsConverterFieldValue.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
-            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+            if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(attr_);

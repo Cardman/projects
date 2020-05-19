@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -24,7 +24,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String m_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(m_);
@@ -35,15 +35,15 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         String className_ = m_.trim().substring(new_.length());
         int loc_ = StringList.getFirstPrintableCharIndex(className_);
         className_ = ResolvingImportTypes.resolveCorrectType(_conf,new_.length()+loc_,className_);
-        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         if (!className_.startsWith(ARR)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //key word len
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     className_);
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
             String obj_ = _conf.getStandards().getAliasObject();
             obj_ = PrimitiveTypeUtil.getPrettyArrayType(obj_);
             ClassArgumentMatching class_ = new ClassArgumentMatching(obj_);
@@ -62,13 +62,13 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             mapping_.setMapping(map_);
             if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //first separator char child
-                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(argType_.getNames(),"&"),
                         eltType_);
-                _conf.addError(cast_);
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
             }
             if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
                 o.getResultClass().setUnwrapObject(eltType_);

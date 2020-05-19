@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -19,7 +19,7 @@ public final class ChoiceFieldOperation extends
     }
 
     @Override
-    ClassArgumentMatching getFrom(Analyzable _conf) {
+    ClassArgumentMatching getFrom(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String className_ = originalStr_.substring(0,originalStr_.lastIndexOf(PAR_RIGHT));
@@ -27,7 +27,7 @@ public final class ChoiceFieldOperation extends
         className_ = className_.substring(lenPref_);
         int loc_ = StringList.getFirstPrintableCharIndex(className_);
         className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         return new ClassArgumentMatching(className_);
     }
 

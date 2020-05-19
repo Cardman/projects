@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -9,8 +9,6 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.DeclareVariable;
-import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.opers.exec.*;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
@@ -42,7 +40,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode root_ = chidren_.first();
         OperationNode right_ = chidren_.last();
@@ -52,12 +50,12 @@ public final class AffectationOperation extends MethodOperation implements Affec
         if (!ok_) {
             root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_conf.getCurrentFileName());
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //oper
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedAffect(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedAffect(),
                     "=");
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -73,7 +71,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                     LocalVariable lv_ = _conf.getAnalyzing().getLocalVar(inf_);
                     lv_.setClassName(type_);
                     _conf.getAnalyzing().getVariablesNamesToInfer().removeString(inf_);
-                    _conf.setupDeclaratorClass(type_);
+                    _conf.getAnalyzing().getLocalDeclaring().setupDeclaratorClass(type_);
                     _conf.getAnalyzing().setCurrentVarSetting(type_);
                     v_.setResultClass(n_);
                 }
@@ -90,7 +88,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                     LoopVariable lv_ = _conf.getAnalyzing().getMutableLoopVar(inf_);
                     lv_.setClassName(type_);
                     _conf.getAnalyzing().getVariablesNamesLoopToInfer().removeString(inf_);
-                    _conf.setupLoopDeclaratorClass(type_);
+                    _conf.getAnalyzing().getLoopDeclaring().setupLoopDeclaratorClass(type_);
                     _conf.getAnalyzing().setCurrentVarSetting(type_);
                     v_.setResultClass(n_);
                 }
@@ -102,12 +100,12 @@ public final class AffectationOperation extends MethodOperation implements Affec
             if (!synthetic&&ElUtil.checkFinalFieldReadOnly(_conf, cst_, fieldsAfterLast_)) {
                 cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setIndexFile(_conf.getCurrentLocationIndex());
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //field name len
-                un_.buildError(_conf.getContextEl().getAnalysisMessages().getFinalField(),
+                un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
-                _conf.addError(un_);
+                _conf.getAnalyzing().getLocalizer().addError(un_);
             }
         }
         setResultClass(elt_.getResultClass());
@@ -121,13 +119,13 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 return;
             }
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setIndexFile(_conf.getCurrentLocationIndex());
+            cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //oper
-            cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(clMatchRight_.getNames(),"&"),
                     StringList.join(clMatchLeft_.getNames(),"&"));
-            _conf.addError(cast_);
+            _conf.getAnalyzing().getLocalizer().addError(cast_);
             return;
         }
         StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
@@ -168,13 +166,13 @@ public final class AffectationOperation extends MethodOperation implements Affec
         }
         if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setIndexFile(_conf.getCurrentLocationIndex());
+            cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //oper
-            cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(clMatchRight_.getNames(),"&"),
                     StringList.join(clMatchLeft_.getNames(),"&"));
-            _conf.addError(cast_);
+            _conf.getAnalyzing().getLocalizer().addError(cast_);
         }
         if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_, _conf)) {
             right_.getResultClass().setUnwrapObject(clMatchLeft_);
@@ -182,17 +180,17 @@ public final class AffectationOperation extends MethodOperation implements Affec
         }
     }
 
-    public static void processInfer(Analyzable _cont, String _import) {
+    public static void processInfer(ContextEl _cont, String _import) {
         StringList vars_ = _cont.getAnalyzing().getVariablesNames();
         if (StringList.quickEq(_import,_cont.getKeyWords().getKeyWordVar())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
-            un_.setIndexFile(_cont.getCurrentLocationIndex());
+            un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //'var' len
-            un_.buildError(_cont.getContextEl().getAnalysisMessages().getUnassignedInferingType(),
+            un_.buildError(_cont.getAnalysisMessages().getUnassignedInferingType(),
                     _import,
                     StringList.join(vars_,"&"));
-            _cont.addError(un_);
+            _cont.getAnalyzing().getLocalizer().addError(un_);
         } else {
             for (String v: _cont.getAnalyzing().getVariablesNamesToInfer()) {
                 LocalVariable lv_ = _cont.getAnalyzing().getLocalVar(v);
@@ -201,17 +199,17 @@ public final class AffectationOperation extends MethodOperation implements Affec
         }
     }
 
-    public static void processInferLoop(Analyzable _cont, String _import) {
+    public static void processInferLoop(ContextEl _cont, String _import) {
         StringList vars_ = _cont.getAnalyzing().getVariablesNames();
         if (StringList.quickEq(_import,_cont.getKeyWords().getKeyWordVar())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
-            un_.setIndexFile(_cont.getCurrentLocationIndex());
+            un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //'var' len
-            un_.buildError(_cont.getContextEl().getAnalysisMessages().getUnassignedInferingType(),
+            un_.buildError(_cont.getAnalysisMessages().getUnassignedInferingType(),
                     _import,
                     StringList.join(vars_,"&"));
-            _cont.addError(un_);
+            _cont.getAnalyzing().getLocalizer().addError(un_);
         } else {
             for (String v: _cont.getAnalyzing().getVariablesNamesLoopToInfer()) {
                 LoopVariable lv_ = _cont.getAnalyzing().getMutableLoopVar(v);
@@ -244,9 +242,9 @@ public final class AffectationOperation extends MethodOperation implements Affec
         return null;
     }
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(ContextEl _conf) {
         Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         if (vars_ instanceof AssignedBooleanLoopVariables) {
             ((AssignedBooleanLoopVariables)vars_).add(this, _conf);
         }
@@ -265,13 +263,13 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 int index_ = variablesAfter_.size();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey()) && ElUtil.checkFinalVar(_conf, e.getValue())) {
-                        if (_conf.getContextEl().isFinalLocalVar(str_,index_)) {
+                        if (_conf.isFinalLocalVar(str_,index_)) {
                             //error
                             firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                             FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(_conf.getCurrentFileName());
-                            un_.setIndexFile(_conf.getCurrentLocationIndex());
-                            un_.buildError(_conf.getContextEl().getAnalysisMessages().getFinalField(),
+                            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                            un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                                     str_);
                             _conf.addError(un_);
                         }
@@ -294,13 +292,13 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 int index_ = mutableAfter_.size();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey()) && ElUtil.checkFinalVar(_conf, e.getValue())) {
-                        if (_conf.getContextEl().isFinalMutableLoopVar(str_,index_)) {
+                        if (_conf.isFinalMutableLoopVar(str_,index_)) {
                             //error
                             firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                             FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(_conf.getCurrentFileName());
-                            un_.setIndexFile(_conf.getCurrentLocationIndex());
-                            un_.buildError(_conf.getContextEl().getAnalysisMessages().getFinalField(),
+                            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                            un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                                     str_);
                             _conf.addError(un_);
                         }
@@ -322,14 +320,14 @@ public final class AffectationOperation extends MethodOperation implements Affec
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
             ClassField cl_ = cst_.getFieldId();
             if (ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
-                FieldInfo meta_ = _conf.getContextEl().getFieldInfo(cl_);
+                FieldInfo meta_ = _conf.getFieldInfo(cl_);
                 if (meta_.isFinalField()) {
                     //error if final field
                     cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_conf.getCurrentFileName());
-                    un_.setIndexFile(_conf.getCurrentLocationIndex());
-                    un_.buildError(_conf.getContextEl().getAnalysisMessages().getFinalField(),
+                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                             cl_.getFieldName());
                     _conf.addError(un_);
                 }
@@ -349,7 +347,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
         vars_.getFields().put(this, fieldsAfter_);
     }
     @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
             OperationNode _nextSibling, OperationNode _previous) {
         analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
@@ -357,11 +355,11 @@ public final class AffectationOperation extends MethodOperation implements Affec
         return settable;
     }
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         setArg(_conf,this,settable);
     }
 
-    public static void setArg(Analyzable _conf, ParentOperable _current, Operable _settable) {
+    public static void setArg(ContextEl _conf, ParentOperable _current, Operable _settable) {
         if (!ElUtil.isDeclaringField(_settable, _conf)) {
             return;
         }
@@ -369,7 +367,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
         Operable lastChild_ = _current.getChildrenOperable().get(1);
         Argument value_ = lastChild_.getArgument();
         ClassField id_ = fieldRef_.getFieldId();
-        FieldInfo fm_ = _conf.getContextEl().getFieldInfo(id_);
+        FieldInfo fm_ = _conf.getFieldInfo(id_);
         Struct str_ = value_.getStruct();
         LgNames stds_ = _conf.getStandards();
         String to_ = fm_.getType();

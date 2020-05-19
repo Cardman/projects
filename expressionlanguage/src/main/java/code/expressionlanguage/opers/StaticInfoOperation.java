@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutingUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -25,7 +25,7 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
@@ -41,21 +41,21 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
         int off_ = StringList.getFirstPrintableCharIndex(realCl_);
         String classStr_;
         classStr_ = ResolvingImportTypes.resolveCorrectType(_conf, afterLeftPar_ + off_, realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
-        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         className = classStr_;
         setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClassType()));
     }
 
     @Override
-    public void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(ContextEl _conf) {
         setArg(this, _conf, className);
     }
-    private static void setArg(Operable _current, Analyzable _conf,String _className) {
+    private static void setArg(Operable _current, ContextEl _conf,String _className) {
         if (_className.contains(Templates.PREFIX_VAR_TYPE)) {
             return;
         }
         Argument a_ = new Argument();
-        a_.setStruct(ExecutingUtil.getClassMetaInfo(_conf.getContextEl(),_className));
+        a_.setStruct(ExecutingUtil.getClassMetaInfo(_conf,_className));
         _current.setSimpleArgumentAna(a_, _conf);
     }
 

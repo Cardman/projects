@@ -27,7 +27,7 @@ public final class RendCustNumericOperation extends RendNumericOperation {
         String classNameFound_ = classMethodId.getClassName();
         MethodId id_ = classMethodId.getConstraints();
         Argument res_;
-        res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl(),null);
+        res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContext(),null);
         setSimpleArgument(res_, _conf,_nodes);
     }
 }

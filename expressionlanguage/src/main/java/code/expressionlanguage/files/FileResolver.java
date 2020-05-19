@@ -2035,7 +2035,14 @@ public final class FileResolver {
                 String trimMeth_ = methodName_.trim();
                 MethodKind kind_;
                 OverridableBlock ov_;
-                if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordThis())) {
+                if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordExplicit())) {
+                    kind_ = MethodKind.EXPLICIT_CAST;
+                    ov_ = new OverridableBlock(_context, new OffsetAccessInfo(accessOffest_, accessFct_),
+                            new OffsetStringInfo(typeOffset_, retType_),
+                            new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_,
+                            parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_),
+                            new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                } else if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordThis())) {
                     boolean get_ = !StringList.quickEq(retType_,_context.getStandards().getAliasVoid());
                     if (!get_) {
                         kind_ = MethodKind.SET_INDEX;

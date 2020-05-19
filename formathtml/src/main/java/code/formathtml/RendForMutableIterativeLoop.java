@@ -101,8 +101,8 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
-        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
-        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
+        importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
+        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
@@ -121,7 +121,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             if (StringList.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = keyWordVar_;
             } else {
-                importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
+                importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
             }
             page_.setMerged(true);
             page_.setFinalVariable(false);
@@ -144,7 +144,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (page_.isMerged()) {
             StringList vars_ = page_.getVariablesNames();
             String t_ = inferOrObject(_cont,importedClassName);
-            AffectationOperation.processInferLoop(_cont, t_);
+            AffectationOperation.processInferLoop(_cont.getContext(), t_);
             getVariableNames().addAllElts(vars_);
         }
         page_.setMerged(false);
@@ -161,7 +161,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (!opExp.isEmpty()) {
             RendDynOperationNode elCondition_ = opExp.last();
             LgNames stds_ = _cont.getStandards();
-            if (!elCondition_.getResultClass().isBoolType(_cont)) {
+            if (!elCondition_.getResultClass().isBoolType(_cont.getContext())) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(expressionOffset);
@@ -222,7 +222,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
         ip_.setOffset(initOffset);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrInit());
-        Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont);
+        Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont.getContext());
         for (String v: variableNames) {
             LoopVariable lv_ = LoopVariable.newLoopVariable(struct_,importedClassName);
             lv_.setIndexClassName(importedClassIndexName);

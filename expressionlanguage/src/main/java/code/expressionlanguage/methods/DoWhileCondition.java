@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConditionReturn;
 import code.expressionlanguage.ContextEl;
@@ -82,23 +81,23 @@ public final class DoWhileCondition extends Condition {
     }
 
     @Override
-    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
+    public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
         if (getFirstChild() != null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             //key word len
-            un_.buildError(_an.getContextEl().getAnalysisMessages().getDoWhileNotEmpty(),
-                    _an.getContextEl().getKeyWords().getKeyWordWhile(),
-                    _an.getContextEl().getKeyWords().getKeyWordDo());
+            un_.buildError(_an.getAnalysisMessages().getDoWhileNotEmpty(),
+                    _an.getKeyWords().getKeyWordWhile(),
+                    _an.getKeyWords().getKeyWordDo());
             _an.addError(un_);
         }
     }
 
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         //by do block
         DoBlock dBlock_ = (DoBlock) getPreviousSibling();
         StringMap<AssignmentBefore> fieldsHypot_;
@@ -136,9 +135,9 @@ public final class DoWhileCondition extends Condition {
         varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
     }
 
-    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an) {
+    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(ContextEl _an) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         DoBlock dBlock_ = (DoBlock) getPreviousSibling();
         StringMap<AssignmentBefore> list_;
         list_ = dBlock_.makeHypothesisFields(_an);
@@ -146,9 +145,9 @@ public final class DoWhileCondition extends Condition {
         end_ = ((AssignedBooleanVariables) id_.getVal(this)).getFieldsRootAfter();
         return invalidateHypothesis(list_, end_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(Analyzable _an) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(ContextEl _an) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         DoBlock dBlock_ = (DoBlock) getPreviousSibling();
@@ -165,9 +164,9 @@ public final class DoWhileCondition extends Condition {
         
         return varsList_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(Analyzable _an) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(ContextEl _an) {
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         DoBlock dBlock_ = (DoBlock) getPreviousSibling();

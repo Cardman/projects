@@ -1,8 +1,8 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 
 public interface DisplayableStruct extends Struct {
 
-    StringStruct getDisplayedString(Analyzable _an);
+    StringStruct getDisplayedString(ContextEl _an);
 }

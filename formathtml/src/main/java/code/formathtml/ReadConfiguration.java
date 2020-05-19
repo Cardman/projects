@@ -11,6 +11,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
+import code.formathtml.util.AdvancedFullStack;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
@@ -85,7 +86,7 @@ public final class ReadConfiguration {
             _conf.setContext(null);
             return;
         }
-        context_.setExecutingInstance(_conf);
+        context_.setFullStack(new AdvancedFullStack(_conf));
         _conf.setContext(context_);
     }
     private static Options loadOptions(Element _elt) {

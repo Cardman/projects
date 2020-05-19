@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -34,7 +34,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         okNum = true;
@@ -43,15 +43,15 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             _conf.getAnalyzing().setOkNumOp(false);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-            badNb_.setFileName(_conf.getCurrentFileName());
-            badNb_.setIndexFile(_conf.getCurrentLocationIndex());
+            badNb_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            badNb_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //first oper
-            badNb_.buildError(_conf.getContextEl().getAnalysisMessages().getOperatorNbDiff(),
+            badNb_.buildError(_conf.getAnalysisMessages().getOperatorNbDiff(),
                     Integer.toString(2),
                     Integer.toString(chidren_.size()),
                     op
             );
-            _conf.addError(badNb_);
+            _conf.getAnalyzing().getLocalizer().addError(badNb_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             return;
         }
@@ -92,16 +92,16 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //oper
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedOperandTypes(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
                     StringList.join(new StringList(
                             StringList.join(first_.getNames(),"&"),
                             StringList.join(second_.getNames(),"&")
                     ),";"),
                     getOp());
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
             setResultClass(new ClassArgumentMatching(res_));
             return;
         }
@@ -123,16 +123,16 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //oper
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedOperandTypes(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
                     StringList.join(new StringList(
                             StringList.join(first_.getNames(),"&"),
                             StringList.join(second_.getNames(),"&")
                     ),";"),
                     getOp());
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
             setResultClass(new ClassArgumentMatching(res_));
             return;
         }
@@ -144,20 +144,20 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         expectedTypes_.add(stds_.getAliasString());
         String res_ = _conf.getStandards().getAliasPrimBoolean();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setIndexFile(_conf.getCurrentLocationIndex());
-        un_.setFileName(_conf.getCurrentFileName());
+        un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+        un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
         //oper
-        un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedOperandTypes(),
+        un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
                 StringList.join(new StringList(
                         StringList.join(first_.getNames(),"&"),
                         StringList.join(second_.getNames(),"&")
                 ),";"),
                 getOp());
-        _conf.addError(un_);
+        _conf.getAnalyzing().getLocalizer().addError(un_);
         setResultClass(new ClassArgumentMatching(res_));
     }
     @Override
-    void checkNull(Argument _arg, Analyzable _an) {
+    void checkNull(Argument _arg, ContextEl _an) {
         if (Argument.isNullValue(_arg)) {
             okNum = false;
             _an.getAnalyzing().setOkNumOp(false);
@@ -168,23 +168,23 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         return stringCompare;
     }
     @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
             OperationNode _nextSibling, OperationNode _previous) {
         analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(ContextEl _conf) {
         analyzeStdAssignmentAfter(_conf);
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         if (!okNum) {
             return;
         }
         tryGetResult(_conf, op, classMethodId, stringCompare, this);
     }
-    public static void tryGetResult(Analyzable _conf, String _op, ClassMethodId _cl, boolean _str, ParentOperable _to) {
+    public static void tryGetResult(ContextEl _conf, String _op, ClassMethodId _cl, boolean _str, ParentOperable _to) {
         if (_cl != null) {
             return;
         }

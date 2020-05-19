@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractFieldOperation;
 import code.util.IdMap;
@@ -48,7 +47,7 @@ public abstract class ExecAbstractFieldOperation extends ExecLeafOperation imple
             setSimpleArgument(arg_, _conf, _nodes);
         }
     }
-    abstract Argument getCommonArgument(Argument _previous, ExecutableCode _conf);
+    abstract Argument getCommonArgument(Argument _previous, ContextEl _conf);
 
 
     @Override

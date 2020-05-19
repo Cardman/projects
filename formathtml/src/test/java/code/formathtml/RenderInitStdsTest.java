@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.DefaultInitializer;
 import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.errors.AnalysisMessages;
@@ -12,6 +13,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.StdStruct;
+import code.formathtml.util.AdvancedFullStack;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.maths.LgInt;
@@ -76,13 +78,13 @@ public final class RenderInitStdsTest {
         DefaultInitializer di_ = new DefaultInitializer();
         ContextEl cont_ = ContextFactory.build(-1,lk_, di_, _opt, _mess,_kw, _beanLgNames,4);
         conf_.setContext(cont_);
-        cont_.setExecutingInstance(conf_);
+        cont_.setFullStack(new DefaultFullStack(cont_));
         Classes.validateWithoutInit(_files, cont_);
         assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setExecutingInstance(conf_);
+        cont_.setFullStack(new AdvancedFullStack(conf_));
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;
     }

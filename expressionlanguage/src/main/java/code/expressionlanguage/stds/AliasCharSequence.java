@@ -1,6 +1,5 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -427,7 +426,7 @@ public final class AliasCharSequence {
         return result_;
     }
 
-    static ResultErrorStd invokeStdMethod(Analyzable _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
+    static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Struct[] args_ = ApplyCoreMethodUtil.getObjects(_args);
         LgNames lgNames_ = _cont.getStandards();
@@ -440,7 +439,7 @@ public final class AliasCharSequence {
         CharSequenceStruct.calculateCharSeq(_cont, result_, _method, _struct, args_);
         return result_;
     }
-    static Struct invokeAnalyzisStdMethod(Analyzable _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
+    static Struct invokeAnalyzisStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         Struct[] args_ = ApplyCoreMethodUtil.getObjects(_args);
         LgNames lgNames_ = _cont.getStandards();
         String type_ = _method.getClassName();

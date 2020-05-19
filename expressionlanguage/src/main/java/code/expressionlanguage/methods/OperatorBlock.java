@@ -1,6 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneMethod;
@@ -40,7 +40,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneCustM
     }
 
     @Override
-    public String getSignature(Analyzable _ana) {
+    public String getSignature(ContextEl _ana) {
         return getId().getSignature(_ana);
     }
 
@@ -95,7 +95,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneCustM
         return importsOffset;
     }
     @Override
-    public boolean isTypeHidden(RootBlock _type, Analyzable _analyzable) {
+    public boolean isTypeHidden(RootBlock _type, ContextEl _analyzable) {
         return _type.getAccess() != AccessEnum.PUBLIC;
     }
 

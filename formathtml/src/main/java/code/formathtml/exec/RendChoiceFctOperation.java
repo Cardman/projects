@@ -14,6 +14,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.formathtml.Configuration;
+import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -48,11 +49,11 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         Argument argres_ = getArgument(previous_, arguments_, _conf);
-        CallingState state_ = _conf.getContextEl().getCallingState();
+        CallingState state_ = _conf.getContext().getCallingState();
         if (state_ instanceof NotInitializedClass) {
             NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getContextEl().hasException()) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
+            if (_conf.getContext().hasException()) {
                 return;
             }
             argres_ = getArgument(previous_, arguments_, _conf);
@@ -75,32 +76,32 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
         Argument prev_ = new Argument();
         if (!staticMethod) {
             classNameFound_ = classMethodId.getClassName();
-            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
-            if (_conf.getContextEl().hasException()) {
+            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, _previous.getStruct(), _conf.getContext()));
+            if (_conf.getContext().hasException()) {
                 Argument a_ = new Argument();
                 return a_;
             }
-            String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
-            classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
-            if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
+            String argClassName_ = prev_.getObjectClassName(_conf.getContext());
+            classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf.getContext());
+            if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf.getContext())) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
+                _conf.setException(new ErrorStruct(_conf.getContext(), StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
                 Argument a_ = new Argument();
                 return a_;
             }
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
-            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
-            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
+            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf.getContext());
+            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             methodId_ = realId;
         } else {
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             classNameFound_ = classMethodId.getClassName();
-            if (ExecInvokingOperation.hasToExit(_conf, classNameFound_)) {
+            if (_conf.hasToExit(classNameFound_)) {
                 return Argument.createVoid();
             }
         }
-        return ExecInvokingOperation.callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
 }

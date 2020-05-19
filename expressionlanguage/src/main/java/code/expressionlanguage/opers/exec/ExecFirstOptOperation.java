@@ -1,9 +1,7 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.FirstOptOperable;
 import code.expressionlanguage.opers.FirstOptOperation;
@@ -19,7 +17,7 @@ public final class ExecFirstOptOperation extends ExecAbstractUnaryOperation impl
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         FirstOptOperation.setArg(_conf, this);
     }
 
@@ -31,7 +29,7 @@ public final class ExecFirstOptOperation extends ExecAbstractUnaryOperation impl
         setSimpleArgument(argres_, _conf, _nodes);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         return _arguments.first();
     }

@@ -1,7 +1,8 @@
 package code.expressionlanguage.opers.exec;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -64,7 +65,7 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         FctOperation.tryGetArg(this, getPreviousArgument(),_conf, classMethodId, naturalVararg, lastType);
     }
     Argument getArgument(Argument _previous, CustList<Argument> _arguments, ContextEl _conf) {
@@ -87,7 +88,7 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
             }
             if (prev_.getStruct() instanceof ArrayStruct) {
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-                return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+                return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
             }
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
             if (staticChoiceMethod) {
@@ -111,11 +112,11 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
             classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
             lastType_ = classMethodId.formatType(classNameFound_,lastType_,_conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-            if (hasToExit(_conf, classNameFound_)) {
+            if (_conf.hasToExit(classNameFound_)) {
                 return Argument.createVoid();
             }
         }
-        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
     @Override

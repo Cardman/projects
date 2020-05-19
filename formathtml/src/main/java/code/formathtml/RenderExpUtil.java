@@ -32,7 +32,7 @@ public final class RenderExpUtil {
     }
 
     public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, Configuration _conf, int _glInd, int _minIndex) {
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf, _minIndex);
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf.getContext(), _minIndex);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -67,7 +67,7 @@ public final class RenderExpUtil {
         return getAnalyzedOperations(_el,1,_index,_conf);
     }
     public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _gl,int _index, Configuration _conf) {
-        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
+        Delimiters d_ = ElResolver.checkSyntax(_el, _conf.getContext(), _index);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -105,7 +105,7 @@ public final class RenderExpUtil {
                     ElUtil.possibleChar(_index,_el),
                     Integer.toString(_index),
                     _el);
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
+            _conf.setException(new ErrorStruct(_conf.getContext(), badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
             context_.setNullAnalyzing();
             return Argument.createVoid();
         }
@@ -122,10 +122,10 @@ public final class RenderExpUtil {
     }
     private static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, Configuration _conf) {
         _conf.setupAnalyzing();
-        Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
+        Argument argGl_ = _conf.getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();
         _conf.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
-        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
+        Delimiters d_ = ElResolver.checkSyntax(_el, _conf.getContext(), _index);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
             _conf.getLastPage().setOffset(badOffset_);
@@ -137,7 +137,7 @@ public final class RenderExpUtil {
                     Integer.toString(badOffset_),
                     _el);
             _conf.addError(badEl_);
-            _conf.setException(new ErrorStruct(_conf, badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
+            _conf.setException(new ErrorStruct(_conf.getContext(), badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
             return new CustList<RendDynOperationNode>();
         }
         String el_ = _el.substring(_index);
@@ -214,7 +214,7 @@ public final class RenderExpUtil {
         OperationNode c_ = _root;
         while (c_ != null) {
             if (c_ instanceof PreAnalyzableOperation) {
-                ((PreAnalyzableOperation) c_).preAnalyze(_context);
+                ((PreAnalyzableOperation) c_).preAnalyze(_context.getContext());
             }
             c_ = getAnalyzedNext(c_, _root, list_, _context);
         }
@@ -233,7 +233,7 @@ public final class RenderExpUtil {
             _context.getAnalyzing().setOkNumOp(true);
             processAnalyze(_context, current_);
             if (current_ instanceof ReductibleOperable) {
-                ((ReductibleOperable)current_).tryCalculateNode(_context);
+                ((ReductibleOperable)current_).tryCalculateNode(_context.getContext());
             }
             current_.setOrder(_sortedNodes.size());
             _sortedNodes.add(current_);
@@ -260,10 +260,10 @@ public final class RenderExpUtil {
                 _context.getAnalyzing().setOkNumOp(true);
                 processAnalyze(_context, par_);
                 ClassArgumentMatching cl_ = par_.getResultClass();
-                if (PrimitiveTypeUtil.isPrimitive(cl_, _context)) {
+                if (PrimitiveTypeUtil.isPrimitive(cl_, _context.getContext())) {
                     cl_.setUnwrapObject(cl_);
                 }
-                par_.tryCalculateNode(_context);
+                par_.tryCalculateNode(_context.getContext());
                 par_.setOrder(_sortedNodes.size());
                 _sortedNodes.add(par_);
                 return null;
@@ -277,7 +277,7 @@ public final class RenderExpUtil {
 
     private static void processAnalyze(Configuration _context, OperationNode _current) {
         if (_current instanceof InterfaceFctConstructor) {
-            _current.analyze(_context);
+            _current.analyze(_context.getContext());
             return;
         }
         if (!(_current instanceof AbstractInvokingConstructor)) {
@@ -291,7 +291,7 @@ public final class RenderExpUtil {
                     return;
                 }
             }
-            _current.analyze(_context);
+            _current.analyze(_context.getContext());
             if (_current instanceof AffectationOperation) {
                 SettableElResult settable_ = ((AffectationOperation) _current).getSettable();
                 if (settable_ instanceof SettableAbstractFieldOperation) {
@@ -411,7 +411,7 @@ public final class RenderExpUtil {
                 }
             }
         }
-        return ElResolver.getOperationsSequence(_offset, _string, _conf, _d);
+        return ElResolver.getOperationsSequence(_offset, _string, _conf.getContext(), _d);
     }
     static OperationNode createOperationNode(int _index,
                                              int _indexChild, MethodOperation _m, OperationsSequence _op, Configuration _an) {
@@ -421,10 +421,10 @@ public final class RenderExpUtil {
             String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
             String str_ = originalStr_.trim();
             if (_an.isInternGlobal() && StringList.quickEq(str_, keyWordIntern_)) {
-                return new InternGlobalOperation(_index, _indexChild, _m, _op);
+                return new InternGlobalOperation(_index, _indexChild, _m, _op,_an);
             }
         }
-        return OperationNode.createOperationNode(_index, _indexChild, _m, _op, _an);
+        return OperationNode.createOperationNode(_index, _indexChild, _m, _op, _an.getContext());
     }
 
     public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Configuration _context, Argument _arg) {

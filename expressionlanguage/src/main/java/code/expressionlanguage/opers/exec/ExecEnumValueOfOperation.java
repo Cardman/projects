@@ -2,7 +2,7 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.EnumValueOfOperation;
 import code.util.IdMap;
@@ -26,9 +26,9 @@ public final class ExecEnumValueOfOperation extends ExecAbstractUnaryOperation {
         Argument arg_ = getCommonArgument(a_, _conf);
         setSimpleArgument(arg_, _conf, _nodes);
     }
-    Argument getCommonArgument(Argument _argument, ExecutableCode _conf) {
+    Argument getCommonArgument(Argument _argument, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+argOffset, _conf);
-        return ExecInvokingOperation.getEnumValue(className, _argument, _conf);
+        return ExecInvokingOperation.getEnumValue(new DefaultExiting(_conf),className, _argument, _conf);
     }
 
 }

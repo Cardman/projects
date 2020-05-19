@@ -1,7 +1,7 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 
 public interface InheritedType {
-    boolean isSubTypeOf(String _fullName, Analyzable _an);
+    boolean isSubTypeOf(String _fullName, ContextEl _an);
 }

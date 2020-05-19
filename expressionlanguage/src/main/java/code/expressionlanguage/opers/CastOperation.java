@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -31,7 +31,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
     }
 
     @Override
-    public void preAnalyze(Analyzable _an) {
+    public void preAnalyze(ContextEl _an) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _an);
         String ext_ = getOperations().getExtractType();
         if (!ext_.isEmpty()) {
@@ -43,7 +43,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
             res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,className.indexOf(PAR_LEFT)+1,res_,true);
             if (!res_.isEmpty()) {
                 className = res_;
-                partOffsets = new CustList<PartOffset>(_an.getContextEl().getCoverage().getCurrentParts());
+                partOffsets = new CustList<PartOffset>(_an.getCoverage().getCurrentParts());
             } else {
                 className = EMPTY_STRING;
                 partOffsets = new CustList<PartOffset>();
@@ -52,7 +52,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
     }
 
     @Override
-    public void analyzeUnary(Analyzable _conf) {
+    public void analyzeUnary(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         className = ApplyCoreMethodUtil.checkExactType(_conf,beginType, className,originalClassName);
         setResultClass(new ClassArgumentMatching(className));
@@ -64,11 +64,11 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         tryGetArg(this,_conf, className);
     }
 
-    public static void tryGetArg(ParentOperable _current, Analyzable _conf, String _className) {
+    public static void tryGetArg(ParentOperable _current, ContextEl _conf, String _className) {
         CustList<Operable> chidren_ = _current.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (Operable o: chidren_) {

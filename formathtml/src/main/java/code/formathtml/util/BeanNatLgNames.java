@@ -14,6 +14,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.types.DefaultLoopDeclaring;
 import code.formathtml.*;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.exec.RendFctOperation;
@@ -168,7 +169,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf) {
         ClassField fieldId_ = _rend.getFieldMetaInfo().getClassField();
         Struct default_ = _previous.getStruct();
-        ContextEl _cont = _conf.getContextEl();
+        ContextEl _cont = _conf.getContext();
         ResultErrorStd res_ = getOtherResult(_cont, fieldId_, default_);
         Argument a_ = new Argument();
         a_.setStruct(res_.getResult());
@@ -178,7 +179,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     @Override
     public Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right) {
         ClassField fieldId_ = _rend.getFieldMetaInfo().getClassField();
-        ContextEl _cont = _conf.getContextEl();
+        ContextEl _cont = _conf.getContext();
         Object value_ = adaptedArg(_right.getStruct());
         setOtherResult(_cont, fieldId_, _previous.getStruct(), value_);
         return _right;
@@ -201,7 +202,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
             a.setStruct(PrimitiveTypeUtil.convertObject(new ClassArgumentMatching(classMethodId_.getConstraints().getParametersTypes().get(i_)),a.getStruct(),this));
             i_++;
         }
-        ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContextEl(), classMethodId_, _previous.getStruct(), Argument.toArgArray(firstArgs_));
+        ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContext(), classMethodId_, _previous.getStruct(), Argument.toArgArray(firstArgs_));
         Argument argRes_ = new Argument();
         argRes_.setStruct(res_.getResult());
         return argRes_;
@@ -233,7 +234,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _conf);
         if (resError_.getError() != null) {
             String err_ = resError_.getError();
-            _conf.getContext().setException(new ErrorStruct(_conf,err_));
+            _conf.getContext().setException(new ErrorStruct(_conf.getContext(),err_));
             return null;
         }
         Struct obj_ = resError_.getResult();
@@ -379,14 +380,14 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public Argument first(Struct _arg, Configuration _conf) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         Object resObj_ = ((SimpleEntry)instance_).getSimpleKey();
-        return new Argument(wrapStd(resObj_, _conf));
+        return new Argument(wrapStd(resObj_));
     }
 
     @Override
     public Argument second(Struct _arg, Configuration _conf) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         Object resObj_ = ((SimpleEntry)instance_).getSimpleValue();
-        return new Argument(wrapStd(resObj_, _conf));
+        return new Argument(wrapStd(resObj_));
     }
 
     @Override
@@ -401,7 +402,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public Argument next(Struct _arg, Configuration _cont) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
         Object resObj_ = ((SimpleItr)instance_).next();
-        return new Argument(wrapStd(resObj_, _cont));
+        return new Argument(wrapStd(resObj_));
     }
 
     @Override
@@ -413,14 +414,14 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     protected abstract Struct newId(Object _obj, String _className);
 
-    public abstract Struct wrapStd(Object _element, ExecutableCode _ex);
+    public abstract Struct wrapStd(Object _element);
     public abstract ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context);
 
     @Override
     public String processString(Argument _arg, Configuration _cont) {
         Struct struct_ = _arg.getStruct();
         if (struct_ instanceof DisplayableStruct) {
-            return ((DisplayableStruct)struct_).getDisplayedString(_cont).getInstance();
+            return ((DisplayableStruct)struct_).getDisplayedString(_cont.getContext()).getInstance();
         }
         if (struct_ instanceof RealInstanceStruct) {
             Object inst_ = ((RealInstanceStruct) struct_).getInstance();
@@ -473,12 +474,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         KeyWords kw_ = new KeyWords();
         ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), a_,kw_, this,4);
         _conf.setContext(context_);
-        context_.setAnalyzing();
-        context_.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(_conf));
-        context_.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(_conf));
-        context_.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_conf));
-        context_.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        context_.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        _conf.setupInts();
     }
     public void setDataBase(Object _dataBase){
         dataBase = _dataBase;

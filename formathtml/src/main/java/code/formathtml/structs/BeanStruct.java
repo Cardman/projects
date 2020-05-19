@@ -1,7 +1,7 @@
 package code.formathtml.structs;
 
 import code.bean.Bean;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
@@ -19,7 +19,7 @@ public final class BeanStruct implements RealInstanceStruct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return bean.getClassName();
     }
 

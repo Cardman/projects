@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -377,7 +376,7 @@ public abstract class RendDynOperationNode {
     }
 
     private void setNextSiblingsArg(Argument _arg, Configuration _cont) {
-        if (_cont.getContextEl().hasException()) {
+        if (_cont.getContext().hasException()) {
             return;
         }
         String un_ = resultClass.getUnwrapObject();
@@ -387,7 +386,7 @@ public abstract class RendDynOperationNode {
                 String null_;
                 null_ = stds_.getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                _cont.setException(new ErrorStruct(_cont,null_));
+                _cont.setException(new ErrorStruct(_cont.getContext(),null_));
                 return;
             }
         }
@@ -509,7 +508,7 @@ public abstract class RendDynOperationNode {
         setQuickSimpleArgument(true,_argument,_conf,_nodes);
     }
     private void setQuickSimpleArgument(boolean _convertToString,Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
-        if (_conf.getContextEl().hasException()) {
+        if (_conf.getContext().hasException()) {
             return;
         }
         Argument out_ = _argument;
@@ -543,7 +542,7 @@ public abstract class RendDynOperationNode {
         }
         if (convert_) {
             Argument outConv_ = new Argument();
-            outConv_.setStruct(ExecCatOperation.getDisplayable(out_,_conf).getDisplayedString(ctx_));
+            outConv_.setStruct(ExecCatOperation.getDisplayable(out_,_conf.getContext()).getDisplayedString(ctx_));
             out_ = outConv_;
         }
         return out_;

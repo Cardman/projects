@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.inherits.Templates;
 
@@ -24,7 +24,7 @@ public final class FieldInfo {
         geneField = _geneField;
     }
     public static FieldInfo newFieldInfo(String _name, String _declaringClass, String _type,
-                                         boolean _staticField, boolean _finalField, Analyzable _cont, boolean _aff, GeneField _geneField) {
+                                         boolean _staticField, boolean _finalField, ContextEl _cont, boolean _aff, GeneField _geneField) {
         String formattedType_ = _type;
         if (_aff) {
             formattedType_ = Templates.wildCardFormatParam(_declaringClass, formattedType_, _cont);

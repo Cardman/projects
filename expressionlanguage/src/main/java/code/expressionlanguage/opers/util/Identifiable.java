@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.util.StringList;
 
 public interface Identifiable {
@@ -9,5 +9,5 @@ public interface Identifiable {
     boolean isStaticMethod();
     String getName();
     StringList getParametersTypes();
-    String getSignature(Analyzable _ana);
+    String getSignature(ContextEl _ana);
 }

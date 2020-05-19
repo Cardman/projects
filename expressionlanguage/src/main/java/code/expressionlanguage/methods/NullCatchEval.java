@@ -1,9 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.files.OffsetsBlock;
 
 public final class NullCatchEval extends AbstractCatchEval {
@@ -13,7 +10,7 @@ public final class NullCatchEval extends AbstractCatchEval {
     }
 
     @Override
-    public void reach(Analyzable _an, AnalyzingEl _anEl) {
+    public void reach(ContextEl _an, AnalyzingEl _anEl) {
         Block p_ = getPreviousSibling();
         boolean reachCatch_ = true;
         while (!(p_ instanceof TryEval)) {

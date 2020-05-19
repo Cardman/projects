@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -35,21 +35,21 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
     }
 
     @Override
-    public void preAnalyze(Analyzable _conf) {
+    public void preAnalyze(ContextEl _conf) {
         MethodOperation mOp_ = getParent();
         AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
         String annotationClass_ = par_.getClassName();
-        GeneType type_ = _conf.getContextEl().getClassBody(annotationClass_);
+        GeneType type_ = _conf.getClassBody(annotationClass_);
         if (type_ instanceof Block) {
             annotation = annotationClass_;
         }
     }
     @Override
-    public void analyzeUnary(Analyzable _conf) {
+    public void analyzeUnary(ContextEl _conf) {
         MethodOperation mOp_ = getParent();
         AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
         String annotationClass_ = par_.getClassName();
-        GeneType type_ = _conf.getContextEl().getClassBody(annotationClass_);
+        GeneType type_ = _conf.getClassBody(annotationClass_);
         if (type_ instanceof Block) {
             Block ann_ = (Block) type_;
             boolean ok_ = false;
@@ -65,20 +65,20 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
             }
             if (!ok_) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //fieldName len
-                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedAccessibleField(),
+                cast_.buildError(_conf.getAnalysisMessages().getUndefinedAccessibleField(),
                         fieldName,
                         annotationClass_);
-                _conf.addError(cast_);
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
             }
         }
         setResultClass(getFirstChild().getResultClass());
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         Argument arg_ = getFirstChild().getArgument();
         setSimpleArgumentAna(arg_, _conf);
     }

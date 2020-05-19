@@ -1,6 +1,6 @@
 package code.expressionlanguage.inherits;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.*;
@@ -298,7 +298,7 @@ public final class TypeUtil {
                         err_.setFileName(fileName_);
                         err_.setIndexFile(sub_.getAccessOffset());
                         //key word access or method name
-                        err_.buildError(_context.getContextEl().getAnalysisMessages().getMethodsAccesses(),
+                        err_.buildError(_context.getAnalysisMessages().getMethodsAccesses(),
                                 supId_.getClassName(),
                                 supId_.getConstraints().getSignature(_context),
                                 subId_.getClassName(),
@@ -354,7 +354,7 @@ public final class TypeUtil {
         String baseClassFound_ = _type.getFullName();
         for (RootBlock c: _conf.getClasses().getClassBodies()) {
             String name_ = c.getFullName();
-            String baseCond_ = Templates.getFullTypeByBases(c.getGenericString(), baseClassFound_, _conf);
+            String baseCond_ = Templates.getOverridingFullTypeByBases(c.getGenericString(), baseClassFound_, _conf);
             if (baseCond_.isEmpty()) {
                 continue;
             }
@@ -374,7 +374,7 @@ public final class TypeUtil {
                     continue;
                 }
                 String gene_ = r_.getGenericString();
-                String v_ = Templates.getFullTypeByBases(gene_, baseClassFound_, _conf);
+                String v_ = Templates.getOverridingFullTypeByBases(gene_, baseClassFound_, _conf);
                 if (v_.isEmpty()) {
                     continue;
                 }
@@ -492,7 +492,7 @@ public final class TypeUtil {
         for (String s: _type.getAllGenericClasses()) {
             RootBlock r_ = _conf.getClasses().getClassBody(Templates.getIdFromAllTypes(s));
             String gene_ = r_.getGenericString();
-            String v_ = Templates.getFullTypeByBases(gene_, _subTypeName, _conf);
+            String v_ = Templates.getOverridingFullTypeByBases(gene_, _subTypeName, _conf);
             if (v_.isEmpty()) {
                 continue;
             }
@@ -540,17 +540,17 @@ public final class TypeUtil {
         return out_;
     }
 
-    public static StringList getInners(String _root, String _innerName, Analyzable _an) {
+    public static StringList getInners(String _root, String _innerName, ContextEl _an) {
         StringList inners_ = new StringList();
         for (String o: getOwners(_root, _innerName, _an)) {
             inners_.add(StringList.concat(o,"..",_innerName));
         }
         return inners_;
     }
-    public static StringList getOwners(String _root, String _innerName, Analyzable _an) {
+    public static StringList getOwners(String _root, String _innerName, ContextEl _an) {
          return getOwners(_root,_innerName,false,_an);
     }
-    public static StringList getInners(String _root, String _sep, String _innerName, boolean _staticOnly, Analyzable _an) {
+    public static StringList getInners(String _root, String _sep, String _innerName, boolean _staticOnly, ContextEl _an) {
         StringList inners_ = new StringList();
         if (StringList.quickEq(_sep,".")) {
             for (String o: getOwners(_root, _innerName,_staticOnly, _an)) {
@@ -563,14 +563,14 @@ public final class TypeUtil {
         }
         return inners_;
     }
-    private static StringList getOwners(String _root, String _innerName, boolean _staticOnly, Analyzable _an) {
+    private static StringList getOwners(String _root, String _innerName, boolean _staticOnly, ContextEl _an) {
         StringList ids_ = new StringList(_root);
         StringList owners_ = new StringList();
         StringList visited_ = new StringList();
         while (true) {
             StringList new_ = new StringList();
             for (String s: ids_) {
-                GeneType g_ = _an.getContextEl().getClassBody(s);
+                GeneType g_ = _an.getClassBody(s);
                 if (!(g_ instanceof RootBlock)) {
                     continue;
                 }
@@ -587,7 +587,7 @@ public final class TypeUtil {
         }
         return PrimitiveTypeUtil.getSubclasses(owners_,_an);
     }
-    public static StringList getGenericOwners(String _root, String _innerName, Analyzable _an) {
+    public static StringList getGenericOwners(String _root, String _innerName, ContextEl _an) {
         StringList ids_ = new StringList(_root);
         StringList owners_ = new StringList();
         StringList visited_ = new StringList();
@@ -595,7 +595,7 @@ public final class TypeUtil {
             StringList new_ = new StringList();
             for (String s: ids_) {
                 String id_ = Templates.getIdFromAllTypes(s);
-                GeneType g_ = _an.getContextEl().getClassBody(id_);
+                GeneType g_ = _an.getClassBody(id_);
                 if (!(g_ instanceof RootBlock)) {
                     continue;
                 }
@@ -604,7 +604,7 @@ public final class TypeUtil {
                 for (String t: sub_.getImportedDirectSuperTypes()) {
                     if (!Templates.correctNbParameters(s,_an)) {
                         String format_ = Templates.getIdFromAllTypes(t);
-                        GeneType sup_ = _an.getContextEl().getClassBody(format_);
+                        GeneType sup_ = _an.getClassBody(format_);
                         if (!sup_.isStaticType()) {
                             continue;
                         }
@@ -644,10 +644,10 @@ public final class TypeUtil {
             }
         }
     }
-    public static StringList getEnumOwners(String _root, String _innerName, Analyzable _an) {
+    public static StringList getEnumOwners(String _root, String _innerName, ContextEl _an) {
         StringList owners_ = new StringList();
         String id_ = Templates.getIdFromAllTypes(_root);
-        GeneType g_ = _an.getContextEl().getClassBody(id_);
+        GeneType g_ = _an.getClassBody(id_);
         if (g_ instanceof RootBlock) {
             RootBlock sub_ = (RootBlock)g_;
             addedInnerElement(_innerName, owners_, _root, sub_);

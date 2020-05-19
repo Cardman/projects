@@ -1,7 +1,6 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.StringList;
@@ -81,7 +80,7 @@ public final class ConstructorMetaInfo implements AnnotatedStruct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getAliasConstructor();
     }
 
@@ -98,7 +97,7 @@ public final class ConstructorMetaInfo implements AnnotatedStruct {
     }
 
     @Override
-    public StringStruct getDisplayedString(Analyzable _an) {
+    public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(StringList.concat(className,";",realId.getSignature(_an)));
     }
 }

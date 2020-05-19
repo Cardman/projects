@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
@@ -34,7 +34,7 @@ public final class NullSafeOperation extends MethodOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
@@ -51,22 +51,22 @@ public final class NullSafeOperation extends MethodOperation {
         if (StringList.contains(one_, void_)) {
             setRelativeOffsetPossibleAnalyzable(opTwo_.getIndexInEl(), _conf);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //first part separator
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getVoidType(),
+            un_.buildError(_conf.getAnalysisMessages().getVoidType(),
                     void_);
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
         }
         if (StringList.contains(two_, void_)) {
             setRelativeOffsetPossibleAnalyzable(opThree_.getIndexInEl(), _conf);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //second part separator
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getVoidType(),
+            un_.buildError(_conf.getAnalysisMessages().getVoidType(),
                     void_);
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
         }
         OperationNode current_ = this;
         MethodOperation m_ = getParent();
@@ -118,11 +118,11 @@ public final class NullSafeOperation extends MethodOperation {
     }
 
     @Override
-    public void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(ContextEl _conf) {
         tryGetResult(_conf, this);
     }
 
-    public static void tryGetResult(Analyzable _conf, ParentOperable _to) {
+    public static void tryGetResult(ContextEl _conf, ParentOperable _to) {
         CustList<Operable> children_ = _to.getChildrenOperable();
         Argument f_ = children_.first().getArgument();
         Argument s_ = children_.last().getArgument();
@@ -140,12 +140,12 @@ public final class NullSafeOperation extends MethodOperation {
         }
     }
     @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf, OperationNode _nextSibling, OperationNode _previous) {
+    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf, OperationNode _nextSibling, OperationNode _previous) {
         analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
 
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(ContextEl _conf) {
         analyzeStdAssignmentAfter(_conf);
     }
 }

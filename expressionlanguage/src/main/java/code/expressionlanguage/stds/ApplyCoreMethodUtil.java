@@ -1,9 +1,7 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -394,20 +392,19 @@ public class ApplyCoreMethodUtil {
         _cont.setAnalyzing();
         TypeUtil.buildInherits(_cont);
     }
-    public static String checkExactType(Analyzable _an,int _loc, String _in, String _orig) {
+    public static String checkExactType(ContextEl _an,int _loc, String _in, String _orig) {
         if (!_in.isEmpty()) {
             return _in;
         }
-        ContextEl ctx_ = _an.getContextEl();
-        int rc_ = _an.getCurrentLocationIndex() + _loc;
+        int rc_ = _an.getAnalyzing().getLocalizer().getCurrentLocationIndex() + _loc;
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setFileName(_an.getCurrentFileName());
+        un_.setFileName(_an.getAnalyzing().getLocalizer().getCurrentFileName());
         un_.setIndexFile(rc_);
         //original type len
-        un_.buildError(ctx_.getAnalysisMessages().getUnknownType(),
+        un_.buildError(_an.getAnalysisMessages().getUnknownType(),
                 _orig);
-        _an.addError(un_);
-        return ctx_.getStandards().getAliasObject();
+        _an.getAnalyzing().getLocalizer().addError(un_);
+        return _an.getStandards().getAliasObject();
     }
     public static IterableAnalysisResult getCustomTypeBase(StringList _names, ContextEl _context) {
         StringList out_ = new StringList();
@@ -439,7 +436,7 @@ public class ApplyCoreMethodUtil {
         }
         return new IterableAnalysisResult(out_);
     }
-    public static ResultErrorStd getSimpleResultBase(Analyzable _conf, ClassField _classField) {
+    public static ResultErrorStd getSimpleResultBase(ContextEl _conf, ClassField _classField) {
         ResultErrorStd result_ = new ResultErrorStd();
         String type_ = _classField.getClassName();
         String name_ = _classField.getFieldName();
@@ -630,7 +627,7 @@ public class ApplyCoreMethodUtil {
         }
         return result_;
     }
-    public static Struct defaultMeta(ExecutableCode _conf, String _id, CustList<Argument> _firstArgs) {
+    public static Struct defaultMeta(ContextEl _conf, String _id, CustList<Argument> _firstArgs) {
         LgNames stds_ = _conf.getStandards();
         String aliasField_ = stds_.getAliasField();
         String aliasMethod_ = stds_.getAliasMethod();
@@ -686,7 +683,7 @@ public class ApplyCoreMethodUtil {
         }
         return _stds.getClassMetaInfo();
     }
-    public static Struct invokeAnalyzisStdMethod(Analyzable _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
+    public static Struct invokeAnalyzisStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         Struct result_ = null;
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getClassName();
@@ -731,7 +728,7 @@ public class ApplyCoreMethodUtil {
         }
         return NumberStruct.calculate(_cont, _method, _struct, args_);
     }
-    public static ResultErrorStd invokeStdMethod(Analyzable _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
+    public static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getClassName();
@@ -761,7 +758,7 @@ public class ApplyCoreMethodUtil {
             if (StringList.quickEq(name_, lgNames_.getAliasGetParent())) {
                 Struct arg_ = args_[0];
                 Struct par_ = arg_.getParent();
-                _cont.getContextEl().getInitializingTypeInfos().addSensibleField(arg_, par_);
+                _cont.getInitializingTypeInfos().addSensibleField(arg_, par_);
                 result_.setResult(par_);
                 return result_;
             }
@@ -776,38 +773,37 @@ public class ApplyCoreMethodUtil {
             return result_;
         }
         if (StringList.quickEq(type_, lgNames_.getAliasStackTraceElement())) {
-            ContextEl c_ = _cont.getContextEl();
-            return AliasStackTraceElement.invokeMethod(c_, _method, _struct);
+            return AliasStackTraceElement.invokeMethod(_cont, _method, _struct);
         }
         if (StringList.quickEq(type_, lgNames_.getAliasError())) {
             if (StringList.quickEq(name_, lgNames_.getAliasCurrentStack())) {
                 ErroneousStruct err_;
                 if (args_.length == 0) {
-                    err_ = getError(_struct,_cont.getContextEl());
+                    err_ = getError(_struct,_cont);
                     result_.setResult(err_.getStack());
                     return result_;
                 }
-                err_ = getError(args_[0],_cont.getContextEl());
+                err_ = getError(args_[0],_cont);
                 result_.setResult(err_.getFullStack());
                 return result_;
             }
             if (StringList.quickEq(name_, lgNames_.getAliasGetMessage())) {
-                ErroneousStruct err_ = getError(_struct,_cont.getContextEl());
+                ErroneousStruct err_ = getError(_struct,_cont);
                 result_.setResult(err_.getMessage());
                 return result_;
             }
             if (StringList.quickEq(name_, lgNames_.getAliasGetCause())) {
-                ErroneousStruct err_ = getError(_struct,_cont.getContextEl());
+                ErroneousStruct err_ = getError(_struct,_cont);
                 result_.setResult(err_.getCause());
                 return result_;
             }
             ErroneousStruct err_;
             if (args_.length == 0) {
-                err_ = getError(_struct,_cont.getContextEl());
+                err_ = getError(_struct,_cont);
                 result_.setResult(err_.getDisplayedString(_cont));
                 return result_;
             }
-            err_ = getError(args_[0],_cont.getContextEl());
+            err_ = getError(args_[0],_cont);
             result_.setResult(new StringStruct(err_.getStringRep(_cont,err_.getFullStack().getInstance())));
             return result_;
         }
@@ -828,7 +824,7 @@ public class ApplyCoreMethodUtil {
         return lgNames_.instance(_cont,_method,_args);
     }
 
-    public static ResultErrorStd newInstanceStd(Analyzable _cont, ConstructorId _method, Argument... _args) {
+    public static ResultErrorStd newInstanceStd(ContextEl _cont, ConstructorId _method, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getName();
@@ -865,7 +861,7 @@ public class ApplyCoreMethodUtil {
         return result_;
     }
 
-    public static Struct newAnalyzisInstanceStd(Analyzable _cont, ConstructorId _method, Argument... _args) {
+    public static Struct newAnalyzisInstanceStd(ContextEl _cont, ConstructorId _method, Argument... _args) {
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getName();
         LgNames lgNames_ = _cont.getStandards();
@@ -901,7 +897,7 @@ public class ApplyCoreMethodUtil {
         }
         return null;
     }
-    public static Struct defaultInstance(ExecutableCode _conf, String _id, CustList<Argument> _firstArgs) {
+    public static Struct defaultInstance(ContextEl _conf, String _id, CustList<Argument> _firstArgs) {
         LgNames stds_ = _conf.getStandards();
         Struct previous_ = NullStruct.NULL_VALUE;
         if (!_firstArgs.isEmpty()) {
@@ -968,7 +964,7 @@ public class ApplyCoreMethodUtil {
         return new StringBuilderStruct(new StringBuilder());
     }
 
-    private static ErroneousStruct getError(Struct _err, ExecutableCode _cont) {
+    private static ErroneousStruct getError(Struct _err, ContextEl _cont) {
         if (_err instanceof ErroneousStruct) {
             return (ErroneousStruct) _err;
         }

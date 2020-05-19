@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
@@ -91,12 +90,12 @@ public final class CatchEval extends AbstractCatchEval {
     }
 
     @Override
-    public void reach(Analyzable _an, AnalyzingEl _anEl) {
+    public void reach(ContextEl _an, AnalyzingEl _anEl) {
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         importedClassName = ResolvingImportTypes.resolveCorrectType(_an,className);
-        partOffsets.addAllElts(_an.getContextEl().getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_an.getCoverage().getCurrentParts());
         StringList classes_ = new StringList();
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {

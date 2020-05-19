@@ -1,8 +1,7 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
@@ -39,7 +38,7 @@ public final class ReplacementStruct implements Struct {
         return rep_;
     }
 
-    public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct) {
+    public static void calculate(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct) {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
         ReplacementStruct rp_ = ApplyCoreMethodUtil.getReplacement(_struct);
@@ -51,7 +50,7 @@ public final class ReplacementStruct implements Struct {
         
     }
 
-    public static Struct calculate(Analyzable _cont, ClassMethodId _method, Struct _struct) {
+    public static Struct calculate(ContextEl _cont, ClassMethodId _method, Struct _struct) {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
         ReplacementStruct rp_ = ApplyCoreMethodUtil.getReplacement(_struct);
@@ -79,7 +78,7 @@ public final class ReplacementStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getAliasReplacement();
     }
 

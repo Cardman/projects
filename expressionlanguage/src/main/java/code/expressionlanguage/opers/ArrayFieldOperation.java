@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -17,7 +17,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
@@ -33,13 +33,13 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
             return;
         }
         FoundErrorInterpret und_ = new FoundErrorInterpret();
-        und_.setFileName(_conf.getCurrentFileName());
-        und_.setIndexFile(_conf.getCurrentLocationIndex());
+        und_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+        und_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
         //str_ len
-        und_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedAccessibleField(),
+        und_.buildError(_conf.getAnalysisMessages().getUndefinedAccessibleField(),
                 str_,
                 StringList.join(cl_.getNames(), "&"));
-        _conf.addError(und_);
+        _conf.getAnalyzing().getLocalizer().addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
     }
 

@@ -134,9 +134,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
     }
 
     @Override
-    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeChild(ContextEl _an, AnalyzingEl _anEl) {
         Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
@@ -240,7 +240,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
                     //separator char
-                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(compo_.getNames(),"&"),
                             importedClassName);
                     _cont.addError(cast_);
@@ -315,7 +315,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
                     //separator char
-                    cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassName);
                     _cont.addError(cast_);
@@ -326,7 +326,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
             //separator char
-            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
                     _cont.getStandards().getAliasObject(),
                     _cont.getStandards().getAliasIterable());
             _cont.addError(cast_);
@@ -349,7 +349,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
     }
 
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
         AssignedVariablesDesc ass_ = new AssignedVariablesDesc(_an,this);
         AssignedVariables varsWhile_ = ass_.getVarsWhile();
         IdMap<Block, AssignedVariables> allDesc_ = ass_.getAllDesc();
@@ -379,7 +379,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         varsWhile_.getMutableLoopRoot().clear();
         varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
     }
-    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(ContextEl _an, AnalyzingEl _anEl) {
         Block first_ = getFirstChild();
         Block last_ = first_;
         while (last_.getNextSibling() != null) {
@@ -387,7 +387,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         StringMap<AssignmentBefore> list_;
         list_ = first_.makeHypothesisFields(_an);
         int contLen_ = continues_.size();
@@ -406,7 +406,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         }
         return invalidateHypothesis(list_, new StringMap<SimpleAssignment>(), breakAss_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(ContextEl _an, AnalyzingEl _anEl) {
         Block first_ = getFirstChild();
         Block last_ = first_;
         while (last_.getNextSibling() != null) {
@@ -414,7 +414,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> list_;
@@ -443,7 +443,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         
         return varsList_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(ContextEl _an, AnalyzingEl _anEl) {
         Block first_ = getFirstChild();
         Block last_ = first_;
         while (last_.getNextSibling() != null) {
@@ -451,7 +451,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> list_;
@@ -517,25 +517,25 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
         }
     }
 
-    public String getIteratorVar(Analyzable _an) {
+    public String getIteratorVar(ContextEl _an) {
         return _an.getClasses().getIteratorVarCust();
     }
 
-    public String getHasNextVar(Analyzable _an) {
+    public String getHasNextVar(ContextEl _an) {
         return _an.getClasses().getHasNextVarCust();
     }
 
-    public String getNextVar(Analyzable _an) {
+    public String getNextVar(ContextEl _an) {
         return _an.getClasses().getNextVarCust();
     }
-    public ExpressionLanguage getEqIterator(Analyzable _an) {
+    public ExpressionLanguage getEqIterator(ContextEl _an) {
         return new ExpressionLanguage(_an.getClasses().getExpsIteratorCust());
     }
 
-    public ExpressionLanguage getEqHasNext(Analyzable _an) {
+    public ExpressionLanguage getEqHasNext(ContextEl _an) {
         return new ExpressionLanguage(_an.getClasses().getExpsHasNextCust());
     }
-    public ExpressionLanguage getEqNext(Analyzable _an) {
+    public ExpressionLanguage getEqNext(ContextEl _an) {
         return new ExpressionLanguage(_an.getClasses().getExpsNextCust());
     }
 

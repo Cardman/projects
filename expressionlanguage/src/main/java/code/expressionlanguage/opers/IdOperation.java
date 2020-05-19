@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -26,20 +26,20 @@ public final class IdOperation extends AbstractUnaryOperation implements IdOpera
     }
 
     @Override
-    public void analyzeUnary(Analyzable _conf) {
+    public void analyzeUnary(ContextEl _conf) {
         CustList<OperationNode> children_ = getChildrenNodes();
         if (children_.size() > 1) {
             MethodOperation par_ = getParent();
             if (!(par_ instanceof CastOperation)) {
                 LgNames stds_ = _conf.getStandards();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setIndexFile(_conf.getCurrentLocationIndex());
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //first comma
-                un_.buildError(_conf.getContextEl().getAnalysisMessages().getSplitDiff(),
+                un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
                         Integer.toString(1),
                         Integer.toString(children_.size()));
-                _conf.addError(un_);
+                _conf.getAnalyzing().getLocalizer().addError(un_);
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
@@ -49,13 +49,13 @@ public final class IdOperation extends AbstractUnaryOperation implements IdOpera
             if (!(rBase_ instanceof InterfaceBlock)) {
                 LgNames stds_ = _conf.getStandards();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setIndexFile(_conf.getCurrentLocationIndex());
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //first comma
-                un_.buildError(_conf.getContextEl().getAnalysisMessages().getSplitDiff(),
+                un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
                         Integer.toString(1),
                         Integer.toString(children_.size()));
-                _conf.addError(un_);
+                _conf.getAnalyzing().getLocalizer().addError(un_);
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
@@ -66,13 +66,13 @@ public final class IdOperation extends AbstractUnaryOperation implements IdOpera
                 if (!(op_ instanceof InterfaceFctConstructor)){
                     LgNames stds_ = _conf.getStandards();
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_conf.getCurrentFileName());
-                    un_.setIndexFile(_conf.getCurrentLocationIndex());
+                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //i comma
-                    un_.buildError(_conf.getContextEl().getAnalysisMessages().getSplitDiff(),
+                    un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
                             Integer.toString(1),
                             Integer.toString(children_.size()));
-                    _conf.addError(un_);
+                    _conf.getAnalyzing().getLocalizer().addError(un_);
                     setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                     return;
                 }
@@ -80,13 +80,13 @@ public final class IdOperation extends AbstractUnaryOperation implements IdOpera
                 if (cid_ == null) {
                     LgNames stds_ = _conf.getStandards();
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_conf.getCurrentFileName());
-                    un_.setIndexFile(_conf.getCurrentLocationIndex());
+                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //i comma
-                    un_.buildError(_conf.getContextEl().getAnalysisMessages().getSplitDiff(),
+                    un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
                             Integer.toString(1),
                             Integer.toString(children_.size()));
-                    _conf.addError(un_);
+                    _conf.getAnalyzing().getLocalizer().addError(un_);
                     setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                     return;
                 }
@@ -101,13 +101,13 @@ public final class IdOperation extends AbstractUnaryOperation implements IdOpera
             if (!StringList.equalsSet(all_,previousInts_)) {
                 LgNames stds_ = _conf.getStandards();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setIndexFile(_conf.getCurrentLocationIndex());
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //i comma
-                un_.buildError(_conf.getContextEl().getAnalysisMessages().getSplitDiff(),
+                un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
                         Integer.toString(1),
                         Integer.toString(children_.size()));
-                _conf.addError(un_);
+                _conf.getAnalyzing().getLocalizer().addError(un_);
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
@@ -119,34 +119,34 @@ public final class IdOperation extends AbstractUnaryOperation implements IdOpera
         if (children_.isEmpty()) {
             LgNames stds_ = _conf.getStandards();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_conf.getCurrentFileName());
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //left par
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getSplitDiff(),
+            un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
                     Integer.toString(1),
                     Integer.toString(0));
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         setResultClass(children_.first().getResultClass());
     }
 
-    private static void checkInherits(Analyzable _conf, StringList _previousInts, String _cl) {
+    private static void checkInherits(ContextEl _conf, StringList _previousInts, String _cl) {
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
-            RootBlock supType_ = _conf.getContextEl().getClasses().getClassBody(sup_);
+            RootBlock supType_ = _conf.getClasses().getClassBody(sup_);
             if (supType_.isSubTypeOf(_cl,_conf)) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
-                undef_.setFileName(_conf.getCurrentFileName());
+                undef_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 undef_.setIndexFile(0);
                 //current type len
-                undef_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntInherits(),
+                undef_.buildError(_conf.getAnalysisMessages().getCallCtorIntInherits(),
                         sup_,
                         _cl
                 );
-                _conf.addError(undef_);
+                _conf.getAnalyzing().getLocalizer().addError(undef_);
             }
         }
     }
@@ -160,7 +160,7 @@ public final class IdOperation extends AbstractUnaryOperation implements IdOpera
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setSimpleArgumentAna(chidren_.first().getArgument(), _conf);
     }

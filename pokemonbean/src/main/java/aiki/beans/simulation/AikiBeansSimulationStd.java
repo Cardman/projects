@@ -967,7 +967,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,GENDER)) {
-            res_.setResult(std_.wrapStd(instance_.getGender(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getGender()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,LEVEL)) {
@@ -991,15 +991,15 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,HAS_EVO)) {
-            res_.setResult(std_.wrapStd(instance_.getHasEvo(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getHasEvo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_EVO)) {
-            res_.setResult(std_.wrapStd(instance_.getIsEvo(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getIsEvo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_LEG)) {
-            res_.setResult(std_.wrapStd(instance_.getIsLeg(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getIsLeg()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,POKEDEX)) {
@@ -1108,7 +1108,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,GENDER)) {
-            res_.setResult(std_.wrapStd(instance_.getGender(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getGender()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,LEVEL)) {
@@ -1185,15 +1185,15 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,HAS_EVO)) {
-            res_.setResult(std_.wrapStd(instance_.getHasEvo(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getHasEvo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_EVO)) {
-            res_.setResult(std_.wrapStd(instance_.getIsEvo(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getIsEvo()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,IS_LEG)) {
-            res_.setResult(std_.wrapStd(instance_.getIsLeg(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getIsLeg()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,POKEDEX)) {
@@ -1212,7 +1212,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
-            res_.setResult(std_.wrapStd(instance_.getDiffWinningExpPtsFight(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getDiffWinningExpPtsFight()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLOW_CATCHING_KO)) {
@@ -1276,7 +1276,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
-            res_.setResult(std_.wrapStd(instance_.getDamageRatePlayer(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getDamageRatePlayer()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER_TABLE)) {
@@ -1284,7 +1284,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
-            res_.setResult(std_.wrapStd(instance_.getDamageRateLawFoe(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getDamageRateLawFoe()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_FOE_TABLE)) {
@@ -1304,7 +1304,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ENVIRONMENT)) {
-            res_.setResult(std_.wrapStd(instance_.getEnvironment(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getEnvironment()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,FOE_TEAM)) {
@@ -1316,7 +1316,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_FOE_ACTION)) {
-            res_.setResult(std_.wrapStd(instance_.getSelectedFoeAction(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getSelectedFoeAction()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLY_TEAM)) {
@@ -1328,7 +1328,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_ALLY_ACTION)) {
-            res_.setResult(std_.wrapStd(instance_.getSelectedAllyAction(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getSelectedAllyAction()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PLACES)) {
@@ -1348,7 +1348,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_ACTION)) {
-            res_.setResult(std_.wrapStd(instance_.getSelectedAction(),_cont));
+            res_.setResult(std_.wrapStd(instance_.getSelectedAction()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,AVAILABLE_EVOS)) {

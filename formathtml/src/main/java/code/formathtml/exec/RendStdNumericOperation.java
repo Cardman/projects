@@ -1,7 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.NumericOperation;
 import code.formathtml.Configuration;
@@ -17,7 +17,7 @@ public abstract class RendStdNumericOperation extends RendNumericOperation {
 
     }
 
-    abstract Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont);
+    abstract Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont);
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
@@ -26,7 +26,7 @@ public abstract class RendStdNumericOperation extends RendNumericOperation {
         Argument c_ = getArgument(_nodes,chidren_.last());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
         Argument r_;
-        r_ = calculateOper(a_, op, c_, _conf);
+        r_ = calculateOper(a_, op, c_, _conf.getContext());
         a_ = r_;
         setSimpleArgument(a_, _conf,_nodes);
     }

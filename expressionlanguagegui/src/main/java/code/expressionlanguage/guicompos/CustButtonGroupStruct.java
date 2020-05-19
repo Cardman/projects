@@ -1,6 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.CustButtonGroup;
@@ -28,7 +28,7 @@ public final class CustButtonGroupStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         LgNamesGui stds_ = (LgNamesGui) _contextEl.getStandards();
         return stds_.getAliasButtonGroup();
     }

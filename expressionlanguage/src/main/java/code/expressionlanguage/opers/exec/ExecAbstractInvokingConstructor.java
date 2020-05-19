@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractInvokingConstructor;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -39,7 +38,7 @@ public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperat
         setSimpleArgument(res_, _conf, _nodes);
     }
 
-    abstract Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf);
+    abstract Argument getArgument(CustList<Argument> _arguments, ContextEl _conf);
 
     public final ConstructorId getConstId() {
         return constId;

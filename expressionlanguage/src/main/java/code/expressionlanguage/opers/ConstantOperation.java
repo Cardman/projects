@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.ConstType;
@@ -24,7 +24,7 @@ public final class ConstantOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
@@ -67,11 +67,11 @@ public final class ConstantOperation extends LeafOperation {
                 a_.setStruct(new CharStruct(originalStr_.charAt(0)));
             } else {
                 FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
-                badFormat_.setFileName(_conf.getCurrentFileName());
-                badFormat_.setIndexFile(_conf.getCurrentLocationIndex());
+                badFormat_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                badFormat_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //constant len
-                badFormat_.buildError(_conf.getContextEl().getAnalysisMessages().getBadCharFormat());
-                _conf.addError(badFormat_);
+                badFormat_.buildError(_conf.getAnalysisMessages().getBadCharFormat());
+                _conf.getAnalyzing().getLocalizer().addError(badFormat_);
             }
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
@@ -81,12 +81,12 @@ public final class ConstantOperation extends LeafOperation {
         String argClassName_ = parsed_.getType();
         if (argClassName_.isEmpty()) {
             FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
-            badFormat_.setFileName(_conf.getCurrentFileName());
-            badFormat_.setIndexFile(_conf.getCurrentLocationIndex());
+            badFormat_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            badFormat_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //constant len
-            badFormat_.buildError(_conf.getContextEl().getAnalysisMessages().getBadNbFormat(),
+            badFormat_.buildError(_conf.getAnalysisMessages().getBadNbFormat(),
                     str_);
-            _conf.addError(badFormat_);
+            _conf.getAnalyzing().getLocalizer().addError(badFormat_);
             argClassName_ = stds_.getAliasPrimDouble();
         }
         Argument arg_ = Argument.createVoid();
@@ -103,14 +103,14 @@ public final class ConstantOperation extends LeafOperation {
         return d_.getDelStringsChars().get(begin_+1)-offset_+1-firstPrintChar_;
     }
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(ContextEl _conf) {
         setAssignments(this,_conf);
     }
 
-    public static void setAssignments(OperationNode _current, Analyzable _conf) {
+    public static void setAssignments(OperationNode _current, ContextEl _conf) {
         Argument arg_ = _current.getArgument();
         Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(_current);
         CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(_current);
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(_current);

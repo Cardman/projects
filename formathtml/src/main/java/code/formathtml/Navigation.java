@@ -3,6 +3,7 @@ import code.bean.BeanInfo;
 import code.bean.validator.Message;
 import code.bean.validator.ValidatorInfo;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -135,7 +136,9 @@ public final class Navigation {
         if (!(session.getStandards() instanceof BeanCustLgNames)) {
             return;
         }
+        session.getContext().setFullStack(new DefaultFullStack(session.getContext()));
         Classes.tryInitStaticlyTypes(session.getContext());
+        session.getContext().setFullStack(new AdvancedFullStack(session));
     }
     public void setupRendClasses() {
         session.setupRendClasses(files);
@@ -204,12 +207,7 @@ public final class Navigation {
             Struct bean_ = getBeanOrNull(beanName_);
             ip_.setOffset(indexPoint_+1);
             ip_.setGlobalArgumentStruct(bean_, session);
-            session.getContext().setAnalyzing();
-            session.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(session));
-            session.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(session));
-            session.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(session));
-            session.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-            session.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+            session.setupInts();
             session.getContext().setGlobalClass(ip_.getGlobalClass());
             Struct return_;
             if (htmlPage_.isForm()) {

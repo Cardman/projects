@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -27,7 +27,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         if (isIntermediateDottedOperation()) {
             MethodOperation m_ = getParent();
@@ -35,12 +35,12 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             if (!(o_ instanceof StaticAccessOperation)) {
                 String arg_ = _conf.getAnalyzing().getGlobalClass();
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
-                static_.setFileName(_conf.getCurrentFileName());
-                static_.setIndexFile(_conf.getCurrentLocationIndex());
+                static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //key word len
-                static_.buildError(_conf.getContextEl().getAnalysisMessages().getStaticAccessPrev(),
-                        _conf.getContextEl().getKeyWords().getKeyWordThis());
-                _conf.addError(static_);
+                static_.buildError(_conf.getAnalysisMessages().getStaticAccessPrev(),
+                        _conf.getKeyWords().getKeyWordThis());
+                _conf.getAnalyzing().getLocalizer().addError(static_);
                 setResultClass(new ClassArgumentMatching(arg_));
                 return;
             }
@@ -48,7 +48,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             String id_ = Templates.getIdFromAllTypes(access_);
             String gl_ = _conf.getAnalyzing().getGlobalClass();
             gl_ = Templates.getIdFromAllTypes(gl_);
-            GeneType g_ = _conf.getContextEl().getClassBody(gl_);
+            GeneType g_ = _conf.getClassBody(gl_);
             RootBlock r_ = (RootBlock) g_;
             for (RootBlock r: r_.getSelfAndParentTypes().getReverse()) {
                 if (StringList.quickEq(r.getFullName(), id_)) {
@@ -63,20 +63,20 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                         }
                         if (!(root_ instanceof AbstractInvokingConstructor)) {
                             FoundErrorInterpret static_ = new FoundErrorInterpret();
-                            static_.setFileName(_conf.getCurrentFileName());
-                            static_.setIndexFile(_conf.getCurrentLocationIndex());
+                            static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                            static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                             //key word len
-                            static_.buildError(_conf.getContextEl().getAnalysisMessages().getStaticAccess(),
-                                    _conf.getContextEl().getKeyWords().getKeyWordThis());
-                            _conf.addError(static_);
+                            static_.buildError(_conf.getAnalysisMessages().getStaticAccess(),
+                                    _conf.getKeyWords().getKeyWordThis());
+                            _conf.getAnalyzing().getLocalizer().addError(static_);
                         } else if (nbAncestors == 0){
                             FoundErrorInterpret static_ = new FoundErrorInterpret();
-                            static_.setFileName(_conf.getCurrentFileName());
-                            static_.setIndexFile(_conf.getCurrentLocationIndex());
+                            static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                            static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                             //key word len
-                            static_.buildError(_conf.getContextEl().getAnalysisMessages().getStaticAccess(),
-                                    _conf.getContextEl().getKeyWords().getKeyWordThis());
-                            _conf.addError(static_);
+                            static_.buildError(_conf.getAnalysisMessages().getStaticAccess(),
+                                    _conf.getKeyWords().getKeyWordThis());
+                            _conf.getAnalyzing().getLocalizer().addError(static_);
                         }
                     }
                     String className_ = r.getGenericString();
@@ -87,12 +87,12 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             }
             String arg_ = stds_.getAliasObject();
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_conf.getCurrentFileName());
-            static_.setIndexFile(_conf.getCurrentLocationIndex());
+            static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            static_.buildError(_conf.getContextEl().getAnalysisMessages().getStaticAccessPrev(),
-                    _conf.getContextEl().getKeyWords().getKeyWordThis());
-            _conf.addError(static_);
+            static_.buildError(_conf.getAnalysisMessages().getStaticAccessPrev(),
+                    _conf.getKeyWords().getKeyWordThis());
+            _conf.getAnalyzing().getLocalizer().addError(static_);
             int off_ = StringList.getFirstPrintableCharIndex(access_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
             setResultClass(new ClassArgumentMatching(arg_));
@@ -102,12 +102,12 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
         String arg_ = _conf.getAnalyzing().getGlobalClass();
         if (_conf.getAnalyzing().getStaticContext() != MethodAccessKind.INSTANCE) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_conf.getCurrentFileName());
-            static_.setIndexFile(_conf.getCurrentLocationIndex());
+            static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            static_.buildError(_conf.getContextEl().getAnalysisMessages().getStaticAccess(),
-                    _conf.getContextEl().getKeyWords().getKeyWordThis());
-            _conf.addError(static_);
+            static_.buildError(_conf.getAnalysisMessages().getStaticAccess(),
+                    _conf.getKeyWords().getKeyWordThis());
+            _conf.getAnalyzing().getLocalizer().addError(static_);
         }
         setResultClass(new ClassArgumentMatching(arg_));
     }

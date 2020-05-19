@@ -1,10 +1,9 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 public final class KeyEventStruct implements Struct {
     private String className;
@@ -57,7 +56,7 @@ public final class KeyEventStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return className;
     }
 

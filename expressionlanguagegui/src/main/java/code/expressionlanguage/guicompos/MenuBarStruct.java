@@ -1,6 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -63,8 +63,8 @@ public final class MenuBarStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
-        return ((LgNamesGui) _contextEl.getContextEl().getStandards()).getAliasMenuBar();
+    public String getClassName(ContextEl _contextEl) {
+        return ((LgNamesGui) _contextEl.getStandards()).getAliasMenuBar();
     }
 
     @Override

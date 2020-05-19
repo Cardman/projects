@@ -1,6 +1,5 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
@@ -9,7 +8,6 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class StaticAccessOperation extends LeafOperation {
     private CustList<PartOffset> partOffsets;
@@ -19,7 +17,7 @@ public final class StaticAccessOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         String ext_ = op_.getExtractType();
         ext_ = StringExpUtil.removeDottedSpaces(ext_);
@@ -39,7 +37,7 @@ public final class StaticAccessOperation extends LeafOperation {
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
             classStr_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,str_.indexOf(PAR_LEFT)+1,realCl_);
-            partOffsets = new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts());
+            partOffsets = new CustList<PartOffset>(_conf.getCoverage().getCurrentParts());
         } else {
             classStr_ = glClass_;
             partOffsets = new CustList<PartOffset>();

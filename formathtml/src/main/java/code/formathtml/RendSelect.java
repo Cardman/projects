@@ -114,7 +114,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 Mapping m_ = new Mapping();
                 m_.setArg(opsConverter.last().getResultClass());
                 m_.setParam(opsRead.last().getResultClass());
-                if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(getOffset().getOffsetTrim());
@@ -128,7 +128,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             Mapping m_ = new Mapping();
             m_.setArg(opsRead.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
-            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+            if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
@@ -153,7 +153,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 }
                 m_.setArg(opsConverter.last().getResultClass());
                 m_.setParam(opsRead.last().getResultClass());
-                if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(offConvValue_);
@@ -179,7 +179,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 }
                 m_.setArg(opsConverter.last().getResultClass());
                 m_.setParam(opsRead.last().getResultClass());
-                if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(offConvValue_);
@@ -209,7 +209,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             Mapping m_ = new Mapping();
             m_.setArg(opsConverterField.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
-            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+            if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(offConvValue_);
@@ -238,7 +238,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             Mapping m_ = new Mapping();
             m_.setArg(opsConverterFieldValue.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
-            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+            if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(offConvValue_);
@@ -266,7 +266,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             m_.setArg(opsDefault.last().getResultClass());
             if (!multiple) {
                 m_.setParam(_cont.getStandards().getAliasCharSequence());
-                if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(getAttributeDelimiter(_cont.getRendKeyWords().getAttrDefault()));

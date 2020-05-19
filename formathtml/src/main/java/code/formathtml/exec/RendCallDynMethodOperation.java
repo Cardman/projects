@@ -18,7 +18,7 @@ public final class RendCallDynMethodOperation extends RendInvokingOperation impl
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = ExecInvokingOperation.prepareCallDyn(previous_, arguments_, _conf);
+        Argument argres_ = ExecInvokingOperation.prepareCallDyn(previous_, arguments_, _conf.getContext());
         processCall(_nodes,_conf,argres_);
     }
 

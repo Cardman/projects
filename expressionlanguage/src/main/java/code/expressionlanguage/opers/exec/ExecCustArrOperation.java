@@ -2,7 +2,7 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -75,7 +75,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         left_.setStruct(store_);
         Argument res_;
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, getResultClass());
-        if (_conf.getContextEl().callsOrException()) {
+        if (_conf.callsOrException()) {
             return Argument.createVoid();
         }
         return getArgument(previous_, arguments_, _conf,res_);
@@ -157,7 +157,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         if (_right != null) {
             methodId_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
         }
-        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, _right);
+        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, _right);
     }
 
     public ClassMethodId getClassMethodId() {

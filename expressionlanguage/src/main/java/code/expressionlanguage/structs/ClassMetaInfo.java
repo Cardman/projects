@@ -1,10 +1,7 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.ExecutingUtil;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessEnum;
@@ -296,7 +293,7 @@ public final class ClassMetaInfo implements AnnotatedStruct {
 
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getAliasClassType();
     }
 
@@ -318,7 +315,7 @@ public final class ClassMetaInfo implements AnnotatedStruct {
     }
 
     @Override
-    public StringStruct getDisplayedString(Analyzable _an) {
+    public StringStruct getDisplayedString(ContextEl _an) {
         return getDisplayedString();
     }
 

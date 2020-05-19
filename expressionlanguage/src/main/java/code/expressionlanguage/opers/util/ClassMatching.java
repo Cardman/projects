@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers.util;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -18,7 +18,7 @@ public final class ClassMatching {
         return StringList.quickEq(className, _className.className);
     }
 
-    public boolean isAssignableFrom(ClassMatching _c, StringMap<StringList> _map, Analyzable _context) {
+    public boolean isAssignableFrom(ClassMatching _c, StringMap<StringList> _map, ContextEl _context) {
         Mapping map_ = new Mapping();
         map_.setMapping(_map);
         map_.setArg(_c.getClassName());

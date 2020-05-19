@@ -1,8 +1,7 @@
 package code.expressionlanguage.inherits;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.InheritedType;
 import code.expressionlanguage.opers.exec.ExecArrayFieldOperation;
@@ -30,7 +29,7 @@ public final class PrimitiveTypeUtil {
     public static ResultTernary getResultTernary(StringList _first, Argument _firstArg,
             StringList _second, Argument _secondArg,
             StringMap<StringList> _vars,
-            Analyzable _conf) {
+            ContextEl _conf) {
         if (StringList.equalsSet(_first, _second)) {
             return new ResultTernary(_first, false, false);
         }
@@ -171,7 +170,7 @@ public final class PrimitiveTypeUtil {
         out_.removeDuplicates();
         return new ResultTernary(out_, false, false);
     }
-    static StringList getSuperTypesSet(StringList _first, StringMap<StringList> _mapping, Analyzable _conf) {
+    static StringList getSuperTypesSet(StringList _first, StringMap<StringList> _mapping, ContextEl _conf) {
         StringList superTypes_ = new StringList();
         LgNames stds_ = _conf.getStandards();
         String obj_ = stds_.getAliasObject();
@@ -207,7 +206,7 @@ public final class PrimitiveTypeUtil {
                     String i_ = dci_.getComponent();
                     int dLoc_ = dci_.getDim();
                     i_ = Templates.getIdFromAllTypes(i_);
-                    GeneType j_ = _conf.getContextEl().getClassBody(i_);
+                    GeneType j_ = _conf.getClassBody(i_);
                     for (String u: j_.getAllGenericSuperTypes()) {
                         superTypes_.add(getPrettyArrayType(u, d_ + dLoc_));
                     }
@@ -219,7 +218,7 @@ public final class PrimitiveTypeUtil {
             }
             if (StringList.quickEq(base_, bool_)) {
                 String w_ = PrimitiveTypeUtil.toWrapper(base_, stds_);
-                GeneType g_ = _conf.getContextEl().getClassBody(w_);
+                GeneType g_ = _conf.getClassBody(w_);
                 superTypes_.add(getPrettyArrayType(w_, d_));
                 for (String t: g_.getAllGenericSuperTypes()) {
                     superTypes_.add(getPrettyArrayType(t, d_));
@@ -235,7 +234,7 @@ public final class PrimitiveTypeUtil {
                     for (String p: s.getNames()) {
                         superTypes_.add(getPrettyArrayType(p, d_));
                         String w_ = PrimitiveTypeUtil.toWrapper(p, stds_);
-                        GeneType g_ = _conf.getContextEl().getClassBody(w_);
+                        GeneType g_ = _conf.getClassBody(w_);
                         superTypes_.add(getPrettyArrayType(w_, d_));
                         for (String t: g_.getAllGenericSuperTypes()) {
                             superTypes_.add(getPrettyArrayType(t, d_));
@@ -248,7 +247,7 @@ public final class PrimitiveTypeUtil {
                 continue;
             }
             String id_ = Templates.getIdFromAllTypes(base_);
-            GeneType g_ = _conf.getContextEl().getClassBody(id_);
+            GeneType g_ = _conf.getClassBody(id_);
             for (String t: g_.getAllGenericSuperTypes()) {
                 String f_ = Templates.format(base_, t, _conf);
                 if (f_.isEmpty()) {
@@ -267,13 +266,13 @@ public final class PrimitiveTypeUtil {
     /** nb calls of getParent - super type - arg object
     use class parent of object
     */
-    public static Struct getParent(int _nbAncestors,String _required, Struct _current, ExecutableCode _an) {
+    public static Struct getParent(int _nbAncestors,String _required, Struct _current, ContextEl _an) {
         String id_ = Templates.getIdFromAllTypes(_required);
         LgNames lgNames_ = _an.getStandards();
         Argument arg_ = new Argument();
         String cast_ = lgNames_.getAliasCastType();
         if (_current != NullStruct.NULL_VALUE) {
-            String className_ = lgNames_.getStructClassName(_current, _an.getContextEl());
+            String className_ = lgNames_.getStructClassName(_current, _an);
             String cl_ = Templates.getIdFromAllTypes(className_);
             DimComp dimReq_ = getQuickComponentBaseType(id_);
             DimComp dimCurrent_ = getQuickComponentBaseType(cl_);
@@ -289,7 +288,7 @@ public final class PrimitiveTypeUtil {
                 return NullStruct.NULL_VALUE;
             }
             PrimitiveType pr_ = _an.getStandards().getPrimitiveTypes().getVal(dimCurrent_.getComponent());
-            GeneType g_ = _an.getContextEl().getClassBody(dimCurrent_.getComponent());
+            GeneType g_ = _an.getClassBody(dimCurrent_.getComponent());
             InheritedType in_ = null;
             if (pr_ != null) {
                 in_ = pr_;
@@ -309,7 +308,7 @@ public final class PrimitiveTypeUtil {
             for (int i = 0; i < _nbAncestors; i++) {
                 Struct enc_ = arg_.getStruct();
                 Struct par_ = enc_.getParent();
-                _an.getContextEl().getInitializingTypeInfos().addSensibleField(enc_, par_);
+                _an.getInitializingTypeInfos().addSensibleField(enc_, par_);
                 arg_.setStruct(par_);
             }
         }
@@ -319,10 +318,10 @@ public final class PrimitiveTypeUtil {
             return arg_.getStruct();
         }
         Struct current_ = arg_.getStruct();
-        String className_ = lgNames_.getStructClassName(current_, _an.getContextEl());
+        String className_ = lgNames_.getStructClassName(current_, _an);
         String cl_ = Templates.getIdFromAllTypes(className_);
         StringList list_ = new StringList();
-        GeneType g_ = _an.getContextEl().getClassBody(cl_);
+        GeneType g_ = _an.getClassBody(cl_);
         while (!g_.isSubTypeOf(id_,_an)) {
             if (StringList.contains(list_, cl_)) {
                 _an.setException(new ErrorStruct(_an,cast_));
@@ -334,15 +333,15 @@ public final class PrimitiveTypeUtil {
                 break;
             }
             Struct par_ = current_.getParent();
-            _an.getContextEl().getInitializingTypeInfos().addSensibleField(current_, par_);
+            _an.getInitializingTypeInfos().addSensibleField(current_, par_);
             className_ = ((WithParentStruct)current_).getParentClassName();
             current_ = par_;
             cl_ = Templates.getIdFromAllTypes(className_);
-            g_ = _an.getContextEl().getClassBody(cl_);
+            g_ = _an.getClassBody(cl_);
         }
         return current_;
     }
-    public static boolean primitiveTypeNullObject(String _className, Struct _instance, Analyzable _context) {
+    public static boolean primitiveTypeNullObject(String _className, Struct _instance, ContextEl _context) {
         return primitiveTypeNullObject(_className, _instance, _context.getStandards());
     }
 
@@ -353,10 +352,10 @@ public final class PrimitiveTypeUtil {
         return _instance == NullStruct.NULL_VALUE;
     }
 
-    public static boolean isPrimitive(String _className, Analyzable _context) {
+    public static boolean isPrimitive(String _className, ContextEl _context) {
         return isPrimitive(_className, _context.getStandards());
     }
-    public static boolean isWrapper(String _className, Analyzable _context) {
+    public static boolean isWrapper(String _className, ContextEl _context) {
         return isWrapper(_className, _context.getStandards());
     }
     private static boolean isWrapper(String _className, LgNames _stds) {
@@ -372,7 +371,7 @@ public final class PrimitiveTypeUtil {
         return _stds.getPrimitiveTypes().contains(_className);
     }
 
-    public static ArrayStruct newCustomArray(String _className, Ints _dims, Analyzable _cont) {
+    public static ArrayStruct newCustomArray(String _className, Ints _dims, ContextEl _cont) {
         TreeMap<Ints,Struct> indexesArray_;
         indexesArray_ = new TreeMap<Ints,Struct>(new IndexesComparator());
         Struct[] instanceGl_ = new Struct[_dims.first()];
@@ -409,13 +408,13 @@ public final class PrimitiveTypeUtil {
             ind_.removeLast();
             int lastIndex_ = key_.last();
             Struct str_ = indexesArray_.getVal(ind_);
-            Struct[] array_ = ExecArrayFieldOperation.getArray(str_,_cont.getContextEl()).getInstance();
+            Struct[] array_ = ExecArrayFieldOperation.getArray(str_,_cont).getInstance();
             array_[lastIndex_] = value_;
         }
         return output_;
     }
     /** Only "object" classes are used as arguments */
-    public static StringList getSubclasses(StringList _classNames, Analyzable _context) {
+    public static StringList getSubclasses(StringList _classNames, ContextEl _context) {
         StringList types_ = new StringList();
         for (String i: _classNames) {
             boolean sub_ = true;
@@ -425,7 +424,7 @@ public final class PrimitiveTypeUtil {
                 if (StringList.quickEq(baseSup_, baseSub_)) {
                     continue;
                 }
-                GeneType subType_ = _context.getContextEl().getClassBody(baseSub_);
+                GeneType subType_ = _context.getClassBody(baseSub_);
                 if (subType_.isSubTypeOf(baseSup_,_context)) {
                     sub_ = false;
                     break;
@@ -439,7 +438,7 @@ public final class PrimitiveTypeUtil {
         return types_;
     }
 
-    static StringList getTernarySubclasses(StringList _classNames, StringMap<StringList> _map, Analyzable _context) {
+    static StringList getTernarySubclasses(StringList _classNames, StringMap<StringList> _map, ContextEl _context) {
         StringList types_ = new StringList();
         LgNames stds_ = _context.getStandards();
         String obj_ = stds_.getAliasObject();
@@ -488,15 +487,15 @@ public final class PrimitiveTypeUtil {
                 if (baseArrSup_.getComponent().startsWith(Templates.PREFIX_VAR_TYPE)) {
                     continue;
                 }
-                if (isPrimitive(baseArrSub_.getComponent(), _context)) {
-                    if (StringList.contains(_context.getStandards().getPrimitiveTypes().getVal(baseArrSub_.getComponent()).getAllPrimSuperType(_context),
-                            baseArrSup_.getComponent())){
-                        sub_ = false;
-                        break;
-                    }
-                    continue;
+                PrimitiveType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArrSub_.getComponent());
+                GeneType g_ = _context.getClassBody(baseArrSub_.getComponent());
+                InheritedType in_;
+                if (pr_ != null) {
+                    in_ = pr_;
+                } else {
+                    in_ = g_;
                 }
-                if (_context.getContextEl().getClassBody(baseArrSub_.getComponent()).isSubTypeOf(baseArrSup_.getComponent(),_context)) {
+                if (in_.isSubTypeOf(baseArrSup_.getComponent(),_context)) {
                     sub_ = false;
                     break;
                 }
@@ -611,9 +610,9 @@ public final class PrimitiveTypeUtil {
         return convertObject(new ClassArgumentMatching(_match), _obj, _stds);
     }
 
-    public static int cmpTypes(String _one, String _two, Analyzable _context) {
-        GeneType one_ = _context.getContextEl().getClassBody(_one);
-        GeneType two_ = _context.getContextEl().getClassBody(_two);
+    public static int cmpTypes(String _one, String _two, ContextEl _context) {
+        GeneType one_ = _context.getClassBody(_one);
+        GeneType two_ = _context.getClassBody(_two);
         if (two_.isSubTypeOf(_one,_context)) {
             return CustList.SWAP_SORT;
         }
@@ -623,7 +622,7 @@ public final class PrimitiveTypeUtil {
         return CustList.EQ_CMP;
     }
 
-    private static CustList<ClassArgumentMatching> getAllSuperTypes(ClassArgumentMatching _class, Analyzable _context) {
+    private static CustList<ClassArgumentMatching> getAllSuperTypes(ClassArgumentMatching _class, ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         CustList<ClassArgumentMatching> gt_ = new CustList<ClassArgumentMatching>();
         String name_ = _class.getName();
@@ -639,13 +638,13 @@ public final class PrimitiveTypeUtil {
         return gt_;
     }
 
-    public static int getOrderClass(String _class, Analyzable _context) {
+    public static int getOrderClass(String _class, ContextEl _context) {
         return getOrderClass(_class, _context.getStandards());
     }
     private static int getOrderClass(String _class, LgNames _stds) {
         return getOrderClass(new ClassArgumentMatching(_class), _stds);
     }
-    public static int getOrderClass(ClassArgumentMatching _class, Analyzable _context) {
+    public static int getOrderClass(ClassArgumentMatching _class, ContextEl _context) {
         return getOrderClass(_class, _context.getStandards());
     }
     private static int getOrderClass(ClassArgumentMatching _class, LgNames _stds) {
@@ -673,7 +672,7 @@ public final class PrimitiveTypeUtil {
         }
         return 0;
     }
-    public static int getIntOrderClass(ClassArgumentMatching _class, Analyzable _context) {
+    public static int getIntOrderClass(ClassArgumentMatching _class, ContextEl _context) {
         return getIntOrderClass(_class, _context.getStandards());
     }
     private static int getIntOrderClass(ClassArgumentMatching _class, LgNames _stds) {
@@ -695,7 +694,7 @@ public final class PrimitiveTypeUtil {
         }
         return 0;
     }
-    public static boolean isPrimitiveOrWrapper(ClassArgumentMatching _className, Analyzable _context) {
+    public static boolean isPrimitiveOrWrapper(ClassArgumentMatching _className, ContextEl _context) {
         for (String c: _className.getNames()) {
             if (isPrimitiveOrWrapper(c, _context.getStandards())) {
                 return true;
@@ -703,7 +702,7 @@ public final class PrimitiveTypeUtil {
         }
         return false;
     }
-    public static boolean isPrimitiveOrWrapper(String _className, Analyzable _context) {
+    public static boolean isPrimitiveOrWrapper(String _className, ContextEl _context) {
         return isPrimitiveOrWrapper(_className, _context.getStandards());
     }
     private static boolean isPrimitiveOrWrapper(String _className, LgNames _stds) {
@@ -712,7 +711,7 @@ public final class PrimitiveTypeUtil {
         }
         return isWrapper(_className, _stds);
     }
-    public static boolean isPureNumberClass(ClassArgumentMatching _class, Analyzable _context) {
+    public static boolean isPureNumberClass(ClassArgumentMatching _class, ContextEl _context) {
         return isPureNumberClass(_class, _context.getStandards());
     }
     public static boolean isPureNumberClass(ClassArgumentMatching _class, LgNames _stds) {
@@ -737,7 +736,7 @@ public final class PrimitiveTypeUtil {
         }
         return out_.matchClass(_stds.getAliasPrimByte());
     }
-    public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, Analyzable _context) {
+    public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, ContextEl _context) {
         return toPrimitive(_class, _context.getStandards());
     }
     public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, LgNames _stds) {
@@ -766,14 +765,14 @@ public final class PrimitiveTypeUtil {
         }
         return _class;
     }
-    public static Struct defaultClass(String _element, Analyzable _context) {
+    public static Struct defaultClass(String _element, ContextEl _context) {
         if (isPrimitive(_element, _context)) {
             return defaultValue(_element, _context);
         }
         return NullStruct.NULL_VALUE;
     }
 
-    public static Struct defaultValue(String _class, Analyzable _context) {
+    public static Struct defaultValue(String _class, ContextEl _context) {
         return defaultValue(_class, _context.getStandards());
     }
 
@@ -811,7 +810,7 @@ public final class PrimitiveTypeUtil {
     }
 
     public static boolean isPrimitive(ClassArgumentMatching _clMatchLeft,
-            Analyzable _conf) {
+            ContextEl _conf) {
         for (String n: _clMatchLeft.getNames()) {
             if (isPrimitive(n, _conf)) {
                 return true;

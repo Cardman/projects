@@ -7,6 +7,7 @@ import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.formathtml.Configuration;
+import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -34,7 +35,7 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
         MethodId id_ = classMethodId.getConstraints();
         CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, arguments_, _conf);
         Argument prev_ = new Argument();
-        Argument res_ = ExecInvokingOperation.callPrepare(_conf, "", id_, prev_, firstArgs_, null);
+        Argument res_ = ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), "", id_, prev_, firstArgs_, null);
         processCall(_nodes,_conf,res_);
     }
 }

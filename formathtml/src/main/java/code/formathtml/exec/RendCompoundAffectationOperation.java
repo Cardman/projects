@@ -34,7 +34,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             RendDynOperationNode left_ = ((RendDynOperationNode) settable).getParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ClassArgumentMatching.convert(getResultClass(),NullStruct.NULL_VALUE,_conf));
+                leftArg_ = new Argument(ClassArgumentMatching.convert(_conf.getPageEl(),getResultClass(),NullStruct.NULL_VALUE,_conf.getContext()));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
                 return;
             }
@@ -52,7 +52,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             String classNameFound_ = classMethodId.getClassName();
             MethodId id_ = classMethodId.getConstraints();
             Argument res_;
-            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl(),null);
+            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContext(),null);
             Argument arg_ = settable.endCalculate(_nodes, _conf, res_);
             setSimpleArgument(arg_, _conf,_nodes);
             return;

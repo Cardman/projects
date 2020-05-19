@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers.exec;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -27,7 +27,7 @@ public final class ExecUnaryBooleanOperation extends ExecAbstractUnaryOperation 
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         UnaryBooleanOperation.tryGetArg(this,_conf);
     }
 

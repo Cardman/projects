@@ -1,11 +1,10 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
 import code.util.CustList;
-import code.util.*;
 
 public final class DotOperation extends AbstractDotOperation {
 
@@ -15,11 +14,11 @@ public final class DotOperation extends AbstractDotOperation {
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         DotOperation.setArg(this,_conf);
     }
 
-    public static void setArg(ParentOperable _op, Analyzable _conf) {
+    public static void setArg(ParentOperable _op, ContextEl _conf) {
         CustList<Operable> chidren_ = _op.getChildrenOperable();
         _op.setSimpleArgumentAna(chidren_.last().getArgument(), _conf);
     }

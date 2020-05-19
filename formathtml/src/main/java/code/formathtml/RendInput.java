@@ -43,7 +43,7 @@ public abstract class RendInput extends RendElement {
             Mapping m_ = new Mapping();
             m_.setArg(opsRead.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
-            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+            if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 String string_ = _cont.getStandards().getAliasString();
                 StringList varNames_ = new StringList();
                 String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
@@ -60,7 +60,7 @@ public abstract class RendInput extends RendElement {
                 }
                 m_.setArg(opsConverter.last().getResultClass());
                 m_.setParam(opsRead.last().getResultClass());
-                if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+                if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(attr_);
@@ -90,7 +90,7 @@ public abstract class RendInput extends RendElement {
             Mapping m_ = new Mapping();
             m_.setArg(opsConverterField.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
-            if (!Templates.isCorrectOrNumbers(m_,_cont)) {
+            if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(attr_);

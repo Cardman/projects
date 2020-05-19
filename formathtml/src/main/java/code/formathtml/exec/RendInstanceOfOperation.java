@@ -37,10 +37,10 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
             arg_.setStruct(BooleanStruct.of(false));
             return arg_;
         }
-        String className_ = stds_.getStructClassName(objArg_.getStruct(), _conf.getContextEl());
-        PageEl page_ = _conf.getOperationPageEl();
-        String str_ = page_.formatVarType(className, _conf);
-        boolean res_ = Templates.isCorrectExecute(className_, str_, _conf);
+        String className_ = stds_.getStructClassName(objArg_.getStruct(), _conf.getContext());
+        PageEl page_ = _conf.getPageEl();
+        String str_ = page_.formatVarType(className, _conf.getContext());
+        boolean res_ = Templates.isCorrectExecute(className_, str_, _conf.getContext());
         Argument arg_ = new Argument();
         arg_.setStruct(BooleanStruct.of(res_));
         return arg_;

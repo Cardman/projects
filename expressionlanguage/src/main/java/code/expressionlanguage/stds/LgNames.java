@@ -899,7 +899,7 @@ public abstract class LgNames {
         return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args);
     }
 
-    public Argument defaultInstance(ExecutableCode _cont, String _id) {
+    public Argument defaultInstance(ContextEl _cont, String _id) {
         return new Argument(new SimpleObjectStruct());
     }
 
@@ -913,7 +913,7 @@ public abstract class LgNames {
         return res_;
     }
 
-    public ResultErrorStd getSimpleResult(Analyzable _conf, ClassField _classField) {
+    public ResultErrorStd getSimpleResult(ContextEl _conf, ClassField _classField) {
         return ApplyCoreMethodUtil.getSimpleResultBase(_conf, _classField);
     }
 

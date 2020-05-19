@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -25,30 +25,30 @@ public final class VarargOperation extends LeafOperation implements VarargOperab
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
         if (m_ == null ||!m_.isCallMethodCtor()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setIndexFile(_conf.getCurrentLocationIndex());
+            varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            varg_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            varg_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getContextEl().getKeyWords().getKeyWordVararg());
-            _conf.addError(varg_);
+            varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getKeyWords().getKeyWordVararg());
+            _conf.getAnalyzing().getLocalizer().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
         }
         if (!isFirstChildInParent()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setIndexFile(_conf.getCurrentLocationIndex());
+            varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            varg_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            varg_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getContextEl().getKeyWords().getKeyWordVararg());
-            _conf.addError(varg_);
+            varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getKeyWords().getKeyWordVararg());
+            _conf.getAnalyzing().getLocalizer().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
@@ -57,7 +57,7 @@ public final class VarargOperation extends LeafOperation implements VarargOperab
         String str_ = className.substring(afterLeftPar_, className.lastIndexOf(PAR_RIGHT));
         int off_ = StringList.getFirstPrintableCharIndex(str_);
         str_ = ResolvingImportTypes.resolveCorrectType(_conf,afterLeftPar_+off_,str_);
-        partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         setResultClass(new ClassArgumentMatching(str_));
         className = str_;
         setSimpleArgument(new Argument());

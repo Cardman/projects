@@ -1,12 +1,9 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractTernaryOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -21,11 +18,11 @@ public final class ExecTernaryOperation extends ExecMethodOperation implements A
     }
 
     @Override
-    public void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(ContextEl _conf) {
         quickCalculate(_conf);
     }
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         AbstractTernaryOperation.tryGetResult(_conf, this);
     }
 
@@ -36,7 +33,7 @@ public final class ExecTernaryOperation extends ExecMethodOperation implements A
         Argument res_ = getArgument(arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
     }
-    Argument  getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument  getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
         Argument arg_;
         if (BooleanStruct.of(true).sameReference(_arguments.first().getStruct())) {

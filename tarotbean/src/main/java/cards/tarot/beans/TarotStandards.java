@@ -5,7 +5,6 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.bean.Bean;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -17,6 +16,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.*;
+import code.formathtml.Configuration;
 import code.formathtml.structs.BeanStruct;
 import code.formathtml.structs.RealInstanceStruct;
 import code.formathtml.util.*;
@@ -477,7 +477,7 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, RATE)) {
-                res_.setResult(wrapStd(instance_.getRate(),_cont));
+                res_.setResult(wrapStd(instance_.getRate()));
                 return res_;
             }
         }
@@ -795,7 +795,7 @@ public final class TarotStandards extends BeanNatLgNames {
     }
 
     @Override
-    public Struct wrapStd(Object _element, ExecutableCode _ex) {
+    public Struct wrapStd(Object _element) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
         }

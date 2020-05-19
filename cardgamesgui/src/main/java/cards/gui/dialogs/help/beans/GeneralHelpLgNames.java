@@ -2,13 +2,13 @@ package cards.gui.dialogs.help.beans;
 
 import cards.belote.beans.DefaultStruct;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.Configuration;
 import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanNatLgNames;
 import code.util.StringList;
@@ -18,7 +18,7 @@ public final class GeneralHelpLgNames extends BeanNatLgNames {
     public GeneralHelpLgNames() {
         DefaultInitialization.basicStandards(this);
     }
-    public Struct wrapStd(Object _element, ExecutableCode _ex){
+    public Struct wrapStd(Object _element){
         return NullStruct.NULL_VALUE;
     }
     @Override

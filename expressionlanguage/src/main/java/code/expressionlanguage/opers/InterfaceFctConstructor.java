@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -16,7 +16,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
     }
 
     @Override
-    ClassArgumentMatching getFrom(Analyzable _conf) {
+    ClassArgumentMatching getFrom(ContextEl _conf) {
         int index_ = getIndexChild();
         if (index_ <= 0) {
             return null;
@@ -26,11 +26,11 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,cl_.indexOf(PAR_LEFT)+1,cl_);
         if (!(_conf.getClasses().getClassBody(cl_) instanceof InterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getCurrentFileName());
-            call_.setIndexFile(_conf.getCurrentLocationIndex());
+            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _conf.addError(call_);
+            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            _conf.getAnalyzing().getLocalizer().addError(call_);
             return null;
         }
         OperationNode par_ = getParent();
@@ -41,47 +41,47 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         className = className_;
         if (!ExplicitOperation.customCast(className_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getCurrentFileName());
-            call_.setIndexFile(_conf.getCurrentLocationIndex());
+            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _conf.addError(call_);
+            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            _conf.getAnalyzing().getLocalizer().addError(call_);
             return null;
         }
         String idCl_ = Templates.getIdFromAllTypes(className_);
         RootBlock sub_ = _conf.getClasses().getClassBody(idCl_);
         if (!(sub_ instanceof InterfaceBlock)|| !sub_.isStaticType()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getCurrentFileName());
-            call_.setIndexFile(_conf.getCurrentLocationIndex());
+            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _conf.addError(call_);
+            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            _conf.getAnalyzing().getLocalizer().addError(call_);
             return null;
         }
-        String superClass_ = Templates.getFullTypeByBases(className_, cl_, _conf);
+        String superClass_ = Templates.getOverridingFullTypeByBases(className_, cl_, _conf);
         if (superClass_.isEmpty()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getCurrentFileName());
-            call_.setIndexFile(_conf.getCurrentLocationIndex());
+            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _conf.addError(call_);
+            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            _conf.getAnalyzing().getLocalizer().addError(call_);
             return null;
         }
         return new ClassArgumentMatching(superClass_);
     }
 
     @Override
-    void checkPositionBasis(Analyzable _conf) {
+    void checkPositionBasis(ContextEl _conf) {
         int index_ = getIndexChild();
         if (index_ <= 0) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getCurrentFileName());
+            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(getFullIndexInEl());
             //key word len
-            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorEnd());
-            _conf.addError(call_);
+            call_.buildError(_conf.getAnalysisMessages().getCallCtorEnd());
+            _conf.getAnalyzing().getLocalizer().addError(call_);
         }
     }
 

@@ -1,6 +1,6 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 
 public final class SimpleObjectStruct implements Struct {
 
@@ -15,7 +15,7 @@ public final class SimpleObjectStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getAliasObject();
     }
 

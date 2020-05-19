@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.AbstractUnaryOperation;
 
 public abstract class ExecAbstractUnaryOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
@@ -10,7 +10,7 @@ public abstract class ExecAbstractUnaryOperation extends ExecMethodOperation imp
     }
 
     @Override
-    public void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(ContextEl _conf) {
         AbstractUnaryOperation.setArg(_conf,this);
     }
 }

@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.ReadWrite;
@@ -75,12 +74,12 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
     }
 
     @Override
-    public final void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+    public final void setAssignmentBeforeNextSibling(ContextEl _an, AnalyzingEl _anEl) {
         if (!canBeIncrementedCurGroup()) {
             super.setAssignmentBeforeNextSibling(_an, _anEl);
             return;
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         Block nextSibling_ = getNextSibling();
         boolean finClause_ = nextSibling_ instanceof FinallyEval;
         Block try_ = this;
@@ -108,19 +107,19 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
     }
 
     @Override
-    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
+    public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AbstractCatchEval)) {
             if (!(pBlock_ instanceof TryEval)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
-                un_.buildError(_an.getContextEl().getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                        _an.getContextEl().getKeyWords().getKeyWordCatch(),
+                un_.buildError(_an.getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                        _an.getKeyWords().getKeyWordCatch(),
                         StringList.join(
                                 new StringList(
-                                        _an.getContextEl().getKeyWords().getKeyWordCatch(),
-                                        _an.getContextEl().getKeyWords().getKeyWordTry()
+                                        _an.getKeyWords().getKeyWordCatch(),
+                                        _an.getKeyWords().getKeyWordTry()
                                 ),
                                 "|"));
                 //key word len
@@ -130,7 +129,7 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
     }
 
     @Override
-    public final void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public final void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
         Block pBlock_ = getPreviousSibling();
         if (canBeIncrementedCurGroup()) {
@@ -148,7 +147,7 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
         if (pBlock_ instanceof Eval) {
             prev_.add(pBlock_);
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
         CustList<StringMap<SimpleAssignment>> afterVars_;

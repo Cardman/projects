@@ -7,7 +7,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
@@ -1016,7 +1015,7 @@ public class LgNamesUtils extends LgNames {
         return super.getStringOfObject(_cont,_arg);
     }
     @Override
-    public Argument defaultInstance(ExecutableCode _cont, String _id) {
+    public Argument defaultInstance(ContextEl _cont, String _id) {
         if (StringList.quickEq(_id,getAliasObject())) {
             return super.defaultInstance(_cont,_id);
         }
@@ -1065,7 +1064,7 @@ public class LgNamesUtils extends LgNames {
         }
         if (StringList.quickEq(name_,aliasThread)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont.getContextEl());
+                processFailInit(_cont);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1229,7 +1228,7 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasThreadSetAll)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont.getContextEl());
+                    processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1265,7 +1264,7 @@ public class LgNamesUtils extends LgNames {
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasPrint)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont.getContextEl());
+                    processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1287,7 +1286,7 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasSleep)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont.getContextEl());
+                    processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1307,7 +1306,7 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasCurrentThread)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont.getContextEl());
+                    processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1316,7 +1315,7 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasThreadExitHook)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont.getContextEl());
+                    processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1331,7 +1330,7 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasJoinOthers)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont.getContextEl());
+                    processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1377,7 +1376,7 @@ public class LgNamesUtils extends LgNames {
             }
             if (StringList.quickEq(name_,aliasYield)) {
                 if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont.getContextEl());
+                    processFailInit(_cont);
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
@@ -1386,7 +1385,7 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont.getContextEl());
+                processFailInit(_cont);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1395,7 +1394,7 @@ public class LgNamesUtils extends LgNames {
         }
         if (StringList.quickEq(className_,aliasReentrantLock)) {
             if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont.getContextEl());
+                processFailInit(_cont);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -1597,14 +1596,14 @@ public class LgNamesUtils extends LgNames {
                 return res_;
             }
             ArrayStruct bin_ = inst_.getBinary();
-            _cont.getContextEl().getInitializingTypeInfos().addSensibleField(inst_, bin_);
+            _cont.getInitializingTypeInfos().addSensibleField(inst_, bin_);
             res_.setResult(bin_);
             return res_;
         }
         if (StringList.quickEq(className_,aliasFile)) {
         	String name_ = _method.getConstraints().getName();
         	if (_cont.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont.getContextEl());
+                processFailInit(_cont);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
         	}

@@ -3,10 +3,7 @@ package code.expressionlanguage;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.types.AbstractAnnotationAnalysis;
-import code.expressionlanguage.types.AbstractCurrentConstraints;
-import code.expressionlanguage.types.AbstractCurrentGlobalBlock;
-import code.expressionlanguage.types.AbstractHiddenTypes;
+import code.expressionlanguage.types.*;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
@@ -76,6 +73,11 @@ public final class AnalyzedPageEl {
     private AbstractCurrentConstraints currentConstraints;
     private AbstractAnnotationAnalysis annotationAnalysis;
     private AbstractCurrentGlobalBlock currentGlobalBlock;
+    private AbstractLoopDeclaring loopDeclaring;
+    private AbstractLocalDeclaring localDeclaring;
+    private AbstractBuildingConstraints buildingConstraints;
+    private AbstractLocalizer localizer;
+    private AbstractTokenValidation tokenValidation;
 
     public AnalyzedPageEl() {
         setCatchVars(new CustList<StringMap<LocalVariable>>());
@@ -552,5 +554,45 @@ public final class AnalyzedPageEl {
 
     public void setCurrentGlobalBlock(AbstractCurrentGlobalBlock currentGlobalBlock) {
         this.currentGlobalBlock = currentGlobalBlock;
+    }
+
+    public AbstractLoopDeclaring getLoopDeclaring() {
+        return loopDeclaring;
+    }
+
+    public void setLoopDeclaring(AbstractLoopDeclaring loopDeclaring) {
+        this.loopDeclaring = loopDeclaring;
+    }
+
+    public AbstractLocalDeclaring getLocalDeclaring() {
+        return localDeclaring;
+    }
+
+    public void setLocalDeclaring(AbstractLocalDeclaring localDeclaring) {
+        this.localDeclaring = localDeclaring;
+    }
+
+    public AbstractBuildingConstraints getBuildingConstraints() {
+        return buildingConstraints;
+    }
+
+    public void setBuildingConstraints(AbstractBuildingConstraints buildingConstraints) {
+        this.buildingConstraints = buildingConstraints;
+    }
+
+    public AbstractLocalizer getLocalizer() {
+        return localizer;
+    }
+
+    public void setLocalizer(AbstractLocalizer localizer) {
+        this.localizer = localizer;
+    }
+
+    public AbstractTokenValidation getTokenValidation() {
+        return tokenValidation;
+    }
+
+    public void setTokenValidation(AbstractTokenValidation tokenValidation) {
+        this.tokenValidation = tokenValidation;
     }
 }

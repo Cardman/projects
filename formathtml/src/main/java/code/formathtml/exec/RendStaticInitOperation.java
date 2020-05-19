@@ -21,9 +21,9 @@ public final class RendStaticInitOperation extends RendLeafOperation implements 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         String className_ = getResultClass().getName();
-        if (possibleInitClass && ExecInvokingOperation.hasToExit(_conf, className_)) {
-            NotInitializedClass statusInit_ = (NotInitializedClass) _conf.getContextEl().getCallingState();
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
+        if (possibleInitClass && _conf.hasToExit(className_)) {
+            NotInitializedClass statusInit_ = (NotInitializedClass) _conf.getContext().getCallingState();
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
         }
         setQuickNoConvertSimpleArgument(Argument.createVoid(), _conf,_nodes);
     }

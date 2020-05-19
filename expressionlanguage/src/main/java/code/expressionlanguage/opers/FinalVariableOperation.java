@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ConstType;
@@ -40,7 +40,7 @@ public final class FinalVariableOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
@@ -65,12 +65,12 @@ public final class FinalVariableOperation extends LeafOperation {
         }
         variableName = str_;
         FoundErrorInterpret und_ = new FoundErrorInterpret();
-        und_.setFileName(_conf.getCurrentFileName());
-        und_.setIndexFile(_conf.getCurrentLocationIndex());
+        und_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+        und_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
         //variable name len
-        und_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedVariable(),
+        und_.buildError(_conf.getAnalysisMessages().getUndefinedVariable(),
                 variableName);
-        _conf.addError(und_);
+        _conf.getAnalyzing().getLocalizer().addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
 

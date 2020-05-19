@@ -1,6 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -85,8 +85,8 @@ public final class MenuStruct extends AbsMenuStruct {
         return menu;
     }
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
-        return ((LgNamesGui) _contextEl.getContextEl().getStandards()).getAliasMenu();
+    public String getClassName(ContextEl _contextEl) {
+        return ((LgNamesGui) _contextEl.getStandards()).getAliasMenu();
     }
 
     public void addSeparator() {

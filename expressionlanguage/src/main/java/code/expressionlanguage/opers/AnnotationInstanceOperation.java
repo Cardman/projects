@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.inherits.Mapping;
@@ -36,7 +36,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
     }
 
     @Override
-    public void preAnalyze(Analyzable _conf) {
+    public void preAnalyze(ContextEl _conf) {
         if (methodName.trim().isEmpty()) {
             array = true;
             MethodOperation mOp_ = getParent();
@@ -52,7 +52,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 AnnotationInstanceOperation inst_;
                 inst_ = (AnnotationInstanceOperation)mOpAss_;
                 String className_ = inst_.getClassName();
-                GeneType typeInfo_ = _conf.getContextEl().getClassBody(className_);
+                GeneType typeInfo_ = _conf.getClassBody(className_);
                 if (!(typeInfo_ instanceof Block)) {
                     className = _conf.getStandards().getAliasObject();
                     return;
@@ -75,7 +75,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     AnnotationInstanceOperation inst_;
                     inst_ = (AnnotationInstanceOperation)mOp_;
                     String className_ = inst_.getClassName();
-                    GeneType type_ = _conf.getContextEl().getClassBody(className_);
+                    GeneType type_ = _conf.getClassBody(className_);
                     if (!(type_ instanceof Block)) {
                         className = _conf.getStandards().getAliasObject();
                         return;
@@ -103,8 +103,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
             String realClassName_ = methodName.trim().substring(AROBASE.length());
             realClassName_ = ResolvingImportTypes.resolveCorrectType(_conf,1,realClassName_);
-            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
-            GeneType g_ = _conf.getContextEl().getClassBody(realClassName_);
+            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            GeneType g_ = _conf.getClassBody(realClassName_);
             if (!(g_ instanceof AnnotationBlock)) {
                 className = _conf.getStandards().getAliasObject();
                 setResultClass(new ClassArgumentMatching(realClassName_));
@@ -120,18 +120,18 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         return className;
     }
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         if (isIntermediateDottedOperation()){
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //first separator char
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     _conf.getStandards().getAliasObject());
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }
@@ -141,12 +141,12 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             String eltType_ = PrimitiveTypeUtil.getQuickComponentType(className);
             if (eltType_ == null) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_conf.getCurrentLocationIndex());
-                un_.setFileName(_conf.getCurrentFileName());
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 //first separator char
-                un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                         className);
-                _conf.addError(un_);
+                _conf.getAnalyzing().getLocalizer().addError(un_);
                 setResultClass(new ClassArgumentMatching(className));
                 return;
             }
@@ -159,13 +159,13 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 mapping_.setMapping(map_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //first separator char child
-                    cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(argType_.getNames(),"&"),
                             eltType_);
-                    _conf.addError(cast_);
+                    _conf.getAnalyzing().getLocalizer().addError(cast_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
                     o.getResultClass().setUnwrapObject(eltType_);
@@ -179,23 +179,23 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         analyzeCtor(_conf);
     }
 
-    private void analyzeCtor(Analyzable _conf) {
+    private void analyzeCtor(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         String objCl_ = _conf.getStandards().getAliasObject();
         if (StringList.quickEq(className, objCl_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getCurrentFileName());
-            call_.setIndexFile(_conf.getCurrentLocationIndex());
+            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //text header after @
-            call_.buildError(_conf.getContextEl().getAnalysisMessages().getIllegalCtorAnnotation(),
+            call_.buildError(_conf.getAnalysisMessages().getIllegalCtorAnnotation(),
                     methodName.trim().substring(AROBASE.length()).trim());
-            _conf.addError(call_);
+            _conf.getAnalyzing().getLocalizer().addError(call_);
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
 
-        GeneType g_ = _conf.getContextEl().getClassBody(className);
+        GeneType g_ = _conf.getClassBody(className);
         StringMap<AnnotationFieldInfo> fields_ = new StringMap<AnnotationFieldInfo>();
         for (Block b: Classes.getDirectChildren((Block)g_)) {
             if (!(b instanceof AnnotationMethodBlock)) {
@@ -238,13 +238,13 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                         }
                     }
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //first parenthese
-                    cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(arg_.getNames(),"&"),
                             StringList.join(param_.getNames(),"&"));
-                    _conf.addError(cast_);
+                    _conf.getAnalyzing().getLocalizer().addError(cast_);
                 }
                 AnnotationTypeInfo i_ = new AnnotationTypeInfo();
                 i_.setType(paramName_);
@@ -253,11 +253,11 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 return;
             }
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setIndexFile(_conf.getCurrentLocationIndex());
+            cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //last parenthese
-            cast_.buildError(_conf.getContextEl().getAnalysisMessages().getAnnotFieldNotUniq());
-            _conf.addError(cast_);
+            cast_.buildError(_conf.getAnalysisMessages().getAnnotFieldNotUniq());
+            _conf.getAnalyzing().getLocalizer().addError(cast_);
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
@@ -271,26 +271,26 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         for (EntryCust<String,Integer> e: counts_.entryList()) {
             if (e.getValue() > 1) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //key len at operation
-                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getDupSuppliedAnnotField(),
+                cast_.buildError(_conf.getAnalysisMessages().getDupSuppliedAnnotField(),
                         e.getKey()
                 );
-                _conf.addError(cast_);
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
             }
         }
         for (String f: suppliedFieldsType_.getKeys()) {
             if (!fields_.contains(f)) {
                 //ERROR
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //key len at operation
-                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getUndefinedAccessibleField(),
+                cast_.buildError(_conf.getAnalysisMessages().getUndefinedAccessibleField(),
                         f,
                         className);
-                _conf.addError(cast_);
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
             }
             AnnotationTypeInfo i_ = new AnnotationTypeInfo();
             fieldNames.put(f,i_);
@@ -302,12 +302,12 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             if (!suppliedFieldsType_.contains(e.getKey())) {
                 //ERROR
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //last parenthese
-                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getAnnotFieldMust(),
+                cast_.buildError(_conf.getAnalysisMessages().getAnnotFieldMust(),
                         e.getKey());
-                _conf.addError(cast_);
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
             }
         }
         for (EntryCust<String, ClassArgumentMatching> e: suppliedFieldsType_.entryList()) {
@@ -336,13 +336,13 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     }
                     //ERROR
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //equal char
-                    cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(arg_.getNames(),"&"),
                             StringList.join(param_.getNames(),"&"));
-                    _conf.addError(cast_);
+                    _conf.getAnalyzing().getLocalizer().addError(cast_);
                 }
                 AnnotationTypeInfo i_ = fieldNames.getVal(suppliedKey_);
                 i_.setType(paramName_);

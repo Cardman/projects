@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -39,7 +38,7 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
     }
 
     @Override
-    public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+    public void abrupt(ContextEl _an, AnalyzingEl _anEl) {
         Block ch_ = getFirstChild();
         if (ch_ == null) {
             if (!_anEl.isReachable(this)) {
@@ -64,9 +63,9 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
             _anEl.completeAbrupt(this);
         }
     }
-    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeChild(ContextEl _an, AnalyzingEl _anEl) {
         Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         CustList<StringMap<AssignmentBefore>> variables_;
@@ -82,13 +81,13 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
     }
 
     @Override
-    public void checkTree(Analyzable _an, AnalyzingEl _anEl) {
+    public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
     }
 
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
         Block ch_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         if (ch_ == null) {
             AssignedVariables ass_ = id_.getVal(this);
             StringMap<AssignmentBefore> fields_ = ass_.getFieldsRootBefore();
@@ -138,7 +137,7 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
     }
 
     @Override
-    public void reach(Analyzable _an, AnalyzingEl _anEl) {
+    public void reach(ContextEl _an, AnalyzingEl _anEl) {
         Block prev_ = getPreviousSibling();
         BracedBlock br_ = getParent();
         if (prev_ == null) {

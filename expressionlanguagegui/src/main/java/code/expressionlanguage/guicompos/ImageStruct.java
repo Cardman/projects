@@ -1,6 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
@@ -187,7 +187,7 @@ public final class ImageStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return ((LgNamesGui) _contextEl.getStandards()).getAliasImage();
     }
 

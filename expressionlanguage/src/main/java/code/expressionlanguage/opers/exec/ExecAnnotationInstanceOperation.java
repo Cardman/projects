@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -37,7 +36,7 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
     }
 
     Argument getArgument(CustList<Argument> _arguments,
-            ExecutableCode _conf) {
+                         ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -54,7 +53,7 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
             return a_;
         }
         String base_ = Templates.getIdFromAllTypes(className);
-        if (ExecInvokingOperation.hasToExit(_conf, base_)) {
+        if (_conf.hasToExit(base_)) {
             return Argument.createVoid();
         }
         return instancePrepareAnnotation(_conf, className, fieldNames, _arguments);

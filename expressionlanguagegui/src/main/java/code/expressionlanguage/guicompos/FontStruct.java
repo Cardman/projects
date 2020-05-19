@@ -1,6 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.*;
 
 import java.awt.*;
@@ -58,7 +58,7 @@ public final class FontStruct implements Struct {
         return BooleanStruct.of(font.isBold());
     }
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return ((LgNamesGui) _contextEl.getStandards()).getAliasFont();
     }
 

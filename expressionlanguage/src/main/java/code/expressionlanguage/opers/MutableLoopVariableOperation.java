@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.ElUtil;
@@ -36,7 +36,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         className = _className;
     }
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
@@ -46,23 +46,23 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             AnalyzedPageEl page_ = _conf.getAnalyzing();
             if (_conf.getAnalyzing().containsMutableLoopVar(str_) || _conf.getAnalyzing().containsVar(str_)) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(_conf.getCurrentFileName());
+                d_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 d_.setIndexFile(page_.getTraceIndex());
                 //variable name len
-                d_.buildError(_conf.getContextEl().getAnalysisMessages().getBadVariableName(),
+                d_.buildError(_conf.getAnalysisMessages().getBadVariableName(),
                         str_);
-                _conf.addError(d_);
+                _conf.getAnalyzing().getLocalizer().addError(d_);
                 setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting()));
                 return;
             }
-            if (!_conf.isValidSingleToken(str_)) {
+            if (!_conf.getAnalyzing().getTokenValidation().isValidSingleToken(str_)) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
-                b_.setFileName(_conf.getCurrentFileName());
+                b_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 b_.setIndexFile(page_.getTraceIndex());
                 //variable name len
-                b_.buildError(_conf.getContextEl().getAnalysisMessages().getBadVariableName(),
+                b_.buildError(_conf.getAnalysisMessages().getBadVariableName(),
                         str_);
-                _conf.addError(b_);
+                _conf.getAnalyzing().getLocalizer().addError(b_);
             }
             String c_ = _conf.getAnalyzing().getCurrentVarSetting();
             KeyWords keyWords_ = _conf.getKeyWords();
@@ -72,7 +72,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 _conf.getAnalyzing().getVariablesNamesLoopToInfer().add(str_);
             }
             LoopVariable lv_ = new LoopVariable();
-            String indexClassName_ = _conf.getIndexClassName();
+            String indexClassName_ = _conf.getAnalyzing().getLoopDeclaring().getIndexClassName();
             if (StringList.quickEq(c_, keyWordVar_)) {
                 lv_.setClassName(_conf.getStandards().getAliasObject());
             } else {
@@ -91,9 +91,9 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     }
 
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(ContextEl _conf) {
         Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getContextEl().getAssignedVariables().getFinalVariables().getVal(block_);
+        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
         CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(this);
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
@@ -133,9 +133,9 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                         //errors
                         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_conf.getCurrentFileName());
-                        un_.setIndexFile(_conf.getCurrentLocationIndex());
-                        un_.buildError(_conf.getContextEl().getAnalysisMessages().getFinalField(),
+                        un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                        un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                        un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                                 varName_);
                         _conf.addError(un_);
                     }

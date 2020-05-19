@@ -20,13 +20,10 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.types.DefaultAnnotationAnalysis;
-import code.expressionlanguage.types.DefaultCurrentConstraints;
-import code.expressionlanguage.types.DefaultCurrentGlobalBlock;
-import code.expressionlanguage.types.DefaultHiddenTypes;
+import code.expressionlanguage.types.*;
 import code.util.*;
 
-public abstract class ContextEl implements ExecutableCode {
+public abstract class ContextEl {
 
     private static final int DEFAULT_TAB_WIDTH = 4;
 
@@ -53,7 +50,7 @@ public abstract class ContextEl implements ExecutableCode {
     private InitializingTypeInfos initializingTypeInfos = new InitializingTypeInfos();
     private boolean covering;
     private Coverage coverage;
-    private ExecutableCode executingInstance;
+    private AbstractFullStack fullStack;
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
 
     public ContextEl(boolean _covering, int _stackOverFlow,
@@ -75,7 +72,7 @@ public abstract class ContextEl implements ExecutableCode {
         comments = _options.getComments();
     }
     protected ContextEl() {
-        setExecutingInstance(this);
+        setFullStack(new DefaultFullStack(this));
     }
 
     public static CustList<AnnotationMethodBlock> getAnnotationMethods(GeneType _element) {
@@ -173,12 +170,11 @@ public abstract class ContextEl implements ExecutableCode {
         return classes.isEmptyErrors() && classes.isEmptyStdError() && classes.isEmptyMessageError();
     }
 
-    @Override
     public void addError(FoundErrorInterpret _error) {
         _error.setLocationFile(getLocationFile(_error.getFileName(),_error.getIndexFile()));
         classes.addError(_error);
     }
-    @Override
+
     public Classes getClasses() {
         return classes;
     }
@@ -231,37 +227,31 @@ public abstract class ContextEl implements ExecutableCode {
         }
     }
 
-    @Override
     public String getCurrentFileName() {
         return analyzing.getCurrentBlock().getFile().getFileName();
     }
 
-    @Override
     public boolean hasDeclarator() {
         Block bl_ = analyzing.getCurrentBlock();
         return bl_.getPreviousSibling() instanceof DeclareVariable;
     }
 
-    @Override
     public void setupDeclaratorClass(String _className) {
         Block bl_ = analyzing.getCurrentBlock();
         Block previousSibling_ = bl_.getPreviousSibling();
         ((DeclareVariable)previousSibling_).setImportedClassName(_className);
     }
 
-    @Override
     public boolean hasLoopDeclarator() {
         Block bl_ = analyzing.getCurrentBlock();
         return bl_ instanceof ForMutableIterativeLoop;
     }
 
-    @Override
     public void setupLoopDeclaratorClass(String _className) {
         Block bl_ = analyzing.getCurrentBlock();
         ((ForMutableIterativeLoop)bl_).setImportedClassName(_className);
     }
 
-    @Override
     public AnalyzedPageEl getAnalyzing() {
         return analyzing;
     }
@@ -288,6 +278,11 @@ public abstract class ContextEl implements ExecutableCode {
         analyzing.setCurrentConstraints(new DefaultCurrentConstraints(this));
         analyzing.setAnnotationAnalysis(new DefaultAnnotationAnalysis(this));
         analyzing.setCurrentGlobalBlock(new DefaultCurrentGlobalBlock(this));
+        analyzing.setLoopDeclaring(new DefaultLoopDeclaring(this));
+        analyzing.setLocalDeclaring(new DefaultLocalDeclaring(this));
+        analyzing.setBuildingConstraints(new DefaultBuildingConstraints(this));
+        analyzing.setLocalizer(new DefaultLocalizer(this));
+        analyzing.setTokenValidation(new DefaultTokenValidation(this));
     }
 
     public void setNullAnalyzing() {
@@ -298,7 +293,6 @@ public abstract class ContextEl implements ExecutableCode {
         return importing.last();
     }
 
-    @Override
     public LgNames getStandards() {
         return standards;
     }
@@ -315,7 +309,6 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.getOffset();
     }
 
-    @Override
     public void setOffset(int _offset) {
         getLastPage().setOffset(_offset);
     }
@@ -342,7 +335,6 @@ public abstract class ContextEl implements ExecutableCode {
         return initializingTypeInfos.isFailInit();
     }
 
-    @Override
     public void setException(Struct _exception) {
         callingState = _exception;
     }
@@ -364,15 +356,17 @@ public abstract class ContextEl implements ExecutableCode {
 
     public abstract Initializer getInit();
 
-    public static int getCurrentChildTypeIndex(Analyzable _an,OperationNode _op, String _fileName, int _location,GeneType _type, String _fieldName, String _realClassName) {
+    public static int getCurrentChildTypeIndex(ContextEl _an, OperationNode _op, GeneType _type, String _fieldName, String _realClassName) {
         if (isEnumType(_type)) {
             if (_fieldName.isEmpty()) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(_fileName);
-                call_.setIndexFile(_location);
+                String file_ = _an.getAnalyzing().getLocalizer().getCurrentFileName();
+                int fileIndex_ = _an.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                call_.setFileName(file_);
+                call_.setIndexFile(fileIndex_);
                 //type len
-                call_.buildError(_an.getContextEl().getAnalysisMessages().getIllegalCtorEnum());
-                _an.addError(call_);
+                call_.buildError(_an.getAnalysisMessages().getIllegalCtorEnum());
+                _an.getAnalyzing().getLocalizer().addError(call_);
                 _op.setResultClass(new ClassArgumentMatching(_realClassName));
                 return -2;
             }
@@ -405,26 +399,14 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.isFinalLocalVar(_key, _index);
     }
 
-    @Override
-    public PageEl getOperationPageEl() {
-        return getLastPage();
+    public void setFullStack(AbstractFullStack fullStack) {
+        this.fullStack = fullStack;
     }
 
-    @Override
-    public ContextEl getContextEl() {
-        return this;
+    public ArrayStruct newStackTraceElementArrayFull() {
+        return fullStack.newStackTraceElementArray();
     }
 
-    @Override
-    public ExecutableCode getExecutingInstance() {
-        return executingInstance;
-    }
-
-    public void setExecutingInstance(ExecutableCode _executingInstance) {
-        executingInstance = _executingInstance;
-    }
-
-    @Override
     public ArrayStruct newStackTraceElementArray() {
         int count_ = nbPages();
         Struct[] arr_ = new Struct[count_];
@@ -436,7 +418,6 @@ public abstract class ContextEl implements ExecutableCode {
         return new ArrayStruct(arr_, cl_);
     }
 
-    @Override
     public StackTraceElementStruct newStackTraceElement(int _index) {
         AbstractPageEl call_ = getCall(_index);
         int indexFileType = call_.getTraceIndex();
@@ -603,7 +584,6 @@ public abstract class ContextEl implements ExecutableCode {
         return analyzing.isFinalMutableLoopVar(_key,_index);
     }
 
-    @Override
     public String getIndexClassName() {
         return ((ForMutableIterativeLoop)analyzing.getCurrentBlock()).getImportedClassIndexName();
     }
@@ -643,7 +623,6 @@ public abstract class ContextEl implements ExecutableCode {
         analyzing.setAnnotAnalysisField(_ana);
     }
 
-    @Override
     public int getCurrentLocationIndex() {
         return analyzing.getTraceIndex();
     }
@@ -656,7 +635,6 @@ public abstract class ContextEl implements ExecutableCode {
         analysisMessages = _analysisMessages;
     }
 
-    @Override
     public KeyWords getKeyWords() {
         return keyWords;
     }
@@ -665,7 +643,6 @@ public abstract class ContextEl implements ExecutableCode {
         keyWords = _keyWords;
     }
 
-	@Override
     public boolean isValidSingleToken(String _id) {
         if (!isValidToken(_id)) {
             return false;
@@ -693,7 +670,6 @@ public abstract class ContextEl implements ExecutableCode {
         return !analyzing.getParameters().contains(_id);
     }
 
-    @Override
     public boolean isValidToken(String _id) {
         Block b_ = analyzing.getCurrentBlock();
         boolean pred_ = b_.getFile().isPredefined();
@@ -722,7 +698,6 @@ public abstract class ContextEl implements ExecutableCode {
         return !isDigit(_id.charAt(0));
     }
 
-    @Override
     public boolean hasToExit(String _className) {
         Classes classes_ = getClasses();
         String idClass_ = Templates.getIdFromAllTypes(_className);
@@ -741,9 +716,9 @@ public abstract class ContextEl implements ExecutableCode {
                 }
                 return false;
             }
-            InitClassState res_ = locks_.getState(getContextEl(), idClass_);
+            InitClassState res_ = locks_.getState(this, idClass_);
             if (res_ == InitClassState.NOT_YET) {
-                getContextEl().setCallingState(new NotInitializedClass(idClass_));
+                setCallingState(new NotInitializedClass(idClass_));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {

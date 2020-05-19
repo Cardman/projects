@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.InstancingStep;
 import code.expressionlanguage.inherits.Templates;
@@ -16,12 +16,12 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
     }
 
     @Override
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
 
-        PageEl page_ = _conf.getOperationPageEl();
+        PageEl page_ = _conf.getLastPage();
         Argument arg_ = page_.getGlobalArgument();
         CustList<Argument> firstArgs_;
         String calledCtorTemp_;

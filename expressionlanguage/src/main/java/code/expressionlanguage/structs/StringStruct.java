@@ -1,8 +1,7 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -160,7 +159,7 @@ public final class StringStruct extends CharSequenceStruct {
         _res.setResult(new StringStruct(arg_.getInstance().toString()));
     }
 
-    public static void calculateString(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
+    public static void calculateString(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
             ApplyCoreMethodUtil.getString(_struct).calculateLocString(_cont, _res, _method, _args);
             return;
@@ -181,7 +180,7 @@ public final class StringStruct extends CharSequenceStruct {
         }
         Struct arg_ = getArg(list_, _args);
         if (isDisplay(list_, arg_)) {
-            _res.setResult(ExecCatOperation.getDisplayable(new Argument(arg_), _cont.getContextEl()).getDisplayedString(_cont));
+            _res.setResult(ExecCatOperation.getDisplayable(new Argument(arg_), _cont).getDisplayedString(_cont));
             return;
         }
         if (!(arg_ instanceof ArrayStruct)) {
@@ -196,7 +195,7 @@ public final class StringStruct extends CharSequenceStruct {
         return list_.size() == 1 && arg_ instanceof DisplayableStruct;
     }
 
-    public static Struct calculateString(Analyzable _cont, ClassMethodId _method, Struct _struct, Struct... _args) {
+    public static Struct calculateString(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
             return ApplyCoreMethodUtil.getString(_struct).calculateLocString(_cont, _method, _args);
         }
@@ -213,7 +212,7 @@ public final class StringStruct extends CharSequenceStruct {
         }
         Struct arg_ = getArg(list_, _args);
         if (isDisplay(list_, arg_)) {
-            return ExecCatOperation.getDisplayable(new Argument(arg_), _cont.getContextEl()).getDisplayedString(_cont);
+            return ExecCatOperation.getDisplayable(new Argument(arg_), _cont).getDisplayedString(_cont);
         }
         if (!(arg_ instanceof ArrayStruct)) {
             return null;
@@ -279,7 +278,7 @@ public final class StringStruct extends CharSequenceStruct {
         return one_ < 0 || two_ < 0 || one_ + two_ > arr_.length;
     }
 
-    private void calculateLocString(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
+    private void calculateLocString(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
@@ -329,7 +328,7 @@ public final class StringStruct extends CharSequenceStruct {
         _res.setResult(new StringStruct(StringList.toUpperCase(one_)));
     }
 
-    private Struct calculateLocString(Analyzable _cont, ClassMethodId _method, Struct... _args) {
+    private Struct calculateLocString(ContextEl _cont, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
@@ -507,7 +506,7 @@ public final class StringStruct extends CharSequenceStruct {
         return new StringStruct(StringList.replaceMult(instance, seps_));
     }
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getAliasString();
     }
 

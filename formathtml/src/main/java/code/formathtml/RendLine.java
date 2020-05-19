@@ -39,7 +39,7 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
             RendDeclareVariable declaring_ = (RendDeclareVariable) getPreviousSibling();
             String import_ = declaring_.getImportedClassName();
             String t_ = inferOrObject(_cont,import_);
-            AffectationOperation.processInfer(_cont, t_);
+            AffectationOperation.processInfer(_cont.getContext(), t_);
             declaring_.getVariableNames().addAllElts(vars_);
         }
         page_.setMerged(false);

@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -31,9 +30,9 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
         setSimpleArgument(arg_, _conf, _nodes);
     }
 
-    Argument getCommonArgument(ExecutableCode _conf) {
+    Argument getCommonArgument(ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
+        PageEl ip_ = _conf.getLastPage();
         Struct struct_ = ip_.getGlobalArgument().getStruct();
         Argument a_ = new Argument();
         a_.setStruct(struct_);

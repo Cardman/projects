@@ -1,6 +1,5 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
@@ -31,30 +30,30 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         partOffsets = new CustList<PartOffset>();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
         if (m_ == null ||!m_.isCallMethodCtor()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setIndexFile(_conf.getCurrentLocationIndex());
+            varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            varg_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            varg_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getContextEl().getKeyWords().getKeyWordId());
-            _conf.addError(varg_);
+            varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getKeyWords().getKeyWordId());
+            _conf.getAnalyzing().getLocalizer().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         if (!isFirstChildInParent()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setIndexFile(_conf.getCurrentLocationIndex());
+            varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            varg_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            varg_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getContextEl().getKeyWords().getKeyWordId());
-            _conf.addError(varg_);
+            varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getKeyWords().getKeyWordId());
+            _conf.getAnalyzing().getLocalizer().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -73,7 +72,7 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
-            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
             String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
             String keyWordStaticCall_ = _conf.getKeyWords().getKeyWordStaticCall();
             MethodAccessId idUpdate_ = new MethodAccessId(1);
@@ -90,7 +89,7 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
         setSimpleArgument(new Argument());
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
-    private MethodId resolveArguments(int _from, Analyzable _conf, String _fromType, String _name, MethodAccessKind _static, StringList _params){
+    private MethodId resolveArguments(int _from, ContextEl _conf, String _fromType, String _name, MethodAccessKind _static, StringList _params){
         StringList out_ = new StringList();
         LgNames stds_ = _conf.getStandards();
         int len_ = _params.size();
@@ -108,11 +107,11 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
                 if (i + 1 != len_) {
                     //last type => error
                     FoundErrorInterpret varg_ = new FoundErrorInterpret();
-                    varg_.setFileName(_conf.getCurrentFileName());
-                    varg_.setIndexFile(_conf.getCurrentLocationIndex());
+                    varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    varg_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //three dots
-                    varg_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedVararg());
-                    _conf.addError(varg_);
+                    varg_.buildError(_conf.getAnalysisMessages().getUnexpectedVararg());
+                    _conf.getAnalyzing().getLocalizer().addError(varg_);
                     setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                     return null;
                 }
@@ -122,7 +121,7 @@ public final class IdFctOperation extends LeafOperation implements IdFctOperable
                 type_ = arg_;
             }
             arg_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,off_ + loc_,type_, _fromType);
-            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
             off_ += _params.get(i).length() + 1;
             out_.add(arg_);
         }

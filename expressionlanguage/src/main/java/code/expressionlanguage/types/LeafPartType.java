@@ -1,6 +1,6 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.util.CustList;
 import code.util.*;
 
@@ -15,7 +15,7 @@ abstract class LeafPartType extends PartType {
         previousSeparator = _previousSeparator;
 
     }
-    abstract void checkDynExistence(Analyzable _an, CustList<IntTreeMap< String>>_dels);
+    abstract void checkDynExistence(ContextEl _an, CustList<IntTreeMap< String>>_dels);
     final String exportHeader() {
         return importedTypeName;
     }

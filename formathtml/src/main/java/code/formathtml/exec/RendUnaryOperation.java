@@ -1,15 +1,12 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.UnaryOperation;
 import code.expressionlanguage.opers.exec.ExecUnaryOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.structs.NumberStruct;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
 
 public final class RendUnaryOperation extends RendAbstractUnaryOperation {
     private String oper;
@@ -31,6 +28,6 @@ public final class RendUnaryOperation extends RendAbstractUnaryOperation {
                          Argument _in) {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         ClassArgumentMatching to_ = getResultClass();
-        return ExecUnaryOperation.getArgument(_conf,_in,to_,oper);
+        return ExecUnaryOperation.getArgument(_conf.getContext(),_in,to_,oper);
     }
 }

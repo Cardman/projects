@@ -22,7 +22,7 @@ public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
             if (method_.isStaticField()) {
                 String baseClass_ = method_.getDeclaringClass();
                 baseClass_ = Templates.getIdFromAllTypes(baseClass_);
-                if (ExecInvokingOperation.hasToExit(_context, baseClass_)) {
+                if (_context.hasToExit(baseClass_)) {
                     setWrapException(true);
                     return false;
                 }

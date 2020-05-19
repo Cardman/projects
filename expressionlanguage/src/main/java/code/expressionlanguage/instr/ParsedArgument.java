@@ -1,6 +1,6 @@
 package code.expressionlanguage.instr;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.stds.DoubleInfo;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.LongInfo;
@@ -16,7 +16,7 @@ public final class ParsedArgument {
 
     private String type = UNEXPECTED_TYPE;
 
-    public static ParsedArgument parse(NumberInfos _infosNb, Analyzable _context) {
+    public static ParsedArgument parse(NumberInfos _infosNb, ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         String doubleType_ = stds_.getAliasDouble();
         String doublePrimType_ = stds_.getAliasPrimDouble();

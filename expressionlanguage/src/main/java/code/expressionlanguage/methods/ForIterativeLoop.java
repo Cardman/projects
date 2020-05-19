@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -255,7 +254,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(_offset);
             //char before expression
-            cast_.buildError(_cont.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(_elementClass.getNames(),"&"),
                     StringList.join(_stepEl.getResultClass().getNames(),"&"));
             _cont.addError(cast_);
@@ -321,9 +320,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
     }
     @Override
-    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeChild(ContextEl _an, AnalyzingEl _anEl) {
         Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
@@ -334,8 +333,8 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         id_.put(firstChild_, assBl_);
     }
     @Override
-    public void defaultAssignmentBefore(Analyzable _an, OperationNode _root) {
-        AssignedVariables vars_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
+    public void defaultAssignmentBefore(ContextEl _an, OperationNode _root) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         CustList<StringMap<AssignmentBefore>> variables_;
         variables_ = new CustList<StringMap<AssignmentBefore>>();
         vars_.getFieldsBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getFieldsRootBefore()));
@@ -355,8 +354,8 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         vars_.getMutableLoopBefore().put(_root, mutable_);
     }
     @Override
-    public void defaultAssignmentAfter(Analyzable _an, OperationNode _root) {
-        AssignedVariables vars_ = _an.getContextEl().getAssignedVariables().getFinalVariables().getVal(this);
+    public void defaultAssignmentAfter(ContextEl _an, OperationNode _root) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
         vars_.getFieldsRoot().putAllMap(AssignmentsUtil.assignClassic(res_));
         CustList<StringMap<Assignment>> varsRes_;
@@ -387,7 +386,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         return new AssignedBooleanVariables();
     }
     @Override
-    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
         AssignedVariablesDesc ass_ = new AssignedVariablesDesc(_an,this);
         AssignedVariables varsWhile_ = ass_.getVarsWhile();
         IdMap<Block, AssignedVariables> allDesc_ = ass_.getAllDesc();
@@ -417,7 +416,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         varsWhile_.getMutableLoopRoot().clear();
         varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
     }
-    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(ContextEl _an, AnalyzingEl _anEl) {
         Block first_ = getFirstChild();
         Block last_ = first_;
         while (last_.getNextSibling() != null) {
@@ -425,7 +424,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         StringMap<AssignmentBefore> list_;
         list_ = first_.makeHypothesisFields(_an);
         int contLen_ = continues_.size();
@@ -444,7 +443,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         return invalidateHypothesis(list_, new StringMap<SimpleAssignment>(), breakAss_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(ContextEl _an, AnalyzingEl _anEl) {
         Block first_ = getFirstChild();
         Block last_ = first_;
         while (last_.getNextSibling() != null) {
@@ -452,7 +451,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> list_;
@@ -481,7 +480,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         
         return varsList_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(ContextEl _an, AnalyzingEl _anEl) {
         Block first_ = getFirstChild();
         Block last_ = first_;
         while (last_.getNextSibling() != null) {
@@ -489,7 +488,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         CustList<ContinueBlock> continues_ = getContinuables(_anEl);
         IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        id_ = _an.getAssignedVariables().getFinalVariables();
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> list_;

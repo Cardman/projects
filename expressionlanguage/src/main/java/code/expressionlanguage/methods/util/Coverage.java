@@ -1,6 +1,6 @@
 package code.expressionlanguage.methods.util;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.ReflectAnnotationPageEl;
@@ -37,14 +37,14 @@ public final class Coverage {
     private String currentFileName = "";
     private boolean possibleDeclareLoopVars;
     private CustList<PartOffset> currentParts = new CustList<PartOffset>();
-    public void putBlockOperationsLoops(Analyzable _context, Block _block) {
-        if (!_context.getContextEl().isCovering()) {
+    public void putBlockOperationsLoops(ContextEl _context, Block _block) {
+        if (!_context.isCovering()) {
             return;
         }
         coverLoops.put(_block,new BooleanCoverageResult());
     }
-    public void putBlockOperationsSwitchs(Analyzable _context, Block _block, boolean _def) {
-        if (!_context.getContextEl().isCovering()) {
+    public void putBlockOperationsSwitchs(ContextEl _context, Block _block, boolean _def) {
+        if (!_context.isCovering()) {
             return;
         }
         coverSwitchs.put(_block, new IdMap<Block, StandardCoverageResult>());
@@ -52,35 +52,35 @@ public final class Coverage {
             coverNoDefSwitchs.put(_block,new StandardCoverageResult());
         }
     }
-    public void putBlockOperationsSwitchs(Analyzable _context, Block _block, Block _child) {
-        if (!_context.getContextEl().isCovering()) {
+    public void putBlockOperationsSwitchs(ContextEl _context, Block _block, Block _child) {
+        if (!_context.isCovering()) {
             return;
         }
         coverSwitchs.getVal(_block).put(_child, new StandardCoverageResult());
     }
-    public void putBlockOperations(Analyzable _context, Block _block) {
-        if (!_context.getContextEl().isCovering()) {
+    public void putBlockOperations(ContextEl _context, Block _block) {
+        if (!_context.isCovering()) {
             return;
         }
         covers.put(_block, new IdMap<ExecOperationNode, AbstractCoverageResult>());
         getMapping().put(_block,new IdMap<ExecOperationNode, OperationNode>());
     }
-    public void putBlockOperationsField(Analyzable _context, Block _block) {
-        if (!_context.getContextEl().isCovering()) {
+    public void putBlockOperationsField(ContextEl _context, Block _block) {
+        if (!_context.isCovering()) {
             return;
         }
-        if (_context.getContextEl().isAnnotAnalysisField()) {
+        if (_context.isAnnotAnalysisField()) {
             mappingAnnot.put(_block,new IdMap<ExecOperationNode, OperationNode>());
             return;
         }
         mappingAnnotMembers.put(_block,new IdMap<ExecOperationNode, OperationNode>());
     }
-    public void putBlockOperation(Analyzable _context, Block _block, OperationNode _op, ExecOperationNode _exec) {
-        if (!_context.getContextEl().isCovering()) {
+    public void putBlockOperation(ContextEl _context, Block _block, OperationNode _op, ExecOperationNode _exec) {
+        if (!_context.isCovering()) {
             return;
         }
-        if (_context.getContextEl().isAnnotAnalysis()) {
-            if (_context.getContextEl().isAnnotAnalysisField()) {
+        if (_context.isAnnotAnalysis()) {
+            if (_context.isAnnotAnalysisField()) {
                 IdMap<ExecOperationNode, OperationNode> mapping_ = mappingAnnot.getVal(_block);
                 mapping_.put(_exec,_op);
                 return;
@@ -129,59 +129,59 @@ public final class Coverage {
             instr_.put(_exec,new StandardCoverageResult());
         }
     }
-    public void putCalls(Analyzable _context, String _type) {
-        if (!_context.getContextEl().isCovering()) {
+    public void putCalls(ContextEl _context, String _type) {
+        if (!_context.isCovering()) {
             return;
         }
         calls.put(_type,new IdMap<NamedFunctionBlock,Boolean>());
     }
-    public void putCalls(Analyzable _context, String _type,NamedFunctionBlock _block) {
-        if (!_context.getContextEl().isCovering()) {
+    public void putCalls(ContextEl _context, String _type,NamedFunctionBlock _block) {
+        if (!_context.isCovering()) {
             return;
         }
         calls.getVal(_type).put(_block,false);
     }
-    public void putCatches(Analyzable _context, Block _block) {
-        if (!_context.getContextEl().isCovering()) {
+    public void putCatches(ContextEl _context, Block _block) {
+        if (!_context.isCovering()) {
             return;
         }
         catches.put(_block,false);
     }
-    public void passLoop(Analyzable _context, Argument _value) {
-        if (!_context.getContextEl().isCovering()) {
+    public void passLoop(ContextEl _context, Argument _value) {
+        if (!_context.isCovering()) {
             return;
         }
-        ReadWrite rw_ = _context.getContextEl().getLastPage().getReadWrite();
+        ReadWrite rw_ = _context.getLastPage().getReadWrite();
         Block en_ = rw_.getBlock();
         BooleanCoverageResult cov_ = coverLoops.getVal(en_);
-        cov_.setInit(_context.getContextEl().getInitializingTypeInfos().isWideInitEnums());
+        cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         cov_.cover(_value);
     }
-    public void passSwitch(Analyzable _context, Block _child,Argument _value) {
-        if (!_context.getContextEl().isCovering()) {
+    public void passSwitch(ContextEl _context, Block _child,Argument _value) {
+        if (!_context.isCovering()) {
             return;
         }
-        ReadWrite rw_ = _context.getContextEl().getLastPage().getReadWrite();
+        ReadWrite rw_ = _context.getLastPage().getReadWrite();
         Block en_ = rw_.getBlock();
         StandardCoverageResult cov_ = coverSwitchs.getVal(en_).getVal(_child);
-        cov_.setInit(_context.getContextEl().getInitializingTypeInfos().isWideInitEnums());
+        cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         cov_.cover(_value);
     }
-    public void passSwitch(Analyzable _context, Argument _value) {
-        if (!_context.getContextEl().isCovering()) {
+    public void passSwitch(ContextEl _context, Argument _value) {
+        if (!_context.isCovering()) {
             return;
         }
-        ReadWrite rw_ = _context.getContextEl().getLastPage().getReadWrite();
+        ReadWrite rw_ = _context.getLastPage().getReadWrite();
         Block en_ = rw_.getBlock();
         StandardCoverageResult cov_ = coverNoDefSwitchs.getVal(en_);
-        cov_.setInit(_context.getContextEl().getInitializingTypeInfos().isWideInitEnums());
+        cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         cov_.cover(_value);
     }
-    public void passBlockOperation(Analyzable _context, ExecOperationNode _exec, Argument _value, boolean _full) {
-        if (!_context.getContextEl().isCovering()) {
+    public void passBlockOperation(ContextEl _context, ExecOperationNode _exec, Argument _value, boolean _full) {
+        if (!_context.isCovering()) {
             return;
         }
-        AbstractPageEl lastPage_ = _context.getContextEl().getLastPage();
+        AbstractPageEl lastPage_ = _context.getLastPage();
         if (lastPage_ instanceof ReflectAnnotationPageEl || lastPage_ instanceof ReflectGetDefaultValuePageEl) {
             return;
         }
@@ -196,21 +196,21 @@ public final class Coverage {
         if (result_ == null) {
             return;
         }
-        result_.setInit(_context.getContextEl().getInitializingTypeInfos().isWideInitEnums());
+        result_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         if (_full) {
             result_.fullCover();
         } else {
             result_.cover(_value);
         }
     }
-    public void passCalls(Analyzable _context, String _type,NamedFunctionBlock _block) {
-        if (!_context.getContextEl().isCovering()) {
+    public void passCalls(ContextEl _context, String _type,NamedFunctionBlock _block) {
+        if (!_context.isCovering()) {
             return;
         }
         calls.getVal(_type).set(_block,true);
     }
-    public void passCatches(Analyzable _context, Block _block) {
-        if (!_context.getContextEl().isCovering()) {
+    public void passCatches(ContextEl _context, Block _block) {
+        if (!_context.isCovering()) {
             return;
         }
         catches.set(_block,true);

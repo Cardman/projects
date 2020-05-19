@@ -1,6 +1,6 @@
 package code.expressionlanguage.calls;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -34,7 +34,7 @@ public abstract class PageEl {
     public void setGlobalClass(String _globalClass) {
         globalClass = _globalClass;
     }
-    public String formatVarType(String _varType, ExecutableCode _cont) {
+    public String formatVarType(String _varType, ContextEl _cont) {
         if (globalArgument.isNull()) {
             return _varType;
         }

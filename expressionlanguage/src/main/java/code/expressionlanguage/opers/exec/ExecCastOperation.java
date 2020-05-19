@@ -1,9 +1,7 @@
 package code.expressionlanguage.opers.exec;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
@@ -31,7 +29,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
 
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         CastOperation.tryGetArg(this, _conf, className);
     }
 
@@ -43,22 +41,22 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
         setSimpleArgument(argres_, _conf, _nodes);
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         Argument objArg_ = _arguments.first();
-        String paramName_ = _conf.getOperationPageEl().formatVarType(className, _conf);
+        String paramName_ = _conf.getLastPage().formatVarType(className, _conf);
         wrapFct(paramName_,false,_arguments,_conf);
         Templates.checkObject(paramName_, objArg_, _conf);
         return objArg_;
     }
-    public static void wrapFct(String _className, boolean _full,CustList<Argument> _arguments, ExecutableCode _conf) {
+    public static void wrapFct(String _className, boolean _full,CustList<Argument> _arguments, ContextEl _conf) {
         Argument objArg_ = _arguments.first();
         if (ExplicitOperation.customCast(_className)) {
-            String argCl_ = objArg_.getObjectClassName(_conf.getContextEl());
+            String argCl_ = objArg_.getObjectClassName(_conf);
             String idArg_ = Templates.getIdFromAllTypes(argCl_);
             if (StringList.quickEq(idArg_, _conf.getStandards().getAliasFct())) {
                 String id_ = Templates.getIdFromAllTypes(_className);
-                GeneType r_ = _conf.getContextEl().getClassBody(id_);
+                GeneType r_ = _conf.getClassBody(id_);
                 if (r_ instanceof InterfaceBlock && r_.isStaticType()) {
                     int instEltCount_ = 0;
                     StringList superType_ = new StringList(id_);
@@ -87,7 +85,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         MethodId idMeth_ = realId_.quickFormat(geneStr_, _conf);
                         String gene_ = clRealId_.getClassName();
                         String geneFor_ = Templates.quickFormat(_className,gene_,_conf);
-                        String ret_ = Classes.getMethodBodiesById(_conf.getContextEl(),gene_, realId_).first().getImportedReturnType();
+                        String ret_ = Classes.getMethodBodiesById(_conf,gene_, realId_).first().getImportedReturnType();
                         ret_ = Templates.quickFormat(geneStr_,ret_,_conf);
                         ClassMethodIdReturn parmMe_ = new ClassMethodIdReturn(true);
                         parmMe_.setId(new ClassMethodId(clRealId_.getClassName(),idMeth_));
@@ -98,11 +96,11 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         fctParam_ = Templates.quickFormat(geneFor_,fctParam_,_conf);
                         if (Templates.isCorrectExecute(argCl_,fctParam_,_conf)) {
                             if (_full) {
-                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFullFunctionalInstance(_className,_conf.getContextEl());
+                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFullFunctionalInstance(_className,_conf);
                                 struct_.setFunctional(objArg_.getStruct());
                                 objArg_.setStruct(struct_);
                             } else {
-                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,_conf.getContextEl());
+                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,_conf);
                                 struct_.setFunctional(objArg_.getStruct());
                                 objArg_.setStruct(struct_);
                             }

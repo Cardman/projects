@@ -1,6 +1,6 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
 import code.gui.EnabledMenu;
 import code.gui.MenuItem;
@@ -19,8 +19,8 @@ public final class MenuItemStruct extends AbsMenuItemStruct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
-        return ((LgNamesGui) _contextEl.getContextEl().getStandards()).getAliasMenuItem();
+    public String getClassName(ContextEl _contextEl) {
+        return ((LgNamesGui) _contextEl.getStandards()).getAliasMenuItem();
     }
 
     public MenuItem getComponent() {

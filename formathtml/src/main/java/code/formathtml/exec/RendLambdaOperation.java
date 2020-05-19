@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.LambdaOperation;
 import code.expressionlanguage.opers.util.ClassField;
@@ -27,6 +26,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     private ClassField fieldId;
     private boolean affField;
     private boolean directCast;
+    private boolean expCast;
     private String returnFieldType;
 
     public RendLambdaOperation(LambdaOperation _l) {
@@ -44,6 +44,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         affField = _l.isAffField();
         returnFieldType = _l.getReturnFieldType();
         directCast = _l.isDirectCast();
+        expCast = _l.isExpCast();
     }
 
     @Override
@@ -53,18 +54,18 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         setSimpleArgument(res_, _conf,_nodes);
     }
 
-    Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
+    Argument getCommonArgument(Argument _previous, Configuration _conf) {
         Argument arg_ = new Argument();
         arg_.setStruct(newLambda(_previous,_conf));
         return arg_;
     }
-    private Struct newLambda(Argument _previous, ExecutableCode _conf) {
+    private Struct newLambda(Argument _previous, Configuration _conf) {
         String clArg_ = getResultClass().getName();
         String ownerType_ = foundClass;
-        ownerType_ = _conf.getOperationPageEl().formatVarType(ownerType_, _conf);
-        clArg_ = _conf.getOperationPageEl().formatVarType(clArg_, _conf);
+        ownerType_ = _conf.getPageEl().formatVarType(ownerType_, _conf.getContext());
+        clArg_ = _conf.getPageEl().formatVarType(clArg_, _conf.getContext());
         if (realId == null && method == null) {
-            String formatType_ = _conf.getOperationPageEl().formatVarType(returnFieldType, _conf);
+            String formatType_ = _conf.getPageEl().formatVarType(returnFieldType, _conf.getContext());
             LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_, fieldId, shiftArgument, ancestor,affField, formatType_);
             l_.setInstanceCall(_previous);
             return l_;
@@ -78,6 +79,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, id_, polymorph, shiftArgument, ancestor,abstractMethod);
         l_.setInstanceCall(_previous);
         l_.setDirectCast(directCast);
+        l_.setExpCast(expCast);
         return l_;
     }
 

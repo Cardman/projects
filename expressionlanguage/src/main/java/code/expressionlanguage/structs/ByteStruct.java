@@ -1,6 +1,6 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 
 public final class ByteStruct extends NumberStruct {
 
@@ -11,7 +11,7 @@ public final class ByteStruct extends NumberStruct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _context) {
+    public String getClassName(ContextEl _context) {
         return _context.getStandards().getAliasByte();
     }
 

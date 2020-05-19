@@ -1,6 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneConstructor;
@@ -30,7 +30,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Access
     }
 
     @Override
-    public String getSignature(Analyzable _ana) {
+    public String getSignature(ContextEl _ana) {
         return getId().getSignature(_ana);
     }
 
@@ -96,7 +96,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Access
         return MethodAccessKind.INSTANCE;
     }
     @Override
-    public void buildImportedReturnTypes(Analyzable _stds) {
+    public void buildImportedReturnTypes(ContextEl _stds) {
         String void_ = _stds.getStandards().getAliasVoid();
         setImportedReturnType(void_);
     }
@@ -117,14 +117,14 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Access
     }
 
     @Override
-    public void setAssignmentAfterCallReadOnly(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl) {
         checkInterfaces(_an);
     }
 
-    private void checkInterfaces(Analyzable _an) {
+    private void checkInterfaces(ContextEl _an) {
         Block firstChild_ = getFirstChild();
         StringList ints_ = new StringList();
-        StringList filteredCtor_ = _an.getContextEl().getNeedInterfaces();
+        StringList filteredCtor_ = _an.getNeedInterfaces();
         boolean checkThis_ = false;
         while (firstChild_ != null) {
             if (!(firstChild_ instanceof Line)) {
@@ -149,7 +149,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Access
                         undef_.setFileName(getFile().getFileName());
                         undef_.setIndexFile(0);
                         //left par of ctor
-                        undef_.buildError(_an.getContextEl().getAnalysisMessages().getMustCallIntCtorNeed(),
+                        undef_.buildError(_an.getAnalysisMessages().getMustCallIntCtorNeed(),
                                 n);
                         _an.addError(undef_);
                     }
@@ -161,7 +161,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Access
                         undef_.setFileName(getFile().getFileName());
                         undef_.setIndexFile(0);
                         //constructor ref header len
-                        undef_.buildError(_an.getContextEl().getAnalysisMessages().getMustCallIntCtorNotNeed(),
+                        undef_.buildError(_an.getAnalysisMessages().getMustCallIntCtorNotNeed(),
                                 n);
                         _an.addError(undef_);
                     }
@@ -174,18 +174,18 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Access
                 undef_.setFileName(getFile().getFileName());
                 undef_.setIndexFile(0);
                 //first constructor ref header len
-                undef_.buildError(_an.getContextEl().getAnalysisMessages().getMustNotCallIntCtorAfterThis());
+                undef_.buildError(_an.getAnalysisMessages().getMustNotCallIntCtorAfterThis());
                 _an.addError(undef_);
             }
         }
     }
 
     @Override
-    public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfterCall(ContextEl _an, AnalyzingEl _anEl) {
         setAssignmentAfter(_an,_anEl);
         checkInterfaces(_an);
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
-        for (EntryCust<ReturnMethod, StringMap<SimpleAssignment>> r: _an.getContextEl().getAssignedVariables().getAssignments().entryList()) {
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        for (EntryCust<ReturnMethod, StringMap<SimpleAssignment>> r: _an.getAssignedVariables().getAssignments().entryList()) {
             for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {
                 checkAssignments(_an, f,false);
             }
@@ -207,11 +207,11 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Access
         }
     }
 
-    private void checkAssignments(Analyzable _an, EntryCust<String, SimpleAssignment> _pair, boolean _add) {
+    private void checkAssignments(ContextEl _an, EntryCust<String, SimpleAssignment> _pair, boolean _add) {
         String cl_ = Templates.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
         String name_ = _pair.getKey();
         ClassField key_ = new ClassField(cl_, name_);
-        FieldInfo finfo_ = _an.getContextEl().getFieldInfo(key_);
+        FieldInfo finfo_ = _an.getFieldInfo(key_);
         if (!finfo_.isFinalField()) {
             return;
         }
@@ -221,7 +221,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Access
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_an.getContextEl().getAnalysisMessages().getUnassignedFinalField(),
+            un_.buildError(_an.getAnalysisMessages().getUnassignedFinalField(),
                     name_,cl_);
             _an.addError(un_);
         } else if (_add){

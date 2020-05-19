@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -17,18 +17,18 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
     }
 
     @Override
-    ClassArgumentMatching getFrom(Analyzable _conf) {
+    ClassArgumentMatching getFrom(ContextEl _conf) {
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _conf.getAnalyzing().getGlobalClass();
         String base_ = Templates.getIdFromAllTypes(clCurName_);
         RootBlock clBody_ = classes_.getClassBody(base_);
         if (!(clBody_ instanceof UniqueRootedBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getCurrentFileName());
-            call_.setIndexFile(_conf.getCurrentLocationIndex());
+            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorSuperClassEnumSingleton());
-            _conf.addError(call_);
+            call_.buildError(_conf.getAnalysisMessages().getCallCtorSuperClassEnumSingleton());
+            _conf.getAnalyzing().getLocalizer().addError(call_);
             return null;
         }
         UniqueRootedBlock unique_ =(UniqueRootedBlock) clBody_;

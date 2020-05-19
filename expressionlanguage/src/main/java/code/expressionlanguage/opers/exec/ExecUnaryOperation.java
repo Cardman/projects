@@ -1,8 +1,6 @@
 package code.expressionlanguage.opers.exec;
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.UnaryOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -29,18 +27,18 @@ public final class ExecUnaryOperation extends ExecAbstractUnaryOperation {
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         UnaryOperation.tryGetArg(this,null,oper,_conf);
     }
 
-    Argument getArgument(ExecutableCode _conf,
+    Argument getArgument(ContextEl _conf,
             Argument _in) {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         ClassArgumentMatching to_ = getResultClass();
         return getArgument(_conf, _in, to_, oper);
     }
 
-    public static Argument getArgument(ExecutableCode _conf, Argument _in, ClassArgumentMatching _to, String _oper) {
+    public static Argument getArgument(ContextEl _conf, Argument _in, ClassArgumentMatching _to, String _oper) {
         Argument out_ = new Argument();
         if (StringList.quickEq(_oper, PLUS)) {
             out_.setStruct(NumberStruct.idNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, _to));

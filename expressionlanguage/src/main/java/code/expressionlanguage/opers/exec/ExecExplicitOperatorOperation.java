@@ -2,6 +2,7 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ExplicitOperatorOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -34,7 +35,7 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
         MethodId id_ = classMethodId.getConstraints();
         CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, arguments_, _conf);
         Argument prev_ = new Argument();
-        callPrepare(_conf, "", id_, prev_, firstArgs_, null);
+        callPrepare(new DefaultExiting(_conf),_conf, "", id_, prev_, firstArgs_, null);
     }
 
     public ClassMethodId getClassMethodId() {

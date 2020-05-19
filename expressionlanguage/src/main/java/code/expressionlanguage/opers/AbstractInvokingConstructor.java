@@ -1,6 +1,7 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -36,7 +37,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
     }
 
     @Override
-    public final void analyze(Analyzable _conf) {
+    public final void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
@@ -73,8 +74,8 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         postAnalysis(_conf, ctorRes_, chidren_, firstArgs_);
     }
 
-    abstract ClassArgumentMatching getFrom(Analyzable _conf);
-    final void postAnalysis(Analyzable _conf, ConstrustorIdVarArg _res, CustList<OperationNode> _children, CustList<ClassArgumentMatching> _args) {
+    abstract ClassArgumentMatching getFrom(ContextEl _conf);
+    final void postAnalysis(ContextEl _conf, ConstrustorIdVarArg _res, CustList<OperationNode> _children, CustList<ClassArgumentMatching> _args) {
         if (_res.isVarArgToCall()) {
             naturalVararg = constId.getParametersTypes().size() - 1;
             lastType = constId.getParametersTypes().last();
@@ -84,7 +85,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
     }
 
-    void checkPositionBasis(Analyzable _conf) {
+    void checkPositionBasis(ContextEl _conf) {
         Block curBlock_ = _conf.getAnalyzing().getCurrentBlock();
         if (getParent() != null) {
             //error
@@ -92,7 +93,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             call_.setFileName(curBlock_.getFile().getFileName());
             call_.setIndexFile(getFullIndexInEl());
             //key word len
-            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorEnd());
+            call_.buildError(_conf.getAnalysisMessages().getCallCtorEnd());
             _conf.addError(call_);
         } else {
             if (!(curBlock_.getParent() instanceof ConstructorBlock)) {
@@ -101,7 +102,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
                 call_.setFileName(curBlock_.getFile().getFileName());
                 call_.setIndexFile(getFullIndexInEl());
                 //key word len
-                call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtor());
+                call_.buildError(_conf.getAnalysisMessages().getCallCtor());
                 _conf.addError(call_);
             } else if (!(curBlock_ instanceof Line)) {
                 //error
@@ -109,21 +110,21 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
                 call_.setFileName(curBlock_.getFile().getFileName());
                 call_.setIndexFile(getFullIndexInEl());
                 //key word len
-                call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorBeforeBlock());
+                call_.buildError(_conf.getAnalysisMessages().getCallCtorBeforeBlock());
                 _conf.addError(call_);
             } else {
                 checkPosition(_conf);
             }
         }
     }
-    void checkPosition(Analyzable _conf) {
+    void checkPosition(ContextEl _conf) {
         Block curBlock_ = _conf.getAnalyzing().getCurrentBlock();
         if (curBlock_.getParent().getFirstChild() != curBlock_) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(curBlock_.getFile().getFileName());
             call_.setIndexFile(getFullIndexInEl());
             //key word len
-            call_.buildError(_conf.getContextEl().getAnalysisMessages().getCallCtorFirstLine());
+            call_.buildError(_conf.getAnalysisMessages().getCallCtorFirstLine());
             _conf.addError(call_);
         }
     }

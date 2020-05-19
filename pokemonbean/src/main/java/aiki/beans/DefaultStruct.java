@@ -2,21 +2,14 @@ package aiki.beans;
 
 import aiki.beans.effects.ComboDto;
 import aiki.beans.facade.dto.MoveLine;
-import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.fight.effects.EffectWhileSending;
-import aiki.fight.moves.effects.Effect;
 import aiki.fight.status.effects.EffectPartnerStatus;
-import aiki.game.params.enums.DifficultyModelLaw;
-import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.characters.Ally;
 import aiki.map.characters.Person;
-import aiki.map.enums.Direction;
 import aiki.map.levels.AreaApparition;
-import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Place;
 import aiki.map.pokemon.Pokemon;
-import aiki.map.pokemon.enums.Gender;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.RealInstanceStruct;
@@ -116,7 +109,7 @@ public final class DefaultStruct implements RealInstanceStruct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return className;
     }
 

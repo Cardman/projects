@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -46,9 +45,9 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
             setSimpleArgument(arg_, _conf, _nodes);
         }
     }
-    Argument getCommonArgument(ExecutableCode _conf) {
+    private Argument getCommonArgument(ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
+        PageEl ip_ = _conf.getLastPage();
         if (resultCanBeSet()) {
             return Argument.createVoid();
         }
@@ -88,13 +87,13 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         return arg_;
     }
 
-    private Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
+    private Argument getCommonSetting(ContextEl _conf, Argument _right) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
+        PageEl ip_ = _conf.getLastPage();
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         return checkSet(_conf,locVar_,_right);
     }
-    public static Argument checkSet(ExecutableCode _conf, LocalVariable _loc, Argument _right) {
+    public static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right) {
         String formattedClassVar_ = _loc.getClassName();
         if (!Templates.checkObject(formattedClassVar_, _right, _conf)) {
             return Argument.createVoid();
@@ -102,8 +101,8 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         _loc.setStruct(_right.getStruct());
         return _right;
     }
-    private Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right, ClassArgumentMatching _arg) {
-        PageEl ip_ = _conf.getOperationPageEl();
+    private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ClassArgumentMatching _arg) {
+        PageEl ip_ = _conf.getLastPage();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
@@ -113,8 +112,8 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         setVar(_conf, locVar_, res_);
         return res_;
     }
-    private Argument getCommonSemiSetting(ExecutableCode _conf, Struct _store, String _op, boolean _post) {
-        PageEl ip_ = _conf.getOperationPageEl();
+    private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post) {
+        PageEl ip_ = _conf.getLastPage();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
@@ -126,8 +125,8 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
-    public static void setVar(ExecutableCode _conf, LocalVariable _var,Argument _value) {
-        if (_conf.getContextEl().callsOrException()) {
+    public static void setVar(ContextEl _conf, LocalVariable _var,Argument _value) {
+        if (_conf.callsOrException()) {
             return;
         }
         checkSet(_conf,_var,_value);
@@ -141,7 +140,7 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
     public Argument endCalculate(ContextEl _conf,
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
             Argument _stored, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
+        PageEl ip_ = _conf.getLastPage();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         checkSet(_conf,locVar_,_right);

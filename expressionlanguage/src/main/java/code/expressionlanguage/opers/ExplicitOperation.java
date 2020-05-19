@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -25,20 +25,20 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeUnary(Analyzable _conf) {
+    public void analyzeUnary(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         String extract_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
         StringList types_ = Templates.getAllSepCommaTypes(extract_);
         if (types_.size() > 2) {
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
-            badCall_.setFileName(_conf.getCurrentFileName());
-            badCall_.setIndexFile(_conf.getCurrentLocationIndex());
+            badCall_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            badCall_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            badCall_.buildError(_conf.getContextEl().getAnalysisMessages().getSplitComaLow(),
+            badCall_.buildError(_conf.getAnalysisMessages().getSplitComaLow(),
                     Integer.toString(2),
                     Integer.toString(types_.size())
             );
-            _conf.addError(badCall_);
+            _conf.getAnalyzing().getLocalizer().addError(badCall_);
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }
@@ -46,7 +46,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         int leftPar_ = className.indexOf(PAR_LEFT);
         res_ = ResolvingImportTypes.resolveCorrectType(_conf,leftPar_ +1,types_.first());
         className = res_;
-        partOffsets = new CustList<PartOffset>(_conf.getContextEl().getCoverage().getCurrentParts());
+        partOffsets = new CustList<PartOffset>(_conf.getCoverage().getCurrentParts());
         setResultClass(new ClassArgumentMatching(className));
         if (!customCast(res_)) {
             return;
@@ -65,7 +65,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             String lastType_ = "";
             String arg_ = types_.last();
             lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,leftPar_ +types_.first().length()+2,arg_, className);
-            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
             uniq_ = new ClassMethodId(className,new MethodId(MethodAccessKind.STATIC,exp_,new StringList(lastType_)));
         }
         ClassArgumentMatching resultClass_ = getFirstChild().getResultClass();

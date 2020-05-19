@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -26,8 +25,8 @@ public final class RendArrayElementOperation extends
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String cl_ = getClassName();
         String className_;
-        PageEl page_ = _conf.getOperationPageEl();
-        className_ = page_.formatVarType(cl_, _conf);
+        PageEl page_ = _conf.getPageEl();
+        className_ = page_.formatVarType(cl_, _conf.getContext());
 
         int nbCh_ = _arguments.size();
         Argument a_ = new Argument();
@@ -35,8 +34,8 @@ public final class RendArrayElementOperation extends
         Ints dims_;
         dims_ = new Ints();
         dims_.add(nbCh_);
-        Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
-        Templates.setCheckedElements(_arguments,str_,_conf);
+        Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf.getContext());
+        Templates.setCheckedElements(_arguments,str_,_conf.getContext());
         a_.setStruct(str_);
         return a_;
     }

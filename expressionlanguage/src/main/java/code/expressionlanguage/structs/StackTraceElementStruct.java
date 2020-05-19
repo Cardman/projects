@@ -1,7 +1,6 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.util.*;
 import code.util.StringList;
 
@@ -29,7 +28,7 @@ public final class StackTraceElementStruct implements DisplayableStruct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _contextEl) {
+    public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getAliasStackTraceElement();
     }
 
@@ -52,7 +51,7 @@ public final class StackTraceElementStruct implements DisplayableStruct {
         return new StackTraceElementStruct("",-1,-1,-1,"","");
     }
     @Override
-    public StringStruct getDisplayedString(Analyzable _an) {
+    public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(getStringRep());
     }
 

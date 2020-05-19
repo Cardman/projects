@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
@@ -31,15 +31,15 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         if (StringList.quickEq(oper.trim(), NEG_BOOL)) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            badEl_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //oper len
-            badEl_.buildError(_conf.getContextEl().getAnalysisMessages().getBadOperatorRef(),
+            badEl_.buildError(_conf.getAnalysisMessages().getBadOperatorRef(),
                     oper.trim());
-            _conf.addError(badEl_);
+            _conf.getAnalyzing().getLocalizer().addError(badEl_);
         }
         String custOp_ = oper.trim();
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -66,17 +66,17 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
     }
     @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
             OperationNode _nextSibling, OperationNode _previous) {
         analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(ContextEl _conf) {
         analyzeStdAssignmentAfter(_conf);
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         if (classMethodId != null) {
             return;
         }

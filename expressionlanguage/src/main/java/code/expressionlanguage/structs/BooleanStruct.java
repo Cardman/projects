@@ -1,7 +1,6 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 
 public final class BooleanStruct implements DisplayableStruct {
 
@@ -24,12 +23,12 @@ public final class BooleanStruct implements DisplayableStruct {
     }
 
     @Override
-    public String getClassName(ExecutableCode _context) {
+    public String getClassName(ContextEl _context) {
         return _context.getStandards().getAliasBoolean();
     }
 
     @Override
-    public StringStruct getDisplayedString(Analyzable _an) {
+    public StringStruct getDisplayedString(ContextEl _an) {
         if (this == TRUE) {
             return new StringStruct(_an.getStandards().getDisplayedStrings().getTrueString());
         }

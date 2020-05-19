@@ -1,37 +1,37 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.LeafOperation;
 import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.formathtml.Configuration;
-import code.util.CustList;
-import code.util.StringList;
 
 public final class InternGlobalOperation extends LeafOperation {
     private int off;
+    private Configuration configuration;
 
     public InternGlobalOperation(int _indexInEl, int _indexChild,
-            MethodOperation _m, OperationsSequence _op) {
+            MethodOperation _m, OperationsSequence _op, Configuration _conf) {
         super(_indexInEl, _indexChild, _m, _op);
         off = _op.getOffset();
+        configuration = _conf;
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
-        String arg_ = ((Configuration)_conf).getInternGlobalClass();
-        if (_conf.getAnalyzing().isStaticContext()) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, configuration.getContext());
+        String arg_ = configuration.getInternGlobalClass();
+        if (configuration.getAnalyzing().isStaticContext()) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_conf.getCurrentFileName());
-            static_.setIndexFile(_conf.getCurrentLocationIndex());
-            static_.buildError(((Configuration)_conf).getContext().getAnalysisMessages().getStaticAccess(),
-                    ((Configuration)_conf).getContext().getKeyWords().getKeyWordThis());
-            _conf.addError(static_);
+            static_.setFileName(configuration.getCurrentFileName());
+            static_.setIndexFile(configuration.getCurrentLocationIndex());
+            static_.buildError(configuration.getContext().getAnalysisMessages().getStaticAccess(),
+                    configuration.getContext().getKeyWords().getKeyWordThis());
+            configuration.addError(static_);
         }
         setResultClass(new ClassArgumentMatching(arg_));
     }

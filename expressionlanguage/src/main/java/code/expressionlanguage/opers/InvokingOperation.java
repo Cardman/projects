@@ -1,7 +1,8 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
@@ -39,7 +40,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         getChildren().putAllMap(vs_);
     }
 
-    CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children, Analyzable _conf) {
+    CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children, ContextEl _conf) {
         if (!_children.isEmpty() && _children.first() instanceof VarargOperation) {
             CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
             CustList<ClassArgumentMatching> optArgs_ = new CustList<ClassArgumentMatching>();
@@ -71,13 +72,13 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 mapping_.setMapping(map_);
                 if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //key word len or header name len or left bracket
-                    cast_.buildError(_conf.getContextEl().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(argType_.getNames(),"&"),
                             StringList.join(name_.getNames(),"&"));
-                    _conf.addError(cast_);
+                    _conf.getAnalyzing().getLocalizer().addError(cast_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
                     o.getResultClass().setUnwrapObject(name_);
@@ -110,7 +111,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return firstArgs_;
     }
 
-    public static CustList<Argument> quickListArguments(CustList<Operable> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, Analyzable _context) {
+    public static CustList<Argument> quickListArguments(CustList<Operable> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ContextEl _context) {
         if (!_children.isEmpty() && _children.first() instanceof VarargOperable) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
@@ -181,14 +182,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return firstArgs_;
     }
-    static StringList getBounds(String _cl, Analyzable _conf) {
+    static StringList getBounds(String _cl, ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         String objectClassName_ = stds_.getAliasObject();
         StringList bounds_ = new StringList();
         if (_cl.startsWith(Templates.PREFIX_VAR_TYPE)) {
             String glClass_ = _conf.getAnalyzing().getGlobalClass();
             String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-            GeneType gl_ = _conf.getContextEl().getClassBody(curClassBase_);
+            GeneType gl_ = _conf.getClassBody(curClassBase_);
             StringMap<StringList> mapping_ = new StringMap<StringList>();
             for (TypeVar t: gl_.getParamTypesMapValues()) {
                 mapping_.put(t.getName(), t.getConstraints());
@@ -199,24 +200,24 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return bounds_;
     }
-    static boolean hasVoidPrevious(String _cl, Analyzable _conf) {
+    static boolean hasVoidPrevious(String _cl, ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         if (StringList.quickEq(_cl, stds_.getAliasVoid())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(_cl);
             mapping_.setParam(stds_.getAliasObject());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setIndexFile(_conf.getCurrentLocationIndex());
+            cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len or header name len or left bracket
-            cast_.buildError(_conf.getContextEl().getAnalysisMessages().getVoidType(),
+            cast_.buildError(_conf.getAnalysisMessages().getVoidType(),
                     stds_.getAliasVoid());
-            _conf.addError(cast_);
+            _conf.getAnalyzing().getLocalizer().addError(cast_);
             return true;
         }
         return false;
     }
-    final boolean hasVoidArguments(CustList<OperationNode> _children,CustList<ClassArgumentMatching> _args, int _off, Analyzable _conf) {
+    final boolean hasVoidArguments(CustList<OperationNode> _children,CustList<ClassArgumentMatching> _args, int _off, ContextEl _conf) {
         int indexChild_ = -1;
         LgNames stds_ = _conf.getStandards();
         boolean void_ = false;
@@ -230,17 +231,17 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 mapping_.setArg(stds_.getAliasVoid());
                 mapping_.setParam(stds_.getAliasObject());
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setIndexFile(_conf.getCurrentLocationIndex());
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //key word len or header name len or left bracket
-                cast_.buildError(_conf.getContextEl().getAnalysisMessages().getVoidType(),
+                cast_.buildError(_conf.getAnalysisMessages().getVoidType(),
                         stds_.getAliasVoid());
-                _conf.addError(cast_);
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
             }
         }
         return void_;
     }
-    static void unwrapArgsFct(CustList<OperationNode> _ch, Identifiable _id, int _natvararg, String _lasttype, CustList<ClassArgumentMatching> _args, Analyzable _conf) {
+    static void unwrapArgsFct(CustList<OperationNode> _ch, Identifiable _id, int _natvararg, String _lasttype, CustList<ClassArgumentMatching> _args, ContextEl _conf) {
         boolean filter_ = true;
         if (!_ch.isEmpty() && _ch.first() instanceof VarargOperation) {
             int i_ = CustList.FIRST_INDEX;
@@ -343,13 +344,13 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return ((IdFctOperation)first_).getMethod();
     }
     @Override
-    public final void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+    public final void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
             OperationNode _nextSibling, OperationNode _previous) {
         analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
 
     @Override
-    public final void analyzeAssignmentAfter(Analyzable _conf) {
+    public final void analyzeAssignmentAfter(ContextEl _conf) {
         analyzeStdAssignmentAfter(_conf);
     }
     @Override

@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -28,7 +28,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
     }
 
     @Override
-    public void analyzeUnary(Analyzable _conf) {
+    public void analyzeUnary(ContextEl _conf) {
         okNum = true;
         OperationNode child_ = getFirstChild();
         LgNames stds_ = _conf.getStandards();
@@ -55,13 +55,13 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             _conf.getAnalyzing().setOkNumOp(false);
             String exp_ = _conf.getStandards().getAliasNumber();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
-            un_.setFileName(_conf.getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //oper
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedOperandTypes(),
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
                     StringList.join(clMatch_.getNames(),"&"),
                     oper_);
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
             ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
             setResultClass(arg_);
             return;
@@ -77,11 +77,11 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
     }
 
     @Override
-    public void quickCalculate(Analyzable _conf) {
+    public void quickCalculate(ContextEl _conf) {
         tryGetArg(this,classMethodId,_conf);
     }
 
-    public static void tryGetArg(ParentOperable _par, ClassMethodId _m,Analyzable _conf) {
+    public static void tryGetArg(ParentOperable _par, ClassMethodId _m,ContextEl _conf) {
         if (_m != null) {
             return;
         }

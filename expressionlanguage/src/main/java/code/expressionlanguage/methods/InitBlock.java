@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -19,7 +18,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
     }
 
     @Override
-    public void setAssignmentBeforeCall(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeCall(ContextEl _an, AnalyzingEl _anEl) {
         Block prev_ = getPreviousSibling();
         while (prev_ != null) {
             if (prev_ instanceof InitBlock) {
@@ -35,9 +34,9 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
             prev_ = prev_.getPreviousSibling();
         }
         AssignedVariables ass_;
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         if (prev_ == null) {
-            ass_ = _an.getContextEl().getAssignedVariables().getFinalVariablesGlobal();
+            ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
             id_.put(this, ass_);
         } else {
             AssignedVariables parAss_ = id_.getVal(prev_);
@@ -49,14 +48,14 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
     }
 
     @Override
-    public void setAssignmentAfterCallReadOnly(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl) {
     }
 
     @Override
-    public void setAssignmentAfterCall(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentAfterCall(ContextEl _an, AnalyzingEl _anEl) {
         setAssignmentAfter(_an,_anEl);
-        IdMap<Block, AssignedVariables> id_ = _an.getContextEl().getAssignedVariables().getFinalVariables();
-        for (EntryCust<ReturnMethod, StringMap<SimpleAssignment>> r: _an.getContextEl().getAssignedVariables().getAssignments().entryList()) {
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        for (EntryCust<ReturnMethod, StringMap<SimpleAssignment>> r: _an.getAssignedVariables().getAssignments().entryList()) {
             for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {
                 checkAssignments(_an, f,false);
             }
@@ -78,11 +77,11 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
         }
     }
 
-    private void checkAssignments(Analyzable _an, EntryCust<String, SimpleAssignment> _pair, boolean _add) {
+    private void checkAssignments(ContextEl _an, EntryCust<String, SimpleAssignment> _pair, boolean _add) {
         String cl_ = Templates.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
         String name_ = _pair.getKey();
         ClassField key_ = new ClassField(cl_, name_);
-        FieldInfo finfo_ = _an.getContextEl().getFieldInfo(key_);
+        FieldInfo finfo_ = _an.getFieldInfo(key_);
         if (!finfo_.isFinalField()) {
             return;
         }
@@ -92,7 +91,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_an.getContextEl().getAnalysisMessages().getUnassignedFinalField(),
+            un_.buildError(_an.getAnalysisMessages().getUnassignedFinalField(),
                     name_,cl_);
             _an.addError(un_);
         }

@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.exec.Operable;
@@ -17,18 +17,18 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
         super(_index, _indexChild, _m, _op);
     }
     @Override
-    public final void analyze(Analyzable _conf) {
+    public final void analyze(ContextEl _conf) {
         if (isFirstKo()) {
             CustList<OperationNode> children_ = getChildrenNodes();
             LgNames stds_ = _conf.getStandards();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_conf.getCurrentFileName());
-            un_.setIndexFile(_conf.getCurrentLocationIndex());
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //first operator part
-            un_.buildError(_conf.getContextEl().getAnalysisMessages().getSplitDiff(),
+            un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
                     Integer.toString(1),
                     Integer.toString(children_.size()));
-            _conf.addError(un_);
+            _conf.getAnalyzing().getLocalizer().addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -43,24 +43,24 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
         IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
     }
-    public abstract void analyzeUnary(Analyzable _conf);
+    public abstract void analyzeUnary(ContextEl _conf);
     @Override
-    public final void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+    public final void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
             OperationNode _nextSibling, OperationNode _previous) {
         analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
 
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public void analyzeAssignmentAfter(ContextEl _conf) {
         analyzeStdAssignmentAfter(_conf);
     }
 
     @Override
-    public void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(ContextEl _conf) {
         setArg(_conf, this);
     }
 
-    public static void setArg(Analyzable _conf, ParentOperable _current) {
+    public static void setArg(ContextEl _conf, ParentOperable _current) {
         CustList<Operable> children_ = _current.getChildrenOperable();
         if (children_.size() != 1) {
             return;

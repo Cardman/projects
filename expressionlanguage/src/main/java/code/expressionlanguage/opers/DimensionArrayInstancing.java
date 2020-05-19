@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers;
 
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -30,7 +30,7 @@ public final class DimensionArrayInstancing extends
     }
 
     @Override
-    public void preAnalyze(Analyzable _an) {
+    public void preAnalyze(ContextEl _an) {
         KeyWords keyWords_ = _an.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String methodName_ = getMethodName();
@@ -52,7 +52,7 @@ public final class DimensionArrayInstancing extends
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         MethodOperation m_;
         type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(_an,newKeyWord_.length()+local_,inferForm_);
-        partOffsets_.addAllElts(_an.getContextEl().getCoverage().getCurrentParts());
+        partOffsets_.addAllElts(_an.getCoverage().getCurrentParts());
         if (type_.isEmpty()) {
             return;
         }
@@ -118,12 +118,12 @@ public final class DimensionArrayInstancing extends
         partOffsets.addAllElts(partOffsets_);
         int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
         int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-        _an.getContextEl().appendTitleParts(begin_,end_,infer_,partOffsets);
+        _an.appendTitleParts(begin_,end_,infer_,partOffsets);
         typeInfer = infer_;
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String m_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(m_);
@@ -135,7 +135,7 @@ public final class DimensionArrayInstancing extends
         if (typeInfer.isEmpty()) {
             int local_ = StringList.getFirstPrintableCharIndex(className_);
             className_ = ResolvingImportTypes.resolveCorrectType(_conf,new_.length()+local_,className_);
-            partOffsets.addAllElts(_conf.getContextEl().getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         } else {
             className_ = typeInfer;
         }
@@ -143,12 +143,12 @@ public final class DimensionArrayInstancing extends
             setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
             if (!o.getResultClass().isNumericInt(_conf)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_conf.getCurrentLocationIndex());
-                un_.setFileName(_conf.getCurrentFileName());
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 //first part child bracket
-                un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                         StringList.join(o.getResultClass().getNames(),"&"));
-                _conf.addError(un_);
+                _conf.getAnalyzing().getLocalizer().addError(un_);
             }
             o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
             o.cancelArgument();

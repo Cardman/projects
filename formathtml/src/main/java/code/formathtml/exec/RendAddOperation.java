@@ -1,12 +1,10 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.AddOperation;
 import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.StringStruct;
 import code.util.StringList;
 
 
@@ -21,13 +19,13 @@ public final class RendAddOperation extends RendStdNumericOperation {
     }
 
     @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
+    Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont) {
         return localSumDiff(_a, _op, _b, _cont);
     }
 
 
     private Argument localSumDiff(Argument _a, String _op, Argument _b,
-            ExecutableCode _cont) {
+            ContextEl _cont) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
             if (catString) {
                 return ExecCatOperation.localSumDiff(_a, _b, _cont);

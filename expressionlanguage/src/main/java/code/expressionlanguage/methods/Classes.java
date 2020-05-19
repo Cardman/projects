@@ -20,7 +20,6 @@ import code.util.*;
 
 public final class Classes {
 
-    public static final String TEMP_PREFIX = "tmp";
     private static final char DOT = '.';
 
     private final StringMap<RootBlock> classesBodies;
@@ -1278,13 +1277,13 @@ public final class Classes {
         return inners_;
     }
 
-    public static boolean canAccess(String _className, Block _block, Analyzable _context) {
+    public static boolean canAccess(String _className, Block _block, ContextEl _context) {
         if (!(_block instanceof AccessibleBlock)) {
             return true;
         }
         return canAccess(_className,(AccessibleBlock)_block,_context);
     }
-    public static boolean canAccess(String _className, AccessibleBlock _block, Analyzable _context) {
+    public static boolean canAccess(String _className, AccessibleBlock _block, ContextEl _context) {
         if (_block.getAccess() == AccessEnum.PUBLIC) {
             return true;
         }
@@ -1510,7 +1509,7 @@ public final class Classes {
                         StringList types_ = method_.getImportedParametersTypes();
                         prepareParams(page_, params_, types_, method_.isVarargs());
                         method_.buildFctInstructions(_context);
-                        IdMap<Block, AssignedVariables> id_ = _context.getContextEl().getAssignedVariables().getFinalVariables();
+                        IdMap<Block, AssignedVariables> id_ = _context.getAssignedVariables().getFinalVariables();
                         AssignedVariables assTar_ = id_.getVal(b);
                         for (EntryCust<String, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
                             String fieldName_ = f.getKey();
@@ -1552,7 +1551,7 @@ public final class Classes {
                         continue;
                     }
                     OverridableBlock method_ = (OverridableBlock) b;
-                    if (method_.getKind() == MethodKind.STD_METHOD) {
+                    if (isStdOrExplicit(method_)) {
                         page_.setGlobalClass(c.getGenericString());
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
@@ -1702,7 +1701,7 @@ public final class Classes {
                         continue;
                     }
                     OverridableBlock method_ = (OverridableBlock) b;
-                    if (method_.getKind() == MethodKind.STD_METHOD) {
+                    if (isStdOrExplicit(method_)) {
                         page_.setGlobalClass(c.getGenericString());
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
@@ -1773,6 +1772,10 @@ public final class Classes {
         for (RootBlock c: page_.getFoundTypes()) {
             c.validateConstructors(_context);
         }
+    }
+
+    private static boolean isStdOrExplicit(OverridableBlock method_) {
+        return method_.getKind() == MethodKind.STD_METHOD || method_.getKind() == MethodKind.EXPLICIT_CAST;
     }
 
     private void processValueParam(ContextEl _context, AnalyzedPageEl _page, RootBlock _cl, OverridableBlock _method) {
@@ -2064,7 +2067,7 @@ public final class Classes {
         }
         return methods_;
     }
-    public static CustList<ConstructorBlock> getConstructorBodiesById(Analyzable _context,String _genericClassName, ConstructorId _id) {
+    public static CustList<ConstructorBlock> getConstructorBodiesById(ContextEl _context,String _genericClassName, ConstructorId _id) {
         CustList<ConstructorBlock> methods_ = new CustList<ConstructorBlock>();
         String base_ = Templates.getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
@@ -2198,7 +2201,7 @@ public final class Classes {
                 String ret_ = method_.getImportedReturnType();
                 MethodId fid_;
                 String formCl_ = _type.getFullName();
-                boolean param_ = id_.canAccessParamTypesStatic(_context);
+                boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL || method_.getKind() == MethodKind.EXPLICIT_CAST;
                 if (Templates.correctNbParameters(_name, _context)) {
                     fid_ = id_.reflectFormat(_name, _context);
                     formCl_ = _name;
@@ -2211,6 +2214,7 @@ public final class Classes {
                 }
                 MethodMetaInfo met_ = new MethodMetaInfo(access_, idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
                 met_.setFileName(fileName_);
+                met_.setExpCast(method_.getKind() == MethodKind.EXPLICIT_CAST);
                 infos_.put(id_, met_);
             }
             if (b instanceof AnnotationMethodBlock) {

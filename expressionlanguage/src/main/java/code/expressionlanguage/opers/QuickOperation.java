@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers;
-import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -30,12 +30,12 @@ public abstract class QuickOperation extends MethodOperation {
     }
 
     @Override
-    public void tryCalculateNode(Analyzable _conf) {
+    public void tryCalculateNode(ContextEl _conf) {
         Struct abs_ = absorbingStruct();
         tryGetResult(_conf, this, abs_, okNum);
     }
 
-    public static void tryGetResult(Analyzable _conf, ParentOperable _to, Struct _abs, boolean _okNum) {
+    public static void tryGetResult(ContextEl _conf, ParentOperable _to, Struct _abs, boolean _okNum) {
         if (!_okNum) {
             return;
         }
@@ -56,7 +56,7 @@ public abstract class QuickOperation extends MethodOperation {
         _to.setSimpleArgumentAna(s_, _conf);
     }
     @Override
-    public final void analyze(Analyzable _conf) {
+    public final void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
@@ -71,12 +71,12 @@ public abstract class QuickOperation extends MethodOperation {
             setRelativeOffsetPossibleAnalyzable(o.getIndexInEl(), _conf);
             if (!clMatch_.isBoolType(_conf)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_conf.getCurrentLocationIndex());
-                un_.setFileName(_conf.getCurrentFileName());
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 //first operator char or second operator char
-                un_.buildError(_conf.getContextEl().getAnalysisMessages().getUnexpectedType(),
+                un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                         StringList.join(clMatch_.getNames(),"&"));
-                _conf.addError(un_);
+                _conf.getAnalyzing().getLocalizer().addError(un_);
                 _conf.getAnalyzing().setOkNumOp(false);
                 okNum = false;
             }

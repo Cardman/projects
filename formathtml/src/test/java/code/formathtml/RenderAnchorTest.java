@@ -242,4 +242,37 @@ public final class RenderAnchorTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
+
+    @Test
+    public void process3FailTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><a c:command=\"$clicked({nb})\">two</a></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $int nb=5;");
+        file_.append(" $public $int[] array;");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  array={1,2};");
+        file_.append(" }");
+        file_.append(" $public $int click($int i){");
+        file_.append("  $return i*2;");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration conf_ = contextElFive(filesSec_);
+
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.getAnalyzingDoc().setFiles(files_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
+        assertTrue(!conf_.isEmptyErrors());
+    }
 }

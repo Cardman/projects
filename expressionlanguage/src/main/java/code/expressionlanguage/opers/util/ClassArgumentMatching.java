@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
-import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
@@ -33,9 +33,9 @@ public final class ClassArgumentMatching {
         convertToString = _copy.convertToString;
     }
 
-    public static Struct convert(ClassArgumentMatching _dest,Struct _arg,
-                                 ExecutableCode _exec) {
-        ClassArgumentMatching format_ = _dest.format(_exec);
+    public static Struct convert(PageEl _page,ClassArgumentMatching _dest,Struct _arg,
+                                 ContextEl _exec) {
+        ClassArgumentMatching format_ = _dest.format(_page,_exec);
         if (format_.matchClass(_exec.getStandards().getAliasNumber())) {
             return convertToNumber(_arg);
         }
@@ -72,10 +72,10 @@ public final class ClassArgumentMatching {
         return new ByteStruct((byte)0);
     }
 
-    private ClassArgumentMatching format(ExecutableCode _exec) {
+    private ClassArgumentMatching format(PageEl _page, ContextEl _exec) {
         StringList className_ = new StringList();
         for (String s: className) {
-            className_.add(_exec.getOperationPageEl().formatVarType(s,_exec));
+            className_.add(_page.formatVarType(s,_exec));
         }
         return new ClassArgumentMatching(className_);
     }
@@ -90,7 +90,7 @@ public final class ClassArgumentMatching {
         return args_;
     }
 
-    public boolean isNumericInt(Analyzable _context) {
+    public boolean isNumericInt(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         String intPr_ = stds_.getAliasPrimInteger();
         String shortPr_ = stds_.getAliasPrimShort();
@@ -117,7 +117,7 @@ public final class ClassArgumentMatching {
         }
         return false;
     }
-    public boolean matchVoid(Analyzable _classes) {
+    public boolean matchVoid(ContextEl _classes) {
         LgNames stds_ = _classes.getStandards();
         StringList l_ = new StringList(stds_.getAliasVoid());
         return StringList.equalsSet(className, l_);
@@ -132,7 +132,7 @@ public final class ClassArgumentMatching {
         return StringList.contains(className, "");
     }
 
-    public boolean isPrimitive(Analyzable _context) {
+    public boolean isPrimitive(ContextEl _context) {
         for (String b: className) {
             if (PrimitiveTypeUtil.isPrimitive(b, _context)) {
                 return true;
@@ -141,7 +141,7 @@ public final class ClassArgumentMatching {
         return false;
     }
 
-    public boolean isWrapper(Analyzable _context) {
+    public boolean isWrapper(ContextEl _context) {
         for (String b: className) {
             if (PrimitiveTypeUtil.isWrapper(b, _context)) {
                 return true;
@@ -149,7 +149,7 @@ public final class ClassArgumentMatching {
         }
         return false;
     }
-    public boolean isBoolType(Analyzable _context) {
+    public boolean isBoolType(ContextEl _context) {
         LgNames lgNames_ = _context.getStandards();
         String aliasBoolean_ = lgNames_.getAliasBoolean();
         String aliasPrBoolean_ = lgNames_.getAliasPrimBoolean();
