@@ -196,6 +196,9 @@ public final class KeyWordsMap {
         _lgNames.setAliasValueOfMethod("valueOf");
         _lgNames.setAliasMaxValueField("MAX_VALUE");
         _lgNames.setAliasMinValueField("MIN_VALUE");
+        _lgNames.setAliasPlusInfinityField("PLUS_INFINITY");
+        _lgNames.setAliasMinusInfinityField("MINUS_INFINITY");
+        _lgNames.setAliasNanField("NAN");
         _lgNames.setAliasIteratorType("$core.Iterator");
         _lgNames.setAliasIterator("iterator");
         _lgNames.setAliasIterable("$core.Iterable");
@@ -481,6 +484,9 @@ public final class KeyWordsMap {
         _lgNames.setAliasValueOfMethod("valeurDe");
         _lgNames.setAliasMaxValueField("MAX_VALEUR");
         _lgNames.setAliasMinValueField("MIN_VALEUR");
+        _lgNames.setAliasPlusInfinityField("PLUS_INFINI");
+        _lgNames.setAliasMinusInfinityField("MOINS_INFINI");
+        _lgNames.setAliasNanField("PUN");
         _lgNames.setAliasIteratorType("$coeur.Iterateur");
         _lgNames.setAliasIterator("iterateur");
         _lgNames.setAliasIterable("$coeur.Iterable");

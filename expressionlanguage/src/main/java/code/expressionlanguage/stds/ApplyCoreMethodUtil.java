@@ -480,12 +480,24 @@ public class ApplyCoreMethodUtil {
         } else if (StringList.quickEq(type_, floatType_)) {
             if (StringList.quickEq(name_, lgNames_.getAliasMinValueField())) {
                 result_.setResult(new FloatStruct(Float.MIN_VALUE));
+            } else if (StringList.quickEq(name_, lgNames_.getAliasMinusInfinityField())) {
+                result_.setResult(new FloatStruct(Float.NEGATIVE_INFINITY));
+            } else if (StringList.quickEq(name_, lgNames_.getAliasPlusInfinityField())) {
+                result_.setResult(new FloatStruct(Float.POSITIVE_INFINITY));
+            } else if (StringList.quickEq(name_, lgNames_.getAliasNanField())) {
+                result_.setResult(new FloatStruct(Float.NaN));
             } else {
                 result_.setResult(new FloatStruct(Float.MAX_VALUE));
             }
         } else {
             if (StringList.quickEq(name_, lgNames_.getAliasMinValueField())) {
                 result_.setResult(new DoubleStruct(Double.MIN_VALUE));
+            } else if (StringList.quickEq(name_, lgNames_.getAliasMinusInfinityField())) {
+                result_.setResult(new DoubleStruct(Double.NEGATIVE_INFINITY));
+            } else if (StringList.quickEq(name_, lgNames_.getAliasPlusInfinityField())) {
+                result_.setResult(new DoubleStruct(Double.POSITIVE_INFINITY));
+            } else if (StringList.quickEq(name_, lgNames_.getAliasNanField())) {
+                result_.setResult(new DoubleStruct(Double.NaN));
             } else {
                 result_.setResult(new DoubleStruct(Double.MAX_VALUE));
             }

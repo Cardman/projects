@@ -3715,6 +3715,9 @@ public class LgNamesUtils extends LgNames {
         setDefaultPkg(get(_util,_cust, DEFAULT_PKG));
         setAliasMaxValueField(get(_util,_cust, FIELD_MAX_VALUE));
         setAliasMinValueField(get(_util,_cust, FIELD_MIN_VALUE));
+        setAliasPlusInfinityField(get(_util,_cust, FIELD_PLUS_INFINITY));
+        setAliasMinusInfinityField(get(_util,_cust, FIELD_MINUS_INFINITY));
+        setAliasNanField(get(_util,_cust, FIELD_NAN));
         setAliasBadEncode(get(_util,_cust, BAD_ENCODE));
         setAliasDivisionZero(get(_util,_cust, DIVISION_ZERO));
         setAliasCharSequence(get(_util,_cust, CHAR_SEQUENCE));

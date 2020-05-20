@@ -15,6 +15,9 @@ public final class AliasNumber {
     private String aliasValueOfMethod;
     private String aliasMaxValueField;
     private String aliasMinValueField;
+    private String aliasPlusInfinityField;
+    private String aliasMinusInfinityField;
+    private String aliasNanField;
     private String aliasBoolean;
     private String aliasByte;
     private String aliasShort;
@@ -165,7 +168,7 @@ public final class AliasNumber {
         params_ = new StringList(aliasPrimFloat_);
         method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC, std_);
         methods_.put(method_.getId(), method_);
-        numbersValuesFields(fields_, aliasPrimFloat_, std_);
+        numbersDotValuesFields(fields_, aliasPrimFloat_, std_);
         standards_.put(aliasFloat, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -186,7 +189,7 @@ public final class AliasNumber {
         params_ = new StringList(aliasPrimDouble_);
         method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,std_);
         methods_.put(method_.getId(), method_);
-        numbersValuesFields(fields_, aliasPrimDouble_, std_);
+        numbersDotValuesFields(fields_, aliasPrimDouble_, std_);
         standards_.put(aliasDouble, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -268,6 +271,18 @@ public final class AliasNumber {
         params_ = new StringList(_primitive);
         ctor_ = new StandardConstructor(params_,false, _type);
         _ctors.add(ctor_);
+    }
+    private void numbersDotValuesFields(StringMap<StandardField> _fields, String _primitive, StandardType _type) {
+        StandardField field_ = new StandardField(aliasMinValueField, _primitive, true, true, _type);
+        _fields.put(aliasMinValueField, field_);
+        field_ = new StandardField(aliasMaxValueField, _primitive, true, true, _type);
+        _fields.put(aliasMaxValueField, field_);
+        field_ = new StandardField(aliasMinusInfinityField, _primitive, true, true, _type);
+        _fields.put(aliasMinusInfinityField, field_);
+        field_ = new StandardField(aliasPlusInfinityField, _primitive, true, true, _type);
+        _fields.put(aliasPlusInfinityField, field_);
+        field_ = new StandardField(aliasNanField, _primitive, true, true, _type);
+        _fields.put(aliasNanField, field_);
     }
     private void numbersValuesFields(StringMap<StandardField> _fields, String _primitive, StandardType _type) {
         StandardField field_ = new StandardField(aliasMinValueField, _primitive, true, true, _type);
@@ -397,6 +412,31 @@ public final class AliasNumber {
     public void setAliasMinValueField(String _aliasMinValueField) {
         aliasMinValueField = _aliasMinValueField;
     }
+
+    public String getAliasPlusInfinityField() {
+        return aliasPlusInfinityField;
+    }
+
+    public void setAliasPlusInfinityField(String aliasPlusInfinityField) {
+        this.aliasPlusInfinityField = aliasPlusInfinityField;
+    }
+
+    public String getAliasMinusInfinityField() {
+        return aliasMinusInfinityField;
+    }
+
+    public void setAliasMinusInfinityField(String aliasMinusInfinityField) {
+        this.aliasMinusInfinityField = aliasMinusInfinityField;
+    }
+
+    public String getAliasNanField() {
+        return aliasNanField;
+    }
+
+    public void setAliasNanField(String aliasNanField) {
+        this.aliasNanField = aliasNanField;
+    }
+
     public String getAliasBoolean() {
         return aliasBoolean;
     }

@@ -5,7 +5,6 @@ import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.types.ResolvingImportTypes;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
 
@@ -14,6 +13,9 @@ public abstract class LgNames {
     public static final String DEFAULT_PKG = "DefaultPkg";
     public static final String FIELD_MAX_VALUE = "MAX_VALUE";
     public static final String FIELD_MIN_VALUE = "MIN_VALUE";
+    public static final String FIELD_PLUS_INFINITY = "PLUS_INFINITY";
+    public static final String FIELD_MINUS_INFINITY = "MINUS_INFINITY";
+    public static final String FIELD_NAN = "NAN";
     public static final String BAD_ENCODE = "BadEncode";
     public static final String DIVISION_ZERO = "DivisionZero";
     public static final String CHAR_SEQUENCE = "CharSequence";
@@ -841,9 +843,15 @@ public abstract class LgNames {
     public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
         StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
         map_.addEntry(nbAlias.getAliasDouble(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_PLUS_INFINITY,nbAlias.getAliasPlusInfinityField()),
+                new KeyValueMemberName(FIELD_MINUS_INFINITY,nbAlias.getAliasMinusInfinityField()),
+                new KeyValueMemberName(FIELD_NAN,nbAlias.getAliasNanField()),
                 new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
                 new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
         map_.addEntry(nbAlias.getAliasFloat(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_PLUS_INFINITY,nbAlias.getAliasPlusInfinityField()),
+                new KeyValueMemberName(FIELD_MINUS_INFINITY,nbAlias.getAliasMinusInfinityField()),
+                new KeyValueMemberName(FIELD_NAN,nbAlias.getAliasNanField()),
                 new KeyValueMemberName(FIELD_MIN_VALUE,nbAlias.getAliasMinValueField()),
                 new KeyValueMemberName(FIELD_MAX_VALUE,nbAlias.getAliasMaxValueField())));
         map_.addEntry(nbAlias.getAliasLong(), new CustList<KeyValueMemberName>(
@@ -1218,6 +1226,24 @@ public abstract class LgNames {
     }
     public void setAliasMinValueField(String _aliasMinValueField) {
         nbAlias.setAliasMinValueField(_aliasMinValueField);
+    }
+    public String getAliasPlusInfinityField() {
+        return nbAlias.getAliasPlusInfinityField();
+    }
+    public void setAliasPlusInfinityField(String _aliasMaxValueField) {
+        nbAlias.setAliasPlusInfinityField(_aliasMaxValueField);
+    }
+    public String getAliasMinusInfinityField() {
+        return nbAlias.getAliasMinusInfinityField();
+    }
+    public void setAliasMinusInfinityField(String _aliasMinValueField) {
+        nbAlias.setAliasMinusInfinityField(_aliasMinValueField);
+    }
+    public String getAliasNanField() {
+        return nbAlias.getAliasNanField();
+    }
+    public void setAliasNanField(String _aliasMinValueField) {
+        nbAlias.setAliasNanField(_aliasMinValueField);
     }
     public String getAliasBoolean() {
         return nbAlias.getAliasBoolean();

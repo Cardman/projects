@@ -1497,6 +1497,9 @@ public final class NativeTest extends CommonRender {
         _lgNames.setAliasValueOfMethod("valueOf");
         _lgNames.setAliasMaxValueField("MAX_VALUE");
         _lgNames.setAliasMinValueField("MIN_VALUE");
+        _lgNames.setAliasPlusInfinityField("PLUS_INFINITY");
+        _lgNames.setAliasMinusInfinityField("MINUS_INFINITY");
+        _lgNames.setAliasNanField("NAN");
         _lgNames.setAliasIteratorType("java.lang.$iterator");
         _lgNames.setAliasIterator("iterator");
         _lgNames.setAliasIterable("java.lang.$iterable");
