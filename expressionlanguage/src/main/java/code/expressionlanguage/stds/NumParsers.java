@@ -762,13 +762,21 @@ public final class NumParsers {
         }
         i_++;
         exponentialPart_.append(cur_);
+        int nbDig_ = 0;
+        if (ContextEl.isDigit(cur_)) {
+            nbDig_++;
+        }
         while (i_ < len_) {
             cur_ = _nb.charAt(i_);
             if (!ContextEl.isDigit(cur_)) {
                 return null;
             }
             exponentialPart_.append(cur_);
+            nbDig_++;
             i_++;
+        }
+        if (nbDig_ == 0) {
+            return null;
         }
         return infos_;
     }
