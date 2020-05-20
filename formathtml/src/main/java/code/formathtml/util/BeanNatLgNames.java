@@ -114,14 +114,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         _conf.removeLastPage();
         return strBean_;
     }
-    @Override
-    public String getInputClass(Element _write, Configuration _conf) {
-        String class_ = _write.getAttribute(StringList.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrClassName()));
-        if (!class_.isEmpty()) {
-            return class_;
-        }
-        return super.getInputClass(_write,_conf);
-    }
+
     @Override
     public void forwardDataBase(Struct _bean, Struct _to, Configuration _conf) {
         ((BeanStruct)_to).getBean().setDataBase(((BeanStruct)_bean).getBean().getDataBase());

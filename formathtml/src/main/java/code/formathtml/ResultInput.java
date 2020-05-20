@@ -186,6 +186,15 @@ public final class ResultInput {
                     }
                 }
             }
+        } else {
+            String type_ = _read.getAttribute(_cont.getRendKeyWords().getAttrType());
+            if (!StringList.quickEq(type_,_cont.getRendKeyWords().getValueSubmit())) {
+                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
+                badEl_.buildError(_cont.getRendAnalysisMessages().getBadInputName());
+                _cont.addError(badEl_);
+            }
         }
         if (_read.hasAttribute(_varValue)) {
             String value_ = _read.getAttribute(_varValue);

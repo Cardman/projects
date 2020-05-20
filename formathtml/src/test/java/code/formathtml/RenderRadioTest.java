@@ -174,7 +174,7 @@ public final class RenderRadioTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"radio\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input c:convertValue='convert' c:varValue='first' name='first' type=\"radio\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -185,13 +185,19 @@ public final class RenderRadioTest extends CommonRender {
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  first=$new Dto();");
         file_.append(" }");
+        file_.append(" $public Dto convert(String s){");
+        file_.append("  $return $new Dto(Integer.parseInt(s));");
+        file_.append(" }");
         file_.append("}");
         file_.append("$public $class pkg.Dto{");
-        file_.append(" $public Integer value;");
+        file_.append(" $public Integer value=0;");
         file_.append(" $public Dto($int p){");
         file_.append("  value = p;");
         file_.append(" }");
         file_.append(" $public Dto(){");
+        file_.append(" }");
+        file_.append(" $public String $toString(){");
+        file_.append("  $return Integer.toString(value);");
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
@@ -204,7 +210,7 @@ public final class RenderRadioTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
-        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\"/></form></body></html>",res_);
+        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input name=\"bean_one.first\" type=\"radio\" n-i=\"0\" value=\"0\" checked=\"checked\"/></form></body></html>",res_);
         assertNull(getException(conf_));
     }
     @Test
@@ -404,7 +410,7 @@ public final class RenderRadioTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input c:convertValue='conv' type=\"radio\" name=\"index\" c:varValue=\"n\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -416,6 +422,9 @@ public final class RenderRadioTest extends CommonRender {
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  index=$new MyInt(4);");
         file_.append("  numbers={$new MyInt(2),index,$new MyInt(6)};");
+        file_.append(" }");
+        file_.append(" $public MyInt conv(String i){");
+        file_.append("  $return $new MyInt(Integer.parseInt(i));");
         file_.append(" }");
         file_.append("}");
         file_.append("$public $class pkg.MyInt{");
@@ -449,7 +458,7 @@ public final class RenderRadioTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input c:convertValue='conv' type=\"radio\" name=\"index\" c:varValue=\"n\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -461,6 +470,9 @@ public final class RenderRadioTest extends CommonRender {
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  index=$new MyInt(4);");
         file_.append("  numbers={$new MyInt(2),index,$new MyInt(6)};");
+        file_.append(" }");
+        file_.append(" $public MyInt conv(String i){");
+        file_.append("  $return $new MyInt(Integer.parseInt(i));");
         file_.append(" }");
         file_.append("}");
         file_.append("$public $class pkg.MyInt{");
@@ -494,7 +506,7 @@ public final class RenderRadioTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input c:convertValue='conv' type=\"radio\" name=\"index\" c:varValue=\"n\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -506,6 +518,9 @@ public final class RenderRadioTest extends CommonRender {
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  index=$new MyInt(4);");
         file_.append("  numbers={$new MyInt(2),$new MyInt(4),$new MyInt(6)};");
+        file_.append(" }");
+        file_.append(" $public MyInt conv(String i){");
+        file_.append("  $return $new MyInt(Integer.parseInt(i));");
         file_.append(" }");
         file_.append("}");
         file_.append("$public $class pkg.MyInt{");
@@ -539,7 +554,7 @@ public final class RenderRadioTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"4\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input c:convertValue='conv' type=\"radio\" name=\"index\" c:varValue=\"4\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -551,6 +566,9 @@ public final class RenderRadioTest extends CommonRender {
         file_.append(" $public $void beforeDisplaying(){");
         file_.append("  index=$new MyInt(4);");
         file_.append("  numbers={$new MyInt(2),index,$new MyInt(6)};");
+        file_.append(" }");
+        file_.append(" $public MyInt conv(String i){");
+        file_.append("  $return $new MyInt(Integer.parseInt(i));");
         file_.append(" }");
         file_.append("}");
         file_.append("$public $class pkg.MyInt{");

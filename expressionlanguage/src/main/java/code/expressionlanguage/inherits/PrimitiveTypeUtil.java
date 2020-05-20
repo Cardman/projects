@@ -705,7 +705,7 @@ public final class PrimitiveTypeUtil {
     public static boolean isPrimitiveOrWrapper(String _className, ContextEl _context) {
         return isPrimitiveOrWrapper(_className, _context.getStandards());
     }
-    private static boolean isPrimitiveOrWrapper(String _className, LgNames _stds) {
+    public static boolean isPrimitiveOrWrapper(String _className, LgNames _stds) {
         if (isPrimitive(_className, _stds)) {
             return true;
         }

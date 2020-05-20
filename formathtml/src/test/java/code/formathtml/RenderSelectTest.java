@@ -22,7 +22,7 @@ public final class RenderSelectTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select name='choice' default=\"\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -60,7 +60,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
 
@@ -2210,6 +2210,51 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElFive(filesSec_);
         
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.getAnalyzingDoc().setFiles(files_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
+        assertTrue(!conf_.isEmptyErrors());
+    }
+    @Test
+    public void process11FailTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public pkg.CustTable<String,Integer> combo=$new pkg.CustTable<>();");
+        file_.append(" {");
+        file_.append("  combo.add(\"ONE\",1);");
+        file_.append("  combo.add(\"TWO\",2);");
+        file_.append("  combo.add($null,3);");
+        file_.append(" }");
+        file_.append(" $public String choice=\"TWO\";");
+        file_.append(" $public $int index;");
+        file_.append(" $public $int indexTwo;");
+        file_.append(" $public $int[] numbers;");
+        file_.append(" $public $int[] numbersTwo;");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  numbers={2,4,6};");
+        file_.append("  numbersTwo={2,4,6};");
+        file_.append("  index=4;");
+        file_.append("  indexTwo=6;");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        Configuration conf_ = contextElFive(filesSec_);
+
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);

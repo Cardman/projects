@@ -138,7 +138,7 @@ public final class RenderTextAreaTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><textarea/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><textarea name='textField' c:varValue='textField'/><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -159,7 +159,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"></textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
     @Test
@@ -682,6 +682,34 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setFirstUrl("page1.html");
         
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getAnalyzingDoc().setFiles(files_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
+        assertTrue(!conf_.isEmptyErrors());
+    }
+    @Test
+    public void process5FailTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><textarea c:varValue='textField'/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public String textField;");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration conf_ = contextElFive(filesSec_);
+
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());

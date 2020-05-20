@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.exec.*;
@@ -67,6 +68,31 @@ public abstract class RendInput extends RendElement {
                     badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(opsConverter.last().getResultClass().getNames(),AND_ERR),
                             StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR));
+                    _cont.addError(badEl_);
+                }
+            }
+        } else {
+            String clName_ = _read.getAttribute(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrClassName()));
+            if (!clName_.isEmpty()) {
+                if (!_cont.getAdvStandards().isConveritble(clName_)) {
+                    int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrClassName()));
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setIndexFile(attr_);
+                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                            clName_,
+                            clName_);
+                    _cont.addError(badEl_);
+                }
+            } else if (!opsRead.isEmpty()) {
+                if (!_cont.getAdvStandards().isConveritble(opsRead.last().getResultClass().getSingleNameOrEmpty())) {
+                    int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrClassName()));
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setIndexFile(attr_);
+                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR),
+                            clName_);
                     _cont.addError(badEl_);
                 }
             }

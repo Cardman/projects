@@ -5860,6 +5860,25 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         Argument arg_ = directCalculate("2f > 1L");
         assertTrue(arg_.isTrue());
     }
+
+    @Test
+    public void processEl103055Test() {
+        Argument arg_ = directCalculate("Double.parseDoubleOrNull(\".\")");
+        assertTrue(arg_.isNull());
+    }
+
+    @Test
+    public void processEl103056Test() {
+        Argument arg_ = directCalculate("Double.parseDoubleOrNull(\".5\")");
+        assertEq(0.5,getDouble(arg_));
+    }
+
+    @Test
+    public void processEl103057Test() {
+        Argument arg_ = directCalculate("Double.parseDoubleOrNull(\"1.\")");
+        assertEq(1.0,getDouble(arg_));
+    }
+
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);

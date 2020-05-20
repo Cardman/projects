@@ -352,25 +352,23 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         }
         docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrName(), name_);
         write_.appendChild(docElementSelect_);
-        if (!name_.isEmpty()) {
-            processIndexes(_cont,elt,docElementSelect_);
-            if (_cont.getContext().hasException()) {
-                return;
+        processIndexes(_cont,elt,docElementSelect_);
+        if (_cont.getContext().hasException()) {
+            return;
+        }
+        Longs stack_ = _cont.getFormsNb();
+        if (!stack_.isEmpty()) {
+            FormInputCoords inputs_ = new FormInputCoords();
+            inputs_.setForm(stack_.last());
+            inputs_.setInput(_cont.getIndexes().getNb());
+            StringList allOptions_ = new StringList();
+            ElementList elts_ = docElementSelect_.getElementsByTagName(_cont.getRendKeyWords().getKeyWordOption());
+            int nbElts_ = elts_.getLength();
+            for (int i = 0; i < nbElts_; i++) {
+                Element opt_ = elts_.item(i);
+                allOptions_.add(opt_.getAttribute(_cont.getRendKeyWords().getAttrValue()));
             }
-            Longs stack_ = _cont.getFormsNb();
-            if (!stack_.isEmpty()) {
-                FormInputCoords inputs_ = new FormInputCoords();
-                inputs_.setForm(stack_.last());
-                inputs_.setInput(_cont.getIndexes().getNb());
-                StringList allOptions_ = new StringList();
-                ElementList elts_ = docElementSelect_.getElementsByTagName(_cont.getRendKeyWords().getKeyWordOption());
-                int nbElts_ = elts_.getLength();
-                for (int i = 0; i < nbElts_; i++) {
-                    Element opt_ = elts_.item(i);
-                    allOptions_.add(opt_.getAttribute(_cont.getRendKeyWords().getAttrValue()));
-                }
-                _cont.getHtmlPage().getSelects().put(inputs_, allOptions_);
-            }
+            _cont.getHtmlPage().getSelects().put(inputs_, allOptions_);
         }
         for (EntryCust<String,ResultText> e: attributes.entryList()) {
             ResultText res_ = e.getValue();

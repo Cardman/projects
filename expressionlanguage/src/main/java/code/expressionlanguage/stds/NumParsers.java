@@ -729,7 +729,7 @@ public final class NumParsers {
             intPart_.append(cur_);
             i_++;
         }
-        if (i_ >= len_) {
+        if (intPart_.length() > 0 && i_ >= len_) {
             return infos_;
         }
         if (_nb.charAt(i_) == DOT_VAR) {
@@ -746,7 +746,7 @@ public final class NumParsers {
                 i_++;
             }
         }
-        if (i_ >= len_) {
+        if ((intPart_.length() > 0 || decimalPart_.length() > 0) && i_ >= len_) {
             return infos_;
         }
         i_++;

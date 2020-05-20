@@ -2844,18 +2844,20 @@ public final class PokemonStandards extends BeanNatLgNames {
         } else {
             value_ = _values.first();
         }
-        if (StringList.quickEq(_className,TYPE_RATE)){
-            if (!Rate.isValid(value_)) {
-                res_.setResult(new DefaultStruct(Rate.zero(),TYPE_RATE));
-                return res_;
-            }
-            res_.setResult(new DefaultStruct(new Rate(value_),TYPE_RATE));
+        if (!Rate.isValid(value_)) {
+            res_.setResult(new DefaultStruct(Rate.zero(),TYPE_RATE));
             return res_;
         }
-        res_.setResult(NullStruct.NULL_VALUE);
+        res_.setResult(new DefaultStruct(new Rate(value_),TYPE_RATE));
         return res_;
     }
 
+    public boolean isConveritble(String _className) {
+        if (super.isConveritble(_className)) {
+            return true;
+        }
+        return StringList.quickEq(_className,TYPE_RATE);
+    }
     public static ResultErrorStd invokeMethodActivityOfMove(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         ActivityOfMove instance_ = (ActivityOfMove) ((RealInstanceStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();

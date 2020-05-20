@@ -73,10 +73,6 @@ public final class RendRadio extends RendInput {
         if (_cont.getContext().hasException()) {
             return;
         }
-        String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
-        if (name_.isEmpty()) {
-            return;
-        }
         Struct res_ = arg_.getStruct();
         if (!opsConverterFieldValue.isEmpty()) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getStruct(),_cont.getStandards().getAliasObject());

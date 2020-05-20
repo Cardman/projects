@@ -61,6 +61,9 @@ public abstract class BeanLgNames extends LgNames {
     public String getInputClass(Element _write, Configuration _conf) {
         String type_ = _write.getAttribute(_conf.getRendKeyWords().getAttrType());
         String class_ = _write.getAttribute(StringList.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrClassName()));
+        if (!class_.isEmpty()) {
+            return class_;
+        }
         if (StringList.quickEq(type_,_conf.getRendKeyWords().getValueNumber())) {
             class_= _conf.getStandards().getAliasLong();
         }
@@ -101,12 +104,7 @@ public abstract class BeanLgNames extends LgNames {
             out_.setResult(res_.getStruct());
             return out_;
         }
-        Struct obj_ = _container.getTypedStruct();
         String className_ = _container.getNodeInformation().getInputClass();
-        if (obj_ != NullStruct.NULL_VALUE) {
-            ContextEl context_ = _conf.getContext();
-            className_ = context_.getStandards().getStructClassName(obj_, context_);
-        }
         StringList values_ = _container.getValue();
         ResultErrorStd out_ = getStructToBeValidated(values_, className_, _conf);
         if (out_.getError() != null) {
@@ -175,6 +173,15 @@ public abstract class BeanLgNames extends LgNames {
             return res_;
         }
         return getOtherStructToBeValidated(_values, _className, _context.getContext());
+    }
+    public boolean isConveritble(String _className) {
+        if (StringList.quickEq(_className, getAliasString())) {
+            return true;
+        }
+        if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_className,this)) {
+            return true;
+        }
+        return false;
     }
     protected static Struct wrapStd(String _element) {
         if (_element == null) {

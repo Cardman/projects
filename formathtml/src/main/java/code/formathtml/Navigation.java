@@ -457,10 +457,7 @@ public final class Navigation {
         for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
-            if (idInput_.isEmpty()) {
-                continue;
-            }
-            NodeContainer nCont_ = containers_.getVal(Numbers.parseLongZero(idInput_));
+            NodeContainer nCont_ = getValue(containers_, idInput_);
             if (StringList.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueText())) {
                 elt_.setAttribute(session.getRendKeyWords().getAttrValue(), nCont_.getNodeInformation().getValue().first());
                 continue;
@@ -482,6 +479,9 @@ public final class Navigation {
                 }
                 continue;
             }
+            if (StringList.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueSubmit())) {
+                continue;
+            }
             elt_.setAttribute(session.getRendKeyWords().getAttrValue(), nCont_.getNodeInformation().getValue().first());
         }
         inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordSelect());
@@ -489,10 +489,7 @@ public final class Navigation {
         for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
-            if (idInput_.isEmpty()) {
-                continue;
-            }
-            NodeContainer nCont_ = containers_.getVal(Numbers.parseLongZero(idInput_));
+            NodeContainer nCont_ = getValue(containers_, idInput_);
             ElementList options_ = elt_.getElementsByTagName(session.getRendKeyWords().getKeyWordOption());
             int optionsLen_ = options_.getLength();
             for (int j = CustList.FIRST_INDEX; j < optionsLen_; j++) {
@@ -509,10 +506,7 @@ public final class Navigation {
         for (int i = CustList.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
-            if (idInput_.isEmpty()) {
-                continue;
-            }
-            NodeContainer nCont_ = containers_.getVal(Numbers.parseLongZero(idInput_));
+            NodeContainer nCont_ = getValue(containers_, idInput_);
             NodeList children_ = elt_.getChildNodes();
             int ch_ = children_.getLength();
             for (int j = CustList.FIRST_INDEX; j < ch_; j++) {
@@ -522,6 +516,19 @@ public final class Navigation {
             elt_.appendChild(text_);
         }
         setupText(_doc.export());
+    }
+
+    private static NodeContainer getValue(LongTreeMap<NodeContainer> containers_, String idInput_) {
+        NodeContainer val_;
+        if (idInput_.isEmpty()) {
+            val_ = null;
+        } else {
+            val_ = containers_.getVal(Numbers.parseLongZero(idInput_));
+        }
+        if (val_ == null) {
+            val_ = new NodeContainer();
+        }
+        return val_;
     }
 
     boolean reinitRendBean(String _dest, String _beanName, String _currentBean) {
