@@ -12,7 +12,7 @@ import aiki.map.pokemon.Pokemon;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.structs.RealInstanceStruct;
+import code.bean.RealInstanceStruct;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.Bytes;

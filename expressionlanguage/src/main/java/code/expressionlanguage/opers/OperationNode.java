@@ -1220,23 +1220,11 @@ public abstract class OperationNode implements Operable {
         geneSuperTypes_.add(_cl);
         geneSuperTypes_.addAllElts(_root.getAllSuperTypes());
         for (String t: geneSuperTypes_) {
-            RootBlock root_ = _conf.getClasses().getClassBody(t);
-            if (root_ == null) {
+            OverridableBlock toString_ = _conf.getClasses().getToStringMethods().getVal(t);
+            if (toString_ == null) {
                 continue;
             }
-            for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
-                MethodId id_ = e.getId();
-                if (id_.isStaticMethod()) {
-                    continue;
-                }
-                if (!StringList.quickEq(id_.getName(),_conf.getKeyWords().getKeyWordToString())) {
-                    continue;
-                }
-                if (!id_.getParametersTypes().isEmpty()) {
-                    continue;
-                }
-                _methods.add(buildMethodInfo(e,false,_conf,0, t));
-            }
+            _methods.add(buildMethodInfo(toString_,false,_conf,0, t));
         }
     }
 

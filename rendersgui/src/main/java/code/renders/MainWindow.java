@@ -1,8 +1,7 @@
 package code.renders;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.formathtml.DefaultInitialization;
+import code.bean.nat.DefaultInitialization;
 import code.formathtml.util.BeanCustLgNames;
 import code.gui.*;
 import code.gui.Menu;
@@ -17,8 +16,6 @@ import code.gui.events.QuittingEvent;
 import code.renders.utilcompo.LgNamesRenderUtils;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.stream.StreamZipFile;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -26,7 +23,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.File;
 
 public final class MainWindow extends GroupFrame {
     private Menu menu;

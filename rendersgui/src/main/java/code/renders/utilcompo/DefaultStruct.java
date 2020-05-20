@@ -3,7 +3,7 @@ package code.renders.utilcompo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.structs.RealInstanceStruct;
+import code.bean.RealInstanceStruct;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;

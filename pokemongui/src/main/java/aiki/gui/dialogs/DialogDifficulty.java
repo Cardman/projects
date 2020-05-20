@@ -8,7 +8,7 @@ import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.threads.AfterSettingDifficutyThread;
 import code.formathtml.Navigation;
-import code.formathtml.util.BeanNatLgNames;
+import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;

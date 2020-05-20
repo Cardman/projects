@@ -1,11 +1,9 @@
 package code.formathtml;
-import code.bean.BeanInfo;
-import code.bean.validator.Message;
-import code.bean.validator.ValidatorInfo;
+import code.formathtml.structs.BeanInfo;
+import code.formathtml.structs.Message;
+import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -129,21 +127,7 @@ public final class Navigation {
     }
 
     public void setupRendClassesInit() {
-        setupRendClasses();
-        if (!session.isEmptyErrors()) {
-            return;
-        }
-        if (!(session.getStandards() instanceof BeanCustLgNames)) {
-            return;
-        }
-        session.getContext().setFullStack(new DefaultFullStack(session.getContext()));
-        Classes.tryInitStaticlyTypes(session.getContext());
-        session.getContext().setFullStack(new AdvancedFullStack(session));
-    }
-    public void setupRendClasses() {
-        session.setupRendClasses(files);
-        initInstancesPattern();
-        setupRenders();
+        session.getAdvStandards().setupAll(this,session,files);
     }
 
     public void setupRenders() {

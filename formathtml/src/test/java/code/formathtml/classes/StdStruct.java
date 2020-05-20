@@ -1,5 +1,6 @@
-package code.formathtml.structs;
+package code.formathtml.classes;
 
+import code.bean.RealInstanceStruct;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;

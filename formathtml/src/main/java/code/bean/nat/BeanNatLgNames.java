@@ -1,8 +1,10 @@
-package code.formathtml.util;
+package code.bean.nat;
 
 import code.bean.Bean;
-import code.bean.BeanInfo;
-import code.bean.validator.Message;
+import code.bean.BeanStruct;
+import code.bean.RealInstanceStruct;
+import code.formathtml.structs.BeanInfo;
+import code.formathtml.structs.Message;
 import code.bean.validator.Validator;
 import code.expressionlanguage.*;
 import code.expressionlanguage.errors.AnalysisMessages;
@@ -14,13 +16,14 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.types.DefaultLoopDeclaring;
 import code.formathtml.*;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.exec.RendFctOperation;
 import code.formathtml.exec.RendInvokingOperation;
 import code.formathtml.exec.RendSettableFieldOperation;
-import code.formathtml.structs.*;
+import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.NodeContainer;
+import code.formathtml.util.NodeInformations;
 import code.maths.montecarlo.DefaultGenerator;
 import code.sml.Document;
 import code.sml.Element;
@@ -104,7 +107,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     private Struct newSimpleBean(String _language, BeanInfo _bean, Configuration _conf) {
         _conf.addPage(new ImportingPage());
         String keyWordNew_ = _conf.getKeyWords().getKeyWordNew();
-        Struct strBean_ = RenderExpUtil.processQuickEl(StringList.concat(keyWordNew_," ",_bean.getClassName(),NO_PARAM), 0, _conf).getStruct();
+        Struct strBean_ = processQuickEl(StringList.concat(keyWordNew_," ",_bean.getClassName(),NO_PARAM), 0, _conf).getStruct();
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
         bean_.setDataBase(dataBase);
@@ -114,7 +117,13 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         _conf.removeLastPage();
         return strBean_;
     }
-
+    public static Argument processQuickEl(String _el, int _index, Configuration _conf) {
+        CustList<RendDynOperationNode> out_ = RenderExpUtil.getAnalyzed(_el,_index,_conf);
+        ContextEl context_ = _conf.getContext();
+        context_.setNullAnalyzing();
+        out_ = RenderExpUtil.getReducedNodes(out_.last());
+        return RenderExpUtil.calculateReuse(out_, _conf);
+    }
     @Override
     public void forwardDataBase(Struct _bean, Struct _to, Configuration _conf) {
         ((BeanStruct)_to).getBean().setDataBase(((BeanStruct)_bean).getBean().getDataBase());
@@ -407,8 +416,11 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     protected abstract Struct newId(Object _obj, String _className);
 
+    public void setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
+        _nav.initInstancesPattern();
+        _nav.setupRenders();
+    }
     public abstract Struct wrapStd(Object _element);
-    public abstract ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context);
 
     @Override
     public String processString(Argument _arg, Configuration _cont) {

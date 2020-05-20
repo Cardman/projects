@@ -1,9 +1,5 @@
 package aiki.gui.dialogs;
 import java.awt.Color;
-import java.awt.GridLayout;
-
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
 
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
@@ -15,7 +11,7 @@ import aiki.map.places.Place;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
 import code.formathtml.Navigation;
-import code.formathtml.util.BeanNatLgNames;
+import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.EqList;

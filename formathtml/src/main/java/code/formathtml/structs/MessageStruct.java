@@ -1,12 +1,9 @@
 package code.formathtml.structs;
 
-import code.bean.validator.Message;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 
-public final class MessageStruct implements Struct {
+public final class MessageStruct extends AbstractStruct {
 
     private final Message instance;
 
@@ -17,18 +14,8 @@ public final class MessageStruct implements Struct {
         className = _className;
     }
 
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
-
     public static MessageStruct newInstance(Message _instance, String _className) {
         return new MessageStruct(_instance, _className);
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
     }
 
     @Override

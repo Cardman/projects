@@ -3,7 +3,7 @@ package cards.tarot.beans;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.structs.RealInstanceStruct;
+import code.bean.RealInstanceStruct;
 import code.maths.Rate;
 import code.util.Longs;
 import code.util.StringList;

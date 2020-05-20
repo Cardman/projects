@@ -3,7 +3,7 @@ package aiki.gui.threads;
 import aiki.beans.PokemonStandards;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
-import code.formathtml.util.BeanNatLgNames;
+import code.bean.nat.BeanNatLgNames;
 import code.resources.ResourceFiles;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringList;
@@ -47,7 +47,8 @@ public final class PreparedRenderedPages implements Runnable {
         String rel_ = StringList.concat(relative,realFilePath_);
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
-        navigation.setupRendClasses();
+        navigation.initInstancesPattern();
+        navigation.setupRenders();
     }
 
     public Navigation getNavigation() {

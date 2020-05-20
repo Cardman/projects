@@ -3,7 +3,7 @@ package cards.president.beans;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.structs.RealInstanceStruct;
+import code.bean.RealInstanceStruct;
 import code.util.Longs;
 import code.util.StringList;
 import code.util.ints.SimpleIterable;

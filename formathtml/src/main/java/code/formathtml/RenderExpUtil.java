@@ -113,14 +113,8 @@ public final class RenderExpUtil {
         out_ = getReducedNodes(out_.last());
         return calculateReuse(out_, _conf);
     }
-    public static Argument processQuickEl(String _el, int _index, Configuration _conf) {
-        CustList<RendDynOperationNode> out_ = getAnalyzed(_el,_index,_conf);
-        ContextEl context_ = _conf.getContext();
-        context_.setNullAnalyzing();
-        out_ = getReducedNodes(out_.last());
-        return calculateReuse(out_, _conf);
-    }
-    private static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, Configuration _conf) {
+
+    public static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, Configuration _conf) {
         _conf.setupAnalyzing();
         Argument argGl_ = _conf.getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();

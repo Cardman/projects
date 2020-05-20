@@ -8,11 +8,10 @@ import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
-import code.formathtml.DefaultInitialization;
-import code.formathtml.structs.BeanStruct;
-import code.formathtml.structs.RealInstanceStruct;
-import code.formathtml.structs.StdStruct;
-import code.formathtml.util.*;
+import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.DefaultInitialization;
+import code.bean.BeanStruct;
+import code.bean.RealInstanceStruct;
 import code.util.*;
 
 public final class CustBeanLgNames extends BeanNatLgNames {
@@ -1986,8 +1985,8 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         return StdStruct.newInstance(_obj, _className);
     }
     @Override
-    public ResultErrorStd getOtherStructToBeValidated(StringList _values,
-            String _className, ContextEl _context) {
+    public ResultErrorStd getStructToBeValidated(StringList _values,
+            String _className, Configuration _context) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_className, TYPE_RATE)) {
             if (!Rate.matchesRate(_values.first())) {
@@ -2014,7 +2013,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
             res_.setResult(new StdStruct(list_, _className));
             return res_;
         }
-        return res_;
+        return super.getStructToBeValidated(_values,_className,_context);
     }
     public boolean isConveritble(String _className) {
         if (super.isConveritble(_className)) {

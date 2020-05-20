@@ -10,7 +10,7 @@ import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.BeanNatLgNames;
+import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
 import code.resources.ResourceFiles;
 import code.sml.Document;
@@ -171,7 +171,8 @@ public final class RenderedPage implements ProcessingSession {
         String realFilePath_ = getRealFilePath(lg_, session_.getFirstUrl());
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(realFilePath_));
         navigation.setFiles(files_);
-        navigation.setupRendClasses();
+        navigation.initInstancesPattern();
+        navigation.setupRenders();
     }
     void start() {
         processing.set(true);

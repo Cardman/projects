@@ -1,9 +1,5 @@
 package code.formathtml;
 
-import code.bean.Bean;
-
-import code.bean.validator.Validator;
-
 import code.util.StringMap;
 import org.junit.Test;
 

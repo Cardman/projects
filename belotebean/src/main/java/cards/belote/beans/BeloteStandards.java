@@ -15,11 +15,10 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.*;
-import code.formathtml.Configuration;
-import code.formathtml.structs.BeanStruct;
-import code.formathtml.structs.RealInstanceStruct;
-import code.formathtml.util.*;
-import code.formathtml.DefaultInitialization;
+import code.bean.BeanStruct;
+import code.bean.RealInstanceStruct;
+import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.DefaultInitialization;
 import code.util.*;
 import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleEntry;
@@ -501,9 +500,6 @@ public final class BeloteStandards extends BeanNatLgNames {
         return new ResultErrorStd();
     }
     public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Object _value) {
-        return new ResultErrorStd();
-    }
-    public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
         return new ResultErrorStd();
     }
 

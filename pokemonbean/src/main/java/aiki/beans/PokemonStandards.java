@@ -240,10 +240,11 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
-import code.formathtml.structs.BeanStruct;
-import code.formathtml.structs.RealInstanceStruct;
+import code.bean.BeanStruct;
+import code.bean.RealInstanceStruct;
 import code.formathtml.util.*;
-import code.formathtml.DefaultInitialization;
+import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.DefaultInitialization;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.sml.Element;
@@ -2836,20 +2837,23 @@ public final class PokemonStandards extends BeanNatLgNames {
         return res_;
     }
     @Override
-    public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        String value_;
-        if (_values.isEmpty()) {
-            value_ = "";
-        } else {
-            value_ = _values.first();
-        }
-        if (!Rate.isValid(value_)) {
-            res_.setResult(new DefaultStruct(Rate.zero(),TYPE_RATE));
+    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, Configuration _context) {
+        if (StringList.quickEq(_className,TYPE_RATE)) {
+            ResultErrorStd res_ = new ResultErrorStd();
+            String value_;
+            if (_values.isEmpty()) {
+                value_ = "";
+            } else {
+                value_ = _values.first();
+            }
+            if (!Rate.isValid(value_)) {
+                res_.setResult(new DefaultStruct(Rate.zero(),TYPE_RATE));
+                return res_;
+            }
+            res_.setResult(new DefaultStruct(new Rate(value_),TYPE_RATE));
             return res_;
         }
-        res_.setResult(new DefaultStruct(new Rate(value_),TYPE_RATE));
-        return res_;
+        return super.getStructToBeValidated(_values,_className,_context);
     }
 
     public boolean isConveritble(String _className) {

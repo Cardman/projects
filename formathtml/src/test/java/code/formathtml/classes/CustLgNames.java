@@ -14,9 +14,8 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
-import code.formathtml.util.BeanNatLgNames;
-import code.formathtml.structs.RealInstanceStruct;
-import code.formathtml.structs.StdStruct;
+import code.bean.nat.BeanNatLgNames;
+import code.bean.RealInstanceStruct;
 import code.util.*;
 
 public final class CustLgNames extends BeanNatLgNames {
@@ -560,7 +559,7 @@ public final class CustLgNames extends BeanNatLgNames {
     protected Struct newId(Object _obj, String _className) {
         return StdStruct.newInstance(_obj, _className);
     }
-    public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
+    public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, Configuration _context) {
         return new ResultErrorStd();
     }
     public String getAliasInts() {

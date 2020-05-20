@@ -1,5 +1,5 @@
 package aiki.beans.validators;
-import code.bean.validator.Message;
+import code.formathtml.structs.Message;
 import code.bean.validator.Validator;
 import code.maths.Rate;
 

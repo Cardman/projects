@@ -1,17 +1,12 @@
 package aiki.gui.dialogs;
 import java.awt.Dimension;
 
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import aiki.beans.PokemonStandards;
 import aiki.sml.Resources;
 import aiki.gui.MainWindow;
 import code.formathtml.Navigation;
-import code.formathtml.util.BeanNatLgNames;
+import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;

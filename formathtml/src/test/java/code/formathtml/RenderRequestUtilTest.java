@@ -1,8 +1,5 @@
 package code.formathtml;
 
-import code.bean.Bean;
-
-import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.ArrayStruct;

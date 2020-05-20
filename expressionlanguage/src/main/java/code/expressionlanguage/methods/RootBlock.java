@@ -757,6 +757,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                         name_);
                                 _context.addError(badMeth_);
                             }
+                            _context.getClasses().getToStringMethods().addEntry(getFullName(),m_);
                         }
                     } else {
                         if (m_.isStaticMethod()) {

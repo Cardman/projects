@@ -1,8 +1,7 @@
 package code.formathtml.nat;
 
 import code.bean.Bean;
-import code.bean.BeanInfo;
-import code.bean.validator.Validator;
+import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
@@ -11,18 +10,17 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.*;
 import code.formathtml.classes.*;
-import code.formathtml.structs.BeanStruct;
-import code.formathtml.structs.StdStruct;
+import code.bean.BeanStruct;
+import code.formathtml.classes.StdStruct;
 import code.formathtml.util.*;
+import code.bean.nat.BeanNatLgNames;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.*;
 import org.junit.Test;
 
 import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public final class NativeTest extends CommonRender {
     private static final String COMPOSITE = "code.expressionlanguage.classes.Composite";
@@ -64,6 +62,8 @@ public final class NativeTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
+        bean_.setLanguage("");
+        assertNotNull(bean_.getLanguage());
         bean_.getComposite().getStrings().add("FIRST");
         bean_.getComposite().getStrings().add("SECOND");
         bean_.getComposite().setInteger(5);

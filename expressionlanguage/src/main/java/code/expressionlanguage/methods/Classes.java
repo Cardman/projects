@@ -27,6 +27,7 @@ public final class Classes {
     private final StringMap<String> resources;
 
     private StringMap<StringMap<Struct>> staticFields;
+    private final StringMap<OverridableBlock> toStringMethods = new StringMap<OverridableBlock>();
 
     private final ErrorList errorsDet;
     private final WarningList warningsDet;
@@ -2429,4 +2430,7 @@ public final class Classes {
         expsSecondCust = _expsSecondCust;
     }
 
+    public StringMap<OverridableBlock> getToStringMethods() {
+        return toStringMethods;
+    }
 }

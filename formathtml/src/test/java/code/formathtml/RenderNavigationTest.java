@@ -1,11 +1,8 @@
 package code.formathtml;
 
-import code.bean.BeanInfo;
+import code.formathtml.structs.BeanInfo;
 
-import code.bean.validator.Validator;
-import code.bean.validator.ValidatorInfo;
-import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.methods.Classes;
+import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.*;
 

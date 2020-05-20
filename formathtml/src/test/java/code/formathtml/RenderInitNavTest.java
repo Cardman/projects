@@ -1,6 +1,6 @@
 package code.formathtml;
 
-import code.bean.BeanInfo;
+import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.NullStruct;

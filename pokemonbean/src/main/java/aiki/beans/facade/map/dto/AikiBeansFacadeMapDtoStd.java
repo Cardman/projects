@@ -12,7 +12,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.IntStruct;
-import code.formathtml.structs.RealInstanceStruct;
+import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;

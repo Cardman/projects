@@ -1,7 +1,7 @@
 package code.formathtml;
 
-import code.bean.BeanInfo;
-import code.bean.validator.ValidatorInfo;
+import code.formathtml.structs.BeanInfo;
+import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.*;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.NotInitializedClass;
@@ -33,8 +33,6 @@ import code.sml.DocumentResult;
 import code.util.*;
 
 public final class Configuration {
-
-    private static final String RETURN_LINE = "\n";
 
     private static final String SEP = ":";
 
@@ -147,31 +145,6 @@ public final class Configuration {
         renderFiles.add(firstUrl);
     }
 
-    public void setupRendClasses(StringMap<String> _files) {
-        if (!(standards instanceof BeanCustLgNames)) {
-            return;
-        }
-        String conf_ = getFilesConfName();
-        StringList content_ = new StringList();
-        for (EntryCust<String, String> e: _files.entryList()) {
-            if (StringList.quickEq(e.getKey(),conf_)) {
-                content_ = StringList.splitStrings(e.getValue(), RETURN_LINE);
-                break;
-            }
-        }
-        StringMap<String> classFiles_ = new StringMap<String>();
-        for (String f: content_) {
-            for (EntryCust<String, String> e: _files.entryList()) {
-                if (StringList.quickEq(e.getKey(), f)) {
-                    classFiles_.put(f, e.getValue());
-                    break;
-                }
-            }
-        }
-        //!classFiles_.isEmpty()
-        Classes.validateWithoutInit(classFiles_, context);
-        ((BeanCustLgNames)standards).buildIterables(this);
-    }
     public void setupRenders(StringMap<String> _files) {
         renders.clear();
         analyzingDoc.setFiles(_files);

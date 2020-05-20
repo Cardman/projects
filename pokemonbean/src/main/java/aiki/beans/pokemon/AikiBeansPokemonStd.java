@@ -16,17 +16,16 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.formathtml.structs.RealInstanceStruct;
+import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.BeanNatLgNames;
+import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
-import aiki.facade.enums.SelectedBoolean;
 
 public final class AikiBeansPokemonStd {
     public static final String TYPE_POKEDEX_BEAN = "aiki.beans.pokemon.PokedexBean";

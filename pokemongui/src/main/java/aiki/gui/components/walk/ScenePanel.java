@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import aiki.beans.PokemonStandards;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
 import aiki.gui.threads.PreparedRenderedPages;
@@ -77,7 +76,7 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.network.Net;
 import aiki.network.stream.SentPokemon;
 import code.formathtml.Navigation;
-import code.formathtml.util.BeanNatLgNames;
+import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.maths.LgInt;

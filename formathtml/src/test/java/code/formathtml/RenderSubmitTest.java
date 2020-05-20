@@ -1,7 +1,5 @@
 package code.formathtml;
 
-import code.bean.Bean;
-
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;

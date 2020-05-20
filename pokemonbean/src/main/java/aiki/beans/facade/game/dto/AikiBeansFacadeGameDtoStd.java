@@ -10,7 +10,7 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
-import code.formathtml.structs.RealInstanceStruct;
+import code.bean.RealInstanceStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;

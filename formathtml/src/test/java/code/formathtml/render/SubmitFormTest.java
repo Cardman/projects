@@ -1,8 +1,7 @@
 package code.formathtml.render;
 
-import code.bean.BeanInfo;
-import code.bean.validator.Validator;
-import code.bean.validator.ValidatorInfo;
+import code.formathtml.structs.BeanInfo;
+import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassField;

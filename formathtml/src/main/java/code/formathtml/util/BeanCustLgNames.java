@@ -1,22 +1,22 @@
 package code.formathtml.util;
 
-import code.bean.BeanInfo;
-import code.bean.validator.Message;
-import code.bean.validator.ValidatorInfo;
+import code.formathtml.structs.BeanInfo;
+import code.formathtml.structs.Message;
+import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultSetOffset;
+import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.exec.ExecArrayFieldOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.types.DefaultLoopDeclaring;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.*;
 import code.formathtml.errors.RendAnalysisMessages;
@@ -71,6 +71,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     protected static final String MESSAGE_FORMAT = "MessageFormat";
     protected static final String MESSAGE_GET_ARGS = "MessageGetArgs";
     protected static final String MESSAGE_SET_ARGS = "MessageSetArgs";
+
+    private static final String RETURN_LINE = "\n";
 
     private String iteratorVar;
     private String hasNextVar;
@@ -215,7 +217,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     public void buildIterables(Configuration _context) {
-        ContextEl context_ = _context.getContext();
         _context.getImporting().add(new ImportingPage());
         _context.setupInts();
         StringMap<String> args_ = new StringMap<String>();
@@ -845,6 +846,41 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return candidate_;
     }
 
+    @Override
+    public void setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
+        setupRendClasses(_conf,_files);
+        _nav.initInstancesPattern();
+        _nav.setupRenders();
+        if (!_conf.isEmptyErrors()) {
+            return;
+        }
+        _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
+        Classes.tryInitStaticlyTypes(_conf.getContext());
+        _conf.getContext().setFullStack(new AdvancedFullStack(_conf));
+    }
+
+    public void setupRendClasses(Configuration _conf, StringMap<String> _files) {
+        String conf_ = _conf.getFilesConfName();
+        StringList content_ = new StringList();
+        for (EntryCust<String, String> e: _files.entryList()) {
+            if (StringList.quickEq(e.getKey(),conf_)) {
+                content_ = StringList.splitStrings(e.getValue(), RETURN_LINE);
+                break;
+            }
+        }
+        StringMap<String> classFiles_ = new StringMap<String>();
+        for (String f: content_) {
+            for (EntryCust<String, String> e: _files.entryList()) {
+                if (StringList.quickEq(e.getKey(), f)) {
+                    classFiles_.put(f, e.getValue());
+                    break;
+                }
+            }
+        }
+        //!classFiles_.isEmpty()
+        Classes.validateWithoutInit(classFiles_, _conf.getContext());
+        buildIterables(_conf);
+    }
     @Override
     public void preInitBeans(Configuration _conf) {
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
@@ -1476,9 +1512,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return ApplyCoreMethodUtil.getString(arg_.getStruct()).getInstance();
     }
 
-    public ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context) {
-        return new ResultErrorStd();
-    }
     @Override
     public StringMap<String> allRefTypes() {
         StringMap<String> types_ = super.allRefTypes();

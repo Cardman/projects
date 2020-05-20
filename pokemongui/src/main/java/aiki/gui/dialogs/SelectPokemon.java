@@ -10,7 +10,7 @@ import aiki.gui.dialogs.events.SeePkDetailEvent;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import aiki.map.pokemon.UsablePokemon;
 import code.formathtml.Navigation;
-import code.formathtml.util.BeanNatLgNames;
+import code.bean.nat.BeanNatLgNames;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;

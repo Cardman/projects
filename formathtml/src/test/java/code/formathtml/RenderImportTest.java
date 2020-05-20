@@ -1,10 +1,5 @@
 package code.formathtml;
 
-import code.bean.Bean;
-import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.structs.Struct;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.util.StringMap;
 import org.junit.Test;
 

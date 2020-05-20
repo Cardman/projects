@@ -1,6 +1,6 @@
 package code.formathtml;
 
-import code.bean.BeanInfo;
+import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.methods.Classes;
@@ -8,7 +8,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.types.DefaultLoopDeclaring;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.*;
 import code.sml.Document;

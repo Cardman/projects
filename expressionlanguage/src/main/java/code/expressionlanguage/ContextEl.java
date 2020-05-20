@@ -86,16 +86,15 @@ public abstract class ContextEl {
     }
     public static CustList<GeneMethod> getMethodBlocks(GeneType _element) {
         CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
-        if (_element == null) {
-            return methods_;
-        }
         if (_element instanceof RootBlock) {
             for (GeneCustMethod m:Classes.getMethodBlocks((RootBlock) _element)) {
                 methods_.add(m);
             }
         } else {
-            for (StandardMethod m: ((StandardType)_element).getMethods().values()) {
-                methods_.add(m);
+            if (_element instanceof StandardType) {
+                for (StandardMethod m : ((StandardType) _element).getMethods().values()) {
+                    methods_.add(m);
+                }
             }
         }
         return methods_;

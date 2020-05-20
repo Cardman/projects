@@ -6,7 +6,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardMethod;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.BeanNatLgNames;
+import code.bean.nat.BeanNatLgNames;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringMap;

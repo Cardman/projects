@@ -8,8 +8,7 @@ import code.expressionlanguage.structs.ErroneousStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.render.MetaDocument;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.BeanNatLgNames;
+import code.bean.nat.BeanNatLgNames;
 import code.gui.CustComponent;
 import code.sml.Document;
 

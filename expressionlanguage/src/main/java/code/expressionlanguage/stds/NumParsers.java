@@ -746,7 +746,10 @@ public final class NumParsers {
                 i_++;
             }
         }
-        if ((intPart_.length() > 0 || decimalPart_.length() > 0) && i_ >= len_) {
+        if (intPart_.length() + decimalPart_.length() == 0L) {
+            return null;
+        }
+        if (i_ >= len_) {
             return infos_;
         }
         i_++;

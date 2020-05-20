@@ -1,17 +1,13 @@
 package code.formathtml.util;
 
-import code.bean.validator.Message;
+import code.formathtml.structs.Message;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.variables.LocalVariable;
-import code.formathtml.Configuration;
-import code.formathtml.ReadConfiguration;
-import code.formathtml.RendImport;
-import code.formathtml.RenderExpUtil;
+import code.formathtml.*;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.exec.RendFctOperation;
 import code.formathtml.exec.RendSettableFieldOperation;
@@ -140,39 +136,36 @@ public abstract class BeanLgNames extends LgNames {
             res_.setResult(wrapStd(v_));
             return res_;
         }
-        if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_className,_context.getContext())) {
-            if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(_className);
-            if (PrimitiveTypeUtil.toPrimitive(cl_,this).matchClass(getAliasPrimBoolean())) {
-                res_.setResult(BooleanStruct.of(StringList.quickEq(_values.first(),ON)));
-                return res_;
-            }
-            if (PrimitiveTypeUtil.toPrimitive(cl_,this).matchClass(getAliasPrimChar())) {
-                res_.setResult(new CharStruct(_values.first().trim().charAt(0)));
-                return res_;
-            }
-            int order_ = PrimitiveTypeUtil.getIntOrderClass(cl_, _context.getContext());
-            if (order_ == 0) {
-                DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
-                if (!doubleInfo_.isValid()) {
-                    res_.setError(getAliasCastType());
-                    return res_;
-                }
-                res_.setResult(PrimitiveTypeUtil.convertObject(cl_,new DoubleStruct(doubleInfo_.getValue()),this));
-                return res_;
-            }
-            LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
-            if (!val_.isValid()) {
+        if (_values.isEmpty() || _values.first().trim().isEmpty()) {
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(_className);
+        if (PrimitiveTypeUtil.toPrimitive(cl_,this).matchClass(getAliasPrimBoolean())) {
+            res_.setResult(BooleanStruct.of(StringList.quickEq(_values.first(),ON)));
+            return res_;
+        }
+        if (PrimitiveTypeUtil.toPrimitive(cl_,this).matchClass(getAliasPrimChar())) {
+            res_.setResult(new CharStruct(_values.first().trim().charAt(0)));
+            return res_;
+        }
+        int order_ = PrimitiveTypeUtil.getIntOrderClass(cl_, _context.getContext());
+        if (order_ == 0) {
+            DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
+            if (!doubleInfo_.isValid()) {
                 res_.setError(getAliasCastType());
                 return res_;
             }
-            res_.setResult(PrimitiveTypeUtil.convertObject(cl_,new LongStruct(val_.getValue()),this));
+            res_.setResult(PrimitiveTypeUtil.convertObject(cl_,new DoubleStruct(doubleInfo_.getValue()),this));
             return res_;
         }
-        return getOtherStructToBeValidated(_values, _className, _context.getContext());
+        LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
+        if (!val_.isValid()) {
+            res_.setError(getAliasCastType());
+            return res_;
+        }
+        res_.setResult(PrimitiveTypeUtil.convertObject(cl_,new LongStruct(val_.getValue()),this));
+        return res_;
     }
     public boolean isConveritble(String _className) {
         if (StringList.quickEq(_className, getAliasString())) {
@@ -183,6 +176,7 @@ public abstract class BeanLgNames extends LgNames {
         }
         return false;
     }
+    public abstract void setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files);
     protected static Struct wrapStd(String _element) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
@@ -255,8 +249,6 @@ public abstract class BeanLgNames extends LgNames {
     public abstract void setStoredForms(Struct _bean, Configuration _conf);
 
     public abstract Message validate(Configuration _conf,NodeContainer _cont, String _validatorId);
-
-    public abstract ResultErrorStd getOtherStructToBeValidated(StringList _values, String _className, ContextEl _context);
 
 
 }

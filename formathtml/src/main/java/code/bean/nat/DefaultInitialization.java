@@ -1,70 +1,12 @@
-package code.formathtml;
+package code.bean.nat;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultFullStack;
-import code.expressionlanguage.DefaultInitializer;
-import code.expressionlanguage.DefaultLockingClass;
-import code.expressionlanguage.errors.AnalysisMessages;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
-import code.formathtml.util.AdvancedFullStack;
-import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
-import code.util.StringMap;
-import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+public final class DefaultInitialization {
 
-public final class RenderInitStdsTest {
-    @Test
-    public void process1Test() {
-        BeanLgNames b_ = new BeanCustLgNamesImpl();
-        basicStandards(b_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords k_ = new KeyWords();
-        contextEl(b_,a_,k_);
+    private DefaultInitialization() {
     }
-    @Test
-    public void process5Test() {
-        BeanLgNames b_ = new BeanCustLgNamesImpl();
-        basicStandards(b_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords k_ = new KeyWords();
-        k_.setKeyWordIf("i");
-        k_.setKeyWordElseif("m");
-        k_.setKeyWordElse("indexe");
-        contextEl(b_,a_,k_);
-    }
-    @Test
-    public void process6Test() {
-        RendDocumentBlock doc_ = new RendDocumentBlock(null,null,null,null);
-        doc_.buildExpressionLanguage(null,null);
-    }
-    private Configuration contextEl(BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
-        return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw);
-    }
-    private Configuration contextEl(StringMap<String> _files,Options _opt, BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
-        conf_.setPrefix("c");
-        DefaultLockingClass lk_ = new DefaultLockingClass();
-        DefaultInitializer di_ = new DefaultInitializer();
-        ContextEl cont_ = ContextFactory.build(-1,lk_, di_, _opt, _mess,_kw, _beanLgNames,4);
-        conf_.setContext(cont_);
-        cont_.setFullStack(new DefaultFullStack(cont_));
-        Classes.validateWithoutInit(_files, cont_);
-        assertTrue(cont_.isEmptyErrors());
-        conf_.setContext(cont_);
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        cont_.setFullStack(new AdvancedFullStack(conf_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
-        return conf_;
-    }
-
-    private static void basicStandards(BeanLgNames _lgNames) {
-        _lgNames.setDefaultPkg("java.lang");
+    public static void basicStandards(BeanLgNames _lgNames) {
         _lgNames.setAliasObject("java.lang.Object");
         _lgNames.setAliasVoid("$void");
         _lgNames.setAliasCharSequence("java.lang.CharSequence");
@@ -82,16 +24,24 @@ public final class RenderInitStdsTest {
         _lgNames.setAliasEnumType("java.lang.$en");
         _lgNames.setAliasEnums("java.lang.$enums");
         _lgNames.setAliasReplacement("code.util.Replacement");
+//        _lgNames.setAliasStore("$badStore");
         _lgNames.setAliasStore("code.expressionlanguage.exceptions.DynamicArrayStoreException");
+//        _lgNames.setAliasNullPe("$npe");
         _lgNames.setAliasNullPe("code.util.exceptions.NullObjectException");
         _lgNames.setAliasBadEncode("java.lang.$enc");
+//        _lgNames.setAliasBadIndex("$badIndex");
         _lgNames.setAliasBadIndex("code.expressionlanguage.exceptions.BadIndexException");
         _lgNames.setAliasIllegalArg("code.expressionlanguage.exceptions.IllegalArgument");
+//        _lgNames.setAliasBadSize("$badSize");
         _lgNames.setAliasBadSize("code.expressionlanguage.exceptions.NegativeSizeException");
+//        _lgNames.setAliasError("$error");
         _lgNames.setAliasError("java.lang.Exception");
         _lgNames.setAliasGetMessage("getMessage");
         _lgNames.setAliasCastType("code.expressionlanguage.exceptions.DynamicCastClassException");
+//      _lgNames.setAliasDivisionZero("$divZero");
         _lgNames.setAliasDivisionZero("code.expressionlanguage.exceptions.DivideZeroException");
+        //_lgNames.setAliasSof("$sofe");
+        //_lgNames.setAliasMath("$math");
         _lgNames.setAliasMath("java.lang.Math");
         _lgNames.setAliasAbs("abs");
         _lgNames.setAliasMod("mod");
@@ -346,5 +296,6 @@ public final class RenderInitStdsTest {
         _lgNames.getDisplayedStrings().setNullCoverString("null");
         _lgNames.getDisplayedStrings().setStaticCallString("staticCall");
         _lgNames.getDisplayedStrings().setStaticString("static");
+        _lgNames.setDefaultPkg("java.lang");
     }
 }
