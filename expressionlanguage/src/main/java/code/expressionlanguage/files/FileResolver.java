@@ -852,7 +852,7 @@ public final class FileResolver {
                 if (currentChar_ == ':') {
                     String str_ = instruction_.toString().trim();
                     if (StringExpUtil.startsWithKeyWord(str_, keyWordCase_)
-                            || StringExpUtil.startsWithKeyWord(str_, keyWordDefault_)) {
+                            || StringList.quickEq(str_, keyWordDefault_)) {
                         endInstruction_ = true;
                     }
                     if (endInstruction_ && currentParent_ instanceof SwitchPartBlock) {
@@ -1502,7 +1502,10 @@ public final class FileResolver {
                     emptySwitchPart_ = true;
                 }
                 if (StringExpUtil.startsWithKeyWord(_file,c_, keyWordDefault_)) {
-                    emptySwitchPart_ = true;
+                    int n_ = StringExpUtil.nextPrintChar(c_ + keyWordDefault_.length(), _file.length(), _file);
+                    if (StringExpUtil.nextCharIs(_file,n_,_file.length(),':')) {
+                        emptySwitchPart_ = true;
+                    }
                 }
             }
             if (!emptySwitchPart_ && br_ instanceof BracedBlock && _currentChar != END_LINE) {
@@ -2205,7 +2208,7 @@ public final class FileResolver {
             _currentParent.appendChild(br_);
             return br_;
         }
-        if (StringExpUtil.startsWithKeyWord(_trimmedInstruction,keyWordDefault_)) {
+        if (StringList.quickEq(_trimmedInstruction,keyWordDefault_)) {
             br_ = new DefaultCondition(
                     new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             _currentParent.appendChild(br_);

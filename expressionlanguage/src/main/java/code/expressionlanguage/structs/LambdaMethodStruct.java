@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 
-public class LambdaMethodStruct implements Struct {
+public final class LambdaMethodStruct implements LambdaStruct {
 
     private Argument instanceCall;
 

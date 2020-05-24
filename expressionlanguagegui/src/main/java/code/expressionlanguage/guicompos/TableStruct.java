@@ -118,7 +118,7 @@ public final class TableStruct extends CustComponentStruct {
         return BooleanStruct.of(table.isMultiSelect());
     }
     public void setMultiSelect(Struct _mult) {
-        table.setMultiSelect(BooleanStruct.of(true).sameReference(_mult));
+        table.setMultiSelect(BooleanStruct.isTrue(_mult));
     }
 
     public void setColumnIdentifiers(Struct _cols) {
@@ -129,7 +129,7 @@ public final class TableStruct extends CustComponentStruct {
         return BooleanStruct.of(table.isReorderingAllowed());
     }
     public void setReorderingAllowed(Struct _b) {
-        table.setReorderingAllowed(BooleanStruct.of(true).sameReference(_b));
+        table.setReorderingAllowed(BooleanStruct.isTrue(_b));
     }
 
     public void addHeaderListener(Struct _list) {

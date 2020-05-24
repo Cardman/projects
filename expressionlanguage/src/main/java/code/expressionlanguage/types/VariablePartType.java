@@ -22,6 +22,12 @@ final class VariablePartType extends LeafPartType {
     }
 
     @Override
+    void setAnalyzedType(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+        String type_ = getTypeName();
+        setAnalyzedType(type_);
+    }
+
+    @Override
     void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         String type_ = getTypeName();
         setAnalyzedType(type_);

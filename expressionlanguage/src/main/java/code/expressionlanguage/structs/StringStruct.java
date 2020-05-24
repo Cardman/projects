@@ -393,7 +393,7 @@ public final class StringStruct extends CharSequenceStruct {
             _res.setError(nullPe_);
             return;
         }
-        boolean case_ = BooleanStruct.of(true).sameReference(_case);
+        boolean case_ = BooleanStruct.isTrue(_case);
         StringStruct other_ = (StringStruct) _other;
         int comLen_ = _len.intStruct();
         int to_ = _toffset.intStruct();
@@ -406,7 +406,7 @@ public final class StringStruct extends CharSequenceStruct {
         if (!(_other instanceof StringStruct)) {
             return null;
         }
-        boolean case_ = BooleanStruct.of(true).sameReference(_case);
+        boolean case_ = BooleanStruct.isTrue(_case);
         StringStruct other_ = (StringStruct) _other;
         int comLen_ = _len.intStruct();
         int to_ = _toffset.intStruct();

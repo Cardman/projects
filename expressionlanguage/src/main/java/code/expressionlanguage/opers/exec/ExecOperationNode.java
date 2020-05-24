@@ -21,6 +21,7 @@ import code.util.StringList;
 
 public abstract class ExecOperationNode implements Operable {
 
+    protected static final String NOT_CLASS = " ";
 
     protected static final String ARR = "[";
 
@@ -190,6 +191,10 @@ public abstract class ExecOperationNode implements Operable {
         if (_anaNode instanceof DefaultValueOperation) {
             DefaultValueOperation f_ = (DefaultValueOperation) _anaNode;
             return new ExecDefaultValueOperation(f_);
+        }
+        if (_anaNode instanceof DefaultOperation) {
+            DefaultOperation f_ = (DefaultOperation) _anaNode;
+            return new ExecDefaultOperation(f_);
         }
         if (_anaNode instanceof IdFctOperation) {
             IdFctOperation f_ = (IdFctOperation) _anaNode;
@@ -479,12 +484,12 @@ public abstract class ExecOperationNode implements Operable {
         if (par_ instanceof ExecCompoundAffectationOperation) {
             ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation)par_;
             if (StringList.quickEq(p_.getOper(),"&&=")) {
-                if (BooleanStruct.of(false).sameReference(_value)) {
+                if (BooleanStruct.isFalse(_value)) {
                     return par_.getOrder();
                 }
             }
             if (StringList.quickEq(p_.getOper(),"||=")) {
-                if (BooleanStruct.of(true).sameReference(_value)) {
+                if (BooleanStruct.isTrue(_value)) {
                     return par_.getOrder();
                 }
             }
@@ -501,8 +506,7 @@ public abstract class ExecOperationNode implements Operable {
         }
         if (par_ instanceof ExecQuickOperation) {
             ExecQuickOperation q_ = (ExecQuickOperation) par_;
-            BooleanStruct bs_ = q_.absorbingStruct();
-            if (bs_.sameReference(_value)) {
+            if (q_.match(_value)) {
                 return par_.getOrder();
             }
         }
@@ -511,8 +515,7 @@ public abstract class ExecOperationNode implements Operable {
                 return par_.getOrder();
             }
             if (index_ == 0) {
-                BooleanStruct bs_ = BooleanStruct.of(false);
-                if (bs_.sameReference(_value)) {
+                if (BooleanStruct.isFalse(_value)) {
                     return _operation.getNextSibling().getOrder() + 1;
                 }
             }
@@ -601,6 +604,8 @@ public abstract class ExecOperationNode implements Operable {
             } else {
                 ClassMethodId polymorph_ = ExecInvokingOperation.polymorph(_conf, struct_, methodId_);
                 String className_ = polymorph_.getClassName();
+                String gene_ = _conf.getClasses().getClassBody(Templates.getIdFromAllTypes(argClassName_)).getGenericString();
+                className_ = Templates.getOverridingFullTypeByBases(gene_,className_,_conf);
                 className_ = Templates.quickFormat(argClassName_,className_,_conf);
                 MethodId ct_ = polymorph_.getConstraints();
                 _conf.setCallingState(new CustomFoundMethod(out_,className_,ct_,new CustList<Argument>(),null));

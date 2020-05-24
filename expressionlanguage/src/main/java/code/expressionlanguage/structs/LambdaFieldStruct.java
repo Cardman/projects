@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 
-public class LambdaFieldStruct implements Struct {
+public final class LambdaFieldStruct implements LambdaStruct {
 
     private Argument instanceCall;
 

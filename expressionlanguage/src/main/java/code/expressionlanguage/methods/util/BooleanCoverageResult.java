@@ -25,10 +25,10 @@ public final class BooleanCoverageResult extends AbstractCoverageResult {
 
     @Override
     public void cover(Argument _arg) {
-        if (_arg.getStruct().sameReference(BooleanStruct.of(true))) {
+        if (BooleanStruct.isTrue(_arg.getStruct())) {
             coverTrue = true;
         }
-        if (_arg.getStruct().sameReference(BooleanStruct.of(false))) {
+        if (BooleanStruct.isFalse(_arg.getStruct())) {
             coverFalse = true;
         }
     }

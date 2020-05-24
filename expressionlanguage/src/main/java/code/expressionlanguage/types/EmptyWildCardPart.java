@@ -2,7 +2,6 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.util.CustList;
 import code.util.*;
@@ -23,6 +22,11 @@ final class EmptyWildCardPart extends LeafPartType {
 
     @Override
     void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+        setAnalyzedType(Templates.SUB_TYPE);
+    }
+
+    @Override
+    void setAnalyzedType(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         setAnalyzedType(Templates.SUB_TYPE);
     }
 

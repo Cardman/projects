@@ -10,14 +10,14 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
     @Override
     boolean initType(ContextEl _cont) {
         LgNames stds_ = _cont.getStandards();
-        MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct(),stds_);
+        MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct());
         return method_.isWideStatic();
     }
 
     @Override
     boolean isAbstract(ContextEl _cont) {
         LgNames stds_ = _cont.getStandards();
-        MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct(),stds_);
+        MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct());
         return method_.isAbstract();
     }
 

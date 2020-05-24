@@ -32,10 +32,10 @@ public final class NullBooleanCoverageResult extends AbstractCoverageResult {
         if (_arg.isNull()) {
             coverNull = true;
         }
-        if (_arg.getStruct().sameReference(BooleanStruct.of(true))) {
+        if (BooleanStruct.isTrue(_arg.getStruct())) {
             coverTrue = true;
         }
-        if (_arg.getStruct().sameReference(BooleanStruct.of(false))) {
+        if (BooleanStruct.isFalse(_arg.getStruct())) {
             coverFalse = true;
         }
 

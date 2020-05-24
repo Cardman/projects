@@ -80,7 +80,7 @@ public final class SliderStruct extends InputStruct {
 
     @Override
     public void setEnabled(Struct _enabled) {
-        slider.setEnabled(BooleanStruct.of(true).sameReference(_enabled));
+        slider.setEnabled(BooleanStruct.isTrue(_enabled));
     }
 
     @Override

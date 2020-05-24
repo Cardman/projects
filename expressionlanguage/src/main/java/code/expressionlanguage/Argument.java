@@ -59,13 +59,13 @@ public final class Argument {
         if (_arg == null) {
             return true;
         }
-        return !BooleanStruct.of(false).sameReference(_arg.getStruct());
+        return !BooleanStruct.isFalse(_arg.getStruct());
     }
     public static boolean isTrueValue(Argument _arg) {
         if (_arg == null) {
             return false;
         }
-        return BooleanStruct.of(true).sameReference(_arg.getStruct());
+        return BooleanStruct.isTrue(_arg.getStruct());
     }
     public static boolean isNullValue(Argument _arg) {
         if (_arg == null) {
@@ -85,10 +85,10 @@ public final class Argument {
     }
 
     public boolean isTrue() {
-        return BooleanStruct.of(true).sameReference(object);
+        return BooleanStruct.isTrue(object);
     }
     public boolean isFalse() {
-        return BooleanStruct.of(false).sameReference(object);
+        return BooleanStruct.isFalse(object);
     }
 
     public String getObjectClassName(ContextEl _context) {

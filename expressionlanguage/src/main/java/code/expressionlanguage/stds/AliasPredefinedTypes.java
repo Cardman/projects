@@ -1,6 +1,9 @@
 package code.expressionlanguage.stds;
 
 public final class AliasPredefinedTypes {
+    private String aliasSeedDoubleGenerator;
+    private String aliasSeedGenerator;
+    private String aliasSeedGet;
     private String aliasIterable;
     private String aliasIterableVar;
     private String aliasIterator;
@@ -216,5 +219,29 @@ public final class AliasPredefinedTypes {
 
     public void setAliasEnumParamVar(String aliasEnumParamVar) {
         this.aliasEnumParamVar = aliasEnumParamVar;
+    }
+
+    public String getAliasSeedDoubleGenerator() {
+        return aliasSeedDoubleGenerator;
+    }
+
+    public void setAliasSeedDoubleGenerator(String aliasSeedDoubleGenerator) {
+        this.aliasSeedDoubleGenerator = aliasSeedDoubleGenerator;
+    }
+
+    public String getAliasSeedGenerator() {
+        return aliasSeedGenerator;
+    }
+
+    public void setAliasSeedGenerator(String aliasSeedGenerator) {
+        this.aliasSeedGenerator = aliasSeedGenerator;
+    }
+
+    public String getAliasSeedGet() {
+        return aliasSeedGet;
+    }
+
+    public void setAliasSeedGet(String aliasSeedGet) {
+        this.aliasSeedGet = aliasSeedGet;
     }
 }

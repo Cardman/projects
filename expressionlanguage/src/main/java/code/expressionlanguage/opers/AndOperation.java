@@ -5,9 +5,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentsUtil;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
-import code.util.*;
 import code.util.StringMap;
 
 public final class AndOperation extends QuickOperation {
@@ -18,8 +16,8 @@ public final class AndOperation extends QuickOperation {
     }
 
     @Override
-    public BooleanStruct absorbingStruct() {
-        return BooleanStruct.of(false);
+    public void tryCalculateNode(ContextEl _conf) {
+        tryGetResult(_conf, this, false, isOkNum());
     }
 
     @Override

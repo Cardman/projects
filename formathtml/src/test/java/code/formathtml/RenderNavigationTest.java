@@ -2349,7 +2349,7 @@ public final class RenderNavigationTest extends CommonRender {
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceBool"));
-        assertTrue(!((BooleanStruct) choice_).getInstance());
+        assertTrue(BooleanStruct.isFalse(choice_));
     }
     @Test
     public void form17Test() {
@@ -2455,7 +2455,7 @@ public final class RenderNavigationTest extends CommonRender {
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceBool"));
-        assertTrue(((BooleanStruct) choice_).getInstance());
+        assertTrue(BooleanStruct.isTrue(choice_));
     }
     @Test
     public void form18Test() {
@@ -2667,7 +2667,7 @@ public final class RenderNavigationTest extends CommonRender {
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceBool"));
-        assertTrue(((BooleanStruct) choice_).getInstance());
+        assertTrue(BooleanStruct.isTrue(choice_));
     }
     @Test
     public void form20Test() {
@@ -3910,8 +3910,8 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" $public $double index;");
         file_.append(" $public $double[] numbers;");
         file_.append(" $public $void beforeDisplaying(){");
-        file_.append("  numbers={2,4,6};");
-        file_.append("  index=4;");
+        file_.append("  numbers={2d,4d,6d};");
+        file_.append("  index=4d;");
         file_.append("  $var ch = getForms().getVal(\"index\");");
         file_.append("  $if (ch != $null){");
         file_.append("   index=($double)ch;");
@@ -3985,8 +3985,8 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" $public $double index;");
         file_.append(" $public $double[] numbers;");
         file_.append(" $public $void beforeDisplaying(){");
-        file_.append("  numbers={2,4,6};");
-        file_.append("  index=4;");
+        file_.append("  numbers={2d,4d,6d};");
+        file_.append("  index=4d;");
         file_.append("  $var ch = getForms().getVal(\"index\");");
         file_.append("  $if (ch != $null){");
         file_.append("   index=($double)ch;");
@@ -4408,7 +4408,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "boolField"));
-        assertTrue(!((BooleanStruct)choice_).getInstance());
+        assertTrue(BooleanStruct.isFalse(choice_));
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -4428,7 +4428,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.boolField\" n-i=\"0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "boolField"));
-        assertTrue(((BooleanStruct)choice_).getInstance());
+        assertTrue(BooleanStruct.isTrue(choice_));
     }
 
     @Test
@@ -4470,7 +4470,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "boolField"));
-        assertTrue(((BooleanStruct)choice_).getInstance());
+        assertTrue(BooleanStruct.isTrue(choice_));
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -4490,7 +4490,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.boolField\" n-i=\"0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "boolField"));
-        assertTrue(!((BooleanStruct)choice_).getInstance());
+        assertTrue(BooleanStruct.isFalse(choice_));
     }
 
     @Test

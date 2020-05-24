@@ -372,7 +372,7 @@ public final class SubmitFormTest extends CommonRender {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.choiceBool\" n-i=\"0\" checked=\"checked\"/></form></body></html>", nav_.getHtmlText());
         Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceBool"));
-        assertTrue(((BooleanStruct) choice_).getInstance());
+        assertTrue(BooleanStruct.isTrue(choice_));
     }
     @Test
     public void form6Test() {
@@ -442,7 +442,7 @@ public final class SubmitFormTest extends CommonRender {
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.choiceBool\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
         Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceBool"));
-        assertTrue(!((BooleanStruct) choice_).getInstance());
+        assertTrue(BooleanStruct.isFalse(choice_));
     }
     @Test
     public void form7Test() {

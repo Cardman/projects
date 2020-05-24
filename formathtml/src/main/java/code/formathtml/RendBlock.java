@@ -791,6 +791,9 @@ public abstract class RendBlock implements AnalyzedBlock {
                 id_ = _write.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrGroupId()));
             }
             String class_ = _cont.getAdvStandards().getInputClass(_write,_cont);
+            if (class_.isEmpty()) {
+                class_ = _f.getClassName();
+            }
             nodeInfos_.setValidator(_write.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrValidator())));
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);

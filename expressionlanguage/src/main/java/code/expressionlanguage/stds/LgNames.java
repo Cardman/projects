@@ -180,6 +180,9 @@ public abstract class LgNames {
     public static final String ANNOTATION_TYPE = "AnnotationType";
     public static final String GET_GENERIC_VARIABLE_OWNER = "GetGenericVariableOwner";
     public static final String ENUM_PARAM_VAR = "EnumParamVar";
+    public static final String SEED_GENERATOR = "SeedGenerator";
+    public static final String SEED_DOUBLE_GENERATOR = "SeedDoubleGenerator";
+    public static final String SEED_GET = "SeedGet";
     public static final String PAIR_TYPE_VAR_SECOND = "PairTypeVarSecond";
     public static final String ANNOTATED = "Annotated";
     public static final String ITERABLE_VAR = "IterableVar";
@@ -215,6 +218,7 @@ public abstract class LgNames {
     public static final String XOR = "Xor";
     public static final String MULT = "Mult";
     public static final String RANDOM = "Random";
+    public static final String SEED = "Seed";
     public static final String NEG_BIN = "NegBin";
     public static final String MINUS = "Minus";
     public static final String ENUM_NAME = "EnumName";
@@ -294,9 +298,9 @@ public abstract class LgNames {
     public static final String NOT_NULL_COVER_STRING = "NotNullCoverString";
     public static final String STATIC_STRING = "StaticString";
     public static final String STATIC_CALL_STRING = "StaticCallString";
-    protected static final String LOC_VAR = ".";
-
-    protected static final String PARS = "()";
+    public static final String INFINITY = "Infinity";
+    public static final String EXPONENT = "Exponent";
+    public static final String NAN = "Nan";
 
     private StringMap<StandardType> standards = new StringMap<StandardType>();
 
@@ -315,10 +319,6 @@ public abstract class LgNames {
     private DisplayedStrings displayedStrings = new DisplayedStrings();
     private String defaultPkg = "";
 
-    private MethodMetaInfo methodMetaInfo;
-    private ConstructorMetaInfo constructorMetaInfo;
-    private FieldMetaInfo fieldMetaInfo;
-    private ClassMetaInfo classMetaInfo;
     private final AbstractGenerator generator;
 
     protected LgNames(AbstractGenerator generator) {
@@ -371,6 +371,8 @@ public abstract class LgNames {
         list_.addEntry(ERROR_INIT_CLASS,getAliasErrorInitClass());
         list_.addEntry(INVOKE_TARGET,getAliasInvokeTarget());
         list_.addEntry(ENUM_TYPE,getAliasEnumType());
+        list_.addEntry(SEED_DOUBLE_GENERATOR,getAliasSeedDoubleGenerator());
+        list_.addEntry(SEED_GENERATOR,getAliasSeedGenerator());
         list_.addEntry(ITERABLE,getAliasIterable());
         list_.addEntry(ITERATOR_TYPE,getAliasIteratorType());
         list_.addEntry(ENUM_PARAM,getAliasEnumParam());
@@ -419,7 +421,8 @@ public abstract class LgNames {
                 new KeyValueMemberName(GET_FIRST,getAliasGetFirst()),
                 new KeyValueMemberName(GET_SECOND,getAliasGetSecond()),
                 new KeyValueMemberName(ENUM_ORDINAL,getAliasEnumOrdinal()),
-                new KeyValueMemberName(ENUM_NAME,getAliasEnumName())
+                new KeyValueMemberName(ENUM_NAME,getAliasEnumName()),
+                new KeyValueMemberName(SEED_GET,getAliasSeedGet())
         ));
         return list_;
     }
@@ -569,6 +572,10 @@ public abstract class LgNames {
                 new KeyValueMemberName(ENUM_ORDINAL,getAliasEnumOrdinal()),
                 new KeyValueMemberName(ENUM_PRED_VALUE_OF,getAliasEnumPredValueOf()),
                 new KeyValueMemberName(ENUM_VALUES,getAliasEnumValues())));
+        map_.addEntry(getAliasSeedDoubleGenerator(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(SEED_GET,getAliasSeedGet())));
+        map_.addEntry(getAliasSeedGenerator(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(SEED_GET,getAliasSeedGet())));
         map_.addEntry(getAliasEnums(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(NAME,getAliasName()),
                 new KeyValueMemberName(ORDINAL,getAliasOrdinal())));
@@ -613,7 +620,8 @@ public abstract class LgNames {
                 new KeyValueMemberName(BIT_SHIFT_RIGHT,getAliasBitShiftRight()),
                 new KeyValueMemberName(ROTATE_LEFT,getAliasRotateLeft()),
                 new KeyValueMemberName(ROTATE_RIGHT,getAliasRotateRight()),
-                new KeyValueMemberName(RANDOM,getAliasRandom())));
+                new KeyValueMemberName(RANDOM,getAliasRandom()),
+                new KeyValueMemberName(SEED,getAliasSeed())));
         map_.addEntry(getAliasReplacement(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_NEW_STRING,getAliasGetNewString()),
                 new KeyValueMemberName(GET_OLD_STRING,getAliasGetOldString())));
@@ -968,6 +976,14 @@ public abstract class LgNames {
         name_ = stds_.getAliasEnumParam();
         predefinedClasses.add(name_);
         files_.put(name_, content_);
+        content_ = PredefinedClasses.getBracedSeedDoubleGeneratorType(_context);
+        name_ = stds_.getAliasSeedDoubleGenerator();
+        predefinedClasses.add(name_);
+        files_.put(name_, content_);
+        content_ = PredefinedClasses.getBracedSeedGeneratorType(_context);
+        name_ = stds_.getAliasSeedGenerator();
+        predefinedClasses.add(name_);
+        files_.put(name_, content_);
         predefinedInterfacesInitOrder.add(stds_.getAliasIterable());
         predefinedInterfacesInitOrder.add(stds_.getAliasIteratorType());
         predefinedInterfacesInitOrder.add(stds_.getAliasIterableTable());
@@ -975,6 +991,8 @@ public abstract class LgNames {
         predefinedInterfacesInitOrder.add(stds_.getAliasPairType());
         predefinedInterfacesInitOrder.add(stds_.getAliasEnumParam());
         predefinedInterfacesInitOrder.add(stds_.getAliasEnumType());
+        predefinedInterfacesInitOrder.add(stds_.getAliasSeedDoubleGenerator());
+        predefinedInterfacesInitOrder.add(stds_.getAliasSeedGenerator());
         return files_;
     }
 
@@ -1980,6 +1998,31 @@ public abstract class LgNames {
     public void setAliasEnumParamVar(String aliasEnumParamVar) {
         predefTypes.setAliasEnumParamVar(aliasEnumParamVar);
     }
+
+    public String getAliasSeedDoubleGenerator() {
+        return predefTypes.getAliasSeedDoubleGenerator();
+    }
+
+    public void setAliasSeedDoubleGenerator(String aliasSeedDoubleGenerator) {
+        this.predefTypes.setAliasSeedDoubleGenerator(aliasSeedDoubleGenerator);
+    }
+
+    public String getAliasSeedGenerator() {
+        return predefTypes.getAliasSeedGenerator();
+    }
+
+    public void setAliasSeedGenerator(String aliasSeedGenerator) {
+        this.predefTypes.setAliasSeedGenerator(aliasSeedGenerator);
+    }
+
+    public String getAliasSeedGet() {
+        return predefTypes.getAliasSeedGet();
+    }
+
+    public void setAliasSeedGet(String aliasSeedGet) {
+        this.predefTypes.setAliasSeedGet(aliasSeedGet);
+    }
+
     public String getAliasInvokeTarget() {
         return reflect.getAliasInvokeTarget();
     }
@@ -2675,6 +2718,12 @@ public abstract class LgNames {
     public void setAliasRandom(String _aliasRotateRight) {
         mathRef.setAliasRandom(_aliasRotateRight);
     }
+    public String getAliasSeed() {
+        return mathRef.getAliasSeed();
+    }
+    public void setAliasSeed(String _aliasRotateRight) {
+        mathRef.setAliasSeed(_aliasRotateRight);
+    }
     public String getAliasStackTraceElement() {
         return stackElt.getAliasStackTraceElement();
     }
@@ -2730,38 +2779,6 @@ public abstract class LgNames {
     }
     public void setDefaultPkg(String _defaultPkg) {
         defaultPkg = _defaultPkg;
-    }
-
-    public MethodMetaInfo getMethodMetaInfo() {
-        return methodMetaInfo;
-    }
-
-    public void setMethodMetaInfo(MethodMetaInfo methodMetaInfo) {
-        this.methodMetaInfo = methodMetaInfo;
-    }
-
-    public ConstructorMetaInfo getConstructorMetaInfo() {
-        return constructorMetaInfo;
-    }
-
-    public void setConstructorMetaInfo(ConstructorMetaInfo constructorMetaInfo) {
-        this.constructorMetaInfo = constructorMetaInfo;
-    }
-
-    public FieldMetaInfo getFieldMetaInfo() {
-        return fieldMetaInfo;
-    }
-
-    public void setFieldMetaInfo(FieldMetaInfo fieldMetaInfo) {
-        this.fieldMetaInfo = fieldMetaInfo;
-    }
-
-    public ClassMetaInfo getClassMetaInfo() {
-        return classMetaInfo;
-    }
-
-    public void setClassMetaInfo(ClassMetaInfo classMetaInfo) {
-        this.classMetaInfo = classMetaInfo;
     }
 
     public AbstractGenerator getGenerator() {

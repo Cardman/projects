@@ -2381,7 +2381,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" public static char exmeth(){\n");
         xml_.append("  Character b = null;\n");
-        xml_.append("  Character c = 2;\n");
+        xml_.append("  Character c = 2c;\n");
         xml_.append("  return b ?? c;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -2402,8 +2402,8 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" public static char exmeth(){\n");
-        xml_.append("  Character b = 1;\n");
-        xml_.append("  Character c = 2;\n");
+        xml_.append("  Character b = 1c;\n");
+        xml_.append("  Character c = 2c;\n");
         xml_.append("  return b ?? c;\n");
         xml_.append(" }\n");
         xml_.append("}\n");

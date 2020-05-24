@@ -24,7 +24,7 @@ public final class SpinnerStruct extends InputStruct {
 
     @Override
     public void setEnabled(Struct _enabled) {
-        spinner.setEnabled(BooleanStruct.of(true).sameReference(_enabled));
+        spinner.setEnabled(BooleanStruct.isTrue(_enabled));
     }
 
     public void addChangeListener(Struct _l) {

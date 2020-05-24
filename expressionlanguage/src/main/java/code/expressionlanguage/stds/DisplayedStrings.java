@@ -9,6 +9,9 @@ public final class DisplayedStrings {
 
     private String staticString;
     private String staticCallString;
+    private String infinity;
+    private String exponent;
+    private String nan;
 
     public String getTrueString() {
         return trueString;
@@ -58,5 +61,29 @@ public final class DisplayedStrings {
 
     public void setStaticCallString(String _staticCallString) {
         staticCallString = _staticCallString;
+    }
+
+    public String getInfinity() {
+        return infinity;
+    }
+
+    public void setInfinity(String infinity) {
+        this.infinity = infinity;
+    }
+
+    public String getExponent() {
+        return exponent;
+    }
+
+    public void setExponent(String exponent) {
+        this.exponent = exponent;
+    }
+
+    public String getNan() {
+        return nan;
+    }
+
+    public void setNan(String nan) {
+        this.nan = nan;
     }
 }

@@ -48,7 +48,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             arguments_.add(getArgument(_nodes,(ExecOperationNode) settable));
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
             MethodId id_ = classMethodId.getConstraints();
-            ExecInvokingOperation.checkParameters(_conf, "", id_, Argument.createVoid(), firstArgs_, false,false,null,null);
+            ExecInvokingOperation.checkParametersOperators(_conf, id_, Argument.createVoid(), firstArgs_);
             return;
         }
         Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post);

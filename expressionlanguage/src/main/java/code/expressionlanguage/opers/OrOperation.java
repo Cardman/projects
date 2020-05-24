@@ -5,9 +5,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentsUtil;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
-import code.util.*;
 import code.util.StringMap;
 
 public final class OrOperation extends QuickOperation {
@@ -15,6 +13,11 @@ public final class OrOperation extends QuickOperation {
     public OrOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+    }
+
+    @Override
+    public void tryCalculateNode(ContextEl _conf) {
+        tryGetResult(_conf, this, true, isOkNum());
     }
 
     @Override
@@ -39,9 +42,5 @@ public final class OrOperation extends QuickOperation {
         vars_.getFields().put(this, AssignmentsUtil.or(fieldsAfterLast_,fieldsAfterBefLast_));
         vars_.getVariables().put(this, AssignmentsUtil.or(variablesAfterLast_,variablesAfterBefLast_));
         vars_.getMutableLoop().put(this, AssignmentsUtil.or(mutableAfterLast_,mutableAfterBefLast_));
-    }
-    @Override
-    public BooleanStruct absorbingStruct() {
-        return BooleanStruct.of(true);
     }
 }

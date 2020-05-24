@@ -72,7 +72,7 @@ public final class ExecStandardInstancingOperation extends
         }
         String lastType_ = Templates.quickFormat(className_, lastType, _conf);
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments, _conf);
-        return instancePrepare(_conf.getLastPage(),_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex, true);
+        return instancePrepareFormat(_conf.getLastPage(),_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex);
     }
 
     public String getClassName() {

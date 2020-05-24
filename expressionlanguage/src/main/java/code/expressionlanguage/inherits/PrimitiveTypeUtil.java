@@ -638,12 +638,6 @@ public final class PrimitiveTypeUtil {
         return gt_;
     }
 
-    public static int getOrderClass(String _class, ContextEl _context) {
-        return getOrderClass(_class, _context.getStandards());
-    }
-    private static int getOrderClass(String _class, LgNames _stds) {
-        return getOrderClass(new ClassArgumentMatching(_class), _stds);
-    }
     public static int getOrderClass(ClassArgumentMatching _class, ContextEl _context) {
         return getOrderClass(_class, _context.getStandards());
     }
@@ -671,6 +665,39 @@ public final class PrimitiveTypeUtil {
             return BYTE_CASTING;
         }
         return 0;
+    }
+
+    public static int getFloatOrderClass(String _class, ContextEl _context) {
+        return getFloatOrderClass(_class, _context.getStandards());
+    }
+    private static int getFloatOrderClass(String _class, LgNames _stds) {
+        return getFloatOrderClass(new ClassArgumentMatching(_class), _stds);
+    }
+    public static boolean isFloatOrderClass(ClassArgumentMatching _class, ClassArgumentMatching _classTwo,ContextEl _context) {
+        return getFloatOrderClass(_class,_context) > 0 && getFloatOrderClass(_classTwo,_context) > 0;
+    }
+    public static int getFloatOrderClass(ClassArgumentMatching _class, ContextEl _context) {
+        return getFloatOrderClass(_class, _context.getStandards());
+    }
+    private static int getFloatOrderClass(ClassArgumentMatching _class, LgNames _stds) {
+        ClassArgumentMatching class_ = toPrimitive(_class, _stds);
+        if (class_.matchClass(_stds.getAliasPrimDouble())) {
+            return DOUBLE_CASTING;
+        }
+        if (class_.matchClass(_stds.getAliasPrimFloat())) {
+            return FLOAT_CASTING;
+        }
+        return 0;
+    }
+
+    public static int getIntOrderClass(String _class, ContextEl _context) {
+        return getIntOrderClass(_class, _context.getStandards());
+    }
+    private static int getIntOrderClass(String _class, LgNames _stds) {
+        return getIntOrderClass(new ClassArgumentMatching(_class), _stds);
+    }
+    public static boolean isIntOrderClass(ClassArgumentMatching _class, ClassArgumentMatching _classTwo,ContextEl _context) {
+        return getIntOrderClass(_class,_context) > 0 && getIntOrderClass(_classTwo,_context) > 0;
     }
     public static int getIntOrderClass(ClassArgumentMatching _class, ContextEl _context) {
         return getIntOrderClass(_class, _context.getStandards());

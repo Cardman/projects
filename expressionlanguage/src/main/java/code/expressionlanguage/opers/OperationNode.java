@@ -123,6 +123,7 @@ public abstract class OperationNode implements Operable {
         KeyWords keyWords_ = _an.getKeyWords();
         String keyWordBool_ = keyWords_.getKeyWordBool();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
+        String keyWordDefault_ = keyWords_.getKeyWordDefault();
         String keyWordFirstopt_ = keyWords_.getKeyWordFirstopt();
         String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
@@ -225,6 +226,9 @@ public abstract class OperationNode implements Operable {
             }
             if (StringList.quickEq(fctName_, keyWordFirstopt_)) {
                 return new FirstOptOperation(_index, _indexChild, _m, _op);
+            }
+            if (StringList.quickEq(fctName_, keyWordDefault_)) {
+                return new DefaultOperation(_index, _indexChild, _m, _op);
             }
             if (StringList.quickEq(fctName_,keyWordThis_)) {
                 return new CurrentInvokingConstructor(_index, _indexChild, _m, _op);

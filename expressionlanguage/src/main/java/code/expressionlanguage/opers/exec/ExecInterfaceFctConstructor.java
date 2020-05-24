@@ -61,7 +61,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         int natvararg_ = getNaturalVararg();
         ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments.mid(1), _conf);
-        checkParameters(_conf, superClass_, ctorId_, arg_, firstArgs_, true,false,InstancingStep.USING_SUPER,null);
+        checkParametersCtors(_conf, superClass_, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER,null);
         return Argument.createVoid();
     }
 }

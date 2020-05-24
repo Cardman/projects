@@ -24,7 +24,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct(),stds_);
+        MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct());
         if (!initClass) {
             initClass = true;
             if (initType(_context)) {

@@ -37,11 +37,11 @@ public class Graphic extends PaintableLabel {
         nbDealsMinusOne_--;
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<nombreJoueurs_;joueur_++) {
             _g.setColor(couleurs.get(joueur_));
-            esperance_=sommes.first()/(double)nombreJoueurs_;
+            esperance_=(double)sommes.first()/(double)nombreJoueurs_;
             _g.drawLine(0,0,rapport_,(int)(esperance_-scores.first().get(joueur_)));
             for(int partie_=CustList.FIRST_INDEX;partie_<nbDealsMinusOne_;partie_++) {
-                esperance_=sommes.get(partie_)/(double)nombreJoueurs_;
-                double esperance2_=sommes.get(partie_+1)/(double)nombreJoueurs_;
+                esperance_=(double)sommes.get(partie_)/(double)nombreJoueurs_;
+                double esperance2_=(double)sommes.get(partie_+1)/(double)nombreJoueurs_;
                 _g.drawLine(rapport_*(partie_+1),(int)(esperance_-scores.get(partie_).get(joueur_)),rapport_*(partie_+2),(int)(esperance2_-scores.get(partie_+1).get(joueur_)));
             }
         }

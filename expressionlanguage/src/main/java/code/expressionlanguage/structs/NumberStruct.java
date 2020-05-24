@@ -93,7 +93,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         }
         if (StringList.quickEq(op_, "&&")) {
             BooleanStruct b_ = ClassArgumentMatching.convertToBoolean(_first);
-            if (BooleanStruct.of(false).sameReference(b_)) {
+            if (BooleanStruct.isFalse(b_)) {
                 _res.setResult(b_);
                 return;
             }
@@ -101,7 +101,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             return;
         }
         BooleanStruct b_ = ClassArgumentMatching.convertToBoolean(_first);
-        if (BooleanStruct.of(true).sameReference(b_)) {
+        if (BooleanStruct.isTrue(b_)) {
             _res.setResult(b_);
             return;
         }
@@ -170,14 +170,14 @@ public abstract class NumberStruct implements DisplayableStruct {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 parseFloat(_res,lgNames_,_args[0],true);
             } else {
-                Float one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
+                float one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
                 _res.setResult(new FloatStruct(one_));
             }
         } else {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 parseDouble(_res,lgNames_,_args[0],true);
             } else {
-                Double one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getDouble();
+                double one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getDouble();
                 _res.setResult(new DoubleStruct(one_));
             }
         }
@@ -240,14 +240,14 @@ public abstract class NumberStruct implements DisplayableStruct {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 return parseFloat(_args[0],true);
             } else {
-                Float one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
+                float one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
                 return (new FloatStruct(one_));
             }
         } else {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 return parseDouble(_args[0],true);
             } else {
-                Double one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getDouble();
+                double one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getDouble();
                 return(new DoubleStruct(one_));
             }
         }
@@ -417,7 +417,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             } else {
                 if (StringList.quickEq(type_, byteType_)) {
                     if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                        Byte one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getByte();
+                        byte one_ = ClassArgumentMatching.convertToNumber(_args[0]).byteStruct();
                         _res.setResult(new StringStruct(Integer.toString(one_)));
                     } else{
                         boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseByte());
@@ -425,7 +425,7 @@ public abstract class NumberStruct implements DisplayableStruct {
                     }
                 } else if (StringList.quickEq(type_, shortType_)) {
                     if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                        Short one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getShort();
+                        short one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getShort();
                         _res.setResult(new StringStruct(Integer.toString(one_)));
                     } else {
                         boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseShort());
@@ -433,7 +433,7 @@ public abstract class NumberStruct implements DisplayableStruct {
                     }
                 } else if (StringList.quickEq(type_, intType_)) {
                     if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                        Integer one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
+                        int one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
                         _res.setResult(new StringStruct(Integer.toString(one_)));
                     } else {
                         boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseInt());
@@ -441,7 +441,7 @@ public abstract class NumberStruct implements DisplayableStruct {
                     }
                 } else if (StringList.quickEq(type_, longType_)) {
                     if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                        Long one_ = (ClassArgumentMatching.convertToNumber(_args[0])).longStruct();
+                        long one_ = (ClassArgumentMatching.convertToNumber(_args[0])).longStruct();
                         _res.setResult(new StringStruct(Long.toString(one_)));
                     } else {
                         boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseLong());
@@ -449,30 +449,30 @@ public abstract class NumberStruct implements DisplayableStruct {
                     }
                 } else if (StringList.quickEq(type_, floatType_)) {
                     if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
-                        Float one_;
+                        float one_;
                         one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
-                        _res.setResult(BooleanStruct.of(Double.isNaN(one_)));
+                        _res.setResult(BooleanStruct.of(Float.isNaN(one_)));
                     } else if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
-                        Float one_;
+                        float one_;
                         one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
-                        _res.setResult(BooleanStruct.of(Double.isInfinite(one_)));
+                        _res.setResult(BooleanStruct.of(Float.isInfinite(one_)));
                     } else if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                        Float one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
-                        _res.setResult(new StringStruct(Float.toString(one_)));
+                        StringStruct tmp = getLow(_cont, _args[0]);
+                        _res.setResult(tmp);
                     } else {
                         boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseFloat());
                         parseFloat(_res, lgNames_, _args[0],exc_);
                     }
                 } else {
                     if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
-                        Double one_ = getaDouble(_struct, list_, _args);
+                        double one_ = getaDouble(_struct, list_, _args);
                         _res.setResult(BooleanStruct.of(Double.isNaN(one_)));
                     } else if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
-                        Double one_ = getaDouble(_struct, list_, _args);
+                        double one_ = getaDouble(_struct, list_, _args);
                         _res.setResult(BooleanStruct.of(Double.isInfinite(one_)));
                     } else if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                        Double one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getDouble();
-                        _res.setResult(new StringStruct(Double.toString(one_)));
+                        StringStruct displayedString = getGreat(_cont, _args[0]);
+                        _res.setResult(displayedString);
                     } else {
                         boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseDouble());
                         parseDouble(_res, lgNames_, _args[0],exc_);
@@ -500,7 +500,11 @@ public abstract class NumberStruct implements DisplayableStruct {
                 }
                 _res.setResult(new IntStruct(compareGene(instance_, ClassArgumentMatching.convertToNumber(_args[0]))));
             } else if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
-                _res.setResult(BooleanStruct.of(_struct.sameReference(_args[0])));
+                if (list_.size() > 1) {
+                    _res.setResult(BooleanStruct.of(NumberStruct.sameValue(_args[0],_args[1])));
+                } else {
+                    _res.setResult(BooleanStruct.of(NumberStruct.sameValue(_struct,_args[0])));
+                }
             } else if (StringList.quickEq(name_, lgNames_.getAliasByteValue())) {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
                 _res.setResult(new ByteStruct(instance_.byteStruct()));
@@ -529,6 +533,14 @@ public abstract class NumberStruct implements DisplayableStruct {
             }
         }
     }
+
+    private static StringStruct getGreat(ContextEl _cont, Struct arg) {
+        DisplayedStrings dis_ = _cont.getStandards().getDisplayedStrings();
+        return ClassArgumentMatching.convertToNumber(arg).getDoubleString(dis_.getInfinity(),
+                dis_.getNan(),
+                dis_.getExponent());
+    }
+
     public static Struct calculate(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct... _args) {
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
@@ -676,7 +688,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             }
             if (StringList.quickEq(type_, byteType_)) {
                 if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                    Byte one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getByte();
+                    byte one_ = (ClassArgumentMatching.convertToNumber(_args[0])).byteStruct();
                     return (new StringStruct(Integer.toString(one_)));
                 }
                 boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseByte());
@@ -684,7 +696,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             }
             if (StringList.quickEq(type_, shortType_)) {
                 if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                    Short one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getShort();
+                    short one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getShort();
                     return (new StringStruct(Integer.toString(one_)));
                 }
                 boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseShort());
@@ -692,7 +704,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             }
             if (StringList.quickEq(type_, intType_)) {
                 if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                    Integer one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
+                    int one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
                     return (new StringStruct(Integer.toString(one_)));
                 }
                 boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseInt());
@@ -700,7 +712,7 @@ public abstract class NumberStruct implements DisplayableStruct {
             }
             if (StringList.quickEq(type_, longType_)) {
                 if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                    Long one_ = (ClassArgumentMatching.convertToNumber(_args[0])).longStruct();
+                    long one_ = (ClassArgumentMatching.convertToNumber(_args[0])).longStruct();
                     return (new StringStruct(Long.toString(one_)));
                 }
                 boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseLong());
@@ -708,33 +720,31 @@ public abstract class NumberStruct implements DisplayableStruct {
             }
             if (StringList.quickEq(type_, floatType_)) {
                 if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
-                    Float one_;
+                    float one_;
                     one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
-                    return (BooleanStruct.of(Double.isNaN(one_)));
+                    return (BooleanStruct.of(Float.isNaN(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
-                    Float one_;
+                    float one_;
                     one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
-                    return (BooleanStruct.of(Double.isInfinite(one_)));
+                    return (BooleanStruct.of(Float.isInfinite(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                    Float one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
-                    return (new StringStruct(Float.toString(one_)));
+                    return getLow(_cont, _args[0]);
                 }
                 boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseFloat());
                 return parseFloat(_args[0], exc_);
             }
             if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
-                Double one_ = getaDouble(_struct, list_, _args);
+                double one_ = getaDouble(_struct, list_, _args);
                 return (BooleanStruct.of(Double.isNaN(one_)));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
-                Double one_ = getaDouble(_struct, list_, _args);
+                double one_ = getaDouble(_struct, list_, _args);
                 return (BooleanStruct.of(Double.isInfinite(one_)));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                Double one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getDouble();
-                return (new StringStruct(Double.toString(one_)));
+                return getGreat(_cont, _args[0]);
             }
             boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseDouble());
             return parseDouble(_args[0], exc_);
@@ -757,7 +767,10 @@ public abstract class NumberStruct implements DisplayableStruct {
                 return(new IntStruct(compareGene(instance_, ClassArgumentMatching.convertToNumber(_args[0]))));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
-                return(BooleanStruct.of(_struct.sameReference(_args[0])));
+                if (list_.size() > 1) {
+                    return(BooleanStruct.of(NumberStruct.sameValue(_args[0],_args[1])));
+                }
+                return(BooleanStruct.of(NumberStruct.sameValue(_struct,_args[0])));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasByteValue())) {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
@@ -793,8 +806,15 @@ public abstract class NumberStruct implements DisplayableStruct {
         return null;
     }
 
-    private static Double getaDouble(Struct _struct, StringList list_, Struct[] _args) {
-        Double one_;
+    private static StringStruct getLow(ContextEl _cont, Struct arg) {
+        DisplayedStrings dis_ = _cont.getStandards().getDisplayedStrings();
+        return ClassArgumentMatching.convertToNumber(arg).getFloatString(dis_.getInfinity(),
+                dis_.getNan(),
+                dis_.getExponent());
+    }
+
+    private static double getaDouble(Struct _struct, StringList list_, Struct[] _args) {
+        double one_;
         if (list_.isEmpty()) {
             NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
             one_ = instance_.getDouble();
@@ -857,7 +877,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         String one_ = ApplyCoreMethodUtil.getCharSeq(_arg).toStringInstance();
         boolean valid_ = true;
         DoubleInfo v_ = NumParsers.splitDouble(one_);
-        double d_ = 0;
+        double d_ = 0.0;
         if (v_.outOfRange(Float.MIN_VALUE,Float.MAX_VALUE)) {
             valid_ = false;
         } else {
@@ -884,7 +904,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         String one_ = ApplyCoreMethodUtil.getCharSeq(_arg).toStringInstance();
         boolean valid_ = true;
         DoubleInfo v_ = NumParsers.splitDouble(one_);
-        double d_ = 0;
+        double d_ = 0.0;
         if (v_.outOfRange(Float.MIN_VALUE,Float.MAX_VALUE)) {
             valid_ = false;
         } else {
@@ -1086,14 +1106,14 @@ public abstract class NumberStruct implements DisplayableStruct {
     }
 
     public static BooleanStruct quickCalculateLowerNb(Struct _a, Struct _b) {
-        if (_a instanceof DoubleStruct || _a instanceof FloatStruct || _b instanceof DoubleStruct || _b instanceof FloatStruct) {
+        if (isFloatType(_a,_b)) {
             return BooleanStruct.of(ClassArgumentMatching.convertToNumber(_a).doubleStruct() < ClassArgumentMatching.convertToNumber(_b).doubleStruct());
         }
         return BooleanStruct.of(ClassArgumentMatching.convertToNumber(_a).longStruct() < ClassArgumentMatching.convertToNumber(_b).longStruct());
     }
 
     public static BooleanStruct quickCalculateGreaterNb(Struct _a, Struct _b) {
-        if (_a instanceof DoubleStruct || _a instanceof FloatStruct || _b instanceof DoubleStruct || _b instanceof FloatStruct) {
+        if (isFloatType(_a,_b)) {
             return BooleanStruct.of(ClassArgumentMatching.convertToNumber(_a).doubleStruct() > ClassArgumentMatching.convertToNumber(_b).doubleStruct());
         }
         return BooleanStruct.of(ClassArgumentMatching.convertToNumber(_a).longStruct() > ClassArgumentMatching.convertToNumber(_b).longStruct());
@@ -1137,11 +1157,11 @@ public abstract class NumberStruct implements DisplayableStruct {
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
         String floatPrim_ = _an.getStandards().getAliasPrimFloat();
-        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
+        if (order_ <= PrimitiveTypeUtil.getIntOrderClass(longPrim_, _an)) {
             long left_ = _a.getLong();
             long right_ = _b.getLong();
             long nb_ = left_ + right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
+            if (order_ == PrimitiveTypeUtil.getIntOrderClass(intPrim_, _an)) {
                 return new IntStruct((int)nb_);
             }
             return new LongStruct(nb_);
@@ -1149,7 +1169,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         double left_ = _a.getDouble();
         double right_ = _b.getDouble();
         double nb_ = left_ + right_;
-        if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
+        if (order_ == PrimitiveTypeUtil.getFloatOrderClass(floatPrim_, _an)) {
             return new FloatStruct((float)nb_);
         }
         return new DoubleStruct(nb_);
@@ -1159,7 +1179,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         Struct tmp_;
-        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
+        if (order_ <= PrimitiveTypeUtil.getIntOrderClass(longPrim_, _an)) {
             tmp_ = new LongStruct(-_a.longStruct());
         } else {
             tmp_ = new DoubleStruct(-_a.doubleStruct());
@@ -1172,11 +1192,11 @@ public abstract class NumberStruct implements DisplayableStruct {
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
         String floatPrim_ = _an.getStandards().getAliasPrimFloat();
-        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
+        if (order_ <= PrimitiveTypeUtil.getIntOrderClass(longPrim_, _an)) {
             long left_ = _a.getLong();
             long right_ = _b.getLong();
             long nb_ = left_ - right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
+            if (order_ == PrimitiveTypeUtil.getIntOrderClass(intPrim_, _an)) {
                 return new IntStruct((int)nb_);
             }
             return new LongStruct(nb_);
@@ -1184,7 +1204,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         double left_ = _a.getDouble();
         double right_ = _b.getDouble();
         double nb_ = left_ - right_;
-        if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
+        if (order_ == PrimitiveTypeUtil.getFloatOrderClass(floatPrim_, _an)) {
             return new FloatStruct((float)nb_);
         }
         return new DoubleStruct(nb_);
@@ -1194,11 +1214,11 @@ public abstract class NumberStruct implements DisplayableStruct {
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
         String floatPrim_ = _an.getStandards().getAliasPrimFloat();
-        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
+        if (order_ <= PrimitiveTypeUtil.getIntOrderClass(longPrim_, _an)) {
             long left_ = _a.getLong();
             long right_ = _b.getLong();
             long nb_ = left_ * right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
+            if (order_ == PrimitiveTypeUtil.getIntOrderClass(intPrim_, _an)) {
                 return new IntStruct((int)nb_);
             }
             return new LongStruct(nb_);
@@ -1206,7 +1226,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         double left_ = _a.getDouble();
         double right_ = _b.getDouble();
         double nb_ = left_ * right_;
-        if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
+        if (order_ == PrimitiveTypeUtil.getFloatOrderClass(floatPrim_, _an)) {
             return new FloatStruct((float)nb_);
         }
         return new DoubleStruct(nb_);
@@ -1226,14 +1246,14 @@ public abstract class NumberStruct implements DisplayableStruct {
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
         String floatPrim_ = _an.getStandards().getAliasPrimFloat();
-        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
+        if (order_ <= PrimitiveTypeUtil.getIntOrderClass(longPrim_, _an)) {
             long left_ = _a.getLong();
             long right_ = _b.getLong();
             if (right_ == 0) {
                 return NullStruct.NULL_VALUE;
             }
             long nb_ = left_ / right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
+            if (order_ == PrimitiveTypeUtil.getIntOrderClass(intPrim_, _an)) {
                 return new IntStruct((int)nb_);
             }
             return new LongStruct(nb_);
@@ -1241,7 +1261,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         double left_ = _a.getDouble();
         double right_ = _b.getDouble();
         double nb_ = left_ / right_;
-        if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
+        if (order_ == PrimitiveTypeUtil.getFloatOrderClass(floatPrim_, _an)) {
             return new FloatStruct((float)nb_);
         }
         return new DoubleStruct(nb_);
@@ -1261,14 +1281,14 @@ public abstract class NumberStruct implements DisplayableStruct {
         String longPrim_ = _an.getStandards().getAliasPrimLong();
         String intPrim_ = _an.getStandards().getAliasPrimInteger();
         String floatPrim_ = _an.getStandards().getAliasPrimFloat();
-        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
+        if (order_ <= PrimitiveTypeUtil.getIntOrderClass(longPrim_, _an)) {
             long left_ = _a.getLong();
             long right_ = _b.getLong();
             if (right_ == 0) {
                 return NullStruct.NULL_VALUE;
             }
             long nb_ = left_ % right_;
-            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
+            if (order_ == PrimitiveTypeUtil.getIntOrderClass(intPrim_, _an)) {
                 return new IntStruct((int)nb_);
             }
             return new LongStruct(nb_);
@@ -1276,7 +1296,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         double left_ = _a.getDouble();
         double right_ = _b.getDouble();
         double nb_ = left_ % right_;
-        if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
+        if (order_ == PrimitiveTypeUtil.getFloatOrderClass(floatPrim_, _an)) {
             return new FloatStruct((float)nb_);
         }
         return new DoubleStruct(nb_);
@@ -1580,7 +1600,7 @@ public abstract class NumberStruct implements DisplayableStruct {
         if (_one.sameReference(_two)) {
             return new IntStruct(CustList.EQ_CMP);
         }
-        if (BooleanStruct.of(true).sameReference(_one)) {
+        if (BooleanStruct.isTrue(_one)) {
             return new IntStruct(CustList.SWAP_SORT);
         }
         return new IntStruct(CustList.NO_SWAP_SORT);
@@ -1618,30 +1638,93 @@ public abstract class NumberStruct implements DisplayableStruct {
         if (!(_other instanceof NumberStruct)) {
             return false;
         }
-        NumberStruct other_ = ClassArgumentMatching.convertToNumber(_other);
-        if (this instanceof DoubleStruct || this instanceof FloatStruct || other_ instanceof DoubleStruct || other_ instanceof FloatStruct) {
-            return doubleStruct() == other_.doubleStruct();
+        return sameReference(this, (NumberStruct) _other);
+    }
+    private static boolean sameReference(NumberStruct _first, NumberStruct _other) {
+        if (isFloatType(_first) && !isFloatType(_other)) {
+            return false;
         }
-        return longStruct() == other_.longStruct();
+        if (!isFloatType(_first) && isFloatType(_other)) {
+            return false;
+        }
+        return cmpWide(_first, _other);
+    }
+
+    public static boolean sameValue(Struct _first,Struct _other) {
+        NumberStruct first_ = ClassArgumentMatching.convertToNumber(_first);
+        NumberStruct other_ = ClassArgumentMatching.convertToNumber(_other);
+        return cmpWide(first_, other_);
+    }
+
+    private static boolean cmpWide(NumberStruct _first, NumberStruct _other) {
+        if (isFloatType(_first, _other)) {
+            return compareFloat(_first, _other);
+        }
+        return _first.longStruct() == _other.longStruct();
+    }
+
+    private static boolean isFloatType(Struct _first, Struct _other) {
+        return isFloatType(_first) || isFloatType(_other);
+    }
+
+    private static boolean compareFloat(NumberStruct _first, NumberStruct _other) {
+        double f_ = _first.doubleStruct();
+        double d_ = _other.doubleStruct();
+        return Double.compare(f_,d_) == 0;
+    }
+
+    private static boolean isFloatType(Struct _value) {
+        return _value instanceof DoubleStruct || _value instanceof FloatStruct;
     }
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
-        return getStringValue();
+        DisplayedStrings dis_ = _an.getStandards().getDisplayedStrings();
+        return getStringValue(dis_.getInfinity(),
+                dis_.getNan(),
+                dis_.getExponent());
     }
 
-    public StringStruct exportValue() {
-        return getStringValue();
+    public StringStruct exportValue(String _infinity, String _nan,String _exp) {
+        return getStringValue(_infinity,_nan,_exp);
     }
 
-    private StringStruct getStringValue() {
+    private StringStruct getStringValue(String _infinity, String _nan,String _exp) {
         if (this instanceof DoubleStruct) {
-            return new StringStruct(Double.toString(doubleStruct()));
+            return getDoubleString(_infinity, _nan, _exp);
         }
         if (this instanceof FloatStruct) {
-            return new StringStruct(Float.toString(floatStruct()));
+            return getFloatString(_infinity, _nan, _exp);
         }
         return new StringStruct(Long.toString(longStruct()));
+    }
+
+    private StringStruct getFloatString(String _infinity, String _nan, String _exp) {
+        float f_ = floatStruct();
+        if (Float.isInfinite(f_)) {
+            if (f_ > 0.0) {
+                return new StringStruct(_infinity);
+            }
+            return new StringStruct(StringList.concat("-",_infinity));
+        }
+        if (Float.isNaN(f_)) {
+            return new StringStruct(_nan);
+        }
+        return new StringStruct(StringList.replace(Float.toString(f_),"E",_exp));
+    }
+
+    private StringStruct getDoubleString(String _infinity, String _nan, String _exp) {
+        double d_ = doubleStruct();
+        if (Double.isInfinite(d_)) {
+            if (d_ > 0.0) {
+                return new StringStruct(_infinity);
+            }
+            return new StringStruct(StringList.concat("-",_infinity));
+        }
+        if (Double.isNaN(d_)) {
+            return new StringStruct(_nan);
+        }
+        return new StringStruct(StringList.replace(Double.toString(d_),"E",_exp));
     }
 
     static int compareGene(NumberStruct _nb1,NumberStruct _nb2) {

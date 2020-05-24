@@ -15,9 +15,20 @@ public final class ConstructorMetaInfo implements AnnotatedStruct {
     private final AccessEnum access;
     private final ConstructorId fid;
     private final String returnType;
+    private final boolean invokable;
     private String fileName = EMPTY_STRING;
+    public ConstructorMetaInfo(){
+        invokable = false;
+        className = "";
+        formClassName = "";
+        realId = new ConstructorId("",new StringList(),false);
+        fid = new ConstructorId("",new StringList(),false);
+        access = AccessEnum.PRIVATE;
+        returnType = "";
+    }
     public ConstructorMetaInfo(String _className, AccessEnum _access, ConstructorId _realId, String _returnType,
                                ConstructorId _fid, String _formClassName) {
+        invokable = true;
         className = _className;
         access = _access;
         realId = _realId;
@@ -99,5 +110,13 @@ public final class ConstructorMetaInfo implements AnnotatedStruct {
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(StringList.concat(className,";",realId.getSignature(_an)));
+    }
+
+    public StringList getParametersTypes() {
+        return realId.getParametersTypes();
+    }
+
+    public boolean isInvokable() {
+        return invokable;
     }
 }

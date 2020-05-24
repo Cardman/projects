@@ -2,9 +2,11 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.exec.ExecExplicitOperation;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CustList;
 
 public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
@@ -29,8 +31,16 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
         return false;
     }
 
+    @Override
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        return ExecExplicitOperation.prepare(direct,_mid,_args,_className,_context.getLastPage(),_context, _mid.getKind() == MethodAccessKind.STATIC_CALL);
+        String res_ = Templates.correctClassPartsDynamic(_className, _context, true, false);
+        if (res_.isEmpty()) {
+            String null_;
+            null_ = _context.getStandards().getAliasIllegalArg();
+            _context.setException(new ErrorStruct(_context,null_));
+            return Argument.createVoid();
+        }
+        return ExecExplicitOperation.prepare(direct,_mid,_args,res_,_context.getLastPage(),_context, _mid.getKind() == MethodAccessKind.STATIC_CALL);
     }
 
     @Override

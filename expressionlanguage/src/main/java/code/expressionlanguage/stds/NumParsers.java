@@ -65,7 +65,7 @@ public final class NumParsers {
             double p_ = 1.0;
             long absExpNbLong_ = Math.abs(delta_);
             for (int i = 0; i < absExpNbLong_; i++) {
-                p_ *= 2;
+                p_ *= 2.0;
             }
             if (delta_ > 0) {
                 return parsed_ * p_;
@@ -82,7 +82,7 @@ public final class NumParsers {
             double p_ = 1.0;
             long absExpNbLong_ = Math.abs(delta_);
             for (int i = 0; i < absExpNbLong_; i++) {
-                p_ *= 2;
+                p_ *= 2.0;
             }
             if (delta_ > 0) {
                 return parsed_ * p_;
@@ -99,7 +99,7 @@ public final class NumParsers {
             double p_ = 1.0;
             long absExpNbLong_ = Math.abs(delta_);
             for (int i = 0; i < absExpNbLong_; i++) {
-                p_ *= 2;
+                p_ *= 2.0;
             }
             if (delta_ > 0) {
                 return parsed_ * p_;
@@ -112,7 +112,7 @@ public final class NumParsers {
                 if (int_.length() > MAX_DIGITS_DOUBLE) {
                     return processBigNumbers(int_, positive_);
                 }
-                long_ = parseQuickLongTen(int_.toString());
+                long_ = (double)parseQuickLongTen(int_.toString());
                 if (!positive_) {
                     return -long_;
                 }
@@ -120,12 +120,12 @@ public final class NumParsers {
             }
             double long_;
             if (int_.length() > MAX_DIGITS_DOUBLE) {
-                long_ = parseQuickLongTen(int_.substring(0, MAX_DIGITS_DOUBLE + 1));
+                long_ = (double)parseQuickLongTen(int_.substring(0, MAX_DIGITS_DOUBLE + 1));
                 expNbLong_ += int_.length() - MAX_DIGITS_DOUBLE - 1;
             } else {
-                long_ = parseQuickLongTen(int_.toString());
+                long_ = (double)parseQuickLongTen(int_.toString());
             }
-            double power_ = 1;
+            double power_ = 1.0;
             long absExp_ = Math.abs(expNbLong_);
             for (long i = 0; i < absExp_; i++) {
                 power_ *= 10d;
@@ -144,20 +144,20 @@ public final class NumParsers {
         if (expNbLong_ >= dec_.length()) {
             //try to get "double" as int
             StringBuilder number_ = new StringBuilder(int_.length()+dec_.length());
-                    number_.append(int_);
-                    number_.append(dec_);
-                    int diff_ = (int)expNbLong_-dec_.length();
-                    for (long i = 0; i < diff_; i++) {
-                        number_.append("0");
-                    }
-                    if (number_.length() > MAX_DIGITS_DOUBLE) {
-                        return processBigNumbers(number_, positive_);
-                    }
-                    double long_ = parseQuickLongTen(number_.toString());
-                    if (!positive_) {
-                        return -long_;
-                    }
-                    return long_;
+            number_.append(int_);
+            number_.append(dec_);
+            int diff_ = (int)expNbLong_-dec_.length();
+            for (long i = 0; i < diff_; i++) {
+                number_.append("0");
+            }
+            if (number_.length() > MAX_DIGITS_DOUBLE) {
+                return processBigNumbers(number_, positive_);
+            }
+            double long_ = (double)parseQuickLongTen(number_.toString());
+            if (!positive_) {
+                return -long_;
+            }
+            return long_;
         }
         if (-expNbLong_ >= int_.length()) {
             StringBuilder number_ = new StringBuilder(int_);
@@ -182,13 +182,13 @@ public final class NumParsers {
             double value_;
             int diff_;
             if (decCopy_.length() > MAX_DIGITS_DOUBLE) {
-                value_ = parseQuickLongTen(decCopy_.substring(0, MAX_DIGITS_DOUBLE + 1));
+                value_ = (double) parseQuickLongTen(decCopy_.substring(0, MAX_DIGITS_DOUBLE + 1));
                 diff_ = (int) (-expNbLong_ - int_.length() + MAX_DIGITS_DOUBLE + 1 + nbLeadingZeros_);
             } else {
-                value_ = parseQuickLongTen(decCopy_.toString());
+                value_ = (double) parseQuickLongTen(decCopy_.toString());
                 diff_ = (int) (-expNbLong_ + dec_.length());
             }
-            double power_ = 1;
+            double power_ = 1.0;
             for (int i = 0; i < diff_; i++) {
                 power_ *= 10d;
             }
@@ -208,21 +208,21 @@ public final class NumParsers {
         } else if (expNbLong_ == 0) {
             //expNbLong_ < dec_.length() => 0 < dec_.length()
                     //-expNbLong_ < int_.length() => 0 < int_.length() => numberInt_.length() > 0
-                    numberInt_.append(int_);
-                    numberDec_.append(dec_);
+            numberInt_.append(int_);
+            numberDec_.append(dec_);
         } else {
             //expNbLong_ < 0
             int del_ = int_.length() +(int)expNbLong_;
             //-expNbLong_ < int_.length() => 0 < -expNbLong_ < int_.length() => 0 < int_.length()
                     //-expNbLong_ < int_.length() => 0 < expNbLong_ + int_.length() => numberInt_.length() > 0
-                    numberInt_.append(int_.substring(0, del_));
-                    numberDec_.append(int_.substring(del_));
-                    numberDec_.append(dec_);
+            numberInt_.append(int_.substring(0, del_));
+            numberDec_.append(int_.substring(del_));
+            numberDec_.append(dec_);
         }
         if (numberInt_.length() > MAX_DIGITS_DOUBLE) {
             return processBigNumbers(numberInt_, positive_);
         }
-        double longValue_ = parseQuickLongTen(numberInt_.toString());
+        double longValue_ = (double)parseQuickLongTen(numberInt_.toString());
         StringBuilder decCopy_ = new StringBuilder();
         int nbLeadingZeros_;
         int index_ = 0;
@@ -242,7 +242,7 @@ public final class NumParsers {
             return longValue_;
         }
         double decValue_ = parseQuickLongTen(decCopy_.toString());
-        double power_ = 1;
+        double power_ = 1.0;
         int logDec_ = numberDec_.length();
         for (int i = 0; i < logDec_; i++) {
             power_ *= 10d;
@@ -254,8 +254,8 @@ public final class NumParsers {
     }
 
     private static double processBigNumbers(StringBuilder _nb, boolean _positive) {
-        long long_ = parseQuickLongTen(_nb.substring(0, (int) MAX_DIGITS_DOUBLE + 1));
-        double power_ = 1;
+        double long_ = (double) parseQuickLongTen(_nb.substring(0, (int) MAX_DIGITS_DOUBLE + 1));
+        double power_ = 1.0;
         int logDec_ = _nb.length() - (int) MAX_DIGITS_DOUBLE - 1;
         for (int i = 0; i < logDec_; i++) {
             power_ *= 10d;
@@ -519,7 +519,7 @@ public final class NumParsers {
     }
 
     private static double parseDoubleSixteen(String _string) {
-        double result_ = 0;
+        long result_ = 0;
         int i_ = 0;
         int max_ = _string.length();
         while (i_ < max_) {
@@ -532,11 +532,11 @@ public final class NumParsers {
             result_ *= HEX_BASE;
             result_ += digit_;
         }
-        return result_;
+        return (double)result_;
     }
 
     private static double parseDoubleOctal(String _string) {
-        double result_ = 0;
+        long result_ = 0;
         int i_ = 0;
         int max_ = _string.length();
         while (i_ < max_) {
@@ -546,11 +546,11 @@ public final class NumParsers {
             result_ *= 8;
             result_ += digit_;
         }
-        return result_;
+        return (double)result_;
     }
 
     private static double parseDoubleBinary(String _string) {
-        double result_ = 0;
+        long result_ = 0;
         int i_ = 0;
         int max_ = _string.length();
         while (i_ < max_) {
@@ -560,7 +560,7 @@ public final class NumParsers {
             result_ *= 2;
             result_ += digit_;
         }
-        return result_;
+        return (double)result_;
     }
 
     private static long parseQuickLongTen(String _string) {

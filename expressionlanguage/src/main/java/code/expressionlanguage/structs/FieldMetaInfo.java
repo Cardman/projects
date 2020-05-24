@@ -17,12 +17,23 @@ public final class FieldMetaInfo implements AnnotatedStruct {
     private final boolean staticField;
 
     private final boolean finalField;
+    private final boolean invokable;
     private String fileName = EMPTY_STRING;
+    public FieldMetaInfo() {
+        invokable = false;
+        declaringClass = "";
+        name = "";
+        type = "";
+        access = AccessEnum.PRIVATE;
+        staticField = false;
+        finalField = false;
+    }
     public FieldMetaInfo(String _declaringClass,
                          String _name,
                          String _returnType, boolean _static,
                          boolean _finalField,
                          AccessEnum _access) {
+        invokable = true;
         declaringClass = _declaringClass;
         name = _name;
         type = _returnType;
@@ -95,5 +106,9 @@ public final class FieldMetaInfo implements AnnotatedStruct {
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
         return new StringStruct(StringList.concat(declaringClass,".",name));
+    }
+
+    public boolean isInvokable() {
+        return invokable;
     }
 }

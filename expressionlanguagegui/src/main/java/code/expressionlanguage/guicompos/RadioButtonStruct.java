@@ -25,9 +25,9 @@ public final class RadioButtonStruct extends InputStruct {
     protected RadioButtonStruct(String _className, Struct _text, Struct _s) {
         super(_className);
         if (_text instanceof StringStruct) {
-            radioButton = new RadioButton(((StringStruct)_text).getInstance(),BooleanStruct.of(true).sameReference(_s));
+            radioButton = new RadioButton(((StringStruct)_text).getInstance(),BooleanStruct.isTrue(_s));
         } else {
-            radioButton = new RadioButton(null,BooleanStruct.of(true).sameReference(_s));
+            radioButton = new RadioButton(null,BooleanStruct.isTrue(_s));
         }
 
     }
@@ -56,7 +56,7 @@ public final class RadioButtonStruct extends InputStruct {
     }
 
     public void setSelected(Struct b) {
-        radioButton.setSelected(BooleanStruct.of(true).sameReference(b));
+        radioButton.setSelected(BooleanStruct.isTrue(b));
     }
 
     @Override
@@ -66,7 +66,7 @@ public final class RadioButtonStruct extends InputStruct {
 
     @Override
     public void setEnabled(Struct b) {
-        radioButton.setEnabled(BooleanStruct.of(true).sameReference(b));
+        radioButton.setEnabled(BooleanStruct.isTrue(b));
     }
 
     @Override

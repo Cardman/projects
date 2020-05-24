@@ -3307,7 +3307,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.OuterTwo<#B>:OuterThree<#B> {\n");
-        xml_.append(" $public $class InnerThree<#F>:OuterThree<#B>.InnerFive<#F> {\n");
+        xml_.append(" $public $class InnerThree<#F>:OuterThree.InnerFive<#F> {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour:InnerThree<#B> {\n");
         xml_.append(" }\n");
@@ -3363,7 +3363,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.OuterTwo<#B>:OuterThree<#B> {\n");
-        xml_.append(" $public $class InnerThree<#F>:OuterThree<#B>.InnerFive<#F> {\n");
+        xml_.append(" $public $class InnerThree<#F>:OuterThree.InnerFive<#F> {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour:InnerThree<#B> {\n");
         xml_.append(" }\n");
@@ -3419,7 +3419,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.OuterTwo<#B>:OuterThree<#B> {\n");
-        xml_.append(" $public $class InnerThree<#F>:OuterThree<#B>.InnerFive<#F> {\n");
+        xml_.append(" $public $class InnerThree<#F>:OuterThree.InnerFive<#F> {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour:InnerThree<#B> {\n");
         xml_.append(" }\n");
@@ -3478,7 +3478,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.OuterTwo<#B>:OuterThree<#B> {\n");
-        xml_.append(" $public $class InnerThree<#F>:OuterThree<#B>.InnerFive<#F> {\n");
+        xml_.append(" $public $class InnerThree<#F>:OuterThree.InnerFive<#F> {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour:InnerThree<#B> {\n");
         xml_.append(" }\n");
@@ -4509,6 +4509,43 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("$public $class pkg.Outer {\n");
         xml_.append(" @MyAnnotation(m=$(String)$new Inner())\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument26FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append(" $public $static $int getter() {\n");
+        xml_.append("  $return $new Outer.Inner().getter();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append("  $public $int getter() {\n");
+        xml_.append("   $return 0;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument27FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.OuterTwo {\n");
+        xml_.append(" $public Object cool = $new Outer.Inner();\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Outer {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
         xml_.append("}\n");

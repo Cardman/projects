@@ -55,35 +55,7 @@ public abstract class BeanLgNames extends LgNames {
     public abstract void initBeans(Configuration _conf,String _language,Struct _db);
 
     public String getInputClass(Element _write, Configuration _conf) {
-        String type_ = _write.getAttribute(_conf.getRendKeyWords().getAttrType());
-        String class_ = _write.getAttribute(StringList.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrClassName()));
-        if (!class_.isEmpty()) {
-            return class_;
-        }
-        if (StringList.quickEq(type_,_conf.getRendKeyWords().getValueNumber())) {
-            class_= _conf.getStandards().getAliasLong();
-        }
-        if (StringList.quickEq(type_,_conf.getRendKeyWords().getValueRange())) {
-            class_= _conf.getStandards().getAliasLong();
-        }
-        if (StringList.quickEq(type_,_conf.getRendKeyWords().getValueRadio())) {
-            class_= _conf.getStandards().getAliasLong();
-        }
-        if (StringList.quickEq(type_,_conf.getRendKeyWords().getValueText())) {
-            class_= _conf.getStandards().getAliasString();
-        }
-        if (StringList.quickEq(type_,_conf.getRendKeyWords().getValueCheckbox())) {
-            class_= _conf.getStandards().getAliasBoolean();
-        }
-        if (StringList.quickEq(_write.getTagName(), _conf.getRendKeyWords().getKeyWordSelect())) {
-            if (!_write.hasAttribute(_conf.getRendKeyWords().getAttrMultiple())) {
-                class_ = _conf.getStandards().getAliasString();
-            }
-        }
-        if (StringList.quickEq(_write.getTagName(), _conf.getRendKeyWords().getKeyWordTextarea())) {
-            class_ = _conf.getStandards().getAliasString();
-        }
-        return class_;
+        return _write.getAttribute(StringList.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrClassName()));
     }
     public ResultErrorStd convert(NodeContainer _container, Configuration _conf) {
         CustList<RendDynOperationNode> ops_ = _container.getOpsConvert();
@@ -171,6 +143,7 @@ public abstract class BeanLgNames extends LgNames {
         if (StringList.quickEq(_className, getAliasString())) {
             return true;
         }
+
         if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_className,this)) {
             return true;
         }

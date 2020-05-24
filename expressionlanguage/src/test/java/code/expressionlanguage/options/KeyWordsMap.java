@@ -391,6 +391,9 @@ public final class KeyWordsMap {
         _lgNames.setAliasPairTypeVarFirst("T");
         _lgNames.setAliasPairTypeVarSecond("U");
         _lgNames.setAliasEnumParamVar("T");
+        _lgNames.setAliasSeedGenerator("$core.Generator");
+        _lgNames.setAliasSeedDoubleGenerator("$core.DoubleGenerator");
+        _lgNames.setAliasSeedGet("get");
         _lgNames.setAliasGetOldString("getOldString");
         _lgNames.setAliasGetNewString("getNewString");
         _lgNames.setAliasGetSuperClass("getSuperClass");
@@ -463,6 +466,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasRotateLeft("rotateLeft");
         _lgNames.setAliasRotateRight("rotateRight");
         _lgNames.setAliasRandom("random");
+        _lgNames.setAliasSeed("seed");
         _lgNames.getDisplayedStrings().setFalseString("false");
         _lgNames.getDisplayedStrings().setTrueString("true");
         _lgNames.getDisplayedStrings().setNullString("");
@@ -470,6 +474,9 @@ public final class KeyWordsMap {
         _lgNames.getDisplayedStrings().setNullCoverString("null");
         _lgNames.getDisplayedStrings().setStaticCallString("staticCall");
         _lgNames.getDisplayedStrings().setStaticString("static");
+        _lgNames.getDisplayedStrings().setInfinity("Infinity");
+        _lgNames.getDisplayedStrings().setNan("Nan");
+        _lgNames.getDisplayedStrings().setExponent("E");
         stds.put("en", _lgNames);
     }
     public void initFrStds(LgNames _lgNames) {
@@ -679,6 +686,9 @@ public final class KeyWordsMap {
         _lgNames.setAliasPairTypeVarFirst("T");
         _lgNames.setAliasPairTypeVarSecond("U");
         _lgNames.setAliasEnumParamVar("T");
+        _lgNames.setAliasSeedGenerator("$coeur.Generateur");
+        _lgNames.setAliasSeedDoubleGenerator("$coeur.GenerateurDec");
+        _lgNames.setAliasSeedGet("val");
         _lgNames.setAliasGetOldString("valChaineAvant");
         _lgNames.setAliasGetNewString("valChaineApres");
         _lgNames.setAliasGetSuperClass("valSuperClasse");
@@ -751,6 +761,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasRotateLeft("rotGauche");
         _lgNames.setAliasRotateRight("rotDroite");
         _lgNames.setAliasRandom("alea");
+        _lgNames.setAliasSeed("graine");
         _lgNames.getDisplayedStrings().setFalseString("faux");
         _lgNames.getDisplayedStrings().setTrueString("vrai");
         _lgNames.getDisplayedStrings().setNullString("");
@@ -758,6 +769,9 @@ public final class KeyWordsMap {
         _lgNames.getDisplayedStrings().setNullCoverString("nul");
         _lgNames.getDisplayedStrings().setStaticCallString("staticAppel");
         _lgNames.getDisplayedStrings().setStaticString("static");
+        _lgNames.getDisplayedStrings().setInfinity("Infini");
+        _lgNames.getDisplayedStrings().setNan("Pun");
+        _lgNames.getDisplayedStrings().setExponent("E");
         stds.put("fr", _lgNames);
     }
     public KeyWords getKeyWords(String _lg) {

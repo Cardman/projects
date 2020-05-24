@@ -4,7 +4,7 @@ import code.util.StringMap;
 
 public final class PrimitiveTypes {
     private static final String EMPTY_STRING = "";
-    private StringMap<PrimitiveType> primitiveTypes = new StringMap<PrimitiveType>();
+    private final StringMap<PrimitiveType> primitiveTypes = new StringMap<PrimitiveType>();
     private String aliasPrimBoolean;
     private String aliasPrimByte;
     private String aliasPrimShort;
@@ -14,14 +14,14 @@ public final class PrimitiveTypes {
     private String aliasPrimFloat;
     private String aliasPrimDouble;
     public void buildPrimitiveTypes(LgNames _lgNames) {
-        primitiveTypes.put(aliasPrimBoolean, new PrimitiveType(aliasPrimBoolean, _lgNames.getAliasBoolean(), EMPTY_STRING, EMPTY_STRING,false));
-        primitiveTypes.put(aliasPrimChar, new PrimitiveType(aliasPrimChar, _lgNames.getAliasCharacter(), aliasPrimInteger, aliasPrimInteger,true));
-        primitiveTypes.put(aliasPrimByte, new PrimitiveType(aliasPrimByte, _lgNames.getAliasByte(), aliasPrimShort, aliasPrimShort,true));
-        primitiveTypes.put(aliasPrimShort, new PrimitiveType(aliasPrimShort, _lgNames.getAliasShort(), aliasPrimInteger, aliasPrimInteger,true));
-        primitiveTypes.put(aliasPrimInteger, new PrimitiveType(aliasPrimInteger, _lgNames.getAliasInteger(), aliasPrimLong, aliasPrimLong,true));
-        primitiveTypes.put(aliasPrimLong, new PrimitiveType(aliasPrimLong, _lgNames.getAliasLong(), aliasPrimFloat,EMPTY_STRING,true));
-        primitiveTypes.put(aliasPrimFloat, new PrimitiveType(aliasPrimFloat, _lgNames.getAliasFloat(), aliasPrimDouble,aliasPrimDouble,true));
-        primitiveTypes.put(aliasPrimDouble, new PrimitiveType(aliasPrimDouble, _lgNames.getAliasDouble(), EMPTY_STRING,EMPTY_STRING,true));
+        primitiveTypes.put(aliasPrimBoolean, new PrimitiveType(aliasPrimBoolean, _lgNames.getAliasBoolean(), EMPTY_STRING,false));
+        primitiveTypes.put(aliasPrimChar, new PrimitiveType(aliasPrimChar, _lgNames.getAliasCharacter(), aliasPrimInteger,true));
+        primitiveTypes.put(aliasPrimByte, new PrimitiveType(aliasPrimByte, _lgNames.getAliasByte(), aliasPrimShort,true));
+        primitiveTypes.put(aliasPrimShort, new PrimitiveType(aliasPrimShort, _lgNames.getAliasShort(), aliasPrimInteger,true));
+        primitiveTypes.put(aliasPrimInteger, new PrimitiveType(aliasPrimInteger, _lgNames.getAliasInteger(), aliasPrimLong,true));
+        primitiveTypes.put(aliasPrimLong, new PrimitiveType(aliasPrimLong, _lgNames.getAliasLong(), EMPTY_STRING,true));
+        primitiveTypes.put(aliasPrimFloat, new PrimitiveType(aliasPrimFloat, _lgNames.getAliasFloat(), aliasPrimDouble,true));
+        primitiveTypes.put(aliasPrimDouble, new PrimitiveType(aliasPrimDouble, _lgNames.getAliasDouble(), EMPTY_STRING,true));
     }
     public String getAliasPrimBoolean() {
         return aliasPrimBoolean;

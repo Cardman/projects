@@ -59,7 +59,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             return;
         }
         Argument arg_;
-        if (BooleanStruct.of(true).sameReference(str_)) {
+        if (BooleanStruct.isTrue(str_)) {
             arg_ = arguments_.get(CustList.SECOND_INDEX);
         } else {
             arg_ = arguments_.last();

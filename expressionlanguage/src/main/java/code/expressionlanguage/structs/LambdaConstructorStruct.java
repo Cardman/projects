@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ConstructorId;
 
-public class LambdaConstructorStruct implements Struct {
+public final class LambdaConstructorStruct implements LambdaStruct {
 
     private Argument instanceCall;
 

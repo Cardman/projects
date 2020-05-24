@@ -21,7 +21,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        ConstructorMetaInfo method_ = ApplyCoreMethodUtil.getCtor(getGlobalArgument().getStruct(),stds_);
+        ConstructorMetaInfo method_ = ApplyCoreMethodUtil.getCtor(getGlobalArgument().getStruct());
         String className_ = method_.getClassName();
         String id_ = Templates.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
@@ -82,7 +82,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                 previous_ = args_.first();
                 args_ = args_.mid(1);
             }
-            Argument arg_ = ExecInvokingOperation.instancePrepare(_context.getLastPage(),_context, res_, mid_, previous_, args_);
+            Argument arg_ = ExecInvokingOperation.instancePrepare(_context, res_, mid_, previous_, args_);
             if (_context.callsOrException()) {
                 setWrapException(_context.calls());
                 return false;

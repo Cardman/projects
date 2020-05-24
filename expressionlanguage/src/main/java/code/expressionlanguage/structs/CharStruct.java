@@ -27,12 +27,12 @@ public final class CharStruct extends NumberStruct {
 
     @Override
     public double doubleStruct() {
-        return value;
+        return (double)value;
     }
 
     @Override
     public float floatStruct() {
-        return value;
+        return (float)value;
     }
 
     @Override

@@ -3885,7 +3885,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
     public void calculateArgument77Test() {
@@ -3924,7 +3924,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
     public void calculateArgument78Test() {
@@ -3990,7 +3990,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
     public void calculateArgument80Test() {
@@ -4046,7 +4046,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
     public void calculateArgument82Test() {
@@ -4075,7 +4075,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
     public void calculateArgument83Test() {
@@ -4130,7 +4130,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
     public void calculateArgument841Test() {
@@ -4159,7 +4159,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
     public void calculateArgument85Test() {
@@ -4187,7 +4187,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
     public void calculateArgument86Test() {
@@ -4242,7 +4242,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
     public void calculateArgument88Test() {
@@ -4270,7 +4270,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
     public void calculateArgument89Test() {
@@ -4309,7 +4309,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExCont", "inst"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
     public void calculateArgument90Test() {

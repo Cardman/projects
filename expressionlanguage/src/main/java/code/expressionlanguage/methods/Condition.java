@@ -117,7 +117,7 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
             return ConditionReturn.CALL_EX;
         }
         last_.clearCurrentEls();
-        if (BooleanStruct.of(true).sameReference(ClassArgumentMatching.convertToBoolean(arg_.getStruct()))) {
+        if (BooleanStruct.isTrue(ClassArgumentMatching.convertToBoolean(arg_.getStruct()))) {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;

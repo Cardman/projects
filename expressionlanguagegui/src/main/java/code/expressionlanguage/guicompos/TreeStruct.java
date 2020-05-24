@@ -21,7 +21,7 @@ public final class TreeStruct extends CustComponentStruct {
     }
 
     public void setRootVisible(Struct rootVisible) {
-        tree.setRootVisible(BooleanStruct.of(true).sameReference(rootVisible));
+        tree.setRootVisible(BooleanStruct.isTrue(rootVisible));
     }
 
     public Struct getLastSelectedPathComponent() {

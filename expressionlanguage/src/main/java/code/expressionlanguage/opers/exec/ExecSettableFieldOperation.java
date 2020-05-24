@@ -3,13 +3,11 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.*;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
@@ -71,8 +69,7 @@ public final class ExecSettableFieldOperation extends
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             Argument _right) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument arg_ = getCommonSetting(previous_, _conf, _right);
-        return arg_;
+        return getCommonSetting(previous_, _conf, _right);
     }
     @Override
     public Argument calculateCompoundSetting(
@@ -81,8 +78,7 @@ public final class ExecSettableFieldOperation extends
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument current_ = getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
-        Argument arg_ = getCommonCompoundSetting(previous_, store_, _conf, _op, _right, getResultClass());
-        return arg_;
+        return getCommonCompoundSetting(previous_, store_, _conf, _op, _right, getResultClass());
     }
     @Override
     public Argument calculateSemiSetting(
@@ -91,8 +87,7 @@ public final class ExecSettableFieldOperation extends
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument current_ = getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
-        Argument arg_ = getCommonSemiSetting(previous_, store_, _conf, _op, _post);
-        return arg_;
+        return getCommonSemiSetting(previous_, store_, _conf, _op, _post);
     }
     private Argument getCommonSetting(Argument _previous, ContextEl _conf, Argument _right) {
         int off_ = getOff();
@@ -112,7 +107,7 @@ public final class ExecSettableFieldOperation extends
         //Come from code directly so constant static fields can be initialized here
         return ExecInvokingOperation.setField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
     }
-    Argument getCommonCompoundSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, Argument _right, ClassArgumentMatching _arg) {
+    private Argument getCommonCompoundSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, Argument _right, ClassArgumentMatching _arg) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument();
@@ -125,7 +120,7 @@ public final class ExecSettableFieldOperation extends
         }
         return getCommonSetting(_previous,_conf,res_);
     }
-    Argument getCommonSemiSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, boolean _post) {
+    private Argument getCommonSemiSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, boolean _post) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument();
@@ -153,8 +148,7 @@ public final class ExecSettableFieldOperation extends
             prev_ = getPreviousArg(this, _nodes, _conf);
         }
         getCommonSetting(prev_,_conf,_right);
-        Argument a_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        return a_;
+        return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
     public int getDelta() {

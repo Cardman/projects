@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 
 public final class TemplatesTest extends ProcessMethodCommon {
@@ -4140,6 +4141,30 @@ public final class TemplatesTest extends ProcessMethodCommon {
         m_.setMapping(t_);
         assertTrue(!Templates.isCorrect(m_,context_));
     }
+
+    @Test
+    public void isCorrect108Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("");
+        m_.setParam("");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,context_));
+    }
+
+    @Test
+    public void isCorrect109Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("");
+        m_.setParam("");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrectOrNumbers(m_,context_));
+    }
     @Test
     public void isCorrectTemplate48Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -4963,6 +4988,49 @@ public final class TemplatesTest extends ProcessMethodCommon {
         arr_ = new ArrayStruct(instance_,"[java.lang.Number");
         args_.add(new Argument(arr_));
         assertTrue(!Templates.okArgs(id_,false,"",args_, cont_,null));
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void okArgs4Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList(""),false);
+        Struct[] instance_ = new Struct[1];
+        instance_[0] = new StringStruct("");
+        ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(arr_));
+        assertTrue(!Templates.okArgs(id_,false,"",args_, cont_,null));
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void okArgs5Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList(""),false);
+        Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>", "", -1);
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(atr_));
+        assertTrue(!Templates.okArgs(id_,false,"pkg.Ex",args_, cont_,null));
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void okArgs6Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList("pkg.Ex"),false);
+        Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>", "", -1);
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(atr_));
+        assertTrue(!Templates.okArgs(id_,false,"pkg.Ex<$int>",args_, cont_,null));
         assertNotNull(getException(cont_));
     }
     @Test

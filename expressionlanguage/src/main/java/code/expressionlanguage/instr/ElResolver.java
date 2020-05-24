@@ -333,6 +333,7 @@ public final class ElResolver {
         String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
         String keyWordValues_ = keyWords_.getKeyWordValues();
         String keyWordVararg_ = keyWords_.getKeyWordVararg();
+        String keyWordDefault_ = keyWords_.getKeyWordDefaultValue();
         String keyWordDefaultValue_ = keyWords_.getKeyWordDefaultValue();
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordCast_)) {
@@ -1125,7 +1126,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        for (String s: StringList.wrapStringArray(keyWordFirstopt_,keyWordBool_,keyWordValueOf_,keyWordValues_)) {
+        for (String s: StringList.wrapStringArray(keyWordFirstopt_,keyWordBool_,keyWordValueOf_,keyWordValues_,keyWordDefault_)) {
             if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
                 int index_ = processPredefinedMethod(_string, i_, s);
                 if (index_ < 0) {

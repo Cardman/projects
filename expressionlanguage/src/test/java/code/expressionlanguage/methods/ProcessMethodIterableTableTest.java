@@ -829,7 +829,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct field_;
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(!((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isFalse(field_));
     }
     @Test
     public void instanceArgument1Failest() {

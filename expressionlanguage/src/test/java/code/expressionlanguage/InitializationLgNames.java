@@ -296,6 +296,9 @@ public final class InitializationLgNames {
         _lgNames.setAliasPairTypeVarFirst("T");
         _lgNames.setAliasPairTypeVarSecond("U");
         _lgNames.setAliasEnumParamVar("T");
+        _lgNames.setAliasSeedGenerator("java.lang.Generator");
+        _lgNames.setAliasSeedDoubleGenerator("java.lang.DoubleGenerator");
+        _lgNames.setAliasSeedGet("get");
         _lgNames.setAliasGetOldString("getOldString");
         _lgNames.setAliasGetNewString("getNewString");
         _lgNames.setAliasGetSuperClass("getSuperClass");
@@ -368,6 +371,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasRotateLeft("rotateLeft");
         _lgNames.setAliasRotateRight("rotateRight");
         _lgNames.setAliasRandom("random");
+        _lgNames.setAliasSeed("seed");
         _lgNames.getDisplayedStrings().setFalseString("false");
         _lgNames.getDisplayedStrings().setTrueString("true");
         _lgNames.getDisplayedStrings().setNullString("");
@@ -375,6 +379,9 @@ public final class InitializationLgNames {
         _lgNames.getDisplayedStrings().setNullCoverString("null");
         _lgNames.getDisplayedStrings().setStaticCallString("$staticCall");
         _lgNames.getDisplayedStrings().setStaticString("$static");
+        _lgNames.getDisplayedStrings().setInfinity("Infinity");
+        _lgNames.getDisplayedStrings().setNan("Nan");
+        _lgNames.getDisplayedStrings().setExponent("E");
     }
 
     public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock, Initializer _init,

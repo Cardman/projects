@@ -83,7 +83,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
             return ((StringStruct)_args).getInstance();
         }
         if (_args instanceof BooleanStruct) {
-            return ((BooleanStruct) _args).getInstance();
+            return BooleanStruct.isTrue(_args);
         }
         return ((RealInstanceStruct) _args).getInstance();
     }

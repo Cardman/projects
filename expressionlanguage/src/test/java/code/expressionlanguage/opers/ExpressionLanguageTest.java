@@ -535,13 +535,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl133Test() {
-        Argument arg_ = directCalculate("(1 + 2) * 3.0");
+        Argument arg_ = directCalculate("($double)(1 + 2) * 3.0");
         assertEq(9L, getNumber(arg_));
     }
 
     @Test
     public void processEl134Test() {
-        Argument arg_ = directCalculate(" 2.0 + $static($math). quot( -8l, 3l) + 3.0");
+        Argument arg_ = directCalculate(" 2.0 + ($double)$static($math). quot( -8l, 3l) + 3.0");
         assertEq(2L, getNumber(arg_));
     }
 
@@ -1208,7 +1208,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     //To check math random behavior
     @Test
     public void processEl371Test() {
-        Argument arg_ = directCalculate("0.5d*2l");
+        Argument arg_ = directCalculate("0.5d*2d");
         NumberStruct res_ = (NumberStruct) arg_.getStruct();
         assertTrue(res_ instanceof DoubleStruct);
         assertEq(1d, res_.doubleStruct());
@@ -3413,25 +3413,25 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl701Test() {
-        Argument arg_ = directCalculate("8.0/2");
+        Argument arg_ = directCalculate("8.0/2d");
         assertEq(4.0, getNumber(arg_));
     }
 
     @Test
     public void processEl702Test() {
-        Argument arg_ = directCalculate("7.0%2");
+        Argument arg_ = directCalculate("7.0%2d");
         assertEq(1.0, getNumber(arg_));
     }
 
     @Test
     public void processEl703Test() {
-        Argument arg_ = directCalculate("8.0f/2");
+        Argument arg_ = directCalculate("8.0f/2f");
         assertEq(4.0, getNumber(arg_));
     }
 
     @Test
     public void processEl704Test() {
-        Argument arg_ = directCalculate("7.0f%2");
+        Argument arg_ = directCalculate("7.0f%2f");
         assertEq(1.0, getNumber(arg_));
     }
 
@@ -3473,7 +3473,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl711Test() {
-        Argument arg_ = directCalculate("4f*2");
+        Argument arg_ = directCalculate("4f*2f");
         assertEq(8.0, getNumber(arg_));
     }
 
@@ -3804,6 +3804,18 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void processEl765_Test() {
+        Argument arg_ = directCalculate("Number.equals(1,1)");
+        assertTrue(arg_.isTrue());
+    }
+
+    @Test
+    public void processEl765__Test() {
+        Argument arg_ = directCalculate("Number.equals(1,2)");
+        assertTrue(arg_.isFalse());
+    }
+
+    @Test
     public void processEl766Test() {
         Argument arg_ = directCalculate("((Long)1).equals(1)");
         assertTrue(arg_.isTrue());
@@ -3835,18 +3847,23 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl771Test() {
-        Argument arg_ = directCalculate("Byte.toString(($byte)1)");
+        Argument arg_ = directCalculate("Byte.toString(1y)");
         assertEq("1",getString(arg_));
     }
 
     @Test
     public void processEl772Test() {
-        Argument arg_ = directCalculate("Short.toString(($short)1)");
+        Argument arg_ = directCalculate("Short.toString(1s)");
         assertEq("1",getString(arg_));
     }
     @Test
     public void processEl773Test() {
         Argument arg_ = directCalculate("Integer.toString(1)");
+        assertEq("1",getString(arg_));
+    }
+    @Test
+    public void processEl773_Test() {
+        Argument arg_ = directCalculate("Integer.toString(1y)");
         assertEq("1",getString(arg_));
     }
 
@@ -3857,13 +3874,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl775Test() {
-        Argument arg_ = directCalculate("Float.toString(1)");
+        Argument arg_ = directCalculate("Float.toString(1f)");
         assertEq("1.0",getString(arg_));
     }
 
     @Test
     public void processEl776Test() {
-        Argument arg_ = directCalculate("Double.toString(1)");
+        Argument arg_ = directCalculate("Double.toString(1d)");
         assertEq("1.0",getString(arg_));
     }
 
@@ -3929,7 +3946,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl787Test() {
-        Argument arg_ = directCalculate("Float.isNan(1)");
+        Argument arg_ = directCalculate("Float.isNan(1f)");
         assertTrue(arg_.isFalse());
     }
 
@@ -3941,7 +3958,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl789Test() {
-        Argument arg_ = directCalculate("Float.isInfinite(1)");
+        Argument arg_ = directCalculate("Float.isInfinite(1f)");
         assertTrue(arg_.isFalse());
     }
 
@@ -3953,7 +3970,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl792Test() {
-        Argument arg_ = directCalculate("Double.isNan(1)");
+        Argument arg_ = directCalculate("Double.isNan(1d)");
         assertTrue(arg_.isFalse());
     }
 
@@ -3965,7 +3982,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl794Test() {
-        Argument arg_ = directCalculate("Double.isInfinite(1)");
+        Argument arg_ = directCalculate("Double.isInfinite(1d)");
         assertTrue(arg_.isFalse());
     }
 
@@ -4340,13 +4357,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl850Test() {
-        Argument arg_ = directCalculate("$new Byte(($byte)1)");
+        Argument arg_ = directCalculate("$new Byte(1y)");
         assertEq(1, getNumber(arg_));
     }
 
     @Test
     public void processEl851Test() {
-        Argument arg_ = directCalculate("$new Short(($short)1)");
+        Argument arg_ = directCalculate("$new Short(1s)");
         assertEq(1, getNumber(arg_));
     }
 
@@ -4363,14 +4380,19 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void processEl853_Test() {
+        Argument arg_ = directCalculate("$new Long(1).floatValue()");
+        assertEq(1.0, getDouble(arg_));
+    }
+    @Test
     public void processEl854Test() {
-        Argument arg_ = directCalculate("$new Float(1)");
+        Argument arg_ = directCalculate("$new Float(1f)");
         assertEq(1.0, getNumber(arg_));
     }
 
     @Test
     public void processEl855Test() {
-        Argument arg_ = directCalculate("$new Double(1)");
+        Argument arg_ = directCalculate("$new Double(1d)");
         assertEq(1.0, getNumber(arg_));
     }
 
@@ -4484,13 +4506,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl873Test() {
-        Argument arg_ = directCalculate("$math.minus(($float)1)");
+        Argument arg_ = directCalculate("$math.minus(1f)");
         assertEq(-1.0,getNumber(arg_));
     }
 
     @Test
     public void processEl874Test() {
-        Argument arg_ = directCalculate("$math.minus(($double)1)");
+        Argument arg_ = directCalculate("$math.minus(1d)");
         assertEq(-1.0,getNumber(arg_));
     }
 
@@ -5564,7 +5586,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl103032est() {
-        Argument arg_ = directCalculate("1d == 1L");
+        Argument arg_ = directCalculate("1d == ($double)1L");
         assertTrue(arg_.isTrue());
     }
 
@@ -5574,6 +5596,11 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         assertTrue(arg_.isFalse());
     }
 
+    @Test
+    public void processEl103034_est() {
+        Argument arg_ = directCalculate("$new Long(1).equals(2f)");
+        assertTrue(arg_.isFalse());
+    }
     @Test
     public void processEl103035est() {
         Argument arg_ = directCalculate("1d == 2L");
@@ -5588,7 +5615,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl103037est() {
-        Argument arg_ = directCalculate("1f == 1L");
+        Argument arg_ = directCalculate("1f == ($float)1L");
         assertTrue(arg_.isTrue());
     }
 
@@ -5606,13 +5633,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl103040est() {
-        Argument arg_ = directCalculate("1L == 1d");
+        Argument arg_ = directCalculate("($double)1L == 1d");
         assertTrue(arg_.isTrue());
     }
 
     @Test
     public void processEl103041est() {
-        Argument arg_ = directCalculate("1L == 1f");
+        Argument arg_ = directCalculate("($float)1L == 1f");
         assertTrue(arg_.isTrue());
     }
 
@@ -5767,97 +5794,97 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     @Test
     public void processEl1LtG11test() {
-        Argument arg_ = directCalculate("1L < 2f");
+        Argument arg_ = directCalculate("($float)1L < 2f");
         assertTrue(arg_.isTrue());
     }
 
     @Test
     public void processEl1LtG2test() {
-        Argument arg_ = directCalculate("1L < 2d");
+        Argument arg_ = directCalculate("($double)1L < 2d");
         assertTrue(arg_.isTrue());
     }
 
     @Test
     public void processEl1LtG13test() {
-        Argument arg_ = directCalculate("1d < 2L");
+        Argument arg_ = directCalculate("1d < ($double)2L");
         assertTrue(arg_.isTrue());
     }
 
     @Test
     public void processEl1LtG4test() {
-        Argument arg_ = directCalculate("1f < 2L");
+        Argument arg_ = directCalculate("1f < ($float)2L");
         assertTrue(arg_.isTrue());
     }
 
     @Test
     public void processEl1LtG15test() {
-        Argument arg_ = directCalculate("2L < 1f");
+        Argument arg_ = directCalculate("($float)2L < 1f");
         assertTrue(arg_.isFalse());
     }
 
     @Test
     public void processEl1LtG6test() {
-        Argument arg_ = directCalculate("2L < 1d");
+        Argument arg_ = directCalculate("($double)2L < 1d");
         assertTrue(arg_.isFalse());
     }
 
     @Test
     public void processEl1LtG17test() {
-        Argument arg_ = directCalculate("2d < 1L");
+        Argument arg_ = directCalculate("2d < ($double)1L");
         assertTrue(arg_.isFalse());
     }
 
     @Test
     public void processEl1LtG8test() {
-        Argument arg_ = directCalculate("2f < 1L");
+        Argument arg_ = directCalculate("2f < ($float)1L");
         assertTrue(arg_.isFalse());
     }
 
     @Test
     public void processEl1LtG19test() {
-        Argument arg_ = directCalculate("1L > 2f");
+        Argument arg_ = directCalculate("($float)1L > 2f");
         assertTrue(arg_.isFalse());
     }
 
     @Test
     public void processEl1LtG10test() {
-        Argument arg_ = directCalculate("1L > 2d");
+        Argument arg_ = directCalculate("($double)1L > 2d");
         assertTrue(arg_.isFalse());
     }
 
     @Test
     public void processEl1LtG111test() {
-        Argument arg_ = directCalculate("1d > 2L");
+        Argument arg_ = directCalculate("1d > ($double)2L");
         assertTrue(arg_.isFalse());
     }
 
     @Test
     public void processEl1LtG12test() {
-        Argument arg_ = directCalculate("1f > 2L");
+        Argument arg_ = directCalculate("1f > ($float)2L");
         assertTrue(arg_.isFalse());
     }
 
     @Test
     public void processEl1LtG113test() {
-        Argument arg_ = directCalculate("2L > 1f");
+        Argument arg_ = directCalculate("($float)2L > 1f");
         assertTrue(arg_.isTrue());
     }
 
     @Test
     public void processEl1LtG14test() {
-        Argument arg_ = directCalculate("2L > 1d");
+        Argument arg_ = directCalculate("($float)2L > 1d");
         assertTrue(arg_.isTrue());
     }
 
     @Test
     public void processEl1LtG115test() {
-        Argument arg_ = directCalculate("2d > 1L");
+        Argument arg_ = directCalculate("2d > ($double)1L");
         assertTrue(arg_.isTrue());
     }
 
     @Test
     public void processEl1LtG16test() {
-        Argument arg_ = directCalculate("2f > 1L");
+        Argument arg_ = directCalculate("2f > ($float)1L");
         assertTrue(arg_.isTrue());
     }
 

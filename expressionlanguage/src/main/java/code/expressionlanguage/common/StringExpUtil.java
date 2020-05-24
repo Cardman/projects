@@ -8,6 +8,9 @@ public final class StringExpUtil {
     }
 
     public static boolean nextCharIs(String _str, int _i, int _len, char _value) {
+        if (_i < 0) {
+            return false;
+        }
         if (_i >= _len) {
             return false;
         }

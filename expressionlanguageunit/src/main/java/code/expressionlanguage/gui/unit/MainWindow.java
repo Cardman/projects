@@ -177,7 +177,7 @@ public final class MainWindow extends GroupFrame {
             progressBar.setValue(((NumberStruct)done_).intStruct());
         }
         if (!_method.sameReference(method_) && method_ instanceof MethodMetaInfo) {
-            currentMethod.setText(((MethodMetaInfo)method_).getRealId().getSignature(_ctx));
+            currentMethod.setText(((MethodMetaInfo)method_).getSignature(_ctx));
         }
     }
     public void finish(RunnableContextEl _ctx, Struct _infos) {
@@ -213,14 +213,14 @@ public final class MainWindow extends GroupFrame {
                 i++;
                 resultsTable.setValueAt(Integer.toString(i),i-1,0);
                 results.append(Integer.toString(i)+"\n");
-                String methodInfo_ = ((MethodMetaInfo) method_).getClassName() + "." + ((MethodMetaInfo) method_).getRealId().getSignature(_ctx) + "\n";
+                String methodInfo_ = ((MethodMetaInfo) method_).getClassName() + "." + ((MethodMetaInfo) method_).getSignature(_ctx) + "\n";
                 resultsTable.setValueAt(methodInfo_,i-1,1);
                 results.append(methodInfo_);
                 Struct params_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasParams_)).getValue();
                 resultsTable.setValueAt(((StringStruct)params_).getInstance(),i-1,2);
                 Struct success_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasSuccess_)).getValue();
                 Struct failMessage_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasFailMessage_)).getValue();
-                if (((BooleanStruct)success_).getInstance()) {
+                if (BooleanStruct.isTrue(success_)) {
                     results.append(messages.getVal("success")+"\n");
                     resultsTable.setValueAt("x",i-1,3);
                 } else {

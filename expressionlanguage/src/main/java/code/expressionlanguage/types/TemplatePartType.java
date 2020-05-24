@@ -62,15 +62,18 @@ final class TemplatePartType extends BinaryType {
     }
 
     @Override
+    void setAnalyzedType(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+        String tempClFull_ = fetchTemplate();
+        setAnalyzedType(tempClFull_);
+    }
+
+    @Override
     void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         PartType f_ = getFirstChild();
         String tempCl_ = f_.getAnalyzedType();
         String tempClFull_ = fetchTemplate();
         tempCl_ = Templates.getIdFromAllTypes(tempCl_);
         GeneType type_ = _an.getClassBody(tempCl_);
-        if (!Templates.correctNbParameters(tempClFull_, _an)) {
-            return;
-        }
         CustList<StringList> boundsAll_ = type_.getBoundAll();
         for (StringList t: boundsAll_) {
             f_ = f_.getNextSibling();
@@ -92,12 +95,6 @@ final class TemplatePartType extends BinaryType {
                 bounds_.addAllElts(_inherit.getVal(comp_.substring(1)));
             } else {
                 bounds_.add(comp_);
-            }
-            for (String v: bounds_) {
-                String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(v).getComponent();
-                if (!compo_.startsWith("#")&&!Templates.correctNbParameters(v,_an)) {
-                    return;
-                }
             }
             for (String e: t) {
                 Mapping m_ = new Mapping();

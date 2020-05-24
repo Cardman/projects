@@ -30,6 +30,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
     private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
+    private String className = EMPTY_STRING;
     private Element elt;
     RendTextArea(Element _elt, OffsetsBlock _offset) {
         super(_offset);
@@ -47,6 +48,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         id = r_.getId();
         idClass = r_.getIdClass();
         idName = r_.getIdName();
+        className = r_.getClassName();
         String converterValue_ = elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         if (!opsRead.isEmpty()){
             Mapping m_ = new Mapping();
@@ -175,6 +177,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         f_.setOpsRead(opsRead);
         f_.setOpsWrite(opsWrite);
         f_.setVarName(varName);
+        f_.setClassName(className);
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
         for (EntryCust<String,ResultText> e: attributesText.entryList()) {

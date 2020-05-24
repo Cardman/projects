@@ -85,7 +85,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             setResultClass(arg_);
             return;
         }
-        int intOrder_ = PrimitiveTypeUtil.getOrderClass(stds_.getAliasPrimInteger(), _conf);
+        int intOrder_ = PrimitiveTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _conf);
         if (PrimitiveTypeUtil.getOrderClass(cl_, _conf) < intOrder_) {
             cl_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }

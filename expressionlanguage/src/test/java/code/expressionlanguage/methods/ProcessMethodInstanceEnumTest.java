@@ -1077,7 +1077,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
         field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
-        assertTrue(BooleanStruct.of(true).sameReference(field_));
+        assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
     public void initializeClass35Test() {
@@ -1104,7 +1104,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
         field_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "field"));
-        assertTrue(BooleanStruct.of(true).sameReference(field_));
+        assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
     public void initializeClass1FailTest() {
@@ -1390,6 +1390,94 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" ONE{};\n");
         xml_.append("}\n");
         xml_.append("$public $static $boolean field = ExInner.ONE $instanceof Object..TWO;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void initializeClass14FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner<S> {\n");
+        xml_.append(" ONE<$int>{\n");
+        xml_.append(" $public $class InnerInner<T>{\n");
+        xml_.append("  $public T field;\n");
+        xml_.append("  $public InnerInner(T p){\n");
+        xml_.append("   field = p;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" };\n");
+        xml_.append("}\n");
+        xml_.append("$public $static pkg.Ex.ExInner<$int>..ONE.InnerInner<$int> INSTANCE2;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void initializeClass15FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner<S> {\n");
+        xml_.append(" ONE<$int>{\n");
+        xml_.append(" $public $class InnerInner{\n");
+        xml_.append("  $public $int field;\n");
+        xml_.append("  $public InnerInner($int p){\n");
+        xml_.append("   field = p;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" };\n");
+        xml_.append("}\n");
+        xml_.append("$public $static pkg.Ex.ExInner<$int>..ONE.InnerInner INSTANCE2;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void initializeClass16FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner<S> {\n");
+        xml_.append(" ONE<$int>{\n");
+        xml_.append(" $public $class InnerInner<T>{\n");
+        xml_.append("  $public T field;\n");
+        xml_.append("  $public InnerInner(T p){\n");
+        xml_.append("   field = p;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" };\n");
+        xml_.append("}\n");
+        xml_.append("$public $static pkg.Ex.ExInner..ONE<$int>.InnerInner<$int> INSTANCE2;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void initializeClass17FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {;\n");
+        xml_.append("$public $enum ExInner<S> {\n");
+        xml_.append(" ONE<$int>{\n");
+        xml_.append(" $public $class InnerInner{\n");
+        xml_.append("  $public $int field;\n");
+        xml_.append("  $public InnerInner($int p){\n");
+        xml_.append("   field = p;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" };\n");
+        xml_.append("}\n");
+        xml_.append("$public $static pkg.Ex.ExInner..ONE<$int>.InnerInner INSTANCE2;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElDefault();

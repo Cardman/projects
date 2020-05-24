@@ -12,7 +12,7 @@ final class LeafAnnotPart extends InfoAnnotPart {
         part = _part;
     }
 
-    String export() {
+    String export(String _infinity, String _nan,String _exp) {
         if (part instanceof BooleanStruct) {
             return ((BooleanStruct)part).exportValue().getInstance();
         }
@@ -20,7 +20,7 @@ final class LeafAnnotPart extends InfoAnnotPart {
             return ((CharSequenceStruct)part).exportValue().getInstance();
         }
         if (part instanceof NumberStruct) {
-            return ((NumberStruct)part).exportValue().getInstance();
+            return ((NumberStruct)part).exportValue(_infinity,_nan,_exp).getInstance();
         }
         if (part instanceof ClassMetaInfo) {
             return ((ClassMetaInfo)part).exportValue().getInstance();

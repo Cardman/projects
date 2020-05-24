@@ -10,6 +10,7 @@ public final class FieldUpdates {
     private String id = "";
     private String idClass = "";
     private String idName = "";
+    private String className = "";
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private String varNameConverter = "";
     private boolean arrayConverter;
@@ -85,5 +86,13 @@ public final class FieldUpdates {
 
     public void setIdName(String idName) {
         this.idName = idName;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 }

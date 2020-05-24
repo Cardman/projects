@@ -11,7 +11,7 @@ public final class FullFunctionalInstance implements AbstractFunctionalInstance,
 
     private final ObjectMap<ClassField,Struct> fields;
 
-    private Struct functional;
+    private LambdaStruct functional;
 
     public FullFunctionalInstance(String _className,
                                   ObjectMap<ClassField,Struct> _fields) {
@@ -35,12 +35,12 @@ public final class FullFunctionalInstance implements AbstractFunctionalInstance,
     }
 
     @Override
-    public Struct getFunctional() {
+    public LambdaStruct getFunctional() {
         return functional;
     }
 
     @Override
-    public void setFunctional(Struct _functional) {
+    public void setFunctional(LambdaStruct _functional) {
         functional = _functional;
     }
 

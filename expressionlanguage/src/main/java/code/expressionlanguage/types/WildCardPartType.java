@@ -53,6 +53,13 @@ final class WildCardPartType extends ParentPartType {
     }
 
     @Override
+    void setAnalyzedType(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+        String ch_ = getFirstChild().getAnalyzedType();
+        ch_ = StringList.concat(getBegin(),ch_);
+        setAnalyzedType(ch_);
+    }
+
+    @Override
     void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);

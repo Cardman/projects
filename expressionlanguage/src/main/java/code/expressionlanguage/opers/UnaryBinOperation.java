@@ -66,9 +66,9 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             setResultClass(arg_);
             return;
         }
-        int intOrder_ = PrimitiveTypeUtil.getOrderClass(stds_.getAliasPrimInteger(), _conf);
+        int intOrder_ = PrimitiveTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _conf);
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, _conf);
-        if (PrimitiveTypeUtil.getOrderClass(cl_, _conf) < intOrder_) {
+        if (PrimitiveTypeUtil.getIntOrderClass(cl_, _conf) < intOrder_) {
             cl_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
         clMatch_.setUnwrapObject(cl_);

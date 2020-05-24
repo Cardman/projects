@@ -52,6 +52,7 @@ public abstract class ContextEl {
     private Coverage coverage;
     private AbstractFullStack fullStack;
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
+    private Struct seed = NullStruct.NULL_VALUE;
 
     public ContextEl(boolean _covering, int _stackOverFlow,
                      DefaultLockingClass _lock,Options _options,
@@ -398,7 +399,7 @@ public abstract class ContextEl {
         return analyzing.isFinalLocalVar(_key, _index);
     }
 
-    public void setFullStack(AbstractFullStack fullStack) {
+    public final void setFullStack(AbstractFullStack fullStack) {
         this.fullStack = fullStack;
     }
 
@@ -747,5 +748,13 @@ public abstract class ContextEl {
 
     public InitializingTypeInfos getInitializingTypeInfos() {
         return initializingTypeInfos;
+    }
+
+    public Struct getSeed() {
+        return seed;
+    }
+
+    public void setSeed(Struct seed) {
+        this.seed = seed;
     }
 }

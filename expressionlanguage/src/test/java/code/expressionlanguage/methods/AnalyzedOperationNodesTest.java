@@ -195,7 +195,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     @Test
     public void processEl115Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1L)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1I)", "composite", COMPOSITE, false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -204,14 +204,14 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("getOverridenFive", id_.getName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
-        assertEq("java.lang.Long", params_.first());
+        assertEq("java.lang.Integer", params_.first());
         assertTrue(!id_.isVararg());
         assertTrue(!id_.isStaticMethod());
     }
 
     @Test
     public void processEl116Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1l)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1)", "composite", COMPOSITE, false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -220,7 +220,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("getOverridenFive", id_.getName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
-        assertEq("$double", params_.first());
+        assertEq("$long", params_.first());
         assertTrue(!id_.isVararg());
         assertTrue(!id_.isStaticMethod());
     }
@@ -5043,10 +5043,10 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         str_.append("    $public $normal java.lang.String getOverridenFour($long _double) {\n");
         str_.append("        $return \"long\";\n");
         str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenFive(java.lang.Long _double) {\n");
+        str_.append("    $public $normal java.lang.String getOverridenFive(java.lang.Integer _double) {\n");
         str_.append("        $return \"Long\";\n");
         str_.append("    }\n");
-        str_.append("    $public $normal java.lang.String getOverridenFive($double _double) {\n");
+        str_.append("    $public $normal java.lang.String getOverridenFive($long _double) {\n");
         str_.append("        $return \"double\";\n");
         str_.append("    }\n");
         str_.append("    $public $normal java.lang.String getOverridenSix(java.lang.Long _double) {\n");

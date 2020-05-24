@@ -15,12 +15,6 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
     public ExecQuickOperation(QuickOperation _q) {
         super(_q);
     }
-
-    @Override
-    public void tryCalculateNode(ContextEl _conf) {
-        Struct abs_ = absorbingStruct();
-        QuickOperation.tryGetResult(_conf, this, abs_,true);
-    }
     @Override
     public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                 ContextEl _conf) {
@@ -28,7 +22,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
         ExecOperationNode first_ = chidren_.first();
         Argument f_ = getArgument(_nodes,first_);
         Struct abs_ = f_.getStruct();
-        if (absorbingStruct().sameReference(abs_)) {
+        if (match(abs_)) {
             setQuickConvertSimpleArgument(f_, _conf, _nodes);
             return;
         }
@@ -38,5 +32,5 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
         setSimpleArgument(a_, _conf, _nodes);
     }
 
-    public abstract BooleanStruct absorbingStruct();
+    public abstract boolean match(Struct _struct);
 }

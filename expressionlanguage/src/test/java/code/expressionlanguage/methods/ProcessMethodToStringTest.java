@@ -2146,6 +2146,76 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         assertEq("2,4", getString(ret_));
     }
     @Test
+    public void calculate62_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String test(){\n");
+        xml_.append("  Ex<$int> e = $new ExTwo<>();\n");
+        xml_.append("  $return \"\"+e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Ex<T> {\n");
+        xml_.append(" $public $int[] inst={2,4};\n");
+        xml_.append(" $public $normal String $toString()\n");
+        xml_.append(" {\n");
+        xml_.append("  $return \"\"+inst[0]+\",\"+inst[1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Mid<U>:Ex<U> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<S>:Mid<S> {\n");
+        xml_.append(" $public ExTwo(){\n");
+        xml_.append("  $interfaces(Ex)();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDef();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("2,4", getString(ret_));
+    }
+    @Test
+    public void calculate62__Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String test(){\n");
+        xml_.append("  Ex<$int> e = $new ExTwo<>();\n");
+        xml_.append("  $return \"\"+e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Ex<T> {\n");
+        xml_.append(" $public $int[] inst={2,4};\n");
+        xml_.append(" $public $normal String $toString()\n");
+        xml_.append(" {\n");
+        xml_.append("  T[] arr = $new T[2];\n");
+        xml_.append("  Object[] arro = arr;\n");
+        xml_.append("  arro[0]=0;\n");
+        xml_.append("  arro[1]=1;\n");
+        xml_.append("  $return \"\"+inst[($int)arro[0]]+\",\"+inst[($int)arro[1]];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<S>:Ex<S> {\n");
+        xml_.append(" $public ExTwo(){\n");
+        xml_.append("  $interfaces(Ex)();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDef();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("2,4", getString(ret_));
+    }
+    @Test
     public void calculate63Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

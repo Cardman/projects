@@ -1574,7 +1574,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
     }
     private Boolean getBoolean(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
-        return ((BooleanStruct)str_).getInstance();
+        return BooleanStruct.isTrue(str_);
     }
     private int getNumber(ContextEl _cont,String _className, String _fieldName, int _index) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
@@ -1588,12 +1588,5 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
         return ((CharSequenceStruct)str_).toStringInstance();
     }
-    private String getReplOldString(ContextEl _cont,String _className, String _fieldName) {
-        Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
-        return ((ReplacementStruct)str_).getInstance().getOldString();
-    }
-    private String getReplNewString(ContextEl _cont,String _className, String _fieldName) {
-        Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));
-        return ((ReplacementStruct)str_).getInstance().getNewString();
-    }
+
 }

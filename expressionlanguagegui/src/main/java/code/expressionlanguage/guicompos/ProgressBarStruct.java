@@ -42,7 +42,7 @@ public final class ProgressBarStruct extends CustComponentStruct {
     }
 
     public void setHorizontal(Struct _bool) {
-        progressBar.setHorizontal(BooleanStruct.of(true).sameReference(_bool));
+        progressBar.setHorizontal(BooleanStruct.isTrue(_bool));
     }
     @Override
     protected CustComponent getComponent() {

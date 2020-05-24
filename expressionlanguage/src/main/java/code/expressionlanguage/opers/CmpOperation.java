@@ -105,37 +105,57 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             setResultClass(new ClassArgumentMatching(res_));
             return;
         }
-        int orderClass_ = PrimitiveTypeUtil.getOrderClass(first_, _conf);
-        int orderClassTwo_ = PrimitiveTypeUtil.getOrderClass(second_, _conf);
-        if (orderClass_ > 0) {
-            if (orderClassTwo_ > 0) {
-                ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_,  _conf);
-                ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_,  _conf);
-                chidren_.first().getResultClass().setUnwrapObject(classFirst_);
-                chidren_.last().getResultClass().setUnwrapObject(classSecond_);
-                chidren_.first().cancelArgument();
-                chidren_.last().cancelArgument();
-                setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
-                return;
-            }
-            okNum = false;
-            _conf.getAnalyzing().setOkNumOp(false);
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
-            String res_ = stds_.getAliasPrimBoolean();
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            //oper
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
-                    StringList.join(new StringList(
-                            StringList.join(first_.getNames(),"&"),
-                            StringList.join(second_.getNames(),"&")
-                    ),";"),
-                    getOp());
-            _conf.getAnalyzing().getLocalizer().addError(un_);
-            setResultClass(new ClassArgumentMatching(res_));
+        if (PrimitiveTypeUtil.isFloatOrderClass(first_,second_, _conf)) {
+            ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_,  _conf);
+            ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_,  _conf);
+            chidren_.first().getResultClass().setUnwrapObject(classFirst_);
+            chidren_.last().getResultClass().setUnwrapObject(classSecond_);
+            chidren_.first().cancelArgument();
+            chidren_.last().cancelArgument();
+            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             return;
         }
+        if (PrimitiveTypeUtil.isIntOrderClass(first_,second_, _conf)) {
+            ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_,  _conf);
+            ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_,  _conf);
+            chidren_.first().getResultClass().setUnwrapObject(classFirst_);
+            chidren_.last().getResultClass().setUnwrapObject(classSecond_);
+            chidren_.first().cancelArgument();
+            chidren_.last().cancelArgument();
+            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+            return;
+        }
+//        int orderClass_ = PrimitiveTypeUtil.getOrderClass(first_, _conf);
+//        int orderClassTwo_ = PrimitiveTypeUtil.getOrderClass(second_, _conf);
+//        if (orderClass_ > 0) {
+//            if (orderClassTwo_ > 0) {
+//                ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_,  _conf);
+//                ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_,  _conf);
+//                chidren_.first().getResultClass().setUnwrapObject(classFirst_);
+//                chidren_.last().getResultClass().setUnwrapObject(classSecond_);
+//                chidren_.first().cancelArgument();
+//                chidren_.last().cancelArgument();
+//                setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+//                return;
+//            }
+//            okNum = false;
+//            _conf.getAnalyzing().setOkNumOp(false);
+//            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
+//            String res_ = stds_.getAliasPrimBoolean();
+//            FoundErrorInterpret un_ = new FoundErrorInterpret();
+//            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+//            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+//            //oper
+//            un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
+//                    StringList.join(new StringList(
+//                            StringList.join(first_.getNames(),"&"),
+//                            StringList.join(second_.getNames(),"&")
+//                    ),";"),
+//                    getOp());
+//            _conf.getAnalyzing().getLocalizer().addError(un_);
+//            setResultClass(new ClassArgumentMatching(res_));
+//            return;
+//        }
         okNum = false;
         _conf.getAnalyzing().setOkNumOp(false);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);

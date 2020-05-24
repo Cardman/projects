@@ -24,8 +24,20 @@ public final class MethodMetaInfo implements AnnotatedStruct {
     private final String returnType;
     private String fileName = EMPTY_STRING;
     private boolean expCast;
+    private final boolean invokable;
+    public MethodMetaInfo() {
+        invokable = false;
+        className = "";
+        formClassName = "";
+        realId = new MethodId(MethodAccessKind.INSTANCE,"",new StringList());
+        fid = new MethodId(MethodAccessKind.INSTANCE,"",new StringList());
+        access = AccessEnum.PRIVATE;
+        modifier = MethodModifier.NORMAL;
+        returnType = "";
+    }
     public MethodMetaInfo(AccessEnum _access, String _className, MethodId _realId, MethodModifier _modifier, String _returnType,
                           MethodId _fid, String _formClassName) {
+        invokable = true;
         access = _access;
         className = _className;
         realId = _realId;
@@ -73,6 +85,9 @@ public final class MethodMetaInfo implements AnnotatedStruct {
     }
     public MethodId getRealId() {
         return realId;
+    }
+    public MethodAccessKind getKind() {
+        return realId.getKind();
     }
     public boolean isStatic() {
         return modifier == MethodModifier.STATIC;
@@ -136,7 +151,15 @@ public final class MethodMetaInfo implements AnnotatedStruct {
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
-        return new StringStruct(StringList.concat(className,".",realId.getSignature(_an)));
+        return new StringStruct(StringList.concat(className,".", getSignature(_an)));
+    }
+
+    public String getSignature(ContextEl _an) {
+        return realId.getSignature(_an);
+    }
+
+    public boolean isInvokable() {
+        return invokable;
     }
 
     public boolean canAccessParamTypesStatic() {

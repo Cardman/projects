@@ -3108,13 +3108,13 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertEq(17, ((NumberStruct)intern_).intStruct());
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "eqone"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isTrue(field_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "eqtwo"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(!((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isFalse(field_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "eqthree"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(!((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isFalse(field_));
     }
     @Test
     public void instanceArgument73Test() {
@@ -3207,13 +3207,13 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertEq(17, ((NumberStruct)intern_).intStruct());
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "eqone"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isTrue(field_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "eqtwo"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(!((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isFalse(field_));
         field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.ExTwo", "eqthree"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
-        assertTrue(!((BooleanStruct)field_).getInstance());
+        assertTrue(BooleanStruct.isFalse(field_));
     }
     @Test
     public void instanceArgument174Test() {

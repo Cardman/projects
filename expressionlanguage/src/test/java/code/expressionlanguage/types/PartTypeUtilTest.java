@@ -753,7 +753,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:OuterTwo<java.lang.Number>.InnerThree {\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo.InnerThree {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());

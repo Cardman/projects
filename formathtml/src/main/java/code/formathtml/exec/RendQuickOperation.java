@@ -21,7 +21,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
         Argument f_ = getArgument(_nodes,chidren_.first());
         Struct abs_ = f_.getStruct();
-        if (absorbingStruct().sameReference(abs_)) {
+        if (match(abs_)) {
             setQuickConvertSimpleArgument(f_, _conf,_nodes);
             return;
         }
@@ -29,5 +29,5 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
         setSimpleArgument(a_, _conf,_nodes);
     }
 
-    public abstract BooleanStruct absorbingStruct();
+    public abstract boolean match(Struct _struct);
 }

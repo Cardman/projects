@@ -29,13 +29,7 @@ public abstract class QuickOperation extends MethodOperation {
         getChildren().putAllMap(vs_);
     }
 
-    @Override
-    public void tryCalculateNode(ContextEl _conf) {
-        Struct abs_ = absorbingStruct();
-        tryGetResult(_conf, this, abs_, okNum);
-    }
-
-    public static void tryGetResult(ContextEl _conf, ParentOperable _to, Struct _abs, boolean _okNum) {
+    public static void tryGetResult(ContextEl _conf, ParentOperable _to, boolean _abs, boolean _okNum) {
         if (!_okNum) {
             return;
         }
@@ -46,9 +40,16 @@ public abstract class QuickOperation extends MethodOperation {
             return;
         }
         Struct v_ = f_.getStruct();
-        if (v_.sameReference(_abs)) {
-            _to.setSimpleArgumentAna(f_, _conf);
-            return;
+        if (_abs) {
+            if (BooleanStruct.isTrue(v_)) {
+                _to.setSimpleArgumentAna(f_, _conf);
+                return;
+            }
+        } else {
+            if (BooleanStruct.isFalse(v_)) {
+                _to.setSimpleArgumentAna(f_, _conf);
+                return;
+            }
         }
         if (s_ == null) {
             return;
@@ -88,5 +89,4 @@ public abstract class QuickOperation extends MethodOperation {
         return okNum;
     }
 
-    public abstract BooleanStruct absorbingStruct();
 }

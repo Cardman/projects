@@ -18,7 +18,7 @@ public final class MenuItemCheckStruct extends AbsMenuItemStruct {
         return BooleanStruct.of(menuItem.isSelected());
     }
     public void setSelected(Struct _struct) {
-        menuItem.setSelected(BooleanStruct.of(true).sameReference(_struct));
+        menuItem.setSelected(BooleanStruct.isTrue(_struct));
     }
     @Override
     EnabledMenu getMenu() {

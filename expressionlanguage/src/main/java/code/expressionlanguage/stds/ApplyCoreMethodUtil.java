@@ -2,6 +2,9 @@ package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ErrorType;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
+import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -12,10 +15,8 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.opers.exec.ExecDotOperation;
-import code.expressionlanguage.opers.exec.ExecFctOperation;
-import code.expressionlanguage.opers.exec.ExecInternVariableOperation;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.expressionlanguage.methods.NamedFunctionBlock;
+import code.expressionlanguage.opers.exec.*;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.structs.*;
 import code.maths.montecarlo.AbMonteCarlo;
@@ -555,13 +556,20 @@ public class ApplyCoreMethodUtil {
                 return result_;
             }
             StringList paramList_ = _method.getConstraints().getParametersTypes();
-            AbstractGenerator generator_ = lgNames_.getGenerator();
-            if (paramList_.isEmpty()) {
-                result_.setResult(new DoubleStruct(generator_.pick()));
-            } else {
-                result_.setResult(new LongStruct(AbMonteCarlo.randomLong(ClassArgumentMatching.convertToNumber(args_[0]).longStruct(),generator_)));
+            if (StringList.quickEq(_method.getConstraints().getName(), lgNames_.getAliasSeed())) {
+                if (paramList_.isEmpty()) {
+                    Struct seed_ = _cont.getSeed();
+                    result_.setResult(seed_);
+                    return result_;
+                }
+                _cont.setSeed(_args[0].getStruct());
+                result_.setResult(NullStruct.NULL_VALUE);
+                return result_;
             }
-            return result_;
+            if (paramList_.isEmpty()) {
+                return random(_cont, result_);
+            }
+            return randomParam(_cont, result_, args_);
         }
         if (StringList.quickEq(type_, stringBuilderType_)) {
             result_ = AliasCharSequence.invokeMethod(_cont, _method, _struct, _args);
@@ -580,6 +588,80 @@ public class ApplyCoreMethodUtil {
         processError(_cont,result_);
         return result_;
     }
+
+    private static ResultErrorStd random(ContextEl _cont, ResultErrorStd _result) {
+        LgNames lgNames_ = _cont.getStandards();
+        Struct seed_ = _cont.getSeed();
+        Argument argSeed_ = new Argument(seed_);
+        CustList<NamedFunctionBlock> methods_ = new CustList<NamedFunctionBlock>();
+        CustList<Argument> argsToPass_ = new CustList<Argument>();
+        String cl_ = "";
+        if (seed_ != NullStruct.NULL_VALUE
+                && Templates.safeObject(lgNames_.getAliasSeedDoubleGenerator(), argSeed_, _cont) == ErrorType.NOTHING) {
+            String argClassName_ = seed_.getClassName(_cont);
+            String nameToCall_ = lgNames_.getAliasSeedGet();
+            MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList());
+            ClassMethodId polymorph_ = ExecInvokingOperation.polymorph(_cont, seed_, new ClassMethodId(lgNames_.getAliasSeedDoubleGenerator(), id_));
+            String className_ = polymorph_.getClassName();
+            String gene_ = _cont.getClasses().getClassBody(Templates.getIdFromAllTypes(argClassName_)).getGenericString();
+            className_ = Templates.getOverridingFullTypeByBases(gene_, className_, _cont);
+            className_ = Templates.quickFormat(argClassName_, className_, _cont);
+            cl_ = className_;
+            MethodId ct_ = polymorph_.getConstraints();
+            methods_ = Classes.getMethodBodiesById(_cont, className_, ct_);
+        }
+        if (!methods_.isEmpty()) {
+            NamedFunctionBlock meth_ = methods_.first();
+            if (seed_ instanceof AbstractFunctionalInstance &&((GeneCustMethod)meth_).isAbstractMethod()) {
+                Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
+                _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
+                return _result;
+            }
+            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,((GeneCustMethod)meth_).getId(),argsToPass_,null));
+            return _result;
+        }
+        AbstractGenerator generator_ = lgNames_.getGenerator();
+        _result.setResult(new DoubleStruct(generator_.pick()));
+        return _result;
+    }
+
+    private static ResultErrorStd randomParam(ContextEl _cont, ResultErrorStd _result, Struct[] _args) {
+        LgNames lgNames_ = _cont.getStandards();
+        Struct seed_ = _cont.getSeed();
+        Argument argSeed_ = new Argument(seed_);
+        CustList<NamedFunctionBlock> methods_ = new CustList<NamedFunctionBlock>();
+        CustList<Argument> argsToPass_ = new CustList<Argument>();
+        String cl_ = "";
+        if (seed_ != NullStruct.NULL_VALUE
+                && Templates.safeObject(lgNames_.getAliasSeedGenerator(), argSeed_, _cont) == ErrorType.NOTHING) {
+            String argClassName_ = seed_.getClassName(_cont);
+            String nameToCall_ = lgNames_.getAliasSeedGet();
+            MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList(lgNames_.getAliasPrimLong()));
+            ClassMethodId polymorph_ = ExecInvokingOperation.polymorph(_cont, seed_, new ClassMethodId(lgNames_.getAliasSeedGenerator(), id_));
+            String className_ = polymorph_.getClassName();
+            String gene_ = _cont.getClasses().getClassBody(Templates.getIdFromAllTypes(argClassName_)).getGenericString();
+            className_ = Templates.getOverridingFullTypeByBases(gene_, className_, _cont);
+            className_ = Templates.quickFormat(argClassName_, className_, _cont);
+            cl_ = className_;
+            MethodId ct_ = polymorph_.getConstraints();
+            methods_ = Classes.getMethodBodiesById(_cont, className_, ct_);
+            argsToPass_.add(new Argument(_args[0]));
+        }
+        if (!methods_.isEmpty()) {
+            NamedFunctionBlock meth_ = methods_.first();
+            if (seed_ instanceof AbstractFunctionalInstance &&((GeneCustMethod)meth_).isAbstractMethod()) {
+                Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
+                _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
+                return _result;
+            }
+            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,((GeneCustMethod)meth_).getId(),argsToPass_,null));
+            return _result;
+        }
+        AbstractGenerator generator_ = lgNames_.getGenerator();
+        _result.setResult(new LongStruct(AbMonteCarlo.randomLong(ClassArgumentMatching.convertToNumber(_args[0]).longStruct(),generator_)));
+        return _result;
+    }
+
     public static ResultErrorStd instanceBase(ContextEl _cont, ConstructorId _method, Argument[] _args) {
         ResultErrorStd result_;
         Struct[] args_ = getObjects(_args);
@@ -649,17 +731,17 @@ public class ApplyCoreMethodUtil {
             previous_ = _firstArgs.first().getStruct();
         }
         if (StringList.quickEq(_id,aliasMethod_)) {
-            return getMethod(previous_,stds_);
+            return getMethod(previous_);
         }
         if (StringList.quickEq(_id,aliasConstructor_)) {
-            return getCtor(previous_,stds_);
+            return getCtor(previous_);
         }
         if (StringList.quickEq(_id,aliasField_)) {
-            return getField(previous_,stds_);
+            return getField(previous_);
         }
-        return getClass(previous_,stds_);
+        return getClass(previous_);
     }
-    public static AnnotatedStruct getAnnotated(Struct _struct, LgNames _stds) {
+    public static AnnotatedStruct getAnnotated(Struct _struct) {
         if (_struct instanceof MethodMetaInfo) {
             return (MethodMetaInfo) _struct;
         }
@@ -669,31 +751,31 @@ public class ApplyCoreMethodUtil {
         if (_struct instanceof FieldMetaInfo) {
             return (FieldMetaInfo) _struct;
         }
-        return getClass(_struct,_stds);
+        return getClass(_struct);
     }
-    public static MethodMetaInfo getMethod(Struct _struct, LgNames _stds) {
+    public static MethodMetaInfo getMethod(Struct _struct) {
         if (_struct instanceof MethodMetaInfo) {
             return (MethodMetaInfo) _struct;
         }
-        return _stds.getMethodMetaInfo();
+        return new MethodMetaInfo();
     }
-    public static ConstructorMetaInfo getCtor(Struct _struct, LgNames _stds) {
+    public static ConstructorMetaInfo getCtor(Struct _struct) {
         if (_struct instanceof ConstructorMetaInfo) {
             return (ConstructorMetaInfo) _struct;
         }
-        return _stds.getConstructorMetaInfo();
+        return new ConstructorMetaInfo();
     }
-    public static FieldMetaInfo getField(Struct _struct, LgNames _stds) {
+    public static FieldMetaInfo getField(Struct _struct) {
         if (_struct instanceof FieldMetaInfo) {
             return (FieldMetaInfo) _struct;
         }
-        return _stds.getFieldMetaInfo();
+        return new FieldMetaInfo();
     }
-    public static ClassMetaInfo getClass(Struct _struct, LgNames _stds) {
+    public static ClassMetaInfo getClass(Struct _struct) {
         if (_struct instanceof ClassMetaInfo) {
             return (ClassMetaInfo) _struct;
         }
-        return _stds.getClassMetaInfo();
+        return new ClassMetaInfo();
     }
     public static Struct invokeAnalyzisStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         Struct result_ = null;
@@ -1073,7 +1155,7 @@ public class ApplyCoreMethodUtil {
         ops_.add(dot_);
         return ops_;
     }
-    private static String tr(StringList _list, ContextEl _context) {
+    public static String tr(StringList _list, ContextEl _context) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getStandards().getAliasVoid());

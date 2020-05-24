@@ -434,7 +434,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
                 res_.setResult(std_);
                 return res_;
             }
-            AtomicBoolean at_ = new AtomicBoolean(BooleanStruct.of(true).sameReference(_args[0]));
+            AtomicBoolean at_ = new AtomicBoolean(BooleanStruct.isTrue(_args[0]));
             DefaultStruct std_ = DefaultStruct.newInstance(at_, aliasAtomicBoolean);
             res_.setResult(std_);
             return res_;
@@ -489,22 +489,22 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
             }
             if (StringList.quickEq(name_,aliasSetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) ((DefaultStruct) _instance).getInstance();
-                re_.set(BooleanStruct.of(true).sameReference(_args[0]));
+                re_.set(BooleanStruct.isTrue(_args[0]));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_,aliasCompareAndSetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) ((DefaultStruct) _instance).getInstance();
-                res_.setResult(BooleanStruct.of(re_.compareAndSet(BooleanStruct.of(true).sameReference(_args[0]),BooleanStruct.of(true).sameReference(_args[1]))));
+                res_.setResult(BooleanStruct.of(re_.compareAndSet(BooleanStruct.isTrue(_args[0]),BooleanStruct.isTrue(_args[1]))));
                 return res_;
             }
             if (StringList.quickEq(name_,aliasGetAndSetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) ((DefaultStruct) _instance).getInstance();
-                res_.setResult(BooleanStruct.of(re_.getAndSet(BooleanStruct.of(true).sameReference(_args[0]))));
+                res_.setResult(BooleanStruct.of(re_.getAndSet(BooleanStruct.isTrue(_args[0]))));
                 return res_;
             }
             AtomicBoolean re_ = (AtomicBoolean) ((DefaultStruct) _instance).getInstance();
-            re_.lazySet(BooleanStruct.of(true).sameReference(_args[0]));
+            re_.lazySet(BooleanStruct.isTrue(_args[0]));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -671,7 +671,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
                 new KeyValueMemberName(GET_FIRST,getAliasGetFirst()),
                 new KeyValueMemberName(GET_SECOND,getAliasGetSecond()),
                 new KeyValueMemberName(ENUM_ORDINAL,getAliasEnumOrdinal()),
-                new KeyValueMemberName(ENUM_NAME,getAliasEnumName())
+                new KeyValueMemberName(ENUM_NAME,getAliasEnumName()),
+                new KeyValueMemberName(SEED_GET,getAliasSeedGet())
         ));
         return list_;
     }
@@ -1702,6 +1703,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         setAliasAnnotationType(get(_util,_cust, ANNOTATION_TYPE));
         setAliasGetGenericVariableOwner(get(_util,_cust, GET_GENERIC_VARIABLE_OWNER));
         setAliasEnumParamVar(get(_util,_cust, ENUM_PARAM_VAR));
+        setAliasSeedGenerator(get(_util,_cust, SEED_GENERATOR));
+        setAliasSeedDoubleGenerator(get(_util,_cust, SEED_DOUBLE_GENERATOR));
+        setAliasSeedGet(get(_util,_cust, SEED_GET));
         setAliasPairTypeVarSecond(get(_util,_cust, PAIR_TYPE_VAR_SECOND));
         setAliasAnnotated(get(_util,_cust, ANNOTATED));
         setAliasIterableVar(get(_util,_cust, ITERABLE_VAR));
@@ -1737,6 +1741,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         setAliasXor(get(_util,_cust, XOR));
         setAliasMult(get(_util,_cust, MULT));
         setAliasRandom(get(_util,_cust, RANDOM));
+        setAliasSeed(get(_util,_cust, SEED));
         setAliasNegBin(get(_util,_cust, NEG_BIN));
         setAliasMinus(get(_util,_cust, MINUS));
         setAliasEnumName(get(_util,_cust, ENUM_NAME));
@@ -1868,6 +1873,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         getDisplayedStrings().setNotNullCoverString(get(_util,_cust, NOT_NULL_COVER_STRING));
         getDisplayedStrings().setStaticCallString(get(_util,_cust, STATIC_CALL_STRING));
         getDisplayedStrings().setStaticString(get(_util,_cust, STATIC_STRING));
+        getDisplayedStrings().setInfinity(get(_util,_cust, INFINITY));
+        getDisplayedStrings().setNan(get(_util,_cust, NAN));
+        getDisplayedStrings().setExponent(get(_util,_cust, EXPONENT));
         setAliasBean(get(_util,_cust, BEAN));
         setAliasMapKeys(get(_util,_cust, MAP_KEYS));
         setAliasMapValues(get(_util,_cust, MAP_VALUES));

@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -24,39 +23,16 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         opOffset = _op.getOperators().firstKey();
     }
 
-    static ClassArgumentMatching getResultClass(ClassArgumentMatching _a, ContextEl _cont, ClassArgumentMatching _b) {
-        int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
-        String exp_ = _cont.getStandards().getAliasNumber();
-        boolean ok_ = true;
-        if (oa_ == 0) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
-            //operator
-            un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
-                    StringList.join(_a.getNames(),"&"));
-            _cont.getAnalyzing().getLocalizer().addError(un_);
-            _cont.getAnalyzing().setOkNumOp(false);
-            ok_ = false;
-        }
-        int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
-        if (ob_ == 0) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
-            //operator
-            un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
-                    StringList.join(_a.getNames(),"&"));
-            _cont.getAnalyzing().getLocalizer().addError(un_);
-            _cont.getAnalyzing().setOkNumOp(false);
-            ok_ = false;
-        }
-        if (!ok_) {
-            return new ClassArgumentMatching(exp_);
-        }
+    static ClassArgumentMatching getIntResultClass(ClassArgumentMatching _a, ContextEl _cont, ClassArgumentMatching _b) {
+        int oa_ = PrimitiveTypeUtil.getIntOrderClass(_a, _cont);
+        int ob_ = PrimitiveTypeUtil.getIntOrderClass(_b, _cont);
         return getQuickResultClass(_a, oa_, _cont, _b, ob_);
     }
-
+    static ClassArgumentMatching getFloatResultClass(ClassArgumentMatching _a, ContextEl _cont, ClassArgumentMatching _b) {
+        int oa_ = PrimitiveTypeUtil.getFloatOrderClass(_a, _cont);
+        int ob_ = PrimitiveTypeUtil.getFloatOrderClass(_b, _cont);
+        return getQuickResultClass(_a, oa_, _cont, _b, ob_);
+    }
     static ClassArgumentMatching getQuickResultClass(ClassArgumentMatching _a, int _oa, ContextEl _cont, ClassArgumentMatching _b, int _ob) {
         ClassArgumentMatching arg_;
         int max_ = Math.max(_oa, _ob);
@@ -66,7 +42,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             arg_ = _b;
         }
         LgNames stds_ = _cont.getStandards();
-        int intOrder_ = PrimitiveTypeUtil.getOrderClass(stds_.getAliasPrimInteger(), _cont);
+        int intOrder_ = PrimitiveTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _cont);
         if (max_ < intOrder_) {
             arg_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }

@@ -1,11 +1,11 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.InstanceOfOperation;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.Configuration;
 import code.util.CustList;
@@ -30,17 +30,15 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
 
     Argument getArgument(CustList<Argument> _arguments, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
-        LgNames stds_ = _conf.getStandards();
         Argument objArg_ = _arguments.first();
         if (objArg_.isNull()) {
             Argument arg_ = new Argument();
             arg_.setStruct(BooleanStruct.of(false));
             return arg_;
         }
-        String className_ = stds_.getStructClassName(objArg_.getStruct(), _conf.getContext());
         PageEl page_ = _conf.getPageEl();
         String str_ = page_.formatVarType(className, _conf.getContext());
-        boolean res_ = Templates.isCorrectExecute(className_, str_, _conf.getContext());
+        boolean res_ = Templates.safeObject(str_, objArg_, _conf.getContext()) == ErrorType.NOTHING;
         Argument arg_ = new Argument();
         arg_.setStruct(BooleanStruct.of(res_));
         return arg_;

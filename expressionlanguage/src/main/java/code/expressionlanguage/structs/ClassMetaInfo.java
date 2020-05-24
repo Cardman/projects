@@ -77,7 +77,20 @@ public final class ClassMetaInfo implements AnnotatedStruct {
         category = _cat;
         finalType = true;
     }
-
+    public ClassMetaInfo() {
+        name = "";
+        variableOwner = "";
+        staticType = true;
+        typeOwner = EMPTY_STRING;
+        abstractType = true;
+        superClass = EMPTY_STRING;
+        access = AccessEnum.PUBLIC;
+        fieldsInfos = new StringMap<FieldMetaInfo>();
+        methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
+        category = ClassCategory.VOID;
+        finalType = true;
+    }
     public ClassMetaInfo(String _name, ClassCategory _cat, StringList _upperBounds, StringList _lowerBounds, String _variableOwner, AccessEnum _access) {
         name = _name;
         upperBounds.addAllElts(_upperBounds);
@@ -247,6 +260,9 @@ public final class ClassMetaInfo implements AnnotatedStruct {
     }
     public boolean isTypeAnnotation() {
         return category == ClassCategory.ANNOTATION;
+    }
+    public boolean isTypeVoid() {
+        return category == ClassCategory.VOID;
     }
     public String getName() {
         return name;

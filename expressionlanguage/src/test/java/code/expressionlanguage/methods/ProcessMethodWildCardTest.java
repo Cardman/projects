@@ -102,7 +102,7 @@ public final class ProcessMethodWildCardTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number> {\n");
         xml_.append(" $public $normal $int get(#T... a){\n");
-        xml_.append("  $int sum = 0l;\n");
+        xml_.append("  $int sum = 0;\n");
         xml_.append("  $foreach(#T i:a){\n");
         xml_.append("   sum += i.intValue();\n");
         xml_.append("  }\n");
@@ -139,7 +139,7 @@ public final class ProcessMethodWildCardTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number> {\n");
         xml_.append(" $public $normal $int get(#T... a){\n");
-        xml_.append("  $int sum = 0l;\n");
+        xml_.append("  $int sum = 0;\n");
         xml_.append("  $foreach(#T i:a){\n");
         xml_.append("   sum += i.intValue();\n");
         xml_.append("  }\n");

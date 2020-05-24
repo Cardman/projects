@@ -42,15 +42,33 @@ public final class AddOperation extends NumericOperation {
         ResultOperand res_ = new ResultOperand();
         String stringType_ = _cont.getStandards().getAliasString();
         if (StringList.quickEq(_op.trim(), PLUS)) {
-            int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
-            int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
-            if (oa_ > 0 && ob_ > 0) {
+            if (PrimitiveTypeUtil.isIntOrderClass(_a,_b,_cont)) {
+                int oa_ = PrimitiveTypeUtil.getIntOrderClass(_a, _cont);
+                int ob_ = PrimitiveTypeUtil.getIntOrderClass(_b, _cont);
                 ClassArgumentMatching out_ = getQuickResultClass(_a, oa_, _cont, _b, ob_);
                 _a.setUnwrapObject(out_);
                 _b.setUnwrapObject(out_);
                 res_.setResult(out_);
                 return res_;
             }
+            if (PrimitiveTypeUtil.isFloatOrderClass(_a,_b,_cont)) {
+                int oa_ = PrimitiveTypeUtil.getFloatOrderClass(_a, _cont);
+                int ob_ = PrimitiveTypeUtil.getFloatOrderClass(_b, _cont);
+                ClassArgumentMatching out_ = getQuickResultClass(_a, oa_, _cont, _b, ob_);
+                _a.setUnwrapObject(out_);
+                _b.setUnwrapObject(out_);
+                res_.setResult(out_);
+                return res_;
+            }
+//            int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
+//            int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
+//            if (oa_ > 0 && ob_ > 0) {
+//                ClassArgumentMatching out_ = getQuickResultClass(_a, oa_, _cont, _b, ob_);
+//                _a.setUnwrapObject(out_);
+//                _b.setUnwrapObject(out_);
+//                res_.setResult(out_);
+//                return res_;
+//            }
             boolean str_ = false;
             if (_a.matchClass(stringType_) || _a.isVariable()) {
                 str_ = true;
@@ -82,11 +100,41 @@ public final class AddOperation extends NumericOperation {
             res_.setResult(arg_);
             return res_;
         }
-        ClassArgumentMatching out_ = getResultClass(_a, _cont, _b);
-        _a.setUnwrapObject(out_);
-        _b.setUnwrapObject(out_);
-        res_.setResult(out_);
+        if (PrimitiveTypeUtil.isIntOrderClass(_a,_b,_cont)) {
+            ClassArgumentMatching out_ = getIntResultClass(_a, _cont, _b);
+            _a.setUnwrapObject(out_);
+            _b.setUnwrapObject(out_);
+            res_.setResult(out_);
+            return res_;
+        }
+        if (PrimitiveTypeUtil.isFloatOrderClass(_a,_b,_cont)) {
+            ClassArgumentMatching out_ = getFloatResultClass(_a, _cont, _b);
+            _a.setUnwrapObject(out_);
+            _b.setUnwrapObject(out_);
+            res_.setResult(out_);
+            return res_;
+        }
+        _cont.getAnalyzing().setOkNumOp(false);
+        String exp_ = _cont.getStandards().getAliasNumber();
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
+        un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+        un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
+        //oper
+        un_.buildError(_cont.getAnalysisMessages().getUnexpectedOperandTypes(),
+                StringList.join(new StringList(
+                        StringList.join(_a.getNames(),"&"),
+                        StringList.join(_b.getNames(),"&")
+                ),";"),
+                getOp());
+        _cont.getAnalyzing().getLocalizer().addError(un_);
+        ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
+        res_.setResult(arg_);
         return res_;
+//        ClassArgumentMatching out_ = getResultClass(_a, _cont, _b);
+//        _a.setUnwrapObject(out_);
+//        _b.setUnwrapObject(out_);
+//        res_.setResult(out_);
+//        return res_;
     }
 
     @Override

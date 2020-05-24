@@ -372,7 +372,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         if (_conf.getContext().hasException()) {
             return ConditionReturn.CALL_EX;
         }
-        if (BooleanStruct.of(true).sameReference(arg_.getStruct())) {
+        if (BooleanStruct.isTrue(arg_.getStruct())) {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;

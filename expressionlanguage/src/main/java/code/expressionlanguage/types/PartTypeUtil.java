@@ -3,6 +3,7 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
@@ -178,9 +179,119 @@ public final class PartTypeUtil {
         return root_.getAnalyzedType();
     }
 
+    public static boolean checkParametersCount(String _className, StringMap<StringList> _inherit, ContextEl _context) {
+        Ints indexes_ = ParserType.getQuickIndexes(_className);
+        AnalyzingType loc_ = ParserType.analyzeQuickLocal(0, _className, indexes_);
+        CustList<IntTreeMap< String>> dels_;
+        dels_ = new CustList<IntTreeMap< String>>();
+        PartType root_ = PartType.createQuickPartType(null, 0, 0, loc_, loc_.getValues());
+        addValues(root_, dels_, loc_);
+        PartType current_ = root_;
+        while (true) {
+            PartType child_ = createQuickFirstChild(current_, loc_, dels_);
+            if (child_ != null) {
+                ((ParentPartType)current_).appendChild(child_);
+                current_ = child_;
+                continue;
+            }
+            boolean stop_ = false;
+            while (true) {
+                current_.setAnalyzedType(_context, dels_, _inherit);
+                PartType next_ = createQuickNextSibling(current_, loc_, dels_);
+                ParentPartType par_ = current_.getParent();
+                if (next_ != null) {
+                    par_.appendChild(next_);
+                    current_ = next_;
+                    break;
+                }
+                if (par_ == root_) {
+                    par_.setAnalyzedType(_context, dels_, _inherit);
+                    stop_ = true;
+                    break;
+                }
+                if (par_ == null) {
+                    stop_ = true;
+                    break;
+                }
+                dels_.removeLast();
+                current_ = par_;
+            }
+            if (stop_) {
+                break;
+            }
+        }
+        current_ = root_;
+        while (true) {
+            PartType child_ = current_.getFirstChild();
+            if (child_ != null) {
+                current_ = child_;
+                continue;
+            }
+            boolean stop_ = false;
+            while (true) {
+                if (!skip(current_) && !Templates.correctNbParameters(current_.getAnalyzedType(), _context)) {
+                    return false;
+                }
+                PartType next_ = current_.getNextSibling();
+                ParentPartType par_ = current_.getParent();
+                if (next_ != null) {
+                    current_ = next_;
+                    break;
+                }
+                if (par_ == root_) {
+                    if (!skipByClass(par_)&&!Templates.correctNbParameters(par_.getAnalyzedType(), _context)) {
+                        return false;
+                    }
+                    stop_ = true;
+                    break;
+                }
+                if (par_ == null) {
+                    stop_ = true;
+                    break;
+                }
+                dels_.removeLast();
+                current_ = par_;
+            }
+            if (stop_) {
+                break;
+            }
+        }
+        return true;
+    }
+
+    private static boolean skip(PartType _current) {
+        if (_current.getParent() instanceof InnerPartType) {
+            return true;
+        }
+        if (_current.getParent() instanceof TemplatePartType && _current.getIndex() == 0) {
+            return true;
+        }
+        return skipByClass(_current);
+    }
+
+    private static boolean skipByClass(PartType _current) {
+        if (_current instanceof VariablePartType) {
+            return true;
+        }
+        if (_current instanceof ArraryPartType) {
+            return true;
+        }
+        if (_current instanceof WildCardPartType) {
+            return true;
+        }
+        if (_current instanceof EmptyWildCardPart) {
+            return true;
+        }
+        return false;
+    }
+
     public static boolean processAnalyzeConstraints(String _className, StringMap<StringList> _inherit, ContextEl _context, boolean _exact) {
         if (!_exact && !_className.contains(Templates.TEMPLATE_BEGIN)) {
             return true;
+        }
+        boolean res_ = checkParametersCount(_className, _inherit, _context);
+        if (!res_) {
+            return false;
         }
         Ints indexes_ = ParserType.getQuickIndexes(_className);
         AnalyzingType loc_ = ParserType.analyzeQuickLocal(0, _className, indexes_);

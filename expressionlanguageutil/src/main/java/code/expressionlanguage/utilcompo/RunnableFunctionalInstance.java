@@ -5,10 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.util.CustomReflectMethod;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.structs.AbstractFunctionalInstance;
-import code.expressionlanguage.structs.FieldableStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.ObjectMap;
@@ -18,7 +15,7 @@ public final class RunnableFunctionalInstance implements AbstractFunctionalInsta
 
     private final String className;
 
-    private Struct functional;
+    private LambdaStruct functional;
     private ContextEl original;
 
     private final ObjectMap<ClassField,Struct> fields;
@@ -46,12 +43,12 @@ public final class RunnableFunctionalInstance implements AbstractFunctionalInsta
     }
 
     @Override
-    public Struct getFunctional() {
+    public LambdaStruct getFunctional() {
         return functional;
     }
 
     @Override
-    public void setFunctional(Struct _functional) {
+    public void setFunctional(LambdaStruct _functional) {
         functional = _functional;
     }
 

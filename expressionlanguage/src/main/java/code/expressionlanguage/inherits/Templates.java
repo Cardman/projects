@@ -1291,8 +1291,11 @@ public final class Templates {
     }
 
     public static Struct checkObjectEx(String _param, Argument _arg, ContextEl _context) {
-        ErrorType err_ = safeObject(_param, _arg, _context);
+        Struct str_ = _arg.getStruct();
         LgNames stds_ = _context.getStandards();
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
+        _arg.setStruct(PrimitiveTypeUtil.convertObject(cl_, str_, stds_));
+        ErrorType err_ = safeObject(_param, _arg, _context);
         if (err_ == ErrorType.CAST) {
             String cast_ = stds_.getAliasCastType();
             return new ErrorStruct(_context,cast_);
@@ -1433,11 +1436,11 @@ public final class Templates {
         return true;
     }
     public static ErrorType safeObject(String _param, Argument _arg, ContextEl _context) {
-        Struct str_ = _arg.getStruct();
+        if (_param.isEmpty()) {
+            return ErrorType.CAST;
+        }
         LgNames stds_ = _context.getStandards();
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
-        _arg.setStruct(PrimitiveTypeUtil.convertObject(cl_, str_, stds_));
-        str_ = _arg.getStruct();
+        Struct str_ = _arg.getStruct();
         if (str_ != NullStruct.NULL_VALUE) {
             String a_ = stds_.getStructClassName(str_, _context);
             String param_ = PrimitiveTypeUtil.toWrapper(_param, stds_);
@@ -1660,7 +1663,7 @@ public final class Templates {
             for (String b: bounds_) {
                 if (PrimitiveTypeUtil.isPrimitive(b, _context)) {
                     String pName_ = p_.getName();
-                    return StringList.contains(prims_.getVal(b).getAllPrimSuperType(_context), pName_);
+                    return StringList.contains(prims_.getVal(b).getAllSuperType(_context), pName_);
                 }
                 if (PrimitiveTypeUtil.isWrapper(b, _context)) {
                     String aPrim_ = PrimitiveTypeUtil.toPrimitive(b, stds_);
@@ -1675,7 +1678,10 @@ public final class Templates {
             String aName_ = a_.getName();
             ClassArgumentMatching pPrim_  = PrimitiveTypeUtil.toPrimitive(p_, _context);
             String pName_ = pPrim_.getName();
-            return StringList.contains(prims_.getVal(aName_).getAllPrimSuperType(_context), pName_);
+            return StringList.contains(prims_.getVal(aName_).getAllSuperType(_context), pName_);
+        }
+        if (_m.getParam().isVariable()) {
+            return false;
         }
         if (_m.getArg().isVariable()) {
             return true;

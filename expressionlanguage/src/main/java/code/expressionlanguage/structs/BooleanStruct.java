@@ -6,12 +6,13 @@ public final class BooleanStruct implements DisplayableStruct {
 
     private static final BooleanStruct FALSE = new BooleanStruct();
     private static final BooleanStruct TRUE = new BooleanStruct();
+    private static final boolean ALT_VALUE = true;
 
     private BooleanStruct() {
     }
 
     public static BooleanStruct of(boolean _value) {
-        if (_value) {
+        if (_value == ALT_VALUE) {
             return TRUE;
         }
         return FALSE;
@@ -63,8 +64,12 @@ public final class BooleanStruct implements DisplayableStruct {
         return _other;
     }
 
-    public boolean getInstance() {
-        return this == TRUE;
+    public static boolean isTrue(Struct _other) {
+        return _other == TRUE;
+    }
+
+    public static boolean isFalse(Struct _other) {
+        return _other == FALSE;
     }
 
     @Override

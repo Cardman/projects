@@ -20,6 +20,7 @@ public final class ResultInput {
     private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
+    private String className = EMPTY_STRING;
     public void build(Configuration _cont, RendBlock _bl, RendDocumentBlock _doc, Element _read,String _varValue) {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
@@ -39,6 +40,7 @@ public final class ResultInput {
                 badEl_.buildError(_cont.getRendAnalysisMessages().getBadInputName());
                 _cont.addError(badEl_);
             } else {
+                className = ((RendDynOperationNode)settable_).getResultClass().getSingleNameOrEmpty();
                 if (settable_ instanceof RendSettableFieldOperation) {
                     FieldInfo infoField_ = ((RendSettableFieldOperation) settable_).getFieldMetaInfo();
                     ClassField clField_ = infoField_.getClassField();
@@ -228,5 +230,9 @@ public final class ResultInput {
 
     public String getIdName() {
         return idName;
+    }
+
+    public String getClassName() {
+        return className;
     }
 }

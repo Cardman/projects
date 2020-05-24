@@ -820,7 +820,6 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
     */
     public LgInt multiply(double _db) {
         LgInt resultat_ = LgInt.zero();
-        double tmp_;
         Longs resultatChiffres_ = resultat_.grDigits;
         resultatChiffres_.clear();
         int len_;
@@ -833,11 +832,11 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         nbDigMinusOne_--;
         for (int i = nbDigMinusOne_; i >= CustList.FIRST_INDEX; i--) {
             resultatChiffres_.set(i, (long) Math.floor(grDigits.get(i) * _db));
-            tmp_ = (grDigits.get(i) * _db - resultatChiffres_.get(i)) * BASE;
+            double tmp_ = ((double) grDigits.get(i) * _db - (double) resultatChiffres_.get(i)) * (double) BASE;
             int j_ = i + 1;
             for (int j = j_; j < nbDig_; j++) {
                 resultatChiffres_.set(j, resultatChiffres_.get(j) + (long) Math.floor(tmp_));
-                tmp_ = (tmp_ - (long) Math.floor(tmp_)) * BASE;
+                tmp_ = (tmp_ - Math.floor(tmp_)) * (double)BASE;
             }
         }
         long retenue_ = 0;

@@ -192,6 +192,10 @@ public abstract class RendDynOperationNode {
             DefaultValueOperation f_ = (DefaultValueOperation) _anaNode;
             return new RendDefaultValueOperation(f_);
         }
+        if (_anaNode instanceof DefaultOperation) {
+            DefaultOperation f_ = (DefaultOperation) _anaNode;
+            return new RendDefaultOperation(f_);
+        }
         if (_anaNode instanceof ThisOperation) {
             ThisOperation f_ = (ThisOperation) _anaNode;
             return new RendThisOperation(f_);
@@ -438,12 +442,12 @@ public abstract class RendDynOperationNode {
         if (par_ instanceof RendCompoundAffectationOperation) {
             RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
             if (StringList.quickEq(p_.getOper(),"&&=")) {
-                if (BooleanStruct.of(false).sameReference(_value)) {
+                if (BooleanStruct.isFalse(_value)) {
                     return par_.getOrder();
                 }
             }
             if (StringList.quickEq(p_.getOper(),"||=")) {
-                if (BooleanStruct.of(true).sameReference(_value)) {
+                if (BooleanStruct.isTrue(_value)) {
                     return par_.getOrder();
                 }
             }
@@ -460,8 +464,7 @@ public abstract class RendDynOperationNode {
         }
         if (par_ instanceof RendQuickOperation) {
             RendQuickOperation q_ = (RendQuickOperation) par_;
-            BooleanStruct bs_ = q_.absorbingStruct();
-            if (bs_.sameReference(_value)) {
+            if (q_.match(_value)) {
                 return par_.getOrder();
             }
         }
@@ -470,8 +473,7 @@ public abstract class RendDynOperationNode {
                 return par_.getOrder();
             }
             if (index_ == 0) {
-                BooleanStruct bs_ = BooleanStruct.of(false);
-                if (bs_.sameReference(_value)) {
+                if (BooleanStruct.isFalse(_value)) {
                     return _operation.getNextSibling().getOrder() + 1;
                 }
             }

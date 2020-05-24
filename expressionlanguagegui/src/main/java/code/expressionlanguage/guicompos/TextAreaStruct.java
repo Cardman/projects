@@ -38,7 +38,7 @@ public final class TextAreaStruct extends InputStruct {
 
     @Override
     public void setEnabled(Struct _enabled) {
-        textArea.setEnabled(BooleanStruct.of(true).sameReference(_enabled));
+        textArea.setEnabled(BooleanStruct.isTrue(_enabled));
     }
 
     public void setText(Struct t) {

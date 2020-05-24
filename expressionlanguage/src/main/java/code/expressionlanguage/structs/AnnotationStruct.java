@@ -3,12 +3,16 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.annotation.ExportAnnotationUtil;
+import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.EntryCust;
 import code.util.ObjectMap;
 import code.util.StringList;
 
 public final class AnnotationStruct implements FieldableStruct,DisplayableStruct {
 
+    private static final String INFINITY = "I";
+    private static final String NAN = "N";
+    private static final String EXP = "E";
     private final String className;
 
     private final ObjectMap<ClassField,Struct> fields;
@@ -30,7 +34,7 @@ public final class AnnotationStruct implements FieldableStruct,DisplayableStruct
             return false;
         }
         AnnotationStruct a_ = (AnnotationStruct) _other;
-        return StringList.quickEq(ExportAnnotationUtil.exportAnnotation(a_), ExportAnnotationUtil.exportAnnotation(this));
+        return StringList.quickEq(ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, EXP,a_), ExportAnnotationUtil.exportAnnotation(INFINITY, NAN, EXP,this));
     }
 
     @Override
@@ -55,6 +59,9 @@ public final class AnnotationStruct implements FieldableStruct,DisplayableStruct
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
-        return new StringStruct(ExportAnnotationUtil.exportAnnotation(this));
+        DisplayedStrings dis_ = _an.getStandards().getDisplayedStrings();
+        return new StringStruct(ExportAnnotationUtil.exportAnnotation(dis_.getInfinity(),
+                dis_.getNan(),
+                dis_.getExponent(),this));
     }
 }

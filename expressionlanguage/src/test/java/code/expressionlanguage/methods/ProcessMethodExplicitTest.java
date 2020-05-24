@@ -1304,6 +1304,61 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.ExClass","field"))).intStruct());
     }
     @Test
+    public void calculateExTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static ExClass<int> method(){\n");
+        xml_.append("  for (Class c: Class.getAllClasses()){\n");
+        xml_.append("   if (c.getName().startsWith(\"pkg.ExClass\")){\n");
+        xml_.append("    return $(ExClass<int>)c.getDeclaredMethods()[0].invoke(null,5);\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  return $(ExClass<int>)class(ExClass<int>).getDeclaredMethods(\"explicit\",true,false,class(int))[0].invoke(null,5);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static ExClass<T> explicit(T i){\n");
+        xml_.append("  ExClass<T> out = new ExClass<T>();\n");
+        xml_.append("  out.field = i;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateError("pkg.Apply", id_, args_, cont_);
+    }
+    @Test
+    public void calculateEx2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static ExClass<int> method(){\n");
+        xml_.append("  return $(ExClass<int>)class(ExClass<int>).getDeclaredMethods(\"explicit\",true,false,class(int))[0].invoke(null,\"5\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static ExClass<T> explicit(T i){\n");
+        xml_.append("  ExClass<T> out = new ExClass<T>();\n");
+        xml_.append("  out.field = i;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateError("pkg.Apply", id_, args_, cont_);
+    }
+    @Test
     public void calculate1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

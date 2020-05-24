@@ -22,7 +22,7 @@ public final class CheckBoxStruct extends InputStruct {
 
     protected CheckBoxStruct(String _className, Struct _txt, Struct _sel) {
         super(_className);
-        checkBox = new CustCheckBox(getText(_txt),BooleanStruct.of(true).sameReference(_sel));
+        checkBox = new CustCheckBox(getText(_txt),BooleanStruct.isTrue(_sel));
     }
 
     public Struct getText() {
@@ -47,7 +47,7 @@ public final class CheckBoxStruct extends InputStruct {
     }
 
     public void setSelected(Struct b) {
-        checkBox.setSelected(BooleanStruct.of(true).sameReference(b));
+        checkBox.setSelected(BooleanStruct.isTrue(b));
     }
 
     @Override
@@ -57,7 +57,7 @@ public final class CheckBoxStruct extends InputStruct {
 
     @Override
     public void setEnabled(Struct _enabled) {
-        checkBox.setEnabled(BooleanStruct.of(true).sameReference(_enabled));
+        checkBox.setEnabled(BooleanStruct.isTrue(_enabled));
     }
 
     @Override

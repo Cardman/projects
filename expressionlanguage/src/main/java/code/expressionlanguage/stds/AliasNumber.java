@@ -262,7 +262,7 @@ public final class AliasNumber {
         std_ = stdcl_;
         standards_.put(aliasCharacter, std_);
     }
-    private void numbersConstructors(LgNames _lgNames,CustList<StandardConstructor> _ctors, String _primitive, StandardType _type) {
+    private static void numbersConstructors(LgNames _lgNames,CustList<StandardConstructor> _ctors, String _primitive, StandardType _type) {
         StringList params_;
         StandardConstructor ctor_;
         params_ = new StringList(_lgNames.getAliasString());
@@ -312,7 +312,7 @@ public final class AliasNumber {
         method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC, _type);
         _methods.put(method_.getId(), method_);
     }
-    private void numbersSafeParsersMethods(LgNames _lgNames,ObjectMap<MethodId, StandardMethod> _methods, String _owner, String _parserName, StandardType _type, boolean _radix) {
+    private static void numbersSafeParsersMethods(LgNames _lgNames,ObjectMap<MethodId, StandardMethod> _methods, String _owner, String _parserName, StandardType _type, boolean _radix) {
         String aliasPrimInteger_ = _lgNames.getAliasPrimInteger();
         StringList params_;
         StandardMethod method_;
@@ -362,6 +362,9 @@ public final class AliasNumber {
         _methods.put(method_.getId(), method_);
         params_ = new StringList(aliasNumber);
         method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL, _type);
+        _methods.put(method_.getId(), method_);
+        params_ = new StringList(aliasNumber,aliasNumber);
+        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.STATIC, _type);
         _methods.put(method_.getId(), method_);
         params_ = new StringList(_owner);
         method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL, _type);

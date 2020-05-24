@@ -2,7 +2,9 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
+import code.util.StringList;
 
 
 public final class PredefinedClasses {
@@ -172,6 +174,42 @@ public final class PredefinedClasses {
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
         iterable_.append(type_).append("<#").append(var_).append(":").append(type_).append("<#").append(var_).append(">>:").append(typeSup_).append("{\n");
+        iterable_.append("}\n");
+        return iterable_.toString();
+    }
+
+    public static String getBracedSeedGeneratorType(ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        KeyWords keyWords_ = _context.getKeyWords();
+        String public_ = keyWords_.getKeyWordPublic();
+        String interface_ = keyWords_.getKeyWordInterface();
+        String abstract_ = keyWords_.getKeyWordAbstract();
+        String type_ = stds_.getAliasSeedGenerator();
+        StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
+        iterable_.append(interface_).append(SPACE);
+        iterable_.append(type_).append("{\n");
+        iterable_.append(public_).append(SPACE);
+        iterable_.append(abstract_).append(SPACE);
+        String tr_ = ApplyCoreMethodUtil.tr(new StringList(), _context);
+        iterable_.append(stds_.getAliasPrimLong()).append(SPACE).append(stds_.getAliasSeedGet()).append("(");
+        iterable_.append(stds_.getAliasPrimLong()).append(SPACE).append(tr_).append(");\n");
+        iterable_.append("}\n");
+        return iterable_.toString();
+    }
+
+    public static String getBracedSeedDoubleGeneratorType(ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        KeyWords keyWords_ = _context.getKeyWords();
+        String public_ = keyWords_.getKeyWordPublic();
+        String interface_ = keyWords_.getKeyWordInterface();
+        String abstract_ = keyWords_.getKeyWordAbstract();
+        String type_ = stds_.getAliasSeedDoubleGenerator();
+        StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
+        iterable_.append(interface_).append(SPACE);
+        iterable_.append(type_).append("{\n");
+        iterable_.append(public_).append(SPACE);
+        iterable_.append(abstract_).append(SPACE);
+        iterable_.append(stds_.getAliasPrimDouble()).append(SPACE).append(stds_.getAliasSeedGet()).append("();\n");
         iterable_.append("}\n");
         return iterable_.toString();
     }

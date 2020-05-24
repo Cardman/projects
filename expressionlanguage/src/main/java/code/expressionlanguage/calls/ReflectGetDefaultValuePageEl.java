@@ -25,7 +25,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        MethodMetaInfo instance_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct(),stds_);
+        MethodMetaInfo instance_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct());
         String cl_ = instance_.getFormClassName();
         String id_ = Templates.getIdFromAllTypes(cl_);
         GeneType type_ = _context.getClassBody(id_);

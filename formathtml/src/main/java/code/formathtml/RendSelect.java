@@ -37,6 +37,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
     private String varNameConverterFieldValue = EMPTY_STRING;
+    private String className = EMPTY_STRING;
     private boolean arrayConverter;
     RendSelect(Element _elt, OffsetsBlock _offset) {
         super(_offset);
@@ -54,6 +55,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         id = r_.getId();
         idClass = r_.getIdClass();
         idName = r_.getIdName();
+        className = r_.getClassName();
         String id_ = elt.getAttribute(_cont.getRendKeyWords().getAttrId());
         if (!id_.isEmpty()) {
             ResultText rId_ = new ResultText();
@@ -411,7 +413,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             if (_conf.getContext().hasException()) {
                 return;
             }
-            if (BooleanStruct.of(false).sameReference(hasNext_.getStruct())) {
+            if (BooleanStruct.isFalse(hasNext_.getStruct())) {
                 break;
             }
             Argument nextPair_ = nextPair(_l, _conf);
@@ -493,7 +495,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 if (_conf.getContext().hasException()) {
                     return obj_;
                 }
-                if (BooleanStruct.of(false).sameReference(hasNext_.getStruct())) {
+                if (BooleanStruct.isFalse(hasNext_.getStruct())) {
                     break;
                 }
                 Argument next_ = next(it_, _conf);
@@ -518,6 +520,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
         f_.setArrayConverter(arrayConverter);
+        f_.setClassName(className);
         fetchName(_cont, _read, _write, f_);
         fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField);
     }

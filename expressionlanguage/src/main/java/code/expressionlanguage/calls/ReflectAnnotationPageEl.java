@@ -34,7 +34,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         if (!retrievedAnnot) {
             if (onParameters) {
                 if (structBlock_ instanceof ConstructorMetaInfo){
-                    ConstructorId cid_ = ApplyCoreMethodUtil.getCtor(structBlock_,stds_).getRealId();
+                    ConstructorId cid_ = ApplyCoreMethodUtil.getCtor(structBlock_).getRealId();
                     String cl_ = cid_.getName();
                     String idClass_ = Templates.getIdFromAllTypes(cl_);
                     RootBlock type_ = _context.getClasses().getClassBody(idClass_);
@@ -44,8 +44,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                         }
                     }
                 } else if (structBlock_ instanceof MethodMetaInfo){
-                    MethodId mid_ =  ApplyCoreMethodUtil.getMethod(structBlock_,stds_).getRealId();
-                    String cl_ = ApplyCoreMethodUtil.getMethod(structBlock_,stds_).getFormClassName();
+                    MethodId mid_ =  ApplyCoreMethodUtil.getMethod(structBlock_).getRealId();
+                    String cl_ = ApplyCoreMethodUtil.getMethod(structBlock_).getFormClassName();
                     String idClass_ = Templates.getIdFromAllTypes(cl_);
                     RootBlock type_ = _context.getClasses().getClassBody(idClass_);
                     if (type_ != null) {
@@ -62,14 +62,14 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
                 }
             } else if (structBlock_ instanceof ClassMetaInfo) {
-                String cl_ = ApplyCoreMethodUtil.getClass(structBlock_,stds_).getName();
+                String cl_ = ApplyCoreMethodUtil.getClass(structBlock_).getName();
                 String id_ = Templates.getIdFromAllTypes(cl_);
                 RootBlock type_ = _context.getClasses().getClassBody(id_);
                 if (type_ != null) {
                     annotations= type_.getAnnotationsOps();
                 }
             } else if (structBlock_ instanceof ConstructorMetaInfo){
-                ConstructorId cid_ = ApplyCoreMethodUtil.getCtor(structBlock_,stds_).getRealId();
+                ConstructorId cid_ = ApplyCoreMethodUtil.getCtor(structBlock_).getRealId();
                 String cl_ = cid_.getName();
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
                 RootBlock type_ = _context.getClasses().getClassBody(idClass_);
@@ -79,8 +79,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     }
                 }
             } else if (structBlock_ instanceof MethodMetaInfo){
-                MethodId mid_ =  ApplyCoreMethodUtil.getMethod(structBlock_,stds_).getRealId();
-                String cl_ = ApplyCoreMethodUtil.getMethod(structBlock_,stds_).getFormClassName();
+                MethodId mid_ =  ApplyCoreMethodUtil.getMethod(structBlock_).getRealId();
+                String cl_ = ApplyCoreMethodUtil.getMethod(structBlock_).getFormClassName();
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
                 RootBlock type_ = _context.getClasses().getClassBody(idClass_);
                 if (type_ != null) {
@@ -95,8 +95,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 }
             } else {
                 //Field
-                String fieldId_ = ApplyCoreMethodUtil.getField(structBlock_,stds_).getName();
-                String cl_ = ApplyCoreMethodUtil.getField(structBlock_,stds_).getDeclaringClass();
+                String fieldId_ = ApplyCoreMethodUtil.getField(structBlock_).getName();
+                String cl_ = ApplyCoreMethodUtil.getField(structBlock_).getDeclaringClass();
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
                 RootBlock type_ = _context.getClasses().getClassBody(idClass_);
                 if (type_ != null) {
@@ -113,7 +113,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             if (!args_.isEmpty()) {
                 Struct arg_ = args_.first().getStruct();
                 if (arg_ instanceof ClassMetaInfo) {
-                    cl_ = ApplyCoreMethodUtil.getClass(arg_,stds_).getName();
+                    cl_ = ApplyCoreMethodUtil.getClass(arg_).getName();
                 }
             }
             if (!cl_.isEmpty()) {

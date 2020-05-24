@@ -1,7 +1,6 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.methods.*;
@@ -41,9 +40,7 @@ final class NamePartType extends LeafPartType {
             if (!foundOwners_.onlyOneElt()) {
                 return;
             }
-            String idOwner_= Templates.getIdFromAllTypes(foundOwners_.first());
-            setAnalyzedType(StringList.concat(idOwner_,"-", _type));
-            checkAccess(_an,_rooted,owner_);
+            checkWithoutInstanceInner(_an, _rooted, _type, owner_, foundOwners_.first(), "-");
             return;
         }
         StringList foundOwners_ = TypeUtil.getGenericOwners(owner_, _type, _an);
@@ -54,8 +51,7 @@ final class NamePartType extends LeafPartType {
         String in_ = StringList.concat(idOwner_,"..", _type);
         RootBlock inner_ = classes_.getClassBody(in_);
         if (inner_.isStaticType()) {
-            setAnalyzedType(StringList.concat(idOwner_,"..", _type));
-            checkAccess(_an,_rooted,owner_);
+            checkWithoutInstanceInner(_an, _rooted, _type, owner_, foundOwners_.first(), "..");
             return;
         }
         if (!Templates.correctNbParameters(owner_, _an)) {
@@ -65,17 +61,30 @@ final class NamePartType extends LeafPartType {
         checkAccess(_an,_rooted,owner_);
     }
 
+    private void checkWithoutInstanceInner(ContextEl _an, AccessingImportingBlock _rooted, String _type, String _originalOwner, String _foundOwner, String _geneSep) {
+        if (_foundOwner.contains("<")) {
+            return;
+        }
+        setAnalyzedType(StringList.concat(_foundOwner, _geneSep, _type));
+        checkAccess(_an,_rooted,_originalOwner);
+    }
+
+    @Override
+    void setAnalyzedType(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+        String type_ = getTypeName();
+        PartType part_ = getPreviousPartType();
+        if (part_ != null) {
+            type_ = StringList.concat(part_.getAnalyzedType(), getPreviousSeparator(), type_);
+        }
+        setAnalyzedType(type_);
+    }
+
     @Override
     void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         String type_ = getTypeName();
         PartType part_ = getPreviousPartType();
         if (part_ != null) {
             type_ = StringList.concat(part_.getAnalyzedType(), getPreviousSeparator(), type_);
-        }
-        if (_dels.isEmpty() || _dels.last().size() -1 == getIndex()) {
-            if (!Templates.correctNbParameters(type_, _an)) {
-                return;
-            }
         }
         setAnalyzedType(type_);
     }

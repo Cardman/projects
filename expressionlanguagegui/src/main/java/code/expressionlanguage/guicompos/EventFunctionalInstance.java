@@ -22,7 +22,7 @@ public final class EventFunctionalInstance implements AbstractFunctionalInstance
 
     private final String className;
 
-    private Struct functional;
+    private LambdaStruct functional;
     private ContextEl original;
 
     private final ObjectMap<ClassField,Struct> fields;
@@ -49,12 +49,12 @@ public final class EventFunctionalInstance implements AbstractFunctionalInstance
     }
 
     @Override
-    public Struct getFunctional() {
+    public LambdaStruct getFunctional() {
         return functional;
     }
 
     @Override
-    public void setFunctional(Struct _functional) {
+    public void setFunctional(LambdaStruct _functional) {
         functional = _functional;
     }
 

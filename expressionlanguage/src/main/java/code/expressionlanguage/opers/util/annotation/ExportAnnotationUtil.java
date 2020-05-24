@@ -7,7 +7,7 @@ public final class ExportAnnotationUtil {
 
     private ExportAnnotationUtil(){
     }
-    public static String exportAnnotation(Struct _str) {
+    public static String exportAnnotation(String _infinity, String _nan,String _exp,Struct _str) {
         StringBuilder out_ = new StringBuilder();
         CustList<CustList<StackObject>> elts_;
         elts_ = new CustList<CustList<StackObject>>();
@@ -28,7 +28,7 @@ public final class ExportAnnotationUtil {
                 out_.append(curStack_.getPrefix());
             }
             if (current_ instanceof LeafAnnotPart) {
-                out_.append(((LeafAnnotPart)current_).export());
+                out_.append(((LeafAnnotPart)current_).export(_infinity,_nan,_exp));
             } else {
                 ParentAnnotPart par_ = (ParentAnnotPart)current_;
                 out_.append(par_.getBegin());

@@ -51,6 +51,25 @@ public final class ClassArgumentMatching {
         return _arg;
     }
 
+    public static Struct convertWide(PageEl _page,ClassArgumentMatching _dest,Struct _arg,
+                                 ContextEl _exec) {
+        ClassArgumentMatching format_ = _dest.format(_page,_exec);
+        return convertWide(format_, _arg, _exec);
+    }
+
+    private static Struct convertWide(ClassArgumentMatching _dest, Struct _arg, ContextEl _exec) {
+        if (PrimitiveTypeUtil.isPrimitive(_dest,_exec)) {
+            if (_dest.isBoolType(_exec)) {
+                return convertToBoolean(_arg);
+            }
+            if (PrimitiveTypeUtil.toPrimitive(_dest,_exec).matchClass(_exec.getStandards().getAliasPrimChar())) {
+                return convertToChar(_arg);
+            }
+            return PrimitiveTypeUtil.convertToNumber(_dest,_arg,_exec.getStandards());
+        }
+        return _arg;
+    }
+
     public static BooleanStruct convertToBoolean(Struct _arg) {
         if (_arg instanceof BooleanStruct) {
             return (BooleanStruct) _arg;

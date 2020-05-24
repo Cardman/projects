@@ -630,6 +630,32 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
     @Test
+    public void validateEl180FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" switch (){\n");
+        xml_.append("  case 1:\n");
+        xml_.append("  default\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ClassesTest.contextEnElSingleDotDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+    }
+    @Test
+    public void validateEl181FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" switch (){\n");
+        xml_.append("  case 1:\n");
+        xml_.append("  default");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ClassesTest.contextEnElSingleDotDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+    }
+    @Test
     public void validateEl5__FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
