@@ -335,7 +335,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
-        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
+        if (!PrimitiveTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);

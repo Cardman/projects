@@ -659,8 +659,13 @@ public final class PrimitiveTypeUtil {
         return getFloatOrderClass(new ClassArgumentMatching(_class), _stds);
     }
     public static boolean isFloatOrderClass(ClassArgumentMatching _class, ClassArgumentMatching _classTwo,ContextEl _context) {
-        return getFloatOrderClass(_class,_context) > 0 && getFloatOrderClass(_classTwo,_context) > 0;
+        return isFloatOrderClass(_class, _context) && isFloatOrderClass(_classTwo, _context);
     }
+
+    private static boolean isFloatOrderClass(ClassArgumentMatching _class, ContextEl _context) {
+        return getFloatOrderClass(_class,_context) > 0;
+    }
+
     public static int getFloatOrderClass(ClassArgumentMatching _class, ContextEl _context) {
         return getFloatOrderClass(_class, _context.getStandards());
     }
@@ -682,8 +687,13 @@ public final class PrimitiveTypeUtil {
         return getIntOrderClass(new ClassArgumentMatching(_class), _stds);
     }
     public static boolean isIntOrderClass(ClassArgumentMatching _class, ClassArgumentMatching _classTwo,ContextEl _context) {
-        return getIntOrderClass(_class,_context) > 0 && getIntOrderClass(_classTwo,_context) > 0;
+        return isIntOrderClass(_class, _context) && isIntOrderClass(_classTwo, _context);
     }
+
+    public static boolean isIntOrderClass(ClassArgumentMatching _class, ContextEl _context) {
+        return getIntOrderClass(_class,_context) > 0;
+    }
+
     public static int getIntOrderClass(ClassArgumentMatching _class, ContextEl _context) {
         return getIntOrderClass(_class, _context.getStandards());
     }

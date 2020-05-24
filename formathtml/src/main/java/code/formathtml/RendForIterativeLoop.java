@@ -106,7 +106,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
-        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
+        if (!PrimitiveTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
@@ -122,7 +122,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
         String cl_ = importedClassName;
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
-        if (!PrimitiveTypeUtil.isPureNumberClass(elementClass_, _cont.getContext())) {
+        if (!PrimitiveTypeUtil.isIntOrderClass(elementClass_, _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(elementClass_);
             mapping_.setParam(_cont.getStandards().getAliasLong());

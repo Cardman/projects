@@ -179,7 +179,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
     private MethodAccessKind processVarTypes(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
-        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
+        if (!PrimitiveTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());

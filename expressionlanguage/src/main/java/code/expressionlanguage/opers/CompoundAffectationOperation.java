@@ -211,6 +211,20 @@ public final class CompoundAffectationOperation extends MethodOperation {
         }
         ClassArgumentMatching unwrapped_ = PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf);
         if (!isString_) {
+            if (PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
+                if (!PrimitiveTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_,_conf)
+                        && !PrimitiveTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_,_conf)) {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    //oper len
+                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(clMatchRight_.getNames(),"&"),
+                            StringList.join(clMatchLeft_.getNames(),"&"));
+                    _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    return;
+                }
+            }
             elt_.getResultClass().setUnwrapObject(unwrapped_);
             right_.getResultClass().setUnwrapObject(unwrapped_);
             ((OperationNode) elt_).cancelArgument();

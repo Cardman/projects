@@ -195,7 +195,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(-8, getDouble(ret_));
+        assertEq(-8.0, getDouble(ret_));
     }
 
     @Test
@@ -216,7 +216,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(-8, getDouble(ret_));
+        assertEq(-8.0, getDouble(ret_));
     }
     @Test
     public void calculateArgument10Test() {
@@ -1240,7 +1240,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(9, getDouble(ret_));
+        assertEq(9.0, getDouble(ret_));
     }
     @Test
     public void calculateArgument61Test() {
@@ -1260,7 +1260,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(9, getDouble(ret_));
+        assertEq(9.0, getDouble(ret_));
     }
     @Test
     public void calculateArgument62Test() {
@@ -3290,7 +3290,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, getDouble(ret_));
+        assertEq(1.0, getDouble(ret_));
     }
 
     @Test
@@ -3311,7 +3311,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, getDouble(ret_));
+        assertEq(1.0, getDouble(ret_));
     }
 
     @Test
@@ -3416,7 +3416,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, getDouble(ret_));
+        assertEq(1.0, getDouble(ret_));
     }
 
     @Test
@@ -3437,7 +3437,7 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(1, getDouble(ret_));
+        assertEq(1.0, getDouble(ret_));
     }
 
     @Test
@@ -4355,5 +4355,47 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(BooleanStruct.isFalse(ret_.getStruct()));
+    }
+    @Test
+    public void calculateArgument210Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $double exmeth (){\n");
+        xml_.append("  $double t = 8d;\n");
+        xml_.append("  t *= 4d;\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(32.0, getDouble(ret_));
+    }
+    @Test
+    public void calculateArgument211Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $double exmeth (){\n");
+        xml_.append("  $double t = 8d;\n");
+        xml_.append("  t += 4d;\n");
+        xml_.append("  $return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(12.0, getDouble(ret_));
     }
 }

@@ -266,7 +266,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
-        if (!PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
+        if (!PrimitiveTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
@@ -280,7 +280,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
         String cl_ = importedClassName;
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
-        if (!PrimitiveTypeUtil.isPureNumberClass(elementClass_, _cont)) {
+        if (!PrimitiveTypeUtil.isIntOrderClass(elementClass_, _cont)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classNameOffset);

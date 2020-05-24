@@ -632,7 +632,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl150Test() {
         Argument arg_ = directCalculate("123456.e1");
-        assertEq(1234560, getDouble(arg_));
+        assertEq(1234560.0, getDouble(arg_));
     }
 
     @Test
@@ -4974,13 +4974,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl946Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"1.5e1\")");
-        assertEq(15, getDouble(arg_));
+        assertEq(15.0, getDouble(arg_));
     }
 
     @Test
     public void processEl947Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"1.5E1\")");
-        assertEq(15, getDouble(arg_));
+        assertEq(15.0, getDouble(arg_));
     }
 
     @Test
@@ -4992,7 +4992,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl949Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"1E1\")");
-        assertEq(10, getDouble(arg_));
+        assertEq(10.0, getDouble(arg_));
     }
 
     @Test
@@ -5004,7 +5004,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl951Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"1e1\")");
-        assertEq(10, getDouble(arg_));
+        assertEq(10.0, getDouble(arg_));
     }
 
     @Test
@@ -5074,13 +5074,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl962Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-1.5e1\")");
-        assertEq(-15, getDouble(arg_));
+        assertEq(-15.0, getDouble(arg_));
     }
 
     @Test
     public void processEl963Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-1.5E1\")");
-        assertEq(-15, getDouble(arg_));
+        assertEq(-15.0, getDouble(arg_));
     }
 
     @Test
@@ -5092,7 +5092,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl965Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-1E1\")");
-        assertEq(-10, getDouble(arg_));
+        assertEq(-10.0, getDouble(arg_));
     }
 
     @Test
@@ -5104,7 +5104,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl967Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"-1e1\")");
-        assertEq(-10, getDouble(arg_));
+        assertEq(-10.0, getDouble(arg_));
     }
 
     @Test
@@ -5712,13 +5712,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl103053Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"15.0e+1\")");
-        assertEq(150, getDouble(arg_));
+        assertEq(150.0, getDouble(arg_));
     }
 
     @Test
     public void processEl103054Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"+15.0e1\")");
-        assertEq(150, getDouble(arg_));
+        assertEq(150.0, getDouble(arg_));
     }
     @Test
     public void processElCmp1est() {

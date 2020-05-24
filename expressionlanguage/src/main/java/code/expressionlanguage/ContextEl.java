@@ -91,11 +91,11 @@ public abstract class ContextEl {
             for (GeneCustMethod m:Classes.getMethodBlocks((RootBlock) _element)) {
                 methods_.add(m);
             }
-        } else {
-            if (_element instanceof StandardType) {
-                for (StandardMethod m : ((StandardType) _element).getMethods().values()) {
-                    methods_.add(m);
-                }
+            return methods_;
+        }
+        if (_element instanceof StandardType) {
+            for (StandardMethod m : ((StandardType) _element).getMethods().values()) {
+                methods_.add(m);
             }
         }
         return methods_;
