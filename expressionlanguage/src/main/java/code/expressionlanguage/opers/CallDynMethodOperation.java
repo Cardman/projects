@@ -43,10 +43,6 @@ public final class CallDynMethodOperation extends InvokingOperation {
         for (OperationNode o: chidren_) {
             firstArgs_.add(o.getResultClass());
         }
-        if (hasVoidArguments(chidren_, firstArgs_, 0, _conf)) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
         if (all_.size() == 1) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;

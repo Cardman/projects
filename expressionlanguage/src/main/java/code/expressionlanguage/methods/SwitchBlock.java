@@ -116,15 +116,6 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         ExecOperationNode op_ = opValue.last();
         ClassArgumentMatching clArg_ = op_.getResultClass();
-        if (clArg_.matchVoid(_cont)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(valueOffset);
-            //one char => change to first left par
-            un_.buildError(_cont.getAnalysisMessages().getVoidType(),
-                    _cont.getStandards().getAliasVoid());
-            _cont.addError(un_);
-        }
         String type_ = clArg_.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

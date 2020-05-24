@@ -60,7 +60,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         ClassMethodIdReturn cust_ = getOperator(_conf, ops_.firstValue(), a_, c_);
         okNum = true;
         if (cust_.isFoundMethod()) {
-            setResultClass(new ClassArgumentMatching(cust_.getReturnType()));
+            setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()),_conf));
             String foundClass_ = cust_.getRealClass();
             foundClass_ = Templates.getIdFromAllTypes(foundClass_);
             MethodId id_ = cust_.getRealId();

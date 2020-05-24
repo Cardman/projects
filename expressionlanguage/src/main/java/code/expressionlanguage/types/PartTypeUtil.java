@@ -229,7 +229,7 @@ public final class PartTypeUtil {
             }
             boolean stop_ = false;
             while (true) {
-                if (!skip(current_) && !Templates.correctNbParameters(current_.getAnalyzedType(), _context)) {
+                if (isNotCorrectParam(_context, current_)) {
                     return false;
                 }
                 PartType next_ = current_.getNextSibling();
@@ -239,7 +239,7 @@ public final class PartTypeUtil {
                     break;
                 }
                 if (par_ == root_) {
-                    if (!skipByClass(par_)&&!Templates.correctNbParameters(par_.getAnalyzedType(), _context)) {
+                    if (isNotCorrectParam(_context, par_)) {
                         return false;
                     }
                     stop_ = true;
@@ -257,6 +257,10 @@ public final class PartTypeUtil {
             }
         }
         return true;
+    }
+
+    private static boolean isNotCorrectParam(ContextEl _context, PartType _current) {
+        return !skip(_current) && !Templates.correctNbParameters(_current.getAnalyzedType(), _context);
     }
 
     private static boolean skip(PartType _current) {

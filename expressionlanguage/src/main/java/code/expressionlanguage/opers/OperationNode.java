@@ -681,7 +681,6 @@ public abstract class OperationNode implements Operable {
             GeneType _type,
             ConstructorId _uniqueId, ClassArgumentMatching... _args) {
         String clCurName_ = _class.getName();
-        LgNames stds_ = _conf.getStandards();
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
         int varargOnly_ = _varargOnly;
         boolean uniq_ = false;
@@ -690,20 +689,6 @@ public abstract class OperationNode implements Operable {
                 uniq_ = true;
             }
             varargOnly_ = -1;
-        }
-        for (ClassArgumentMatching c:_args) {
-            if (c.matchVoid(_conf)) {
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(stds_.getAliasVoid());
-                mapping_.setParam(stds_.getAliasObject());
-                FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                //key word len
-                cast_.buildError(_conf.getAnalysisMessages().getVoidType(),
-                        stds_.getAliasVoid());
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
-            }
         }
         CustList<GeneConstructor> constructors_ = Classes.getConstructorBodies(_type);
         if (constructors_.isEmpty()) {
@@ -816,6 +801,12 @@ public abstract class OperationNode implements Operable {
         return return_;
     }
 
+    protected static ClassArgumentMatching voidToObject(ClassArgumentMatching _original, ContextEl _context) {
+        if (_original.matchVoid(_context)) {
+            return new ClassArgumentMatching(_context.getStandards().getAliasObject());
+        }
+        return _original;
+    }
     public static ClassMethodIdReturn tryGetDeclaredToString(ContextEl _conf, String _class) {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();

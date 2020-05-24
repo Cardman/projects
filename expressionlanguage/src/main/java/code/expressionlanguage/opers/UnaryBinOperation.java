@@ -37,7 +37,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         String oper_ = getOperations().getOperators().firstValue();
         ClassMethodIdReturn cust_ = getOperator(_conf, oper_, clMatch_);
         if (cust_.isFoundMethod()) {
-            setResultClass(new ClassArgumentMatching(cust_.getReturnType()));
+            setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()),_conf));
             String foundClass_ = cust_.getRealClass();
             foundClass_ = Templates.getIdFromAllTypes(foundClass_);
             MethodId id_ = cust_.getRealId();

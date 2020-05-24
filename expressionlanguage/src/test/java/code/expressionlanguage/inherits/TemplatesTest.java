@@ -2479,6 +2479,17 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void isCorrect15_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("java.lang.$Fct<$void>");
+        m_.setParam("java.lang.$Fct<java.lang.Integer>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,context_));
+    }
+    @Test
     public void isCorrect15Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl context_ = unfullValidateOverridingMethods(files_);

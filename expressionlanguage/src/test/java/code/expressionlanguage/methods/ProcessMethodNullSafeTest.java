@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.StringMap;
@@ -2569,16 +2570,18 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" public static void exmeth2(){\n");
         xml_.append(" }\n");
+        xml_.append(" static Object res;\n");
         xml_.append(" static{\n");
         xml_.append("  String a = \"\";\n");
-        xml_.append("  exmeth2() ?? a;\n");
+        xml_.append("  res=exmeth2() ?? a;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
+        assertEq("",getString(new Argument(cont_.getClasses().getStaticField(new ClassField("pkg.Ex","res")))));
     }
     @Test
     public void calculateArgument10FailTest() {
@@ -2586,16 +2589,18 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" public static void exmeth2(){\n");
         xml_.append(" }\n");
+        xml_.append(" static Object res;\n");
         xml_.append(" static{\n");
         xml_.append("  String a = \"\";\n");
-        xml_.append("  a ?? exmeth2();\n");
+        xml_.append("  res=a ?? exmeth2();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextEnElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
+        assertEq("",getString(new Argument(cont_.getClasses().getStaticField(new ClassField("pkg.Ex","res")))));
     }
     @Test
     public void calculateArgument11FailTest() {

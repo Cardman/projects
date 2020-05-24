@@ -2,7 +2,6 @@ package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.methods.*;
@@ -601,16 +600,18 @@ public final class TypeUtil {
                 }
                 RootBlock sub_ = (RootBlock)g_;
                 added(_innerName, false, owners_, s, sub_);
-                for (String t: sub_.getImportedDirectSuperTypes()) {
-                    if (!Templates.correctNbParameters(s,_an)) {
+                if (!Templates.correctNbParameters(s,_an)) {
+                    for (String t: sub_.getImportedDirectSuperTypes()) {
                         String format_ = Templates.getIdFromAllTypes(t);
                         GeneType sup_ = _an.getClassBody(format_);
                         if (!sup_.isStaticType()) {
                             continue;
                         }
                         addIfNotFound(visited_, new_, format_);
-                        continue;
                     }
+                    continue;
+                }
+                for (String t: sub_.getImportedDirectSuperTypes()) {
                     String format_ = Templates.quickFormat(s, t, _an);
                     addIfNotFound(visited_, new_, format_);
                 }

@@ -72,10 +72,6 @@ public final class FctOperation extends InvokingOperation {
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
-        if (hasVoidArguments(chidren_, firstArgs_, off_, _conf)) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
 
         boolean staticChoiceMethod_ = false;
         boolean accessSuperTypes_ = true;
@@ -131,10 +127,6 @@ public final class FctOperation extends InvokingOperation {
         }
         StringList bounds_ = new StringList();
         for (String c: l_) {
-            if (hasVoidPrevious(c, _conf)) {
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                return;
-            }
             bounds_.addAllElts(getBounds(c, _conf));
         }
         StringList arrayBounds_ = getArrayBounds(bounds_);
@@ -162,7 +154,7 @@ public final class FctOperation extends InvokingOperation {
         clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, import_, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
-            setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
+            setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
             return;
         }
         if (staticChoiceMethod_) {
@@ -177,7 +169,7 @@ public final class FctOperation extends InvokingOperation {
                         clMeth_.getRealClass(),
                         clMeth_.getRealId().getSignature(_conf));
                 _conf.getAnalyzing().getLocalizer().addError(abs_);
-                setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
+                setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
                 return;
             }
         }
@@ -196,7 +188,7 @@ public final class FctOperation extends InvokingOperation {
         staticChoiceMethod = staticChoiceMethod_;
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
         unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, firstArgs_, _conf);
-        setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
+        setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
         if (isIntermediateDottedOperation() && !staticMethod) {
             Argument arg_ = getPreviousArgument();
             checkNull(arg_,_conf);

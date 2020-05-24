@@ -73,7 +73,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         ClassMethodIdReturn cust_ = getOperator(_conf, op_, elt_.getResultClass(), c_);
         if (cust_.isFoundMethod()) {
             ClassArgumentMatching out_ = new ClassArgumentMatching(cust_.getReturnType());
-            setResultClass(out_);
+            setResultClass(voidToObject(out_,_conf));
             String foundClass_ = cust_.getRealClass();
             foundClass_ = Templates.getIdFromAllTypes(foundClass_);
             MethodId id_ = cust_.getRealId();
@@ -171,27 +171,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 return;
             }
         } else if (StringList.quickEq(oper, Block.NULL_EQ)) {
-            CustList<ClassArgumentMatching> cls_ = new CustList<ClassArgumentMatching>();
-            boolean okConv_ = true;
-            cls_.add(clMatchLeft_);
-            cls_.add(clMatchRight_);
-            for (ClassArgumentMatching c: cls_) {
-                if (c.matchVoid(_conf)) {
-                    okConv_ = false;
-                    break;
-                }
-            }
-            if (!okConv_) {
-                FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                //oper len
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(clMatchRight_.getNames(),"&"),
-                        StringList.join(clMatchLeft_.getNames(),"&"));
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
-                return;
-            }
             StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
             Mapping mapping_ = new Mapping();
             mapping_.setMapping(vars_);

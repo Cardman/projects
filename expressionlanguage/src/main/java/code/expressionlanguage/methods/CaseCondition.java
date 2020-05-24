@@ -203,16 +203,6 @@ public final class CaseCondition extends SwitchPartBlock {
     private void processNumValues(ContextEl _cont, ClassArgumentMatching _resSwitch) {
         ExecOperationNode op_ = opValue.last();
         ClassArgumentMatching resCase_ = op_.getResultClass();
-        if (resCase_.matchVoid(_cont)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(valueOffset);
-            //key word len
-            un_.buildError(_cont.getAnalysisMessages().getVoidType(),
-                    _cont.getStandards().getAliasVoid());
-            _cont.addError(un_);
-            return;
-        }
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

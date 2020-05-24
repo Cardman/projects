@@ -61,7 +61,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         String op_ = getOperations().getOperators().firstValue().trim();
         ClassMethodIdReturn cust_ = getOperator(_conf, op_, first_, second_);
         if (cust_.isFoundMethod()) {
-            setResultClass(new ClassArgumentMatching(cust_.getReturnType()));
+            setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()),_conf));
             String foundClass_ = cust_.getRealClass();
             foundClass_ = Templates.getIdFromAllTypes(foundClass_);
             MethodId id_ = cust_.getRealId();

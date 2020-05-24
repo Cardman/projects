@@ -54,14 +54,6 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont);
         RendDynOperationNode op_ = opValue.last();
         ClassArgumentMatching clArg_ = op_.getResultClass();
-        if (clArg_.matchVoid(_cont.getContext())) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
-            un_.setIndexFile(valueOffset);
-            un_.buildError(_cont.getContext().getAnalysisMessages().getVoidType(),
-                    _cont.getStandards().getAliasVoid());
-            _cont.addError(un_);
-        }
         String type_ = clArg_.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

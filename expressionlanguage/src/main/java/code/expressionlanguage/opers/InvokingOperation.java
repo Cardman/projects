@@ -200,47 +200,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return bounds_;
     }
-    static boolean hasVoidPrevious(String _cl, ContextEl _conf) {
-        LgNames stds_ = _conf.getStandards();
-        if (StringList.quickEq(_cl, stds_.getAliasVoid())) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(_cl);
-            mapping_.setParam(stds_.getAliasObject());
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            //key word len or header name len or left bracket
-            cast_.buildError(_conf.getAnalysisMessages().getVoidType(),
-                    stds_.getAliasVoid());
-            _conf.getAnalyzing().getLocalizer().addError(cast_);
-            return true;
-        }
-        return false;
-    }
-    final boolean hasVoidArguments(CustList<OperationNode> _children,CustList<ClassArgumentMatching> _args, int _off, ContextEl _conf) {
-        int indexChild_ = -1;
-        LgNames stds_ = _conf.getStandards();
-        boolean void_ = false;
-        for (ClassArgumentMatching c:_args) {
-            indexChild_++;
-            if (c.matchVoid(_conf)) {
-                void_ = true;
-                OperationNode op_ = _children.get(indexChild_);
-                op_.setRelativeOffsetPossibleAnalyzable(op_.getIndexInEl()+_off, _conf);
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(stds_.getAliasVoid());
-                mapping_.setParam(stds_.getAliasObject());
-                FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                //key word len or header name len or left bracket
-                cast_.buildError(_conf.getAnalysisMessages().getVoidType(),
-                        stds_.getAliasVoid());
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
-            }
-        }
-        return void_;
-    }
+
     static void unwrapArgsFct(CustList<OperationNode> _ch, Identifiable _id, int _natvararg, String _lasttype, CustList<ClassArgumentMatching> _args, ContextEl _conf) {
         boolean filter_ = true;
         if (!_ch.isEmpty() && _ch.first() instanceof VarargOperation) {

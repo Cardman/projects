@@ -49,7 +49,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         ClassArgumentMatching b_ = opTwo_.getResultClass();
         ClassMethodIdReturn cust_ = getOperator(_conf, custOp_, a_, b_);
         if (cust_.isFoundMethod()) {
-            setResultClass(new ClassArgumentMatching(cust_.getReturnType()));
+            setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()),_conf));
             String foundClass_ = cust_.getRealClass();
             foundClass_ = Templates.getIdFromAllTypes(foundClass_);
             MethodId id_ = cust_.getRealId();

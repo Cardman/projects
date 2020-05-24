@@ -115,15 +115,6 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont);
         RendDynOperationNode op_ = opValue.last();
         ClassArgumentMatching resCase_ = op_.getResultClass();
-        if (resCase_.matchVoid(_cont.getContext())) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
-            un_.setIndexFile(valueOffset);
-            un_.buildError(_cont.getContext().getAnalysisMessages().getVoidType(),
-                    _cont.getStandards().getAliasVoid());
-            _cont.addError(un_);
-            return;
-        }
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

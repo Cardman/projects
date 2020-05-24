@@ -590,27 +590,22 @@ public abstract class ExecOperationNode implements Operable {
         Struct struct_ = _argument.getStruct();
         if (struct_ instanceof DisplayableStruct) {
             out_.setStruct(((DisplayableStruct)struct_).getDisplayedString(_conf));
-        } else {
-            String argClassName_ = _conf.getStandards().getStructClassName(struct_, _conf);
-            ClassMethodIdReturn resDyn_ = OperationNode.tryGetDeclaredToString(_conf, argClassName_);
-            ClassMethodId methodId_ = null;
-            if (resDyn_.isFoundMethod()) {
-                String foundClass_ = resDyn_.getRealClass();
-                MethodId id_ = resDyn_.getRealId();
-                methodId_ = new ClassMethodId(foundClass_, id_);
-            }
-            if (methodId_ == null) {
-                out_.setStruct(_conf.getStandards().getStringOfObject(_conf,struct_));
-            } else {
-                ClassMethodId polymorph_ = ExecInvokingOperation.polymorph(_conf, struct_, methodId_);
-                String className_ = polymorph_.getClassName();
-                String gene_ = _conf.getClasses().getClassBody(Templates.getIdFromAllTypes(argClassName_)).getGenericString();
-                className_ = Templates.getOverridingFullTypeByBases(gene_,className_,_conf);
-                className_ = Templates.quickFormat(argClassName_,className_,_conf);
-                MethodId ct_ = polymorph_.getConstraints();
-                _conf.setCallingState(new CustomFoundMethod(out_,className_,ct_,new CustList<Argument>(),null));
-            }
+            return out_;
         }
+        String argClassName_ = _conf.getStandards().getStructClassName(struct_, _conf);
+        ClassMethodIdReturn resDyn_ = OperationNode.tryGetDeclaredToString(_conf, argClassName_);
+        if (resDyn_.isFoundMethod()) {
+            String foundClass_ = resDyn_.getRealClass();
+            MethodId id_ = resDyn_.getRealId();
+            ClassMethodId methodId_ = new ClassMethodId(foundClass_, id_);
+            ClassMethodId polymorph_ = ExecInvokingOperation.polymorph(_conf, struct_, methodId_);
+            String className_ = polymorph_.getClassName();
+            className_ = Templates.getOverridingFullTypeByBases(argClassName_,className_,_conf);
+            MethodId ct_ = polymorph_.getConstraints();
+            _conf.setCallingState(new CustomFoundMethod(out_,className_,ct_,new CustList<Argument>(),null));
+            return out_;
+        }
+        out_.setStruct(_conf.getStandards().getStringOfObject(_conf,struct_));
         return out_;
     }
     @Override

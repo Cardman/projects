@@ -47,7 +47,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         ClassArgumentMatching clArg_ = getFrom(_conf);
         if (clArg_ == null) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             checkPositionBasis(_conf);
             return;
         }
@@ -65,7 +65,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         ConstrustorIdVarArg ctorRes_;
         ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, clArg_,type_, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (ctorRes_.getRealId() == null) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             checkPositionBasis(_conf);
             return;
         }
@@ -82,7 +82,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         }
         unwrapArgsFct(_children, constId, naturalVararg, lastType, _args, _conf);
         LgNames stds_ = _conf.getStandards();
-        setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
+        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
 
     void checkPositionBasis(ContextEl _conf) {

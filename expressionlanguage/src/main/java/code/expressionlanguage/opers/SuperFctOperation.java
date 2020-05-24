@@ -62,10 +62,6 @@ public final class SuperFctOperation extends InvokingOperation {
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _conf);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
-        if (hasVoidArguments(chidren_, firstArgs_, off_, _conf)) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
         Mapping map_ = new Mapping();
         map_.setParam(className_);
         map_.setArg(clCur_);
@@ -102,7 +98,7 @@ public final class SuperFctOperation extends InvokingOperation {
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
-            setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
+            setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
             return;
         }
         if (clMeth_.isAbstractMethod()) {
@@ -116,7 +112,7 @@ public final class SuperFctOperation extends InvokingOperation {
                     clMeth_.getRealClass(),
                     clMeth_.getRealId().getSignature(_conf));
             _conf.getAnalyzing().getLocalizer().addError(abs_);
-            setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
+            setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
             return;
         }
         String foundClass_ = clMeth_.getRealClass();
@@ -133,7 +129,7 @@ public final class SuperFctOperation extends InvokingOperation {
         }
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
         unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, firstArgs_, _conf);
-        setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
+        setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
         if (isIntermediateDottedOperation() && !staticMethod) {
             Argument arg_ = getPreviousArgument();
             checkNull(arg_,_conf);

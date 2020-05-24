@@ -48,26 +48,6 @@ public final class NullSafeOperation extends MethodOperation {
         StringList two_ = clMatchThree_.getNames();
         StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         String void_ = stds_.getAliasVoid();
-        if (StringList.contains(one_, void_)) {
-            setRelativeOffsetPossibleAnalyzable(opTwo_.getIndexInEl(), _conf);
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            //first part separator
-            un_.buildError(_conf.getAnalysisMessages().getVoidType(),
-                    void_);
-            _conf.getAnalyzing().getLocalizer().addError(un_);
-        }
-        if (StringList.contains(two_, void_)) {
-            setRelativeOffsetPossibleAnalyzable(opThree_.getIndexInEl(), _conf);
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            //second part separator
-            un_.buildError(_conf.getAnalysisMessages().getVoidType(),
-                    void_);
-            _conf.getAnalyzing().getLocalizer().addError(un_);
-        }
         OperationNode current_ = this;
         MethodOperation m_ = getParent();
         while (m_ != null) {

@@ -580,10 +580,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         StringList l_ = previousResultClass.getNames();
         StringList bounds_ = new StringList();
         for (String c: l_) {
-            if (InvokingOperation.hasVoidPrevious(c, _conf)) {
-                setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
-                return;
-            }
             bounds_.addAllElts(InvokingOperation.getBounds(c, _conf));
         }
         boolean cloneArray_ = cloneArray(bounds_);
@@ -1238,10 +1234,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         StringList l_ = previousResultClass.getNames();
         StringList bounds_ = new StringList();
         for (String c: l_) {
-            if (InvokingOperation.hasVoidPrevious(c, _conf)) {
-                setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
-                return;
-            }
             bounds_.addAllElts(InvokingOperation.getBounds(c, _conf));
         }
         Mapping map_ = new Mapping();

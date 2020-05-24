@@ -63,7 +63,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         ClassMethodIdReturn cust_ = getOperator(_conf, op_, settable.getResultClass());
         if (cust_.isFoundMethod()) {
             ClassArgumentMatching out_ = new ClassArgumentMatching(cust_.getReturnType());
-            setResultClass(out_);
+            setResultClass(voidToObject(out_,_conf));
             String foundClass_ = cust_.getRealClass();
             foundClass_ = Templates.getIdFromAllTypes(foundClass_);
             MethodId id_ = cust_.getRealId();

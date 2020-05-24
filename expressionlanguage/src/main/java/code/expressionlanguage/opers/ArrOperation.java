@@ -39,10 +39,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
-        if (hasVoidArguments(chidren_, firstArgs_, 0, _conf)) {
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
-            return;
-        }
         ForwardOperation fwd_ = tryGetForward(this);
         boolean staticChoiceMethod_ = false;
         boolean accessSuperTypes_ = true;
@@ -75,10 +71,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         StringList bounds_ = new StringList();
         for (String c: l_) {
-            if (hasVoidPrevious(c, _conf)) {
-                setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
-                return;
-            }
             bounds_.addAllElts(getBounds(c, _conf));
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(),
