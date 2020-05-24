@@ -6,10 +6,11 @@ public final class FunctionalInstance implements AbstractFunctionalInstance {
 
     private final String className;
 
-    private LambdaStruct functional;
+    private final LambdaStruct functional;
 
-    public FunctionalInstance(String _className) {
+    public FunctionalInstance(String _className, LambdaStruct _functional) {
         className = _className;
+        functional = _functional;
     }
 
     @Override
@@ -30,10 +31,5 @@ public final class FunctionalInstance implements AbstractFunctionalInstance {
     @Override
     public LambdaStruct getFunctional() {
         return functional;
-    }
-
-    @Override
-    public void setFunctional(LambdaStruct _functional) {
-        functional = _functional;
     }
 }

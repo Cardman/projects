@@ -996,12 +996,12 @@ public abstract class LgNames {
         return files_;
     }
 
-    public AbstractFunctionalInstance newFunctionalInstance(String _className, ContextEl _contextEl) {
-        return new FunctionalInstance(_className);
+    public AbstractFunctionalInstance newFunctionalInstance(String _className, LambdaStruct _functional,ContextEl _contextEl) {
+        return new FunctionalInstance(_className,_functional);
     }
-    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, ContextEl _contextEl) {
+    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, LambdaStruct _functional, ContextEl _contextEl) {
         ObjectMap<ClassField, Struct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
-        return new FullFunctionalInstance(_className,fs_);
+        return new FullFunctionalInstance(_className,_functional,fs_);
     }
     public String getStructClassName(Struct _struct, ContextEl _context) {
         return _struct.getClassName(_context);

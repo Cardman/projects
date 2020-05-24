@@ -2200,15 +2200,15 @@ public class LgNamesUtils extends LgNames {
         ref_.addEntry(CONCURRENT_ERROR,getAliasConcurrentError());
         return ref_;
     }
-    public AbstractFunctionalInstance newFunctionalInstance(String _className, ContextEl _contextEl){
+    public AbstractFunctionalInstance newFunctionalInstance(String _className, LambdaStruct _functional,ContextEl _contextEl){
         ObjectMap<ClassField, Struct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
-        return new RunnableFunctionalInstance(_className,fs_,_contextEl);
+        return new RunnableFunctionalInstance(_className,_functional,fs_,_contextEl);
     }
 
     @Override
-    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, ContextEl _contextEl) {
+    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, LambdaStruct _functional,ContextEl _contextEl) {
         ObjectMap<ClassField, Struct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
-        return new RunnableFunctionalInstance(_className,fs_,_contextEl);
+        return new RunnableFunctionalInstance(_className,_functional,fs_,_contextEl);
     }
 
     public String getAliasRunnable() {

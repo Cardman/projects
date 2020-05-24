@@ -98,12 +98,10 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         String argCl_ = objArg_.getObjectClassName(_conf);
                         if (Templates.isCorrectExecute(argCl_,fctParam_,_conf)) {
                             if (_full) {
-                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFullFunctionalInstance(_className,_conf);
-                                struct_.setFunctional((LambdaStruct) str_);
+                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFullFunctionalInstance(_className,(LambdaStruct) str_,_conf);
                                 objArg_.setStruct(struct_);
                             } else {
-                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,_conf);
-                                struct_.setFunctional((LambdaStruct) str_);
+                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,(LambdaStruct) str_,_conf);
                                 objArg_.setStruct(struct_);
                             }
                         }

@@ -22,13 +22,14 @@ public final class EventFunctionalInstance implements AbstractFunctionalInstance
 
     private final String className;
 
-    private LambdaStruct functional;
-    private ContextEl original;
+    private final LambdaStruct functional;
+    private final ContextEl original;
 
     private final ObjectMap<ClassField,Struct> fields;
-    public EventFunctionalInstance(String _className,
+    public EventFunctionalInstance(String _className,LambdaStruct _functional,
                                    ObjectMap<ClassField,Struct> _fields,ContextEl _contextEl) {
         className = _className;
+        functional = _functional;
         original = _contextEl;
         fields = _fields;
     }
@@ -51,11 +52,6 @@ public final class EventFunctionalInstance implements AbstractFunctionalInstance
     @Override
     public LambdaStruct getFunctional() {
         return functional;
-    }
-
-    @Override
-    public void setFunctional(LambdaStruct _functional) {
-        functional = _functional;
     }
 
     @Override
