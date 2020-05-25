@@ -1282,7 +1282,24 @@ public final class Templates {
     }
 
     public static boolean checkObject(String _param, Argument _arg, ContextEl _context) {
-    	Struct ex_ = checkObjectEx(_param,_arg,_context);
+        Struct str_ = _arg.getStruct();
+        LgNames stds_ = _context.getStandards();
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
+        _arg.setStruct(PrimitiveTypeUtil.convertObject(cl_, str_, stds_));
+        Struct ex_ = checkObjectEx(_param,_arg,_context);
+        if (ex_ != null) {
+            _context.setException(ex_);
+            return false;
+    	}
+        return true;
+    }
+
+    public static boolean checkStrictObject(String _param, Argument _arg, ContextEl _context) {
+        Struct str_ = _arg.getStruct();
+        LgNames stds_ = _context.getStandards();
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
+        _arg.setStruct(PrimitiveTypeUtil.convertStrictObject(cl_, str_, stds_));
+        Struct ex_ = checkObjectEx(_param,_arg,_context);
         if (ex_ != null) {
             _context.setException(ex_);
             return false;
@@ -1291,10 +1308,7 @@ public final class Templates {
     }
 
     public static Struct checkObjectEx(String _param, Argument _arg, ContextEl _context) {
-        Struct str_ = _arg.getStruct();
         LgNames stds_ = _context.getStandards();
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
-        _arg.setStruct(PrimitiveTypeUtil.convertObject(cl_, str_, stds_));
         ErrorType err_ = safeObject(_param, _arg, _context);
         if (err_ == ErrorType.CAST) {
             String cast_ = stds_.getAliasCastType();
@@ -1391,9 +1405,7 @@ public final class Templates {
                         } else {
                             String arrType_ = arr_.getClassName();
                             String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
-                            ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
-                            Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, s, stds_);
-                            String arg_ = stds_.getStructClassName(conv_, _conf);
+                            String arg_ = stds_.getStructClassName(s, _conf);
                             String cast_ = stds_.getAliasStore();
                             StringBuilder mess_ = new StringBuilder();
                             mess_.append(arg_);
@@ -1463,7 +1475,7 @@ public final class Templates {
             String arrType_ = arr_.getClassName();
             String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
             ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
-            Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
+            Struct conv_ = PrimitiveTypeUtil.convertStrictObject(cl_, _value, stds_);
             if (_context.getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
                 _context.getInitializingTypeInfos().failInitEnums();
                 return;
@@ -1502,9 +1514,7 @@ public final class Templates {
         ArrayStruct arr_ = (ArrayStruct) _array;
         String arrType_ = arr_.getClassName();
         String param_ = PrimitiveTypeUtil.getQuickComponentType(arrType_);
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
-        Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
-        String arg_ = stds_.getStructClassName(conv_, _context);
+        String arg_ = stds_.getStructClassName(_value, _context);
         String cast_ = stds_.getAliasStore();
         StringBuilder mess_ = new StringBuilder();
         mess_.append(arg_);
@@ -1539,7 +1549,7 @@ public final class Templates {
         }
         if (_value != NullStruct.NULL_VALUE) {
             ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
-            Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
+            Struct conv_ = PrimitiveTypeUtil.convertStrictObject(cl_, _value, stds_);
             String arg_ = stds_.getStructClassName(conv_, _context);
             param_ = PrimitiveTypeUtil.toWrapper(param_, stds_);
             if (!Templates.isCorrectExecute(arg_, param_, _context)) {
@@ -1556,9 +1566,7 @@ public final class Templates {
             return ErrorType.NPE;
         }
         if (_value != NullStruct.NULL_VALUE) {
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
-            Struct conv_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
-            String arg_ = stds_.getStructClassName(conv_, _context);
+            String arg_ = stds_.getStructClassName(_value, _context);
             param_ = PrimitiveTypeUtil.toWrapper(param_, stds_);
             if (!Templates.isCorrectExecute(arg_, param_, _context)) {
                 return ErrorType.STORE;

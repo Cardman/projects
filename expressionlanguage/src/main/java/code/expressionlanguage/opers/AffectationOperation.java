@@ -24,6 +24,8 @@ public final class AffectationOperation extends MethodOperation implements Affec
 
     private boolean synthetic;
 
+    private int opOffset;
+
     public AffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -37,6 +39,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
     void calculateChildren() {
         IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
+        opOffset = getOperations().getOperators().firstKey();
     }
 
     @Override
@@ -374,5 +377,9 @@ public final class AffectationOperation extends MethodOperation implements Affec
         str_ = PrimitiveTypeUtil.unwrapObject(to_, str_, stds_);
         _conf.getClasses().initializeStaticField(id_, str_);
         _current.setSimpleArgument(value_);
+    }
+
+    public int getOpOffset() {
+        return opOffset;
     }
 }

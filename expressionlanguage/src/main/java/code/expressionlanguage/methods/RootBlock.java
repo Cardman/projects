@@ -679,6 +679,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 }
             }
         }
+        CustList<OverridableBlock> explicit_ = new CustList<OverridableBlock>();
         for (Block b: bl_) {
             if (b instanceof Returnable) {
                 Returnable method_ = (Returnable) b;
@@ -724,6 +725,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             badMeth_.buildError(_context.getAnalysisMessages().getBadMethodVararg(),
                                     m_.getSignature(_context));
                             _context.addError(badMeth_);
+                        } else {
+                            explicit_.add(m_);
+
                         }
                     } else if (m_.getKind() == MethodKind.STD_METHOD) {
                         m_.buildImportedTypes(_context);
@@ -975,6 +979,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 }
             }
         }
+        _context.getClasses().getExplicitCastMethods().addEntry(getFullName(),explicit_);
         for (OverridableBlock i: indexersGet_) {
             MethodId iOne_ = i.getId();
             boolean ok_ = false;

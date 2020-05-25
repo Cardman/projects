@@ -18,11 +18,13 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
     private String oper;
     private ClassMethodId classMethodId;
 
+    private int opOffset;
     public ExecSemiAffectationOperation(SemiAffectationOperation _s) {
         super(_s);
         post = _s.isPost();
         oper = _s.getOper();
         classMethodId = _s.getClassMethodId();
+        opOffset = _s.getOpOffset();
     }
 
     public void setup() {
@@ -51,6 +53,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             ExecInvokingOperation.checkParametersOperators(_conf, id_, Argument.createVoid(), firstArgs_);
             return;
         }
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
         Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post);
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         if (_conf.callsOrException() && pair_ instanceof TwoStepsArgumentsPair) {
@@ -77,6 +80,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
                 return;
             }
             s_.setCalledIndexer(true);
+            setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
             Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
             setSimpleArgument(arg_, _conf, _nodes);
             return;
@@ -87,6 +91,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
                 return;
             }
         }
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
         Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
         setSimpleArgument(arg_, _conf, _nodes);
     }

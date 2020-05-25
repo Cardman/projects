@@ -18,11 +18,14 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private String oper;
     private ClassMethodId classMethodId;
 
+    private int opOffset;
+
     public SemiAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op, boolean _post) {
         super(_index, _indexChild, _m, _op);
         post = _post;
         oper = _op.getOperators().firstValue();
+        opOffset = _op.getOperators().firstKey();
     }
 
     @Override
@@ -234,4 +237,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         return classMethodId;
     }
 
+    public int getOpOffset() {
+        return opOffset;
+    }
 }

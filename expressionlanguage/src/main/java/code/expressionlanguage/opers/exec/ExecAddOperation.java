@@ -3,7 +3,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.opers.AddOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.util.StringList;
 
@@ -16,11 +15,11 @@ public final class ExecAddOperation extends ExecStdNumericOperation {
     }
 
     static NumberStruct addOne(NumberStruct _arg, ContextEl _cont, ClassArgumentMatching _cl) {
-        return NumberStruct.calculateSum(_arg, new IntStruct(1), _cont, _cl);
+        return NumberStruct.calculateIncr(_arg, 1, _cont, _cl);
     }
 
     static NumberStruct removeOne(NumberStruct _arg, ContextEl _cont, ClassArgumentMatching _cl) {
-        return NumberStruct.calculateDiff(_arg, new IntStruct(1), _cont, _cl);
+        return NumberStruct.calculateIncr(_arg, -1, _cont, _cl);
     }
 
     @Override

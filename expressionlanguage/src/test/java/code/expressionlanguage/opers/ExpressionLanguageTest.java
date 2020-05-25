@@ -3414,25 +3414,25 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl701Test() {
         Argument arg_ = directCalculate("8.0/2d");
-        assertEq(4.0, getNumber(arg_));
+        assertEq(4.0, getDouble(arg_));
     }
 
     @Test
     public void processEl702Test() {
         Argument arg_ = directCalculate("7.0%2d");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
     public void processEl703Test() {
         Argument arg_ = directCalculate("8.0f/2f");
-        assertEq(4.0, getNumber(arg_));
+        assertEq(4.0, getDouble(arg_));
     }
 
     @Test
     public void processEl704Test() {
         Argument arg_ = directCalculate("7.0f%2f");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
@@ -3450,19 +3450,19 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl707Test() {
         Argument arg_ = directCalculate("1f+1f");
-        assertEq(2.0, getNumber(arg_));
+        assertEq(2.0, getDouble(arg_));
     }
 
     @Test
     public void processEl708Test() {
         Argument arg_ = directCalculate("3.0-1.0");
-        assertEq(2.0, getNumber(arg_));
+        assertEq(2.0, getDouble(arg_));
     }
 
     @Test
     public void processEl709Test() {
         Argument arg_ = directCalculate("3.0f-1.0f");
-        assertEq(2.0, getNumber(arg_));
+        assertEq(2.0, getDouble(arg_));
     }
 
     @Test
@@ -3474,7 +3474,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl711Test() {
         Argument arg_ = directCalculate("4f*2f");
-        assertEq(8.0, getNumber(arg_));
+        assertEq(8.0, getDouble(arg_));
     }
 
     @Test
@@ -3728,13 +3728,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl753Test() {
         Argument arg_ = directCalculate("((Integer)1).floatValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
     public void processEl754Test() {
         Argument arg_ = directCalculate("((Integer)1).doubleValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
@@ -3770,13 +3770,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl760Test() {
         Argument arg_ = directCalculate("((Long)1).floatValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
     public void processEl761Test() {
         Argument arg_ = directCalculate("((Long)1).doubleValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
@@ -3929,13 +3929,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl784Test() {
         Argument arg_ = directCalculate("Float.parseFloat(\"1\")");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
     public void processEl785Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"1\")");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
@@ -4346,13 +4346,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl848Test() {
         Argument arg_ = directCalculate("$new Float(\"1\")");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
     public void processEl849Test() {
         Argument arg_ = directCalculate("$new Double(\"1\")");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
@@ -4387,13 +4387,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl854Test() {
         Argument arg_ = directCalculate("$new Float(1f)");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
     public void processEl855Test() {
         Argument arg_ = directCalculate("$new Double(1d)");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
@@ -4507,13 +4507,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl873Test() {
         Argument arg_ = directCalculate("$math.minus(1f)");
-        assertEq(-1.0,getNumber(arg_));
+        assertEq(-1.0,getDouble(arg_));
     }
 
     @Test
     public void processEl874Test() {
         Argument arg_ = directCalculate("$math.minus(1d)");
-        assertEq(-1.0,getNumber(arg_));
+        assertEq(-1.0,getDouble(arg_));
     }
 
     @Test
@@ -5310,13 +5310,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl1004Test() {
         Argument arg_ = directCalculate("Float.parseFloatOrNull(\"1\")");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
     public void processEl1005Test() {
         Argument arg_ = directCalculate("Double.parseDoubleOrNull(\"1\")");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
@@ -5424,13 +5424,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl1023Test() {
         Argument arg_ = directCalculate("((Byte)1).floatValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
     public void processEl1024Test() {
         Argument arg_ = directCalculate("((Byte)1).doubleValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
 
@@ -5461,13 +5461,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl1029Test() {
         Argument arg_ = directCalculate("((Short)1).floatValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
     public void processEl1030est() {
         Argument arg_ = directCalculate("((Short)1).doubleValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
@@ -5497,13 +5497,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl10291Test() {
         Argument arg_ = directCalculate("((Character)1).floatValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
     public void processEl10301est() {
         Argument arg_ = directCalculate("((Character)1).doubleValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
@@ -5533,13 +5533,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl10292Test() {
         Argument arg_ = directCalculate("((Float)1).floatValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
     public void processEl10302est() {
         Argument arg_ = directCalculate("((Float)1).doubleValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
@@ -5569,13 +5569,13 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     @Test
     public void processEl10293Test() {
         Argument arg_ = directCalculate("((Double)1).floatValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test
     public void processEl10303est() {
         Argument arg_ = directCalculate("((Double)1).doubleValue()");
-        assertEq(1.0, getNumber(arg_));
+        assertEq(1.0, getDouble(arg_));
     }
 
     @Test

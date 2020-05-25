@@ -108,8 +108,6 @@ public final class ExecSettableFieldOperation extends
         return ExecInvokingOperation.setField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
     }
     private Argument getCommonCompoundSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, Argument _right, ClassArgumentMatching _arg) {
-        int off_ = getOff();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument();
         Argument res_;
 
@@ -121,8 +119,6 @@ public final class ExecSettableFieldOperation extends
         return getCommonSetting(_previous,_conf,res_);
     }
     private Argument getCommonSemiSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, boolean _post) {
-        int off_ = getOff();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument();
         Argument res_;
 
@@ -141,8 +137,6 @@ public final class ExecSettableFieldOperation extends
     public Argument endCalculate(ContextEl _conf,
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
             Argument _stored, Argument _right) {
-        int off_ = getOff();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument prev_ = Argument.createVoid();
         if (!fieldMetaInfo.isStaticField()) {
             prev_ = getPreviousArg(this, _nodes, _conf);

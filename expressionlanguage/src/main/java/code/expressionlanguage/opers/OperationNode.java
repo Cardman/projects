@@ -16,7 +16,6 @@ import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.types.ResolvingImportTypes;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -971,10 +970,10 @@ public abstract class OperationNode implements Operable {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         String id_ = Templates.getIdFromAllTypes(_fromClass);
-        GeneType root_ = _conf.getClassBody(id_);
         StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
         superTypesBaseAncBis_.addEntry(id_,id_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, root_, superTypesBaseAncBis_);
+        CustList<OverridableBlock> casts_ = _conf.getClasses().getExplicitCastMethods().getVal(id_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, casts_, superTypesBaseAncBis_);
         return methods_;
     }
 
@@ -1143,20 +1142,19 @@ public abstract class OperationNode implements Operable {
         return t_;
     }
 
-    private static void fetchCastMethods(ContextEl _conf, ClassMethodId _uniqueId, String _glClass,CustList<MethodInfo> _methods, String _cl, GeneType _root, StringMap<String> _superTypesBaseMap) {
+    private static void fetchCastMethods(ContextEl _conf, ClassMethodId _uniqueId, String _glClass, CustList<MethodInfo> _methods, String _cl, CustList<OverridableBlock> _casts, StringMap<String> _superTypesBaseMap) {
         ClassMethodIdAncestor uniq_ = null;
         if (_uniqueId != null) {
             uniq_ = new ClassMethodIdAncestor(new ClassMethodId(Templates.getIdFromAllTypes(_uniqueId.getClassName()),_uniqueId.getConstraints()),0);
         }
-        for (GeneMethod e: ContextEl.getMethodBlocks(_root)) {
-            if (!e.isStaticMethod()) {
-                continue;
+        if (_casts != null) {
+            for (OverridableBlock e: _casts) {
+                MethodInfo stMeth_ = fetchedParamMethod(e,_cl,false,_conf,uniq_,_glClass,0,_cl,_superTypesBaseMap);
+                if (stMeth_ == null) {
+                    continue;
+                }
+                _methods.add(stMeth_);
             }
-            MethodInfo stMeth_ = fetchedParamMethod(e,_cl,false,_conf,uniq_,_glClass,0,_cl,_superTypesBaseMap);
-            if (stMeth_ == null) {
-                continue;
-            }
-            _methods.add(stMeth_);
         }
     }
 

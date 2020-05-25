@@ -756,7 +756,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
             arg_ = new Argument(element_);
         }
         String className_ = abs_.formatVarType(importedClassName, _conf);
-        if (!Templates.checkObject(className_, arg_, _conf)) {
+        if (!Templates.checkStrictObject(className_, arg_, _conf)) {
             return;
         }
         lv_.setStruct(element_);

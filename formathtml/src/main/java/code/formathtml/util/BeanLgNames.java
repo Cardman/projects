@@ -128,7 +128,7 @@ public abstract class BeanLgNames extends LgNames {
                 res_.setError(getAliasCastType());
                 return res_;
             }
-            res_.setResult(PrimitiveTypeUtil.convertObject(cl_,new DoubleStruct(doubleInfo_.getValue()),this));
+            res_.setResult(PrimitiveTypeUtil.convertStrictObject(cl_,new DoubleStruct(doubleInfo_.getValue()),this));
             return res_;
         }
         LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
@@ -136,7 +136,7 @@ public abstract class BeanLgNames extends LgNames {
             res_.setError(getAliasCastType());
             return res_;
         }
-        res_.setResult(PrimitiveTypeUtil.convertObject(cl_,new LongStruct(val_.getValue()),this));
+        res_.setResult(PrimitiveTypeUtil.convertStrictObject(cl_,new LongStruct(val_.getValue()),this));
         return res_;
     }
     public boolean isConveritble(String _className) {

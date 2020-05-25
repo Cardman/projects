@@ -636,7 +636,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             for (int i = 0; i < valuesSize_; i++) {
                 Argument arg_ = _values.get(i);
                 String param_ = paramsFct_.get(i);
-                if (!Templates.checkObject(param_, arg_, _conf)) {
+                if (!Templates.checkStrictObject(param_, arg_, _conf)) {
                     return new Argument();
                 }
             }
@@ -1041,7 +1041,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String fieldType_;
         fieldType_ = _returnType;
         fieldType_ = Templates.quickFormat(classNameFound_, fieldType_, _conf);
-        if (!Templates.checkObject(fieldType_, _right, _conf)) {
+        if (!Templates.checkStrictObject(fieldType_, _right, _conf)) {
             return Argument.createVoid();
         }
         if (_conf.getInitializingTypeInfos().isContainedSensibleFields(previous_)) {
@@ -1067,7 +1067,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         String fieldType_;
         fieldType_ = _returnType;
-        if (!Templates.checkObject(fieldType_, _right, _conf)) {
+        if (!Templates.checkStrictObject(fieldType_, _right, _conf)) {
             return Argument.createVoid();
         }
         if (_conf.getInitializingTypeInfos().isSensibleField(_conf,fieldId_.getClassName())) {

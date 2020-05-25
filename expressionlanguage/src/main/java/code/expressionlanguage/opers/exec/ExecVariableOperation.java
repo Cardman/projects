@@ -61,8 +61,7 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
     public Argument calculateSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             Argument _right) {
-        Argument arg_ = getCommonSetting(_conf, _right);
-        return arg_;
+        return getCommonSetting(_conf, _right);
     }
 
     @Override
@@ -72,8 +71,7 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
-        Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right,getResultClass());
-        return arg_;
+        return getCommonCompoundSetting(_conf, store_, _op, _right,getResultClass());
     }
 
     @Override
@@ -83,19 +81,17 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
-        Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        return arg_;
+        return getCommonSemiSetting(_conf, store_, _op, _post);
     }
 
     private Argument getCommonSetting(ContextEl _conf, Argument _right) {
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         PageEl ip_ = _conf.getLastPage();
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         return checkSet(_conf,locVar_,_right);
     }
     public static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right) {
         String formattedClassVar_ = _loc.getClassName();
-        if (!Templates.checkObject(formattedClassVar_, _right, _conf)) {
+        if (!Templates.checkStrictObject(formattedClassVar_, _right, _conf)) {
             return Argument.createVoid();
         }
         _loc.setStruct(_right.getStruct());
@@ -103,7 +99,6 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
     }
     private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ClassArgumentMatching _arg) {
         PageEl ip_ = _conf.getLastPage();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
         left_.setStruct(_store);
@@ -114,7 +109,6 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
     }
     private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post) {
         PageEl ip_ = _conf.getLastPage();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
         left_.setStruct(_store);
@@ -141,11 +135,9 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
             Argument _stored, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         checkSet(_conf,locVar_,_right);
-        Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        return out_;
+        return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
     public String getVariableName() {

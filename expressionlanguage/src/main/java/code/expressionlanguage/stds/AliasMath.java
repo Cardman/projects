@@ -341,16 +341,15 @@ public final class AliasMath {
             }
             NumberStruct b_ = ClassArgumentMatching.convertToNumber(_args[0].getStruct());
             ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            int order_ = PrimitiveTypeUtil.getOrderClass(clArg_, _cont);
-            if (order_ == PrimitiveTypeUtil.getIntOrderClass(aliasPrimInteger_, _cont)) {
+            if (PrimitiveTypeUtil.isInt(clArg_,_cont)) {
                 result_.setResult(new IntStruct(-b_.intStruct()));
                 return result_;
             }
-            if (order_ == PrimitiveTypeUtil.getIntOrderClass(aliasPrimLong_, _cont)) {
+            if (PrimitiveTypeUtil.isLong(clArg_,_cont)) {
                 result_.setResult(new LongStruct(-b_.longStruct()));
                 return result_;
             }
-            if (order_ == PrimitiveTypeUtil.getFloatOrderClass(aliasPrimFloat_, _cont)) {
+            if (PrimitiveTypeUtil.isFloat(clArg_,_cont)) {
                 result_.setResult(new FloatStruct(-b_.floatStruct()));
                 return result_;
             }
@@ -533,14 +532,13 @@ public final class AliasMath {
             }
             NumberStruct b_ = ClassArgumentMatching.convertToNumber(_args[0].getStruct());
             ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            int order_ = PrimitiveTypeUtil.getOrderClass(clArg_, _cont);
-            if (order_ == PrimitiveTypeUtil.getIntOrderClass(aliasPrimInteger_, _cont)) {
+            if (PrimitiveTypeUtil.isInt(clArg_,_cont)) {
                 return (new IntStruct(-b_.intStruct()));
             }
-            if (order_ == PrimitiveTypeUtil.getIntOrderClass(aliasPrimLong_, _cont)) {
+            if (PrimitiveTypeUtil.isLong(clArg_,_cont)) {
                 return (new LongStruct(-b_.longStruct()));
             }
-            if (order_ == PrimitiveTypeUtil.getFloatOrderClass(aliasPrimFloat_, _cont)) {
+            if (PrimitiveTypeUtil.isFloat(clArg_,_cont)) {
                 return (new FloatStruct(-b_.floatStruct()));
             }
             return (new DoubleStruct(-b_.doubleStruct()));

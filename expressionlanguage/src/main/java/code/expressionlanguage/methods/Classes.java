@@ -28,6 +28,7 @@ public final class Classes {
 
     private StringMap<StringMap<Struct>> staticFields;
     private final StringMap<OverridableBlock> toStringMethods = new StringMap<OverridableBlock>();
+    private final StringMap<CustList<OverridableBlock>> explicitCastMethods = new StringMap<CustList<OverridableBlock>>();
 
     private final ErrorList errorsDet;
     private final WarningList warningsDet;
@@ -2405,5 +2406,9 @@ public final class Classes {
 
     public StringMap<OverridableBlock> getToStringMethods() {
         return toStringMethods;
+    }
+
+    public StringMap<CustList<OverridableBlock>> getExplicitCastMethods() {
+        return explicitCastMethods;
     }
 }

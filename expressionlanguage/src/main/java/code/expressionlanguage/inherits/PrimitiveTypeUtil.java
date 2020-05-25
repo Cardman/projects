@@ -567,6 +567,13 @@ public final class PrimitiveTypeUtil {
         }
         return _obj;
     }
+
+    public static Struct convertStrictObject(ClassArgumentMatching _match, Struct _obj, LgNames _context) {
+        if (_obj instanceof NumberStruct) {
+            return convertStrictObject(_match, (NumberStruct)_obj, _context);
+        }
+        return _obj;
+    }
     private static NumberStruct convertObject(ClassArgumentMatching _match, NumberStruct _obj, LgNames _stds) {
         if (_match.matchClass(_stds.getAliasPrimDouble()) || _match.matchClass(_stds.getAliasDouble())) {
             return new DoubleStruct(_obj.doubleStruct());
@@ -574,6 +581,26 @@ public final class PrimitiveTypeUtil {
         if (_match.matchClass(_stds.getAliasPrimFloat()) || _match.matchClass(_stds.getAliasFloat())) {
             return new FloatStruct(_obj.floatStruct());
         }
+        return convertIntNb(_match, _obj, _stds);
+    }
+
+    private static NumberStruct convertStrictObject(ClassArgumentMatching _match, NumberStruct _obj, LgNames _stds) {
+        if (isFloatOrderClass(_match,_stds)) {
+            if (isFloatType(_obj)) {
+                if (_match.matchClass(_stds.getAliasPrimFloat()) || _match.matchClass(_stds.getAliasFloat())) {
+                    return new FloatStruct(_obj.floatStruct());
+                }
+                return new DoubleStruct(_obj.doubleStruct());
+            }
+            return _obj;
+        }
+        if (isFloatType(_obj)) {
+            return _obj;
+        }
+        return convertIntNb(_match, _obj, _stds);
+    }
+
+    public static NumberStruct convertIntNb(ClassArgumentMatching _match, NumberStruct _obj, LgNames _stds) {
         if (_match.matchClass(_stds.getAliasPrimLong()) || _match.matchClass(_stds.getAliasLong())) {
             return new LongStruct(_obj.longStruct());
         }
@@ -587,12 +614,17 @@ public final class PrimitiveTypeUtil {
             return new ByteStruct(_obj.byteStruct());
         }
         if (_match.matchClass(_stds.getAliasPrimChar()) || _match.matchClass(_stds.getAliasCharacter())) {
-            return new CharStruct((char)_obj.intStruct());
+            return new CharStruct((char) _obj.intStruct());
         }
         return _obj;
     }
+
+    private static boolean isFloatType(NumberStruct _obj) {
+        return _obj instanceof FloatStruct ||_obj instanceof DoubleStruct;
+    }
+
     public static Struct unwrapObject(String _match, Struct _obj, LgNames _stds) {
-        return convertObject(new ClassArgumentMatching(_match), _obj, _stds);
+        return convertStrictObject(new ClassArgumentMatching(_match), _obj, _stds);
     }
 
     public static int cmpTypes(String _one, String _two, ContextEl _context) {
@@ -623,46 +655,56 @@ public final class PrimitiveTypeUtil {
         return gt_;
     }
 
-    public static int getOrderClass(ClassArgumentMatching _class, ContextEl _context) {
-        return getOrderClass(_class, _context.getStandards());
-    }
-    private static int getOrderClass(ClassArgumentMatching _class, LgNames _stds) {
-        ClassArgumentMatching class_ = toPrimitive(_class, _stds);
-        if (class_.matchClass(_stds.getAliasPrimDouble())) {
-            return DOUBLE_CASTING;
-        }
-        if (class_.matchClass(_stds.getAliasPrimFloat())) {
-            return FLOAT_CASTING;
-        }
-        if (class_.matchClass(_stds.getAliasPrimLong())) {
-            return LONG_CASTING;
-        }
-        if (class_.matchClass(_stds.getAliasPrimInteger())) {
-            return INT_CASTING;
-        }
-        if (class_.matchClass(_stds.getAliasPrimChar())) {
-            return CHAR_CASTING;
-        }
-        if (class_.matchClass(_stds.getAliasPrimShort())) {
-            return SHORT_CASTING;
-        }
-        if (class_.matchClass(_stds.getAliasPrimByte())) {
-            return BYTE_CASTING;
-        }
-        return 0;
+    public static boolean isLessInt(ClassArgumentMatching _class, ContextEl _context) {
+        ClassArgumentMatching class_ = toPrimitive(_class, _context.getStandards());
+        return class_.matchClass(_context.getStandards().getAliasPrimShort())
+                || class_.matchClass(_context.getStandards().getAliasPrimByte())
+                || class_.matchClass(_context.getStandards().getAliasPrimChar());
     }
 
-    public static int getFloatOrderClass(String _class, ContextEl _context) {
-        return getFloatOrderClass(_class, _context.getStandards());
+    public static boolean isByte(ClassArgumentMatching _class, ContextEl _context) {
+        ClassArgumentMatching class_ = toPrimitive(_class, _context.getStandards());
+        return class_.matchClass(_context.getStandards().getAliasPrimByte());
     }
-    private static int getFloatOrderClass(String _class, LgNames _stds) {
-        return getFloatOrderClass(new ClassArgumentMatching(_class), _stds);
+
+    public static boolean isShort(ClassArgumentMatching _class, ContextEl _context) {
+        ClassArgumentMatching class_ = toPrimitive(_class, _context.getStandards());
+        return class_.matchClass(_context.getStandards().getAliasPrimShort());
     }
+
+    public static boolean isChar(ClassArgumentMatching _class, ContextEl _context) {
+        ClassArgumentMatching class_ = toPrimitive(_class, _context.getStandards());
+        return class_.matchClass(_context.getStandards().getAliasPrimChar());
+    }
+
+    public static boolean isIntOrLess(ClassArgumentMatching _class, ContextEl _context) {
+        return isInt(_class,_context) || isLessInt(_class,_context);
+    }
+
+    public static boolean isInt(ClassArgumentMatching _class, ContextEl _context) {
+        ClassArgumentMatching class_ = toPrimitive(_class, _context.getStandards());
+        return class_.matchClass(_context.getStandards().getAliasPrimInteger());
+    }
+
+    public static boolean isLong(ClassArgumentMatching _class, ContextEl _context) {
+        ClassArgumentMatching class_ = toPrimitive(_class, _context.getStandards());
+        return class_.matchClass(_context.getStandards().getAliasPrimLong());
+    }
+
+    public static boolean isFloat(ClassArgumentMatching _class, ContextEl _context) {
+        ClassArgumentMatching class_ = toPrimitive(_class, _context.getStandards());
+        return class_.matchClass(_context.getStandards().getAliasPrimFloat());
+    }
+
     public static boolean isFloatOrderClass(ClassArgumentMatching _class, ClassArgumentMatching _classTwo,ContextEl _context) {
         return isFloatOrderClass(_class, _context) && isFloatOrderClass(_classTwo, _context);
     }
 
     private static boolean isFloatOrderClass(ClassArgumentMatching _class, ContextEl _context) {
+        return isFloatOrderClass(_class,_context.getStandards());
+    }
+
+    private static boolean isFloatOrderClass(ClassArgumentMatching _class, LgNames _context) {
         return getFloatOrderClass(_class,_context) > 0;
     }
 

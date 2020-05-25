@@ -14,8 +14,11 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
 
     private ExecSettableElResult settable;
 
+    private int opOffset;
+
     public ExecAffectationOperation(AffectationOperation _a) {
         super(_a);
+        opOffset = _a.getOpOffset();
     }
 
     public void setup() {
@@ -67,6 +70,7 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
         }
         ExecOperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = getArgument(_nodes, right_);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
         Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_);
         setSimpleArgument(arg_, _conf, _nodes);
     }

@@ -50,7 +50,7 @@ public final class RendFinalVariableOperation extends RendLeafOperation implemen
             ClassArgumentMatching clArg_ = new ClassArgumentMatching(locVar_.getIndexClassName());
             LgNames stds_ = _conf.getStandards();
             LongStruct str_ = new LongStruct(locVar_.getIndex());
-            Struct value_ = PrimitiveTypeUtil.convertObject(clArg_, str_, stds_);
+            Struct value_ = PrimitiveTypeUtil.convertStrictObject(clArg_, str_, stds_);
             a_.setStruct(value_);
             return a_;
         }

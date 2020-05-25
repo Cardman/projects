@@ -201,7 +201,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         int i_ =0;
         ClassMethodId classMethodId_ = _rend.getClassMethodId();
         for (Argument a: firstArgs_) {
-            a.setStruct(PrimitiveTypeUtil.convertObject(new ClassArgumentMatching(classMethodId_.getConstraints().getParametersTypes().get(i_)),a.getStruct(),this));
+            a.setStruct(PrimitiveTypeUtil.convertStrictObject(new ClassArgumentMatching(classMethodId_.getConstraints().getParametersTypes().get(i_)),a.getStruct(),this));
             i_++;
         }
         ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContext(), classMethodId_, _previous.getStruct(), Argument.toArgArray(firstArgs_));

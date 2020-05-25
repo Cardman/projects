@@ -603,9 +603,7 @@ public class ApplyCoreMethodUtil {
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList());
             ClassMethodId polymorph_ = ExecInvokingOperation.polymorph(_cont, seed_, new ClassMethodId(lgNames_.getAliasSeedDoubleGenerator(), id_));
             String className_ = polymorph_.getClassName();
-            String gene_ = _cont.getClasses().getClassBody(Templates.getIdFromAllTypes(argClassName_)).getGenericString();
-            className_ = Templates.getOverridingFullTypeByBases(gene_, className_, _cont);
-            className_ = Templates.quickFormat(argClassName_, className_, _cont);
+            className_ = Templates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
             MethodId ct_ = polymorph_.getConstraints();
             methods_ = Classes.getMethodBodiesById(_cont, className_, ct_);
@@ -639,9 +637,7 @@ public class ApplyCoreMethodUtil {
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList(lgNames_.getAliasPrimLong()));
             ClassMethodId polymorph_ = ExecInvokingOperation.polymorph(_cont, seed_, new ClassMethodId(lgNames_.getAliasSeedGenerator(), id_));
             String className_ = polymorph_.getClassName();
-            String gene_ = _cont.getClasses().getClassBody(Templates.getIdFromAllTypes(argClassName_)).getGenericString();
-            className_ = Templates.getOverridingFullTypeByBases(gene_, className_, _cont);
-            className_ = Templates.quickFormat(argClassName_, className_, _cont);
+            className_ = Templates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
             MethodId ct_ = polymorph_.getConstraints();
             methods_ = Classes.getMethodBodiesById(_cont, className_, ct_);

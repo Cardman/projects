@@ -69,8 +69,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             }
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-        int orderClass_ = PrimitiveTypeUtil.getOrderClass(clMatch_, _conf);
-        if (orderClass_ == 0) {
+        if (!PrimitiveTypeUtil.isPureNumberClass(clMatch_,_conf)) {
             _conf.getAnalyzing().setOkNumOp(false);
             String exp_ = _conf.getStandards().getAliasNumber();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -85,8 +84,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             setResultClass(arg_);
             return;
         }
-        int intOrder_ = PrimitiveTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _conf);
-        if (PrimitiveTypeUtil.getOrderClass(cl_, _conf) < intOrder_) {
+        if (PrimitiveTypeUtil.isLessInt(cl_, _conf)) {
             cl_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
         clMatch_.setUnwrapObject(cl_);

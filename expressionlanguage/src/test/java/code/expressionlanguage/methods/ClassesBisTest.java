@@ -481,6 +481,19 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
     }
     @Test
+    public void validateEl143FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $void p() {$int v = 0; v+=1d;$return v;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ProcessMethodCommon.contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+    }
+    @Test
     public void validateEl148FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

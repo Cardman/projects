@@ -68,7 +68,6 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
             Argument _right) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = getArgument(_nodes,this);
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         ExecOperationNode lastElement_ = chidren_.last();
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
@@ -85,7 +84,6 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         ExecOperationNode lastElement_ = chidren_.last();
         Struct array_;
         array_ = getPreviousArgument(_nodes, this).getStruct();
@@ -102,24 +100,21 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         ExecOperationNode lastElement_ = chidren_.last();
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
         Argument lastArg_ = getArgument(_nodes, lastElement_);
-        a_.setStruct(semiAffectArray(array_, store_, lastArg_, lastElement_.getIndexInEl(), _op, _post, _conf));
+        a_.setStruct(semiAffectArray(array_, store_, lastArg_, _op, _post, _conf));
         return a_;
     }
 
     Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Struct o_ = _index.getStruct();
         ExecInvokingOperation.setElement(_array, o_, _right.getStruct(), _conf);
         return _right.getStruct();
     }
 
     Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, ContextEl _conf, ClassArgumentMatching _arg) {
-        setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Struct o_ = _index.getStruct();
         Argument left_ = new Argument();
         left_.setStruct(_stored);
@@ -131,8 +126,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
         return res_.getStruct();
     }
-    Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ContextEl _conf) {
-        setRelativeOffsetPossibleLastPage(_indexEl, _conf);
+    Struct semiAffectArray(Struct _array, Struct _stored, Argument _index, String _op, boolean _post, ContextEl _conf) {
         Struct o_ = _index.getStruct();
         Argument left_ = new Argument();
         left_.setStruct(_stored);
@@ -156,11 +150,9 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         ExecOperationNode lastElement_ = chidren_.last();
         Argument index_ = getArgument(_nodes, lastElement_);
         ExecInvokingOperation.setElement(array_, index_.getStruct(), _right.getStruct(), _conf);
-        Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        return out_;
+        return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 }

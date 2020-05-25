@@ -18,10 +18,13 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
     private String oper;
     private ClassMethodId classMethodId;
 
+    private int opOffset;
+
     public ExecCompoundAffectationOperation(CompoundAffectationOperation _c) {
         super(_c);
         oper = _c.getOper();
         classMethodId = _c.getClassMethodId();
+        opOffset = _c.getOpOffset();
     }
 
     public void setup() {
@@ -55,6 +58,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             ExecInvokingOperation.checkParametersOperators(_conf, id_,  Argument.createVoid(), firstArgs_);
             return;
         }
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
         Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_);
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         if (_conf.callsOrException() && pair_ instanceof TwoStepsArgumentsPair) {
@@ -74,6 +78,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
                 return;
             }
             s_.setCalledIndexer(true);
+            setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
             Argument arg_ = settable.endCalculate(_conf, _nodes, _right);
             setSimpleArgument(arg_, _conf, _nodes);
             return;
@@ -84,6 +89,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
                 return;
             }
         }
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
         Argument arg_ = settable.endCalculate(_conf, _nodes, _right);
         setSimpleArgument(arg_, _conf, _nodes);
     }

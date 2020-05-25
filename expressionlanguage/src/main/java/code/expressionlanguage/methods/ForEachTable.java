@@ -777,7 +777,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         if (_conf.callsOrException()) {
             return;
         }
-        if (!Templates.checkObject(classNameFirst_, arg_, _conf)) {
+        if (!Templates.checkStrictObject(classNameFirst_, arg_, _conf)) {
             return;
         }
         String classNameSecond_ = _conf.getLastPage().formatVarType(importedClassNameSecond, _conf);
@@ -795,7 +795,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         if (_conf.callsOrException()) {
             return;
         }
-        if (!Templates.checkObject(classNameSecond_, arg_, _conf)) {
+        if (!Templates.checkStrictObject(classNameSecond_, arg_, _conf)) {
             return;
         }
         LoopVariable lv_ = _vars.getVal(variableNameSecond);
