@@ -20,7 +20,7 @@ public abstract class RendMethodOperation extends RendDynOperationNode {
     public RendMethodOperation(int _indexChild, ClassArgumentMatching _res, int _order) {
         super(_indexChild,_res,_order);
     }
-    void processCall(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, Argument _res) {
+    public void processCall(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, Argument _res) {
         CallingState callingState_ = _conf.getContext().getCallingState();
         Argument res_;
         if (callingState_ instanceof CustomFoundConstructor) {

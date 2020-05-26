@@ -55,6 +55,9 @@ public final class Navigation {
 
     private boolean error;
 
+    public Navigation(){
+        //instance
+    }
     public void loadConfiguration(String _cont, String _lgCode,BeanLgNames _lgNames) {
         error = false;
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_cont);
@@ -219,6 +222,7 @@ public final class Navigation {
                     urlDest_ = currentUrl;
                 }
             }
+            session.clearPages();
             processAfterInvoke(urlDest_,beanName_,bean_);
             return;
         }
@@ -227,9 +231,6 @@ public final class Navigation {
         }
         Struct bean_ = getBeanOrNull(currentBeanName);
         session.clearPages();
-        ImportingPage ip_ = new ImportingPage();
-        ip_.setPrefix(session.getPrefix());
-        session.addPage(ip_);
         processAfterInvoke(_anchorRef,currentBeanName,bean_);
     }
 
@@ -241,7 +242,10 @@ public final class Navigation {
         return bean_;
     }
 
-    void processAfterInvoke(String _dest, String _beanName, Struct _bean){
+    private void processAfterInvoke(String _dest, String _beanName, Struct _bean){
+        ImportingPage ip_ = new ImportingPage();
+        ip_.setPrefix(session.getPrefix());
+        session.addPage(ip_);
         if (!_beanName.isEmpty()) {
             session.getAdvStandards().storeForms(_bean, session);
         }
@@ -267,6 +271,7 @@ public final class Navigation {
         if (session.getContext().hasException()) {
             return;
         }
+        session.clearPages();
         String textToBeChanged_ = RendBlock.getRes(rendDocumentBlock_,session);
         if (textToBeChanged_.isEmpty()) {
             return;
@@ -275,7 +280,7 @@ public final class Navigation {
         currentUrl = _dest;
         setupText(textToBeChanged_);
     }
-    void processInitBeans(String _dest, String _beanName) {
+    private void processInitBeans(String _dest, String _beanName) {
         int s_ = session.getBuiltBeans().size();
         for (int i = 0; i < s_; i++) {
             String key_ = session.getBuiltBeans().getKey(i);
@@ -515,14 +520,12 @@ public final class Navigation {
         return val_;
     }
 
-    boolean reinitRendBean(String _dest, String _beanName, String _currentBean) {
+    private boolean reinitRendBean(String _dest, String _beanName, String _currentBean) {
         if (!StringList.quickEq(_currentBean,_beanName)) {
             return false;
         }
         Struct bean_ = getBeanOrNull(_currentBean);
-        session.addPage(new ImportingPage());
         String scope_ = session.getAdvStandards().getScope(bean_,session);
-        session.removeLastPage();
         if (session.getContext().hasException()) {
             return false;
         }
@@ -536,7 +539,7 @@ public final class Navigation {
         }
         return true;
     }
-    void setupText(String _text) {
+    private void setupText(String _text) {
         Document doc_ = session.getDocument();
         ElementList nodes_;
         title = EMPTY_STRING;

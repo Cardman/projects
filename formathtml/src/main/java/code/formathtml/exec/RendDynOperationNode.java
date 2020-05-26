@@ -399,7 +399,7 @@ public abstract class RendDynOperationNode {
         }
     }
 
-    protected static Argument getPreviousArg(RendPossibleIntermediateDotted _possible, IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf) {
+    public static Argument getPreviousArg(RendPossibleIntermediateDotted _possible, IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_;
         if (_possible.isIntermediateDottedOperation()) {
             previous_ = getPreviousArgument(_nodes, _possible);
@@ -415,7 +415,7 @@ public abstract class RendDynOperationNode {
         }
         return a_;
     }
-    protected static Argument getArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
+    public static Argument getArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
         return getArgumentPair(_nodes,_node).getArgument();
     }
     protected static ArgumentsPair getArgumentPair(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {

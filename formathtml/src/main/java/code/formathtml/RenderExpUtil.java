@@ -114,7 +114,7 @@ public final class RenderExpUtil {
         return calculateReuse(out_, _conf);
     }
 
-    public static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, Configuration _conf) {
+    private static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, Configuration _conf) {
         _conf.setupAnalyzing();
         Argument argGl_ = _conf.getPageEl().getGlobalArgument();
         boolean static_ = argGl_.isNull();

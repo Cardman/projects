@@ -191,35 +191,28 @@ public final class Configuration {
     }
 
     Struct newBean(String _language, Struct _bean, BeanInfo _info) {
-        addPage(new ImportingPage());
         Argument arg_ = RenderExpUtil.calculateReuse(_info.getExps(), this);
         if (context.hasException()) {
-            removeLastPage();
             return NullStruct.NULL_VALUE;
         }
         Struct strBean_ = arg_.getStruct();
         standards.forwardDataBase(_bean,strBean_,this);
         if (context.hasException()) {
-            removeLastPage();
             return NullStruct.NULL_VALUE;
         }
         standards.setStoredForms(strBean_, this);
         if (context.hasException()) {
-            removeLastPage();
             return NullStruct.NULL_VALUE;
         }
         standards.setLanguage(strBean_, _language,this);
         if (context.hasException()) {
-            removeLastPage();
             return NullStruct.NULL_VALUE;
         }
         String str_ = standards.getScope(_bean,this);
         if (context.hasException()) {
-            removeLastPage();
             return NullStruct.NULL_VALUE;
         }
         standards.setScope(strBean_, str_,this);
-        removeLastPage();
         if (context.hasException()) {
             return NullStruct.NULL_VALUE;
         }

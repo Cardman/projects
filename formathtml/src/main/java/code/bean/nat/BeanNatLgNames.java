@@ -3,6 +3,8 @@ package code.bean.nat;
 import code.bean.Bean;
 import code.bean.BeanStruct;
 import code.bean.RealInstanceStruct;
+import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.formathtml.exec.*;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.bean.validator.Validator;
@@ -17,10 +19,6 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
-import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.exec.RendFctOperation;
-import code.formathtml.exec.RendInvokingOperation;
-import code.formathtml.exec.RendSettableFieldOperation;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
@@ -105,24 +103,21 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     private Struct newSimpleBean(String _language, BeanInfo _bean, Configuration _conf) {
-        _conf.addPage(new ImportingPage());
-        String keyWordNew_ = _conf.getKeyWords().getKeyWordNew();
-        Struct strBean_ = processQuickEl(StringList.concat(keyWordNew_," ",_bean.getClassName(),NO_PARAM), 0, _conf).getStruct();
+        Struct strBean_ = instanceBean(this,_bean.getClassName(),_conf).getStruct();
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
         bean_.setDataBase(dataBase);
         bean_.setForms(new StringMapObject());
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
-        _conf.removeLastPage();
         return strBean_;
     }
-    public static Argument processQuickEl(String _el, int _index, Configuration _conf) {
-        CustList<RendDynOperationNode> out_ = RenderExpUtil.getAnalyzed(_el,_index,_conf);
-        ContextEl context_ = _conf.getContext();
-        context_.setNullAnalyzing();
-        out_ = RenderExpUtil.getReducedNodes(out_.last());
-        return RenderExpUtil.calculateReuse(out_, _conf);
+    private static Argument instanceBean(BeanNatLgNames _nat, String _className, Configuration _conf) {
+        RendStandardInstancingOperation tmp_ = new RendStandardInstancingOperation(new ClassArgumentMatching(_className), new ConstructorId(_className, new StringList(), false));
+        IdMap<RendDynOperationNode, ArgumentsPair> idMap_ = new IdMap<RendDynOperationNode, ArgumentsPair>();
+        idMap_.addEntry(tmp_,new ArgumentsPair());
+        _nat.getCommonInstArgument(tmp_, idMap_,_conf);
+        return idMap_.firstValue().getArgument();
     }
     @Override
     public void forwardDataBase(Struct _bean, Struct _to, Configuration _conf) {
@@ -208,6 +203,14 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Argument argRes_ = new Argument();
         argRes_.setStruct(res_.getResult());
         return argRes_;
+    }
+
+    @Override
+    public void getCommonInstArgument(RendStandardInstancingOperation _rend, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
+        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_conf.getContext(), _rend.getConstId(), Argument.toArgArray(new CustList<Argument>()));
+        Argument arg_ = new Argument();
+        arg_.setStruct(res_.getResult());
+        _rend.setSimpleArgument(arg_,_conf,_nodes);
     }
 
     private StringMap<Validator> loadValidator(Element _elt) {

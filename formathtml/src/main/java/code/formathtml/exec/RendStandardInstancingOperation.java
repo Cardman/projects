@@ -50,26 +50,10 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (RendDynOperationNode o: filterInvoking(chidren_)) {
-            arguments_.add(getArgument(_nodes,o));
-        }
-        Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = getArgument(previous_, arguments_, _conf);
-        CallingState state_ = _conf.getContext().getCallingState();
-        if (state_ instanceof NotInitializedClass) {
-            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
-            if (_conf.getContext().hasException()) {
-                return;
-            }
-            argres_ = getArgument(previous_, arguments_, _conf);
-        }
-        processCall(_nodes,_conf,argres_);
+        _conf.getAdvStandards().getCommonInstArgument(this,_nodes,_conf);
     }
 
-    Argument getArgument(Argument _previous, CustList<Argument> _arguments,
+    public Argument getArgument(Argument _previous, CustList<Argument> _arguments,
                          Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<RendDynOperationNode> filter_ = filterInvoking(chidren_);
@@ -84,7 +68,10 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         }
         String lastType_ = Templates.quickFormat(className_, lastType, _conf.getContext());
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments, _conf);
-        return ExecInvokingOperation.instancePrepareFormat(_conf.getPageEl(),_conf.getContext(), className_, constId, _previous, firstArgs_, fieldName, blockIndex);
+        return ExecInvokingOperation.instancePrepareFormat(_conf.getPageEl(),_conf.getContext(), className_, getConstId(), _previous, firstArgs_, fieldName, blockIndex);
     }
 
+    public ConstructorId getConstId() {
+        return constId;
+    }
 }
