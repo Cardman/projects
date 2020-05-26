@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.PageEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -337,7 +338,7 @@ public abstract class NumberStruct implements DisplayableStruct {
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsDigit())) {
                     char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
-                    _res.setResult(BooleanStruct.of(ContextEl.isDigit(one_)));
+                    _res.setResult(BooleanStruct.of(StringExpUtil.isDigit(one_)));
                     return;
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsLetter())) {
@@ -621,7 +622,7 @@ public abstract class NumberStruct implements DisplayableStruct {
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsDigit())) {
                     char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(ContextEl.isDigit(one_)));
+                    return(BooleanStruct.of(StringExpUtil.isDigit(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsLetter())) {
                     char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();

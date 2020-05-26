@@ -53,7 +53,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         ContextEl ctx_ = context_.getContext();
         context_.setupAnalyzing();
         String elr_ = "v&=1/0 > 0";
-        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
@@ -81,7 +81,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         ContextEl ctx_ = context_.getContext();
         context_.setupAnalyzing();
         String elr_ = "v|=1/0 > 0";
-        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
@@ -109,7 +109,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         ContextEl ctx_ = context_.getContext();
         context_.setupAnalyzing();
         String elr_ = "v&=1 > 0";
-        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
@@ -124,6 +124,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertNotNull(getException(context_));
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
     }
+
+    private static Delimiters checkSyntax(ContextEl ctx_, String elr_) {
+        return ElResolver.checkSyntax(elr_, ctx_, 0);
+    }
+
     @Test
     public void processEl185Test() {
         Configuration context_ = getConfiguration4();
@@ -137,7 +142,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         ContextEl ctx_ = context_.getContext();
         context_.setupAnalyzing();
         String elr_ = "v|=1 > 0";
-        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
@@ -205,7 +210,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         ContextEl ctx_ = context_.getContext();
         context_.setupAnalyzing();
         String elr_ = "++v";
-        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
@@ -232,7 +237,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         ContextEl ctx_ = context_.getContext();
         context_.setupAnalyzing();
         String elr_ = "v++";
-        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
@@ -262,7 +267,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         ContextEl ctx_ = context_.getContext();
         context_.setupAnalyzing();
         String elr_ = "v[0i]++";
-        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
@@ -293,7 +298,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         ContextEl ctx_ = context_.getContext();
         context_.setupAnalyzing();
         String elr_ = "++v[0i]";
-        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);

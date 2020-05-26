@@ -17,7 +17,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4,3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
@@ -38,7 +38,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4,3).abs(4,3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -55,7 +55,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4+3).abs(4,3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -72,7 +72,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs($vararg([$int),4+3).abs(4,3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -89,7 +89,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs($vararg([$int),'[').abs(4,3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -106,7 +106,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs($vararg([$int),'[').abs(4,3)+8";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -123,7 +123,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*(1+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -140,7 +140,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('\\u9fcb'+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -157,7 +157,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('\\''+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -174,7 +174,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*(\"ab\"+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -191,7 +191,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-6*8";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -208,7 +208,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-abs(8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -224,7 +224,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs($vararg([$int),'[').abs(4,3)+8-9";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -241,7 +241,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1.8-abs(9)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -258,7 +258,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1.8";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -273,7 +273,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "\"18\"";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -289,7 +289,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "18";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -304,7 +304,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "(4+3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
@@ -322,7 +322,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$firstopt(4+3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -340,7 +340,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs($vararg([$int),4,3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
@@ -364,7 +364,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v;.";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -375,7 +375,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -391,7 +391,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4,3)[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -409,7 +409,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4,3)[14][5]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -427,7 +427,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4,3)[0,1]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -445,7 +445,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4,3)[14][5,0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -463,7 +463,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4,3)[14,0][5]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -481,7 +481,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4,3)[14,0][5,1]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -498,7 +498,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*(\"a b\"+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -536,17 +536,15 @@ public final class ElResolverTest extends ProcessMethodCommon{
         AnalyzedPageEl page_ = conf_.getAnalyzing();
         page_.setCurrentBlock(field_);
         page_.setCurrentAnaBlock(field_);
-        ((FieldBlock)field_).retrieveNames(conf_, new StringList());
         RootBlock rTwo_ = classes_.getClassBody("pkg.Composite");
         page_.setCurrentBlock(rTwo_.getFirstChild());
         page_.setCurrentAnaBlock(rTwo_.getFirstChild());
-        ((FieldBlock)rTwo_.getFirstChild()).retrieveNames(conf_, new StringList());
         Block b_ = field_.getNextSibling().getFirstChild();
         page_.setCurrentBlock(b_);
         page_.setCurrentAnaBlock(b_);
         Line l_ = (Line) b_;
         String el_ = l_.getExpression();
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -563,7 +561,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.call()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -574,7 +572,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.;call()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -585,7 +583,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.call().call()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -604,7 +602,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.;call().call()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -621,7 +619,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;;call().call()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -639,7 +637,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;call().call()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -657,7 +655,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new java.lang.Integer(\"8\")";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -676,7 +674,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "call().$new java.lang.Integer(\"8\")";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -695,7 +693,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new java.lang.Integer(\"8\").intValue()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -713,7 +711,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new java.lang.Integer[]{8i}";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -731,7 +729,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new java.lang.Integer(\"8\").intValue()+5";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -749,7 +747,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -767,7 +765,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.;[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -785,7 +783,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;;[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -803,7 +801,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -821,7 +819,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.f[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -839,7 +837,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.;f[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -857,7 +855,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;;f[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -875,7 +873,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;f[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -893,7 +891,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.f()[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -911,7 +909,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.;f()[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -929,7 +927,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;;f()[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -947,7 +945,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;f()[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -964,7 +962,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$static(pkg.classname).field";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -981,7 +979,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "- -1";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -998,7 +996,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-1";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1015,7 +1013,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-1.0";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1031,7 +1029,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1- -1";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1048,7 +1046,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "!a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1065,7 +1063,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "!!a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1082,7 +1080,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "b!=a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1100,7 +1098,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "b<=a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1119,7 +1117,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "b>=a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1138,7 +1136,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "b==a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1156,7 +1154,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "\"\\\"string\"";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -1173,7 +1171,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\\''";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -1190,7 +1188,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\\\\'";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -1207,7 +1205,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$firstopt(\"\\\"string\")";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -1226,7 +1224,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$firstopt('\\'')";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -1245,7 +1243,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$firstopt('\\\\')";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -1264,7 +1262,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$firstopt(1.0)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -1283,7 +1281,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs($vararg(java.lang.Object),$firstopt(4),3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(4, opers_.size());
@@ -1306,7 +1304,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs($vararg(java.lang.Object),$firstopt(4;.;),3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
@@ -1330,7 +1328,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs($vararg(java.lang.Object),$firstopt(4;.),3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
@@ -1354,7 +1352,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$firstopt(v;.)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -1373,7 +1371,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$firstopt(v;.;)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -1392,7 +1390,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$firstopt(v;)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -1411,7 +1409,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$firstopt(v;;)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -1431,7 +1429,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$firstopt(v;.t)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -1450,7 +1448,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$firstopt(v;.;t)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -1469,7 +1467,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$firstopt(v;t)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -1490,7 +1488,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$firstopt(v;;t)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -1509,7 +1507,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-10";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1526,7 +1524,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1543,7 +1541,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-1d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1561,7 +1559,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-1.0d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1578,7 +1576,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "a&&b!=c";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1595,7 +1593,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('\\u9Fcb'+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1613,7 +1611,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*(\"\\u9Fcb\"+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1630,7 +1628,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('\\n'+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1648,7 +1646,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*(\"\\n\"+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1665,7 +1663,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('\\r'+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1683,7 +1681,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*(\"\\r\"+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1701,7 +1699,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('\\b'+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1718,7 +1716,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*(\"\\b\"+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1735,7 +1733,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('\\t'+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1752,7 +1750,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*(\"\\t\"+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1769,7 +1767,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "\"\\\"string\"+\"\\\"string\"";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1786,7 +1784,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "\"\\\\\\\"string\"+\"\\\"string\"";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1804,7 +1802,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('\\f'+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1821,7 +1819,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*(\"\\f\"+8)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1839,7 +1837,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "!!field";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1855,7 +1853,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "!field!=anotherfield";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1872,7 +1870,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "field!=!anotherfield";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1889,7 +1887,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "!field!=!anotherfield";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1907,7 +1905,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v;.news.a()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
@@ -1946,13 +1944,12 @@ public final class ElResolverTest extends ProcessMethodCommon{
         AnalyzedPageEl page_ = conf_.getAnalyzing();
         page_.setCurrentBlock(field_);
         page_.setCurrentAnaBlock(field_);
-        ((FieldBlock)field_).retrieveNames(conf_, new StringList());
         Block b_ = field_.getNextSibling().getFirstChild();
         page_.setCurrentBlock(b_);
         page_.setCurrentAnaBlock(b_);
         Line l_ = (Line) b_;
         String el_ = l_.getExpression();
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1970,7 +1967,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.f";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1981,7 +1978,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.;f";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -1992,7 +1989,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "+a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2009,7 +2006,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "a||b";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2027,7 +2024,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "a&&b";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2045,7 +2042,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "a||b&&c";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2063,7 +2060,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "a&&b||c";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2081,7 +2078,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "!a||b";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2099,7 +2096,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "!a&&b";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2117,7 +2114,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "!a||b&&c";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2135,7 +2132,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "!a&&b||c";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2153,7 +2150,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "(a||b)&&c";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2171,7 +2168,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "(a|b)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -2189,7 +2186,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v;.[0i].array[0i]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2207,7 +2204,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "var;.$new java.lang.Integer(\"8\")";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2218,7 +2215,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1e2";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2233,7 +2230,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1e-2";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2248,7 +2245,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1.0e2";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2263,7 +2260,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1.0e-2";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2278,7 +2275,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1.e2";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2293,7 +2290,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1.e-2";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2308,7 +2305,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = ".1e2";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2323,7 +2320,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = ".1e-2";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2338,7 +2335,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = ".1";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2353,7 +2350,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-.1";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2369,7 +2366,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-.1e2";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2385,7 +2382,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-.1e-2";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2401,7 +2398,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1.";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2416,7 +2413,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-.1e-2+.5";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2433,7 +2430,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-.1e-2d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2449,7 +2446,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "lbs(4,3)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
@@ -2470,7 +2467,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = " !a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2486,7 +2483,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "! a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2502,7 +2499,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "- - a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2518,7 +2515,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "- -a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2534,7 +2531,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = " - -a";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2550,7 +2547,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-.1_0e-2d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2566,7 +2563,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-.1e-2_0d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2582,7 +2579,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-.1_0";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2598,7 +2595,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-.1_0d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2614,7 +2611,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-.1e1_0d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2630,7 +2627,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1_0d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2645,7 +2642,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = ".1_0";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2660,7 +2657,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = ".1_0d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2675,7 +2672,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-1_0d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2691,7 +2688,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1_0d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2706,7 +2703,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1.d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2721,7 +2718,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-.2_0e1_0d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2737,7 +2734,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-1.2_0e1_0d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2753,7 +2750,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1.1_0";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2768,7 +2765,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1.1_0d";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2783,7 +2780,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$classchoice($math)abs()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -2800,7 +2797,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v+=b";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2817,7 +2814,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v++";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2832,7 +2829,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$classchoice($math)abs";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2846,7 +2843,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$classchoice($math)abs$.field";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2862,7 +2859,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$this()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -2878,7 +2875,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$this ()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -2894,7 +2891,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$this";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -2908,7 +2905,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$($int)1";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2923,7 +2920,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$($int) 1";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2938,7 +2935,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = " $($int)1";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2953,7 +2950,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-$($int)1";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2968,7 +2965,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$($int)$($byte)1";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2983,7 +2980,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 $instanceof $byte";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2999,7 +2996,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 $instanceof pkg.List<two.Tmp>";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3015,7 +3012,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 $instanceof pkg.List<two.Tmp,three.Sec>";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3031,7 +3028,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 $instanceof pkg.List<two.Tmp<three.Sec>>";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3047,7 +3044,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 $instanceof pkg.List<two.Tmp<three.Sec>>==$true";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3063,7 +3060,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v; $instanceof $byte";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3079,7 +3076,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v $instanceof $byte";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3095,7 +3092,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v() $instanceof $byte";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3111,7 +3108,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$true==1 $instanceof pkg.List<two.Tmp<three.Sec>>";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3127,7 +3124,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 $instanceof #T";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3143,7 +3140,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 $instanceof pkg . One";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3159,7 +3156,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$interfaces(pkg.MyClass)(arg;.)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -3177,7 +3174,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -3196,7 +3193,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-.1e-2-.5";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3212,7 +3209,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 $instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3228,7 +3225,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 $instanceof pkg.List<two.Tmp<three.Sec>>..Inner<other>==$true";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3244,7 +3241,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v; $instanceof $byte[]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3284,7 +3281,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3327,7 +3324,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3370,7 +3367,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3415,7 +3412,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3468,7 +3465,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3513,7 +3510,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         conf_.getAnalyzing().setImporting(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3534,7 +3531,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "a<b>c";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -3555,7 +3552,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new java.lang.Integer[8i]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -3574,7 +3571,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new java.lang.Integer[8i][]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -3593,7 +3590,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new java.lang.Integer[8i][5i]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(4, opers_.size());
@@ -3615,7 +3612,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new java.lang.Integer[8i][][]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -3633,7 +3630,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new List<java.lang.Integer>[8i]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -3651,7 +3648,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new List<java.lang.Integer[]>[8i]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -3669,7 +3666,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new List<java.lang.Integer[]>[8i][]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -3688,7 +3685,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new java.lang.Integer(8i)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -3738,7 +3735,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "integer=1=0";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3756,7 +3753,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 $instanceof pkg.List<two.Tmp>[]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3772,7 +3769,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 $instanceof pkg.List<two.Tmp>[ ]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3788,7 +3785,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 $instanceof $byte[ ]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3804,7 +3801,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 $instanceof pkg.List<two.Tmp> []";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3820,7 +3817,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4,3)[0](1,2)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3837,7 +3834,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4,3)[0](1)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3854,7 +3851,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4,3)[0]((1,2))";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3871,7 +3868,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4,3)[0](-(1,2))";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3888,7 +3885,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "((1))";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
@@ -3904,7 +3901,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "(1)=5";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3920,7 +3917,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "abs(4,3)[0]{1}";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3938,7 +3935,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "0x1";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -3960,7 +3957,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "0x1f";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -3982,7 +3979,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "0x1p0";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -4004,7 +4001,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "0x1fp0";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -4026,7 +4023,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "0x1.2p0";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -4048,7 +4045,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "0x1f.2p0";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -4070,7 +4067,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "`18`";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -4086,7 +4083,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "`18``36`";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -4102,7 +4099,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "tab[0]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -4121,7 +4118,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "tab[0][1]";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -4140,7 +4137,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "3*";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -4157,7 +4154,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "4. ";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         IntTreeMap<String> opers_ = seq_.getOperators();
         assertEq(0, opers_.size());
@@ -4171,7 +4168,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "[";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(1, d_.getBadOffset());
     }
 
@@ -4180,7 +4177,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "++";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(0, d_.getAllowedOperatorsIndexes().size());
     }
 
@@ -4189,7 +4186,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "`";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(1, d_.getBadOffset());
     }
 
@@ -4198,7 +4195,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "\"\n\"";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(-1, d_.getBadOffset());
     }
 
@@ -4207,7 +4204,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\t'";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(-1, d_.getBadOffset());
     }
 
@@ -4216,7 +4213,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "\"\r\"";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(-1, d_.getBadOffset());
     }
     @Test
@@ -4224,7 +4221,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "--";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(0, d_.getAllowedOperatorsIndexes().size());
     }
 
@@ -4233,7 +4230,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "-";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(0, d_.getAllowedOperatorsIndexes().size());
     }
 
@@ -4242,7 +4239,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "+";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(0, d_.getAllowedOperatorsIndexes().size());
     }
 
@@ -4251,7 +4248,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1+$)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(4, d_.getBadOffset());
     }
 
@@ -4260,7 +4257,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1+$(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(4, d_.getBadOffset());
     }
 
@@ -4269,7 +4266,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1+$()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(5, d_.getBadOffset());
     }
 
@@ -4278,7 +4275,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "(}";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(1, d_.getBadOffset());
     }
 
@@ -4287,7 +4284,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "}";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(0, d_.getBadOffset());
     }
 
@@ -4296,7 +4293,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "([v )";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(4, d_.getBadOffset());
     }
 
@@ -4305,7 +4302,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = " ";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(1, d_.getBadOffset());
     }
 
@@ -4314,7 +4311,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(2, d_.getBadOffset());
     }
 
@@ -4323,7 +4320,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(2, d_.getBadOffset());
     }
 
@@ -4332,7 +4329,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(3, d_.getBadOffset());
     }
 
@@ -4341,7 +4338,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$vararg(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(8, d_.getBadOffset());
     }
 
@@ -4350,7 +4347,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$class)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(7, d_.getBadOffset());
     }
 
@@ -4359,7 +4356,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$class(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(7, d_.getBadOffset());
     }
 
@@ -4368,7 +4365,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$instanceof(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(11, d_.getBadOffset());
     }
 
@@ -4377,7 +4374,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$id)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(4, d_.getBadOffset());
     }
 
@@ -4386,7 +4383,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$id(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(4, d_.getBadOffset());
     }
 
@@ -4395,7 +4392,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$lambda)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(8, d_.getBadOffset());
     }
 
@@ -4404,7 +4401,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$lambda(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(8, d_.getBadOffset());
     }
 
@@ -4413,7 +4410,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$static(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(7, d_.getBadOffset());
     }
 
@@ -4422,7 +4419,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$static() ";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(9, d_.getBadOffset());
     }
 
@@ -4431,7 +4428,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$super";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(6, d_.getBadOffset());
     }
 
@@ -4440,7 +4437,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$super,";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(6, d_.getBadOffset());
     }
 
@@ -4449,7 +4446,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$thisaccess(MyClass)method,";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(26, d_.getBadOffset());
     }
 
@@ -4458,7 +4455,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$thisaccess(MyClass)method";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(26, d_.getBadOffset());
     }
 
@@ -4467,7 +4464,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$thisaccess(MyClass)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(19, d_.getBadOffset());
     }
 
@@ -4476,7 +4473,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$thisaccess(MyClass";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(19, d_.getBadOffset());
     }
 
@@ -4485,7 +4482,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$thisaccess(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(11, d_.getBadOffset());
     }
 
@@ -4494,7 +4491,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$thisaccess,";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(11, d_.getBadOffset());
     }
 
@@ -4503,7 +4500,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$thisaccess";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(10, d_.getBadOffset());
     }
 
@@ -4512,7 +4509,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$that,";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(5, d_.getBadOffset());
     }
 
@@ -4521,7 +4518,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$that";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(5, d_.getBadOffset());
     }
 
@@ -4530,7 +4527,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$that.method";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(12, d_.getBadOffset());
     }
 
@@ -4539,7 +4536,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$that.method,";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(12, d_.getBadOffset());
     }
 
@@ -4548,7 +4545,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$thisaccess(MyClass) ";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(21, d_.getBadOffset());
     }
 
@@ -4557,7 +4554,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$superaccess(MyClass)method,";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(27, d_.getBadOffset());
     }
 
@@ -4566,7 +4563,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$superaccess(MyClass)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(20, d_.getBadOffset());
     }
 
@@ -4575,7 +4572,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$superaccess(MyClass";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(20, d_.getBadOffset());
     }
 
@@ -4584,7 +4581,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$superaccess(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(12, d_.getBadOffset());
     }
 
@@ -4593,7 +4590,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$superaccess,";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(12, d_.getBadOffset());
     }
 
@@ -4602,7 +4599,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$superaccess";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(11, d_.getBadOffset());
     }
 
@@ -4611,7 +4608,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$superaccess(MyClass) ";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(22, d_.getBadOffset());
     }
 
@@ -4620,7 +4617,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$interfaces(MyClass),";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(20, d_.getBadOffset());
     }
 
@@ -4629,7 +4626,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$interfaces(MyClass) ";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(21, d_.getBadOffset());
     }
 
@@ -4638,7 +4635,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$interfaces(MyClass)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(19, d_.getBadOffset());
     }
 
@@ -4647,7 +4644,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$interfaces(MyClass";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(19, d_.getBadOffset());
     }
 
@@ -4656,7 +4653,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$interfaces( ";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(13, d_.getBadOffset());
     }
 
@@ -4665,7 +4662,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$interfaces,";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(11, d_.getBadOffset());
     }
 
@@ -4674,7 +4671,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$interfaces";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(10, d_.getBadOffset());
     }
 
@@ -4683,7 +4680,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$interfaces(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(11, d_.getBadOffset());
     }
 
@@ -4692,7 +4689,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$classchoice,";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(12, d_.getBadOffset());
     }
 
@@ -4701,7 +4698,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$static()  ";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(11, d_.getBadOffset());
     }
 
@@ -4710,7 +4707,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$bool";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(5, d_.getBadOffset());
     }
 
@@ -4719,7 +4716,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$bool ean()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(5, d_.getBadOffset());
     }
 
@@ -4728,7 +4725,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$defaultValue)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(14, d_.getBadOffset());
     }
 
@@ -4737,7 +4734,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$defaultValue(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(14, d_.getBadOffset());
     }
 
@@ -4746,7 +4743,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1+explicit(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(11, d_.getBadOffset());
     }
 
@@ -4755,7 +4752,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1+explicit()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(12, d_.getBadOffset());
     }
 
@@ -4764,7 +4761,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1+explicit)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(11, d_.getBadOffset());
     }
     @Test
@@ -4772,7 +4769,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "explicit(";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(9, d_.getBadOffset());
     }
 
@@ -4781,7 +4778,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "explicit()";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(10, d_.getBadOffset());
     }
 
@@ -4790,7 +4787,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "explicit)";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(9, d_.getBadOffset());
     }
     @Test
@@ -4798,7 +4795,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1==0";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(1, d_.getAllowedOperatorsIndexes().size());
         assertEq(1, d_.getAllowedOperatorsIndexes().first());
     }
@@ -4807,7 +4804,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1 ";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(0, d_.getAllowedOperatorsIndexes().size());
     }
     @Test
@@ -4815,7 +4812,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9fcb'+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1);
+        Delimiters d_ = checkSyntaxDelimiters(conf_, el_, 1);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(11, d_.getDelStringsChars().last());
@@ -4828,7 +4825,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9fcb'+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1);
+        Delimiters d_ = checkSyntaxDelimiters(conf_, el_, 1);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(11, d_.getDelStringsChars().last());
@@ -4841,7 +4838,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('`'+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1);
+        Delimiters d_ = checkSyntaxDelimiters(conf_, el_, 1);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(6, d_.getDelStringsChars().last());
@@ -4854,7 +4851,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('}'+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1);
+        Delimiters d_ = checkSyntaxDelimiters(conf_, el_, 1);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(6, d_.getDelStringsChars().last());
@@ -4862,12 +4859,16 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(9, d_.getIndexEnd());
     }
 
+    private static Delimiters checkSyntaxDelimiters(ContextEl conf_, String el_, int _minIndex) {
+        return ElResolver.checkSyntaxDelimiters(el_, conf_, _minIndex);
+    }
+
     @Test
     public void checkSyntaxDelimiters5Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = " {6*('\\u9fcb'+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2);
+        Delimiters d_ = checkSyntaxDelimiters(conf_, el_, 2);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(5, d_.getDelStringsChars().first());
         assertEq(12, d_.getDelStringsChars().last());
@@ -4880,7 +4881,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = " {6*(\"//\"+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2);
+        Delimiters d_ = checkSyntaxDelimiters(conf_, el_, 2);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(5, d_.getDelStringsChars().first());
         assertEq(8, d_.getDelStringsChars().last());
@@ -4893,7 +4894,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = " {$new $int[]{1i,3i}}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2);
+        Delimiters d_ = checkSyntaxDelimiters(conf_, el_, 2);
         assertEq(3, d_.getAllowedOperatorsIndexes().size());
         assertEq(13, d_.getAllowedOperatorsIndexes().first());
         assertEq(16, d_.getAllowedOperatorsIndexes().get(1));
@@ -4906,28 +4907,28 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9fcb'+8)";
-        assertEq(15, ElResolver.checkSyntaxDelimiters(el_, conf_, 1).getBadOffset());
+        assertEq(15, checkSyntaxDelimiters(conf_, el_, 1).getBadOffset());
     }
     @Test
     public void checkSyntaxDelimiters4FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9fcb'+8\\";
-        assertEq(15, ElResolver.checkSyntaxDelimiters(el_, conf_, 1).getBadOffset());
+        assertEq(15, checkSyntaxDelimiters(conf_, el_, 1).getBadOffset());
     }
     @Test
     public void checkSyntaxDelimiters5FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9fcb'+8\\ ";
-        assertEq(16, ElResolver.checkSyntaxDelimiters(el_, conf_, 1).getBadOffset());
+        assertEq(16, checkSyntaxDelimiters(conf_, el_, 1).getBadOffset());
     }
     @Test
     public void checkSyntaxDelimiters8Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*(`string`+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1);
+        Delimiters d_ = checkSyntaxDelimiters(conf_, el_, 1);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(11, d_.getDelStringsChars().last());
@@ -4939,7 +4940,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*(`string``after`+8)}";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1);
+        Delimiters d_ = checkSyntaxDelimiters(conf_, el_, 1);
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first());
         assertEq(18, d_.getDelStringsChars().last());
@@ -4951,7 +4952,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9fcb'+8){";
-        assertEq(16, ElResolver.checkSyntaxDelimiters(el_, conf_, 1).getBadOffset());
+        assertEq(16, checkSyntaxDelimiters(conf_, el_, 1).getBadOffset());
     }
 
     @Test
@@ -4959,7 +4960,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9gcb'+8)}";
-        assertEq(8, ElResolver.checkSyntaxDelimiters(el_, conf_, 1).getBadOffset());
+        assertEq(8, checkSyntaxDelimiters(conf_, el_, 1).getBadOffset());
     }
 
     @Test
@@ -4967,7 +4968,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('\\u9gcb'+8)";
-        assertEq(7, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(7, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -4975,7 +4976,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('\\g'+8)";
-        assertEq(5, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(5, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -4983,7 +4984,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('ab'+8)";
-        assertEq(6, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(6, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -4991,7 +4992,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('a'+[8)]";
-        assertEq(9, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(9, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -4999,7 +5000,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*['a'+(8])";
-        assertEq(9, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(9, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5007,7 +5008,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*(\"t\\u98\"+[8])";
-        assertEq(9, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(9, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5015,7 +5016,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*(\"t\\u98 \"+[8])";
-        assertEq(9, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(9, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5023,7 +5024,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$static.a";
-        assertEq(7, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(7, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5031,7 +5032,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1< =2";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5039,7 +5040,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1> =2";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5047,7 +5048,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1! =2";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5055,7 +5056,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v '";
-        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(3, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5063,7 +5064,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v; .";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5071,7 +5072,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v;. ;";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5079,7 +5080,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v; ;";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5087,7 +5088,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "v;  ;";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5095,7 +5096,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\\";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5103,7 +5104,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "\"\\";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5111,7 +5112,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "\"\\u9fc";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5119,7 +5120,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\\u9fc";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5127,7 +5128,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "\"\\g9fc";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5135,7 +5136,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\\g9fc";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5143,7 +5144,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "\"\\u9fcb";
-        assertEq(7, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(7, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5151,7 +5152,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\\u9fcb";
-        assertEq(7, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(7, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5159,7 +5160,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1)";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5167,7 +5168,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "(1";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5175,7 +5176,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "1]";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5183,7 +5184,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "[1";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5191,7 +5192,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new java.lang.Integer";
-        assertEq(21, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(21, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5199,7 +5200,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$new java.lang.Integer(?java";
-        assertEq(28, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(28, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5207,7 +5208,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "a,b";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5215,7 +5216,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "integer[?java";
-        assertEq(13, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(13, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5223,7 +5224,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$static(pkg$classname";
-        assertEq(22, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(22, checkSyntax(conf_, el_).getBadOffset());
     }
 
 
@@ -5232,7 +5233,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$vararg";
-        assertEq(7, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(7, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5240,7 +5241,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$vararg+4";
-        assertEq(9, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(9, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5248,7 +5249,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\\u9";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5256,7 +5257,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\\u9'";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5264,7 +5265,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$classchoice($math";
-        assertEq(18, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(18, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5272,7 +5273,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$classchoice($math$$";
-        assertEq(20, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(20, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5280,7 +5281,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$classchoice(";
-        assertEq(12, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(12, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5288,7 +5289,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$classchoice($math$abs$";
-        assertEq(23, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(23, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5296,7 +5297,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$classchoice($math$abs)";
-        assertEq(22, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(22, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5304,7 +5305,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$classchoice($math$abs) ";
-        assertEq(24, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(24, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5312,7 +5313,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$classchoice ";
-        assertEq(12, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(12, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5320,7 +5321,11 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$that.";
-        assertEq(5, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(5, checkSyntax(conf_, el_).getBadOffset());
+    }
+
+    private static Delimiters checkSyntax(ContextEl conf_, String el_) {
+        return ElResolver.checkSyntax(el_, conf_, 0);
     }
 
     @Test
@@ -5328,7 +5333,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$this(";
-        assertEq(6, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(6, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5336,7 +5341,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$that.call";
-        assertEq(10, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(10, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5344,7 +5349,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$that.call$";
-        assertEq(11, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(11, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5352,7 +5357,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$that.call$$";
-        assertEq(12, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(12, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5360,14 +5365,14 @@ public final class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "$classchoice($math$abs$$abs;)";
-        assertEq(28, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(28, checkSyntax(conf_, el_).getBadOffset());
     }
     @Test
     public void checkSyntax94FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "_1";
-        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(0, d_.getDelNumbers().size());
     }
 

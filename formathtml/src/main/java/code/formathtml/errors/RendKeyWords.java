@@ -1,6 +1,7 @@
 package code.formathtml.errors;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.stds.ErrorCat;
 import code.expressionlanguage.errors.stds.StdWordError;
@@ -451,7 +452,7 @@ public final class RendKeyWords {
                     break;
                 }
             }
-            if (ContextEl.isDigit(keyWordValue_.charAt(0))) {
+            if (StringExpUtil.isDigit(keyWordValue_.charAt(0))) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirst(),keyWordValue_,Character.toString(keyWordValue_.charAt(0))));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);

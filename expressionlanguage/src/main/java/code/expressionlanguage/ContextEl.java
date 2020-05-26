@@ -526,11 +526,6 @@ public abstract class ContextEl {
         _parts.add(new PartOffset("</a>",rc_+_end));
     }
 
-
-    public static boolean isDigit(char _char) {
-        return _char >= '0' && _char <= '9';
-    }
-
     public FieldInfo getFieldInfo(ClassField _classField) {
         GeneType g_ = getClassBody(_classField.getClassName());
         String search_ = _classField.getFieldName();
@@ -548,7 +543,9 @@ public abstract class ContextEl {
                 boolean static_ = i_.isStaticField();
                 return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_,i_);
             }
-        } else if (g_ instanceof StandardType) {
+            return null;
+        }
+        if (g_ instanceof StandardType) {
             for (EntryCust<String, StandardField> f: ((StandardType)g_).getFields().entryList()) {
                 StandardField f_ = f.getValue();
                 if (!StringList.contains(f_.getFieldName(), search_)) {
@@ -593,11 +590,9 @@ public abstract class ContextEl {
 
     public boolean isAnnotAnalysis(OperationNode _op, OperationsSequence _seq) {
         boolean ok_ = false;
-        if (analyzing.getCurrentBlock() instanceof AnnotationMethodBlock && _op == null) {
-            ok_ = true;
-        } else if (_op instanceof AssocationOperation){
-            ok_ = true;
-        } else if (_op instanceof AnnotationInstanceOperation){
+        if ((analyzing.getCurrentBlock() instanceof AnnotationMethodBlock && _op == null)
+                || _op instanceof AssocationOperation
+                || _op instanceof AnnotationInstanceOperation) {
             ok_ = true;
         }
         if (!ok_) {
@@ -694,7 +689,7 @@ public abstract class ContextEl {
         if (StringList.quickEq(_id, standards.getAliasVoid())) {
             return false;
         }
-        return !isDigit(_id.charAt(0));
+        return !StringExpUtil.isDigit(_id.charAt(0));
     }
 
     public boolean hasToExit(String _className) {

@@ -2,7 +2,6 @@ package code.expressionlanguage.instr;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.common.FunctionIdUtil;
 import code.expressionlanguage.common.GeneType;
@@ -38,7 +37,7 @@ public final class ElUtil {
     public static CustList<PartOffsetAffect> getFieldNames(int _valueOffset, String _el, ContextEl _conf, Calculation _calcul) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _conf.getAnalyzing().setAccessStaticContext(hiddenVarTypes_);
-        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
+        Delimiters d_ = ElResolver.checkSyntaxQuick(_el, _conf);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         CustList<PartOffsetAffect> names_ = new CustList<PartOffsetAffect>();
         if (opTwo_.getOperators().isEmpty()) {

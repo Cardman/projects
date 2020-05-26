@@ -12,6 +12,7 @@ import code.expressionlanguage.inherits.ResolvingSuperTypes;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.instr.PartOffsetAffect;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecAffectationOperation;
@@ -102,6 +103,13 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     @Override
     public String getUniqueFieldName() {
         return fieldName;
+    }
+
+    @Override
+    public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
+        CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
+        fields_.add(new PartOffsetAffect(new PartOffset(fieldName,valueOffest),true));
+        FieldBlock.checkFieldsNames(_cont,this,_fieldNames,fields_);
     }
 
     @Override

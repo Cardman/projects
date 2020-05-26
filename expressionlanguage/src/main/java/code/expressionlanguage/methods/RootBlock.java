@@ -624,7 +624,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         CustList<OverridableBlock> indexersGet_ = new CustList<OverridableBlock>();
         CustList<OverridableBlock> indexersSet_ = new CustList<OverridableBlock>();
         CustList<ConstructorId> idConstructors_ = new CustList<ConstructorId>();
-        StringList idsField_ = new StringList();
         StringList idsAnnotMethods_ = new StringList();
         CustList<Block> bl_;
         bl_ = Classes.getDirectChildren(this);
@@ -681,121 +680,58 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
         CustList<OverridableBlock> explicit_ = new CustList<OverridableBlock>();
         for (Block b: bl_) {
-            if (b instanceof Returnable) {
-                Returnable method_ = (Returnable) b;
-                String name_ = method_.getName();
-                if (method_ instanceof OverridableBlock) {
-                    OverridableBlock m_ = (OverridableBlock) method_;
-                    if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
-                        m_.buildImportedTypes(_context);
-                        if (!StringList.quickEq(m_.getImportedReturnType(),getGenericString())) {
-                            int r_ = m_.getNameOffset();
-                            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                            badMeth_.setFileName(getFile().getFileName());
-                            badMeth_.setIndexFile(r_);
-                            //method name len
-                            badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
-                                    m_.getSignature(_context),
-                                    getGenericString());
-                            _context.addError(badMeth_);
-                        } else if (m_.getParametersTypes().size() != 1) {
-                            int r_ = m_.getNameOffset();
-                            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                            badMeth_.setFileName(getFile().getFileName());
-                            badMeth_.setIndexFile(r_);
-                            //method name len
-                            badMeth_.buildError(_context.getAnalysisMessages().getBadParams(),
-                                    m_.getSignature(_context));
-                            _context.addError(badMeth_);
-                        } else if (!m_.isStaticMethod()) {
-                            int r_ = m_.getNameOffset();
-                            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                            badMeth_.setFileName(getFile().getFileName());
-                            badMeth_.setIndexFile(r_);
-                            //method name len
-                            badMeth_.buildError(_context.getAnalysisMessages().getBadMethodModifier(),
-                                    m_.getSignature(_context));
-                            _context.addError(badMeth_);
-                        } else if (m_.isVarargs()) {
-                            int r_ = m_.getNameOffset();
-                            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                            badMeth_.setFileName(getFile().getFileName());
-                            badMeth_.setIndexFile(r_);
-                            //method name len
-                            badMeth_.buildError(_context.getAnalysisMessages().getBadMethodVararg(),
-                                    m_.getSignature(_context));
-                            _context.addError(badMeth_);
-                        } else {
-                            explicit_.add(m_);
-
-                        }
-                    } else if (m_.getKind() == MethodKind.STD_METHOD) {
-                        m_.buildImportedTypes(_context);
-                        if (!_context.isValidToken(name_) && !StringList.quickEq(name_, keyWords_.getKeyWordToString())) {
-                            int r_ = m_.getNameOffset();
-                            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                            badMeth_.setFileName(getFile().getFileName());
-                            badMeth_.setIndexFile(r_);
-                            //method name len
-                            badMeth_.buildError(_context.getAnalysisMessages().getBadMethodName(),
-                                    name_);
-                            _context.addError(badMeth_);
-                        } else if (StringList.quickEq(name_, keyWords_.getKeyWordToString()) && !m_.hiddenInstance() && m_.getParametersTypes().isEmpty()) {
-                            if (!StringList.quickEq(m_.getImportedReturnType(),stds_.getAliasString())) {
-                                int r_ = m_.getNameOffset();
-                                FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                                badMeth_.setFileName(getFile().getFileName());
-                                badMeth_.setIndexFile(r_);
-                                //method name len
-                                badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
-                                        name_,
-                                        stds_.getAliasString());
-                                _context.addError(badMeth_);
-                            } else if (m_.getAccess() != AccessEnum.PUBLIC) {
-                                int r_ = m_.getNameOffset();
-                                FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                                badMeth_.setFileName(getFile().getFileName());
-                                badMeth_.setIndexFile(r_);
-                                //method name len
-                                badMeth_.buildError(_context.getAnalysisMessages().getBadAccess(),
-                                        name_);
-                                _context.addError(badMeth_);
-                            }
-                            _context.getClasses().getToStringMethods().addEntry(getFullName(),m_);
-                        }
+            if (!(b instanceof Returnable)) {
+                continue;
+            }
+            Returnable method_ = (Returnable) b;
+            String name_ = method_.getName();
+            if (method_ instanceof OverridableBlock) {
+                OverridableBlock m_ = (OverridableBlock) method_;
+                m_.buildImportedTypes(_context);
+                if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
+                    if (!StringList.quickEq(m_.getImportedReturnType(),getGenericString())) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
+                                m_.getSignature(_context),
+                                getGenericString());
+                        _context.addError(badMeth_);
+                    } else if (m_.getParametersTypes().size() != 1) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadParams(),
+                                m_.getSignature(_context));
+                        _context.addError(badMeth_);
+                    } else if (!m_.isStaticMethod()) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadMethodModifier(),
+                                m_.getSignature(_context));
+                        _context.addError(badMeth_);
+                    } else if (m_.isVarargs()) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadMethodVararg(),
+                                m_.getSignature(_context));
+                        _context.addError(badMeth_);
                     } else {
-                        if (m_.isStaticMethod()) {
-                            int where_ = b.getOffset().getOffsetTrim();
-                            FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                            unexp_.setFileName(getFile().getFileName());
-                            unexp_.setIndexFile(where_);
-                            //key word this len
-                            unexp_.buildError(_context.getAnalysisMessages().getBadIndexerModifier(),
-                                    m_.getSignature(_context));
-                            _context.addError(unexp_);
-                        }
-                        if (m_.getParametersTypes().isEmpty()) {
-                            int where_ = b.getOffset().getOffsetTrim();
-                            FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                            unexp_.setFileName(getFile().getFileName());
-                            unexp_.setIndexFile(where_);
-                            //key word this len
-                            unexp_.buildError(_context.getAnalysisMessages().getBadIndexerParams(),
-                                    m_.getSignature(_context));
-                            _context.addError(unexp_);
-                        }
-                        m_.buildImportedTypes(_context);
-                        if (m_.getKind() == MethodKind.GET_INDEX) {
-                            indexersGet_.add(m_);
-                        } else {
-                            indexersSet_.add(m_);
-                        }
+                        explicit_.add(m_);
+
                     }
-                }
-                if (method_ instanceof AnnotationMethodBlock) {
-                    AnnotationMethodBlock m_ = (AnnotationMethodBlock) method_;
-                    m_.buildImportedTypes(_context);
-                    if (!_context.isValidToken(name_)) {
+                } else if (m_.getKind() == MethodKind.STD_METHOD) {
+                    if (!_context.isValidToken(name_) && !StringList.quickEq(name_, keyWords_.getKeyWordToString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
@@ -804,187 +740,235 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         badMeth_.buildError(_context.getAnalysisMessages().getBadMethodName(),
                                 name_);
                         _context.addError(badMeth_);
+                    } else if (StringList.quickEq(name_, keyWords_.getKeyWordToString()) && !m_.hiddenInstance() && m_.getParametersTypes().isEmpty()) {
+                        if (!StringList.quickEq(m_.getImportedReturnType(),stds_.getAliasString())) {
+                            int r_ = m_.getNameOffset();
+                            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                            badMeth_.setFileName(getFile().getFileName());
+                            badMeth_.setIndexFile(r_);
+                            //method name len
+                            badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
+                                    name_,
+                                    stds_.getAliasString());
+                            _context.addError(badMeth_);
+                        } else if (m_.getAccess() != AccessEnum.PUBLIC) {
+                            int r_ = m_.getNameOffset();
+                            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                            badMeth_.setFileName(getFile().getFileName());
+                            badMeth_.setIndexFile(r_);
+                            //method name len
+                            badMeth_.buildError(_context.getAnalysisMessages().getBadAccess(),
+                                    name_);
+                            _context.addError(badMeth_);
+                        }
+                        _context.getClasses().getToStringMethods().addEntry(getFullName(),m_);
                     }
-                }
-                if (method_ instanceof OverridableBlock) {
-                    OverridableBlock m_ = (OverridableBlock) method_;
-                    if (m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.EXPLICIT_CAST) {
-                        MethodId id_ = m_.getId();
-                        if (ContextEl.isEnumType(this)) {
-                            String valueOf_ = stds_.getAliasEnumPredValueOf();
-                            String values_ = stds_.getAliasEnumValues();
-                            String string_ = stds_.getAliasString();
-                            if (id_.eq(new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_)))) {
-                                int r_ = m_.getOffset().getOffsetTrim();
-                                FoundErrorInterpret duplicate_;
-                                duplicate_ = new FoundErrorInterpret();
-                                duplicate_.setIndexFile(r_);
-                                duplicate_.setFileName(getFile().getFileName());
-                                //method name len
-                                duplicate_.buildError(_context.getAnalysisMessages().getReservedCustomMethod(),
-                                        id_.getSignature(_context));
-                                _context.addError(duplicate_);
-                            }
-                            if (id_.eq(new MethodId(MethodAccessKind.STATIC, values_, new StringList()))) {
-                                int r_ = m_.getOffset().getOffsetTrim();
-                                FoundErrorInterpret duplicate_;
-                                duplicate_ = new FoundErrorInterpret();
-                                duplicate_.setIndexFile(r_);
-                                duplicate_.setFileName(getFile().getFileName());
-                                //method name len
-                                duplicate_.buildError(_context.getAnalysisMessages().getReservedCustomMethod(),
-                                        id_.getSignature(_context));
-                                _context.addError(duplicate_);
-                            }
-                        }
-                        for (MethodId m: idMethods_) {
-                            if (m.eq(id_)) {
-                                int r_ = m_.getOffset().getOffsetTrim();
-                                FoundErrorInterpret duplicate_;
-                                duplicate_ = new FoundErrorInterpret();
-                                duplicate_.setIndexFile(r_);
-                                duplicate_.setFileName(getFile().getFileName());
-                                //method name len
-                                duplicate_.buildError(_context.getAnalysisMessages().getDuplicateCustomMethod(),
-                                        id_.getSignature(_context));
-                                _context.addError(duplicate_);
-                            }
-                        }
-                        idMethods_.add(id_);
+                } else {
+                    if (m_.isStaticMethod()) {
+                        int where_ = b.getOffset().getOffsetTrim();
+                        FoundErrorInterpret unexp_ = new FoundErrorInterpret();
+                        unexp_.setFileName(getFile().getFileName());
+                        unexp_.setIndexFile(where_);
+                        //key word this len
+                        unexp_.buildError(_context.getAnalysisMessages().getBadIndexerModifier(),
+                                m_.getSignature(_context));
+                        _context.addError(unexp_);
+                    }
+                    if (m_.getParametersTypes().isEmpty()) {
+                        int where_ = b.getOffset().getOffsetTrim();
+                        FoundErrorInterpret unexp_ = new FoundErrorInterpret();
+                        unexp_.setFileName(getFile().getFileName());
+                        unexp_.setIndexFile(where_);
+                        //key word this len
+                        unexp_.buildError(_context.getAnalysisMessages().getBadIndexerParams(),
+                                m_.getSignature(_context));
+                        _context.addError(unexp_);
+                    }
+                    if (m_.getKind() == MethodKind.GET_INDEX) {
+                        indexersGet_.add(m_);
                     } else {
-                        MethodId id_ = m_.getId();
-                        for (MethodId m: idMethods_) {
-                            if (m.eq(id_)) {
-                                int r_ = m_.getOffset().getOffsetTrim();
-                                FoundErrorInterpret duplicate_;
-                                duplicate_ = new FoundErrorInterpret();
-                                duplicate_.setIndexFile(r_);
-                                duplicate_.setFileName(getFile().getFileName());
-                                //method name len
-                                duplicate_.buildError(_context.getAnalysisMessages().getDuplicateIndexer(),
-                                        id_.getSignature(_context));
-                                _context.addError(duplicate_);
-                            }
-                        }
-                        idMethods_.add(id_);
+                        indexersSet_.add(m_);
                     }
                 }
-                if (method_ instanceof AnnotationMethodBlock) {
-                    String id_ = method_.getName();
-                    for (String m: idsAnnotMethods_) {
-                        if (StringList.quickEq(m,id_)) {
-                            int r_ = method_.getOffset().getOffsetTrim();
+            }
+            if (method_ instanceof AnnotationMethodBlock) {
+                AnnotationMethodBlock m_ = (AnnotationMethodBlock) method_;
+                m_.buildImportedTypes(_context);
+                if (!_context.isValidToken(name_)) {
+                    int r_ = m_.getNameOffset();
+                    FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                    badMeth_.setFileName(getFile().getFileName());
+                    badMeth_.setIndexFile(r_);
+                    //method name len
+                    badMeth_.buildError(_context.getAnalysisMessages().getBadMethodName(),
+                            name_);
+                    _context.addError(badMeth_);
+                }
+            }
+            if (method_ instanceof OverridableBlock) {
+                OverridableBlock m_ = (OverridableBlock) method_;
+                if (m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.EXPLICIT_CAST) {
+                    MethodId id_ = m_.getId();
+                    if (ContextEl.isEnumType(this)) {
+                        String valueOf_ = stds_.getAliasEnumPredValueOf();
+                        String values_ = stds_.getAliasEnumValues();
+                        String string_ = stds_.getAliasString();
+                        if (id_.eq(new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_)))) {
+                            int r_ = m_.getOffset().getOffsetTrim();
                             FoundErrorInterpret duplicate_;
                             duplicate_ = new FoundErrorInterpret();
                             duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(getFile().getFileName());
-                            String sgn_ = new MethodId(MethodAccessKind.INSTANCE, id_, new StringList()).getSignature(_context);
+                            //method name len
+                            duplicate_.buildError(_context.getAnalysisMessages().getReservedCustomMethod(),
+                                    id_.getSignature(_context));
+                            _context.addError(duplicate_);
+                        }
+                        if (id_.eq(new MethodId(MethodAccessKind.STATIC, values_, new StringList()))) {
+                            int r_ = m_.getOffset().getOffsetTrim();
+                            FoundErrorInterpret duplicate_;
+                            duplicate_ = new FoundErrorInterpret();
+                            duplicate_.setIndexFile(r_);
+                            duplicate_.setFileName(getFile().getFileName());
+                            //method name len
+                            duplicate_.buildError(_context.getAnalysisMessages().getReservedCustomMethod(),
+                                    id_.getSignature(_context));
+                            _context.addError(duplicate_);
+                        }
+                    }
+                    for (MethodId m: idMethods_) {
+                        if (m.eq(id_)) {
+                            int r_ = m_.getOffset().getOffsetTrim();
+                            FoundErrorInterpret duplicate_;
+                            duplicate_ = new FoundErrorInterpret();
+                            duplicate_.setIndexFile(r_);
+                            duplicate_.setFileName(getFile().getFileName());
                             //method name len
                             duplicate_.buildError(_context.getAnalysisMessages().getDuplicateCustomMethod(),
-                                    sgn_);
+                                    id_.getSignature(_context));
                             _context.addError(duplicate_);
                         }
                     }
-                    idsAnnotMethods_.add(id_);
-                }
-                if (method_ instanceof ConstructorBlock) {
-                    ((ConstructorBlock)method_).buildImportedTypes(_context);
-                    ConstructorId idCt_ = ((ConstructorBlock)method_).getId();
-                    for (ConstructorId m: idConstructors_) {
-                        if (m.eq(idCt_)) {
-                            int r_ = method_.getOffset().getOffsetTrim();
+                    idMethods_.add(id_);
+                } else {
+                    MethodId id_ = m_.getId();
+                    for (MethodId m: idMethods_) {
+                        if (m.eq(id_)) {
+                            int r_ = m_.getOffset().getOffsetTrim();
                             FoundErrorInterpret duplicate_;
                             duplicate_ = new FoundErrorInterpret();
                             duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(getFile().getFileName());
-                            //left par len
-                            duplicate_.buildError(_context.getAnalysisMessages().getDuplicatedCtor(),
-                                    idCt_.getSignature(_context));
+                            //method name len
+                            duplicate_.buildError(_context.getAnalysisMessages().getDuplicateIndexer(),
+                                    id_.getSignature(_context));
                             _context.addError(duplicate_);
                         }
                     }
-                    idConstructors_.add(idCt_);
+                    idMethods_.add(id_);
                 }
-                StringList l_ = method_.getParametersNames();
-                StringList seen_ = new StringList();
-                for (String v: l_) {
-                    if (!_context.isValidToken(v)) {
-                        FoundErrorInterpret b_;
-                        b_ = new FoundErrorInterpret();
-                        b_.setFileName(getFile().getFileName());
-                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
-                        //param name len
-                        b_.buildError(_context.getAnalysisMessages().getBadParamName(),
-                                v);
-                        _context.addError(b_);
-                    }
-                    if (method_ instanceof OverridableBlock) {
-                        OverridableBlock i_ = (OverridableBlock) method_;
-                        if (i_.getKind() == MethodKind.SET_INDEX) {
-                            if (StringList.quickEq(v,keyWordValue_)) {
-                                FoundErrorInterpret b_;
-                                b_ = new FoundErrorInterpret();
-                                b_.setFileName(getFile().getFileName());
-                                b_.setIndexFile(method_.getOffset().getOffsetTrim());
-                                //param name len
-                                b_.buildError(_context.getAnalysisMessages().getReservedParamName(),
-                                        v);
-                                _context.addError(b_);
-                            }
-                        }
-                    }
-                    if (StringList.contains(seen_, v)){
-                        FoundErrorInterpret b_;
-                        b_ = new FoundErrorInterpret();
-                        b_.setFileName(getFile().getFileName());
-                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
-                        //param name len
-                        b_.buildError(_context.getAnalysisMessages().getDuplicatedParamName(),
-                                v);
-                        _context.addError(b_);
-                    } else {
-                        seen_.add(v);
+            }
+            if (method_ instanceof AnnotationMethodBlock) {
+                String id_ = method_.getName();
+                for (String m: idsAnnotMethods_) {
+                    if (StringList.quickEq(m,id_)) {
+                        int r_ = method_.getOffset().getOffsetTrim();
+                        FoundErrorInterpret duplicate_;
+                        duplicate_ = new FoundErrorInterpret();
+                        duplicate_.setIndexFile(r_);
+                        duplicate_.setFileName(getFile().getFileName());
+                        String sgn_ = new MethodId(MethodAccessKind.INSTANCE, id_, new StringList()).getSignature(_context);
+                        //method name len
+                        duplicate_.buildError(_context.getAnalysisMessages().getDuplicateCustomMethod(),
+                                sgn_);
+                        _context.addError(duplicate_);
                     }
                 }
-            } else if (b instanceof InfoBlock) {
-                InfoBlock method_ = (InfoBlock) b;
-                method_.buildImportedType(_context);
-                StringList name_ = method_.getFieldName();
-                for (String n: name_) {
-                    String trName_ = n.trim();
-                    if (!_context.isValidToken(trName_)) {
-                        FoundErrorInterpret b_;
-                        b_ = new FoundErrorInterpret();
-                        b_.setFileName(getFile().getFileName());
-                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
-                        //trName_ len
-                        b_.buildError(_context.getAnalysisMessages().getBadFieldName(),
-                                trName_);
-                        _context.addError(b_);
+                idsAnnotMethods_.add(id_);
+            }
+            if (method_ instanceof ConstructorBlock) {
+                ((ConstructorBlock)method_).buildImportedTypes(_context);
+                ConstructorId idCt_ = ((ConstructorBlock)method_).getId();
+                for (ConstructorId m: idConstructors_) {
+                    if (m.eq(idCt_)) {
+                        int r_ = method_.getOffset().getOffsetTrim();
+                        FoundErrorInterpret duplicate_;
+                        duplicate_ = new FoundErrorInterpret();
+                        duplicate_.setIndexFile(r_);
+                        duplicate_.setFileName(getFile().getFileName());
+                        //left par len
+                        duplicate_.buildError(_context.getAnalysisMessages().getDuplicatedCtor(),
+                                idCt_.getSignature(_context));
+                        _context.addError(duplicate_);
                     }
-                    for (String m: idsField_) {
-                        if (StringList.quickEq(m, trName_)) {
-                            int r_ = method_.getOffset().getOffsetTrim();
-                            FoundErrorInterpret duplicate_;
-                            duplicate_ = new FoundErrorInterpret();
-                            duplicate_.setIndexFile(r_);
-                            duplicate_.setFileName(getFile().getFileName());
-                            //trName_ len
-                            duplicate_.buildError(_context.getAnalysisMessages().getDuplicateField(),
-                                    trName_);
-                            _context.addError(duplicate_);
+                }
+                idConstructors_.add(idCt_);
+            }
+            StringList l_ = method_.getParametersNames();
+            StringList seen_ = new StringList();
+            for (String v: l_) {
+                if (!_context.isValidToken(v)) {
+                    FoundErrorInterpret b_;
+                    b_ = new FoundErrorInterpret();
+                    b_.setFileName(getFile().getFileName());
+                    b_.setIndexFile(method_.getOffset().getOffsetTrim());
+                    //param name len
+                    b_.buildError(_context.getAnalysisMessages().getBadParamName(),
+                            v);
+                    _context.addError(b_);
+                }
+                if (method_ instanceof OverridableBlock) {
+                    OverridableBlock i_ = (OverridableBlock) method_;
+                    if (i_.getKind() == MethodKind.SET_INDEX) {
+                        if (StringList.quickEq(v,keyWordValue_)) {
+                            FoundErrorInterpret b_;
+                            b_ = new FoundErrorInterpret();
+                            b_.setFileName(getFile().getFileName());
+                            b_.setIndexFile(method_.getOffset().getOffsetTrim());
+                            //param name len
+                            b_.buildError(_context.getAnalysisMessages().getReservedParamName(),
+                                    v);
+                            _context.addError(b_);
                         }
                     }
-                    idsField_.add(trName_);
+                }
+                if (StringList.contains(seen_, v)){
+                    FoundErrorInterpret b_;
+                    b_ = new FoundErrorInterpret();
+                    b_.setFileName(getFile().getFileName());
+                    b_.setIndexFile(method_.getOffset().getOffsetTrim());
+                    //param name len
+                    b_.buildError(_context.getAnalysisMessages().getDuplicatedParamName(),
+                            v);
+                    _context.addError(b_);
+                } else {
+                    seen_.add(v);
                 }
             }
         }
+        buildFieldInfos(_context, bl_);
         _context.getClasses().getExplicitCastMethods().addEntry(getFullName(),explicit_);
-        for (OverridableBlock i: indexersGet_) {
+        validateIndexers(_context, indexersGet_, indexersSet_);
+    }
+
+    private static void buildFieldInfos(ContextEl _context, CustList<Block> _bl) {
+        StringList idsField_ = new StringList();
+        for (Block b: _bl) {
+            if (!(b instanceof InfoBlock)) {
+                continue;
+            }
+            InfoBlock method_ = (InfoBlock) b;
+            method_.buildImportedType(_context);
+            method_.retrieveNames(_context,idsField_);
+        }
+    }
+
+    private void validateIndexers(ContextEl _context, CustList<OverridableBlock> _indexersGet, CustList<OverridableBlock> _indexersSet) {
+        for (OverridableBlock i: _indexersGet) {
             MethodId iOne_ = i.getId();
             boolean ok_ = false;
             OverridableBlock set_ = null;
-            for (OverridableBlock j: indexersSet_) {
+            for (OverridableBlock j: _indexersSet) {
                 MethodId iTwo_ = j.getId();
                 if (iOne_.eqPartial(iTwo_)) {
                     ok_ = true;
@@ -1023,10 +1007,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 }
             }
         }
-        for (OverridableBlock i: indexersSet_) {
+        for (OverridableBlock i: _indexersSet) {
             MethodId iOne_ = i.getId();
             boolean ok_ = false;
-            for (OverridableBlock j: indexersGet_) {
+            for (OverridableBlock j: _indexersGet) {
                 MethodId iTwo_ = j.getId();
                 if (iOne_.eqPartial(iTwo_)) {
                     ok_ = true;
@@ -1044,6 +1028,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             }
         }
     }
+
     public abstract void setupBasicOverrides(ContextEl _context);
 
     final void useSuperTypesOverrides(ContextEl _context) {

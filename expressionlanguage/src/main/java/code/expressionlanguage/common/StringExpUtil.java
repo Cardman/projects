@@ -16,6 +16,22 @@ public final class StringExpUtil {
         }
         return _str.charAt(_i) == _value;
     }
+
+    public static int nextPrintCharIs(int _j, int _len, String _string, char _ch) {
+        int j_ = nextPrintChar(_j,_len,_string);
+        if (j_ < 0) {
+            return -1;
+        }
+        if (_string.charAt(j_) != _ch) {
+            return -1;
+        }
+        return j_;
+    }
+
+    public static boolean isDigit(char _char) {
+        return _char >= '0' && _char <= '9';
+    }
+
     public static int nextPrintChar(int _j, int _len, String _string) {
         int j_ = _j;
         while (j_ < _len) {

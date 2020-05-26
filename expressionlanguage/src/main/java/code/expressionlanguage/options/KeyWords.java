@@ -208,7 +208,7 @@ public final class KeyWords {
                     break;
                 }
             }
-            if (ContextEl.isDigit(keyWordValue_.charAt(0))) {
+            if (StringExpUtil.isDigit(keyWordValue_.charAt(0))) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirst(),keyWordValue_,Character.toString(keyWordValue_.charAt(0))));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
@@ -399,7 +399,7 @@ public final class KeyWords {
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _cont.getClasses().addStdError(err_);
             }
-            if (ContextEl.isDigit(c)) {
+            if (StringExpUtil.isDigit(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbHex,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
@@ -448,7 +448,7 @@ public final class KeyWords {
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _cont.getClasses().addStdError(err_);
             }
-            if (ContextEl.isDigit(c)) {
+            if (StringExpUtil.isDigit(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),_sep,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
@@ -484,7 +484,7 @@ public final class KeyWords {
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);
                 _cont.getClasses().addStdError(err_);
             }
-            if (ContextEl.isDigit(c)) {
+            if (StringExpUtil.isDigit(c)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getIllegalChar(),keyWordNbExpBin,Character.toString(c)));
                 err_.setErrCat(ErrorCat.WRITE_NB_WORD);

@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ErrorType;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
 import code.expressionlanguage.common.GeneCustMethod;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -55,7 +56,7 @@ public class ApplyCoreMethodUtil {
                     break;
                 }
             }
-            if (ContextEl.isDigit(value_.charAt(0))) {
+            if (StringExpUtil.isDigit(value_.charAt(0))) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstPrimitive(),key_,value_));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
@@ -120,7 +121,7 @@ public class ApplyCoreMethodUtil {
                         break;
                     }
                 }
-                if (ContextEl.isDigit(p.charAt(0))) {
+                if (StringExpUtil.isDigit(p.charAt(0))) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstRefType(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
@@ -208,7 +209,7 @@ public class ApplyCoreMethodUtil {
                         break;
                     }
                 }
-                if (ContextEl.isDigit(value_.charAt(0))) {
+                if (StringExpUtil.isDigit(value_.charAt(0))) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstMethod(),value_,e.getKey(),Character.toString(value_.charAt(0))));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
@@ -288,7 +289,7 @@ public class ApplyCoreMethodUtil {
                         break;
                     }
                 }
-                if (ContextEl.isDigit(value_.charAt(0))) {
+                if (StringExpUtil.isDigit(value_.charAt(0))) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstField(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
@@ -349,7 +350,7 @@ public class ApplyCoreMethodUtil {
                         break;
                     }
                 }
-                if (ContextEl.isDigit(value_.charAt(0))) {
+                if (StringExpUtil.isDigit(value_.charAt(0))) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstVarType(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);

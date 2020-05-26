@@ -10,6 +10,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.instr.PartOffsetAffect;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecAffectationOperation;
@@ -17,7 +18,6 @@ import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.ExecStandardInstancingOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.*;
 
@@ -93,8 +93,16 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         return new StringList(fieldName);
     }
 
+    @Override
     public String getUniqueFieldName() {
         return fieldName;
+    }
+
+    @Override
+    public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
+        CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
+        fields_.add(new PartOffsetAffect(new PartOffset(fieldName,valueOffest),true));
+        FieldBlock.checkFieldsNames(_cont,this,_fieldNames,fields_);
     }
 
     public String getValue() {

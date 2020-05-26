@@ -198,6 +198,7 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
         partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
     }
+    @Override
     public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
@@ -212,15 +213,28 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
             b_.buildError(_cont.getAnalysisMessages().getNotRetrievedFields());
             _cont.addError(b_);
         }
-        StringList idsField_ = new StringList(_fieldNames);
+        checkFieldsNames(_cont, this, _fieldNames, names_);
         for (PartOffsetAffect n: names_) {
+            PartOffset p_ = n.getPartOffset();
+            String name_ = p_.getPart();
+            if (n.isAffect()) {
+                assignedDeclaredFields.add(name_);
+            }
+            fieldName.add(name_);
+            valuesOffset.add(p_.getOffset());
+        }
+    }
+
+    static void checkFieldsNames(ContextEl _cont, Block _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names) {
+        StringList idsField_ = new StringList(_fieldNames);
+        for (PartOffsetAffect n: _names) {
             PartOffset p_ = n.getPartOffset();
             String trName_ = p_.getPart();
             if (!_cont.isValidToken(trName_)) {
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
-                b_.setFileName(getFile().getFileName());
-                b_.setIndexFile(getOffset().getOffsetTrim());
+                b_.setFileName(_bl.getFile().getFileName());
+                b_.setIndexFile(_bl.getOffset().getOffsetTrim());
                 //trName_ len
                 b_.buildError(_cont.getAnalysisMessages().getBadFieldName(),
                         trName_);
@@ -228,11 +242,11 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
             }
             for (String m: idsField_) {
                 if (StringList.quickEq(m, trName_)) {
-                    int r_ = getOffset().getOffsetTrim();
+                    int r_ = _bl.getOffset().getOffsetTrim();
                     FoundErrorInterpret duplicate_;
                     duplicate_ = new FoundErrorInterpret();
                     duplicate_.setIndexFile(r_);
-                    duplicate_.setFileName(getFile().getFileName());
+                    duplicate_.setFileName(_bl.getFile().getFileName());
                     //trName_ len
                     duplicate_.buildError(_cont.getAnalysisMessages().getDuplicateField(),
                             trName_);
@@ -240,16 +254,7 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
                 }
             }
             idsField_.add(trName_);
-        }
-        for (PartOffsetAffect n: names_) {
-            PartOffset p_ = n.getPartOffset();
-            String name_ = p_.getPart();
-            if (n.isAffect()) {
-                assignedDeclaredFields.add(name_);
-            }
-            _fieldNames.add(name_);
-            fieldName.add(name_);
-            valuesOffset.add(p_.getOffset());
+            _fieldNames.add(trName_);
         }
     }
 

@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.instr.NumberInfos;
 
 public final class NumParsers {
@@ -693,7 +694,7 @@ public final class NumParsers {
         }
         NumberInfos infos_ = new NumberInfos();
         int i_ = 0;
-        if (!ContextEl.isDigit(_nb.charAt(i_))) {
+        if (!StringExpUtil.isDigit(_nb.charAt(i_))) {
             if (_nb.charAt(i_) != MINUS_CHAR) {
                 if (_nb.charAt(i_) != DOT_VAR && _nb.charAt(i_) != PLUS_CHAR) {
                     return null;
@@ -718,7 +719,7 @@ public final class NumParsers {
         infos_.setExponentialPart(exponentialPart_);
         while (i_ < len_) {
             char cur_ = _nb.charAt(i_);
-            if (!ContextEl.isDigit(cur_)) {
+            if (!StringExpUtil.isDigit(cur_)) {
                 if (cur_ != DOT_VAR) {
                     if (cur_ != EXP && cur_ != EXP_UPP) {
                         return null;
@@ -736,7 +737,7 @@ public final class NumParsers {
             i_++;
             while (i_ < len_) {
                 char cur_ = _nb.charAt(i_);
-                if (!ContextEl.isDigit(cur_)) {
+                if (!StringExpUtil.isDigit(cur_)) {
                     if (cur_ != EXP && cur_ != EXP_UPP) {
                         return null;
                     }
@@ -757,18 +758,18 @@ public final class NumParsers {
             return null;
         }
         char cur_ = _nb.charAt(i_);
-        if (!ContextEl.isDigit(cur_) && cur_ != MINUS_CHAR && cur_ != PLUS_CHAR) {
+        if (!StringExpUtil.isDigit(cur_) && cur_ != MINUS_CHAR && cur_ != PLUS_CHAR) {
             return null;
         }
         i_++;
         exponentialPart_.append(cur_);
         int nbDig_ = 0;
-        if (ContextEl.isDigit(cur_)) {
+        if (StringExpUtil.isDigit(cur_)) {
             nbDig_++;
         }
         while (i_ < len_) {
             cur_ = _nb.charAt(i_);
-            if (!ContextEl.isDigit(cur_)) {
+            if (!StringExpUtil.isDigit(cur_)) {
                 return null;
             }
             exponentialPart_.append(cur_);

@@ -879,12 +879,13 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetEnclosingType)) {
-                String t_ = (ApplyCoreMethodUtil.getClass(_struct)).getTypeOwner();
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct);
+                String t_ = cl_.getTypeOwner();
                 if (t_.isEmpty()) {
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
                 }
-                result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,t_));
+                result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,t_,cl_.getVariableOwner()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredClasses)) {
@@ -895,7 +896,7 @@ public final class AliasReflection {
                 Struct[] methodsArr_ = new Struct[methods_.size()];
                 int index_ = 0;
                 for (String t: methods_) {
-                    methodsArr_[index_] = ExecutingUtil.getClassMetaInfo(_cont,t);
+                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,cl_.getVariableOwner());
                     index_++;
                 }
                 ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
@@ -1206,7 +1207,7 @@ public final class AliasReflection {
                 if (Templates.correctNbParameters(nameType_,_cont)) {
                     genericSuperClassName_ = Templates.reflectFormat(nameType_, genericSuperClassName_, _cont);
                 }
-                ClassMetaInfo superCl_ = ExecutingUtil.getClassMetaInfo(_cont,genericSuperClassName_);
+                ClassMetaInfo superCl_ = ExecutingUtil.getExtendedClassMetaInfo(_cont,genericSuperClassName_,cl_.getVariableOwner());
                 result_.setResult(superCl_);
                 return result_;
             }
@@ -1217,7 +1218,7 @@ public final class AliasReflection {
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
                 }
-                ClassMetaInfo superCl_ = ExecutingUtil.getClassMetaInfo(_cont,genericSuperClassName_);
+                ClassMetaInfo superCl_ = ExecutingUtil.getExtendedClassMetaInfo(_cont,genericSuperClassName_,cl_.getVariableOwner());
                 result_.setResult(superCl_);
                 return result_;
             }
@@ -1232,12 +1233,12 @@ public final class AliasReflection {
                     for (int i = 0; i < len_; i++) {
                         String int_ = geneInterfaces_.get(i);
                         int_ = Templates.reflectFormat(nameType_, int_, _cont);
-                        superInts_[i] = ExecutingUtil.getClassMetaInfo(_cont,int_);
+                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner());
                     }
                 } else {
                     for (int i = 0; i < len_; i++) {
                         String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = ExecutingUtil.getClassMetaInfo(_cont,int_);
+                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner());
                     }
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
@@ -1252,7 +1253,7 @@ public final class AliasReflection {
                 Struct[] superInts_ = new Struct[len_];
                 for (int i = 0; i < len_; i++) {
                     String int_ = geneInterfaces_.get(i);
-                    superInts_[i] = ExecutingUtil.getClassMetaInfo(_cont,int_);
+                    superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,int_,cl_.getVariableOwner());
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
                 result_.setResult(arr_);
@@ -1392,13 +1393,13 @@ public final class AliasReflection {
                     for (int i = 0; i < len_; i++) {
                         String nameVar_ = list_.get(i).getName();
                         nameVar_ = Templates.reflectFormat(clName_, nameVar_, _cont);
-                        superInts_[i] = ExecutingUtil.getClassMetaInfo(_cont,nameVar_);
+                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_,clName_);
 
                     }
                 } else {
                     for (int i = 0; i < len_; i++) {
                         String nameVar_ = list_.get(i).getName();
-                        superInts_[i] = ExecutingUtil.getClassMetaInfo(_cont,nameVar_);
+                        superInts_[i] = ExecutingUtil.getExtendedClassMetaInfo(_cont,nameVar_,clName_);
                     }
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);

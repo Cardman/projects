@@ -1882,30 +1882,6 @@ public final class Classes {
 
     void initStaticFields(ContextEl _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
-
-        for (RootBlock c: page_.getFoundTypes()) {
-            page_.setImporting(c);
-            CustList<Block> bl_ = getDirectChildren(c);
-            StringList fieldNames_ = new StringList();
-            for (Block b: bl_) {
-                if (!(b instanceof InnerTypeOrElement)) {
-                    continue;
-                }
-                InnerTypeOrElement e_ = (InnerTypeOrElement)b;
-                fieldNames_.addAllElts(e_.getFieldName());
-            }
-            for (Block b: bl_) {
-                if (!(b instanceof FieldBlock)) {
-                    continue;
-                }
-                FieldBlock f_ = (FieldBlock) b;
-                page_.setGlobalClass(c.getGenericString());
-                page_.setCurrentBlock(f_);
-                page_.setCurrentAnaBlock(f_);
-                f_.retrieveNames(_context,fieldNames_);
-            }
-        }
-
         for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
             String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);

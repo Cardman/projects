@@ -110,7 +110,7 @@ public final class PartTypeUtil {
         if (StringList.contains(_excludedWords,typeName_)) {
             return true;
         }
-        return ContextEl.isDigit(typeName_.charAt(0));
+        return StringExpUtil.isDigit(typeName_.charAt(0));
     }
     private static void addIfLeaf(PartType _p,CustList<LeafPartType> _l) {
         if (!(_p instanceof LeafPartType)) {
