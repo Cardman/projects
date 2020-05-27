@@ -186,6 +186,36 @@ public final class ElUtil {
         return getExecutableNodes(_conf,all_);
     }
 
+
+    public static CustList<OperationNode> getAnalyzedOperationsQucikly(String _el, ContextEl _conf, Calculation _calcul) {
+        MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
+        _conf.getAnalyzing().setAccessStaticContext(hiddenVarTypes_);
+        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
+        int badOffset_ = d_.getBadOffset();
+        if (badOffset_ >= 0) {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+            badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            badEl_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            //badOffset char
+            badEl_.buildError(_conf.getAnalysisMessages().getBadExpression(),
+                    possibleChar(badOffset_,_el),
+                    Integer.toString(badOffset_),
+                    _el);
+            _conf.addError(badEl_);
+            OperationsSequence tmpOp_ = new OperationsSequence();
+            tmpOp_.setDelimiter(new Delimiters());
+            ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
+            String argClName_ = _conf.getStandards().getAliasObject();
+            e_.setResultClass(new ClassArgumentMatching(argClName_));
+            e_.setOrder(0);
+            return new CustList<OperationNode>(e_);
+        }
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
+        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
+        String fieldName_ = _calcul.getFieldName();
+        return getSortedDescNodesReadOnly(op_, _conf,fieldName_);
+    }
+
     private static void setSyntheticRoot(OperationNode _op, String _fieldName) {
         if (_op instanceof AffectationOperation && !_fieldName.isEmpty()) {
             ((AffectationOperation) _op).setSynthetic(true);
@@ -1660,17 +1690,17 @@ public final class ElUtil {
         }
         return !((RootBlock)_g).getFile().isPredefined();
     }
-    public static void tryCalculate(FieldBlock _field, ContextEl _context, String _fieldName) {
-        CustList<ExecOperationNode> nodes_ = _field.getOpValue();
-        ExecOperationNode root_ = nodes_.last();
-        CustList<ExecOperationNode> sub_;
-        if (!(root_ instanceof ExecDeclaringOperation)) {
+    public static void tryCalculate(FieldBlock _field, CustList<OperationNode> _ops, ContextEl _context, String _fieldName) {
+        CustList<OperationNode> nodes_ = _ops;
+        OperationNode root_ = nodes_.last();
+        CustList<OperationNode> sub_;
+        if (!(root_ instanceof DeclaringOperation)) {
             sub_ = nodes_;
         } else {
-            ExecMethodOperation m_ = (ExecMethodOperation)root_;
+            MethodOperation m_ = (MethodOperation)root_;
             int index_ = StringList.indexOf(_field.getFieldName(),_fieldName);
-            CustList<ExecOperationNode> ch_ = m_.getChildrenNodes();
-            ExecOperationNode rootLoc_ = ch_.get(index_);
+            CustList<OperationNode> ch_ = m_.getChildrenNodes();
+            OperationNode rootLoc_ = ch_.get(index_);
             int from_;
             int to_ = rootLoc_.getOrder() + 1;
             if (index_ == 0) {
@@ -1683,10 +1713,10 @@ public final class ElUtil {
         int ind_ = 0;
         int len_ = sub_.size();
         while (ind_ < len_) {
-            ExecOperationNode curr_ = sub_.get(ind_);
+            OperationNode curr_ = sub_.get(ind_);
             Argument a_ = curr_.getArgument();
             if (a_ != null) {
-                ind_++;
+                ind_ = ExecOperationNode.getNextIndex(curr_, a_.getStruct());
                 continue;
             }
             if (curr_ instanceof ReductibleOperable) {

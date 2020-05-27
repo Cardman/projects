@@ -129,6 +129,114 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         assertEq(0.5,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).doubleStruct());
      }
     @Test
+    public void calculateStaticField193Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=$true?b1:2;\n");
+        xml_.append(" $public $static $final $int b1=5;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = ProcessMethodCommon.contextElExp();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.isEmptyErrors());
+        assertEq(5,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+    }
+    @Test
+    public void calculateStaticField194Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=$false?5:b1;\n");
+        xml_.append(" $public $static $final $int b1=2;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = ProcessMethodCommon.contextElExp();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.isEmptyErrors());
+        assertEq(2,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+    }
+    @Test
+    public void calculateStaticField195Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=$true?b1:2/0;\n");
+        xml_.append(" $public $static $final $int b1=5;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = ProcessMethodCommon.contextElExp();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.isEmptyErrors());
+        assertEq(5,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+    }
+    @Test
+    public void calculateStaticField196Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=$false?5/0:b1;\n");
+        xml_.append(" $public $static $final $int b1=2;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = ProcessMethodCommon.contextElExp();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.isEmptyErrors());
+        assertEq(2,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+    }
+    @Test
+    public void calculateStaticField197Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $boolean c1=$false||b1;\n");
+        xml_.append(" $public $static $final $boolean b1=$true;\n");
+        xml_.append(" $public $static $final $int a1=c1?2:5;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = ProcessMethodCommon.contextElExp();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.isEmptyErrors());
+        assertEq(2,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+    }
+    @Test
+    public void calculateStaticField198Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $boolean c1=$null??b1;\n");
+        xml_.append(" $public $static $final $boolean b1=$true;\n");
+        xml_.append(" $public $static $final $int a1=c1?2:5;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = ProcessMethodCommon.contextElExp();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.isEmptyErrors());
+        assertEq(2,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+    }
+    @Test
+    public void calculateStaticField199Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $boolean c1=$true&&b1;\n");
+        xml_.append(" $public $static $final $boolean b1=$false;\n");
+        xml_.append(" $public $static $final $int a1=c1?2:5;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = ProcessMethodCommon.contextElExp();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(ctx_.isEmptyErrors());
+        assertEq(5,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
+    }
+    @Test
     public void validateEl19FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -210,6 +318,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $double fb[(c]);\n");
         xml_.append(" $public ExTwo(){($this());}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());

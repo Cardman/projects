@@ -2,22 +2,14 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public final class ThreadSetStruct implements Struct {
+public final class ThreadSetStruct extends WithoutParentIdStruct implements Struct {
 
     private ConcurrentHashMap<Thread,Struct> elementSet = new ConcurrentHashMap<Thread,Struct>();
-
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
 
     public ArrayStruct toSnapshotArray(ContextEl _contextEl) {
         CustList<Struct> instantKeys_ = new CustList<Struct>();
@@ -58,8 +50,4 @@ public final class ThreadSetStruct implements Struct {
         return ((LgNamesUtils)_contextEl.getStandards()).getAliasThreadSet();
     }
 
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
 }

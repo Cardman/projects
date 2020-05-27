@@ -17,11 +17,6 @@ public final class ExecFirstOptOperation extends ExecAbstractUnaryOperation impl
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
-        FirstOptOperation.setArg(_conf, this);
-    }
-
-    @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);

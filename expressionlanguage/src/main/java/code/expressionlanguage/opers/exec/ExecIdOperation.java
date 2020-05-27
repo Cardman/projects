@@ -1,7 +1,6 @@
 package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.IdOperation;
 import code.util.CustList;
@@ -30,10 +29,5 @@ public final class ExecIdOperation extends ExecAbstractUnaryOperation implements
         } else {
             setSimpleArgument(a_, _conf, _nodes);
         }
-    }
-    @Override
-    public void quickCalculate(ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        setSimpleArgumentAna(chidren_.first().getArgument(), _conf);
     }
 }

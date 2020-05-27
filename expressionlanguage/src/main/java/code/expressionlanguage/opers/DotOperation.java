@@ -18,7 +18,7 @@ public final class DotOperation extends AbstractDotOperation {
         DotOperation.setArg(this,_conf);
     }
 
-    public static void setArg(ParentOperable _op, ContextEl _conf) {
+    public static void setArg(MethodOperation _op, ContextEl _conf) {
         CustList<Operable> chidren_ = _op.getChildrenOperable();
         _op.setSimpleArgumentAna(chidren_.last().getArgument(), _conf);
     }

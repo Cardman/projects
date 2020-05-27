@@ -31,11 +31,6 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
 
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
-        CastOperation.tryGetArg(this, _conf, className);
-    }
-
-    @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);

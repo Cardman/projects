@@ -204,7 +204,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         }
         tryGetResult(_conf, op, classMethodId, stringCompare, this);
     }
-    public static void tryGetResult(ContextEl _conf, String _op, ClassMethodId _cl, boolean _str, ParentOperable _to) {
+    public static void tryGetResult(ContextEl _conf, String _op, ClassMethodId _cl, boolean _str, MethodOperation _to) {
         if (_cl != null) {
             return;
         }

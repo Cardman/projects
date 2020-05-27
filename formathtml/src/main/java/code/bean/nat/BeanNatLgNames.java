@@ -65,9 +65,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     private static Object adaptedArg(Struct _args) {
-        if (_args == NullStruct.NULL_VALUE) {
-            return null;
-        }
         if (_args instanceof NumberStruct) {
             if (_args instanceof ShortStruct) {
                 return ((ShortStruct) _args).shortStruct();
@@ -83,7 +80,10 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         if (_args instanceof BooleanStruct) {
             return BooleanStruct.isTrue(_args);
         }
-        return ((RealInstanceStruct) _args).getInstance();
+        if (_args instanceof RealInstanceStruct) {
+            return ((RealInstanceStruct) _args).getInstance();
+        }
+        return null;
     }
 
     @Override

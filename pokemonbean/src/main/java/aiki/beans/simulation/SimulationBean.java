@@ -203,7 +203,7 @@ public class SimulationBean extends CommonBean {
                     pk_.getMoves().addAllElts((StringList) getForms().getVal(POKEMON_MOVES_EDIT));
                     pk_.setAbility((String) getForms().getVal(POKEMON_ABILITY_EDIT));
                     pk_.setName((String) getForms().getVal(POKEMON_NAME_EDIT));
-                    pk_.setGender(((Gender) getForms().getVal(POKEMON_GENDER_EDIT)).name());
+                    pk_.setGender((Gender) getForms().getVal(POKEMON_GENDER_EDIT));
                     pk_.setItem((String) getForms().getVal(ITEM_EDIT));
                     pk_.setLevel((Short) getForms().getVal(POKEMON_LEVEL_EDIT));
                     if (foe_) {
@@ -225,7 +225,7 @@ public class SimulationBean extends CommonBean {
                     pk_.getMoves().addAllElts((StringList) getForms().getVal(POKEMON_MOVES_EDIT));
                     pk_.setAbility((String) getForms().getVal(POKEMON_ABILITY_EDIT));
                     pk_.setName((String) getForms().getVal(POKEMON_NAME_EDIT));
-                    pk_.setGender(((Gender) getForms().getVal(POKEMON_GENDER_EDIT)).name());
+                    pk_.setGender((Gender) getForms().getVal(POKEMON_GENDER_EDIT));
                     pk_.setItem((String) getForms().getVal(ITEM_EDIT));
                     pk_.setLevel((Short) getForms().getVal(POKEMON_LEVEL_EDIT));
                 }
@@ -660,7 +660,7 @@ public class SimulationBean extends CommonBean {
     public String getGenderFoe(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonTrainerDto pk_ = foeTeam.get(_index.intValue());
-        return data_.translateGenders(PokemonStandards.getGenderByName(pk_.getGender()));
+        return data_.translateGenders(pk_.getGender());
     }
     public StringList getMovesFoe(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -733,7 +733,7 @@ public class SimulationBean extends CommonBean {
     public String getGenderAlly(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
         PokemonTrainerDto pk_ = allyTeam.get(_index.intValue());
-        return data_.translateGenders(PokemonStandards.getGenderByName(pk_.getGender()));
+        return data_.translateGenders(pk_.getGender());
     }
     public StringList getMovesAlly(Long _index) {
         DataBase data_ = (DataBase) getDataBase();

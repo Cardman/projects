@@ -7,18 +7,15 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultInitializer;
 import code.expressionlanguage.calls.util.CallingState;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassFieldStruct;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.stream.ThreadUtil;
-import code.util.ObjectMap;
+import code.util.CustList;
 import code.util.StringList;
 
 public class CustInitializer extends DefaultInitializer {
@@ -30,7 +27,7 @@ public class CustInitializer extends DefaultInitializer {
     @Override
     protected Struct init(ContextEl _context, Struct _parent,
                           String _className, String _fieldName, int _ordinal,
-                          ObjectMap<ClassField, Struct> _fields) {
+                          CustList<ClassFieldStruct> _fields) {
         return new RunnableStruct(_context, _className, _fieldName, _ordinal, _fields, _parent);
     }
 

@@ -1,16 +1,15 @@
 package cards.tarot.beans;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
 import code.bean.RealInstanceStruct;
+import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.maths.Rate;
 import code.util.Longs;
 import code.util.StringList;
 import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleIterable;
 
-public final class DefaultStruct implements RealInstanceStruct {
+public final class DefaultStruct extends WithoutParentIdStruct implements RealInstanceStruct {
 
     private final Object instance;
 
@@ -41,20 +40,11 @@ public final class DefaultStruct implements RealInstanceStruct {
         className = _className;
     }
 
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
     public static DefaultStruct newInstance(Object _instance, String _className) {
         return new DefaultStruct(_instance, _className);
     }
     public static DefaultStruct newListLong(Longs _instance, String _className) {
         return new DefaultStruct((Object)_instance, _className);
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
     }
 
     @Override

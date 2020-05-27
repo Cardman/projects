@@ -81,7 +81,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         tryGetArg(this,classMethodId,_conf);
     }
 
-    public static void tryGetArg(ParentOperable _par, ClassMethodId _m,ContextEl _conf) {
+    public static void tryGetArg(MethodOperation _par, ClassMethodId _m,ContextEl _conf) {
         if (_m != null) {
             return;
         }

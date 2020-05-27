@@ -5,12 +5,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.util.CustomReflectMethod;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassFieldStruct;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.ObjectMap;
 
-public final class RunnableFunctionalInstance implements AbstractFunctionalInstance, Runnable,
+public final class RunnableFunctionalInstance extends WithoutParentIdStruct implements AbstractFunctionalInstance, Runnable,
         FieldableStruct {
 
     private final String className;
@@ -18,24 +17,14 @@ public final class RunnableFunctionalInstance implements AbstractFunctionalInsta
     private final LambdaStruct functional;
     private final ContextEl original;
 
-    private final ObjectMap<ClassField,Struct> fields;
+    private final CustList<ClassFieldStruct> fields;
 
     public RunnableFunctionalInstance(String _className, LambdaStruct _functional,
-                                      ObjectMap<ClassField,Struct> _fields, ContextEl _contextEl) {
+                                      CustList<ClassFieldStruct> _fields, ContextEl _contextEl) {
         className = _className;
         functional = _functional;
         original = _contextEl;
         fields = _fields;
-    }
-
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
     }
 
     @Override
@@ -65,12 +54,12 @@ public final class RunnableFunctionalInstance implements AbstractFunctionalInsta
     }
 
     @Override
-    public EntryCust<ClassField, Struct> getEntryStruct(ClassField _classField) {
-        return fields.getEntryByKey(_classField);
+    public ClassFieldStruct getEntryStruct(ClassField _classField) {
+        return ClassFieldStruct.getPair(fields,_classField);
     }
 
     @Override
-    public ObjectMap<ClassField, Struct> getFields() {
+    public CustList<ClassFieldStruct> getFields() {
         return fields;
     }
 }

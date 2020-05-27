@@ -6,7 +6,7 @@ import code.expressionlanguage.structs.*;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 
-public class MouseEventStruct implements Struct {
+public class MouseEventStruct extends WithoutParentIdStruct implements Struct {
 
     private int first;
     private int second;
@@ -71,11 +71,6 @@ public class MouseEventStruct implements Struct {
     }
 
     @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
-
-    @Override
     public String getClassName(ContextEl _contextEl) {
         return className;
     }
@@ -116,8 +111,4 @@ public class MouseEventStruct implements Struct {
         return new IntStruct(second);
     }
 
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
 }

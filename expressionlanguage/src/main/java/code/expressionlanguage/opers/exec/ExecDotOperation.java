@@ -18,9 +18,5 @@ public final class ExecDotOperation extends ExecAbstractDotOperation {
     public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         calculateDot(_nodes,_conf);
     }
-    @Override
-    public void quickCalculate(ContextEl _conf) {
-        DotOperation.setArg(this,_conf);
-    }
 
 }

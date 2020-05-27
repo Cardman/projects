@@ -16,10 +16,7 @@ public final class ExecNbCmpOperation extends ExecMethodOperation implements Ato
         oper = _r.getOp();
         opOffset = _r.getOpOffset();
     }
-    @Override
-    public void quickCalculate(ContextEl _conf) {
-        CmpOperation.tryGetResult(_conf, oper, null, false, this);
-    }
+
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {

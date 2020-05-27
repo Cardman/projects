@@ -1,9 +1,10 @@
 package code.formathtml.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.util.StringList;
 
-public final class MessageStruct extends AbstractStruct {
+public final class MessageStruct extends WithoutParentIdStruct {
 
     private final Message instance;
 

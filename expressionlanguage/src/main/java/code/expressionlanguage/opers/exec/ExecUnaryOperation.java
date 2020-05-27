@@ -26,11 +26,6 @@ public final class ExecUnaryOperation extends ExecAbstractUnaryOperation {
         setSimpleArgument(a_, _conf, _nodes);
     }
 
-    @Override
-    public void quickCalculate(ContextEl _conf) {
-        UnaryOperation.tryGetArg(this,null,oper,_conf);
-    }
-
     Argument getArgument(ContextEl _conf,
             Argument _in) {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);

@@ -2201,13 +2201,13 @@ public class LgNamesUtils extends LgNames {
         return ref_;
     }
     public AbstractFunctionalInstance newFunctionalInstance(String _className, LambdaStruct _functional,ContextEl _contextEl){
-        ObjectMap<ClassField, Struct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
+        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
         return new RunnableFunctionalInstance(_className,_functional,fs_,_contextEl);
     }
 
     @Override
     public AbstractFunctionalInstance newFullFunctionalInstance(String _className, LambdaStruct _functional,ContextEl _contextEl) {
-        ObjectMap<ClassField, Struct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
+        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
         return new RunnableFunctionalInstance(_className,_functional,fs_,_contextEl);
     }
 

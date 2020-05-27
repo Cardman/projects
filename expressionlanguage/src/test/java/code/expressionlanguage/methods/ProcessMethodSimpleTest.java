@@ -3331,9 +3331,10 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         Struct second_ = ((ArrayStruct) arr_).getInstance()[1];
         assertEq("pkg.ExTwo<$int>", first_.getClassName(cont_));
         assertEq("pkg.ExTwo<$int>", second_.getClassName(cont_));
-        assertEq(1, ((IntStruct)((FieldableStruct)first_).getEntryStruct(new ClassField("pkg.ExTwo","v")).getValue()).intStruct());
-        assertEq(2, ((IntStruct)((FieldableStruct)second_).getEntryStruct(new ClassField("pkg.ExTwo","v")).getValue()).intStruct());
+        assertEq(1, ((IntStruct) getField(first_, new ClassField("pkg.ExTwo", "v"))).intStruct());
+        assertEq(2, ((IntStruct) getField(second_, new ClassField("pkg.ExTwo", "v"))).intStruct());
     }
+
     @Test
     public void calculateArgument50Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -3365,8 +3366,8 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         Struct second_ = ((ArrayStruct) arr_).getInstance()[1];
         assertEq("pkg.ExTwo<$int>", first_.getClassName(cont_));
         assertEq("pkg.ExTwo<$int>", second_.getClassName(cont_));
-        assertEq(1, ((IntStruct)((FieldableStruct)first_).getEntryStruct(new ClassField("pkg.ExTwo","v")).getValue()).intStruct());
-        assertEq(2, ((IntStruct)((FieldableStruct)second_).getEntryStruct(new ClassField("pkg.ExTwo","v")).getValue()).intStruct());
+        assertEq(1, ((IntStruct) getField(first_, new ClassField("pkg.ExTwo", "v"))).intStruct());
+        assertEq(2, ((IntStruct) getField(second_, new ClassField("pkg.ExTwo", "v"))).intStruct());
     }
     @Test
     public void calculateArgument51Test() {

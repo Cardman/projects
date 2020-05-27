@@ -102,7 +102,7 @@ public final class NullSafeOperation extends MethodOperation {
         tryGetResult(_conf, this);
     }
 
-    public static void tryGetResult(ContextEl _conf, ParentOperable _to) {
+    public static void tryGetResult(ContextEl _conf, MethodOperation _to) {
         CustList<Operable> children_ = _to.getChildrenOperable();
         Argument f_ = children_.first().getArgument();
         Argument s_ = children_.last().getArgument();

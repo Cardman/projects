@@ -29,7 +29,7 @@ public abstract class QuickOperation extends MethodOperation {
         getChildren().putAllMap(vs_);
     }
 
-    public static void tryGetResult(ContextEl _conf, ParentOperable _to, boolean _abs, boolean _okNum) {
+    public static void tryGetResult(ContextEl _conf, MethodOperation _to, boolean _abs, boolean _okNum) {
         if (!_okNum) {
             return;
         }

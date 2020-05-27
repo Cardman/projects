@@ -23,14 +23,14 @@ public final class ShowUpdates implements Runnable {
         String infoTestDone_ = ((LgNamesUtils)ctx.getStandards()).getAliasInfoTestDone();
         String curMethodName_ = ((LgNamesUtils) ctx.getStandards()).getAliasInfoTestCurrentMethod();
         String infoTestCount_ = ((LgNamesUtils)ctx.getStandards()).getAliasInfoTestCount();
-        Struct doneBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getValue();
-        Struct countBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getValue();
-        Struct methodBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getValue();
+        Struct doneBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getStruct();
+        Struct countBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
+        Struct methodBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getStruct();
         while (show.get()) {
             progressingTests.updateInfos(ctx,info,doneBefore_,methodBefore_,countBefore_);
-            Struct count_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getValue();
-            Struct done_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getValue();
-            Struct method_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getValue();
+            Struct count_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
+            Struct done_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getStruct();
+            Struct method_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getStruct();
             doneBefore_ = done_;
             methodBefore_ = method_;
             countBefore_ = count_;

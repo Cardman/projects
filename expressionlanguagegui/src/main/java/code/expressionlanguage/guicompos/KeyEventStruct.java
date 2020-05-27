@@ -5,7 +5,7 @@ import code.expressionlanguage.structs.*;
 
 import java.awt.event.KeyEvent;
 
-public final class KeyEventStruct implements Struct {
+public final class KeyEventStruct extends WithoutParentIdStruct implements Struct {
     private String className;
     private boolean ctrl;
     private boolean alt;
@@ -50,10 +50,6 @@ public final class KeyEventStruct implements Struct {
     public void setKeyCode(Struct _clicks) {
         keyCode = ((NumberStruct)_clicks).intStruct();
     }
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
 
     @Override
     public String getClassName(ContextEl _contextEl) {
@@ -80,8 +76,4 @@ public final class KeyEventStruct implements Struct {
         return new IntStruct(keyCode);
     }
 
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
 }

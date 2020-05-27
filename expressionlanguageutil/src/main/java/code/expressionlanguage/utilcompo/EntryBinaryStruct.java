@@ -1,12 +1,9 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.*;
 
-public final class EntryBinaryStruct implements Struct {
+public final class EntryBinaryStruct extends WithoutParentIdStruct implements Struct {
     private StringStruct name;
     private ArrayStruct binary;
     EntryBinaryStruct(Struct _name, Struct _binary, String _arrType) {
@@ -39,17 +36,8 @@ public final class EntryBinaryStruct implements Struct {
     }
 
     @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
-
-    @Override
     public String getClassName(ContextEl _contextEl) {
         return ((LgNamesUtils)_contextEl.getStandards()).getAliasEntryBinary();
     }
 
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
 }

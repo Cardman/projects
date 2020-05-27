@@ -3,10 +3,11 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.WithoutParentStruct;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public final class ThreadStruct implements Struct {
+public final class ThreadStruct extends WithoutParentStruct implements Struct {
 
     private Thread thread;
 
@@ -14,11 +15,6 @@ public final class ThreadStruct implements Struct {
 
     public ThreadStruct(Thread _thread) {
         thread = _thread;
-    }
-
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     public boolean isEnded() {

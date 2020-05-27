@@ -362,7 +362,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
         setArg(_conf,this,settable);
     }
 
-    public static void setArg(ContextEl _conf, ParentOperable _current, Operable _settable) {
+    public static void setArg(ContextEl _conf, MethodOperation _current, Operable _settable) {
         if (!ElUtil.isDeclaringField(_settable, _conf)) {
             return;
         }

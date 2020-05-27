@@ -1,5 +1,6 @@
 package aiki.beans.simulation;
 import aiki.beans.CommonBean;
+import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.comparators.ComparatorTrString;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
@@ -136,7 +137,7 @@ public class EditTrainerPokemonBean extends CommonBean {
         getForms().put(POKEMON_NAME_EDIT, namePk);
         getForms().put(POKEMON_LEVEL_EDIT, level);
         getForms().put(ITEM_EDIT, item);
-        getForms().put(POKEMON_GENDER_EDIT, gender);
+        getForms().put(POKEMON_GENDER_EDIT, PokemonStandards.getGenderByName(gender));
         getForms().put(POKEMON_MOVES_EDIT, selected_);
         getForms().put(POKEMON_ABILITY_EDIT, ability);
         return VALIDATE_TRAINER_PK;

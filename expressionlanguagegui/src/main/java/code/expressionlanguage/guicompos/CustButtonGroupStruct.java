@@ -3,9 +3,10 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.WithoutParentStruct;
 import code.gui.CustButtonGroup;
 
-public final class CustButtonGroupStruct implements Struct {
+public final class CustButtonGroupStruct extends WithoutParentStruct implements Struct {
     private CustButtonGroup group;
 
     public CustButtonGroupStruct() {
@@ -21,10 +22,6 @@ public final class CustButtonGroupStruct implements Struct {
         }
         RadioButtonStruct r_ = (RadioButtonStruct)_b;
         group.add(r_.getRadioButton());
-    }
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     @Override

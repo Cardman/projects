@@ -1,14 +1,11 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 
 import java.awt.*;
 
-public final class ColorStruct implements Struct {
+public final class ColorStruct extends WithoutParentStruct implements Struct {
 
     private static final int THREE_BYTES = 256 * 256 * 256;
     private Color color;
@@ -30,10 +27,6 @@ public final class ColorStruct implements Struct {
 
     private static int range(int _value) {
         return Math.min(Math.max(0, _value),255);
-    }
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     @Override

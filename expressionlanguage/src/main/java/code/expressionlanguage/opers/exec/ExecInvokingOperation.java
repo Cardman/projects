@@ -27,14 +27,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             InvokingOperation _inter) {
         super(_inter);
         intermediate = _inter.isIntermediateDottedOperation();
-        setPreviousArgument(_inter.getPreviousArgument());
+        previousArgument = _inter.getPreviousArgument();
     }
 
     public ExecInvokingOperation(int _indexChild, ClassArgumentMatching _res, int _order,
                                  boolean _intermediate, Argument _previousArgument) {
         super(_indexChild,_res,_order);
         intermediate = _intermediate;
-        setPreviousArgument(_previousArgument);
+        previousArgument = _previousArgument;
     }
 
     static CustList<Argument> listArguments(CustList<ExecOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ContextEl _context) {
@@ -119,11 +119,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return previousArgument;
     }
 
-    @Override
-    public final void setPreviousArgument(Argument _previousArgument) {
-        previousArgument = _previousArgument;
-    }
-
     public static Argument instancePrepare(ContextEl _conf, String _className, ConstructorId _constId,
                                            Argument _previous, CustList<Argument> _arguments) {
         return instancePrepare(_conf, _className, _constId, _previous, _arguments, "", -1);
@@ -162,28 +157,30 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     }
 
     private static void setupNeeded(ContextEl _conf, String _className, Argument _previous, LgNames stds_, GeneType g_, Argument needed_) {
-        if (g_ instanceof RootBlock) {
-            RootBlock r_ = (RootBlock) g_;
-            if (!r_.withoutInstance()) {
-                //From analyze
-                StringList parts_ = Templates.getAllPartInnerTypes(_className);
-                String param_ = StringList.join(parts_.sub(0, parts_.size()-2), "");
-                if (_previous.isNull()) {
-                    String npe_;
-                    npe_ = stds_.getAliasNullPe();
-                    _conf.setException(new ErrorStruct(_conf,npe_));
-                    return;
-                }
-                String arg_ = _previous.getObjectClassName(_conf);
-                if (!Templates.isCorrectExecute(arg_, param_, _conf)) {
-                    String cast_;
-                    cast_ = stds_.getAliasCastType();
-                    _conf.setException(new ErrorStruct(_conf,cast_));
-                    return;
-                }
-                needed_.setStruct(_previous.getStruct());
-            }
+        if (!(g_ instanceof RootBlock)) {
+            return;
         }
+        RootBlock r_ = (RootBlock) g_;
+        if (r_.withoutInstance()) {
+            return;
+        }
+        //From analyze
+        StringList parts_ = Templates.getAllPartInnerTypes(_className);
+        String param_ = StringList.join(parts_.sub(0, parts_.size()-2), "");
+        if (_previous.isNull()) {
+            String npe_;
+            npe_ = stds_.getAliasNullPe();
+            _conf.setException(new ErrorStruct(_conf,npe_));
+            return;
+        }
+        String arg_ = _previous.getObjectClassName(_conf);
+        if (!Templates.isCorrectExecute(arg_, param_, _conf)) {
+            String cast_;
+            cast_ = stds_.getAliasCastType();
+            _conf.setException(new ErrorStruct(_conf,cast_));
+            return;
+        }
+        needed_.setStruct(_previous.getStruct());
     }
 
     public static Argument instancePrepareAnnotation(ContextEl _conf, String _className, StringMap<AnnotationTypeInfo> _fieldNames, CustList<Argument> _arguments) {
@@ -964,12 +961,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return _previous;
         }
         String base_ = Templates.getIdFromAllTypes(argClassName_);
-        EntryCust<ClassField, Struct> entry_ = ((FieldableStruct) previous_).getEntryStruct(fieldId_);
+        ClassFieldStruct entry_ = ((FieldableStruct) previous_).getEntryStruct(fieldId_);
         if (entry_ == null) {
             _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,_className,RETURN_LINE),cast_));
             return _previous;
         }
-        Struct struct_ = entry_.getValue();
+        Struct struct_ = entry_.getStruct();
         _conf.getInitializingTypeInfos().addSensibleField(previous_, struct_);
         a_ = new Argument();
         a_.setStruct(struct_);
@@ -1032,7 +1029,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         String base_ = Templates.getIdFromAllTypes(argClassName_);
         String classNameFound_ = _className;
-        EntryCust<ClassField, Struct> entry_ = ((FieldableStruct) previous_).getEntryStruct(fieldId_);
+        ClassFieldStruct entry_ = ((FieldableStruct) previous_).getEntryStruct(fieldId_);
         if (entry_ == null) {
             _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
             return Argument.createVoid();
@@ -1048,7 +1045,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _conf.getInitializingTypeInfos().failInitEnums();
             return _right;
         }
-        entry_.setValue(_right.getStruct());
+        entry_.setStruct(_right.getStruct());
         return _right;
     }
 

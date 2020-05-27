@@ -12,7 +12,7 @@ import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecSettableFieldOperation extends
-        ExecAbstractFieldOperation implements ExecSettableElResult, StandardFieldOperable, ReductibleOperable {
+        ExecAbstractFieldOperation implements ExecSettableElResult, StandardFieldOperable {
 
     private boolean variable;
     private FieldInfo fieldMetaInfo;
@@ -60,10 +60,7 @@ public final class ExecSettableFieldOperation extends
         return fieldMetaInfo.getClassField();
     }
 
-    @Override
-    public void tryCalculateNode(ContextEl _conf) {
-        SettableAbstractFieldOperation.trySet(_conf,this,fieldMetaInfo);
-    }
+
     @Override
     public Argument calculateSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,

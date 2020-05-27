@@ -225,15 +225,14 @@ public final class TypeUtil {
                     StringList.concat(c.getClassName(),".",c.getConstraints().getSignature(_context)));
             _context.addError(err_);
         }
-        ObjectMap<MethodId, CustList<ClassMethodId>> allOv_ = getAllInstanceSignatures(_type, _context);
         StringMap<StringList> vars_ = new StringMap<StringList>();
         for (TypeVar t: _type.getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        for (EntryCust<MethodId, CustList<ClassMethodId>> e: allOv_.entryList()) {
-            MethodId key_ = e.getKey();
+        for (OverridingMethod e: getAllInstanceSignatures(_type, _context)) {
+            FormattedMethodId key_ = e.getFormattedMethodId();
             CustList<OverridingRelation> pairs_ = new CustList<OverridingRelation>();
-            CustList<ClassMethodId> allMethods_ = e.getValue();
+            CustList<ClassMethodId> allMethods_ = e.getMethodIds();
             for (ClassMethodId c: allMethods_) {
                 String templClass_ = c.getClassName();
                 String typeName_ = Templates.getIdFromAllTypes(templClass_);
@@ -378,8 +377,8 @@ public final class TypeUtil {
                     continue;
                 }
                 //r_, as super interface of c, is a sub type of type input
-                MethodId l_ = _realId.quickFormat(v_, _conf);
-                ObjectMap<MethodId, CustList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
+                FormattedMethodId l_ = _realId.quickOverrideFormat(v_, _conf);
+                CustList<OverridingMethod> ov_ = r_.getAllOverridingMethods();
                 //r_ inherit the formatted method
                 CustList<ClassMethodId> foundSuperClasses_ = new CustList<ClassMethodId>();
                 boolean found_ = false;
@@ -409,8 +408,8 @@ public final class TypeUtil {
             }
             finalMethods_ = new CustList<ClassMethodId>();
             methods_ = new CustList<ClassMethodId>();
-            MethodId l_ = _realId.quickFormat(baseCond_, _conf);
-            ObjectMap<MethodId, CustList<ClassMethodId>> ov_ = c.getAllOverridingMethods();
+            FormattedMethodId l_ = _realId.quickOverrideFormat(baseCond_, _conf);
+            CustList<OverridingMethod> ov_ = c.getAllOverridingMethods();
             //r_ inherit the formatted method
             CustList<ClassMethodId> foundSuperClasses_ = new CustList<ClassMethodId>();
             boolean found_ = false;
@@ -496,8 +495,8 @@ public final class TypeUtil {
                 continue;
             }
             //r_, as super class of c, is a sub type of type input
-            MethodId l_ = _realId.quickFormat(v_, _conf);
-            ObjectMap<MethodId, CustList<ClassMethodId>> ov_ = r_.getAllOverridingMethods();
+            FormattedMethodId l_ = _realId.quickOverrideFormat(v_, _conf);
+            CustList<OverridingMethod> ov_ = r_.getAllOverridingMethods();
             //r_ inherit the formatted method
             boolean found_ = false;
             TreeMap<String,MethodId> tree_ = new TreeMap<String,MethodId>(new ComparingByTypeList(r_.getAllGenericClasses()));
@@ -531,12 +530,21 @@ public final class TypeUtil {
         }
         return null;
     }
-    private static CustList<ClassMethodId> getList( ObjectMap<MethodId, CustList<ClassMethodId>> _list, MethodId _id) {
-        CustList<ClassMethodId> out_ = _list.getVal(_id);
-        if (out_ == null) {
-            return new CustList<ClassMethodId>();
+    private static CustList<ClassMethodId> getList(CustList<OverridingMethod> _list, FormattedMethodId _id) {
+        CustList<ClassMethodId> list_ = getNullList(_list, _id);
+        if (list_ == null) {
+            list_ = new CustList<ClassMethodId>();
         }
-        return out_;
+        return list_;
+    }
+
+    private static CustList<ClassMethodId> getNullList(CustList<OverridingMethod> _list, FormattedMethodId _id) {
+        for (OverridingMethod o: _list) {
+            if (o.getFormattedMethodId().eq(_id)) {
+                return o.getMethodIds();
+            }
+        }
+        return null;
     }
 
     public static StringList getInners(String _root, String _innerName, ContextEl _an) {
@@ -692,15 +700,18 @@ public final class TypeUtil {
         }
         return list_;
     }
-    private static ObjectMap<MethodId, CustList<ClassMethodId>> getAllInstanceSignatures(RootBlock _type, ContextEl _classes) {
-        ObjectMap<MethodId, CustList<ClassMethodId>> map_;
-        map_ = new ObjectMap<MethodId, CustList<ClassMethodId>>();
+
+    private static CustList<OverridingMethod> getAllInstanceSignatures(RootBlock _type, ContextEl _classes) {
+        CustList<OverridingMethod> map_;
+        map_ = new CustList<OverridingMethod>();
         for (GeneCustMethod b: Classes.getMethodBlocks(_type)) {
             if (b.hiddenInstance()) {
                 continue;
             }
             MethodId m_ = b.getId();
-            map_.put(m_, new CustList<ClassMethodId>(new ClassMethodId(_type.getGenericString(), m_)));
+            OverridingMethod o_ = new OverridingMethod(MethodId.to(m_));
+            o_.getMethodIds().add(new ClassMethodId(_type.getGenericString(), m_));
+            map_.add(o_);
         }
         for (String s: _type.getAllGenericSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
@@ -710,17 +721,26 @@ public final class TypeUtil {
                     continue;
                 }
                 MethodId m_ = b.getId();
-                addClass(map_, b.getId().quickFormat(s, _classes), new ClassMethodId(s, m_));
+                addClass(map_, b.getId().quickOverrideFormat(s, _classes), new ClassMethodId(s, m_));
             }
         }
         return map_;
     }
 
-    private static void addClass(ObjectMap<MethodId, CustList<ClassMethodId>> _map, MethodId _key, ClassMethodId _class) {
-        if (_map.contains(_key)) {
-            _map.getVal(_key).add(_class);
-        } else {
-            _map.put(_key, new CustList<ClassMethodId>(_class));
+    private static void addClass(CustList<OverridingMethod> _map, FormattedMethodId _key, ClassMethodId _class) {
+        boolean found_ = false;
+        for (OverridingMethod o: _map) {
+            if (o.getFormattedMethodId().eq(_key)) {
+                o.getMethodIds().add(_class);
+                found_ = true;
+                break;
+            }
+        }
+        if (!found_) {
+            OverridingMethod o_ = new OverridingMethod(_key);
+            o_.getMethodIds().add(_class);
+            _map.add(o_);
         }
     }
+
 }

@@ -13,7 +13,6 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.exec.ParentOperable;
-import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.types.ResolvingImportTypes;
@@ -2024,17 +2023,15 @@ public abstract class OperationNode implements Operable {
         return argument;
     }
 
-    @Override
     public final void setSimpleArgument(Argument _argument) {
         argument = _argument;
     }
 
-    @Override
     public final void setSimpleArgumentAna(Argument _argument, ContextEl _conf) {
         setArgAna(this, _argument, _conf);
     }
-    public static void setArgAna(Operable _op,Argument _argument, ContextEl _conf) {
-        PossibleIntermediateDottedOperable n_ = _op.getSiblingSettable();
+    public static void setArgAna(OperationNode _op,Argument _argument, ContextEl _conf) {
+        PossibleIntermediateDotted n_ = _op.getSiblingSet();
         if (n_ != null) {
             n_.setPreviousArgument(_argument);
         }
@@ -2046,11 +2043,6 @@ public abstract class OperationNode implements Operable {
             _argument.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _argument.getStruct(), _conf.getStandards()));
         }
         _op.setSimpleArgument(_argument);
-    }
-
-    @Override
-    public PossibleIntermediateDottedOperable getSiblingSettable() {
-        return getSiblingSet();
     }
 
     @Override

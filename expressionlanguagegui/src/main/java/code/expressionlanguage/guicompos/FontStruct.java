@@ -5,7 +5,7 @@ import code.expressionlanguage.structs.*;
 
 import java.awt.*;
 
-public final class FontStruct implements Struct {
+public final class FontStruct extends WithoutParentStruct implements Struct {
     private Font font;
     public FontStruct() {
         font = newFont(NullStruct.NULL_VALUE,false,false,12);
@@ -37,10 +37,6 @@ public final class FontStruct implements Struct {
         }
         return new Font(fontFamily_,Font.PLAIN,_size);
     }
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
 
     public StringStruct getName() {
         return new StringStruct(font.getName());
@@ -71,6 +67,6 @@ public final class FontStruct implements Struct {
         if (!(_other instanceof FontStruct)) {
             return false;
         }
-        return font == ((FontStruct)_other).font;
+        return font.equals(((FontStruct)_other).font);
     }
 }

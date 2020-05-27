@@ -23,14 +23,14 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
 
     private String className;
 
-    private ObjectMap<ClassField, Struct> fields;
+    private CustList<ClassFieldStruct> fields;
 
     private String name;
     private int ordinal;
     private final String parentClassName;
     RunnableStruct(ContextEl _original,String _className,
                       String _name, int _ordinal,
-                      ObjectMap<ClassField,Struct> _fields, Struct _parent) {
+                   CustList<ClassFieldStruct> _fields, Struct _parent) {
         original = _original;
         name = _name;
         ordinal = _ordinal;
@@ -50,12 +50,12 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     }
 
     @Override
-    public EntryCust<ClassField, Struct> getEntryStruct(ClassField _classField) {
-        return fields.getEntryByKey(_classField);
+    public ClassFieldStruct getEntryStruct(ClassField _classField) {
+        return ClassFieldStruct.getPair(fields,_classField);
     }
 
     @Override
-    public ObjectMap<ClassField, Struct> getFields() {
+    public CustList<ClassFieldStruct> getFields() {
         return fields;
     }
 

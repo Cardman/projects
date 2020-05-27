@@ -2,20 +2,20 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
-import code.util.EntryCust;
-import code.util.ObjectMap;
+import code.expressionlanguage.opers.util.ClassFieldStruct;
+import code.util.CustList;
 
 public final class InnerCustStruct implements WithParentStruct {
 
     private final String className;
 
-    private final ObjectMap<ClassField,Struct> fields;
+    private final CustList<ClassFieldStruct> fields;
 
     private Struct parent;
 
     private final String parentClassName;
     public InnerCustStruct(String _className,
-            ObjectMap<ClassField,Struct> _fields, Struct _parent, String _parentClassName) {
+                           CustList<ClassFieldStruct> _fields, Struct _parent, String _parentClassName) {
         fields = _fields;
         className = _className;
         parent = _parent;
@@ -43,8 +43,8 @@ public final class InnerCustStruct implements WithParentStruct {
     }
 
     @Override
-    public EntryCust<ClassField, Struct> getEntryStruct(ClassField _classField) {
-        return fields.getEntryByKey(_classField);
+    public ClassFieldStruct getEntryStruct(ClassField _classField) {
+        return ClassFieldStruct.getPair(fields,_classField);
     }
 
     @Override
@@ -53,7 +53,7 @@ public final class InnerCustStruct implements WithParentStruct {
     }
 
     @Override
-    public ObjectMap<ClassField,Struct> getFields() {
+    public CustList<ClassFieldStruct> getFields() {
         return fields;
     }
 

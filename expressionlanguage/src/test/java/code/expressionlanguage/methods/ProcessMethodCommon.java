@@ -461,9 +461,11 @@ public abstract class ProcessMethodCommon {
         }
         return cont_;
     }
-    protected static Struct getStruct(Struct _struct, ClassField _cl) {
-        return ((FieldableStruct) _struct).getEntryStruct(_cl).getValue();
+
+    protected static Struct getField(Struct _struct, ClassField _key) {
+        return ClassFieldStruct.getPair(((FieldableStruct)_struct).getFields(),_key).getStruct();
     }
+
     protected static Struct getException(ContextEl _cont) {
         CallingState str_ = _cont.getCallingState();
         if (str_ instanceof Struct) {

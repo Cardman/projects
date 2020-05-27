@@ -14,12 +14,9 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 
-public abstract class NumberStruct implements DisplayableStruct {
+public abstract class NumberStruct extends WithoutParentStruct implements DisplayableStruct {
     private static final int DEFAULT_RADIX = 10;
-    @Override
-    public final Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
+
     public static void calculateOperator(PageEl _page, ContextEl _cont, ResultErrorStd _res, ClassArgumentMatching _order,
                                          String _op, boolean _catString,
                                          Struct _first, Struct _second) {

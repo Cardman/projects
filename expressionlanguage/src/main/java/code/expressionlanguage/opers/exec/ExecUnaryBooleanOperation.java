@@ -1,7 +1,6 @@
 package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.UnaryBooleanOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -24,11 +23,6 @@ public final class ExecUnaryBooleanOperation extends ExecAbstractUnaryOperation 
         Argument a_ = new Argument();
         a_.setStruct(o_.neg());
         setSimpleArgument(a_, _conf, _nodes);
-    }
-
-    @Override
-    public void quickCalculate(ContextEl _conf) {
-        UnaryBooleanOperation.tryGetArg(this,_conf);
     }
 
 }

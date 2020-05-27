@@ -44,7 +44,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
     public final void tryCalculateNode(ContextEl _conf) {
         tryGetResult(_conf, this);
     }
-    public static void tryGetResult(ContextEl _conf, ParentOperable _to) {
+    private static void tryGetResult(ContextEl _conf, MethodOperation _to) {
         CustList<Operable> chidren_ = _to.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (Operable o: chidren_) {
@@ -141,18 +141,9 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         } else if (m_ instanceof CastOperation) {
             CastOperation c_ = (CastOperation) m_;
             type_ = c_.getClassName();
-        } else if (m_ instanceof AffectationOperation) {
-            AffectationOperation a_ = (AffectationOperation) m_;
-            SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
-            if (s_ != null) {
-                ClassArgumentMatching c_ = s_.getResultClass();
-                type_ = c_.getSingleNameOrEmpty();
-            }
         }
-        KeyWords keyWords_ = _conf.getKeyWords();
-        String keyWordVar_ = keyWords_.getKeyWordVar();
         ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, firstArg_, two_, secondArg_, vars_, _conf);
-        if (!type_.isEmpty() && !StringList.quickEq(type_, keyWordVar_)) {
+        if (!type_.isEmpty()) {
             if (PrimitiveTypeUtil.isPrimitive(type_, _conf)) {
                 opTwo_.getResultClass().setUnwrapObject(type_);
                 opThree_.getResultClass().setUnwrapObject(type_);

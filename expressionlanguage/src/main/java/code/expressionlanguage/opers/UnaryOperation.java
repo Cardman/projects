@@ -97,7 +97,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         tryGetArg(this,classMethodId,oper,_conf);
     }
 
-    public static void tryGetArg(ParentOperable _par, ClassMethodId _m,String _oper,ContextEl _conf) {
+    public static void tryGetArg(MethodOperation _par, ClassMethodId _m,String _oper,ContextEl _conf) {
         if (_m != null) {
             return;
         }

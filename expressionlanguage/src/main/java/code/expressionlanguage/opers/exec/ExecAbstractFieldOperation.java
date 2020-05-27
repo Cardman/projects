@@ -17,7 +17,7 @@ public abstract class ExecAbstractFieldOperation extends ExecLeafOperation imple
     public ExecAbstractFieldOperation(AbstractFieldOperation _a) {
         super(_a);
         intermediate = _a.isIntermediateDottedOperation();
-        setPreviousArgument(_a.getPreviousArgument());
+        previousArgument = _a.getPreviousArgument();
         off = _a.getOff();
     }
 
@@ -55,8 +55,4 @@ public abstract class ExecAbstractFieldOperation extends ExecLeafOperation imple
         return previousArgument;
     }
 
-    @Override
-    public final void setPreviousArgument(Argument _previousArgument) {
-        previousArgument = _previousArgument;
-    }
 }

@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.util.CollCapacity;
 import code.util.StringList;
 
-public final class CausingErrorStruct implements ErroneousStruct {
+public final class CausingErrorStruct extends WithoutParentIdStruct implements ErroneousStruct {
 
     private final ArrayStruct stack;
     private final ArrayStruct fullStack;
@@ -28,10 +28,6 @@ public final class CausingErrorStruct implements ErroneousStruct {
     }
 
     @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
-    @Override
     public Struct getCause() {
         return cause;
     }
@@ -39,11 +35,6 @@ public final class CausingErrorStruct implements ErroneousStruct {
     @Override
     public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getAliasErrorInitClass();
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
     }
 
     @Override

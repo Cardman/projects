@@ -1,7 +1,6 @@
 package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.EqOperation;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -39,24 +38,6 @@ public final class ExecEqOperation extends ExecMethodOperation implements Atomic
         }
         Argument arg_ = new Argument(BooleanStruct.of(b_));
         setSimpleArgument(arg_, _conf, _nodes);
-    }
-
-    @Override
-    public void quickCalculate(ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument first_ = chidren_.first().getArgument();
-        Argument second_ = chidren_.last().getArgument();
-        boolean complement_ = false;
-        String op_ = oper.trim();
-        if (StringList.quickEq(op_, DIFF)) {
-            complement_ = true;
-        }
-        boolean b_ = calculateEq(first_, second_);
-        if (complement_) {
-            b_ = !b_;
-        }
-        Argument arg_ = new Argument(BooleanStruct.of(b_));
-        setSimpleArgumentAna(arg_, _conf);
     }
 
 }

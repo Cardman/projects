@@ -62,7 +62,7 @@ final class TemplatePartType extends BinaryType {
     }
 
     @Override
-    void setAnalyzedType(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+    void setAnalyzedType(CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         String tempClFull_ = fetchTemplate();
         setAnalyzedType(tempClFull_);
     }

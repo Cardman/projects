@@ -32,7 +32,7 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
     public ExecLambdaOperation(LambdaOperation _l) {
         super(_l);
         intermediate = _l.isIntermediate();
-        setPreviousArgument(_l.getPreviousArgument());
+        previousArgument = _l.getPreviousArgument();
         method = _l.getMethod();
         foundClass = _l.getFoundClass();
         ancestor = _l.getAncestor();
@@ -92,11 +92,6 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
     @Override
     public Argument getPreviousArgument() {
         return previousArgument;
-    }
-
-    @Override
-    public void setPreviousArgument(Argument _previousArgument) {
-        previousArgument = _previousArgument;
     }
 
     public ClassMethodId getMethod() {

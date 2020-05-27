@@ -20,11 +20,4 @@ public final class ExecBitShiftRightOperation extends ExecStdNumericOperation {
                 ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
     }
 
-    @Override
-    Argument calculateOperAna(Argument _a, String _op, Argument _b,
-            ContextEl _an) {
-        return new Argument(NumberStruct.calculateBitShiftRight(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
-    }
-
 }

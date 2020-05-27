@@ -10,9 +10,8 @@ import aiki.map.levels.AreaApparition;
 import aiki.map.places.Place;
 import aiki.map.pokemon.Pokemon;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
 import code.bean.RealInstanceStruct;
+import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.Bytes;
@@ -22,7 +21,7 @@ import code.util.ints.Displayable;
 import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleIterable;
 
-public final class DefaultStruct implements RealInstanceStruct {
+public final class DefaultStruct extends WithoutParentIdStruct implements RealInstanceStruct {
 
     private final Object instance;
 
@@ -62,10 +61,6 @@ public final class DefaultStruct implements RealInstanceStruct {
         className = _className;
     }
 
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
     public static DefaultStruct newInstance(Object _instance, String _className) {
         return new DefaultStruct(_instance, _className);
     }
@@ -101,11 +96,6 @@ public final class DefaultStruct implements RealInstanceStruct {
     }
     public static DefaultStruct newListByte(Bytes _instance, String _className) {
         return new DefaultStruct((Object)_instance, _className);
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
     }
 
     @Override

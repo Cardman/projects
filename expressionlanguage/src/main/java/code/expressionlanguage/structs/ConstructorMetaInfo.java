@@ -5,7 +5,7 @@ import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.StringList;
 
-public final class ConstructorMetaInfo implements AnnotatedStruct {
+public final class ConstructorMetaInfo extends WithoutParentStruct implements AnnotatedStruct {
 
     private static final String EMPTY_STRING = "";
 
@@ -48,10 +48,7 @@ public final class ConstructorMetaInfo implements AnnotatedStruct {
     public String getClassName() {
         return className;
     }
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
+
     public ConstructorId getRealId() {
         return realId;
     }

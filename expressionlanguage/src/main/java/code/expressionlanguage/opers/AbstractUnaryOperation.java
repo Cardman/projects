@@ -60,7 +60,7 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
         setArg(_conf, this);
     }
 
-    public static void setArg(ContextEl _conf, ParentOperable _current) {
+    private static void setArg(ContextEl _conf, AbstractUnaryOperation _current) {
         CustList<Operable> children_ = _current.getChildrenOperable();
         if (children_.size() != 1) {
             return;

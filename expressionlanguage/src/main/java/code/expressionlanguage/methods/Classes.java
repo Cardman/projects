@@ -1900,7 +1900,7 @@ public final class Classes {
             }
             staticFields.put(fullName_, cl_);
         }
-        ObjectMap<ClassField,FieldBlock> cstFields_ = new ObjectMap<ClassField,FieldBlock>();
+        IdMap<ClassField,ClassFieldBlock> cstFields_ = new IdMap<ClassField,ClassFieldBlock>();
         for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
             page_.setImporting(c);
             CustList<Block> bl_ = getDirectChildren(c);
@@ -1918,24 +1918,26 @@ public final class Classes {
                 page_.setGlobalClass(c.getGenericString());
                 page_.setCurrentBlock(f_);
                 page_.setCurrentAnaBlock(f_);
-                f_.buildExpressionLanguageReadOnly(_context);
+                CustList<OperationNode> list_ = f_.buildExpressionLanguageQuickly(_context);
                 String cl_ = c.getFullName();
                 for (String f: f_.getFieldName()) {
                     ClassField k_ = new ClassField(cl_, f);
-                    cstFields_.addEntry(k_,f_);
+                    cstFields_.addEntry(k_,new ClassFieldBlock(list_,f_));
                 }
             }
         }
         while (true) {
             boolean calculatedValue_ = false;
-            for (EntryCust<ClassField,FieldBlock> e: cstFields_.entryList()) {
+            for (EntryCust<ClassField,ClassFieldBlock> e: cstFields_.entryList()) {
                 ClassField k_ = e.getKey();
                 Struct value_ = getStaticField(k_);
                 if (value_ != null) {
                     continue;
                 }
-                FieldBlock f_ = e.getValue();
-                ElUtil.tryCalculate(f_, _context, k_.getFieldName());
+                ClassFieldBlock cf_ = e.getValue();
+                FieldBlock f_ = cf_.getFieldName();
+                CustList<OperationNode> ops_ = cf_.getClassName();
+                ElUtil.tryCalculate(f_,ops_, _context, k_.getFieldName());
                 value_ = getStaticField(k_);
                 if (value_ != null) {
                     calculatedValue_ = true;

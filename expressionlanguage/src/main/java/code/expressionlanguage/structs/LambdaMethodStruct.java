@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 
-public final class LambdaMethodStruct implements LambdaStruct {
+public final class LambdaMethodStruct extends WithoutParentIdStruct implements LambdaStruct {
 
     private Argument instanceCall;
 
@@ -82,19 +82,10 @@ public final class LambdaMethodStruct implements LambdaStruct {
     }
 
     @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
-
-    @Override
     public String getClassName(ContextEl _contextEl) {
         return className;
     }
 
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
 
 
 }

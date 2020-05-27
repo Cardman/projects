@@ -1,11 +1,9 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 
-public final class EntryTextStruct implements Struct {
+public final class EntryTextStruct extends WithoutParentIdStruct implements Struct {
     private StringStruct name;
     private StringStruct text;
     EntryTextStruct(Struct _name, Struct _text) {
@@ -28,18 +26,9 @@ public final class EntryTextStruct implements Struct {
     }
 
     @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
-
-    @Override
     public String getClassName(ContextEl _contextEl) {
         return ((LgNamesUtils)_contextEl.getStandards()).getAliasEntryText();
     }
 
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
 
 }

@@ -23,11 +23,6 @@ public final class ExecUnaryBinOperation extends ExecAbstractUnaryOperation {
         setSimpleArgument(a_, _conf, _nodes);
     }
 
-    @Override
-    public void quickCalculate(ContextEl _conf) {
-        UnaryBinOperation.tryGetArg(this,null,_conf);
-    }
-
     Argument getArgument(ContextEl _conf,
             Argument _in) {
         Argument out_ = new Argument();

@@ -10,14 +10,10 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.exec.ParentOperable;
-import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.ResolvingImportTypes;
@@ -231,9 +227,9 @@ public final class FctOperation extends InvokingOperation {
         tryGetArg(this, getPreviousArgument(),_conf, classMethodId, naturalVararg, lastType);
     }
 
-    public static void tryGetArg(PossibleIntermediateDottedOperable _current, Argument _pr,ContextEl _conf,
+    public static void tryGetArg(FctOperation _current, Argument _pr,ContextEl _conf,
                                  ClassMethodId _classMethodId, int _naturalVararg, String _lastType) {
-        CustList<Operable> chidren_ = ((ParentOperable)_current).getChildrenOperable();
+        CustList<Operable> chidren_ = _current.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (Operable o: chidren_) {
             arguments_.add(o.getArgument());

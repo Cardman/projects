@@ -50,7 +50,7 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
     public void tryCalculateNode(ContextEl _conf) {
         setArg(this, _conf, className);
     }
-    private static void setArg(Operable _current, ContextEl _conf,String _className) {
+    private static void setArg(OperationNode _current, ContextEl _conf,String _className) {
         if (_className.contains(Templates.PREFIX_VAR_TYPE)) {
             return;
         }

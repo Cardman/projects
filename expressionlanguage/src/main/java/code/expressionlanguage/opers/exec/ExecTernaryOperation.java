@@ -18,15 +18,6 @@ public final class ExecTernaryOperation extends ExecMethodOperation implements A
     }
 
     @Override
-    public void tryCalculateNode(ContextEl _conf) {
-        quickCalculate(_conf);
-    }
-    @Override
-    public void quickCalculate(ContextEl _conf) {
-        AbstractTernaryOperation.tryGetResult(_conf, this);
-    }
-
-    @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                 ContextEl _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);

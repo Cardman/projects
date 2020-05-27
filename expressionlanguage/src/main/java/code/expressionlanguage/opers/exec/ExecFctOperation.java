@@ -1,7 +1,6 @@
 package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -64,10 +63,6 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
         setSimpleArgument(res_, _conf, _nodes);
     }
 
-    @Override
-    public void quickCalculate(ContextEl _conf) {
-        FctOperation.tryGetArg(this, getPreviousArgument(),_conf, classMethodId, naturalVararg, lastType);
-    }
     Argument getArgument(Argument _previous, CustList<Argument> _arguments, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);

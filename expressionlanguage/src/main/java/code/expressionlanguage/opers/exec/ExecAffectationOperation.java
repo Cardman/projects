@@ -2,12 +2,10 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, AffectationOperable {
@@ -50,10 +48,6 @@ public final class ExecAffectationOperation extends ExecMethodOperation implemen
     }
     public ExecSettableElResult getSettable() {
         return settable;
-    }
-    @Override
-    public void quickCalculate(ContextEl _conf) {
-        AffectationOperation.setArg(_conf, this, settable);
     }
 
     @Override

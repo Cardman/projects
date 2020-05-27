@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 
-public final class LambdaFieldStruct implements LambdaStruct {
+public final class LambdaFieldStruct extends WithoutParentIdStruct implements LambdaStruct {
 
     private Argument instanceCall;
 
@@ -55,18 +55,9 @@ public final class LambdaFieldStruct implements LambdaStruct {
     }
 
     @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
-
-    @Override
     public String getClassName(ContextEl _contextEl) {
         return className;
     }
 
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
 
 }

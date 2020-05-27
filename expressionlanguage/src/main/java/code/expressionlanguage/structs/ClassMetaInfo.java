@@ -15,7 +15,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ClassMetaInfo implements AnnotatedStruct {
+public final class ClassMetaInfo extends WithoutParentStruct implements AnnotatedStruct {
 
     private static final String EMPTY_STRING = "";
 
@@ -165,10 +165,7 @@ public final class ClassMetaInfo implements AnnotatedStruct {
     public void setFileName(String _fileName) {
         fileName = _fileName;
     }
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
+
     public String getVariableOwner() {
         return variableOwner;
     }

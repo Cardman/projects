@@ -30,13 +30,6 @@ public final class ExecCatOperation extends ExecNumericOperation {
         r_ = localSumDiff(a_, c_, _conf);
         setSimpleArgument(r_, _conf, _nodes);
     }
-    @Override
-    public void quickCalculate(ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = chidren_.first().getArgument();
-        Argument c_ = chidren_.last().getArgument();
-        setSimpleArgumentAna(localSumDiff(a_,c_,_conf),_conf);
-    }
 
     public static Argument localSumDiff(Argument _a, Argument _b,
                                         ContextEl _cont) {

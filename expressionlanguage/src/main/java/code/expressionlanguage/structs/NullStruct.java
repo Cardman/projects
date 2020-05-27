@@ -2,15 +2,11 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 
-public final class NullStruct implements DisplayableStruct {
+public final class NullStruct extends WithoutParentIdStruct implements DisplayableStruct {
 
     public static final NullStruct NULL_VALUE = new NullStruct();
 
     private NullStruct() {
-    }
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     @Override
@@ -24,9 +20,5 @@ public final class NullStruct implements DisplayableStruct {
         return "";
     }
 
-    @Override
-    public boolean sameReference(Struct _other) {
-        return _other == NULL_VALUE;
-    }
 
 }

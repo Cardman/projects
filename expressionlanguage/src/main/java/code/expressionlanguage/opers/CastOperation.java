@@ -68,7 +68,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         tryGetArg(this,_conf, className);
     }
 
-    public static void tryGetArg(ParentOperable _current, ContextEl _conf, String _className) {
+    public static void tryGetArg(MethodOperation _current, ContextEl _conf, String _className) {
         CustList<Operable> chidren_ = _current.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (Operable o: chidren_) {

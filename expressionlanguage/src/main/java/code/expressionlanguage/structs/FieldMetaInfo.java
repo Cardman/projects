@@ -5,7 +5,7 @@ import code.expressionlanguage.methods.AccessEnum;
 import code.util.StringList;
 
 
-public final class FieldMetaInfo implements AnnotatedStruct {
+public final class FieldMetaInfo extends WithoutParentStruct implements AnnotatedStruct {
 
     private static final String EMPTY_STRING = "";
     private final AccessEnum access;
@@ -50,10 +50,7 @@ public final class FieldMetaInfo implements AnnotatedStruct {
     public void setFileName(String _fileName) {
         fileName = _fileName;
     }
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
+
     public boolean isPublic() {
         return access == AccessEnum.PUBLIC;
     }

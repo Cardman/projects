@@ -26,7 +26,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
 
     private final String className;
 
-    private final ObjectMap<ClassField,Struct> fields;
+    private final CustList<ClassFieldStruct> fields;
 
     private Struct parent;
 
@@ -36,7 +36,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     private final String parentClassName;
     public EventStruct(ContextEl _original, String _className,
                        String _name, int _ordinal,
-                       ObjectMap<ClassField,Struct> _fields, Struct _parent) {
+                       CustList<ClassFieldStruct> _fields, Struct _parent) {
         original = _original;
         name = _name;
         ordinal = _ordinal;
@@ -56,12 +56,12 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public EntryCust<ClassField, Struct> getEntryStruct(ClassField _classField) {
-        return fields.getEntryByKey(_classField);
+    public ClassFieldStruct getEntryStruct(ClassField _classField) {
+        return ClassFieldStruct.getPair(fields,_classField);
     }
 
     @Override
-    public ObjectMap<ClassField, Struct> getFields() {
+    public CustList<ClassFieldStruct> getFields() {
         return fields;
     }
 

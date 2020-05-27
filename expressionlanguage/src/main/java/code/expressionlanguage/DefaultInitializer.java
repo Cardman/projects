@@ -5,8 +5,9 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassFieldStruct;
 import code.expressionlanguage.structs.*;
-import code.util.ObjectMap;
+import code.util.CustList;
 import code.util.StringList;
 
 public class DefaultInitializer implements Initializer {
@@ -14,18 +15,18 @@ public class DefaultInitializer implements Initializer {
     @Override
     public final Struct processInit(ContextEl _context, Struct _parent,
             String _className, String _fieldName, int _ordinal) {
-        ObjectMap<ClassField, Struct> fields_ = feedFields(_context, _className);
+        CustList<ClassFieldStruct> fields_ = feedFields(_context, _className);
         return init(_context, _parent, _className, _fieldName, _ordinal, fields_);
     }
 
-    public ObjectMap<ClassField, Struct> feedFields(ContextEl _context, String _className) {
+    public CustList<ClassFieldStruct> feedFields(ContextEl _context, String _className) {
         Classes classes_ = _context.getClasses();
         String baseClass_ = Templates.getIdFromAllTypes(_className);
         RootBlock class_ = classes_.getClassBody(baseClass_);
         StringList allClasses_ = new StringList(class_.getGenericString());
         allClasses_.addAllElts(class_.getAllGenericSuperTypes());
-        ObjectMap<ClassField,Struct> fields_;
-        fields_ = new ObjectMap<ClassField,Struct>();
+        CustList<ClassFieldStruct> fields_;
+        fields_ = new CustList<ClassFieldStruct>();
         for (String c: allClasses_) {
             String id_ = Templates.getIdFromAllTypes(c);
             String formatted_ = Templates.quickFormat(_className,c,_context);
@@ -42,7 +43,7 @@ public class DefaultInitializer implements Initializer {
                 fieldDeclClass_ = Templates.quickFormat(formatted_,fieldDeclClass_,_context);
                 for (String f: f_.getFieldName()) {
                     ClassField key_ = new ClassField(id_, f);
-                    fields_.put(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context));
+                    fields_.add(new ClassFieldStruct(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context)));
                 }
             }
         }
@@ -57,8 +58,8 @@ public class DefaultInitializer implements Initializer {
         RootBlock class_ = classes_.getClassBody(baseClass_);
         StringList allClasses_ = new StringList(baseClass_);
         allClasses_.addAllElts(class_.getAllSuperTypes());
-        ObjectMap<ClassField,Struct> fields_;
-        fields_ = new ObjectMap<ClassField,Struct>();
+        CustList<ClassFieldStruct> fields_;
+        fields_ = new CustList<ClassFieldStruct>();
         for (String c: allClasses_) {
             RootBlock clMetaLoc_ = classes_.getClassBody(c);
             for (Block b: Classes.getDirectChildren(clMetaLoc_)) {
@@ -71,9 +72,9 @@ public class DefaultInitializer implements Initializer {
                 String fieldDeclClass_ = f_.getImportedReturnType();
                 ClassField key_ = new ClassField(c, fieldName_);
                 if (str_ != null) {
-                    fields_.put(key_, str_);
+                    fields_.add(new ClassFieldStruct(key_, str_));
                 } else {
-                    fields_.put(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context));
+                    fields_.add(new ClassFieldStruct(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context)));
                 }
             }
         }
@@ -108,7 +109,7 @@ public class DefaultInitializer implements Initializer {
     }
 
     protected Struct init(ContextEl _context, Struct _parent,
-            String _className, String _fieldName, int _ordinal, ObjectMap<ClassField,Struct> _fields) {
+            String _className, String _fieldName, int _ordinal, CustList<ClassFieldStruct> _fields) {
         if (_fieldName.isEmpty()) {
             if (_parent != NullStruct.NULL_VALUE) {
                 return new InnerCustStruct(_className, _fields, _parent, _parent.getClassName(_context));

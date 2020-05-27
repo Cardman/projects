@@ -1,10 +1,9 @@
 package code.expressionlanguage.opers.util.annotation;
 
-import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassFieldStruct;
 import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.EntryCust;
 import code.util.NatStringTreeMap;
 
 abstract class InfoAnnotPart {
@@ -27,8 +26,8 @@ abstract class InfoAnnotPart {
             c_.setClassName(a_.getClassName());
             c_.setParent(_parent);
             NatStringTreeMap<Struct> fields_ = new NatStringTreeMap<Struct>();
-            for (EntryCust<ClassField, Struct> e: a_.getFields().entryList()) {
-                fields_.put(e.getKey().getFieldName(), e.getValue());
+            for (ClassFieldStruct e: a_.getFields()) {
+                fields_.put(e.getClassField().getFieldName(), e.getStruct());
             }
             c_.setFields(fields_);
             return c_;

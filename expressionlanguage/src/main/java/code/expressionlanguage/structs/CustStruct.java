@@ -2,34 +2,24 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
-import code.util.EntryCust;
-import code.util.ObjectMap;
+import code.expressionlanguage.opers.util.ClassFieldStruct;
+import code.util.CustList;
 
-public final class CustStruct implements FieldableStruct {
+public final class CustStruct extends WithoutParentIdStruct implements FieldableStruct {
 
     private final String className;
 
-    private final ObjectMap<ClassField,Struct> fields;
+    private final CustList<ClassFieldStruct> fields;
 
     public CustStruct(String _className,
-            ObjectMap<ClassField,Struct> _fields) {
+                      CustList<ClassFieldStruct> _fields) {
         fields = _fields;
         className = _className;
     }
 
     @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
-
-    @Override
-    public EntryCust<ClassField, Struct> getEntryStruct(ClassField _classField) {
-        return fields.getEntryByKey(_classField);
+    public ClassFieldStruct getEntryStruct(ClassField _classField) {
+        return ClassFieldStruct.getPair(fields,_classField);
     }
 
     @Override
@@ -38,7 +28,7 @@ public final class CustStruct implements FieldableStruct {
     }
 
     @Override
-    public ObjectMap<ClassField,Struct> getFields() {
+    public CustList<ClassFieldStruct> getFields() {
         return fields;
     }
 

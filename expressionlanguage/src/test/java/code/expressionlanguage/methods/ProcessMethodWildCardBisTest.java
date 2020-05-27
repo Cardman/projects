@@ -50,13 +50,13 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         Struct subField_;
-        subField_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
+        subField_ = getField((FieldableStruct)field_, new ClassField("pkg.ExTwo", "inst"));
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(8, ((NumberStruct)subField_).intStruct());
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertSame(NullStruct.NULL_VALUE,field_);
     }
 
@@ -102,9 +102,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
@@ -149,12 +149,12 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
         Struct subField_;
-        subField_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
+        subField_ = getField((FieldableStruct)field_, new ClassField("pkg.ExTwo", "inst"));
         assertEq(5, ((NumberStruct)subField_).intStruct());
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, ((NumberStruct)field_).intStruct());
     }
@@ -206,9 +206,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
@@ -254,9 +254,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, ((NumberStruct)field_).intStruct());
     }
@@ -302,9 +302,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
     }
@@ -350,9 +350,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, ((NumberStruct)field_).intStruct());
     }
@@ -398,9 +398,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, ((NumberStruct)field_).intStruct());
     }
@@ -446,9 +446,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, ((NumberStruct)field_).intStruct());
     }
@@ -495,9 +495,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, ((NumberStruct)field_).intStruct());
     }
@@ -543,9 +543,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
@@ -591,9 +591,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
@@ -639,9 +639,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
@@ -715,9 +715,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, ((NumberStruct)field_).intStruct());
     }
@@ -763,9 +763,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
@@ -811,9 +811,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, ((NumberStruct)field_).intStruct());
     }
@@ -854,13 +854,13 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         Struct subField_;
-        subField_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
+        subField_ = getField((FieldableStruct)field_, new ClassField("pkg.ExTwo", "inst"));
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(8, ((NumberStruct)subField_).intStruct());
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertSame(NullStruct.NULL_VALUE,field_);
     }
     @Test
@@ -900,13 +900,13 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
         Struct subField_;
-        subField_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
+        subField_ = getField((FieldableStruct)field_, new ClassField("pkg.ExTwo", "inst"));
         assertEq(INTEGER, subField_.getClassName(cont_));
         assertEq(8, ((NumberStruct)subField_).intStruct());
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertSame(NullStruct.NULL_VALUE,field_);
     }
     @Test
@@ -946,15 +946,15 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExTwo<[java.lang.Number>", field_.getClassName(cont_));
         Struct subField_;
-        subField_ = ((FieldableStruct)field_).getFields().getVal(new ClassField("pkg.ExTwo", "inst"));
+        subField_ = getField((FieldableStruct)field_, new ClassField("pkg.ExTwo", "inst"));
         assertEq("[java.lang.Number", subField_.getClassName(cont_));
         Struct[] arr_ = ((ArrayStruct) subField_).getInstance();
         assertEq(1, arr_.length);
         assertEq(8, ((NumberStruct) arr_[0]).intStruct());
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertSame(NullStruct.NULL_VALUE,field_);
     }
     @Test
@@ -999,9 +999,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, ((NumberStruct)field_).intStruct());
     }
@@ -1047,9 +1047,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, ((NumberStruct)field_).intStruct());
     }
@@ -1205,9 +1205,9 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
         assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
-        field_ = ((FieldableStruct)str_).getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, ((NumberStruct)field_).intStruct());
     }

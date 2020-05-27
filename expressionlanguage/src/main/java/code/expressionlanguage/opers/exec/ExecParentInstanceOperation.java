@@ -18,7 +18,6 @@ public class ExecParentInstanceOperation extends ExecLeafOperation implements At
         super(_l);
         intermediate = _l.isIntermediate();
         off = _l.getOff();
-        setPreviousArgument(null);
     }
 
     @Override
@@ -52,7 +51,4 @@ public class ExecParentInstanceOperation extends ExecLeafOperation implements At
         return intermediate;
     }
 
-    @Override
-    public void setPreviousArgument(Argument _argument) {
-    }
 }

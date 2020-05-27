@@ -1000,7 +1000,7 @@ public abstract class LgNames {
         return new FunctionalInstance(_className,_functional);
     }
     public AbstractFunctionalInstance newFullFunctionalInstance(String _className, LambdaStruct _functional, ContextEl _contextEl) {
-        ObjectMap<ClassField, Struct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
+        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
         return new FullFunctionalInstance(_className,_functional,fs_);
     }
     public String getStructClassName(Struct _struct, ContextEl _context) {

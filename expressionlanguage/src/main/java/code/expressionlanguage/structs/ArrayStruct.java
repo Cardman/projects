@@ -2,7 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 
-public final class ArrayStruct implements Struct {
+public final class ArrayStruct extends WithoutParentIdStruct implements Struct {
 
     private final Struct[] instance;
 
@@ -23,16 +23,6 @@ public final class ArrayStruct implements Struct {
     }
     private static void set(int _i, Struct[] _dest, Struct[] _orig) {
         _dest[_i] = _orig[_i];
-    }
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
-
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
     }
 
     @Override

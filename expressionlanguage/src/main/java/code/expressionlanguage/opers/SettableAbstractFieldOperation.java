@@ -196,7 +196,7 @@ public abstract class SettableAbstractFieldOperation extends
     public final void tryCalculateNode(ContextEl _conf) {
         trySet(_conf, this, fieldMetaInfo);
     }
-    public static void trySet(ContextEl _conf, Operable _oper, FieldInfo _info) {
+    public static void trySet(ContextEl _conf, OperationNode _oper, FieldInfo _info) {
         if (_info == null) {
             return;
         }

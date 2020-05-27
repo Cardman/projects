@@ -1,17 +1,11 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.gui.EnabledMenu;
 
-public abstract class AbsMenuStruct implements Struct {
+public abstract class AbsMenuStruct extends WithoutParentIdStruct implements Struct {
     private Struct parentMenu = NullStruct.NULL_VALUE;
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
+
     public Struct getParentMenu() {
         return parentMenu;
     }
@@ -50,8 +44,4 @@ public abstract class AbsMenuStruct implements Struct {
     }
     abstract EnabledMenu getMenu();
 
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
 }

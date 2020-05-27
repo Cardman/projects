@@ -20,7 +20,6 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
         intermediate = _t.isIntermediate();
         nbAncestors = _t.getNbAncestors();
         off = _t.getOff();
-        setPreviousArgument(null);
     }
 
     @Override
@@ -51,10 +50,6 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
     @Override
     public Argument getPreviousArgument() {
         return null;
-    }
-
-    @Override
-    public void setPreviousArgument(Argument _argument) {
     }
 
 }

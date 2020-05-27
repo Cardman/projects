@@ -1,10 +1,8 @@
 package code.expressionlanguage.opers.exec;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 
-public abstract class ExecMethodOperation extends ExecOperationNode implements ReductibleOperable, ParentOperable {
+public abstract class ExecMethodOperation extends ExecOperationNode implements ParentOperable {
 
     private ExecOperationNode firstChild;
 
@@ -14,12 +12,6 @@ public abstract class ExecMethodOperation extends ExecOperationNode implements R
 
     public ExecMethodOperation(int _indexChild, ClassArgumentMatching _res, int _order) {
         super(_indexChild,_res,_order);
-    }
-    @Override
-    public void tryCalculateNode(ContextEl _conf) {
-        MethodOperation.tryCalculateNode(this, _conf);
-    }
-    public void quickCalculate(ContextEl _conf) {
     }
 
     public final void appendChild(ExecOperationNode _child) {
@@ -39,16 +31,6 @@ public abstract class ExecMethodOperation extends ExecOperationNode implements R
         }
     }
 
-    @Override
-    public final CustList<Operable> getChildrenOperable() {
-        CustList<Operable> list_ = new CustList<Operable>();
-        ExecOperationNode elt_ = getFirstChild();
-        while (elt_ != null) {
-            list_.add(elt_);
-            elt_ = elt_.getNextSibling();
-        }
-        return list_;
-    }
     public final CustList<ExecOperationNode> getChildrenNodes() {
         CustList<ExecOperationNode> list_ = new CustList<ExecOperationNode>();
         ExecOperationNode elt_ = getFirstChild();

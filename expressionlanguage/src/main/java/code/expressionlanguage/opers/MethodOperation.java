@@ -120,7 +120,7 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
     public void tryCalculateNode(ContextEl _conf) {
         tryCalculateNode(this, _conf);
     }
-    public static void tryCalculateNode(ParentOperable _par, ContextEl _conf) {
+    public static void tryCalculateNode(MethodOperation _par, ContextEl _conf) {
         CustList<Operable> children_ = _par.getChildrenOperable();
         for (Operable o: children_) {
             if (o.getArgument() == null) {
@@ -148,7 +148,6 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         }
     }
 
-    @Override
     public final CustList<Operable> getChildrenOperable() {
         CustList<Operable> list_ = new CustList<Operable>();
         OperationNode elt_ = getFirstChild();

@@ -4,10 +4,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.WithoutParentStruct;
 
 import java.awt.*;
 
-public final class DimensionStruct implements Struct {
+public final class DimensionStruct extends WithoutParentStruct implements Struct {
     private Dimension dimension;
 
     public DimensionStruct(int _w,int _h) {
@@ -20,10 +21,6 @@ public final class DimensionStruct implements Struct {
 
     protected DimensionStruct(Dimension _d) {
         dimension = new Dimension(_d);
-    }
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     @Override

@@ -3,6 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassFieldStruct;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableFunctionalInstance;
 import code.gui.ListSelection;
@@ -15,7 +16,7 @@ import javax.swing.event.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.event.*;
 
-public final class EventFunctionalInstance implements AbstractFunctionalInstance,
+public final class EventFunctionalInstance extends WithoutParentIdStruct implements AbstractFunctionalInstance,
         ActionListener,Runnable,MouseListener,WindowListener,ListSelection,
         KeyListener,ChangeListener,TreeSelectionListener,ListSelectionListener,
         MouseMotionListener,MouseWheelListener,FieldableStruct {
@@ -25,23 +26,13 @@ public final class EventFunctionalInstance implements AbstractFunctionalInstance
     private final LambdaStruct functional;
     private final ContextEl original;
 
-    private final ObjectMap<ClassField,Struct> fields;
+    private final CustList<ClassFieldStruct> fields;
     public EventFunctionalInstance(String _className,LambdaStruct _functional,
-                                   ObjectMap<ClassField,Struct> _fields,ContextEl _contextEl) {
+                                   CustList<ClassFieldStruct> _fields,ContextEl _contextEl) {
         className = _className;
         functional = _functional;
         original = _contextEl;
         fields = _fields;
-    }
-
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
     }
 
     @Override
@@ -242,12 +233,12 @@ public final class EventFunctionalInstance implements AbstractFunctionalInstance
     }
 
     @Override
-    public EntryCust<ClassField, Struct> getEntryStruct(ClassField _classField) {
-        return fields.getEntryByKey(_classField);
+    public ClassFieldStruct getEntryStruct(ClassField _classField) {
+        return ClassFieldStruct.getPair(fields,_classField);
     }
 
     @Override
-    public ObjectMap<ClassField, Struct> getFields() {
+    public CustList<ClassFieldStruct> getFields() {
         return fields;
     }
 }

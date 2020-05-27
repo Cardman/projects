@@ -1,9 +1,9 @@
 package code.bean;
 
 import code.expressionlanguage.ContextEl;
-import code.formathtml.structs.AbstractStruct;
+import code.expressionlanguage.structs.WithoutParentIdStruct;
 
-public final class BeanStruct extends AbstractStruct implements RealInstanceStruct {
+public final class BeanStruct extends WithoutParentIdStruct implements RealInstanceStruct {
 
     private Bean bean;
 

@@ -2,26 +2,18 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public final class WindowSetStruct implements Struct {
+public final class WindowSetStruct extends WithoutParentIdStruct implements Struct {
     private ConcurrentHashMap<WindowStruct,Struct> elementSet = new ConcurrentHashMap<WindowStruct,Struct>();
 
     private final boolean writable;
 
     public WindowSetStruct(boolean _writable) {
         writable = _writable;
-    }
-
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     public ArrayStruct toSnapshotArray(ContextEl _contextEl) {
@@ -69,8 +61,4 @@ public final class WindowSetStruct implements Struct {
         return ((LgNamesGui)_contextEl.getStandards()).getAliasWindowSet();
     }
 
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
 }

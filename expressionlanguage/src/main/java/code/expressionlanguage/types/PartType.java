@@ -154,7 +154,7 @@ abstract class PartType {
     abstract void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted);
 
     abstract void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap< String>>_dels, AccessingImportingBlock _rooted);
-    abstract void setAnalyzedType(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit);
+    abstract void setAnalyzedType(CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit);
     abstract void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit);
 
     int getIndex() {

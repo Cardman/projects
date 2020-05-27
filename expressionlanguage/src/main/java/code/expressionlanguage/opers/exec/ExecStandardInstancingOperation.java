@@ -38,11 +38,6 @@ public final class ExecStandardInstancingOperation extends
     }
 
     @Override
-    public void quickCalculate(ContextEl _conf) {
-        StandardInstancingOperation.tryGetArg(this,_conf,naturalVararg, constId,lastType);
-    }
-
-    @Override
     public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = filterInvoking(chidren_, _nodes);

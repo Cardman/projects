@@ -2,30 +2,25 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassFieldStruct;
 import code.expressionlanguage.opers.util.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.stds.DisplayedStrings;
-import code.util.EntryCust;
-import code.util.ObjectMap;
+import code.util.CustList;
 import code.util.StringList;
 
-public final class AnnotationStruct implements FieldableStruct,DisplayableStruct {
+public final class AnnotationStruct extends WithoutParentStruct implements FieldableStruct,DisplayableStruct {
 
     private static final String INFINITY = "I";
     private static final String NAN = "N";
     private static final String EXP = "E";
     private final String className;
 
-    private final ObjectMap<ClassField,Struct> fields;
+    private final CustList<ClassFieldStruct> fields;
 
     public AnnotationStruct(String _className,
-            ObjectMap<ClassField,Struct> _fields) {
+                            CustList<ClassFieldStruct> _fields) {
         fields = _fields;
         className = _className;
-    }
-
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     @Override
@@ -38,8 +33,8 @@ public final class AnnotationStruct implements FieldableStruct,DisplayableStruct
     }
 
     @Override
-    public EntryCust<ClassField, Struct> getEntryStruct(ClassField _classField) {
-        return fields.getEntryByKey(_classField);
+    public ClassFieldStruct getEntryStruct(ClassField _classField) {
+        return ClassFieldStruct.getPair(fields,_classField);
     }
 
     @Override
@@ -48,7 +43,7 @@ public final class AnnotationStruct implements FieldableStruct,DisplayableStruct
     }
 
     @Override
-    public ObjectMap<ClassField,Struct> getFields() {
+    public CustList<ClassFieldStruct> getFields() {
         return fields;
     }
 

@@ -216,10 +216,10 @@ public abstract class CommonRender {
     }
 
     protected static Struct getStruct(Struct _struct, ClassField _cl) {
-        return ((FieldableStruct) _struct).getEntryStruct(_cl).getValue();
+        return ((FieldableStruct) _struct).getEntryStruct(_cl).getStruct();
     }
     protected static void setStruct(Struct _struct, ClassField _cl, Struct _value) {
-        ((FieldableStruct) _struct).getEntryStruct(_cl).setValue(_value);
+        ((FieldableStruct) _struct).getEntryStruct(_cl).setStruct(_value);
     }
     protected static Struct getException(Configuration _cont) {
         CallingState str_ = _cont.getContext().getCallingState();

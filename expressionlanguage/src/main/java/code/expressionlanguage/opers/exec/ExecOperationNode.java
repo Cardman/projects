@@ -522,7 +522,36 @@ public abstract class ExecOperationNode implements Operable {
         }
         return _operation.getOrder() + 1;
     }
-
+    public static int getNextIndex(OperationNode _operation, Struct _value) {
+        int index_ = _operation.getIndexChild();
+        MethodOperation par_ = _operation.getParent();
+        if (par_ instanceof NullSafeOperation) {
+            if (_value != NullStruct.NULL_VALUE) {
+                return par_.getOrder();
+            }
+        }
+        if (par_ instanceof AndOperation) {
+            if (BooleanStruct.isFalse(_value)) {
+                return par_.getOrder();
+            }
+        }
+        if (par_ instanceof OrOperation) {
+            if (BooleanStruct.isTrue(_value)) {
+                return par_.getOrder();
+            }
+        }
+        if (par_ instanceof AbstractTernaryOperation) {
+            if (index_ == 1) {
+                return par_.getOrder();
+            }
+            if (index_ == 0) {
+                if (BooleanStruct.isFalse(_value)) {
+                    return _operation.getNextSibling().getOrder() + 1;
+                }
+            }
+        }
+        return _operation.getOrder() + 1;
+    }
     @Override
     public final int getOrder() {
         return order;
@@ -545,11 +574,6 @@ public abstract class ExecOperationNode implements Operable {
     @Override
     public final Argument getArgument() {
         return argument;
-    }
-
-    @Override
-    public final void setSimpleArgument(Argument _argument) {
-        argument = _argument;
     }
 
     public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
@@ -607,15 +631,6 @@ public abstract class ExecOperationNode implements Operable {
         }
         out_.setStruct(_conf.getStandards().getStringOfObject(_conf,struct_));
         return out_;
-    }
-    @Override
-    public final void setSimpleArgumentAna(Argument _argument, ContextEl _conf) {
-        OperationNode.setArgAna(this, _argument, _conf);
-    }
-
-    @Override
-    public PossibleIntermediateDottedOperable getSiblingSettable() {
-        return getSiblingSet();
     }
 
     @Override

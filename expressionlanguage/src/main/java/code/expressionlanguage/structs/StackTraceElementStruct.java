@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.util.*;
 import code.util.StringList;
 
-public final class StackTraceElementStruct implements DisplayableStruct {
+public final class StackTraceElementStruct extends WithoutParentStruct implements DisplayableStruct {
 
     private final String fileName;
     private final int row;
@@ -20,11 +20,6 @@ public final class StackTraceElementStruct implements DisplayableStruct {
         indexFileType = _indexFileType;
         currentClassName = _currentClassName;
         signature = _signature;
-    }
-
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     @Override

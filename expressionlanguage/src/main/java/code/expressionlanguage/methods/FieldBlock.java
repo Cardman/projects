@@ -15,6 +15,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.instr.PartOffsetAffect;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.types.ResolvingImportTypes;
@@ -271,6 +272,12 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
         processPutCoverage(_cont);
         opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(staticField));
         processReducing(_cont);
+    }
+    public CustList<OperationNode> buildExpressionLanguageQuickly(ContextEl _cont) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(valueOffset);
+        page_.setOffset(0);
+        return ElUtil.getAnalyzedOperationsQucikly(value, _cont, Calculation.staticCalculation(staticField));
     }
 
     private void processReducing(ContextEl _cont) {

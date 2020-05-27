@@ -57,7 +57,7 @@ final class InnerPartType extends BinaryType {
     }
 
     @Override
-    void setAnalyzedType(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+    void setAnalyzedType(CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {

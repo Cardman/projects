@@ -3,7 +3,6 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
@@ -196,7 +195,7 @@ public final class PartTypeUtil {
             }
             boolean stop_ = false;
             while (true) {
-                current_.setAnalyzedType(_context, dels_, _inherit);
+                current_.setAnalyzedType(dels_, _inherit);
                 PartType next_ = createQuickNextSibling(current_, loc_, dels_);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
@@ -205,7 +204,7 @@ public final class PartTypeUtil {
                     break;
                 }
                 if (par_ == root_) {
-                    par_.setAnalyzedType(_context, dels_, _inherit);
+                    par_.setAnalyzedType(dels_, _inherit);
                     stop_ = true;
                     break;
                 }

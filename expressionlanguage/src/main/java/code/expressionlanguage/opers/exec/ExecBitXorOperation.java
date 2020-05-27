@@ -18,10 +18,4 @@ public final class ExecBitXorOperation extends ExecStdNumericOperation {
         return new Argument(NumberStruct.calculateXor(_a.getStruct(), _b.getStruct(), _cont, getResultClass()));
     }
 
-    @Override
-    Argument calculateOperAna(Argument _a, String _op, Argument _b,
-            ContextEl _an) {
-        return new Argument(NumberStruct.calculateXor(_a.getStruct(), _b.getStruct(), _an, getResultClass()));
-    }
-
 }

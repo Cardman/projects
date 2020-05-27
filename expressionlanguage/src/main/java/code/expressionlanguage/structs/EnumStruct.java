@@ -2,10 +2,10 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
-import code.util.EntryCust;
-import code.util.ObjectMap;
+import code.expressionlanguage.opers.util.ClassFieldStruct;
+import code.util.CustList;
 
-public final class EnumStruct implements FieldableStruct, EnumerableStruct {
+public final class EnumStruct extends WithoutParentIdStruct implements FieldableStruct, EnumerableStruct {
 
     private final int ordinal;
 
@@ -13,10 +13,10 @@ public final class EnumStruct implements FieldableStruct, EnumerableStruct {
 
     private final String className;
 
-    private final ObjectMap<ClassField,Struct> fields;
+    private final CustList<ClassFieldStruct> fields;
 
     public EnumStruct(String _className,
-            ObjectMap<ClassField,Struct> _fields,
+                      CustList<ClassFieldStruct> _fields,
             int _ordinal, String _name) {
         fields = _fields;
         className = _className;
@@ -25,18 +25,8 @@ public final class EnumStruct implements FieldableStruct, EnumerableStruct {
     }
 
     @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
-
-    @Override
-    public EntryCust<ClassField, Struct> getEntryStruct(ClassField _classField) {
-        return fields.getEntryByKey(_classField);
+    public ClassFieldStruct getEntryStruct(ClassField _classField) {
+        return ClassFieldStruct.getPair(fields,_classField);
     }
 
     @Override
@@ -56,7 +46,7 @@ public final class EnumStruct implements FieldableStruct, EnumerableStruct {
 
 
     @Override
-    public ObjectMap<ClassField,Struct> getFields() {
+    public CustList<ClassFieldStruct> getFields() {
         return fields;
     }
 

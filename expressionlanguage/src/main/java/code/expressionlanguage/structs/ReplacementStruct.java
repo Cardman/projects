@@ -9,7 +9,7 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.Replacement;
 import code.util.StringList;
 
-public final class ReplacementStruct implements Struct {
+public final class ReplacementStruct extends WithoutParentStruct implements Struct {
 
     private final Replacement instance;
 
@@ -70,11 +70,6 @@ public final class ReplacementStruct implements Struct {
     private void getNewString(ResultErrorStd _res) {
         String newStr_ = instance.getNewString();
         _res.setResult(Argument.wrapStr(newStr_));
-    }
-
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     @Override

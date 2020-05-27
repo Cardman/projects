@@ -6,7 +6,7 @@ import code.expressionlanguage.structs.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
-public final class TreeNodeStruct implements Struct {
+public final class TreeNodeStruct extends WithoutParentStruct implements Struct {
 
     private final DefaultMutableTreeNode treeNode;
 
@@ -172,10 +172,6 @@ public final class TreeNodeStruct implements Struct {
             return ((StringStruct)_str).getInstance();
         }
         return "";
-    }
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     @Override

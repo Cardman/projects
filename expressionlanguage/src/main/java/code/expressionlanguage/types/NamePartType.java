@@ -70,7 +70,7 @@ final class NamePartType extends LeafPartType {
     }
 
     @Override
-    void setAnalyzedType(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+    void setAnalyzedType(CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         String type_ = getTypeName();
         PartType part_ = getPreviousPartType();
         if (part_ != null) {

@@ -2,8 +2,7 @@ package code.formathtml.classes;
 
 import code.bean.RealInstanceStruct;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
@@ -12,7 +11,7 @@ import code.util.ints.Displayable;
 import code.util.ints.SimpleEntries;
 import code.util.ints.SimpleIterable;
 
-public final class StdStruct implements RealInstanceStruct {
+public final class StdStruct extends WithoutParentIdStruct implements RealInstanceStruct {
 
     private final Object instance;
 
@@ -52,10 +51,6 @@ public final class StdStruct implements RealInstanceStruct {
         className = _className;
     }
 
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
-    }
     public static StdStruct newInstance(Object _instance, String _className) {
         return new StdStruct(_instance, _className);
     }
@@ -67,15 +62,6 @@ public final class StdStruct implements RealInstanceStruct {
     }
     public static StdStruct newListByte(Bytes _instance, String _className) {
         return new StdStruct((Object)_instance, _className);
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        if (!(_other instanceof StdStruct)) {
-            return false;
-        }
-        StdStruct other_ = (StdStruct) _other;
-        return getInstance() == other_.getInstance();
     }
 
     @Override

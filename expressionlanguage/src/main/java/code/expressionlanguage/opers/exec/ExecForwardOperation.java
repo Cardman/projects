@@ -12,7 +12,6 @@ public final class ExecForwardOperation extends ExecLeafOperation implements Ato
     ExecForwardOperation(ForwardOperation _v) {
         super(_v);
         intermediate = _v.isIntermediate();
-        setPreviousArgument(null);
     }
 
     @Override
@@ -36,7 +35,4 @@ public final class ExecForwardOperation extends ExecLeafOperation implements Ato
         return intermediate;
     }
 
-    @Override
-    public void setPreviousArgument(Argument _argument) {
-    }
 }

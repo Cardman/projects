@@ -2,7 +2,6 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.CmpOperation;
 import code.util.CustList;
@@ -17,10 +16,7 @@ public final class ExecStrCmpOperation extends ExecMethodOperation implements At
         oper = _r.getOp();
         opOffset = _r.getOpOffset();
     }
-    @Override
-    public void quickCalculate(ContextEl _conf) {
-        CmpOperation.tryGetResult(_conf, oper, null, true, this);
-    }
+
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {

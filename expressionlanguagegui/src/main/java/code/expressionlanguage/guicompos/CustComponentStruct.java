@@ -13,7 +13,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelListener;
 
-public abstract class CustComponentStruct implements Struct {
+public abstract class CustComponentStruct extends WithoutParentIdStruct implements Struct {
 
     private Struct parentComponent = NullStruct.NULL_VALUE;
     private CustList<CustComponentStruct> children = new CustList<CustComponentStruct>();
@@ -41,10 +41,6 @@ public abstract class CustComponentStruct implements Struct {
                 SwingUtilities.invokeLater(_r);
             }
         }
-    }
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     @Override
@@ -243,10 +239,6 @@ public abstract class CustComponentStruct implements Struct {
     }
     public void setAutoscrolls(Struct _autoscrolls) {
         getComponent().setAutoscrolls(BooleanStruct.isTrue(_autoscrolls));
-    }
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
     }
 
     protected Struct getPreferredSize() {

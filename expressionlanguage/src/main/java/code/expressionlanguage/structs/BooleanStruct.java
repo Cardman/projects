@@ -2,7 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 
-public final class BooleanStruct implements DisplayableStruct {
+public final class BooleanStruct extends WithoutParentIdStruct implements DisplayableStruct {
 
     private static final BooleanStruct FALSE = new BooleanStruct();
     private static final BooleanStruct TRUE = new BooleanStruct();
@@ -16,11 +16,6 @@ public final class BooleanStruct implements DisplayableStruct {
             return TRUE;
         }
         return FALSE;
-    }
-
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     @Override
@@ -72,9 +67,5 @@ public final class BooleanStruct implements DisplayableStruct {
         return _other == FALSE;
     }
 
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
 
 }

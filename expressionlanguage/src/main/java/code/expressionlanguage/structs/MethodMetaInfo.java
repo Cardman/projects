@@ -8,7 +8,7 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.StringList;
 
 
-public final class MethodMetaInfo implements AnnotatedStruct {
+public final class MethodMetaInfo extends WithoutParentStruct implements AnnotatedStruct {
 
     private static final String EMPTY_STRING = "";
 
@@ -58,11 +58,6 @@ public final class MethodMetaInfo implements AnnotatedStruct {
 
     public void setExpCast(boolean expCast) {
         this.expCast = expCast;
-    }
-
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     public String getClassName() {

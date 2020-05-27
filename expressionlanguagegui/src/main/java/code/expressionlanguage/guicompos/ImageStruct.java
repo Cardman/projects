@@ -9,7 +9,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public final class ImageStruct implements Struct {
+public final class ImageStruct extends WithoutParentStruct implements Struct {
     private BufferedImage image;
     private boolean withAlpha;
     private Graphics graphics;
@@ -179,11 +179,6 @@ public final class ImageStruct implements Struct {
             return;
         }
         graphics.drawImage(((ImageStruct)_img).image, _x, _y, null);
-    }
-
-    @Override
-    public Struct getParent() {
-        return NullStruct.NULL_VALUE;
     }
 
     @Override

@@ -33,6 +33,10 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         feedParamTypes(_classNames);
     }
 
+    public static FormattedMethodId to(MethodId _id) {
+        return new FormattedMethodId(_id.name, _id.classNames, _id.vararg);
+    }
+
     private void feedParamTypes(StringList _classNames) {
         for (String s: _classNames) {
             classNames.add(s);
@@ -117,11 +121,10 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
 
     public MethodId reflectFormat(String _genericClass, ContextEl _context) {
         String name_ = getName();
-        StringList types_ = getParametersTypes();
-        int len_ = types_.size();
+        int len_ = classNames.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
+            String n_ = classNames.get(i);
             String formatted_ = Templates.reflectFormat(_genericClass, n_, _context);
             pTypes_.add(formatted_);
         }
@@ -129,16 +132,24 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
     }
     
     public MethodId quickFormat(String _genericClass, ContextEl _context) {
-        String name_ = getName();
-        StringList types_ = getParametersTypes();
-        int len_ = types_.size();
+        StringList pTypes_ = getFormattedTypes(_genericClass, _context);
+        return new MethodId(kind, name, pTypes_, isVararg());
+    }
+
+    public FormattedMethodId quickOverrideFormat(String _genericClass, ContextEl _context) {
+        StringList pTypes_ = getFormattedTypes(_genericClass, _context);
+        return new FormattedMethodId(name, pTypes_, isVararg());
+    }
+
+    private StringList getFormattedTypes(String _genericClass, ContextEl _context) {
+        int len_ = classNames.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
+            String n_ = classNames.get(i);
             String formatted_ = Templates.quickFormat(_genericClass, n_, _context);
             pTypes_.add(formatted_);
         }
-        return new MethodId(kind, name_, pTypes_, isVararg());
+        return pTypes_;
     }
 
 

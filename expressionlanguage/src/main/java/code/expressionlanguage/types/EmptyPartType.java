@@ -13,12 +13,12 @@ final class EmptyPartType extends LeafPartType {
 
     @Override
     void analyze(ContextEl _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
-        setAnalyzedType(_an,_dels,new StringMap<StringList>());
+        setAnalyzedType(_dels,new StringMap<StringList>());
     }
 
     @Override
-    void setAnalyzedType(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
-        analyzeTemplate(_an,_dels,new StringMap<StringList>());
+    void setAnalyzedType(CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+        analyzeTemplate(null,_dels,new StringMap<StringList>());
     }
 
     @Override

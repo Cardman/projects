@@ -2,9 +2,7 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.opers.NullSafeOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -14,11 +12,6 @@ import code.util.IdMap;
 public final class ExecNullSafeOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
     public ExecNullSafeOperation(Operable _m) {
         super(_m);
-    }
-
-    @Override
-    public void tryCalculateNode(ContextEl _conf) {
-        NullSafeOperation.tryGetResult(_conf,this);
     }
 
     @Override

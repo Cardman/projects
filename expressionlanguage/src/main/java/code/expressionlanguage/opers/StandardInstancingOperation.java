@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
@@ -14,8 +13,6 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.exec.ParentOperable;
-import code.expressionlanguage.opers.exec.PossibleIntermediateDottedOperable;
 import code.expressionlanguage.opers.exec.StaticInitOperable;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
@@ -469,9 +466,9 @@ public final class StandardInstancingOperation extends
         tryGetArg(this,_conf,naturalVararg, constId,lastType);
     }
 
-    public static void tryGetArg(PossibleIntermediateDottedOperable _current, ContextEl _conf,
+    public static void tryGetArg(StandardInstancingOperation _current, ContextEl _conf,
                                  int _naturalVararg, ConstructorId _constId, String _lastType) {
-        CustList<Operable> chidren_ = ((ParentOperable)_current).getChildrenOperable();
+        CustList<Operable> chidren_ = _current.getChildrenOperable();
         CustList<Argument> arguments_ = new CustList<Argument>();
         CustList<Operable> filter_ = new CustList<Operable>();
         for (Operable o: chidren_) {
