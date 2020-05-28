@@ -178,8 +178,4 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         return children;
     }
 
-    @Override
-    public Operable getFirstChildOperable() {
-        return getFirstChild();
-    }
 }

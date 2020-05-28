@@ -79,21 +79,12 @@ public final class NullSafeOperation extends MethodOperation {
         } else if (m_ instanceof CastOperation) {
             CastOperation c_ = (CastOperation) m_;
             type_ = c_.getClassName();
-        } else if (m_ instanceof AffectationOperation) {
-            AffectationOperation a_ = (AffectationOperation) m_;
-            SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
-            if (s_ != null) {
-                ClassArgumentMatching c_ = s_.getResultClass();
-                type_ = c_.getSingleNameOrEmpty();
-            }
         }
-        KeyWords keyWords_ = _conf.getKeyWords();
-        String keyWordVar_ = keyWords_.getKeyWordVar();
-        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, firstArg_, two_, secondArg_, vars_, _conf);
-        if (!type_.isEmpty() && !StringList.quickEq(type_, keyWordVar_)) {
+        if (!type_.isEmpty()) {
             setResultClass(new ClassArgumentMatching(type_));
             return;
         }
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, firstArg_, two_, secondArg_, vars_, _conf);
         setResultClass(new ClassArgumentMatching(res_.getTypes()));
     }
 

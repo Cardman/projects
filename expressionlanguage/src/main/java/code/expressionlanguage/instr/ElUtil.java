@@ -470,12 +470,12 @@ public final class ElUtil {
         return out_;
     }
 
-    public static boolean isDeclaringField(Operable _var, ContextEl _an) {
+    public static boolean isDeclaringField(OperationNode _var, ContextEl _an) {
         Block bl_ = _an.getAnalyzing().getCurrentBlock();
         if (!(bl_ instanceof FieldBlock)) {
             return false;
         }
-        if (!(_var instanceof StandardFieldOperable)) {
+        if (!(_var instanceof StandardFieldOperation)) {
             return false;
         }
         return isDeclaringVariable(_var);
@@ -520,20 +520,20 @@ public final class ElUtil {
         }
         return _an.getAnalyzing().getLocalDeclaring().hasDeclarator();
     }
-    private static boolean isDeclaringVariable(Operable _var) {
-        ParentOperable par_ = _var.getParentOperable();
+    private static boolean isDeclaringVariable(OperationNode _var) {
+        MethodOperation par_ = _var.getParent();
         if (par_ == null) {
             return true;
         }
-        if (par_ instanceof DeclaringOperable) {
+        if (par_ instanceof DeclaringOperation) {
             return true;
         }
-        if (par_ instanceof AffectationOperable) {
-            if (par_.getParentOperable() == null) {
-                return _var == par_.getFirstChildOperable();
+        if (par_ instanceof AffectationOperation) {
+            if (par_.getParent() == null) {
+                return _var == par_.getFirstChild();
             }
-            if (par_.getParentOperable() instanceof DeclaringOperable) {
-                return _var == par_.getFirstChildOperable();
+            if (par_.getParent() instanceof DeclaringOperation) {
+                return _var == par_.getFirstChild();
             }
         }
         return false;
@@ -542,14 +542,14 @@ public final class ElUtil {
         if (_par == null) {
             return true;
         }
-        if (_par instanceof DeclaringOperable) {
+        if (_par instanceof DeclaringOperation) {
             return true;
         }
-        if (_par instanceof AffectationOperable) {
+        if (_par instanceof AffectationOperation) {
             if (_par.getParent() == null) {
                 return null == _par.getFirstChild();
             }
-            if (_par.getParent() instanceof DeclaringOperable) {
+            if (_par.getParent() instanceof DeclaringOperation) {
                 return null == _par.getFirstChild();
             }
         }
@@ -938,7 +938,7 @@ public final class ElUtil {
 
     private static void processFields(ContextEl _cont, Block _block, int sum_, OperationNode val_, ExecOperationNode curOp_, CustList<PartOffset> _parts) {
         if (curOp_ instanceof ExecSettableFieldOperation) {
-            if (_block instanceof FieldBlock && isDeclaringVariable(curOp_)) {
+            if (_block instanceof FieldBlock && isDeclaringVariable(val_)) {
                 ClassField c_ = ((ExecSettableFieldOperation)curOp_).getFieldId();
                 int id_;
                 if (curOp_.getParent() instanceof ExecAffectationOperation) {
@@ -964,7 +964,7 @@ public final class ElUtil {
         if (curOp_ instanceof ExecVariableOperation) {
             String varName_ = ((ExecVariableOperation) curOp_).getVariableName();
             int delta_ = ((ExecVariableOperation) curOp_).getOff();
-            if (_block instanceof Line && _block.getPreviousSibling() instanceof DeclareVariable && isDeclaringVariable(curOp_)) {
+            if (_block instanceof Line && _block.getPreviousSibling() instanceof DeclareVariable && isDeclaringVariable(val_)) {
                 MethodOperation parAn_ = val_.getParent();
                 ExecMethodOperation par_ = curOp_.getParent();
                 int index_ = curOp_.getIndexChild();
@@ -1000,7 +1000,7 @@ public final class ElUtil {
         if (curOp_ instanceof ExecMutableLoopVariableOperation) {
             String varName_ = ((ExecMutableLoopVariableOperation) curOp_).getVariableName();
             int delta_ = ((ExecMutableLoopVariableOperation) curOp_).getOff();
-            if (_block instanceof ForMutableIterativeLoop && _cont.getCoverage().isPossibleDeclareLoopVars() && isDeclaringVariable(curOp_)) {
+            if (_block instanceof ForMutableIterativeLoop && _cont.getCoverage().isPossibleDeclareLoopVars() && isDeclaringVariable(val_)) {
                 MethodOperation parAn_ = val_.getParent();
                 ExecMethodOperation par_ = curOp_.getParent();
                 int index_ = curOp_.getIndexChild();

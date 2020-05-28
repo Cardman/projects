@@ -7,8 +7,6 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 public interface Operable {
 
     Argument getArgument();
-    ParentOperable getParentOperable();
-
     ClassArgumentMatching getResultClass();
     int getOrder();
     int getIndexChild();

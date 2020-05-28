@@ -142,7 +142,6 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             CastOperation c_ = (CastOperation) m_;
             type_ = c_.getClassName();
         }
-        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, firstArg_, two_, secondArg_, vars_, _conf);
         if (!type_.isEmpty()) {
             if (PrimitiveTypeUtil.isPrimitive(type_, _conf)) {
                 opTwo_.getResultClass().setUnwrapObject(type_);
@@ -154,6 +153,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             checkDeadCode(_conf, opOne_);
             return;
         }
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, firstArg_, two_, secondArg_, vars_, _conf);
         if (res_.isUnwrapFirst()) {
             opTwo_.getResultClass().setUnwrapObject(res_.getTypes().first());
             opTwo_.cancelArgument();

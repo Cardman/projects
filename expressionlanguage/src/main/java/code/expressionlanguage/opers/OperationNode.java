@@ -2071,9 +2071,4 @@ public abstract class OperationNode implements Operable {
         return operations.getDelimiter().getIndexBegin();
     }
 
-    @Override
-    public ParentOperable getParentOperable() {
-        return getParent();
-    }
-
 }

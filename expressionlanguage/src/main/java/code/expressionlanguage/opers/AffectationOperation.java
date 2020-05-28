@@ -21,6 +21,7 @@ import code.util.*;
 public final class AffectationOperation extends MethodOperation implements AffectationOperable {
 
     private SettableElResult settable;
+    private OperationNode settableOp;
 
     private boolean synthetic;
 
@@ -99,6 +100,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
         }
         if (settable instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)settable;
+            settableOp = cst_;
             StringMap<Boolean> fieldsAfterLast_ = _conf.getAnalyzing().getDeclaredAssignments();
             if (!synthetic&&ElUtil.checkFinalFieldReadOnly(_conf, cst_, fieldsAfterLast_)) {
                 cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
@@ -359,10 +361,10 @@ public final class AffectationOperation extends MethodOperation implements Affec
     }
     @Override
     public void quickCalculate(ContextEl _conf) {
-        setArg(_conf,this,settable);
+        setArg(_conf,this, settableOp);
     }
 
-    public static void setArg(ContextEl _conf, MethodOperation _current, Operable _settable) {
+    public static void setArg(ContextEl _conf, MethodOperation _current, OperationNode _settable) {
         if (!ElUtil.isDeclaringField(_settable, _conf)) {
             return;
         }

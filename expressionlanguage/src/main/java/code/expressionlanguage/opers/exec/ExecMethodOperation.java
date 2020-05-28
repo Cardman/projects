@@ -46,8 +46,4 @@ public abstract class ExecMethodOperation extends ExecOperationNode implements P
         return firstChild;
     }
 
-    @Override
-    public Operable getFirstChildOperable() {
-        return getFirstChild();
-    }
 }

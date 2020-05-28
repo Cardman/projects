@@ -646,8 +646,4 @@ public abstract class ExecOperationNode implements Operable {
         siblingSet = _siblingSet;
     }
 
-    @Override
-    public ParentOperable getParentOperable() {
-        return getParent();
-    }
 }
