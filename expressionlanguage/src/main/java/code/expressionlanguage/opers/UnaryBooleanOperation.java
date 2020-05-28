@@ -53,7 +53,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     }
 
     public static void tryGetArg(MethodOperation _par, ContextEl _conf) {
-        CustList<Operable> chidren_ = _par.getChildrenOperable();
+        CustList<OperationNode> chidren_ = _par.getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Struct value_ = arg_.getStruct();
         if (!(value_ instanceof BooleanStruct)) {

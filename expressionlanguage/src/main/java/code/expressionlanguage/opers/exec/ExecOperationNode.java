@@ -21,8 +21,6 @@ import code.util.StringList;
 
 public abstract class ExecOperationNode implements Operable {
 
-    protected static final String NOT_CLASS = " ";
-
     protected static final String ARR = "[";
 
     protected static final String MULT = "*";
@@ -54,7 +52,7 @@ public abstract class ExecOperationNode implements Operable {
 
     private int indexBegin;
 
-    ExecOperationNode(Operable _oper) {
+    ExecOperationNode(OperationNode _oper) {
         indexInEl = _oper.getIndexInEl();
         indexBegin = _oper.getIndexBegin();
         indexChild = _oper.getIndexChild();
@@ -81,7 +79,7 @@ public abstract class ExecOperationNode implements Operable {
     public final int getIndexBegin() {
         return indexBegin;
     }
-    public static Operable createExecOperationNode(OperationNode _anaNode) {
+    public static ExecOperationNode createExecOperationNode(OperationNode _anaNode) {
         if (_anaNode instanceof StaticInitOperation) {
             StaticInitOperation c_ = (StaticInitOperation) _anaNode;
             return new ExecStaticInitOperation(c_);
@@ -274,10 +272,10 @@ public abstract class ExecOperationNode implements Operable {
         if (_anaNode instanceof SymbolOperation) {
             SymbolOperation n_ = (SymbolOperation) _anaNode;
             if (!n_.isOkNum()) {
-                return new ExecErrorParentOperation(n_);
+                return new ExecErrorParentOperation(_anaNode);
             }
             if (n_.getClassMethodId() != null) {
-                return new ExecCustNumericOperation(n_);
+                return new ExecCustNumericOperation(n_,_anaNode);
             }
         }
         if (_anaNode instanceof UnaryBinOperation) {

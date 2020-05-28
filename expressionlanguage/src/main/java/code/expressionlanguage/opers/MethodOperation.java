@@ -121,8 +121,8 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         tryCalculateNode(this, _conf);
     }
     public static void tryCalculateNode(MethodOperation _par, ContextEl _conf) {
-        CustList<Operable> children_ = _par.getChildrenOperable();
-        for (Operable o: children_) {
+        CustList<OperationNode> children_ = _par.getChildrenNodes();
+        for (OperationNode o: children_) {
             if (o.getArgument() == null) {
                 return;
             }
@@ -148,15 +148,6 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         }
     }
 
-    public final CustList<Operable> getChildrenOperable() {
-        CustList<Operable> list_ = new CustList<Operable>();
-        OperationNode elt_ = getFirstChild();
-        while (elt_ != null) {
-            list_.add(elt_);
-            elt_ = elt_.getNextSibling();
-        }
-        return list_;
-    }
     public final CustList<OperationNode> getChildrenNodes() {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode elt_ = getFirstChild();

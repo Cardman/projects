@@ -368,8 +368,8 @@ public final class AffectationOperation extends MethodOperation implements Affec
         if (!ElUtil.isDeclaringField(_settable, _conf)) {
             return;
         }
-        StandardFieldOperable fieldRef_ = (StandardFieldOperable) _settable;
-        Operable lastChild_ = _current.getChildrenOperable().get(1);
+        StandardFieldOperation fieldRef_ = (StandardFieldOperation) _settable;
+        OperationNode lastChild_ = _current.getChildrenNodes().get(1);
         Argument value_ = lastChild_.getArgument();
         ClassField id_ = fieldRef_.getFieldId();
         FieldInfo fm_ = _conf.getFieldInfo(id_);

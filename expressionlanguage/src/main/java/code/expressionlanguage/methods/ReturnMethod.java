@@ -221,7 +221,7 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
             ip_.clearCurrentEls();
             String type_ = processReturnValue(_cont);
             type_ = ip_.formatVarType(type_,_cont);
-            if (!Templates.checkStrictObject(type_,arg_,_cont)) {
+            if (!Templates.checkQuick(type_,arg_,_cont)) {
                 return;
             }
             ((ReturnableValuePageEl) _cont.getLastPage()).setReturnedArgument(arg_);

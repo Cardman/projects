@@ -2,6 +2,7 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SymbolOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
@@ -15,8 +16,8 @@ import code.util.StringList;
 public abstract class ExecNumericOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
     private int opOffset;
 
-    public ExecNumericOperation(SymbolOperation _n) {
-        super(_n);
+    public ExecNumericOperation(SymbolOperation _n, OperationNode _op) {
+        super(_op);
         opOffset = _n.getOpOffset();
     }
 

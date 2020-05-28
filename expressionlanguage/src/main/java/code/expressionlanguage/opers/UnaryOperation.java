@@ -101,7 +101,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         if (_m != null) {
             return;
         }
-        CustList<Operable> chidren_ = _par.getChildrenOperable();
+        CustList<OperationNode> chidren_ = _par.getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Argument out_ = new Argument();
         Struct nb_ = arg_.getStruct();

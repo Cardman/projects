@@ -37,7 +37,6 @@ public final class NullSafeOperation extends MethodOperation {
     public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-        LgNames stds_ = _conf.getStandards();
         OperationNode opTwo_ = chidren_.first();
         OperationNode opThree_ = chidren_.last();
         ClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
@@ -47,7 +46,6 @@ public final class NullSafeOperation extends MethodOperation {
         StringList one_ = clMatchTwo_.getNames();
         StringList two_ = clMatchThree_.getNames();
         StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
-        String void_ = stds_.getAliasVoid();
         OperationNode current_ = this;
         MethodOperation m_ = getParent();
         while (m_ != null) {
@@ -66,17 +64,7 @@ public final class NullSafeOperation extends MethodOperation {
             m_ = m_.getParent();
         }
         String type_ = EMPTY_STRING;
-        Block cur_ = _conf.getAnalyzing().getCurrentBlock();
-        if (m_ == null && cur_ instanceof ReturnMethod) {
-            FunctionBlock f_ = _conf.getAnalyzing().getCurrentFct();
-            if (f_ instanceof NamedFunctionBlock) {
-                NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
-                String ret_ = n_.getImportedReturnType();
-                if (!StringList.quickEq(ret_, void_)) {
-                    type_ = ret_;
-                }
-            }
-        } else if (m_ instanceof CastOperation) {
+        if (m_ instanceof CastOperation) {
             CastOperation c_ = (CastOperation) m_;
             type_ = c_.getClassName();
         }
@@ -94,7 +82,7 @@ public final class NullSafeOperation extends MethodOperation {
     }
 
     public static void tryGetResult(ContextEl _conf, MethodOperation _to) {
-        CustList<Operable> children_ = _to.getChildrenOperable();
+        CustList<OperationNode> children_ = _to.getChildrenNodes();
         Argument f_ = children_.first().getArgument();
         Argument s_ = children_.last().getArgument();
         if (f_ == null) {

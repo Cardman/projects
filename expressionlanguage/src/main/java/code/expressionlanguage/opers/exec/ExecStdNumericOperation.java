@@ -12,7 +12,7 @@ public abstract class ExecStdNumericOperation extends ExecNumericOperation {
     private String oper;
 
     public ExecStdNumericOperation(NumericOperation _n) {
-        super(_n);
+        super(_n,_n);
         oper = _n.getOp();
     }
     @Override

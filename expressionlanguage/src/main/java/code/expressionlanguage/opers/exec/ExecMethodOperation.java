@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers.exec;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 
@@ -6,7 +7,7 @@ public abstract class ExecMethodOperation extends ExecOperationNode implements P
 
     private ExecOperationNode firstChild;
 
-    public ExecMethodOperation(Operable _m) {
+    public ExecMethodOperation(OperationNode _m) {
         super(_m);
     }
 

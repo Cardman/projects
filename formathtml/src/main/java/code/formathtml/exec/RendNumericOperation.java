@@ -1,5 +1,6 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SymbolOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -10,8 +11,8 @@ import code.formathtml.Configuration;
 public abstract class RendNumericOperation extends RendMethodOperation implements RendCalculableOperation {
     private int opOffset;
 
-    public RendNumericOperation(SymbolOperation _n) {
-        super(_n);
+    public RendNumericOperation(SymbolOperation _n, OperationNode _op) {
+        super(_op);
         opOffset = _n.getOpOffset();
     }
 

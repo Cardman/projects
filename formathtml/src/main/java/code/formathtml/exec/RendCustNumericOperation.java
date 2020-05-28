@@ -3,6 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SymbolOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -13,8 +14,8 @@ import code.util.IdMap;
 public final class RendCustNumericOperation extends RendNumericOperation {
 
     private ClassMethodId classMethodId;
-    public RendCustNumericOperation(SymbolOperation _n) {
-        super(_n);
+    public RendCustNumericOperation(SymbolOperation _n, OperationNode _op) {
+        super(_n,_op);
         classMethodId = _n.getClassMethodId();
     }
 

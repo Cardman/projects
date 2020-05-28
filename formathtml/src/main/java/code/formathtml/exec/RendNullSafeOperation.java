@@ -2,6 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -12,7 +13,7 @@ import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendNullSafeOperation extends RendMethodOperation implements RendCalculableOperation {
-    public RendNullSafeOperation(Operable _m) {
+    public RendNullSafeOperation(OperationNode _m) {
         super(_m);
     }
 

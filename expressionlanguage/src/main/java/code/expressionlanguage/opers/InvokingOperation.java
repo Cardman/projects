@@ -111,18 +111,18 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return firstArgs_;
     }
 
-    public static CustList<Argument> quickListArguments(CustList<Operable> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ContextEl _context) {
-        if (!_children.isEmpty() && _children.first() instanceof VarargOperable) {
+    public static CustList<Argument> quickListArguments(CustList<OperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ContextEl _context) {
+        if (!_children.isEmpty() && _children.first() instanceof VarargOperation) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
             boolean opt_ = false;
             int i_ = CustList.FIRST_INDEX;
-            for (Operable o: _children) {
-                if (o instanceof VarargOperable) {
+            for (OperationNode o: _children) {
+                if (o instanceof VarargOperation) {
                     i_++;
                     continue;
                 }
-                if (o instanceof FirstOptOperable) {
+                if (o instanceof FirstOptOperation) {
                     opt_ = true;
                 }
                 Argument a_ = _nodes.get(i_);
@@ -150,7 +150,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             int lenCh_ = _children.size();
             int natVarArg_ = _natVararg;
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                if (_children.get(i) instanceof IdFctOperable) {
+                if (_children.get(i) instanceof IdFctOperation) {
                     natVarArg_++;
                     continue;
                 }

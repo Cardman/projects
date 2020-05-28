@@ -190,7 +190,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         return elt_;
     }
-    private static ForwardOperation castTo(Operable _op) {
+    private static ForwardOperation castTo(OperationNode _op) {
         if (_op instanceof ForwardOperation) {
             return (ForwardOperation) _op;
         }

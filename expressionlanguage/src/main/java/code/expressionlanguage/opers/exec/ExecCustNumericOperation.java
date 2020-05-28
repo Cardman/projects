@@ -3,6 +3,7 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SymbolOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -13,8 +14,8 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
 
     private ClassMethodId classMethodId;
 
-    public ExecCustNumericOperation(SymbolOperation _n) {
-        super(_n);
+    public ExecCustNumericOperation(SymbolOperation _n, OperationNode _op) {
+        super(_n,_op);
         classMethodId = _n.getClassMethodId();
     }
     @Override

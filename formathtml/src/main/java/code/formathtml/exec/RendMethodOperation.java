@@ -3,6 +3,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.calls.util.*;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.formathtml.Configuration;
@@ -13,7 +14,7 @@ public abstract class RendMethodOperation extends RendDynOperationNode {
 
     private RendDynOperationNode firstChild;
 
-    public RendMethodOperation(Operable _m) {
+    public RendMethodOperation(OperationNode _m) {
         super(_m);
     }
 

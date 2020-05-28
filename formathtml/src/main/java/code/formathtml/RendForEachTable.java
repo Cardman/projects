@@ -430,7 +430,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         if (_conf.getContext().hasException()) {
             return;
         }
-        if (!Templates.checkStrictObject(importedClassNameFirst, arg_, _conf.getContext())) {
+        if (!Templates.checkQuick(importedClassNameFirst, arg_, _conf.getContext())) {
             return;
         }
         LoopVariable lv_ = _vars.getVal(variableNameFirst);
@@ -440,7 +440,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         if (_conf.getContext().hasException()) {
             return;
         }
-        if (!Templates.checkStrictObject(importedClassNameSecond, arg_, _conf.getContext())) {
+        if (!Templates.checkQuick(importedClassNameSecond, arg_, _conf.getContext())) {
             return;
         }
         lv_ = _vars.getVal(variableNameSecond);

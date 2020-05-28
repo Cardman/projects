@@ -51,7 +51,7 @@ public abstract class RendDynOperationNode {
 
     private int indexBegin;
 
-    RendDynOperationNode(Operable _oper) {
+    RendDynOperationNode(OperationNode _oper) {
         indexInEl = _oper.getIndexInEl();
         indexBegin = _oper.getIndexBegin();
         indexChild = _oper.getIndexChild();
@@ -258,10 +258,10 @@ public abstract class RendDynOperationNode {
         if (_anaNode instanceof SymbolOperation) {
             SymbolOperation n_ = (SymbolOperation) _anaNode;
             if (!n_.isOkNum()) {
-                return new RendErrorParentOperation(n_);
+                return new RendErrorParentOperation(_anaNode);
             }
             if (n_.getClassMethodId() != null) {
-                return new RendCustNumericOperation(n_);
+                return new RendCustNumericOperation(n_,_anaNode);
             }
         }
         if (_anaNode instanceof UnaryOperation) {

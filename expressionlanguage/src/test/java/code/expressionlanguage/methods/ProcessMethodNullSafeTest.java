@@ -180,7 +180,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("public class pkg.Callee<T> {\n");
         xml_.append(" public staticCall T exmeth(){\n");
-        xml_.append("  return null ?? null;\n");
+        xml_.append("  return (T)(null ?? null);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -2440,6 +2440,27 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getChar(ret_));
+        assertNull(getException(cont_));
+    }
+    @Test
+    public void calculateArgument102Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  boolean v = true;\n");
+        xml_.append("  return (Integer)(v?1:2);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
         assertNull(getException(cont_));
     }
     @Test

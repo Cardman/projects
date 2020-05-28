@@ -33,7 +33,7 @@ public abstract class QuickOperation extends MethodOperation {
         if (!_okNum) {
             return;
         }
-        CustList<Operable> children_ = _to.getChildrenOperable();
+        CustList<OperationNode> children_ = _to.getChildrenNodes();
         Argument f_ = children_.first().getArgument();
         Argument s_ = children_.last().getArgument();
         if (f_ == null) {

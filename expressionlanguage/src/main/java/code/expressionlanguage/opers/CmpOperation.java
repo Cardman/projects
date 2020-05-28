@@ -208,7 +208,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         if (_cl != null) {
             return;
         }
-        CustList<Operable> chidren_ = _to.getChildrenOperable();
+        CustList<OperationNode> chidren_ = _to.getChildrenNodes();
         Argument first_ = chidren_.first().getArgument();
         Argument second_ = chidren_.last().getArgument();
         Argument arg_;

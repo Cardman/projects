@@ -45,9 +45,9 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         tryGetResult(_conf, this);
     }
     private static void tryGetResult(ContextEl _conf, MethodOperation _to) {
-        CustList<Operable> chidren_ = _to.getChildrenOperable();
+        CustList<OperationNode> chidren_ = _to.getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
-        for (Operable o: chidren_) {
+        for (OperationNode o: chidren_) {
             arguments_.add(o.getArgument());
         }
         Argument argBool_ = arguments_.first();
@@ -109,7 +109,6 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         StringList one_ = clMatchTwo_.getNames();
         StringList two_ = clMatchThree_.getNames();
         StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
-        String void_ = stds_.getAliasVoid();
         OperationNode current_ = this;
         MethodOperation m_ = getParent();
         while (m_ != null) {
@@ -128,17 +127,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             m_ = m_.getParent();
         }
         String type_ = EMPTY_STRING;
-        Block cur_ = _conf.getAnalyzing().getCurrentBlock();
-        if (m_ == null && cur_ instanceof ReturnMethod) {
-            FunctionBlock f_ = _conf.getAnalyzing().getCurrentFct();
-            if (f_ instanceof NamedFunctionBlock) {
-                NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
-                String ret_ = n_.getImportedReturnType();
-                if (!StringList.quickEq(ret_, void_)) {
-                    type_ = ret_;
-                }
-            }
-        } else if (m_ instanceof CastOperation) {
+        if (m_ instanceof CastOperation) {
             CastOperation c_ = (CastOperation) m_;
             type_ = c_.getClassName();
         }

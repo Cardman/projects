@@ -14,7 +14,7 @@ import code.util.IdMap;
 public final class ExecCatOperation extends ExecNumericOperation {
 
     public ExecCatOperation(AddOperation _a) {
-        super(_a);
+        super(_a,_a);
     }
 
     @Override

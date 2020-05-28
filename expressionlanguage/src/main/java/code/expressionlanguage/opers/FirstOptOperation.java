@@ -64,9 +64,9 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements F
     }
 
     private static void setArg(ContextEl _conf, FirstOptOperation _par) {
-        CustList<Operable> chidren_ = _par.getChildrenOperable();
+        CustList<OperationNode> chidren_ = _par.getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
-        for (Operable o: chidren_) {
+        for (OperationNode o: chidren_) {
             arguments_.add(o.getArgument());
         }
         _par.setSimpleArgumentAna(arguments_.first(), _conf);

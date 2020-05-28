@@ -1286,19 +1286,10 @@ public final class Templates {
         LgNames stds_ = _context.getStandards();
         ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
         _arg.setStruct(PrimitiveTypeUtil.convertObject(cl_, str_, stds_));
-        Struct ex_ = checkObjectEx(_param,_arg,_context);
-        if (ex_ != null) {
-            _context.setException(ex_);
-            return false;
-    	}
-        return true;
+        return checkQuick(_param, _arg, _context);
     }
 
-    public static boolean checkStrictObject(String _param, Argument _arg, ContextEl _context) {
-        Struct str_ = _arg.getStruct();
-        LgNames stds_ = _context.getStandards();
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
-        _arg.setStruct(PrimitiveTypeUtil.convertStrictObject(cl_, str_, stds_));
+    public static boolean checkQuick(String _param, Argument _arg, ContextEl _context) {
         Struct ex_ = checkObjectEx(_param,_arg,_context);
         if (ex_ != null) {
             _context.setException(ex_);

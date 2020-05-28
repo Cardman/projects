@@ -91,7 +91,7 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
     }
     public static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right) {
         String formattedClassVar_ = _loc.getClassName();
-        if (!Templates.checkStrictObject(formattedClassVar_, _right, _conf)) {
+        if (!Templates.checkQuick(formattedClassVar_, _right, _conf)) {
             return Argument.createVoid();
         }
         _loc.setStruct(_right.getStruct());

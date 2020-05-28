@@ -3,6 +3,7 @@ package code.expressionlanguage.opers.exec;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -10,7 +11,7 @@ import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecNullSafeOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
-    public ExecNullSafeOperation(Operable _m) {
+    public ExecNullSafeOperation(OperationNode _m) {
         super(_m);
     }
 

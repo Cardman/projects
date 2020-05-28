@@ -1,6 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.formathtml.Configuration;
@@ -8,7 +9,7 @@ import code.util.CustList;
 import code.util.IdMap;
 
 public abstract class RendAbstractDotOperation extends RendMethodOperation implements RendCalculableOperation {
-    public RendAbstractDotOperation(Operable _op) {
+    public RendAbstractDotOperation(OperationNode _op) {
         super(_op);
     }
     public RendAbstractDotOperation(int _indexChild, ClassArgumentMatching _res, int _order) {

@@ -468,11 +468,11 @@ public final class StandardInstancingOperation extends
 
     public static void tryGetArg(StandardInstancingOperation _current, ContextEl _conf,
                                  int _naturalVararg, ConstructorId _constId, String _lastType) {
-        CustList<Operable> chidren_ = _current.getChildrenOperable();
+        CustList<OperationNode> chidren_ = _current.getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
-        CustList<Operable> filter_ = new CustList<Operable>();
-        for (Operable o: chidren_) {
-            if (o instanceof StaticInitOperable) {
+        CustList<OperationNode> filter_ = new CustList<OperationNode>();
+        for (OperationNode o: chidren_) {
+            if (o instanceof StaticInitOperation) {
                 continue;
             }
             arguments_.add(o.getArgument());

@@ -229,9 +229,9 @@ public final class FctOperation extends InvokingOperation {
 
     public static void tryGetArg(FctOperation _current, Argument _pr,ContextEl _conf,
                                  ClassMethodId _classMethodId, int _naturalVararg, String _lastType) {
-        CustList<Operable> chidren_ = _current.getChildrenOperable();
+        CustList<OperationNode> chidren_ = _current.getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
-        for (Operable o: chidren_) {
+        for (OperationNode o: chidren_) {
             arguments_.add(o.getArgument());
         }
         if (_classMethodId == null) {

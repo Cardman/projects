@@ -12,7 +12,7 @@ public abstract class RendStdNumericOperation extends RendNumericOperation {
     private String op;
 
     public RendStdNumericOperation(NumericOperation _n) {
-        super(_n);
+        super(_n,_n);
         op = _n.getOp();
 
     }

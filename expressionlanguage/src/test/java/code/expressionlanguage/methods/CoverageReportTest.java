@@ -9448,7 +9448,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public static boolean exmeth(){\n");
         xml_.append("  Boolean i = true;\n");
         xml_.append("  Boolean j = true;\n");
-        xml_.append("  return i ?? j;\n");
+        xml_.append("  return (boolean)(i ?? j);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -9464,7 +9464,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> true</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> true</span></span>;\n" +
-                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"true\">?</a>?<span class=\"n\"> <a href=\"#m85\">j</a></span></span>;\n" +
+                "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"true\">?</a>?<span class=\"n\"> <a href=\"#m85\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -9476,7 +9476,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public static boolean exmeth(){\n");
         xml_.append("  Boolean i = null;\n");
         xml_.append("  Boolean j = true;\n");
-        xml_.append("  return i ?? j;\n");
+        xml_.append("  return (boolean)(i ?? j);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -9492,7 +9492,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> true</span></span>;\n" +
-                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"true\">?</a><span class=\"p\"> <a href=\"#m85\">j</a></span></span>;\n" +
+                "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"true\">?</a><span class=\"p\"> <a href=\"#m85\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -9504,7 +9504,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public static boolean exmeth(){\n");
         xml_.append("  Boolean i = true;\n");
         xml_.append("  Boolean j = null;\n");
-        xml_.append("  return i ?? j;\n");
+        xml_.append("  return (boolean)(i ?? j);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -9520,7 +9520,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> true</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
-                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"true\">?</a>?<span class=\"n\"> <a href=\"#m85\">j</a></span></span>;\n" +
+                "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"true\">?</a>?<span class=\"n\"> <a href=\"#m85\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -9532,7 +9532,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public static boolean exmeth(){\n");
         xml_.append("  Boolean i = null;\n");
         xml_.append("  Boolean j = null;\n");
-        xml_.append("  return i ?? j;\n");
+        xml_.append("  return (boolean)(i ?? j);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -9548,7 +9548,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
-                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"null\">?</a><span class=\"p\"> <a href=\"#m85\">j</a></span></span>;\n" +
+                "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"null\">?</a><span class=\"p\"> <a href=\"#m85\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -9560,7 +9560,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public static boolean exmeth(){\n");
         xml_.append("  Boolean i = false;\n");
         xml_.append("  Boolean j = false;\n");
-        xml_.append("  return i ?? j;\n");
+        xml_.append("  return (boolean)(i ?? j);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -9576,7 +9576,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m86\">j</a> </span>=<span class=\"f\"> false</span></span>;\n" +
-                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>?<span class=\"n\"> <a href=\"#m86\">j</a></span></span>;\n" +
+                "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>?<span class=\"n\"> <a href=\"#m86\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -9588,7 +9588,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public static boolean exmeth(){\n");
         xml_.append("  Boolean i = null;\n");
         xml_.append("  Boolean j = false;\n");
-        xml_.append("  return i ?? j;\n");
+        xml_.append("  return (boolean)(i ?? j);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -9604,7 +9604,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> false</span></span>;\n" +
-                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"false\">?</a><span class=\"p\"> <a href=\"#m85\">j</a></span></span>;\n" +
+                "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"false\">?</a><span class=\"p\"> <a href=\"#m85\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -9616,7 +9616,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public static boolean exmeth(){\n");
         xml_.append("  Boolean i = false;\n");
         xml_.append("  Boolean j = null;\n");
-        xml_.append("  return i ?? j;\n");
+        xml_.append("  return (boolean)(i ?? j);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -9632,7 +9632,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m86\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
-                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>?<span class=\"n\"> <a href=\"#m86\">j</a></span></span>;\n" +
+                "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>?<span class=\"n\"> <a href=\"#m86\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -9695,7 +9695,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" public static boolean exmeth(){\n");
         xml_.append("  Boolean v = true;\n");
-        xml_.append("  return v ?? false ?? null;\n");
+        xml_.append("  return (boolean)(v ?? false ?? null);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -9710,7 +9710,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> true</span></span>;\n" +
-                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">?</a>?<span class=\"f\"><span class=\"f\"> false </span>??<span class=\"f\"> null</span></span></span>;\n" +
+                "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">?</a>?<span class=\"f\"><span class=\"f\"> false </span>??<span class=\"f\"> null</span></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());

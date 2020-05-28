@@ -404,7 +404,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         } else {
             arg_ = new Argument(element_);
         }
-        if (!Templates.checkStrictObject(importedClassName, arg_, _conf.getContext())) {
+        if (!Templates.checkQuick(importedClassName, arg_, _conf.getContext())) {
             return;
         }
         lv_.setStruct(element_);

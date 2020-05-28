@@ -61,11 +61,11 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
     }
 
     private static void setArg(ContextEl _conf, AbstractUnaryOperation _current) {
-        CustList<Operable> children_ = _current.getChildrenOperable();
+        CustList<OperationNode> children_ = _current.getChildrenNodes();
         if (children_.size() != 1) {
             return;
         }
-        for (Operable o: children_) {
+        for (OperationNode o: children_) {
             if (o.getArgument() == null) {
                 return;
             }
