@@ -16,7 +16,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class RendStandardInstancingOperation extends RendInvokingOperation implements RendCalculableOperation {
+public final class RendStandardInstancingOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
 
     private String methodName;
 
@@ -50,11 +50,18 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        _conf.getAdvStandards().getCommonInstArgument(this,_nodes,_conf);
+        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
+        CustList<Argument> arguments_ = new CustList<Argument>();
+        for (RendDynOperationNode o: filterInvoking(chidren_)) {
+            arguments_.add(getArgument(_nodes,o));
+        }
+        Argument previous_ = getPreviousArg(this,_nodes,_conf);
+        Argument argres_ = processCall(this, this, _nodes, previous_, arguments_, _conf, null);
+        setSimpleArgument(argres_,_conf,_nodes);
     }
 
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments,
-                         Configuration _conf) {
+                                Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<RendDynOperationNode> filter_ = filterInvoking(chidren_);
         int off_ = StringList.getFirstPrintableCharIndex(methodName);

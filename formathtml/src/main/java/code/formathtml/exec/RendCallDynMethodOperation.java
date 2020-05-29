@@ -8,7 +8,7 @@ import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendCallDynMethodOperation extends RendInvokingOperation implements RendCalculableOperation {
+public final class RendCallDynMethodOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
 
     public RendCallDynMethodOperation(CallDynMethodOperation _call) {
         super(_call);
@@ -18,8 +18,12 @@ public final class RendCallDynMethodOperation extends RendInvokingOperation impl
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = ExecInvokingOperation.prepareCallDyn(previous_, arguments_, _conf.getContext());
-        processCall(_nodes,_conf,argres_);
+        Argument argres_ = processCall(this, this, _nodes, previous_, arguments_, _conf, null);
+        setSimpleArgument(argres_,_conf,_nodes);
     }
 
+    @Override
+    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+        return ExecInvokingOperation.prepareCallDyn(_previous, _arguments, _conf.getContext());
+    }
 }

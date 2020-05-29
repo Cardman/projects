@@ -3,7 +3,6 @@ package code.bean.nat;
 import code.bean.Bean;
 import code.bean.BeanStruct;
 import code.bean.RealInstanceStruct;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.formathtml.exec.*;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
@@ -103,7 +102,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     private Struct newSimpleBean(String _language, BeanInfo _bean, Configuration _conf) {
-        Struct strBean_ = instanceBean(this,_bean.getClassName(),_conf).getStruct();
+        ConstructorId id_ = new ConstructorId(_bean.getClassName(), new StringList(), false);
+        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_conf.getContext(), id_, Argument.toArgArray(new CustList<Argument>()));
+        Struct strBean_ = res_.getResult();
         BeanStruct str_ = (BeanStruct) strBean_;
         Bean bean_ = str_.getBean();
         bean_.setDataBase(dataBase);
@@ -112,13 +113,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         bean_.setScope(_bean.getScope());
         return strBean_;
     }
-    private static Argument instanceBean(BeanNatLgNames _nat, String _className, Configuration _conf) {
-        RendStandardInstancingOperation tmp_ = new RendStandardInstancingOperation(new ClassArgumentMatching(_className), new ConstructorId(_className, new StringList(), false));
-        IdMap<RendDynOperationNode, ArgumentsPair> idMap_ = new IdMap<RendDynOperationNode, ArgumentsPair>();
-        idMap_.addEntry(tmp_,new ArgumentsPair());
-        _nat.getCommonInstArgument(tmp_, idMap_,_conf);
-        return idMap_.firstValue().getArgument();
-    }
+
     @Override
     public void forwardDataBase(Struct _bean, Struct _to, Configuration _conf) {
         ((BeanStruct)_to).getBean().setDataBase(((BeanStruct)_bean).getBean().getDataBase());
@@ -203,14 +198,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Argument argRes_ = new Argument();
         argRes_.setStruct(res_.getResult());
         return argRes_;
-    }
-
-    @Override
-    public void getCommonInstArgument(RendStandardInstancingOperation _rend, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_conf.getContext(), _rend.getConstId(), Argument.toArgArray(new CustList<Argument>()));
-        Argument arg_ = new Argument();
-        arg_.setStruct(res_.getResult());
-        _rend.setSimpleArgument(arg_,_conf,_nodes);
     }
 
     private StringMap<Validator> loadValidator(Element _elt) {

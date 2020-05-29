@@ -69,6 +69,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     private final StringList allGenericSuperTypes = new StringList();
     private final StringList allGenericClasses = new StringList();
     private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
+    private int nbOperators;
 
     RootBlock(int _idRowCol, int _categoryOffset, String _name,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
@@ -687,7 +688,19 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             if (method_ instanceof OverridableBlock) {
                 OverridableBlock m_ = (OverridableBlock) method_;
                 m_.buildImportedTypes(_context);
-                if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
+                if (m_.getKind() == MethodKind.OPERATOR) {
+                    if (!StringExpUtil.isOper(m_.getName())) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadMethodName(),
+                                name_);
+                        _context.addError(badMeth_);
+                    }
+                    nbOperators++;
+                } else if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
                     if (!StringList.quickEq(m_.getImportedReturnType(),getGenericString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
@@ -806,7 +819,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             }
             if (method_ instanceof OverridableBlock) {
                 OverridableBlock m_ = (OverridableBlock) method_;
-                if (m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.EXPLICIT_CAST) {
+                if (m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.OPERATOR || m_.getKind() == MethodKind.EXPLICIT_CAST) {
                     MethodId id_ = m_.getId();
                     if (ContextEl.isEnumType(this)) {
                         String valueOf_ = stds_.getAliasEnumPredValueOf();
@@ -1679,5 +1692,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     @Override
     public boolean isTypeHidden(RootBlock _class, ContextEl _analyzable) {
         return !Classes.canAccess(getFullName(), _class, _analyzable);
+    }
+
+    public int getNbOperators() {
+        return nbOperators;
     }
 }

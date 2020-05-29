@@ -63,29 +63,19 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         settable.setVariable(false);
         IntTreeMap< String> ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();
-        ClassMethodIdReturn cust_ = getOperator(_conf, op_, settable.getResultClass());
-        if (cust_.isFoundMethod()) {
-            ClassArgumentMatching out_ = new ClassArgumentMatching(cust_.getReturnType());
-            setResultClass(voidToObject(out_,_conf));
-            String foundClass_ = cust_.getRealClass();
-            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
-            MethodId id_ = cust_.getRealId();
-            classMethodId = new ClassMethodId(foundClass_, id_);
-            MethodId realId_ = cust_.getRealId();
-            CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
-            firstArgs_.add(settable.getResultClass());
-            CustList<OperationNode> chidren_ = new CustList<OperationNode>();
-            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+        ClassMethodId cl_ = getOperatorOrMethod(this, op_, _conf);
+        if (cl_ != null) {
+            classMethodId = cl_;
             Mapping map_ = new Mapping();
-            map_.setArg(out_);
+            map_.setArg(getResultClass());
             map_.setParam(settable.getResultClass());
             if (!Templates.isCorrectOrNumbers(map_, _conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                //operator
+                //oper len
                 cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(out_.getNames(),"&"),
+                        StringList.join(getResultClass().getNames(),"&"),
                         StringList.join(settable.getResultClass().getNames(),"&"));
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
             }

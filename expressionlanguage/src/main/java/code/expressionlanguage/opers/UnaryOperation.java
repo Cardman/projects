@@ -3,14 +3,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -39,18 +34,9 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         ClassArgumentMatching clMatch_ = child_.getResultClass();
         opOffset = getOperations().getOperators().firstKey();
         String oper_ = getOperations().getOperators().firstValue();
-        ClassMethodIdReturn cust_ = getOperator(_conf, oper_, clMatch_);
-        if (cust_.isFoundMethod()) {
-            setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()),_conf));
-            String foundClass_ = cust_.getRealClass();
-            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
-            MethodId id_ = cust_.getRealId();
-            classMethodId = new ClassMethodId(foundClass_, id_);
-            MethodId realId_ = cust_.getRealId();
-            CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
-            firstArgs_.add(child_.getResultClass());
-            CustList<OperationNode> children_ = new CustList<OperationNode>(child_);
-            InvokingOperation.unwrapArgsFct(children_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+        ClassMethodId clId_ = getOperatorOrMethod(this, oper_, _conf);
+        if (clId_ != null) {
+            classMethodId = clId_;
             return;
         }
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, _conf);

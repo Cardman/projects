@@ -1,9 +1,5 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.calls.util.CallingState;
-import code.expressionlanguage.calls.util.NotInitializedClass;
-import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
@@ -1202,27 +1198,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             }
         }
         return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, null);
-    }
-
-    @Override
-    public void getCommonInstArgument(RendStandardInstancingOperation _rend, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        CustList<RendDynOperationNode> chidren_ = _rend.getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (RendDynOperationNode o: RendDynOperationNode.filterInvoking(chidren_)) {
-            arguments_.add(RendDynOperationNode.getArgument(_nodes,o));
-        }
-        Argument previous_ = RendDynOperationNode.getPreviousArg(_rend,_nodes,_conf);
-        Argument argres_ = _rend.getArgument(previous_, arguments_, _conf);
-        CallingState state_ = _conf.getContext().getCallingState();
-        if (state_ instanceof NotInitializedClass) {
-            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
-            if (_conf.getContext().hasException()) {
-                return;
-            }
-            argres_ = _rend.getArgument(previous_, arguments_, _conf);
-        }
-        _rend.processCall(_nodes,_conf,argres_);
     }
 
     private void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf) {

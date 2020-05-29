@@ -565,9 +565,15 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return Argument.createVoid();
     }
 
-    static void checkParametersOperators(ContextEl _conf, Identifiable _methodId,
+    public static void checkParametersOperators(AbstractExiting _exit,ContextEl _conf, ClassMethodId _clMeth,
                                          Argument _previous, CustList<Argument> _firstArgs) {
-        checkParameters(_conf, "", _methodId, _previous, _firstArgs, CallPrepareState.OPERATOR, null, null);
+        if (_exit.hasToExit(_clMeth.getClassName())) {
+            return;
+        }
+        MethodId id_ = _clMeth.getConstraints();
+        String classNameFound_ = _clMeth.getClassName();
+        classNameFound_ = _clMeth.formatType(classNameFound_,_conf);
+        checkParameters(_conf, classNameFound_, id_, _previous, _firstArgs, CallPrepareState.OPERATOR, null, null);
     }
 
     public static void checkParametersCtors(ContextEl _conf, String _classNameFound, Identifiable _methodId,

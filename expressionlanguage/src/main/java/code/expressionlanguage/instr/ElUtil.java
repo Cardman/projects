@@ -1152,9 +1152,10 @@ public final class ElUtil {
             ExecExplicitOperatorOperation par_ = (ExecExplicitOperatorOperation) curOp_;
             ClassMethodId classMethodId_ = par_.getClassMethodId();
             MethodId id_ = classMethodId_.getConstraints();
-            addParts(_cont,currentFileName_,"",id_,
-                    sum_ + val_.getIndexInEl(),((ExplicitOperatorOperation)val_).getOffsetOper(),
+            addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,
+                    sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordOperator().length(),
                     _parts);
+            _parts.addAllElts(par_.getPartOffsets());
         }
     }
 
@@ -1170,7 +1171,7 @@ public final class ElUtil {
             ExecCustNumericOperation par_ = (ExecCustNumericOperation) curOp_;
             ClassMethodId classMethodId_ = par_.getClassMethodId();
             MethodId id_ = classMethodId_.getConstraints();
-            addParts(_cont,currentFileName_,"",id_,
+            addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,
                     sum_ + val_.getIndexInEl()+par_.getOpOffset(),id_.getName().length(),
                     _parts);
         }
@@ -1255,7 +1256,7 @@ public final class ElUtil {
             ExecCustNumericOperation par_ = (ExecCustNumericOperation) parentOp_;
             ClassMethodId classMethodId_ = par_.getClassMethodId();
             MethodId id_ = classMethodId_.getConstraints();
-            addParts(_cont,currentFileName_,"",id_,offsetEnd_,id_.getName().length(),_parts);
+            addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,offsetEnd_,id_.getName().length(),_parts);
         }
     }
 
@@ -1303,7 +1304,7 @@ public final class ElUtil {
         int opDelta_ = par_.getOper().length() - 1;
         if (classMethodId_ != null) {
             MethodId id_ = classMethodId_.getConstraints();
-            addParts(_cont,currentFileName_,"",id_,offsetEnd_,opDelta_,_parts);
+            addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,offsetEnd_,opDelta_,_parts);
         } else if (nextSiblingOp_.getResultClass().isConvertToString() && canCallToString(nextSiblingOp_.getResultClass(),_cont)){
             String tag_ = "<i>";
             _parts.add(new PartOffset(tag_, offsetEnd_));
@@ -1398,7 +1399,7 @@ public final class ElUtil {
                 ClassMethodId classMethodId_ = par_.getClassMethodId();
                 if (classMethodId_ != null) {
                     MethodId id_ = classMethodId_.getConstraints();
-                    addParts(_cont,currentFileName_,"",id_,offsetEnd_,1,_parts);
+                    addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,offsetEnd_,1,_parts);
                 }
                 if (par_.getSettable() instanceof ExecCustArrOperation) {
                     ExecCustArrOperation parArr_ = (ExecCustArrOperation) par_.getSettable();
@@ -1509,10 +1510,13 @@ public final class ElUtil {
     private static String getRelativize(ContextEl _cont, String _currentFileName, String _className, Identifiable _id) {
         String rel_;
         if (_id instanceof MethodId && FunctionIdUtil.isOperatorName(_id)) {
-            NamedFunctionBlock operator_ = Classes.getOperatorsBodiesById(_cont, (MethodId) _id).first();
-            String file_ = operator_.getFile().getRenderFileName();
-            rel_ = relativize(_currentFileName, file_ + "#m" + operator_.getNameOffset());
-            return rel_;
+            CustList<NamedFunctionBlock> opers_ = Classes.getOperatorsBodiesById(_cont, (MethodId) _id);
+            if (!opers_.isEmpty()) {
+                NamedFunctionBlock operator_ = opers_.first();
+                String file_ = operator_.getFile().getRenderFileName();
+                rel_ = relativize(_currentFileName, file_ + "#m" + operator_.getNameOffset());
+                return rel_;
+            }
         }
         String cl_ = Templates.getIdFromAllTypes(_className);
         GeneType type_ = _cont.getClassBody(cl_);

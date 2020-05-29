@@ -8,9 +8,11 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractFieldOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.formathtml.Configuration;
+import code.util.CustList;
 import code.util.IdMap;
+import com.sun.org.apache.xpath.internal.Arg;
 
-public abstract class RendAbstractFieldOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
+public abstract class RendAbstractFieldOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted,RendCallable {
 
     private boolean intermediate;
 
@@ -37,17 +39,10 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = getCommonArgument(previous_, _conf);
+        Argument arg_ = processCall(this, this, _nodes, previous_, new CustList<Argument>(), _conf, null);
         if (_conf.getContext().hasException()) {
             return;
         }
-        CallingState state_ = _conf.getContext().getCallingState();
-        if (state_ instanceof NotInitializedClass) {
-            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
-            argres_ = getCommonArgument(previous_, _conf);
-        }
-        Argument arg_ = argres_;
         boolean simple_ = false;
         if (this instanceof RendSettableFieldOperation) {
             RendSettableFieldOperation s_ = (RendSettableFieldOperation) this;
@@ -71,6 +66,12 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
     @Override
     public final Argument getPreviousArgument() {
         return previousArgument;
+    }
+
+
+    @Override
+    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+        return getCommonArgument(_previous,_conf);
     }
 
 }

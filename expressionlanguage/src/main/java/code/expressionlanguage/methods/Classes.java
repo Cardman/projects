@@ -52,6 +52,7 @@ public final class Classes {
     private CustList<ExecOperationNode> expsFirstCust;
     private CustList<ExecOperationNode> expsSecondCust;
     private CustList<OperatorBlock> operators;
+    private StringList typesWithInnerOperators = new StringList();
     private StringList packagesFound = new StringList();
 
     public Classes(){
@@ -1154,6 +1155,9 @@ public final class Classes {
             page_.setGlobalClass(c.getGenericString());
             page_.setImporting(c);
             c.validateIds(_context);
+            if (c.getNbOperators() > 0) {
+                _context.getClasses().getTypesWithInnerOperators().add(c.getFullName());
+            }
         }
         CustList<MethodId> idMethods_ = new CustList<MethodId>();
         page_.setGlobalClass("");
@@ -2388,5 +2392,9 @@ public final class Classes {
 
     public StringMap<CustList<OverridableBlock>> getExplicitCastMethods() {
         return explicitCastMethods;
+    }
+
+    public StringList getTypesWithInnerOperators() {
+        return typesWithInnerOperators;
     }
 }

@@ -1448,7 +1448,7 @@ public final class GameTarot {
         return declaresMiseres;
     }
 
-    public void setDeclaresMiseres(EqList<EnumList<Miseres>> _declaresMiseres) {
+    public void setDeclaresMiseres(CustList<EnumList<Miseres>> _declaresMiseres) {
         declaresMiseres = _declaresMiseres;
     }
 

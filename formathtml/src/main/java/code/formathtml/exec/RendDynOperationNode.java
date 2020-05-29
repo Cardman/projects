@@ -1,8 +1,7 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.calls.util.CallingState;
-import code.expressionlanguage.calls.util.CustomFoundMethod;
+import code.expressionlanguage.calls.util.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.Delimiters;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -67,6 +66,42 @@ public abstract class RendDynOperationNode {
     }
     public void setParent(RendMethodOperation _parent) {
         parent = _parent;
+    }
+    protected static Argument processCall(RendCallable _node, RendDynOperationNode _method,
+                                      IdMap<RendDynOperationNode, ArgumentsPair> _nodes,
+                                      Argument _previous, CustList<Argument> _arguments,
+                                      Configuration _conf, Argument _right) {
+        Argument argres_ = _node.getArgument(_previous, _arguments, _conf, _right);
+        CallingState state_ = _conf.getContext().getCallingState();
+        if (state_ instanceof NotInitializedClass) {
+            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
+            if (_conf.getContext().hasException()) {
+                return Argument.createVoid();
+            }
+            argres_ = _node.getArgument(_previous, _arguments, _conf, _right);
+        }
+        return _method.processCall(_nodes,_conf,argres_);
+    }
+    private Argument processCall(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, Argument _res) {
+        CallingState callingState_ = _conf.getContext().getCallingState();
+        Argument res_;
+        if (callingState_ instanceof CustomFoundConstructor) {
+            CustomFoundConstructor ctor_ = (CustomFoundConstructor)callingState_;
+            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(),ctor_.getType(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContext());
+        } else if (callingState_ instanceof CustomFoundMethod) {
+            CustomFoundMethod method_ = (CustomFoundMethod) callingState_;
+            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _conf.getContext(),method_.getRight());
+        } else if (callingState_ instanceof CustomReflectMethod) {
+            CustomReflectMethod ref_ = (CustomReflectMethod) callingState_;
+            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContext(), ref_.getReflect(), ref_.isLambda());
+        } else if (callingState_ instanceof CustomFoundCast) {
+            CustomFoundCast cast_ = (CustomFoundCast) callingState_;
+            res_ = ProcessMethod.castArgument(cast_.getClassName(),cast_.getId(), cast_.getArguments(), _conf.getContext());
+        } else {
+            res_ = _res;
+        }
+        return res_;
     }
 
     public final void setRelativeOffsetPossibleLastPage(int _offset, Configuration _cont) {
@@ -368,7 +403,7 @@ public abstract class RendDynOperationNode {
         nextSibling = _nextSibling;
     }
 
-    public static CustList<RendDynOperationNode> filterInvoking(CustList<RendDynOperationNode> _list) {
+    static CustList<RendDynOperationNode> filterInvoking(CustList<RendDynOperationNode> _list) {
         CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
         for (RendDynOperationNode o: _list) {
             if (o instanceof RendStaticInitOperation) {
@@ -399,7 +434,7 @@ public abstract class RendDynOperationNode {
         }
     }
 
-    public static Argument getPreviousArg(RendPossibleIntermediateDotted _possible, IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf) {
+    protected static Argument getPreviousArg(RendPossibleIntermediateDotted _possible, IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_;
         if (_possible.isIntermediateDottedOperation()) {
             previous_ = getPreviousArgument(_nodes, _possible);
@@ -415,7 +450,7 @@ public abstract class RendDynOperationNode {
         }
         return a_;
     }
-    public static Argument getArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
+    protected static Argument getArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
         return getArgumentPair(_nodes,_node).getArgument();
     }
     protected static ArgumentsPair getArgumentPair(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {

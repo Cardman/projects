@@ -4,14 +4,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -59,19 +54,9 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         ClassArgumentMatching first_ = chidren_.first().getResultClass();
         ClassArgumentMatching second_ = chidren_.last().getResultClass();
         String op_ = getOperations().getOperators().firstValue().trim();
-        ClassMethodIdReturn cust_ = getOperator(_conf, op_, first_, second_);
-        if (cust_.isFoundMethod()) {
-            setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()),_conf));
-            String foundClass_ = cust_.getRealClass();
-            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
-            MethodId id_ = cust_.getRealId();
-            classMethodId = new ClassMethodId(foundClass_, id_);
-            MethodId realId_ = cust_.getRealId();
-            CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
-            for (OperationNode o: chidren_) {
-                firstArgs_.add(o.getResultClass());
-            }
-            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+        ClassMethodId cl_ = getOperatorOrMethod(this, op_, _conf);
+        if (cl_ != null) {
+            classMethodId = cl_;
             return;
         }
         String stringType_ = stds_.getAliasString();

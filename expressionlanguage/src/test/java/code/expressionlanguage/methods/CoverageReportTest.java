@@ -4512,7 +4512,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m138\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m96\">a</a></span></span>=<span class=\"f\">5i</span></span>;\n" +
                 "  <a title=\"pkg.Ex\" href=\"#m73\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m172\">two</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m73\">Ex</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m172\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m96\">a</a></span></span>=<span class=\"f\">3i</span></span>;\n" +
-                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m9\">$operator(+)</a>(<span class=\"f\"><a href=\"#m138\">one</a></span>,<span class=\"f\"> <a href=\"#m172\">two</a></span>) </span><a title=\"false\">!=</a><span class=\"f\"> 8i</span></span>){\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m9\">$operator</a>(+)(<span class=\"f\"><a href=\"#m138\">one</a></span>,<span class=\"f\"> <a href=\"#m172\">two</a></span>) </span><a title=\"false\">!=</a><span class=\"f\"> 8i</span></span>){\n" +
                 "   $return <span class=\"n\">1i</span>;\n" +
                 "  }\n" +
                 "  $return <span class=\"f\">2i</span>;\n" +
@@ -10832,6 +10832,374 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 " public static int <a name=\"m267\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage285Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int a;\n");
+        xml_.append(" operator+ int (pkg.Ex a, pkg.Ex b){\n");
+        xml_.append("  return a.a+b.a;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Ex one = new Ex();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex two = new Ex();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  if (one + two != 8i){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public int <span class=\"f\"><a name=\"m34\">a</a></span>;\n" +
+                " operator<a name=\"m46\">+</a> int (<a title=\"pkg.Ex\" href=\"#m13\">pkg.Ex</a> <a name=\"m60\">a</a>, <a title=\"pkg.Ex\" href=\"#m13\">pkg.Ex</a> <a name=\"m70\">b</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m60\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m34\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m70\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m34\">a</a></span></span></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m114\">exmeth</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m129\">one</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m129\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m34\">a</a></span></span>=<span class=\"f\">5i</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m162\">two</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m162\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m34\">a</a></span></span>=<span class=\"f\">3i</span></span>;\n" +
+                "  <span class=\"p\">if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m129\">one</a> </span><a title=\"static +(pkg.Ex,pkg.Ex)\" href=\"#m46\">+</a><span class=\"f\"> <a href=\"#m162\">two</a> </span></span><a title=\"false\">!=</a><span class=\"f\"> 8i</span></span>){\n" +
+                "   return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage286Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int a;\n");
+        xml_.append(" operator+ Ex (Ex a, Ex b){\n");
+        xml_.append("  Ex c = new Ex();\n");
+        xml_.append("  c.a=a.a+b.a;\n");
+        xml_.append("  return c;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Ex one = new Ex();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex two = new Ex();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  if ((one + two).a != 8i){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public int <span class=\"f\"><a name=\"m34\">a</a></span>;\n" +
+                " operator<a name=\"m46\">+</a> <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> (<a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m55\">a</a>, <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m61\">b</a>){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m70\">c</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m70\">c</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m34\">a</a></span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m55\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m34\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m61\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m34\">a</a></span></span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m70\">c</a></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m133\">exmeth</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m148\">one</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m148\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m34\">a</a></span></span>=<span class=\"f\">5i</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m181\">two</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m181\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m34\">a</a></span></span>=<span class=\"f\">3i</span></span>;\n" +
+                "  <span class=\"p\">if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"f\"><a href=\"#m148\">one</a> </span><a title=\"static +(pkg.Ex,pkg.Ex)\" href=\"#m46\">+</a><span class=\"f\"> <a href=\"#m181\">two</a></span></span>)</span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m34\">a</a> </span></span><a title=\"false\">!=</a><span class=\"f\"> 8i</span></span>){\n" +
+                "   return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage287Test() {
+        StringBuilder xml_ = new StringBuilder();
+
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $operator+ Ex(Ex a,Ex b) {\n");
+        xml_.append("  $var o = $new Ex();\n");
+        xml_.append("  o.field = a.field + b.field;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  Ex one = $new Ex();\n");
+        xml_.append("  Ex two = $new Ex();\n");
+        xml_.append("  one.field = 15;\n");
+        xml_.append("  two.field = 14;\n");
+        xml_.append("  $return $lambda($operator,Ex,+,Ex,Ex).call(one,two);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $int <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
+                " $operator<a name=\"m55\">+</a> <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m63\">a</a>,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m68\">b</a>) {\n" +
+                "  <b title=\"pkg.Ex\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m80\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m80\">o</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m63\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>+<span class=\"f\"><span class=\"f\"> <a href=\"#m68\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a></span></span></span></span>;\n" +
+                "  $return <span class=\"f\"><a href=\"#m80\">o</a></span>;\n" +
+                " }\n" +
+                " $public $static Object <a name=\"m166\">exmeth</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m181\">one</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m203\">two</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m181\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>=<span class=\"f\"> 15</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m203\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>=<span class=\"f\"> 14</span></span>;\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m55\">$lambda</a>($operator,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,+,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)</span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m181\">one</a></span>,<span class=\"f\"><a href=\"#m203\">two</a></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage288Test() {
+        StringBuilder xml_ = new StringBuilder();
+
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $operator+ Ex(Ex a,Ex b) {\n");
+        xml_.append("  $var o = $new Ex();\n");
+        xml_.append("  o.field = a.field + b.field;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  Ex one = $new Ex();\n");
+        xml_.append("  Ex two = $new Ex();\n");
+        xml_.append("  one.field = 15;\n");
+        xml_.append("  two.field = 14;\n");
+        xml_.append("  $return $lambda($operator,Ex,+,$id,Ex,Ex).call(one,two);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $int <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
+                " $operator<a name=\"m55\">+</a> <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m63\">a</a>,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m68\">b</a>) {\n" +
+                "  <b title=\"pkg.Ex\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m80\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m80\">o</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m63\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>+<span class=\"f\"><span class=\"f\"> <a href=\"#m68\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a></span></span></span></span>;\n" +
+                "  $return <span class=\"f\"><a href=\"#m80\">o</a></span>;\n" +
+                " }\n" +
+                " $public $static Object <a name=\"m166\">exmeth</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m181\">one</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m203\">two</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m181\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>=<span class=\"f\"> 15</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m203\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>=<span class=\"f\"> 14</span></span>;\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m55\">$lambda</a>($operator,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,+,$id,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)</span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m181\">one</a></span>,<span class=\"f\"><a href=\"#m203\">two</a></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage289Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $operator+ Ex(Ex a,Ex b) {\n");
+        xml_.append("  $var o = $new Ex();\n");
+        xml_.append("  o.field = a.field + b.field;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  Ex one = $new Ex();\n");
+        xml_.append("  Ex two = $new Ex();\n");
+        xml_.append("  one.field = 15;\n");
+        xml_.append("  two.field = 14;\n");
+        xml_.append("  $return one.$lambda($operator,Ex,+,$id,Ex).call(two);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $int <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
+                " $operator<a name=\"m55\">+</a> <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m63\">a</a>,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m68\">b</a>) {\n" +
+                "  <b title=\"pkg.Ex\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m80\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m80\">o</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m63\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>+<span class=\"f\"><span class=\"f\"> <a href=\"#m68\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a></span></span></span></span>;\n" +
+                "  $return <span class=\"f\"><a href=\"#m80\">o</a></span>;\n" +
+                " }\n" +
+                " $public $static Object <a name=\"m166\">exmeth</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m181\">one</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m203\">two</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m181\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>=<span class=\"f\"> 15</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m203\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>=<span class=\"f\"> 14</span></span>;\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m181\">one</a></span>.<span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m55\">$lambda</a>($operator,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,+,$id,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)</span></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m203\">two</a></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage290Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int a;\n");
+        xml_.append(" $operator+ $int (Ex a, Ex b){\n");
+        xml_.append("  $return a.a+b.a;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex one = $new Ex();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex two = $new Ex();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(+,Ex)(one, two) != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 2i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $int <span class=\"f\"><a name=\"m38\">a</a></span>;\n" +
+                " $operator<a name=\"m51\">+</a> $int (<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m62\">a</a>, <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m68\">b</a>){\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m62\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m38\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m68\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m38\">a</a></span></span></span>;\n" +
+                " }\n" +
+                " $public $static $int <a name=\"m116\">catching</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m133\">one</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m133\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m38\">a</a></span></span>=<span class=\"f\">5i</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m167\">two</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m167\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m38\">a</a></span></span>=<span class=\"f\">3i</span></span>;\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m51\">$operator</a>(+,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)(<span class=\"f\"><a href=\"#m133\">one</a></span>,<span class=\"f\"> <a href=\"#m167\">two</a></span>) </span><a title=\"false\">!=</a><span class=\"f\"> 8i</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\">2i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage291Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator + $int (pkg.Ex a, pkg.Ex b){\n");
+        xml_.append(" $return a.a+b.a;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int a;\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex one = $new Ex();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex two = $new Ex();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(+)(one, two) != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 2i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator <a name=\"m10\">+</a> $int (<a title=\"pkg.Ex\" href=\"#m74\">pkg.Ex</a> <a name=\"m25\">a</a>, <a title=\"pkg.Ex\" href=\"#m74\">pkg.Ex</a> <a name=\"m35\">b</a>){\n" +
+                " $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m25\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m97\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m35\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m97\">a</a></span></span></span>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m74\">pkg.Ex </a>{\n" +
+                " $public $int <span class=\"f\"><a name=\"m97\">a</a></span>;\n" +
+                " $public $static $int <a name=\"m122\">catching</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m74\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m139\">one</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m74\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m139\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m97\">a</a></span></span>=<span class=\"f\">5i</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m74\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m173\">two</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m74\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m173\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m97\">a</a></span></span>=<span class=\"f\">3i</span></span>;\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m10\">$operator</a>(+)(<span class=\"f\"><a href=\"#m139\">one</a></span>,<span class=\"f\"> <a href=\"#m173\">two</a></span>) </span><a title=\"false\">!=</a><span class=\"f\"> 8i</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\">2i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage292Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int a;\n");
+        xml_.append(" $operator + $int (Ex a, Ex b){\n");
+        xml_.append("  $return a.a+b.a;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex one = $new Ex();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex two = $new Ex();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(+,Ex)(one, two) != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 2i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $int <span class=\"f\"><a name=\"m38\">a</a></span>;\n" +
+                " $operator <a name=\"m52\">+</a> $int (<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m63\">a</a>, <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m69\">b</a>){\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m63\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m38\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m69\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m38\">a</a></span></span></span>;\n" +
+                " }\n" +
+                " $public $static $int <a name=\"m117\">catching</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m134\">one</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m134\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m38\">a</a></span></span>=<span class=\"f\">5i</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m168\">two</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m168\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m38\">a</a></span></span>=<span class=\"f\">3i</span></span>;\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m52\">$operator</a>(+,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)(<span class=\"f\"><a href=\"#m134\">one</a></span>,<span class=\"f\"> <a href=\"#m168\">two</a></span>) </span><a title=\"false\">!=</a><span class=\"f\"> 8i</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\">2i</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());

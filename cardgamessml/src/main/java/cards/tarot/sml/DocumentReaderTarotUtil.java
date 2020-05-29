@@ -545,11 +545,11 @@ public final class DocumentReaderTarotUtil {
         return list_;
     }
 
-    private static EqList<EnumList<Miseres>> getListListMiseres(Element _elt) {
+    private static CustList<EnumList<Miseres>> getListListMiseres(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_);
-        EqList<EnumList<Miseres>> list_ = new EqList<EnumList<Miseres>>(cap_);
+        CustList<EnumList<Miseres>> list_ = new CustList<EnumList<Miseres>>(cap_);
         for (Element c: childElements_) {
             list_.add(getListMiseres(c));
         }

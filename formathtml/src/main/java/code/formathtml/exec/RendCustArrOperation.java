@@ -18,7 +18,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class RendCustArrOperation extends RendInvokingOperation implements RendCalculableOperation,RendSettableElResult {
+public final class RendCustArrOperation extends RendInvokingOperation implements RendCalculableOperation,RendSettableElResult,RendCallable {
 
     private boolean variable;
 
@@ -122,12 +122,12 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     private Argument processCalling(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument previous_ = getPreviousArgument(_nodes,this);
-        Argument argres_ = getArgument(previous_, arguments_, _conf, _right);
-        processCall(_nodes,_conf,argres_);
-        return getArgument(_nodes,this);
+        Argument argres_ = processCall(this, this, _nodes, previous_, arguments_, _conf, _right);
+        setSimpleArgument(argres_,_conf,_nodes);
+        return argres_;
     }
 
-    Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
@@ -182,4 +182,5 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     public ClassArgumentMatching getPrevious() {
         return previous;
     }
+
 }

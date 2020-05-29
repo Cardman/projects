@@ -1331,13 +1331,26 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         String operator_ = _args.get(1).trim();
+        int i_ = 2;
+        String from_ = "";
+        if (!StringExpUtil.isOper(operator_)) {
+            int offset_ = className.indexOf(',')+1;
+            offset_ += StringList.getFirstPrintableCharIndex(operator_);
+            String type_ = ResolvingImportTypes.resolveCorrectType(_conf, offset_, operator_, false);
+            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            from_ = type_;
+            if (_len > i_) {
+                operator_ = _args.get(i_).trim();
+            }
+            i_++;
+        }
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordId_ = keyWords_.getKeyWordId();
-        int i_ = 2;
         int vararg_ = -1;
         MethodId argsRes_;
         ClassMethodId feed_ = null;
-        if (_len > 2 &&StringList.quickEq(_args.get(2).trim(), keyWordId_)) {
+        int j_ = i_;
+        if (_len > j_ &&StringList.quickEq(_args.get(j_).trim(), keyWordId_)) {
             i_++;
             argsRes_ = resolveArguments(i_, _conf,"",MethodAccessKind.STATIC, _args);
         } else {
@@ -1346,7 +1359,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (argsRes_ == null) {
             return;
         }
-        if (_len > 2 &&StringList.quickEq(_args.get(2).trim(), keyWordId_)) {
+        if (_len > j_ &&StringList.quickEq(_args.get(j_).trim(), keyWordId_)) {
             boolean varargFct_ = argsRes_.isVararg();
             StringList params_;
             if (isIntermediateDottedOperation()) {
@@ -1354,10 +1367,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 params_ = new StringList();
                 params_.add(previousResultClass.getName());
                 params_.addAllElts(argsRes_.getParametersTypes());
-                feed_ = new ClassMethodId("", new MethodId(MethodAccessKind.STATIC, operator_, params_, varargFct_));
+                feed_ = new ClassMethodId(from_, new MethodId(MethodAccessKind.STATIC, operator_, params_, varargFct_));
             } else {
                 params_ = argsRes_.getParametersTypes();
-                feed_ = new ClassMethodId("", new MethodId(MethodAccessKind.STATIC, operator_, params_, varargFct_));
+                feed_ = new ClassMethodId(from_, new MethodId(MethodAccessKind.STATIC, operator_, params_, varargFct_));
             }
             for (String s: argsRes_.getParametersTypes()) {
                 _methodTypes.add(new ClassArgumentMatching(s));
@@ -1378,8 +1391,19 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
         }
         if (!isIntermediateDottedOperation()) {
-            ClassMethodIdReturn id_ = OperationNode.getOperator(_conf,feed_,vararg_, false,operator_, ClassArgumentMatching.toArgArray(_methodTypes));
+            ClassMethodIdReturn id_ = getOperator(_conf, from_,_methodTypes, operator_, vararg_, feed_);
             if (!id_.isFoundMethod()) {
+                FoundErrorInterpret undefined_ = new FoundErrorInterpret();
+                undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                //_name len
+                StringList classesNames_ = new StringList();
+                for (ClassArgumentMatching c: _methodTypes) {
+                    classesNames_.add(StringList.join(c.getNames(), "&"));
+                }
+                undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
+                        new MethodId(MethodAccessKind.STATIC, "", classesNames_).getSignature(_conf));
+                _conf.getAnalyzing().getLocalizer().addError(undefined_);
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
@@ -1394,8 +1418,19 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new ClassArgumentMatching(fct_));
             return;
         }
-        ClassMethodIdReturn id_ = OperationNode.getOperator(_conf,feed_,vararg_, false,operator_, ClassArgumentMatching.toArgArray(_methodTypes));
+        ClassMethodIdReturn id_ = getOperator(_conf, from_,_methodTypes, operator_, vararg_, feed_);
         if (!id_.isFoundMethod()) {
+            FoundErrorInterpret undefined_ = new FoundErrorInterpret();
+            undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            //_name len
+            StringList classesNames_ = new StringList();
+            for (ClassArgumentMatching c: _methodTypes) {
+                classesNames_.add(StringList.join(c.getNames(), "&"));
+            }
+            undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
+                    new MethodId(MethodAccessKind.STATIC, "", classesNames_).getSignature(_conf));
+            _conf.getAnalyzing().getLocalizer().addError(undefined_);
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
@@ -1409,6 +1444,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         shiftArgument = true;
         String fct_ = formatReturnOperator(_conf, true, id_);
         setResultClass(new ClassArgumentMatching(fct_));
+    }
+
+    private ClassMethodIdReturn getOperator(ContextEl _cont,String _from, CustList<ClassArgumentMatching> _methodTypes, String _operator, int _vararg, ClassMethodId _feed) {
+        if (!_from.isEmpty()) {
+            return tryGetDeclaredCustMethod(_cont, -1, MethodAccessKind.STATIC,
+                    false, new StringList(_from), _operator, false, false, false, null,
+                    ClassArgumentMatching.toArgArray(_methodTypes));
+        }
+        return getOperator(_cont, _feed, _vararg, false, _operator, ClassArgumentMatching.toArgArray(_methodTypes));
     }
 
     private void processArray(ContextEl _conf, LgNames _stds,
@@ -1467,10 +1511,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int len_ = _params.size();
         int vararg_ = -1;
         int off_ = className.indexOf('(')+1;
-        for (int i = 0; i < _from; i++) {
-            off_ += _params.get(i).length() + 1;
-        }
-        for (int i = _from; i < len_; i++) {
+        for (int i = 0; i < len_; i++) {
+            if (i < _from) {
+                off_ += _params.get(i).length() + 1;
+                continue;
+            }
             String full_ = _params.get(i);
             int loc_ = StringList.getFirstPrintableCharIndex(full_);
             String arg_ = StringExpUtil.removeDottedSpaces(full_);
@@ -1505,11 +1550,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int len_ = _params.size();
         int vararg_ = -1;
         int offset_ = className.indexOf('(')+1;
-        for (int i = 0; i < _from; i++) {
-            offset_ += _params.get(i).length();
-            offset_ ++;
-        }
-        for (int i = _from; i < len_; i++) {
+        for (int i = 0; i < len_; i++) {
+            if (i < _from) {
+                offset_ += _params.get(i).length() + 1;
+                continue;
+            }
             String param_ = _params.get(i);
             int loc_ = StringList.getFirstPrintableCharIndex(param_);
             String arg_ = StringExpUtil.removeDottedSpaces(param_);
@@ -1543,6 +1588,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         return new MethodId(MethodAccessKind.INSTANCE, OperationNode.EMPTY_STRING, out_, vararg_ != -1);
     }
+
     private StringList resolveCorrectTypes(ContextEl _an, boolean _exact, String _type, StringList _args) {
         int offset_ = className.indexOf('(')+1;
         offset_ += StringList.getFirstPrintableCharIndex(_args.first());

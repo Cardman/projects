@@ -2,12 +2,9 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
@@ -42,24 +39,9 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
             _conf.getAnalyzing().getLocalizer().addError(badEl_);
         }
         String custOp_ = oper.trim();
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode opOne_ = chidren_.first();
-        OperationNode opTwo_ = chidren_.last();
-        ClassArgumentMatching a_ = opOne_.getResultClass();
-        ClassArgumentMatching b_ = opTwo_.getResultClass();
-        ClassMethodIdReturn cust_ = getOperator(_conf, custOp_, a_, b_);
-        if (cust_.isFoundMethod()) {
-            setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()),_conf));
-            String foundClass_ = cust_.getRealClass();
-            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
-            MethodId id_ = cust_.getRealId();
-            classMethodId = new ClassMethodId(foundClass_, id_);
-            MethodId realId_ = cust_.getRealId();
-            CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
-            for (OperationNode o: chidren_) {
-                firstArgs_.add(o.getResultClass());
-            }
-            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+        ClassMethodId cl_ = getOperatorOrMethod(this, custOp_, _conf);
+        if (cl_ != null) {
+            classMethodId = cl_;
             return;
         }
         LgNames stds_ = _conf.getStandards();

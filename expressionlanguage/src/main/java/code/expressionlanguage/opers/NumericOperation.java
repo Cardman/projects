@@ -3,7 +3,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
@@ -57,20 +56,10 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         IntTreeMap< String> ops_ = getOperations().getOperators();
         ClassArgumentMatching c_ = chidren_.last().getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
-        ClassMethodIdReturn cust_ = getOperator(_conf, ops_.firstValue(), a_, c_);
         okNum = true;
-        if (cust_.isFoundMethod()) {
-            setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()),_conf));
-            String foundClass_ = cust_.getRealClass();
-            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
-            MethodId id_ = cust_.getRealId();
-            classMethodId = new ClassMethodId(foundClass_, id_);
-            MethodId realId_ = cust_.getRealId();
-            CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
-            for (OperationNode o: chidren_) {
-                firstArgs_.add(o.getResultClass());
-            }
-            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+        ClassMethodId cl_ = getOperatorOrMethod(this, ops_.firstValue(), _conf);
+        if (cl_ != null) {
+            classMethodId = cl_;
             return;
         }
         r_ = analyzeOper(a_, ops_.firstValue(), c_, _conf);

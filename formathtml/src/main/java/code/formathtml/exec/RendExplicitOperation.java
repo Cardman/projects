@@ -9,7 +9,7 @@ import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendExplicitOperation extends RendAbstractUnaryOperation {
+public final class RendExplicitOperation extends RendAbstractUnaryOperation implements RendCallable {
     private String className;
     private int offset;
     private MethodId castOpId;
@@ -24,7 +24,12 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation {
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument argres_ = ExecExplicitOperation.prepare(false,castOpId,arguments_,className,_conf.getPageEl(),_conf.getContext(),false);
-        processCall(_nodes,_conf,argres_);
+        Argument argres_ = processCall(this, this, _nodes, Argument.createVoid(), arguments_, _conf, null);
+        setSimpleArgument(argres_,_conf,_nodes);
+    }
+
+    @Override
+    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+        return ExecExplicitOperation.prepare(false,castOpId,_arguments,className,_conf.getPageEl(),_conf.getContext(),false);
     }
 }

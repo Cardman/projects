@@ -9,9 +9,10 @@ import code.expressionlanguage.opers.ValuesOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
+import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendValuesOperation extends RendLeafOperation implements RendCalculableOperation {
+public final class RendValuesOperation extends RendLeafOperation implements RendCalculableOperation,RendCallable {
 
     private String className;
     private int argOffset;
@@ -24,18 +25,8 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        Argument argres_ = getCommonArgument(_conf);
-        CallingState state_ = _conf.getContext().getCallingState();
-        if (state_ instanceof NotInitializedClass) {
-            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
-            if (_conf.getContext().hasException()) {
-                return;
-            }
-            argres_ = getCommonArgument(_conf);
-        }
-        Argument argRes_ = argres_;
-        setSimpleArgument(argRes_, _conf,_nodes);
+        Argument argres_ = processCall(this, this, _nodes, Argument.createVoid(), new CustList<Argument>(), _conf, null);
+        setSimpleArgument(argres_,_conf,_nodes);
     }
 
     Argument getCommonArgument(Configuration _conf) {
@@ -43,4 +34,8 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
         return ExecInvokingOperation.getEnumValues(new AdvancedExiting(_conf),className, _conf.getContext());
     }
 
+    @Override
+    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+        return getCommonArgument(_conf);
+    }
 }

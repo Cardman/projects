@@ -156,7 +156,7 @@ public final class ResultsBelote {
         res.setRenderedPages(_renderedPages);
     }
 
-    public void setSigmas(EqList<Rate> _sigmas) {
+    public void setSigmas(CustList<Rate> _sigmas) {
         res.setSigmas(_sigmas);
     }
 

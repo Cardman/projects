@@ -127,8 +127,15 @@ public final class ExecutingUtil {
         _context.setCallingState(null);
         NamedFunctionBlock methodLoc_;
         if (FunctionIdUtil.isOperatorName(_method)) {
-            methodLoc_ = Classes.getOperatorsBodiesById(_context, _method).first();
-            _context.getCoverage().passCalls(_context,"",methodLoc_);
+            CustList<NamedFunctionBlock> opers_ = Classes.getOperatorsBodiesById(_context, _method);
+            if (opers_.isEmpty()) {
+                methodLoc_ = Classes.getMethodBodiesById(_context, _class, _method).first();
+                String idCl_ = Templates.getIdFromAllTypes(_class);
+                _context.getCoverage().passCalls(_context,idCl_,methodLoc_);
+            } else {
+                methodLoc_ = opers_.first();
+                _context.getCoverage().passCalls(_context,"",methodLoc_);
+            }
         } else {
             methodLoc_ = Classes.getMethodBodiesById(_context, _class, _method).first();
             String idCl_ = Templates.getIdFromAllTypes(_class);

@@ -1,6 +1,5 @@
 package cards.consts;
 import code.maths.Rate;
-import code.util.EqList;
 import code.util.*;
 import code.util.StringMap;
 
@@ -55,7 +54,7 @@ public final class ResultsGame {
         renderedPages = _renderedPages;
     }
 
-    public void setSigmas(EqList<Rate> _sigmas) {
+    public void setSigmas(CustList<Rate> _sigmas) {
         sigmas = _sigmas;
     }
 

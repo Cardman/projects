@@ -5,13 +5,15 @@ import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SymbolOperation;
+import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.formathtml.Configuration;
+import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendCustNumericOperation extends RendNumericOperation {
+public final class RendCustNumericOperation extends RendNumericOperation implements RendCallable {
 
     private ClassMethodId classMethodId;
     public RendCustNumericOperation(SymbolOperation _n, OperationNode _op) {
@@ -25,10 +27,13 @@ public final class RendCustNumericOperation extends RendNumericOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
-        String classNameFound_ = classMethodId.getClassName();
-        MethodId id_ = classMethodId.getConstraints();
-        Argument res_;
-        res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContext(),null);
-        setSimpleArgument(res_, _conf,_nodes);
+        Argument argres_ = processCall(this, this, _nodes, Argument.createVoid(), firstArgs_, _conf, null);
+        setSimpleArgument(argres_,_conf,_nodes);
+    }
+
+    @Override
+    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,_previous,_arguments);
+        return Argument.createVoid();
     }
 }

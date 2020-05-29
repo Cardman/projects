@@ -11,6 +11,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
+import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendSettableFieldOperation extends
@@ -56,17 +57,7 @@ public final class RendSettableFieldOperation extends
     @Override
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument arg_ = getCommonSetting(previous_, _conf, _right);
-        CallingState state_ = _conf.getContext().getCallingState();
-        if (state_ instanceof NotInitializedClass) {
-            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
-            if (_conf.getContext().hasException()) {
-                return arg_;
-            }
-            arg_ = getCommonSetting(previous_, _conf, _right);
-        }
-        return arg_;
+        return processCall(this, this, _nodes, previous_, new CustList<Argument>(), _conf, _right);
     }
 
     @Override
@@ -137,5 +128,13 @@ public final class RendSettableFieldOperation extends
 
     public ClassArgumentMatching getPrevious() {
         return previous;
+    }
+
+    @Override
+    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+        if (_right != null) {
+            return getCommonSetting(_previous,_conf,_right);
+        }
+        return getCommonArgument(_previous,_conf);
     }
 }

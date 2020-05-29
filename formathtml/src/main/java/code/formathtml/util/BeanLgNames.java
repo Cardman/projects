@@ -214,7 +214,6 @@ public abstract class BeanLgNames extends LgNames {
     public abstract Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf);
     public abstract Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right);
     public abstract Argument getCommonFctArgument(RendFctOperation _rend, Argument _previous, CustList<Argument> _arguments, Configuration _conf);
-    public abstract void getCommonInstArgument(RendStandardInstancingOperation _rend, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf);
 
 
     protected abstract void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean);

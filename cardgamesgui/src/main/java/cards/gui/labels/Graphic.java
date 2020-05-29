@@ -13,9 +13,9 @@ import code.util.Longs;
 public class Graphic extends PaintableLabel {
     private CustList<Longs> scores;
     private Longs sommes;
-    private EqList<Rate> sigmas;
+    private CustList<Rate> sigmas;
     private CustList<Color> couleurs;
-    public Graphic(CustList<Longs> _pscores,Longs _psommes,EqList<Rate> _psigmas,CustList<Color> _pcouleurs) {
+    public Graphic(CustList<Longs> _pscores,Longs _psommes,CustList<Rate> _psigmas,CustList<Color> _pcouleurs) {
         scores=_pscores;
         sommes=_psommes;
         sigmas=_psigmas;

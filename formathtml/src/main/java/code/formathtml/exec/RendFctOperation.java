@@ -11,7 +11,7 @@ import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendFctOperation extends RendInvokingOperation implements RendCalculableOperation {
+public final class RendFctOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
 
     private String methodName;
 
@@ -51,20 +51,11 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = getArgument(previous_, arguments_, _conf);
-        CallingState state_ = _conf.getContext().getCallingState();
-        if (state_ instanceof NotInitializedClass) {
-            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
-            if (_conf.getContext().hasException()) {
-                return;
-            }
-            argres_ = getArgument(previous_, arguments_, _conf);
-        }
-        processCall(_nodes,_conf,argres_);
+        Argument argres_ = processCall(this, this, _nodes, previous_, arguments_, _conf, null);
+        setSimpleArgument(argres_,_conf,_nodes);
     }
 
-    Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf) {
+    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
         return _conf.getAdvStandards().getCommonFctArgument(this,_previous,_arguments,_conf);
     }
 

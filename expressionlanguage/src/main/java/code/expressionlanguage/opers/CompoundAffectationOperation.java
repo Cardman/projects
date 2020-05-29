@@ -73,23 +73,11 @@ public final class CompoundAffectationOperation extends MethodOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
         String op_ = ops_.firstValue();
         op_ = op_.substring(0, op_.length() - 1);
-        ClassMethodIdReturn cust_ = getOperator(_conf, op_, elt_.getResultClass(), c_);
-        if (cust_.isFoundMethod()) {
-            ClassArgumentMatching out_ = new ClassArgumentMatching(cust_.getReturnType());
-            setResultClass(voidToObject(out_,_conf));
-            String foundClass_ = cust_.getRealClass();
-            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
-            MethodId id_ = cust_.getRealId();
-            classMethodId = new ClassMethodId(foundClass_, id_);
-            MethodId realId_ = cust_.getRealId();
-            CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
-            for (OperationNode o: chidren_) {
-                firstArgs_.add(o.getResultClass());
-            }
-            CustList<OperationNode> chUnwrap_ = new CustList<OperationNode>();
-            InvokingOperation.unwrapArgsFct(chUnwrap_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+        ClassMethodId cl_ = getOperatorOrMethod(this, op_, _conf);
+        if (cl_ != null) {
+            classMethodId = cl_;
             Mapping map_ = new Mapping();
-            map_.setArg(out_);
+            map_.setArg(getResultClass());
             map_.setParam(elt_.getResultClass());
             if (!Templates.isCorrectOrNumbers(map_, _conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -97,7 +85,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(out_.getNames(),"&"),
+                        StringList.join(getResultClass().getNames(),"&"),
                         StringList.join(elt_.getResultClass().getNames(),"&"));
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
             }

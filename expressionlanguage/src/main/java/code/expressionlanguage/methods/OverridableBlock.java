@@ -171,6 +171,14 @@ public final class OverridableBlock extends NamedFunctionBlock implements Access
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
         buildAnnotationsReport(_cont,_parts);
         int begName_ = getNameOffset();
+        if (kind == MethodKind.OPERATOR) {
+            _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
+            int endName_ = begName_ + getName().length();
+            _parts.add(new PartOffset("</a>",endName_));
+            _parts.addAllElts(getPartOffsetsReturn());
+            refParams(_cont, _parts);
+            return;
+        }
         _parts.addAllElts(getPartOffsetsReturn());
         if (kind == MethodKind.GET_INDEX) {
             _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));

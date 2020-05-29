@@ -1580,7 +1580,7 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq("pkg/Ex:8,15:176\npkg.Ex.$static catching();pkg/Ex:18,19:448\n.$static /(pkg.MyValue,pkg.MyValue);2", getString(ret_));
+        assertEq("pkg/Ex:8,15:176\npkg.Ex.$static catching();pkg/Ex:18,19:448\njava.lang.Object.$static /(pkg.MyValue,pkg.MyValue);2", getString(ret_));
     }
     @Test
     public void calculateArgument98Test() {

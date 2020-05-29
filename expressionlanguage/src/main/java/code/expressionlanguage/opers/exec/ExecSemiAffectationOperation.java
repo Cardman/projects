@@ -2,6 +2,7 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TwoStepsArgumentsPair;
 import code.expressionlanguage.opers.SemiAffectationOperation;
@@ -49,8 +50,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             CustList<Argument> arguments_ = new CustList<Argument>();
             arguments_.add(getArgument(_nodes,(ExecOperationNode) settable));
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
-            MethodId id_ = classMethodId.getConstraints();
-            ExecInvokingOperation.checkParametersOperators(_conf, id_, Argument.createVoid(), firstArgs_);
+            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, Argument.createVoid(), firstArgs_);
             return;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);

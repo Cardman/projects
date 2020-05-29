@@ -9,9 +9,10 @@ import code.expressionlanguage.opers.EnumValueOfOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
+import code.util.CustList;
 import code.util.IdMap;
 
-public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation {
+public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation implements RendCallable {
 
     private String className;
     private int argOffset;
@@ -25,20 +26,9 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation {
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        RendDynOperationNode first_ = getFirstChild();
-        Argument arg_ = getArgument(_nodes,first_);
-        Argument argres_ = getCommonArgument(arg_, _conf);
-        CallingState state_ = _conf.getContext().getCallingState();
-        if (state_ instanceof NotInitializedClass) {
-            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
-            if (_conf.getContext().hasException()) {
-                return;
-            }
-            argres_ = getCommonArgument(arg_, _conf);
-        }
-        Argument argRes_ = argres_;
-        setSimpleArgument(argRes_, _conf,_nodes);
+        CustList<Argument> arguments_ = getArguments(_nodes,this);
+        Argument argres_ = processCall(this, this, _nodes, Argument.createVoid(), arguments_, _conf, null);
+        setSimpleArgument(argres_,_conf,_nodes);
     }
 
     Argument getCommonArgument(Argument _argument, Configuration _conf) {
@@ -46,4 +36,8 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation {
         return ExecInvokingOperation.getEnumValue(new AdvancedExiting(_conf),className, _argument, _conf.getContext());
     }
 
+    @Override
+    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+        return getCommonArgument(_arguments.first(),_conf);
+    }
 }
