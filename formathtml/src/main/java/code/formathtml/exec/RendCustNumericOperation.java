@@ -1,13 +1,11 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SymbolOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -27,7 +25,7 @@ public final class RendCustNumericOperation extends RendNumericOperation impleme
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
-        Argument argres_ = processCall(this, this, _nodes, Argument.createVoid(), firstArgs_, _conf, null);
+        Argument argres_ = processCall(this, this, Argument.createVoid(), firstArgs_, _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 

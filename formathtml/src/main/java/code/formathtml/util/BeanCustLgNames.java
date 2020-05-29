@@ -1,5 +1,8 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.calls.util.CallingState;
+import code.expressionlanguage.calls.util.NotInitializedClass;
+import code.expressionlanguage.methods.ProcessMethod;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
@@ -1122,11 +1125,22 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (!staticField_) {
             previous_.setStruct(PrimitiveTypeUtil.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf.getContext()));
         }
+        String fieldType_ = _rend.getFieldMetaInfo().getRealType();
+        Argument arg_ = getField(_conf, off_, className_, fieldName_, staticField_, previous_, fieldType_);
+        CallingState state_ = _conf.getContext().getCallingState();
+        if (state_ instanceof NotInitializedClass) {
+            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
+            arg_ = getField(_conf, off_, className_, fieldName_, staticField_, previous_, fieldType_);
+        }
+        return arg_;
+    }
+
+    private static Argument getField(Configuration _conf, int off_, String className_, String fieldName_, boolean staticField_, Argument previous_, String fieldType_) {
         if (_conf.getContext().hasException()) {
             return Argument.createVoid();
         }
-        String fieldType_ = _rend.getFieldMetaInfo().getRealType();
-        return ExecInvokingOperation.getField(new AdvancedSetOffset(_conf),new AdvancedExiting(_conf),className_, fieldName_, staticField_,fieldType_, previous_, _conf.getContext(), off_);
+        return ExecInvokingOperation.getField(new AdvancedSetOffset(_conf), new AdvancedExiting(_conf), className_, fieldName_, staticField_, fieldType_, previous_, _conf.getContext(), off_);
     }
 
     @Override
@@ -1142,11 +1156,22 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (!isStatic_) {
             previous_.setStruct(PrimitiveTypeUtil.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf.getContext()));
         }
+        //Come from code directly so constant static fields can be initialized here
+        Argument arg_ = setField(_conf, _right, off_, fieldType_, isStatic_, isFinal_, className_, fieldName_, previous_);
+        CallingState state_ = _conf.getContext().getCallingState();
+        if (state_ instanceof NotInitializedClass) {
+            NotInitializedClass statusInit_ = (NotInitializedClass) state_;
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
+            arg_ = setField(_conf, _right, off_, fieldType_, isStatic_, isFinal_, className_, fieldName_, previous_);
+        }
+        return arg_;
+    }
+
+    private static Argument setField(Configuration _conf, Argument _right, int off_, String fieldType_, boolean isStatic_, boolean isFinal_, String className_, String fieldName_, Argument previous_) {
         if (_conf.getContext().hasException()) {
             return Argument.createVoid();
         }
-        //Come from code directly so constant static fields can be initialized here
-        return ExecInvokingOperation.setField(new AdvancedSetOffset(_conf),new AdvancedExiting(_conf),className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf.getContext(), off_);
+        return ExecInvokingOperation.setField(new AdvancedSetOffset(_conf), new AdvancedExiting(_conf), className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf.getContext(), off_);
     }
 
     @Override

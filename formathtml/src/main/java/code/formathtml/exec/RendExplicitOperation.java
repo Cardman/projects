@@ -25,7 +25,7 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation impl
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument argres_ = processCall(this, this, _nodes, Argument.createVoid(), arguments_, _conf, null);
+        Argument argres_ = processCall(this, this, Argument.createVoid(), arguments_, _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 

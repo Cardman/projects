@@ -1,8 +1,5 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.calls.util.CallingState;
-import code.expressionlanguage.calls.util.NotInitializedClass;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.FctOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -51,7 +48,7 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = processCall(this, this, _nodes, previous_, arguments_, _conf, null);
+        Argument argres_ = processCall(this, this, previous_, arguments_, _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 

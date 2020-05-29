@@ -3,10 +3,8 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ExplicitOperatorOperation;
-import code.expressionlanguage.opers.exec.ExecExplicitOperatorOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -32,7 +30,7 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetOper, _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument argres_ = processCall(this, this, _nodes, Argument.createVoid(), arguments_, _conf, null);
+        Argument argres_ = processCall(this, this, Argument.createVoid(), arguments_, _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 
@@ -40,6 +38,7 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
-        return ExecExplicitOperatorOperation.prepareExplicitOperator(new AdvancedExiting(_conf),_conf.getContext(),firstArgs_,_previous,classMethodId);
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), classMethodId, _previous,firstArgs_);
+        return Argument.createVoid();
     }
 }

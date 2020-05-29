@@ -1,9 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.calls.util.CallingState;
-import code.expressionlanguage.calls.util.NotInitializedClass;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.exec.ExecNumericOperation;
@@ -57,7 +54,7 @@ public final class RendSettableFieldOperation extends
     @Override
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        return processCall(this, this, _nodes, previous_, new CustList<Argument>(), _conf, _right);
+        return processCall(this, this, previous_, new CustList<Argument>(), _conf, _right);
     }
 
     @Override

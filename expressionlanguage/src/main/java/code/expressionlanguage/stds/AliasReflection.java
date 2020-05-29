@@ -839,11 +839,12 @@ public final class AliasReflection {
                     result_.setResult(BooleanStruct.of(false));
                     return result_;
                 }
-                String arg_ = lgNames_.getStructClassName(args_[0], _cont);
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(arg_);
-                mapping_.setParam(param_);
-                result_.setResult(BooleanStruct.of(Templates.isCorrectOrNumbers(mapping_, _cont)));
+                Argument arg_ = new Argument(args_[0]);
+                if (arg_.isNull()) {
+                    result_.setResult(BooleanStruct.of(false));
+                    return result_;
+                }
+                result_.setResult(BooleanStruct.of(Templates.safeObject(param_, arg_, _cont) == ErrorType.NOTHING));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsAssignableFrom)) {
@@ -851,17 +852,11 @@ public final class AliasReflection {
                 String param_ = class_.getName();
                 Struct subType_ = args_[0];
                 if (!(subType_ instanceof ClassMetaInfo)) {
-                    Mapping mapping_ = new Mapping();
-                    mapping_.setArg("");
-                    mapping_.setParam(param_);
-                    result_.setResult(BooleanStruct.of(Templates.isCorrectOrNumbers(mapping_, _cont)));
+                    result_.setResult(BooleanStruct.of(!PrimitiveTypeUtil.isPrimitive(param_,_cont)));
                     return result_;
                 }
                 String arg_ = ApplyCoreMethodUtil.getClass(subType_).getName();
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(arg_);
-                mapping_.setParam(param_);
-                result_.setResult(BooleanStruct.of(Templates.isCorrectOrNumbers(mapping_, _cont)));
+                result_.setResult(BooleanStruct.of(Templates.isCorrectExecute(arg_,param_, _cont)));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetName)) {

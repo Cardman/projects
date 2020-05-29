@@ -1,9 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.calls.util.CallingState;
-import code.expressionlanguage.calls.util.NotInitializedClass;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ValuesOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
@@ -25,7 +22,7 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        Argument argres_ = processCall(this, this, _nodes, Argument.createVoid(), new CustList<Argument>(), _conf, null);
+        Argument argres_ = processCall(this, this, Argument.createVoid(), new CustList<Argument>(), _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 

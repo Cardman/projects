@@ -1,9 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.calls.util.CallingState;
-import code.expressionlanguage.calls.util.NotInitializedClass;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.EnumValueOfOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
@@ -27,7 +24,7 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation i
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
-        Argument argres_ = processCall(this, this, _nodes, Argument.createVoid(), arguments_, _conf, null);
+        Argument argres_ = processCall(this, this, Argument.createVoid(), arguments_, _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 

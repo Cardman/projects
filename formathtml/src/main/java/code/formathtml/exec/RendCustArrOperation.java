@@ -122,7 +122,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     private Argument processCalling(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument previous_ = getPreviousArgument(_nodes,this);
-        Argument argres_ = processCall(this, this, _nodes, previous_, arguments_, _conf, _right);
+        Argument argres_ = processCall(this, this, previous_, arguments_, _conf, _right);
         setSimpleArgument(argres_,_conf,_nodes);
         return argres_;
     }

@@ -1,16 +1,12 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.calls.util.CallingState;
-import code.expressionlanguage.calls.util.NotInitializedClass;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.AbstractFieldOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
-import com.sun.org.apache.xpath.internal.Arg;
 
 public abstract class RendAbstractFieldOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted,RendCallable {
 
@@ -39,7 +35,7 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument arg_ = processCall(this, this, _nodes, previous_, new CustList<Argument>(), _conf, null);
+        Argument arg_ = processCall(this, this, previous_, new CustList<Argument>(), _conf, null);
         if (_conf.getContext().hasException()) {
             return;
         }

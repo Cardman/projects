@@ -39,14 +39,7 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, arguments_, _conf);
         Argument prev_ = new Argument();
-        prepareExplicitOperator(new DefaultExiting(_conf),_conf, firstArgs_, prev_, classMethodId);
-    }
-
-    public static Argument prepareExplicitOperator(AbstractExiting _exit, ContextEl _conf, CustList<Argument> firstArgs_, Argument prev_, ClassMethodId _classMethodId) {
-        if (_exit.hasToExit(_classMethodId.getClassName())) {
-            return Argument.createVoid();
-        }
-        return callPrepare(new DefaultExiting(_conf),_conf, _classMethodId.getClassName(), _classMethodId.getConstraints(), prev_, firstArgs_, null);
+        checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, prev_,firstArgs_);
     }
 
     public ClassMethodId getClassMethodId() {

@@ -2955,6 +2955,47 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         assertTrue(out_.isFalse());
     }
     @Test
+    public void processEl424_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static $boolean exmeth(){\n");
+        xml_.append("  $return $class(ExThree<?Number>).isInstance($null);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree<S>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertTrue(out_.isFalse());
+    }
+    @Test
+    public void processEl425_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $boolean exmeth(){\n");
+        xml_.append("  $return $class($int).isInstance($null);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertTrue(out_.isFalse());
+    }
+    @Test
     public void processEl425Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();

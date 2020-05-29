@@ -2,10 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.calls.PageEl;
-import code.expressionlanguage.calls.util.CallingState;
-import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.StandardInstancingOperation;
 import code.expressionlanguage.opers.exec.ExecInvokingOperation;
@@ -56,7 +53,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
             arguments_.add(getArgument(_nodes,o));
         }
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = processCall(this, this, _nodes, previous_, arguments_, _conf, null);
+        Argument argres_ = processCall(this, this, previous_, arguments_, _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 

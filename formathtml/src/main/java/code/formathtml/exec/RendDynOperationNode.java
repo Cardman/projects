@@ -10,7 +10,6 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
@@ -68,22 +67,30 @@ public abstract class RendDynOperationNode {
         parent = _parent;
     }
     protected static Argument processCall(RendCallable _node, RendDynOperationNode _method,
-                                      IdMap<RendDynOperationNode, ArgumentsPair> _nodes,
-                                      Argument _previous, CustList<Argument> _arguments,
-                                      Configuration _conf, Argument _right) {
+                                          Argument _previous, CustList<Argument> _arguments,
+                                          Configuration _conf, Argument _right) {
         Argument argres_ = _node.getArgument(_previous, _arguments, _conf, _right);
+        argres_ = init(argres_,_node,_previous,_arguments,_conf,_right);
+        argres_ = init(argres_,_node,_previous,_arguments,_conf,_right);
+        return _method.processCall(_conf,argres_);
+    }
+    private static Argument init(Argument _before,
+                         RendCallable _node,
+                         Argument _previous, CustList<Argument> _arguments,
+                         Configuration _conf, Argument _right) {
         CallingState state_ = _conf.getContext().getCallingState();
+        Argument before_ = _before;
         if (state_ instanceof NotInitializedClass) {
             NotInitializedClass statusInit_ = (NotInitializedClass) state_;
             ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
             if (_conf.getContext().hasException()) {
                 return Argument.createVoid();
             }
-            argres_ = _node.getArgument(_previous, _arguments, _conf, _right);
+            before_ = _node.getArgument(_previous, _arguments, _conf, _right);
         }
-        return _method.processCall(_nodes,_conf,argres_);
+        return before_;
     }
-    private Argument processCall(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, Argument _res) {
+    private Argument processCall(Configuration _conf, Argument _res) {
         CallingState callingState_ = _conf.getContext().getCallingState();
         Argument res_;
         if (callingState_ instanceof CustomFoundConstructor) {

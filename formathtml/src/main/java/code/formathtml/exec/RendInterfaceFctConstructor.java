@@ -52,14 +52,14 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
             _nodes.getValue(getParent().getFirstChild().getOrder()).setArgument(ref_);
             CustList<Argument> arguments_ = getArguments(_nodes, this);
             arguments_.add(0,ref_);
-            Argument argres_ = processCall(this, this, _nodes, Argument.createVoid(), arguments_, _conf, null);
+            Argument argres_ = processCall(this, this, Argument.createVoid(), arguments_, _conf, null);
             setSimpleArgument(argres_,_conf,_nodes);
             return;
         }
         int order_ = getParent().getFirstChild().getOrder();
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         arguments_.add(0,_nodes.getValue(order_).getArgument());
-        Argument argres_ = processCall(this, this, _nodes, Argument.createVoid(), arguments_, _conf, null);
+        Argument argres_ = processCall(this, this, Argument.createVoid(), arguments_, _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
     Argument getArgument(CustList<Argument> _arguments, Configuration _conf) {
