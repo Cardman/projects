@@ -6,6 +6,7 @@ import code.expressionlanguage.opers.ExplicitOperation;
 import code.expressionlanguage.opers.exec.ExecExplicitOperation;
 import code.expressionlanguage.opers.util.MethodId;
 import code.formathtml.Configuration;
+import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -30,6 +31,6 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation impl
 
     @Override
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        return ExecExplicitOperation.prepare(false,castOpId,_arguments,className,_conf.getPageEl(),_conf.getContext(),false);
+        return ExecExplicitOperation.prepare(new AdvancedExiting(_conf),false,castOpId,_arguments,className,_conf.getPageEl(),_conf.getContext(),false);
     }
 }

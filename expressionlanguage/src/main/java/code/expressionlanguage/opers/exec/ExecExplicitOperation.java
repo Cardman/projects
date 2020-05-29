@@ -1,7 +1,9 @@
 package code.expressionlanguage.opers.exec;
 
+import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.CustomFoundCast;
 import code.expressionlanguage.inherits.Templates;
@@ -28,10 +30,10 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument argres_ =  prepare(false,castOpId,arguments_,className,_conf.getLastPage(),_conf,false);
+        Argument argres_ =  prepare(new DefaultExiting(_conf),false,castOpId,arguments_,className,_conf.getLastPage(),_conf,false);
         setSimpleArgument(argres_, _conf, _nodes);
     }
-    public static Argument prepare(boolean _direct, MethodId _castOpId, CustList<Argument> _arguments, String _className, PageEl _page, ContextEl _conf, boolean _simpleCall) {
+    public static Argument prepare(AbstractExiting _exit, boolean _direct, MethodId _castOpId, CustList<Argument> _arguments, String _className, PageEl _page, ContextEl _conf, boolean _simpleCall) {
         if (!_simpleCall) {
             if (_direct) {
                 return getArgument(_arguments,_className, _page,_conf);
@@ -50,6 +52,9 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
             return Argument.createVoid();
         }
         String paramName_ = _page.formatVarType(_className, _conf);
+        if (_exit.hasToExit(paramName_)) {
+            return Argument.createVoid();
+        }
         if (!Templates.okArgs(_castOpId,true, paramName_,_arguments, _conf, null)) {
             return Argument.createVoid();
         }

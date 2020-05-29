@@ -2,6 +2,7 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.opers.exec.ExecExplicitOperation;
 import code.expressionlanguage.opers.util.MethodAccessKind;
@@ -40,7 +41,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
             _context.setException(new ErrorStruct(_context,null_));
             return Argument.createVoid();
         }
-        return ExecExplicitOperation.prepare(direct,_mid,_args,res_,_context.getLastPage(),_context, _mid.getKind() == MethodAccessKind.STATIC_CALL);
+        return ExecExplicitOperation.prepare(new DefaultExiting(_context),direct,_mid,_args,res_,_context.getLastPage(),_context, _mid.getKind() == MethodAccessKind.STATIC_CALL);
     }
 
     @Override
