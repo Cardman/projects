@@ -2124,6 +2124,8 @@ public final class Classes {
     public static ClassMetaInfo getClassMetaInfo(RootBlock _type,String _name, ContextEl _context) {
         ObjectMap<MethodId, MethodMetaInfo> infos_;
         infos_ = new ObjectMap<MethodId, MethodMetaInfo>();
+        ObjectMap<MethodId, MethodMetaInfo> infosExplicits_;
+        infosExplicits_ = new ObjectMap<MethodId, MethodMetaInfo>();
         StringMap<FieldMetaInfo> infosFields_;
         infosFields_ = new StringMap<FieldMetaInfo>();
         ObjectMap<ConstructorId, ConstructorMetaInfo> infosConst_;
@@ -2173,6 +2175,12 @@ public final class Classes {
                 met_.setFileName(fileName_);
                 met_.setExpCast(method_.getKind() == MethodKind.EXPLICIT_CAST);
                 infos_.put(id_, met_);
+                if (method_.getKind() == MethodKind.EXPLICIT_CAST) {
+                    met_ = new MethodMetaInfo(access_, idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
+                    met_.setFileName(fileName_);
+                    met_.setExpCast(true);
+                    infosExplicits_.put(id_, met_);
+                }
             }
             if (b instanceof AnnotationMethodBlock) {
                 AnnotationMethodBlock method_ = (AnnotationMethodBlock) b;
@@ -2247,13 +2255,13 @@ public final class Classes {
         boolean st_ = _type.isStaticType();
         if (_type instanceof InterfaceBlock) {
             ClassMetaInfo cl_ = new ClassMetaInfo(_name, ((InterfaceBlock) _type).getImportedDirectSuperInterfaces(), format_, inners_,
-                    infosFields_, infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
+                    infosFields_, infosExplicits_,infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
             cl_.setFileName(fileName_);
             return cl_;
         }
         if (_type instanceof AnnotationBlock) {
             ClassMetaInfo cl_ = new ClassMetaInfo(_name, new StringList(), format_, inners_,
-                    infosFields_, infos_, infosConst_, ClassCategory.ANNOTATION, st_, acc_);
+                    infosFields_, infosExplicits_,infos_, infosConst_, ClassCategory.ANNOTATION, st_, acc_);
             cl_.setFileName(fileName_);
             return cl_;
         }
@@ -2266,7 +2274,7 @@ public final class Classes {
         String superClass_ = ((UniqueRootedBlock) _type).getImportedDirectGenericSuperClass();
         StringList superInterfaces_ = ((UniqueRootedBlock) _type).getImportedDirectGenericSuperInterfaces();
         ClassMetaInfo cl_ = new ClassMetaInfo(_name, superClass_, superInterfaces_, format_, inners_,
-                infosFields_, infos_, infosConst_, cat_, abs_, st_, final_, acc_);
+                infosFields_, infosExplicits_,infos_, infosConst_, cat_, abs_, st_, final_, acc_);
         cl_.setFileName(fileName_);
         return cl_;
     }

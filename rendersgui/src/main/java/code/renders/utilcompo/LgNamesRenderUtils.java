@@ -1713,6 +1713,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         setAliasMakeGeneric(get(_util,_cust, MAKE_GENERIC));
         setAliasGetAllClasses(get(_util,_cust, GET_ALL_CLASSES));
         setAliasGetOperators(get(_util,_cust, GET_OPERATORS));
+        setAliasGetDeclaredExplicits(get(_util,_cust, GET_DECLARED_EXPLICITS));
         setAliasGetDeclaredMethods(get(_util,_cust, GET_DECLARED_METHODS));
         setAliasGetDeclaredStaticMethods(get(_util,_cust, GET_DECLARED_STATIC_METHODS));
         setAliasGetDeclaredConstructors(get(_util,_cust, GET_DECLARED_CONSTRUCTORS));

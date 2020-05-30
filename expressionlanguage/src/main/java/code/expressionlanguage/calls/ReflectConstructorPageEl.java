@@ -32,7 +32,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             _context.setException(new ErrorStruct(_context,null_));
             return false;
         }
-        String res_ = Templates.correctClassPartsDynamic(className_, _context, true, true);
+        String res_ = Templates.correctClassPartsDynamic(className_, _context, true);
         if (res_.isEmpty()) {
             String null_;
             null_ = stds_.getAliasIllegalArg();

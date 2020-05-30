@@ -84,6 +84,9 @@ public final class OverridableBlock extends NamedFunctionBlock implements Access
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
+        if (kind == MethodKind.EXPLICIT_CAST) {
+            pTypes_.add(getImportedReturnType());
+        }
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
             pTypes_.add(n_);

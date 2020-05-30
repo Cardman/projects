@@ -9,6 +9,7 @@ import code.stream.ThreadUtil;
 
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 
 /**AnimationBalle permet de deplacer
@@ -41,8 +42,8 @@ public final class AnimationUnitSoldier implements Runnable {
         repaintBattleground();
     }
 
-    public void addNewSoldier(int _x, int _y) {
-        battleground.addNewSoldier(_x, _y);
+    public void addNewSoldier(int _x, int _y, long _next) {
+        battleground.addNewSoldier(_x, _y,_next);
     }
 
     public void setNewLocation(int _x, int _y) {

@@ -29,13 +29,13 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         String extract_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
         StringList types_ = Templates.getAllSepCommaTypes(extract_);
-        if (types_.size() > 2) {
+        if (types_.size() > 3) {
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
             badCall_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             badCall_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
             badCall_.buildError(_conf.getAnalysisMessages().getSplitComaLow(),
-                    Integer.toString(2),
+                    Integer.toString(3),
                     Integer.toString(types_.size())
             );
             _conf.getAnalyzing().getLocalizer().addError(badCall_);
@@ -59,17 +59,38 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         if (types_.size() == 2 && StringList.quickEq(types_.last(),_conf.getKeyWords().getKeyWordId())) {
             return;
         }
+//        if (types_.size() == 3) {
+//            ClassMethodId uniq_ ;
+//            String exp_ = _conf.getKeyWords().getKeyWordExplicit();
+//            String lastType_;
+//            String arg_ = types_.last();
+//            lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,leftPar_ +types_.first().length()+2,arg_, className);
+//            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+//            uniq_ = new ClassMethodId(className,new MethodId(MethodAccessKind.STATIC,exp_,new StringList(lastType_)));
+//            ClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
+//            ClassArgumentMatching[] argsClass_ = ClassArgumentMatching.toArgArray(new CustList<ClassArgumentMatching>(resultClass_));
+//            ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(_conf,  className, exp_,  uniq_, argsClass_);
+//            if (!resMethod_.isFoundMethod()) {
+//                return;
+//            }
+//            castOpId = resMethod_.getRealId();
+//            return;
+//        }
         ClassMethodId uniq_ = null;
         String exp_ = _conf.getKeyWords().getKeyWordExplicit();
         if (types_.size() == 2){
+            //add a type for full id
             String lastType_ = "";
             String arg_ = types_.last();
             lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,leftPar_ +types_.first().length()+2,arg_, className);
             partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
-            uniq_ = new ClassMethodId(className,new MethodId(MethodAccessKind.STATIC,exp_,new StringList(lastType_)));
+            String gene_ = _conf.getClassBody(Templates.getIdFromAllTypes(className)).getGenericString();
+            uniq_ = new ClassMethodId(className,new MethodId(MethodAccessKind.STATIC,exp_,new StringList(gene_,lastType_)));
         }
         ClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
-        ClassArgumentMatching[] argsClass_ = ClassArgumentMatching.toArgArray(new CustList<ClassArgumentMatching>(resultClass_));
+        CustList<ClassArgumentMatching> args_ = new CustList<ClassArgumentMatching>(new ClassArgumentMatching(className));
+        args_.add(resultClass_);
+        ClassArgumentMatching[] argsClass_ = ClassArgumentMatching.toArgArray(args_);
         ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(_conf,  className, exp_,  uniq_, argsClass_);
         if (!resMethod_.isFoundMethod()) {
             return;

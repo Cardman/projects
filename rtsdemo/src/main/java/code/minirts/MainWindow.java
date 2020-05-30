@@ -18,6 +18,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.MemoryImageSource;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 public final class MainWindow extends GroupFrame {
 
@@ -44,6 +45,7 @@ public final class MainWindow extends GroupFrame {
     private PanelBattle battleground = new PanelBattle(facade);
     private AtomicBoolean stopped = new AtomicBoolean();
     private AtomicBoolean paused = new AtomicBoolean();
+    private AtomicLong count = new AtomicLong();
     private AnimationUnitSoldier thread = new AnimationUnitSoldier(battleground,this);
     private Thread threadLau = new Thread(thread);
 
@@ -163,7 +165,7 @@ public final class MainWindow extends GroupFrame {
         if (!threadLau.isAlive()) {
             return;
         }
-        thread.addNewSoldier(_x, _y);
+        thread.addNewSoldier(_x, _y,count.getAndIncrement());
     }
 
     public void setNewLocation(int _x, int _y) {

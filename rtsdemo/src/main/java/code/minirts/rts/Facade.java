@@ -19,8 +19,8 @@ public final class Facade {
         game.loop(data);
     }
 
-    public void addNewSoldier(int _x, int _y) {
-        game.addNewSoldier(_x, _y, data);
+    public void addNewSoldier(int _x, int _y, long _next) {
+        game.addNewSoldier(_x, _y, data,_next);
     }
 
     public boolean isEmpty(UnitMapKey _this, int _x, int _y, Delta _d) {

@@ -48,9 +48,7 @@ public abstract class GroupFrame extends CommonFrame {
 
     private void initGeneIfNull() {
         if (generator == null) {
-            AdvancedGenerator generator_ = new AdvancedGenerator();
-            generator_.setSeed(System.currentTimeMillis());
-            generator = generator_;
+            generator = new AdvancedGenerator();
         }
     }
 

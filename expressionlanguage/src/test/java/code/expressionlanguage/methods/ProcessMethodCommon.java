@@ -47,9 +47,10 @@ public abstract class ProcessMethodCommon {
             return new Argument();
         }
         Argument argGlLoc_ = new Argument();
-        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, fct_, _args, _cont, null);
-        assertNotNull(getException(_cont));
-        return arg_;
+        ProcessMethod.calculateArgument(argGlLoc_, _class, fct_, _args, _cont, null);
+        Struct exc_ = getException(_cont);
+        assertNotNull(exc_);
+        return new Argument(exc_);
     }
     protected static Argument calculateNormal(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.getKind(), _method.getName(),_method.getParametersTypes());

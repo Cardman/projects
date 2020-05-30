@@ -30,6 +30,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     private final String typeOwner;
 
     private final StringMap<FieldMetaInfo> fieldsInfos;
+    private final ObjectMap<MethodId, MethodMetaInfo> explicitsInfos;
     private final ObjectMap<MethodId, MethodMetaInfo> methodsInfos;
 
     private final ObjectMap<ConstructorId, ConstructorMetaInfo> constructorsInfos;
@@ -72,6 +73,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
             access = AccessEnum.PUBLIC;
         }
         fieldsInfos = new StringMap<FieldMetaInfo>();
+        explicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
         category = _cat;
@@ -86,6 +88,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         superClass = EMPTY_STRING;
         access = AccessEnum.PUBLIC;
         fieldsInfos = new StringMap<FieldMetaInfo>();
+        explicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
         category = ClassCategory.VOID;
@@ -101,6 +104,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         superClass = EMPTY_STRING;
         variableOwner = _variableOwner;
         fieldsInfos = new StringMap<FieldMetaInfo>();
+        explicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
         category = _cat;
@@ -113,6 +117,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
             String _typeOwner,
             StringList _memberTypes,
             StringMap<FieldMetaInfo> _fields,
+                         ObjectMap<MethodId, MethodMetaInfo> _exlicits,
                          ObjectMap<MethodId, MethodMetaInfo> _methods,
                          ObjectMap<ConstructorId, ConstructorMetaInfo> _constructors,
             ClassCategory _category,
@@ -126,6 +131,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         superClass = _superClass;
         superInterfaces.addAllElts(_superInterfaces);
         fieldsInfos = _fields;
+        explicitsInfos = _exlicits;
         methodsInfos = _methods;
         constructorsInfos = _constructors;
         category = _category;
@@ -138,6 +144,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     public ClassMetaInfo(String _name,
             StringList _superInterfaces,String _typeOwner,
             StringList _memberTypes,StringMap<FieldMetaInfo> _fields,
+                         ObjectMap<MethodId, MethodMetaInfo> _exlicits,
                          ObjectMap<MethodId, MethodMetaInfo> _methods,
                          ObjectMap<ConstructorId, ConstructorMetaInfo> _constructors,
             ClassCategory _category, boolean _staticType, AccessEnum _access) {
@@ -148,6 +155,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         superInterfaces.addAllElts(_superInterfaces);
         superClass = EMPTY_STRING;
         fieldsInfos = _fields;
+        explicitsInfos = _exlicits;
         methodsInfos = _methods;
         constructorsInfos = _constructors;
         category = _category;
@@ -280,6 +288,11 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     public StringMap<FieldMetaInfo> getFieldsInfos() {
         return fieldsInfos;
     }
+
+    public ObjectMap<MethodId, MethodMetaInfo> getExplicitsInfos() {
+        return explicitsInfos;
+    }
+
     public ObjectMap<MethodId, MethodMetaInfo> getMethodsInfos() {
         return methodsInfos;
     }

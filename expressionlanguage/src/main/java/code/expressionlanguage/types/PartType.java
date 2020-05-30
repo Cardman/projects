@@ -1,7 +1,6 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.util.CustList;
@@ -156,6 +155,7 @@ abstract class PartType {
     abstract void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap< String>>_dels, AccessingImportingBlock _rooted);
     abstract void setAnalyzedType(CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit);
     abstract void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit);
+    abstract void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels);
 
     int getIndex() {
         return index;

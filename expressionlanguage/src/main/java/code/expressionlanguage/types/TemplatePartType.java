@@ -107,12 +107,46 @@ final class TemplatePartType extends BinaryType {
                 for (String v: bounds_) {
                     m_.setArg(v);
                     m_.setMapping(_inherit);
-                    if (Templates.isCorrectOrNumbers(m_, _an)) {
+                    if (Templates.isCorrect(m_, _an)) {
                         ok_ = true;
                         break;
                     }
                 }
                 if (!ok_) {
+                    return;
+                }
+            }
+        }
+        setAnalyzedType(tempClFull_);
+    }
+
+    @Override
+    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
+        PartType f_ = getFirstChild();
+        String tempCl_ = f_.getAnalyzedType();
+        String tempClFull_ = fetchTemplate();
+        tempCl_ = Templates.getIdFromAllTypes(tempCl_);
+        GeneType type_ = _an.getClassBody(tempCl_);
+        CustList<StringList> boundsAll_ = type_.getBoundAll();
+        for (StringList t: boundsAll_) {
+            f_ = f_.getNextSibling();
+            String arg_ = f_.getAnalyzedType();
+            if (StringList.quickEq(arg_, Templates.SUB_TYPE)) {
+                continue;
+            }
+            String comp_ = arg_;
+            if (comp_.startsWith(Templates.SUB_TYPE)) {
+                comp_ = comp_.substring(Templates.SUB_TYPE.length());
+            } else if (comp_.startsWith(Templates.SUP_TYPE)) {
+                comp_ = comp_.substring(Templates.SUP_TYPE.length());
+            }
+            DimComp dimCompArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(comp_);
+            comp_ = dimCompArg_.getComponent();
+            StringList bounds_ = new StringList();
+            bounds_.add(comp_);
+            for (String e: t) {
+                String param_ = Templates.format(tempClFull_, e, _an);
+                if (!Templates.isCorrectExecute(comp_, param_, _an)) {
                     return;
                 }
             }

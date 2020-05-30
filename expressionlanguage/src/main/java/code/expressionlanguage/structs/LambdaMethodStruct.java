@@ -86,6 +86,7 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
         return className;
     }
 
-
-
+    public boolean isExpCast() {
+        return expCast;
+    }
 }

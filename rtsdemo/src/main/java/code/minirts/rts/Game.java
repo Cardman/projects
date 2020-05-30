@@ -98,7 +98,7 @@ public final class Game {
         return d_;
     }
 
-    public void addNewSoldier(int _x, int _y, DataBase _data) {
+    public void addNewSoldier(int _x, int _y, DataBase _data, long _next) {
         if (!isEmpty(_x, _y, _data)) {
             added = false;
             return;
@@ -109,7 +109,7 @@ public final class Game {
         soldierLabel_.setDestx(_x);
         soldierLabel_.setY(_y);
         soldierLabel_.setDesty(_y);
-        soldiers.put(new UnitMapKey(_x, _y),soldierLabel_);
+        soldiers.put(new UnitMapKey(_x, _y,_next),soldierLabel_);
     }
 
     public boolean isEmpty(UnitMapKey _this, int _x, int _y, Delta _d, DataBase _data) {

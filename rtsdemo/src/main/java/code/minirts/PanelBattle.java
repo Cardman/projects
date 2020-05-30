@@ -47,8 +47,8 @@ public class PanelBattle {
         container.add(content);
     }
 
-    public void addNewSoldier(int _x, int _y) {
-        facade.addNewSoldier(_x, _y);
+    public void addNewSoldier(int _x, int _y, long _next) {
+        facade.addNewSoldier(_x, _y,_next);
         if (!facade.isAdded()) {
             return;
         }

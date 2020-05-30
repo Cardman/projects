@@ -125,6 +125,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
                 boolean varargFct_ = argsRes_.isVararg();
                 StringList params_ = argsRes_.getParametersTypes();
+                String gene_ = _conf.getClassBody(Templates.getIdFromAllTypes(type_)).getGenericString();
+                params_.add(0,gene_);
                 feed_ = new ClassMethodId(type_, new MethodId(MethodAccessKind.STATIC, name_, params_, varargFct_));
                 for (String s: argsRes_.getParametersTypes()) {
                     String format_ = Templates.wildCardFormatParam(type_, s, _conf);
@@ -190,6 +192,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new ClassArgumentMatching(fct_));
                 return;
             }
+            _methodTypes.add(0,new ClassArgumentMatching(type_));
             ClassMethodIdReturn id_ = tryGetDeclaredCast(_conf,type_,exp_,feed_,ClassArgumentMatching.toArgArray(_methodTypes));
             if (!id_.isFoundMethod()) {
                 ClassMethodIdReturn idDef_ = new ClassMethodIdReturn(true);

@@ -341,6 +341,56 @@ public final class PartTypeUtil {
         }
         return !root_.getAnalyzedType().isEmpty();
     }
+    public static boolean processAnalyzeConstraintsExec(String _className, ContextEl _context) {
+        boolean res_ = checkParametersCount(_className, new StringMap<StringList>(), _context);
+        if (!res_) {
+            return false;
+        }
+        Ints indexes_ = ParserType.getQuickIndexes(_className);
+        AnalyzingType loc_ = ParserType.analyzeQuickLocal(0, _className, indexes_);
+        CustList<IntTreeMap< String>> dels_;
+        dels_ = new CustList<IntTreeMap< String>>();
+        PartType root_ = PartType.createQuickPartType(null, 0, 0, loc_, loc_.getValues());
+        addValues(root_, dels_, loc_);
+        PartType current_ = root_;
+        while (true) {
+            PartType child_ = createQuickFirstChild(current_, loc_, dels_);
+            if (child_ != null) {
+                ((ParentPartType)current_).appendChild(child_);
+                current_ = child_;
+                continue;
+            }
+            boolean stop_ = false;
+            while (true) {
+                current_.analyzeTemplateExec(_context, dels_);
+                if (current_.getAnalyzedType().isEmpty()) {
+                    return false;
+                }
+                PartType next_ = createQuickNextSibling(current_, loc_, dels_);
+                ParentPartType par_ = current_.getParent();
+                if (next_ != null) {
+                    par_.appendChild(next_);
+                    current_ = next_;
+                    break;
+                }
+                if (par_ == root_) {
+                    par_.analyzeTemplateExec(_context, dels_);
+                    stop_ = true;
+                    break;
+                }
+                if (par_ == null) {
+                    stop_ = true;
+                    break;
+                }
+                dels_.removeLast();
+                current_ = par_;
+            }
+            if (stop_) {
+                break;
+            }
+        }
+        return !root_.getAnalyzedType().isEmpty();
+    }
     static String processAnalyzeLine(String _input, ContextEl _an, AccessingImportingBlock _rooted) {
         return processAnalyzeLine(_input, new AlwaysReadyTypes(),false,"",_an,_rooted,_rooted, 0,new CustList<PartOffset>());
     }

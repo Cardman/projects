@@ -312,8 +312,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     a_.setStruct(ExecutingUtil.getClassMetaInfo(_cont,clDyn_));
                     return a_;
                 }
-                boolean gene_ = clDyn_.contains(Templates.TEMPLATE_BEGIN);
-                String res_ = Templates.correctClassPartsDynamic(clDyn_, _cont, gene_, false);
+                String res_ = Templates.correctClassPartsDynamic(clDyn_, _cont, false);
                 if (res_.isEmpty()) {
                     _cont.setException(new ErrorStruct(_cont,clDyn_,stds_.getAliasClassNotFoundError()));
                     return new Argument();
@@ -350,7 +349,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     _cont.setException(new ErrorStruct(_cont,null_));
                     return Argument.createVoid();
                 }
-                String res_ = Templates.correctClassPartsDynamic(className_, _cont, true, true);
+                String res_ = Templates.correctClassPartsDynamic(className_, _cont, true);
                 if (res_.isEmpty()) {
                     String null_;
                     null_ = stds_.getAliasNullPe();
@@ -764,6 +763,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 from_ = PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject());
             }
             MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC, from_, fid_, met_, "", fid_, "");
+            m_.setExpCast(l_.isExpCast());
             Argument pr_ = new Argument();
             pr_.setStruct(m_);
             Argument instance_ = l_.getInstanceCall();

@@ -370,12 +370,11 @@ public final class Templates {
     }
 
     /**Calls Templates.isCorrect*/
-    public static String correctClassPartsDynamic(String _className, ContextEl _context, boolean _exact, boolean _wildCard) {
+    public static String correctClassPartsDynamic(String _className, ContextEl _context, boolean _wildCard) {
         String className_ = PartTypeUtil.processExec(_className, _context);
         if (className_.isEmpty()) {
             return "";
         }
-        StringMap<StringList> mapping_ = new StringMap<StringList>();
         if (_wildCard) {
             CustList<String> allArgTypes_ = getAllTypes(className_).mid(1);
             for (String m: allArgTypes_) {
@@ -387,7 +386,7 @@ public final class Templates {
                 }
             }
         }
-        if (isCorrectTemplateAll(className_, mapping_, _context, _exact)) {
+        if (isCorrectTemplateAllExec(className_, _context)) {
             return className_;
         }
         return "";
@@ -719,6 +718,9 @@ public final class Templates {
     public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, ContextEl _context, boolean _exact) {
         return PartTypeUtil.processAnalyzeConstraints(_className,_inherit,_context,_exact);
     }
+    public static boolean isCorrectTemplateAllExec(String _className, ContextEl _context) {
+        return PartTypeUtil.processAnalyzeConstraintsExec(_className,_context);
+    }
 
     public static String wildCardFormatReturn(String _first, String _second, ContextEl _classes) {
         if (!_second.contains(PREFIX_VAR_TYPE)) {
@@ -898,7 +900,7 @@ public final class Templates {
             i_++;
         }
         String formatted_ = getQuickFormattedType(pref_, varTypes_);
-        if (!isCorrectTemplateAll(formatted_, new StringMap<StringList>(), _context)) {
+        if (!isCorrectTemplateAllExec(formatted_, _context)) {
             return null;
         }
         return formatted_;
@@ -1439,9 +1441,6 @@ public final class Templates {
         return true;
     }
     public static ErrorType safeObject(String _param, Argument _arg, ContextEl _context) {
-        if (_param.isEmpty()) {
-            return ErrorType.CAST;
-        }
         LgNames stds_ = _context.getStandards();
         Struct str_ = _arg.getStruct();
         if (str_ != NullStruct.NULL_VALUE) {
@@ -1450,6 +1449,9 @@ public final class Templates {
             if (!Templates.isCorrectExecute(a_, param_, _context)) {
                 return ErrorType.CAST;
             }
+        }
+        if (_param.isEmpty()) {
+            return ErrorType.CAST;
         }
         if (PrimitiveTypeUtil.primitiveTypeNullObject(_param, str_, _context)) {
             return ErrorType.NPE;
@@ -1688,7 +1690,7 @@ public final class Templates {
         return isCorrect(_m, _context);
     }
 
-    static boolean isCorrect(Mapping _m, ContextEl _context) {
+    public static boolean isCorrect(Mapping _m, ContextEl _context) {
         ClassArgumentMatching arg_ = _m.getArg();
         ClassArgumentMatching param_ = _m.getParam();
         StringMap<StringList> generalMapping_ = _m.getMapping();
@@ -1762,6 +1764,9 @@ public final class Templates {
         return true;
     }
     public static boolean isCorrectExecute(String _a, String _p, ContextEl _context) {
+        if (_p.isEmpty()) {
+            return false;
+        }
         CustList<Matching> matchs_ = new CustList<Matching>();
         Matching match_ = new Matching();
         match_.setArg(_a);

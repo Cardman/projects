@@ -26,6 +26,11 @@ final class EmptyWildCardPart extends LeafPartType {
     }
 
     @Override
+    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
+        setAnalyzedType(Templates.SUB_TYPE);
+    }
+
+    @Override
     void setAnalyzedType(CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         setAnalyzedType(Templates.SUB_TYPE);
     }

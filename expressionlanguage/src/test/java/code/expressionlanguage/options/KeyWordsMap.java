@@ -341,6 +341,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetDeclaredConstructors("getDeclaredConstructors");
         _lgNames.setAliasGetDeclaredFields("getDeclaredFields");
         _lgNames.setAliasGetDeclaredMethods("getDeclaredMethods");
+        _lgNames.setAliasGetDeclaredExplicits("getDeclaredExplicits");
         _lgNames.setAliasGetDeclaredStaticMethods("getDeclaredStaticMethods");
         _lgNames.setAliasMakeGeneric("makeGeneric");
         _lgNames.setAliasGetAllClasses("getAllClasses");
@@ -636,6 +637,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetDeclaredConstructors("valConstructeursDeclares");
         _lgNames.setAliasGetDeclaredFields("valChampsDeclares");
         _lgNames.setAliasGetDeclaredMethods("valMethodsDeclares");
+        _lgNames.setAliasGetDeclaredExplicits("valExplicitesDeclares");
         _lgNames.setAliasGetDeclaredStaticMethods("valMethodsStaticDeclares");
         _lgNames.setAliasMakeGeneric("rendreGeneric");
         _lgNames.setAliasGetAllClasses("valClasses");

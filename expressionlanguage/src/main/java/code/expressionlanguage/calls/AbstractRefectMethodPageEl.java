@@ -84,7 +84,14 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                 args_.add(a_);
             }
             Argument right_ = null;
-            if (!StringList.quickEq(mid_.getName(),"[]=")) {
+            if (method_.isExpCast()) {
+                if (args_.size() + 1 != mid_.getParametersTypes().size()) {
+                    String null_;
+                    null_ = stds_.getAliasIllegalArg();
+                    _context.setException(new ErrorStruct(_context,null_));
+                    return false;
+                }
+            } else if (!StringList.quickEq(mid_.getName(),"[]=")) {
                 if (args_.size() != mid_.getParametersTypes().size()) {
                     String null_;
                     null_ = stds_.getAliasIllegalArg();

@@ -9,11 +9,15 @@ import code.expressionlanguage.calls.util.CustomFoundCast;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ExplicitOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     private String className;
@@ -55,8 +59,15 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         if (_exit.hasToExit(paramName_)) {
             return Argument.createVoid();
         }
-        if (!Templates.okArgs(_castOpId,true, paramName_,_arguments, _conf, null)) {
-            return Argument.createVoid();
+        if (_simpleCall) {
+            if (!Templates.okArgs(_castOpId,true, paramName_,_arguments, _conf, null)) {
+                return Argument.createVoid();
+            }
+        } else {
+            MethodId check_ = new MethodId(_castOpId.getKind(),_castOpId.getName(),new StringList(_castOpId.getParametersTypes().mid(1)),_castOpId.isVararg());
+            if (!Templates.okArgs(check_,true, paramName_,_arguments, _conf, null)) {
+                return Argument.createVoid();
+            }
         }
         _conf.setCallingState(new CustomFoundCast(paramName_,_castOpId,_arguments));
         return Argument.createVoid();

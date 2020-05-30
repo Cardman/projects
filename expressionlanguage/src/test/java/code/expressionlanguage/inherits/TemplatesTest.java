@@ -5045,6 +5045,16 @@ public final class TemplatesTest extends ProcessMethodCommon {
         assertNotNull(getException(cont_));
     }
     @Test
+    public void okArgs7Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList(""),false);
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(NullStruct.NULL_VALUE));
+        assertTrue(!Templates.okArgs(id_,false,"",args_, cont_,null));
+        assertNotNull(getException(cont_));
+    }
+    @Test
     public void getErrorWhenContain1Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = unfullValidateOverridingMethods(files_);

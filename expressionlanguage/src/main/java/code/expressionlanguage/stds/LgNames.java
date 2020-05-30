@@ -190,6 +190,7 @@ public abstract class LgNames {
     public static final String MAKE_GENERIC = "MakeGeneric";
     public static final String GET_ALL_CLASSES = "GetAllClasses";
     public static final String GET_OPERATORS = "GetOperators";
+    public static final String GET_DECLARED_EXPLICITS = "GetDeclaredExplicits";
     public static final String GET_DECLARED_METHODS = "GetDeclaredMethods";
     public static final String GET_DECLARED_STATIC_METHODS = "GetDeclaredStaticMethods";
     public static final String GET_DECLARED_CONSTRUCTORS = "GetDeclaredConstructors";
@@ -454,6 +455,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(GET_DECLARED_CLASSES,getAliasGetDeclaredClasses()),
                 new KeyValueMemberName(GET_DECLARED_CONSTRUCTORS,getAliasGetDeclaredConstructors()),
                 new KeyValueMemberName(GET_DECLARED_FIELDS,getAliasGetDeclaredFields()),
+                new KeyValueMemberName(GET_DECLARED_EXPLICITS,getAliasGetDeclaredExplicits()),
                 new KeyValueMemberName(GET_DECLARED_METHODS,getAliasGetDeclaredMethods()),
                 new KeyValueMemberName(GET_DECLARED_STATIC_METHODS,getAliasGetDeclaredStaticMethods()),
                 new KeyValueMemberName(GET_ENCLOSING_TYPE,getAliasGetEnclosingType()),
@@ -2108,6 +2110,15 @@ public abstract class LgNames {
     public void setAliasGetAnnotationsParameters(String _aliasGetAnnotationsParameters) {
         reflect.setAliasGetAnnotationsParameters(_aliasGetAnnotationsParameters);
     }
+
+    public String getAliasGetDeclaredExplicits() {
+        return reflect.getAliasGetDeclaredExplicits();
+    }
+
+    public void setAliasGetDeclaredExplicits(String aliasGetDeclaredExplicits) {
+        reflect.setAliasGetDeclaredExplicits(aliasGetDeclaredExplicits);
+    }
+
     public String getAliasGetDeclaredMethods() {
         return reflect.getAliasGetDeclaredMethods();
     }

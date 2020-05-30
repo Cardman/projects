@@ -57,7 +57,7 @@ public final class ClassArgumentMatching {
         return convertWide(format_, _arg, _exec);
     }
 
-    private static Struct convertWide(ClassArgumentMatching _dest, Struct _arg, ContextEl _exec) {
+    public static Struct convertWide(ClassArgumentMatching _dest, Struct _arg, ContextEl _exec) {
         if (PrimitiveTypeUtil.isPrimitive(_dest,_exec)) {
             if (_dest.isBoolType(_exec)) {
                 return convertToBoolean(_arg);

@@ -385,6 +385,8 @@ public final class ExecutingUtil {
         infosConst_ = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
         StringList inners_ = new StringList();
         boolean existCtor_ = false;
+        ObjectMap<MethodId, MethodMetaInfo> infosExplicits_;
+        infosExplicits_ = new ObjectMap<MethodId, MethodMetaInfo>();
         for (StandardField f: _type.getFields().values()) {
             String ret_ = f.getImportedClassName();
             boolean staticElement_ = f.isStaticField();
@@ -419,14 +421,14 @@ public final class ExecutingUtil {
         }
         boolean st_ = _type.isStaticType();
         if (_type instanceof StandardInterface) {
-            return new ClassMetaInfo(_name, ((StandardInterface)_type).getDirectInterfaces(), "",inners_,infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,AccessEnum.PUBLIC);
+            return new ClassMetaInfo(_name, ((StandardInterface)_type).getDirectInterfaces(), "",inners_,infosFields_,infosExplicits_,infos_, infosConst_, ClassCategory.INTERFACE,st_,AccessEnum.PUBLIC);
         }
         ClassCategory cat_ = ClassCategory.CLASS;
         boolean abs_ = ((StandardClass) _type).isAbstractStdType();
         boolean final_ = ((StandardClass) _type).isFinalStdType();
         String superClass_ = ((StandardClass) _type).getSuperClass();
         StringList superInterfaces_ = _type.getDirectInterfaces();
-        return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,AccessEnum.PUBLIC);
+        return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infosExplicits_,infos_, infosConst_, cat_, abs_, st_, final_,AccessEnum.PUBLIC);
     }
 
 }

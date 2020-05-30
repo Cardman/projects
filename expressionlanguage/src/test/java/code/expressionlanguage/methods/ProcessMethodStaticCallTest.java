@@ -862,6 +862,52 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         assertEq(14, getNumber(ret_));
     }
     @Test
+    public void calculate28_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return (int)class(ExTwo<int>).getDeclaredMethods()[0].invoke(null,5,8);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo<T> {\n");
+        xml_.append(" public staticCall T exmethtwo(T p){\n");
+        xml_.append("  long t=8;\n");
+        xml_.append("  return (T)(1+(int)t+(int)p);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElReadOnlyDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateError("pkg.Ex", id_, args_, cont_);
+    }
+    @Test
+    public void calculate28__Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return (int)class(ExTwo<int>).getDeclaredMethods()[0].invoke(null,\"5,8\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo<T> {\n");
+        xml_.append(" public staticCall T exmethtwo(T p){\n");
+        xml_.append("  long t=8;\n");
+        xml_.append("  return (T)(1+(int)t+(int)p);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElReadOnlyDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateError("pkg.Ex", id_, args_, cont_);
+    }
+    @Test
     public void calculate29Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");

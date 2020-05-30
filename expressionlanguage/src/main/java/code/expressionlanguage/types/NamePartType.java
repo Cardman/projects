@@ -89,6 +89,16 @@ final class NamePartType extends LeafPartType {
         setAnalyzedType(type_);
     }
 
+    @Override
+    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
+        String type_ = getTypeName();
+        PartType part_ = getPreviousPartType();
+        if (part_ != null) {
+            type_ = StringList.concat(part_.getAnalyzedType(), getPreviousSeparator(), type_);
+        }
+        setAnalyzedType(type_);
+    }
+
     private void analyzeFullType(ContextEl _an, AccessingImportingBlock _root, String _type) {
         setAnalyzedType(_type);
         checkAccess(_an,_root);

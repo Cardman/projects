@@ -8620,7 +8620,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m105\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
-                "  return <span class=\"f\"><a title=\"pkg.ExClass.static explicit(int)\" href=\"#m161\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m105\">ExClass</a>)<span class=\"f\">5</span></span>;\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClass.static explicit(pkg.ExClass,int)\" href=\"#m161\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m105\">ExClass</a>)<span class=\"f\">5</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m105\">pkg.ExClass </a>{\n" +
@@ -8700,7 +8700,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m109\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
-                "  return <span class=\"f\"><a title=\"pkg.ExClass.static explicit(int)\" href=\"#m165\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m109\">ExClass</a>,int)<span class=\"f\">5</span></span>;\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClass.static explicit(pkg.ExClass,int)\" href=\"#m165\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m109\">ExClass</a>,int)<span class=\"f\">5</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m109\">pkg.ExClass </a>{\n" +
@@ -8740,7 +8740,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
-                "  return <span class=\"f\"><a title=\"pkg.ExClass.static explicit(#T)\" href=\"#m178\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;int&gt;,<a href=\"#m130\">#T</a>)<span class=\"f\">5</span></span>;\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClass.static explicit(pkg.ExClass&lt;#T&gt;,#T)\" href=\"#m178\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;int&gt;,<a href=\"#m130\">#T</a>)<span class=\"f\">5</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m118\">pkg.ExClass</a>&lt;<a name=\"m130\">T</a>&gt; {\n" +
@@ -8781,7 +8781,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m154\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
-                "  Fct&lt;int,<a title=\"pkg.ExClass\" href=\"#m154\">ExClass</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m77\">fct</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(int)\" href=\"#m210\">$lambda</a>(<a title=\"pkg.ExClass\" href=\"#m154\">ExClass</a>,explicit,int)</span></span>;\n" +
+                "  Fct&lt;int,<a title=\"pkg.ExClass\" href=\"#m154\">ExClass</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m77\">fct</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(pkg.ExClass,int)\" href=\"#m210\">$lambda</a>(<a title=\"pkg.ExClass\" href=\"#m154\">ExClass</a>,explicit,int)</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m77\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">5</span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -8823,7 +8823,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
-                "  Fct&lt;int,<a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m77\">fct</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(int)\" href=\"#m214\">$lambda</a>(<a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a>,explicit,$id,int)</span></span>;\n" +
+                "  Fct&lt;int,<a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m77\">fct</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(pkg.ExClass,int)\" href=\"#m214\">$lambda</a>(<a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a>,explicit,$id,int)</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m77\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">5</span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -8875,7 +8875,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class <a name=\"m123\">pkg.ExClassTwo</a>&lt;<a name=\"m138\">S</a>&gt; {\n" +
                 " public <a title=\"pkg.ExClass\" href=\"#m273\">ExClass</a>&lt;<a href=\"#m138\">S</a>&gt; <a name=\"m162\">method</a>(<a href=\"#m138\">S</a> <a name=\"m171\">i</a>){\n" +
-                "  Fct&lt;<a href=\"#m138\">S</a>,<a title=\"pkg.ExClass\" href=\"#m273\">ExClass</a>&lt;<a href=\"#m138\">S</a>&gt;&gt; <span class=\"f\"><span class=\"f\"><a name=\"m195\">fct</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(#T)\" href=\"#m333\">$lambda</a>(<a title=\"pkg.ExClass\" href=\"#m273\">ExClass</a>&lt;<a href=\"#m138\">S</a>&gt;,explicit,<a href=\"#m138\">S</a>)</span></span>;\n" +
+                "  Fct&lt;<a href=\"#m138\">S</a>,<a title=\"pkg.ExClass\" href=\"#m273\">ExClass</a>&lt;<a href=\"#m138\">S</a>&gt;&gt; <span class=\"f\"><span class=\"f\"><a name=\"m195\">fct</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(pkg.ExClass&lt;#T&gt;,#T)\" href=\"#m333\">$lambda</a>(<a title=\"pkg.ExClass\" href=\"#m273\">ExClass</a>&lt;<a href=\"#m138\">S</a>&gt;,explicit,<a href=\"#m138\">S</a>)</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m195\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m171\">i</a></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -8917,7 +8917,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
-                "  Fct&lt;int,<a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;int&gt;&gt; <span class=\"f\"><span class=\"f\"><a name=\"m87\">fct</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(#T)\" href=\"#m232\">$lambda</a>(<a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;int&gt;,explicit,$id,<a href=\"#m184\">#T</a>)</span></span>;\n" +
+                "  Fct&lt;int,<a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;int&gt;&gt; <span class=\"f\"><span class=\"f\"><a name=\"m87\">fct</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(pkg.ExClass&lt;#T&gt;,#T)\" href=\"#m232\">$lambda</a>(<a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;int&gt;,explicit,$id,<a href=\"#m184\">#T</a>)</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m87\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">5</span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -9018,7 +9018,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = FileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
                 " public static <a title=\"pkg.ExClassTwo\" href=\"#m294\">ExClassTwo</a> <a name=\"m51\">method</a>(){\n" +
-                "  return <span class=\"f\"><a title=\"pkg.ExClassTwo.static explicit(pkg.ExClass)\" href=\"#m356\">explicit</a>(<a title=\"pkg.ExClassTwo\" href=\"#m294\">ExClassTwo</a>,<a title=\"pkg.ExClass\" href=\"#m141\">ExClass</a>)<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(int)\" href=\"#m197\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m141\">ExClass</a>,int)<span class=\"f\">5</span></span></span>;\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClassTwo.static explicit(pkg.ExClassTwo,pkg.ExClass)\" href=\"#m356\">explicit</a>(<a title=\"pkg.ExClassTwo\" href=\"#m294\">ExClassTwo</a>,<a title=\"pkg.ExClass\" href=\"#m141\">ExClass</a>)<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(pkg.ExClass,int)\" href=\"#m197\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m141\">ExClass</a>,int)<span class=\"f\">5</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m141\">pkg.ExClass </a>{\n" +

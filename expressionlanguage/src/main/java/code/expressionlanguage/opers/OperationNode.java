@@ -903,7 +903,13 @@ public abstract class OperationNode implements Operable {
     protected static ClassMethodIdReturn tryGetDeclaredCast(ContextEl _conf, String _classes, String _name, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
         CustList<MethodInfo> methods_;
         methods_ = getDeclaredCustCast(_conf, _classes, _uniqueId);
-        return getCustResult(_conf,false,false, -1, methods_, _name, _argsClass);
+        ClassMethodIdReturn res_ = getCustResult(_conf, false, false, -1, methods_, _name, _argsClass);
+        if (res_.isFoundMethod()) {
+            ClassMethodId id_ = res_.getId();
+            MethodId cts_ = id_.getConstraints();
+            res_.setId(new ClassMethodId(id_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),new StringList(cts_.getParametersTypes().mid(1)),cts_.isVararg())));
+        }
+        return res_;
     }
 
     static ClassMethodId getOperatorOrMethod(MethodOperation _node, String _op, ContextEl _cont) {

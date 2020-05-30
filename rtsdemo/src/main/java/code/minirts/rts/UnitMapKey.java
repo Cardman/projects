@@ -13,12 +13,6 @@ public final class UnitMapKey implements Equallable<UnitMapKey> {
     public UnitMapKey() {
     }
 
-    public UnitMapKey(int _curx, int _cury) {
-        curx = _curx;
-        cury = _cury;
-        millis = System.currentTimeMillis();
-    }
-
     public UnitMapKey(int _curx, int _cury, long _millis) {
         curx = _curx;
         cury = _cury;

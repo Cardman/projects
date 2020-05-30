@@ -160,4 +160,8 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     public boolean canAccessParamTypesStatic() {
         return realId.getKind() == MethodAccessKind.STATIC_CALL||expCast;
     }
+
+    public boolean isExpCast() {
+        return expCast;
+    }
 }

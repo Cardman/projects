@@ -1,10 +1,8 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.AccessedBlock;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.util.CustList;
 import code.util.*;
@@ -31,6 +29,11 @@ final class VariablePartType extends LeafPartType {
     void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         String type_ = getTypeName();
         setAnalyzedType(type_);
+    }
+
+    @Override
+    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
+        //
     }
 
     @Override
@@ -81,6 +84,6 @@ final class VariablePartType extends LeafPartType {
     }
     @Override
     void checkDynExistence(ContextEl _an,CustList<IntTreeMap< String>>_dels) {
-        
+        analyzeTemplateExec(_an,_dels);
     }
 }
