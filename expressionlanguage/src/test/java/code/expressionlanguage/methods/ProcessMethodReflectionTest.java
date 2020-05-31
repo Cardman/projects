@@ -3920,6 +3920,67 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq(0, getNumber(ret_));
     }
     @Test
+    public void calculateArgument15_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("public class pkg.Outer<#C>: OuterTwo<#C> {\n");
+        xml_.append(" public static int field = pkgtwo.OuterTwo.field++;\n");
+        xml_.append(" public class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" public class InnerTwo:OuterTwo<#C>.InnerThree<#C> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkgtwo.OuterTwo<#B>:OuterThree<#B> {\n");
+        xml_.append(" public static int field = 1;\n");
+        xml_.append(" public class InnerThree<#F>:OuterThree<#B>.InnerFive<#F> {\n");
+        xml_.append(" }\n");
+        xml_.append(" public class InnerFour:InnerThree<#B> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkgtwo.OuterThree<#A> {\n");
+        xml_.append(" public class InnerFive<#E> {\n");
+        xml_.append("  public class InnerInner<#G> {\n");
+        xml_.append("   public normal String get(){\n");
+        xml_.append("    return static(OuterThree.InnerFive).this.getLoc();\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  public normal String getLoc(){\n");
+        xml_.append("   return static(Class).getClass(this).getName()+CST;\n");
+        xml_.append("  }\n");
+        xml_.append("  private static final String CST = \"\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  pkg.Outer<String> w = $(pkg.Outer<String>) class(pkg.Outer<String>).defaultInstance(null);\n");
+        xml_.append("  if (static(Class).getClass(w).getName() != \"pkg.Outer<$core.String>\") {\n");
+        xml_.append("   return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  if (static(ObjectsUtil).getParent(w) != null) {\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
     public void processEl335Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T> {\n");

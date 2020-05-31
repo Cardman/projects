@@ -679,6 +679,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             }
         }
         CustList<OverridableBlock> explicit_ = new CustList<OverridableBlock>();
+        CustList<OverridableBlock> explicitId_ = new CustList<OverridableBlock>();
+        CustList<OverridableBlock> explicitFrom_ = new CustList<OverridableBlock>();
         for (Block b: bl_) {
             if (!(b instanceof Returnable)) {
                 continue;
@@ -701,7 +703,16 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     }
                     nbOperators++;
                 } else if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
-                    if (!StringList.quickEq(m_.getImportedReturnType(),getGenericString())) {
+                    if (m_.getParametersTypes().size() != 1) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadParams(),
+                                m_.getSignature(_context));
+                        _context.addError(badMeth_);
+                    } else if (!StringList.quickEq(m_.getImportedReturnType(),getGenericString())&&!StringList.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
@@ -710,15 +721,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
                                 m_.getSignature(_context),
                                 getGenericString());
-                        _context.addError(badMeth_);
-                    } else if (m_.getParametersTypes().size() != 1) {
-                        int r_ = m_.getNameOffset();
-                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
-                        badMeth_.setIndexFile(r_);
-                        //method name len
-                        badMeth_.buildError(_context.getAnalysisMessages().getBadParams(),
-                                m_.getSignature(_context));
                         _context.addError(badMeth_);
                     } else if (!m_.isStaticMethod()) {
                         int r_ = m_.getNameOffset();
@@ -739,8 +741,13 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 m_.getSignature(_context));
                         _context.addError(badMeth_);
                     } else {
-                        explicit_.add(m_);
-
+                        if (StringList.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
+                            explicitId_.add(m_);
+                        } else if (StringList.quickEq(m_.getImportedReturnType(),getGenericString())){
+                            explicit_.add(m_);
+                        } else {
+                            explicitFrom_.add(m_);
+                        }
                     }
                 } else if (m_.getKind() == MethodKind.STD_METHOD) {
                     if (!_context.isValidToken(name_) && !StringList.quickEq(name_, keyWords_.getKeyWordToString())) {
@@ -960,6 +967,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
         buildFieldInfos(_context, bl_);
         _context.getClasses().getExplicitCastMethods().addEntry(getFullName(),explicit_);
+        _context.getClasses().getExplicitIdCastMethods().addEntry(getFullName(),explicitId_);
+        _context.getClasses().getExplicitFromCastMethods().addEntry(getFullName(),explicitFrom_);
         validateIndexers(_context, indexersGet_, indexersSet_);
     }
 

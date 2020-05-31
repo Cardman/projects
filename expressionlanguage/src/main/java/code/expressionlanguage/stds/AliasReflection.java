@@ -918,6 +918,7 @@ public final class AliasReflection {
                         String decl_ = o.getDeclaringType();
                         MethodMetaInfo met_ = new MethodMetaInfo(acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
                         met_.setFileName(o.getFile().getFileName());
+                        met_.setOperator(true);
                         operators_.add(met_);
                     }
                     operators_.sortElts(new OperatorCmp());
@@ -943,6 +944,7 @@ public final class AliasReflection {
                         String decl_ = o.getDeclaringType();
                         MethodMetaInfo met_ = new MethodMetaInfo(acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
                         met_.setFileName(o.getFile().getFileName());
+                        met_.setOperator(true);
                         candidates_.add(met_);
                     }
                 }

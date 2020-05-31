@@ -126,20 +126,15 @@ public final class ExecutingUtil {
     public static MethodPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, MethodId _method, CustList<Argument> _args, Argument _right) {
         _context.setCallingState(null);
         NamedFunctionBlock methodLoc_;
-        if (FunctionIdUtil.isOperatorName(_method)) {
-            CustList<NamedFunctionBlock> opers_ = Classes.getOperatorsBodiesById(_context, _method);
-            if (opers_.isEmpty()) {
-                methodLoc_ = Classes.getMethodBodiesById(_context, _class, _method).first();
-                String idCl_ = Templates.getIdFromAllTypes(_class);
-                _context.getCoverage().passCalls(_context,idCl_,methodLoc_);
-            } else {
-                methodLoc_ = opers_.first();
-                _context.getCoverage().passCalls(_context,"",methodLoc_);
-            }
-        } else {
-            methodLoc_ = Classes.getMethodBodiesById(_context, _class, _method).first();
+        CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(_context, _class, _method);
+        if (!methods_.isEmpty()) {
+            methodLoc_ = methods_.first();
             String idCl_ = Templates.getIdFromAllTypes(_class);
             _context.getCoverage().passCalls(_context,idCl_,methodLoc_);
+        } else {
+            CustList<NamedFunctionBlock> opers_ = Classes.getOperatorsBodiesById(_context, _method);
+            methodLoc_ = opers_.first();
+            _context.getCoverage().passCalls(_context,"",methodLoc_);
         }
         String ret_ = methodLoc_.getImportedReturnType();
         MethodPageEl pageLoc_ = new MethodPageEl(_context,ret_,_gl,_class,_right);

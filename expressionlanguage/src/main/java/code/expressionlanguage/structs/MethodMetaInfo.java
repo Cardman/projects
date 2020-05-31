@@ -25,6 +25,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     private String fileName = EMPTY_STRING;
     private boolean expCast;
     private final boolean invokable;
+    private boolean operator;
     public MethodMetaInfo() {
         invokable = false;
         className = "";
@@ -45,6 +46,14 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         returnType = _returnType;
         fid = _fid;
         formClassName = _formClassName;
+    }
+
+    public boolean isOperator() {
+        return operator;
+    }
+
+    public void setOperator(boolean operator) {
+        this.operator = operator;
     }
 
     @Override

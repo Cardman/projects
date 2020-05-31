@@ -1509,18 +1509,18 @@ public final class ElUtil {
     }
     private static String getRelativize(ContextEl _cont, String _currentFileName, String _className, Identifiable _id) {
         String rel_;
-        if (_id instanceof MethodId && FunctionIdUtil.isOperatorName(_id)) {
-            CustList<NamedFunctionBlock> opers_ = Classes.getOperatorsBodiesById(_cont, (MethodId) _id);
-            if (!opers_.isEmpty()) {
-                NamedFunctionBlock operator_ = opers_.first();
-                String file_ = operator_.getFile().getRenderFileName();
-                rel_ = relativize(_currentFileName, file_ + "#m" + operator_.getNameOffset());
-                return rel_;
-            }
-        }
         String cl_ = Templates.getIdFromAllTypes(_className);
         GeneType type_ = _cont.getClassBody(cl_);
         if (!isFromCustFile(type_)) {
+            if (_id instanceof MethodId) {
+                CustList<NamedFunctionBlock> opers_ = Classes.getOperatorsBodiesById(_cont, (MethodId) _id);
+                if (!opers_.isEmpty()) {
+                    NamedFunctionBlock operator_ = opers_.first();
+                    String file_ = operator_.getFile().getRenderFileName();
+                    rel_ = relativize(_currentFileName, file_ + "#m" + operator_.getNameOffset());
+                    return rel_;
+                }
+            }
             return "";
         }
         if (_id instanceof MethodId){
@@ -1531,14 +1531,14 @@ public final class ElUtil {
             }
             method_ = methods_.first();
             rel_ = relativize(_currentFileName, method_.getFile().getRenderFileName() + "#m" + method_.getNameOffset());
-        } else {
-            CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, _className, (ConstructorId) _id);
-            if (ctors_.isEmpty()) {
-                return "";
-            }
-            ConstructorBlock ctor_ = ctors_.first();
-            rel_ = relativize(_currentFileName, ctor_.getFile().getRenderFileName() + "#m" + ctor_.getNameOffset());
+            return rel_;
         }
+        CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, _className, (ConstructorId) _id);
+        if (ctors_.isEmpty()) {
+            return "";
+        }
+        ConstructorBlock ctor_ = ctors_.first();
+        rel_ = relativize(_currentFileName, ctor_.getFile().getRenderFileName() + "#m" + ctor_.getNameOffset());
         return rel_;
     }
 

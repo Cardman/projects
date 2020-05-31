@@ -369,12 +369,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 for (RootBlock r: needRoot_) {
                     need_.add(r);
                 }
-                if (type_.withoutInstance() && _exit.hasToExit(first_)) {
-                    return Argument.createVoid();
-                }
                 if (!_firstArgs.isEmpty()) {
                     Struct par_ = _firstArgs.first().getStruct();
                     if (type_.withoutInstance()) {
+                        if (_exit.hasToExit(first_)) {
+                            return Argument.createVoid();
+                        }
                         par_ = NullStruct.NULL_VALUE;
                     } else {
                         if (par_ == NullStruct.NULL_VALUE) {
@@ -402,18 +402,23 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
                 Struct parent_ = NullStruct.NULL_VALUE;
                 int start_ = 0;
-                if (firstType_ instanceof InnerElementBlock) {
-                    InnerElementBlock i_ = (InnerElementBlock) firstType_;
-                    String fieldName_ = i_.getUniqueFieldName();
-                    String classFieldName_ = i_.getRealImportedClassName();
-                    String idCl_ = Templates.getIdFromAllTypes(classFieldName_);
-                    Struct staticField_ = _cont.getClasses().getStaticField(new ClassField(idCl_, fieldName_));
-                    if (staticField_ == null) {
-                        _exit.hasToExit(idCl_);
+                if (type_.withoutInstance()) {
+                    if (_exit.hasToExit(first_)) {
                         return Argument.createVoid();
                     }
-                    parent_ = staticField_;
-                    start_ = 1;
+                } else {
+                    if (firstType_ instanceof InnerElementBlock) {
+                        InnerElementBlock i_ = (InnerElementBlock) firstType_;
+                        String fieldName_ = i_.getUniqueFieldName();
+                        String classFieldName_ = i_.getRealImportedClassName();
+                        String idCl_ = Templates.getIdFromAllTypes(classFieldName_);
+                        Struct staticField_ = _cont.getClasses().getStaticField(new ClassField(idCl_, fieldName_));
+                        if (_exit.hasToExit(idCl_)) {
+                            return Argument.createVoid();
+                        }
+                        parent_ = Argument.getNull(staticField_);
+                        start_ = 1;
+                    }
                 }
                 Initializer in_ = _cont.getInit();
                 for (GeneType r: need_.mid(start_)) {

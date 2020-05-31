@@ -34,28 +34,19 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         if (!retrievedAnnot) {
             if (onParameters) {
                 if (structBlock_ instanceof ConstructorMetaInfo){
-                    ConstructorId cid_ = ApplyCoreMethodUtil.getCtor(structBlock_).getRealId();
-                    String cl_ = cid_.getName();
-                    String idClass_ = Templates.getIdFromAllTypes(cl_);
-                    RootBlock type_ = _context.getClasses().getClassBody(idClass_);
-                    if (type_ != null) {
-                        for (ConstructorBlock c: Classes.getConstructorBodiesById(_context,idClass_,cid_)) {
-                            annotationsParams= c.getAnnotationsOpsParams();
-                        }
+                    ConstructorMetaInfo ctor_ = ApplyCoreMethodUtil.getCtor(structBlock_);
+                    for (ConstructorBlock o: Classes.getConstructorBodiesById(_context,ctor_.getClassName(),ctor_.getRealId())) {
+                        annotationsParams = o.getAnnotationsOpsParams();
                     }
-                } else if (structBlock_ instanceof MethodMetaInfo){
-                    MethodId mid_ =  ApplyCoreMethodUtil.getMethod(structBlock_).getRealId();
-                    String cl_ = ApplyCoreMethodUtil.getMethod(structBlock_).getFormClassName();
-                    String idClass_ = Templates.getIdFromAllTypes(cl_);
-                    RootBlock type_ = _context.getClasses().getClassBody(idClass_);
-                    if (type_ != null) {
-                        for (NamedFunctionBlock m: Classes.getMethodBodiesById(_context,idClass_,mid_)) {
-                            annotationsParams= m.getAnnotationsOpsParams();
+                } else if (structBlock_ instanceof MethodMetaInfo) {
+                    MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(structBlock_);
+                    if (method_.isOperator()) {
+                        for (NamedFunctionBlock o: Classes.getOperatorsBodiesById(_context,method_.getRealId())) {
+                            annotationsParams = o.getAnnotationsOpsParams();
                         }
-                    }
-                    for (OperatorBlock m: _context.getClasses().getOperators()) {
-                        if (m.getId().eq(mid_)) {
-                            annotationsParams= m.getAnnotationsOpsParams();
+                    } else {
+                        for (NamedFunctionBlock o: Classes.getMethodBodiesById(_context, method_.getClassName(),method_.getRealId())) {
+                            annotationsParams = o.getAnnotationsOpsParams();
                         }
                     }
                 } else {
@@ -69,28 +60,19 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     annotations= type_.getAnnotationsOps();
                 }
             } else if (structBlock_ instanceof ConstructorMetaInfo){
-                ConstructorId cid_ = ApplyCoreMethodUtil.getCtor(structBlock_).getRealId();
-                String cl_ = cid_.getName();
-                String idClass_ = Templates.getIdFromAllTypes(cl_);
-                RootBlock type_ = _context.getClasses().getClassBody(idClass_);
-                if (type_ != null) {
-                    for (ConstructorBlock c: Classes.getConstructorBodiesById(_context,idClass_,cid_)) {
-                        annotations= c.getAnnotationsOps();
-                    }
+                ConstructorMetaInfo ctor_ = ApplyCoreMethodUtil.getCtor(structBlock_);
+                for (ConstructorBlock o: Classes.getConstructorBodiesById(_context,ctor_.getClassName(),ctor_.getRealId())) {
+                    annotations = o.getAnnotationsOps();
                 }
             } else if (structBlock_ instanceof MethodMetaInfo){
-                MethodId mid_ =  ApplyCoreMethodUtil.getMethod(structBlock_).getRealId();
-                String cl_ = ApplyCoreMethodUtil.getMethod(structBlock_).getFormClassName();
-                String idClass_ = Templates.getIdFromAllTypes(cl_);
-                RootBlock type_ = _context.getClasses().getClassBody(idClass_);
-                if (type_ != null) {
-                    for (NamedFunctionBlock m: Classes.getMethodBodiesById(_context,idClass_,mid_)) {
-                        annotations= m.getAnnotationsOps();
+                MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(structBlock_);
+                if (method_.isOperator()) {
+                    for (NamedFunctionBlock o: Classes.getOperatorsBodiesById(_context,method_.getRealId())) {
+                        annotations = o.getAnnotationsOps();
                     }
-                }
-                for (OperatorBlock m: _context.getClasses().getOperators()) {
-                    if (m.getId().eq(mid_)) {
-                        annotations= m.getAnnotationsOps();
+                } else {
+                    for (NamedFunctionBlock o: Classes.getMethodBodiesById(_context, method_.getClassName(),method_.getRealId())) {
+                        annotations = o.getAnnotationsOps();
                     }
                 }
             } else {

@@ -12,11 +12,13 @@ import code.util.IdMap;
 
 public final class RendExplicitOperation extends RendAbstractUnaryOperation implements RendCallable {
     private String className;
+    private String classNameOwner;
     private int offset;
     private MethodId castOpId;
     public RendExplicitOperation(ExplicitOperation _a) {
         super(_a);
         className = _a.getClassName();
+        classNameOwner = _a.getClassNameOwner();
         offset = _a.getOffset();
         castOpId = _a.getCastOpId();
     }
@@ -31,6 +33,6 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation impl
 
     @Override
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        return ExecExplicitOperation.prepare(new AdvancedExiting(_conf),false,castOpId,_arguments,className,_conf.getPageEl(),_conf.getContext(),false);
+        return ExecExplicitOperation.prepare(new AdvancedExiting(_conf),false,castOpId,_arguments,className,classNameOwner,_conf.getPageEl(),_conf.getContext(),false);
     }
 }

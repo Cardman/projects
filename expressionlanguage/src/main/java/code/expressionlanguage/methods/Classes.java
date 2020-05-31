@@ -29,6 +29,8 @@ public final class Classes {
     private StringMap<StringMap<Struct>> staticFields;
     private final StringMap<OverridableBlock> toStringMethods = new StringMap<OverridableBlock>();
     private final StringMap<CustList<OverridableBlock>> explicitCastMethods = new StringMap<CustList<OverridableBlock>>();
+    private final StringMap<CustList<OverridableBlock>> explicitIdCastMethods = new StringMap<CustList<OverridableBlock>>();
+    private final StringMap<CustList<OverridableBlock>> explicitFromCastMethods = new StringMap<CustList<OverridableBlock>>();
 
     private final ErrorList errorsDet;
     private final WarningList warningsDet;
@@ -2400,6 +2402,14 @@ public final class Classes {
 
     public StringMap<CustList<OverridableBlock>> getExplicitCastMethods() {
         return explicitCastMethods;
+    }
+
+    public StringMap<CustList<OverridableBlock>> getExplicitIdCastMethods() {
+        return explicitIdCastMethods;
+    }
+
+    public StringMap<CustList<OverridableBlock>> getExplicitFromCastMethods() {
+        return explicitFromCastMethods;
     }
 
     public StringList getTypesWithInnerOperators() {

@@ -902,7 +902,13 @@ public abstract class OperationNode implements Operable {
     }
     protected static ClassMethodIdReturn tryGetDeclaredCast(ContextEl _conf, String _classes, String _name, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
         CustList<MethodInfo> methods_;
-        methods_ = getDeclaredCustCast(_conf, _classes, _uniqueId);
+        ClassArgumentMatching cl_;
+        if (_argsClass.length > 1) {
+            cl_ = _argsClass[1];
+        } else {
+            cl_ = _argsClass[0];
+        }
+        methods_ = getDeclaredCustCast(_conf, _classes, _uniqueId, cl_);
         ClassMethodIdReturn res_ = getCustResult(_conf, false, false, -1, methods_, _name, _argsClass);
         if (res_.isFoundMethod()) {
             ClassMethodId id_ = res_.getId();
@@ -919,16 +925,6 @@ public abstract class OperationNode implements Operable {
         for (OperationNode o: chidren_) {
             firstArgs_.add(o.getResultClass());
         }
-        ClassMethodIdReturn cust_ = getOperator(_cont, _op, ClassArgumentMatching.toArgArray(firstArgs_));
-        if (cust_.isFoundMethod()) {
-            _node.setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()), _cont));
-            String foundClass_ = cust_.getRealClass();
-            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
-            MethodId id_ = cust_.getRealId();
-            MethodId realId_ = cust_.getRealId();
-            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
-            return new ClassMethodId(foundClass_, id_);
-        }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_cont, -1, MethodAccessKind.STATIC,
                 true, bounds_, _op, false, false, false, null,
                 ClassArgumentMatching.toArgArray(firstArgs_));
@@ -940,10 +936,20 @@ public abstract class OperationNode implements Operable {
             InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
             return new ClassMethodId(foundClass_, id_);
         }
+        ClassMethodIdReturn cust_ = getOperator(_cont, _op, ClassArgumentMatching.toArgArray(firstArgs_));
+        if (cust_.isFoundMethod()) {
+            _node.setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()), _cont));
+            String foundClass_ = cust_.getRealClass();
+            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+            MethodId id_ = cust_.getRealId();
+            MethodId realId_ = cust_.getRealId();
+            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
+            return new ClassMethodId(foundClass_, id_);
+        }
         return null;
     }
 
-    static ClassMethodIdReturn getOperator(ContextEl _cont, String _op, ClassArgumentMatching... _argsClass) {
+    private static ClassMethodIdReturn getOperator(ContextEl _cont, String _op, ClassArgumentMatching... _argsClass) {
         //implicit use of operator key word
         return getOperator(_cont,null,-1,true,_op,_argsClass);
     }
@@ -996,15 +1002,23 @@ public abstract class OperationNode implements Operable {
     }
     private static CustList<MethodInfo>
     getDeclaredCustCast(ContextEl _conf,
-                        String _fromClass, ClassMethodId _uniqueId) {
+                        String _fromClass, ClassMethodId _uniqueId, ClassArgumentMatching _arg) {
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
+        String single_ = _arg.getSingleNameOrEmpty();
+        String idFrom_ = Templates.getIdFromAllTypes(single_);
         String id_ = Templates.getIdFromAllTypes(_fromClass);
+        StringMap<String> superTypesBaseAnc_ = new StringMap<String>();
+        superTypesBaseAnc_.addEntry(idFrom_,idFrom_);
         StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
         superTypesBaseAncBis_.addEntry(id_,id_);
         CustList<OverridableBlock> casts_ = _conf.getClasses().getExplicitCastMethods().getVal(id_);
+        CustList<OverridableBlock> castsId_ = _conf.getClasses().getExplicitIdCastMethods().getVal(id_);
+        CustList<OverridableBlock> castsFrom_ = _conf.getClasses().getExplicitFromCastMethods().getVal(idFrom_);
         fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, casts_, superTypesBaseAncBis_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, castsId_, superTypesBaseAncBis_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, single_, castsFrom_, superTypesBaseAncBis_);
         return methods_;
     }
 

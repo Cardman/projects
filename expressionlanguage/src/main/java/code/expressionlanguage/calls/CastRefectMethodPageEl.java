@@ -41,7 +41,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
             _context.setException(new ErrorStruct(_context,null_));
             return Argument.createVoid();
         }
-        return ExecExplicitOperation.prepare(new DefaultExiting(_context),direct,_mid,_args,res_,_context.getLastPage(),_context, _mid.getKind() == MethodAccessKind.STATIC_CALL);
+        return ExecExplicitOperation.prepare(new DefaultExiting(_context),direct,_mid,_args,res_,res_,_context.getLastPage(),_context, _mid.getKind() == MethodAccessKind.STATIC_CALL);
     }
 
     @Override

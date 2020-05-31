@@ -11205,6 +11205,57 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage293Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  return staticCall(ExCaller<int>).method();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller<S> {\n");
+        xml_.append(" public staticCall S method(){\n");
+        xml_.append("  ExClass<S> e = new ExClass<S>();\n");
+        xml_.append("  e.field = (S)5;\n");
+        xml_.append("  return explicit(ExClass<S>,T,ExClass<T>)e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static T explicit(ExClass<T> i){\n");
+        xml_.append("  return i.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElCoverageEnDefault();
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
+                " public static int <a name=\"m44\">method</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">staticCall(<a title=\"pkg.ExCaller\" href=\"#m117\">ExCaller</a>&lt;int&gt;)</span>.<span class=\"f\"><a title=\"pkg.ExCaller.staticCall method()\" href=\"#m156\">method</a>()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m117\">pkg.ExCaller</a>&lt;<a name=\"m130\">S</a>&gt; {\n" +
+                " public staticCall <a href=\"#m130\">S</a> <a name=\"m156\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m282\">ExClass</a>&lt;<a href=\"#m130\">S</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m179\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m282\">ExClass</a>&lt;<a href=\"#m130\">S</a>&gt;()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m179\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m309\">field</a> </span></span>=<span class=\"f\"> (<a href=\"#m130\">S</a>)<span class=\"f\">5</span></span></span>;\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClass.static explicit(#T,pkg.ExClass&lt;#T&gt;)\" href=\"#m333\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m282\">ExClass</a>&lt;<a href=\"#m130\">S</a>&gt;,<a href=\"#m294\">T</a>,<a title=\"pkg.ExClass\" href=\"#m282\">ExClass</a>&lt;<a href=\"#m294\">T</a>&gt;)<span class=\"f\"><a href=\"#m179\">e</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m282\">pkg.ExClass</a>&lt;<a name=\"m294\">T</a>&gt; {\n" +
+                " public <a href=\"#m294\">T</a> <span class=\"f\"><a name=\"m309\">field</a></span>;\n" +
+                " public static <a href=\"#m294\">T</a> <a name=\"m333\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m282\">ExClass</a>&lt;<a href=\"#m294\">T</a>&gt; <a name=\"m353\">i</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m353\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m309\">field</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

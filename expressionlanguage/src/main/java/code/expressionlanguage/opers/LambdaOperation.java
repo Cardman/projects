@@ -125,8 +125,23 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
                 boolean varargFct_ = argsRes_.isVararg();
                 StringList params_ = argsRes_.getParametersTypes();
-                String gene_ = _conf.getClassBody(Templates.getIdFromAllTypes(type_)).getGenericString();
-                params_.add(0,gene_);
+                GeneType geneType_ = _conf.getClassBody(Templates.getIdFromAllTypes(type_));
+                if (geneType_ == null) {
+                    int rc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + offset_;
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    un_.setIndexFile(rc_);
+                    //_in len
+                    un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                            type_);
+                    _conf.getAnalyzing().getLocalizer().addError(un_);
+                    setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
+                    return;
+                }
+                String gene_ = geneType_.getGenericString();
+                if (params_.size() < 2) {
+                    params_.add(0, gene_);
+                }
                 feed_ = new ClassMethodId(type_, new MethodId(MethodAccessKind.STATIC, name_, params_, varargFct_));
                 for (String s: argsRes_.getParametersTypes()) {
                     String format_ = Templates.wildCardFormatParam(type_, s, _conf);
@@ -160,7 +175,20 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     _methodTypes.add(new ClassArgumentMatching(s));
                 }
             }
-            if (argsRes_.getParametersTypes().size() > 1) {
+            if (argsRes_.getParametersTypes().size() > 2) {
+                FoundErrorInterpret static_ = new FoundErrorInterpret();
+                static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                //key word len
+                static_.buildError(_conf.getAnalysisMessages().getSplitComaLow(),
+                        Integer.toString(2),
+                        Integer.toString(argsRes_.getParametersTypes().size())
+                );
+                _conf.getAnalyzing().getLocalizer().addError(static_);
+                setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
+                return;
+            }
+            if (argsRes_.getParametersTypes().size() > 1 && feed_ == null) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -192,7 +220,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new ClassArgumentMatching(fct_));
                 return;
             }
-            _methodTypes.add(0,new ClassArgumentMatching(type_));
+            if (_methodTypes.size() < 2) {
+                _methodTypes.add(0, new ClassArgumentMatching(type_));
+            }
             ClassMethodIdReturn id_ = tryGetDeclaredCast(_conf,type_,exp_,feed_,ClassArgumentMatching.toArgArray(_methodTypes));
             if (!id_.isFoundMethod()) {
                 ClassMethodIdReturn idDef_ = new ClassMethodIdReturn(true);
