@@ -128,33 +128,19 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
             //look for implicit casts
             ExecOperationNode last_ = opRet.last();
             ClassArgumentMatching reClass_ = last_.getResultClass();
-            String s_ = reClass_.getSingleNameOrEmpty();
-            String idRet_ = Templates.getIdFromAllTypes(_retType);
-            String idArg_ = Templates.getIdFromAllTypes(s_);
-            if (_cont.getClasses().getClassBody(idRet_) == null && _cont.getClasses().getClassBody(idArg_) == null) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _retType, reClass_);
+            if (!res_.isFoundMethod()) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());
                 cast_.setIndexFile(expressionOffset);
                 //original type
                 cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(last_.getResultClass().getNames(),"&"),
+                        StringList.join(reClass_.getNames(), "&"),
                         _retType);
                 _cont.addError(cast_);
             } else {
-                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _retType, reClass_);
-                if (!res_.isFoundMethod()) {
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(getFile().getFileName());
-                    cast_.setIndexFile(expressionOffset);
-                    //original type
-                    cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(last_.getResultClass().getNames(), "&"),
-                            _retType);
-                    _cont.addError(cast_);
-                } else {
-                    ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                    last_.getResultClass().getImplicits().add(cl_);
-                }
+                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                last_.getResultClass().getImplicits().add(cl_);
             }
 
         }

@@ -1523,4 +1523,51 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
+
+    @Test
+    public void test11_Fail() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static ExClass<?> method(){\n");
+        xml_.append("  return 2+3;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static ExClass<T> $(T i){\n");
+        xml_.append("  ExClass<T> out = new ExClass<>();\n");
+        xml_.append("  out.field = i;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+
+    @Test
+    public void test12_Fail() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  ExClass<!int> out = new ExClass<int>();\n");
+        xml_.append("  out.field = 5;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static T $(ExClass<T> i){\n");
+        xml_.append("  return i.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+
 }

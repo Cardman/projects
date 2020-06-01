@@ -6,7 +6,7 @@ import code.util.CustList;
 
 public abstract class AbstractReflectPageEl extends AbstractPageEl implements ForwardPageEl {
 
-    private Argument returnedArgument;
+    private Argument returnedArgument = Argument.createVoid();
 
     private CustList<Argument> arguments;
 

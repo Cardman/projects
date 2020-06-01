@@ -935,8 +935,10 @@ public abstract class OperationNode implements Operable {
         return res_;
     }
     public static ClassMethodIdReturn tryGetDeclaredImplicitCast(ContextEl _conf, String _classes, ClassArgumentMatching _arg) {
-        CustList<MethodInfo> methods_;
-        methods_ = getDeclaredCustImplicitCast(_conf, _classes, _arg.getSingleNameOrEmpty());
+        CustList<MethodInfo> methods_ = new CustList<MethodInfo>();
+        for (String n: _arg.getNames()) {
+            methods_.addAllElts(getDeclaredCustImplicitCast(_conf, _classes,n));
+        }
         return getCustCastResult(_conf, methods_, _arg);
     }
     static ClassMethodId getOperatorOrMethod(MethodOperation _node, String _op, ContextEl _cont) {
@@ -1084,6 +1086,9 @@ public abstract class OperationNode implements Operable {
 
     private static void fetchFrom(ContextEl _conf, String glClass_, CustList<MethodInfo> methods_, String _id) {
         StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
+        if (!ExplicitOperation.customCast(_id)) {
+            return;
+        }
         String di_ = Templates.getIdFromAllTypes(_id);
         superTypesBaseAncBis_.addEntry(di_,di_);
         CustList<OverridableBlock> castsFrom_ = _conf.getClasses().getImplicitFromCastMethods().getVal(di_);
@@ -1092,6 +1097,9 @@ public abstract class OperationNode implements Operable {
 
     private static void fetchTo(ContextEl _conf, String glClass_, CustList<MethodInfo> methods_, String _id) {
         StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
+        if (!ExplicitOperation.customCast(_id)) {
+            return;
+        }
         String di_ = Templates.getIdFromAllTypes(_id);
         superTypesBaseAncBis_.addEntry(di_,di_);
         CustList<OverridableBlock> casts_ = _conf.getClasses().getImplicitCastMethods().getVal(di_);

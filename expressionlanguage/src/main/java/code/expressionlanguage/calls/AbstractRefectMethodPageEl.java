@@ -21,6 +21,10 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     private boolean initClass;
     private ClassMethodId methodToCall;
     private boolean calledMethod;
+    private boolean instanceClass;
+    private CustList<Argument> args = new CustList<Argument>();
+    private Argument instance;
+    private Argument rightArg;
 
     protected boolean initDefault(ContextEl _cont) {
         MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct());
@@ -66,15 +70,12 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         }
         if (!calledMethod) {
             calledMethod = true;
-            String className_ = methodToCall.getClassName();
             MethodId mid_ = methodToCall.getConstraints();
-            Argument instance_;
             if (method_.isWideStatic()) {
-                instance_ = new Argument();
+                instance = new Argument();
             } else {
-                instance_ = getArguments().first();
+                instance = getArguments().first();
             }
-            CustList<Argument> args_ = new CustList<Argument>();
             Struct struct_ = getArguments().last().getStruct();
             if (!(struct_ instanceof ArrayStruct)) {
                 String null_;
@@ -85,36 +86,37 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             for (Struct a: ((ArrayStruct)struct_).getInstance()) {
                 Argument a_ = new Argument();
                 a_.setStruct(a);
-                args_.add(a_);
+                args.add(a_);
             }
-            Argument right_ = null;
             if (method_.isExpCast()) {
-                if (args_.size() + 1 != mid_.getParametersTypes().size()) {
+                if (args.size() + 1 != mid_.getParametersTypes().size()) {
                     String null_;
                     null_ = stds_.getAliasIllegalArg();
                     _context.setException(new ErrorStruct(_context,null_));
                     return false;
                 }
             } else if (!StringList.quickEq(mid_.getName(),"[]=")) {
-                if (args_.size() != mid_.getParametersTypes().size()) {
+                if (args.size() != mid_.getParametersTypes().size()) {
                     String null_;
                     null_ = stds_.getAliasIllegalArg();
                     _context.setException(new ErrorStruct(_context,null_));
                     return false;
                 }
             } else {
-                if (args_.size() != mid_.getParametersTypes().size() + 1) {
+                if (args.size() != mid_.getParametersTypes().size() + 1) {
                     String null_;
                     null_ = stds_.getAliasIllegalArg();
                     _context.setException(new ErrorStruct(_context,null_));
                     return false;
                 }
-                right_ = args_.last();
-                args_ = args_.mid(0,args_.size()-1);
+                rightArg = args.last();
+                args = args.mid(0,args.size()-1);
             }
             setWrapException(false);
-            Argument arg_ = prepare(_context, className_, mid_, instance_, args_, right_);
+            String className_ = methodToCall.getClassName();
+            Argument arg_ = prepare(_context, className_, mid_, instance, args, rightArg);
             if (_context.getCallingState() instanceof NotInitializedClass) {
+                instanceClass = true;
                 setWrapException(true);
                 return false;
             }
@@ -122,6 +124,12 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                 setWrapException(_context.calls());
                 return false;
             }
+            setReturnedArgument(arg_);
+        }
+        if (instanceClass) {
+            String className_ = methodToCall.getClassName();
+            MethodId mid_ = methodToCall.getConstraints();
+            Argument arg_ = prepare(_context, className_, mid_, instance, args, rightArg);
             setReturnedArgument(arg_);
         }
         return true;

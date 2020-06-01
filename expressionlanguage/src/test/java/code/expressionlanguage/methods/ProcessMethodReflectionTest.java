@@ -140,6 +140,32 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq("pkg.Ex", getString(ret_));
     }
     @Test
+    public void processEl238__Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static java.lang.String exmeth(){\n");
+        xml_.append("  $Class c = ($Class)$class($Class).getDeclaredMethods(\"forName\",$true,$false,$class(String),$class($boolean))[0].invoke($null,\"pkg.Ex\",$true);\n");
+        xml_.append("  $return c.getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  Apply.inst++;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("pkg.Ex", getString(ret_));
+    }
+    @Test
     public void processEl239Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Apply {\n");
