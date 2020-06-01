@@ -1,10 +1,14 @@
 package code.expressionlanguage.methods.util;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.util.CustList;
 
 public class ArgumentsPair {
 
     private Argument argument;
     private Argument previousArgument;
+    private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
+    private int indexImplicit;
     private boolean convertToString;
     private boolean calledToString;
     public Argument getArgument() {
@@ -34,5 +38,21 @@ public class ArgumentsPair {
 
     public void setCalledToString(boolean _calledToString) {
         calledToString = _calledToString;
+    }
+
+    public CustList<ClassMethodId> getImplicits() {
+        return implicits;
+    }
+
+    public void setImplicits(CustList<ClassMethodId> implicits) {
+        this.implicits = implicits;
+    }
+
+    public int getIndexImplicit() {
+        return indexImplicit;
+    }
+
+    public void setIndexImplicit(int indexImplicit) {
+        this.indexImplicit = indexImplicit;
     }
 }

@@ -2,7 +2,10 @@ package code.expressionlanguage.opers.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.util.CustomFoundMethod;
+import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.Delimiters;
@@ -590,6 +593,21 @@ public abstract class ExecOperationNode implements Operable {
             return;
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
+        CustList<ClassMethodId> implicits_ = pair_.getImplicits();
+        int indexImplicit_ = pair_.getIndexImplicit();
+        if (implicits_.isValidIndex(indexImplicit_)) {
+            ClassMethodId c = implicits_.get(indexImplicit_);
+            DefaultExiting ex_ = new DefaultExiting(_conf);
+            CustList<Argument> args_ = new CustList<Argument>(_argument);
+            AbstractPageEl last_ = _conf.getLastPage();
+            String cl_ = c.getClassName();
+            MethodId id_ = c.getConstraints();
+            if (ExecExplicitOperation.checkCustomOper(ex_, id_, args_, cl_, last_,_conf)) {
+                return;
+            }
+            pair_.setIndexImplicit(indexImplicit_ +1);
+            return;
+        }
         Argument arg_ = _argument;
         if (_convertToString && resultClass.isConvertToString()){
             pair_.setCalledToString(true);

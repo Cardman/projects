@@ -681,6 +681,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         CustList<OverridableBlock> explicit_ = new CustList<OverridableBlock>();
         CustList<OverridableBlock> explicitId_ = new CustList<OverridableBlock>();
         CustList<OverridableBlock> explicitFrom_ = new CustList<OverridableBlock>();
+        CustList<OverridableBlock> implicit_ = new CustList<OverridableBlock>();
+        CustList<OverridableBlock> implicitId_ = new CustList<OverridableBlock>();
+        CustList<OverridableBlock> implicitFrom_ = new CustList<OverridableBlock>();
         for (Block b: bl_) {
             if (!(b instanceof Returnable)) {
                 continue;
@@ -702,7 +705,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         _context.addError(badMeth_);
                     }
                     nbOperators++;
-                } else if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
+                } else if (m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST) {
                     if (m_.getParametersTypes().size() != 1) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
@@ -741,12 +744,22 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 m_.getSignature(_context));
                         _context.addError(badMeth_);
                     } else {
-                        if (StringList.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
-                            explicitId_.add(m_);
-                        } else if (StringList.quickEq(m_.getImportedReturnType(),getGenericString())){
-                            explicit_.add(m_);
+                        if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
+                            if (StringList.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
+                                explicitId_.add(m_);
+                            } else if (StringList.quickEq(m_.getImportedReturnType(),getGenericString())){
+                                explicit_.add(m_);
+                            } else {
+                                explicitFrom_.add(m_);
+                            }
                         } else {
-                            explicitFrom_.add(m_);
+                            if (StringList.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
+                                implicitId_.add(m_);
+                            } else if (StringList.quickEq(m_.getImportedReturnType(),getGenericString())){
+                                implicit_.add(m_);
+                            } else {
+                                implicitFrom_.add(m_);
+                            }
                         }
                     }
                 } else if (m_.getKind() == MethodKind.STD_METHOD) {
@@ -826,7 +839,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             }
             if (method_ instanceof OverridableBlock) {
                 OverridableBlock m_ = (OverridableBlock) method_;
-                if (m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.OPERATOR || m_.getKind() == MethodKind.EXPLICIT_CAST) {
+                if (m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.OPERATOR || m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST) {
                     MethodId id_ = m_.getId();
                     if (ContextEl.isEnumType(this)) {
                         String valueOf_ = stds_.getAliasEnumPredValueOf();
@@ -969,6 +982,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         _context.getClasses().getExplicitCastMethods().addEntry(getFullName(),explicit_);
         _context.getClasses().getExplicitIdCastMethods().addEntry(getFullName(),explicitId_);
         _context.getClasses().getExplicitFromCastMethods().addEntry(getFullName(),explicitFrom_);
+        _context.getClasses().getImplicitCastMethods().addEntry(getFullName(),implicit_);
+        _context.getClasses().getImplicitIdCastMethods().addEntry(getFullName(),implicitId_);
+        _context.getClasses().getImplicitFromCastMethods().addEntry(getFullName(),implicitFrom_);
         validateIndexers(_context, indexersGet_, indexersSet_);
     }
 

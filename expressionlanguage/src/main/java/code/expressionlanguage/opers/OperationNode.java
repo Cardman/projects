@@ -917,7 +917,28 @@ public abstract class OperationNode implements Operable {
         }
         return res_;
     }
-
+    protected static ClassMethodIdReturn tryGetDeclaredImplicitCast(ContextEl _conf, String _classes, String _name, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
+        CustList<MethodInfo> methods_;
+        ClassArgumentMatching cl_;
+        if (_argsClass.length > 1) {
+            cl_ = _argsClass[1];
+        } else {
+            cl_ = _argsClass[0];
+        }
+        methods_ = getDeclaredCustImplicitCast(_conf, _classes, _uniqueId, cl_);
+        ClassMethodIdReturn res_ = getCustResult(_conf, false, false, -1, methods_, _name, _argsClass);
+        if (res_.isFoundMethod()) {
+            ClassMethodId id_ = res_.getId();
+            MethodId cts_ = id_.getConstraints();
+            res_.setId(new ClassMethodId(id_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),new StringList(cts_.getParametersTypes().mid(1)),cts_.isVararg())));
+        }
+        return res_;
+    }
+    public static ClassMethodIdReturn tryGetDeclaredImplicitCast(ContextEl _conf, String _classes, String _from, ClassArgumentMatching _arg) {
+        CustList<MethodInfo> methods_;
+        methods_ = getDeclaredCustImplicitCast(_conf, _classes, _from);
+        return getCustCastResult(_conf, methods_, _arg);
+    }
     static ClassMethodId getOperatorOrMethod(MethodOperation _node, String _op, ContextEl _cont) {
         StringList bounds_ = _cont.getClasses().getTypesWithInnerOperators();
         CustList<OperationNode> chidren_ = _node.getChildrenNodes();
@@ -1001,13 +1022,23 @@ public abstract class OperationNode implements Operable {
         return methods_;
     }
     private static CustList<MethodInfo>
+    getDeclaredCustImplicitCast(ContextEl _conf,
+                        String _fromClass, ClassMethodId _uniqueId, ClassArgumentMatching _arg) {
+        String single_ = _arg.getSingleNameOrEmpty();
+        return getDeclaredCustImplicitCast(_conf, _fromClass, _uniqueId, single_);
+    }
+    private static CustList<MethodInfo>
     getDeclaredCustCast(ContextEl _conf,
                         String _fromClass, ClassMethodId _uniqueId, ClassArgumentMatching _arg) {
+        String single_ = _arg.getSingleNameOrEmpty();
+        return getDeclaredCustCast(_conf, _fromClass, _uniqueId, single_);
+    }
+
+    private static CustList<MethodInfo> getDeclaredCustCast(ContextEl _conf, String _fromClass, ClassMethodId _uniqueId, String _single) {
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
-        String single_ = _arg.getSingleNameOrEmpty();
-        String idFrom_ = Templates.getIdFromAllTypes(single_);
+        String idFrom_ = Templates.getIdFromAllTypes(_single);
         String id_ = Templates.getIdFromAllTypes(_fromClass);
         StringMap<String> superTypesBaseAnc_ = new StringMap<String>();
         superTypesBaseAnc_.addEntry(idFrom_,idFrom_);
@@ -1018,7 +1049,60 @@ public abstract class OperationNode implements Operable {
         CustList<OverridableBlock> castsFrom_ = _conf.getClasses().getExplicitFromCastMethods().getVal(idFrom_);
         fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, casts_, superTypesBaseAncBis_);
         fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, castsId_, superTypesBaseAncBis_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, single_, castsFrom_, superTypesBaseAncBis_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _single, castsFrom_, superTypesBaseAnc_);
+        return methods_;
+    }
+
+    private static CustList<MethodInfo> getDeclaredCustImplicitCast(ContextEl _conf, String _fromClass, ClassMethodId _uniqueId, String _single) {
+        String glClass_ = _conf.getAnalyzing().getGlobalClass();
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
+        String idFrom_ = Templates.getIdFromAllTypes(_single);
+        String id_ = Templates.getIdFromAllTypes(_fromClass);
+        StringMap<String> superTypesBaseAnc_ = new StringMap<String>();
+        superTypesBaseAnc_.addEntry(idFrom_,idFrom_);
+        StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
+        superTypesBaseAncBis_.addEntry(id_,id_);
+        CustList<OverridableBlock> casts_ = _conf.getClasses().getImplicitCastMethods().getVal(id_);
+        CustList<OverridableBlock> castsId_ = _conf.getClasses().getImplicitIdCastMethods().getVal(id_);
+        CustList<OverridableBlock> castsFrom_ = _conf.getClasses().getImplicitFromCastMethods().getVal(idFrom_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, casts_, superTypesBaseAncBis_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, castsId_, superTypesBaseAncBis_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _single, castsFrom_, superTypesBaseAnc_);
+        return methods_;
+    }
+
+
+    private static CustList<MethodInfo> getDeclaredCustImplicitCast(ContextEl _conf, String _fromClass, String _single) {
+        String glClass_ = _conf.getAnalyzing().getGlobalClass();
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
+        String id_ = Templates.getIdFromAllTypes(_fromClass);
+        for (RootBlock r: _conf.getClasses().getClassBodies()) {
+            String full_ = Templates.getFullTypeByBases(r.getGenericString(),id_,_conf);
+            if (full_.isEmpty()) {
+                continue;
+            }
+            String di_ = r.getFullName();
+            StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
+            superTypesBaseAncBis_.addEntry(di_,di_);
+            CustList<OverridableBlock> casts_ = _conf.getClasses().getImplicitCastMethods().getVal(di_);
+            CustList<OverridableBlock> castsId_ = _conf.getClasses().getImplicitIdCastMethods().getVal(di_);
+            fetchCastMethods(_conf,  null, glClass_, methods_, di_, casts_, superTypesBaseAncBis_);
+            fetchCastMethods(_conf,  null, glClass_, methods_, di_, castsId_, superTypesBaseAncBis_);
+        }
+        String idFrom_ = Templates.getIdFromAllTypes(_single);
+        for (RootBlock r: _conf.getClasses().getClassBodies()) {
+            String full_ = Templates.getFullTypeByBases(r.getGenericString(),idFrom_,_conf);
+            if (full_.isEmpty()) {
+                continue;
+            }
+            String di_ = Templates.getIdFromAllTypes(full_);
+            StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
+            superTypesBaseAncBis_.addEntry(di_,di_);
+            CustList<OverridableBlock> castsFrom_ = _conf.getClasses().getImplicitFromCastMethods().getVal(di_);
+            fetchCastMethods(_conf,  null, glClass_, methods_, di_, castsFrom_, superTypesBaseAncBis_);
+        }
         return methods_;
     }
 
@@ -1536,6 +1620,70 @@ public abstract class OperationNode implements Operable {
         }
         _id.setInvocation(InvocationMethod.ALL);
         _id.setVarArgWrap(true);
+        return true;
+    }
+    private static ClassMethodIdReturn getCustCastResult(ContextEl _conf,
+                                                         CustList<MethodInfo> _methods,
+                                                         ClassArgumentMatching _argsClass) {
+        CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
+        for (MethodInfo e: _methods) {
+            if (!isPossibleMethod(_conf, e, _argsClass)) {
+                continue;
+            }
+            signatures_.add(e);
+        }
+        StringMap<StringList> map_;
+        map_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_);
+        MethodInfo found_ = sortFct(signatures_, gr_);
+        if (found_ == null) {
+            return new ClassMethodIdReturn(false);
+        }
+        MethodId constraints_ = found_.getConstraints();
+        String baseClassName_ = found_.getClassName();
+        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
+        MethodId id_ = found_.getFoundFormatted();
+        res_.setId(new ClassMethodId(baseClassName_, id_));
+        res_.setRealId(constraints_);
+        res_.setRealClass(baseClassName_);
+        res_.setReturnType(found_.getReturnType());
+        res_.setAncestor(found_.getAncestor());
+        res_.setAbstractMethod(found_.isAbstractMethod());
+        res_.setStaticMethod(found_.isStatic());
+        return res_;
+    }
+
+    private static boolean isPossibleMethod(ContextEl _context, Parametrable _id,
+                                            ClassArgumentMatching _argsClass) {
+        StringList params_ = new StringList(_id.getGeneFormatted().getParametersTypes().mid(1));
+        int nbDem_ = params_.size();
+        StringMap<StringList> mapCtr_ = _context.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        boolean allNotBoxUnbox_ = true;
+        for (int i = CustList.FIRST_INDEX; i < nbDem_; i++) {
+            String wc_ = params_.get(i);
+            wc_ = wrap(i,params_.size(), false,wc_);
+            Mapping map_ = new Mapping();
+            map_.setArg(_argsClass);
+            map_.getMapping().putAllMap(mapCtr_);
+            map_.setParam(wc_);
+            if (!Templates.isCorrectOrNumbers(map_, _context)) {
+                return false;
+            }
+            if (PrimitiveTypeUtil.isPrimitive(wc_, _context)) {
+                if (!_argsClass.isPrimitive(_context)) {
+                    allNotBoxUnbox_ = false;
+                }
+            } else {
+                if (_argsClass.isPrimitive(_context)) {
+                    allNotBoxUnbox_ = false;
+                }
+            }
+        }
+        if (allNotBoxUnbox_) {
+            _id.setInvocation(InvocationMethod.STRICT);
+        } else {
+            _id.setInvocation(InvocationMethod.BOX_UNBOX);
+        }
         return true;
     }
 

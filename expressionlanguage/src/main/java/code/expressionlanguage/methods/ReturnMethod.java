@@ -15,10 +15,9 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stacks.AbruptCallingFinally;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stds.LgNames;
@@ -126,14 +125,34 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
             return;
         }
         if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(getFile().getFileName());
-            cast_.setIndexFile(expressionOffset);
-            //original type
-            cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
-                    StringList.join(opRet.last().getResultClass().getNames(),"&"),
-                    _retType);
-            _cont.addError(cast_);
+            //look for implicit casts
+            ExecOperationNode last_ = opRet.last();
+            if (_cont.getClasses().getClassBody(_retType) == null) {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFileName(getFile().getFileName());
+                cast_.setIndexFile(expressionOffset);
+                //original type
+                cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
+                        StringList.join(last_.getResultClass().getNames(),"&"),
+                        _retType);
+                _cont.addError(cast_);
+            } else {
+                ClassArgumentMatching reClass_ = last_.getResultClass();
+                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _retType, _retType, reClass_);
+                if (!res_.isFoundMethod()) {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFileName(getFile().getFileName());
+                    cast_.setIndexFile(expressionOffset);
+                    //original type
+                    cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(last_.getResultClass().getNames(), "&"),
+                            _retType);
+                    _cont.addError(cast_);
+                } else {
+                    last_.getResultClass().getImplicits().add(res_.getId());
+                }
+            }
+
         }
         if (PrimitiveTypeUtil.isPrimitive(_retType, _cont)) {
             opRet.last().getResultClass().setUnwrapObject(_retType);

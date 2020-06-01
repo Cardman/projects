@@ -53,17 +53,23 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         if (_castOpId == null) {
             return getArgument(_arguments,_className, _page,_conf);
         }
+        checkCustomOper(_exit, _castOpId, _arguments, _classNameOwner, _page, _conf);
+        return Argument.createVoid();
+    }
+
+    public static boolean checkCustomOper(AbstractExiting _exit, MethodId _castOpId, CustList<Argument> _arguments, String _classNameOwner, PageEl _page, ContextEl _conf) {
         String paramNameOwner_ = _page.formatVarType(_classNameOwner, _conf);
         if (_exit.hasToExit(paramNameOwner_)) {
-            return Argument.createVoid();
+            return true;
         }
         MethodId check_ = new MethodId(_castOpId.getKind(),_castOpId.getName(),new StringList(_castOpId.getParametersTypes().mid(1)),_castOpId.isVararg());
         if (!Templates.okArgs(check_,true, paramNameOwner_,_arguments, _conf, null)) {
-            return Argument.createVoid();
+            return true;
         }
         _conf.setCallingState(new CustomFoundCast(paramNameOwner_,_castOpId,_arguments));
-        return Argument.createVoid();
+        return false;
     }
+
     static Argument getArgument(CustList<Argument> _arguments, String _className, PageEl _page, ContextEl _conf) {
         Argument objArg_ = _arguments.first();
         String paramName_ = _page.formatVarType(_className, _conf);

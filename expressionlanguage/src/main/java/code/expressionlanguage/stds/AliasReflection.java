@@ -28,6 +28,7 @@ public final class AliasReflection {
     private String aliasGetEnclosingType;
     private String aliasGetDeclaredClasses;
     private String aliasGetDeclaredExplicits;
+    private String aliasGetDeclaredImplicits;
     private String aliasGetDeclaredMethods;
     private String aliasGetDeclaredStaticMethods;
     private String aliasGetDeclaredConstructors;
@@ -240,6 +241,9 @@ public final class AliasReflection {
         params_ = new StringList(aliasClassType);
         method_ = new StandardMethod(aliasGetDeclaredExplicits, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasClassType);
+        method_ = new StandardMethod(aliasGetDeclaredImplicits, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredConstructors, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasConstructor), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -254,6 +258,9 @@ public final class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredExplicits, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredImplicits, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetSuperClass, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
@@ -1080,6 +1087,50 @@ public final class AliasReflection {
                 result_.setResult(str_);
                 return result_;
             }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredImplicits)) {
+                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct);
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasMethod_);
+                ObjectMap<MethodId, MethodMetaInfo> methods_;
+                methods_ = cl_.getImplicitsInfos();
+                if (args_.length == 0) {
+                    Struct[] methodsArr_ = new Struct[methods_.size()];
+                    int index_ = 0;
+                    for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                        methodsArr_[index_] = e.getValue();
+                        index_++;
+                    }
+                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                    result_.setResult(str_);
+                    return result_;
+                }
+                CustList<MethodMetaInfo> candidates_;
+                candidates_ = new CustList<MethodMetaInfo>();
+                String instClassName_ = cl_.getName();
+                if (Templates.correctNbParameters(instClassName_,_cont)) {
+                    for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                        MethodId id_ = e.getKey();
+                        if (eq(id_.reflectFormat(instClassName_, _cont),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
+                            candidates_.add(e.getValue());
+                        }
+                    }
+                } else {
+                    for (EntryCust<MethodId, MethodMetaInfo> e : methods_.entryList()) {
+                        MethodId id_ = e.getKey();
+                        if (eq(id_,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
+                            candidates_.add(e.getValue());
+                        }
+                    }
+                }
+                Struct[] methodsArr_ = new Struct[candidates_.size()];
+                int index_ = 0;
+                for (MethodMetaInfo c: candidates_) {
+                    methodsArr_[index_] = c;
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredMethods)) {
                 ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_struct);
                 ObjectMap<MethodId, MethodMetaInfo> methods_;
@@ -1848,6 +1899,14 @@ public final class AliasReflection {
 
     public void setAliasGetDeclaredExplicits(String aliasGetDeclaredExplicits) {
         this.aliasGetDeclaredExplicits = aliasGetDeclaredExplicits;
+    }
+
+    public String getAliasGetDeclaredImplicits() {
+        return aliasGetDeclaredImplicits;
+    }
+
+    public void setAliasGetDeclaredImplicits(String aliasGetDeclaredExplicits) {
+        this.aliasGetDeclaredImplicits = aliasGetDeclaredExplicits;
     }
 
     public String getAliasGetDeclaredMethods() {

@@ -99,14 +99,14 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
     }
 
     public boolean eqPartial(MethodId _other) {
-        int len_ = classNames.size();
-        if (len_ != _other.classNames.size()) {
-            return false;
-        }
         if (kind != _other.kind) {
             return false;
         }
         if (vararg != _other.vararg) {
+            return false;
+        }
+        int len_ = classNames.size();
+        if (len_ != _other.classNames.size()) {
             return false;
         }
         for (int i = 0; i < len_; i++) {

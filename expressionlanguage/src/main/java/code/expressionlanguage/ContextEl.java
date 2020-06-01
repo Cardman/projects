@@ -495,7 +495,9 @@ public abstract class ContextEl {
     }
 
     private boolean isExplicitFct(FunctionBlock _fct) {
-        return _fct instanceof OverridableBlock && StringList.quickEq(((OverridableBlock) _fct).getName(),keyWords.getKeyWordExplicit());
+        return _fct instanceof OverridableBlock
+                && (((OverridableBlock) _fct).getKind() == MethodKind.EXPLICIT_CAST
+        ||((OverridableBlock) _fct).getKind() == MethodKind.IMPLICIT_CAST);
     }
 
 

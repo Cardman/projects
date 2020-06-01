@@ -409,13 +409,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 } else {
                     if (firstType_ instanceof InnerElementBlock) {
                         InnerElementBlock i_ = (InnerElementBlock) firstType_;
-                        String fieldName_ = i_.getUniqueFieldName();
                         String classFieldName_ = i_.getRealImportedClassName();
                         String idCl_ = Templates.getIdFromAllTypes(classFieldName_);
-                        Struct staticField_ = _cont.getClasses().getStaticField(new ClassField(idCl_, fieldName_));
                         if (_exit.hasToExit(idCl_)) {
                             return Argument.createVoid();
                         }
+                        String fieldName_ = i_.getUniqueFieldName();
+                        Struct staticField_ = _cont.getClasses().getStaticField(new ClassField(idCl_, fieldName_));
                         parent_ = Argument.getNull(staticField_);
                         start_ = 1;
                     }

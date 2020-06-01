@@ -3,7 +3,6 @@ package code.expressionlanguage.instr;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.common.FunctionIdUtil;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -651,11 +650,26 @@ public final class ElUtil {
             ExecOperationNode o = _nodes.getKey(fr_);
             ArgumentsPair pair_ = _nodes.getValue(fr_);
             if (!(o instanceof AtomicExecCalculableOperation)) {
-                _context.getCoverage().passBlockOperation(_context,o,Argument.createVoid(),true);
+                Argument a_ = Argument.getNullableValue(o.getArgument());
+                if (!pair_.getImplicits().isEmpty()) {
+                    o.setSimpleArgument(a_,_context,_nodes);
+                }
+                if (_context.callsOrException()) {
+                    processCalling(_el, _context, pageEl_, o);
+                    return;
+                }
+                _context.getCoverage().passBlockOperation(_context,o,a_,true);
                 fr_++;
                 continue;
             }
             if (pair_.getArgument() != null) {
+                if (!pair_.getImplicits().isEmpty()) {
+                    o.setSimpleArgument(pair_.getArgument(),_context,_nodes);
+                }
+                if (_context.callsOrException()) {
+                    processCalling(_el, _context, pageEl_, o);
+                    return;
+                }
                 _context.getCoverage().passBlockOperation(_context,o,pair_.getArgument(),true);
                 fr_++;
                 continue;
@@ -663,10 +677,7 @@ public final class ElUtil {
             AtomicExecCalculableOperation a_ = (AtomicExecCalculableOperation)o;
             a_.calculate(_nodes, _context);
             if (_context.callsOrException()) {
-                _el.setCurrentOper(o);
-                if (!_context.calls()) {
-                    pageEl_.setTranslatedOffset(0);
-                }
+                processCalling(_el, _context, pageEl_, o);
                 return;
             }
             Argument res_ = pair_.getArgument();
@@ -675,6 +686,14 @@ public final class ElUtil {
         }
         pageEl_.setTranslatedOffset(0);
     }
+
+    private static void processCalling(ExpressionLanguage _el, ContextEl _context, AbstractPageEl _pageEl, ExecOperationNode _o) {
+        _el.setCurrentOper(_o);
+        if (!_context.calls()) {
+            _pageEl.setTranslatedOffset(0);
+        }
+    }
+
     public static void buildCoverageReport(ContextEl _cont,int _offsetBlock,
                                            Block _block,
                                            CustList<ExecOperationNode> _nodes,

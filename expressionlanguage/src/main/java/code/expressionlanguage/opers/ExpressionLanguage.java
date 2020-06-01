@@ -37,6 +37,7 @@ public final class ExpressionLanguage {
             } else {
                 a_ = new TwoStepsArgumentsPair();
             }
+            a_.setImplicits(o.getResultClass().getImplicits());
             a_.setConvertToString(o.getResultClass().isConvertToString());
             a_.setArgument(o.getArgument());
             if (o instanceof ExecPossibleIntermediateDotted) {

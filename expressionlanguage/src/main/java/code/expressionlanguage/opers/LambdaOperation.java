@@ -106,8 +106,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             CustList<ClassArgumentMatching> _methodTypes, String _name) {
         StringList str_;
         String name_ = _name;
-        if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordExplicit())) {
-            String exp_ = _conf.getKeyWords().getKeyWordExplicit();
+        if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordExplicit())
+                || StringList.quickEq(name_,_conf.getKeyWords().getKeyWordCast())) {
+            String exp_;
+            if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordExplicit())){
+                exp_ = _conf.getKeyWords().getKeyWordExplicit();
+            } else {
+                exp_ = _conf.getKeyWords().getKeyWordCast();
+            }
             int i_ = 2;
             ClassMethodId feed_ = null;
             KeyWords keyWords_ = _conf.getKeyWords();
@@ -223,7 +229,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (_methodTypes.size() < 2) {
                 _methodTypes.add(0, new ClassArgumentMatching(type_));
             }
-            ClassMethodIdReturn id_ = tryGetDeclaredCast(_conf,type_,exp_,feed_,ClassArgumentMatching.toArgArray(_methodTypes));
+            ClassMethodIdReturn id_;
+            if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordExplicit())){
+                id_ = tryGetDeclaredCast(_conf,type_,exp_,feed_,ClassArgumentMatching.toArgArray(_methodTypes));
+            } else {
+                id_ = tryGetDeclaredImplicitCast(_conf,type_,exp_,feed_,ClassArgumentMatching.toArgArray(_methodTypes));
+            }
             if (!id_.isFoundMethod()) {
                 ClassMethodIdReturn idDef_ = new ClassMethodIdReturn(true);
                 MethodId idCast_;

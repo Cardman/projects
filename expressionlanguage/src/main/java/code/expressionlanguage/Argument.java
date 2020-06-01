@@ -30,6 +30,13 @@ public final class Argument {
         return null;
     }
 
+    public static Argument getNullableValue(Argument _arg) {
+        if (_arg != null) {
+            return _arg;
+        }
+        return new Argument();
+    }
+
     public static Struct getNull(Struct _arg) {
         if (_arg != null) {
             return _arg;
@@ -44,7 +51,7 @@ public final class Argument {
         return NullStruct.NULL_VALUE;
     }
     public static Argument createVoid() {
-        return new Argument();
+        return getNullableValue(null);
     }
 
     public Struct getStruct() {
