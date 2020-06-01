@@ -33,6 +33,6 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation impl
 
     @Override
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        return ExecExplicitOperation.prepare(new AdvancedExiting(_conf),false,castOpId,_arguments,className,classNameOwner,_conf.getPageEl(),_conf.getContext(),false);
+        return ExecExplicitOperation.prepare(new AdvancedExiting(_conf),false,castOpId,_arguments,className,classNameOwner,_conf.getPageEl(),_conf.getContext());
     }
 }

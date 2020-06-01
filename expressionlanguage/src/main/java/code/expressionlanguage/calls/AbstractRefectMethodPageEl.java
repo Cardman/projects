@@ -21,6 +21,12 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     private boolean initClass;
     private ClassMethodId methodToCall;
     private boolean calledMethod;
+
+    protected boolean initDefault(ContextEl _cont) {
+        MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct());
+        return method_.isWideStatic()&&_cont.hasToExit(method_.getClassName());
+    }
+
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
@@ -28,10 +34,8 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         if (!initClass) {
             initClass = true;
             if (initType(_context)) {
-                if (_context.hasToExit(method_.getClassName())) {
-                    setWrapException(true);
-                    return false;
-                }
+                setWrapException(true);
+                return false;
             }
         }
         setWrapException(false);

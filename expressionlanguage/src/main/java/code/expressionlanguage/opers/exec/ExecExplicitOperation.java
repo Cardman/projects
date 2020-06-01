@@ -9,12 +9,9 @@ import code.expressionlanguage.calls.util.CustomFoundCast;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.ExplicitOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -36,44 +33,28 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument argres_ =  prepare(new DefaultExiting(_conf),false,castOpId,arguments_,className,classNameOwner,_conf.getLastPage(),_conf,false);
+        Argument argres_ =  prepare(new DefaultExiting(_conf),false,castOpId,arguments_,className,classNameOwner,_conf.getLastPage(),_conf);
         setSimpleArgument(argres_, _conf, _nodes);
     }
     public static Argument prepare(AbstractExiting _exit, boolean _direct, MethodId _castOpId, CustList<Argument> _arguments, String _className,
-                                   String _classNameOwner,PageEl _page, ContextEl _conf, boolean _simpleCall) {
-        if (!_simpleCall) {
-            if (_direct) {
-                return getArgument(_arguments, _className, _page, _conf);
-            }
+                                   String _classNameOwner, PageEl _page, ContextEl _conf) {
+        if (_direct) {
+            return getArgument(_arguments, _className, _page, _conf);
         }
         if (!ExplicitOperation.customCast(_className)) {
-            if (!_simpleCall) {
-                return getArgument(_arguments,_className, _page,_conf);
-            }
-            LgNames stds_ = _conf.getStandards();
-            String null_;
-            null_ = stds_.getAliasIllegalArg();
-            _conf.setException(new ErrorStruct(_conf,null_));
-            return Argument.createVoid();
+            return getArgument(_arguments,_className, _page,_conf);
         }
-        return checkCustomCast(_exit, _castOpId, _arguments, _className,_classNameOwner, _page, _conf, _simpleCall);
+        return checkCustomCast(_exit, _castOpId, _arguments, _className,_classNameOwner, _page, _conf);
     }
 
+
     private static Argument checkCustomCast(AbstractExiting _exit, MethodId _castOpId, CustList<Argument> _arguments,
-                                            String _className, String _classNameOwner,PageEl _page, ContextEl _conf, boolean _simpleCall) {
+                                            String _className, String _classNameOwner, PageEl _page, ContextEl _conf) {
         if (_castOpId == null) {
             return getArgument(_arguments,_className, _page,_conf);
         }
-        String paramName_ = _page.formatVarType(_className, _conf);
         String paramNameOwner_ = _page.formatVarType(_classNameOwner, _conf);
         if (_exit.hasToExit(paramNameOwner_)) {
-            return Argument.createVoid();
-        }
-        if (_simpleCall) {
-            if (!Templates.okArgs(_castOpId,true, paramName_,_arguments, _conf, null)) {
-                return Argument.createVoid();
-            }
-            _conf.setCallingState(new CustomFoundCast(paramName_,_castOpId,_arguments));
             return Argument.createVoid();
         }
         MethodId check_ = new MethodId(_castOpId.getKind(),_castOpId.getName(),new StringList(_castOpId.getParametersTypes().mid(1)),_castOpId.isVararg());
