@@ -127,7 +127,11 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
         if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
             //look for implicit casts
             ExecOperationNode last_ = opRet.last();
-            if (_cont.getClasses().getClassBody(_retType) == null) {
+            ClassArgumentMatching reClass_ = last_.getResultClass();
+            String s_ = reClass_.getSingleNameOrEmpty();
+            String idRet_ = Templates.getIdFromAllTypes(_retType);
+            String idArg_ = Templates.getIdFromAllTypes(s_);
+            if (_cont.getClasses().getClassBody(idRet_) == null && _cont.getClasses().getClassBody(idArg_) == null) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());
                 cast_.setIndexFile(expressionOffset);
@@ -137,8 +141,7 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
                         _retType);
                 _cont.addError(cast_);
             } else {
-                ClassArgumentMatching reClass_ = last_.getResultClass();
-                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _retType, _retType, reClass_);
+                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _retType, reClass_);
                 if (!res_.isFoundMethod()) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(getFile().getFileName());
@@ -149,7 +152,8 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
                             _retType);
                     _cont.addError(cast_);
                 } else {
-                    last_.getResultClass().getImplicits().add(res_.getId());
+                    ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                    last_.getResultClass().getImplicits().add(cl_);
                 }
             }
 

@@ -934,9 +934,9 @@ public abstract class OperationNode implements Operable {
         }
         return res_;
     }
-    public static ClassMethodIdReturn tryGetDeclaredImplicitCast(ContextEl _conf, String _classes, String _from, ClassArgumentMatching _arg) {
+    public static ClassMethodIdReturn tryGetDeclaredImplicitCast(ContextEl _conf, String _classes, ClassArgumentMatching _arg) {
         CustList<MethodInfo> methods_;
-        methods_ = getDeclaredCustImplicitCast(_conf, _classes, _from);
+        methods_ = getDeclaredCustImplicitCast(_conf, _classes, _arg.getSingleNameOrEmpty());
         return getCustCastResult(_conf, methods_, _arg);
     }
     static ClassMethodId getOperatorOrMethod(MethodOperation _node, String _op, ContextEl _cont) {
@@ -1077,33 +1077,27 @@ public abstract class OperationNode implements Operable {
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
-        String id_ = Templates.getIdFromAllTypes(_fromClass);
-        for (RootBlock r: _conf.getClasses().getClassBodies()) {
-            String full_ = Templates.getFullTypeByBases(r.getGenericString(),id_,_conf);
-            if (full_.isEmpty()) {
-                continue;
-            }
-            String di_ = r.getFullName();
-            StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
-            superTypesBaseAncBis_.addEntry(di_,di_);
-            CustList<OverridableBlock> casts_ = _conf.getClasses().getImplicitCastMethods().getVal(di_);
-            CustList<OverridableBlock> castsId_ = _conf.getClasses().getImplicitIdCastMethods().getVal(di_);
-            fetchCastMethods(_conf,  null, glClass_, methods_, di_, casts_, superTypesBaseAncBis_);
-            fetchCastMethods(_conf,  null, glClass_, methods_, di_, castsId_, superTypesBaseAncBis_);
-        }
-        String idFrom_ = Templates.getIdFromAllTypes(_single);
-        for (RootBlock r: _conf.getClasses().getClassBodies()) {
-            String full_ = Templates.getFullTypeByBases(r.getGenericString(),idFrom_,_conf);
-            if (full_.isEmpty()) {
-                continue;
-            }
-            String di_ = Templates.getIdFromAllTypes(full_);
-            StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
-            superTypesBaseAncBis_.addEntry(di_,di_);
-            CustList<OverridableBlock> castsFrom_ = _conf.getClasses().getImplicitFromCastMethods().getVal(di_);
-            fetchCastMethods(_conf,  null, glClass_, methods_, di_, castsFrom_, superTypesBaseAncBis_);
-        }
+        fetchTo(_conf, glClass_, methods_, _fromClass);
+        fetchFrom(_conf, glClass_, methods_, _single);
         return methods_;
+    }
+
+    private static void fetchFrom(ContextEl _conf, String glClass_, CustList<MethodInfo> methods_, String _id) {
+        StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
+        String di_ = Templates.getIdFromAllTypes(_id);
+        superTypesBaseAncBis_.addEntry(di_,di_);
+        CustList<OverridableBlock> castsFrom_ = _conf.getClasses().getImplicitFromCastMethods().getVal(di_);
+        fetchCastMethods(_conf,  null, glClass_, methods_, _id, castsFrom_, superTypesBaseAncBis_);
+    }
+
+    private static void fetchTo(ContextEl _conf, String glClass_, CustList<MethodInfo> methods_, String _id) {
+        StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
+        String di_ = Templates.getIdFromAllTypes(_id);
+        superTypesBaseAncBis_.addEntry(di_,di_);
+        CustList<OverridableBlock> casts_ = _conf.getClasses().getImplicitCastMethods().getVal(di_);
+        CustList<OverridableBlock> castsId_ = _conf.getClasses().getImplicitIdCastMethods().getVal(di_);
+        fetchCastMethods(_conf,  null, glClass_, methods_, _id, casts_, superTypesBaseAncBis_);
+        fetchCastMethods(_conf,  null, glClass_, methods_, _id, castsId_, superTypesBaseAncBis_);
     }
 
     private static CustList<MethodInfo>

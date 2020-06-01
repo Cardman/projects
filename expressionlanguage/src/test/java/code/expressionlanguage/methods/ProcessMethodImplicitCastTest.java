@@ -144,11 +144,9 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass {\n");
-        xml_.append("}\n");
-        xml_.append("public class pkg.ExSub:ExClass {\n");
         xml_.append(" public int field;\n");
-        xml_.append(" public static ExSub $(int i){\n");
-        xml_.append("  ExSub out = new ExSub();\n");
+        xml_.append(" public static ExClass $(int i){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
         xml_.append("  out.field = i;\n");
         xml_.append("  return out;\n");
         xml_.append(" }\n");
@@ -161,8 +159,8 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
-        assertEq("pkg.ExSub", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExSub", "field"))).intStruct());
+        assertEq("pkg.ExClass", struct_.getClassName(cont_));
+        assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
 
     @Test
@@ -262,11 +260,9 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass {\n");
-        xml_.append("}\n");
-        xml_.append("public class pkg.ExSub:ExClass {\n");
         xml_.append(" public int field;\n");
-        xml_.append(" public static ExSub $(int i){\n");
-        xml_.append("  ExSub out = new ExSub();\n");
+        xml_.append(" public static ExClass $(int i){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
         xml_.append("  out.field = i;\n");
         xml_.append("  return out;\n");
         xml_.append(" }\n");
@@ -279,8 +275,157 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         Struct struct_ = ret_.getStruct();
-        assertEq("pkg.ExSub", struct_.getClassName(cont_));
-        assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExSub", "field"))).intStruct());
+        assertEq("pkg.ExClass", struct_.getClassName(cont_));
+        assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
+    }
+
+    @Test
+    public void test10() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field = 5;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public static int $(ExClass i){\n");
+        xml_.append("  return i.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(5,getNumber(ret_));
+    }
+
+    @Test
+    public void test11() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static ExClass<int> method(){\n");
+        xml_.append("  return 2+3;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static ExClass<T> $(T i){\n");
+        xml_.append("  ExClass<T> out = new ExClass<>();\n");
+        xml_.append("  out.field = i;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        Struct struct_ = ret_.getStruct();
+        assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
+        assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
+    }
+
+    @Test
+    public void test12() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  ExClass<int> out = new ExClass<>();\n");
+        xml_.append("  out.field = 5;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static T $(ExClass<T> i){\n");
+        xml_.append("  return i.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(5,getNumber(ret_));
+    }
+
+    @Test
+    public void test13() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static ExClass<int> method(){\n");
+        xml_.append("  return staticCall(ExCaller<int>).method();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller<S> {\n");
+        xml_.append(" public staticCall ExClass<S> method(){\n");
+        xml_.append("  return (S)(2+3);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static ExClass<T> $(T i){\n");
+        xml_.append("  ExClass<T> out = new ExClass<>();\n");
+        xml_.append("  out.field = i;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        Struct struct_ = ret_.getStruct();
+        assertEq("pkg.ExClass<int>", struct_.getClassName(cont_));
+        assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
+    }
+
+    @Test
+    public void test14() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  return staticCall(ExCaller<int>).method();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller<S> {\n");
+        xml_.append(" public staticCall S method(){\n");
+        xml_.append("  ExClass<S> out = new ExClass<S>();\n");
+        xml_.append("  out.field = (S)5;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static T $(ExClass<T> i){\n");
+        xml_.append("  return i.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(5,getNumber(ret_));
     }
     @Test
     public void testFail() {
