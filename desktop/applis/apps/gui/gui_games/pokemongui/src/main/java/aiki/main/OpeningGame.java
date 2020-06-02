@@ -2,7 +2,7 @@ package aiki.main;
 import aiki.db.PerCent;
 import aiki.gui.MainWindow;
 import code.gui.ThreadInvoker;
-import code.stream.ThreadUtil;
+import code.threads.ThreadUtil;
 
 /**This class thread is independant from EDT,
 Thread safe class*/

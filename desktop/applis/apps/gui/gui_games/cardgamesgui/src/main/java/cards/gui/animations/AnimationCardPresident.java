@@ -5,7 +5,7 @@ import cards.president.DealPresident;
 import cards.president.GamePresident;
 import code.gui.CustComponent;
 import code.gui.ThreadInvoker;
-import code.stream.ThreadUtil;
+import code.threads.ThreadUtil;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,

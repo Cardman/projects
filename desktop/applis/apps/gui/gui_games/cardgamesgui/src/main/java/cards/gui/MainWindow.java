@@ -145,7 +145,6 @@ import code.network.NetGroupFrame;
 import code.network.SocketResults;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
-import code.stream.AbstractLock;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumMap;

@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
-import code.stream.AbstractLock;
+import code.threads.AbstractLock;
 
 public final class StdStruct extends WithoutParentIdStruct implements Struct {
 

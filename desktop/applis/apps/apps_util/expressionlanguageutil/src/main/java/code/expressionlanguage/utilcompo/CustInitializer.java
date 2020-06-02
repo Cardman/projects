@@ -14,7 +14,7 @@ import code.expressionlanguage.opers.util.ClassFieldStruct;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
-import code.stream.ThreadUtil;
+import code.threads.ThreadUtil;
 import code.util.CustList;
 import code.util.StringList;
 

@@ -20,7 +20,7 @@ import code.gui.*;
 import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.document.RenderedPage;
-import code.stream.ThreadUtil;
+import code.threads.ThreadUtil;
 import code.util.ByteMap;
 import code.util.CustList;
 import code.util.StringList;

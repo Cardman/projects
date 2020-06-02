@@ -1,5 +1,5 @@
 package code.network;
-import code.stream.Locking;
+import code.threads.Locking;
 
 import java.io.BufferedReader;
 import java.io.IOException;

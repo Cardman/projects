@@ -12,7 +12,7 @@ import code.gui.Panel;
 import code.gui.ScrollPane;
 import code.gui.TextArea;
 import code.gui.events.QuittingEvent;
-import code.stream.ThreadUtil;
+import code.threads.ThreadUtil;
 import code.util.StringMap;
 
 import javax.swing.*;

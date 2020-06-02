@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import code.formathtml.render.MetaAnimatedImage;
 import code.gui.CustComponent;
 import code.gui.PreparedLabel;
-import code.stream.ThreadUtil;
+import code.threads.ThreadUtil;
 import code.sml.Element;
 import code.util.CustList;
 

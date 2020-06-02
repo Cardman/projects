@@ -6,7 +6,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
-import code.stream.Locking;
+import code.threads.Locking;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

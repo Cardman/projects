@@ -1,4 +1,4 @@
-package code.stream;
+package code.threads;
 
 public interface Locking {
     Thread getCurrentThread();

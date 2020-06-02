@@ -13,7 +13,7 @@ import code.gui.Clock;
 import code.gui.CustComponent;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.stream.ThreadUtil;
+import code.threads.ThreadUtil;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;

@@ -4,7 +4,7 @@ import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import code.gui.CustComponent;
-import code.stream.ThreadUtil;
+import code.threads.ThreadUtil;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,

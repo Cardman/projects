@@ -13,6 +13,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>resources</module>
+		<module>threads</module>
 		<module>stream</module>
 		<module>expressionlanguageutil</module>
 	</modules>

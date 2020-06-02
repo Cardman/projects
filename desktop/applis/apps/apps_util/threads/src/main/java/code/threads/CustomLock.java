@@ -1,4 +1,4 @@
-package code.stream;
+package code.threads;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

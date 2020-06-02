@@ -15,7 +15,7 @@ import code.gui.CustComponent;
 import code.gui.OtherConfirmDialog;
 import code.gui.OtherFrame;
 import code.gui.TextLabel;
-import code.stream.ThreadUtil;
+import code.threads.ThreadUtil;
 import code.util.StringList;
 
 import javax.swing.WindowConstants;

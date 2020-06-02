@@ -1,5 +1,5 @@
 package code.network;
-import code.stream.Locking;
+import code.threads.Locking;
 
 import java.io.IOException;
 import java.net.ServerSocket;

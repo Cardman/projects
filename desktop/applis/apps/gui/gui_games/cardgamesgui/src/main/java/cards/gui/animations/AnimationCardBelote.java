@@ -5,7 +5,7 @@ import cards.belote.GameBelote;
 import cards.gui.containers.ContainerSingleBelote;
 import code.gui.CustComponent;
 import code.gui.ThreadInvoker;
-import code.stream.ThreadUtil;
+import code.threads.ThreadUtil;
 import code.util.StringList;
 
 /**This class thread is independant from EDT,

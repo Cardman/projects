@@ -1,5 +1,5 @@
 package code.network;
-import code.stream.AbstractLock;
+import code.threads.AbstractLock;
 
 import java.net.Socket;
 

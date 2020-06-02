@@ -14,7 +14,7 @@ import aiki.network.stream.SentPokemon;
 import code.network.AddingPlayer;
 import code.network.BasicServer;
 import code.network.NetGroupFrame;
-import code.stream.AbstractLock;
+import code.threads.AbstractLock;
 import code.util.CustList;
 import code.util.*;
 

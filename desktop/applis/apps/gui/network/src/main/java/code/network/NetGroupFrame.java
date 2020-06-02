@@ -10,8 +10,8 @@ import code.gui.CustComponent;
 import code.gui.GroupFrame;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
-import code.stream.AbstractLock;
-import code.stream.LockFactory;
+import code.threads.AbstractLock;
+import code.threads.LockFactory;
 import code.util.StringList;
 
 public abstract class NetGroupFrame extends GroupFrame implements NetWindow {

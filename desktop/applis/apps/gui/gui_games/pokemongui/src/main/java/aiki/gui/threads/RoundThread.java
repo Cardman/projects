@@ -2,7 +2,7 @@ package aiki.gui.threads;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.animations.AnimationInt;
 import aiki.gui.components.fight.Battle;
-import code.stream.ThreadUtil;
+import code.threads.ThreadUtil;
 
 /**This class thread is independant from EDT,
 Thread safe class*/

@@ -5,7 +5,7 @@ import aiki.gui.MainWindow;
 import aiki.gui.components.walk.Scene;
 import aiki.map.enums.Direction;
 import code.gui.CustComponent;
-import code.stream.ThreadUtil;
+import code.threads.ThreadUtil;
 import code.util.CustList;
 
 /**This class thread is independant from EDT,

@@ -5,11 +5,10 @@ import code.maths.geo.CustPoint;
 import code.minirts.rts.Facade;
 import code.minirts.rts.Soldier;
 import code.minirts.rts.UnitMapKey;
-import code.stream.ThreadUtil;
+import code.threads.ThreadUtil;
 
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicLong;
 
 
 /**AnimationBalle permet de deplacer
