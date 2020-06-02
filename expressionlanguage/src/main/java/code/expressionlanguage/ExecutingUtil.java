@@ -301,6 +301,8 @@ public final class ExecutingUtil {
             pageLoc_ = new PolymorphRefectMethodPageEl();
         } else if (_reflect == ReflectingType.DIRECT) {
             pageLoc_ = new DirectRefectMethodPageEl();
+        } else if (_reflect == ReflectingType.STATIC_CALL) {
+            pageLoc_ = new StaticCallMethodPageEl();
         } else if (_reflect == ReflectingType.CAST) {
             pageLoc_ = new CastRefectMethodPageEl(false);
         } else if (_reflect == ReflectingType.CAST_DIRECT) {

@@ -458,8 +458,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     _cont.setException(new ErrorStruct(_cont,null_));
                     return new Argument();
                 }
-                if (m_.canAccessParamTypesStatic()) {
+                if (m_.isExpCast()) {
                     _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST, _previous, _firstArgs, false));
+                    return new Argument();
+                }
+                if (m_.isStaticCall()) {
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _previous, _firstArgs, false));
                     return new Argument();
                 }
                 _cont.setCallingState(new CustomReflectMethod(ReflectingType.METHOD, _previous, _firstArgs, false));
@@ -473,8 +477,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     _cont.setException(new ErrorStruct(_cont,null_));
                     return new Argument();
                 }
-                if (m_.canAccessParamTypesStatic()) {
+                if (m_.isExpCast()) {
                     _cont.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _previous, _firstArgs, false));
+                    return new Argument();
+                }
+                if (m_.isStaticCall()) {
+                    _cont.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _previous, _firstArgs, false));
                     return new Argument();
                 }
                 _cont.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, _previous, _firstArgs, false));
@@ -860,7 +868,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 _conf.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _pr, _nList, true));
                 return new Argument();
             }
-            _conf.setCallingState(new CustomReflectMethod(ReflectingType.CAST, _pr, _nList, true));
+            if (_l.isExpCast()) {
+                _conf.setCallingState(new CustomReflectMethod(ReflectingType.CAST, _pr, _nList, true));
+                return new Argument();
+            }
+            _conf.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _pr, _nList, true));
             return new Argument();
         }
         if (!_l.isPolymorph()) {

@@ -21,7 +21,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     private boolean initClass;
     private ClassMethodId methodToCall;
     private boolean calledMethod;
-    private boolean instanceClass;
+    private boolean calledAfter;
     private CustList<Argument> args = new CustList<Argument>();
     private Argument instance;
     private Argument rightArg;
@@ -112,24 +112,21 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                 rightArg = args.last();
                 args = args.mid(0,args.size()-1);
             }
+        }
+        if (!calledAfter) {
             setWrapException(false);
             String className_ = methodToCall.getClassName();
+            MethodId mid_ = methodToCall.getConstraints();
             Argument arg_ = prepare(_context, className_, mid_, instance, args, rightArg);
             if (_context.getCallingState() instanceof NotInitializedClass) {
-                instanceClass = true;
                 setWrapException(true);
                 return false;
             }
+            calledAfter = true;
             if (_context.callsOrException()) {
                 setWrapException(_context.calls());
                 return false;
             }
-            setReturnedArgument(arg_);
-        }
-        if (instanceClass) {
-            String className_ = methodToCall.getClassName();
-            MethodId mid_ = methodToCall.getConstraints();
-            Argument arg_ = prepare(_context, className_, mid_, instance, args, rightArg);
             setReturnedArgument(arg_);
         }
         return true;

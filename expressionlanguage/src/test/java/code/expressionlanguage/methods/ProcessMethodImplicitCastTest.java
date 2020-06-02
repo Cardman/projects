@@ -505,6 +505,30 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
+    public void test5Fail() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static ExSub method(){\n");
+        xml_.append("  return 5;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" private static ExClass $(int i){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field = i;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub:ExClass {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
     public void calculate_31Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

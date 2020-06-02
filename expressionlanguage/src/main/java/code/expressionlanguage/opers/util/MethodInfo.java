@@ -113,6 +113,10 @@ public final class MethodInfo implements Parametrable {
         formatted = new MethodId(MethodId.getKind(_keepParams), constraints.getName(), params_, isVararg());
     }
 
+    public void formatWithoutParams() {
+        formatted = new MethodId(MethodId.getKind(false), constraints.getName(), new StringList());
+    }
+
     @Override
     public Identifiable getGeneFormatted() {
         return getFoundFormatted();

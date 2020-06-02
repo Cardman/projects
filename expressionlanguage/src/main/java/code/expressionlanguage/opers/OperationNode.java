@@ -1280,7 +1280,7 @@ public abstract class OperationNode implements Operable {
         }
         if (_casts != null) {
             for (OverridableBlock e: _casts) {
-                MethodInfo stMeth_ = fetchedParamMethod(e,_cl,false,_conf,uniq_,_glClass,0,_cl,_superTypesBaseMap);
+                MethodInfo stMeth_ = fetchedParamCastMethod(e,_cl, _conf,uniq_,_glClass, _superTypesBaseMap);
                 if (stMeth_ == null) {
                     continue;
                 }
@@ -1348,7 +1348,7 @@ public abstract class OperationNode implements Operable {
             if (toString_ == null) {
                 continue;
             }
-            _methods.add(buildMethodInfo(toString_,false,_conf,0, t));
+            _methods.add(buildMethodToStringInfo(toString_, t));
         }
     }
 
@@ -1372,6 +1372,20 @@ public abstract class OperationNode implements Operable {
             }
         }
         return buildMethodInfo(_m, _keepParams, _conf, _anc, formattedClass_);
+    }
+
+    private static MethodInfo fetchedParamCastMethod(OverridableBlock _m, String _s,
+                                                     ContextEl _conf, ClassMethodIdAncestor _uniqueId,
+                                                     String _glClass, StringMap<String> _superTypesBaseMap) {
+        String base_ = Templates.getIdFromAllTypes(_s);
+        MethodId id_ = _m.getId();
+        if (isCandidateMethod(_uniqueId, 0, base_, id_)) {
+            return null;
+        }
+        if (cannotAccess(_conf,base_, _m,_glClass,_superTypesBaseMap)) {
+            return null;
+        }
+        return buildCastMethodInfo(_m, _conf, _s);
     }
 
     private static boolean cannotAccess(ContextEl _conf, String _base,AccessibleBlock _acc,
@@ -1403,6 +1417,42 @@ public abstract class OperationNode implements Operable {
         mloc_.setReturnType(ret_);
         mloc_.setAncestor(_anc);
         mloc_.format(_keepParams,_conf);
+        return mloc_;
+    }
+
+    private static MethodInfo buildCastMethodInfo(OverridableBlock _m, ContextEl _conf, String _formattedClass) {
+        String ret_ = _m.getImportedReturnType();
+        ret_ = Templates.wildCardFormatReturn(_formattedClass, ret_, _conf);
+        ParametersGroup p_ = new ParametersGroup();
+        MethodId id_ = _m.getId();
+        for (String c: id_.getParametersTypes()) {
+            p_.add(new ClassMatching(c));
+        }
+        MethodInfo mloc_ = new MethodInfo();
+        mloc_.setClassName(_formattedClass);
+        mloc_.setStaticMethod(id_.getKind());
+        mloc_.setConstraints(id_);
+        mloc_.setParameters(p_);
+        mloc_.setReturnType(ret_);
+        mloc_.setAncestor(0);
+        mloc_.format(false,_conf);
+        return mloc_;
+    }
+
+    private static MethodInfo buildMethodToStringInfo(OverridableBlock _m, String _formattedClass) {
+        String ret_ = _m.getImportedReturnType();
+        ParametersGroup p_ = new ParametersGroup();
+        MethodId id_ = _m.getId();
+        MethodInfo mloc_ = new MethodInfo();
+        mloc_.setClassName(_formattedClass);
+        mloc_.setStaticMethod(id_.getKind());
+        mloc_.setAbstractMethod(_m.isAbstractMethod());
+        mloc_.setFinalMethod(_m.isFinalMethod());
+        mloc_.setConstraints(id_);
+        mloc_.setParameters(p_);
+        mloc_.setReturnType(ret_);
+        mloc_.setAncestor(0);
+        mloc_.formatWithoutParams();
         return mloc_;
     }
 
