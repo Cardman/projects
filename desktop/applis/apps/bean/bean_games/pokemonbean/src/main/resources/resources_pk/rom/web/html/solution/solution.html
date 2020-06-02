@@ -1,0 +1,44 @@
+<html xmlns:c="javahtml" c:bean="solution">
+	<head>
+		<link href="web/css/pokedex.css" rel="stylesheet" type="text/css"/>
+		<title><c:message value="msg_solution,title"/></title>
+	</head>
+	<body>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_solution,index"/></a>
+		<c:for className="aiki.beans.facade.solution.dto.StepDto" list="steps" var="s">
+			{([s])}<br/>
+			<p>
+				<c:for key="i" map="s.getPokemon()" value="g" keyClassName="java.lang.Object" varClassName="ls">
+					<table>
+						<caption><b>{getPlace(([s]),([i]))}</b></caption>
+						<thead>
+							<tr>
+								<th><c:message value="msg_solution,image"/></th>
+								<th><c:message value="msg_solution,name"/></th>
+								<th><c:message value="msg_solution,gender"/></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:for className="aiki.beans.facade.solution.dto.WildPokemonDto" list="g" var="l">
+								<tr>
+									<td><c:img src="{l.image}"/></td>
+									<td>{l.name}</td>
+									<td>{l.gender}</td>
+								</tr>
+							</c:for>
+						</tbody>
+					</table>
+				</c:for>
+				<c:if condition="!s.getNames().isEmpty()">
+					<ul>
+						<c:for className="aiki.beans.facade.solution.dto.PlaceTrainerDto" list="s.getNames()" var="i">
+							<li>{i.trainer} - {i.place}</li>
+						</c:for>
+					</ul>
+				</c:if>
+			</p>
+			<br/>
+			<br/>
+		</c:for>
+	</body>
+</html>

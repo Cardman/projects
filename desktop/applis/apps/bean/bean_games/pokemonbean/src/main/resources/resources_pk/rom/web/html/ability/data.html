@@ -1,0 +1,1058 @@
+<html xmlns:c="javahtml" c:bean="ability">
+	<head>
+		<title><c:message value="msg_ability,title"><param value="displayName"/></c:message></title>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="$clickIndex" href=""><c:message value="msg_ability,abilities"/></a>
+		{displayName}
+		<br/>
+		<c:if condition="endRound">
+			<p>
+				<c:message value="msg_effendround,rank">
+					<param value="endRoundRank"/>
+				</c:message>
+				<a c:command="web/html/endround/endround.html" href=""><c:message value="msg_ability,endRound"/></a>
+			</p>
+			<c:if condition="!reasonsEndRound.isEmpty()">
+				<p>
+					<c:message value="msg_effendround,reasons"/>
+					<ul>
+						<c:for list="reasonsEndRound" var="r" className="java.lang.String">
+							<li>{r}</li>
+						</c:for>
+					</ul>
+					<br/>
+					<ul>
+						<c:for key="c" map="mapVarsFailEndRound" value="r" keyClassName="java.lang.String" varClassName="java.lang.String">
+							<li>{c} : {r}</li>
+						</c:for>
+					</ul>
+				</p>
+				<br/>
+			</c:if>
+		</c:if>
+		<c:if condition="sending">
+			<c:import page="{effectSendBean}">
+				<c:package name="aiki.beans.effects">
+					<c:class name="EffectWhileSendingBean">
+						<c:field prepare="$intern.effect=getEffectSending() "/>
+					</c:class>
+				</c:package>
+			</c:import>
+		</c:if>
+		<c:if condition="achievedDisappearedPk">
+			<c:message value="msg_ability,achieved_disappeared_time"/>
+			<c:message value="msg_ability,achieved_disappeared"/>
+		</c:if>
+		<c:if condition="breakProtection">
+			<c:if condition="!breakProtectionMoves.isEmpty()">
+				<c:message value="msg_ability,break_protection_time"/>
+				<c:message value="msg_ability,break_protection"/>
+				<ul>
+					<c:for list="breakProtectionMoves" var="m">
+						<li><a c:command="$clickBreakProtectionMoves({([m])})" href="">{getTrBreakProtectionMoves(([m]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+		</c:if>
+		<c:if condition="cancelSecEffectOther">
+			<c:message value="msg_ability,cancel_sec_effect_other"/>
+		</c:if>
+		<c:if condition="cancelSecEffectOwner">
+			<c:message value="msg_ability,cancel_sec_effect_owner"/>
+		</c:if>
+		<c:if condition="chgtTypeByDamage">
+			<c:message value="msg_ability,chgt_type_by_damage_time"/>
+			<c:message value="msg_ability,chgt_type_by_damage"/>
+		</c:if>
+		<c:if condition="!chgtTypeByWeather.isEmpty()">
+			<c:message value="msg_ability,chgt_type_by_weather_time"/>
+			<c:message value="msg_ability,chgt_type_by_weather"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,chgt_type_by_weather_key"/></th>
+						<th><c:message value="msg_ability,chgt_type_by_weather_value"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="chgtTypeByWeather" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Object">
+						<tr>
+							<c:if condition="isChgtTypeByWeather(([s]))">
+								<td><a c:command="$clickChgtTypeByWeatherKey({([s])})" href="">{getTrChgtTypeByWeatherKey(([s]))}</a></td>
+							</c:if>
+							<c:if condition="!isChgtTypeByWeather(([s]))">
+								<td><c:message value="msg_ability,chgt_type_by_weather_no"/></td>
+							</c:if>
+							<td>{getTrChgtTypeByWeatherValue(([s]))}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="copyMovesTypes">
+			<c:message value="msg_ability,copy_move_types_time"/>
+			<c:message value="msg_ability,copy_move_types"/>
+		</c:if>
+		<c:if condition="giveItemToAllyHavingUsed">
+			<c:message value="msg_ability,cancel_using_items_team_time"/>
+			<c:message value="msg_ability,cancel_using_items_team"/>
+		</c:if>
+		<c:if condition="forbidUseBerryAgainstFoes">
+			<c:message value="msg_ability,forbid_berry_foes_time"/>
+			<c:message value="msg_ability,forbid_berry_foes"/>
+		</c:if>
+		<c:if condition="healedStatusBySwitch">
+			<c:message value="msg_ability,healed_status_by_switch_time"/>
+			<c:message value="msg_ability,healed_status_by_switch"/>
+		</c:if>
+		<c:if condition="ignFoeStatisBoost">
+			<c:message value="msg_ability,ign_foe_satis_boost_time_1"/>
+			<c:message value="msg_ability,ign_foe_satis_boost_time_2"/>
+			<c:message value="msg_ability,ign_foe_satis_boost"/>
+		</c:if>
+		<c:if condition="immuCh">
+			<c:message value="msg_ability,immu_ch_time"/>
+			<c:message value="msg_ability,immu_ch"/>
+		</c:if>
+		<c:if condition="immuDamageAllyMoves">
+			<c:message value="msg_ability,immu_damage_ally_moves_time"/>
+			<c:message value="msg_ability,immu_damage_ally_moves"/>
+		</c:if>
+		<c:if condition="immuDamageRecoil">
+			<c:message value="msg_ability,immu_damage_recoil_time"/>
+			<c:message value="msg_ability,immu_damage_recoil"/>
+		</c:if>
+		<c:if condition="immuDamageTrappingMoves">
+			<c:message value="msg_ability,immu_damage_trapping_moves_time"/>
+			<c:message value="msg_ability,immu_damage_trapping_moves"/>
+		</c:if>
+		<c:if condition="immuRechargeRound">
+			<c:if condition="!immuRechargeRoundMoves.isEmpty()">
+				<c:message value="msg_ability,immu_recharge_round_time"/>
+				<c:message value="msg_ability,immu_recharge_round"/>
+				<ul>
+					<c:for list="immuRechargeRoundMoves" var="m">
+						<li><a c:command="$clickImmuRechargeRoundMoves({([m])})" href="">{getTrImmuRechargeRoundMoves(([m]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+		</c:if>
+		<c:if condition="immuSufferedDamageLowEff">
+			<c:message value="msg_ability,immu_suffered_damage_low_eff_time"/>
+			<c:message value="msg_ability,immu_suffered_damage_low_eff"/>
+		</c:if>
+		<c:if condition="inflictingDamageInsteadOfSuffering">
+			<c:message value="msg_ability,inflicting_damage_instead_suffering_time"/>
+			<c:message value="msg_ability,inflicting_damage_instead_suffering"/>
+		</c:if>
+		<c:if condition="mumy">
+			<c:message value="msg_ability,mumy_time"/>
+			<c:message value="msg_ability,mumy"/>
+		</c:if>
+		<c:if condition="nbHits">
+			<c:message value="msg_ability,nb_hits_time"/>
+			<c:message value="msg_ability,nb_hits"/>
+		</c:if>
+		<c:if condition="plate">
+			<c:message value="msg_ability,plate"/>
+		</c:if>
+		<c:if condition="reverseEffectsPowerMovesTypesGlobal">
+			<c:if condition="!reverseEffectsPowerMovesTypesGlobalAbilities.isEmpty()">
+				<c:message value="msg_ability,reverse_effects_power_global"/>
+				<ul>
+					<c:for list="reverseEffectsPowerMovesTypesGlobalAbilities" var="m">
+						<li><a c:command="$clickReversePowerTypesAbilities({([m])})" href="">{getTrReversePowerTypesAbilities(([m]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+		</c:if>
+		<c:if condition="slowing">
+			<c:message value="msg_ability,slowing_time"/>
+			<c:message value="msg_ability,slowing"/>
+		</c:if>
+		<c:if condition="takeItemByDamagingMove">
+			<c:message value="msg_ability,achieved_disappeared_time"/>
+			<c:message value="msg_ability,achieved_disappeared"/>
+		</c:if>
+		<c:if condition="!healHpWhileUsingBerry.isZero()">
+			<c:message value="msg_ability,heal_hp_while_using_berry_time"/>
+			<c:message value="msg_ability,heal_hp_while_using_berry">
+				<param value="healHpWhileUsingBerry"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!maxHpForUsingBerry.isZero()">
+			<c:message value="msg_ability,max_hp_for_using_berry_time"/>
+			<c:message value="msg_ability,max_hp_for_using_berry">
+				<param value="maxHpForUsingBerry"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!multAllyDamage.isZero()">
+			<c:message value="msg_ability,mult_ally_damage_time"/>
+			<c:message value="msg_ability,mult_ally_damage">
+				<param value="multAllyDamage"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!multDamageCh.isZero()">
+			<c:message value="msg_ability,mult_damage_ch_time"/>
+			<c:message value="msg_ability,mult_damage_ch">
+				<param value="multDamageCh"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!multEvtRateCh.isZero()">
+			<c:message value="msg_ability,mult_evt_rate_ch_time"/>
+			<c:message value="msg_ability,mult_evt_rate_ch">
+				<param value="multEvtRateCh"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!multEvtRateSecEffectOwner.isZero()">
+			<c:message value="msg_ability,mult_evt_rate_sec_effect_owner_time"/>
+			<c:message value="msg_ability,mult_evt_rate_sec_effect_owner">
+				<param value="multEvtRateSecEffectOwner"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!multStab.isZero()">
+			<c:message value="msg_ability,mult_stab_time"/>
+			<c:message value="msg_ability,mult_stab">
+				<param value="multStab"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!multSufferedDamageSuperEff.isZero()">
+			<c:message value="msg_ability,mult_suffered_damage_super_eff_time"/>
+			<c:message value="msg_ability,mult_suffered_damage_super_eff">
+				<param value="multSufferedDamageSuperEff"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!multVarBoost.isZero()">
+			<c:message value="msg_ability,mult_var_boost_time"/>
+			<c:message value="msg_ability,mult_var_boost">
+				<param value="multVarBoost"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!recoilDamageFoe.isZero()">
+			<c:message value="msg_ability,recoil_damage_foe_time"/>
+			<c:message value="msg_ability,recoil_damage_foe">
+				<param value="recoilDamageFoe"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!recoilDamageFoeByKoOwner.isZero()">
+			<c:message value="msg_ability,recoil_damage_foe_by_ko_owner_time"/>
+			<c:message value="msg_ability,recoil_damage_foe_by_ko_owner">
+				<param value="recoilDamageFoeByKoOwner"/>
+			</c:message>
+		</c:if>
+		<c:if condition="decreaseNecStepsHatchInt()">
+			<c:message value="msg_ability,decrease_nec_steps_hatch_time"/>
+			<c:message value="msg_ability,decrease_nec_steps_hatch">
+				<param value="decreaseNecStepsHatch"/>
+			</c:message>
+		</c:if>
+		<c:if condition="nbUsedPpInt()">
+			<c:message value="msg_ability,nb_used_pp_time"/>
+			<c:message value="msg_ability,nb_used_pp">
+				<param value="nbUsedPp"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!immuMove.isEmpty()">
+			<c:message value="msg_ability,immu_moves"/>
+			<ul>
+				<c:for list="immuMove" var="m">
+					<li><a c:command="$clickImmuMove({([m])})" href="">{getTrImmuMove(([m]))}</a></li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="!immuAllyFromMoves.isEmpty()">
+			<c:message value="msg_ability,immu_ally_from_moves"/>
+			<ul>
+				<c:for list="immuAllyFromMoves" var="m">
+					<li><a c:command="$clickImmuAllyFromMoves({([m])})" href="">{getTrImmuAllyFromMoves(([m]))}</a></li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="!immuWeather.isEmpty()">
+			<c:message value="msg_ability,immu_weathers"/>
+			<ul>
+				<c:for list="immuWeather" var="m">
+					<li><a c:command="$clickWeather({([m])})" href="">{getTrWeather(([m]))}</a></li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="!ignAbility.isEmpty()">
+			<c:message value="msg_ability,ign_ability_time"/>
+			<c:message value="msg_ability,ign_ability"/>
+			<ul>
+				<c:for list="ignAbility" var="m">
+					<li><a c:command="$clickIgnAbility({([m])})" href="">{getTrIgnAbility(([m]))}</a></li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="!ignFoeTeamMove.isEmpty()">
+			<c:message value="msg_ability,ign_foe_team_move_time"/>
+			<c:message value="msg_ability,ign_foe_team_move"/>
+			<ul>
+				<c:for list="ignFoeTeamMove" var="m">
+					<li><a c:command="$clickIgnFoeTeamMove({([m])})" href="">{getTrIgnFoeTeamMove(([m]))}</a></li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="!immuAbility.isEmpty()">
+			<c:message value="msg_ability,immu_ability_time"/>
+			<c:message value="msg_ability,immu_ability"/>
+			<ul>
+				<c:for list="immuAbility" var="m">
+					<li><a c:command="$clickImmuAbility({([m])})" href="">{getTrImmuAbility(([m]))}</a></li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="!immuStatusBeginRound.isEmpty()">
+			<c:message value="msg_ability,immu_status_begin_round_time"/>
+			<c:message value="msg_ability,immu_status_begin_round"/>
+			<ul>
+				<c:for list="immuStatusBeginRound" var="m">
+					<li><a c:command="$clickImmuStatusBeginRound({([m])})" href="">{getTrImmuStatusBeginRound(([m]))}</a></li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="!typeForMoves.isEmpty()">
+			<c:message value="msg_ability,type_for_moves_time"/>
+			<c:message value="msg_ability,type_for_moves">
+				<param value="typeForMoves"/>
+			</c:message>
+		</c:if>
+		<c:if condition="typeForMoves.isEmpty()">
+			<c:if condition="!changingBoostTypes.isEmpty()">
+				<c:message value="msg_ability,changing_boost_types_time"/>
+				<c:message value="msg_ability,changing_boost_types"/>
+				<table>
+					<thead>
+						<tr>
+							<th><c:message value="msg_ability,changing_boost_types_old"/></th>
+							<th><c:message value="msg_ability,changing_boost_types_new"/></th>
+							<th><c:message value="msg_ability,changing_boost_types_rate"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="s" map="changingBoostTypes" value="r" keyClassName="java.lang.Object" varClassName="aiki.fight.util.TypeDamageBoost">
+							<tr>
+								<td>{getTrChangingBoostTypesOld(([s]))}</td>
+								<td>{getTrChangingBoostTypesNew(([s]))}</td>
+								<td>{r.getBoost()}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+		</c:if>
+		<c:if condition="!multPower.isEmpty()">
+			<c:message value="msg_ability,mult_power">
+				<param value="multPower"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!multDamage.isEmpty()">
+			<c:message value="msg_ability,mult_damage">
+				<param value="multDamage"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!healHpByWeather.isEmpty()">
+			<c:message value="msg_ability,heal_hp_by_weather_time"/>
+			<c:message value="msg_ability,heal_hp_by_weather"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,heal_hp_by_weather_key"/></th>
+						<th><c:message value="msg_ability,heal_hp_by_weather_value"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="healHpByWeather" value="r" keyClassName="java.lang.Object" varClassName="r">
+						<tr>
+							<c:if condition="isHealHpByWeather(([s]))">
+								<td><a c:command="$clickHealHpByWeatherKey({([s])})" href="">{getTrHealHpByWeatherKey(([s]))}</a></td>
+							</c:if>
+							<c:if condition="!isHealHpByWeather(([s]))">
+								<td><c:message value="msg_ability,heal_hp_by_weather_no"/></td>
+							</c:if>
+							<c:if condition="r.isZeroOrGt()">
+								<td><c:message value="msg_ability,heal_hp_by_weather_heal"><param value="r.absNb()"/></c:message></td>
+							</c:if>
+							<c:if condition="!r.isZeroOrGt()">
+								<td><c:message value="msg_ability,heal_hp_by_weather_loss"><param value="r.absNb()"/></c:message></td>
+							</c:if>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!healHpByTypeIfWeather.isEmpty()">
+			<c:message value="msg_ability,heal_hp_by_weather_type_time"/>
+			<c:message value="msg_ability,heal_hp_by_weather_type"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,heal_hp_by_weather_type_key"/></th>
+						<th><c:message value="msg_ability,heal_hp_by_weather_type_key_sec"/></th>
+						<th><c:message value="msg_ability,heal_hp_by_weather_type_value"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="healHpByTypeIfWeather" value="r" keyClassName="java.lang.Object" varClassName="r">
+						<tr>
+							<c:if condition="isHealHpByTypeIfWeather(([s]))">
+								<td><a c:command="$clickHealHpByTypeIfWeatherKey({([s])})" href="">{getTrHealHpByTypeIfWeatherKey(([s]))}</a></td>
+							</c:if>
+							<c:if condition="!isHealHpByTypeIfWeather(([s]))">
+								<td><c:message value="msg_ability,heal_hp_by_weather_type_no"/></td>
+							</c:if>
+							<td>{getTrHealHpByTypeIfWeatherKeySec(([s]))}</td>
+							<c:if condition="r.isZeroOrGt()">
+								<td><c:message value="msg_ability,heal_hp_by_weather_type_heal"><param value="r.absNb()"/></c:message></td>
+							</c:if>
+							<c:if condition="!r.isZeroOrGt()">
+								<td><c:message value="msg_ability,heal_hp_by_weather_type_loss"><param value="r.absNb()"/></c:message></td>
+							</c:if>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!immuLowStat.isEmpty()">
+			<c:message value="msg_ability,immu_low_stat_time"/>
+			<c:message value="msg_ability,immu_low_stat"/>
+			<ul>
+				<c:for list="immuLowStat" var="m">
+					<li>{getTrImmuLowStat(([m]))}</li>
+				</c:for>
+			</ul>
+			<c:message value="msg_ability,immu_low_stat_2"/>
+		</c:if>
+		<c:if condition="!immuLowStatIfStatus.isEmpty()">
+			<c:message value="msg_ability,immu_low_stat_aff_time"/>
+			<c:message value="msg_ability,immu_low_stat_aff"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,immu_low_stat_aff_key"/></th>
+						<th><c:message value="msg_ability,immu_low_stat_aff_value"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for list="immuLowStatIfStatus" var="s">
+						<tr>
+							<td><a c:command="$clickImmuLowStatIfStatusKey({([s])})" href="">{getTrImmuLowStatIfStatusKey(([s]))}</a></td>
+							<td>{getTrImmuLowStatIfStatusValue(([s]))}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!immuLowStatisTypes.isEmpty()">
+			<c:message value="msg_ability,immu_low_statis_types_time"/>
+			<c:message value="msg_ability,immu_low_statis_types"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,immu_low_statis_types_key"/></th>
+						<th><c:message value="msg_ability,immu_low_statis_types_value"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="immuLowStatisTypes" value="r" keyClassName="java.lang.Object" varClassName="ls">
+						<c:for list="r" var="t">
+							<tr>
+								<td>{getTrImmuLowStatisTypes(([s]))}</td>
+								<td>{getTrImmuLowStatisValue(([s]),([t]))}</td>
+							</tr>
+						</c:for>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!maxStatisticsIfCh.isEmpty()">
+			<c:message value="msg_ability,max_statistics_if_ch_time"/>
+			<c:message value="msg_ability,max_statistics_if_ch"/>
+			<ul>
+				<c:for list="maxStatisticsIfCh" var="m">
+					<li>{getTrMaxStatisticsIfCh(([m]))}</li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="!singleStatus.isEmpty()">
+			<c:message value="msg_ability,single_status_time"/>
+			<c:message value="msg_ability,single_status"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,single_status_key"/></th>
+						<th><c:message value="msg_ability,single_status_rate"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="singleStatus" value="r" keyClassName="java.lang.Object" varClassName="r">
+						<tr>
+							<c:if condition="isStatus(([s]))">
+								<td><a c:command="$clickSingleStatus({([s])})" href="">{getTrSingleStatus(([s]))}</a></td>
+							</c:if>
+							<c:if condition="!isStatus(([s]))">
+								<td><c:message value="msg_ability,single_status_no"/></td>
+							</c:if>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!immuMoveTypesByWeather.isEmpty()">
+			<c:message value="msg_ability,immu_move_types_weather_time"/>
+			<c:message value="msg_ability,immu_move_types_weather"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,immu_move_types_weather_key"/></th>
+						<th><c:message value="msg_ability,immu_move_types_weather_type"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="immuMoveTypesByWeather" value="r" keyClassName="java.lang.Object" varClassName="ls">
+						<c:for list="r" var="t">
+							<tr>
+								<c:if condition="isMoveByWeather(([s]))">
+									<td><a c:command="$clickImmuMoveByWeather({([s])})" href="">{getTrImmuMoveByWeather(([s]))}</a></td>
+								</c:if>
+								<c:if condition="!isMoveByWeather(([s]))">
+									<td><c:message value="msg_ability,immu_move_types_weather_no"/></td>
+								</c:if>
+								<td>{getTrImmuTypeByWeather(([s]),([t]))}</td>
+							</tr>
+						</c:for>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!immuStatus.isEmpty()">
+			<c:message value="msg_ability,immu_status_time"/>
+			<c:message value="msg_ability,immu_status"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,immu_status_key"/></th>
+						<th><c:message value="msg_ability,immu_status_status"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="immuStatus" value="r" keyClassName="java.lang.Object" varClassName="ls">
+						<c:for list="r" var="t">
+							<tr>
+								<c:if condition="isMoveByStatus(([s]))">
+									<td><a c:command="$clickImmuStatusWeather({([s])})" href="">{getTrImmuStatusWeather(([s]))}</a></td>
+								</c:if>
+								<c:if condition="!isMoveByStatus(([s]))">
+									<td><c:message value="msg_ability,immu_status_no"/></td>
+								</c:if>
+								<td><a c:command="$clickImmuStatus({([s])},{([t])})" href="">{getTrImmuStatus(([s]),([t]))}</a></td>
+							</tr>
+						</c:for>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!immuStatusTypes.isEmpty()">
+			<c:message value="msg_ability,immu_status_type_time"/>
+			<c:message value="msg_ability,immu_status_type"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,immu_status_type_key"/></th>
+						<th><c:message value="msg_ability,immu_status_type_status"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="immuStatusTypes" value="r" keyClassName="java.lang.Object" varClassName="ls">
+						<c:for list="r" var="t">
+							<tr>
+								<td>{getTrImmuStatusTypes(([s]))}</td>
+								<td><a c:command="$clickImmuStatusTypes({([s])},{([t])})" href="">{getTrImmuStatusValue(([s]),([t]))}</a></td>
+							</tr>
+						</c:for>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!divideStatusRound.isEmpty()">
+			<c:message value="msg_ability,divide_status_round_time"/>
+			<c:message value="msg_ability,divide_status_round"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,divide_status_round_key"/></th>
+						<th><c:message value="msg_ability,divide_status_round_value"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="divideStatusRound" value="r" keyClassName="java.lang.Object" varClassName="r">
+						<tr>
+							<td><a c:command="$clickDivideStatusRoundKey({([s])})" href="">{getTrDivideStatusRoundKey(([s]))}</a></td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!forwardStatus.isEmpty()">
+			<c:message value="msg_ability,forward_status_time"/>
+			<c:message value="msg_ability,forward_status"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,forward_status_key"/></th>
+						<th><c:message value="msg_ability,forward_status_value"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="forwardStatus" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Object">
+						<tr>
+							<td><a c:command="$clickForwardStatusKey({([s])})" href="">{getTrForwardStatusKey(([s]))}</a></td>
+							<td><a c:command="$clickForwardStatusValue({([s])})" href="">{getTrForwardStatusValue(([s]))}</a></td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!breakFoeImmune.isEmpty()">
+			<c:message value="msg_ability,break_foe_immune_time"/>
+			<c:message value="msg_ability,break_foe_immune"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,break_foe_immune_key"/></th>
+						<th><c:message value="msg_ability,break_foe_immune_value"/></th>
+						<th><c:message value="msg_ability,break_foe_immune_value_rate"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for list="breakFoeImmune" var="s">
+						<tr>
+							<td>{getTrBreakFoeImmuneKey(([s]))}</td>
+							<td>{getTrBreakFoeImmuneValue(([s]))}</td>
+							<td>{defEff}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!multStat.isEmpty()">
+			<c:message value="msg_ability,mult_stat"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,mult_stat_key"/></th>
+						<th><c:message value="msg_ability,mult_stat_rate"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="multStat" value="r" keyClassName="java.lang.Object" varClassName="java.lang.String">
+						<tr>
+							<td>{getTrMultStat(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!multStatIfDamageCat.isEmpty()">
+			<c:message value="msg_ability,mult_stat_damage_cat_time"/>
+			<c:message value="msg_ability,mult_stat_damage_cat"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,mult_stat_damage_cat_key"/></th>
+						<th><c:message value="msg_ability,mult_stat_damage_cat_key_sec"/></th>
+						<th><c:message value="msg_ability,mult_stat_damage_cat_var"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="multStatIfDamageCat" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
+						<tr>
+							<td>{getTrMultStatIfDamageCatKey(([s]))}</td>
+							<td>{getTrMultStatIfDamageCatKeySec(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!multStatIfDamgeType.isEmpty()">
+			<c:message value="msg_ability,mult_stat_damage_type_time"/>
+			<c:message value="msg_ability,mult_stat_damage_type"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,mult_stat_damage_type_key"/></th>
+						<th><c:message value="msg_ability,mult_stat_damage_type_key_sec"/></th>
+						<th><c:message value="msg_ability,mult_stat_damage_type_var"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="multStatIfDamgeType" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
+						<tr>
+							<td>{getTrMultStatIfDamgeType(([s]))}</td>
+							<td>{getTrMultStatIfDamgeTypeSec(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!multStatIfCat.isEmpty()">
+			<c:message value="msg_ability,mult_stat_cat_time"/>
+			<c:message value="msg_ability,mult_stat_cat"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,mult_stat_cat_key"/></th>
+						<th><c:message value="msg_ability,mult_stat_cat_key_sec"/></th>
+						<th><c:message value="msg_ability,mult_stat_cat_rate"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="multStatIfCat" value="r" keyClassName="java.lang.Object" varClassName="r">
+						<tr>
+							<td>{getTrMultStatIfCatKey(([s]))}</td>
+							<td>{getTrMultStatIfCatKeySec(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!multStatIfStatutRank.isEmpty()">
+			<c:message value="msg_ability,mult_stat_status_rank_time"/>
+			<c:message value="msg_ability,mult_stat_status_rank"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,mult_stat_status_rank_key"/></th>
+						<th><c:message value="msg_ability,mult_stat_status_rank_key_sec"/></th>
+						<th><c:message value="msg_ability,mult_stat_status_rank_var"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="multStatIfStatutRank" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
+						<tr>
+							<td>{getTrMultStatIfStatutRank(([s]))}</td>
+							<td><a c:command="$clickMultStatIfStatutRankSec({([s])})" href="">{getTrMultStatIfStatutRankSec(([s]))}</a></td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!bonusStatRank.isEmpty()">
+			<c:message value="msg_ability,bonus_stat_rank_time"/>
+			<c:message value="msg_ability,bonus_stat_rank"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,bonus_stat_rank_key"/></th>
+						<th><c:message value="msg_ability,bonus_stat_rank_boost"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="bonusStatRank" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
+						<tr>
+							<td>{getTrBonusStatRank(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!boostStatRankEndRound.isEmpty()">
+			<c:message value="msg_ability,bonus_stat_rank_end_round_time"/>
+			<c:message value="msg_ability,bonus_stat_rank_end_round"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,bonus_stat_rank_end_round_key"/></th>
+						<th><c:message value="msg_ability,bonus_stat_rank_end_round_boost"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="boostStatRankEndRound" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
+						<tr>
+							<td>{getTrBoostStatRankEndRound(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!boostStatRankProtected.isEmpty()">
+			<c:message value="msg_ability,bonus_stat_rank_protected_time"/>
+			<c:message value="msg_ability,bonus_stat_rank_protected"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,bonus_stat_rank_protected_key"/></th>
+						<th><c:message value="msg_ability,bonus_stat_rank_protected_boost"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="boostStatRankProtected" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
+						<tr>
+							<td>{getTrBoostStatRankProtected(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!lowStatFoeHit.isEmpty()">
+			<c:message value="msg_ability,low_stat_foe_hit_time"/>
+			<c:message value="msg_ability,low_stat_foe_hit"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,low_stat_foe_hit_key"/></th>
+						<th><c:message value="msg_ability,low_stat_foe_hit_boost"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="lowStatFoeHit" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
+						<tr>
+							<td>{getTrLowStatFoeHit(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!multStatIfKoFoe.isEmpty()">
+			<c:message value="msg_ability,mult_stat_if_ko_foe_time"/>
+			<c:message value="msg_ability,mult_stat_if_ko_foe"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,mult_stat_if_ko_foe_key"/></th>
+						<th><c:message value="msg_ability,mult_stat_if_ko_foe_boost"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="multStatIfKoFoe" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
+						<tr>
+							<td>{getTrMultStatIfKoFoe(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!multStatIfLowStat.isEmpty()">
+			<c:message value="msg_ability,mult_stat_if_low_stat_time"/>
+			<c:message value="msg_ability,mult_stat_if_low_stat"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,mult_stat_if_low_stat_key"/></th>
+						<th><c:message value="msg_ability,mult_stat_if_low_stat_boost"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="multStatIfLowStat" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Byte">
+						<tr>
+							<td>{getTrMultStatIfLowStat(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!multStatAlly.isEmpty()">
+			<c:message value="msg_ability,mult_stat_ally"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,mult_stat_ally_key"/></th>
+						<th><c:message value="msg_ability,mult_stat_ally_rate"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="multStatAlly" value="r" keyClassName="java.lang.Object" varClassName="r">
+						<tr>
+							<td>{getTrMultStatAlly(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!increasedPrio.isEmpty()">
+			<c:message value="msg_ability,increased_prio_time"/>
+			<c:message value="msg_ability,increased_prio"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,increased_prio_cat"/></th>
+						<th><c:message value="msg_ability,increased_prio_inc"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="increasedPrio" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Short">
+						<tr>
+							<td>{getTrIncreasedPrio(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!increasedPrioTypes.isEmpty()">
+			<c:message value="msg_ability,increased_prio_type_time"/>
+			<c:message value="msg_ability,increased_prio_type"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,increased_prio_type_key"/></th>
+						<th><c:message value="msg_ability,increased_prio_type_inc"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="increasedPrioTypes" value="r" keyClassName="java.lang.Object" varClassName="java.lang.Short">
+						<tr>
+							<td>{getTrIncreasedPrioTypes(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!multDamageFoe.isEmpty()">
+			<c:message value="msg_ability,mult_damage_foe_time"/>
+			<c:message value="msg_ability,mult_damage_foe"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,mult_damage_foe_type"/></th>
+						<th><c:message value="msg_ability,mult_damage_foe_rate"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="multDamageFoe" value="r" keyClassName="java.lang.Object" varClassName="r">
+						<tr>
+							<td>{getTrMultDamageFoe(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!multPowerMovesTypesGlobal.isEmpty()">
+			<c:message value="msg_ability,mult_power_moves_types_global_time"/>
+			<c:message value="msg_ability,mult_power_moves_types_global"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,mult_power_moves_types_global_move"/></th>
+						<th><c:message value="msg_ability,mult_power_moves_types_global_rate"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="multPowerMovesTypesGlobal" value="r" keyClassName="java.lang.Object" varClassName="r">
+						<tr>
+							<td>{getTrMultPowerMovesTypesGlobalKey(([s]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!failStatus.isEmpty()">
+			<c:message value="msg_ability,fail_status"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_ability,fail_status_key"/></th>
+						<th><c:message value="msg_ability,fail_status_cond"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="failStatus" value="r" keyClassName="java.lang.Object" varClassName="java.lang.String">
+						<tr>
+							<td><a c:command="$clickFailStatus({([s])})" href="">{getTrFailStatus(([s]))}</a></td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="!mapVars.isEmpty()">
+			<ul>
+				<c:for key="k" map="mapVars" value="v" keyClassName="java.lang.String" varClassName="java.lang.String">
+					<li>{k} :
+						<c:message quoted="" value="msg_ability,formula">
+							<param value="v"/>
+						</c:message>
+					</li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="!healedHpRateBySwitch.isZero()">
+			<c:message value="msg_ability,healed_hp_rate_by_switch_time"/>
+			<c:message value="msg_ability,healed_hp_rate_by_switch">
+				<param value="healedHpRateBySwitch"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!pokemon.isEmpty()">
+			<c:message value="msg_ability,learnt_pk">
+				<param value="displayName"/>
+			</c:message>
+			<ul>
+				<c:for list="pokemon" var="p">
+					<li><a c:command="$clickPokemon({([p])})" href="">{getTrPokemon(([p]))}</a></li>
+				</c:for>
+			</ul>
+		</c:if>
+	</body>
+</html>

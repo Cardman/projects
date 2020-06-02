@@ -1,0 +1,21 @@
+<aiki.fight.status.Status>
+<aiki.fight.status.StatusType class="aiki.fight.status.Status" field="statusType" value="RELATION_UNIQUE"/>
+<r class="aiki.fight.status.Status" field="catchingRate" value="3/2"/>
+<l class="aiki.fight.status.Status" field="effectEndRound">
+<aiki.fight.moves.effects.EffectEndRoundStatusRelation class="a">
+<r class="aiki.fight.moves.effects.EffectEndRoundStatusRelation" field="thievedHpRateTargetToUser" value="0"/>
+<r class="aiki.fight.moves.effects.EffectEndRoundStatus" field="inflictedRateHpTarget" value="1/8"/>
+<java.lang.String class="aiki.fight.moves.effects.EffectEndRound" field="failEndRound" value=""/>
+<java.lang.Integer class="aiki.fight.moves.effects.EffectEndRound" field="endRoundRank" value="57"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="NOTHING"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
+<n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects"/>
+</aiki.fight.moves.effects.EffectEndRoundStatusRelation>
+</l>
+<l class="aiki.fight.status.Status" field="effectsPartner"/>
+<java.lang.Boolean class="aiki.fight.status.Status" field="disabledEffIfSwitch" value="false"/>
+<java.lang.Integer class="aiki.fight.status.Status" field="incrementEndRound" value="0"/>
+<java.lang.Boolean class="aiki.fight.status.Status" field="incrementingEndRound" value="false"/>
+<em class="aiki.fight.status.Status" field="multStat"/>
+<java.lang.String class="aiki.fight.status.Status" field="fail" value=""/>
+</aiki.fight.status.Status>

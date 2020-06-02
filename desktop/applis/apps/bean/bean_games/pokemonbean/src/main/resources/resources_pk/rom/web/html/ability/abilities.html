@@ -1,0 +1,21 @@
+<html xmlns:c="javahtml" c:bean="abilities">
+	<head>
+		<title><c:message value="msg_abilities,title"/></title>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_abilities,index"/></a>
+		<br/>
+		<form action="" c:command="$search" method="post" name="searching">
+			<c:message value="msg_abilities,content"/>
+			<input c:varValue="typedAbility" name="typedAbility" type="text"/><br/>
+			<input type="submit" value="OK"/>
+		</form>
+		<br/>
+		<ul>
+			<c:for list="sortedAbilities" var="a">
+				<li><a c:command="$clickAbility({([a])})" href="">{getTrAbility(([a]))}</a></li>
+			</c:for>
+		</ul>
+	</body>
+</html>

@@ -1,0 +1,20 @@
+<html xmlns:c="javahtml" c:bean="repel">
+	<head>
+		<title><c:message value="msg_item,title"><param value="displayName"/></c:message></title>
+		<link href="web/css/items.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:import page="{itemBean}">
+			<c:package name="aiki.beans.items">
+				<c:class name="ItemBean">
+					<c:field prepare="$intern.name=name"/>
+				</c:class>
+			</c:package>
+		</c:import>
+		<p>
+			<c:message value="msg_repel,steps">
+				<param value="steps"/>
+			</c:message>
+		</p>
+	</body>
+</html>

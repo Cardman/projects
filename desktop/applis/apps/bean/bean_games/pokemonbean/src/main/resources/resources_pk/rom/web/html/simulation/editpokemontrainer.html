@@ -1,0 +1,94 @@
+<html xmlns:c="javahtml" c:bean="edittrainerpokemon">
+	<head>
+		<title><c:message value="msg_levelsimu,title_edit_pokemon_tr"/></title>
+		<link href="web/css/simulation.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="$cancel" href=""><c:message value="msg_levelsimu,cancel"/></a>
+		<form action="" c:command="$chooseName" method="post" name="namePk">
+			<c:submit message="msg_simulation,name_pk"/>
+		</form>
+		<form action="" c:command="$chooseItem" method="post" name="item">
+			<c:submit message="msg_simulation,item_pk"/>
+		</form>
+		<form action="" c:command="$chooseAbility" method="post" name="ability">
+			<c:submit message="msg_simulation,ability_pk"/>
+		</form>
+		<form action="" c:command="$addMoves" method="post" name="adding_moves">
+			<c:submit message="msg_simulation,add"/>
+		</form>
+		<form action="" c:command="$deleteMoves" method="post" name="delete_moves">
+			<table>
+				<caption><c:message value="msg_moves,moves"/></caption>
+				<thead>
+					<tr>
+						<th><c:message value="msg_moves,name_h"/></th>
+						<th><c:message value="msg_moves,pp_h"/></th>
+						<th><c:message value="msg_moves,types_h"/></th>
+						<th><c:message value="msg_moves,cat_h"/></th>
+						<th><c:message value="msg_moves,damag_h"/></th>
+						<th><c:message value="msg_moves,direc_h"/></th>
+						<th><c:message value="msg_moves,prio_h"/></th>
+						<th><c:message value="msg_simulation,selected"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for className="aiki.beans.facade.simulation.dto.SelectLineMove" list="moves" var="d">
+						<tr>
+							<td>{d.displayName}</td>
+							<td>{d.pp}</td>
+							<td>
+								<c:for list="d.getTypes()" var="t" className='java.lang.String'>
+									{t} -
+								</c:for>
+							</td>
+							<td>{d.category}</td>
+							<td>
+								<c:if condition="d.isDamageMove()">
+									<c:message value="msg_moves,damaging"/>
+								</c:if>
+								<c:if condition="!d.isDamageMove()">
+									<c:message value="msg_moves,status"/>
+								</c:if>
+							</td>
+							<td>
+								<c:if condition="!d.isDamageMove()">
+									<c:message value="msg_moves,status_indirect"/>
+								</c:if>
+								<c:if condition="d.isDamageMove()">
+									<c:if condition="d.isDirect()">
+										<c:message value="msg_moves,damaging_direct"/>
+									</c:if>
+									<c:if condition="!d.isDirect()">
+										<c:message value="msg_moves,damaging_indirect"/>
+									</c:if>
+								</c:if>
+							</td>
+							<td>{d.priority}</td>
+							<td>
+								<input c:varValue="d.selected" name="d.selected" type="checkbox"/>
+							</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<c:submit message="msg_simulation,remove"/>
+		</form>
+		<form action="" c:command="$validateTrainerPk" method="post" name="adding">
+			<fieldset>
+				<c:message value="msg_simulation,name_pk"/> {getTranslatedName()}<br/>
+				<c:message value="msg_simulation,ability_pk"/> {getTranslatedAbility()}<br/>
+				<c:message value="msg_simulation,item_pk"/> {getTranslatedItem()}<br/>
+				<c:message value="msg_simulation,gender_pk"/>
+				<c:select default="" map="genders" name="gender" update="" varValue="gender"/><br/>
+				<c:message value="msg_simulation,level_pk"/>
+				<input c:varValue="level" name="level" type="text"/><br/>
+				<c:if condition="add">
+					<c:message value="msg_simulation,ally_pk"/>
+					<input c:varValue="allyPk" name="allyPk" type="checkbox"/><br/>
+				</c:if>
+				<input type="submit" value="OK"/>
+			</fieldset>
+		</form>
+	</body>
+</html>

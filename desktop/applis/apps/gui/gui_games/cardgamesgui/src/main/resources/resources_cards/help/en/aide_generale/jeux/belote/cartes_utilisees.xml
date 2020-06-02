@@ -1,0 +1,87 @@
+<cfg>
+	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/help//aide_generale/jeux/belote/cartes_utilisees.html"/>
+	<java.lang.String class="cfg" field="prefix" value="c"/>
+	<sm class="cfg" field="navigation"/>
+	<java.lang.String class="cfg" field="messagesFolder" value=""/>
+	<sm class="cfg" field="properties"/>
+	<sl field="addedFiles">
+		<str value="resources_cards/images/en/EXCUSE.txt"/>
+		<str value="resources_cards/images/en/TRUMP_21.txt"/>
+		<str value="resources_cards/images/en/TRUMP_20.txt"/>
+		<str value="resources_cards/images/en/TRUMP_19.txt"/>
+		<str value="resources_cards/images/en/TRUMP_18.txt"/>
+		<str value="resources_cards/images/en/TRUMP_17.txt"/>
+		<str value="resources_cards/images/en/TRUMP_16.txt"/>
+		<str value="resources_cards/images/en/TRUMP_15.txt"/>
+		<str value="resources_cards/images/en/TRUMP_14.txt"/>
+		<str value="resources_cards/images/en/TRUMP_13.txt"/>
+		<str value="resources_cards/images/en/TRUMP_12.txt"/>
+		<str value="resources_cards/images/en/TRUMP_11.txt"/>
+		<str value="resources_cards/images/en/TRUMP_10.txt"/>
+		<str value="resources_cards/images/en/TRUMP_9.txt"/>
+		<str value="resources_cards/images/en/TRUMP_8.txt"/>
+		<str value="resources_cards/images/en/TRUMP_7.txt"/>
+		<str value="resources_cards/images/en/TRUMP_6.txt"/>
+		<str value="resources_cards/images/en/TRUMP_5.txt"/>
+		<str value="resources_cards/images/en/TRUMP_4.txt"/>
+		<str value="resources_cards/images/en/TRUMP_3.txt"/>
+		<str value="resources_cards/images/en/TRUMP_2.txt"/>
+		<str value="resources_cards/images/en/TRUMP_1.txt"/>
+		<str value="resources_cards/images/en/HEART_KING.txt"/>
+		<str value="resources_cards/images/en/HEART_QUEEN.txt"/>
+		<str value="resources_cards/images/en/HEART_KNIGHT.txt"/>
+		<str value="resources_cards/images/en/HEART_JACK.txt"/>
+		<str value="resources_cards/images/en/HEART_10.txt"/>
+		<str value="resources_cards/images/en/HEART_9.txt"/>
+		<str value="resources_cards/images/en/HEART_8.txt"/>
+		<str value="resources_cards/images/en/HEART_7.txt"/>
+		<str value="resources_cards/images/en/HEART_6.txt"/>
+		<str value="resources_cards/images/en/HEART_5.txt"/>
+		<str value="resources_cards/images/en/HEART_4.txt"/>
+		<str value="resources_cards/images/en/HEART_3.txt"/>
+		<str value="resources_cards/images/en/HEART_2.txt"/>
+		<str value="resources_cards/images/en/HEART_1.txt"/>
+		<str value="resources_cards/images/en/SPADE_KING.txt"/>
+		<str value="resources_cards/images/en/SPADE_QUEEN.txt"/>
+		<str value="resources_cards/images/en/SPADE_KNIGHT.txt"/>
+		<str value="resources_cards/images/en/SPADE_JACK.txt"/>
+		<str value="resources_cards/images/en/SPADE_10.txt"/>
+		<str value="resources_cards/images/en/SPADE_9.txt"/>
+		<str value="resources_cards/images/en/SPADE_8.txt"/>
+		<str value="resources_cards/images/en/SPADE_7.txt"/>
+		<str value="resources_cards/images/en/SPADE_6.txt"/>
+		<str value="resources_cards/images/en/SPADE_5.txt"/>
+		<str value="resources_cards/images/en/SPADE_4.txt"/>
+		<str value="resources_cards/images/en/SPADE_3.txt"/>
+		<str value="resources_cards/images/en/SPADE_2.txt"/>
+		<str value="resources_cards/images/en/SPADE_1.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_KING.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_QUEEN.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_KNIGHT.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_JACK.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_10.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_9.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_8.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_7.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_6.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_5.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_4.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_3.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_2.txt"/>
+		<str value="resources_cards/images/en/DIAMOND_1.txt"/>
+		<str value="resources_cards/images/en/CLUB_KING.txt"/>
+		<str value="resources_cards/images/en/CLUB_QUEEN.txt"/>
+		<str value="resources_cards/images/en/CLUB_KNIGHT.txt"/>
+		<str value="resources_cards/images/en/CLUB_JACK.txt"/>
+		<str value="resources_cards/images/en/CLUB_10.txt"/>
+		<str value="resources_cards/images/en/CLUB_9.txt"/>
+		<str value="resources_cards/images/en/CLUB_8.txt"/>
+		<str value="resources_cards/images/en/CLUB_7.txt"/>
+		<str value="resources_cards/images/en/CLUB_6.txt"/>
+		<str value="resources_cards/images/en/CLUB_5.txt"/>
+		<str value="resources_cards/images/en/CLUB_4.txt"/>
+		<str value="resources_cards/images/en/CLUB_3.txt"/>
+		<str value="resources_cards/images/en/CLUB_2.txt"/>
+		<str value="resources_cards/images/en/CLUB_1.txt"/>
+	</sl>
+</cfg>

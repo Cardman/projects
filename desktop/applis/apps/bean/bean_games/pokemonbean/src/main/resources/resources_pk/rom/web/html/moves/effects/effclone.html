@@ -1,0 +1,52 @@
+<html xmlns:c="javahtml" c:bean="eff_clone">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effclone,effect">
+				<param value="hpRateClone"/>
+			</c:message>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field prepare="$intern.index=index"/>
+						<c:field prepare="$intern.move=move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:message value="msg_effclone,effect_2"/>
+			<c:if condition="!movesEndRound.isEmpty()">
+				<c:message value="msg_effclone,effect_3"/>
+				<ul>
+					<c:for list="movesEndRound" var="m">
+						<li><a c:command="$clickMoveEndRound({([m])})" href="">{getTrMovesEndRound(([m]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!movesBatonPass.isEmpty()">
+				<c:if condition="!movesSending.isEmpty()">
+					<c:message value="msg_effclone,effect_4"/>
+					<ul>
+						<c:for list="movesBatonPass" var="m">
+							<li><a c:command="$clickMoveBatonPass({([m])})" href="">{getTrMovesBatonPass(([m]))}</a></li>
+						</c:for>
+					</ul>
+					<br/>
+					<c:message value="msg_effclone,effect_5"/>
+					<ul>
+						<c:for list="movesSending" var="m">
+							<li><a c:command="$clickMoveSending({([m])})" href="">{getTrMovesSending(([m]))}</a></li>
+						</c:for>
+					</ul>
+					<br/>
+				</c:if>
+			</c:if>
+			<c:message value="msg_effclone,effect_6"/>
+			<c:message value="msg_effclone,effect_7"/>
+			<c:message value="msg_effclone,effect_8"/>
+			<c:message value="msg_effclone,effect_9"/>
+		</p>
+	</body>
+</html>

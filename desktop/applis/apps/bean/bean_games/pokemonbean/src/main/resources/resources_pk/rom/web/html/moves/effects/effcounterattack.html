@@ -1,0 +1,113 @@
+<html xmlns:c="javahtml" c:bean="eff_counterattack">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effcounterattack,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field prepare="$intern.index=index"/>
+						<c:field prepare="$intern.move=move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="!sufferingDamageTypes.isEmpty()">
+				<c:message value="msg_effcounterattack,suffering_types">
+					<param value="move"/>
+				</c:message>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effcounterattack,suffering_types_t"/>
+							</th>
+							<th>
+								<c:message value="msg_effcounterattack,suffering_types_hp"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" map="sufferingDamageTypes" value="r" keyClassName="java.lang.Object" varClassName='r'>
+							<tr>
+								<td>{getTrSufferingDamageTypes(([c]))}</td>
+								<td>{r}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!droppedStatDirectMove.isEmpty()">
+				<c:message value="msg_effcounterattack,dropped_stat">
+					<param value="move"/>
+				</c:message>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effcounterattack,dropped_stat_s"/>
+							</th>
+							<th>
+								<c:message value="msg_effcounterattack,dropped_stat_v"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" map="droppedStatDirectMove" value="r" keyClassName="java.lang.Object" varClassName='java.lang.Byte'>
+							<tr>
+								<td>{getTrDroppedStatDirectMove(([c]))}</td>
+								<td>{r}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!sufferingDamageDirectMove.isZero()">
+				<c:message value="msg_effcounterattack,suffering_direct">
+					<param value="move"/>
+					<param value="sufferingDamageDirectMove"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!reasonsProtect.isEmpty()">
+				<p>
+					<c:message value="msg_effcounterattack,fail_protect">
+						<param value="move"/>
+					</c:message>
+					<ul>
+						<c:for list="reasonsProtect" var="r" className='java.lang.String'>
+							<li>{r}</li>
+						</c:for>
+					</ul>
+					<br/>
+				</p>
+			</c:if>
+			<c:if condition="!reasonsCounter.isEmpty()">
+				<p>
+					<c:message value="msg_effcounterattack,counter_protect">
+						<param value="move"/>
+					</c:message>
+					<ul>
+						<c:for list="reasonsCounter" var="r" className='java.lang.String'>
+							<li>{r}</li>
+						</c:for>
+					</ul>
+					<br/>
+				</p>
+			</c:if>
+			<c:if condition="!getMapVarsFailCounter().isEmpty()">
+				<ul>
+					<c:for key="c" map="getMapVarsFailCounter()" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
+						<li>{c} :
+							<c:message quoted="" value="msg_effcounterattack,formula">
+								<param value="r"/>
+							</c:message>
+						</li>
+					</c:for>
+				</ul>
+			</c:if>
+		</p>
+	</body>
+</html>

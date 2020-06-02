@@ -1,0 +1,19 @@
+<html xmlns:c="javahtml" c:bean="eff_accuracy">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effaccuracy,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field prepare="$intern.index=index"/>
+						<c:field prepare="$intern.move=move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:message value="msg_effaccuracy,accuracy_max"/>
+		</p>
+	</body>
+</html>

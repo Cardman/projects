@@ -1,0 +1,50 @@
+<aiki.fight.items.ItemForBattle>
+<sl class="aiki.fight.items.ItemForBattle" field="typesPk">
+<java.lang.String class="a" value="PLANTE"/>
+</sl>
+<java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="cancelImmuType" value="false"/>
+<java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="againstEvo" value="false"/>
+<java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="attackLast" value="false"/>
+<java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="boostExp" value="false"/>
+<sl class="aiki.fight.items.ItemForBattle" field="immuStatus"/>
+<java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="immuLowStatis" value="false"/>
+<sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundTrap"/>
+<java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="attacksSoon" value="false"/>
+<java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="repellingWildPk" value="false"/>
+<sl class="aiki.fight.items.ItemForBattle" field="synchroStatus"/>
+<sm class="aiki.fight.items.ItemForBattle" field="failStatus"/>
+<r class="aiki.fight.items.ItemForBattle" field="protectAgainstKo" value="0"/>
+<r class="aiki.fight.items.ItemForBattle" field="protectAgainstKoIfFullHp" value="0"/>
+<r class="aiki.fight.items.ItemForBattle" field="drainedHpByDamageRate" value="0"/>
+<em class="aiki.fight.items.ItemForBattle" field="winEvFight"/>
+<mcb class="aiki.fight.items.ItemForBattle" field="lawForAttackFirst">
+<bm class="mcb" field="law"/>
+</mcb>
+<r class="aiki.fight.items.ItemForBattle" field="multTrappingDamage" value="0"/>
+<r class="aiki.fight.items.ItemForBattle" field="multWinningMoney" value="0"/>
+<r class="aiki.fight.items.ItemForBattle" field="multWinningHappiness" value="0"/>
+<r class="aiki.fight.items.ItemForBattle" field="multWinningEv" value="0"/>
+<r class="aiki.fight.items.ItemForBattle" field="multWinningExp" value="0"/>
+<java.lang.String class="aiki.fight.items.ItemForBattle" field="multPower" value="6/5*cardinal(inter({VAR__ATTAQUE_TYPES},{PLANTE}))+cardinal(complementaire({PLANTE},{VAR__ATTAQUE_TYPES}))"/>
+<java.lang.String class="aiki.fight.items.ItemForBattle" field="multDamage" value=""/>
+<r class="aiki.fight.items.ItemForBattle" field="multDrainedHp" value="0"/>
+<r class="aiki.fight.items.ItemForBattle" field="damageRecoil" value="0"/>
+<em class="aiki.fight.items.ItemForBattle" field="multStatRank"/>
+<om class="aiki.fight.items.ItemForBattle" field="multStatPokemonRank"/>
+<em class="aiki.fight.items.ItemForBattle" field="multStat"/>
+<sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundGlobalMove"/>
+<sm class="aiki.fight.items.ItemForBattle" field="increasingMaxNbRoundTeamMove"/>
+<sl class="aiki.fight.items.ItemForBattle" field="immuMoves"/>
+<sl class="aiki.fight.items.ItemForBattle" field="hatching"/>
+<sl class="aiki.fight.items.ItemForBattle" field="immuTypes"/>
+<sl class="aiki.fight.items.ItemForBattle" field="immuWeather"/>
+<em class="aiki.fight.items.ItemForBattle" field="boostStatisSuperEff"/>
+<sm class="aiki.fight.items.ItemForBattle" field="boostStatisTypes"/>
+<java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="detruitSiContact" value="false"/>
+<java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="switchPossibleSiTouche" value="false"/>
+<java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="switchForceAdvSiTouche" value="false"/>
+<java.lang.Boolean class="aiki.fight.items.ItemForBattle" field="transfertObjSiContact" value="false"/>
+<l class="aiki.fight.items.ItemForBattle" field="effectEndRound"/>
+<l class="aiki.fight.items.ItemForBattle" field="effectSending"/>
+<java.lang.Integer class="aiki.fight.items.Item" field="price" value="1000"/>
+</aiki.fight.items.ItemForBattle>

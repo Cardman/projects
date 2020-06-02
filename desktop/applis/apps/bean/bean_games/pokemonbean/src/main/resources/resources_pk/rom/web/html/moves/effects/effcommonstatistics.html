@@ -1,0 +1,50 @@
+<html xmlns:c="javahtml" c:bean="eff_commonstatistics">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effcommonstatistics,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field prepare="$intern.index=index"/>
+						<c:field prepare="$intern.move=move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:message value="msg_effcommonstatistics,common"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_effcommonstatistics,common_stat"/></th>
+						<th><c:message value="msg_effcommonstatistics,common_value"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="commonValue" value="f" keyClassName="java.lang.Object" varClassName='java.lang.String'>
+						<tr>
+							<td>{getTrStatistic(([s]))}</td>
+							<td>
+								<c:message quoted="" value="msg_effcommonstatistics,formula">
+									<param value="f"/>
+								</c:message>
+							</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<c:if condition="!mapVarsCommonStatistics.isEmpty()">
+				<ul>
+					<c:for key="c" map="mapVarsCommonStatistics" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
+						<li>{c} :
+							<c:message quoted="" value="msg_effcommonstatistics,formula">
+								<param value="r"/>
+							</c:message>
+						</li>
+					</c:for>
+				</ul>
+			</c:if>
+		</p>
+	</body>
+</html>

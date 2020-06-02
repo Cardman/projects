@@ -1,0 +1,84 @@
+<html xmlns:c="javahtml" c:bean="eff_switchtypes">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effswitchtypes,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field prepare="$intern.index=index"/>
+						<c:field prepare="$intern.move=move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="isResTypes()">
+				<c:message value="msg_effswitchtypes,res_moves"/>
+			</c:if>
+			<c:if condition="isUserTypes()">
+				<c:message value="msg_effswitchtypes,user_moves"/>
+			</c:if>
+			<c:if condition="!isConstTypes()">
+				<c:if condition="!chgtTypeByEnv.isEmpty()">
+					<c:message value="msg_effswitchtypes,envir"/>
+					<table>
+						<thead>
+							<tr>
+								<th><c:message value="msg_effswitchtypes,envir_env"/></th>
+								<th><c:message value="msg_effswitchtypes,envir_type"/></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:for key="e" map="chgtTypeByEnv" value="t" keyClassName="java.lang.Object" varClassName='java.lang.String'>
+								<tr>
+									<td>{getTrEnv(([e]))}</td>
+									<td>{t}</td>
+								</tr>
+							</c:for>
+						</tbody>
+					</table>
+					<br/>
+					<c:if condition="!globalMoves.isEmpty()">
+						<c:message value="msg_effswitchtypes,envir_env_exc"/>
+						<ul>
+							<c:for list="globalMoves" var="m">
+								<li><a c:command="$clickGlobalMoveFctEnv({([m])})" href="">{getTrGlobalMoveFctEnv(([m]))}</a></li>
+							</c:for>
+						</ul>
+						<br/>
+					</c:if>
+				</c:if>
+				<c:if condition="!addedTypes.isEmpty()">
+					<c:message value="msg_effswitchtypes,added_types"/>
+					<ul>
+						<c:for list="addedTypes" var="t">
+							<li>{getTrAddedType(([t]))}</li>
+						</c:for>
+					</ul>
+					<br/>
+				</c:if>
+				<c:if condition="addedTypes.isEmpty()">
+					<c:if condition="giveToTarget()">
+						<c:message value="msg_effswitchtypes,affect_types_not_const_target"/>
+					</c:if>
+					<c:if condition="giveToUser()">
+						<c:message value="msg_effswitchtypes,affect_types_not_const_user"/>
+					</c:if>
+					<c:if condition="switchTypes()">
+						<c:message value="msg_effswitchtypes,switch_types"/>
+					</c:if>
+					<c:if condition="giveConst()">
+						<c:message value="msg_effswitchtypes,affect_types"/>
+						<ul>
+							<c:for list="constTypes" var="t">
+								<li>{getTrConstType(([t]))}</li>
+							</c:for>
+						</ul>
+						<br/>
+					</c:if>
+				</c:if>
+			</c:if>
+		</p>
+	</body>
+</html>

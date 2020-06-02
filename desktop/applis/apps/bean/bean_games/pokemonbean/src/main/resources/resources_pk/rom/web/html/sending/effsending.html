@@ -1,0 +1,206 @@
+<html xmlns:c="javahtml" c:bean="effsending">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_eff_sending,effect"/>
+			<c:if condition="disableWeather">
+				<c:message value="msg_eff_sending,disable_weather"/>
+				<c:message value="msg_eff_sending,disable_weather_2"/>
+				<c:message value="msg_eff_sending,disable_weather_3"/>
+				<c:message value="msg_eff_sending,disable_weather_4"/>
+			</c:if>
+			<c:if condition="!enabledWeather.isEmpty()">
+				<c:message value="msg_eff_sending,weather">
+					<param value="getTrWeather()"/>
+				</c:message>
+			</c:if>
+			<c:if condition="copyingAbility">
+				<c:message value="msg_eff_sending,copy_ab"/>
+			</c:if>
+			<c:if condition="plate">
+				<c:message value="msg_eff_sending,plate"/>
+			</c:if>
+			<c:if condition="!multWeight.isZero()">
+				<c:message value="msg_eff_sending,weight">
+					<param value="multWeight"/>
+				</c:message>
+			</c:if>
+			<c:if condition="statistic">
+				<c:message value="msg_effstatis,effect"/>
+				<c:if condition="!reasons.isEmpty()">
+					<p>
+						<c:message value="msg_eff,reasons"/>
+						<ul>
+							<c:for list="reasons" var="r" className='java.lang.String'>
+								<li>{r}</li>
+							</c:for>
+						</ul>
+						<br/>
+						<ul>
+							<c:for key="c" map="mapVarsFail" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
+								<li>{c} :
+									<c:message quoted="" value="msg_eff,formula">
+										<param value="r"/>
+									</c:message>
+								</li>
+							</c:for>
+						</ul>
+					</p>
+				</c:if>
+				<c:if condition="!randomStatis()">
+					<c:if condition="isAlwaysEnabled()">
+						<c:message value="msg_effstatis,always_enabled"/>
+					</c:if>
+					<c:if condition="!isAlwaysEnabled()">
+						<c:message value="msg_effstatis,rate_enabled">
+							<param value="evtRate"/>
+							<param value="evtRatePerCent"/>
+						</c:message>
+					</c:if>
+				</c:if>
+				<c:if condition="notEmptyVarBoost()">
+					<c:if condition="randomStatis()">
+						<c:message value="msg_effstatis,var_statis_rank"/>
+						<table>
+							<thead>
+								<tr>
+									<th>
+										<c:message value="msg_effstatis,statistic"/>
+									</th>
+									<th>
+										<c:message value="msg_effstatis,boost"/>
+									</th>
+									<th>
+										<c:message value="msg_effstatis,fail"/>
+									</th>
+									<th>
+										<c:message value="msg_effstatis,rate_event"/>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:for key="c" map="statisVarRank" value="r" keyClassName='java.lang.String' varClassName='java.lang.Byte'>
+									<tr>
+										<td>{c}</td>
+										<td>{r}</td>
+										<td>{getFail(([c]))}</td>
+										<td>{getRate(([c]))}</td>
+									</tr>
+								</c:for>
+							</tbody>
+						</table>
+					</c:if>
+					<c:if condition="!randomStatis()">
+						<c:message value="msg_effstatis,var_statis_rank"/>
+						<table>
+							<thead>
+								<tr>
+									<th>
+										<c:message value="msg_effstatis,statistic"/>
+									</th>
+									<th>
+										<c:message value="msg_effstatis,boost"/>
+									</th>
+									<th>
+										<c:message value="msg_effstatis,fail"/>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:for key="c" map="statisVarRank" value="r" keyClassName='java.lang.String' varClassName='java.lang.Byte'>
+									<tr>
+										<td>{c}</td>
+										<td>{r}</td>
+										<td>{getFail(([c]))}</td>
+									</tr>
+								</c:for>
+							</tbody>
+						</table>
+					</c:if>
+					<br/>
+					<c:if condition="!mapVarsStatistics.isEmpty()">
+						<ul>
+							<c:for key="k" map="mapVarsStatistics" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
+								<li>{k} :
+									<c:message quoted="" value="msg_effstatis,formula">
+										<param value="v"/>
+									</c:message>
+								</li>
+							</c:for>
+						</ul>
+					</c:if>
+				</c:if>
+				<c:if condition="!swapBoostStatis.isEmpty()">
+					<c:message value="msg_effstatis,swap_boost"/>
+					<table>
+						<thead>
+							<tr>
+								<th>
+									<c:message value="msg_effstatis,statistic"/>
+								</th>
+								<th>
+									<c:message value="msg_effstatis,fail"/>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:for list="swapBoostStatis" var="c" className='java.lang.String'>
+								<tr>
+									<td>{c}</td>
+									<td>{getSwapFail(([c]))}</td>
+								</tr>
+							</c:for>
+						</tbody>
+					</table>
+					<br/>
+					<c:if condition="!mapVarsStatistics.isEmpty()">
+						<ul>
+							<c:for key="k" map="mapVarsStatistics" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
+								<li>{k} :
+									<c:message quoted="" value="msg_effstatis,formula">
+										<param value="v"/>
+									</c:message>
+								</li>
+							</c:for>
+						</ul>
+					</c:if>
+				</c:if>
+				<c:if condition="!cancelLowStat.isEmpty()">
+					<c:message value="msg_effstatis,cancel_low_stat">
+						<param value="defaultBoost"/>
+					</c:message>
+					<ul>
+						<c:for list="cancelLowStat" var="s" className='java.lang.String'>
+							<li>{s}</li>
+						</c:for>
+					</ul>
+					<br/>
+				</c:if>
+				<c:if condition="!cancelChgtStat.isEmpty()">
+					<c:message value="msg_effstatis,cancel_chgt_stat">
+						<param value="defaultBoost"/>
+					</c:message>
+					<ul>
+						<c:for list="cancelChgtStat" var="s" className='java.lang.String'>
+							<li>{s}</li>
+						</c:for>
+					</ul>
+					<br/>
+				</c:if>
+				<c:if condition="!copyBoost.isEmpty()">
+					<c:message value="msg_effstatis,copy_boost">
+						<param value="defaultBoost"/>
+					</c:message>
+					<ul>
+						<c:for list="copyBoost" var="s" className='java.lang.String'>
+							<li>{s}</li>
+						</c:for>
+					</ul>
+					<br/>
+				</c:if>
+			</c:if>
+		</p>
+	</body>
+</html>

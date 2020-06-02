@@ -1,0 +1,5 @@
+<aiki.fight.items.HealingItem>
+<sm class="aiki.fight.items.HealingItem" field="happiness"/>
+<java.lang.Boolean class="aiki.fight.items.HealingItem" field="healingTeam" value="true"/>
+<java.lang.Integer class="aiki.fight.items.Item" field="price" value="20000"/>
+</aiki.fight.items.HealingItem>

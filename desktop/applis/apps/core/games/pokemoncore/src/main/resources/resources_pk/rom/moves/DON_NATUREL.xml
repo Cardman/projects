@@ -1,0 +1,617 @@
+<aiki.fight.moves.DamagingMoveData>
+<java.lang.String class="aiki.fight.moves.DamagingMoveData" field="category" value="PHYSIQUE"/>
+<java.lang.Boolean class="aiki.fight.moves.DamagingMoveData" field="direct" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.DamagingMoveData" field="cannotKo" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.DamagingMoveData" field="stoppableMoveKoSingle" value="true"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
+<java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="15"/>
+<sl class="aiki.fight.moves.MoveData" field="types">
+<java.lang.String class="a" value="NORMAL"/>
+</sl>
+<sl class="aiki.fight.moves.MoveData" field="boostedTypes">
+<java.lang.String class="a" value="NORMAL"/>
+</sl>
+<java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
+<java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
+<l class="aiki.fight.moves.MoveData" field="effects">
+<aiki.fight.moves.effects.EffectDamage class="a">
+<java.lang.Byte class="aiki.fight.moves.effects.EffectDamage" field="chRate" value="0"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="constDamage" value="false"/>
+<mcs class="aiki.fight.moves.effects.EffectDamage" field="damageLaw">
+<sm class="mcs" field="law"/>
+</mcs>
+<sm class="aiki.fight.moves.effects.EffectDamage" field="multDamageAgainst"/>
+<mcu class="aiki.fight.moves.effects.EffectDamage" field="chLaw"/>
+<mcu class="aiki.fight.moves.effects.EffectDamage" field="hitsLaw"/>
+<java.lang.String class="aiki.fight.moves.effects.EffectDamage" field="power" value="inclusnum({VAR__LANCEUR_OBJET},{})*40+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{ACCRO_GRIFFE;AIMANT;AMELIORATOR;ANTIDOTE;ANTIGEL;ANTI_BRULE;ANTI_PARA;APPAT_BALL;BALLE_FER;BALLON;BANDEAU;BANDEAU_ETREINTE;BAND_CHOIX;BAND_MUSCLE;BAND_POUV;BATON;BEC_POINTU;BIS_BALL;BIZAR_ENCENS;BOUE_NOIRE;BOULE_FUMEE;BOUTON_FUITE;BRAC_MACHO;BULBE;CALCIUM;CARAPACE_MUE;CARBONE;CARTE_ROUGE;CASQUE_BRUT;CD_DOUTEUX;CEINTURE_PRO;CEINT_FORCE;CEINT_NOIRE;CEINT_POUV;CENDRESACREE;CHAINE_POUV;CHARBON;CHRONO_BALL;COMPET_BALL;COPAIN_BALL;CROC_DRAGON;CROC_RASOIR;CUILLERTORDU;DENT_OCEAN;EAU_FRAICHE;EAU_MYSTIQUE;ECAILLE_DRACO;ECAILLE_OCEAN;ELECTRISEUR;ELIXIR;ENCENS_DOUX;ENCENS_FLEUR;ENCENS_MER;ENCENS_PLEIN;ENCENS_PUR;ENCENS_ROC;ENCENS_VAGUE;ENCENS_VEINE;EVOLUROC;FAIBLO_BALL;FER;FERRAILLE;FILET_BALL;FOSSILE_ARMURE;FOSSILE_CRANE;FOSSILE_DOME;FOSSILE_GRIFFE;FOSSILE_PLAQUE;FOSSILE_PLUME;FOSSILE_RACINE;GLACETERNEL;GRAIN_MIRACL;GRANDE_PERLE;GRELOT_COQUE;GRELOT_ZEN;GRIFFE_RASOIR;GROSSERACINE;GROS_CHAMPI;GUERISON;HERBEBLANCHE;HERBE_MENTAL;HERBE_POUV;HONOR_BALL;HUILE;HUILE_MAX;HYPER_BALL;HYPER_POTION;JUS_DE_BAIE;LAIT_MEUMEU;LENTILSCOPE;LENTIL_ZOOM;LENT_POUV;LIMONADE;LOUPE;LOVE_BALL;LUMARGILE;LUNET_CHOIX;LUNET_NOIRES;LUNET_SAGES;LUNE_BALL;LUXE_BALL;MAGMARISEUR;MASSE_BALL;MASSE_OS;MASTER_BALL;MAX_ELIXIR;MAX_REPOUSSE;METRO;MODULE_AQUA;MODULE_CHOC;MODULE_CRYO;MODULE_PYRO;MORC_ETOILE;MOUCH_CHOIX;MOUCH_SOIE;MULTI_EXP;NAUTILE;NIVEAU_BALL;NOEUD_DESTIN;OEUF_CHANCE;ORBE_ADAMANT;ORBE_FLAMME;ORBE_PERLE;ORBE_PLATINE;ORBE_TOXIQUE;ORBE_VIE;OS_RARE;PEAU_METAL;PEPITE;PERLE;PETIT_CHAMPI;PIC_VENIN;PIECE_RUNE;PIERRALLEGEE;PIERRE_AUBE;PIERRE_DURE;PIERRE_EAU;PIERRE_ECLAT;PIERRE_FEU;PIERRE_FOUDRE;PIERRE_GLACE;PIERRE_LUNE;PIERRE_MOUSSE;PIERRE_NUIT;PIERRE_OVALE;PIERRE_PLANTE;PIERRE_SOLAIRE;PIERRE_STASE;PILE;PIQUANTS;PLAQUESPRIT;PLAQUE_CIEL;PLAQUE_DRACO;PLAQUE_FANTO;PLAQUE_FER;PLAQUE_FLAM;PLAQUE_GLACE;PLAQUE_HERBE;PLAQUE_HYDRO;PLAQUE_OMBRE;PLAQUE_POING;PLAQUE_ROC;PLAQUE_TERRE;PLAQUE_TOXIC;PLAQUE_VOLT;PLAQUINSECT;POIDS_POUV;POIGN_POUV;POING_CHANCE;POKE_BALL;POTION;POTION_MAX;POUDRECLAIRE;POUDRE_ARG;POUDRE_METAL;POUDRE_VITE;POUSS_ETOILE;PP_MAX;PP_PLUS;PROTECTEUR;PROTEINE;PT_DE_MIRE;PV_PLUS;RALENTIQUEUE;RAPIDE_BALL;RAPPEL;RAPPEL_MAX;REPOUSSE;RESTES;REVEIL;ROCHE_CHAUDE;ROCHE_ELECTRIQUE;ROCHE_GLACE;ROCHE_HUMIDE;ROCHE_LISSE;ROCHE_ROYALE;RUNE_PURIF;RUNE_SORT;SABLE_DOUX;SCUBA_BALL;SODA_COOL;SOIN_BALL;SOMBRE_BALL;SPEED_BALL;SUPER_BALL;SUPER_POTION;SUPER_REPOUSSE;TISSU_FAUCHE;TOTAL_SOIN;VIEIL_AMBRE;VIVE_GRIFFE;ZINC})),1,1)*40+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{BAIE_BABIRI;BAIE_CERIZ;BAIE_CHARTI;BAIE_CHOCCO;BAIE_COBABA;BAIE_FIGUY;BAIE_FRAIGO;BAIE_FRAIVE;BAIE_FRAMBY;BAIE_GOWAV;BAIE_JOUCA;BAIE_KEBIA;BAIE_KIKA;BAIE_LAMPOU;BAIE_MAGO;BAIE_MARON;BAIE_MEPO;BAIE_NANONE;BAIE_ORAN;BAIE_PANGA;BAIE_PAPAYA;BAIE_PARMA;BAIE_PECHA;BAIE_POCPOC;BAIE_POMROZ;BAIE_PRINE;BAIE_RATAM;BAIE_SEDRA;BAIE_SITRUS;BAIE_WIKI;BAIE_WILLIA;BAIE_YAPAP;BAIE_ZALIS})),1,1)*60+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{BAIE_ALGA;BAIE_GRENA;BAIE_KIWAN;BAIE_LONME;BAIE_MANGOU;BAIE_NANAB;BAIE_NANANA;BAIE_PALMA;BAIE_QUALOT;BAIE_RABUTA;BAIE_REMU;BAIE_REPOI;BAIE_RESIN;BAIE_SIAM;BAIE_TAMATO;BAIE_TRONCI})),1,1)*70+caracferme(cardinal(inter({VAR__LANCEUR_OBJET},{BAIE_ABRIKO;BAIE_CHERIM;BAIE_DURIN;BAIE_ENIGMA;BAIE_FRISTA;BAIE_JABOCA;BAIE_LANSAT;BAIE_LICHII;BAIE_LINGAN;BAIE_MICLE;BAIE_MYRTE;BAIE_PITAYE;BAIE_POMMO;BAIE_SAILAK;BAIE_STEKPA})),1,1)*80"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="randMax" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="summingUserTeamOkFighter" value="false"/>
+<el class="aiki.fight.moves.effects.EffectDamage" field="ignVarStatTargetPos"/>
+<el class="aiki.fight.moves.effects.EffectDamage" field="ignVarStatUserNeg"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="userAttack" value="true"/>
+<aiki.fight.enums.Statistic class="aiki.fight.moves.effects.EffectDamage" field="statisAtt" value="ATTACK"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="targetDefense" value="true"/>
+<aiki.fight.enums.Statistic class="aiki.fight.moves.effects.EffectDamage" field="statisDef" value="DEFENSE"/>
+<em class="aiki.fight.moves.effects.EffectDamage" field="boostStatisOnceKoFoe"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="ADJ_MULT"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value=""/>
+<n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects"/>
+</aiki.fight.moves.effects.EffectDamage>
+</l>
+<java.lang.Short class="aiki.fight.moves.MoveData" field="nbPrepaRound" value="0"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="disappearBeforeUse" value="false"/>
+<mcu class="aiki.fight.moves.MoveData" field="repeatRoundLaw"/>
+<java.lang.Short class="aiki.fight.moves.MoveData" field="rankIncrementNbRound" value="0"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="rechargeRound" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="constUserChoice" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="stoppableMoveSolo" value="true"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="stoppableMoveMulti" value="true"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="stoppableMovePrio" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="secEffectIfNoDamage" value="false"/>
+<sm class="aiki.fight.moves.MoveData" field="secEffectsByItem"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="ignVarAccurUserNeg" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="ignVarEvasTargetPos" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="breakImmuTypeAbility" value="false"/>
+<sl class="aiki.fight.moves.MoveData" field="achieveDisappearedPkUsingMove"/>
+<aiki.fight.moves.enums.SwitchType class="aiki.fight.moves.MoveData" field="switchType" value="NOTHING"/>
+<sm class="aiki.fight.moves.MoveData" field="typesByOwnedItem">
+<java.lang.String class="m" key="" value=""/>
+<java.lang.String class="m" key="" value="DENT_OCEAN"/>
+<java.lang.String class="m" key="" value="RAPPEL"/>
+<java.lang.String class="m" key="" value="BAIE_PITAYE"/>
+<java.lang.String class="m" key="" value="ROCHE_LISSE"/>
+<java.lang.String class="m" key="" value="BAIE_LAMPOU"/>
+<java.lang.String class="m" key="" value="POUDRE_VITE"/>
+<java.lang.String class="m" key="" value="BAIE_CERIZ"/>
+<java.lang.String class="m" key="" value="PIERRE_FOUDRE"/>
+<java.lang.String class="m" key="" value="HYPER_BALL"/>
+<java.lang.String class="m" key="" value="GRAIN_MIRACL"/>
+<java.lang.String class="m" key="" value="GRIFFE_RASOIR"/>
+<java.lang.String class="m" key="" value="CEINTURE_PRO"/>
+<java.lang.String class="m" key="" value="BAIE_BABIRI"/>
+<java.lang.String class="m" key="" value="CEINT_NOIRE"/>
+<java.lang.String class="m" key="" value="ROCHE_HUMIDE"/>
+<java.lang.String class="m" key="" value="POUDRE_METAL"/>
+<java.lang.String class="m" key="" value="EAU_FRAICHE"/>
+<java.lang.String class="m" key="" value="PILE"/>
+<java.lang.String class="m" key="" value="BAIE_GOWAV"/>
+<java.lang.String class="m" key="" value="BAIE_PAPAYA"/>
+<java.lang.String class="m" key="" value="ENCENS_VAGUE"/>
+<java.lang.String class="m" key="" value="PIERRE_STASE"/>
+<java.lang.String class="m" key="" value="LOVE_BALL"/>
+<java.lang.String class="m" key="" value="PLAQUE_DRACO"/>
+<java.lang.String class="m" key="" value="GRANDE_PERLE"/>
+<java.lang.String class="m" key="" value="PIECE_RUNE"/>
+<java.lang.String class="m" key="" value="BAIE_KIKA"/>
+<java.lang.String class="m" key="" value="BAIE_NANONE"/>
+<java.lang.String class="m" key="" value="BAIE_POCPOC"/>
+<java.lang.String class="m" key="" value="MODULE_AQUA"/>
+<java.lang.String class="m" key="" value="PIERRE_ECLAT"/>
+<java.lang.String class="m" key="" value="MAX_ELIXIR"/>
+<java.lang.String class="m" key="" value="POKE_BALL"/>
+<java.lang.String class="m" key="" value="OEUF_CHANCE"/>
+<java.lang.String class="m" key="" value="MOUCH_CHOIX"/>
+<java.lang.String class="m" key="" value="ENCENS_FLEUR"/>
+<java.lang.String class="m" key="" value="PLAQUE_OMBRE"/>
+<java.lang.String class="m" key="" value="BAIE_KEBIA"/>
+<java.lang.String class="m" key="" value="ROCHE_GLACE"/>
+<java.lang.String class="m" key="" value="BAIE_ENIGMA"/>
+<java.lang.String class="m" key="" value="BAIE_RABUTA"/>
+<java.lang.String class="m" key="" value="BAIE_WILLIA"/>
+<java.lang.String class="m" key="" value="LUMARGILE"/>
+<java.lang.String class="m" key="" value="EAU_MYSTIQUE"/>
+<java.lang.String class="m" key="" value="CENDRESACREE"/>
+<java.lang.String class="m" key="" value="SODA_COOL"/>
+<java.lang.String class="m" key="" value="BAIE_JOUCA"/>
+<java.lang.String class="m" key="" value="PIERRE_EAU"/>
+<java.lang.String class="m" key="" value="ENCENS_ROC"/>
+<java.lang.String class="m" key="" value="BANDEAU"/>
+<java.lang.String class="m" key="" value="JUS_DE_BAIE"/>
+<java.lang.String class="m" key="" value="LUNET_SAGES"/>
+<java.lang.String class="m" key="" value="BAIE_NANAB"/>
+<java.lang.String class="m" key="" value="ORBE_FLAMME"/>
+<java.lang.String class="m" key="" value="BOULE_FUMEE"/>
+<java.lang.String class="m" key="" value="ACCRO_GRIFFE"/>
+<java.lang.String class="m" key="" value="HYPER_POTION"/>
+<java.lang.String class="m" key="" value="PEPITE"/>
+<java.lang.String class="m" key="" value="ROCHE_CHAUDE"/>
+<java.lang.String class="m" key="" value="TOTAL_SOIN"/>
+<java.lang.String class="m" key="" value="ENCENS_PUR"/>
+<java.lang.String class="m" key="" value="ORBE_VIE"/>
+<java.lang.String class="m" key="" value="BAIE_YAPAP"/>
+<java.lang.String class="m" key="" value="MAX_REPOUSSE"/>
+<java.lang.String class="m" key="" value="LAIT_MEUMEU"/>
+<java.lang.String class="m" key="" value="PIERRE_OVALE"/>
+<java.lang.String class="m" key="" value="SABLE_DOUX"/>
+<java.lang.String class="m" key="" value="BAIE_SEDRA"/>
+<java.lang.String class="m" key="" value="SUPER_BALL"/>
+<java.lang.String class="m" key="" value="BAIE_MEPO"/>
+<java.lang.String class="m" key="" value="PP_PLUS"/>
+<java.lang.String class="m" key="" value="POTION"/>
+<java.lang.String class="m" key="" value="BAIE_TRONCI"/>
+<java.lang.String class="m" key="" value="VIEIL_AMBRE"/>
+<java.lang.String class="m" key="" value="BAIE_MICLE"/>
+<java.lang.String class="m" key="" value="BAIE_ZALIS"/>
+<java.lang.String class="m" key="" value="REPOUSSE"/>
+<java.lang.String class="m" key="" value="BAIE_STEKPA"/>
+<java.lang.String class="m" key="" value="PV_PLUS"/>
+<java.lang.String class="m" key="" value="PIERRE_SOLAIRE"/>
+<java.lang.String class="m" key="" value="BAIE_KIWAN"/>
+<java.lang.String class="m" key="" value="NAUTILE"/>
+<java.lang.String class="m" key="" value="BAIE_PANGA"/>
+<java.lang.String class="m" key="" value="BAIE_FRAIVE"/>
+<java.lang.String class="m" key="" value="PIC_VENIN"/>
+<java.lang.String class="m" key="" value="GUERISON"/>
+<java.lang.String class="m" key="" value="BAIE_POMROZ"/>
+<java.lang.String class="m" key="" value="PLAQUE_FLAM"/>
+<java.lang.String class="m" key="" value="FILET_BALL"/>
+<java.lang.String class="m" key="" value="BAIE_PALMA"/>
+<java.lang.String class="m" key="" value="CEINT_POUV"/>
+<java.lang.String class="m" key="" value="CHRONO_BALL"/>
+<java.lang.String class="m" key="" value="GROSSERACINE"/>
+<java.lang.String class="m" key="" value="REVEIL"/>
+<java.lang.String class="m" key="" value="ENCENS_VEINE"/>
+<java.lang.String class="m" key="" value="HERBEBLANCHE"/>
+<java.lang.String class="m" key="" value="SOMBRE_BALL"/>
+<java.lang.String class="m" key="" value="BAIE_REMU"/>
+<java.lang.String class="m" key="" value="PLAQUINSECT"/>
+<java.lang.String class="m" key="" value="BATON"/>
+<java.lang.String class="m" key="" value="RUNE_SORT"/>
+<java.lang.String class="m" key="" value="COMPET_BALL"/>
+<java.lang.String class="m" key="" value="ORBE_ADAMANT"/>
+<java.lang.String class="m" key="" value="MOUCH_SOIE"/>
+<java.lang.String class="m" key="" value="FOSSILE_GRIFFE"/>
+<java.lang.String class="m" key="" value="BAIE_WIKI"/>
+<java.lang.String class="m" key="" value="GLACETERNEL"/>
+<java.lang.String class="m" key="" value="PT_DE_MIRE"/>
+<java.lang.String class="m" key="" value="BAIE_LICHII"/>
+<java.lang.String class="m" key="" value="PIERRE_FEU"/>
+<java.lang.String class="m" key="" value="PLAQUE_FANTO"/>
+<java.lang.String class="m" key="" value="PLAQUESPRIT"/>
+<java.lang.String class="m" key="" value="CUILLERTORDU"/>
+<java.lang.String class="m" key="" value="FERRAILLE"/>
+<java.lang.String class="m" key="" value="BEC_POINTU"/>
+<java.lang.String class="m" key="" value="CHAINE_POUV"/>
+<java.lang.String class="m" key="" value="BAIE_QUALOT"/>
+<java.lang.String class="m" key="" value="ECAILLE_OCEAN"/>
+<java.lang.String class="m" key="" value="PROTEINE"/>
+<java.lang.String class="m" key="" value="PETIT_CHAMPI"/>
+<java.lang.String class="m" key="" value="LIMONADE"/>
+<java.lang.String class="m" key="" value="FOSSILE_RACINE"/>
+<java.lang.String class="m" key="" value="POING_CHANCE"/>
+<java.lang.String class="m" key="" value="CARTE_ROUGE"/>
+<java.lang.String class="m" key="" value="SUPER_POTION"/>
+<java.lang.String class="m" key="" value="PIERRE_NUIT"/>
+<java.lang.String class="m" key="" value="PIERRE_DURE"/>
+<java.lang.String class="m" key="" value="ANTI_BRULE"/>
+<java.lang.String class="m" key="" value="RUNE_PURIF"/>
+<java.lang.String class="m" key="" value="ORBE_PLATINE"/>
+<java.lang.String class="m" key="" value="SPEED_BALL"/>
+<java.lang.String class="m" key="" value="PLAQUE_GLACE"/>
+<java.lang.String class="m" key="" value="PLAQUE_ROC"/>
+<java.lang.String class="m" key="" value="BOUE_NOIRE"/>
+<java.lang.String class="m" key="" value="ENCENS_MER"/>
+<java.lang.String class="m" key="" value="CEINT_FORCE"/>
+<java.lang.String class="m" key="" value="MAGMARISEUR"/>
+<java.lang.String class="m" key="" value="BAIE_SIAM"/>
+<java.lang.String class="m" key="" value="PIERRE_MOUSSE"/>
+<java.lang.String class="m" key="" value="METRO"/>
+<java.lang.String class="m" key="" value="PIERRALLEGEE"/>
+<java.lang.String class="m" key="" value="BAIE_REPOI"/>
+<java.lang.String class="m" key="" value="VIVE_GRIFFE"/>
+<java.lang.String class="m" key="" value="CROC_DRAGON"/>
+<java.lang.String class="m" key="" value="CARAPACE_MUE"/>
+<java.lang.String class="m" key="" value="SCUBA_BALL"/>
+<java.lang.String class="m" key="" value="PLAQUE_FER"/>
+<java.lang.String class="m" key="" value="BAND_CHOIX"/>
+<java.lang.String class="m" key="" value="BAIE_PRINE"/>
+<java.lang.String class="m" key="" value="MORC_ETOILE"/>
+<java.lang.String class="m" key="" value="ANTIDOTE"/>
+<java.lang.String class="m" key="" value="BAIE_SAILAK"/>
+<java.lang.String class="m" key="" value="BAIE_FRAIGO"/>
+<java.lang.String class="m" key="" value="BANDEAU_ETREINTE"/>
+<java.lang.String class="m" key="" value="POIDS_POUV"/>
+<java.lang.String class="m" key="" value="BAIE_LINGAN"/>
+<java.lang.String class="m" key="" value="BAND_POUV"/>
+<java.lang.String class="m" key="" value="SOIN_BALL"/>
+<java.lang.String class="m" key="" value="FOSSILE_PLUME"/>
+<java.lang.String class="m" key="" value="PIERRE_LUNE"/>
+<java.lang.String class="m" key="" value="RAPPEL_MAX"/>
+<java.lang.String class="m" key="" value="BAIE_CHARTI"/>
+<java.lang.String class="m" key="" value="BAIE_CHOCCO"/>
+<java.lang.String class="m" key="" value="BAIE_ABRIKO"/>
+<java.lang.String class="m" key="" value="BAIE_JABOCA"/>
+<java.lang.String class="m" key="" value="BAIE_FIGUY"/>
+<java.lang.String class="m" key="" value="LENTILSCOPE"/>
+<java.lang.String class="m" key="" value="COPAIN_BALL"/>
+<java.lang.String class="m" key="" value="NOEUD_DESTIN"/>
+<java.lang.String class="m" key="" value="BAIE_CHERIM"/>
+<java.lang.String class="m" key="" value="MODULE_CRYO"/>
+<java.lang.String class="m" key="" value="HONOR_BALL"/>
+<java.lang.String class="m" key="" value="LUNE_BALL"/>
+<java.lang.String class="m" key="" value="PLAQUE_HYDRO"/>
+<java.lang.String class="m" key="" value="BAIE_NANANA"/>
+<java.lang.String class="m" key="" value="HUILE"/>
+<java.lang.String class="m" key="" value="LENT_POUV"/>
+<java.lang.String class="m" key="" value="RAPIDE_BALL"/>
+<java.lang.String class="m" key="" value="BAIE_MYRTE"/>
+<java.lang.String class="m" key="" value="CD_DOUTEUX"/>
+<java.lang.String class="m" key="" value="BRAC_MACHO"/>
+<java.lang.String class="m" key="" value="LENTIL_ZOOM"/>
+<java.lang.String class="m" key="" value="GRELOT_ZEN"/>
+<java.lang.String class="m" key="" value="ROCHE_ROYALE"/>
+<java.lang.String class="m" key="" value="BAIE_RATAM"/>
+<java.lang.String class="m" key="" value="BULBE"/>
+<java.lang.String class="m" key="" value="CARBONE"/>
+<java.lang.String class="m" key="" value="ORBE_PERLE"/>
+<java.lang.String class="m" key="" value="CROC_RASOIR"/>
+<java.lang.String class="m" key="" value="PROTECTEUR"/>
+<java.lang.String class="m" key="" value="CALCIUM"/>
+<java.lang.String class="m" key="" value="CHARBON"/>
+<java.lang.String class="m" key="" value="PIERRE_PLANTE"/>
+<java.lang.String class="m" key="" value="PIQUANTS"/>
+<java.lang.String class="m" key="" value="BAIE_GRENA"/>
+<java.lang.String class="m" key="" value="HERBE_MENTAL"/>
+<java.lang.String class="m" key="" value="BAIE_DURIN"/>
+<java.lang.String class="m" key="" value="PLAQUE_HERBE"/>
+<java.lang.String class="m" key="" value="FER"/>
+<java.lang.String class="m" key="" value="PLAQUE_CIEL"/>
+<java.lang.String class="m" key="" value="BAIE_FRAMBY"/>
+<java.lang.String class="m" key="" value="BAIE_PARMA"/>
+<java.lang.String class="m" key="" value="BAIE_ORAN"/>
+<java.lang.String class="m" key="" value="PEAU_METAL"/>
+<java.lang.String class="m" key="" value="BAIE_POMMO"/>
+<java.lang.String class="m" key="" value="CASQUE_BRUT"/>
+<java.lang.String class="m" key="" value="LUNET_CHOIX"/>
+<java.lang.String class="m" key="" value="OS_RARE"/>
+<java.lang.String class="m" key="" value="PLAQUE_POING"/>
+<java.lang.String class="m" key="" value="BALLE_FER"/>
+<java.lang.String class="m" key="" value="MASSE_OS"/>
+<java.lang.String class="m" key="" value="ECAILLE_DRACO"/>
+<java.lang.String class="m" key="" value="ENCENS_PLEIN"/>
+<java.lang.String class="m" key="" value="ELIXIR"/>
+<java.lang.String class="m" key="" value="PLAQUE_TOXIC"/>
+<java.lang.String class="m" key="" value="BAIE_SITRUS"/>
+<java.lang.String class="m" key="" value="MULTI_EXP"/>
+<java.lang.String class="m" key="" value="BAIE_COBABA"/>
+<java.lang.String class="m" key="" value="BAIE_MAGO"/>
+<java.lang.String class="m" key="" value="MODULE_PYRO"/>
+<java.lang.String class="m" key="" value="BOUTON_FUITE"/>
+<java.lang.String class="m" key="" value="FOSSILE_CRANE"/>
+<java.lang.String class="m" key="" value="BIZAR_ENCENS"/>
+<java.lang.String class="m" key="" value="POUDRECLAIRE"/>
+<java.lang.String class="m" key="" value="BAIE_FRISTA"/>
+<java.lang.String class="m" key="" value="HUILE_MAX"/>
+<java.lang.String class="m" key="" value="MASSE_BALL"/>
+<java.lang.String class="m" key="" value="POUSS_ETOILE"/>
+<java.lang.String class="m" key="" value="SUPER_REPOUSSE"/>
+<java.lang.String class="m" key="" value="LUNET_NOIRES"/>
+<java.lang.String class="m" key="" value="AMELIORATOR"/>
+<java.lang.String class="m" key="" value="GRELOT_COQUE"/>
+<java.lang.String class="m" key="" value="BAIE_ALGA"/>
+<java.lang.String class="m" key="" value="HERBE_POUV"/>
+<java.lang.String class="m" key="" value="BAIE_LANSAT"/>
+<java.lang.String class="m" key="" value="TISSU_FAUCHE"/>
+<java.lang.String class="m" key="" value="ANTI_PARA"/>
+<java.lang.String class="m" key="" value="PIERRE_AUBE"/>
+<java.lang.String class="m" key="" value="PERLE"/>
+<java.lang.String class="m" key="" value="EVOLUROC"/>
+<java.lang.String class="m" key="" value="LUXE_BALL"/>
+<java.lang.String class="m" key="" value="BAIE_LONME"/>
+<java.lang.String class="m" key="" value="AIMANT"/>
+<java.lang.String class="m" key="" value="POIGN_POUV"/>
+<java.lang.String class="m" key="" value="BALLON"/>
+<java.lang.String class="m" key="" value="PIERRE_GLACE"/>
+<java.lang.String class="m" key="" value="ROCHE_ELECTRIQUE"/>
+<java.lang.String class="m" key="" value="APPAT_BALL"/>
+<java.lang.String class="m" key="" value="FOSSILE_DOME"/>
+<java.lang.String class="m" key="" value="BAIE_TAMATO"/>
+<java.lang.String class="m" key="" value="ENCENS_DOUX"/>
+<java.lang.String class="m" key="" value="FAIBLO_BALL"/>
+<java.lang.String class="m" key="" value="POUDRE_ARG"/>
+<java.lang.String class="m" key="" value="FOSSILE_ARMURE"/>
+<java.lang.String class="m" key="" value="RESTES"/>
+<java.lang.String class="m" key="" value="BIS_BALL"/>
+<java.lang.String class="m" key="" value="BAIE_MARON"/>
+<java.lang.String class="m" key="" value="ANTIGEL"/>
+<java.lang.String class="m" key="" value="POTION_MAX"/>
+<java.lang.String class="m" key="" value="BAIE_RESIN"/>
+<java.lang.String class="m" key="" value="PP_MAX"/>
+<java.lang.String class="m" key="" value="LOUPE"/>
+<java.lang.String class="m" key="" value="ORBE_TOXIQUE"/>
+<java.lang.String class="m" key="" value="MASTER_BALL"/>
+<java.lang.String class="m" key="" value="BAND_MUSCLE"/>
+<java.lang.String class="m" key="" value="PLAQUE_TERRE"/>
+<java.lang.String class="m" key="" value="ELECTRISEUR"/>
+<java.lang.String class="m" key="" value="ZINC"/>
+<java.lang.String class="m" key="" value="NIVEAU_BALL"/>
+<java.lang.String class="m" key="" value="GROS_CHAMPI"/>
+<java.lang.String class="m" key="" value="BAIE_PECHA"/>
+<java.lang.String class="m" key="" value="MODULE_CHOC"/>
+<java.lang.String class="m" key="" value="PLAQUE_VOLT"/>
+<java.lang.String class="m" key="" value="RALENTIQUEUE"/>
+<java.lang.String class="m" key="" value="FOSSILE_PLAQUE"/>
+<java.lang.String class="m" key="" value="BAIE_MANGOU"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="POISON"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="TENEBRE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="FEU"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="ACIER"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="DRAGON"/>
+<java.lang.String class="m" value="TENEBRE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="SOL"/>
+<java.lang.String class="m" value="GLACE"/>
+<java.lang.String class="m" value="FEU"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="POISON"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="INSECTE"/>
+<java.lang.String class="m" value="SPECTRE"/>
+<java.lang.String class="m" value="GLACE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="SOL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="EAU"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="PSY"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="SPECTRE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="COMBAT"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="DRAGON"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="ROCHE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="FEU"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="TENEBRE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="INSECTE"/>
+<java.lang.String class="m" value="PLANTE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="COMBAT"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="ACIER"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="FEU"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="ROCHE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="PLANTE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="POISON"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="INSECTE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="ELECTRIQUE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="VOL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="COMBAT"/>
+<java.lang.String class="m" value="DRAGON"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="GLACE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="ROCHE"/>
+<java.lang.String class="m" value="FEU"/>
+<java.lang.String class="m" value="SOL"/>
+<java.lang.String class="m" value="DRAGON"/>
+<java.lang.String class="m" value="INSECTE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="SPECTRE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="PLANTE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="ELECTRIQUE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="PLANTE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="GLACE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="EAU"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="ACIER"/>
+<java.lang.String class="m" value="ELECTRIQUE"/>
+<java.lang.String class="m" value="POISON"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="TENEBRE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="PSY"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="VOL"/>
+<java.lang.String class="m" value="SPECTRE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="PSY"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="COMBAT"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="VOL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="SOL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="PSY"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="EAU"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="VOL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="ELECTRIQUE"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="NORMAL"/>
+<java.lang.String class="m" value="ROCHE"/>
+</sm>
+<sm class="aiki.fight.moves.MoveData" field="typesByWeather"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.MoveData" field="targetChoice" value="ADJ_MULT"/>
+<sl class="aiki.fight.moves.MoveData" field="deletedStatus"/>
+<sl class="aiki.fight.moves.MoveData" field="requiredStatus"/>
+</aiki.fight.moves.DamagingMoveData>

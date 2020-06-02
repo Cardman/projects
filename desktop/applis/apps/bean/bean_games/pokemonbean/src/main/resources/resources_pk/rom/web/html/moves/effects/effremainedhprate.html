@@ -1,0 +1,28 @@
+<html xmlns:c="javahtml" c:bean="eff_remainedhprate">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effremainedhprate,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field prepare="$intern.index=index"/>
+						<c:field prepare="$intern.move=move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="winHp">
+				<c:message value="msg_effremainedhprate,rate_win">
+					<param value="rateHp"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!winHp">
+				<c:message value="msg_effremainedhprate,rate_loose">
+					<param value="rateHp"/>
+				</c:message>
+			</c:if>
+		</p>
+	</body>
+</html>

@@ -1,0 +1,19 @@
+<html xmlns:c="javahtml" c:bean="endround">
+	<head>
+		<title><c:message value="msg_endround,title"/></title>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_moves,index"/></a>
+		<br/>
+		<c:for list="getEvts()" var="e">
+			<c:import page="{getPage(([e]))}">
+				<c:package name="aiki.beans.endround">
+					<c:class name="EffectEndRoundBean">
+						<c:field prepare="$intern.index=([e])"/>
+					</c:class>
+				</c:package>
+			</c:import>
+		</c:for>
+	</body>
+</html>

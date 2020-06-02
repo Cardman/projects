@@ -1,0 +1,18 @@
+<html xmlns:c="javahtml" c:bean="evo_happy">
+	<head>
+		<link href="web/css/pokedex.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<tr>
+			<td>
+				<a c:command="$clickEvo({index})" href="">{displayName}</a>
+			</td>
+			<td>
+				<c:message value="msg_evohappiness,happy">
+					<param value="displayBase"/>
+					<param value="min"/>
+				</c:message>
+			</td>
+		</tr>
+	</body>
+</html>

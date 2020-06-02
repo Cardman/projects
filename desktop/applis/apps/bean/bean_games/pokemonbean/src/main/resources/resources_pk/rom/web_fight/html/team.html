@@ -1,0 +1,210 @@
+<html xmlns:c="javahtml" c:bean="team">
+	<head>
+		<link href="web_fight/css/fight.css" rel="stylesheet" type="text/css"/>
+		<title>
+			<c:if condition="foeTeam">
+				<c:message value="msg_team,title_foe"/>
+			</c:if>
+			<c:if condition="!foeTeam">
+				<c:message value="msg_team,title_player"/>
+			</c:if>
+		</title>
+	</head>
+	<body>
+		<a c:command="web_fight/html/fight.html"><c:message value="msg_team,fight"/></a><br/>
+		<a c:command="web_fight/html/team.html"><c:message value="msg_team,refresh"/></a><br/>
+		<ul>
+			<c:for list="getMembers()" var="f" className="java.lang.Byte">
+				<li><a c:command="$clickFighter({f})">{getTrPokemonLink(([f]))}</a></li>
+			</c:for>
+		</ul>
+		<c:message value="msg_team,enbaled_moves"/>
+		<table>
+			<thead>
+				<tr>
+					<th><c:message value="msg_team,enbaled_moves_key"/></th>
+					<th><c:message value="msg_team,enbaled_moves_enabled"/></th>
+					<th><c:message value="msg_team,enbaled_moves_nb_round"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for key="m" map="enabledMoves" value="a" keyClassName='java.lang.String' varClassName="aiki.game.fight.ActivityOfMove">
+					<tr>
+						<td>{m}</td>
+						<c:if condition="a.isEnabled()">
+							<td><c:message value="msg_team,enbaled_moves_enabled_y"/></td>
+						</c:if>
+						<c:if condition="!a.isEnabled()">
+							<td><c:message value="msg_team,enbaled_moves_enabled_n"/></td>
+						</c:if>
+						<c:if condition="a.isIncrementCount()">
+							<td>{a.getNbTurn()}</td>
+						</c:if>
+						<c:if condition="!a.isIncrementCount()">
+							<td><c:message value="msg_team,enbaled_moves_no"/></td>
+						</c:if>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_team,enbaled_moves_groups"/>
+		<table>
+			<thead>
+				<tr>
+					<th><c:message value="msg_team,enbaled_moves_groups_key"/></th>
+					<th><c:message value="msg_team,enbaled_moves_groups_enabled"/></th>
+					<th><c:message value="msg_team,enbaled_moves_groups_nb_round"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for key="m" map="enabledMovesByGroup" value="a" keyClassName="java.lang.Object" varClassName="aiki.game.fight.ActivityOfMove">
+					<tr>
+						<td>{getKey(([m]))}</td>
+						<c:if condition="a.isEnabled()">
+							<td><c:message value="msg_team,enbaled_moves_groups_enabled_y"/></td>
+						</c:if>
+						<c:if condition="!a.isEnabled()">
+							<td><c:message value="msg_team,enbaled_moves_groups_enabled_n"/></td>
+						</c:if>
+						<c:if condition="a.isIncrementCount()">
+							<td>{a.getNbTurn()}</td>
+						</c:if>
+						<c:if condition="!a.isIncrementCount()">
+							<td><c:message value="msg_team,enbaled_moves_groups_no"/></td>
+						</c:if>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_team,enbaled_moves_send"/>
+		<table>
+			<thead>
+				<tr>
+					<th><c:message value="msg_team,enbaled_moves_send_key"/></th>
+					<th><c:message value="msg_team,enbaled_moves_send_value"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for key="m" map="enabledMovesWhileSendingFoeUses" value="u" keyClassName='java.lang.String' varClassName='li'>
+					<tr>
+						<td>{m}</td>
+						<td>{u}</td>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_team,enbaled_moves_uses"/>
+		<table>
+			<thead>
+				<tr>
+					<th><c:message value="msg_team,enbaled_moves_uses_key"/></th>
+					<th><c:message value="msg_team,enbaled_moves_uses_value"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for key="m" map="nbUsesMoves" value="u" keyClassName='java.lang.String' varClassName='java.lang.Integer'>
+					<tr>
+						<td>{m}</td>
+						<td>{u}</td>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_team,heal_after"/>
+		<table>
+			<thead>
+				<tr>
+					<th><c:message value="msg_team,heal_after_key_one"/></th>
+					<th><c:message value="msg_team,heal_after_key_two"/></th>
+					<th><c:message value="msg_team,heal_after_key_rd"/></th>
+					<th><c:message value="msg_team,heal_after_key_used_current"/></th>
+					<th><c:message value="msg_team,heal_after_key_used_last"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for key="m" map="healAfter" value="u" keyClassName='java.lang.String' varClassName="lse">
+					<c:for key="p" map="u" value="s" keyClassName='java.lang.Byte' varClassName="aiki.game.fight.StacksOfUses">
+						<tr>
+							<td>{m}</td>
+							<td>{p}</td>
+							<td>{s.getNbRounds()}</td>
+							<c:if condition="s.isFirstStacked()">
+								<td><c:message value="msg_team,heal_after_y"/></td>
+							</c:if>
+							<c:if condition="!s.isFirstStacked()">
+								<td><c:message value="msg_team,heal_after_n"/></td>
+							</c:if>
+							<c:if condition="s.isLastStacked()">
+								<td><c:message value="msg_team,heal_after_y"/></td>
+							</c:if>
+							<c:if condition="!s.isLastStacked()">
+								<td><c:message value="msg_team,heal_after_n"/></td>
+							</c:if>
+						</tr>
+					</c:for>
+				</c:for>
+			</tbody>
+		</table>
+		<c:message value="msg_team,move_ant"/>
+		<table>
+			<thead>
+				<tr>
+					<th><c:message value="msg_team,move_ant_key_one"/></th>
+					<th><c:message value="msg_team,move_ant_key_two"/></th>
+					<th><c:message value="msg_team,move_ant_team"/></th>
+					<th><c:message value="msg_team,move_ant_ground"/></th>
+					<th><c:message value="msg_team,move_ant_damage"/></th>
+					<th><c:message value="msg_team,move_ant_nb_round"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for key="m" map="movesAnticipation" value="u" keyClassName='java.lang.String' varClassName="lse">
+					<c:for key="p" map="u" value="s" keyClassName='java.lang.Byte' varClassName="aiki.game.fight.Anticipation">
+						<tr>
+							<td>{m}</td>
+							<td>{p}</td>
+							<c:if condition="isFoeMovesAnticipationTeam(([m]),([p]))">
+								<td><c:message value="msg_team,move_ant_foe"/></td>
+							</c:if>
+							<c:if condition="!isFoeMovesAnticipationTeam(([m]),([p]))">
+								<td><c:message value="msg_team,move_ant_player"/></td>
+							</c:if>
+							<c:if condition="!isBackMovesAnticipationTeam(([m]),([p]))">
+								<td>{s.getTargetPosition().getPosition()}</td>
+							</c:if>
+							<c:if condition="isBackMovesAnticipationTeam(([m]),([p]))">
+								<td><c:message value="msg_team,move_ant_no"/></td>
+							</c:if>
+							<td>{s.getDamage()}</td>
+							<c:if condition="s.isIncrementing()">
+								<td>{s.getNbRounds()}</td>
+							</c:if>
+							<c:if condition="!s.isIncrementing()">
+								<td><c:message value="msg_team,move_ant_no"/></td>
+							</c:if>
+						</tr>
+					</c:for>
+				</c:for>
+			</tbody>
+		</table>
+		<c:if condition="!playerFightersAgainstFoe.isEmpty()">
+			<c:message value="msg_team,player_foe"/>
+			<ul>
+				<c:for key="p" map="playerFightersAgainstFoe" value="f" keyClassName="java.lang.Object" varClassName="ls">
+					<li>
+						{getPlayerFigtherAgainstFoe(([p]))}:<br/>
+						<c:if condition="!f.isEmpty()">
+							<ul>
+								<c:for list="f" var="c">
+									<li>
+										{getFoeFigtherAgainstFoe(([p]),([c]))}
+									</li>
+								</c:for>
+							</ul>
+						</c:if>
+					</li>
+				</c:for>
+			</ul>
+		</c:if>
+	</body>
+</html>

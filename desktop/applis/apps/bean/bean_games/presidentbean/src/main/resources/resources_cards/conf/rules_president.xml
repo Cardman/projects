@@ -1,0 +1,22 @@
+<cfg>
+	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/classes//cards/president/rules.html"/>
+    <java.lang.String class="cfg" field="prefix" value="c"/>
+	<sm class="cfg" field="beans">
+		<java.lang.String class="m" key="" value="rules"/>
+		<b class="m">
+			<null class="b" field="forms"/>
+			<java.lang.String class="b" field="scope" value="request"/>
+			<java.lang.String class="b" field="className" value="cards.president.beans.RulesPresidentBean"/>
+		</b>
+	</sm>
+	<sm class="cfg" field="navigation"/>
+	<java.lang.String class="cfg" field="messagesFolder" value="resources_cards/messages"/>
+	<java.lang.String class="cfg" field="dataBaseClassName" value="RulesPresident"/>
+	<sm class="cfg" field="properties">
+		<java.lang.String class="m" key="" value="msg"/>
+		<java.lang.String class="m" value="messages_president"/>
+	</sm>
+	<sl field="addedFiles">
+		<str value="resources_cards/css/president.css"/>
+	</sl>
+</cfg>

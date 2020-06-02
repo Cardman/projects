@@ -1,0 +1,239 @@
+<html xmlns:c="javahtml" c:bean="eff_damage">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effdamage,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field prepare="$intern.index=index"/>
+						<c:field prepare="$intern.move=move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="hitsLaw.isEmpty()">
+				<c:message value="msg_effdamage,hit_law_const">
+					<param value="nbHits"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!hitsLaw.isEmpty()">
+				<c:message value="msg_effdamage,hit_law"/>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effdamage,event_nb_hits"/>
+							</th>
+							<th>
+								<c:message value="msg_effdamage,rate_event"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" map="hitsLaw" value="r" keyClassName='java.lang.Long' varClassName='r'>
+							<tr>
+								<td>{c}</td>
+								<td>{r}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="constDamage">
+				<c:message value="msg_effdamage,const_damage">
+					<param value="power"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!constDamage">
+				<c:if condition="hasLawForDamage()">
+					<c:if condition="hasDeterminatedLawForDamage()">
+						<c:message value="msg_effdamage,damag_law_const">
+							<param value="power"/>
+						</c:message>
+					</c:if>
+					<c:if condition="!hasDeterminatedLawForDamage()">
+						<c:message value="msg_effdamage,damag_law"/>
+						<table>
+							<thead>
+								<tr>
+									<th>
+										<c:message value="msg_effdamage,event"/>
+									</th>
+									<th>
+										<c:message value="msg_effdamage,rate_event"/>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:for key="c" map="damageLaw" value="r" keyClassName='java.lang.String' varClassName='r'>
+									<tr>
+										<td>{c}</td>
+										<td>{r}</td>
+									</tr>
+								</c:for>
+							</tbody>
+						</table>
+						<br/>
+					</c:if>
+					<c:if condition="!mapVarsDamage.isEmpty()">
+						<ul>
+							<c:for key="k" map="mapVarsDamage" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
+								<li>{k} :
+									<c:message quoted="" value="msg_effdamage,formula">
+										<param value="v"/>
+									</c:message>
+								</li>
+							</c:for>
+						</ul>
+						<br/>
+					</c:if>
+				</c:if>
+				<c:if condition="counterDamageCat()">
+					<c:message value="msg_effdamage,damage_mult_counter"/>
+					<table>
+						<thead>
+							<tr>
+								<th>
+									<c:message value="msg_effdamage,category"/>
+								</th>
+								<th>
+									<c:message value="msg_effdamage,rate"/>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:for key="c" map="multDamageAgainst" value="r" keyClassName='java.lang.String' varClassName='r'>
+								<tr>
+									<td>{c}</td>
+									<td>{r}</td>
+								</tr>
+							</c:for>
+						</tbody>
+					</table>
+					<br/>
+				</c:if>
+				<c:if condition="constPower()">
+					<c:if condition="hasConstPower()">
+						<c:message value="msg_effdamage,const_power">
+							<param value="power"/>
+						</c:message>
+					</c:if>
+					<c:if condition="!hasConstPower()">
+						<c:message value="msg_effdamage,var_power">
+							<param value="power"/>
+						</c:message>
+					</c:if>
+					<c:if condition="!mapVarsDamage.isEmpty()">
+						<ul>
+							<c:for key="k" map="mapVarsDamage" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
+								<li>{k} :
+									<c:message quoted="" value="msg_effdamage,formula">
+										<param value="v"/>
+									</c:message>
+								</li>
+							</c:for>
+						</ul>
+						<br/>
+					</c:if>
+					<c:message value="msg_effdamage,ch_rate">
+						<param value="chRate"/>
+					</c:message>
+					<c:message value="msg_effdamage,ch_law"/>
+					<table>
+						<thead>
+							<tr>
+								<th>
+									<c:message value="msg_effdamage,event_rate"/>
+								</th>
+								<th>
+									<c:message value="msg_effdamage,rate"/>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:for key="c" map="chLaw" value="r" keyClassName='r' varClassName='r'>
+								<tr>
+									<td>{c}</td>
+									<td>{r}</td>
+								</tr>
+							</c:for>
+						</tbody>
+					</table>
+					<br/>
+					<c:if condition="userAttack">
+						<c:message value="msg_effdamage,attack_user">
+							<param value="statisAtt"/>
+						</c:message>
+					</c:if>
+					<c:if condition="!userAttack">
+						<c:message value="msg_effdamage,attack_target">
+							<param value="statisAtt"/>
+						</c:message>
+					</c:if>
+					<c:if condition="targetDefense">
+						<c:message value="msg_effdamage,defense_target">
+							<param value="statisDef"/>
+						</c:message>
+					</c:if>
+					<c:if condition="!targetDefense">
+						<c:message value="msg_effdamage,defense_user">
+							<param value="statisDef"/>
+						</c:message>
+					</c:if>
+					<c:if condition="!ignVarStatTargetPos.isEmpty()">
+						<c:message value="msg_effdamage,ign_pos_stat"/>
+						<ul>
+							<c:for list="ignVarStatTargetPos" var="s">
+								<li>{getTranslatedStatisTarget(([s]))}</li>
+							</c:for>
+						</ul>
+						<br/>
+					</c:if>
+					<c:if condition="!ignVarStatUserNeg.isEmpty()">
+						<c:message value="msg_effdamage,ign_neg_stat"/>
+						<ul>
+							<c:for list="ignVarStatUserNeg" var="s">
+								<li>{getTranslatedStatisUser(([s]))}</li>
+							</c:for>
+						</ul>
+						<br/>
+					</c:if>
+					<c:if condition="randMax">
+						<c:message value="msg_effdamage,rand_max"/>
+					</c:if>
+				</c:if>
+			</c:if>
+			<hr/>
+			<c:if condition="!boostStatisOnceKoFoe.isEmpty()">
+				<c:message value="msg_effdamage,boost_statis_once_ko_foe"/>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effdamage,statistic"/>
+							</th>
+							<th>
+								<c:message value="msg_effdamage,boost"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" map="boostStatisOnceKoFoe" value="r" keyClassName="java.lang.Object" varClassName='java.lang.Byte'>
+							<tr>
+								<td>{getTranslatedStatisKo(([c]))}</td>
+								<td>{r}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="summingUserTeamOkFighter">
+				<c:message value="msg_effdamage,summing_team"/>
+			</c:if>
+		</p>
+	</body>
+</html>

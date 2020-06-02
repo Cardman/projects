@@ -1,0 +1,19 @@
+<aiki.fight.items.Berry>
+<r class="aiki.fight.items.Berry" field="healHpBySuperEffMove" value="0"/>
+<java.lang.Boolean class="aiki.fight.items.Berry" field="lawForAttackFirst" value="false"/>
+<sm class="aiki.fight.items.Berry" field="multFoesDamage"/>
+<em class="aiki.fight.items.Berry" field="multStat"/>
+<java.lang.Boolean class="aiki.fight.items.Berry" field="withoutFail" value="false"/>
+<java.lang.Integer class="aiki.fight.items.Berry" field="healPp" value="0"/>
+<r class="aiki.fight.items.Berry" field="healHp" value="0"/>
+<r class="aiki.fight.items.Berry" field="maxHpHealingHp" value="0"/>
+<sl class="aiki.fight.items.Berry" field="healStatus">
+<java.lang.String class="a" value="PARALYSIE"/>
+</sl>
+<r class="aiki.fight.items.Berry" field="healHpRate" value="0"/>
+<r class="aiki.fight.items.Berry" field="maxHpHealingHpRate" value="0"/>
+<sm class="aiki.fight.items.Berry" field="damageRateRecoilFoe"/>
+<java.lang.String class="aiki.fight.items.Berry" field="categoryBoosting" value=""/>
+<em class="aiki.fight.items.Berry" field="boostStatis"/>
+<java.lang.Integer class="aiki.fight.items.Item" field="price" value="200"/>
+</aiki.fight.items.Berry>

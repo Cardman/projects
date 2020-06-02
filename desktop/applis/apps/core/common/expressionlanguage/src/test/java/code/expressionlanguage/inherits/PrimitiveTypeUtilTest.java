@@ -1,0 +1,2899 @@
+package code.expressionlanguage.inherits;
+
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.structs.*;
+import code.util.CustList;
+import code.util.Ints;
+import code.util.StringList;
+import code.util.StringMap;
+import org.junit.Test;
+
+import static code.expressionlanguage.EquallableElUtil.assertEq;
+import static org.junit.Assert.*;
+
+
+public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
+
+    private static final String CUST_CLASS = "pkg.CustClass";
+    private static final String ARR_ARR_CUST_CLASS = "[[pkg.CustClass";
+    private static final String ARR_CUST_CLASS = "[pkg.CustClass";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Test
+    public void getQuickComponentType1Test() {
+        ContextEl context_ = simpleContextEl();
+        String int_ = context_.getStandards().getAliasInteger();
+        ClassArgumentMatching arg_ = new ClassArgumentMatching(int_);
+        assertTrue(PrimitiveTypeUtil.getQuickComponentType(arg_).getNames().isEmpty());
+    }
+
+    @Test
+    public void cmpTypes1Test() {
+        ContextEl context_ = simpleContextEl();
+        String int_ = context_.getStandards().getAliasInteger();
+        String nb_ = context_.getStandards().getAliasNumber();
+        assertEq(CustList.SWAP_SORT, PrimitiveTypeUtil.cmpTypes(nb_,int_,context_));
+    }
+
+    @Test
+    public void getParent1Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        assertSame(NullStruct.NULL_VALUE, PrimitiveTypeUtil.getParent(0,"pkg.Ex",new IntStruct(1),c_));
+        assertNotNull(getException(c_));
+    }
+
+    @Test
+    public void getParent2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append(" $public $class Inner{\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex","",-1);
+        Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner","",-1);
+        PrimitiveTypeUtil.getParent(0,"java.lang.Integer",in_,c_);
+        assertNotNull(getException(c_));
+    }
+    @Test
+    public void getParent3Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append(" $public $class Inner{\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex","",-1);
+        Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner","",-1);
+        Struct inTwo_ = c_.getInit().processInit(c_,in_,"pkg.Ex..Inner","",-1);
+        PrimitiveTypeUtil.getParent(0,"java.lang.Integer",inTwo_,c_);
+        assertNotNull(getException(c_));
+    }
+
+    @Test
+    public void getParent4Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ArrayStruct arr_ = PrimitiveTypeUtil.newCustomArray(c_.getStandards().getAliasPrimInteger(),new Ints(0),c_);
+        assertSame(NullStruct.NULL_VALUE, PrimitiveTypeUtil.getParent(0,"[pkg.Ex",arr_,c_));
+        assertNotNull(getException(c_));
+    }
+
+    @Test
+    public void getParent5Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ArrayStruct arr_ = PrimitiveTypeUtil.newCustomArray(c_.getStandards().getAliasPrimInteger(),new Ints(0),c_);
+        assertSame(NullStruct.NULL_VALUE, PrimitiveTypeUtil.getParent(0,"pkg.Ex",arr_,c_));
+        assertNotNull(getException(c_));
+    }
+
+    @Test
+    public void getParent6Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ArrayStruct arr_ = PrimitiveTypeUtil.newCustomArray(c_.getStandards().getAliasPrimInteger(),new Ints(0),c_);
+        assertSame(NullStruct.NULL_VALUE, PrimitiveTypeUtil.getParent(0,"[["+c_.getStandards().getAliasObject(),arr_,c_));
+        assertNotNull(getException(c_));
+    }
+
+    @Test
+    public void getParent7Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ArrayStruct arr_ = PrimitiveTypeUtil.newCustomArray(c_.getStandards().getAliasPrimInteger(),new Ints(0),c_);
+        assertSame(arr_, PrimitiveTypeUtil.getParent(0,"["+c_.getStandards().getAliasObject(),arr_,c_));
+        assertNull(getException(c_));
+    }
+    @Test
+    public void getSubclasses1Test() {
+        ContextEl context_ = simpleContextEl();
+        StringList classes_ = new StringList(context_.getStandards().getAliasInteger(), context_.getStandards().getAliasNumber());
+        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, context_);
+        assertEq(1, sub_.size());
+        assertEq(context_.getStandards().getAliasInteger(), sub_.get(0));
+    }
+
+    @Test
+    public void getSubclasses2Test() {
+        ContextEl context_ = simpleContextEl();
+        StringList classes_ = new StringList(context_.getStandards().getAliasString(), context_.getStandards().getAliasNumber());
+        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, context_);
+        assertEq(2, sub_.size());
+        assertEq(context_.getStandards().getAliasString(), sub_.get(0));
+        assertEq(context_.getStandards().getAliasNumber(), sub_.get(1));
+    }
+
+    @Test
+    public void getSubclasses3Test() {
+        ContextEl context_ = simpleContextEl();
+        StringList classes_ = new StringList(context_.getStandards().getAliasVoid(), context_.getStandards().getAliasVoid());
+        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, context_);
+        assertTrue(sub_.onlyOneElt());
+        assertEq(context_.getStandards().getAliasVoid(), sub_.get(0));
+    }
+
+    @Test
+    public void newCustomArray1Test() {
+        ContextEl cont_ = simpleContextEl();
+        Ints dims_ = new Ints(1);
+        ArrayStruct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
+        assertEq(ARR_CUST_CLASS, customArray_.getClassName());
+        Struct[] instance_ = customArray_.getInstance();
+        assertEq(1, instance_.length);
+        Struct elt_ = instance_[0];
+        assertSame(NullStruct.NULL_VALUE,elt_);
+    }
+
+    @Test
+    public void newCustomArray2Test() {
+        ContextEl cont_ = simpleContextEl();
+        Ints dims_ = new Ints(2);
+        ArrayStruct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
+        assertEq(ARR_CUST_CLASS, customArray_.getClassName());
+        Struct[] instance_ = customArray_.getInstance();
+        assertEq(2, instance_.length);
+        Struct elt_ = instance_[0];
+        assertSame(NullStruct.NULL_VALUE,elt_);
+        elt_ = instance_[1];
+        assertSame(NullStruct.NULL_VALUE,elt_);
+    }
+
+    @Test
+    public void newCustomArray3Test() {
+        ContextEl cont_ = simpleContextEl();
+        Ints dims_ = new Ints(2,3);
+        ArrayStruct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
+        assertEq(ARR_ARR_CUST_CLASS, customArray_.getClassName());
+        Struct[] instance_ = customArray_.getInstance();
+        assertEq(2, instance_.length);
+        ArrayStruct subArray_ = (ArrayStruct) instance_[0];
+        assertEq(ARR_CUST_CLASS, subArray_.getClassName());
+        Struct[] subInstance_ = subArray_.getInstance();
+        assertEq(3, subInstance_.length);
+        Struct elt_ = subInstance_[0];
+        assertSame(NullStruct.NULL_VALUE,elt_);
+        elt_ = subInstance_[1];
+        assertSame(NullStruct.NULL_VALUE,elt_);
+        elt_ = subInstance_[2];
+        assertSame(NullStruct.NULL_VALUE,elt_);
+        subArray_ = (ArrayStruct) instance_[1];
+        assertEq(ARR_CUST_CLASS, subArray_.getClassName());
+        subInstance_ = subArray_.getInstance();
+        assertEq(3, subInstance_.length);
+        elt_ = subInstance_[0];
+        assertSame(NullStruct.NULL_VALUE,elt_);
+        elt_ = subInstance_[1];
+        assertSame(NullStruct.NULL_VALUE,elt_);
+        elt_ = subInstance_[2];
+        assertSame(NullStruct.NULL_VALUE,elt_);
+    }
+    @Test
+    public void getSuperTypesSet1Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("$boolean"), new StringMap<StringList>(), c_);
+        assertEq(3, res_.size());
+        assertTrue(StringList.contains(res_, "$boolean"));
+        assertTrue(StringList.contains(res_, "java.lang.Boolean"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet2Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("$byte"), new StringMap<StringList>(), c_);
+        assertEq(10, res_.size());
+        assertTrue(StringList.contains(res_, "$byte"));
+        assertTrue(StringList.contains(res_, "java.lang.Number"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringList.contains(res_, "$long"));
+        assertTrue(StringList.contains(res_, "java.lang.Long"));
+        assertTrue(StringList.contains(res_, "$int"));
+        assertTrue(StringList.contains(res_, "java.lang.Integer"));
+        assertTrue(StringList.contains(res_, "$short"));
+        assertTrue(StringList.contains(res_, "java.lang.Short"));
+        assertTrue(StringList.contains(res_, "java.lang.Byte"));
+    }
+    @Test
+    public void getSuperTypesSet3Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("$char"), new StringMap<StringList>(), c_);
+        assertEq(8, res_.size());
+        assertTrue(StringList.contains(res_, "$char"));
+        assertTrue(StringList.contains(res_, "java.lang.Number"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+        assertTrue(StringList.contains(res_, "$long"));
+        assertTrue(StringList.contains(res_, "java.lang.Long"));
+        assertTrue(StringList.contains(res_, "$int"));
+        assertTrue(StringList.contains(res_, "java.lang.Integer"));
+        assertTrue(StringList.contains(res_, "java.lang.Character"));
+    }
+    @Test
+    public void getSuperTypesSet4Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("java.lang.Boolean"), new StringMap<StringList>(), c_);
+        assertEq(2, res_.size());
+        assertTrue(StringList.contains(res_, "java.lang.Boolean"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet5Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("java.lang.Byte"), new StringMap<StringList>(), c_);
+        assertEq(6, res_.size());
+        assertTrue(StringList.contains(res_, "java.lang.Byte"));
+        assertTrue(StringList.contains(res_, "java.lang.Short"));
+        assertTrue(StringList.contains(res_, "java.lang.Integer"));
+        assertTrue(StringList.contains(res_, "java.lang.Long"));
+        assertTrue(StringList.contains(res_, "java.lang.Number"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet6Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("java.lang.Character"), new StringMap<StringList>(), c_);
+        assertEq(5, res_.size());
+        assertTrue(StringList.contains(res_, "java.lang.Character"));
+        assertTrue(StringList.contains(res_, "java.lang.Integer"));
+        assertTrue(StringList.contains(res_, "java.lang.Long"));
+        assertTrue(StringList.contains(res_, "java.lang.Number"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet7Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[$boolean"), new StringMap<StringList>(), c_);
+        assertEq(4, res_.size());
+        assertTrue(StringList.contains(res_, "[$boolean"));
+        assertTrue(StringList.contains(res_, "[java.lang.Boolean"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet8Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[$byte"), new StringMap<StringList>(), c_);
+        assertEq(11, res_.size());
+        assertTrue(StringList.contains(res_, "[$byte"));
+        assertTrue(StringList.contains(res_, "[java.lang.Number"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "[$long"));
+        assertTrue(StringList.contains(res_, "[java.lang.Long"));
+        assertTrue(StringList.contains(res_, "[$int"));
+        assertTrue(StringList.contains(res_, "[java.lang.Integer"));
+        assertTrue(StringList.contains(res_, "[$short"));
+        assertTrue(StringList.contains(res_, "[java.lang.Short"));
+        assertTrue(StringList.contains(res_, "[java.lang.Byte"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet9Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[$char"), new StringMap<StringList>(), c_);
+        assertEq(9, res_.size());
+        assertTrue(StringList.contains(res_, "[$char"));
+        assertTrue(StringList.contains(res_, "[java.lang.Number"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "[$long"));
+        assertTrue(StringList.contains(res_, "[java.lang.Long"));
+        assertTrue(StringList.contains(res_, "[$int"));
+        assertTrue(StringList.contains(res_, "[java.lang.Integer"));
+        assertTrue(StringList.contains(res_, "[java.lang.Character"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet10Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[java.lang.Boolean"), new StringMap<StringList>(), c_);
+        assertEq(3, res_.size());
+        assertTrue(StringList.contains(res_, "[java.lang.Boolean"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet11Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[java.lang.Byte"), new StringMap<StringList>(), c_);
+        assertEq(7, res_.size());
+        assertTrue(StringList.contains(res_, "[java.lang.Byte"));
+        assertTrue(StringList.contains(res_, "[java.lang.Short"));
+        assertTrue(StringList.contains(res_, "[java.lang.Integer"));
+        assertTrue(StringList.contains(res_, "[java.lang.Long"));
+        assertTrue(StringList.contains(res_, "[java.lang.Number"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet12Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[java.lang.Character"), new StringMap<StringList>(), c_);
+        assertEq(6, res_.size());
+        assertTrue(StringList.contains(res_, "[java.lang.Character"));
+        assertTrue(StringList.contains(res_, "[java.lang.Integer"));
+        assertTrue(StringList.contains(res_, "[java.lang.Long"));
+        assertTrue(StringList.contains(res_, "[java.lang.Number"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet13Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("pkg.ExThree"), map_, c_);
+        assertEq(2, res_.size());
+        assertTrue(StringList.contains(res_, "pkg.ExThree"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet14Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("pkg.ExTwo"), map_, c_);
+        assertEq(3, res_.size());
+        assertTrue(StringList.contains(res_, "pkg.ExTwo"));
+        assertTrue(StringList.contains(res_, "pkg.ExThree"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet15Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[pkg.ExThree"), map_, c_);
+        assertEq(3, res_.size());
+        assertTrue(StringList.contains(res_, "[pkg.ExThree"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet16Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[pkg.ExTwo"), map_, c_);
+        assertEq(4, res_.size());
+        assertTrue(StringList.contains(res_, "[pkg.ExTwo"));
+        assertTrue(StringList.contains(res_, "[pkg.ExThree"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet17Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("java.lang.Number"));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("#T"), map_, c_);
+        assertEq(3, res_.size());
+        assertTrue(StringList.contains(res_, "#T"));
+        assertTrue(StringList.contains(res_, "java.lang.Number"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet18Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("S", new StringList("#T"));
+        map_.put("T", new StringList("java.lang.Number"));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("#S"), map_, c_);
+        assertEq(4, res_.size());
+        assertTrue(StringList.contains(res_, "#S"));
+        assertTrue(StringList.contains(res_, "#T"));
+        assertTrue(StringList.contains(res_, "java.lang.Number"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet19Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("java.lang.Number"));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[#T"), map_, c_);
+        assertEq(4, res_.size());
+        assertTrue(StringList.contains(res_, "[#T"));
+        assertTrue(StringList.contains(res_, "[java.lang.Number"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet20Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("S", new StringList("#T"));
+        map_.put("T", new StringList("java.lang.Number"));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[#S"), map_, c_);
+        assertEq(5, res_.size());
+        assertTrue(StringList.contains(res_, "[#S"));
+        assertTrue(StringList.contains(res_, "[#T"));
+        assertTrue(StringList.contains(res_, "[java.lang.Number"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet21Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("#T"), map_, c_);
+        assertEq(4, res_.size());
+        assertTrue(StringList.contains(res_, "#T"));
+        assertTrue(StringList.contains(res_, "pkg.ExTwo"));
+        assertTrue(StringList.contains(res_, "pkg.ExThree"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet22Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[#T"), map_, c_);
+        assertEq(5, res_.size());
+        assertTrue(StringList.contains(res_, "[#T"));
+        assertTrue(StringList.contains(res_, "[pkg.ExTwo"));
+        assertTrue(StringList.contains(res_, "[pkg.ExThree"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet23Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[$boolean"), new StringMap<StringList>(), c_);
+        assertEq(5, res_.size());
+        assertTrue(StringList.contains(res_, "[[$boolean"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Boolean"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet24Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[$byte"), new StringMap<StringList>(), c_);
+        assertEq(12, res_.size());
+        assertTrue(StringList.contains(res_, "[[$byte"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Number"));
+        assertTrue(StringList.contains(res_, "[[$long"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Long"));
+        assertTrue(StringList.contains(res_, "[[$int"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Integer"));
+        assertTrue(StringList.contains(res_, "[[$short"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Short"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Byte"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet25Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[$char"), new StringMap<StringList>(), c_);
+        assertEq(10, res_.size());
+        assertTrue(StringList.contains(res_, "[[$char"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Number"));
+        assertTrue(StringList.contains(res_, "[[$long"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Long"));
+        assertTrue(StringList.contains(res_, "[[$int"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Integer"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Character"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet26Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[java.lang.Boolean"), new StringMap<StringList>(), c_);
+        assertEq(4, res_.size());
+        assertTrue(StringList.contains(res_, "[[java.lang.Boolean"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet27Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[java.lang.Byte"), new StringMap<StringList>(), c_);
+        assertEq(8, res_.size());
+        assertTrue(StringList.contains(res_, "[[java.lang.Byte"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Short"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Integer"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Long"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Number"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet28Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[java.lang.Character"), new StringMap<StringList>(), c_);
+        assertEq(7, res_.size());
+        assertTrue(StringList.contains(res_, "[[java.lang.Character"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Integer"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Long"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Number"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet29Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[pkg.ExThree"), map_, c_);
+        assertEq(4, res_.size());
+        assertTrue(StringList.contains(res_, "[[pkg.ExThree"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet30Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[pkg.ExTwo"), map_, c_);
+        assertEq(5, res_.size());
+        assertTrue(StringList.contains(res_, "[[pkg.ExTwo"));
+        assertTrue(StringList.contains(res_, "[[pkg.ExThree"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet31Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("java.lang.Number"));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[#T"), map_, c_);
+        assertEq(5, res_.size());
+        assertTrue(StringList.contains(res_, "[[#T"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Number"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet32Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("S", new StringList("#T"));
+        map_.put("T", new StringList("java.lang.Number"));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[#S"), map_, c_);
+        assertEq(6, res_.size());
+        assertTrue(StringList.contains(res_, "[[#S"));
+        assertTrue(StringList.contains(res_, "[[#T"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Number"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet33Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[#T"), map_, c_);
+        assertEq(6, res_.size());
+        assertTrue(StringList.contains(res_, "[[#T"));
+        assertTrue(StringList.contains(res_, "[[pkg.ExTwo"));
+        assertTrue(StringList.contains(res_, "[[pkg.ExThree"));
+        assertTrue(StringList.contains(res_, "[[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "[java.lang.Object"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet34Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<T> :pkg.ExThree<$iterable<?T>>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<T>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList(c_.getStandards().getAliasObject()));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("pkg.ExTwo<?T>"), map_, c_);
+        assertEq(2, res_.size());
+        assertTrue(StringList.contains(res_, "pkg.ExTwo<?T>"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet35Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<T> :pkg.ExThree<T>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<S>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("U", new StringList(c_.getStandards().getAliasObject()));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("pkg.ExTwo<#U>"), map_, c_);
+        assertEq(3, res_.size());
+        assertTrue(StringList.contains(res_, "pkg.ExTwo<#U>"));
+        assertTrue(StringList.contains(res_, "pkg.ExThree<#U>"));
+        assertTrue(StringList.contains(res_, "java.lang.Object"));
+    }
+    @Test
+    public void getTernarySubclasses1Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList res_ = PrimitiveTypeUtil.getTernarySubclasses(new StringList("pkg.ExTwo","pkg.ExThree"), map_, c_);
+        assertEq(2, res_.size());
+        assertTrue(StringList.contains(res_, "pkg.ExTwo"));
+        assertTrue(StringList.contains(res_, "pkg.ExThree"));
+    }
+    @Test
+    public void getTernarySubclasses2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList res_ = PrimitiveTypeUtil.getTernarySubclasses(new StringList("pkg.ExTwo","pkg.ExThree","pkg.ExFour","pkg.ExFive"), map_, c_);
+        assertEq(2, res_.size());
+        assertTrue(StringList.contains(res_, "pkg.ExTwo"));
+        assertTrue(StringList.contains(res_, "pkg.ExThree"));
+    }
+    @Test
+    public void getTernarySubclasses3Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList res_ = PrimitiveTypeUtil.getTernarySubclasses(new StringList("pkg.ExTwo","pkg.ExThree"), map_, c_);
+        assertEq(2, res_.size());
+        assertTrue(StringList.contains(res_, "pkg.ExTwo"));
+        assertTrue(StringList.contains(res_, "pkg.ExThree"));
+    }
+    @Test
+    public void getTernarySubclasses4Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        map_.put("S", new StringList("pkg.ExThree"));
+        StringList res_ = PrimitiveTypeUtil.getTernarySubclasses(new StringList("#T","#S"), map_, c_);
+        assertEq(2, res_.size());
+        assertTrue(StringList.contains(res_, "#S"));
+        assertTrue(StringList.contains(res_, "#T"));
+    }
+    @Test
+    public void getTernarySubclasses5Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        map_.put("S", new StringList("pkg.ExThree"));
+        StringList res_ = PrimitiveTypeUtil.getTernarySubclasses(new StringList("#T","#S","pkg.ExTwo"), map_, c_);
+        assertEq(2, res_.size());
+        assertTrue(StringList.contains(res_, "#S"));
+        assertTrue(StringList.contains(res_, "#T"));
+    }
+    @Test
+    public void getTernarySubclasses6Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        map_.put("S", new StringList("#T"));
+        StringList res_ = PrimitiveTypeUtil.getTernarySubclasses(new StringList("#T","#S","pkg.ExTwo"), map_, c_);
+        assertEq(1, res_.size());
+        assertTrue(StringList.contains(res_, "#S"));
+    }
+    @Test
+    public void getTernarySubclasses7Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        map_.put("S", new StringList("pkg.ExThree"));
+        StringList res_ = PrimitiveTypeUtil.getTernarySubclasses(new StringList("[#T","[#S"), map_, c_);
+        assertEq(2, res_.size());
+        assertTrue(StringList.contains(res_, "[#S"));
+        assertTrue(StringList.contains(res_, "[#T"));
+    }
+    @Test
+    public void getTernarySubclasses8Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        map_.put("S", new StringList("pkg.ExThree"));
+        StringList res_ = PrimitiveTypeUtil.getTernarySubclasses(new StringList("[#T","[#S","[pkg.ExTwo"), map_, c_);
+        assertEq(2, res_.size());
+        assertTrue(StringList.contains(res_, "[#S"));
+        assertTrue(StringList.contains(res_, "[#T"));
+    }
+    @Test
+    public void getTernarySubclasses9Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        map_.put("S", new StringList("#T"));
+        StringList res_ = PrimitiveTypeUtil.getTernarySubclasses(new StringList("[#T","[#S","[pkg.ExTwo"), map_, c_);
+        assertEq(1, res_.size());
+        assertTrue(StringList.contains(res_, "[#S"));
+    }
+    @Test
+    public void getTernarySubclasses10Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        map_.put("S", new StringList("#T"));
+        StringList res_ = PrimitiveTypeUtil.getTernarySubclasses(new StringList("[[#T","[#S","[pkg.ExTwo"), map_, c_);
+        assertEq(2, res_.size());
+        assertTrue(StringList.contains(res_, "[#S"));
+        assertTrue(StringList.contains(res_, "[[#T"));
+    }
+    @Test
+    public void getTernarySubclasses11Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        map_.put("S", new StringList("#T"));
+        StringList res_ = PrimitiveTypeUtil.getTernarySubclasses(new StringList("[#T","[[#S","[pkg.ExTwo"), map_, c_);
+        assertEq(2, res_.size());
+        assertTrue(StringList.contains(res_, "[[#S"));
+        assertTrue(StringList.contains(res_, "[#T"));
+    }
+    @Test
+    public void getResultTernary1Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Integer");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary2Test() {
+        StringList one_ = new StringList("java.lang.Integer");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary3Test() {
+        StringList one_ = new StringList("");
+        StringList two_ = new StringList("java.lang.Integer");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.Integer", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary4Test() {
+        StringList one_ = new StringList("java.lang.Integer");
+        StringList two_ = new StringList("");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.Integer", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary5Test() {
+        StringList one_ = new StringList("");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.Integer", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary6Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.Integer", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary7Test() {
+        StringList one_ = new StringList("java.lang.Short");
+        StringList two_ = new StringList("$byte");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary8Test() {
+        StringList one_ = new StringList("$byte");
+        StringList two_ = new StringList("java.lang.Short");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary9Test() {
+        StringList one_ = new StringList("java.lang.Byte");
+        StringList two_ = new StringList("$short");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary10Test() {
+        StringList one_ = new StringList("$short");
+        StringList two_ = new StringList("java.lang.Byte");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary11Test() {
+        StringList one_ = new StringList("java.lang.Byte");
+        StringList two_ = new StringList("java.lang.Short");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary12Test() {
+        StringList one_ = new StringList("java.lang.Short");
+        StringList two_ = new StringList("java.lang.Byte");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary13Test() {
+        StringList one_ = new StringList("$byte");
+        StringList two_ = new StringList("$short");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary14Test() {
+        StringList one_ = new StringList("$short");
+        StringList two_ = new StringList("$byte");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary15Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$byte");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(1));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$byte", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary16Test() {
+        StringList one_ = new StringList("$byte");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(1));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$byte", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary17Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$short");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(1));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary18Test() {
+        StringList one_ = new StringList("$short");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(1));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary19Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$char");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(1));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$char", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary20Test() {
+        StringList one_ = new StringList("$char");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(1));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$char", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary21Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$byte");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(129));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary22Test() {
+        StringList one_ = new StringList("$byte");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(129));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary23Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$short");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(129));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary24Test() {
+        StringList one_ = new StringList("$short");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(129));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary25Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$byte");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(-129));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary26Test() {
+        StringList one_ = new StringList("$byte");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(-129));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary27Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$short");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(-129));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary28Test() {
+        StringList one_ = new StringList("$short");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(-129));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary29Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$char");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(-129));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary30Test() {
+        StringList one_ = new StringList("$char");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(-129));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary31Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$byte");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(40000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary32Test() {
+        StringList one_ = new StringList("$byte");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(40000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary33Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$short");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(40000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary34Test() {
+        StringList one_ = new StringList("$short");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(40000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary35Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$char");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(40000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$char", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary36Test() {
+        StringList one_ = new StringList("$char");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(40000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$char", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary37Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$byte");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(-40000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary38Test() {
+        StringList one_ = new StringList("$byte");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(-40000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary39Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$short");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(-40000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary40Test() {
+        StringList one_ = new StringList("$short");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(-40000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary41Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$char");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(-40000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary42Test() {
+        StringList one_ = new StringList("$char");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(-40000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary43Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$char");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(80000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary44Test() {
+        StringList one_ = new StringList("$char");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(80000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary45Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Byte");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(1));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$byte", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary46Test() {
+        StringList one_ = new StringList("java.lang.Byte");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(1));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$byte", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary47Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Short");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(1));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary48Test() {
+        StringList one_ = new StringList("java.lang.Short");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(1));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary49Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Character");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(1));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$char", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary50Test() {
+        StringList one_ = new StringList("java.lang.Character");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(1));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$char", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary51Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Byte");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(129));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary52Test() {
+        StringList one_ = new StringList("java.lang.Byte");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(129));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary53Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Short");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(129));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary54Test() {
+        StringList one_ = new StringList("java.lang.Short");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(129));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary55Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Byte");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(-129));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary56Test() {
+        StringList one_ = new StringList("java.lang.Byte");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(-129));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary57Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Short");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(-129));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary58Test() {
+        StringList one_ = new StringList("java.lang.Short");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(-129));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$short", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary59Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Character");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(-129));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary60Test() {
+        StringList one_ = new StringList("java.lang.Character");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(-129));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary61Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Byte");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(40000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary62Test() {
+        StringList one_ = new StringList("java.lang.Byte");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(40000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary63Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Short");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(40000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary64Test() {
+        StringList one_ = new StringList("java.lang.Short");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(40000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary65Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Character");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(40000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$char", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary66Test() {
+        StringList one_ = new StringList("java.lang.Character");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(40000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$char", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary67Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Byte");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(-40000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary68Test() {
+        StringList one_ = new StringList("java.lang.Byte");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(-40000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary69Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Short");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(-40000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary70Test() {
+        StringList one_ = new StringList("java.lang.Short");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(-40000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary71Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Character");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(-40000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary72Test() {
+        StringList one_ = new StringList("java.lang.Character");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(-40000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary73Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Character");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new IntStruct(80000));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary74Test() {
+        StringList one_ = new StringList("java.lang.Character");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new IntStruct(80000));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary75Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("$byte");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary76Test() {
+        StringList one_ = new StringList("$byte");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary77Test() {
+        StringList one_ = new StringList("$double");
+        StringList two_ = new StringList("$byte");
+        Argument argOne_ = new Argument();
+        argOne_.setStruct(new DoubleStruct(1));
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.Number", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary78Test() {
+        StringList one_ = new StringList("$byte");
+        StringList two_ = new StringList("$double");
+        Argument argOne_ = null;
+        Argument argTwo_ = new Argument();
+        argTwo_.setStruct(new DoubleStruct(1));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.Number", res_.getTypes().first());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary79Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList one_ = new StringList("pkg.ExTwo");
+        StringList two_ = new StringList("pkg.ExThree");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(2, res_.getTypes().size());
+        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFour"));
+        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFive"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary80Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList one_ = new StringList("[pkg.ExTwo");
+        StringList two_ = new StringList("[pkg.ExThree");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(2, res_.getTypes().size());
+        assertTrue(StringList.contains(res_.getTypes(), "[pkg.ExFour"));
+        assertTrue(StringList.contains(res_.getTypes(), "[pkg.ExFive"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary81Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        StringList one_ = new StringList("#T");
+        StringList two_ = new StringList("pkg.ExThree");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(2, res_.getTypes().size());
+        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFour"));
+        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFive"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary82Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        StringList one_ = new StringList("[pkg.ExTwo");
+        StringList two_ = new StringList("[pkg.ExThree");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(2, res_.getTypes().size());
+        assertTrue(StringList.contains(res_.getTypes(), "[pkg.ExFour"));
+        assertTrue(StringList.contains(res_.getTypes(), "[pkg.ExFive"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary83Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        map_.put("S", new StringList("#T"));
+        StringList one_ = new StringList("#T");
+        StringList two_ = new StringList("#S");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertTrue(StringList.contains(res_.getTypes(), "#T"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary84Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        map_.put("S", new StringList("#T"));
+        StringList one_ = new StringList("[#T");
+        StringList two_ = new StringList("[#S");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertTrue(StringList.contains(res_.getTypes(), "[#T"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary85Test() {
+        StringList one_ = new StringList("java.lang.Integer");
+        StringList two_ = new StringList("java.lang.Integer");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.Integer", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary86Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Number");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.Number", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary87Test() {
+        StringList one_ = new StringList("java.lang.Number");
+        StringList two_ = new StringList("$int");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.Number", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary88Test() {
+        StringList one_ = new StringList("java.lang.Integer");
+        StringList two_ = new StringList("java.lang.Number");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.Number", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary89Test() {
+        StringList one_ = new StringList("java.lang.Number");
+        StringList two_ = new StringList("java.lang.Integer");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.Number", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary90Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour<java.lang.Number>:pkg.ExFive<java.lang.Object>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour<java.lang.Number>:pkg.ExFive<java.lang.Object>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour<#T> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive<#U> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList one_ = new StringList("pkg.ExTwo");
+        StringList two_ = new StringList("pkg.ExThree");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(2, res_.getTypes().size());
+        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFour<java.lang.Number>"));
+        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFive<java.lang.Object>"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary91Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour<java.lang.Number>:pkg.ExFive<java.lang.Number>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour<java.lang.Number>:pkg.ExFive<java.lang.Object>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour<#T> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive<#U> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList one_ = new StringList("pkg.ExTwo");
+        StringList two_ = new StringList("pkg.ExThree");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFour<java.lang.Number>"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary92Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour<java.lang.Object>:pkg.ExFive<java.lang.Number>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour<java.lang.Number>:pkg.ExFive<java.lang.Object>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour<#T> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive<#U> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList one_ = new StringList("pkg.ExTwo");
+        StringList two_ = new StringList("pkg.ExThree");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertTrue(StringList.contains(res_.getTypes(), "java.lang.Object"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary93Test() {
+        StringList one_ = new StringList("java.lang.$Fct<java.lang.Number>");
+        StringList two_ = new StringList("java.lang.$Fct<java.lang.Integer>");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.$Fct<java.lang.Number>", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary94Test() {
+        StringList one_ = new StringList("java.lang.$Fct<java.lang.Integer>");
+        StringList two_ = new StringList("java.lang.$Fct<java.lang.Number>");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.$Fct<java.lang.Number>", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary95Test() {
+        StringList one_ = new StringList("java.lang.$Fct<#T>");
+        StringList two_ = new StringList("java.lang.$Fct<#U>");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("java.lang.Number"));
+        map_.put("U", new StringList("#T"));
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.$Fct<#T>", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary96Test() {
+        StringList one_ = new StringList("java.lang.$Fct<#U>");
+        StringList two_ = new StringList("java.lang.$Fct<#T>");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("java.lang.Number"));
+        map_.put("U", new StringList("#T"));
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.$Fct<#T>", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary97Test() {
+        StringList one_ = new StringList("java.lang.$Fct<#T>");
+        StringList two_ = new StringList("java.lang.$Fct<java.lang.Number>");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("java.lang.Number"));
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.$Fct<java.lang.Number>", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary98Test() {
+        StringList one_ = new StringList("java.lang.$Fct<java.lang.Number>");
+        StringList two_ = new StringList("java.lang.$Fct<#T>");
+        Argument argOne_ = null;
+        Argument argTwo_ = null;
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("java.lang.Number"));
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("java.lang.$Fct<java.lang.Number>", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary99Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        map_.put("S", new StringList("#T"));
+        map_.put("U", new StringList("#T"));
+        map_.put("V", new StringList("#S","#U"));
+        map_.put("W", new StringList("#V"));
+        StringList one_ = new StringList("#W");
+        StringList two_ = new StringList("#V");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertTrue(StringList.contains(res_.getTypes(), "#V"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary100Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree :pkg.ExFour:pkg.ExFive{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFour {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExFive {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFive", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList());
+        map_.put("S", new StringList("#T"));
+        map_.put("U", new StringList("#T"));
+        map_.put("V", new StringList("#S","#U"));
+        map_.put("W", new StringList("#V"));
+        StringList one_ = new StringList("#W");
+        StringList two_ = new StringList("#V");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertTrue(StringList.contains(res_.getTypes(), "#V"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    @Test
+    public void getResultTernary101Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList one_ = new StringList("[java.lang.CharSequence");
+        StringList two_ = new StringList("[[java.lang.Object");
+        Argument argOne_ = null;
+        Argument argTwo_ =  null;
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertTrue(StringList.contains(res_.getTypes(), "[java.lang.Object"));
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(!res_.isUnwrapSecond());
+    }
+    private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
+        ContextEl cont_ = getSimpleContextEl();
+        parseCustomFiles(_files, cont_);
+        Classes classes_ = cont_.getClasses();
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        Classes.validateInheritingClasses(cont_);
+        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        return cont_;
+    }
+
+    private ContextEl simpleContextEl() {
+        return getSimpleContextEl();
+    }
+}

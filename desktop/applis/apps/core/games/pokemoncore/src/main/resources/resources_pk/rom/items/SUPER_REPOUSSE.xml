@@ -1,0 +1,4 @@
+<aiki.fight.items.Repel>
+<java.lang.Long class="aiki.fight.items.Repel" field="steps" value="200"/>
+<java.lang.Integer class="aiki.fight.items.Item" field="price" value="500"/>
+</aiki.fight.items.Repel>

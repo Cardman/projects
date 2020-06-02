@@ -1,0 +1,39 @@
+<html xmlns:c="javahtml" c:bean="dual">
+	<head>
+		<link href="web/css/pokedex.css" rel="stylesheet" type="text/css"/>
+		<title>
+			<c:message value="msg_levelmap,title_dual"/>
+		</title>
+	</head>
+	<body>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_levelmap,index"/></a>
+		<br/>
+		<a c:command="web/html/map/map.html" href=""><c:message value="msg_levelmap,map"/></a><br/>
+		<br/>
+		<a c:command="web/html/map/level.html" href=""><c:message value="msg_levelmap,level"/></a><br/>
+		<br/>
+		<c:img src="{image}"/>
+		<br/>
+		<c:img src="{imageMini}"/>
+		<br/>
+		<c:img src="{imageMiniSecond}"/>
+		<br/>
+		<c:import page="{pageAlly}">
+			<c:package name="aiki.beans.map.characters">
+				<c:class name="AllyBean">
+					<c:field prepare="$intern.ally=ally"/>
+				</c:class>
+			</c:package>
+		</c:import>
+		<br/>
+		<hr/>
+		<br/>
+		<c:import page="{pageTeam}">
+			<c:package name="aiki.beans.map.pokemon">
+				<c:class name="PokemonTeamBean">
+					<c:field prepare="$intern.trainer=trainer"/>
+				</c:class>
+			</c:package>
+		</c:import>
+	</body>
+</html>

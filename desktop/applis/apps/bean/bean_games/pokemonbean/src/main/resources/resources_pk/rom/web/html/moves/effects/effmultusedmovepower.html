@@ -1,0 +1,35 @@
+<html xmlns:c="javahtml" c:bean="eff_multusedmovepower">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effmultusedmovepower,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field prepare="$intern.index=index"/>
+						<c:field prepare="$intern.move=move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:message value="msg_effmultusedmovepower,mult_power"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_effmultusedmovepower,mult_power_type"/></th>
+						<th><c:message value="msg_effmultusedmovepower,mult_power_rate"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="t" map="multMovePowerFctType" value="r" keyClassName="java.lang.Object" varClassName='r'>
+						<tr>
+							<td>{getTrType(([t]))}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+		</p>
+	</body>
+</html>

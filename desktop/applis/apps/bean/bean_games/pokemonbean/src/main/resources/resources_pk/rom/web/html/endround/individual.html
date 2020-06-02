@@ -1,0 +1,89 @@
+<html xmlns:c="javahtml" c:bean="end_individual">
+	<head>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:import page="{endRoundHtml}">
+			<c:package name="aiki.beans.endround">
+				<c:class name="EffectEndRoundBean">
+					<c:field prepare="$intern.index=index"/>
+				</c:class>
+			</c:package>
+		</c:import>
+		<p>
+			<c:message value="msg_individual,effect"/>
+			<c:if condition="!deleteAllStatus.isZero()">
+				<c:message value="msg_individual,delete_all_status">
+					<param value="deleteAllStatus"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!recoilDamage.isZero()">
+				<c:message value="msg_individual,recoil_damage">
+					<param value="recoilDamage"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!healHp.isZero()">
+				<c:message value="msg_individual,heal_hp">
+					<param value="healHp"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!userStatusEndRound.isEmpty()">
+				<c:message value="msg_individual,user_status">
+					<param value="getTrUserStatus()"/>
+					<param value="index"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!multDamageStatus.isEmpty()">
+				<c:message value="msg_individual,mult_damage_status"/>
+				<table>
+					<thead>
+						<tr>
+							<th><c:message value="msg_individual,mult_damage_status_key"/></th>
+							<th><c:message value="msg_individual,mult_damage_status_value"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="s" map="multDamageStatus" value="r" keyClassName="java.lang.Object" varClassName="r">
+							<tr>
+								<td><a c:command="$clickDamageStatus({index},{([s])})" href="">{getTrDamageStatus(([s]))}</a></td>
+								<td>{r}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!healHpByOwnerTypes.isEmpty()">
+				<c:message value="msg_individual,heal_hp_by_owner_types"/>
+				<table>
+					<thead>
+						<tr>
+							<th><c:message value="msg_individual,heal_hp_by_owner_types_key"/></th>
+							<th><c:message value="msg_individual,heal_hp_by_owner_types_value"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="s" map="healHpByOwnerTypes" value="r" keyClassName="java.lang.Object" varClassName="r">
+							<tr>
+								<c:if condition="isType(([s]))">
+									<td>{getTrType(([s]))}</td>
+								</c:if>
+								<c:if condition="!isType(([s]))">
+									<td><c:message value="msg_individual,heal_hp_by_owner_types_other"/></td>
+								</c:if>
+								<c:if condition="r.isZeroOrGt()">
+									<td><c:message value="msg_individual,heal_hp_by_owner_types_value_w"><param value="r.absNb()"/></c:message></td>
+								</c:if>
+								<c:if condition="!r.isZeroOrGt()">
+									<td><c:message value="msg_individual,heal_hp_by_owner_types_value_l"><param value="r.absNb()"/></c:message></td>
+								</c:if>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+		</p>
+		
+	</body>
+</html>

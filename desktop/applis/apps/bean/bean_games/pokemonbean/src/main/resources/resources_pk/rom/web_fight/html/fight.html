@@ -1,0 +1,65 @@
+<html xmlns:c="javahtml" c:bean="fight">
+	<head>
+		<title><c:message value="msg_fight,title_fight"/></title>
+		<link href="web_fight/css/fight.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="web_fight/html/fight.html"><c:message value="msg_fight,refresh"/></a><br/>
+		<a c:command="web_fight/html/fightdetail.html"><c:message value="msg_fight,go_detail"/></a><br/>
+		<a c:command="$clickPlayer"><c:message value="msg_fight,yours"/></a><br/>
+		<a c:command="$clickFoe"><c:message value="msg_fight,foes"/></a><br/>
+		<c:message value="msg_fight,mult">
+			<param value="mult"/>
+		</c:message>
+		<c:message value="msg_fight,nb_rounds">
+			<param value="nbRounds"/>
+		</c:message>
+		<c:message value="msg_fight,nb_flee_attempts">
+			<param value="nbFleeAttempt"/>
+		</c:message>
+		<c:message value="msg_fight,win_money">
+			<param value="winningMoney"/>
+		</c:message>
+		<c:message value="msg_fight,enbaled_moves"/>
+		<table>
+			<thead>
+				<tr>
+					<th><c:message value="msg_fight,enbaled_moves_key"/></th>
+					<th><c:message value="msg_fight,enbaled_moves_still"/></th>
+					<th><c:message value="msg_fight,enbaled_moves_enabled"/></th>
+					<th><c:message value="msg_fight,enbaled_moves_nb_round"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for key="m" map="enabledMoves" value="a" keyClassName='java.lang.String' varClassName="aiki.game.fight.ActivityOfMove">
+					<tr>
+						<td>{m}</td>
+						<c:if condition="isStillEnabled(([m]))">
+							<c:if condition="a.isEnabled()">
+								<td><c:message value="msg_fight,enbaled_moves_enabled_y"/></td>
+							</c:if>
+							<c:if condition="!a.isEnabled()">
+								<td><c:message value="msg_fight,enbaled_moves_enabled_n"/></td>
+							</c:if>
+						</c:if>
+						<c:if condition="!isStillEnabled(([m]))">
+							<td><c:message value="msg_fight,enbaled_moves_no"/></td>
+						</c:if>
+						<c:if condition="a.isEnabled()">
+							<td><c:message value="msg_fight,enbaled_moves_enabled_y"/></td>
+						</c:if>
+						<c:if condition="!a.isEnabled()">
+							<td><c:message value="msg_fight,enbaled_moves_enabled_n"/></td>
+						</c:if>
+						<c:if condition="a.isIncrementCount()">
+							<td>{a.getNbTurn()}</td>
+						</c:if>
+						<c:if condition="!a.isIncrementCount()">
+							<td><c:message value="msg_fight,enbaled_moves_no"/></td>
+						</c:if>
+					</tr>
+				</c:for>
+			</tbody>
+		</table>
+	</body>
+</html>

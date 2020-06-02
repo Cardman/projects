@@ -1,0 +1,22 @@
+<html xmlns:c="javahtml" c:bean="end_foe">
+	<head>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:import page="{endRoundHtml}">
+			<c:package name="aiki.beans.endround">
+				<c:class name="EffectEndRoundBean">
+					<c:field prepare="$intern.index=index"/>
+				</c:class>
+			</c:package>
+		</c:import>
+		<p>
+			<c:if condition="!inflictedRateHpTarget.isZero()">
+				<c:message value="msg_foe,effect"/>
+				<c:message value="msg_foe,foe">
+					<param value="inflictedRateHpTarget"/>
+				</c:message>
+			</c:if>
+		</p>
+	</body>
+</html>

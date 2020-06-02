@@ -1,0 +1,500 @@
+<html xmlns:c="javahtml" c:bean="move">
+	<head>
+		<title><c:message value="msg_movedata,title"><param value="displayName"/></c:message></title>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<br/>
+		<a c:command="$clickMoves" href=""><c:message value="msg_movedata,moves"/></a>
+		<br/>
+		<h1><c:message value="msg_movedata,general_move"><param value="displayName"/></c:message></h1>
+		<h2><c:message value="msg_movedata,type_cat"/></h2>
+		<c:message value="msg_movedata,typesBoost"/>
+		<ul>
+			<c:for list="boostedTypes" var="t" className='java.lang.String'>
+				<li>{t}</li>
+			</c:for>
+		</ul>
+		<c:if condition="!hasDefaultTypes">
+			<c:message value="msg_movedata,type_title"/>
+			<ul>
+				<c:for list="types" var="t" className='java.lang.String'>
+					<li>{t}</li>
+				</c:for>
+			</ul>
+		</c:if>
+		<c:if condition="typesDependOnlyOnItem()">
+			<table>
+				<caption><c:message value="msg_movedata,moves"/></caption>
+				<thead>
+					<tr>
+						<th><c:message value="msg_movedata,item"/></th>
+						<th><c:message value="msg_movedata,type_title"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="i" map="typesByOwnedItems" value="t" keyClassName="java.lang.Object" varClassName='java.lang.String'>
+						<tr>
+							<c:if condition="isItem(([i]))">
+								<td><a c:command="$clickTypesByOwnedItems({([i])})">{getTrTypesByOwnedItems(([i]))}</a></td>
+							</c:if>
+							<c:if condition="!isItem(([i]))">
+								<td><c:message value="msg_movedata,other_item"/></td>
+							</c:if>
+							<td>{t}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+		</c:if>
+		<c:if condition="typesDependOnlyOnWeather()">
+			<table>
+				<caption><c:message value="msg_movedata,moves"/></caption>
+				<thead>
+					<tr>
+						<th><c:message value="msg_movedata,weather"/></th>
+						<th><c:message value="msg_movedata,type_title"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="i" map="typesByWeathers" value="t" keyClassName="java.lang.Object" varClassName='java.lang.String'>
+						<tr>
+							<c:if condition="isWeather(([i]))">
+								<td><a c:command="$clickTypesByWeathers({([i])})">{getTrTypesByWeathers(([i]))}</a></td>
+							</c:if>
+							<c:if condition="!isWeather(([i]))">
+								<td><c:message value="msg_movedata,other_weather"/></td>
+							</c:if>
+							<td>{t}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+		</c:if>
+		<c:if condition="typesDependOnWeatherAndItem()">
+			<table>
+				<caption><c:message value="msg_movedata,moves"/></caption>
+				<thead>
+					<tr>
+						<th><c:message value="msg_movedata,item"/></th>
+						<th><c:message value="msg_movedata,type_title"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="i" map="typesByOwnedItems" value="t" keyClassName="java.lang.Object" varClassName='java.lang.String'>
+						<tr>
+							<c:if condition="isItem(([i]))">
+								<td><a c:command="$clickTypesByOwnedItems({([i])})">{getTrTypesByOwnedItems(([i]))}</a></td>
+							</c:if>
+							<c:if condition="!isItem(([i]))">
+								<td><c:message value="msg_movedata,other_item"/></td>
+							</c:if>
+							<td>{t}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+			<c:message value="msg_movedata,types"/>
+			<table>
+				<caption><c:message value="msg_movedata,moves"/></caption>
+				<thead>
+					<tr>
+						<th><c:message value="msg_movedata,weather"/></th>
+						<th><c:message value="msg_movedata,type_title"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="i" map="typesByWeathers" value="t" keyClassName="java.lang.Object" varClassName='java.lang.String'>
+						<tr>
+							<c:if condition="isWeather(([i]))">
+								<td><a c:command="$clickTypesByWeathers({([i])})">{getTrTypesByWeathers(([i]))}</a></td>
+							</c:if>
+							<c:if condition="!isWeather(([i]))">
+								<td><c:message value="msg_movedata,other_weather"/></td>
+							</c:if>
+							<td>{t}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+		</c:if>
+		<c:if condition="isDamagingMove()">
+			<c:if condition="isDamagingDirectMove()">
+				<c:message value="msg_movedata,cat_direct_true">
+					<param value="category"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!isDamagingDirectMove()">
+				<c:message value="msg_movedata,cat_direct_false">
+					<param value="category"/>
+				</c:message>
+			</c:if>
+		</c:if>
+		<c:if condition="!isDamagingMove()">
+			<c:message value="msg_movedata,cat_status"/>
+		</c:if>
+		<hr/>
+		<h2><c:message value="msg_movedata,pp_title"/></h2>
+		<c:message value="msg_movedata,pp">
+			<param value="pp"/>
+		</c:message>
+		<c:if condition="isZeroPriority()">
+			<c:message value="msg_movedata,priority_zero"/>
+		</c:if>
+		<c:if condition="!isZeroPriority()">
+			<c:message value="msg_movedata,priority">
+				<param value="priority"/>
+			</c:message>
+		</c:if>
+		<h2><c:message value="msg_movedata,targets_title"/></h2>
+		<c:message value="msg_movedata,targets"/>
+		<c:if condition="isAdjAdv()">
+          <c:message value="msg_movedata,targets_ADJ_ADV"/><br/>
+        </c:if>
+        <c:if condition="isAdjMult()">
+          <c:message value="msg_movedata,targets_ADJ_MULT"/><br/>
+        </c:if>
+        <c:if condition="isAdjUniq()">
+          <c:message value="msg_movedata,targets_ADJ_UNIQ"/><br/>
+        </c:if>
+        <c:if condition="isAllie()">
+          <c:message value="msg_movedata,targets_ALLIE"/><br/>
+        </c:if>
+        <c:if condition="isAllies()">
+          <c:message value="msg_movedata,targets_ALLIES"/><br/>
+        </c:if>
+        <c:if condition="isAnyFoe()">
+          <c:message value="msg_movedata,targets_ANY_FOE"/><br/>
+        </c:if>
+        <c:if condition="isAutreUniq()">
+          <c:message value="msg_movedata,targets_AUTRE_UNIQ"/><br/>
+        </c:if>
+        <c:if condition="isGlobale()">
+          <c:message value="msg_movedata,targets_GLOBALE"/><br/>
+        </c:if>
+        <c:if condition="isLanceur()">
+          <c:message value="msg_movedata,targets_LANCEUR"/><br/>
+        </c:if>
+        <c:if condition="isPseudoGlobale()">
+          <c:message value="msg_movedata,targets_PSEUDO_GLOBALE"/><br/>
+        </c:if>
+        <c:if condition="isTousAdv()">
+          <c:message value="msg_movedata,targets_TOUS_ADV"/><br/>
+        </c:if>
+        <c:if condition="isUniqueImporte()">
+          <c:message value="msg_movedata,targets_UNIQUE_IMPORTE"/><br/>
+        </c:if>
+
+        <c:if condition="isAdjAdv()">
+          <c:message value="msg_movedata,chosen_targets_ADJ_ADV"/><br/>
+        </c:if>
+        <c:if condition="isAdjMult()">
+          <c:message value="msg_movedata,chosen_targets_ADJ_MULT"/><br/>
+        </c:if>
+        <c:if condition="isAdjUniq()">
+          <c:message value="msg_movedata,chosen_targets_ADJ_UNIQ"/><br/>
+        </c:if>
+        <c:if condition="isAllie()">
+          <c:message value="msg_movedata,chosen_targets_ALLIE"/><br/>
+        </c:if>
+        <c:if condition="isAllies()">
+          <c:message value="msg_movedata,chosen_targets_ALLIES"/><br/>
+        </c:if>
+        <c:if condition="isAnyFoe()">
+          <c:message value="msg_movedata,chosen_targets_ANY_FOE"/><br/>
+        </c:if>
+        <c:if condition="isAutreUniq()">
+          <c:message value="msg_movedata,chosen_targets_AUTRE_UNIQ"/><br/>
+        </c:if>
+        <c:if condition="isGlobale()">
+          <c:message value="msg_movedata,chosen_targets_GLOBALE"/><br/>
+        </c:if>
+        <c:if condition="isLanceur()">
+          <c:message value="msg_movedata,chosen_targets_LANCEUR"/><br/>
+        </c:if>
+        <c:if condition="isPseudoGlobale()">
+          <c:message value="msg_movedata,chosen_targets_PSEUDO_GLOBALE"/><br/>
+        </c:if>
+        <c:if condition="isTousAdv()">
+          <c:message value="msg_movedata,chosen_targets_TOUS_ADV"/><br/>
+        </c:if>
+        <c:if condition="isUniqueImporte()">
+          <c:message value="msg_movedata,chosen_targets_UNIQUE_IMPORTE"/><br/>
+        </c:if>
+		<br/>
+		<h2><c:message value="msg_movedata,accuracy_title"/></h2>
+		<c:if condition="isConstAccuracy()">
+			<c:message value="msg_movedata,accuracy_const">
+				<param value="accuracy"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!isConstAccuracy()">
+			<c:message value="msg_movedata,accuracy_var">
+				<param value="accuracy"/>
+			</c:message>
+		</c:if>
+		<c:if condition="!mapVarsAccuracy.isEmpty()">
+			<br/>
+			<ul>
+				<c:for key="k" map="mapVarsAccuracy" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
+					<li>{k} : 
+						<c:message quoted="" value="msg_movedata,formula">
+							<param value="v"/>
+						</c:message>
+					</li>
+				</c:for>
+			</ul>
+		</c:if>
+		<br/>
+		<c:if condition="ignVarAccurUserNeg">
+			<c:message value="msg_movedata,ign_var_prec_lanceur_neg"/>
+		</c:if>
+		<c:if condition="ignVarEvasTargetPos">
+			<c:message value="msg_movedata,ign_var_esq_cible_pos"/>
+		</c:if>
+		<h2><c:message value="msg_movedata,prepa_round_title"/></h2>
+		<c:if condition="!isZeroPrepaRound()">
+			<c:message value="msg_movedata,prepa_tour_climat">
+				<param value="nbPrepaRound"/>
+			</c:message>
+		</c:if>
+		<c:if condition="disappearBeforeUse">
+			<c:message value="msg_movedata,disparition_tour"/>
+		</c:if>
+		<hr/>
+		<h1><c:message value="msg_movedata,success_title"/></h1>
+		<c:if condition="!deletedStatus.isEmpty()">
+			<c:message value="msg_movedata,deleted_status"/>
+			<ul>
+				<c:for list="deletedStatus" var="m">
+					<li><a c:command="$clickDeletedStatus({([m])})" href="">{getDeletedStatus(([m]))}</a></li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="!requiredStatus.isEmpty()">
+			<c:message value="msg_movedata,requiered_status"/>
+			<ul>
+				<c:for list="requiredStatus" var="m">
+					<li><a c:command="$clickRequiredStatus({([m])})" href="">{getRequiredStatus(([m]))}</a></li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="!achieveDisappearedPkUsingMove.isEmpty()">
+			<c:message value="msg_movedata,touche_pk_disparus"/>
+			<ul>
+				<c:for list="achieveDisappearedPkUsingMove" var="m">
+					<li>{getTrAchieveDisappearedPkUsingMove(([m]))}</li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="!abilities.isEmpty()">
+			<c:message value="msg_movedata,abilities_affect"/>
+			<ul>
+				<c:for list="abilities" var="a">
+					<li><a c:command="$clickAbility({([a])})" href="">{getTrAbility(([a]))}</a></li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="!items.isEmpty()">
+			<c:message value="msg_movedata,items_affect"/>
+			<ul>
+				<c:for list="items" var="i">
+					<li><a c:command="$clickItem({([i])})" href="">{getTrItem(([i]))}</a></li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<c:if condition="cannotKo">
+			<c:message value="msg_movedata,cannot_ko"/>
+			<br/>
+		</c:if>
+		<c:if condition="!affectedByMoves.isEmpty()">
+			<c:message value="msg_movedata,affect_by_moves"/>
+			<ul>
+				<c:for list="affectedByMoves" var="m">
+					<li><a c:command="$clickMove({([m])})" href="">{getTrMove(([m]))}</a></li>
+				</c:for>
+			</ul>
+			<br/>
+		</c:if>
+		<br/>
+		<h1><c:message value="msg_movedata,effects_title"/></h1>
+		<c:if condition="secEffectsByItem.isEmpty()">
+			<c:for className="$int" list="effects" var="e">
+				<c:if condition="isBeforePrimaryEffect(e)">
+					<h2><c:message value="msg_movedata,effects_bef_first"/></h2>
+				</c:if>
+				<c:if condition="!isEndRoundEffect(e)">
+					<c:if condition="isPrimaryEffect(e)">
+						<h2><c:message value="msg_movedata,effects_first"/></h2>
+					</c:if>
+					<c:if condition="isAfterPrimaryEffect(e)">
+						<h2><c:message value="msg_movedata,effects_sec"/></h2>
+						<c:if condition="secEffectIfNoDamage">
+							<c:message value="msg_movedata,effect_while_no_damage"/>
+						</c:if>
+					</c:if>
+				</c:if>
+				<c:if condition="isEndRoundEffect(e)">
+					<h2><c:message value="msg_movedata,effects_end_round"/></h2>
+				</c:if>
+				<c:import page="{getPage(([e]))}">
+					<c:package name="aiki.beans.moves.effects">
+						<c:class name="EffectBean">
+							<c:field prepare="$intern.index=e"/>
+							<c:field prepare="$intern.move=name"/>
+						</c:class>
+					</c:package>
+				</c:import>
+			</c:for>
+		</c:if>
+		<c:if condition="!secEffectsByItem.isEmpty()">
+			<c:for className="$int" list="effects" var="e">
+				<c:if condition="isBeforePrimaryEffect(e)">
+					<h2><c:message value="msg_movedata,effects_bef_first"/></h2>
+					<c:import page="{getPage(([e]))}">
+						<c:package name="aiki.beans.moves.effects">
+							<c:class name="EffectBean">
+								<c:field prepare="$intern.index=e"/>
+								<c:field prepare="$intern.move=name"/>
+							</c:class>
+						</c:package>
+					</c:import>
+				</c:if>
+				<c:if condition="!isEndRoundEffect(e)">
+					<c:if condition="isPrimaryEffect(e)">
+						<h2><c:message value="msg_movedata,effects_first"/></h2>
+						<c:import page="{getPage(([e]))}">
+							<c:package name="aiki.beans.moves.effects">
+								<c:class name="EffectBean">
+									<c:field prepare="$intern.index=e"/>
+									<c:field prepare="$intern.move=name"/>
+								</c:class>
+							</c:package>
+						</c:import>
+					</c:if>
+				</c:if>
+			</c:for>
+			<h2><c:message value="msg_movedata,effects_sec_dpt"/></h2>
+			<c:for key="e" map="secEffectsByItem" value="l" keyClassName="java.lang.Object" varClassName="ls">
+				<h3>{([e])} <a c:command="$clickItemSecEffect({([e])})" href="">{translateItemSecEffect(([e]))}</a></h3>
+				    <c:if condition="secEffectIfNoDamage">
+						<c:message value="msg_movedata,effect_while_no_damage"/>
+					</c:if>
+					<br/>
+					<c:for className="java.lang.Long" list="l" var="n">
+						<c:import page="{getPage(n)}">
+							<c:package name="aiki.beans.moves.effects">
+								<c:class name="EffectBean">
+									<c:field prepare="$intern.index=n.intValue()"/>
+									<c:field prepare="$intern.move=name"/>
+								</c:class>
+							</c:package>
+						</c:import>
+					</c:for>
+					<br/>
+					<br/>
+			</c:for>
+			<c:for className="$int" list="effects" var="e">
+				<c:if condition="isEndRoundEffect(e)">
+					<h2><c:message value="msg_movedata,effects_end_round"/></h2>
+					<c:import page="{getPage(([e]))}">
+						<c:package name="aiki.beans.moves.effects">
+							<c:class name="EffectBean">
+								<c:field prepare="$intern.index=e"/>
+								<c:field prepare="$intern.move=name"/>
+							</c:class>
+						</c:package>
+					</c:import>
+				</c:if>
+			</c:for>
+		</c:if>
+		<h1><c:message value="msg_movedata,after_using"/></h1>
+		<c:if condition="switchAfterUsingMove()">
+			<c:message value="msg_movedata,switch"/>
+		</c:if>
+		<c:if condition="rechargeRound">
+			<c:message value="msg_movedata,recharge"/>
+			<c:message value="msg_movedata,recharge_ab"/>
+		</c:if>
+		<c:if condition="isRepeatedRound()">
+			<c:if condition="constUserChoice">
+				<c:message value="msg_movedata,const_user_choice"/>
+			</c:if>
+			<a c:command="web/html/endround/endround.html" href=""><c:message value="msg_movedata,end_round_link"/></a>
+			<br/>
+			<c:message value="msg_movedata,repeated_round">
+				<param value="rankIncrementNbRound"/>
+			</c:message>
+			<table>
+				<thead>
+					<tr>
+						<th>
+							<c:message value="msg_movedata,nb_rounds"/>
+						</th>
+						<th>
+							<c:message value="msg_movedata,rate"/>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="r" map="repeatRoundLaw" value="p" keyClassName='li' varClassName="r">
+						<tr>
+							<td>{r}</td>
+							<td>{p}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</c:if>
+		<c:if condition="canBeLearnt()">
+			<h1><c:message value="msg_movedata,learning_move"/></h1>
+			<c:if condition="!movesLevelLearntByPokemon.isEmpty()">
+				<h2><c:message value="msg_movedata,by_growing"/></h2>
+				<c:for key="l" map="movesLevelLearntByPokemon" value="p" keyClassName='java.lang.Short' varClassName="ls">
+					<h3>
+						<c:message value="msg_movedata,grow_level">
+							<param value="l"/>
+						</c:message>
+					</h3>
+					<ul>
+						<c:for list="p" var="k">
+							<li><a c:command="$clickPokemon({([l])},{([k])})" href="">{getTrPokemon(([l]),([k]))}</a></li>
+						</c:for>
+					</ul>
+					<br/>
+				</c:for>
+			</c:if>
+			<c:if condition="!movesTmLearntByPokemon.isEmpty()">
+				<h2><c:message value="msg_movedata,by_learn_tm"/></h2>
+				<ul>
+					<c:for list="movesTmLearntByPokemon" var="l">
+						<li><a c:command="$clickPokemonTm({([l])})" href="">{getTrPokemonTm(([l]))}</a></li>
+					</c:for>
+				</ul>
+			</c:if>
+			<c:if condition="!movesHmLearntByPokemon.isEmpty()">
+				<h2><c:message value="msg_movedata,by_learn_hm"/></h2>
+				<ul>
+					<c:for list="movesHmLearntByPokemon" var="l">
+						<li><a c:command="$clickPokemonHm({([l])})" href="">{getTrPokemonHm(([l]))}</a></li>
+					</c:for>
+				</ul>
+			</c:if>
+			<c:if condition="!movesMtLearntByPokemon.isEmpty()">
+				<h2><c:message value="msg_movedata,by_learn_mt"/></h2>
+				<ul>
+					<c:for list="movesMtLearntByPokemon" var="l">
+						<li><a c:command="$clickPokemonMt({([l])})" href="">{getTrPokemonMt(([l]))}</a></li>
+					</c:for>
+				</ul>
+			</c:if>
+		</c:if>
+	</body>
+</html>

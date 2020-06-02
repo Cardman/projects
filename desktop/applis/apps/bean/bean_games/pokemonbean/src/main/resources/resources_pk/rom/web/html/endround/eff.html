@@ -1,0 +1,48 @@
+<html xmlns:c="javahtml" c:bean="end">
+	<head>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:if condition="!move.isEmpty()">
+				<a c:command="$clickMove({index})" href="">{move}</a>
+			</c:if>
+			<c:if condition="!ability.isEmpty()">
+				<a c:command="$clickAbility({index})" href="">{ability}</a>
+			</c:if>
+			<c:if condition="!item.isEmpty()">
+				<a c:command="$clickItem({index})" href="">{item}</a>
+			</c:if>
+			<c:if condition="!status.isEmpty()">
+				<a c:command="$clickStatus({index})" href="">{status}</a>
+			</c:if>
+			<c:if condition="!moves.isEmpty()">
+				<ul>
+					<c:for list="moves" var="m">
+						<li><a c:command="$clickMoves({index},{([m])})" href="">{getTrMoves(([m]))}</a></li>
+					</c:for>
+				</ul>
+			</c:if>
+		</p>
+		<c:message value="msg_event,rank">
+			<param value="endRoundRank"/>
+		</c:message>
+		<br/>
+		<c:if condition="!reasonsEndRound.isEmpty()">
+			<p>
+				<c:message value="msg_effendround,reasons"/>
+				<ul>
+					<c:for list="reasonsEndRound" var="r" className="java.lang.String">
+						<li>{r}</li>
+					</c:for>
+				</ul>
+				<br/>
+				<ul>
+					<c:for key="c" map="mapVarsFailEndRound" value="r" keyClassName="java.lang.String" varClassName="java.lang.String">
+						<li>{c} : {r}</li>
+					</c:for>
+				</ul>
+			</p>
+		</c:if>
+	</body>
+</html>

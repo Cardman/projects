@@ -1,0 +1,31 @@
+<html xmlns:c="javahtml" c:bean="ball">
+	<head>
+		<title><c:message value="msg_item,title"><param value="displayName"/></c:message></title>
+		<link href="web/css/items.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:import page="{itemBean}">
+			<c:package name="aiki.beans.items">
+				<c:class name="ItemBean">
+					<c:field prepare="$intern.name=name"/>
+				</c:class>
+			</c:package>
+		</c:import>
+		<p>
+			<c:message value="msg_ball,rate_catching"/>
+			{catchingRate}
+			<c:if condition="!mapVars.isEmpty()">
+				<ul>
+					<c:for key="k" map="mapVars" value="v" keyClassName="java.lang.String" varClassName="java.lang.String">
+						<li>{k} :
+							<c:message quoted="" value="msg_ball,formula">
+								<param value="v"/>
+							</c:message>
+						</li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+		</p>
+	</body>
+</html>

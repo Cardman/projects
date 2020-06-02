@@ -1,0 +1,20 @@
+<html xmlns:c="javahtml" c:bean="evo_stonegender">
+	<head>
+		<link href="web/css/pokedex.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<tr>
+			<td>
+				<a c:command="$clickEvo({index})" href="">{displayName}</a>
+			</td>
+			<td>
+				<c:message value="msg_evostonegender,stone_gender">
+					<param value="displayBase"/>
+					<param value="stone"/>
+					<param value="gender"/>
+					<param value="index"/>
+				</c:message>
+			</td>
+		</tr>
+	</body>
+</html>

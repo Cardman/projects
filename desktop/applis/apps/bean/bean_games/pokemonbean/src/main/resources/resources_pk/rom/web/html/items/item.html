@@ -1,0 +1,22 @@
+<html xmlns:c="javahtml" c:bean="item">
+	<head>
+		<link href="web/css/items.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<a c:command="$clickItems" href=""><c:message value="msg_item,items"/></a>
+			<br/>
+			{displayName}
+			<c:img src="{itemImage}"/>
+			<br/>
+			<c:message quoted="" value="msg_item,item_type">
+				<param value="description"/>
+			</c:message>
+			<br/>
+			<c:message value="msg_item,price">
+				<param value="displayName"/>
+				<param value="price"/>
+			</c:message>
+		</p>
+	</body>
+</html>

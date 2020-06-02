@@ -1,0 +1,54 @@
+<html xmlns:c="javahtml" c:bean="level_simu">
+	<head>
+		<link href="web/css/simulation.css" rel="stylesheet" type="text/css"/>
+		<title>
+			<c:if condition="possibleMultiLayer">
+				<c:message value="msg_levelsimu,title_level_place">
+					<param value="placeName"/>
+					<param value="levelIndex"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!possibleMultiLayer">
+				<c:if condition="outside">
+					<c:if condition="road">
+						<c:message value="msg_levelsimu,title_out_road">
+							<param value="placeName"/>
+						</c:message>
+					</c:if>
+					<c:if condition="!road">
+						<c:message value="msg_levelsimu,title_out_city">
+							<param value="placeName"/>
+						</c:message>
+					</c:if>
+				</c:if>
+				<c:if condition="!outside">
+					<c:if condition="gym">
+						<c:message value="msg_levelsimu,title_gym">
+							<param value="placeName"/>
+						</c:message>
+					</c:if>
+					<c:if condition="pokemonCenter">
+						<c:message value="msg_levelsimu,title_pk_center">
+							<param value="placeName"/>
+						</c:message>
+					</c:if>
+				</c:if>
+			</c:if>
+		</title>
+	</head>
+	<body>
+		<form action="" c:command="web/html/simulation/simulationlevel.html" method="post">
+			<c:message value="msg_levelsimu,no_fight"/>
+			<input c:varValue="noFight" name="noFight" type="text" value="noFight"/><br/>
+			<input type="submit" value="OK"/>
+		</form>
+		<br/>
+		<a c:command="$cancel" href=""><c:message value="msg_levelsimu,cancel"/></a><br/>
+		<map width="{getMapWidth()}">
+			<c:for key="p" map="tiles" value="b" keyClassName="java.lang.Object" varClassName='java.lang.String'>
+				<a c:command="$clickTile({([p])})"><c:img border="0" src="{b}"/></a>
+			</c:for>
+		</map>
+		<br/>
+	</body>
+</html>

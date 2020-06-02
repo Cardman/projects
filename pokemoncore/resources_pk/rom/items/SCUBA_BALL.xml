@@ -1,4 +1,0 @@
-<aiki.fight.items.Ball>
-<java.lang.String class="aiki.fight.items.Ball" field="catchingRate" value="7*cardinal(inter({VAR__LIEU_COMBAT},{WATER}))+3/4*cardinal(complementaire({WATER},{VAR__LIEU_COMBAT}))"/>
-<java.lang.Integer class="aiki.fight.items.Item" field="price" value="800"/>
-</aiki.fight.items.Ball>

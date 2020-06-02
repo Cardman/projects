@@ -1,0 +1,45 @@
+<html xmlns:c="javahtml" c:bean="healingitem">
+	<head>
+		<title><c:message value="msg_item,title"><param value="displayName"/></c:message></title>
+		<link href="web/css/items.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:import page="{itemBean}">
+			<c:package name="aiki.beans.items">
+				<c:class name="ItemBean">
+					<c:field prepare="$intern.name=name"/>
+				</c:class>
+			</c:package>
+		</c:import>
+		<p>
+			<c:if condition="healingTeam">
+				<c:message value="msg_healingitem,heal_team"/>
+			</c:if>
+			<c:if condition="!happiness.isEmpty()">
+				<c:message value="msg_healingitem,happiness"/>
+				<table>
+					<thead>
+						<tr>
+							<th><c:message value="msg_healingitem,happiness_ball"/></th>
+							<th><c:message value="msg_healingitem,happiness_boost"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="b" map="happiness" value="w" keyClassName="java.lang.Object" varClassName="java.lang.Short">
+							<tr>
+								<c:if condition="!isBall(([b]))">
+									<td><c:message value="msg_healingitem,happiness_other_ball"/></td>
+								</c:if>
+								<c:if condition="isBall(([b]))">
+									<td><a c:command="$clickHappiness({([b])})" href="">{getTrHappiness(([b]))}</a></td>
+								</c:if>
+								<td>{w}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+		</p>
+	</body>
+</html>

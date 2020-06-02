@@ -1,0 +1,53 @@
+<html xmlns:c="javahtml" c:bean="end_singlerelation">
+	<head>
+		<link href="web/css/abilities.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:import page="{endRoundHtml}">
+			<c:package name="aiki.beans.endround">
+				<c:class name="EffectEndRoundBean">
+					<c:field prepare="$intern.index=index"/>
+				</c:class>
+			</c:package>
+		</c:import>
+		<p>
+			<c:message value="msg_singlerelation,effect"/>
+			<c:message value="msg_singlerelation,suffered"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_singlerelation,suffered_rd"/></th>
+						<th><c:message value="msg_singlerelation,suffered_rate"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="rateDamageFunctionOfNbRounds" value="r" keyClassName='java.lang.Long' varClassName='r'>
+						<tr>
+							<td>{s}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+			<c:message value="msg_singlerelation,law"/>
+			<table>
+				<thead>
+					<tr>
+						<th><c:message value="msg_singlerelation,law_rd"/></th>
+						<th><c:message value="msg_singlerelation,law_value"/></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:for key="s" map="lawForEnablingEffect" value="r" keyClassName='li' varClassName='r'>
+						<tr>
+							<td>{s}</td>
+							<td>{r}</td>
+						</tr>
+					</c:for>
+				</tbody>
+			</table>
+			<br/>
+		</p>
+	</body>
+</html>

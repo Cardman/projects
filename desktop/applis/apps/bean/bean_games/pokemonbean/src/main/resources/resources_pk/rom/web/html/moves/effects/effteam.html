@@ -1,0 +1,176 @@
+<html xmlns:c="javahtml" c:bean="eff_team">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effteam,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field prepare="$intern.index=index"/>
+						<c:field prepare="$intern.move=move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="forbiddingHealing">
+				<c:message value="msg_effteam,forbid_heal"/>
+			</c:if>
+			<c:if condition="protectAgainstCh">
+				<c:message value="msg_effteam,protect_ag_ch"/>
+			</c:if>
+			<c:if condition="!forbiddenBoost.isEmpty()">
+				<c:message value="msg_effteam,forbid_boost"/>
+				<ul>
+					<c:for list="forbiddenBoost" var="s" className='java.lang.String'>
+						<li>{s}</li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!cancelChgtStatFoeTeam.isEmpty()">
+				<c:message value="msg_effteam,cancel_chgt_stat_foe">
+					<param value="defaultBoost"/>
+				</c:message>
+				<ul>
+					<c:for list="cancelChgtStatFoeTeam" var="s" className='java.lang.String'>
+						<li>{s}</li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!cancelChgtStatTeam.isEmpty()">
+				<c:message value="msg_effteam,cancel_chgt_stat">
+					<param value="defaultBoost"/>
+				</c:message>
+				<ul>
+					<c:for list="cancelChgtStatTeam" var="s" className='java.lang.String'>
+						<li>{s}</li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!protectAgainstLowStat.isEmpty()">
+				<c:message value="msg_effteam,protect_ag_law_statis"/>
+				<ul>
+					<c:for list="protectAgainstLowStat" var="s" className='java.lang.String'>
+						<li>{s}</li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!protectAgainstStatus.isEmpty()">
+				<c:message value="msg_effteam,protect_ag_status"/>
+				<ul>
+					<c:for list="protectAgainstStatus" var="s">
+						<li><a c:command="$clickStatus({index},{([s])})" href="">{getTrStatus(([s]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!multStatistic.isEmpty()">
+				<c:message value="msg_effteam,mult_stat"/>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effteam,statistic"/>
+							</th>
+							<th>
+								<c:message value="msg_effteam,rate"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" map="multStatistic" value="r" keyClassName='java.lang.String' varClassName='r'>
+							<tr>
+								<td>{c}</td>
+								<td>{r}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!multStatisticFoe.isEmpty()">
+				<c:message value="msg_effteam,mult_stat_foe"/>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effteam,statistic"/>
+							</th>
+							<th>
+								<c:message value="msg_effteam,rate"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" map="multStatisticFoe" value="r" keyClassName='java.lang.String' varClassName='r'>
+							<tr>
+								<td>{c}</td>
+								<td>{r}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!multDamage.isEmpty()">
+				<c:message value="msg_effteam,mult_damage"/>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effteam,cat"/>
+							</th>
+							<th>
+								<c:message value="msg_effteam,mult"/>
+							</th>
+							<th>
+								<c:message value="msg_effteam,rate"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" keyClassName="aiki.fight.util.CategoryMult" map="multDamage" value="r" varClassName='r'>
+							<tr>
+								<td>{c.getCategory()}</td>
+								<td>{c.getMult()}</td>
+								<td>{r}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!unusableMoves.isEmpty()">
+				<c:message value="msg_effteam,forbid_move"/>
+				<ul>
+					<c:for list="unusableMoves" var="s">
+						<li><a c:command="$clickUnusableMove({index},{([s])})" href="">{getTrUnusableMove(([s]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!disableFoeTeamEffects.isEmpty()">
+				<c:message value="msg_effteam,delete_effects"/>
+				<ul>
+					<c:for list="disableFoeTeamEffects" var="s">
+						<li><a c:command="$clickDisableFoeTeamEffects({index},{([s])})" href="">{getTrDisableFoeTeamEffects(([s]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!disableFoeTeamStatus.isEmpty()">
+				<c:message value="msg_effteam,delete_status"/>
+				<ul>
+					<c:for list="disableFoeTeamStatus" var="s">
+						<li><a c:command="$clickDisableFoeTeamStatus({index},{([s])})" href="">{getTrDisableFoeTeamStatus(([s]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+		</p>
+	</body>
+</html>

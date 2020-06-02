@@ -1,0 +1,23 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+					http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+       <groupId>applis</groupId>
+        <artifactId>applis</artifactId>
+        <version>2.0</version>
+    </parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>apps</groupId>
+	<artifactId>apps</artifactId>
+	<packaging>pom</packaging>
+	<modules>
+		<module>core</module>
+		<module>apps_util</module>
+		<module>bean</module>
+		<module>apps_sml</module>
+		<module>files</module>
+		<module>gui</module>
+		<module>main</module>
+	</modules>
+</project>

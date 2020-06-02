@@ -1,0 +1,37 @@
+<html xmlns:c="javahtml" c:bean="eff_endround">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field prepare="$intern.index=index"/>
+						<c:field prepare="$intern.move=move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:message value="msg_effendround,rank">
+				<param value="endRoundRank"/>
+			</c:message>
+			<a c:command="web/html/endround/endround.html" href=""><c:message value="msg_effendround,endRound"/></a>
+		</p>
+		<c:if condition="!reasonsEndRound.isEmpty()">
+			<p>
+				<c:message value="msg_effendround,reasons"/>
+				<ul>
+					<c:for list="reasonsEndRound" var="r" className='java.lang.String'>
+						<li>{r}</li>
+					</c:for>
+				</ul>
+				<br/>
+				<ul>
+					<c:for key="c" map="mapVarsFailEndRound" value="r" keyClassName='java.lang.String' varClassName='java.lang.String'>
+						<li>{c} : {r}</li>
+					</c:for>
+				</ul>
+			</p>
+		</c:if>
+	</body>
+</html>

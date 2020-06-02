@@ -1,0 +1,5 @@
+<aiki.fight.items.Fossil>
+<java.lang.String class="aiki.fight.items.Fossil" field="pokemon" value="DINOCLIER"/>
+<java.lang.Short class="aiki.fight.items.Fossil" field="level" value="5"/>
+<java.lang.Integer class="aiki.fight.items.Item" field="price" value="2500"/>
+</aiki.fight.items.Fossil>

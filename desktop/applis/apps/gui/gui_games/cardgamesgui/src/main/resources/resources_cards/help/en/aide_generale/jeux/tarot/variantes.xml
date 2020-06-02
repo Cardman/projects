@@ -1,0 +1,7 @@
+<cfg>
+	<java.lang.String class="cfg" field="firstUrl" value="resources_cards/help//aide_generale/jeux/tarot/variantes.html"/>
+	<java.lang.String class="cfg" field="prefix" value="c"/>
+	<sm class="cfg" field="navigation"/>
+	<java.lang.String class="cfg" field="messagesFolder" value=""/>
+	<sm class="cfg" field="properties"/>
+</cfg>

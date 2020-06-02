@@ -1,0 +1,28 @@
+<cfg>
+	<java.lang.String class="cfg" field="firstUrl" value="web_pk/html/pokemon.html"/>
+	<sm class="cfg" field="validators"/>
+	<sm class="cfg" field="translators"/>
+	<sm class="cfg" field="beans">
+		<java.lang.String class="m" key="" value="pokemon"/>
+		<b class="m">
+			<java.lang.String class="b" field="scope" value="session"/>
+			<java.lang.String class="b" field="className" value="aiki.beans.game.PokemonPlayerBean"/>
+		</b>
+	</sm>
+    <java.lang.String class="cfg" field="prefix" value="c"/>
+	<sm class="cfg" field="navigation"/>
+	<sm class="cfg" field="properties">
+		<java.lang.String class="m" key="" value="msg_pokemon"/>
+		<java.lang.String class="m" value="pokemon"/>
+	</sm>
+	<java.lang.String class="cfg" field="messagesFolder" value="web_pk/messages"/>
+	<null class="cfg" field="mathFactory"/>
+	<java.lang.Integer class="cfg" field="tabWidth" value="4"/>
+	<java.lang.String class="cfg" field="namespaceUri" value="javahtml"/>
+	<hav class="cfg" field="accessValue"/>
+	<sm class="cfg" field="lateValidators"/>
+	<sm class="cfg" field="lateTranslators"/>
+	<sl field="addedFiles">
+		<str value="web_pk/css/pokemon.css"/>
+	</sl>
+</cfg>

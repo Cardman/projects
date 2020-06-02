@@ -1,0 +1,45 @@
+<html xmlns:c="javahtml" c:bean="eff_fullhprate">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_efffullhprate,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field prepare="$intern.index=index"/>
+						<c:field prepare="$intern.move=move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="!leftUserHp.isZero()">
+				<c:message value="msg_efffullhprate,left_user_hp">
+					<param value="leftUserHp"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!restoredHp.isEmpty()">
+				<c:message value="msg_efffullhprate,restored"/>
+				{restoredHp}
+				<br/>
+				<c:if condition="!mapVarsRestored.isEmpty()">
+					<ul>
+						<c:for key="k" map="mapVarsRestored" value="v" keyClassName='java.lang.String' varClassName='java.lang.String'>
+							<li>{k} :
+								<c:message quoted="" value="msg_efffullhprate,formula">
+									<param value="v"/>
+								</c:message>
+							</li>
+						</c:for>
+					</ul>
+					<br/>
+				</c:if>
+			</c:if>
+			<c:if condition="!closestFoeDamageRateHp.isZero()">
+				<c:message value="msg_efffullhprate,closest_foe_damage_rate_hp">
+					<param value="closestFoeDamageRateHp"/>
+				</c:message>
+			</c:if>
+		</p>
+	</body>
+</html>

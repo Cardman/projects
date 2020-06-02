@@ -1,0 +1,69 @@
+<aiki.fight.moves.StatusMoveData>
+<java.lang.Boolean class="aiki.fight.moves.StatusMoveData" field="thievableMove" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.StatusMoveData" field="counterableMove" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="notTranslated" value="false"/>
+<java.lang.Short class="aiki.fight.moves.MoveData" field="pp" value="20"/>
+<sl class="aiki.fight.moves.MoveData" field="types">
+<java.lang.String class="a" value="VOL"/>
+</sl>
+<sl class="aiki.fight.moves.MoveData" field="boostedTypes">
+<java.lang.String class="a" value="VOL"/>
+</sl>
+<java.lang.Byte class="aiki.fight.moves.MoveData" field="priority" value="0"/>
+<java.lang.String class="aiki.fight.moves.MoveData" field="accuracy" value="1"/>
+<l class="aiki.fight.moves.MoveData" field="effects">
+<aiki.fight.moves.effects.EffectInvoke class="a">
+<em class="aiki.fight.moves.effects.EffectInvoke" field="moveFctEnv"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingMoveButUser" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingTargetChosenMove" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingUserMoveWhileSleep" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingAllyMove" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingTargetSuccesfulMove" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.effects.EffectInvoke" field="invokingSufferedMove" value="true"/>
+<sm class="aiki.fight.moves.effects.EffectInvoke" field="invokingMoveByUserTypes"/>
+<sl class="aiki.fight.moves.effects.EffectInvoke" field="movesNotToBeInvoked">
+<java.lang.String class="a" value="ACUPRESSION"/>
+<java.lang.String class="a" value="BLABLA_DODO"/>
+<java.lang.String class="a" value="BOOST"/>
+<java.lang.String class="a" value="CARNAREKET"/>
+<java.lang.String class="a" value="COPIE"/>
+<java.lang.String class="a" value="ENCORE"/>
+<java.lang.String class="a" value="GRIBOUILLE"/>
+<java.lang.String class="a" value="IMITATION"/>
+<java.lang.String class="a" value="LUTTE"/>
+<java.lang.String class="a" value="MALEDICTION_2"/>
+<java.lang.String class="a" value="METRONOME"/>
+<java.lang.String class="a" value="MIMIQUE"/>
+<java.lang.String class="a" value="MORPHING"/>
+<java.lang.String class="a" value="POSSESSIF"/>
+<java.lang.String class="a" value="PRESCIENCE"/>
+<java.lang.String class="a" value="REQUIEM"/>
+</sl>
+<r class="aiki.fight.moves.effects.EffectInvoke" field="rateInvokationMove" value="0"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.effects.Effect" field="targetChoice" value="ADJ_UNIQ"/>
+<java.lang.String class="aiki.fight.moves.effects.Effect" field="fail" value="VAR__PAS_ATTAQUE_INVOC"/>
+<n class="aiki.fight.moves.effects.Effect" field="requiredSuccessfulEffects"/>
+</aiki.fight.moves.effects.EffectInvoke>
+</l>
+<java.lang.Short class="aiki.fight.moves.MoveData" field="nbPrepaRound" value="0"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="disappearBeforeUse" value="false"/>
+<mcu class="aiki.fight.moves.MoveData" field="repeatRoundLaw"/>
+<java.lang.Short class="aiki.fight.moves.MoveData" field="rankIncrementNbRound" value="0"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="rechargeRound" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="constUserChoice" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="stoppableMoveSolo" value="true"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="stoppableMoveMulti" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="stoppableMovePrio" value="false"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="secEffectIfNoDamage" value="false"/>
+<sm class="aiki.fight.moves.MoveData" field="secEffectsByItem"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="ignVarAccurUserNeg" value="true"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="ignVarEvasTargetPos" value="true"/>
+<java.lang.Boolean class="aiki.fight.moves.MoveData" field="breakImmuTypeAbility" value="false"/>
+<sl class="aiki.fight.moves.MoveData" field="achieveDisappearedPkUsingMove"/>
+<aiki.fight.moves.enums.SwitchType class="aiki.fight.moves.MoveData" field="switchType" value="NOTHING"/>
+<sm class="aiki.fight.moves.MoveData" field="typesByOwnedItem"/>
+<sm class="aiki.fight.moves.MoveData" field="typesByWeather"/>
+<aiki.fight.moves.enums.TargetChoice class="aiki.fight.moves.MoveData" field="targetChoice" value="ADJ_UNIQ"/>
+<sl class="aiki.fight.moves.MoveData" field="deletedStatus"/>
+<sl class="aiki.fight.moves.MoveData" field="requiredStatus"/>
+</aiki.fight.moves.StatusMoveData>

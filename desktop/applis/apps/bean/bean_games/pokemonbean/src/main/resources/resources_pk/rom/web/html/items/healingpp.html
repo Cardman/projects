@@ -1,0 +1,33 @@
+<html xmlns:c="javahtml" c:bean="healingpp">
+	<head>
+		<title><c:message value="msg_item,title"><param value="displayName"/></c:message></title>
+		<link href="web/css/items.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<c:import page="{healingItemBean}">
+			<c:package name="aiki.beans.items">
+				<c:class name="ItemBean">
+					<c:field prepare="$intern.name=name"/>
+				</c:class>
+			</c:package>
+		</c:import>
+		<p>
+			<c:if condition="healingAllMovesPp">
+				<c:message value="msg_healingpp,full_heal_moves"/>
+			</c:if>
+			<c:if condition="healingMoveFullpp">
+				<c:message value="msg_healingpp,full_heal_move"/>
+			</c:if>
+			<c:if condition="limitedPpMove()">
+				<c:message value="msg_healingpp,heal_move">
+					<param value="healedMovePp"/>
+				</c:message>
+			</c:if>
+			<c:if condition="limitedPpMoves()">
+				<c:message value="msg_healingpp,heal_moves">
+					<param value="healingAllMovesFullpp"/>
+				</c:message>
+			</c:if>
+		</p>
+	</body>
+</html>

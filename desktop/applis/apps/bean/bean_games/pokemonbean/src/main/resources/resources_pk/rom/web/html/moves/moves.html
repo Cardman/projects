@@ -1,0 +1,58 @@
+<html xmlns:c="javahtml" c:bean="moves">
+	<head>
+		<title><c:message value="msg_moves,title"/></title>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_moves,index"/></a>
+		<form action="" c:command="$search" method="post" name="searching">
+			<c:message value="msg_moves,content_name"/>
+			<input c:varValue="typedName" name="typedName" type="text"/><br/>
+			<c:message value="msg_moves,cat"/>
+			<c:select default="" map="categories" name="category" update="" varValue="category"/><br/>
+			<c:message value="msg_moves,content_type"/>
+			<input c:varValue="typedType" name="typedType" type="text"/><br/>
+			<c:message value="msg_moves,content_type_whole"/>
+			<input c:varValue="wholeWord" name="wholeWord" type="checkbox"/><br/>
+			<c:message value="msg_moves,accuracy"/>
+			<input c:varValue="minAccuracy" name="minAccuracy" type="text"/>
+			<input c:varValue="maxAccuracy" name="maxAccuracy" type="text"/><br/>
+			<c:message value="msg_moves,const_power"/>
+			<input c:varValue="minPower" name="minPower" type="text"/>
+			<input c:varValue="maxPower" name="maxPower" type="text"/><br/>
+			<input type="submit" value="OK"/>
+		</form>
+		<br/>
+		<table>
+			<caption><c:message value="msg_moves,moves"/></caption>
+			<thead>
+				<tr>
+					<th><c:message value="msg_moves,name_h"/></th>
+					<th><c:message value="msg_moves,pp_h"/></th>
+					<th><c:message value="msg_moves,types_h"/></th>
+					<th><c:message value="msg_moves,cat_h"/></th>
+					<th><c:message value="msg_moves,damag_h"/></th>
+					<th><c:message value="msg_moves,direc_h"/></th>
+					<th><c:message value="msg_moves,prio_h"/></th>
+					<th><c:message value="msg_moves,accuracy"/></th>
+					<th><c:message value="msg_moves,const_power"/></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:for className="aiki.beans.facade.dto.MoveLine" list="moves" var="d">
+					<c:import page="{movesBean}">
+						<c:package name="aiki.beans.moves">
+							<c:class name="MoveLineBean">
+								<c:field prepare="$intern.index=([d])"/>
+								<c:field prepare="$intern.moveLine=d"/>
+								<c:field prepare="$intern.sortedMoves=sortedMoves"/>
+							</c:class>
+						</c:package>
+					</c:import>
+				</c:for>
+			</tbody>
+		</table>
+		<br/>
+		<a c:command="web/html/index.html" href=""><c:message value="msg_moves,index"/></a>
+	</body>
+</html>

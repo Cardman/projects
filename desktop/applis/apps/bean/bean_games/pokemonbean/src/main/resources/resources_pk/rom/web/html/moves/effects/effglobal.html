@@ -1,0 +1,285 @@
+<html xmlns:c="javahtml" c:bean="eff_global">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<p>
+			<c:message value="msg_effglobal,effect"/>
+			<c:import page="{effectBean}">
+				<c:package name="aiki.beans.moves.effects">
+					<c:class name="EffectBean">
+						<c:field prepare="$intern.index=index"/>
+						<c:field prepare="$intern.move=move"/>
+					</c:class>
+				</c:package>
+			</c:import>
+			<c:if condition="weather">
+				<c:message value="msg_effglobal,is_weather"/>
+			</c:if>
+			<c:if condition="!weather">
+				<c:message value="msg_effglobal,is_not_weather"/>
+			</c:if>
+			<c:if condition="canceledIfUsed">
+				<c:message value="msg_effglobal,cancel_reuse"/>
+			</c:if>
+			<c:if condition="reverseOrderOfSortBySpeed">
+				<c:message value="msg_effglobal,reverse_speed"/>
+			</c:if>
+			<c:if condition="unusableItem">
+				<c:message value="msg_effglobal,unusable_item"/>
+			</c:if>
+			<c:if condition="puttingKo">
+				<c:message value="msg_effglobal,putting_ko"/>
+			</c:if>
+			<c:if condition="!multAccuracy.isZero()">
+				<c:message value="msg_effglobal,mult_acc">
+					<param value="multAccuracy"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!damageEndRound.isZero()">
+				<c:message value="msg_effglobal,damage_end_round">
+					<param value="damageEndRound"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!healingEndRoundGround.isZero()">
+				<c:message value="msg_effglobal,healing_end_round_ground">
+					<param value="healingEndRoundGround"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!healingEndRound.isZero()">
+				<c:message value="msg_effglobal,healing_end_round">
+					<param value="healingEndRound"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!multEffectLovingAlly.isZero()">
+				<c:message value="msg_effglobal,mult_love">
+					<param value="multEffectLovingAlly"/>
+				</c:message>
+			</c:if>
+			<c:if condition="!preventStatus.isEmpty()">
+				<c:message value="msg_effglobal,forbid_status"/>
+				<ul>
+					<c:for list="preventStatus" var="s" className="java.lang.Object" >
+						<li><a c:command="$clickPreventedStatus({([s])})" href="">{getTrPreventedStatus(([s]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!immuneTypes.isEmpty()">
+				<c:message value="msg_effglobal,immune_types"/>
+				<ul>
+					<c:for list="immuneTypes" var="t" className='java.lang.String'>
+						<li>{t}</li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!efficiencyMoves.isEmpty()">
+				<c:message value="msg_effglobal,efficiency_table"/>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effglobal,damage_type"/>
+							</th>
+							<th>
+								<c:message value="msg_effglobal,pokemon_type"/>
+							</th>
+							<th>
+								<c:message value="msg_effglobal,efficiency"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" keyClassName="aiki.fight.util.TypesDuo" map="efficiencyMoves" value="r" varClassName='r'>
+							<tr>
+								<td>{c.getDamageType()}</td>
+								<td>{c.getPokemonType()}</td>
+								<td>{r}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!disableImmuAgainstTypes.isEmpty()">
+				<c:message value="msg_effglobal,disable_immu_types"/>
+				<ul>
+					<c:for list="disableImmuAgainstTypes" var="t" className='java.lang.String'>
+						<li>{t}</li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!cancelProtectingAbilities.isEmpty()">
+				<c:message value="msg_effglobal,disable_immu_abilities"/>
+				<ul>
+					<c:for list="cancelProtectingAbilities" var="t" className="java.lang.Object" >
+						<li><a c:command="$clickCancelledAbility({([t])})" href="">{getTrCancelledAbility(([t]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!unusableMoves.isEmpty()">
+				<c:message value="msg_effglobal,unusable_moves"/>
+				<ul>
+					<c:for list="unusableMoves" var="t">
+						<li><a c:command="$clickUnusableMove({([t])})" href="">{getTrUnusableMoves(([t]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!cancelEffects.isEmpty()">
+				<c:message value="msg_effglobal,cancel_effects"/>
+				<ul>
+					<c:for list="cancelEffects" var="t">
+						<li><a c:command="$clickCancelledEffect({([t])})" href="">{getTrCancelledEffect(([t]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!multPowerMoves.isEmpty()">
+				<c:message value="msg_effglobal,mult_power_move"/>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effglobal,move"/>
+							</th>
+							<th>
+								<c:message value="msg_effglobal,rate_damage"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" map="multPowerMoves" value="r" keyClassName="java.lang.Object" varClassName='r'>
+							<tr>
+								<td><a c:command="$clickMultMovePower({([c])})" href="">{getTrMultMovePower(([c]))}</a></td>
+								<td>{r}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!multDamageTypesMoves.isEmpty()">
+				<c:message value="msg_effglobal,mult_power_type"/>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effglobal,move_type"/>
+							</th>
+							<th>
+								<c:message value="msg_effglobal,rate_damage"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" map="multDamageTypesMoves" value="r" keyClassName='java.lang.String' varClassName='r'>
+							<tr>
+								<td>{c}</td>
+								<td>{r}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!cancelChgtStat.isEmpty()">
+				<c:message value="msg_effglobal,cancel_chgt_statis"/>
+				<ul>
+					<c:for list="cancelChgtStat" var="t" className='java.lang.String'>
+						<li>{t}</li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!invokedMoveTerrain.isEmpty()">
+				<c:message value="msg_effglobal,invoked_move">
+					<param value="getTrInvokedMoveTerrain()"/>
+				</c:message>
+				<ul>
+					<c:for list="invokingMoves" var="t">
+						<li><a c:command="$clickInvokingMove({([t])})" href="">{getTrInvokingMove(([t]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!changedTypesTerrain.isEmpty()">
+				<c:message value="msg_effglobal,changing_type_invoked"/>
+				<ul>
+					<c:for list="changedTypesTerrain" var="t" className='java.lang.String'>
+						<li>{t}</li>
+					</c:for>
+				</ul>
+				<br/>
+				<c:message value="msg_effglobal,changing_type_invoking"/>
+				<ul>
+					<c:for list="invokingMovesChangingTypes" var="t" className="java.lang.Object" >
+						<li><a c:command="$clickInvokingMoveTypes({([t])})" href="">{getTrInvokingMoveTypes(([t]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+			</c:if>
+			<c:if condition="!multStatIfContainsType.isEmpty()">
+				<c:message value="msg_effglobal,mult_stat_type"/>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effglobal,statistic"/>
+							</th>
+							<th>
+								<c:message value="msg_effglobal,pokemon_type_stat"/>
+							</th>
+							<th>
+								<c:message value="msg_effglobal,rate_pokemon_statistic"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" map="multStatIfContainsType" value="r" keyClassName="java.lang.Object" varClassName='r'>
+							<tr>
+								<td>{getTrMultStatIfDamgeTypeFirst(([c]))}</td>
+								<td>{getTrMultStatIfDamgeTypeSecond(([c]))}</td>
+								<td>{r}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+			<c:if condition="!multDamagePrepaRound.isEmpty()">
+				<c:message value="msg_effglobal,mult_damage_type"/>
+				<ul>
+					<c:for list="movesUsedByTargetedFighters" var="t">
+						<li><a c:command="$clickMovesTarget({([t])})" href="">{getTrMovesTarget(([t]))}</a></li>
+					</c:for>
+				</ul>
+				<br/>
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<c:message value="msg_effglobal,damage_type"/>
+							</th>
+							<th>
+								<c:message value="msg_effglobal,rate"/>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:for key="c" map="multDamagePrepaRound" value="r" keyClassName='java.lang.String' varClassName='r'>
+							<tr>
+								<td>{c}</td>
+								<td>{r}</td>
+							</tr>
+						</c:for>
+					</tbody>
+				</table>
+				<br/>
+			</c:if>
+		</p>
+	</body>
+</html>

@@ -1,0 +1,39 @@
+<html xmlns:c="javahtml" c:bean="move_line">
+	<head>
+		<link href="web/css/moves.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<tr>
+			<td><a c:command="$clickMove({index})" href="">{displayName}</a></td>
+			<td>{pp}</td>
+			<td>
+				<c:for list="types" var="t" className='java.lang.String'>
+					{t} -
+				</c:for>
+			</td>
+			<td>{category}</td>
+			<td>
+				<c:if condition="moveLine.isDamageMove()">
+					<c:message value="msg_moves,damaging"/>
+				</c:if>
+				<c:else>
+					<c:message value="msg_moves,status"/>
+				</c:else>
+			</td>
+			<td>
+				<c:if condition="!moveLine.isDamageMove()">
+					<c:message value="msg_moves,status_indirect"/>
+				</c:if>
+				<c:elseif condition="moveLine.isDirect()">
+					<c:message value="msg_moves,damaging_direct"/>
+				</c:elseif>
+				<c:else>
+					<c:message value="msg_moves,damaging_indirect"/>
+				</c:else>
+			</td>
+			<td>{priority}</td>
+			<td>{accuracy}</td>
+			<td>{power}</td>
+		</tr>
+	</body>
+</html>

@@ -1,0 +1,24 @@
+<aiki.fight.status.StatusBeginRound>
+<mcb class="aiki.fight.status.StatusBeginRound" field="lawForUsingAMove">
+<bm class="mcb" field="law">
+<java.lang.Boolean class="m" key="" value="false"/>
+<li class="m" value="1"/>
+</bm>
+</mcb>
+<mcu class="aiki.fight.status.StatusBeginRound" field="lawForUsingAMoveNbRound"/>
+<mcb class="aiki.fight.status.StatusBeginRound" field="lawForUsingAMoveIfFoe">
+<bm class="mcb" field="law"/>
+</mcb>
+<mcb class="aiki.fight.status.StatusBeginRound" field="lawForFullHealIfMove">
+<bm class="mcb" field="law"/>
+</mcb>
+<aiki.fight.status.StatusType class="aiki.fight.status.Status" field="statusType" value="INDIVIDUEL"/>
+<r class="aiki.fight.status.Status" field="catchingRate" value="5/2"/>
+<l class="aiki.fight.status.Status" field="effectEndRound"/>
+<l class="aiki.fight.status.Status" field="effectsPartner"/>
+<java.lang.Boolean class="aiki.fight.status.Status" field="disabledEffIfSwitch" value="false"/>
+<java.lang.Integer class="aiki.fight.status.Status" field="incrementEndRound" value="0"/>
+<java.lang.Boolean class="aiki.fight.status.Status" field="incrementingEndRound" value="false"/>
+<em class="aiki.fight.status.Status" field="multStat"/>
+<java.lang.String class="aiki.fight.status.Status" field="fail" value=""/>
+</aiki.fight.status.StatusBeginRound>

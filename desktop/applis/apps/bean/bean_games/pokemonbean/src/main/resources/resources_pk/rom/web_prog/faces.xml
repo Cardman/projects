@@ -1,0 +1,36 @@
+<cfg>
+	<java.lang.String class="cfg" field="firstUrl" value="web_prog/html/gameprog.html"/>
+	<sm class="cfg" field="validators"/>
+	<sm class="cfg" field="translators"/>
+	<sm class="cfg" field="beans">
+		<java.lang.String class="m" key="" value="progressing"/>
+		<b class="m">
+			<java.lang.String class="b" field="scope" value="session"/>
+			<java.lang.String class="b" field="className" value="aiki.beans.game.GameProgressionBean"/>
+		</b>
+	</sm>
+    <java.lang.String class="cfg" field="prefix" value="c"/>
+	<sm class="cfg" field="navigation"/>
+	<sm class="cfg" field="properties">
+		<java.lang.String class="m" key="" value="msg_prog"/>
+		<java.lang.String class="m" value="gameprog"/>
+	</sm>
+	<java.lang.String class="cfg" field="messagesFolder" value="web_prog/messages"/>
+	<null class="cfg" field="mathFactory"/>
+	<java.lang.Integer class="cfg" field="tabWidth" value="4"/>
+	<java.lang.String class="cfg" field="namespaceUri" value="javahtml"/>
+	<hav class="cfg" field="accessValue"/>
+	<sm class="cfg" field="lateValidators"/>
+	<sm class="cfg" field="lateTranslators"/>
+	<sl field="addedFiles">
+		<str value="web_prog/css/difficulty.css"/>
+		<str value="web_prog/html/gameprogall.html"/>
+		<str value="web_prog/html/gameprognotatall.html"/>
+		<str value="web_prog/html/gameprogpart.html"/>
+	</sl>
+	<sl field="renderFiles">
+		<str value="web_prog/html/gameprogall.html"/>
+		<str value="web_prog/html/gameprognotatall.html"/>
+		<str value="web_prog/html/gameprogpart.html"/>
+	</sl>
+</cfg>
