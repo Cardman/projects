@@ -7,7 +7,7 @@ import javax.swing.*;
 
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.stream.ExtractFromFiles;
-import code.stream.AdvancedGenerator;
+import code.maths.random.AdvancedGenerator;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;

@@ -1,4 +1,4 @@
-package code.stream;
+package code.maths.random;
 
 import code.maths.montecarlo.AbstractGenerator;
 
