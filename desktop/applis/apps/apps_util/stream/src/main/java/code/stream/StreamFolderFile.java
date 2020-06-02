@@ -10,6 +10,10 @@ public final class StreamFolderFile {
     private StreamFolderFile() {
     }
 
+    public static String getCurrentPath() {
+        return StringList.replaceBackSlashDot(new File(".").getAbsolutePath());
+    }
+
     public static boolean isAbsolute(String _path) {
         File file_ = new File(_path);
         String absPath_ = StringList.replaceBackSlash(file_.getAbsolutePath());

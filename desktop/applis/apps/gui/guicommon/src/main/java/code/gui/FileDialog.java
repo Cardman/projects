@@ -12,6 +12,7 @@ import code.gui.events.ClickHeaderEvent;
 import code.gui.events.ClickRowEvent;
 import code.gui.events.DeployTreeEvent;
 import code.sml.stream.ExtractFromFiles;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.comparators.FileNameComparator;
 import code.util.CustList;
@@ -97,7 +98,7 @@ public abstract class FileDialog extends Dialog {
         if (currentFolderRoot) {
             String root_ = StringList.replaceBackSlash(new File(folder).getAbsolutePath());
             currentFolder = StringList.concat(root_,StreamTextFile.SEPARATEUR);
-            if (StringList.quickEq(currentFolder,ConstFiles.getInitFolder())) {
+            if (StringList.quickEq(currentFolder, StreamFolderFile.getCurrentPath())) {
                 for (String f: _excludedFolders) {
                     excludedFolders.add(StringList.concat(currentFolder,f));
                 }

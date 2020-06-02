@@ -318,10 +318,10 @@ public final class MainWindow extends NetGroupFrame {
                 loadingConf.setLastSavedGame(name_);
                 save(name_);
                 if (!new File(name_).exists()) {
-                    name_ = StringList.concat(ConstFiles.getInitFolder(),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
+                    name_ = StringList.concat(StreamFolderFile.getCurrentPath(),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
                     int index_ = 0;
                     while (new File(name_).exists()) {
-                        name_ = StringList.concat(ConstFiles.getInitFolder(),LoadingGame.DEFAULT_SAVE_GAME,Long.toString(index_),Resources.GAME_EXT);
+                        name_ = StringList.concat(StreamFolderFile.getCurrentPath(),LoadingGame.DEFAULT_SAVE_GAME,Long.toString(index_),Resources.GAME_EXT);
                         index_++;
                     }
                     loadingConf.setLastSavedGame(name_);
@@ -1278,7 +1278,7 @@ public final class MainWindow extends NetGroupFrame {
             if (loadingConf != null && loadingConf.isLoadHomeFolder()) {
                 FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, ConstFiles.getHomePath());
             } else {
-                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, ConstFiles.getInitFolder(), Resources.EXCLUDED);
+                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, StreamFolderFile.getCurrentPath(), Resources.EXCLUDED);
             }
 //            FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, SoftApplication.getFolderJarPath(), Resources.EXCLUDED);
         } else {

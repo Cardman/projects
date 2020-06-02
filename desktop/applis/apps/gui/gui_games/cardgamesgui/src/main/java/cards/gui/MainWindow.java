@@ -145,6 +145,7 @@ import code.network.NetGroupFrame;
 import code.network.SocketResults;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.EnumMap;
@@ -1883,7 +1884,7 @@ public final class MainWindow extends NetGroupFrame {
         } else if (choosenGameMultiPlayers_ == GameEnum.BELOTE) {
             containerGame = new ContainerMultiBelote(this,DialogServer.isCreate());
         }
-        String fileName_ = StringList.concat(ConstFiles.getInitFolder(), FileConst.PORT_INI);
+        String fileName_ = StringList.concat(StreamFolderFile.getCurrentPath(), FileConst.PORT_INI);
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort());
         if (DialogServer.isCreate()) {
             int nbChoosenPlayers_ = DialogServer.getNbPlayers();

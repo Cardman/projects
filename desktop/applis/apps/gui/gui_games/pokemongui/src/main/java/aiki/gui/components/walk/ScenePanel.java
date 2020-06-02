@@ -85,6 +85,7 @@ import code.network.SocketResults;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.sml.stream.ExtractFromFiles;
+import code.stream.StreamFolderFile;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
@@ -664,7 +665,7 @@ public class ScenePanel {
         if (!DialogServer.isChoosen()) {
             return;
         }
-        String fileName_ = StringList.concat(ConstFiles.getInitFolder(), Resources.PORT_INI);
+        String fileName_ = StringList.concat(StreamFolderFile.getCurrentPath(), Resources.PORT_INI);
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort());
         if (DialogServer.isCreate()) {
             window.createServer(ip_, DialogServer.getIpType(), port_);

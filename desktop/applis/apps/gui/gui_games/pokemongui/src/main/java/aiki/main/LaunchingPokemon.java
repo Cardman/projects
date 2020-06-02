@@ -13,6 +13,7 @@ import code.gui.LoadLanguage;
 import code.gui.SoftApplicationCore;
 import code.gui.ThreadInvoker;
 import code.gui.TopLeftFrame;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
@@ -70,7 +71,7 @@ public class LaunchingPokemon extends SoftApplicationCore {
                 fileConfig_ = StringList.concat(LaunchingPokemon.getTempFolderSl(),Resources.LOAD_CONFIG_FILE);
             }
         } else {
-            String xmlString_ = StreamTextFile.contentsOfFile(StringList.concat(ConstFiles.getInitFolder(),fileConfig_));
+            String xmlString_ = StreamTextFile.contentsOfFile(StringList.concat(StreamFolderFile.getCurrentPath(),fileConfig_));
             param_ = DocumentReaderAikiCoreUtil.getLoadingGame(xmlString_);
             param_.setLastSavedGame(gameSavePath_);
             param_.setLastRom(zip_);
@@ -82,7 +83,7 @@ public class LaunchingPokemon extends SoftApplicationCore {
         //String path_ = getFolderJarPath();
         TopLeftFrame topLeft_ = loadCoords(getTempFolder(), Resources.COORDS);
         //path_ = pathConfig_;
-        String path_ = ConstFiles.getInitFolder();
+        String path_ = StreamFolderFile.getCurrentPath();
 //        if (!_args.isEmpty()) {
 //            //open with
 ////            CreateMainWindow create_ = new CreateMainWindow(param_, true, path_, topLeft_);

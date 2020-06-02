@@ -130,7 +130,7 @@ public final class ConstFiles {
         return init_;
     }
 
-    public static String getInitFolder() {
+    private static String getInitFolder() {
         return INIT_FOLDER;
     }
 

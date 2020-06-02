@@ -14,6 +14,7 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.Node;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.util.StringMap;
@@ -84,7 +85,7 @@ public abstract class SoftApplicationCore {
             return language_;
         }
 //        String content_ = StreamTextFile.contentsOfFile(ConstFiles.getFolderJarPath()+LANGUAGE_TXT);
-        String content_ = StreamTextFile.contentsOfFile(StringList.concat(ConstFiles.getInitFolder(),LANGUAGE_TXT));
+        String content_ = StreamTextFile.contentsOfFile(StringList.concat(StreamFolderFile.getCurrentPath(),LANGUAGE_TXT));
         if (content_ == null) {
             return EMPTY_STRING;
         }
