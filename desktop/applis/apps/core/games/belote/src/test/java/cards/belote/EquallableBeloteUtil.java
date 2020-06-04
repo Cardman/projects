@@ -6,33 +6,35 @@ import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.Suit;
 import code.util.*;
-import code.util.StringList;
+
 
 public final class EquallableBeloteUtil {
 
-    private static final String DIFF = " != ";
 
     private EquallableBeloteUtil() {
     }
 
     public static void assertEq(long _expected, long _result) {
-        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+        Assert.assertEquals(_expected, _result);
     }
 
     public static void assertEq(long _expected, int _result) {
-        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
-    }
-    private static boolean sameValue(long _expected, long _result) {
-        return _expected == _result;
+        Assert.assertEquals(_expected, _result);
     }
     public static void assertEq(HandBelote _expected, HandBelote _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected.eq(_result));
+        int size_ = _expected.total();
+        Assert.assertEquals(size_, _result.total());
+        for (int i = 0; i < size_; i++) {
+            assertEq(_expected.carte(i),_result.carte(i));
+        }
     }
 
     public static void assertEq(BidBeloteSuit _expected, BidBeloteSuit _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(_expected.eq(_result));
+        Assert.assertSame(_expected.getCouleur(),_result.getCouleur());
+        Assert.assertSame(_expected.getEnchere(),_result.getEnchere());
+        Assert.assertEquals(_expected.getPoints(),_result.getPoints());
     }
     
     public static void assertEq(Suit _expected, Suit _result) {
@@ -51,9 +53,14 @@ public final class EquallableBeloteUtil {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(String _expected, String _result) {
-        Assert.assertTrue(StringList.quickEq(_expected,_result));
+        Assert.assertEquals(_expected,_result);
     }
-    public static boolean equalsSet(CustList<BidBeloteSuit> _list1, CustList<BidBeloteSuit> _list2) {
+
+    public static void assertEqSet(CustList<BidBeloteSuit> bids_, CustList<BidBeloteSuit> expected_) {
+        Assert.assertTrue(EquallableBeloteUtil.equalsSet(expected_,bids_));
+    }
+
+    private static boolean equalsSet(CustList<BidBeloteSuit> _list1, CustList<BidBeloteSuit> _list2) {
         for (BidBeloteSuit a: _list2) {
             boolean contains_ = false;
             for (BidBeloteSuit b: _list1) {

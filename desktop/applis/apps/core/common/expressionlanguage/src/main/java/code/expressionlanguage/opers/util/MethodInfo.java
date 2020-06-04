@@ -130,9 +130,8 @@ public final class MethodInfo implements Parametrable {
         return new MethodId(constraints.getKind(),formatted.getName(),formatted.getParametersTypes(),formatted.isVararg());
     }
 
-    public boolean same(Identifiable _id) {
-        MethodId id_ = (MethodId) _id;
-        return formatted.eq(id_);
+    public boolean same(MethodId _id) {
+        return formatted.eq(_id);
     }
     public boolean isAbstractMethod() {
         return abstractMethod;

@@ -1,5 +1,4 @@
 package aiki.db;
-import code.util.Numbers;
 import org.junit.Assert;
 
 import aiki.fight.enums.EndTurnType;
@@ -35,61 +34,48 @@ public final class EquallablePkUtil {
 
     public static void assertEq(int[][] _expected, int[][] _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(equals(_expected, _result));
+        Assert.assertArrayEquals(_expected,_result);
     }
-    private static boolean equals(int[][] _expected, int[][] _result) {
-        int expHeight_ = _expected.length;
-        if (expHeight_ != _result.length) {
-            return false;
-        }
-        for (int i = 0; i < expHeight_; i++) {
-            int expWidth_ = _expected[i].length;
-            if (expWidth_ != _result[i].length) {
-                return false;
-            }
-            for (int j = 0; j < expWidth_; j++) {
-                if (_expected[i][j] != _result[i][j]) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected,DIFF,_result), StringList.quickEq(_expected, _result));
+        Assert.assertEquals(_expected, _result);
     }
 
     public static void assertEq(int _expected, long _result) {
-        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+        Assert.assertEquals(_expected, _result);
     }
 
     public static void assertEq(int _expected, int _result) {
-        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+        Assert.assertEquals(_expected, _result);
     }
 
     public static void assertEq(int _expected, short _result) {
-        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+        Assert.assertEquals(_expected, _result);
     }
 
     public static void assertEq(int _expected, byte _result) {
-        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+        Assert.assertEquals(_expected, _result);
     }
 
     public static void assertEq(byte _expected, int _result) {
-        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+        Assert.assertEquals(_expected, _result);
     }
 
     public static void assertEq(byte _expected, short _result) {
-        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+        Assert.assertEquals(_expected, _result);
     }
     public static void assertEq(byte _expected, byte _result) {
-        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+        Assert.assertEquals(_expected, _result);
     }
 
     public static void assertEq(StringList _expected, StringList _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        int size_ = _expected.size();
+        Assert.assertEquals(size_, _result.size());
+        for (int i = 0; i < size_; i++) {
+            assertEq(_expected.get(i),_result.get(i));
+        }
     }
     public static void assertEq(Rate _expected, Rate _result) {
         Assert.assertNotNull(_result);
@@ -102,29 +88,42 @@ public final class EquallablePkUtil {
     }
     public static void assertEq(TeamPosition _expected, TeamPosition _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        Assert.assertEquals(_expected.getTeam(),_result.getTeam());
+        Assert.assertEquals(_expected.getPosition(),_result.getPosition());
     }
     public static void assertEq(TargetCoords _expected, TargetCoords _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        Assert.assertEquals(_expected.getTeam(),_result.getTeam());
+        Assert.assertEquals(_expected.getPosition(),_result.getPosition());
     }
     public static void assertEq(Coords _expected, Coords _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        Assert.assertEquals(_expected.getNumberPlace(),_result.getNumberPlace());
+        Assert.assertEquals(_expected.isInside(),_result.isInside());
+        if (_expected.isInside()) {
+            Assert.assertEquals(_expected.getInsideBuilding().getx(),_result.getInsideBuilding().getx());
+            Assert.assertEquals(_expected.getInsideBuilding().gety(),_result.getInsideBuilding().gety());
+        }
+        Assert.assertEquals(_expected.getLevel().getLevelIndex(),_result.getLevel().getLevelIndex());
+        Assert.assertEquals(_expected.getLevel().getPoint().getx(),_result.getLevel().getPoint().getx());
+        Assert.assertEquals(_expected.getLevel().getPoint().gety(),_result.getLevel().getPoint().gety());
     }
     public static void assertEq(Point _expected, Point _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        Assert.assertEquals(_expected.getx(),_result.getx());
+        Assert.assertEquals(_expected.gety(),_result.gety());
     }
     
     public static void assertEq(Dims _expected, Dims _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), eq(_expected, _result));
+        Assert.assertEquals(_expected.getHeight(),_result.getHeight());
+        Assert.assertEquals(_expected.getWidth(),_result.getWidth());
     }
 
     public static void assertEq(ScreenCoords _expected, ScreenCoords _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        Assert.assertEquals(_expected.getXcoords(),_result.getXcoords());
+        Assert.assertEquals(_expected.getYcoords(),_result.getYcoords());
     }
 
     public static void assertEq(EndTurnType _expected, EndTurnType _result) {
@@ -183,17 +182,4 @@ public final class EquallablePkUtil {
         Assert.assertSame(_expected, _result);
     }
 
-    private static boolean sameValue(long _expected, long _result) {
-        return _expected == _result;
-    }
-
-    public static boolean eq(Dims _current, Dims _g) {
-        if (!Numbers.eq(_current.getHeight(), _g.getHeight())) {
-            return false;
-        }
-        if (!Numbers.eq(_current.getWidth(), _g.getWidth())) {
-            return false;
-        }
-        return true;
-    }
 }

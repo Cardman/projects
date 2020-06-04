@@ -160,12 +160,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#T"));
         assertEq("pkg.ExTwo", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.Ex"));
         res_ = concrete_.getVal("pkg.Ex");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void test1() {
@@ -202,12 +202,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.Ex"));
         res_ = concrete_.getVal("pkg.Ex");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void test2() {
@@ -386,12 +386,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#T"));
         assertEq("pkg.ExTwo", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.Int"));
         res_ = concrete_.getVal("pkg.Int");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#F"));
         assertEq("pkg.Int", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void test7() {
@@ -568,12 +568,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExThree");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#F"));
         assertEq("pkg.ExTwo", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#F"));
         assertEq("pkg.ExTwo", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         id_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         r_ = classes_.getClassBody("pkg.Ex");
         concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
@@ -582,12 +582,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExThree");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#F"));
         assertEq("pkg.ExTwo", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.ExTwo"));
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#F"));
         assertEq("pkg.ExTwo", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void test12() {
@@ -756,12 +756,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList());
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.Ex"));
         res_ = concrete_.getVal("pkg.Ex");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList());
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         r_ = classes_.getClassBody("pkg.ExTwo");
         concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
         assertEq(1, concrete_.size());
@@ -769,7 +769,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList());
         assertEq("pkg.ExTwo", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void test18() {
@@ -814,12 +814,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#F"));
         assertEq("pkg.Int", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.Int"));
         res_ = concrete_.getVal("pkg.Int");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#F"));
         assertEq("pkg.Int", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void test19() {
@@ -893,12 +893,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.Ex"));
         res_ = concrete_.getVal("pkg.Ex");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void test21() {
@@ -942,12 +942,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.Ex"));
         res_ = concrete_.getVal("pkg.Ex");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         id_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         r_ = classes_.getClassBody("pkg.ExThree");
         concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
@@ -956,12 +956,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         assertEq("pkg.ExThree", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.ExThree"));
         res_ = concrete_.getVal("pkg.ExThree");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         assertEq("pkg.ExThree", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
     }
 
     @Test
@@ -1006,17 +1006,17 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.ExThree"));
         res_ = concrete_.getVal("pkg.ExThree");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.Ex"));
         res_ = concrete_.getVal("pkg.Ex");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         id_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         r_ = classes_.getClassBody("pkg.ExThree");
         concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
@@ -1025,12 +1025,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         assertEq("pkg.ExThree", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.ExThree"));
         res_ = concrete_.getVal("pkg.ExThree");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         assertEq("pkg.ExThree", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void test23() {
@@ -1075,12 +1075,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.Ex"));
         res_ = concrete_.getVal("pkg.Ex");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         id_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         r_ = classes_.getClassBody("pkg.ExThree");
         concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
@@ -1089,12 +1089,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         assertEq("pkg.ExThree", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.ExThree"));
         res_ = concrete_.getVal("pkg.ExThree");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         assertEq("pkg.ExThree", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void test24() {
@@ -1139,12 +1139,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.Ex"));
         res_ = concrete_.getVal("pkg.Ex");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         id_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         r_ = classes_.getClassBody("pkg.ExThree");
         concrete_ = getConcreteMethodsToCall(cont_, id_, r_);
@@ -1153,12 +1153,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
         res_ = concrete_.getVal("pkg.ExTwo");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#E"));
         assertEq("pkg.Ex", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
         assertTrue(concrete_.contains("pkg.ExThree"));
         res_ = concrete_.getVal("pkg.ExThree");
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         assertEq("pkg.ExThree", res_.getClassName());
-        assertEq(resId_, res_.getConstraints(),cont_);
+        assertEq(resId_, res_.getConstraints());
     }
 
     private static StringMap<ClassMethodId> getConcreteMethodsToCall(ContextEl cont_, MethodId id_, RootBlock r_) {

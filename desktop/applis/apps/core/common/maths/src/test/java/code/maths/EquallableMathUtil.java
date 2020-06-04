@@ -19,43 +19,52 @@ public final class EquallableMathUtil {
 
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected,DIFF,_result), StringList.quickEq(_expected, _result));
+        Assert.assertEquals(_expected, _result);
     }
 
     public static void assertEq(long _expected, BigDecimal _result) {
-        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,_result.toString()), sameValue(_expected, _result.longValue()));
+        Assert.assertEquals(_expected, _result.longValue());
     }
 
     public static void assertEq(long _expected, BigInteger _result) {
-        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,_result.toString()), sameValue(_expected, _result.longValue()));
+        Assert.assertEquals(_expected, _result.longValue());
     }
     public static void assertEq(long _expected, long _result) {
-        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+        Assert.assertEquals(_expected, _result);
     }
     public static void assertEq(double _expected, double _result) {
-        Assert.assertTrue(StringList.concat(Double.toString(_expected),DIFF,Double.toString(_result)), sameValue(_expected, _result));
+        Assert.assertEquals(Double.toString(_expected),Double.toString(_result));
     }
 
     public static void assertEq(long _expected, int _result) {
-        Assert.assertTrue(StringList.concat(Long.toString(_expected),DIFF,Long.toString(_result)), sameValue(_expected, _result));
+        Assert.assertEquals(_expected, _result);
     }
     public static void assertEq(boolean _expected, boolean _result) {
-        Assert.assertTrue(StringList.concat(String.valueOf(_expected),DIFF,String.valueOf(_result)), _expected == _result);
+        Assert.assertEquals(_expected, _result);
     }
 
     public static void assertEq(Rate _expected, Rate _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toNumberString(),DIFF,_result.toNumberString()), _expected.eq(_result));
+        assertEq(_expected.getNumerator(),_result.getNumerator());
+        assertEq(_expected.getDenominator(),_result.getDenominator());
     }
     
     public static void assertEq(LgInt _expected, LgInt _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toNumberString(),DIFF,_result.toNumberString()), _expected.eq(_result));
+        Longs expDigits_ = _expected.getGrDigits();
+        Longs resDigits_ = _result.getGrDigits();
+        int expSize_ = expDigits_.size();
+        Assert.assertEquals(_expected.getSignum(), _result.getSignum());
+        Assert.assertEquals(expSize_, resDigits_.size());
+        for (int i = 0; i < expSize_; i++) {
+            Assert.assertEquals(expDigits_.get(i),resDigits_.get(i));
+        }
     }
 
     public static void assertEq(Complex _expected, Complex _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        assertEq(_expected.getImag(),_result.getImag());
+        assertEq(_expected.getReal(),_result.getReal());
     }
 
     public static void assertEq(BigDec _expected, BigDec _result) {
@@ -65,18 +74,15 @@ public final class EquallableMathUtil {
 
     public static void assertEq(CustPoint _expected, CustPoint _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        Assert.assertEquals(_expected.getXcoords(),_result.getXcoords());
+        Assert.assertEquals(_expected.getYcoords(),_result.getYcoords());
     }
     
     public static void assertEq(CustPointThreeDims _expected, CustPointThreeDims _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.display(),DIFF,_result.display()), _expected.eq(_result));
+        Assert.assertEquals(_expected.getXcoords(),_result.getXcoords());
+        Assert.assertEquals(_expected.getYcoords(),_result.getYcoords());
+        Assert.assertEquals(_expected.getZcoords(),_result.getZcoords());
     }
 
-    private static boolean sameValue(double _expected, double _result) {
-        return _expected == _result;
-    }
-    private static boolean sameValue(long _expected, long _result) {
-        return _expected == _result;
-    }
 }

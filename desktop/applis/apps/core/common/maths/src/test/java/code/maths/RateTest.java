@@ -578,6 +578,14 @@ public class RateTest {
         assertEq(false, new Rate("1/2").isInteger());
     }
     @Test
+    public void isInteger6Test(){
+        assertEq(false, new Rate("1/1000000000").isInteger());
+    }
+    @Test
+    public void isInteger7Test(){
+        assertEq(false, new Rate("1/10000000000").isInteger());
+    }
+    @Test
     public void changeSignum1Test(){
         Rate rate_ = new Rate("1");
         rate_.changeSignum();

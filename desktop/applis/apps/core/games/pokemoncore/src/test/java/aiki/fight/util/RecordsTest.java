@@ -1,6 +1,8 @@
 package aiki.fight.util;
 
 import aiki.fight.enums.Statistic;
+import aiki.map.tree.util.Dims;
+import aiki.map.util.ScreenCoords;
 import code.maths.Rate;
 import org.junit.Test;
 
@@ -108,5 +110,13 @@ public final class RecordsTest {
         StatisticStatus c_ = StatisticStatus.newStatisticStatus("0;0");
         c_.display();
         assertEq("0",c_.getStatus());
+    }
+    @Test
+    public void test13() {
+        assertEq("0,0",new Dims().display());
+    }
+    @Test
+    public void test14() {
+        assertEq("0;0",new ScreenCoords().display());
     }
 }

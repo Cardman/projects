@@ -1049,9 +1049,9 @@ public abstract class OperationNode implements Operable {
         CustList<OverridableBlock> casts_ = _conf.getClasses().getExplicitCastMethods().getVal(id_);
         CustList<OverridableBlock> castsId_ = _conf.getClasses().getExplicitIdCastMethods().getVal(id_);
         CustList<OverridableBlock> castsFrom_ = _conf.getClasses().getExplicitFromCastMethods().getVal(idFrom_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, casts_, superTypesBaseAncBis_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, castsId_, superTypesBaseAncBis_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _single, castsFrom_, superTypesBaseAnc_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, casts_, superTypesBaseAncBis_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, castsId_, superTypesBaseAncBis_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass,_single, castsFrom_, superTypesBaseAnc_);
         return methods_;
     }
 
@@ -1068,9 +1068,9 @@ public abstract class OperationNode implements Operable {
         CustList<OverridableBlock> casts_ = _conf.getClasses().getImplicitCastMethods().getVal(id_);
         CustList<OverridableBlock> castsId_ = _conf.getClasses().getImplicitIdCastMethods().getVal(id_);
         CustList<OverridableBlock> castsFrom_ = _conf.getClasses().getImplicitFromCastMethods().getVal(idFrom_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, casts_, superTypesBaseAncBis_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass, castsId_, superTypesBaseAncBis_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _single, castsFrom_, superTypesBaseAnc_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, casts_, superTypesBaseAncBis_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, castsId_, superTypesBaseAncBis_);
+        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass,_single, castsFrom_, superTypesBaseAnc_);
         return methods_;
     }
 
@@ -1079,12 +1079,12 @@ public abstract class OperationNode implements Operable {
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
-        fetchTo(_conf, glClass_, methods_, _fromClass);
-        fetchFrom(_conf, glClass_, methods_, _single);
+        fetchTo(_conf, glClass_, methods_, _fromClass,_fromClass);
+        fetchFrom(_conf, glClass_, methods_, _fromClass,_single);
         return methods_;
     }
 
-    private static void fetchFrom(ContextEl _conf, String glClass_, CustList<MethodInfo> methods_, String _id) {
+    private static void fetchFrom(ContextEl _conf, String glClass_, CustList<MethodInfo> methods_,  String _returnType,String _id) {
         StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
         if (!ExplicitOperation.customCast(_id)) {
             return;
@@ -1092,10 +1092,10 @@ public abstract class OperationNode implements Operable {
         String di_ = Templates.getIdFromAllTypes(_id);
         superTypesBaseAncBis_.addEntry(di_,di_);
         CustList<OverridableBlock> castsFrom_ = _conf.getClasses().getImplicitFromCastMethods().getVal(di_);
-        fetchCastMethods(_conf,  null, glClass_, methods_, _id, castsFrom_, superTypesBaseAncBis_);
+        fetchCastMethods(_conf,  null, glClass_, methods_, _returnType,_id, castsFrom_, superTypesBaseAncBis_);
     }
 
-    private static void fetchTo(ContextEl _conf, String glClass_, CustList<MethodInfo> methods_, String _id) {
+    private static void fetchTo(ContextEl _conf, String glClass_, CustList<MethodInfo> methods_,  String _returnType,String _id) {
         StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
         if (!ExplicitOperation.customCast(_id)) {
             return;
@@ -1104,8 +1104,8 @@ public abstract class OperationNode implements Operable {
         superTypesBaseAncBis_.addEntry(di_,di_);
         CustList<OverridableBlock> casts_ = _conf.getClasses().getImplicitCastMethods().getVal(di_);
         CustList<OverridableBlock> castsId_ = _conf.getClasses().getImplicitIdCastMethods().getVal(di_);
-        fetchCastMethods(_conf,  null, glClass_, methods_, _id, casts_, superTypesBaseAncBis_);
-        fetchCastMethods(_conf,  null, glClass_, methods_, _id, castsId_, superTypesBaseAncBis_);
+        fetchCastMethods(_conf,  null, glClass_, methods_, _returnType,_id, casts_, superTypesBaseAncBis_);
+        fetchCastMethods(_conf,  null, glClass_, methods_, _returnType,_id, castsId_, superTypesBaseAncBis_);
     }
 
     private static CustList<MethodInfo>
@@ -1273,14 +1273,14 @@ public abstract class OperationNode implements Operable {
         return t_;
     }
 
-    private static void fetchCastMethods(ContextEl _conf, ClassMethodId _uniqueId, String _glClass, CustList<MethodInfo> _methods, String _cl, CustList<OverridableBlock> _casts, StringMap<String> _superTypesBaseMap) {
+    private static void fetchCastMethods(ContextEl _conf, ClassMethodId _uniqueId, String _glClass, CustList<MethodInfo> _methods, String _returnType,String _cl, CustList<OverridableBlock> _casts, StringMap<String> _superTypesBaseMap) {
         ClassMethodIdAncestor uniq_ = null;
         if (_uniqueId != null) {
             uniq_ = new ClassMethodIdAncestor(new ClassMethodId(Templates.getIdFromAllTypes(_uniqueId.getClassName()),_uniqueId.getConstraints()),0);
         }
         if (_casts != null) {
             for (OverridableBlock e: _casts) {
-                MethodInfo stMeth_ = fetchedParamCastMethod(e,_cl, _conf,uniq_,_glClass, _superTypesBaseMap);
+                MethodInfo stMeth_ = fetchedParamCastMethod(e,_returnType,_cl, _conf,uniq_,_glClass, _superTypesBaseMap);
                 if (stMeth_ == null) {
                     continue;
                 }
@@ -1374,7 +1374,7 @@ public abstract class OperationNode implements Operable {
         return buildMethodInfo(_m, _keepParams, _conf, _anc, formattedClass_);
     }
 
-    private static MethodInfo fetchedParamCastMethod(OverridableBlock _m, String _s,
+    private static MethodInfo fetchedParamCastMethod(OverridableBlock _m, String _returnType, String _s,
                                                      ContextEl _conf, ClassMethodIdAncestor _uniqueId,
                                                      String _glClass, StringMap<String> _superTypesBaseMap) {
         String base_ = Templates.getIdFromAllTypes(_s);
@@ -1385,7 +1385,7 @@ public abstract class OperationNode implements Operable {
         if (cannotAccess(_conf,base_, _m,_glClass,_superTypesBaseMap)) {
             return null;
         }
-        return buildCastMethodInfo(_m, _conf, _s);
+        return buildCastMethodInfo(_m,_uniqueId, _conf, _returnType,_s);
     }
 
     private static boolean cannotAccess(ContextEl _conf, String _base,AccessibleBlock _acc,
@@ -1420,8 +1420,9 @@ public abstract class OperationNode implements Operable {
         return mloc_;
     }
 
-    private static MethodInfo buildCastMethodInfo(OverridableBlock _m, ContextEl _conf, String _formattedClass) {
+    private static MethodInfo buildCastMethodInfo(OverridableBlock _m, ClassMethodIdAncestor _uniqueId, ContextEl _conf, String _returnType, String _formattedClass) {
         String ret_ = _m.getImportedReturnType();
+        String v_ = ret_;
         ret_ = Templates.wildCardFormatReturn(_formattedClass, ret_, _conf);
         ParametersGroup p_ = new ParametersGroup();
         MethodId id_ = _m.getId();
@@ -1436,6 +1437,15 @@ public abstract class OperationNode implements Operable {
         mloc_.setReturnType(ret_);
         mloc_.setAncestor(0);
         mloc_.format(false,_conf);
+        if (_uniqueId == null) {
+            Mapping map_ = new Mapping();
+            map_.setArg(ret_);
+            map_.setParam(_returnType);
+            map_.setMapping(_conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints());
+            if (!Templates.isCorrectOrNumbers(map_,_conf)) {
+                return null;
+            }
+        }
         return mloc_;
     }
 

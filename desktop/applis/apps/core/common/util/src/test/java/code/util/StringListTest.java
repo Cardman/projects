@@ -2904,4 +2904,9 @@ public class StringListTest {
     public void concatNbsTest() {
         assertEq("hello0", StringList.concatNbs("hello", 0));
     }
+    @Test
+    public void displayTest(){
+        StringList s_ = new StringList();
+        assertEq("[]", s_.display());
+    }
 }
