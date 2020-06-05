@@ -66,9 +66,8 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         String exp_ = _conf.getKeyWords().getKeyWordExplicit();
         if (types_.size() == 2){
             //add a type for full id
-            String lastType_ = "";
             String arg_ = types_.last();
-            lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,leftPar_ +types_.first().length()+2,arg_, className);
+            String lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf, leftPar_ + types_.first().length() + 2, arg_, className);
             partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
             GeneType geneType_ = _conf.getClassBody(Templates.getIdFromAllTypes(className));
             if (geneType_ == null) {
@@ -88,7 +87,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             CustList<ClassArgumentMatching> args_ = new CustList<ClassArgumentMatching>(new ClassArgumentMatching(className));
             args_.add(resultClass_);
             ClassArgumentMatching[] argsClass_ = ClassArgumentMatching.toArgArray(args_);
-            ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(_conf,  className, exp_,  uniq_, argsClass_);
+            ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(_conf,  className, uniq_, argsClass_);
             if (resMethod_.isFoundMethod()) {
                 classNameOwner = resMethod_.getRealClass();
                 castOpId = resMethod_.getRealId();
@@ -121,7 +120,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             CustList<ClassArgumentMatching> args_ = new CustList<ClassArgumentMatching>(virtual_);
             args_.add(resultClass_);
             ClassArgumentMatching[] argsClass_ = ClassArgumentMatching.toArgArray(args_);
-            ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(_conf,  className, exp_,  uniq_, argsClass_);
+            ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(_conf,  className, uniq_, argsClass_);
             if (resMethod_.isFoundMethod()) {
                 classNameOwner = resMethod_.getRealClass();
                 castOpId = resMethod_.getRealId();
@@ -135,7 +134,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         CustList<ClassArgumentMatching> args_ = new CustList<ClassArgumentMatching>(new ClassArgumentMatching(className));
         args_.add(resultClass_);
         ClassArgumentMatching[] argsClass_ = ClassArgumentMatching.toArgArray(args_);
-        ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(_conf,  className, exp_,  null, argsClass_);
+        ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(_conf,  className, null, argsClass_);
         if (!resMethod_.isFoundMethod()) {
             return;
         }

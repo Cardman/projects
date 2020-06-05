@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
@@ -231,9 +230,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             ClassMethodIdReturn id_;
             if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordExplicit())){
-                id_ = tryGetDeclaredCast(_conf,type_,exp_,feed_,ClassArgumentMatching.toArgArray(_methodTypes));
+                id_ = tryGetDeclaredCast(_conf,type_, feed_,ClassArgumentMatching.toArgArray(_methodTypes));
             } else {
-                id_ = tryGetDeclaredImplicitCast(_conf,type_,exp_,feed_,ClassArgumentMatching.toArgArray(_methodTypes));
+                id_ = tryGetDeclaredImplicitCast(_conf,type_, feed_,ClassArgumentMatching.toArgArray(_methodTypes));
             }
             if (!id_.isFoundMethod()) {
                 ClassMethodIdReturn idDef_ = new ClassMethodIdReturn(true);

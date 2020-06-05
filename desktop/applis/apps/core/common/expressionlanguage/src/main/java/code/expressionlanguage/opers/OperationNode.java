@@ -900,7 +900,7 @@ public abstract class OperationNode implements Operable {
         }
         return getCustResult(_conf,uniq_,_excVararg, varargOnly_, methods_, _name, _argsClass);
     }
-    protected static ClassMethodIdReturn tryGetDeclaredCast(ContextEl _conf, String _classes, String _name, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
+    protected static ClassMethodIdReturn tryGetDeclaredCast(ContextEl _conf, String _classes, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
         CustList<MethodInfo> methods_;
         ClassArgumentMatching cl_;
         if (_argsClass.length > 1) {
@@ -909,7 +909,7 @@ public abstract class OperationNode implements Operable {
             cl_ = _argsClass[0];
         }
         methods_ = getDeclaredCustCast(_conf, _classes, _uniqueId, cl_);
-        ClassMethodIdReturn res_ = getCustResult(_conf, false, false, -1, methods_, _name, _argsClass);
+        ClassMethodIdReturn res_ = getCustCastResult(_conf, methods_, cl_);
         if (res_.isFoundMethod()) {
             ClassMethodId id_ = res_.getId();
             MethodId cts_ = id_.getConstraints();
@@ -917,7 +917,7 @@ public abstract class OperationNode implements Operable {
         }
         return res_;
     }
-    protected static ClassMethodIdReturn tryGetDeclaredImplicitCast(ContextEl _conf, String _classes, String _name, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
+    protected static ClassMethodIdReturn tryGetDeclaredImplicitCast(ContextEl _conf, String _classes, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
         CustList<MethodInfo> methods_;
         ClassArgumentMatching cl_;
         if (_argsClass.length > 1) {
@@ -926,7 +926,7 @@ public abstract class OperationNode implements Operable {
             cl_ = _argsClass[0];
         }
         methods_ = getDeclaredCustImplicitCast(_conf, _classes, _uniqueId, cl_);
-        ClassMethodIdReturn res_ = getCustResult(_conf, false, false, -1, methods_, _name, _argsClass);
+        ClassMethodIdReturn res_ = getCustCastResult(_conf, methods_, cl_);
         if (res_.isFoundMethod()) {
             ClassMethodId id_ = res_.getId();
             MethodId cts_ = id_.getConstraints();
@@ -1085,14 +1085,24 @@ public abstract class OperationNode implements Operable {
     }
 
     private static void fetchFrom(ContextEl _conf, String glClass_, CustList<MethodInfo> methods_,  String _returnType,String _id) {
-        StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
         if (!ExplicitOperation.customCast(_id)) {
             return;
         }
         String di_ = Templates.getIdFromAllTypes(_id);
-        superTypesBaseAncBis_.addEntry(di_,di_);
-        CustList<OverridableBlock> castsFrom_ = _conf.getClasses().getImplicitFromCastMethods().getVal(di_);
-        fetchCastMethods(_conf,  null, glClass_, methods_, _returnType,_id, castsFrom_, superTypesBaseAncBis_);
+        RootBlock r_ = _conf.getClasses().getClassBody(di_);
+        if (r_ == null) {
+            return;
+        }
+        StringList allClasses_ = new StringList(r_.getGenericString());
+        allClasses_.addAllElts(r_.getAllGenericSuperTypes());
+        for (String s: allClasses_) {
+            String formatted_ = Templates.quickFormat(_id,s,_conf);
+            String supId_ = Templates.getIdFromAllTypes(formatted_);
+            StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
+            superTypesBaseAncBis_.addEntry(supId_,supId_);
+            CustList<OverridableBlock> castsFrom_ = _conf.getClasses().getImplicitFromCastMethods().getVal(supId_);
+            fetchCastMethods(_conf,  null, glClass_, methods_, _returnType,formatted_, castsFrom_, superTypesBaseAncBis_);
+        }
     }
 
     private static void fetchTo(ContextEl _conf, String glClass_, CustList<MethodInfo> methods_,  String _returnType,String _id) {
@@ -1422,7 +1432,6 @@ public abstract class OperationNode implements Operable {
 
     private static MethodInfo buildCastMethodInfo(OverridableBlock _m, ClassMethodIdAncestor _uniqueId, ContextEl _conf, String _returnType, String _formattedClass) {
         String ret_ = _m.getImportedReturnType();
-        String v_ = ret_;
         ret_ = Templates.wildCardFormatReturn(_formattedClass, ret_, _conf);
         ParametersGroup p_ = new ParametersGroup();
         MethodId id_ = _m.getId();
