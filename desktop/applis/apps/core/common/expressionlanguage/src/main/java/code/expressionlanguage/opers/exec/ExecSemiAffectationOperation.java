@@ -75,6 +75,10 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
                     setSimpleArgument(_right, _conf, _nodes);
                     return;
                 }
+                if (!pair_.getImplicits().isEmpty()&&pair_.getImplicits().size() <= pair_.getIndexImplicit()) {
+                    setSimpleArgument(_right, _conf, _nodes);
+                    return;
+                }
                 Argument out_ = ExecSemiAffectationOperation.getPrePost(post, stored_, _right);
                 setSimpleArgument(out_, _conf, _nodes);
                 return;
@@ -85,13 +89,15 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             setSimpleArgument(arg_, _conf, _nodes);
             return;
         }
-        if (pair_.isConvertToString()) {
-            if (pair_.isCalledToString()) {
-                setSimpleArgument(_right, _conf, _nodes);
-                return;
-            }
+        if (pair_.isCalledToString()) {
+            setSimpleArgument(_right, _conf, _nodes);
+            return;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
+        if (!pair_.getImplicits().isEmpty()&&pair_.getImplicits().size() <= pair_.getIndexImplicit()) {
+            setSimpleArgument(_right, _conf, _nodes);
+            return;
+        }
         Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
         setSimpleArgument(arg_, _conf, _nodes);
     }

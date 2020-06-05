@@ -9,7 +9,6 @@ public class ArgumentsPair {
     private Argument previousArgument;
     private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
     private int indexImplicit;
-    private boolean convertToString;
     private boolean calledToString;
     public Argument getArgument() {
         return argument;
@@ -22,14 +21,6 @@ public class ArgumentsPair {
     }
     public void setPreviousArgument(Argument _previousArgument) {
         previousArgument = _previousArgument;
-    }
-
-    public boolean isConvertToString() {
-        return convertToString;
-    }
-
-    public void setConvertToString(boolean _convertToString) {
-        convertToString = _convertToString;
     }
 
     public boolean isCalledToString() {

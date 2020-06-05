@@ -83,13 +83,15 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             setSimpleArgument(arg_, _conf, _nodes);
             return;
         }
-        if (pair_.isConvertToString()) {
-            if (pair_.isCalledToString()) {
-                setSimpleArgument(_right,_conf,_nodes);
-                return;
-            }
+        if (pair_.isCalledToString()) {
+            setSimpleArgument(_right,_conf,_nodes);
+            return;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
+        if (!pair_.getImplicits().isEmpty()&&pair_.getImplicits().size() <= pair_.getIndexImplicit()) {
+            setSimpleArgument(_right, _conf, _nodes);
+            return;
+        }
         Argument arg_ = settable.endCalculate(_conf, _nodes, _right);
         setSimpleArgument(arg_, _conf, _nodes);
     }

@@ -14,7 +14,7 @@
 	<version>2.0</version>
 	<properties>
 		<jdk.version>1.6</jdk.version>
-	    <jacoco.version>0.8.2</jacoco.version>
+	    <jacoco.version>0.8.5</jacoco.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<sonar.jacoco.reportPath>${basedir}/target/coverage-reports/jacoco-unit.exec</sonar.jacoco.reportPath>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -42,7 +42,7 @@
 							<configLocation>checkstyle_src.xml</configLocation>
 							<encoding>UTF-8</encoding>
 							<consoleOutput>true</consoleOutput>
-							<failsOnError>true</failsOnError>
+							<failsOnError>false</failsOnError>
 						</configuration>
 						<goals>
 							<goal>check</goal>
@@ -55,7 +55,7 @@
 							<configLocation>checkstyle_test.xml</configLocation>
 							<encoding>UTF-8</encoding>
 							<consoleOutput>true</consoleOutput>
-							<failsOnError>true</failsOnError>
+							<failsOnError>false</failsOnError>
 							<includeTestSourceDirectory>true</includeTestSourceDirectory>
 						</configuration>
 						<goals>
