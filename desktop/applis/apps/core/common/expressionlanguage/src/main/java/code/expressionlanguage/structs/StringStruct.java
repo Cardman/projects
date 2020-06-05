@@ -30,6 +30,10 @@ public final class StringStruct extends CharSequenceStruct {
         StringList list_ = _method.getParametersTypes();
         String bytePrimType_ = _stds.getAliasPrimByte();
         String charPrimType_ = _stds.getAliasPrimChar();
+        if (list_.size() == 0) {
+            _res.setResult(new StringStruct(""));
+            return;
+        }
         if (list_.size() == 1) {
             if (StringList.quickEq(list_.first(), bytePrimType_)) {
                 newStringStructByByteArray(_args[0], _stds, _res);
