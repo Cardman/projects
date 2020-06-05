@@ -113,7 +113,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 _conf.getAnalyzing().getLocalizer().addError(un_);
             }
         }
-        setResultClass(elt_.getResultClass());
+        setResultClass(new ClassArgumentMatching(elt_.getResultClass()));
         elt_.setVariable(true);
         ClassArgumentMatching clMatchRight_ = right_.getResultClass();
         ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();

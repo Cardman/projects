@@ -129,7 +129,7 @@ public final class IdOperation extends AbstractUnaryOperation implements IdOpera
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        setResultClass(children_.first().getResultClass());
+        setResultClass(new ClassArgumentMatching(children_.first().getResultClass()));
     }
 
     private static void checkInherits(ContextEl _conf, StringList _previousInts, String _cl) {

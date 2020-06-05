@@ -30,7 +30,7 @@ public final class DefaultOperation extends AbstractUnaryOperation implements Fi
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }
-        setResultClass(res_);
+        setResultClass(new ClassArgumentMatching(res_));
     }
 
     public int getOffset() {

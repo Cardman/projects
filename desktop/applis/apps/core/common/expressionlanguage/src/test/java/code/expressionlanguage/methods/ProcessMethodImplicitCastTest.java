@@ -948,6 +948,90 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         assertEq(11, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
     @Test
+    public void test27() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static ExClass method(){\n");
+        xml_.append("  ExCont a = new ExCont();\n");
+        xml_.append("  return a[0]=10;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCont {\n");
+        xml_.append(" int[] e = {0};\n");
+        xml_.append(" public int this(int i){\n");
+        xml_.append("  return e[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i){\n");
+        xml_.append("  e[i]=value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public static ExClass $(int i){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field = i;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        Struct struct_ = ret_.getStruct();
+        assertEq("pkg.ExClass", struct_.getClassName(cont_));
+        assertEq(10, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
+    }
+    @Test
+    public void test28() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static ExClass method(){\n");
+        xml_.append("  ExCont a = new ExCont();\n");
+        xml_.append("  return a[0].field=10;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCont {\n");
+        xml_.append(" ExSum[] e = {new ExSum()};\n");
+        xml_.append(" public ExSum this(int i){\n");
+        xml_.append("  return e[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i){\n");
+        xml_.append("  e[i]=value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSum {\n");
+        xml_.append(" public int field;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public static ExClass $(int i){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field = i;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass $(ExSum i){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field = i.field;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        Struct struct_ = ret_.getStruct();
+        assertEq("pkg.ExClass", struct_.getClassName(cont_));
+        assertEq(10, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
+    }
+    @Test
     public void testFail() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

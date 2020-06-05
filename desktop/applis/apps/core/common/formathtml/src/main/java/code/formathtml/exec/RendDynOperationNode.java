@@ -546,17 +546,17 @@ public abstract class RendDynOperationNode {
     }
 
     protected final void setQuickNoConvertSimpleArgument(Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
-        setQuickSimpleArgument(false,_argument,_conf,_nodes);
+        setQuickSimpleArgument(_argument,_conf,_nodes);
     }
     protected final void setQuickConvertSimpleArgument(Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
-        setQuickSimpleArgument(true,_argument,_conf,_nodes);
+        setQuickSimpleArgument(_argument,_conf,_nodes);
     }
-    private void setQuickSimpleArgument(boolean _convertToString,Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
+    private void setQuickSimpleArgument(Argument _argument, Configuration _conf, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
         if (_conf.getContext().hasException()) {
             return;
         }
         Argument out_ = _argument;
-        if (_convertToString && resultClass.isConvertToString()){
+        if (resultClass.isConvertToString()){
             out_ = processString(_argument,_conf);
             ContextEl ctx_ = _conf.getContext();
             if (ctx_.hasException()) {

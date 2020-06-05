@@ -55,7 +55,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements F
             return;
         }
         OperationNode child_ = getFirstChild();
-        setResultClass(child_.getResultClass());
+        setResultClass(new ClassArgumentMatching(child_.getResultClass()));
     }
 
     @Override

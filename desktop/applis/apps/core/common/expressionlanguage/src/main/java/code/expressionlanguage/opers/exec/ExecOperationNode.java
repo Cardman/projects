@@ -588,7 +588,7 @@ public abstract class ExecOperationNode implements Operable {
     protected final void setQuickConvertSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         setQuickSimpleArgument(true,_argument, _conf, _nodes);
     }
-    protected final void setQuickSimpleArgument(boolean _convertToString,Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+    protected final void setQuickSimpleArgument(boolean _possiblePartial,Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         if (_conf.callsOrException()) {
             return;
         }
@@ -609,7 +609,7 @@ public abstract class ExecOperationNode implements Operable {
             return;
         }
         Argument arg_ = _argument;
-        if (_convertToString && resultClass.isConvertToString()){
+        if (resultClass.isConvertToString()){
             pair_.setCalledToString(true);
             arg_ = processString(_argument,_conf);
             if (_conf.getCallingState() != null) {
@@ -621,7 +621,7 @@ public abstract class ExecOperationNode implements Operable {
             _nodes.getValue(n_.getOrder()).setPreviousArgument(arg_);
         }
         _nodes.getValue(getOrder()).setArgument(arg_);
-        _conf.getCoverage().passBlockOperation(_conf, this,arg_,!_convertToString);
+        _conf.getCoverage().passBlockOperation(_conf, this,arg_,!_possiblePartial);
     }
 
     public static Argument processString(Argument _argument, ContextEl _conf) {
