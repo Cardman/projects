@@ -1646,46 +1646,19 @@ public final class Templates {
     public static boolean isCorrectOrNumbers(Mapping _m, ContextEl _context) {
         ClassArgumentMatching a_ = _m.getArg();
         ClassArgumentMatching p_ = _m.getParam();
-        if (PrimitiveTypeUtil.isPrimitive(p_, _context)) {
-            StringList bounds_ = new StringList();
-            LgNames stds_ = _context.getStandards();
-            if (PrimitiveTypeUtil.isPrimitive(a_, _context)) {
-                bounds_.add(a_.getName());
-            } else if (!a_.isArray()){
-                String aliasObj_ = stds_.getAliasObject();
-                StringMap<StringList> map_ = _m.getMapping();
-                for (String n: a_.getNames()) {
-                    for (String u: Mapping.getAllUpperBounds(map_,n, aliasObj_)) {
-                        bounds_.add(u);
-                    }
-                }
-            }
-            StringMap<PrimitiveType> prims_ = stds_.getPrimitiveTypes();
-            for (String b: bounds_) {
-                if (PrimitiveTypeUtil.isPrimitive(b, _context)) {
-                    String pName_ = p_.getName();
-                    return StringList.contains(prims_.getVal(b).getAllSuperType(_context), pName_);
-                }
-                if (PrimitiveTypeUtil.isWrapper(b, _context)) {
-                    String aPrim_ = PrimitiveTypeUtil.toPrimitive(b, stds_);
-                    String pName_ = p_.getName();
-                    return StringList.contains(prims_.getVal(aPrim_).getAllSuperType(_context), pName_);
-                }
-            }
-            return false;
-        }
-        if (PrimitiveTypeUtil.isPrimitive(a_, _context)) {
-            StringMap<PrimitiveType> prims_ = _context.getStandards().getPrimitiveTypes();
-            String aName_ = a_.getName();
-            ClassArgumentMatching pPrim_  = PrimitiveTypeUtil.toPrimitive(p_, _context);
-            String pName_ = pPrim_.getName();
-            return StringList.contains(prims_.getVal(aName_).getAllSuperType(_context), pName_);
-        }
         if (_m.getParam().isVariable()) {
             return false;
         }
         if (_m.getArg().isVariable()) {
-            return true;
+            return !PrimitiveTypeUtil.isPrimitive(p_, _context);
+        }
+        if (PrimitiveTypeUtil.isPrimitive(p_, _context)) {
+            LgNames stds_ = _context.getStandards();
+            Mapping m_ = new Mapping();
+            m_.setArg(PrimitiveTypeUtil.toPrimitive(a_, stds_));
+            m_.setParam(p_);
+            m_.setMapping(_m.getMapping());
+            return isCorrect(m_, _context);
         }
         return isCorrect(_m, _context);
     }

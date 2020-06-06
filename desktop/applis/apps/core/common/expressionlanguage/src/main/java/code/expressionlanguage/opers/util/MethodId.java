@@ -161,6 +161,9 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
     public StringList getParametersTypes() {
         return new StringList(classNames);
     }
+    public StringList shiftFirst() {
+        return new StringList(classNames.mid(1));
+    }
 
     @Override
     public int getParametersTypesLength() {

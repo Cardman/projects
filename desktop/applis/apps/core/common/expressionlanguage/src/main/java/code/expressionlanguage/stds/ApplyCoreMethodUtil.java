@@ -832,7 +832,9 @@ public class ApplyCoreMethodUtil {
         String stringType_ = lgNames_.getAliasString();
         String replType_ = lgNames_.getAliasReplacement();
         if (StringList.quickEq(type_, lgNames_.getAliasResources())) {
-            if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesIndex())) {
+            if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesNamesLength())) {
+                result_.setResult(ResourcesStruct.getResourceNamesLength(_cont));
+            } else if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesIndex())) {
                 result_.setResult(ResourcesStruct.getResourceIndex(_cont,args_[0]));
             } else if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesNames())) {
                 result_.setResult(ResourcesStruct.getResourceNames(_cont));
@@ -901,13 +903,7 @@ public class ApplyCoreMethodUtil {
         if (StringList.quickEq(type_, mathType_)) {
             return AliasMath.invokeStdMethod(_cont, _method, _args);
         }
-        if (StringList.quickEq(type_, booleanType_)
-                || StringList.quickEq(type_, charType_)
-                || PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(type_), lgNames_)
-                || StringList.quickEq(type_, nbType_)) {
-            NumberStruct.calculate(_cont, result_, _method, _struct, args_);
-            return result_;
-        }
+        NumberStruct.calculate(_cont, result_, _method, _struct, args_);
         return result_;
     }
     public static ResultErrorStd newInstance(ContextEl _cont, ConstructorId _method, Argument... _args) {

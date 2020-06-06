@@ -269,41 +269,53 @@ public abstract class NumberStruct extends WithoutParentStruct implements Displa
             if (StringList.quickEq(name_, lgNames_.getAliasBooleanValue())) {
                 BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
                 _res.setResult(instance_);
-            } else if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
                 _res.setResult(cmpBool((ClassArgumentMatching.convertToBoolean(_args[0])),(ClassArgumentMatching.convertToBoolean(_args[1]))));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
                 BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
                 _res.setResult(cmpBool(instance_,(ClassArgumentMatching.convertToBoolean(_args[0]))));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
                 BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
                 _res.setResult(BooleanStruct.of(instance_.sameReference(_args[0])));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasParseBoolean())) {
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasParseBoolean())) {
                 StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont).getDisplayedString(_cont);
                 if (StringList.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
                     _res.setResult(BooleanStruct.of(true));
-                } else {
-                    _res.setResult(BooleanStruct.of(false));
+                    return;
                 }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                _res.setResult(BooleanStruct.of(false));
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
                 if (!list_.isEmpty()) {
                     _res.setResult((ClassArgumentMatching.convertToBoolean(_args[0])).getDisplayedString(_cont));
-                } else {
-                    BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
-                    _res.setResult(instance_.getDisplayedString(_cont));
+                    return;
                 }
-            } else {
-                if (StringList.quickEq(list_.first(), booleanPrimType_)) {
-                    _res.setResult(_args[0]);
-                } else {
-                    StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont).getDisplayedString(_cont);
-                    if (StringList.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
-                        _res.setResult(BooleanStruct.of(true));
-                    } else {
-                        _res.setResult(BooleanStruct.of(false));
-                    }
-                }
+                BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
+                _res.setResult(instance_.getDisplayedString(_cont));
+                return;
             }
-        } else if (StringList.quickEq(type_, charType_)) {
+            if (StringList.quickEq(list_.first(), booleanPrimType_)) {
+                _res.setResult(_args[0]);
+                return;
+            }
+            StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont).getDisplayedString(_cont);
+            if (StringList.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
+                _res.setResult(BooleanStruct.of(true));
+                return;
+            }
+            _res.setResult(BooleanStruct.of(false));
+            return;
+        }
+        if (StringList.quickEq(type_, charType_)) {
             if (_method.getConstraints().isStaticMethod()) {
                 if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
                     char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
@@ -409,74 +421,92 @@ public abstract class NumberStruct extends WithoutParentStruct implements Displa
                 || StringList.quickEq(type_, doubleType_)) {
             if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
                 _res.setResult(new IntStruct(compare(ClassArgumentMatching.convertToNumber(_args[0]),ClassArgumentMatching.convertToNumber(_args[1]))));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
                 _res.setResult(new IntStruct(compare(instance_,ClassArgumentMatching.convertToNumber(_args[0]))));
-            } else {
-                if (StringList.quickEq(type_, byteType_)) {
-                    if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                        byte one_ = ClassArgumentMatching.convertToNumber(_args[0]).byteStruct();
-                        _res.setResult(new StringStruct(Integer.toString(one_)));
-                    } else{
-                        boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseByte());
-                        parseByte(_res, list_, lgNames_, _args,exc_);
-                    }
-                } else if (StringList.quickEq(type_, shortType_)) {
-                    if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                        short one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getShort();
-                        _res.setResult(new StringStruct(Integer.toString(one_)));
-                    } else {
-                        boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseShort());
-                        parseShort(_res, list_, lgNames_, _args,exc_);
-                    }
-                } else if (StringList.quickEq(type_, intType_)) {
-                    if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                        int one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
-                        _res.setResult(new StringStruct(Integer.toString(one_)));
-                    } else {
-                        boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseInt());
-                        parseInt(_res, list_, lgNames_, _args,exc_);
-                    }
-                } else if (StringList.quickEq(type_, longType_)) {
-                    if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                        long one_ = (ClassArgumentMatching.convertToNumber(_args[0])).longStruct();
-                        _res.setResult(new StringStruct(Long.toString(one_)));
-                    } else {
-                        boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseLong());
-                        parseLong(_res, list_, lgNames_, _args,exc_);
-                    }
-                } else if (StringList.quickEq(type_, floatType_)) {
-                    if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
-                        float one_;
-                        one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
-                        _res.setResult(BooleanStruct.of(Float.isNaN(one_)));
-                    } else if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
-                        float one_;
-                        one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
-                        _res.setResult(BooleanStruct.of(Float.isInfinite(one_)));
-                    } else if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                        StringStruct tmp = getLow(_cont, _args[0]);
-                        _res.setResult(tmp);
-                    } else {
-                        boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseFloat());
-                        parseFloat(_res, lgNames_, _args[0],exc_);
-                    }
-                } else {
-                    if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
-                        double one_ = getaDouble(_struct, list_, _args);
-                        _res.setResult(BooleanStruct.of(Double.isNaN(one_)));
-                    } else if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
-                        double one_ = getaDouble(_struct, list_, _args);
-                        _res.setResult(BooleanStruct.of(Double.isInfinite(one_)));
-                    } else if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                        StringStruct displayedString = getGreat(_cont, _args[0]);
-                        _res.setResult(displayedString);
-                    } else {
-                        boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseDouble());
-                        parseDouble(_res, lgNames_, _args[0],exc_);
-                    }
-                }
+                return;
             }
+            if (StringList.quickEq(type_, byteType_)) {
+                if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                    byte one_ = ClassArgumentMatching.convertToNumber(_args[0]).byteStruct();
+                    _res.setResult(new StringStruct(Integer.toString(one_)));
+                    return;
+                }
+                boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseByte());
+                parseByte(_res, list_, lgNames_, _args,exc_);
+                return;
+            }
+            if (StringList.quickEq(type_, shortType_)) {
+                if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                    short one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getShort();
+                    _res.setResult(new StringStruct(Integer.toString(one_)));
+                    return;
+                }
+                boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseShort());
+                parseShort(_res, list_, lgNames_, _args,exc_);
+                return;
+            }
+            if (StringList.quickEq(type_, intType_)) {
+                if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                    int one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
+                    _res.setResult(new StringStruct(Integer.toString(one_)));
+                    return;
+                }
+                boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseInt());
+                parseInt(_res, list_, lgNames_, _args,exc_);
+                return;
+            }
+            if (StringList.quickEq(type_, longType_)) {
+                if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                    long one_ = (ClassArgumentMatching.convertToNumber(_args[0])).longStruct();
+                    _res.setResult(new StringStruct(Long.toString(one_)));
+                    return;
+                }
+                boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseLong());
+                parseLong(_res, list_, lgNames_, _args,exc_);
+                return;
+            }
+            if (StringList.quickEq(type_, floatType_)) {
+                if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
+                    float one_;
+                    one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
+                    _res.setResult(BooleanStruct.of(Float.isNaN(one_)));
+                    return;
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
+                    float one_;
+                    one_ = (ClassArgumentMatching.convertToNumber(_args[0])).getFloat();
+                    _res.setResult(BooleanStruct.of(Float.isInfinite(one_)));
+                    return;
+                }
+                if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                    StringStruct tmp = getLow(_cont, _args[0]);
+                    _res.setResult(tmp);
+                    return;
+                }
+                boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseFloat());
+                parseFloat(_res, lgNames_, _args[0],exc_);
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
+                double one_ = getaDouble(_struct, list_, _args);
+                _res.setResult(BooleanStruct.of(Double.isNaN(one_)));
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
+                double one_ = getaDouble(_struct, list_, _args);
+                _res.setResult(BooleanStruct.of(Double.isInfinite(one_)));
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
+                StringStruct displayedString = getGreat(_cont, _args[0]);
+                _res.setResult(displayedString);
+                return;
+            }
+            boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseDouble());
+            parseDouble(_res, lgNames_, _args[0],exc_);
             return;
         }
         if (StringList.quickEq(type_, nbType_)) {
@@ -490,45 +520,63 @@ public abstract class NumberStruct extends WithoutParentStruct implements Displa
                     return;
                 }
                 _res.setResult(new IntStruct(compareGene(ClassArgumentMatching.convertToNumber(_args[0]), ClassArgumentMatching.convertToNumber(_args[1]))));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
                 if (!(_args[0] instanceof  NumberStruct)) {
                     _res.setError(lgNames_.getAliasNullPe());
                     return;
                 }
                 _res.setResult(new IntStruct(compareGene(instance_, ClassArgumentMatching.convertToNumber(_args[0]))));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
                 if (list_.size() > 1) {
                     _res.setResult(BooleanStruct.of(NumberStruct.sameValue(_args[0],_args[1])));
-                } else {
-                    _res.setResult(BooleanStruct.of(NumberStruct.sameValue(_struct,_args[0])));
+                    return;
                 }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasByteValue())) {
+                _res.setResult(BooleanStruct.of(NumberStruct.sameValue(_struct,_args[0])));
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasByteValue())) {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
                 _res.setResult(new ByteStruct(instance_.byteStruct()));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasShortValue())) {
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasShortValue())) {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
                 _res.setResult(new ShortStruct(instance_.shortStruct()));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasIntValue())) {
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasIntValue())) {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
                 _res.setResult(new IntStruct(instance_.intStruct()));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasLongValue())) {
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasLongValue())) {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
                 _res.setResult(new LongStruct(instance_.longStruct()));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasFloatValue())) {
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasFloatValue())) {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
                 _res.setResult(new FloatStruct(instance_.floatStruct()));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasDoubleValue())) {
+                return;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasDoubleValue())) {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
                 _res.setResult(new DoubleStruct(instance_.doubleStruct()));
-            } else if (list_.isEmpty()) {
+                return;
+            }
+            if (list_.isEmpty()) {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
                 _res.setResult(instance_.getDisplayedString(_cont));
-            } else {
-                StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont)
-                        .getDisplayedString(_cont);
-                _res.setResult(disp_);
+                return;
             }
+            StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont)
+                    .getDisplayedString(_cont);
+            _res.setResult(disp_);
         }
     }
 

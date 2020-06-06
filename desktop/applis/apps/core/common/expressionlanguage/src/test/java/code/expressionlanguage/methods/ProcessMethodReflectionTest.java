@@ -6494,6 +6494,26 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq("",getString(ret_));
     }
     @Test
+    public void processEl498Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Method c = $class(Resources).getDeclaredMethods(\"nbNames\",$true,$false)[0i];\n");
+        xml_.append("  $return $($int) c.invoke($null);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertEq(0,getNumber(ret_));
+    }
+    @Test
     public void processEl_1Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();

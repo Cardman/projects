@@ -1,11 +1,8 @@
 package code.expressionlanguage.opers.util;
-import code.util.CustList;
 
 public final class ParametersGroup {
 
     private boolean error;
-
-    private CustList<ClassMatching> parameters = new CustList<ClassMatching>();
 
     public ParametersGroup() {
     }
@@ -18,11 +15,4 @@ public final class ParametersGroup {
         error = _error;
     }
 
-    public int size() {
-        return parameters.size();
-    }
-
-    public void add(ClassMatching _cl) {
-        parameters.add(_cl);
-    }
 }

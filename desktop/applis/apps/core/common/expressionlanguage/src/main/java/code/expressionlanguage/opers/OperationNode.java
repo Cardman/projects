@@ -717,9 +717,6 @@ public abstract class OperationNode implements Operable {
                 }
             }
             ParametersGroup pg_ = new ParametersGroup();
-            for (String c: ctor_.getParametersTypes()) {
-                pg_.add(new ClassMatching(c));
-            }
             ConstructorInfo mloc_ = new ConstructorInfo();
             mloc_.setConstraints(ctor_);
             mloc_.setParameters(pg_);
@@ -914,7 +911,7 @@ public abstract class OperationNode implements Operable {
         if (res_.isFoundMethod()) {
             ClassMethodId id_ = res_.getId();
             MethodId cts_ = id_.getConstraints();
-            res_.setId(new ClassMethodId(id_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),new StringList(cts_.getParametersTypes().mid(1)),cts_.isVararg())));
+            res_.setId(new ClassMethodId(id_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),cts_.shiftFirst(),cts_.isVararg())));
         }
         return res_;
     }
@@ -931,7 +928,7 @@ public abstract class OperationNode implements Operable {
         if (res_.isFoundMethod()) {
             ClassMethodId id_ = res_.getId();
             MethodId cts_ = id_.getConstraints();
-            res_.setId(new ClassMethodId(id_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),new StringList(cts_.getParametersTypes().mid(1)),cts_.isVararg())));
+            res_.setId(new ClassMethodId(id_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),cts_.shiftFirst(),cts_.isVararg())));
         }
         return res_;
     }
@@ -1012,9 +1009,6 @@ public abstract class OperationNode implements Operable {
                 }
             }
             ParametersGroup p_ = new ParametersGroup();
-            for (String c: id_.getParametersTypes()) {
-                p_.add(new ClassMatching(c));
-            }
             MethodInfo mloc_ = new MethodInfo();
             mloc_.setClassName(objType_);
             mloc_.setStatic(true);
@@ -1139,9 +1133,6 @@ public abstract class OperationNode implements Operable {
                         continue;
                     }
                     ParametersGroup p_ = new ParametersGroup();
-                    for (String c: id_.getParametersTypes()) {
-                        p_.add(new ClassMatching(c));
-                    }
                     MethodInfo mloc_ = new MethodInfo();
                     mloc_.setClassName(clName_);
                     mloc_.setStatic(true);
@@ -1420,9 +1411,6 @@ public abstract class OperationNode implements Operable {
         ret_ = Templates.wildCardFormatReturn(_formattedClass, ret_, _conf);
         ParametersGroup p_ = new ParametersGroup();
         MethodId id_ = _m.getId();
-        for (String c: id_.getParametersTypes()) {
-            p_.add(new ClassMatching(c));
-        }
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setClassName(_formattedClass);
         mloc_.setStaticMethod(id_.getKind());
@@ -1443,9 +1431,6 @@ public abstract class OperationNode implements Operable {
         ret_ = Templates.wildCardFormatReturn(_formattedClass, ret_, _conf);
         ParametersGroup p_ = new ParametersGroup();
         MethodId id_ = _m.getId();
-        for (String c: id_.getParametersTypes()) {
-            p_.add(new ClassMatching(c));
-        }
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setClassName(_formattedClass);
         mloc_.setStaticMethod(id_.getKind());
@@ -1497,9 +1482,6 @@ public abstract class OperationNode implements Operable {
         ParametersGroup p_ = new ParametersGroup();
         String valueOf_ = _conf.getStandards().getAliasEnumPredValueOf();
         MethodId realId_ = new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_));
-        for (String c: realId_.getParametersTypes()) {
-            p_.add(new ClassMatching(c));
-        }
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setClassName(idClass_);
         mloc_.setStatic(true);
@@ -1582,29 +1564,29 @@ public abstract class OperationNode implements Operable {
                                             ClassArgumentMatching... _argsClass) {
         int startOpt_ = _argsClass.length;
         boolean checkOnlyDem_ = true;
-        StringList params_ = _id.getGeneFormatted().getParametersTypes();
-        int nbDem_ = params_.size();
-        int last_ = params_.getLastIndex();
+        int all_ = _id.getGeneFormatted().getParametersTypesLength();
+        int nbDem_ = all_;
+        int last_ = all_-1;
         boolean vararg_ = _id.isVararg();
         if (!vararg_) {
-            if (params_.size() != _argsClass.length) {
+            if (nbDem_ != _argsClass.length) {
                 return false;
             }
         } else {
-            if (params_.size() > _argsClass.length + 1) {
+            if (nbDem_ > _argsClass.length + 1) {
                 return false;
             }
             if (_varargOnly != 0) {
                 checkOnlyDem_ = false;
                 nbDem_--;
-                startOpt_ = params_.size() - 1;
+                startOpt_ = all_ - 1;
             }
             if (_varargOnly > 0) {
                 if (startOpt_ != _varargOnly - 1) {
                     return false;
                 }
             } else if (_varargOnly == 0) {
-                if (params_.size() != _argsClass.length) {
+                if (all_ != _argsClass.length) {
                     return false;
                 }
             }
@@ -1612,8 +1594,8 @@ public abstract class OperationNode implements Operable {
         StringMap<StringList> mapCtr_ = _context.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         boolean allNotBoxUnbox_ = true;
         for (int i = CustList.FIRST_INDEX; i < nbDem_; i++) {
-            String wc_ = params_.get(i);
-			wc_ = wrap(i,params_.size(),vararg_,wc_);
+            String wc_ = _id.getGeneFormatted().getParametersType(i);
+			wc_ = wrap(i,all_,vararg_,wc_);
             if (_argsClass[i].isVariable()) {
                 if (PrimitiveTypeUtil.isPrimitive(wc_,_context)) {
                     return false;
@@ -1654,12 +1636,12 @@ public abstract class OperationNode implements Operable {
             }
             return true;
         }
-        if (params_.size() == _argsClass.length) {
+        if (all_ == _argsClass.length) {
             Mapping map_ = new Mapping();
             ClassArgumentMatching arg_ = _argsClass[last_];
             map_.setArg(arg_);
             map_.getMapping().putAllMap(mapCtr_);
-            String wc_ = params_.last();
+            String wc_ = _id.getGeneFormatted().getParametersType(last_);
             if (wc_.isEmpty()) {
                 if (arg_.isVariable()) {
                     setInvoke(_id, allNotBoxUnbox_);
@@ -1691,7 +1673,7 @@ public abstract class OperationNode implements Operable {
         nbDem_ = _argsClass.length;
         Mapping map_ = new Mapping();
         map_.getMapping().putAllMap(mapCtr_);
-        String wc_ = params_.last();
+        String wc_ = _id.getGeneFormatted().getParametersType(last_);
         if (wc_.isEmpty()) {
             return false;
         }
@@ -1740,9 +1722,9 @@ public abstract class OperationNode implements Operable {
         return res_;
     }
 
-    private static boolean isPossibleMethod(ContextEl _context, Parametrable _id,
+    private static boolean isPossibleMethod(ContextEl _context, MethodInfo _id,
                                             ClassArgumentMatching _argsClass) {
-        StringList params_ = new StringList(_id.getGeneFormatted().getParametersTypes().mid(1));
+        StringList params_ = _id.getFoundFormatted().shiftFirst();
         int nbDem_ = params_.size();
         StringMap<StringList> mapCtr_ = _context.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         boolean allNotBoxUnbox_ = true;
@@ -2088,13 +2070,13 @@ public abstract class OperationNode implements Operable {
         ContextEl context_ = _context.getContext();
         StringMap<StringList> map_;
         map_ = _context.getMap();
-        int len_ = _one.getParameters().size();
+        int len_ = _one.getGeneFormatted().getParametersTypesLength();
         boolean all_ = true;
         Identifiable idOne_ = _one.getGeneFormatted();
         Identifiable idTwo_ = _two.getGeneFormatted();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String wcOne_ = idOne_.getParametersTypes().get(i);
-            String wcTwo_ = idTwo_.getParametersTypes().get(i);
+            String wcOne_ = idOne_.getParametersType(i);
+            String wcTwo_ = idTwo_.getParametersType(i);
 			wcOne_ = wrap(i,len_,idOne_.isVararg(),wcOne_);
 			wcTwo_ = wrap(i,len_,idTwo_.isVararg(),wcTwo_);
             if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
@@ -2108,22 +2090,24 @@ public abstract class OperationNode implements Operable {
         ContextEl context_ = _context.getContext();
         StringMap<StringList> map_;
         map_ = _context.getMap();
-        int lenOne_ = _one.getParameters().size();
-        int lenTwo_ = _two.getParameters().size();
+        int lenOne_ = _one.getGeneFormatted().getParametersTypesLength();
+        int lenTwo_ = _two.getGeneFormatted().getParametersTypesLength();
+        int lastOne_ = lenOne_-1;
+        int lastTwo_ = lenTwo_-1;
         boolean all_ = true;
         if (lenOne_ >= lenTwo_) {
             int pr_ = lenTwo_-1;
             for (int i = CustList.FIRST_INDEX; i < pr_; i++) {
-                String wcOne_ = _one.getGeneFormatted().getParametersTypes().get(i);
-                String wcTwo_ = _two.getGeneFormatted().getParametersTypes().get(i);
+                String wcOne_ = _one.getGeneFormatted().getParametersType(i);
+                String wcTwo_ = _two.getGeneFormatted().getParametersType(i);
                 if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
                 }
             }
-            String wcTwo_ = _two.getGeneFormatted().getParametersTypes().last();
+            String wcTwo_ = _two.getGeneFormatted().getParametersType(lastTwo_);
             for (int i = pr_; i < lenOne_; i++) {
-                String wcOne_ = _one.getGeneFormatted().getParametersTypes().get(i);
+                String wcOne_ = _one.getGeneFormatted().getParametersType(i);
                 if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
@@ -2132,16 +2116,16 @@ public abstract class OperationNode implements Operable {
         } else {
             int pr_ = lenOne_-1;
             for (int i = CustList.FIRST_INDEX; i < pr_; i++) {
-                String wcOne_ = _one.getGeneFormatted().getParametersTypes().get(i);
-                String wcTwo_ = _two.getGeneFormatted().getParametersTypes().get(i);
+                String wcOne_ = _one.getGeneFormatted().getParametersType(i);
+                String wcTwo_ = _two.getGeneFormatted().getParametersType(i);
                 if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
                 }
             }
-            String wcOne_ = _one.getGeneFormatted().getParametersTypes().last();
+            String wcOne_ = _one.getGeneFormatted().getParametersType(lastOne_);
             for (int i = pr_; i < lenTwo_; i++) {
-                String wcTwo_ = _two.getGeneFormatted().getParametersTypes().get(i);
+                String wcTwo_ = _two.getGeneFormatted().getParametersType(i);
                 if (swapCasePreferred(wcOne_, wcTwo_, map_, context_) == CustList.SWAP_SORT) {
                     all_ = false;
                     break;
@@ -2151,24 +2135,23 @@ public abstract class OperationNode implements Operable {
         return all_;
     }
     private static int swapCasePreferred(String _paramFctOne, String _paramFctTwo, StringMap<StringList> _map, ContextEl _ana) {
-        ClassMatching one_;
-        ClassMatching two_;
         if (_paramFctOne.isEmpty()) {
             if (_paramFctTwo.isEmpty()) {
                 return CustList.EQ_CMP;
-            } else {
-                return CustList.SWAP_SORT;
             }
+            return CustList.SWAP_SORT;
         }
         if (_paramFctTwo.isEmpty()) {
             return CustList.NO_SWAP_SORT;
         }
-        one_ = new ClassMatching(_paramFctOne);
-        two_ = new ClassMatching(_paramFctTwo);
-        if (one_.matchClass(two_)) {
+        if (StringList.quickEq(_paramFctOne,_paramFctTwo)) {
             return CustList.EQ_CMP;
         }
-        if (two_.isAssignableFrom(one_, _map, _ana)) {
+        Mapping map_ = new Mapping();
+        map_.setMapping(_map);
+        map_.setArg(_paramFctOne);
+        map_.setParam(_paramFctTwo);
+        if (Templates.isCorrectOrNumbers(map_, _ana)) {
             return CustList.NO_SWAP_SORT;
         }
         return CustList.SWAP_SORT;
@@ -2184,21 +2167,21 @@ public abstract class OperationNode implements Operable {
 		return _type;
     }
     private static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
-        int len_ = _o1.getParameters().size();
+        int len_ = _o1.getGeneFormatted().getParametersTypesLength();
         ContextEl context_ = _context.getContext();
         StringMap<StringList> map_;
         map_ = _context.getMap();
         String glClassOne_ = _o1.getClassName();
         String glClassTwo_ = _o2.getClassName();
-        if (len_ != _o2.getParameters().size()) {
-            if (len_ < _o2.getParameters().size()) {
+        if (len_ != _o2.getGeneFormatted().getParametersTypesLength()) {
+            if (len_ < _o2.getGeneFormatted().getParametersTypesLength()) {
                 return CustList.SWAP_SORT;
             }
             return CustList.NO_SWAP_SORT;
         }
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String wcOne_ = _o1.getGeneFormatted().getParametersTypes().get(i);
-            String wcTwo_ = _o2.getGeneFormatted().getParametersTypes().get(i);
+            String wcOne_ = _o1.getGeneFormatted().getParametersType(i);
+            String wcTwo_ = _o2.getGeneFormatted().getParametersType(i);
             int res_ = checkPreferred(wcOne_, wcTwo_, map_, context_, _o1, _o2);
             if (res_ != CustList.EQ_CMP) {
                 return res_;
