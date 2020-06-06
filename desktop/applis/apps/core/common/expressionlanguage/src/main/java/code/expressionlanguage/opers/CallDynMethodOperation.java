@@ -7,6 +7,8 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -79,14 +81,20 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 m_.setParam(p_);
                 m_.setMapping(map_);
                 if (!Templates.isCorrectOrNumbers(m_, _conf)) {
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                    //character before
-                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(a_.getNames(),"&"),
-                            StringList.join(p_.getNames(),"&"));
-                    _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_conf, pa_, a_);
+                    if (res_.isFoundMethod()) {
+                        ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                        a_.getImplicits().add(cl_);
+                    } else {
+                        FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                        cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                        cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                        //character before
+                        cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                                StringList.join(a_.getNames(),"&"),
+                                StringList.join(p_.getNames(),"&"));
+                        _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    }
                 }
                 if (PrimitiveTypeUtil.isPrimitive(pa_, _conf)) {
                     a_.setUnwrapObject(pa_);

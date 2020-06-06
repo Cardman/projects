@@ -1593,6 +1593,7 @@ public abstract class OperationNode implements Operable {
         }
         StringMap<StringList> mapCtr_ = _context.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         boolean allNotBoxUnbox_ = true;
+        boolean implicit_ = false;
         for (int i = CustList.FIRST_INDEX; i < nbDem_; i++) {
             String wc_ = _id.getGeneFormatted().getParametersType(i);
 			wc_ = wrap(i,all_,vararg_,wc_);
@@ -1611,6 +1612,13 @@ public abstract class OperationNode implements Operable {
             }
             map_.setParam(wc_);
             if (!Templates.isCorrectOrNumbers(map_, _context)) {
+                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_context, wc_, arg_);
+                if (res_.isFoundMethod()) {
+                    implicit_ = true;
+                    ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                    arg_.getImplicits().add(cl_);
+                    continue;
+                }
                 return false;
             }
             if (PrimitiveTypeUtil.isPrimitive(wc_, _context)) {
@@ -1632,7 +1640,7 @@ public abstract class OperationNode implements Operable {
             } else if (!vararg_) {
                 _id.setInvocation(InvocationMethod.BOX_UNBOX);
             } else {
-                _id.setInvocation(InvocationMethod.ALL);
+                setVarargOrImplicit(_id, implicit_);
             }
             return true;
         }
@@ -1656,7 +1664,7 @@ public abstract class OperationNode implements Operable {
                 if (_unique) {
                     map_.setParam(wc_);
                     if (Templates.isCorrectOrNumbers(map_, _context)) {
-                        _id.setInvocation(InvocationMethod.ALL);
+                        _id.setInvocation(InvocationMethod.VARARG);
                         _id.setVarArgWrap(true);
                     }
                 }
@@ -1664,8 +1672,16 @@ public abstract class OperationNode implements Operable {
             }
             map_.setParam(wc_);
             if (Templates.isCorrectOrNumbers(map_, _context)) {
+                _id.setInvocation(InvocationMethod.VARARG);
+                _id.setVarArgWrap(true);
+                return true;
+            }
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_context, wc_, arg_);
+            if (res_.isFoundMethod()) {
                 _id.setInvocation(InvocationMethod.ALL);
                 _id.setVarArgWrap(true);
+                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                arg_.getImplicits().add(cl_);
                 return true;
             }
             return false;
@@ -1679,15 +1695,32 @@ public abstract class OperationNode implements Operable {
         }
         map_.setParam(wc_);
         for (int i = startOpt_; i < nbDem_; i++) {
-            map_.setArg(_argsClass[i]);
+            ClassArgumentMatching a_ = _argsClass[i];
+            map_.setArg(a_);
             if (!Templates.isCorrectOrNumbers(map_, _context)) {
+                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_context, wc_, a_);
+                if (res_.isFoundMethod()) {
+                    implicit_ = true;
+                    ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                    a_.getImplicits().add(cl_);
+                    continue;
+                }
                 return false;
             }
         }
-        _id.setInvocation(InvocationMethod.ALL);
+        setVarargOrImplicit(_id, implicit_);
         _id.setVarArgWrap(true);
         return true;
     }
+
+    private static void setVarargOrImplicit(Parametrable _id, boolean _implicit) {
+        if (!_implicit) {
+            _id.setInvocation(InvocationMethod.VARARG);
+        } else {
+            _id.setInvocation(InvocationMethod.ALL);
+        }
+    }
+
     private static ClassMethodIdReturn getCustCastResult(ContextEl _conf,
                                                          CustList<MethodInfo> _methods,
                                                          ClassArgumentMatching _argsClass) {
@@ -1729,8 +1762,7 @@ public abstract class OperationNode implements Operable {
         StringMap<StringList> mapCtr_ = _context.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         boolean allNotBoxUnbox_ = true;
         for (int i = CustList.FIRST_INDEX; i < nbDem_; i++) {
-            String wc_ = params_.get(i);
-            wc_ = wrap(i,params_.size(), false,wc_);
+            String wc_ = wrap(i,params_.size(), false,params_.get(i));
             Mapping map_ = new Mapping();
             map_.setArg(_argsClass);
             map_.getMapping().putAllMap(mapCtr_);
@@ -1862,7 +1894,14 @@ public abstract class OperationNode implements Operable {
             allMax_ = getAllMaximalSpecificFixArity(fct_, _context);
         } else {
             for (Parametrable m: _fct) {
-                fct_.add(m);
+                if (m.getInvocation() == InvocationMethod.VARARG) {
+                    fct_.add(m);
+                }
+            }
+            if (fct_.isEmpty()) {
+                for (Parametrable m: _fct) {
+                    fct_.add(m);
+                }
             }
             allMax_ = getAllMaximalSpecificVariableArity(fct_, _context);
         }

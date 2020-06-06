@@ -8,6 +8,8 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
@@ -61,14 +63,20 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             mapping_.setArg(argType_);
             mapping_.setMapping(map_);
             if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                //first separator char child
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(argType_.getNames(),"&"),
-                        eltType_);
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
+                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_conf, eltType_, argType_);
+                if (res_.isFoundMethod()) {
+                    ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                    argType_.getImplicits().add(cl_);
+                } else {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    //first separator char child
+                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(argType_.getNames(),"&"),
+                            eltType_);
+                    _conf.getAnalyzing().getLocalizer().addError(cast_);
+                }
             }
             if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
                 o.getResultClass().setUnwrapObject(eltType_);

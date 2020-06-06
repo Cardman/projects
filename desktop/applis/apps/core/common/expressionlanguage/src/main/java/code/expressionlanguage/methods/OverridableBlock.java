@@ -1,7 +1,6 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetAccessInfo;
@@ -135,16 +134,16 @@ public final class OverridableBlock extends NamedFunctionBlock implements Access
 
     @Override
     public void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl) {
-        checkReturnFct(_an, _anEl);
+        checkReturnFctOverridable(_an, _anEl);
     }
 
     @Override
     public void setAssignmentAfterCall(ContextEl _an, AnalyzingEl _anEl) {
         setAssignmentAfter(_an, _anEl);
-        checkReturnFct(_an, _anEl);
+        checkReturnFctOverridable(_an, _anEl);
     }
 
-    private void checkReturnFct(ContextEl _an, AnalyzingEl _anEl) {
+    private void checkReturnFctOverridable(ContextEl _an, AnalyzingEl _anEl) {
         LgNames stds_ = _an.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {
