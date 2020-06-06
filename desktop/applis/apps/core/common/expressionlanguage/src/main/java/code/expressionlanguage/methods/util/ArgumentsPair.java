@@ -9,7 +9,7 @@ public class ArgumentsPair {
     private Argument previousArgument;
     private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
     private int indexImplicit;
-    private boolean calledToString;
+    private boolean endCalculate;
     public Argument getArgument() {
         return argument;
     }
@@ -23,12 +23,12 @@ public class ArgumentsPair {
         previousArgument = _previousArgument;
     }
 
-    public boolean isCalledToString() {
-        return calledToString;
+    public boolean isEndCalculate() {
+        return endCalculate;
     }
 
-    public void setCalledToString(boolean _calledToString) {
-        calledToString = _calledToString;
+    public void setEndCalculate(boolean endCalculate) {
+        this.endCalculate = endCalculate;
     }
 
     public CustList<ClassMethodId> getImplicits() {

@@ -91,15 +91,15 @@ public final class CompoundAffectationOperation extends MethodOperation {
             }
             return;
         }
-        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.toPrimitive(elt_.getResultClass(),_conf)));
+        ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
+        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.toPrimitive(clMatchLeft_,_conf)));
         elt_.setVariable(false);
         String stringType_ = stds_.getAliasString();
-        boolean isString_ = elt_.getResultClass().matchClass(stringType_);
+        boolean isString_ = clMatchLeft_.matchClass(stringType_);
         if (isString_&&!StringList.quickEq(oper, Block.NULL_EQ)) {
             settable.setCatenizeStrings();
         }
         ClassArgumentMatching clMatchRight_ = right_.getResultClass();
-        ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
         root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
 
         if (StringList.quickEq(oper, Block.PLUS_EQ)) {

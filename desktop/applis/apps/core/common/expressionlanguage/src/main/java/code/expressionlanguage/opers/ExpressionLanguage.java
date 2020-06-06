@@ -26,8 +26,7 @@ public final class ExpressionLanguage {
         for (ExecOperationNode o: operations) {
             boolean std_ = true;
             if (o instanceof CallExecSimpleOperation) {
-                ExecSettableElResult set_ = ((CallExecSimpleOperation) o).getSettable();
-                if (set_ instanceof ExecCustArrOperation) {
+                if (((CallExecSimpleOperation) o).getSettable() instanceof ExecCustArrOperation) {
                     std_ = false;
                 }
             }

@@ -610,7 +610,6 @@ public abstract class ExecOperationNode implements Operable {
         }
         Argument arg_ = _argument;
         if (resultClass.isConvertToString()){
-            pair_.setCalledToString(true);
             arg_ = processString(_argument,_conf);
             if (_conf.getCallingState() != null) {
                 return;

@@ -56,10 +56,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
         Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post);
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
-        if (_conf.callsOrException() && pair_ instanceof TwoStepsArgumentsPair) {
-            TwoStepsArgumentsPair s_ = (TwoStepsArgumentsPair) pair_;
-            s_.setCalledIndexer(true);
-        }
+        pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes);
     }
 
@@ -68,38 +65,26 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
                              IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         Argument stored_ = getArgument(_nodes,(ExecOperationNode) settable);
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
-        if (pair_ instanceof TwoStepsArgumentsPair) {
-            TwoStepsArgumentsPair s_ = (TwoStepsArgumentsPair) pair_;
-            if (s_.isCalledIndexer()) {
-                if (s_.isCalledToString()) {
-                    setSimpleArgument(_right, _conf, _nodes);
-                    return;
-                }
-                if (!pair_.getImplicits().isEmpty()&&pair_.getImplicits().size() <= pair_.getIndexImplicit()) {
-                    setSimpleArgument(_right, _conf, _nodes);
-                    return;
-                }
-                Argument out_ = ExecSemiAffectationOperation.getPrePost(post, stored_, _right);
-                setSimpleArgument(out_, _conf, _nodes);
-                return;
-            }
-            s_.setCalledIndexer(true);
-            setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
+        if (!pair_.isEndCalculate()) {
+            pair_.setEndCalculate(true);
             Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
             setSimpleArgument(arg_, _conf, _nodes);
             return;
         }
-        if (pair_.isCalledToString()) {
-            setSimpleArgument(_right, _conf, _nodes);
+        if (pair_ instanceof TwoStepsArgumentsPair) {
+            TwoStepsArgumentsPair s_ = (TwoStepsArgumentsPair) pair_;
+            Argument out_;
+            if (!s_.isCalledIndexer()) {
+                s_.setCalledIndexer(true);
+                out_ = ExecSemiAffectationOperation.getPrePost(post, stored_, _right);
+            } else {
+                out_ = _right;
+            }
+            setSimpleArgument(out_, _conf, _nodes);
             return;
         }
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
-        if (!pair_.getImplicits().isEmpty()&&pair_.getImplicits().size() <= pair_.getIndexImplicit()) {
-            setSimpleArgument(_right, _conf, _nodes);
-            return;
-        }
-        Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
-        setSimpleArgument(arg_, _conf, _nodes);
+        setSimpleArgument(_right, _conf, _nodes);
     }
 
     static Argument getPrePost(boolean _post, Argument _stored,Argument _right) {
