@@ -62,7 +62,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         if (_exit.hasToExit(paramNameOwner_)) {
             return true;
         }
-        MethodId check_ = new MethodId(_castOpId.getKind(),_castOpId.getName(),new StringList(_castOpId.getParametersTypes().mid(1)),_castOpId.isVararg());
+        MethodId check_ = new MethodId(_castOpId.getKind(),_castOpId.getName(),_castOpId.shiftFirst(),_castOpId.isVararg());
         if (!Templates.okArgs(check_,true, paramNameOwner_,_arguments, _conf, null)) {
             return true;
         }

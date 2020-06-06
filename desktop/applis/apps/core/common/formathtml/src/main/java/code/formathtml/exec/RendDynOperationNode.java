@@ -1,8 +1,10 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.calls.util.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.Delimiters;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.ProcessMethod;
@@ -11,6 +13,8 @@ import code.expressionlanguage.opers.*;
 import code.expressionlanguage.opers.exec.ExecCatOperation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
@@ -555,7 +559,38 @@ public abstract class RendDynOperationNode {
         if (_conf.getContext().hasException()) {
             return;
         }
+        ArgumentsPair pair_ = getArgumentPair(_nodes,this);
+        CustList<ClassMethodId> implicits_ = pair_.getImplicits();
         Argument out_ = _argument;
+        int s_ = implicits_.size();
+        for (int i = 0; i < s_; i++) {
+            ClassMethodId c = implicits_.get(i);
+            CustList<Argument> args_ = new CustList<Argument>(out_);
+            PageEl last_ = _conf.getPageEl();
+            String cl_ = c.getClassName();
+            MethodId id_ = c.getConstraints();
+            String paramNameOwner_ = last_.formatVarType(cl_, _conf.getContext());
+            if (_conf.hasToExit(paramNameOwner_)) {
+                CallingState state_ = _conf.getContext().getCallingState();
+                if (state_ instanceof NotInitializedClass) {
+                    NotInitializedClass statusInit_ = (NotInitializedClass) state_;
+                    ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
+                }
+            }
+            if (!_conf.getContext().hasException()) {
+                MethodId check_ = new MethodId(id_.getKind(),id_.getName(),id_.shiftFirst(),id_.isVararg());
+                Templates.okArgsSet(check_,true, paramNameOwner_,args_, _conf.getContext(), null);
+            }
+            if (_conf.getContext().hasException()) {
+                return;
+            }
+            CustomFoundCast c_ = new CustomFoundCast(paramNameOwner_, id_, args_);
+            _conf.getContext().setCallingState(c_);
+            out_ = ProcessMethod.castArgument(c_.getClassName(),c_.getId(), c_.getArguments(), _conf.getContext());
+            if (_conf.getContext().hasException()) {
+                return;
+            }
+        }
         if (resultClass.isConvertToString()){
             out_ = processString(_argument,_conf);
             ContextEl ctx_ = _conf.getContext();

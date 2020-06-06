@@ -440,6 +440,7 @@ public final class RenderExpUtil {
         for (RendDynOperationNode o: _nodes) {
             ArgumentsPair a_ = new ArgumentsPair();
             a_.setArgument(o.getArgument());
+            a_.setImplicits(o.getResultClass().getImplicits());
             if (o instanceof RendPossibleIntermediateDotted) {
                 a_.setPreviousArgument(((RendPossibleIntermediateDotted)o).getPreviousArgument());
             }
@@ -451,10 +452,17 @@ public final class RenderExpUtil {
             RendDynOperationNode o = arguments_.getKey(fr_);
             ArgumentsPair pair_ = arguments_.getValue(fr_);
             if (!(o instanceof RendCalculableOperation)) {
+                Argument a_ = Argument.getNullableValue(o.getArgument());
+                if (!pair_.getImplicits().isEmpty()) {
+                    o.setSimpleArgument(a_,_context,arguments_);
+                }
                 fr_++;
                 continue;
             }
             if (pair_.getArgument() != null) {
+                if (!pair_.getImplicits().isEmpty()) {
+                    o.setSimpleArgument(pair_.getArgument(),_context,arguments_);
+                }
                 fr_++;
                 continue;
             }

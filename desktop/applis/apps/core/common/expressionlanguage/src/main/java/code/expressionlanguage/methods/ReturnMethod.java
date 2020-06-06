@@ -129,7 +129,10 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
             ExecOperationNode last_ = opRet.last();
             ClassArgumentMatching reClass_ = last_.getResultClass();
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _retType, reClass_);
-            if (!res_.isFoundMethod()) {
+            if (res_.isFoundMethod()) {
+                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                last_.getResultClass().getImplicits().add(cl_);
+            } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());
                 cast_.setIndexFile(expressionOffset);
@@ -138,9 +141,6 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
                         StringList.join(reClass_.getNames(), "&"),
                         _retType);
                 _cont.addError(cast_);
-            } else {
-                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                last_.getResultClass().getImplicits().add(cl_);
             }
 
         }

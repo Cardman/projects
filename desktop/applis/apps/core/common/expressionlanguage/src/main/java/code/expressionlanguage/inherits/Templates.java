@@ -1433,12 +1433,15 @@ public final class Templates {
         return null;
     }
     public static boolean okArgs(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+        Struct ex_ = okArgsSet(_id, _format, _classNameFound, _firstArgs, _conf, _right);
+        return ex_ == null;
+    }
+    public static Struct okArgsSet(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
         Struct ex_ = okArgsEx(_id, _format, _classNameFound, _firstArgs, _conf, _right);
         if (ex_ != null) {
             _conf.setException(ex_);
-            return false;
         }
-        return true;
+        return ex_;
     }
     public static ErrorType safeObject(String _param, Argument _arg, ContextEl _context) {
         LgNames stds_ = _context.getStandards();

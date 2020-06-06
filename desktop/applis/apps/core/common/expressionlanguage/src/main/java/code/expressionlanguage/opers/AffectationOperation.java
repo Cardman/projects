@@ -170,14 +170,20 @@ public final class AffectationOperation extends MethodOperation implements Affec
             }
         }
         if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            //oper
-            cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
-                    StringList.join(clMatchRight_.getNames(),"&"),
-                    StringList.join(clMatchLeft_.getNames(),"&"));
-            _conf.getAnalyzing().getLocalizer().addError(cast_);
+            ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_conf, clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_);
+            if (res_.isFoundMethod()) {
+                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                clMatchRight_.getImplicits().add(cl_);
+            } else {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                //oper
+                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                        StringList.join(clMatchRight_.getNames(),"&"),
+                        StringList.join(clMatchLeft_.getNames(),"&"));
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
+            }
         }
         if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_, _conf)) {
             right_.getResultClass().setUnwrapObject(clMatchLeft_);
