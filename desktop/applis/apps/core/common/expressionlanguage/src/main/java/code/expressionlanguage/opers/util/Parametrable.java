@@ -10,12 +10,13 @@ public interface Parametrable {
 
     boolean isVararg();
 
-    int getImported();
-    int getAncestor();
+
     boolean isVarArgWrap();
     void setVarArgWrap(boolean _v);
+    boolean sameParamsVararg(Parametrable _id);
 
     Identifiable getGeneFormatted();
+    Identifiable getPartialId();
 
     void setInvocation(InvocationMethod _inv);
     InvocationMethod getInvocation();

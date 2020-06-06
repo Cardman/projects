@@ -1151,14 +1151,16 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             CustList<MethodIdAncestors> signatures_;
             signatures_ = new CustList<MethodIdAncestors>();
             StringList upper_ = Mapping.getAllUpperBounds(vars_, t.getName(),objectClassName_);
-            CustList<MethodInfo> methods_;
-            methods_ = new CustList<MethodInfo>();
+            CustList<CustList<MethodInfo>> methods_;
+            methods_ = new CustList<CustList<MethodInfo>>();
             OperationNode.fetchParamClassAncMethods(_context,upper_,methods_);
-            for (MethodInfo e: methods_) {
-                if (e.getConstraints().getKind() != MethodAccessKind.INSTANCE) {
-                    continue;
+            for (CustList<MethodInfo> l: methods_) {
+                for (MethodInfo e: l) {
+                    if (e.getConstraints().getKind() != MethodAccessKind.INSTANCE) {
+                        continue;
+                    }
+                    addClass(signatures_, new MethodIdAncestor(e.getFoundFormatted(),e.getAncestor()), e);
                 }
-                addClass(signatures_, new MethodIdAncestor(e.getFoundFormatted(),e.getAncestor()), e);
             }
             String fullName_ = "";
             lookForErrors(_context, vars_, signatures_, fullName_,t.getName());
@@ -1257,14 +1259,16 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
         CustList<MethodIdAncestors> ov_;
         ov_ = new CustList<MethodIdAncestors>();
-        CustList<MethodInfo> methods_;
-        methods_ = new CustList<MethodInfo>();
+        CustList<CustList<MethodInfo>> methods_;
+        methods_ = new CustList<CustList<MethodInfo>>();
         OperationNode.fetchParamClassAncMethods(_context,new StringList(getGenericString()),methods_);
-        for (MethodInfo e: methods_) {
-            if (e.getConstraints().getKind() != MethodAccessKind.INSTANCE) {
-                continue;
+        for (CustList<MethodInfo> l: methods_) {
+            for (MethodInfo e: l) {
+                if (e.getConstraints().getKind() != MethodAccessKind.INSTANCE) {
+                    continue;
+                }
+                addClass(ov_, new MethodIdAncestor(e.getFoundFormatted(),e.getAncestor()), e);
             }
-            addClass(ov_, new MethodIdAncestor(e.getFoundFormatted(),e.getAncestor()), e);
         }
         String fullName_ = getFullName();
         lookForErrors(_context, vars_, ov_, fullName_,fullName_);

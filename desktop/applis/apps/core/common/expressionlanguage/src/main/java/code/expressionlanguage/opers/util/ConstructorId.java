@@ -51,19 +51,7 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
 
     @Override
     public boolean eq(ConstructorId _obj) {
-        if (classNames.size() != _obj.classNames.size()) {
-            return false;
-        }
-        if (vararg != _obj.vararg) {
-            return false;
-        }
-        int len_ = classNames.size();
-        for (int i = 0; i < len_; i++) {
-            if (!StringList.quickEq(classNames.get(i), _obj.classNames.get(i))) {
-                return false;
-            }
-        }
-        return true;
+        return IdentifiableUtil.eqPartial(this,_obj);
     }
 
     @Override
@@ -71,6 +59,15 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         return new StringList(classNames);
     }
 
+    @Override
+    public int getParametersTypesLength() {
+        return classNames.size();
+    }
+
+    @Override
+    public String getParametersType(int _index) {
+        return classNames.get(_index);
+    }
     @Override
     public boolean isVararg() {
         return vararg;

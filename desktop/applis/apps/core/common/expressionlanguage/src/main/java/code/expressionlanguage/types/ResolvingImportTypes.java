@@ -1,7 +1,6 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ImportedField;
 import code.expressionlanguage.ImportedMethod;
 import code.expressionlanguage.common.GeneField;
@@ -370,14 +369,15 @@ public final class ResolvingImportTypes {
         return false;
     }
 
-    public static CustList<ImportedMethod> lookupImportStaticMethods(ContextEl _analyzable,String _glClass, String _method, Block _rooted) {
-        CustList<ImportedMethod> methods_ = new CustList<ImportedMethod>();
+    public static CustList<CustList<ImportedMethod>> lookupImportStaticMethods(ContextEl _analyzable,String _glClass, String _method, Block _rooted) {
+        CustList<CustList<ImportedMethod>> methods_ = new CustList<CustList<ImportedMethod>>();
         AccessingImportingBlock type_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
         CustList<StringList> imports_ = new CustList<StringList>();
         fetchImports(type_, imports_);
         String keyWordStatic_ = _analyzable.getKeyWords().getKeyWordStatic();
         int import_ = 1;
         for (StringList t: imports_) {
+            CustList<ImportedMethod> m_ = new CustList<ImportedMethod>();
             for (String i: t) {
                 String tr_ = i.trim();
                 if (!tr_.contains(".")) {
@@ -399,11 +399,13 @@ public final class ResolvingImportTypes {
                 }
                 StringList typesLoc_ = new StringList(foundCandidate_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_analyzable,_glClass, _method, methods_, import_, foundCandidate_, typesLoc_);
+                fetchImportStaticMethods(_analyzable,_glClass, _method, m_, foundCandidate_, typesLoc_);
             }
+            methods_.add(m_);
             import_++;
         }
         for (StringList t: imports_) {
+            CustList<ImportedMethod> m_ = new CustList<ImportedMethod>();
             for (String i: t) {
                 String tr_ = i.trim();
                 if (!tr_.contains(".")) {
@@ -425,14 +427,15 @@ public final class ResolvingImportTypes {
                 }
                 StringList typesLoc_ = new StringList(foundCandidate_);
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_analyzable,_glClass, _method, methods_, import_, foundCandidate_, typesLoc_);
+                fetchImportStaticMethods(_analyzable,_glClass, _method, m_, foundCandidate_, typesLoc_);
             }
+            methods_.add(m_);
             import_++;
         }
         return methods_;
     }
 
-    private static void fetchImportStaticMethods(ContextEl _analyzable,String _glClass, String _method, CustList<ImportedMethod> _methods, int _import, String _typeLoc, StringList _typesLoc) {
+    private static void fetchImportStaticMethods(ContextEl _analyzable, String _glClass, String _method, CustList<ImportedMethod> _methods, String _typeLoc, StringList _typesLoc) {
         for (String s: _typesLoc) {
             GeneType super_ = _analyzable.getClassBody(s);
             for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
@@ -451,7 +454,7 @@ public final class ResolvingImportTypes {
                     }
                 }
                 ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                addImportMethod(_methods, new ImportedMethod(_import,e.getImportedReturnType(), clMet_));
+                addImportMethod(_methods, new ImportedMethod(e.getImportedReturnType(), clMet_));
             }
         }
     }

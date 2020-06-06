@@ -237,6 +237,36 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         assertEq(5,((NumberStruct)ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
+    public void validateEl17FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<T,S> {\n");
+        xml_.append(" $static{$new ExTwo<Number,Number>($null);}\n");
+        xml_.append(" $public (T n){}\n");
+        xml_.append(" $public (S s){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ProcessMethodCommon.contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void validateEl18FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $static{outer();}\n");
+        xml_.append(" $public $static $void outer(){}\n");
+        xml_.append(" $public $static $void outer(){}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ProcessMethodCommon.contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
     public void validateEl19FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

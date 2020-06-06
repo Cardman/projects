@@ -53,12 +53,13 @@ public final class ConstructorInfo implements Parametrable {
     }
 
     @Override
-    public int getImported() {
-        return 0;
+    public boolean sameParamsVararg(Parametrable _id) {
+        return IdentifiableUtil.eqPartial(constraints,_id.getPartialId());
     }
+
     @Override
-    public int getAncestor() {
-        return 0;
+    public Identifiable getPartialId() {
+        return constraints;
     }
 
     @Override

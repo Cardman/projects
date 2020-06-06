@@ -102,21 +102,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         if (kind != _other.kind) {
             return false;
         }
-        if (vararg != _other.vararg) {
-            return false;
-        }
-        int len_ = classNames.size();
-        if (len_ != _other.classNames.size()) {
-            return false;
-        }
-        for (int i = 0; i < len_; i++) {
-            String param_ = classNames.get(i);
-            String paramOther_ = _other.classNames.get(i);
-            if (!StringList.eq(param_,paramOther_)) {
-                return false;
-            }
-        }
-        return true;
+        return IdentifiableUtil.eqPartial(this,_other);
     }
 
     public MethodId reflectFormat(String _genericClass, ContextEl _context) {
@@ -174,6 +160,16 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
     @Override
     public StringList getParametersTypes() {
         return new StringList(classNames);
+    }
+
+    @Override
+    public int getParametersTypesLength() {
+        return classNames.size();
+    }
+
+    @Override
+    public String getParametersType(int _index) {
+        return classNames.get(_index);
     }
 
     @Override

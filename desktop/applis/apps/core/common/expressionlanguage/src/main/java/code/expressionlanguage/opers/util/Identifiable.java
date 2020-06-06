@@ -9,5 +9,7 @@ public interface Identifiable {
     boolean isStaticMethod();
     String getName();
     StringList getParametersTypes();
+    String getParametersType(int _index);
+    int getParametersTypesLength();
     String getSignature(ContextEl _ana);
 }

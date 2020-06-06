@@ -18,7 +18,6 @@ public final class MethodInfo implements Parametrable {
 
     private boolean finalMethod;
 
-    private int imported;
     private int ancestor;
 
     private boolean varArgWrap;
@@ -78,15 +77,15 @@ public final class MethodInfo implements Parametrable {
     }
 
     @Override
-    public int getImported() {
-        return imported;
-    }
-
-    public void setImported(int _imported) {
-        imported = _imported;
+    public boolean sameParamsVararg(Parametrable _id) {
+        return IdentifiableUtil.eqPartial(constraints,_id.getPartialId());
     }
 
     @Override
+    public Identifiable getPartialId() {
+        return constraints;
+    }
+
     public int getAncestor() {
         return ancestor;
     }
