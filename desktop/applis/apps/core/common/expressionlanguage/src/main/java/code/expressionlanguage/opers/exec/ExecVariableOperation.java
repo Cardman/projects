@@ -127,7 +127,10 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
     }
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
-        return endCalculate(_conf, _nodes, false, null, _right);
+        PageEl ip_ = _conf.getLastPage();
+        LocalVariable locVar_ = ip_.getLocalVar(variableName);
+        checkSet(_conf,locVar_, _right);
+        return _right;
     }
 
     @Override

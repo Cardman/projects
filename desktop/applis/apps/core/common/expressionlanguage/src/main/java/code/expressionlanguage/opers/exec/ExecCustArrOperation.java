@@ -59,9 +59,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     }
     @Override
     public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        return getArgument(previous_, arguments_, _conf,_right);
+        return endCalculateCommon(_conf, _nodes, _right);
     }
 
     @Override
@@ -103,11 +101,15 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
 
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
-        return endCalculate(_conf, _nodes, false, null, _right);
+        return endCalculateCommon(_conf, _nodes, _right);
     }
 
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right) {
+        return endCalculateCommon(_conf, _nodes, _right);
+    }
+
+    private Argument endCalculateCommon(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         return getArgument(previous_, arguments_, _conf,_right);

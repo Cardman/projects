@@ -128,18 +128,23 @@ public final class ExecSettableFieldOperation extends
 
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
-        return endCalculate(_conf, _nodes, false, null, _right);
+        endCalculateCommon(_conf, _nodes, _right);
+        return _right;
     }
     @Override
     public Argument endCalculate(ContextEl _conf,
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
             Argument _stored, Argument _right) {
+        endCalculateCommon(_conf, _nodes, _right);
+        return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
+    }
+
+    private void endCalculateCommon(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         Argument prev_ = Argument.createVoid();
         if (!fieldMetaInfo.isStaticField()) {
             prev_ = getPreviousArg(this, _nodes, _conf);
         }
         getCommonSetting(prev_,_conf,_right);
-        return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
     public int getDelta() {

@@ -140,7 +140,13 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
 
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
-        return endCalculate(_conf, _nodes, false, null, _right);
+        Struct array_;
+        array_ = getPreviousArgument(_nodes, this).getStruct();
+        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
+        ExecOperationNode lastElement_ = chidren_.last();
+        Argument index_ = getArgument(_nodes, lastElement_);
+        ExecInvokingOperation.setElement(array_, index_.getStruct(), _right.getStruct(), _conf);
+        return _right;
     }
 
     @Override
