@@ -1492,10 +1492,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private ClassMethodIdReturn getOperator(ContextEl _cont,String _from, CustList<ClassArgumentMatching> _methodTypes, String _operator, int _vararg, ClassMethodId _feed) {
         if (!_from.isEmpty()) {
             return tryGetDeclaredCustMethodLambda(_cont, -1, MethodAccessKind.STATIC,
-                    false, new StringList(_from), _operator, false, false, false, null,
+                    new StringList(_from), _operator, false, false, false, null,
                     ClassArgumentMatching.toArgArray(_methodTypes));
         }
-        return getOperatorLambda(_cont, _feed, _vararg, false, _operator, ClassArgumentMatching.toArgArray(_methodTypes));
+        return getOperatorLambda(_cont, _feed, _vararg, _operator, ClassArgumentMatching.toArgArray(_methodTypes));
     }
 
     private void processArray(ContextEl _conf, LgNames _stds,
