@@ -445,7 +445,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 checkNull(_conf);
                 return;
             }
-            ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_,
+            ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethodLambda(_conf, vararg_,
                     MethodAccessKind.INSTANCE, str_, name_,
                     accessSuper_, accessFromSuper_, false,feed_,
                     ClassArgumentMatching.toArgArray(_methodTypes));
@@ -518,7 +518,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             for (String s: argsRes_.getParametersTypes()) {
                 _methodTypes.add(new ClassArgumentMatching(s));
             }
-            ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_, kind_, str_, name_, true, false, false, feed_, ClassArgumentMatching.toArgArray(_methodTypes));
+            ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethodLambda(_conf, vararg_, kind_, str_, name_, true, false, false, feed_, ClassArgumentMatching.toArgArray(_methodTypes));
             if (!id_.isFoundMethod()) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
@@ -724,7 +724,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
-        ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_, stCtx_, str_,
+        ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethodLambda(_conf, vararg_, stCtx_, str_,
                 name_, accessSuper_, accessFromSuper_,
                 false, feed_, ClassArgumentMatching.toArgArray(_methodTypes));
         if (!id_.isFoundMethod()) {
@@ -903,7 +903,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
             }
             ConstrustorIdVarArg ctorRes_;
-            ctorRes_ = getDeclaredCustConstructor(_conf, vararg_, new ClassArgumentMatching(clFrom_), g_,feed_, ClassArgumentMatching.toArgArray(_methodTypes));
+            ctorRes_ = getDeclaredCustConstructorLambda(_conf, vararg_, new ClassArgumentMatching(clFrom_), g_,feed_, ClassArgumentMatching.toArgArray(_methodTypes));
             realId = ctorRes_.getRealId();
             if (realId == null) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
@@ -1078,7 +1078,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(_conf, _vararg, new ClassArgumentMatching(_cl),g_, _feed, ClassArgumentMatching.toArgArray(_methodTypes));
+        ctorRes_ = getDeclaredCustConstructorLambda(_conf, _vararg, new ClassArgumentMatching(_cl),g_, _feed, ClassArgumentMatching.toArgArray(_methodTypes));
         realId = ctorRes_.getRealId();
         if (realId == null) {
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
@@ -1491,11 +1491,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private ClassMethodIdReturn getOperator(ContextEl _cont,String _from, CustList<ClassArgumentMatching> _methodTypes, String _operator, int _vararg, ClassMethodId _feed) {
         if (!_from.isEmpty()) {
-            return tryGetDeclaredCustMethod(_cont, -1, MethodAccessKind.STATIC,
+            return tryGetDeclaredCustMethodLambda(_cont, -1, MethodAccessKind.STATIC,
                     false, new StringList(_from), _operator, false, false, false, null,
                     ClassArgumentMatching.toArgArray(_methodTypes));
         }
-        return getOperator(_cont, _feed, _vararg, false, _operator, ClassArgumentMatching.toArgArray(_methodTypes));
+        return getOperatorLambda(_cont, _feed, _vararg, false, _operator, ClassArgumentMatching.toArgArray(_methodTypes));
     }
 
     private void processArray(ContextEl _conf, LgNames _stds,
