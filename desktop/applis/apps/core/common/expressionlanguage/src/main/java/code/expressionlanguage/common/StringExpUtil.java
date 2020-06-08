@@ -52,6 +52,9 @@ public final class StringExpUtil {
         if(StringList.quickEq(_op, "-")) {
             return true;
         }
+        if(StringList.quickEq(_op, "!")) {
+            return true;
+        }
         if(StringList.quickEq(_op, "*")) {
             return true;
         }

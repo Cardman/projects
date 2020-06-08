@@ -11256,6 +11256,48 @@ public final class CoverageReportTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void coverage294Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public int a;\n");
+        xml_.append(" operator! int (pkg.Apply a){\n");
+        xml_.append("  return a.a;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  Apply one = new Apply();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  if (!one != 5i){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElCoverageEnDefault();
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
+                " public int <span class=\"f\"><a name=\"m37\">a</a></span>;\n" +
+                " operator<a name=\"m49\">!</a> int (<a title=\"pkg.Apply\" href=\"#m13\">pkg.Apply</a> <a name=\"m66\">a</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m66\">a</a></span>.<span class=\"f\"><a title=\"pkg.Apply.a\" href=\"#m37\">a</a></span></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m106\">method</a>(){\n" +
+                "  <a title=\"pkg.Apply\" href=\"#m13\">Apply</a> <span class=\"f\"><span class=\"f\"><a name=\"m124\">one</a> </span>=<span class=\"f\"> new <a title=\"pkg.Apply\" href=\"#m13\">Apply</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m124\">one</a></span>.<span class=\"f\"><a title=\"pkg.Apply.a\" href=\"#m37\">a</a></span></span>=<span class=\"f\">5i</span></span>;\n" +
+                "  <span class=\"p\">if</span> (<span class=\"p\"><span class=\"f\"><a title=\"static !(pkg.Apply)\" href=\"#m49\">!</a><span class=\"f\"><a href=\"#m124\">one</a> </span></span><a title=\"false\">!=</a><span class=\"f\"> 5i</span></span>){\n" +
+                "   return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

@@ -749,6 +749,35 @@ public final class ProcessMethodInnerOperatorTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
     }
+
+    @Test
+    public void calculateArgument24Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int a;\n");
+        xml_.append(" $operator! $int (pkg.Ex a){\n");
+        xml_.append("  $return a.a;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex one = $new Ex();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  $if (!one != 5i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
     @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();

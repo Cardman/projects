@@ -1093,6 +1093,9 @@ public abstract class OperationNode implements Operable {
     }
     private static boolean isNativeOperator(CustList<ClassArgumentMatching> _list, String _op, ContextEl _cont) {
         if (_list.size() == 1) {
+            if (StringList.quickEq(_op,"!")) {
+                return _list.first().isBoolType(_cont);
+            }
             if (StringList.quickEq(_op,"~")) {
                 int order_ = PrimitiveTypeUtil.getIntOrderClass(_list.first(), _cont);
                 return order_ != 0;

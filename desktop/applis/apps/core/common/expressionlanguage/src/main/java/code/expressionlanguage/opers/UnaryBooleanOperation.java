@@ -5,12 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.exec.ParentOperable;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentsUtil;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
@@ -18,7 +13,10 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringMap;
 
-public final class UnaryBooleanOperation extends AbstractUnaryOperation {
+public final class UnaryBooleanOperation extends AbstractUnaryOperation implements SymbolOperation {
+    private ClassMethodId classMethodId;
+    private int opOffset;
+    private boolean okNum;
 
     public UnaryBooleanOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -27,11 +25,19 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
 
     @Override
     public void analyzeUnary(ContextEl _conf) {
+        okNum = true;
         LgNames stds_ = _conf.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
         OperationNode child_ = getFirstChild();
         ClassArgumentMatching clMatch_;
         clMatch_ = child_.getResultClass();
+        opOffset = getOperations().getOperators().firstKey();
+        String oper_ = getOperations().getOperators().firstValue();
+        ClassMethodId clId_ = getOperatorOrMethod(this, oper_, _conf);
+        if (clId_ != null) {
+            classMethodId = clId_;
+            return;
+        }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (!clMatch_.isBoolType(_conf)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -76,5 +82,19 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         vars_.getFields().put(this, AssignmentsUtil.neg(fieldsAfterLast_));
         vars_.getVariables().put(this, AssignmentsUtil.neg(variablesAfterLast_));
         vars_.getMutableLoop().put(this, AssignmentsUtil.neg(mutableAfterLast_));
+    }
+
+    @Override
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
+    }
+    @Override
+    public int getOpOffset() {
+        return opOffset;
+    }
+
+    @Override
+    public boolean isOkNum() {
+        return okNum;
     }
 }

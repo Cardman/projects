@@ -268,10 +268,6 @@ public abstract class ExecOperationNode implements Operable {
             SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
             return new ExecSemiAffectationOperation(m_);
         }
-        if (_anaNode instanceof UnaryBooleanOperation) {
-            UnaryBooleanOperation m_ = (UnaryBooleanOperation) _anaNode;
-            return new ExecUnaryBooleanOperation(m_);
-        }
         if (_anaNode instanceof SymbolOperation) {
             SymbolOperation n_ = (SymbolOperation) _anaNode;
             if (!n_.isOkNum()) {
@@ -280,6 +276,10 @@ public abstract class ExecOperationNode implements Operable {
             if (n_.getClassMethodId() != null) {
                 return new ExecCustNumericOperation(n_,_anaNode);
             }
+        }
+        if (_anaNode instanceof UnaryBooleanOperation) {
+            UnaryBooleanOperation m_ = (UnaryBooleanOperation) _anaNode;
+            return new ExecUnaryBooleanOperation(m_);
         }
         if (_anaNode instanceof UnaryBinOperation) {
             UnaryBinOperation m_ = (UnaryBinOperation) _anaNode;
