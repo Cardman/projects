@@ -1,7 +1,6 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -12,7 +11,6 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.*;
 import code.util.StringList;
 
 public abstract class AbstractInvokingConstructor extends InvokingOperation {
@@ -44,7 +42,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         LgNames stds_ = _conf.getStandards();
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         ClassArgumentMatching clArg_ = getFrom(_conf);
         if (clArg_ == null) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));

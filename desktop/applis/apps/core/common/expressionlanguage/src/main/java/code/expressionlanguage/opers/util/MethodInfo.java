@@ -1,6 +1,7 @@
 package code.expressionlanguage.opers.util;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.Templates;
+import code.util.CustList;
 import code.util.StringList;
 
 public final class MethodInfo implements Parametrable {
@@ -23,6 +24,7 @@ public final class MethodInfo implements Parametrable {
     private boolean varArgWrap;
     private boolean abstractMethod;
     private InvocationMethod invocation;
+    private CustList<CustList<ClassMethodId>> implicits = new CustList<CustList<ClassMethodId>>();
 
     public MethodId getConstraints() {
         return constraints;
@@ -156,5 +158,10 @@ public final class MethodInfo implements Parametrable {
     @Override
     public void setInvocation(InvocationMethod _invocation) {
         invocation = _invocation;
+    }
+
+    @Override
+    public CustList<CustList<ClassMethodId>> getImplicits() {
+        return implicits;
     }
 }

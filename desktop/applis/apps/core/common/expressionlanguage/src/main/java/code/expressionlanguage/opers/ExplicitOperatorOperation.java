@@ -44,7 +44,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation {
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         if (args_.size() > 2) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
             undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());

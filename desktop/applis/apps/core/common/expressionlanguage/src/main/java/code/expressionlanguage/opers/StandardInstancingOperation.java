@@ -12,8 +12,6 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.exec.StaticInitOperable;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
@@ -225,7 +223,7 @@ public final class StandardInstancingOperation extends
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_);
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_conf.getAnalyzing().getStaticContext());
             if (!typeInfer.isEmpty()) {

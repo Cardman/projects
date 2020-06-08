@@ -56,7 +56,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _conf);
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         delta = methodName.lastIndexOf(PAR_RIGHT)+1;
         String mName_ = methodName.substring(delta);

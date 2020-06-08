@@ -61,7 +61,7 @@ public final class SuperFctOperation extends InvokingOperation {
         partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _conf);
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         Mapping map_ = new Mapping();
         map_.setParam(className_);
         map_.setArg(clCur_);

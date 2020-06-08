@@ -5,7 +5,6 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
@@ -36,7 +35,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     @Override
     public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         ForwardOperation fwd_ = tryGetForward(this);

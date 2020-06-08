@@ -9,7 +9,6 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
@@ -65,7 +64,7 @@ public final class FctOperation extends InvokingOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setDelta(_conf);
         String trimMeth_ = methodName.trim();
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
 

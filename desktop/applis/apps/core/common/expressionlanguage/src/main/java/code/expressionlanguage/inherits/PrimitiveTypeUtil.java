@@ -521,14 +521,6 @@ public final class PrimitiveTypeUtil {
         }
     }
 
-    public static ClassArgumentMatching getPrettyArrayType(ClassArgumentMatching _className) {
-        StringList cl_ = new StringList();
-        for (String c: _className.getNames()) {
-            cl_.add(PrimitiveTypeUtil.getPrettyArrayType(c));
-        }
-        return new ClassArgumentMatching(cl_);
-    }
-
     public static ClassArgumentMatching getQuickComponentType(ClassArgumentMatching _className) {
         StringList cl_ = new StringList();
         for (String c: _className.getNames()) {

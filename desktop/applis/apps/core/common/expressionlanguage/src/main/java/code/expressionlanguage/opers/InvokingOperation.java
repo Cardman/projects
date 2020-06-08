@@ -40,58 +40,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         getChildren().putAllMap(vs_);
     }
 
-    CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children, ContextEl _conf) {
-        if (!_children.isEmpty() && _children.first() instanceof VarargOperation) {
-            CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
-            CustList<ClassArgumentMatching> optArgs_ = new CustList<ClassArgumentMatching>();
-            CustList<OperationNode> optArgsNodes_ = new CustList<OperationNode>();
-            boolean opt_ = false;
-            for (OperationNode o: _children) {
-                if (o instanceof VarargOperation) {
-                    continue;
-                }
-                if (o instanceof FirstOptOperation) {
-                    opt_ = true;
-                }
-                if (opt_) {
-                    optArgs_.add(o.getResultClass());
-                    optArgsNodes_.add(o);
-                } else {
-                    firstArgs_.add(o.getResultClass());
-                }
-            }
-            ClassArgumentMatching name_ = _children.first().getResultClass();
-            StringMap<StringList> map_;
-            map_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
-            Mapping mapping_ = new Mapping();
-            mapping_.setParam(name_);
-            for (OperationNode o: optArgsNodes_) {
-                setRelativeOffsetPossibleAnalyzable(o.getIndexInEl(), _conf);
-                ClassArgumentMatching argType_ = o.getResultClass();
-                mapping_.setArg(argType_);
-                mapping_.setMapping(map_);
-                if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                    //key word len or header name len or left bracket
-                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(argType_.getNames(),"&"),
-                            StringList.join(name_.getNames(),"&"));
-                    _conf.getAnalyzing().getLocalizer().addError(cast_);
-                }
-                if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
-                    o.getResultClass().setUnwrapObject(name_);
-                    o.cancelArgument();
-                }
-            }
-            name_ = PrimitiveTypeUtil.getPrettyArrayType(name_);
-            ClassArgumentMatching clMatch_ = name_;
-            firstArgs_.add(clMatch_);
-            return firstArgs_;
-        }
+    CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children) {
         CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
         for (OperationNode o: _children) {
+            if (o instanceof VarargOperation) {
+                continue;
+            }
             if (o instanceof IdFctOperation) {
                 continue;
             }

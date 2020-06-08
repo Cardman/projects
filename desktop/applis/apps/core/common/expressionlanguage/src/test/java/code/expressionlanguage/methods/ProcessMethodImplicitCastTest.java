@@ -1912,6 +1912,39 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(10,getNumber(ret_));
     }
+
+    @Test
+    public void test56() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  ExClass sec = ExClass.call($id(ExClass,ExClass,ExClass...),5, new ExClass[1]);\n");
+        xml_.append("  return sec.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public static ExClass call(ExClass b,ExClass... i){\n");
+        xml_.append("  ExClass d = new ExClass();\n");
+        xml_.append("  d.field = 2 * b.field + 2 * i.length;\n");
+        xml_.append("  return d;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass $(int i){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=i;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(12,getNumber(ret_));
+    }
     @Test
     public void testFail() {
         StringMap<String> files_ = new StringMap<String>();

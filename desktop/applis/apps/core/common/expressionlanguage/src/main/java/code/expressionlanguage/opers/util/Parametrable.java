@@ -1,5 +1,7 @@
 package code.expressionlanguage.opers.util;
 
+import code.util.CustList;
+
 public interface Parametrable {
 
     ParametersGroup getParameters();
@@ -20,4 +22,5 @@ public interface Parametrable {
 
     void setInvocation(InvocationMethod _inv);
     InvocationMethod getInvocation();
+    CustList<CustList<ClassMethodId>> getImplicits();
 }
