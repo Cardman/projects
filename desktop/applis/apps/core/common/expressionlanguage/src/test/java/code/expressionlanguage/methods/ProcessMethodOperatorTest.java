@@ -730,4 +730,30 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
+
+    @Test
+    public void calculateArgument2FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ $int (pkg.Ex a, pkg.Ex... b){\n");
+        xml_.append(" $return a.a+b.a;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int a;\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex one = $new Ex();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex two = $new Ex();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if (one + two != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
 }

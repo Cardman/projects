@@ -715,6 +715,39 @@ public final class ProcessMethodExplicitOperatorTest extends ProcessMethodCommon
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
     }
+
+    @Test
+    public void calculateArgument23Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $operator+ $int (Ex a, Ex b, Ex c){\n");
+        xml_.append("  $return a.a+b.a+c.a;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int a;\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex one = $new Ex();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex two = $new Ex();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  Ex three = $new Ex();\n");
+        xml_.append("  three.a=2i;\n");
+        xml_.append("  $if ($operator(+,Ex)(one, two, three) != 10i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 2i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
     @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
