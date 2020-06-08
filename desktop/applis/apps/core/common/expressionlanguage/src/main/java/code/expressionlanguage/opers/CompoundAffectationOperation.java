@@ -69,7 +69,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
             }
         }
         IntTreeMap< String> ops_ = getOperations().getOperators();
-        ClassArgumentMatching c_ = chidren_.last().getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
         String op_ = ops_.firstValue();
         op_ = op_.substring(0, op_.length() - 1);
@@ -202,14 +201,20 @@ public final class CompoundAffectationOperation extends MethodOperation {
             mapping_.setArg(clMatchRight_);
             mapping_.setParam(clMatchLeft_);
             if (!Templates.isCorrectOrNumbers(mapping_, _conf)) {
-                FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                //oper
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(clMatchRight_.getNames(),"&"),
-                        StringList.join(clMatchLeft_.getNames(),"&"));
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
+                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_conf, clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_);
+                if (res_.isFoundMethod()) {
+                    ClassMethodId clImpl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                    clMatchRight_.getImplicits().add(clImpl_);
+                } else {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    //oper
+                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(clMatchRight_.getNames(),"&"),
+                            StringList.join(clMatchLeft_.getNames(),"&"));
+                    _conf.getAnalyzing().getLocalizer().addError(cast_);
+                }
             }
             setResultClass(new ClassArgumentMatching(clMatchLeft_));
             return;
