@@ -1945,6 +1945,115 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(12,getNumber(ret_));
     }
+
+    @Test
+    public void test57() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  ExClass<int> sec = staticCall().$lambda(ExClass<int>,call,ExClass<int>).call(5);\n");
+        xml_.append("  return sec.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public staticCall ExClass<T> call(ExClass<T> i){\n");
+        xml_.append("  ExClass<T> d = new ExClass<>();\n");
+        xml_.append("  d.field = (T)(2 * (int)i.field);\n");
+        xml_.append("  return d;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass<T> $(T i){\n");
+        xml_.append("  ExClass<T> e = new ExClass<>();\n");
+        xml_.append("  e.field=i;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(10,getNumber(ret_));
+    }
+
+    @Test
+    public void test58() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  ExClass<int> sec = staticCall(ExCaller<int>).call(5);\n");
+        xml_.append("  return sec.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller<T> {\n");
+        xml_.append(" public staticCall ExClass<T> call(T i){\n");
+        xml_.append("  return call2(i);\n");
+        xml_.append(" }\n");
+        xml_.append(" public staticCall ExClass<T> call2(ExClass<T> i){\n");
+        xml_.append("  ExClass<T> d = new ExClass<>();\n");
+        xml_.append("  d.field = (T)(2 * (int)i.field);\n");
+        xml_.append("  return d;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<S> {\n");
+        xml_.append(" public S field;\n");
+        xml_.append(" public static ExClass<S> $(S i){\n");
+        xml_.append("  ExClass<S> e = new ExClass<>();\n");
+        xml_.append("  e.field=i;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(10,getNumber(ret_));
+    }
+
+    @Test
+    public void test59() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  ExClass<int> fir = new ExClass<>();\n");
+        xml_.append("  fir.field = 5;\n");
+        xml_.append("  ExClass<int> sec = staticCall(ExCaller<int>).call2(fir);\n");
+        xml_.append("  return sec.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller<T> {\n");
+        xml_.append(" public staticCall ExClass<T> call(T i){\n");
+        xml_.append("  ExClass<T> d = new ExClass<>();\n");
+        xml_.append("  d.field = (T)(2 * (int)i);\n");
+        xml_.append("  return d;\n");
+        xml_.append(" }\n");
+        xml_.append(" public staticCall ExClass<T> call2(ExClass<T> i){\n");
+        xml_.append("  return call(i);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<S> {\n");
+        xml_.append(" public S field;\n");
+        xml_.append(" public static S $(ExClass<S> i){\n");
+        xml_.append("  return i.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(10,getNumber(ret_));
+    }
     @Test
     public void testFail() {
         StringMap<String> files_ = new StringMap<String>();
