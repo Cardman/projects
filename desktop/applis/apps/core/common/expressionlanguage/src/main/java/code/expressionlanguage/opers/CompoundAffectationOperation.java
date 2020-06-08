@@ -72,7 +72,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
         String op_ = ops_.firstValue();
         op_ = op_.substring(0, op_.length() - 1);
-        ClassMethodId cl_ = getOperatorOrMethod(this, op_, _conf);
+        ClassArgumentMatching first_ = root_.getResultClass();
+        ClassArgumentMatching second_ = right_.getResultClass();
+        ClassMethodId cl_ = getBinaryOperatorOrMethod(this,first_,second_, op_, _conf);
         if (cl_ != null) {
             classMethodId = cl_;
             Mapping map_ = new Mapping();

@@ -57,7 +57,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         ClassArgumentMatching c_ = chidren_.last().getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
         okNum = true;
-        ClassMethodId cl_ = getOperatorOrMethod(this, ops_.firstValue(), _conf);
+        ClassMethodId cl_ = getBinaryOperatorOrMethod(this,a_,c_, ops_.firstValue(), _conf);
         if (cl_ != null) {
             classMethodId = cl_;
             return;

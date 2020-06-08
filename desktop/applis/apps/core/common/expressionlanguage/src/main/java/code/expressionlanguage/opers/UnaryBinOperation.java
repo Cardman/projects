@@ -30,7 +30,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         ClassArgumentMatching clMatch_ = child_.getResultClass();
         opOffset = getOperations().getOperators().firstKey();
         String oper_ = getOperations().getOperators().firstValue();
-        ClassMethodId clId_ = getOperatorOrMethod(this, oper_, _conf);
+        ClassMethodId clId_ = getUnaryOperatorOrMethod(this,child_.getResultClass(), oper_, _conf);
         if (clId_ != null) {
             classMethodId = clId_;
             return;

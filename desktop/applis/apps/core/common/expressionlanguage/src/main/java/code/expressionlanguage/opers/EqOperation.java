@@ -39,7 +39,10 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
             _conf.getAnalyzing().getLocalizer().addError(badEl_);
         }
         String custOp_ = oper.trim();
-        ClassMethodId cl_ = getOperatorOrMethod(this, custOp_, _conf);
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        ClassArgumentMatching first_ = chidren_.first().getResultClass();
+        ClassArgumentMatching second_ = chidren_.last().getResultClass();
+        ClassMethodId cl_ = getBinaryOperatorOrMethod(this,first_,second_, custOp_, _conf);
         if (cl_ != null) {
             classMethodId = cl_;
             return;

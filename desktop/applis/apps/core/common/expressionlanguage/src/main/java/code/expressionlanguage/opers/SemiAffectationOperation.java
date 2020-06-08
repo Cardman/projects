@@ -63,7 +63,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         settable.setVariable(false);
         IntTreeMap< String> ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();
-        ClassMethodId cl_ = getOperatorOrMethod(this, op_, _conf);
+        ClassMethodId cl_ = getUnaryOperatorOrMethod(this,leftEl_.getResultClass(), op_, _conf);
         if (cl_ != null) {
             classMethodId = cl_;
             Mapping map_ = new Mapping();

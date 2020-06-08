@@ -1058,15 +1058,29 @@ public abstract class OperationNode implements Operable {
         }
         return getCustCastResult(_conf, methods_, _arg);
     }
-    static ClassMethodId getOperatorOrMethod(MethodOperation _node, String _op, ContextEl _cont) {
+
+    static ClassMethodId getUnaryOperatorOrMethod(MethodOperation _node,
+                                                  ClassArgumentMatching _operand,
+                                                  String _op, ContextEl _cont) {
+        if (isNativeUnaryOperator(_operand,_op,_cont)) {
+            return null;
+        }
+        return getCustomOperatorOrMethod(_node,_op,_cont);
+    }
+    static ClassMethodId getBinaryOperatorOrMethod(MethodOperation _node,
+                                                   ClassArgumentMatching _left, ClassArgumentMatching _right,
+                                                   String _op, ContextEl _cont) {
+        if (isNativeBinaryOperator(_left,_right,_op,_cont)) {
+            return null;
+        }
+        return getCustomOperatorOrMethod(_node,_op,_cont);
+    }
+    private static ClassMethodId getCustomOperatorOrMethod(MethodOperation _node, String _op, ContextEl _cont) {
         StringList bounds_ = _cont.getClasses().getTypesWithInnerOperators();
         CustList<OperationNode> chidren_ = _node.getChildrenNodes();
         CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
         for (OperationNode o: chidren_) {
             firstArgs_.add(o.getResultClass());
-        }
-        if (isNativeOperator(firstArgs_,_op,_cont)) {
-            return null;
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_cont, -1, MethodAccessKind.STATIC,
                 true, bounds_, _op, false, false, false, null,
@@ -1091,105 +1105,105 @@ public abstract class OperationNode implements Operable {
         }
         return null;
     }
-    private static boolean isNativeOperator(CustList<ClassArgumentMatching> _list, String _op, ContextEl _cont) {
-        if (_list.size() == 1) {
-            if (StringList.quickEq(_op,"!")) {
-                return _list.first().isBoolType(_cont);
-            }
-            if (StringList.quickEq(_op,"~")) {
-                int order_ = PrimitiveTypeUtil.getIntOrderClass(_list.first(), _cont);
-                return order_ != 0;
-            }
-            return PrimitiveTypeUtil.isPureNumberClass(_list.first(),_cont);
+    private static boolean isNativeUnaryOperator(ClassArgumentMatching _operand, String _op, ContextEl _cont) {
+        if (StringList.quickEq(_op,"!")) {
+            return _operand.isBoolType(_cont);
         }
+        if (StringList.quickEq(_op,"~")) {
+            int order_ = PrimitiveTypeUtil.getIntOrderClass(_operand, _cont);
+            return order_ != 0;
+        }
+        return PrimitiveTypeUtil.isPureNumberClass(_operand,_cont);
+    }
+    private static boolean isNativeBinaryOperator(ClassArgumentMatching _left, ClassArgumentMatching _right,String _op, ContextEl _cont) {
         if (StringList.quickEq(_op,"+")) {
-            if (PrimitiveTypeUtil.isIntOrderClass(_list.first(),_list.last(),_cont)) {
+            if (PrimitiveTypeUtil.isIntOrderClass(_left,_right,_cont)) {
                 return true;
             }
-            if (PrimitiveTypeUtil.isFloatOrderClass(_list.first(),_list.last(),_cont)) {
+            if (PrimitiveTypeUtil.isFloatOrderClass(_left,_right,_cont)) {
                 return true;
             }
-            if (_list.first().matchClass(_cont.getStandards().getAliasString())) {
-                if (_list.last().matchClass(_cont.getStandards().getAliasNumber())) {
+            if (_left.matchClass(_cont.getStandards().getAliasString())) {
+                if (_right.matchClass(_cont.getStandards().getAliasNumber())) {
                     return true;
                 }
-                if (PrimitiveTypeUtil.isPureNumberClass(_list.last(),_cont)) {
+                if (PrimitiveTypeUtil.isPureNumberClass(_right,_cont)) {
                     return true;
                 }
-                if (_list.last().isBoolType(_cont)) {
+                if (_right.isBoolType(_cont)) {
                     return true;
                 }
-                if (_list.last().matchClass(_cont.getStandards().getAliasString())) {
+                if (_right.matchClass(_cont.getStandards().getAliasString())) {
                     return true;
                 }
-                if (_list.last().matchClass(_cont.getStandards().getAliasStringBuilder())) {
+                if (_right.matchClass(_cont.getStandards().getAliasStringBuilder())) {
                     return true;
                 }
-                return _list.last().matchClass(_cont.getStandards().getAliasObject());
+                return _right.matchClass(_cont.getStandards().getAliasObject());
             }
-            if (_list.last().matchClass(_cont.getStandards().getAliasString())) {
-                if (_list.first().matchClass(_cont.getStandards().getAliasNumber())) {
+            if (_right.matchClass(_cont.getStandards().getAliasString())) {
+                if (_left.matchClass(_cont.getStandards().getAliasNumber())) {
                     return true;
                 }
-                if (PrimitiveTypeUtil.isPureNumberClass(_list.first(),_cont)) {
+                if (PrimitiveTypeUtil.isPureNumberClass(_left,_cont)) {
                     return true;
                 }
-                if (_list.first().isBoolType(_cont)) {
+                if (_left.isBoolType(_cont)) {
                     return true;
                 }
-                return _list.first().matchClass(_cont.getStandards().getAliasObject());
+                return _left.matchClass(_cont.getStandards().getAliasObject());
             }
             return false;
         }
         if (StringList.quickEq(_op,"-") || StringList.quickEq(_op,"*")
                 ||StringList.quickEq(_op,"/") || StringList.quickEq(_op,"%")) {
-            if (PrimitiveTypeUtil.isIntOrderClass(_list.first(),_list.last(),_cont)) {
+            if (PrimitiveTypeUtil.isIntOrderClass(_left,_right,_cont)) {
                 return true;
             }
-            return PrimitiveTypeUtil.isFloatOrderClass(_list.first(), _list.last(), _cont);
+            return PrimitiveTypeUtil.isFloatOrderClass(_left, _right, _cont);
         }
         if (StringList.quickEq(_op,"<") || StringList.quickEq(_op,">")
                 ||StringList.quickEq(_op,"<=") || StringList.quickEq(_op,">=")) {
-            if (PrimitiveTypeUtil.isIntOrderClass(_list.first(),_list.last(),_cont)) {
+            if (PrimitiveTypeUtil.isIntOrderClass(_left,_right,_cont)) {
                 return true;
             }
-            if (PrimitiveTypeUtil.isFloatOrderClass(_list.first(),_list.last(),_cont)) {
+            if (PrimitiveTypeUtil.isFloatOrderClass(_left,_right,_cont)) {
                 return true;
             }
-            return _list.first().matchClass(_cont.getStandards().getAliasString())
-                    &&_list.last().matchClass(_cont.getStandards().getAliasString());
+            return _left.matchClass(_cont.getStandards().getAliasString())
+                    &&_right.matchClass(_cont.getStandards().getAliasString());
         }
         if (StringList.quickEq(_op,"&") || StringList.quickEq(_op,"|")
                 ||StringList.quickEq(_op,"^")) {
-            if (PrimitiveTypeUtil.isIntOrderClass(_list.first(),_list.last(),_cont)) {
+            if (PrimitiveTypeUtil.isIntOrderClass(_left,_right,_cont)) {
                 return true;
             }
-            return _list.first().isBoolType(_cont)&&_list.last().isBoolType(_cont);
+            return _left.isBoolType(_cont)&&_right.isBoolType(_cont);
         }
         if (StringList.quickEq(_op,"<<") || StringList.quickEq(_op,">>")
                 ||StringList.quickEq(_op,"<<<") || StringList.quickEq(_op,">>>")
                 ||StringList.quickEq(_op,"<<<<") || StringList.quickEq(_op,">>>>")) {
-            return PrimitiveTypeUtil.isIntOrderClass(_list.first(),_list.last(),_cont);
+            return PrimitiveTypeUtil.isIntOrderClass(_left,_right,_cont);
         }
-        if (PrimitiveTypeUtil.isIntOrderClass(_list.first(),_list.last(),_cont)) {
+        if (PrimitiveTypeUtil.isIntOrderClass(_left,_right,_cont)) {
             return true;
         }
-        if (PrimitiveTypeUtil.isFloatOrderClass(_list.first(),_list.last(),_cont)) {
+        if (PrimitiveTypeUtil.isFloatOrderClass(_left,_right,_cont)) {
             return true;
         }
-        if (_list.first().matchClass(_cont.getStandards().getAliasNumber())
-                &&_list.last().matchClass(_cont.getStandards().getAliasNumber())) {
+        if (_left.matchClass(_cont.getStandards().getAliasNumber())
+                &&_right.matchClass(_cont.getStandards().getAliasNumber())) {
             return true;
         }
-        if (_list.first().isBoolType(_cont)&&_list.last().isBoolType(_cont)) {
+        if (_left.isBoolType(_cont)&&_right.isBoolType(_cont)) {
             return true;
         }
-        if (_list.first().matchClass(_cont.getStandards().getAliasString())
-                &&_list.last().matchClass(_cont.getStandards().getAliasString())) {
+        if (_left.matchClass(_cont.getStandards().getAliasString())
+                &&_right.matchClass(_cont.getStandards().getAliasString())) {
             return true;
         }
-        return _list.first().matchClass(_cont.getStandards().getAliasObject())
-                && _list.last().matchClass(_cont.getStandards().getAliasObject());
+        return _left.matchClass(_cont.getStandards().getAliasObject())
+                && _right.matchClass(_cont.getStandards().getAliasObject());
     }
 
     private static ClassMethodIdReturn getOperator(ContextEl _cont, String _op, ClassArgumentMatching... _argsClass) {

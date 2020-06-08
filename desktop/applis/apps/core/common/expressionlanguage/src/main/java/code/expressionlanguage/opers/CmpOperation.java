@@ -54,7 +54,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         ClassArgumentMatching first_ = chidren_.first().getResultClass();
         ClassArgumentMatching second_ = chidren_.last().getResultClass();
         String op_ = getOperations().getOperators().firstValue().trim();
-        ClassMethodId cl_ = getOperatorOrMethod(this, op_, _conf);
+        ClassMethodId cl_ = getBinaryOperatorOrMethod(this,first_,second_, op_, _conf);
         if (cl_ != null) {
             classMethodId = cl_;
             return;
