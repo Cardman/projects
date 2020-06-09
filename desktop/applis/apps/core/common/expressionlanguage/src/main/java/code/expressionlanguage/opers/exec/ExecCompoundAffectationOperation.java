@@ -100,6 +100,19 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             setSimpleArgument(a_, _conf, _nodes);
             return;
         }
+        int indexImplicitFinal_ = pair_.getIndexImplicit();
+        CustList<ClassMethodId>  implicitsFinal_ = pair_.getImplicits();
+        if (implicitsFinal_.isValidIndex(indexImplicitFinal_)) {
+            Argument before_ = pair_.getBefore();
+            Argument a_;
+            if (before_ != null) {
+                a_ = before_;
+            } else {
+                a_ = _right;
+            }
+            setSimpleArgument(a_,_conf,_nodes);
+            return;
+        }
         setSimpleArgument(_right,_conf,_nodes);
     }
 
