@@ -4153,7 +4153,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $final String ch=$null;\n");
-        xml_.append(" $public $static $final $int field=\"\".splitStrings($vararg(String),0,$firstopt(ch)).length;\n");
+        xml_.append(" $public $static $final $int field=\"\".splitStrings($vararg(CharSequence),0,$firstopt(ch)).length;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4182,7 +4182,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $int field=\"\".splitStrings($vararg(String),0,$firstopt(ch)).length;\n");
+        xml_.append(" $public $static $final $int field=\"\".splitStrings($vararg(CharSequence),0,$firstopt(ch)).length;\n");
         xml_.append(" $public $static $final String ch=$null;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());

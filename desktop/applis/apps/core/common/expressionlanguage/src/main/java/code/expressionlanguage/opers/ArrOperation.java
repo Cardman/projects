@@ -35,6 +35,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     @Override
     public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        String varargParam_ = getVarargParam(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
@@ -74,7 +75,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(),false,
                 bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, false, feed_,
-                ClassArgumentMatching.toArgArray(firstArgs_));
+                varargParam_,ClassArgumentMatching.toArgArray(firstArgs_));
         if (clMeth_.isFoundMethod()) {
             if (staticChoiceMethod_) {
                 if (clMeth_.isAbstractMethod()) {

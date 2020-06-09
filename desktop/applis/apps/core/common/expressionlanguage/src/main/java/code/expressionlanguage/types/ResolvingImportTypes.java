@@ -157,6 +157,34 @@ public final class ResolvingImportTypes {
                     resType_,gl_);
             _analyzable.getAnalyzing().getLocalizer().addError(un_);
         }
+        return checkResType(_analyzable, _in, _exact, rc_, varsCt_, resType_);
+    }
+    public static String resolveCorrectTypeAccessible(ContextEl _analyzable,int _loc,String _in) {
+        int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex() + _loc;
+        String void_ = _analyzable.getStandards().getAliasVoid();
+        String tr_ = _in.trim();
+        if (StringList.quickEq(tr_, void_)) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(rc_);
+            //_in len
+            un_.buildError(_analyzable.getAnalysisMessages().getVoidType(),
+                    void_);
+            _analyzable.getAnalyzing().getLocalizer().addError(un_);
+            return _analyzable.getStandards().getAliasObject();
+        }
+        AccessingImportingBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
+        StringMap<StringList> varsCt_ = _analyzable.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        _analyzable.getAnalyzing().getBuildingConstraints().buildCurrentConstraintsFull();
+        AccessingImportingBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
+        CustList<PartOffset> partOffsets_ = _analyzable.getCoverage().getCurrentParts();
+        String gl_ = _analyzable.getAnalyzing().getGlobalClass();
+        String resType_;
+        _analyzable.getAnalyzing().getCurrentBadIndexes().clear();
+        resType_ = PartTypeUtil.processAnalyze(tr_, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
+        return checkResType(_analyzable, _in, true, rc_, varsCt_, resType_);
+    }
+    private static String checkResType(ContextEl _analyzable, String _in, boolean _exact, int rc_, StringMap<StringList> varsCt_, String resType_) {
         if (resType_.trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -179,6 +207,7 @@ public final class ResolvingImportTypes {
         }
         return resType_;
     }
+
     public static String resolveAccessibleIdType(ContextEl _analyzable,int _loc,String _in) {
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex();
         String void_ = _analyzable.getStandards().getAliasVoid();

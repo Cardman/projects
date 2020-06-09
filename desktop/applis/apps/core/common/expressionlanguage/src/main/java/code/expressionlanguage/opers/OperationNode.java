@@ -676,7 +676,7 @@ public abstract class OperationNode implements Operable {
     }
     static ConstrustorIdVarArg getDeclaredCustConstructor(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
             GeneType _type,
-            ConstructorId _uniqueId, ClassArgumentMatching... _args) {
+            ConstructorId _uniqueId, String _param,ClassArgumentMatching... _args) {
         String clCurName_ = _class.getName();
         int varargOnly_ = _varargOnly;
         boolean uniq_ = false;
@@ -706,7 +706,7 @@ public abstract class OperationNode implements Operable {
             mloc_.setParameters(pg_);
             mloc_.setClassName(clCurName_);
             mloc_.format(_conf);
-            if (!isPossibleMethod(_conf, uniq_, varargOnly_, mloc_, _args)) {
+            if (!isPossibleMethod(_conf, uniq_, varargOnly_, mloc_, _param,_args)) {
                 continue;
             }
             signatures_.add(mloc_);
@@ -850,8 +850,8 @@ public abstract class OperationNode implements Operable {
     }
     static ClassMethodIdReturn getDeclaredCustMethod(ContextEl _conf, int _varargOnly,
     MethodAccessKind _staticContext, StringList _classes, String _name,
-    boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodIdAncestor _uniqueId, ClassArgumentMatching... _argsClass) {
-        ClassMethodIdReturn res_ = tryGetDeclaredCustMethod(_conf, _varargOnly, _staticContext,false, _classes, _name, _superClass, _accessFromSuper, _import, _uniqueId, _argsClass);
+    boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodIdAncestor _uniqueId, String _param,ClassArgumentMatching... _argsClass) {
+        ClassMethodIdReturn res_ = tryGetDeclaredCustMethod(_conf, _varargOnly, _staticContext,false, _classes, _name, _superClass, _accessFromSuper, _import, _uniqueId, _param,_argsClass);
         if (res_.isFoundMethod()) {
             return res_;
         }
@@ -992,7 +992,7 @@ public abstract class OperationNode implements Operable {
                                                                   StringList _classes, String _name,
                                                                   boolean _superClass, boolean _accessFromSuper,
                                                                   boolean _import, ClassMethodIdAncestor _uniqueId,
-                                                                  ClassArgumentMatching[] _argsClass) {
+                                                                  String _param,ClassArgumentMatching[] _argsClass) {
         CustList<CustList<MethodInfo>> methods_;
         methods_ = getDeclaredCustMethodByType(_conf, _staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId);
         int varargOnly_ = _varargOnly;
@@ -1000,7 +1000,7 @@ public abstract class OperationNode implements Operable {
         if (_uniqueId != null) {
             varargOnly_ = -1;
         }
-        return getCustResult(_conf,uniq_,_excVararg, varargOnly_, methods_, _name, _argsClass);
+        return getCustResult(_conf,uniq_,_excVararg, varargOnly_, methods_, _name, _param,_argsClass);
     }
 
     protected static ClassMethodIdReturn tryGetDeclaredCustMethodLambda(ContextEl _conf, int _varargOnly,
@@ -1084,7 +1084,7 @@ public abstract class OperationNode implements Operable {
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_cont, -1, MethodAccessKind.STATIC,
                 true, bounds_, _op, false, false, false, null,
-                ClassArgumentMatching.toArgArray(firstArgs_));
+                InvokingOperation.getVarargParam(chidren_),ClassArgumentMatching.toArgArray(firstArgs_));
         if (clMeth_.isFoundMethod()) {
             _node.setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()), _cont));
             String foundClass_ = clMeth_.getRealClass();
@@ -1208,11 +1208,11 @@ public abstract class OperationNode implements Operable {
 
     private static ClassMethodIdReturn getOperator(ContextEl _cont, String _op, ClassArgumentMatching... _argsClass) {
         //implicit use of operator key word
-        return getOperator(_cont,null,-1,true,_op,_argsClass);
+        return getOperator(_cont,null,-1,true,_op,"",_argsClass);
     }
     static ClassMethodIdReturn getOperator(ContextEl _cont, ClassMethodId _cl, int _varargOnly,
                                            boolean _excVararg,
-                                           String _op, ClassArgumentMatching... _argsClass) {
+                                           String _op, String _param,ClassArgumentMatching... _argsClass) {
         CustList<MethodInfo> ops_ = getOperators(_cont, _cl);
         int varargOnly_ = _varargOnly;
         boolean uniq_ = uniq(_cl,_varargOnly);
@@ -1221,7 +1221,7 @@ public abstract class OperationNode implements Operable {
         }
         CustList<CustList<MethodInfo>> o_ = new CustList<CustList<MethodInfo>>();
         o_.add(ops_);
-        return getCustResult(_cont,uniq_, _excVararg,varargOnly_, o_, _op, _argsClass);
+        return getCustResult(_cont,uniq_, _excVararg,varargOnly_, o_, _op, _param,_argsClass);
     }
     static ClassMethodIdReturn getOperatorLambda(ContextEl _cont, ClassMethodId _cl, int _varargOnly,
                                                  String _op, ClassArgumentMatching... _argsClass) {
@@ -1799,7 +1799,7 @@ public abstract class OperationNode implements Operable {
     }
     private static ClassMethodIdReturn getCustResult(ContextEl _conf, boolean _unique,boolean _excludeVararg,int _varargOnly,
                                                      CustList<CustList<MethodInfo>> _methods,
-            String _name, ClassArgumentMatching... _argsClass) {
+            String _name, String _param,ClassArgumentMatching... _argsClass) {
         CustList<CustList<MethodInfo>> signatures_ = new CustList<CustList<MethodInfo>>();
         for (CustList<MethodInfo> l: _methods) {
             CustList<MethodInfo> m_ = new CustList<MethodInfo>();
@@ -1819,7 +1819,7 @@ public abstract class OperationNode implements Operable {
                 if (!StringList.quickEq(id_.getName(), _name)) {
                     continue;
                 }
-                if (!isPossibleMethod(_conf, _unique, _varargOnly, e, _argsClass)) {
+                if (!isPossibleMethod(_conf, _unique, _varargOnly, e, _param,_argsClass)) {
                     continue;
                 }
                 m_.add(e);
@@ -1928,7 +1928,7 @@ public abstract class OperationNode implements Operable {
         return true;
     }
     private static boolean isPossibleMethod(ContextEl _context, boolean _unique, int _varargOnly, Parametrable _id,
-                                            ClassArgumentMatching... _argsClass) {
+                                            String _param,ClassArgumentMatching... _argsClass) {
         int startOpt_ = _argsClass.length;
         boolean checkOnlyDem_ = true;
         int all_ = _id.getGeneFormatted().getParametersTypesLength();
@@ -1997,6 +1997,9 @@ public abstract class OperationNode implements Operable {
                     allNotBoxUnbox_ = false;
                 }
             }
+        }
+        if (!match(_id,_param)) {
+            return false;
         }
         if (checkOnlyDem_) {
             setWideInvoke(_id, vararg_, allNotBoxUnbox_, implicit_);
@@ -2075,6 +2078,18 @@ public abstract class OperationNode implements Operable {
         return true;
     }
 
+    private static boolean match(Parametrable _id,
+                                 String _param) {
+        int all_ = _id.getGeneFormatted().getParametersTypesLength();
+        int last_ = all_-1;
+        if (last_ >= 0&&_id.isVararg()&&!_param.isEmpty()) {
+            String wc_ = _id.getGeneFormatted().getParametersType(last_);
+            if (!StringList.quickEq(wc_,_param)) {
+                return false;
+            }
+        }
+        return true;
+    }
     private static void setWideInvoke(Parametrable _id, boolean vararg_, boolean allNotBoxUnbox_, boolean implicit_) {
         if (vararg_||implicit_) {
             setVarargOrImplicit(_id, implicit_);

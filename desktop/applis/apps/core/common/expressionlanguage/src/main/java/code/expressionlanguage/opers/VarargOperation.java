@@ -56,11 +56,15 @@ public final class VarargOperation extends LeafOperation implements VarargOperab
         int afterLeftPar_ = className.indexOf(PAR_LEFT) + 1;
         String str_ = className.substring(afterLeftPar_, className.lastIndexOf(PAR_RIGHT));
         int off_ = StringList.getFirstPrintableCharIndex(str_);
-        str_ = ResolvingImportTypes.resolveCorrectType(_conf,afterLeftPar_+off_,str_);
+        str_ = ResolvingImportTypes.resolveCorrectTypeAccessible(_conf,afterLeftPar_+off_,str_);
         partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         setResultClass(new ClassArgumentMatching(str_));
         className = str_;
         setSimpleArgument(new Argument());
+    }
+
+    public String getClassName() {
+        return className;
     }
 
     public CustList<PartOffset> getPartOffsets() {

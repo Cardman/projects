@@ -42,6 +42,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         LgNames stds_ = _conf.getStandards();
+        String varargParam_ = getVarargParam(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         ClassArgumentMatching clArg_ = getFrom(_conf);
         if (clArg_ == null) {
@@ -61,7 +62,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         classFromName = clCurName_;
         RootBlock type_ = _conf.getClasses().getClassBody(Templates.getIdFromAllTypes(clCurName_));
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, clArg_,type_, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, clArg_,type_, feed_, varargParam_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (ctorRes_.getRealId() == null) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             checkPositionBasis(_conf);

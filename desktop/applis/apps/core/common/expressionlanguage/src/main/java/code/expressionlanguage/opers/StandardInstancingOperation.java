@@ -223,6 +223,7 @@ public final class StandardInstancingOperation extends
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
+        String varargParam_ = getVarargParam(filter_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_);
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_conf.getAnalyzing().getStaticContext());
@@ -267,11 +268,11 @@ public final class StandardInstancingOperation extends
                     }
                 }
             }
-            analyzeCtor(_conf, realClassName_, firstArgs_);
+            analyzeCtor(_conf, realClassName_, varargParam_,firstArgs_);
             return;
         }
         if (!typeInfer.isEmpty()) {
-            analyzeCtor(_conf, typeInfer, firstArgs_);
+            analyzeCtor(_conf, typeInfer, varargParam_,firstArgs_);
             return;
         }
         int offset_ = StringList.getFirstPrintableCharIndex(realClassName_);
@@ -368,9 +369,9 @@ public final class StandardInstancingOperation extends
             _conf.getAnalyzing().getLocalizer().addError(un_);
             realClassName_ = _conf.getStandards().getAliasObject();
         }
-        analyzeCtor(_conf, realClassName_, firstArgs_);
+        analyzeCtor(_conf, realClassName_, varargParam_,firstArgs_);
     }
-    private void analyzeCtor(ContextEl _conf, String _realClassName, CustList<ClassArgumentMatching> _firstArgs) {
+    private void analyzeCtor(ContextEl _conf, String _realClassName, String _paramVargArg,CustList<ClassArgumentMatching> _firstArgs) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         LgNames stds_ = _conf.getStandards();
@@ -442,7 +443,7 @@ public final class StandardInstancingOperation extends
             StringList params_ = id_.getConstraints().getParametersTypes();
             feed_ = new ConstructorId(idClass_, params_, vararg_);
         }
-        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(_realClassName),g_, feed_, ClassArgumentMatching.toArgArray(_firstArgs));
+        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(_realClassName),g_, feed_, _paramVargArg, ClassArgumentMatching.toArgArray(_firstArgs));
         if (ctorRes_.getRealId() == null) {
             setResultClass(new ClassArgumentMatching(_realClassName));
             return;

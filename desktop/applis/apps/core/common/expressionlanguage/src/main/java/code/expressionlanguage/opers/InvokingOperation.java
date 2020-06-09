@@ -40,7 +40,13 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         getChildren().putAllMap(vs_);
     }
 
-    CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children) {
+    static String getVarargParam(CustList<OperationNode> _children) {
+        if (!_children.isEmpty() && _children.first() instanceof VarargOperation) {
+            return ((VarargOperation)_children.first()).getClassName();
+        }
+        return "";
+    }
+    static CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children) {
         CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
         for (OperationNode o: _children) {
             if (o instanceof VarargOperation) {

@@ -311,7 +311,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        Argument arg_ = processElNormal("f.format($vararg(java.lang.String),$firstopt(v),d,v)", context_);
+        Argument arg_ = processElNormal("f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)", context_);
         assertEq("varargs;7 8 7",getString(arg_));
     }
     @Test
@@ -333,7 +333,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        Argument arg_ = processElNormal("f.format($vararg(java.lang.String))", context_);
+        Argument arg_ = processElNormal("f.format($vararg(java.lang.CharSequence))", context_);
         assertEq("varargs;{0} {1} {2}",getString(arg_));
     }
     @Test
@@ -521,7 +521,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        Argument arg_ = processElNormal("(f.format($vararg(java.lang.String),$firstopt(v),d,v)+'\\'').length()", context_);
+        Argument arg_ = processElNormal("(f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)+'\\'').length()", context_);
         assertEq(14, getNumber(arg_));
     }
     @Test

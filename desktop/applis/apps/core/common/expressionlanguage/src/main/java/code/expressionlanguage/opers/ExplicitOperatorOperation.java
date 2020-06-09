@@ -44,6 +44,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation {
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        String varargParam_ = getVarargParam(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         if (args_.size() > 2) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
@@ -68,11 +69,11 @@ public final class ExplicitOperatorOperation extends InvokingOperation {
         }
         ClassMethodIdReturn cust_;
         if (from_.isEmpty()) {
-            cust_ = getOperator(_conf, id_,varargOnly_,false,op_, ClassArgumentMatching.toArgArray(firstArgs_));
+            cust_ = getOperator(_conf, id_,varargOnly_,false,op_, varargParam_,ClassArgumentMatching.toArgArray(firstArgs_));
         } else {
             cust_ = tryGetDeclaredCustMethod(_conf, -1, MethodAccessKind.STATIC,
                     false, new StringList(from_), op_, false, false, false, null,
-                    ClassArgumentMatching.toArgArray(firstArgs_));
+                    varargParam_,ClassArgumentMatching.toArgArray(firstArgs_));
         }
         if (!cust_.isFoundMethod()) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
