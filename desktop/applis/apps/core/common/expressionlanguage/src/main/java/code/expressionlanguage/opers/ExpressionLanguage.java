@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.TwoStepsArgumentsPair;
 import code.expressionlanguage.opers.exec.*;
+import code.expressionlanguage.opers.util.ClassMethodId;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -37,6 +38,12 @@ public final class ExpressionLanguage {
                 a_ = new TwoStepsArgumentsPair();
             }
             a_.setImplicits(o.getResultClass().getImplicits());
+            if (o instanceof ExecCompoundAffectationOperation) {
+                ClassMethodId conv_ = ((ExecCompoundAffectationOperation) o).getConverter();
+                if (conv_ != null) {
+                    a_.setImplicitsCompound(new CustList<ClassMethodId>(conv_));
+                }
+            }
             a_.setArgument(o.getArgument());
             if (o instanceof ExecPossibleIntermediateDotted) {
                 a_.setPreviousArgument(((ExecPossibleIntermediateDotted)o).getPreviousArgument());

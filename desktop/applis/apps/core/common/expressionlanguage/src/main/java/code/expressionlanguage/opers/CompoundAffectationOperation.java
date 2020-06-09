@@ -17,6 +17,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
     private SettableElResult settable;
     private String oper;
     private ClassMethodId classMethodId;
+    private ClassMethodId converter;
 
     private int opOffset;
 
@@ -81,14 +82,19 @@ public final class CompoundAffectationOperation extends MethodOperation {
             map_.setArg(getResultClass());
             map_.setParam(elt_.getResultClass());
             if (!Templates.isCorrectOrNumbers(map_, _conf)) {
-                FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                //oper len
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(getResultClass().getNames(),"&"),
-                        StringList.join(elt_.getResultClass().getNames(),"&"));
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
+                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_conf, elt_.getResultClass().getSingleNameOrEmpty(), getResultClass());
+                if (res_.isFoundMethod()) {
+                    converter = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                } else {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    //oper len
+                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                            StringList.join(getResultClass().getNames(),"&"),
+                            StringList.join(elt_.getResultClass().getNames(),"&"));
+                    _conf.getAnalyzing().getLocalizer().addError(cast_);
+                }
             }
             return;
         }
@@ -356,5 +362,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     public int getOpOffset() {
         return opOffset;
+    }
+
+    public ClassMethodId getConverter() {
+        return converter;
     }
 }

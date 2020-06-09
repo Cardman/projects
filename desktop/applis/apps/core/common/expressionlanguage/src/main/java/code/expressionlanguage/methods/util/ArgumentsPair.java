@@ -6,9 +6,12 @@ import code.util.CustList;
 public class ArgumentsPair {
 
     private Argument argument;
+    private Argument before;
     private Argument previousArgument;
     private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
+    private CustList<ClassMethodId> implicitsCompound = new CustList<ClassMethodId>();
     private int indexImplicit;
+    private int indexImplicitCompound;
     private boolean endCalculate;
     public Argument getArgument() {
         return argument;
@@ -16,6 +19,15 @@ public class ArgumentsPair {
     public void setArgument(Argument _argument) {
         argument = _argument;
     }
+
+    public Argument getBefore() {
+        return before;
+    }
+
+    public void setBefore(Argument before) {
+        this.before = before;
+    }
+
     public Argument getPreviousArgument() {
         return previousArgument;
     }
@@ -39,11 +51,27 @@ public class ArgumentsPair {
         this.implicits = implicits;
     }
 
+    public CustList<ClassMethodId> getImplicitsCompound() {
+        return implicitsCompound;
+    }
+
+    public void setImplicitsCompound(CustList<ClassMethodId> implicitsCompound) {
+        this.implicitsCompound = implicitsCompound;
+    }
+
     public int getIndexImplicit() {
         return indexImplicit;
     }
 
     public void setIndexImplicit(int indexImplicit) {
         this.indexImplicit = indexImplicit;
+    }
+
+    public int getIndexImplicitCompound() {
+        return indexImplicitCompound;
+    }
+
+    public void setIndexImplicitCompound(int indexImplicitCompound) {
+        this.indexImplicitCompound = indexImplicitCompound;
     }
 }

@@ -17,11 +17,13 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
     private RendSettableElResult settable;
     private String oper;
     private ClassMethodId classMethodId;
+    private ClassMethodId converter;
 
     public RendCompoundAffectationOperation(CompoundAffectationOperation _c) {
         super(_c);
         oper = _c.getOper();
         classMethodId = _c.getClassMethodId();
+        converter = _c.getConverter();
     }
 
     public void setup() {
@@ -51,8 +53,20 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
             Argument res_;
             res_ =  processCall(this,this, Argument.createVoid(),firstArgs_,_conf, null);
+            Argument a_ = null;
+            if (converter != null) {
+                Argument conv_ = tryConvert(converter, res_, _conf);
+                if (_conf.getContext().hasException()) {
+                    return;
+                }
+                res_ = conv_;
+                a_ = conv_;
+            }
             setSimpleArgument(res_, _conf,_nodes);
             Argument arg_ = settable.endCalculate(_nodes, _conf, res_);
+            if (a_ != null) {
+                arg_ = a_;
+            }
             setSimpleArgument(arg_, _conf,_nodes);
             return;
         }

@@ -565,31 +565,11 @@ public abstract class RendDynOperationNode {
         int s_ = implicits_.size();
         for (int i = 0; i < s_; i++) {
             ClassMethodId c = implicits_.get(i);
-            CustList<Argument> args_ = new CustList<Argument>(out_);
-            PageEl last_ = _conf.getPageEl();
-            String cl_ = c.getClassName();
-            MethodId id_ = c.getConstraints();
-            String paramNameOwner_ = last_.formatVarType(cl_, _conf.getContext());
-            if (_conf.hasToExit(paramNameOwner_)) {
-                CallingState state_ = _conf.getContext().getCallingState();
-                if (state_ instanceof NotInitializedClass) {
-                    NotInitializedClass statusInit_ = (NotInitializedClass) state_;
-                    ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
-                }
-            }
-            if (!_conf.getContext().hasException()) {
-                MethodId check_ = new MethodId(id_.getKind(),id_.getName(),id_.shiftFirst(),id_.isVararg());
-                Templates.okArgsSet(check_,true, paramNameOwner_,args_, _conf.getContext(), null);
-            }
-            if (_conf.getContext().hasException()) {
+            Argument res_ = tryConvert(c, out_, _conf);
+            if (res_ == null) {
                 return;
             }
-            CustomFoundCast c_ = new CustomFoundCast(paramNameOwner_, id_, args_);
-            _conf.getContext().setCallingState(c_);
-            out_ = ProcessMethod.castArgument(c_.getClassName(),c_.getId(), c_.getArguments(), _conf.getContext());
-            if (_conf.getContext().hasException()) {
-                return;
-            }
+            out_ = res_;
         }
         if (resultClass.isConvertToString()){
             out_ = processString(_argument,_conf);
@@ -605,6 +585,34 @@ public abstract class RendDynOperationNode {
         _nodes.getValue(getOrder()).setArgument(out_);
     }
 
+    static Argument tryConvert(ClassMethodId c, Argument _argument, Configuration _conf) {
+        CustList<Argument> args_ = new CustList<Argument>(_argument);
+        PageEl last_ = _conf.getPageEl();
+        String cl_ = c.getClassName();
+        MethodId id_ = c.getConstraints();
+        String paramNameOwner_ = last_.formatVarType(cl_, _conf.getContext());
+        if (_conf.hasToExit(paramNameOwner_)) {
+            CallingState state_ = _conf.getContext().getCallingState();
+            if (state_ instanceof NotInitializedClass) {
+                NotInitializedClass statusInit_ = (NotInitializedClass) state_;
+                ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
+            }
+        }
+        if (!_conf.getContext().hasException()) {
+            MethodId check_ = new MethodId(id_.getKind(),id_.getName(),id_.shiftFirst(),id_.isVararg());
+            Templates.okArgsSet(check_,true, paramNameOwner_,args_, _conf.getContext(), null);
+        }
+        if (_conf.getContext().hasException()) {
+            return null;
+        }
+        CustomFoundCast c_ = new CustomFoundCast(paramNameOwner_, id_, args_);
+        _conf.getContext().setCallingState(c_);
+        Argument out_ = ProcessMethod.castArgument(c_.getClassName(),c_.getId(), c_.getArguments(), _conf.getContext());
+        if (_conf.getContext().hasException()) {
+            return null;
+        }
+        return out_;
+    }
     public static Argument processString(Argument _argument, Configuration _conf) {
         Argument out_ = new Argument(_argument.getStruct());
         ContextEl ctx_ = _conf.getContext();

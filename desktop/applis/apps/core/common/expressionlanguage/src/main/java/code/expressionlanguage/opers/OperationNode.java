@@ -2482,19 +2482,19 @@ public abstract class OperationNode implements Operable {
         }
         return list_;
     }
-    private static boolean isStrictMoreSpecificThanVariableArity(Parametrable _one, Parametrable _two, ArgumentsGroup _context) {
-        if (!isMoreSpecificThanVariableArity(_one, _two, _context)) {
+    private static boolean isStrictMoreSpecificThanVariableArity(Parametrable _varOne, Parametrable _varTwo, ArgumentsGroup _context) {
+        if (isNotMoreSpecificThanVariableArity(_varOne, _varTwo, _context)) {
             return false;
         }
-        return !isMoreSpecificThanVariableArity(_two, _one, _context);
+        return isNotMoreSpecificThanVariableArity(_varTwo, _varOne, _context);
     }
-    private static boolean isStrictMoreSpecificThanFixArity(Parametrable _one, Parametrable _two, ArgumentsGroup _context) {
-        if (!isMoreSpecificThanFixArity(_one, _two, _context)) {
+    private static boolean isStrictMoreSpecificThanFixArity(Parametrable _fixOne, Parametrable _fixTwo, ArgumentsGroup _context) {
+        if (isNotMoreSpecificThanFixArity(_fixOne, _fixTwo, _context)) {
             return false;
         }
-        return !isMoreSpecificThanFixArity(_two, _one, _context);
+        return isNotMoreSpecificThanFixArity(_fixTwo, _fixOne, _context);
     }
-    private static boolean isMoreSpecificThanFixArity(Parametrable _one, Parametrable _two, ArgumentsGroup _context) {
+    private static boolean isNotMoreSpecificThanFixArity(Parametrable _one, Parametrable _two, ArgumentsGroup _context) {
         ContextEl context_ = _context.getContext();
         StringMap<StringList> map_;
         map_ = _context.getMap();
@@ -2512,9 +2512,9 @@ public abstract class OperationNode implements Operable {
                 break;
             }
         }
-        return all_;
+        return !all_;
     }
-    private static boolean isMoreSpecificThanVariableArity(Parametrable _one, Parametrable _two, ArgumentsGroup _context) {
+    private static boolean isNotMoreSpecificThanVariableArity(Parametrable _one, Parametrable _two, ArgumentsGroup _context) {
         ContextEl context_ = _context.getContext();
         StringMap<StringList> map_;
         map_ = _context.getMap();
@@ -2560,7 +2560,7 @@ public abstract class OperationNode implements Operable {
                 }
             }
         }
-        return all_;
+        return !all_;
     }
     private static int swapCasePreferred(String _paramFctOne, String _paramFctTwo, StringMap<StringList> _map, ContextEl _ana) {
         if (_paramFctOne.isEmpty()) {
