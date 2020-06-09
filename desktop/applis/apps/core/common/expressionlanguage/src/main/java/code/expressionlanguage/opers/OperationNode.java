@@ -1999,16 +1999,7 @@ public abstract class OperationNode implements Operable {
             }
         }
         if (checkOnlyDem_) {
-            if (vararg_) {
-                allNotBoxUnbox_ = false;
-            }
-            if (allNotBoxUnbox_) {
-                _id.setInvocation(InvocationMethod.STRICT);
-            } else if (!vararg_) {
-                _id.setInvocation(InvocationMethod.BOX_UNBOX);
-            } else {
-                setVarargOrImplicit(_id, implicit_);
-            }
+            setWideInvoke(_id, vararg_, allNotBoxUnbox_, implicit_);
             return true;
         }
         if (all_ == _argsClass.length) {
@@ -2021,7 +2012,7 @@ public abstract class OperationNode implements Operable {
             _id.getImplicits().add(l_);
             if (wc_.isEmpty()) {
                 if (arg_.isVariable()) {
-                    setInvoke(_id, allNotBoxUnbox_,implicit_);
+                    setWideInvoke(_id, vararg_, allNotBoxUnbox_, implicit_);
                     return true;
                 }
                 return false;
@@ -2029,7 +2020,7 @@ public abstract class OperationNode implements Operable {
             String arr_ = PrimitiveTypeUtil.getPrettyArrayType(wc_);
             map_.setParam(arr_);
             if (Templates.isCorrectOrNumbers(map_, _context)) {
-                setInvoke(_id, allNotBoxUnbox_,implicit_);
+                setWideInvoke(_id, false, allNotBoxUnbox_, implicit_);
                 if (_unique) {
                     map_.setParam(wc_);
                     if (Templates.isCorrectOrNumbers(map_, _context)) {
@@ -2082,6 +2073,18 @@ public abstract class OperationNode implements Operable {
         setVarargOrImplicit(_id, implicit_);
         _id.setVarArgWrap(true);
         return true;
+    }
+
+    private static void setWideInvoke(Parametrable _id, boolean vararg_, boolean allNotBoxUnbox_, boolean implicit_) {
+        if (vararg_||implicit_) {
+            setVarargOrImplicit(_id, implicit_);
+        } else {
+            if (allNotBoxUnbox_) {
+                _id.setInvocation(InvocationMethod.STRICT);
+            } else {
+                _id.setInvocation(InvocationMethod.BOX_UNBOX);
+            }
+        }
     }
 
     private static void setVarargOrImplicit(Parametrable _id, boolean _implicit) {
@@ -2157,16 +2160,6 @@ public abstract class OperationNode implements Operable {
             _id.setInvocation(InvocationMethod.BOX_UNBOX);
         }
         return true;
-    }
-
-    private static void setInvoke(Parametrable _id, boolean _allNotBoxUnbox, boolean _implicit) {
-        if (_implicit) {
-            _id.setInvocation(InvocationMethod.ALL);
-        } else if (_allNotBoxUnbox) {
-            _id.setInvocation(InvocationMethod.STRICT);
-        } else {
-            _id.setInvocation(InvocationMethod.BOX_UNBOX);
-        }
     }
 
     private static Parametrable sortFct(CustList<CustList<MethodInfo>> _fct, ArgumentsGroup _context) {
@@ -2413,7 +2406,14 @@ public abstract class OperationNode implements Operable {
             allMax_ = getAllMaximalSpecificFixArity(fct_, _context);
         } else {
             for (Parametrable m: _fct) {
-                fct_.add(m);
+                if (m.getInvocation() == InvocationMethod.VARARG) {
+                    fct_.add(m);
+                }
+            }
+            if (fct_.isEmpty()) {
+                for (Parametrable m: _fct) {
+                    fct_.add(m);
+                }
             }
             allMax_ = getAllMaximalSpecificVariableArity(fct_, _context);
         }

@@ -2115,6 +2115,38 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());
     }
     @Test
+    public void test62() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  ExClass sec = new ExClass(5);\n");
+        xml_.append("  return sec.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public ExClass(ExClass i){\n");
+        xml_.append("  field = 2 * i.field;\n");
+        xml_.append(" }\n");
+        xml_.append(" public ExClass(){\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExClass $(int i){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=i;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(10,getNumber(ret_));
+    }
+    @Test
     public void testFail() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
