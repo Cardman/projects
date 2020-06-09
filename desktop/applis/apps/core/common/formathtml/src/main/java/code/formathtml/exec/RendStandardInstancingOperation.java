@@ -71,7 +71,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
             return Argument.createVoid();
         }
         String lastType_ = Templates.quickFormat(className_, lastType, _conf.getContext());
-        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments, _conf);
+        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments);
         return ExecInvokingOperation.instancePrepareFormat(_conf.getPageEl(),_conf.getContext(), className_, getConstId(), _previous, firstArgs_, fieldName, blockIndex);
     }
 

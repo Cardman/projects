@@ -1194,7 +1194,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 return a_;
             }
             if (prev_.getStruct() instanceof ArrayStruct) {
-                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, null);
             }
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
@@ -1202,7 +1202,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 String argClassName_ = prev_.getObjectClassName(_conf.getContext());
                 String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf.getContext());
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
-                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 methodId_ = _rend.getClassMethodId().getConstraints();
             } else {
                 Struct previous_ = prev_.getStruct();
@@ -1211,12 +1211,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 String argClassName_ = stds_.getStructClassName(previous_, context_);
                 String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf.getContext());
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
-                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 methodId_ = methodToCall_.getConstraints();
                 classNameFound_ = methodToCall_.getClassName();
             }
         } else {
-            firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             classNameFound_ = _rend.getClassMethodId().getClassName();
             if (_conf.hasToExit(classNameFound_)) {
                 return Argument.createVoid();

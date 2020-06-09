@@ -8,7 +8,6 @@ import code.expressionlanguage.methods.util.TwoStepsArgumentsPair;
 import code.expressionlanguage.opers.SemiAffectationOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -49,7 +48,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             chidren_.add((ExecOperationNode) settable);
             CustList<Argument> arguments_ = new CustList<Argument>();
             arguments_.add(getArgument(_nodes,(ExecOperationNode) settable));
-            CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
             ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, Argument.createVoid(), firstArgs_);
             return;
         }

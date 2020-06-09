@@ -5817,6 +5817,24 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         Argument argument_ = processElNormal("$default(0)", cont_);
         assertEq(0,getNumber(argument_));
     }
+
+    @Test
+    public void processEl472Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int exmeth($int q,$int...p){\n");
+        xml_.append("  $var sum = q;\n");
+        xml_.append("  $return sum+(p==$null?8:5);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Configuration cont_ = getConfiguration4(files_);
+        addImportingPage(cont_);
+        Argument arg_ = processElNormal("pkg.ExTwo.exmeth($vararg($int),4,$firstopt($null))", cont_);
+        assertEq(12,getNumber(arg_));
+    }
     @Test
     public void procesAffect00Test() {
         Configuration context_ = getConfiguration4();

@@ -80,10 +80,10 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
             String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf.getContext());
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = realId;
         } else {
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             classNameFound_ = classMethodId.getClassName();
             if (_conf.hasToExit(classNameFound_)) {
                 return Argument.createVoid();

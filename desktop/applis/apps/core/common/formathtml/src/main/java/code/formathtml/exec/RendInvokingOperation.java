@@ -26,47 +26,15 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         intermediate = _intermediate;
         previousArgument = _previousArgument;
     }
-    public static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, Configuration _context) {
-        if (!_children.isEmpty() && _children.first() instanceof RendVarargOperation) {
-            CustList<Argument> firstArgs_ = new CustList<Argument>();
-            CustList<Argument> optArgs_ = new CustList<Argument>();
-            boolean opt_ = false;
-            int i_ = CustList.FIRST_INDEX;
-            for (RendDynOperationNode o: _children) {
-                if (o instanceof RendVarargOperation) {
-                    i_++;
-                    continue;
-                }
-                if (o instanceof RendFirstOptOperation) {
-                    opt_ = true;
-                }
-                Argument a_ = _nodes.get(i_);
-                if (opt_) {
-                    optArgs_.add(a_);
-                } else {
-                    firstArgs_.add(a_);
-                }
-                i_++;
-            }
-            Argument argRem_ = new Argument();
-            String g_ = _children.first().getResultClass().getName();
-            g_ = _context.getPageEl().formatVarType(g_, _context.getContext());
-            int len_ = optArgs_.size();
-            Struct[] array_ = new Struct[len_];
-            String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
-            ArrayStruct str_ = new ArrayStruct(array_,clArr_);
-            Templates.setElements(optArgs_,str_);
-            argRem_.setStruct(str_);
-            firstArgs_.add(argRem_);
-            return firstArgs_;
-        }
+    public static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
         if (_natVararg > -1) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
             int lenCh_ = _children.size();
             int natVararg_ = _natVararg;
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                if (_children.get(i) instanceof RendIdFctOperation) {
+                if (_children.get(i) instanceof RendIdFctOperation
+                        || _children.get(i) instanceof RendVarargOperation) {
                     natVararg_++;
                     continue;
                 }
@@ -90,7 +58,8 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         CustList<Argument> firstArgs_ = new CustList<Argument>();
         int lenCh_ = _children.size();
         for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-            if (_children.get(i) instanceof RendIdFctOperation) {
+            if (_children.get(i) instanceof RendIdFctOperation
+                    || _children.get(i) instanceof RendVarargOperation) {
                 continue;
             }
             Argument a_ = _nodes.get(i);

@@ -27,7 +27,7 @@ public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvoking
         lastType_ = Templates.quickFormat(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();
         ConstructorId ctorId_ = getConstId();
-        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments, _conf);
+        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments);
         checkParametersCtors(_conf, superClass_, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER,null);
         return Argument.createVoid();
     }

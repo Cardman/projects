@@ -487,7 +487,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq(1, params_.size());
         assertEq("$int", params_.first());
         assertTrue(id_.isVararg());
-        assertEq(-1, fct_.getNaturalVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -1079,7 +1079,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("$int", params_.first());
         assertEq("java.lang.Integer", params_.last());
         assertTrue(id_.isVararg());
-        assertEq(-1, fct_.getNaturalVararg());
+        assertEq(1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test
@@ -1994,7 +1994,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq(1, params_.size());
         assertEq("$int", params_.last());
         assertTrue(id_.isVararg());
-        assertEq(-1, fct_.getNaturalVararg());
+        assertEq(0, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
     @Test

@@ -7,7 +7,6 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SymbolOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -25,7 +24,7 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+        CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
         ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, Argument.createVoid(), firstArgs_);
     }
 

@@ -156,7 +156,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             }
             String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf.getContext());
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = classMethodId.getConstraints();
         } else {
             Struct previous_ = prev_.getStruct();
@@ -165,7 +165,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             String argClassName_ = stds_.getStructClassName(previous_, context_);
             String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf.getContext());
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = methodToCall_.getConstraints();
             classNameFound_ = methodToCall_.getClassName();
         }

@@ -46,7 +46,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             CustList<Argument> arguments_ = new CustList<Argument>();
             Argument stored_ = getArgument(_nodes,(RendDynOperationNode) settable);
             arguments_.add(stored_);
-            CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
             Argument res_;
             res_ =  processCall(this,this, Argument.createVoid(),firstArgs_,_conf, null);
             setSimpleArgument(res_, _conf,_nodes);

@@ -37,47 +37,15 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         previousArgument = _previousArgument;
     }
 
-    static CustList<Argument> listArguments(CustList<ExecOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ContextEl _context) {
-        if (!_children.isEmpty() && _children.first() instanceof ExecVarargOperation) {
-            CustList<Argument> firstArgs_ = new CustList<Argument>();
-            CustList<Argument> optArgs_ = new CustList<Argument>();
-            boolean opt_ = false;
-            int i_ = CustList.FIRST_INDEX;
-            for (ExecOperationNode o: _children) {
-                if (o instanceof ExecVarargOperation) {
-                    i_++;
-                    continue;
-                }
-                if (o instanceof ExecFirstOptOperation) {
-                    opt_ = true;
-                }
-                Argument a_ = _nodes.get(i_);
-                if (opt_) {
-                    optArgs_.add(a_);
-                } else {
-                    firstArgs_.add(a_);
-                }
-                i_++;
-            }
-            Argument argRem_ = new Argument();
-            String g_ = _children.first().getResultClass().getName();
-            g_ = _context.getLastPage().formatVarType(g_, _context);
-            int len_ = optArgs_.size();
-            Struct[] array_ = new Struct[len_];
-            String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);
-            ArrayStruct str_ = new ArrayStruct(array_,clArr_);
-            Templates.setElements(optArgs_,str_);
-            argRem_.setStruct(str_);
-            firstArgs_.add(argRem_);
-            return firstArgs_;
-        }
+    static CustList<Argument> listArguments(CustList<ExecOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
         if (_natVararg > -1) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
             int lenCh_ = _children.size();
             int natVarArg_ = _natVararg;
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                if (_children.get(i) instanceof ExecIdFctOperation) {
+                if (_children.get(i) instanceof ExecIdFctOperation
+                        || _children.get(i) instanceof ExecVarargOperation) {
                     natVarArg_++;
                     continue;
                 }
@@ -101,7 +69,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         CustList<Argument> firstArgs_ = new CustList<Argument>();
         int lenCh_ = _children.size();
         for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-            if (_children.get(i) instanceof ExecIdFctOperation) {
+            if (_children.get(i) instanceof ExecIdFctOperation
+                    || _children.get(i) instanceof ExecVarargOperation) {
                 continue;
             }
             Argument a_ = _nodes.get(i);

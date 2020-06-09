@@ -187,7 +187,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         int naturalVararg_ = _rend.getNaturalVararg();
         Argument prev_ = new Argument();
         prev_.setStruct(_previous.getStruct());
-        firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+        firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
         int i_ =0;
         ClassMethodId classMethodId_ = _rend.getClassMethodId();
         for (Argument a: firstArgs_) {

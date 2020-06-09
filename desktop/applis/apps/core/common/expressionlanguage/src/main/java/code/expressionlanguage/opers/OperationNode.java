@@ -738,7 +738,7 @@ public abstract class OperationNode implements Operable {
         }
         ConstrustorIdVarArg out_;
         out_ = new ConstrustorIdVarArg();
-        if (varargOnly_ == -1 && cInfo_.isVarArgWrap()) {
+        if (cInfo_.isVarArgWrap()) {
             out_.setVarArgToCall(true);
         }
         out_.setRealId(ctor_);
@@ -1843,7 +1843,7 @@ public abstract class OperationNode implements Operable {
         ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
         MethodId id_ = m_.getFoundFormatted();
         res_.setId(new ClassMethodId(baseClassName_, id_));
-        if (_varargOnly == -1 && m_.isVarArgWrap()) {
+        if (m_.isVarArgWrap()) {
             res_.setVarArgToCall(true);
         }
         res_.setRealId(constraints_);
@@ -2002,6 +2002,9 @@ public abstract class OperationNode implements Operable {
             return false;
         }
         if (checkOnlyDem_) {
+            if (vararg_) {
+                _id.setVarArgWrap(true);
+            }
             setWideInvoke(_id, vararg_, allNotBoxUnbox_, implicit_);
             return true;
         }
@@ -2015,7 +2018,7 @@ public abstract class OperationNode implements Operable {
             _id.getImplicits().add(l_);
             if (wc_.isEmpty()) {
                 if (arg_.isVariable()) {
-                    setWideInvoke(_id, vararg_, allNotBoxUnbox_, implicit_);
+                    setWideInvoke(_id, true, allNotBoxUnbox_, implicit_);
                     return true;
                 }
                 return false;
@@ -2084,9 +2087,7 @@ public abstract class OperationNode implements Operable {
         int last_ = all_-1;
         if (last_ >= 0&&_id.isVararg()&&!_param.isEmpty()) {
             String wc_ = _id.getGeneFormatted().getParametersType(last_);
-            if (!StringList.quickEq(wc_,_param)) {
-                return false;
-            }
+            return StringList.quickEq(wc_, _param);
         }
         return true;
     }

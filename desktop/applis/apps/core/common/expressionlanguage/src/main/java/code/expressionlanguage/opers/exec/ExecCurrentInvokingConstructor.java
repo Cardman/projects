@@ -28,7 +28,7 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
         lastType_ = page_.formatVarType(lastType_, _conf);
         int natvararg_ = getNaturalVararg();
         ConstructorId ctorId_ = getConstId();
-        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments, _conf);
+        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments);
         checkParametersCtors(_conf, gl_, ctorId_, arg_, firstArgs_, InstancingStep.USING_THIS,null);
         return Argument.createVoid();
     }

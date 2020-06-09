@@ -37,7 +37,7 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
     @Override
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments, _conf);
+        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments);
         ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), classMethodId, _previous,firstArgs_);
         return Argument.createVoid();
     }

@@ -82,7 +82,7 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
                 return new Argument();
             }
             if (prev_.getStruct() instanceof ArrayStruct) {
-                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
             }
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
@@ -90,7 +90,7 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
                 String argClassName_ = prev_.getObjectClassName(_conf);
                 String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
-                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 methodId_ = classMethodId.getConstraints();
             } else {
                 Struct previous_ = prev_.getStruct();
@@ -98,7 +98,7 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
                 String argClassName_ = stds_.getStructClassName(previous_, _conf);
                 String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
-                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 methodId_ = methodToCall_.getConstraints();
                 classNameFound_ = methodToCall_.getClassName();
             }
@@ -106,7 +106,7 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
             classNameFound_ = classMethodId.getClassName();
             classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
             lastType_ = classMethodId.formatType(classNameFound_,lastType_,_conf);
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             if (_conf.hasToExit(classNameFound_)) {
                 return Argument.createVoid();
             }

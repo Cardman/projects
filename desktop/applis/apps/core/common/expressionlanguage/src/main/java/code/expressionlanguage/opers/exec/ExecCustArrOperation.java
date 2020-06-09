@@ -144,7 +144,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             }
             String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = classMethodId.getConstraints();
         } else {
             Struct previous_ = prev_.getStruct();
@@ -152,7 +152,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             String argClassName_ = stds_.getStructClassName(previous_, _conf);
             String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = methodToCall_.getConstraints();
             classNameFound_ = methodToCall_.getClassName();
         }

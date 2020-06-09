@@ -24,7 +24,7 @@ public final class RendCustNumericOperation extends RendNumericOperation impleme
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOpOffset(), _conf);
         CustList<Argument> arguments_ = getArguments(_nodes,this);
-        CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+        CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
         Argument argres_ = processCall(this, this, Argument.createVoid(), firstArgs_, _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }

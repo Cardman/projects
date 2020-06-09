@@ -48,7 +48,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             CustList<Argument> arguments_ = new CustList<Argument>();
             arguments_.add(getArgument(_nodes,(RendDynOperationNode) settable));
             arguments_.add(getArgument(_nodes,right_));
-            CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
             Argument res_;
             res_ =  processCall(this,this, Argument.createVoid(),firstArgs_,_conf, null);
             setSimpleArgument(res_, _conf,_nodes);

@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringMap;
@@ -1395,5 +1396,27 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         field_ = getField((FieldableStruct)str_, new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
+    }
+    @Test
+    public void coverage170Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return new Ex().inst($vararg(Ex),$firstopt(null));\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int inst(Ex... p){\n");
+        xml_.append("  return p==null?8:4;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(8,getNumber(ret_));
     }
 }

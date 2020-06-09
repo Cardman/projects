@@ -251,7 +251,7 @@ public final class FctOperation extends InvokingOperation {
         } else {
             str_ = NullStruct.NULL_VALUE;
         }
-        CustList<Argument> firstArgs_ = quickListArguments(chidren_, _naturalVararg, _lastType, arguments_, _conf);
+        CustList<Argument> firstArgs_ = quickListArguments(chidren_, _naturalVararg, _lastType, arguments_);
         Struct out_ = ApplyCoreMethodUtil.invokeAnalyzisStdMethod(_conf, _classMethodId, str_, Argument.toArgArray(firstArgs_));
         if (out_ == null) {
             return;
