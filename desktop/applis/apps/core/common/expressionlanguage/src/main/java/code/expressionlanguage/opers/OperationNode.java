@@ -267,6 +267,14 @@ public abstract class OperationNode implements Operable {
             if (StringExpUtil.startsWithKeyWord(value_, _an.getKeyWords().getKeyWordExplicit())) {
                 return new ExplicitOperation(_index, _indexChild, _m, _op);
             }
+            if (StringExpUtil.startsWithKeyWord(value_, _an.getKeyWords().getKeyWordCast())) {
+                String clName_ = _op.getOperators().firstValue();
+                String extract_ = clName_.substring(clName_.indexOf(PAR_LEFT)+1, clName_.lastIndexOf(PAR_RIGHT));
+                StringList types_ = Templates.getAllSepCommaTypes(extract_);
+                if (types_.size() > 1) {
+                    return new ImplicitOperation(_index, _indexChild, _m, _op);
+                }
+            }
             return new CastOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.MULT_PRIO) {

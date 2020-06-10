@@ -5836,6 +5836,28 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertEq(12,getNumber(arg_));
     }
     @Test
+    public void processEl473Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public $static Ex $($int v){\n");
+        xml_.append("  Ex o = $new Ex();\n");
+        xml_.append("  o.field = v;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument arg_ = processElNormal("$(pkg.Ex,$int)5", conf_);
+        assertTrue(conf_.isEmptyErrors());
+        Struct struct_ = arg_.getStruct();
+        assertEq("pkg.Ex", struct_.getClassName(conf_.getContext()));
+        assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.Ex","field"))).intStruct());
+
+    }
+    @Test
     public void procesAffect00Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);

@@ -297,6 +297,10 @@ public abstract class ExecOperationNode implements Operable {
             ExplicitOperation m_ = (ExplicitOperation) _anaNode;
             return new ExecExplicitOperation(m_);
         }
+        if (_anaNode instanceof ImplicitOperation) {
+            ImplicitOperation m_ = (ImplicitOperation) _anaNode;
+            return new ExecImplicitOperation(m_);
+        }
         if (_anaNode instanceof MultOperation) {
             MultOperation m_ = (MultOperation) _anaNode;
             return new ExecMultOperation(m_);

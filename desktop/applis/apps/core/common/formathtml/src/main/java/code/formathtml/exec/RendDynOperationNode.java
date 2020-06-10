@@ -322,6 +322,10 @@ public abstract class RendDynOperationNode {
             ExplicitOperation m_ = (ExplicitOperation) _anaNode;
             return new RendExplicitOperation(m_);
         }
+        if (_anaNode instanceof ImplicitOperation) {
+            ImplicitOperation m_ = (ImplicitOperation) _anaNode;
+            return new RendImplicitOperation(m_);
+        }
         if (_anaNode instanceof MultOperation) {
             MultOperation m_ = (MultOperation) _anaNode;
             return new RendMultOperation(m_);

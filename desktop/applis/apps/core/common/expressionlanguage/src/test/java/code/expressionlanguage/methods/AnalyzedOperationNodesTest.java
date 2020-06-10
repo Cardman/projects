@@ -4460,7 +4460,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl161FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$(Number,Number)$null;}\n");
+        xml_.append(" $static {$(Inex)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4508,7 +4508,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl164FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$(Number,Number)$null;}\n");
+        xml_.append(" $static {$(Inex,Inex,Inex,Inex)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");

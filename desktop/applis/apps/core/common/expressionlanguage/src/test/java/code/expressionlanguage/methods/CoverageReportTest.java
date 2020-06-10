@@ -11298,6 +11298,136 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage295Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static ExClass method(){\n");
+        xml_.append("  return $(ExClass,int)5;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public static ExClass $(int i){\n");
+        xml_.append("  ExClass out = new ExClass();\n");
+        xml_.append("  out.field = i;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageReadOnlyDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m102\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClass.static $(pkg.ExClass,int)\" href=\"#m158\">$</a>(<a title=\"pkg.ExClass\" href=\"#m102\">ExClass</a>,int)<span class=\"f\">5</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m102\">pkg.ExClass </a>{\n" +
+                " public int <span class=\"f\"><a name=\"m128\">field</a></span>;\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m102\">ExClass</a> <a name=\"m158\">$</a>(int <a name=\"m164\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m102\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m178\">out</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m102\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m178\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m128\">field</a> </span></span>=<span class=\"f\"> <a href=\"#m164\">i</a></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m178\">out</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage296Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static ExClass<int> method(){\n");
+        xml_.append("  return $(ExClass<int>,#T)5;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static ExClass<T> $(T i){\n");
+        xml_.append("  ExClass<T> out = new ExClass<T>();\n");
+        xml_.append("  out.field = i;\n");
+        xml_.append("  return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageReadOnlyDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m111\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClass.static $(pkg.ExClass&lt;#T&gt;,#T)\" href=\"#m171\">$</a>(<a title=\"pkg.ExClass\" href=\"#m111\">ExClass</a>&lt;int&gt;,<a href=\"#m123\">#T</a>)<span class=\"f\">5</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m111\">pkg.ExClass</a>&lt;<a name=\"m123\">T</a>&gt; {\n" +
+                " public <a href=\"#m123\">T</a> <span class=\"f\"><a name=\"m138\">field</a></span>;\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m111\">ExClass</a>&lt;<a href=\"#m123\">T</a>&gt; <a name=\"m171\">$</a>(<a href=\"#m123\">T</a> <a name=\"m175\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m111\">ExClass</a>&lt;<a href=\"#m123\">T</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m192\">out</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m111\">ExClass</a>&lt;<a href=\"#m123\">T</a>&gt;()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m192\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m138\">field</a> </span></span>=<span class=\"f\"> <a href=\"#m175\">i</a></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m192\">out</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage297Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  return staticCall(ExCaller<int>).method();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCaller<S> {\n");
+        xml_.append(" public staticCall S method(){\n");
+        xml_.append("  ExClass<S> e = new ExClass<S>();\n");
+        xml_.append("  e.field = (S)5;\n");
+        xml_.append("  return $(ExClass<S>,T,ExClass<T>)e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field;\n");
+        xml_.append(" public static T $(ExClass<T> i){\n");
+        xml_.append("  return i.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElCoverageEnDefault();
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = FileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
+                " public static int <a name=\"m44\">method</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">staticCall(<a title=\"pkg.ExCaller\" href=\"#m117\">ExCaller</a>&lt;int&gt;)</span>.<span class=\"f\"><a title=\"pkg.ExCaller.staticCall method()\" href=\"#m156\">method</a>()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m117\">pkg.ExCaller</a>&lt;<a name=\"m130\">S</a>&gt; {\n" +
+                " public staticCall <a href=\"#m130\">S</a> <a name=\"m156\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m275\">ExClass</a>&lt;<a href=\"#m130\">S</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m179\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m275\">ExClass</a>&lt;<a href=\"#m130\">S</a>&gt;()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m179\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m302\">field</a> </span></span>=<span class=\"f\"> (<a href=\"#m130\">S</a>)<span class=\"f\">5</span></span></span>;\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClass.static $(#T,pkg.ExClass&lt;#T&gt;)\" href=\"#m326\">$</a>(<a title=\"pkg.ExClass\" href=\"#m275\">ExClass</a>&lt;<a href=\"#m130\">S</a>&gt;,<a href=\"#m287\">T</a>,<a title=\"pkg.ExClass\" href=\"#m275\">ExClass</a>&lt;<a href=\"#m287\">T</a>&gt;)<span class=\"f\"><a href=\"#m179\">e</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m275\">pkg.ExClass</a>&lt;<a name=\"m287\">T</a>&gt; {\n" +
+                " public <a href=\"#m287\">T</a> <span class=\"f\"><a name=\"m302\">field</a></span>;\n" +
+                " public static <a href=\"#m287\">T</a> <a name=\"m326\">$</a>(<a title=\"pkg.ExClass\" href=\"#m275\">ExClass</a>&lt;<a href=\"#m287\">T</a>&gt; <a name=\"m339\">i</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m339\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m302\">field</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

@@ -1206,6 +1206,15 @@ public final class ElUtil {
                     _parts);
             _parts.addAllElts(((ExplicitOperation)val_).getPartOffsets());
         }
+        if (curOp_ instanceof ExecImplicitOperation) {
+            String className_ = ((ImplicitOperation) val_).getClassName();
+            int offsetOp_ = val_.getOperations().getOperators().firstKey();
+            MethodId castId_ = ((ImplicitOperation) val_).getCastOpId();
+            addParts(_cont,currentFileName_,Templates.getIdFromAllTypes(className_),castId_,
+                    offsetOp_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordCast().length(),
+                    _parts);
+            _parts.addAllElts(((ImplicitOperation)val_).getPartOffsets());
+        }
         if (curOp_ instanceof ExecSemiAffectationOperation) {
             ExecSemiAffectationOperation par_ = (ExecSemiAffectationOperation) curOp_;
             int offsetOp_ = val_.getOperations().getOperators().firstKey();
