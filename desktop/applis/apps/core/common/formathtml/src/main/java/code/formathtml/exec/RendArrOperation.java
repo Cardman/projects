@@ -94,11 +94,11 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post) {
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = getArgument(_nodes,this);
+        Argument a_ = new Argument();
         Struct store_;
-        store_ = a_.getStruct();
+        store_ = _store.getStruct();
         RendDynOperationNode lastElement_ = chidren_.last();
         Argument last_ = getArgument(_nodes,lastElement_);
         Struct array_;
@@ -143,11 +143,17 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
-        return endCalculate(_nodes,_conf, false, null, _right);
+        processArray(_nodes, _conf, _right);
+        return _right;
     }
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right) {
+        processArray(_nodes, _conf, _right);
+        return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
+    }
+
+    private void processArray(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
@@ -155,7 +161,6 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         RendDynOperationNode lastElement_ = chidren_.last();
         Argument index_ = getArgument(_nodes,lastElement_);
         ExecInvokingOperation.setElement(array_, index_.getStruct(), _right.getStruct(), _conf.getContext());
-        return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
     public ClassArgumentMatching getPrevious() {

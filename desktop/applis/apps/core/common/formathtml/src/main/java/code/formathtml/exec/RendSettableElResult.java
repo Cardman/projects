@@ -17,7 +17,7 @@ public interface RendSettableElResult {
             IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right);
 
     Argument calculateSemiSetting(
-            IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post);
+            IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored);
     Argument endCalculate(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, Argument _right);
 
     Argument endCalculate(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right);

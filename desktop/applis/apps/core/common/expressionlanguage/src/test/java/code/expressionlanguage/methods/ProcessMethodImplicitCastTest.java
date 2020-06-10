@@ -2330,7 +2330,7 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(5,getNumber(ret_));
+        assertEq(10,getNumber(ret_));
     }
 
     @Test
@@ -2346,6 +2346,9 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append(" public static Apply $(int i){\n");
         xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int $(Apply i){\n");
+        xml_.append("  return 5;\n");
         xml_.append(" }\n");
         xml_.append(" static{\n");
         xml_.append("  ExClass.v++;\n");
@@ -2388,6 +2391,9 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append("  return v;\n");
         xml_.append(" }\n");
         xml_.append(" public static Apply $(int i){\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static ExOut $(Apply i){\n");
         xml_.append("  return null;\n");
         xml_.append(" }\n");
         xml_.append(" static{\n");
@@ -2455,6 +2461,9 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append(" public static Apply $(ExOut i){\n");
         xml_.append("  return null;\n");
         xml_.append(" }\n");
+        xml_.append(" public static ExOut $(Apply i){\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
         xml_.append(" static{\n");
         xml_.append("  Apply.v++;\n");
         xml_.append(" }\n");
@@ -2497,6 +2506,9 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append(" public static Apply $(int i){\n");
         xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int $(Apply i){\n");
+        xml_.append("  return 10;\n");
         xml_.append(" }\n");
         xml_.append(" static{\n");
         xml_.append("  ExClass.v++;\n");
@@ -2551,6 +2563,9 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append(" public static Apply $(int i){\n");
         xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int $(Apply i){\n");
+        xml_.append("  return 10;\n");
         xml_.append(" }\n");
         xml_.append(" static{\n");
         xml_.append("  ExClass.v++;\n");
@@ -2619,17 +2634,17 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append("  e.field=i.field;\n");
         xml_.append("  return e;\n");
         xml_.append(" }\n");
-        xml_.append(" public static ExSub2 $(ExSub i){\n");
-        xml_.append("  ExSub2 e = new ExSub2();\n");
-        xml_.append("  e.field=i.field;\n");
-        xml_.append("  return e;\n");
-        xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExSub2 {\n");
         xml_.append(" public int field;\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass {\n");
         xml_.append(" public int field;\n");
+        xml_.append(" public static ExSub2 $(ExClass i){\n");
+        xml_.append("  ExSub2 e = new ExSub2();\n");
+        xml_.append("  e.field=i.field;\n");
+        xml_.append("  return e;\n");
+        xml_.append(" }\n");
         xml_.append(" operator+ ExSub(ExClass i, ExRight j){\n");
         xml_.append("  ExSub e = new ExSub();\n");
         xml_.append("  e.field=i.field+j.field;\n");
@@ -2682,14 +2697,14 @@ public final class ProcessMethodImplicitCastTest extends ProcessMethodCommon {
         xml_.append("  e.field=i.field;\n");
         xml_.append("  return e;\n");
         xml_.append(" }\n");
-        xml_.append(" public static ExSub2 $(ExSub i){\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExSub2 {\n");
+        xml_.append(" public int field;\n");
+        xml_.append(" public static ExSub2 $(ExClass i){\n");
         xml_.append("  ExSub2 e = new ExSub2();\n");
         xml_.append("  e.field=i.field;\n");
         xml_.append("  return e;\n");
         xml_.append(" }\n");
-        xml_.append("}\n");
-        xml_.append("public class pkg.ExSub2 {\n");
-        xml_.append(" public int field;\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass {\n");
         xml_.append(" public int field;\n");

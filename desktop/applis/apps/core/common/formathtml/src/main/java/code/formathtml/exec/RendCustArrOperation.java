@@ -97,26 +97,23 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post) {
-        Argument a_ = getArgument(_nodes,this);
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument left_ = new Argument();
-        left_.setStruct(store_);
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored) {
         ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf.getContext(), _op, clArg_);
-        return processCalling(_nodes,_conf,res_);
+        res_ = ExecNumericOperation.calculateIncrDecr(_stored, _conf.getContext(), _op, clArg_);
+        Argument arg_ = processCalling(_nodes, _conf, res_);
+        return RendSemiAffectationOperation.getPrePost(_post,_stored,arg_);
     }
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
-        return endCalculate(_nodes,_conf,false,null,_right);
+        return processCalling(_nodes, _conf, _right);
     }
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right) {
-        return processCalling(_nodes,_conf,_right);
+        processCalling(_nodes, _conf, _right);
+        return RendSemiAffectationOperation.getPrePost(_post,_stored,_right);
     }
 
     private Argument processCalling(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {

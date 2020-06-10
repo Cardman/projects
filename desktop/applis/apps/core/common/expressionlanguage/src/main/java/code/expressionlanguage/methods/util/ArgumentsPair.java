@@ -6,7 +6,6 @@ import code.util.CustList;
 public class ArgumentsPair {
 
     private Argument argument;
-    private Argument before;
     private Argument previousArgument;
     private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
     private CustList<ClassMethodId> implicitsCompound = new CustList<ClassMethodId>();
@@ -18,14 +17,6 @@ public class ArgumentsPair {
     }
     public void setArgument(Argument _argument) {
         argument = _argument;
-    }
-
-    public Argument getBefore() {
-        return before;
-    }
-
-    public void setBefore(Argument before) {
-        this.before = before;
     }
 
     public Argument getPreviousArgument() {

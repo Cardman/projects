@@ -66,10 +66,9 @@ public final class RendSettableFieldOperation extends
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post) {
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument current_ = getArgument(_nodes,this);
-        Struct store_ = current_.getStruct();
+        Struct store_ = _store.getStruct();
         return getCommonSemiSetting(previous_, store_, _conf, _op, _post);
     }
 
@@ -100,11 +99,17 @@ public final class RendSettableFieldOperation extends
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
-        return endCalculate(_nodes,_conf, false, null, _right);
+        processField(_nodes, _conf, _right);
+        return _right;
     }
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right) {
+        processField(_nodes, _conf, _right);
+        return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
+    }
+
+    private void processField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument prev_ = Argument.createVoid();
@@ -112,7 +117,6 @@ public final class RendSettableFieldOperation extends
             prev_ = getPreviousArg(this, _nodes, _conf);
         }
         getCommonSetting(prev_,_conf,_right);
-        return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
     public FieldInfo getFieldMetaInfo() {

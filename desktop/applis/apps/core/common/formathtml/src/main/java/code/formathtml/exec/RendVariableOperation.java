@@ -76,10 +76,9 @@ public final class RendVariableOperation extends RendLeafOperation implements
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post) {
-        Argument a_ = getArgument(_nodes,this);
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store) {
         Struct store_;
-        store_ = a_.getStruct();
+        store_ = _store.getStruct();
         return getCommonSemiSetting(_conf, store_, _op, _post);
     }
 
@@ -118,16 +117,20 @@ public final class RendVariableOperation extends RendLeafOperation implements
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
-        return endCalculate(_nodes,_conf, false, null, _right);
+        processVariable(_conf, _right);
+        return _right;
     }
 
     @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, boolean _post, Argument _stored, Argument _right) {
+        processVariable(_conf, _right);
+        return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
+    }
+
+    private void processVariable(Configuration _conf, Argument _right) {
         PageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         ExecVariableOperation.checkSet(_conf.getContext(), locVar_, _right);
-        Argument out_ = RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
-        return out_;
     }
 }

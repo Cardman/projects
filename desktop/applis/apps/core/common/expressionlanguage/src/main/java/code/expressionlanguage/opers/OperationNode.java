@@ -1084,7 +1084,7 @@ public abstract class OperationNode implements Operable {
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_cont, -1, MethodAccessKind.STATIC,
                 true, bounds_, _op, false, false, false, null,
-                InvokingOperation.getVarargParam(chidren_),ClassArgumentMatching.toArgArray(firstArgs_));
+                "",ClassArgumentMatching.toArgArray(firstArgs_));
         if (clMeth_.isFoundMethod()) {
             _node.setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()), _cont));
             String foundClass_ = clMeth_.getRealClass();

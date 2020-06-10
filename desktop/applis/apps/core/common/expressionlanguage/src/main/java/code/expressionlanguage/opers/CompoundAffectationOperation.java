@@ -95,6 +95,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                             StringList.join(elt_.getResultClass().getNames(),"&"));
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
                 }
+                ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
+                setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.toPrimitive(clMatchLeft_,_conf)));
             }
             return;
         }

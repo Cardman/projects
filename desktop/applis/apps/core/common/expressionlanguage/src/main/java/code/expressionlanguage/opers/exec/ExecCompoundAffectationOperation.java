@@ -84,33 +84,12 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
                 return;
             }
             pair_.setIndexImplicitCompound(indexImplicit_ +1);
-            pair_.setBefore(_right);
             return;
         }
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
             Argument arg_ = settable.endCalculate(_conf, _nodes, _right);
-            Argument a_;
-            Argument before_ = pair_.getBefore();
-            if (before_ != null) {
-                a_ = before_;
-            } else {
-                a_ = arg_;
-            }
-            setSimpleArgument(a_, _conf, _nodes);
-            return;
-        }
-        int indexImplicitFinal_ = pair_.getIndexImplicit();
-        CustList<ClassMethodId>  implicitsFinal_ = pair_.getImplicits();
-        if (implicitsFinal_.isValidIndex(indexImplicitFinal_)) {
-            Argument before_ = pair_.getBefore();
-            Argument a_;
-            if (before_ != null) {
-                a_ = before_;
-            } else {
-                a_ = _right;
-            }
-            setSimpleArgument(a_,_conf,_nodes);
+            setSimpleArgument(arg_, _conf, _nodes);
             return;
         }
         setSimpleArgument(_right,_conf,_nodes);
