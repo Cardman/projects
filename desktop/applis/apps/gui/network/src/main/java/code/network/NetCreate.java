@@ -18,7 +18,6 @@ import code.util.StringList;
 
 public final class NetCreate {
 
-//    private static final String EMPTY_SRING = "";
     private static final String LINE_RETURN_N = "\n";
     private static final String LINE_RETURN_R = "\r";
     private static final String NET_ZERO = "net0";
@@ -33,8 +32,6 @@ public final class NetCreate {
         if (content_ == null) {
             return _defaultPort;
         }
-//        content_ = content_.replace(LINE_RETURN_R, EMPTY_SRING);
-//        content_ = content_.replace(LINE_RETURN_N, EMPTY_SRING);
         content_ = StringList.removeStrings(content_, LINE_RETURN_R, LINE_RETURN_N);
         if (!StringList.isPositiveNumber(content_)) {
             return _defaultPort;
@@ -107,35 +104,31 @@ public final class NetCreate {
             for (NetworkInterface n: Collections.list(NetworkInterface.getNetworkInterfaces())) {
                 l_.add(n);
             }
+            return l_;
         } catch (SocketException _0) {
-            //
+            return l_;
         }
-        return l_;
     }
 
     public static ServerSocket createServerSocket(String _ip, int _port) {
-        ServerSocket serverSocket_ = null;
         try {
-            serverSocket_ = new ServerSocket();
-            serverSocket_.bind(new InetSocketAddress(_ip,_port));
-            return serverSocket_;
+            return bind(_ip, _port, new ServerSocket());
         } catch (IOException _0) {
-            close(serverSocket_);
             return null;
         }
     }
 
-    private static void close(ServerSocket _serverSocket) {
-        if (_serverSocket != null) {
-            try {
-                _serverSocket.close();
-            } catch (IOException _1) {
-                //
-            }
+    private static ServerSocket bind(String _ip, int _port, ServerSocket _serverSocket) {
+        try {
+            _serverSocket.bind(new InetSocketAddress(_ip,_port));
+            _serverSocket.close();
+            return _serverSocket;
+        } catch (IOException e) {
+            return null;
         }
     }
 
-    public static StringList getAllAddresses(IpType _ipType, String _host) {
+    static StringList getAllAddresses(IpType _ipType, String _host) {
         StringList addresses_ = new StringList();
         if (_ipType == IpType.HOST_NAME) {
             try {

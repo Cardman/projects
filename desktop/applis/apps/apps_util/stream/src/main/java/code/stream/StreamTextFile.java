@@ -1,13 +1,5 @@
 package code.stream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -18,8 +10,6 @@ import code.util.StringList;
 public final class StreamTextFile {
 
     public static final String SEPARATEUR = "/";
-    private static final String EMPTY_STRING = "";
-    private static final char INVALID_CHARACTER = 65533;
 
     private StreamTextFile() {
     }
@@ -35,10 +25,7 @@ public final class StreamTextFile {
     private static CustList<FileInfo> getSortedDescNodes(FileInfo _root) {
         CustList<FileInfo> list_ = new CustList<FileInfo>();
         FileInfo c_ = _root;
-        while (true) {
-            if (c_ == null) {
-                break;
-            }
+        while (c_ != null) {
             list_.add(c_);
             c_ = getNext(c_, _root);
         }
@@ -74,9 +61,8 @@ public final class StreamTextFile {
             folder_ = folder_.substring(CustList.FIRST_INDEX, folder_.length() - suffix_.length());
             folder_ = StringList.concat(folder_,SEPARATEUR);
         }
-        StringList new_ = new StringList();
         while (true) {
-            new_ = new StringList();
+            StringList new_ = new StringList();
             for (String c : current_) {
                 File[] filesFolder_ = new File(c).listFiles();
                 if (filesFolder_ == null) {
@@ -97,27 +83,18 @@ public final class StreamTextFile {
         return files_;
     }
 
-    public static Document documentXmlExterne(String _nomFichier) {
+    private static Document documentXmlExterne(String _nomFichier) {
         return DocumentBuilder.parseSax(contentsOfFile(_nomFichier));
     }
 
     public static String contentsOfFile(String _nomFichier) {
-        String file_;
-        file_ = readFile(_nomFichier, StandardCharsets.UTF_8.getName());
-        if (file_ == null) {
-            return null;
-        }
-        int ind_ = file_.indexOf(INVALID_CHARACTER);
-        if (ind_ >= 0) {
-            file_ = readFile(_nomFichier, StandardCharsets.ISO_8859_1.getName());
-        }
-        return file_;
+        return readFile(_nomFichier);
     }
 
-    private static String readFile(String _filePath, String _encoding) {
+    private static String readFile(String _filePath) {
         try {
             File file_ = new File(_filePath);
-            return readingFile(new BufferedReader(new InputStreamReader(new FileInputStream(file_), _encoding)), file_.length());
+            return readingFile(new BufferedReader(new InputStreamReader(new FileInputStream(file_))), file_.length());
         } catch (IOException _0) {
             return null;
         }
@@ -155,11 +132,24 @@ public final class StreamTextFile {
             return false;
         }
         try {
-            FileWriter fw_ = new FileWriter(new File(_nomFichier));
-            BufferedWriter bw_ = new BufferedWriter(fw_);
-            bw_.write(_text);
-            bw_.close();
-            fw_.close();
+            return write(new FileWriter(new File(_nomFichier)),_text);
+        } catch (IOException _0) {
+            return false;
+        }
+    }
+    private static boolean write(FileWriter _bw,String _text) {
+        try {
+            boolean w_ = write(new BufferedWriter(_bw), _text);
+            _bw.close();
+            return w_;
+        } catch (IOException _0) {
+            return false;
+        }
+    }
+    private static boolean write(BufferedWriter _bw,String _text) {
+        try {
+            _bw.write(_text);
+            _bw.close();
             return true;
         } catch (IOException _0) {
             return false;
@@ -170,16 +160,24 @@ public final class StreamTextFile {
             return false;
         }
         try {
-            FileWriter fw_ = new FileWriter(_nomFichier, true);
-            BufferedWriter bw_ = new BufferedWriter(fw_);
-            PrintWriter out_ = new PrintWriter(bw_);
-            out_.println(_text);
-            out_.close();
-            bw_.close();
-            fw_.close();
+            return println(new FileWriter(_nomFichier, true),_text);
+        } catch (IOException _0) {
+            return false;
+        }
+    }
+    private static boolean println(FileWriter _bw,String _text) {
+        try {
+            PrintWriter _bw1 = new PrintWriter(_bw);
+            println(_bw1, _text);
+            _bw.close();
             return true;
         } catch (IOException _0) {
             return false;
         }
+    }
+
+    private static void println(PrintWriter _bw, String _text) {
+        _bw.println(_text);
+        _bw.close();
     }
 }
