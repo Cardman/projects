@@ -57,20 +57,7 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
     public CustList<ExecOperationNode> getOpRet() {
         return opRet;
     }
-    @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        String retType_ = processReturnValue(_cont);
-        if (retType_.isEmpty()) {
-            return;
-        }
-        MethodAccessKind stCtx_ = f_.getStaticContext();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(expressionOffset);
-        page_.setOffset(0);
-        opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(stCtx_));
-        checkTypes(_cont, retType_);
-    }
+
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
@@ -190,20 +177,6 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
             breakablesAncestors_.put(this, id_);
             breakables_.put(this, (MemberCallingsBlock) a_);
         }
-    }
-
-    @Override
-    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
-        if (isEmpty()) {
-            super.setAssignmentAfter(_an, _anEl);
-        }
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        StringMap<SimpleAssignment> ass_;
-        ass_ = new StringMap<SimpleAssignment>();
-        for (EntryCust<String, SimpleAssignment> e: vars_.getFieldsRoot().entryList()) {
-            ass_.put(e.getKey(), e.getValue().assign());
-        }
-        _an.getAssignedVariables().getAssignments().put(this, ass_);
     }
 
     @Override

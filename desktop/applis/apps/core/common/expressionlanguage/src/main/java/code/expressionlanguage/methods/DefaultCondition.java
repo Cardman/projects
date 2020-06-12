@@ -16,12 +16,6 @@ public final class DefaultCondition extends SwitchPartBlock {
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        checkDefault(_cont);
-        buildEmptyEl(_cont);
-    }
-
-    @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         checkDefault(_cont);
     }

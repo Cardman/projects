@@ -46,25 +46,12 @@ public final class Throwing extends AbruptBlock implements StackableBlock, WithN
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setOffset(0);
-        page_.setGlobalOffset(expressionOffset);
-        opThrow = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.getStaticContext()));
-    }
-
-    @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
         opThrow = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(f_.getStaticContext()));
-    }
-
-    @Override
-    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
     }
 
     @Override
@@ -93,5 +80,9 @@ public final class Throwing extends AbruptBlock implements StackableBlock, WithN
         int off_ = getExpressionOffset();
         int offsetEndBlock_ = off_ + getExpression().length();
         ElUtil.buildCoverageReport(_cont,off_,this,opThrow,offsetEndBlock_,_parts);
+    }
+
+    public CustList<ExecOperationNode> getOpThrow() {
+        return opThrow;
     }
 }

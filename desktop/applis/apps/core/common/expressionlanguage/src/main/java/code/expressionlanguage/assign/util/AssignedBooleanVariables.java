@@ -1,4 +1,4 @@
-package code.expressionlanguage.opers.util;
+package code.expressionlanguage.assign.util;
 
 import code.util.CustList;
 import code.util.StringMap;

@@ -6,8 +6,6 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.util.CustList;
 import code.util.IdMap;
@@ -74,39 +72,6 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
     }
 
     @Override
-    public final void setAssignmentBeforeNextSibling(ContextEl _an, AnalyzingEl _anEl) {
-        if (!canBeIncrementedCurGroup()) {
-            super.setAssignmentBeforeNextSibling(_an, _anEl);
-            return;
-        }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        Block nextSibling_ = getNextSibling();
-        boolean finClause_ = nextSibling_ instanceof FinallyEval;
-        Block try_ = this;
-        CustList<AbstractCatchEval> catch_ = new CustList<AbstractCatchEval>();
-        while (try_ instanceof AbstractCatchEval) {
-            catch_.add((AbstractCatchEval) try_);
-            try_ = try_.getPreviousSibling();
-        }
-        if (!(try_ instanceof TryEval)) {
-            super.setAssignmentBeforeNextSibling(_an, _anEl);
-            return;
-        }
-        TryEval tryBl_ = (TryEval)try_;
-        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        if (finClause_) {
-            assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(tryBl_,_an, _anEl, catch_));
-            assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextCatchFinally(tryBl_,_an, _anEl, catch_));
-            assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextCatchFinally(tryBl_,_an, _anEl, catch_));
-        } else {
-            assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(tryBl_,_an, _anEl, new CustList<AbstractCatchEval>()));
-            assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextCatchFinally(tryBl_,_an, _anEl, new CustList<AbstractCatchEval>()));
-            assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextCatchFinally(tryBl_,_an, _anEl, new CustList<AbstractCatchEval>()));
-        }
-        id_.put(nextSibling_, assBl_);
-    }
-
-    @Override
     public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
         Block pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AbstractCatchEval)) {
@@ -126,40 +91,6 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
                 _an.addError(un_);
             }
         }
-    }
-
-    @Override
-    public final void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
-        Block pBlock_ = getPreviousSibling();
-        if (canBeIncrementedCurGroup()) {
-            return;
-        }
-        CustList<Block> prev_ = new CustList<Block>();
-        prev_.add(this);
-        while (!(pBlock_ instanceof TryEval)) {
-            if (!(pBlock_ instanceof Eval)) {
-                break;
-            }
-            prev_.add(pBlock_);
-            pBlock_ = pBlock_.getPreviousSibling();
-        }
-        if (pBlock_ instanceof Eval) {
-            prev_.add(pBlock_);
-        }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables assTar_ = id_.getVal(this);
-        StringMap<SimpleAssignment> after_;
-        CustList<StringMap<SimpleAssignment>> afterVars_;
-        after_ =buildAssFieldsAfterTry(prev_, _an, _anEl);
-        assTar_.getFieldsRoot().putAllMap(after_);
-        afterVars_ = buildAssVariablesAfterTry(prev_, _an, _anEl);
-        assTar_.getVariablesRoot().clear();
-        assTar_.getVariablesRoot().addAllElts(afterVars_);
-        CustList<StringMap<SimpleAssignment>> afterMutable_;
-        afterMutable_ = buildAssMutableLoopAfterTry(prev_, _an, _anEl);
-        assTar_.getMutableLoopRoot().clear();
-        assTar_.getMutableLoopRoot().addAllElts(afterMutable_);
     }
 
     private boolean canBeIncrementedCurGroup() {

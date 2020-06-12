@@ -91,66 +91,6 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     }
 
     @Override
-    public void analyzeAssignmentAfter(ContextEl _conf) {
-        Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
-        CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(this);
-        StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
-        CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
-        CustList<StringMap<Assignment>> assAfM_ = new CustList<StringMap<Assignment>>();
-        StringMap<Assignment> assA_ = new StringMap<Assignment>();
-        if (ElUtil.isDeclaringLoopVariable(this, _conf)) {
-            if (variableName.isEmpty()) {
-                analyzeNotBoolAssignmentAfter(_conf);
-                return;
-            }
-            boolean isBool_;
-            isBool_ = getResultClass().isBoolType(_conf);
-            ass_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assB_));
-            assAfM_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assM_));
-            AssignmentBefore asBe_ = new AssignmentBefore();
-            asBe_.setUnassignedBefore(true);
-            assAfM_.last().put(variableName, asBe_.assignAfter(isBool_));
-            assA_.putAllMap(AssignmentsUtil.assignAfter(isBool_,assF_));
-            vars_.getVariables().put(this, ass_);
-            vars_.getMutableLoop().put(this, assAfM_);
-            vars_.getFields().put(this, assA_);
-            return;
-        }
-
-        boolean isBool_;
-        isBool_ = getResultClass().isBoolType(_conf);
-        String varName_ = variableName;
-        if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this) {
-            varName_ = EMPTY_STRING;
-        }
-        
-        for (StringMap<AssignmentBefore> s: assM_) {
-            for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                if (StringList.quickEq(e.getKey(), varName_)) {
-                    if (!e.getValue().isAssignedBefore()) {
-                        //errors
-                        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-                        FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                        un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                        un_.buildError(_conf.getAnalysisMessages().getFinalField(),
-                                varName_);
-                        _conf.addError(un_);
-                    }
-                }
-            }
-        }
-        assAfM_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assM_));
-        ass_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assB_));
-        assA_.putAllMap(AssignmentsUtil.assignAfter(isBool_,assF_));
-        vars_.getVariables().put(this, ass_);
-        vars_.getMutableLoop().put(this, assAfM_);
-        vars_.getFields().put(this, assA_);
-    }
-
-    @Override
     public void setVariable(boolean _variable) {
         variable = _variable;
     }

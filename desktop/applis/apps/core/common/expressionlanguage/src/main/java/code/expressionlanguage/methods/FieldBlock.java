@@ -146,50 +146,6 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
     }
 
     @Override
-    public void setAssignmentBefore(ContextEl _an) {
-        Block prev_ = getPreviousSibling();
-        while (prev_ != null) {
-            if (prev_ instanceof InitBlock) {
-                if ((((InitBlock)prev_).getStaticContext() == MethodAccessKind.STATIC) == isStaticField()) {
-                    break;
-                }
-            }
-            if (prev_ instanceof InfoBlock) {
-                if (((InfoBlock)prev_).isStaticField() == isStaticField()) {
-                    break;
-                }
-            }
-            prev_ = prev_.getPreviousSibling();
-        }
-        AssignedVariables ass_;
-        if (prev_ == null) {
-            ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
-            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-            id_.put(this, ass_);
-        } else {
-            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-            AssignedVariables parAss_ = id_.getVal(prev_);
-            AssignedVariables assBl_ = buildNewAssignedVariable();
-            assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
-            assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());
-            id_.put(this, assBl_);
-        }
-    }
-
-    @Override
-    public void setAssignmentAfter(ContextEl _an) {
-        AnalyzedPageEl page_ = _an.getAnalyzing();
-        AssignedVariablesBlock asBlock_ = page_.getAssignedVariables();
-        StringMap<SimpleAssignment> fieldsRoot_ = asBlock_.getFinalVariables().getVal(this).getFieldsRoot();
-        for (EntryCust<String, SimpleAssignment> f: fieldsRoot_.entryList()) {
-            String name_ = f.getKey();
-            SimpleAssignment a_ = f.getValue();
-            if (a_.isAssignedAfter()) {
-                _an.getAnalyzing().getInitFields().add(name_);
-            }
-        }
-    }
-    @Override
     public void buildImportedType(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getClassNameOffset());
@@ -282,16 +238,6 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
 
     private void processReducing(ContextEl _cont) {
         opValue = ElUtil.getReducedNodes(opValue.last());
-    }
-
-    @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(valueOffset);
-        page_.setOffset(0);
-        processPutCoverage(_cont);
-        opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(staticField));
-        processReducing(_cont);
     }
 
     private void processPutCoverage(ContextEl _cont) {

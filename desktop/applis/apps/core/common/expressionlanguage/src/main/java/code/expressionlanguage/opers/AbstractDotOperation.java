@@ -17,15 +17,6 @@ public abstract class AbstractDotOperation extends MethodOperation {
         setResultClass(new ClassArgumentMatching(chidren_.last().getResultClass()));
     }
     @Override
-    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
-                                                   OperationNode _nextSibling, OperationNode _previous) {
-        analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
-    }
-    @Override
-    public void analyzeAssignmentAfter(ContextEl _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
-    @Override
     void calculateChildren() {
         IntTreeMap< String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);

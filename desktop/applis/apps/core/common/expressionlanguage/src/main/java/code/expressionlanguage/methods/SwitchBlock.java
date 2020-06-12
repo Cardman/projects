@@ -79,28 +79,6 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         ExecOperationNode r_ = opValue.last();
         opValue = ElUtil.getReducedNodes(r_);
     }
-    @Override
-    public void setAssignmentBeforeChild(ContextEl _an, AnalyzingEl _anEl) {
-        Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables parAss_ = id_.getVal(this);
-        AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignBefore(parAss_.getLastFieldsOrEmpty()));
-        assBl_.getVariablesRootBefore().addAllElts(AssignmentsUtil.assignBefore(parAss_.getLastVariablesOrEmpty()));
-        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.assignBefore(parAss_.getLastMutableLoopOrEmpty()));
-        assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
-        id_.put(firstChild_, assBl_);
-    }
-    @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(valueOffset);
-        page_.setOffset(0);
-        opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.getStaticContext()));
-        processAfterEl(_cont);
-    }
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
@@ -203,31 +181,6 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         if (abrupt_) {
             _anEl.completeAbruptGroup(this);
         }
-    }
-    @Override
-    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
-        Block ch_ = getFirstChild();
-        if (ch_ == null) {
-            super.setAssignmentAfter(_an, _anEl);
-            return;
-        }
-        boolean def_ = hasDefaultCase();
-        while (ch_.getNextSibling() != null) {
-            ch_ = ch_.getNextSibling();
-        }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables assTar_ = id_.getVal(this);
-        StringMap<SimpleAssignment> after_;
-        CustList<StringMap<SimpleAssignment>> afterVars_;
-        CustList<StringMap<SimpleAssignment>> mutableVars_;
-        after_ =buildAssFieldsAfterSwitch(def_, ch_, _an, _anEl);
-        assTar_.getFieldsRoot().putAllMap(after_);
-        afterVars_ = buildAssVariablesAfterSwitch(def_, ch_, _an, _anEl);
-        assTar_.getVariablesRoot().clear();
-        assTar_.getVariablesRoot().addAllElts(afterVars_);
-        mutableVars_ = buildAssMutableLoopAfterSwitch(def_, ch_, _an, _anEl);
-        assTar_.getMutableLoopRoot().clear();
-        assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }
 
     @Override

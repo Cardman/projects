@@ -212,16 +212,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return ((IdFctOperation)first_).getMethod();
     }
     @Override
-    public final void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
-    }
-
-    @Override
-    public final void analyzeAssignmentAfter(ContextEl _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
-    @Override
     public final void setIntermediateDotted() {
         intermediate = true;
     }

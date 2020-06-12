@@ -4,8 +4,6 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.AbruptCallingFinally;
 import code.expressionlanguage.stacks.ExceptionCallingFinally;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -39,11 +37,6 @@ public final class FinallyEval extends BracedStack implements Eval {
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        buildEmptyEl(_cont);
-    }
-
-    @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
     }
 
@@ -67,36 +60,6 @@ public final class FinallyEval extends BracedStack implements Eval {
                 _an.addError(un_);
             }
         }
-    }
-
-    @Override
-    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
-        Block pBlock_ = getPreviousSibling();
-        CustList<Block> prev_ = new CustList<Block>();
-        while (!(pBlock_ instanceof TryEval)) {
-            if (!(pBlock_ instanceof Eval)) {
-                break;
-            }
-            prev_.add(pBlock_);
-            pBlock_ = pBlock_.getPreviousSibling();
-        }
-        if (pBlock_ instanceof Eval) {
-            prev_.add(pBlock_);
-        }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables assTar_ = id_.getVal(this);
-        StringMap<SimpleAssignment> after_;
-        CustList<StringMap<SimpleAssignment>> afterVars_;
-        CustList<StringMap<SimpleAssignment>> mutableVars_;
-        after_ = buildAssFieldsAfterFinally(prev_, _an, _anEl);
-        assTar_.getFieldsRoot().putAllMap(after_);
-        afterVars_ = buildAssVariablesAfterFinally(prev_, _an, _anEl);
-        assTar_.getVariablesRoot().clear();
-        assTar_.getVariablesRoot().addAllElts(afterVars_);
-        mutableVars_ = buildAssMutableLoopAfterFinally(prev_, _an, _anEl);
-        assTar_.getMutableLoopRoot().clear();
-        assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }
 
     @Override

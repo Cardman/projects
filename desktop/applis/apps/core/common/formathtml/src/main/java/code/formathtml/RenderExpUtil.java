@@ -287,7 +287,7 @@ public final class RenderExpUtil {
             }
             _current.analyze(_context.getContext());
             if (_current instanceof AffectationOperation) {
-                SettableElResult settable_ = ((AffectationOperation) _current).getSettable();
+                OperationNode settable_ = ((AffectationOperation) _current).getSettableOp();
                 if (settable_ instanceof SettableAbstractFieldOperation) {
                     SettableAbstractFieldOperation field_ = (SettableAbstractFieldOperation) settable_;
                     FieldInfo info_ = field_.getFieldMetaInfo();

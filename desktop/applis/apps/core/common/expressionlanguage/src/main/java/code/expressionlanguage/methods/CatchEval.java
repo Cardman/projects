@@ -51,11 +51,6 @@ public final class CatchEval extends AbstractCatchEval {
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        processVariable(_cont);
-    }
-
-    @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         processVariable(_cont);
     }

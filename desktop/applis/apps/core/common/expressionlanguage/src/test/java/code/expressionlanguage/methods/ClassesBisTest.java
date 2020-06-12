@@ -13,6 +13,34 @@ import static org.junit.Assert.assertTrue;
 
 public final class ClassesBisTest extends ProcessMethodCommon {
     @Test
+    public void calculateStaticField183FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=(5!=4?0:1);\n");
+        xml_.append(" $static{a1=5;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDotDefaultReadOnly();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(!ctx_.isEmptyErrors());
+    }
+    @Test
+    public void calculateStaticField183_FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int a1=(5!=4?0:1);\n");
+        xml_.append(" {a1=5;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDotDefaultReadOnly();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(!ctx_.isEmptyErrors());
+    }
+    @Test
     public void calculateStaticField183Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -24,6 +52,62 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         ContextEl ctx_ = contextElSingleDotDefault();
         Classes.validateAll(files_,ctx_);
         assertTrue(ctx_.isEmptyErrors());
+    }
+    @Test
+    public void calculateStaticField184_FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $final $int a1=(5!=4?0:1);\n");
+        xml_.append(" $void method(){a1=5;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDotDefaultReadOnly();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(!ctx_.isEmptyErrors());
+    }
+    @Test
+    public void calculateStaticField185_FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $final $int a1=(5!=4?0:1);\n");
+        xml_.append(" $static{ExTwo e=$new ExTwo(); e.a1=5;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDotDefaultReadOnly();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(!ctx_.isEmptyErrors());
+    }
+    @Test
+    public void calculateStaticField186_FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $final $int a1=(5!=4?0:1);\n");
+        xml_.append(" {ExTwo e=$new ExTwo(); e.a1=5;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDotDefaultReadOnly();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(!ctx_.isEmptyErrors());
+    }
+    @Test
+    public void calculateStaticField187_FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $final $int a1=(5!=4?0:1);\n");
+        xml_.append(" {a1=5;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDotDefaultReadOnly();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(!ctx_.isEmptyErrors());
     }
     @Test
     public void calculateStaticField184Test() {

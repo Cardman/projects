@@ -12,11 +12,6 @@ public final class EmptyInstruction extends Leaf implements BuildableElMethod {
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        buildEmptyEl(_cont);
-    }
-
-    @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
     }
 

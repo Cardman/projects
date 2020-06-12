@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
@@ -14,104 +13,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     MemberCallingsBlock(OffsetsBlock _offset) {
         super(_offset);
-    }
-
-    public final void buildFctInstructions(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(getOffset().getOffsetTrim());
-        page_.setOffset(0);
-        Block firstChild_ = getFirstChild();
-        StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
-        Mapping mapping_ = new Mapping();
-        mapping_.setMapping(vars_);
-        AnalyzingEl anEl_ = new AnalyzingEl(mapping_);
-        _cont.getAnalyzing().setAnalysisAss(anEl_);
-        _cont.getAnalyzing().setCurrentFct(this);
-        _cont.getAssignedVariables().getAssignments().clear();
-        anEl_.setRoot(this);
-        Block en_ = this;
-        CustList<BracedBlock> parents_ = anEl_.getParents();
-        CustList<BreakableBlock> parentsBreakables_ = anEl_.getParentsBreakables();
-        CustList<Loop> parentsContinuable_ = anEl_.getParentsContinuables();
-        CustList<Eval> parentsReturnable_ = anEl_.getParentsReturnables();
-        StringList labels_ = anEl_.getLabels();
-        if (firstChild_ == null) {
-            setAssignmentBeforeCall(_cont, anEl_);
-            anEl_.reach(this);
-            abrupt(_cont, anEl_);
-            setAssignmentAfterCall(_cont, anEl_);
-            return;
-        }
-        while (true) {
-            page_.setCurrentBlock(en_);
-            page_.setCurrentAnaBlock(en_);
-            addPossibleEmpty(en_);
-            _cont.getCoverage().putBlockOperations(_cont,en_);
-            if (en_ == this) {
-                setAssignmentBeforeCall(_cont, anEl_);
-                anEl_.reach(this);
-            } else {
-                en_.checkLabelReference(_cont, anEl_);
-                en_.setAssignmentBefore(_cont, anEl_);
-                en_.reach(_cont, anEl_);
-            }
-            processUnreachable(_cont, anEl_, en_);
-            Block n_ = en_.getFirstChild();
-            addParent(_cont, en_, parents_, parentsBreakables_, parentsContinuable_, parentsReturnable_, n_);
-            boolean visit_ = true;
-            if (en_ != anEl_.getRoot()) {
-                visit_ = tryBuildExpressionLanguage(en_, _cont);
-            }
-            if (visit_ && n_ != null) {
-                en_ = n_;
-                continue;
-            }
-            if (visit_) {
-                en_.abrupt(_cont, anEl_);
-                abrupGroup(anEl_, en_);
-            }
-            en_.checkTree(_cont, anEl_);
-            if (visit_) {
-                en_.setAssignmentAfter(_cont, anEl_);
-            }
-            removeLabel(en_, labels_);
-            while (true) {
-                n_ = en_.getNextSibling();
-                if (n_ != null) {
-                    en_ = n_;
-                    break;
-                }
-                BracedBlock par_;
-                par_ = en_.getParent();
-                page_.setCurrentBlock(par_);
-                page_.setCurrentAnaBlock(par_);
-                par_.abrupt(_cont, anEl_);
-                par_.abruptGroup(anEl_);
-                if (par_ == this) {
-                    setAssignmentAfterCall(_cont, anEl_);
-                    page_.removeLocalVars();
-                    page_.removeVars();
-                    page_.removeMutableLoopVars();
-                    page_.removeCatchVars();
-                    return;
-                }
-                if (par_ instanceof ForMutableIterativeLoop) {
-                    ((ForMutableIterativeLoop)par_).buildIncrementPart(_cont);
-                }
-                par_.checkTree(_cont, anEl_);
-                par_.setAssignmentAfter(_cont, anEl_);
-                parents_.removeLast();
-                removeBreakablePar(parentsBreakables_, par_);
-                removeContinuablePar(parentsContinuable_, par_);
-                removeReturnablePar(parentsReturnable_, par_);
-                page_.removeLocalVars();
-                page_.removeVars();
-                page_.removeMutableLoopVars();
-                page_.removeCatchVars();
-                removeLabel(par_, labels_);
-                en_ = par_;
-            }
-        }
     }
 
     private static void addPossibleEmpty(Block _en) {
@@ -318,8 +219,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
         return EMPTY_STRING;
     }
-    public abstract void setAssignmentBeforeCall(ContextEl _an, AnalyzingEl _anEl);
-    public abstract void setAssignmentAfterCall(ContextEl _an, AnalyzingEl _anEl);
+
     public abstract void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl);
 
 }

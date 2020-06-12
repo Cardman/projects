@@ -6,7 +6,6 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.util.CustList;
 import code.util.IdMap;
@@ -78,23 +77,6 @@ public final class DoBlock extends BracedStack implements Loop {
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
         refLabel(_parts,label,labelOffset);
-    }
-
-    @Override
-    public void setAssignmentBeforeNextSibling(ContextEl _an, AnalyzingEl _anEl) {
-        Block nextSibling_ = getNextSibling();
-        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        assBl_.getFieldsRootBefore().putAllMap(buildAssListFieldBeforeIncrPart(_an, _anEl));
-        assBl_.getVariablesRootBefore().addAllElts(buildAssListLocVarBeforeIncrPart(_an, _anEl));
-        assBl_.getMutableLoopRootBefore().addAllElts(buildAssListMutableLoopBeforeIncrPart(_an, _anEl));
-        id_.put(nextSibling_, assBl_);
-    }
-    
-
-    @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        buildEmptyEl(_cont);
     }
 
     @Override

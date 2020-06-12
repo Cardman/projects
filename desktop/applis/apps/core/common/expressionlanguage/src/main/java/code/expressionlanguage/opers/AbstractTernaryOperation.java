@@ -10,10 +10,6 @@ import code.expressionlanguage.inherits.ResultTernary;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.exec.ParentOperable;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -68,16 +64,6 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             return;
         }
         _to.setSimpleArgumentAna(arg_, _conf);
-    }
-    @Override
-    public final void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        OperationNode firstChild_ = getFirstChild();
-        if (firstChild_ == _previous) {
-            analyzeTrueAssignmentBeforeNextSibling(_conf, _nextSibling, firstChild_);
-        } else {
-            analyzeFalseAssignmentBeforeNextSibling(_conf, _nextSibling, firstChild_);
-        }
     }
 
     @Override
@@ -164,55 +150,5 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         }
     }
 
-    @Override
-    public final void analyzeAssignmentAfter(ContextEl _conf) {
-        Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        CustList<OperationNode> children_ = getChildrenNodes();
-        StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
-        CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
-        CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();
-        OperationNode last_ = children_.last();
-        StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
-        CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
-        CustList<StringMap<Assignment>> mutableAfterLast_ = vars_.getMutableLoop().getVal(last_);
-
-        OperationNode befLast_ = children_.get(children_.size() - 2);
-        StringMap<Assignment> fieldsAfterBefLast_ = vars_.getFields().getVal(befLast_);
-        CustList<StringMap<Assignment>> variablesAfterBefLast_ = vars_.getVariables().getVal(befLast_);
-        CustList<StringMap<Assignment>> mutableAfterBefLast_ = vars_.getMutableLoop().getVal(befLast_);
-        boolean toBoolean_ = getResultClass().isBoolType(_conf);
-        for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
-            Assignment b_ = e.getValue();
-            Assignment p_ = fieldsAfterBefLast_.getVal(e.getKey());
-            Assignment r_ = Assignment.ternary(p_, b_, toBoolean_);
-            fieldsAfter_.put(e.getKey(), r_);
-        }
-        for (StringMap<Assignment> s: variablesAfterLast_) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
-            int index_ = variablesAfter_.size();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                Assignment p_ = variablesAfterBefLast_.get(index_).getVal(e.getKey());
-                Assignment r_ = Assignment.ternary(p_, b_, toBoolean_);
-                sm_.put(e.getKey(), r_);
-            }
-            variablesAfter_.add(sm_);
-        }
-        for (StringMap<Assignment> s: mutableAfterLast_) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
-            int index_ = mutableAfter_.size();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                Assignment p_ = mutableAfterBefLast_.get(index_).getVal(e.getKey());
-                Assignment r_ = Assignment.ternary(p_, b_, toBoolean_);
-                sm_.put(e.getKey(), r_);
-            }
-            mutableAfter_.add(sm_);
-        }
-        vars_.getFields().put(this, fieldsAfter_);
-        vars_.getVariables().put(this, variablesAfter_);
-        vars_.getMutableLoop().put(this, mutableAfter_);
-    }
 
 }

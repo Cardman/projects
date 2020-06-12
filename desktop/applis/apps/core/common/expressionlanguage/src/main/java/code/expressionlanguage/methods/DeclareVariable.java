@@ -52,10 +52,6 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
     public void setImportedClassName(String _importedClassName) {
         importedClassName = _importedClassName;
     }
-    @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        processVariable(_cont);
-    }
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
@@ -82,10 +78,6 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
         page_.getVariablesNamesToInfer().clear();
     }
 
-    @Override
-    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
-        buildEmptyEl(_an);
-    }
 
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {

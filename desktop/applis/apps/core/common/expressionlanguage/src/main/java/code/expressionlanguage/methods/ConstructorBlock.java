@@ -181,55 +181,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Access
     }
 
     @Override
-    public void setAssignmentAfterCall(ContextEl _an, AnalyzingEl _anEl) {
-        setAssignmentAfter(_an,_anEl);
-        checkInterfaces(_an);
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        for (EntryCust<ReturnMethod, StringMap<SimpleAssignment>> r: _an.getAssignedVariables().getAssignments().entryList()) {
-            for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {
-                checkAssignments(_an, f,false);
-            }
-        }
-        if (_anEl.canCompleteNormally(this)) {
-            AssignedVariables assTar_ = id_.getVal(this);
-            for (EntryCust<String, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
-                checkAssignments(_an, f,true);
-            }
-        } else {
-            AssignedVariables assTar_ = id_.getVal(this);
-            for (EntryCust<String, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
-                String name_ = f.getKey();
-                SimpleAssignment a_ = f.getValue();
-                if (a_.isAssignedAfter()) {
-                    _an.getAnalyzing().getInitFieldsCtors().add(name_);
-                }
-            }
-        }
-    }
-
-    private void checkAssignments(ContextEl _an, EntryCust<String, SimpleAssignment> _pair, boolean _add) {
-        String cl_ = Templates.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
-        String name_ = _pair.getKey();
-        ClassField key_ = new ClassField(cl_, name_);
-        FieldInfo finfo_ = _an.getFieldInfo(key_);
-        if (!finfo_.isFinalField()) {
-            return;
-        }
-        SimpleAssignment a_ = _pair.getValue();
-        if (!a_.isAssignedAfter()) {
-            //error
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_an.getAnalysisMessages().getUnassignedFinalField(),
-                    name_,cl_);
-            _an.addError(un_);
-        } else if (_add){
-            _an.getAnalyzing().getInitFieldsCtors().add(name_);
-        }
-    }
-
-    @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
         buildAnnotationsReport(_cont,_parts);
         int begName_ = getNameOffset();

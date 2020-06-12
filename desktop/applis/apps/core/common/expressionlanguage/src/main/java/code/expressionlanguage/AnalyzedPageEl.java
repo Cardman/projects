@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.util.MethodAccessKind;
@@ -26,8 +27,6 @@ public final class AnalyzedPageEl {
     private CustList<StringList> mutableLocalVarsInfers = new CustList<StringList>();
 
     private StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
-
-    private AssignedVariablesBlock assignedVariables = new AssignedVariablesBlock();
 
     private FunctionBlock currentFct;
     private AccessingImportingBlock importing;
@@ -93,7 +92,7 @@ public final class AnalyzedPageEl {
     }
 
     public int getTraceIndex() {
-        return globalOffset + offset + translatedOffset;
+        return globalOffset + getOffset() + translatedOffset;
     }
 
     public Block getCurrentBlock() {
@@ -184,19 +183,19 @@ public final class AnalyzedPageEl {
         localVars.last().put(_key, _var);
     }
 
-    public void clearAllLocalVars() {
+    public void clearAllLocalVars(AssignedVariablesBlock _a) {
         localVars.clear();
         localVarsInfers.clear();
         mutableVars.clear();
         mutableLocalVarsInfers.clear();
-        assignedVariables.getFinalVariablesGlobal().getVariables().clear();
-        assignedVariables.getFinalVariablesGlobal().getVariablesRoot().clear();
-        assignedVariables.getFinalVariablesGlobal().getVariablesRootBefore().clear();
-        assignedVariables.getFinalVariablesGlobal().getVariablesBefore().clear();
-        assignedVariables.getFinalVariablesGlobal().getMutableLoop().clear();
-        assignedVariables.getFinalVariablesGlobal().getMutableLoopRoot().clear();
-        assignedVariables.getFinalVariablesGlobal().getMutableLoopRootBefore().clear();
-        assignedVariables.getFinalVariablesGlobal().getMutableLoopBefore().clear();
+        _a.getFinalVariablesGlobal().getVariables().clear();
+        _a.getFinalVariablesGlobal().getVariablesRoot().clear();
+        _a.getFinalVariablesGlobal().getVariablesRootBefore().clear();
+        _a.getFinalVariablesGlobal().getVariablesBefore().clear();
+        _a.getFinalVariablesGlobal().getMutableLoop().clear();
+        _a.getFinalVariablesGlobal().getMutableLoopRoot().clear();
+        _a.getFinalVariablesGlobal().getMutableLoopRootBefore().clear();
+        _a.getFinalVariablesGlobal().getMutableLoopBefore().clear();
         vars.clear();
         catchVars.clear();
     }
@@ -376,10 +375,6 @@ public final class AnalyzedPageEl {
 
     public void setCurrentVarSetting(String _currentVarSetting) {
         currentVarSetting = _currentVarSetting;
-    }
-
-    public AssignedVariablesBlock getAssignedVariables() {
-        return assignedVariables;
     }
 
     public StringList getNeedInterfaces() {

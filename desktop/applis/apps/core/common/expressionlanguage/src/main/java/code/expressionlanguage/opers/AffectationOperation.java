@@ -8,7 +8,6 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.exec.*;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
@@ -20,7 +19,6 @@ import code.util.*;
 
 public final class AffectationOperation extends MethodOperation implements AffectationOperable {
 
-    private SettableElResult settable;
     private OperationNode settableOp;
 
     private boolean synthetic;
@@ -63,9 +61,9 @@ public final class AffectationOperation extends MethodOperation implements Affec
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        settable = elt_;
-        if (settable instanceof VariableOperation) {
-            VariableOperation v_ = (VariableOperation)settable;
+        if (elt_ instanceof VariableOperation) {
+            VariableOperation v_ = (VariableOperation)elt_;
+            settableOp = v_;
             String inf_ = v_.getVariableName();
             if (ElUtil.isDeclaringVariable(v_, _conf) && StringList.contains(_conf.getAnalyzing().getLastLocalVarsInfers(), inf_)) {
                 ClassArgumentMatching clMatchRight_ = right_.getResultClass();
@@ -81,8 +79,9 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 }
             }
         }
-        if (settable instanceof MutableLoopVariableOperation) {
-            MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)settable;
+        if (elt_ instanceof MutableLoopVariableOperation) {
+            MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)elt_;
+            settableOp = v_;
             String inf_ = v_.getVariableName();
             if (ElUtil.isDeclaringLoopVariable(v_, _conf) && StringList.contains(_conf.getAnalyzing().getLastMutableLoopVarsInfers(), inf_)) {
                 ClassArgumentMatching clMatchRight_ = right_.getResultClass();
@@ -98,8 +97,8 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 }
             }
         }
-        if (settable instanceof SettableAbstractFieldOperation) {
-            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)settable;
+        if (elt_ instanceof SettableAbstractFieldOperation) {
+            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)elt_;
             settableOp = cst_;
             StringMap<Boolean> fieldsAfterLast_ = _conf.getAnalyzing().getDeclaredAssignments();
             if (!synthetic&&ElUtil.checkFinalFieldReadOnly(_conf, cst_, fieldsAfterLast_)) {
@@ -253,121 +252,8 @@ public final class AffectationOperation extends MethodOperation implements Affec
         return null;
     }
     @Override
-    public void analyzeAssignmentAfter(ContextEl _conf) {
-        Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        if (vars_ instanceof AssignedBooleanLoopVariables) {
-            ((AssignedBooleanLoopVariables)vars_).add(this, _conf);
-        }
-        OperationNode firstChild_ = (OperationNode) settable;
-        OperationNode lastChild_ = getChildrenNodes().last();
-        StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
-        CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
-        CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();
-        boolean isBool_;
-        isBool_ = getResultClass().isBoolType(_conf);
-        if (firstChild_ instanceof VariableOperation) {
-            CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(lastChild_);
-            String str_ = ((VariableOperation)firstChild_).getVariableName();
-            for (StringMap<Assignment> s: variablesAfterLast_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                int index_ = variablesAfter_.size();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    if (StringList.quickEq(str_, e.getKey()) && ElUtil.checkFinalVar(_conf, e.getValue())) {
-                        if (_conf.isFinalLocalVar(str_,index_)) {
-                            //error
-                            firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
-                            FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                            un_.buildError(_conf.getAnalysisMessages().getFinalField(),
-                                    str_);
-                            _conf.addError(un_);
-                        }
-                    }
-                    sm_.put(e.getKey(),Assignment.assign(str_,e.getKey(),isBool_, e.getValue()));
-                }
-                variablesAfter_.add(sm_);
-            }
-            
-        } else {
-            CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(lastChild_);
-            variablesAfter_.addAllElts(AssignmentsUtil.assignGene(isBool_,variablesAfterLast_));
-        }
-        vars_.getVariables().put(this, variablesAfter_);
-        if (firstChild_ instanceof MutableLoopVariableOperation) {
-            CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getMutableLoop().getVal(lastChild_);
-            String str_ = ((MutableLoopVariableOperation)firstChild_).getVariableName();
-            for (StringMap<Assignment> s: variablesAfterLast_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                int index_ = mutableAfter_.size();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    if (StringList.quickEq(str_, e.getKey()) && ElUtil.checkFinalVar(_conf, e.getValue())) {
-                        if (_conf.isFinalMutableLoopVar(str_,index_)) {
-                            //error
-                            firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
-                            FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                            un_.buildError(_conf.getAnalysisMessages().getFinalField(),
-                                    str_);
-                            _conf.addError(un_);
-                        }
-                    }
-                    sm_.put(e.getKey(), Assignment.assign(str_,e.getKey(),isBool_, e.getValue()));
-                }
-                mutableAfter_.add(sm_);
-            }
-            
-        } else {
-            CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getMutableLoop().getVal(lastChild_);
-            mutableAfter_.addAllElts(AssignmentsUtil.assignGene(isBool_,variablesAfterLast_));
-        }
-        vars_.getMutableLoop().put(this, mutableAfter_);
-        boolean fromCurClass_ = false;
-        if (firstChild_ instanceof SettableAbstractFieldOperation) {
-            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
-            fromCurClass_ = cst_.isFromCurrentClass(_conf);
-            StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
-            ClassField cl_ = cst_.getFieldId();
-            if (ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
-                FieldInfo meta_ = _conf.getFieldInfo(cl_);
-                if (meta_.isFinalField()) {
-                    //error if final field
-                    cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                    un_.buildError(_conf.getAnalysisMessages().getFinalField(),
-                            cl_.getFieldName());
-                    _conf.addError(un_);
-                }
-            }
-        }
-        if (fromCurClass_) {
-            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
-            ClassField cl_ = cst_.getFieldId();
-            StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
-            for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
-                fieldsAfter_.put(e.getKey(), Assignment.assign(cl_.getFieldName(),e.getKey(),isBool_, e.getValue()));
-            }
-        } else {
-            StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
-            fieldsAfter_.putAllMap(AssignmentsUtil.assignGene(isBool_,fieldsAfterLast_));
-        }
-        vars_.getFields().put(this, fieldsAfter_);
-    }
-    @Override
-    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
-    }
-    public SettableElResult getSettable() {
-        return settable;
-    }
-    @Override
     public void quickCalculate(ContextEl _conf) {
-        setArg(_conf,this, settableOp);
+        setArg(_conf,this, getSettableOp());
     }
 
     public static void setArg(ContextEl _conf, MethodOperation _current, OperationNode _settable) {
@@ -389,5 +275,9 @@ public final class AffectationOperation extends MethodOperation implements Affec
 
     public int getOpOffset() {
         return opOffset;
+    }
+
+    public OperationNode getSettableOp() {
+        return settableOp;
     }
 }

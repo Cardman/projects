@@ -137,12 +137,6 @@ public final class OverridableBlock extends NamedFunctionBlock implements Access
         checkReturnFctOverridable(_an, _anEl);
     }
 
-    @Override
-    public void setAssignmentAfterCall(ContextEl _an, AnalyzingEl _anEl) {
-        setAssignmentAfter(_an, _anEl);
-        checkReturnFctOverridable(_an, _anEl);
-    }
-
     private void checkReturnFctOverridable(ContextEl _an, AnalyzingEl _anEl) {
         LgNames stds_ = _an.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {

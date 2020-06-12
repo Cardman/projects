@@ -1,22 +1,21 @@
-package code.expressionlanguage.methods.util;
+package code.expressionlanguage.assign.util;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.assign.blocks.AssBlock;
 import code.util.EntryCust;
 import code.util.IdMap;
 
 public final class AssignedVariablesDesc {
     private final AssignedVariables varsWhile;
-    private final IdMap<Block, AssignedVariables> allDesc;
+    private final IdMap<AssBlock, AssignedVariables> allDesc;
 
-    public AssignedVariablesDesc(ContextEl _an, Block _b) {
-        IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
+    public AssignedVariablesDesc(ContextEl _an, AssBlock _b, AssignedVariablesBlock _a) {
+        IdMap<AssBlock, AssignedVariables> allDesc_ = new IdMap<AssBlock, AssignedVariables>();
         boolean add_ = false;
-        IdMap<Block, AssignedVariables> id_;
-        id_ = _an.getAssignedVariables().getFinalVariables();
+        IdMap<AssBlock, AssignedVariables> id_;
+        id_ = _a.getFinalVariables();
         AssignedVariables varsWhile_ = null;
-        for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
+        for (EntryCust<AssBlock, AssignedVariables> e: id_.entryList()) {
             if (e.getKey() == _b) {
                 add_ = true;
                 varsWhile_ = e.getValue();
@@ -32,7 +31,7 @@ public final class AssignedVariablesDesc {
         return varsWhile;
     }
 
-    public IdMap<Block, AssignedVariables> getAllDesc() {
+    public IdMap<AssBlock, AssignedVariables> getAllDesc() {
         return allDesc;
     }
 }

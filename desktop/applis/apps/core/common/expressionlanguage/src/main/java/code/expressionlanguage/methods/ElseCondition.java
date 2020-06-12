@@ -4,8 +4,6 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.util.CustList;
 import code.util.IdMap;
@@ -39,14 +37,6 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         return ((IfCondition)p_).getLabelOffset();
     }
 
-    @Override
-    public void setAssignmentBeforeChild(ContextEl _an, AnalyzingEl _anEl) {
-        assignWhenFalse(true, _an, _anEl);
-    }
-    @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        buildEmptyEl(_cont);
-    }
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
@@ -72,39 +62,6 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
                 _an.addError(un_);
             }
         }
-    }
-
-    @Override
-    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
-        Block pBlock_ = getPreviousSibling();
-        CustList<Block> prev_ = new CustList<Block>();
-        prev_.add(this);
-        while (!(pBlock_ instanceof IfCondition)) {
-            if (pBlock_ == null) {
-                break;
-            }
-            if (pBlock_ instanceof ElseIfCondition) {
-                prev_.add(pBlock_);
-            }
-            pBlock_ = pBlock_.getPreviousSibling();
-        }
-        if (pBlock_ != null) {
-            prev_.add(pBlock_);
-        }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables assTar_ = id_.getVal(this);
-        StringMap<SimpleAssignment> after_;
-        CustList<StringMap<SimpleAssignment>> afterVars_;
-        CustList<StringMap<SimpleAssignment>> mutableVars_;
-        after_ = buildAssFieldsAfterIf(false, prev_, _an, _anEl);
-        assTar_.getFieldsRoot().putAllMap(after_);
-        afterVars_ = buildAssVariablesAfterIf(false, prev_, _an, _anEl);
-        assTar_.getVariablesRoot().clear();
-        assTar_.getVariablesRoot().addAllElts(afterVars_);
-        mutableVars_ = buildAssMutableLoopAfterIf(false, prev_, _an, _anEl);
-        assTar_.getMutableLoopRoot().clear();
-        assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }
 
     @Override

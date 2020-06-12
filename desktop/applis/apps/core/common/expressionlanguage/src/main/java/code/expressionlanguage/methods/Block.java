@@ -6,9 +6,6 @@ import code.expressionlanguage.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.CurrentInvokingConstructor;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.*;
 import code.util.*;
 
 public abstract class Block implements AnalyzedBlock {
@@ -47,56 +44,6 @@ public abstract class Block implements AnalyzedBlock {
     public final OffsetsBlock getOffset() {
         return offset;
     }
-    protected void buildEmptyEl(ContextEl _cont) {
-        AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
-        AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        ass_.getFieldsRoot().putAllMap(AssignmentsUtil.assignAfterClassic(ass_.getFieldsRootBefore()));
-        ass_.getVariablesRoot().addAllElts(AssignmentsUtil.assignAfterClassic(ass_.getVariablesRootBefore()));
-        ass_.getMutableLoopRoot().addAllElts(AssignmentsUtil.assignAfterClassic(ass_.getMutableLoopRootBefore()));
-    }
-    public void defaultAssignmentBefore(ContextEl _an, OperationNode _root) {
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        vars_.getFieldsBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getFieldsRootBefore()));
-        vars_.getVariablesBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getVariablesRootBefore()));
-        vars_.getMutableLoopBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getMutableLoopRootBefore()));
-    }
-    public void defaultAssignmentAfter(ContextEl _an, OperationNode _root) {
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
-        vars_.getFieldsRoot().putAllMap(AssignmentsUtil.assignClassic(res_));
-        if (_root instanceof CurrentInvokingConstructor) {
-            for (EntryCust<String,SimpleAssignment> e: vars_.getFieldsRoot().entryList()) {
-                SimpleAssignment a_ = e.getValue();
-                a_.setAssignedAfter(true);
-                a_.setUnassignedAfter(false);
-            }
-        }
-        CustList<StringMap<Assignment>> varsRes_;
-        varsRes_ = vars_.getLastVariablesOrEmpty();
-        vars_.getVariablesRoot().addAllElts(AssignmentsUtil.assignClassic(varsRes_));
-        CustList<StringMap<Assignment>> mutableRes_;
-        mutableRes_ = vars_.getLastMutableLoopOrEmpty();
-        vars_.getMutableLoopRoot().addAllElts(AssignmentsUtil.assignClassic(mutableRes_));
-    }
-    public void setAssignmentBeforeNextSibling(ContextEl _an, AnalyzingEl _anEl) {
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables prevAss_ = id_.getVal(this);
-        Block nextSibling_ = getNextSibling();
-        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(prevAss_.getFieldsRoot()));
-        assBl_.getVariablesRootBefore().addAllElts(AssignmentsUtil.assignSimpleBefore(prevAss_.getVariablesRoot()));
-        assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.assignSimpleBefore(prevAss_.getMutableLoopRoot()));
-        id_.put(nextSibling_, assBl_);
-    }
-    public void setAssignmentBefore(ContextEl _an, AnalyzingEl _anEl) {
-        BracedBlock br_ = getParent();
-        Block prev_ = getPreviousSibling();
-        if (prev_ == null) {
-            br_.setAssignmentBeforeChild(_an, _anEl);
-        } else {
-            prev_.setAssignmentBeforeNextSibling(_an, _anEl);
-        }
-    }
 
     public void checkLabelReference(ContextEl _an, AnalyzingEl _anEl) {
         if (this instanceof BreakableBlock) {
@@ -131,9 +78,6 @@ public abstract class Block implements AnalyzedBlock {
         }
     }
 
-    protected AssignedVariables buildNewAssignedVariable() {
-        return new AssignedVariables();
-    }
     public void reach(ContextEl _an, AnalyzingEl _anEl) {
         Block prev_ = getPreviousSibling();
         if (_anEl.canCompleteNormallyGroup(prev_)) {
@@ -152,38 +96,7 @@ public abstract class Block implements AnalyzedBlock {
     }
 
     public abstract void abrupt(ContextEl _an, AnalyzingEl _anEl);
-    public abstract void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl);
-    public abstract void checkTree(ContextEl _an, AnalyzingEl _anEl);
-    protected StringMap<AssignmentBefore> makeHypothesisFields(ContextEl _an) {
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        return AssignmentsUtil.getHypoAssignmentBefore(vars_.getFieldsRootBefore());
-    }
-    protected CustList<StringMap<AssignmentBefore>> makeHypothesisVars(ContextEl _an) {
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        CustList<StringMap<AssignmentBefore>> variables_;
-        variables_ = new CustList<StringMap<AssignmentBefore>>();
-        for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
-            variables_.add(AssignmentsUtil.getHypoAssignmentBefore(s));
-        }
-        return variables_;
-    }
-    protected CustList<StringMap<AssignmentBefore>> makeHypothesisMutableLoop(ContextEl _an) {
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        CustList<StringMap<AssignmentBefore>> variables_;
-        variables_ = new CustList<StringMap<AssignmentBefore>>();
-        for (StringMap<AssignmentBefore> s: vars_.getMutableLoopRootBefore()) {
-            variables_.add(AssignmentsUtil.getHypoAssignmentBefore(s));
-        }
-        return variables_;
-    }
-
-    protected static boolean tryBuildExpressionLanguage(Block _block, ContextEl _cont) {
-        if (_block instanceof BuildableElMethod) {
-            ((BuildableElMethod)_block).buildExpressionLanguage(_cont);
-            return true;
-        }
-        return processOther(_block, _cont);
-    }
+   public abstract void checkTree(ContextEl _an, AnalyzingEl _anEl);
 
     protected static boolean tryBuildExpressionLanguageReadOnly(Block _block, ContextEl _cont) {
         if (_block instanceof BuildableElMethod) {

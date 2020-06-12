@@ -100,41 +100,6 @@ public final class ElUtil {
         }
         return fieldName_.toString();
     }
-    public static CustList<ExecOperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
-        MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
-        _conf.getAnalyzing().setAccessStaticContext(hiddenVarTypes_);
-        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
-        int badOffset_ = d_.getBadOffset();
-        if (badOffset_ >= 0) {
-            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            badEl_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            //badOffset char
-            badEl_.buildError(_conf.getAnalysisMessages().getBadExpression(),
-                    possibleChar(badOffset_,_el),
-                    Integer.toString(badOffset_),
-                    _el);
-            _conf.addError(badEl_);
-            OperationsSequence tmpOp_ = new OperationsSequence();
-            tmpOp_.setDelimiter(new Delimiters());
-            ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
-            String argClName_ = _conf.getStandards().getAliasObject();
-            e_.setResultClass(new ClassArgumentMatching(argClName_));    
-            Block currentBlock_ = _conf.getAnalyzing().getCurrentBlock();
-            currentBlock_.defaultAssignmentBefore(_conf, e_);
-            e_.tryAnalyzeAssignmentAfter(_conf);
-            currentBlock_.defaultAssignmentAfter(_conf, e_);
-            e_.setOrder(0);
-            return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_));
-        }
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
-        String fieldName_ = _calcul.getFieldName();
-        setupStaticContext(_conf, hiddenVarTypes_, op_);
-        setSyntheticRoot(op_, fieldName_);
-        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf,fieldName_);
-        return getExecutableNodes(_conf,all_);
-    }
 
     public static String possibleChar(int _index, String _str) {
         if (_index >= _str.length()) {
@@ -228,23 +193,6 @@ public final class ElUtil {
     }
 
 
-    private static CustList<OperationNode> getSortedDescNodes(OperationNode _root, ContextEl _context, String _fieldName) {
-        CustList<OperationNode> list_ = new CustList<OperationNode>();
-        Block currentBlock_ = _context.getAnalyzing().getCurrentBlock();
-        currentBlock_.defaultAssignmentBefore(_context, _root);
-        OperationNode c_ = _root;
-        while (true) {
-            if (c_ == null) {
-                currentBlock_.defaultAssignmentAfter(_context, _root);
-                break;
-            }
-            preAnalyze(_context, c_);
-            c_ = getAnalyzedNext(c_, _root, list_, _context,_fieldName);
-        }
-        return list_;
-    }
-
-
     private static CustList<OperationNode> getSortedDescNodesReadOnly(OperationNode _root, ContextEl _context, String _fieldName) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
@@ -258,48 +206,6 @@ public final class ElUtil {
     private static void preAnalyze(ContextEl _context, OperationNode _c) {
         if (_c instanceof PreAnalyzableOperation) {
             ((PreAnalyzableOperation) _c).preAnalyze(_context);
-        }
-    }
-
-    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, ContextEl _context, String _fieldName) {
-        
-        OperationNode next_ = createFirstChild(_current, _context, 0,_fieldName);
-        if (next_ != null) {
-            ((MethodOperation) _current).appendChild(next_);
-            ((MethodOperation) _current).tryAnalyzeAssignmentBefore(_context, next_);
-            return next_;
-        }
-        OperationNode current_ = _current;
-        while (true) {
-            _context.getAnalyzing().setOkNumOp(true);
-            current_.analyze(_context);
-            current_.setOrder(_sortedNodes.size());
-            tryCalculateNode(_context, current_);
-            current_.tryAnalyzeAssignmentAfter(_context);
-            _sortedNodes.add(current_);
-            next_ = processNext(_context, current_,_fieldName);
-            MethodOperation par_ = current_.getParent();
-            if (next_ != null) {
-                processDot(_context, next_, current_, par_);
-                par_.appendChild(next_);
-                par_.tryAnalyzeAssignmentBeforeNextSibling(_context, next_, current_);
-                return next_;
-            }
-            if (par_ == _root) {
-                _context.getAnalyzing().setOkNumOp(true);
-                par_.analyze(_context);
-                ClassArgumentMatching cl_ = par_.getResultClass();
-                unwrapPrimitive(_context, par_, cl_);
-                tryCalculateNode(_context,par_);
-                par_.tryAnalyzeAssignmentAfter(_context);
-                par_.setOrder(_sortedNodes.size());
-                _sortedNodes.add(par_);
-                return null;
-            }
-            if (par_ == null) {
-                return null;
-            }
-            current_ = par_;
         }
     }
 
@@ -554,28 +460,6 @@ public final class ElUtil {
         }
         return false;
     }
-    public static boolean checkFinalVar(ContextEl _conf, Assignment _ass) {
-        if (!_ass.isUnassignedAfter()) {
-            return true;
-        }
-        return stepForLoop(_conf);
-    }
-    public static boolean checkFinalField(ContextEl _conf, SettableAbstractFieldOperation _cst, StringMap<Assignment> _ass) {
-        boolean fromCurClass_ = _cst.isFromCurrentClass(_conf);
-        ClassField cl_ = _cst.getFieldId();
-        if (cl_ == null) {
-            return false;
-        }
-        String fieldName_ = cl_.getFieldName();
-        if (stepForLoop(_conf)) {
-            return true;
-        }
-        StringMap<Boolean> ass_ = new StringMap<Boolean>();
-        for (EntryCust<String,Assignment> e: _ass.entryList()) {
-            ass_.addEntry(e.getKey(),e.getValue().isUnassignedAfter());
-        }
-        return checkFinalReadOnly(_conf, _cst, ass_, fromCurClass_, cl_, fieldName_);
-    }
 
     public static boolean checkFinalFieldReadOnly(ContextEl _conf, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass) {
         boolean fromCurClass_ = _cst.isFromCurrentClassReadOnly(_conf);
@@ -632,13 +516,6 @@ public final class ElUtil {
             }
         }
         return checkFinal_;
-    }
-
-    private static boolean stepForLoop(ContextEl _conf) {
-        if (_conf.getAnalyzing().getCurrentBlock() instanceof ForMutableIterativeLoop) {
-            return _conf.getAnalyzing().getForLoopPartState() == ForLoopPart.STEP;
-        }
-        return false;
     }
 
     private static void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, int _offset) {
@@ -1766,12 +1643,12 @@ public final class ElUtil {
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
-        ExecOperationNode exp_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(current_);
+        ExecOperationNode exp_ = ExecOperationNode.createExecOperationNode(current_);
         _an.getCoverage().putBlockOperation(_an,bl_,current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof ExecMethodOperation && op_ != null) {
-                ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_);
+                ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_);
                 _an.getCoverage().putBlockOperation(_an,bl_,op_,loc_);
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
@@ -1791,7 +1668,7 @@ public final class ElUtil {
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
-                    ExecOperationNode loc_ = (ExecOperationNode) ExecOperationNode.createExecOperationNode(op_);
+                    ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_);
                     _an.getCoverage().putBlockOperation(_an,bl_,op_,loc_);
                     ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);

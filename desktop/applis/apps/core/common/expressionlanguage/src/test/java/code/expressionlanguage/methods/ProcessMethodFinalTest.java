@@ -7,6 +7,69 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 public final class ProcessMethodFinalTest extends ProcessMethodCommon {
+
+    @Test
+    public void calculateAndOr1FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $void catching(){\n");
+        xml_.append("  $boolean b1;\n");
+        xml_.append("  $boolean c1;\n");
+        xml_.append("  $boolean d1=b1=$false||c1=$false;\n");
+        xml_.append("  $boolean f1=b1=$true||c1=$true;\n");
+        xml_.append("  $boolean e1=b1;\n");
+        xml_.append("  $boolean b;\n");
+        xml_.append("  $boolean c;\n");
+        xml_.append("  $boolean d=b=$true&&c=$true;\n");
+        xml_.append("  $boolean f=b=$false&&c=$false;\n");
+        xml_.append("  $boolean e=b;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+
+    @Test
+    public void calculateAndOr2FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $void catching(){\n");
+        xml_.append("  $boolean b;\n");
+        xml_.append("  $boolean c;\n");
+        xml_.append("  $boolean d=b=$true&&c=$true;\n");
+        xml_.append("  $boolean f=b=$false&&c=$false;\n");
+        xml_.append("  $boolean e=b;\n");
+        xml_.append("  $boolean b1;\n");
+        xml_.append("  $boolean c1;\n");
+        xml_.append("  $boolean d1=b1=$false||c1=$false;\n");
+        xml_.append("  $boolean f1=b1=$true||c1=$true;\n");
+        xml_.append("  $boolean e1=b1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void calculateArgumentInexistFieldTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  annotfield=8;\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
     @Test
     public void calculateArgumentAnnot2FailTest() {
         StringBuilder xml_ = new StringBuilder();

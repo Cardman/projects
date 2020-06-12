@@ -12,8 +12,6 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.AssignedBooleanVariables;
-import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -37,23 +35,7 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
     public int getConditionOffset() {
         return conditionOffset;
     }
-
-    @Override
-    protected AssignedVariables buildNewAssignedVariable() {
-        return new AssignedBooleanVariables();
-    }
     
-
-    @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(conditionOffset);
-        page_.setOffset(0);
-        opCondition = ElUtil.getAnalyzedOperations(condition, _cont, Calculation.staticCalculation(f_.getStaticContext()));
-        processBoolean(_cont);
-        buildConditions(_cont);
-    }
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {

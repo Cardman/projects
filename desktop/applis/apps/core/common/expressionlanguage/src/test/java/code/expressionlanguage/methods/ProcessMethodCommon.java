@@ -343,6 +343,13 @@ public abstract class ProcessMethodCommon {
         }
         return ct_;
     }
+    protected static ContextEl contextElSingleDotDefaultReadOnly() {
+        Options opt_ = new Options();
+        opt_.setReadOnly(true);
+
+        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
+        return ct_;
+    }
     protected static ContextEl contextElSingleDotDefaultComment(int... _m) {
         Options opt_ = new Options();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));

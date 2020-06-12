@@ -1,7 +1,7 @@
-package code.expressionlanguage.opers.util;
+package code.expressionlanguage.assign.util;
 
 
-public class BooleanAssignment extends Assignment {
+public final class BooleanAssignment extends Assignment {
 
     private boolean assignedAfterWhenFalse;
     private boolean assignedAfterWhenTrue;

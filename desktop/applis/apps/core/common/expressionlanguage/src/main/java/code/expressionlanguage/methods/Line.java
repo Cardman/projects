@@ -48,26 +48,6 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        MethodAccessKind st_ = f_.getStaticContext();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(expressionOffset);
-        page_.setOffset(0);
-        opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(st_));
-        if (page_.isMerged()) {
-            StringList vars_ = page_.getVariablesNames();
-            DeclareVariable declaring_ = (DeclareVariable) getPreviousSibling();
-            String import_ = declaring_.getImportedClassName();
-            AffectationOperation.processInfer(_cont, import_);
-            declaring_.getVariableNames().addAllElts(vars_);
-        }
-        page_.setMerged(false);
-        page_.setAcceptCommaInstr(false);
-        page_.setFinalVariable(false);
-    }
-
-    @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         MethodAccessKind st_ = f_.getStaticContext();

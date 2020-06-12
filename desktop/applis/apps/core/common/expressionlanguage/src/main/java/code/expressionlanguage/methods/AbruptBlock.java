@@ -13,8 +13,5 @@ public abstract class AbruptBlock extends Leaf implements BuildableElMethod {
     public void abrupt(ContextEl _an, AnalyzingEl _anEl) {
         _anEl.completeAbruptGroup(this);
     }
-    @Override
-    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
-        buildEmptyEl(_an);
-    }
+
 }

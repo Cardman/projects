@@ -37,7 +37,4 @@ public abstract class Leaf extends Block implements WithEl {
     @Override
     public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
     }
-    @Override
-    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
-    }
 }

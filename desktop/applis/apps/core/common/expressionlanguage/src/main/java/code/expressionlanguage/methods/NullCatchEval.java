@@ -31,11 +31,6 @@ public final class NullCatchEval extends AbstractCatchEval {
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        _cont.getCoverage().putCatches(_cont,this);
-    }
-
-    @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         _cont.getCoverage().putCatches(_cont,this);
     }

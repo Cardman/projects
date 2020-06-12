@@ -9,9 +9,6 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.util.AbstractCoverageResult;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.AssignedBooleanVariables;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.util.CustList;
 import code.util.IdMap;
@@ -48,39 +45,6 @@ public final class IfCondition extends Condition implements BlockCondition {
     private boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
         return next_ instanceof ElseIfCondition || next_ instanceof ElseCondition;
-    }
-
-    @Override
-    public void setAssignmentBeforeChild(ContextEl _an, AnalyzingEl _anEl) {
-        assignWhenTrue(_an);
-    }
-    @Override
-    public void setAssignmentBeforeNextSibling(ContextEl _an, AnalyzingEl _anEl) {
-        if (!canBeIncrementedCurGroup()) {
-            super.setAssignmentBeforeNextSibling(_an, _anEl);
-            return;
-        }
-        assignWhenFalse(false, _an, _anEl);
-    }
-    @Override
-    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
-        if (canBeIncrementedCurGroup()) {
-            return;
-        }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
-        StringMap<SimpleAssignment> after_;
-        CustList<StringMap<SimpleAssignment>> afterVars_;
-        CustList<StringMap<SimpleAssignment>> mutableVars_;
-        after_ = buildAssFieldsAfterIf(true, new CustList<Block>(this), _an, _anEl);
-        assTar_.getFieldsRoot().putAllMap(after_);
-        afterVars_ = buildAssVariablesAfterIf(true, new CustList<Block>(this), _an, _anEl);
-        assTar_.getVariablesRoot().clear();
-        assTar_.getVariablesRoot().addAllElts(afterVars_);
-        mutableVars_ = buildAssMutableLoopAfterIf(true, new CustList<Block>(this), _an, _anEl);
-        assTar_.getMutableLoopRoot().clear();
-        assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }
 
     @Override

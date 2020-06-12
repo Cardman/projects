@@ -88,11 +88,6 @@ public abstract class OperationNode implements Operable {
 
     public abstract void analyze(ContextEl _conf);
 
-    public final void tryAnalyzeAssignmentAfter(ContextEl _conf) {
-        analyzeAssignmentAfter(_conf);
-    }
-    public abstract void analyzeAssignmentAfter(ContextEl _conf);
-
     final boolean isCallMethodCtor(){
         if (!(this instanceof InvokingOperation)) {
             return false;
@@ -115,8 +110,8 @@ public abstract class OperationNode implements Operable {
         }
         return res_;
     }
-    public static OperationNode createOperationNodeBis(int _index,
-            int _indexChild, MethodOperation _m, OperationsSequence _op, ContextEl _an) {
+    private static OperationNode createOperationNodeBis(int _index,
+                                                        int _indexChild, MethodOperation _m, OperationsSequence _op, ContextEl _an) {
         KeyWords keyWords_ = _an.getKeyWords();
         String keyWordBool_ = keyWords_.getKeyWordBool();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
@@ -473,13 +468,6 @@ public abstract class OperationNode implements Operable {
                     curClassBase_);
             _conf.getAnalyzing().getLocalizer().addError(badAccess_);
         }
-    }
-    final boolean isFirstChild() {
-        MethodOperation par_ = getParent();
-        if (par_ == null) {
-            return true;
-        }
-        return isFirstChildInParent();
     }
 
     final boolean isFirstChildInParent() {

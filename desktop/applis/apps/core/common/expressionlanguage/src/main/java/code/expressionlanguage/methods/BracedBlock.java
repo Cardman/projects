@@ -2,14 +2,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.AssignmentsUtil;
-import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.StringMap;
 
 public abstract class BracedBlock extends Block implements BracedBlockInt {
 
@@ -63,59 +57,11 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
             _anEl.completeAbrupt(this);
         }
     }
-    public void setAssignmentBeforeChild(ContextEl _an, AnalyzingEl _anEl) {
-        Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables parAss_ = id_.getVal(this);
-        AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        CustList<StringMap<AssignmentBefore>> variables_;
-        CustList<StringMap<AssignmentBefore>> mutable_;
-        variables_ = parAss_.getVariablesRootBefore();
-        mutable_ = parAss_.getMutableLoopRootBefore();
-        assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.copyBefore(parAss_.getFieldsRootBefore()));
-        assBl_.getVariablesRootBefore().addAllElts(AssignmentsUtil.copyBefore(variables_));
-        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.copyBefore(mutable_));
-        assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
-        id_.put(firstChild_, assBl_);
-    }
 
     @Override
     public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
     }
 
-    @Override
-    public void setAssignmentAfter(ContextEl _an, AnalyzingEl _anEl) {
-        Block ch_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        if (ch_ == null) {
-            AssignedVariables ass_ = id_.getVal(this);
-            StringMap<AssignmentBefore> fields_ = ass_.getFieldsRootBefore();
-            CustList<StringMap<AssignmentBefore>> variables_ = ass_.getVariablesRootBefore();
-            ass_.getFieldsRoot().putAllMap(AssignmentsUtil.assignAfterClassic(fields_));
-            ass_.getVariablesRoot().clear();
-            ass_.getVariablesRoot().addAllElts(AssignmentsUtil.assignAfterClassic(variables_));
-            CustList<StringMap<AssignmentBefore>> mutable_ = ass_.getMutableLoopRootBefore();
-            ass_.getMutableLoopRoot().clear();
-            ass_.getMutableLoopRoot().addAllElts(AssignmentsUtil.assignAfterClassic(mutable_));
-            return;
-        }
-        while (ch_.getNextSibling() != null) {
-            ch_ = ch_.getNextSibling();
-        }
-        AssignedVariables assTar_ = id_.getVal(this);
-        AssignedVariables ass_ = id_.getVal(ch_);
-        StringMap<SimpleAssignment> fields_ = ass_.getFieldsRoot();
-        CustList<StringMap<SimpleAssignment>> variables_ = ass_.getVariablesRoot();
-        assTar_.getFieldsRoot().putAllMap(fields_);
-        int count_ = ass_.getVariablesRootBefore().size();
-        assTar_.getVariablesRoot().clear();
-        assTar_.getVariablesRoot().addAllElts(variables_.mid(0, count_ - 1));
-        CustList<StringMap<SimpleAssignment>> mutable_ = ass_.getMutableLoopRoot();
-        count_ = ass_.getMutableLoopRootBefore().size();
-        assTar_.getMutableLoopRoot().clear();
-        assTar_.getMutableLoopRoot().addAllElts(mutable_.mid(0, count_ - 1));
-    }
     public void abruptGroup(AnalyzingEl _anEl) {
     }
 

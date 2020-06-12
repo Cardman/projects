@@ -1,4 +1,4 @@
-package code.expressionlanguage.opers.util;
+package code.expressionlanguage.assign.util;
 
 public final class AssignmentBefore {
     private boolean assignedBefore;

@@ -44,16 +44,7 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
         getChildren().putAllMap(vs_);
     }
     public abstract void analyzeUnary(ContextEl _conf);
-    @Override
-    public final void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
-    }
 
-    @Override
-    public void analyzeAssignmentAfter(ContextEl _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
 
     @Override
     public void tryCalculateNode(ContextEl _conf) {

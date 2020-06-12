@@ -141,15 +141,6 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     public boolean isStringCompare() {
         return stringCompare;
     }
-    @Override
-    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
-    }
-    @Override
-    public void analyzeAssignmentAfter(ContextEl _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
 
     @Override
     public void quickCalculate(ContextEl _conf) {

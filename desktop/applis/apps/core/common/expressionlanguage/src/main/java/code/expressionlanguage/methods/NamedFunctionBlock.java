@@ -10,7 +10,6 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.types.ResolvingImportTypes;
@@ -153,12 +152,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         checkReturnFct(_an, _anEl);
     }
 
-    @Override
-    public void setAssignmentAfterCall(ContextEl _an, AnalyzingEl _anEl) {
-        setAssignmentAfter(_an,_anEl);
-        checkReturnFct(_an, _anEl);
-    }
-
     private void checkReturnFct(ContextEl _an, AnalyzingEl _anEl) {
         LgNames stds_ = _an.getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
@@ -260,13 +253,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public final AccessEnum getAccess() {
         return access;
-    }
-    @Override
-    public void setAssignmentBeforeCall(ContextEl _an, AnalyzingEl _anEl) {
-        AssignedVariables ass_;
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
-        id_.put(this, ass_);
     }
 
     public StringList getImportedParametersTypes() {

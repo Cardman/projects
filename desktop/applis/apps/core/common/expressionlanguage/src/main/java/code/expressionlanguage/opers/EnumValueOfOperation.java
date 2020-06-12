@@ -80,11 +80,6 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         setResultClass(new ClassArgumentMatching(className));
     }
 
-    @Override
-    public void analyzeAssignmentAfter(ContextEl _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
-
     public String getClassName() {
         return className;
     }

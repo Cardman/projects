@@ -150,4 +150,8 @@ public final class ExecSettableFieldOperation extends
     public int getDelta() {
         return delta;
     }
+
+    public FieldInfo getFieldMetaInfo() {
+        return fieldMetaInfo;
+    }
 }

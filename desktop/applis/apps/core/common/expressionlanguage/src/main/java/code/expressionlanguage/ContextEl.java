@@ -304,10 +304,6 @@ public abstract class ContextEl {
         analyzing.setGlobalClass(_globalClass);
     }
 
-    public int getOffset() {
-        return analyzing.getOffset();
-    }
-
     public void setOffset(int _offset) {
         getLastPage().setOffset(_offset);
     }
@@ -388,10 +384,6 @@ public abstract class ContextEl {
 
     public void setCurrentChildTypeIndex(int _index) {
         analyzing.setIndexChildType(_index);
-    }
-
-    public AssignedVariablesBlock getAssignedVariables() {
-        return analyzing.getAssignedVariables();
     }
 
     public boolean isFinalLocalVar(String _key, int _index) {
@@ -584,10 +576,6 @@ public abstract class ContextEl {
 
     public String getIndexClassName() {
         return ((ForMutableIterativeLoop)analyzing.getCurrentBlock()).getImportedClassIndexName();
-    }
-
-    public AnalyzingEl getAnalysisAss() {
-        return analyzing.getAnalysisAss();
     }
 
     public boolean isAnnotAnalysis(OperationNode _op, OperationsSequence _seq) {

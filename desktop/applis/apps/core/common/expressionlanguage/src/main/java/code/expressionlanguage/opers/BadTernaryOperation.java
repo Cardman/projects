@@ -34,16 +34,6 @@ public final class BadTernaryOperation extends MethodOperation {
     }
 
     @Override
-    public void analyzeAssignmentAfter(ContextEl _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
-
-    @Override
-    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf, OperationNode _nextSibling, OperationNode _previous) {
-        analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
-    }
-
-    @Override
     void calculateChildren() {
         IntTreeMap< String> vs_ = getOperations().getValues();
         vs_.removeKey(vs_.firstKey());

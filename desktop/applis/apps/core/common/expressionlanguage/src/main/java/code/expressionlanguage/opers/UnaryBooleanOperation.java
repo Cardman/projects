@@ -71,18 +71,6 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         _par.setSimpleArgumentAna(a_, _conf);
     }
 
-    @Override
-    public void analyzeAssignmentAfter(ContextEl _conf) {
-        Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        OperationNode last_ = getFirstChild();
-        StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
-        CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
-        CustList<StringMap<Assignment>> mutableAfterLast_ = vars_.getMutableLoop().getVal(last_);
-        vars_.getFields().put(this, AssignmentsUtil.neg(fieldsAfterLast_));
-        vars_.getVariables().put(this, AssignmentsUtil.neg(variablesAfterLast_));
-        vars_.getMutableLoop().put(this, AssignmentsUtil.neg(mutableAfterLast_));
-    }
 
     @Override
     public ClassMethodId getClassMethodId() {

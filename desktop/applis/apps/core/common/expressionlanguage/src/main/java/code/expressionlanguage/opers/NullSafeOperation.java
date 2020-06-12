@@ -98,13 +98,4 @@ public final class NullSafeOperation extends MethodOperation {
             _to.setSimpleArgumentAna(s_, _conf);
         }
     }
-    @Override
-    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf, OperationNode _nextSibling, OperationNode _previous) {
-        analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
-    }
-
-    @Override
-    public void analyzeAssignmentAfter(ContextEl _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
 }

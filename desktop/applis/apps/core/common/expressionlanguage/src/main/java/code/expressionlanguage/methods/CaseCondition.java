@@ -49,66 +49,6 @@ public final class CaseCondition extends SwitchPartBlock {
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(valueOffset);
-        page_.setOffset(0);
-        BracedBlock par_ = getParent();
-        MethodAccessKind stCtx_ = f_.getStaticContext();
-        if (!(par_ instanceof SwitchBlock)) {
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_cont.getAnalysisMessages().getUnexpectedCaseDef(),
-                    _cont.getKeyWords().getKeyWordCase(),
-                    value,
-                    _cont.getKeyWords().getKeyWordSwitch());
-            //key word len
-            _cont.addError(un_);
-            opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(stCtx_));
-            return;
-        }
-        _cont.getCoverage().putBlockOperationsSwitchs(_cont,par_,this);
-        SwitchBlock sw_ = (SwitchBlock) par_;
-        ClassArgumentMatching resSwitch_ = sw_.getOpValue().last().getResultClass();
-        String type_ = resSwitch_.getSingleNameOrEmpty();
-        EnumBlock e_ = getEnumType(_cont, type_);
-        if (e_ != null) {
-            String id_ = Templates.getIdFromAllTypes(type_);
-            for (GeneField f: ContextEl.getFieldBlocks(e_)) {
-                if (!match(f)) {
-                    continue;
-                }
-                page_.setLookLocalClass(id_);
-                page_.setAccessStaticContext(MethodAccessKind.STATIC);
-                Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
-                OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
-                OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);
-                defaultAssignmentBefore(_cont, op_);
-                op_.analyze(_cont);
-                page_.setLookLocalClass(EMPTY_STRING);
-                op_.tryAnalyzeAssignmentAfter(_cont);
-                op_.setOrder(0);
-                builtEnum = true;
-                typeEnum = id_;
-                opValue = new CustList<ExecOperationNode>();
-                opValue.add((ExecOperationNode) ExecOperationNode.createExecOperationNode(op_));
-                defaultAssignmentAfter(_cont, op_);
-                checkDuplicateEnumCase(_cont);
-                return;
-            }
-            opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(stCtx_));
-            processNullValue(_cont);
-            return;
-        }
-        opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(stCtx_));
-        processNumValues(_cont, resSwitch_);
-    }
-
-    @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
@@ -153,7 +93,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 builtEnum = true;
                 typeEnum = id_;
                 opValue = new CustList<ExecOperationNode>();
-                opValue.add((ExecOperationNode) ExecOperationNode.createExecOperationNode(op_));
+                opValue.add(ExecOperationNode.createExecOperationNode(op_));
                 checkDuplicateEnumCase(_cont);
                 return;
             }

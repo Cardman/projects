@@ -6,10 +6,8 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringList;
 
 public final class TryEval extends BracedStack implements Eval {
@@ -43,24 +41,7 @@ public final class TryEval extends BracedStack implements Eval {
     }
 
     @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        buildEmptyEl(_cont);
-    }
-
-    @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-    }
-
-    @Override
-    public void setAssignmentBeforeNextSibling(ContextEl _an, AnalyzingEl _anEl) {
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        Block nextSibling_ = getNextSibling();
-        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        CustList<AbstractCatchEval> catchs_ = new CustList<AbstractCatchEval>();
-        assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(this,_an, _anEl,catchs_));
-        assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextCatchFinally(this,_an, _anEl,catchs_));
-        assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextCatchFinally(this,_an, _anEl,catchs_));
-        id_.put(nextSibling_, assBl_);
     }
 
     @Override

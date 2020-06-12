@@ -77,15 +77,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     }
 
     abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont);
-    @Override
-    public final void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
-    }
-    @Override
-    public final void analyzeAssignmentAfter(ContextEl _conf) {
-        analyzeStdAssignmentAfter(_conf);
-    }
+
     abstract Argument calculateOperAna(Argument _a, String _op, Argument _b, ContextEl _an);
 
     @Override

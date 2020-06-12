@@ -13,12 +13,6 @@ public final class DeclaringOperation extends MethodOperation implements Declari
         super(_index, _indexChild, _m, _op);
     }
 
-    @Override
-    public void analyzeAssignmentBeforeNextSibling(ContextEl _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
-
-    }
 
     @Override
     void calculateChildren() {
@@ -29,11 +23,6 @@ public final class DeclaringOperation extends MethodOperation implements Declari
     @Override
     public void analyze(ContextEl _conf) {
         setResultClass(new ClassArgumentMatching(EMPTY_STRING));
-    }
-
-    @Override
-    public void analyzeAssignmentAfter(ContextEl _conf) {
-        analyzeStdAssignmentAfter(_conf);
     }
 
 }

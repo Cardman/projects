@@ -43,6 +43,14 @@ public final class AnalyzingEl {
         return canCompleteNormallyGroup.getVal(_reach);
     }
 
+    public IdMap<Block, Boolean> getCanCompleteNormally() {
+        return canCompleteNormally;
+    }
+
+    public IdMap<Block, Boolean> getCanCompleteNormallyGroup() {
+        return canCompleteNormallyGroup;
+    }
+
     public void reach(Block _reach) {
         reachable.put(_reach, true);
         canCompleteNormally.put(_reach, true);

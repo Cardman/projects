@@ -106,6 +106,11 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
+    public CustList<ExecOperationNode> getOpValue() {
+        return opValue;
+    }
+
+    @Override
     public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
         CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
         fields_.add(new PartOffsetAffect(new PartOffset(fieldName,valueOffest),true));
@@ -139,24 +144,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         page_.setTranslatedOffset(0);
     }
 
-
-    @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(fieldNameOffest);
-        page_.setOffset(0);
-        KeyWords keyWords_ = _cont.getKeyWords();
-        String newKeyWord_ = keyWords_.getKeyWordNew();
-        String idType_ = getFullName();
-        String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_," ",idType_, PAR_LEFT, value, PAR_RIGHT);
-        trOffset = valueOffest  -1 -fieldName.length()- fieldNameOffest - 2 - newKeyWord_.length() - idType_.length();
-        page_.setTranslatedOffset(trOffset);
-        int index_ = getIndex();
-        _cont.setCurrentChildTypeIndex(index_);
-        _cont.getCoverage().putBlockOperations(_cont,this);
-        opValue = ElUtil.getAnalyzedOperations(fullInstance_, _cont, new Calculation(fieldName));
-        page_.setTranslatedOffset(0);
-    }
 
     private int getIndex() {
         int index_ = 0;
@@ -194,35 +181,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         String fullClassName_ =  StringList.concat(className, tempClass);
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,len_,fullClassName_);
         partOffsets.addAllElts(_cont.getCoverage().getCurrentParts().mid(2));
-    }
-
-    @Override
-    public void setAssignmentBefore(ContextEl _an) {
-        Block prev_ = getPreviousSibling();
-        AssignedVariables ass_;
-        if (prev_ == null) {
-            ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
-            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-            id_.put(this, ass_);
-        } else {
-            IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-            AssignedVariables parAss_ = id_.getVal(prev_);
-            AssignedVariables assBl_ = buildNewAssignedVariable();
-            assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignSimpleBefore(parAss_.getFieldsRoot()));
-            assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());
-            id_.put(this, assBl_);
-        }
-    }
-
-    @Override
-    public void setAssignmentAfter(ContextEl _an) {
-        AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
-        AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
-        StringMap<SimpleAssignment> as_ = varsAss_.getFieldsRoot();
-        as_.putAllMap(AssignmentsUtil.assignAfterClassic(varsAss_.getFieldsRootBefore()));
-        as_.put(fieldName, Assignment.assignClassic(true, false));
-        AnalyzedPageEl page_ = _an.getAnalyzing();
-        page_.getInitFields().add(fieldName);
     }
 
     @Override

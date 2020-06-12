@@ -130,35 +130,7 @@ public abstract class SettableAbstractFieldOperation extends
         }
         return fieldMetaInfo.getClassField();
     }
-    public final boolean matchFieldId(ClassField _id) {
-        if (fieldMetaInfo == null) {
-            return false;
-        }
-        return fieldMetaInfo.getClassField().eq(_id);
-    }
-    public final boolean isFromCurrentClass(ContextEl _an) {
-        if (notMatchCurrentType(_an)) {
-            return false;
-        }
-        if (isFirstChild()) {
-            return true;
-        }
-        MethodOperation par_ = getParent();
-        if (!(par_ instanceof AbstractDotOperation)) {
-            return false;
-        }
-        if (par_.getFirstChild() instanceof ThisOperation) {
-            return true;
-        }
-        if (par_.getFirstChild() instanceof StaticAccessOperation) {
-            return true;
-        }
-        if (par_.getFirstChild() instanceof AbstractDotOperation) {
-            OperationNode op_ = ((AbstractDotOperation)par_.getFirstChild()).getChildrenNodes().last();
-            return op_ instanceof ThisOperation;
-        }
-        return false;
-    }
+
     public final boolean isFromCurrentClassReadOnly(ContextEl _an) {
         if (notMatchCurrentType(_an)) {
             return false;
@@ -226,86 +198,6 @@ public abstract class SettableAbstractFieldOperation extends
             arg_.setStruct(str_);
             _oper.setSimpleArgumentAna(arg_,_conf);
         }
-    }
-    @Override
-    public final void analyzeAssignmentAfter(ContextEl _conf) {
-        Argument arg_ = getArgument();
-        Block block_ = _conf.getAnalyzing().getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
-        CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(this);
-        StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
-        CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
-        CustList<StringMap<Assignment>> assAfM_ = new CustList<StringMap<Assignment>>();
-        StringMap<Assignment> assA_ = new StringMap<Assignment>();
-        if (arg_ != null) {
-            ConstantOperation.setAssignments(this,_conf);
-            return;
-        }
-        boolean isBool_;
-        isBool_ = getResultClass().isBoolType(_conf);
-        ass_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assB_));
-        assAfM_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assM_));
-        boolean procField_ = isFromCurrentClass(_conf);
-        ClassField cl_ = getFieldId();
-        MethodOperation par_ = getParent();
-        if (par_ instanceof AffectationOperation && isFirstChildInParent()) {
-            procField_ = false;
-        } else {
-            if (par_ instanceof AbstractDotOperation) {
-                boolean cancelCheck_ = false;
-                if (par_.getFirstChild() instanceof ThisOperation) {
-                    cancelCheck_ = true;
-                } else if (par_.getFirstChild() instanceof StaticAccessOperation) {
-                    cancelCheck_ = true;
-                } else if (par_.getFirstChild() instanceof AbstractDotOperation) {
-                    OperationNode op_ = ((AbstractDotOperation)par_.getFirstChild()).getChildrenNodes().last();
-                    if (op_ instanceof ThisOperation) {
-                        cancelCheck_ = true;
-                    }
-                }
-                if (cancelCheck_) {
-                    if (par_.getParent() instanceof AffectationOperation && par_.isFirstChildInParent()) {
-                        procField_ = false;
-                    }
-                }
-            }
-        }
-        if (cl_ == null) {
-            procField_ = false;
-        } else if (_conf.isAssignedStaticFields()) {
-            FieldInfo meta_ = _conf.getFieldInfo(cl_);
-            if (meta_.isStaticField()) {
-                procField_ = false;
-            }
-        }
-        if (_conf.isAssignedFields()) {
-            procField_ = false;
-        }
-        if (procField_) {
-            for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
-                if (StringList.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
-                    FieldInfo meta_ = _conf.getFieldInfo(cl_);
-                    if (meta_.isFinalField() && !ElUtil.isDeclaringField(this, _conf)) {
-                        //error if final field
-                        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-                        FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                        un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                        un_.buildError(_conf.getAnalysisMessages().getFinalField(),
-                                cl_.getFieldName());
-                        _conf.addError(un_);
-                    }
-                }
-            }
-            if (getParent() == null) {
-                assA_.put(cl_.getFieldName(),Assignment.assign(isBool_,false,true));
-            }
-        }
-        assA_.putAllMap(AssignmentsUtil.assignAfter(isBool_,assF_));
-        vars_.getVariables().put(this, ass_);
-        vars_.getMutableLoop().put(this, assAfM_);
-        vars_.getFields().put(this, assA_);
     }
     public boolean isVariable() {
         return variable;
