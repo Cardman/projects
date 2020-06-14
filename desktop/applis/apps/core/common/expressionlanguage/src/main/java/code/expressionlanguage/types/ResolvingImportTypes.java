@@ -1,8 +1,8 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ImportedField;
-import code.expressionlanguage.ImportedMethod;
+import code.expressionlanguage.analyze.ImportedField;
+import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
@@ -13,7 +13,7 @@ import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardType;
@@ -30,10 +30,9 @@ public final class ResolvingImportTypes {
         }
         AccessingImportingBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex()+_loc;
-        String gl_ = _analyzable.getAnalyzing().getGlobalClass();
         AccessingImportingBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         CustList<PartOffset> offs_ = _analyzable.getCoverage().getCurrentParts();
-        return PartTypeUtil.processAnalyzeLine(_in,new AlwaysReadyTypes(),false,gl_,_analyzable,a_,r_, rc_, offs_);
+        return PartTypeUtil.processAnalyzeLine(_in,false, _analyzable,a_,r_, rc_, offs_);
     }
     public static String resolveCorrectAccessibleType(ContextEl _analyzable, int _loc,String _in, String _fromType) {
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex()+_loc;
@@ -105,7 +104,7 @@ public final class ResolvingImportTypes {
         if (_exact) {
             resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
         } else {
-            resType_ = PartTypeUtil.processAnalyzeLine(_in, new AlwaysReadyTypes(),false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
+            resType_ = PartTypeUtil.processAnalyzeLine(_in, false, _analyzable, a_,r_, rc_,partOffsets_);
         }
         if (resType_.trim().isEmpty()) {
             partOffsets_.clear();
@@ -146,7 +145,7 @@ public final class ResolvingImportTypes {
         if (_exact) {
             resType_ = PartTypeUtil.processAnalyze(tr_, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
         } else {
-            resType_ = PartTypeUtil.processAnalyzeLine(tr_,new AlwaysReadyTypes(),false, gl_, _analyzable,a_,r_, rc_,partOffsets_);
+            resType_ = PartTypeUtil.processAnalyzeLine(tr_,false, _analyzable,a_,r_, rc_,partOffsets_);
         }
         for (int i: _analyzable.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

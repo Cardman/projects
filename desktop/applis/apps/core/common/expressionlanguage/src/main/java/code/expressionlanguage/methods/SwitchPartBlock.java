@@ -1,10 +1,10 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.calls.util.ReadWrite;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.stacks.SwitchBlockStack;
+import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 
 public abstract class SwitchPartBlock extends BracedStack implements
         StackableBlock, BuildableElMethod {

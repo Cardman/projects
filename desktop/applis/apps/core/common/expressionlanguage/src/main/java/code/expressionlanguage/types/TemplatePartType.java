@@ -17,48 +17,24 @@ final class TemplatePartType extends BinaryType {
         super(_parent, _index, _indexInType);
     }
 
-    @Override
-    String getPrettyBegin() {
-        return EMPTY_STRING;
-    }
-    @Override
     String getBegin() {
         return EMPTY_STRING;
     }
 
-    @Override
-    String getSeparator(int _index) {
+    private String getSeparator(int _index) {
         if (_index == 0) {
             return Templates.TEMPLATE_BEGIN;
         }
         return Templates.TEMPLATE_SEP;
     }
 
-    @Override
-    String getSingleSeparator(int _index) {
-        if (_index == 0) {
-            return Templates.TEMPLATE_BEGIN;
-        }
-        return Templates.TEMPLATE_SEP;
-    }
-
-    @Override
-    String getPrettyEnd() {
-        return Templates.TEMPLATE_END;
-    }
-    @Override
     String getEnd() {
         return Templates.TEMPLATE_END;
     }
 
     @Override
-    boolean analyzeTree(ContextEl _an, CustList<IntTreeMap< String>> _dels) {
-        return true;
-    }
-
-    @Override
     void analyze(ContextEl _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
-        analyzeLine(_an,null,_dels,_globalType,_local,_rooted);
+        analyzeLine(_an,null,_dels,_local,_rooted);
     }
 
     @Override
@@ -120,40 +96,6 @@ final class TemplatePartType extends BinaryType {
         setAnalyzedType(tempClFull_);
     }
 
-    @Override
-    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
-        PartType f_ = getFirstChild();
-        String tempCl_ = f_.getAnalyzedType();
-        String tempClFull_ = fetchTemplate();
-        tempCl_ = Templates.getIdFromAllTypes(tempCl_);
-        GeneType type_ = _an.getClassBody(tempCl_);
-        CustList<StringList> boundsAll_ = type_.getBoundAll();
-        for (StringList t: boundsAll_) {
-            f_ = f_.getNextSibling();
-            String arg_ = f_.getAnalyzedType();
-            if (StringList.quickEq(arg_, Templates.SUB_TYPE)) {
-                continue;
-            }
-            String comp_ = arg_;
-            if (comp_.startsWith(Templates.SUB_TYPE)) {
-                comp_ = comp_.substring(Templates.SUB_TYPE.length());
-            } else if (comp_.startsWith(Templates.SUP_TYPE)) {
-                comp_ = comp_.substring(Templates.SUP_TYPE.length());
-            }
-            DimComp dimCompArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(comp_);
-            comp_ = dimCompArg_.getComponent();
-            StringList bounds_ = new StringList();
-            bounds_.add(comp_);
-            for (String e: t) {
-                String param_ = Templates.format(tempClFull_, e, _an);
-                if (!Templates.isCorrectExecute(comp_, param_, _an)) {
-                    return;
-                }
-            }
-        }
-        setAnalyzedType(tempClFull_);
-    }
-
     private String fetchTemplate() {
         PartType f_ = getFirstChild();
         CustList<PartType> ch_ = new CustList<PartType>();
@@ -169,7 +111,7 @@ final class TemplatePartType extends BinaryType {
         return StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
     }
     @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>>_dels, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {

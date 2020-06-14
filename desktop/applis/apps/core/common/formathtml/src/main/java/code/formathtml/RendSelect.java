@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
@@ -10,7 +11,7 @@ import code.expressionlanguage.stds.IterableAnalysisResult;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.*;
@@ -91,7 +92,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
             varNames_.add(varLoc_);
             varNameConverter = varLoc_;
-            LocalVariable lv_ = new LocalVariable();
+            AnaLocalVariable lv_ = new AnaLocalVariable();
             arrayConverter = true;
             lv_.setClassName(PrimitiveTypeUtil.getPrettyArrayType(string_));
             _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
@@ -144,7 +145,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
                 varNames_.add(varLoc_);
                 varNameConverter = varLoc_;
-                LocalVariable lv_ = new LocalVariable();
+                AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(string_);
                 _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
                 int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertValue());
@@ -170,7 +171,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
                 varNames_.add(varLoc_);
                 varNameConverter = varLoc_;
-                LocalVariable lv_ = new LocalVariable();
+                AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(string_);
                 _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
                 String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
@@ -199,7 +200,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
             varNames_.add(varLoc_);
             varNameConverterField = varLoc_;
-            LocalVariable lv_ = new LocalVariable();
+            AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(object_);
             _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterField_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
@@ -228,7 +229,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
             varNames_.add(varLoc_);
             varNameConverterFieldValue = varLoc_;
-            LocalVariable lv_ = new LocalVariable();
+            AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(object_);
             _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterFieldValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);

@@ -1,13 +1,14 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.types.ResolvingImportTypes;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -79,7 +80,7 @@ public final class CatchEval extends AbstractCatchEval {
                     variableName);
             _cont.addError(b_);
         }
-        LocalVariable lv_ = new LocalVariable();
+        AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);
         _cont.getAnalyzing().putCatchVar(variableName, lv_);
     }

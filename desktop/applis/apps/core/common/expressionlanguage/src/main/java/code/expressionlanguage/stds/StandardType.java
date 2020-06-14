@@ -2,7 +2,7 @@ package code.expressionlanguage.stds;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.*;
 

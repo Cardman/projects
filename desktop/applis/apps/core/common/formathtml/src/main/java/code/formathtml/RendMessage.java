@@ -1,9 +1,10 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
 import code.sml.*;
@@ -73,7 +74,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             }
             varNames = varNames_;
             for (String v:varNames_) {
-                LocalVariable lv_ = new LocalVariable();
+                AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(_cont.getStandards().getAliasPrimInteger());
                 _cont.getLocalVarsAna().last().addEntry(v,lv_);
                 formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));

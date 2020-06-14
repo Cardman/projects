@@ -676,7 +676,7 @@ public final class FileResolver {
         String keyWordDefault_ = keyWords_.getKeyWordDefault();
         StringBuilder instruction_ = new StringBuilder();
         boolean printableInst_ = false;
-        int instructionLocation_ = -1;
+        int instructionLocation_ = _nextIndex;
         FileBlock fileBlock_ = _input.getFile();
         Ints badIndexes_ = _input.getBadIndexes();
         Ints parentheses_ = new Ints();
@@ -937,6 +937,7 @@ public final class FileResolver {
                 enableByEndLine_ = after_.isEnabledEnumHeader();
                 currentParent_ = after_.getParent();
                 i_ = after_.getIndex();
+                instructionLocation_ = i_;
                 declType_ = false;
             }
             if (_braces.isEmpty()) {

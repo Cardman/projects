@@ -14,6 +14,7 @@ public final class MethodInfo implements Parametrable {
     private String className;
 
     private String returnType;
+    private StringList formattedParams;
 
     private MethodAccessKind staticMethod;
 
@@ -111,11 +112,13 @@ public final class MethodInfo implements Parametrable {
         for (String p: constraints.getParametersTypes()) {
             params_.add(Templates.wildCardFormatParam(className,p,_an));
         }
+        formattedParams = params_;
         formatted = new MethodId(MethodId.getKind(_keepParams), constraints.getName(), params_, isVararg());
     }
 
     public void formatWithoutParams() {
-        formatted = new MethodId(MethodId.getKind(false), constraints.getName(), new StringList());
+        formattedParams = new StringList();
+        formatted = new MethodId(MethodId.getKind(false), constraints.getName(), formattedParams);
     }
 
     @Override
@@ -124,11 +127,7 @@ public final class MethodInfo implements Parametrable {
     }
 
     public MethodId getFoundFormatted() {
-        StringList params_ = new StringList();
-        for (String p: formatted.getParametersTypes()) {
-            params_.add(p);
-        }
-        return new MethodId(constraints.getKind(),formatted.getName(),formatted.getParametersTypes(),formatted.isVararg());
+        return new MethodId(constraints.getKind(),formatted.getName(),formattedParams,formatted.isVararg());
     }
 
     public boolean same(MethodId _id) {

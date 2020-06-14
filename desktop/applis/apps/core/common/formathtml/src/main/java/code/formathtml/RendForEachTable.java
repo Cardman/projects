@@ -2,7 +2,8 @@ package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ConditionReturn;
+import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -10,18 +11,15 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.ImportForEachTable;
-import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.ResolvingImportTypes;
-import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.util.CustList;
@@ -284,7 +282,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                     variableNameFirst);
             _cont.addError(d_);
         }
-        LoopVariable lv_ = new LoopVariable();
+        AnaLoopVariable lv_ = new AnaLoopVariable();
         if (!importedClassNameFirst.isEmpty()) {
             lv_.setClassName(importedClassNameFirst);
         } else {
@@ -292,7 +290,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         }
         lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableNameFirst, lv_);
-        lv_ = new LoopVariable();
+        lv_ = new AnaLoopVariable();
         if (!importedClassNameSecond.isEmpty()) {
             lv_.setClassName(importedClassNameSecond);
         } else {

@@ -7,7 +7,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.*;
 import code.formathtml.classes.*;
 import code.bean.BeanStruct;

@@ -1,7 +1,8 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.calls.*;
-import code.expressionlanguage.calls.util.*;
+import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.calls.*;
+import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.*;
@@ -9,9 +10,8 @@ import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.instr.*;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.methods.util.Coverage;
-import code.expressionlanguage.methods.util.LocalThrowing;
-import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.exec.coverage.Coverage;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.opers.AnnotationInstanceOperation;
 import code.expressionlanguage.opers.AssocationOperation;
 import code.expressionlanguage.opers.OperationNode;
@@ -198,14 +198,14 @@ public abstract class ContextEl {
         covering = _covering;
     }
 
-    void clearPages() {
+    public void clearPages() {
         importing.clear();
     }
     public boolean hasPages() {
         return !importing.isEmpty();
     }
 
-    AbstractPageEl getCall(int _index) {
+    public AbstractPageEl getCall(int _index) {
         return importing.get(_index);
     }
     public int nbPages() {

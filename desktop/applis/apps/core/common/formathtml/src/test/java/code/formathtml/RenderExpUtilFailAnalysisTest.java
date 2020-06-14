@@ -7,7 +7,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.util.AdvancedFullStack;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;

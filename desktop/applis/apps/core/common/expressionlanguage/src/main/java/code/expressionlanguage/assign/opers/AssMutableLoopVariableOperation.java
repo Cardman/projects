@@ -1,16 +1,17 @@
 package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.blocks.AssForMutableIterativeLoop;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.opers.exec.ExecMutableLoopVariableOperation;
+import code.expressionlanguage.exec.opers.ExecMutableLoopVariableOperation;
 import code.expressionlanguage.assign.util.Assignment;
 import code.expressionlanguage.assign.util.AssignmentBefore;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
-import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -44,7 +45,7 @@ public final class AssMutableLoopVariableOperation extends AssLeafOperation impl
             assAfM_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assM_));
             AssignmentBefore asBe_ = new AssignmentBefore();
             asBe_.setUnassignedBefore(true);
-            LoopVariable lv_ = new LoopVariable();
+            AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setClassName(_conf.getStandards().getAliasObject());
             lv_.setIndexClassName("");
             lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());

@@ -2,13 +2,14 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -89,7 +90,7 @@ public final class VariableOperation extends LeafOperation implements
                 _conf.getAnalyzing().putLocalVar(str_);
                 _conf.getAnalyzing().getVariablesNamesToInfer().add(str_);
             }
-            LocalVariable lv_ = new LocalVariable();
+            AnaLocalVariable lv_ = new AnaLocalVariable();
             if (StringList.quickEq(c_, keyWordVar_)) {
                 lv_.setClassName(_conf.getStandards().getAliasObject());
             } else {

@@ -1,11 +1,10 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.opers.exec.Operable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 
-public interface PossibleIntermediateDotted extends Operable {
+public interface PossibleIntermediateDotted {
 
     void setIntermediateDotted();
     boolean isIntermediateDottedOperation();

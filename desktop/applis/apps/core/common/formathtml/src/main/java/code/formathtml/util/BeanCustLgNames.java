@@ -1,7 +1,7 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.calls.util.CallingState;
-import code.expressionlanguage.calls.util.NotInitializedClass;
+import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
@@ -14,13 +14,13 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.opers.exec.ExecArrayFieldOperation;
-import code.expressionlanguage.opers.exec.ExecInvokingOperation;
+import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.*;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;

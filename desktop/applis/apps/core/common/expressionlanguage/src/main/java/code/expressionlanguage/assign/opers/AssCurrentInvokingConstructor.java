@@ -3,7 +3,7 @@ package code.expressionlanguage.assign.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 
 public final class AssCurrentInvokingConstructor extends AssMultMethodOperation {
     AssCurrentInvokingConstructor(ExecOperationNode _ex) {

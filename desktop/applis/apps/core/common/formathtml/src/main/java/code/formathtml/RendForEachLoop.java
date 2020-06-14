@@ -2,7 +2,8 @@ package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ConditionReturn;
+import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -10,19 +11,15 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.ImportForEachLoop;
-import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.exec.ExecInvokingOperation;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.IterableAnalysisResult;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.ResolvingImportTypes;
-import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
-import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -244,7 +241,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         return StringList.quickEq(className.trim(), keyWordVar_) || className.trim().isEmpty();
     }
     public void putVariable(Configuration _cont) {
-        LoopVariable lv_ = new LoopVariable();
+        AnaLoopVariable lv_ = new AnaLoopVariable();
         if (!importedClassName.isEmpty()) {
             lv_.setClassName(importedClassName);
         } else {

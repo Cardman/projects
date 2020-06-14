@@ -5,14 +5,12 @@ import code.formathtml.util.BeanCustLgNames;
 import org.junit.Assert;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultInitializer;
-import code.expressionlanguage.DefaultLockingClass;
+import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
-import code.formathtml.classes.CustBeanLgNames;
-import code.formathtml.classes.CustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 

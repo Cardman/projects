@@ -13,28 +13,8 @@ final class ArraryPartType extends ParentPartType {
         super(_parent, _index, _indexInType);
     }
 
-    @Override
-    String getPrettyBegin() {
-        return EMPTY_STRING;
-    }
-
-    @Override
     String getBegin() {
         return Templates.ARR_BEG_STRING;
-    }
-
-    @Override
-    String getPrettyEnd() {
-        return "[]";
-    }
-    @Override
-    String getEnd() {
-        return EMPTY_STRING;
-    }
-
-    @Override
-    boolean analyzeTree(ContextEl _an, CustList<IntTreeMap< String>> _dels) {
-        return true;
     }
 
     @Override
@@ -44,7 +24,7 @@ final class ArraryPartType extends ParentPartType {
         setAnalyzedType(ch_);
     }
     @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>>_dels, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
@@ -72,10 +52,4 @@ final class ArraryPartType extends ParentPartType {
         setAnalyzedType(ch_);
     }
 
-    @Override
-    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
-        String ch_ = getFirstChild().getAnalyzedType();
-        ch_ = StringList.concat(getBegin(),ch_);
-        setAnalyzedType(ch_);
-    }
 }

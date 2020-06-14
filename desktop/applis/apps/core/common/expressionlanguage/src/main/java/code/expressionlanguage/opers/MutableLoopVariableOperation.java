@@ -2,13 +2,14 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -71,7 +72,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 _conf.getAnalyzing().putMutableLoopVar(str_);
                 _conf.getAnalyzing().getVariablesNamesLoopToInfer().add(str_);
             }
-            LoopVariable lv_ = new LoopVariable();
+            AnaLoopVariable lv_ = new AnaLoopVariable();
             String indexClassName_ = _conf.getAnalyzing().getLoopDeclaring().getIndexClassName();
             if (StringList.quickEq(c_, keyWordVar_)) {
                 lv_.setClassName(_conf.getStandards().getAliasObject());

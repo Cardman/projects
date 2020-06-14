@@ -1,6 +1,6 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.opers.EqOperation;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.Configuration;

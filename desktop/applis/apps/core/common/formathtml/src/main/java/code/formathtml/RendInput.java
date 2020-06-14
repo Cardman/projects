@@ -1,12 +1,13 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.exec.*;
 import code.formathtml.util.FieldUpdates;
 import code.sml.Element;
@@ -52,7 +53,7 @@ public abstract class RendInput extends RendElement {
                 String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
                 varNames_.add(varLoc_);
                 varNameConverter = varLoc_;
-                LocalVariable lv_ = new LocalVariable();
+                AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(string_);
                 _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
                 String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
@@ -106,7 +107,7 @@ public abstract class RendInput extends RendElement {
             String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
             varNames_.add(varLoc_);
             varNameConverterField = varLoc_;
-            LocalVariable lv_ = new LocalVariable();
+            AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(object_);
             _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterField_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);

@@ -1,12 +1,12 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ExecutingUtil;
+import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;

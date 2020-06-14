@@ -2,8 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.exec.ParentOperable;
 import code.util.CustList;
 
 public final class DotOperation extends AbstractDotOperation {

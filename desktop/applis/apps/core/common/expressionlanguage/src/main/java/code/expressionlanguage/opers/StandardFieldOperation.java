@@ -3,13 +3,11 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.exec.StandardFieldOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class StandardFieldOperation extends
-        SettableAbstractFieldOperation implements StandardFieldOperable {
+public final class StandardFieldOperation extends SettableAbstractFieldOperation {
 
     public StandardFieldOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {

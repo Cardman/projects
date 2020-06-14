@@ -5,7 +5,7 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.types.ResolvingImportTypes;
@@ -459,8 +459,6 @@ public final class TypeUtil {
         list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
         if (list_.onlyOneElt()) {
             String class_ = list_.first();
-//            String classBase_ = Templates.getIdFromAllTypes(class_);
-//            return new ClassMethodId(classBase_, defs_.getVal(class_));
             return new ClassMethodId(class_, defs_.getVal(class_));
         }
         defs_ = new StringMap<MethodId>();
@@ -472,8 +470,6 @@ public final class TypeUtil {
         list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
         if (list_.onlyOneElt()) {
             String class_ = list_.first();
-//            String classBase_ = Templates.getIdFromAllTypes(class_);
-//            return new ClassMethodId(classBase_, defs_.getVal(class_));
             return new ClassMethodId(class_, defs_.getVal(class_));
         }
         return null;
@@ -522,7 +518,6 @@ public final class TypeUtil {
             }
             classNameFound_ = tree_.firstKey();
             realId_ = tree_.firstValue();
-//            classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
             if (((GeneCustMethod) Classes.getMethodBodiesById(_conf,classNameFound_, realId_).first()).isAbstractMethod()) {
                 continue;
             }

@@ -1,7 +1,7 @@
 package code.formathtml.errors;
 
-import code.expressionlanguage.DefaultInitializer;
-import code.expressionlanguage.DefaultLockingClass;
+import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.options.KeyWords;

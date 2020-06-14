@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers.util;
 
-import code.expressionlanguage.stds.LongInfo;
-import code.expressionlanguage.stds.NumParsers;
+import code.expressionlanguage.common.LongInfo;
+import code.expressionlanguage.common.NumParsers;
 import code.util.StringList;
 
 public final class MethodAccessId {

@@ -2,7 +2,7 @@ package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ErrorType;
+import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethodCommon;

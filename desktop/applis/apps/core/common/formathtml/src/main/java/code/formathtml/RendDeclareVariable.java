@@ -7,7 +7,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.ResolvingImportTypes;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.StringList;
 
 public final class RendDeclareVariable extends RendLeaf implements RendBuildableElMethod {

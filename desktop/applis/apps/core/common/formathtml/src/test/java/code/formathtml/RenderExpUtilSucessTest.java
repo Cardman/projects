@@ -3,7 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.instr.Delimiters;
+import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Classes;
@@ -12,14 +12,12 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.AdvancedFullStack;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -1209,24 +1207,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         Argument arg_ = processElNormal("$static(java.lang.Long) .MAX_VALUE", context_);
         assertEq(Long.MAX_VALUE, getNumber(arg_));
-    }
-    @Test
-    public void processEl330Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        String html_ = "<tag><c;set className=\"$int\" value=\"arg=2,arg2=4\"/></tag>";
-        Document document_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c;", document_, html_);
-        RendBlock nextSibling_ = rendDocumentBlock_.getFirstChild().getFirstChild().getNextSibling();
-        context_.getAnalyzing().setMerged(true);
-        context_.getAnalyzing().setAcceptCommaInstr(true);
-        context_.getAnalyzingDoc().setCurrentBlock(nextSibling_);
-        context_.getAnalyzing().setCurrentVarSetting(context_.getStandards().getAliasLong());
-        String expression_ = ((RendLine) nextSibling_).getExpression();
-        processElNormal(expression_, context_);
-        StringMap<LocalVariable> localVars_ = context_.getLastPage().getLocalVars();
-        assertEq(2,((NumberStruct)localVars_.getVal("arg").getStruct()).intStruct());
-        assertEq(4,((NumberStruct)localVars_.getVal("arg2").getStruct()).intStruct());
     }
 
     @Test

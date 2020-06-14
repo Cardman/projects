@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.opers.exec.ExecCatOperation;
+import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.structs.NumberStruct;
 import code.util.StringList;

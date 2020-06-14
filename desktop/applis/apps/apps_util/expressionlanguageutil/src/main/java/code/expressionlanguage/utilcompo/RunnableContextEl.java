@@ -2,6 +2,9 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.exec.DefaultLockingClass;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;

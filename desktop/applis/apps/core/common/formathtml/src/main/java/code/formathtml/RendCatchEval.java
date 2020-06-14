@@ -1,11 +1,12 @@
 package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.types.ResolvingImportTypes;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.StringList;
 
 public final class RendCatchEval extends RendAbstractCatchEval {
@@ -58,7 +59,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         }
         page_.setGlobalOffset(classNameOffset);
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
-        LocalVariable lv_ = new LocalVariable();
+        AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);
         _cont.getAnalyzing().putCatchVar(variableName, lv_);
         RendBlock pBlock_ = getPreviousSibling();

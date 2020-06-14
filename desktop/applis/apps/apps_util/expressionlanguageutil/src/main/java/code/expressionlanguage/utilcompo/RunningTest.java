@@ -2,8 +2,7 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ParseLinesArgUtil;
+import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;

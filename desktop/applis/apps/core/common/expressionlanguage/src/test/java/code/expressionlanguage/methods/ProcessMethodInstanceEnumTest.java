@@ -1,7 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.InitClassState;
+import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.*;
 import code.util.StringMap;

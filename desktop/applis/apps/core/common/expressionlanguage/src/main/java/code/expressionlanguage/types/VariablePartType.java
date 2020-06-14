@@ -16,7 +16,7 @@ final class VariablePartType extends LeafPartType {
 
     @Override
     void analyze(ContextEl _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
-        analyzeLine(_an,null,_dels,_globalType,_local,_rooted);
+        analyzeLine(_an,null,_dels,_local,_rooted);
     }
 
     @Override
@@ -32,12 +32,7 @@ final class VariablePartType extends LeafPartType {
     }
 
     @Override
-    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
-        //
-    }
-
-    @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         if (getParent() instanceof InnerPartType) {
             return;
         }
@@ -81,9 +76,5 @@ final class VariablePartType extends LeafPartType {
             return;
         }
         setAnalyzedType(t_);
-    }
-    @Override
-    void checkDynExistence(ContextEl _an,CustList<IntTreeMap< String>>_dels) {
-        analyzeTemplateExec(_an,_dels);
     }
 }

@@ -1,7 +1,7 @@
 package code.formathtml.errors;
 
-import code.expressionlanguage.DefaultInitializer;
-import code.expressionlanguage.DefaultLockingClass;
+import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.options.KeyWords;
@@ -10,7 +10,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.formathtml.BeanCustLgNamesImpl;
 import code.formathtml.Configuration;
 import code.formathtml.InitializationLgNames;
-import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 import org.junit.Test;

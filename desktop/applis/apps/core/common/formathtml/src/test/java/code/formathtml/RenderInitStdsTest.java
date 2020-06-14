@@ -2,8 +2,8 @@ package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultFullStack;
-import code.expressionlanguage.DefaultInitializer;
-import code.expressionlanguage.DefaultLockingClass;
+import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.options.ContextFactory;

@@ -1,14 +1,14 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.calls.PageEl;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.opers.MutableLoopVariableOperation;
-import code.expressionlanguage.opers.exec.ExecMutableLoopVariableOperation;
-import code.expressionlanguage.opers.exec.ExecNumericOperation;
+import code.expressionlanguage.exec.opers.ExecMutableLoopVariableOperation;
+import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 

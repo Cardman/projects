@@ -1,8 +1,8 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultLockingClass;
-import code.expressionlanguage.InitClassState;
+import code.expressionlanguage.exec.DefaultLockingClass;
+import code.expressionlanguage.exec.InitClassState;
 
 public class CustLockingClass extends DefaultLockingClass {
 

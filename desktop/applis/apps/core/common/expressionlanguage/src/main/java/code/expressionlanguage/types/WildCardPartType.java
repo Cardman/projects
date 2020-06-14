@@ -15,41 +15,13 @@ final class WildCardPartType extends ParentPartType {
         prefix = _prefix;
     }
 
-    @Override
     String getBegin() {
         return prefix;
     }
 
     @Override
-    String getPrettyBegin() {
-        return prefix;
-    }
-
-    @Override
-    String getPrettyEnd() {
-        return EMPTY_STRING;
-    }
-    @Override
-    String getEnd() {
-        return EMPTY_STRING;
-    }
-
-    @Override
-    boolean analyzeTree(ContextEl _an, CustList<IntTreeMap< String>> _dels) {
-        if (!(getParent() instanceof TemplatePartType)) {
-            return false;
-        }
-        PartType prev_ = getParent().getFirstChild();
-        String base_ = ((NamePartType)prev_).getTypeName();
-        if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
     void analyze(ContextEl _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
-        analyzeLine(_an,null,_dels,_globalType,_local,_rooted);
+        analyzeLine(_an,null,_dels,_local,_rooted);
     }
 
     @Override
@@ -67,14 +39,7 @@ final class WildCardPartType extends ParentPartType {
     }
 
     @Override
-    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
-        String ch_ = getFirstChild().getAnalyzedType();
-        ch_ = StringList.concat(getBegin(),ch_);
-        setAnalyzedType(ch_);
-    }
-
-    @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         String ch_ = getFirstChild().getAnalyzedType();
         if (!(getParent() instanceof TemplatePartType)) {
             return;

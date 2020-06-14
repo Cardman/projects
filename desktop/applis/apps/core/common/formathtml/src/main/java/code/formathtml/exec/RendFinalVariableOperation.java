@@ -1,17 +1,17 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.calls.PageEl;
+import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.instr.ConstType;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.opers.FinalVariableOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 

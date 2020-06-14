@@ -1,25 +1,28 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.ImportedField;
+import code.expressionlanguage.analyze.ImportedMethod;
+import code.expressionlanguage.analyze.util.TypeInfo;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.instr.ConstType;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.opers.exec.Operable;
+import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.types.ResolvingImportTypes;
-import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
 import code.util.*;
 
-public abstract class OperationNode implements Operable {
+public abstract class OperationNode {
 
     protected static final char PAR_LEFT = '(';
     protected static final char PAR_RIGHT = ')';
@@ -421,7 +424,7 @@ public abstract class OperationNode implements Operable {
         if (ct_ == ConstType.LOOP_INDEX) {
             return new FinalVariableOperation(_index, _indexChild, _m, _op);
         }
-        LocalVariable locParam_ = _an.getAnalyzing().getParameters().getVal(str_);
+        AnaLocalVariable locParam_ = _an.getAnalyzing().getParameters().getVal(str_);
         if (locParam_ != null) {
             FunctionBlock fct_ = _an.getAnalyzing().getCurrentFct();
             if (fct_ instanceof OverridableBlock) {
@@ -435,19 +438,19 @@ public abstract class OperationNode implements Operable {
             }
             return new FinalVariableOperation(_index, _indexChild, _m, _op,locParam_.getClassName());
         }
-        LocalVariable catchVar_ = _an.getAnalyzing().getCatchVar(str_);
+        AnaLocalVariable catchVar_ = _an.getAnalyzing().getCatchVar(str_);
         if (catchVar_ != null) {
             return new FinalVariableOperation(_index, _indexChild, _m, _op,catchVar_.getClassName());
         }
-        LoopVariable mutVar_ = _an.getAnalyzing().getMutableLoopVar(str_);
+        AnaLoopVariable mutVar_ = _an.getAnalyzing().getMutableLoopVar(str_);
         if (mutVar_ != null) {
             return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, mutVar_.getClassName());
         }
-        LocalVariable locVar_ = _an.getAnalyzing().getLocalVar(str_);
+        AnaLocalVariable locVar_ = _an.getAnalyzing().getLocalVar(str_);
         if (locVar_ != null) {
             return new VariableOperation(_index, _indexChild, _m, _op, locVar_.getClassName());
         }
-        LoopVariable lVar_ = _an.getAnalyzing().getVar(str_);
+        AnaLoopVariable lVar_ = _an.getAnalyzing().getVar(str_);
         if (lVar_ != null) {
             return new FinalVariableOperation(_index, _indexChild, _m, _op,lVar_.getClassName());
         }
@@ -1594,7 +1597,7 @@ public abstract class OperationNode implements Operable {
         geneSuperTypes_.add(_cl);
         geneSuperTypes_.addAllElts(_root.getAllSuperTypes());
         for (String t: geneSuperTypes_) {
-            OverridableBlock toString_ = _conf.getClasses().getToStringMethods().getVal(t);
+            ToStringMethodHeader toString_ = _conf.getClasses().getToStringMethods().getVal(t);
             if (toString_ == null) {
                 continue;
             }
@@ -1692,7 +1695,7 @@ public abstract class OperationNode implements Operable {
         return mloc_;
     }
 
-    private static MethodInfo buildMethodToStringInfo(OverridableBlock _m, String _formattedClass) {
+    private static MethodInfo buildMethodToStringInfo(ToStringMethodHeader _m, String _formattedClass) {
         String ret_ = _m.getImportedReturnType();
         ParametersGroup p_ = new ParametersGroup();
         MethodId id_ = _m.getId();
@@ -2668,7 +2671,6 @@ public abstract class OperationNode implements Operable {
         return operations;
     }
 
-    @Override
     public final int getOrder() {
         return order;
     }
@@ -2683,17 +2685,14 @@ public abstract class OperationNode implements Operable {
         return off_+operations.getDelimiter().getIndexBegin()+indexInEl;
     }
 
-    @Override
     public final int getIndexInEl() {
         return indexInEl;
     }
 
-    @Override
     public final int getIndexChild() {
         return indexChild;
     }
 
-    @Override
     public final Argument getArgument() {
         return argument;
     }
@@ -2720,7 +2719,6 @@ public abstract class OperationNode implements Operable {
         _op.setSimpleArgument(_argument);
     }
 
-    @Override
     public final ClassArgumentMatching getResultClass() {
         return resultClass;
     }
@@ -2741,7 +2739,6 @@ public abstract class OperationNode implements Operable {
         siblingSet = _siblingSet;
     }
 
-    @Override
     public final int getIndexBegin() {
         return operations.getDelimiter().getIndexBegin();
     }

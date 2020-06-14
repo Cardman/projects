@@ -1,7 +1,7 @@
 package code.expressionlanguage.errors;
 
-import code.expressionlanguage.DefaultInitializer;
-import code.expressionlanguage.DefaultLockingClass;
+import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.classes.CustLgNames;

@@ -13,7 +13,6 @@ final class EmptyPartType extends LeafPartType {
 
     @Override
     void analyze(ContextEl _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
-        setAnalyzedType(_dels,new StringMap<StringList>());
     }
 
     @Override
@@ -27,12 +26,7 @@ final class EmptyPartType extends LeafPartType {
     }
 
     @Override
-    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
-        //
-    }
-
-    @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         //
     }
     @Override
@@ -40,9 +34,5 @@ final class EmptyPartType extends LeafPartType {
             CustList<IntTreeMap< String>> _dels,
                              AccessingImportingBlock _rooted) {
         //
-    }
-    @Override
-    void checkDynExistence(ContextEl _an,CustList<IntTreeMap< String>>_dels) {
-        analyzeTemplateExec(_an,_dels);
     }
 }

@@ -1,13 +1,14 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.sml.Element;
 import code.sml.MutableNode;
@@ -42,7 +43,7 @@ public final class RendRadio extends RendInput {
             String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
             varNames_.add(varLoc_);
             varNameConverterFieldValue = varLoc_;
-            LocalVariable lv_ = new LocalVariable();
+            AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(object_);
             _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterFieldValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);

@@ -1,8 +1,8 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultLockingClass;
-import code.expressionlanguage.Initializer;
+import code.expressionlanguage.exec.DefaultLockingClass;
+import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;

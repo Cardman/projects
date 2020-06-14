@@ -2,12 +2,11 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ExecutingUtil;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.exec.ReductibleOperable;
+import code.expressionlanguage.exec.opers.ReductibleOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;

@@ -16,44 +16,8 @@ final class InnerPartType extends BinaryType {
     }
 
     @Override
-    String getPrettyBegin() {
-        return EMPTY_STRING;
-    }
-    @Override
-    String getBegin() {
-        return EMPTY_STRING;
-    }
-
-    @Override
-    String getSeparator(int _index) {
-        return operators.get(_index);
-    }
-
-    @Override
-    String getSingleSeparator(int _index) {
-        if (StringList.quickEq(operators.get(_index),"..")) {
-            return ".";
-        }
-        return "..";
-    }
-
-    @Override
-    String getPrettyEnd() {
-        return EMPTY_STRING;
-    }
-    @Override
-    String getEnd() {
-        return EMPTY_STRING;
-    }
-
-    @Override
-    boolean analyzeTree(ContextEl _an, CustList<IntTreeMap< String>> _dels) {
-        return true;
-    }
-
-    @Override
     void analyze(ContextEl _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
-        analyzeLine(_an,null,_dels,_globalType,_local,_rooted);
+        analyzeLine(_an,null,_dels,_local,_rooted);
     }
 
     @Override
@@ -81,19 +45,7 @@ final class InnerPartType extends BinaryType {
     }
 
     @Override
-    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
-        CustList<PartType> ch_ = new CustList<PartType>();
-        PartType f_ = getFirstChild();
-        while (f_ != null) {
-            ch_.add(f_);
-            f_ = f_.getNextSibling();
-        }
-        String t_ = ch_.last().getAnalyzedType();
-        setAnalyzedType(t_);
-    }
-
-    @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
+    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>>_dels, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {

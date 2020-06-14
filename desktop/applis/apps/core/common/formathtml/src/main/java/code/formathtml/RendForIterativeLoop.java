@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -15,7 +16,7 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.types.ResolvingImportTypes;
-import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
@@ -217,7 +218,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
                     StringList.join(stepEl_.getResultClass().getNames(),AND_ERR));
             _cont.addError(cast_);
         }
-        LoopVariable lv_ = new LoopVariable();
+        AnaLoopVariable lv_ = new AnaLoopVariable();
         lv_.setClassName(cl_);
         lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableName, lv_);

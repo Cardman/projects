@@ -1,10 +1,13 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.exec.InitClassState;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.*;
-import code.expressionlanguage.calls.PageEl;
-import code.expressionlanguage.calls.util.NotInitializedClass;
+import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.errors.stds.StdErrorList;
@@ -21,8 +24,8 @@ import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.RendDynOperationNode;
@@ -420,16 +423,35 @@ public final class Configuration {
         return analyzingDoc.getFileName();
     }
 
-    public StringMap<LoopVariable> getVars() {
-        return getLastPage().getVars();
+    public StringMap<AnaLoopVariable> getVars() {
+        StringMap<AnaLoopVariable> m_ = new StringMap<AnaLoopVariable>();
+        for (EntryCust<String,LoopVariable> e: getLastPage().getVars().entryList()) {
+            AnaLoopVariable a_ = new AnaLoopVariable();
+            a_.setClassName(e.getValue().getClassName());
+            a_.setIndexClassName(e.getValue().getIndexClassName());
+            m_.addEntry(e.getKey(), a_);
+        }
+        return m_;
     }
 
-    public StringMap<LocalVariable> getLocalVars() {
-        return getLastPage().getLocalVars();
+    public StringMap<AnaLocalVariable> getLocalVars() {
+        StringMap<AnaLocalVariable> m_ = new StringMap<AnaLocalVariable>();
+        for (EntryCust<String,LocalVariable> e: getLastPage().getLocalVars().entryList()) {
+            AnaLocalVariable a_ = new AnaLocalVariable();
+            a_.setClassName(e.getValue().getClassName());
+            m_.addEntry(e.getKey(), a_);
+        }
+        return m_;
     }
 
-    public StringMap<LocalVariable> getCatchVars() {
-        return getLastPage().getCatchVars();
+    public StringMap<AnaLocalVariable> getCatchVars() {
+        StringMap<AnaLocalVariable> m_ = new StringMap<AnaLocalVariable>();
+        for (EntryCust<String,LocalVariable> e: getLastPage().getCatchVars().entryList()) {
+            AnaLocalVariable a_ = new AnaLocalVariable();
+            a_.setClassName(e.getValue().getClassName());
+            m_.addEntry(e.getKey(), a_);
+        }
+        return m_;
     }
 
     public void setOffset(int _offset) {
@@ -506,7 +528,7 @@ public final class Configuration {
         return context.getAnalyzing();
     }
 
-    public CustList<StringMap<LocalVariable>> getLocalVarsAna() {
+    public CustList<StringMap<AnaLocalVariable>> getLocalVarsAna() {
         return context.getAnalyzing().getLocalVars();
     }
 
@@ -570,13 +592,13 @@ public final class Configuration {
         context.getAnalyzing().setGlobalClass(globalClass_);
         context.getAnalyzing().initLocalVars();
         context.getAnalyzing().initMutableLoopVars();
-        CustList<StringMap<LocalVariable>> l_ = new CustList<StringMap<LocalVariable>>();
+        CustList<StringMap<AnaLocalVariable>> l_ = new CustList<StringMap<AnaLocalVariable>>();
         l_.add(getLocalVars());
         context.getAnalyzing().setLocalVars(l_);
-        CustList<StringMap<LoopVariable>> lv_ = new CustList<StringMap<LoopVariable>>();
+        CustList<StringMap<AnaLoopVariable>> lv_ = new CustList<StringMap<AnaLoopVariable>>();
         lv_.add(getVars());
         context.getAnalyzing().setVars(lv_);
-        CustList<StringMap<LocalVariable>> lc_ = new CustList<StringMap<LocalVariable>>();
+        CustList<StringMap<AnaLocalVariable>> lc_ = new CustList<StringMap<AnaLocalVariable>>();
         lc_.add(getCatchVars());
         context.getAnalyzing().setCatchVars(lc_);
         context.getAnalyzing().setMerged(merged_);

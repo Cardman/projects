@@ -2,11 +2,10 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.opers.exec.DeclaringOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.*;
 
-public final class DeclaringOperation extends MethodOperation implements DeclaringOperable {
+public final class DeclaringOperation extends MethodOperation {
 
     public DeclaringOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {

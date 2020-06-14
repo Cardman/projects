@@ -2,16 +2,13 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ErrorType;
+import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.opers.exec.Operable;
-import code.expressionlanguage.opers.exec.ParentOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 

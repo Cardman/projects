@@ -2,8 +2,8 @@ package code.formathtml;
 
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.DefaultInitializer;
-import code.expressionlanguage.DefaultLockingClass;
+import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.options.ContextFactory;

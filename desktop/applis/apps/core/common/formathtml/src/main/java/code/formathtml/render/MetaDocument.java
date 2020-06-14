@@ -1,7 +1,7 @@
 package code.formathtml.render;
 
-import code.expressionlanguage.stds.LongInfo;
-import code.expressionlanguage.stds.NumParsers;
+import code.expressionlanguage.common.LongInfo;
+import code.expressionlanguage.common.NumParsers;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.FormInputCoords;

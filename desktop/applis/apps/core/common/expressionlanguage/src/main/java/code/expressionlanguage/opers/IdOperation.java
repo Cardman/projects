@@ -3,21 +3,15 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.InterfaceBlock;
-import code.expressionlanguage.methods.Line;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.exec.ExecAbstractInvokingConstructor;
-import code.expressionlanguage.opers.exec.ExecInterfaceInvokingConstructor;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
-import code.expressionlanguage.opers.exec.IdOperable;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.*;
 
-public final class IdOperation extends AbstractUnaryOperation implements IdOperable {
+public final class IdOperation extends AbstractUnaryOperation {
 
     private boolean standard = true;
     public IdOperation(int _index,

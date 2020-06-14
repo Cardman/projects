@@ -3,6 +3,8 @@ package code.bean.nat;
 import code.bean.Bean;
 import code.bean.BeanStruct;
 import code.bean.RealInstanceStruct;
+import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.DefaultLockingClass;
 import code.formathtml.exec.*;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;

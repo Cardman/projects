@@ -11,7 +11,7 @@ import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class VarargOperation extends LeafOperation implements VarargOperable {
+public final class VarargOperation extends LeafOperation {
 
     private String className;
     private int offset;

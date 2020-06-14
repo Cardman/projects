@@ -1,16 +1,13 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.instr.ConstType;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class FinalVariableOperation extends LeafOperation {
 
@@ -51,7 +48,7 @@ public final class FinalVariableOperation extends LeafOperation {
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
-        LoopVariable loopVar_ = _conf.getAnalyzing().getVar(str_);
+        AnaLoopVariable loopVar_ = _conf.getAnalyzing().getVar(str_);
         if (loopVar_ != null) {
             variableName = str_;
             setResultClass(new ClassArgumentMatching(loopVar_.getIndexClassName()));

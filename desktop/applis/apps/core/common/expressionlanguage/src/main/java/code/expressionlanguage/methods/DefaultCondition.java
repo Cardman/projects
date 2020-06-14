@@ -1,12 +1,12 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.calls.util.ReadWrite;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.util.AbstractCoverageResult;
+import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.util.CustList;
 
 public final class DefaultCondition extends SwitchPartBlock {

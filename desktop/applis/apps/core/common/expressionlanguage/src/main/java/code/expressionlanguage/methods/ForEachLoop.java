@@ -1,7 +1,9 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -10,19 +12,19 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.util.AbstractCoverageResult;
+import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.exec.ExecInvokingOperation;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stacks.LoopBlockStack;
+import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.IterableAnalysisResult;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.ResolvingImportTypes;
-import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.util.*;
 
 public final class ForEachLoop extends BracedStack implements ForLoop,ImportForEachLoop {
@@ -313,7 +315,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop,ImportForE
     }
 
     private void processVariable(ContextEl _cont) {
-        LoopVariable lv_ = new LoopVariable();
+        AnaLoopVariable lv_ = new AnaLoopVariable();
         if (!importedClassName.isEmpty()) {
             lv_.setClassName(importedClassName);
         } else {

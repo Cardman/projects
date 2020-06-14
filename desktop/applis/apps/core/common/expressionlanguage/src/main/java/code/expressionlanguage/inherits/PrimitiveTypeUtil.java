@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.InheritedType;
-import code.expressionlanguage.opers.exec.ExecArrayFieldOperation;
+import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.IndexesComparator;

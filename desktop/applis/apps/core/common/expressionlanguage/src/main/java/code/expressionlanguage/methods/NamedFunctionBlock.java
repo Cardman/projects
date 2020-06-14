@@ -9,12 +9,11 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.types.ResolvingImportTypes;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.Ints;
 import code.util.StringList;
 

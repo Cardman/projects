@@ -1,6 +1,7 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.methods.RootBlock;
@@ -995,6 +996,40 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
 
         String solved_ = PartTypeUtil.processAnalyze("Outer<java.lang.String>.InnerThree.InnerInnerThree", "",context_, root_);
         assertEq("", solved_);
+    }
+    @Test
+    public void process10FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
+        xml_.append(" $public $class InnerThree<#S>:InnerFour {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerFour {\n");
+        xml_.append(" $public $class InnerInnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        Classes cl_ = context_.getClasses();
+        RootBlock root_ = cl_.getClassBody("pkg.Outer");
+
+        String solved_ = PartTypeUtil.processAnalyze("?java.lang.String", "",context_, root_);
+        assertEq("", solved_);
+    }
+    @Test
+    public void process11FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        assertTrue(!PartTypeUtil.checkParametersCount("", new StringMap<StringList>(),context_));
     }
     @Test
     public void processLine1Test() {

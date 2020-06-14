@@ -11,10 +11,11 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.analyze.util.ToStringMethodHeader;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -792,8 +793,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             badMeth_.buildError(_context.getAnalysisMessages().getBadAccess(),
                                     name_);
                             _context.addError(badMeth_);
+                        } else {
+                            ToStringMethodHeader t_ = new ToStringMethodHeader(m_.getName(), m_.getImportedReturnType(), m_.isFinalMethod(),m_.isAbstractMethod());
+                            _context.getClasses().getToStringMethods().addEntry(getFullName(), t_);
                         }
-                        _context.getClasses().getToStringMethods().addEntry(getFullName(),m_);
                     }
                 } else {
                     if (m_.isStaticMethod()) {

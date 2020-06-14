@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.types.InheritReadyTypes;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.util.CustList;
@@ -127,10 +127,9 @@ public final class ResolvingSuperTypes {
 
     public static String resolveBaseInherits(ContextEl _context, String _idSup, RootBlock _root, StringList _readyTypes) {
         String id_ = Templates.getIdFromAllTypes(_idSup);
-        String gl_ = _root.getGenericString();
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         RootBlock scope_ = _root.getParentType();
         InheritReadyTypes inh_ = new InheritReadyTypes(_readyTypes);
-        return PartTypeUtil.processAnalyzeLine(id_, inh_,true,gl_,_context,scope_,_root, -1,partOffsets_);
+        return PartTypeUtil.processAnalyzeLineInherits(id_, inh_,true, _context,scope_,_root, -1,partOffsets_);
     }
 }

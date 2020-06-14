@@ -1,16 +1,17 @@
 package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.blocks.AssDeclareVariable;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.opers.exec.ExecVariableOperation;
+import code.expressionlanguage.exec.opers.ExecVariableOperation;
 import code.expressionlanguage.assign.util.Assignment;
 import code.expressionlanguage.assign.util.AssignmentBefore;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -44,7 +45,7 @@ public final class AssVariableOperation extends AssLeafOperation implements AssS
             ass_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assB_));
             AssignmentBefore asBe_ = new AssignmentBefore();
             asBe_.setUnassignedBefore(true);
-            LocalVariable lv_ = new LocalVariable();
+            AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(_conf.getStandards().getAliasObject());
             lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
             _conf.getAnalyzing().putLocalVar(variableName, lv_);

@@ -1,9 +1,9 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.TwoStepsArgumentsPair;
-import code.expressionlanguage.opers.exec.*;
+import code.expressionlanguage.exec.opers.*;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.exec.variables.TwoStepsArgumentsPair;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.util.CustList;
 import code.util.IdMap;

@@ -1,12 +1,14 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.types.*;
-import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.util.*;
 
 public final class AnalyzedPageEl {
@@ -17,20 +19,21 @@ public final class AnalyzedPageEl {
 
     private String globalClass = "";
 
-    private CustList<StringMap<LoopVariable>> vars;
-    private CustList<StringMap<LoopVariable>> mutableVars = new CustList<StringMap<LoopVariable>>();
+    private CustList<StringMap<AnaLoopVariable>> vars;
+    private CustList<StringMap<AnaLoopVariable>> mutableVars = new CustList<StringMap<AnaLoopVariable>>();
 
-    private CustList<StringMap<LocalVariable>> catchVars;
+    private CustList<StringMap<AnaLocalVariable>> catchVars;
 
-    private CustList<StringMap<LocalVariable>> localVars;
+    private CustList<StringMap<AnaLocalVariable>> localVars;
     private CustList<StringList> localVarsInfers = new CustList<StringList>();
     private CustList<StringList> mutableLocalVarsInfers = new CustList<StringList>();
 
-    private StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
+    private StringMap<AnaLocalVariable> parameters = new StringMap<AnaLocalVariable>();
 
     private FunctionBlock currentFct;
     private AccessingImportingBlock importing;
     private final StringList listTypesNames = new StringList();
+    private final CustList<RootBlock> allFoundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> previousFoundTypes = new CustList<RootBlock>();
     private boolean duplicatedType;
@@ -79,9 +82,9 @@ public final class AnalyzedPageEl {
     private AbstractTokenValidation tokenValidation;
 
     public AnalyzedPageEl() {
-        setCatchVars(new CustList<StringMap<LocalVariable>>());
-        setLocalVars(new CustList<StringMap<LocalVariable>>());
-        setVars(new CustList<StringMap<LoopVariable>>());
+        setCatchVars(new CustList<StringMap<AnaLocalVariable>>());
+        setLocalVars(new CustList<StringMap<AnaLocalVariable>>());
+        setVars(new CustList<StringMap<AnaLoopVariable>>());
     }
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
@@ -112,19 +115,19 @@ public final class AnalyzedPageEl {
     }
 
     public void initVars() {
-        vars.add(new StringMap<LoopVariable>());
+        vars.add(new StringMap<AnaLoopVariable>());
     }
 
     public void removeVars() {
         vars.removeLast();
     }
 
-    public void putVar(String _key, LoopVariable _var) {
+    public void putVar(String _key, AnaLoopVariable _var) {
         vars.last().put(_key, _var);
     }
 
     public boolean containsVar(String _key) {
-        for (StringMap<LoopVariable> m: vars) {
+        for (StringMap<AnaLoopVariable> m: vars) {
             if (m.contains(_key)) {
                 return true;
             }
@@ -132,8 +135,8 @@ public final class AnalyzedPageEl {
         return false;
     }
 
-    public LoopVariable getVar(String _key) {
-        for (StringMap<LoopVariable> m: vars) {
+    public AnaLoopVariable getVar(String _key) {
+        for (StringMap<AnaLoopVariable> m: vars) {
             if (m.contains(_key)) {
                 return m.getVal(_key);
             }
@@ -141,12 +144,12 @@ public final class AnalyzedPageEl {
         return null;
     }
 
-    public void setVars(CustList<StringMap<LoopVariable>> _localVars) {
+    public void setVars(CustList<StringMap<AnaLoopVariable>> _localVars) {
         vars = _localVars;
     }
 
     public void initMutableLoopVars() {
-        mutableVars.add(new StringMap<LoopVariable>());
+        mutableVars.add(new StringMap<AnaLoopVariable>());
         mutableLocalVarsInfers.add(new StringList());
     }
 
@@ -159,15 +162,15 @@ public final class AnalyzedPageEl {
         mutableLocalVarsInfers.last().add(_key);
     }
 
-    public void putMutableLoopVar(String _key, LoopVariable _var) {
+    public void putMutableLoopVar(String _key, AnaLoopVariable _var) {
         mutableVars.last().put(_key, _var);
     }
-    public CustList<StringMap<LocalVariable>> getLocalVars() {
+    public CustList<StringMap<AnaLocalVariable>> getLocalVars() {
         return localVars;
     }
 
     public void initLocalVars() {
-        localVars.add(new StringMap<LocalVariable>());
+        localVars.add(new StringMap<AnaLocalVariable>());
         localVarsInfers.add(new StringList());
     }
 
@@ -179,7 +182,7 @@ public final class AnalyzedPageEl {
     public void putLocalVar(String _key) {
         localVarsInfers.last().add(_key);
     }
-    public void putLocalVar(String _key, LocalVariable _var) {
+    public void putLocalVar(String _key, AnaLocalVariable _var) {
         localVars.last().put(_key, _var);
     }
 
@@ -210,7 +213,7 @@ public final class AnalyzedPageEl {
     }
 
     public boolean containsMutableLoopVar(String _key) {
-        for (StringMap<LoopVariable> m: mutableVars) {
+        for (StringMap<AnaLoopVariable> m: mutableVars) {
             if (m.contains(_key)) {
                 return true;
             }
@@ -218,8 +221,8 @@ public final class AnalyzedPageEl {
         return false;
     }
 
-    public LoopVariable getMutableLoopVar(String _key) {
-        for (StringMap<LoopVariable> m: mutableVars) {
+    public AnaLoopVariable getMutableLoopVar(String _key) {
+        for (StringMap<AnaLoopVariable> m: mutableVars) {
             if (m.contains(_key)) {
                 return m.getVal(_key);
             }
@@ -232,7 +235,7 @@ public final class AnalyzedPageEl {
     }
 
     public boolean containsLocalVar(String _key) {
-        for (StringMap<LocalVariable> m: localVars) {
+        for (StringMap<AnaLocalVariable> m: localVars) {
             if (m.contains(_key)) {
                 return true;
             }
@@ -240,8 +243,8 @@ public final class AnalyzedPageEl {
         return false;
     }
 
-    public LocalVariable getLocalVar(String _key) {
-        for (StringMap<LocalVariable> m: localVars) {
+    public AnaLocalVariable getLocalVar(String _key) {
+        for (StringMap<AnaLocalVariable> m: localVars) {
             if (m.contains(_key)) {
                 return m.getVal(_key);
             }
@@ -253,27 +256,27 @@ public final class AnalyzedPageEl {
         return localVars.get(_index).getVal(_key).isFinalVariable();
     }
 
-    public void setLocalVars(CustList<StringMap<LocalVariable>> _localVars) {
+    public void setLocalVars(CustList<StringMap<AnaLocalVariable>> _localVars) {
         localVars = _localVars;
     }
 
-    public void setCatchVars(CustList<StringMap<LocalVariable>> _localVars) {
+    public void setCatchVars(CustList<StringMap<AnaLocalVariable>> _localVars) {
         catchVars = _localVars;
     }
     public void initCatchVars() {
-        catchVars.add(new StringMap<LocalVariable>());
+        catchVars.add(new StringMap<AnaLocalVariable>());
     }
 
     public void removeCatchVars() {
         catchVars.removeLast();
     }
 
-    public void putCatchVar(String _key, LocalVariable _var) {
+    public void putCatchVar(String _key, AnaLocalVariable _var) {
         catchVars.last().put(_key, _var);
     }
 
     public boolean containsCatchVar(String _key) {
-        for (StringMap<LocalVariable> m: catchVars) {
+        for (StringMap<AnaLocalVariable> m: catchVars) {
             if (m.contains(_key)) {
                 return true;
             }
@@ -281,8 +284,8 @@ public final class AnalyzedPageEl {
         return false;
     }
 
-    public LocalVariable getCatchVar(String _key) {
-        for (StringMap<LocalVariable> m: catchVars) {
+    public AnaLocalVariable getCatchVar(String _key) {
+        for (StringMap<AnaLocalVariable> m: catchVars) {
             if (m.contains(_key)) {
                 return m.getVal(_key);
             }
@@ -297,7 +300,7 @@ public final class AnalyzedPageEl {
         }
         return o_;
     }
-    public StringMap<LocalVariable> getParameters() {
+    public StringMap<AnaLocalVariable> getParameters() {
         return parameters;
     }
 
@@ -489,6 +492,10 @@ public final class AnalyzedPageEl {
 
     public CustList<RootBlock> getFoundTypes() {
         return foundTypes;
+    }
+
+    public CustList<RootBlock> getAllFoundTypes() {
+        return allFoundTypes;
     }
 
     public CustList<RootBlock> getPreviousFoundTypes() {

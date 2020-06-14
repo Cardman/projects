@@ -1,16 +1,18 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.exec.ExecInvokingOperation;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.*;
-import code.expressionlanguage.opers.util.annotation.ExportAnnotationUtil;
+import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.util.*;
@@ -879,12 +881,12 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetPrettyName)) {
                 String nameCl_ = (ApplyCoreMethodUtil.getClass(_struct)).getName();
-                result_.setResult(new StringStruct(PartTypeUtil.processPrettyType(nameCl_)));
+                result_.setResult(new StringStruct(ExecPartTypeUtil.processPrettyType(nameCl_)));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetPrettySingleName)) {
                 String nameCl_ = (ApplyCoreMethodUtil.getClass(_struct)).getName();
-                result_.setResult(new StringStruct(PartTypeUtil.processPrettySingleType(nameCl_)));
+                result_.setResult(new StringStruct(ExecPartTypeUtil.processPrettySingleType(nameCl_)));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetEnclosingType)) {

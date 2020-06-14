@@ -11,10 +11,10 @@ import code.util.StringList;
 
 public final class ParserType {
 
-    static final int WILD_CARD_PRIO = 1;
-    static final int ARR_PRIO = 2;
-    static final int INT_PRIO = 3;
-    static final int TMP_PRIO = 4;
+    public static final int WILD_CARD_PRIO = 1;
+    public static final int ARR_PRIO = 2;
+    public static final int INT_PRIO = 3;
+    public static final int TMP_PRIO = 4;
     private ParserType(){}
 
     public static Ints getIndexes(String _input, ContextEl _an) {
@@ -131,7 +131,7 @@ public final class ParserType {
         }
         return indexes_;
     }
-    static Ints getQuickIndexes(String _input) {
+    public static Ints getQuickIndexes(String _input) {
         int len_ = _input.length();
         int i_ = 0;
         Ints indexes_ = new Ints();
@@ -260,6 +260,11 @@ public final class ParserType {
     public static AnalyzingType analyzeQuickLocal(int _offset, String _string, Ints _indexes) {
         AnalyzingType a_ = new AnalyzingType();
         a_.getIndexes().addAllElts(_indexes);
+        if (_string.trim().isEmpty()) {
+            a_.getValues().put((int)CustList.FIRST_INDEX, _string);
+            a_.setError(true);
+            return a_;
+        }
         if (StringExpUtil.isVar(_string)) {
             a_.setKind(KindPartType.VARIABLE);
             a_.setupValue(_string);

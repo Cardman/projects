@@ -1,9 +1,8 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.options.Options;
 import code.util.CustList;
-import code.util.*;
+import code.util.IntTreeMap;
 import code.util.Ints;
 import code.util.StringList;
 

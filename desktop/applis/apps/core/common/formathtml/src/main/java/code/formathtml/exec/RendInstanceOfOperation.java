@@ -1,10 +1,10 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ErrorType;
-import code.expressionlanguage.calls.PageEl;
+import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.opers.InstanceOfOperation;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.Configuration;

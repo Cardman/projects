@@ -5,7 +5,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.IntTreeMap;
 
-public final class DefaultOperation extends AbstractUnaryOperation implements FirstOptOperable {
+public final class DefaultOperation extends AbstractUnaryOperation {
 
     private int offset;
     public DefaultOperation(int _index, int _indexChild, MethodOperation _m,

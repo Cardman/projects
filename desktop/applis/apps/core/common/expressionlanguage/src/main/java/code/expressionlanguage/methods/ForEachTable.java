@@ -1,7 +1,9 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.exec.ConditionReturn;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -10,21 +12,21 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.util.AbstractCoverageResult;
+import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stacks.LoopBlockStack;
+import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.ResolvingImportTypes;
-import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.util.*;
 
 public final class ForEachTable extends BracedStack implements Loop, WithNotEmptyEl,ImportForEachTable {
@@ -333,7 +335,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
                     variableNameFirst);
             _cont.addError(d_);
         }
-        LoopVariable lv_ = new LoopVariable();
+        AnaLoopVariable lv_ = new AnaLoopVariable();
         if (!importedClassNameFirst.isEmpty()) {
             lv_.setClassName(importedClassNameFirst);
         } else {
@@ -341,7 +343,7 @@ public final class ForEachTable extends BracedStack implements Loop, WithNotEmpt
         }
         lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableNameFirst, lv_);
-        lv_ = new LoopVariable();
+        lv_ = new AnaLoopVariable();
         if (!importedClassNameSecond.isEmpty()) {
             lv_.setClassName(importedClassNameSecond);
         } else {

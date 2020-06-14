@@ -4,8 +4,6 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.opers.AffectationOperation;
-import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.formathtml.exec.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringList;
@@ -21,10 +19,6 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
         super(_offset);
         expression = _left.getInfo();
         expressionOffset = _left.getOffset();
-    }
-
-    public String getExpression() {
-        return expression;
     }
 
     @Override

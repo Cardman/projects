@@ -1,23 +1,28 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.util.TypeInfo;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.assign.blocks.*;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.errors.stds.StdErrorList;
 import code.expressionlanguage.errors.stds.StdWordError;
+import code.expressionlanguage.exec.DefaultLockingClass;
+import code.expressionlanguage.exec.InitClassState;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.files.FileResolver;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.analyze.util.ToStringMethodHeader;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.exec.ExecOperationNode;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.ResolvingImportTypes;
-import code.expressionlanguage.variables.LocalVariable;
 import code.util.*;
 
 public final class Classes {
@@ -29,7 +34,7 @@ public final class Classes {
     private final StringMap<String> resources;
 
     private StringMap<StringMap<Struct>> staticFields;
-    private final StringMap<OverridableBlock> toStringMethods = new StringMap<OverridableBlock>();
+    private final StringMap<ToStringMethodHeader> toStringMethods = new StringMap<ToStringMethodHeader>();
     private final StringMap<CustList<OverridableBlock>> explicitCastMethods = new StringMap<CustList<OverridableBlock>>();
     private final StringMap<CustList<OverridableBlock>> explicitIdCastMethods = new StringMap<CustList<OverridableBlock>>();
     private final StringMap<CustList<OverridableBlock>> explicitFromCastMethods = new StringMap<CustList<OverridableBlock>>();
@@ -294,6 +299,7 @@ public final class Classes {
             _context.addError(d_);
         }
         page_.getFoundTypes().add(_root);
+        page_.getAllFoundTypes().add(_root);
         classesBodies.put(fullName_, _root);
     }
 
@@ -362,8 +368,10 @@ public final class Classes {
         _context.setAnalyzing();
         Classes.buildPredefinedBracesBodies(_context);
         CustList<RootBlock> foundTypes_ = _context.getAnalyzing().getFoundTypes();
+        CustList<RootBlock> allFoundTypes_ = _context.getAnalyzing().getAllFoundTypes();
         _context.setAnalyzing();
         _context.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
+        _context.getAnalyzing().getAllFoundTypes().addAllElts(allFoundTypes_);
         tryValidateCustom(_files, _context);
         if (!_context.isEmptyErrors()) {
             //all errors are logged here
@@ -1802,7 +1810,7 @@ public final class Classes {
             if (getIndexers_.size() == 1) {
                 OverridableBlock matching_ = getIndexers_.first();
                 String c_ = matching_.getImportedReturnType();
-                LocalVariable lv_ = new LocalVariable();
+                AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(c_);
                 _page.getParameters().put(p_, lv_);
             }
@@ -1874,7 +1882,7 @@ public final class Classes {
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                 String p_ = _params.get(i);
                 String c_ = _types.get(i);
-                LocalVariable lv_ = new LocalVariable();
+                AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(c_);
                 _page.getParameters().put(p_, lv_);
             }
@@ -1882,13 +1890,13 @@ public final class Classes {
             for (int i = CustList.FIRST_INDEX; i < len_ - 1; i++) {
                 String p_ = _params.get(i);
                 String c_ = _types.get(i);
-                LocalVariable lv_ = new LocalVariable();
+                AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(c_);
                 _page.getParameters().put(p_, lv_);
             }
             String p_ = _params.last();
             String c_ = _types.last();
-            LocalVariable lv_ = new LocalVariable();
+            AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(PrimitiveTypeUtil.getPrettyArrayType(c_));
             _page.getParameters().put(p_, lv_);
         }
@@ -2427,7 +2435,7 @@ public final class Classes {
         expsSecondCust = _expsSecondCust;
     }
 
-    public StringMap<OverridableBlock> getToStringMethods() {
+    public StringMap<ToStringMethodHeader> getToStringMethods() {
         return toStringMethods;
     }
 

@@ -10,6 +10,20 @@ import static org.junit.Assert.assertTrue;
 
 public final class RenderTextTest extends CommonRender {
     @Test
+    public void processDescTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className=\"$int\" value=\"arg=2,arg2=4\"/>{arg},{arg2}</body></html>";
+        Configuration conf_ = contextElFive();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
     public void process0Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";

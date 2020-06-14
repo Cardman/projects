@@ -1,9 +1,5 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.ContextEl;
-import code.util.CustList;
-import code.util.*;
-
 abstract class ParentPartType extends PartType {
 
     private PartType firstChild;
@@ -21,15 +17,10 @@ abstract class ParentPartType extends PartType {
         }
         p_.setNextSibling(_child);
     }
-    abstract String getPrettyBegin();
-    abstract String getPrettyEnd();
-    abstract String getBegin();
 
-    abstract String getEnd();
     @Override
     final PartType getFirstChild() {
         return firstChild;
     }
 
-    abstract boolean analyzeTree(ContextEl _an, CustList<IntTreeMap<String>> _dels);
 }

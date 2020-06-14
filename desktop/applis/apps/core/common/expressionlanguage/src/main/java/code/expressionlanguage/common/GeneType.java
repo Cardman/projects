@@ -1,8 +1,6 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.util.*;
 
 public interface GeneType extends InheritedType {

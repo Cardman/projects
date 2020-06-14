@@ -3,7 +3,7 @@ package code.expressionlanguage.assign.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.opers.exec.ExecDeclaringOperation;
+import code.expressionlanguage.exec.opers.ExecDeclaringOperation;
 
 public final class AssDeclaringOperation extends AssMultMethodOperation {
     AssDeclaringOperation(ExecDeclaringOperation _ex) {

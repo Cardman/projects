@@ -1,6 +1,6 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 

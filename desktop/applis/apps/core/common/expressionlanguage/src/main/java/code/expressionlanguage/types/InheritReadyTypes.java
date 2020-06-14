@@ -13,4 +13,5 @@ public final class InheritReadyTypes implements ReadyTypes {
     public boolean isReady(String _type) {
         return StringList.contains(list,_type);
     }
+
 }

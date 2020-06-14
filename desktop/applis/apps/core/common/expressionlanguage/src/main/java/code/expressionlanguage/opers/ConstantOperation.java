@@ -2,20 +2,16 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.instr.ConstType;
-import code.expressionlanguage.instr.Delimiters;
+import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.ParsedArgument;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
 
 public final class ConstantOperation extends LeafOperation {
 
@@ -77,7 +73,7 @@ public final class ConstantOperation extends LeafOperation {
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
-        ParsedArgument parsed_ = ParsedArgument.parse(op_.getNbInfos(), _conf);
+        ParsedArgument parsed_ = parse(_conf, op_);
         String argClassName_ = parsed_.getType();
         if (argClassName_.isEmpty()) {
             FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
@@ -93,6 +89,10 @@ public final class ConstantOperation extends LeafOperation {
         arg_.setStruct(parsed_.getStruct());
         setSimpleArgument(arg_);
         setResultClass(new ClassArgumentMatching(argClassName_));
+    }
+
+    private static ParsedArgument parse(ContextEl _conf, OperationsSequence _op) {
+        return ParsedArgument.parse(_op.getNbInfos(), _conf.getStandards());
     }
 
     public int getLength() {

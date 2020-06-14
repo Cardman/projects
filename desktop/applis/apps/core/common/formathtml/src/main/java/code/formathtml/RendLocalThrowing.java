@@ -1,11 +1,11 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ErrorType;
+import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.stacks.RendAbruptCallingFinally;
 import code.formathtml.stacks.RendExceptionCallingFinally;
 import code.formathtml.stacks.RendRemovableVars;

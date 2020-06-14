@@ -4,9 +4,11 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.exec.ExecInvokingOperation;
+import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.Identifiable;
@@ -371,7 +373,7 @@ public final class Templates {
 
     /**Calls Templates.isCorrect*/
     public static String correctClassPartsDynamic(String _className, ContextEl _context, boolean _wildCard) {
-        String className_ = PartTypeUtil.processExec(_className, _context);
+        String className_ = ExecPartTypeUtil.processExec(_className, _context);
         if (className_.isEmpty()) {
             return "";
         }
@@ -719,7 +721,7 @@ public final class Templates {
         return PartTypeUtil.processAnalyzeConstraints(_className,_inherit,_context,_exact);
     }
     public static boolean isCorrectTemplateAllExec(String _className, ContextEl _context) {
-        return PartTypeUtil.processAnalyzeConstraintsExec(_className,_context);
+        return ExecPartTypeUtil.processAnalyzeConstraintsExec(_className,_context);
     }
 
     public static String wildCardFormatReturn(String _first, String _second, ContextEl _classes) {

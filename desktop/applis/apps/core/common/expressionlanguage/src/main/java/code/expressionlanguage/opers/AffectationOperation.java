@@ -2,22 +2,23 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.opers.exec.*;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.util.*;
 
-public final class AffectationOperation extends MethodOperation implements AffectationOperable {
+public final class AffectationOperation extends MethodOperation {
 
     private OperationNode settableOp;
 
@@ -70,7 +71,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
                     ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
-                    LocalVariable lv_ = _conf.getAnalyzing().getLocalVar(inf_);
+                    AnaLocalVariable lv_ = _conf.getAnalyzing().getLocalVar(inf_);
                     lv_.setClassName(type_);
                     _conf.getAnalyzing().getVariablesNamesToInfer().removeString(inf_);
                     _conf.getAnalyzing().getLocalDeclaring().setupDeclaratorClass(type_);
@@ -88,7 +89,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
                     ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
-                    LoopVariable lv_ = _conf.getAnalyzing().getMutableLoopVar(inf_);
+                    AnaLoopVariable lv_ = _conf.getAnalyzing().getMutableLoopVar(inf_);
                     lv_.setClassName(type_);
                     _conf.getAnalyzing().getVariablesNamesLoopToInfer().removeString(inf_);
                     _conf.getAnalyzing().getLoopDeclaring().setupLoopDeclaratorClass(type_);
@@ -203,7 +204,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
             _cont.getAnalyzing().getLocalizer().addError(un_);
         } else {
             for (String v: _cont.getAnalyzing().getVariablesNamesToInfer()) {
-                LocalVariable lv_ = _cont.getAnalyzing().getLocalVar(v);
+                AnaLocalVariable lv_ = _cont.getAnalyzing().getLocalVar(v);
                 lv_.setClassName(_import);
             }
         }
@@ -222,7 +223,7 @@ public final class AffectationOperation extends MethodOperation implements Affec
             _cont.getAnalyzing().getLocalizer().addError(un_);
         } else {
             for (String v: _cont.getAnalyzing().getVariablesNamesLoopToInfer()) {
-                LoopVariable lv_ = _cont.getAnalyzing().getMutableLoopVar(v);
+                AnaLoopVariable lv_ = _cont.getAnalyzing().getMutableLoopVar(v);
                 lv_.setClassName(_import);
             }
         }

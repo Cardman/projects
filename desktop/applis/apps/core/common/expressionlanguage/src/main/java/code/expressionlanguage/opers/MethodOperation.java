@@ -1,16 +1,12 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.opers.exec.ParentOperable;
-import code.expressionlanguage.opers.exec.ReductibleOperable;
+import code.expressionlanguage.exec.opers.ReductibleOperable;
 import code.util.CustList;
 import code.util.*;
-import code.util.StringMap;
 
-public abstract class MethodOperation extends OperationNode implements ReductibleOperable, ParentOperable {
+public abstract class MethodOperation extends OperationNode implements ReductibleOperable {
 
     private OperationNode firstChild;
 
