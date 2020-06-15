@@ -1,4 +1,4 @@
-package code.expressionlanguage.types;
+package code.expressionlanguage.analyze.types;
 
 import code.util.StringList;
 

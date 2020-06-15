@@ -17,7 +17,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;

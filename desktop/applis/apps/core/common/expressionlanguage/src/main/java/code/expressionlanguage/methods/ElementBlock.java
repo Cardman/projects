@@ -18,7 +18,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.opers.ExecStandardInstancingOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class ElementBlock extends Leaf implements InnerTypeOrElement{

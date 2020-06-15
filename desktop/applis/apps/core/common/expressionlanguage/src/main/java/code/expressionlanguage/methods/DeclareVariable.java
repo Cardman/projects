@@ -10,7 +10,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
 import code.util.StringList;

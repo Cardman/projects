@@ -18,7 +18,7 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock {

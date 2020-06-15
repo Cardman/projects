@@ -6,7 +6,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
 

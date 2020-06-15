@@ -4,8 +4,8 @@ abstract class LeafPartType extends PartType {
 
     private String typeName;
     private String previousSeparator;
-    LeafPartType(ParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator) {
-        super(_parent, _index, _indexInType);
+    LeafPartType(ParentPartType _parent, int _index, String _type, String _previousSeparator) {
+        super(_parent, _index);
         typeName = _type;
         previousSeparator = _previousSeparator;
 

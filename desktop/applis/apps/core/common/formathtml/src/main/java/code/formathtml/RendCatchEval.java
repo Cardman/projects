@@ -5,8 +5,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.types.ResolvingImportTypes;
-import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.StringList;
 
 public final class RendCatchEval extends RendAbstractCatchEval {

@@ -8,7 +8,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.ResolvingSuperTypes;
+import code.expressionlanguage.analyze.types.ResolvingSuperTypes;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
@@ -20,7 +20,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.opers.ExecStandardInstancingOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class InnerElementBlock extends RootBlock implements InnerTypeOrElement, UniqueRootedBlock {

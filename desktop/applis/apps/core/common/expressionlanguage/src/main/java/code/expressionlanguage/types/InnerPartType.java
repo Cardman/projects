@@ -1,7 +1,5 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -10,56 +8,13 @@ final class InnerPartType extends BinaryType {
 
     private CustList<String> operators;
 
-    InnerPartType(ParentPartType _parent, int _index, int _indexInType, CustList<String> _operators) {
-        super(_parent, _index, _indexInType);
+    InnerPartType(ParentPartType _parent, int _index, CustList<String> _operators) {
+        super(_parent, _index);
         operators = _operators;
     }
 
     @Override
-    void analyze(ContextEl _an, CustList<IntTreeMap< String>>_dels, String _globalType, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
-        analyzeLine(_an,null,_dels,_local,_rooted);
-    }
-
-    @Override
     void setAnalyzedType(CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
-        CustList<PartType> ch_ = new CustList<PartType>();
-        PartType f_ = getFirstChild();
-        while (f_ != null) {
-            ch_.add(f_);
-            f_ = f_.getNextSibling();
-        }
-        String t_ = ch_.last().getAnalyzedType();
-        setAnalyzedType(t_);
-    }
-
-    @Override
-    void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
-        CustList<PartType> ch_ = new CustList<PartType>();
-        PartType f_ = getFirstChild();
-        while (f_ != null) {
-            ch_.add(f_);
-            f_ = f_.getNextSibling();
-        }
-        String t_ = ch_.last().getAnalyzedType();
-        setAnalyzedType(t_);
-    }
-
-    @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>>_dels, AccessingImportingBlock _local,AccessingImportingBlock _rooted) {
-        CustList<PartType> ch_ = new CustList<PartType>();
-        PartType f_ = getFirstChild();
-        while (f_ != null) {
-            ch_.add(f_);
-            f_ = f_.getNextSibling();
-        }
-        String t_ = ch_.last().getAnalyzedType();
-        setAnalyzedType(t_);
-    }
-
-    @Override
-    void analyzeAccessibleId(ContextEl _an,
-            CustList<IntTreeMap< String>> _dels,
-                             AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {

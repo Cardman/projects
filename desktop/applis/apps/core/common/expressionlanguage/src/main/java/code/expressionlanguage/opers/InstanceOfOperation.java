@@ -9,7 +9,7 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class InstanceOfOperation extends AbstractUnaryOperation {

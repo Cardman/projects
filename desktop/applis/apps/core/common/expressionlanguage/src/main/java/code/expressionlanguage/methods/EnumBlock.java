@@ -3,7 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.ResolvingSuperTypes;
+import code.expressionlanguage.analyze.types.ResolvingSuperTypes;
 import code.expressionlanguage.inherits.Templates;
 import code.util.*;
 import code.util.StringList;

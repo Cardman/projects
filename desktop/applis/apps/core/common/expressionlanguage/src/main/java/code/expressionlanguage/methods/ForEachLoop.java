@@ -22,7 +22,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.IterableAnalysisResult;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.util.*;

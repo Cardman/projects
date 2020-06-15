@@ -10,7 +10,7 @@ import code.expressionlanguage.exec.opers.ExecInterfaceInvokingConstructor;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.StringList;
 
 public final class InterfaceInvokingConstructor extends AbstractInvokingConstructor {

@@ -12,7 +12,7 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;

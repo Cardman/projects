@@ -1,12 +1,11 @@
-package code.expressionlanguage.inherits;
+package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.analyze.util.TypeVar;
-import code.expressionlanguage.types.InheritReadyTypes;
-import code.expressionlanguage.types.PartTypeUtil;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -42,7 +41,7 @@ public final class ResolvingSuperTypes {
         String gl_ = _currentBlock.getGenericString();
         CustList<PartOffset> partOffsets_ = _context.getCoverage().getCurrentParts();
         _context.getAnalyzing().getCurrentBadIndexes().clear();
-        String resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, _context, _currentBlock,_currentBlock, _location,partOffsets_);
+        String resType_ = AnaPartTypeUtil.processAnalyze(_in, false,gl_, _context, _currentBlock,_currentBlock, _location,partOffsets_);
         for (int i: _context.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
@@ -80,7 +79,7 @@ public final class ResolvingSuperTypes {
         CustList<PartOffset> partOffsets_ = _currentBlock.getSuperTypesParts();
         RootBlock scope_ = _currentBlock.getParentType();
         _context.getAnalyzing().getCurrentBadIndexes().clear();
-        String resType_ = PartTypeUtil.processAnalyze(_in,true,gl_,_context,scope_,_currentBlock, _location,partOffsets_);
+        String resType_ = AnaPartTypeUtil.processAnalyze(_in,true,gl_,_context,scope_,_currentBlock, _location,partOffsets_);
         for (int i: _context.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
@@ -130,6 +129,6 @@ public final class ResolvingSuperTypes {
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         RootBlock scope_ = _root.getParentType();
         InheritReadyTypes inh_ = new InheritReadyTypes(_readyTypes);
-        return PartTypeUtil.processAnalyzeLineInherits(id_, inh_,true, _context,scope_,_root, -1,partOffsets_);
+        return AnaPartTypeUtil.processAnalyzeLineInherits(id_, inh_,true, _context,scope_,_root, -1,partOffsets_);
     }
 }

@@ -7,8 +7,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.types.ResolvingImportTypes;
-import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 

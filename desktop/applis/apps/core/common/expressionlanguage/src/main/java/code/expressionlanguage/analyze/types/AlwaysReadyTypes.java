@@ -1,4 +1,4 @@
-package code.expressionlanguage.types;
+package code.expressionlanguage.analyze.types;
 
 public final class AlwaysReadyTypes implements ReadyTypes {
     public AlwaysReadyTypes(){}

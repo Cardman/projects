@@ -1,4 +1,4 @@
-package code.expressionlanguage.types;
+package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ImportedField;
@@ -32,7 +32,7 @@ public final class ResolvingImportTypes {
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex()+_loc;
         AccessingImportingBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         CustList<PartOffset> offs_ = _analyzable.getCoverage().getCurrentParts();
-        return PartTypeUtil.processAnalyzeLine(_in,false, _analyzable,a_,r_, rc_, offs_);
+        return AnaPartTypeUtil.processAnalyzeLine(_in,false, _analyzable,a_,r_, rc_, offs_);
     }
     public static String resolveCorrectAccessibleType(ContextEl _analyzable, int _loc,String _in, String _fromType) {
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex()+_loc;
@@ -64,7 +64,7 @@ public final class ResolvingImportTypes {
         }
         CustList<PartOffset> partOffsets_ = _analyzable.getCoverage().getCurrentParts();
         partOffsets_.clear();
-        String resType_ = PartTypeUtil.processAnalyzeAccessibleId(_in, _analyzable, r_, ref_,rc_,partOffsets_);
+        String resType_ = AnaPartTypeUtil.processAnalyzeAccessibleId(_in, _analyzable, r_, ref_,rc_,partOffsets_);
         if (resType_.trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -102,9 +102,9 @@ public final class ResolvingImportTypes {
         _analyzable.getAnalyzing().getCurrentBadIndexes().clear();
         String resType_;
         if (_exact) {
-            resType_ = PartTypeUtil.processAnalyze(_in, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
+            resType_ = AnaPartTypeUtil.processAnalyze(_in, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
         } else {
-            resType_ = PartTypeUtil.processAnalyzeLine(_in, false, _analyzable, a_,r_, rc_,partOffsets_);
+            resType_ = AnaPartTypeUtil.processAnalyzeLine(_in, false, _analyzable, a_,r_, rc_,partOffsets_);
         }
         if (resType_.trim().isEmpty()) {
             partOffsets_.clear();
@@ -143,9 +143,9 @@ public final class ResolvingImportTypes {
         String resType_;
         _analyzable.getAnalyzing().getCurrentBadIndexes().clear();
         if (_exact) {
-            resType_ = PartTypeUtil.processAnalyze(tr_, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
+            resType_ = AnaPartTypeUtil.processAnalyze(tr_, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
         } else {
-            resType_ = PartTypeUtil.processAnalyzeLine(tr_,false, _analyzable,a_,r_, rc_,partOffsets_);
+            resType_ = AnaPartTypeUtil.processAnalyzeLine(tr_,false, _analyzable,a_,r_, rc_,partOffsets_);
         }
         for (int i: _analyzable.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -180,7 +180,7 @@ public final class ResolvingImportTypes {
         String gl_ = _analyzable.getAnalyzing().getGlobalClass();
         String resType_;
         _analyzable.getAnalyzing().getCurrentBadIndexes().clear();
-        resType_ = PartTypeUtil.processAnalyze(tr_, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
+        resType_ = AnaPartTypeUtil.processAnalyze(tr_, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
         return checkResType(_analyzable, _in, true, rc_, varsCt_, resType_);
     }
     private static String checkResType(ContextEl _analyzable, String _in, boolean _exact, int rc_, StringMap<StringList> varsCt_, String resType_) {

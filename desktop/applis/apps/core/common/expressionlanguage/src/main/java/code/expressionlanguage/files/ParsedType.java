@@ -1,5 +1,6 @@
 package code.expressionlanguage.files;
 
+import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.util.CustList;
@@ -135,7 +136,7 @@ public final class ParsedType {
         if (!ok) {
             return false;
         }
-        return PartTypeUtil.isCorrectType(instruction.substring(0,instruction.length()-delta),_excludedWords);
+        return AnaPartTypeUtil.isCorrectType(instruction.substring(0,instruction.length()-delta),_excludedWords);
     }
 
     public boolean isOk() {

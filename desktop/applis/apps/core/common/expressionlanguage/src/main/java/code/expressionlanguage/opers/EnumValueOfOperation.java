@@ -8,7 +8,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.*;
 

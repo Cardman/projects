@@ -3,8 +3,8 @@ package code.expressionlanguage.types;
 abstract class ParentPartType extends PartType {
 
     private PartType firstChild;
-    ParentPartType(ParentPartType _parent, int _index, int _indexInType) {
-        super(_parent, _index, _indexInType);
+    ParentPartType(ParentPartType _parent, int _index) {
+        super(_parent, _index);
     }
     void appendChild(PartType _child) {
         if (firstChild == null) {

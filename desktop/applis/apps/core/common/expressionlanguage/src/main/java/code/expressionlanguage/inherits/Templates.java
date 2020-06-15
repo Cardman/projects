@@ -1,6 +1,7 @@
 package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -718,7 +719,7 @@ public final class Templates {
         return isCorrectTemplateAll(_className, _inherit, _context, true);
     }
     public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, ContextEl _context, boolean _exact) {
-        return PartTypeUtil.processAnalyzeConstraints(_className,_inherit,_context,_exact);
+        return AnaPartTypeUtil.processAnalyzeConstraints(_className,_inherit,_context,_exact);
     }
     public static boolean isCorrectTemplateAllExec(String _className, ContextEl _context) {
         return ExecPartTypeUtil.processAnalyzeConstraintsExec(_className,_context);

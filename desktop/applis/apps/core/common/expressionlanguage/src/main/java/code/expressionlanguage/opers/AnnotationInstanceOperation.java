@@ -16,7 +16,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.AnnotationFieldInfo;
 import code.expressionlanguage.opers.util.AnnotationTypeInfo;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class AnnotationInstanceOperation extends InvokingOperation implements PreAnalyzableOperation {

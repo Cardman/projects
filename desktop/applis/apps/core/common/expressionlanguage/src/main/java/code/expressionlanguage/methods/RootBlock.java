@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.types.ResolvingSuperTypes;
 import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;

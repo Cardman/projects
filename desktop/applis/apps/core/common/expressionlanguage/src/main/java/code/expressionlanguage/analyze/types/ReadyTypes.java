@@ -1,4 +1,4 @@
-package code.expressionlanguage.types;
+package code.expressionlanguage.analyze.types;
 
 public interface ReadyTypes {
     boolean isReady(String _type);

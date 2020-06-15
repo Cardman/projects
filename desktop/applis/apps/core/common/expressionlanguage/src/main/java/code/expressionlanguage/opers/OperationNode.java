@@ -19,7 +19,7 @@ import code.expressionlanguage.methods.*;
 import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
 public abstract class OperationNode {

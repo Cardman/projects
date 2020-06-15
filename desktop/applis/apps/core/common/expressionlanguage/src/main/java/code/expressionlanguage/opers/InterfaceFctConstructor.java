@@ -7,7 +7,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 
 public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
     private String className = EMPTY_STRING;

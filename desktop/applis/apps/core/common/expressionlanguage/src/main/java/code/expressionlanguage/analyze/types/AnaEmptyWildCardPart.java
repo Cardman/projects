@@ -1,0 +1,43 @@
+package code.expressionlanguage.analyze.types;
+
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.util.CustList;
+import code.util.IntTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
+
+final class AnaEmptyWildCardPart extends AnaLeafPartType {
+
+    AnaEmptyWildCardPart(AnaParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator) {
+        super(_parent, _index, _indexInType, _type, _previousSeparator);
+    }
+
+    @Override
+    void analyze(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _globalType, AccessingImportingBlock _local, AccessingImportingBlock _rooted) {
+        analyzeLine(_an,null,_dels,_local,_rooted);
+    }
+
+    @Override
+    void analyzeLine(ContextEl _an, ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessingImportingBlock _local, AccessingImportingBlock _rooted) {
+        if (!(getParent() instanceof AnaTemplatePartType)) {
+            return;
+        }
+        setAnalyzedType(Templates.SUB_TYPE);
+    }
+
+    @Override
+    void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap<String>> _dels, AccessingImportingBlock _rooted) {
+        if (!(getParent() instanceof AnaTemplatePartType)) {
+            return;
+        }
+        setAnalyzedType(Templates.SUB_TYPE);
+    }
+
+    @Override
+    void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+        setAnalyzedType(Templates.SUB_TYPE);
+    }
+
+}

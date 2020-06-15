@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.types.ResolvingSuperTypes;
 import code.expressionlanguage.analyze.util.TypeInfo;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.assign.blocks.*;
@@ -22,7 +23,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class Classes {

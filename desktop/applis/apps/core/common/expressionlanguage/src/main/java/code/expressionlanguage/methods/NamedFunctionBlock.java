@@ -12,7 +12,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
