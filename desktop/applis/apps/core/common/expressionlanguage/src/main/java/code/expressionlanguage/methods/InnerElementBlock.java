@@ -74,16 +74,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
-    public boolean isFinalType() {
-        return true;
-    }
-
-    @Override
-    public boolean isAbstractType() {
-        return true;
-    }
-
-    @Override
     public boolean mustImplement() {
         return true;
     }
@@ -169,11 +159,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
     @Override
     public boolean isStaticField() {
-        return true;
-    }
-
-    @Override
-    public boolean isFinalField() {
         return true;
     }
 

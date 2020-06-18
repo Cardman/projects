@@ -3,10 +3,7 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ImportedField;
 import code.expressionlanguage.analyze.ImportedMethod;
-import code.expressionlanguage.common.GeneField;
-import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
@@ -470,7 +467,7 @@ public final class ResolvingImportTypes {
     private static void fetchImportStaticMethods(ContextEl _analyzable, String _glClass, String _method, CustList<ImportedMethod> _methods, String _typeLoc, StringList _typesLoc) {
         for (String s: _typesLoc) {
             GeneType super_ = _analyzable.getClassBody(s);
-            for (GeneMethod e: ExecBlock.getMethodBlocks(super_)) {
+            for (GeneCustStaticMethod e: ExecBlock.getMethodBlocks(super_)) {
                 if (!e.isStaticMethod()) {
                     continue;
                 }

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.opers.util.AnnotationTypeInfo;
@@ -28,13 +29,13 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
             if (i_.isWrap()) {
                 ArrayStruct a_ = new ArrayStruct(new Struct[1], t_);
                 Templates.setCheckedElements(new CustList<Argument>(value_),a_,_context);
-                AnnotationMethodBlock.setValue(className_,name_,t_,_context,new Argument(a_));
+                ExecAnnotationMethodBlock.setValue(className_,name_,t_,_context,new Argument(a_));
                 if (_context.callsOrException()) {
                     return;
                 }
                 continue;
             }
-            AnnotationMethodBlock.setValue(className_,name_,t_,_context,value_);
+            ExecAnnotationMethodBlock.setValue(className_,name_,t_,_context,value_);
             if (_context.callsOrException()) {
                 return;
             }

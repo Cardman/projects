@@ -36,7 +36,6 @@ public final class StandardField implements GeneField {
         return staticField;
     }
 
-    @Override
     public boolean isFinalField() {
         return finalField;
     }

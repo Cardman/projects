@@ -441,7 +441,7 @@ public final class TypeUtil {
         for (ClassMethodId t: foundSuperClasses_) {
             String t_ = t.getClassName();
             String baseSuperType_ = Templates.getIdFromAllTypes(t_);
-            GeneCustMethod method_ = (GeneCustMethod) ExecBlock.getMethodBodiesById(_conf,baseSuperType_, t.getConstraints()).first();
+            GeneCustModifierMethod method_ = (GeneCustModifierMethod) ExecBlock.getMethodBodiesById(_conf,baseSuperType_, t.getConstraints()).first();
             if (method_.isAbstractMethod()) {
                 continue;
             }
@@ -520,7 +520,7 @@ public final class TypeUtil {
             }
             classNameFound_ = tree_.firstKey();
             realId_ = tree_.firstValue();
-            if (((GeneCustMethod) ExecBlock.getMethodBodiesById(_conf,classNameFound_, realId_).first()).isAbstractMethod()) {
+            if (((GeneCustModifierMethod) ExecBlock.getMethodBodiesById(_conf,classNameFound_, realId_).first()).isAbstractMethod()) {
                 continue;
             }
             return new ClassMethodId(classNameFound_, realId_);
@@ -676,7 +676,7 @@ public final class TypeUtil {
             all_ = new CustList<MethodId>();
             String base_ = Templates.getIdFromAllTypes(s);
             ExecRootBlock b_ = _classes.getClasses().getClassBody(base_);
-            for (GeneCustMethod b: ExecBlock.getMethodExecBlocks(b_)) {
+            for (GeneCustModifierMethod b: ExecBlock.getMethodExecBlocks(b_)) {
                 if (b.hiddenInstance()) {
                     continue;
                 }
@@ -701,7 +701,7 @@ public final class TypeUtil {
     private static CustList<OverridingMethod> getAllInstanceSignatures(ExecRootBlock _type, ContextEl _classes) {
         CustList<OverridingMethod> map_;
         map_ = new CustList<OverridingMethod>();
-        for (GeneCustMethod b: ExecBlock.getMethodExecBlocks(_type)) {
+        for (GeneCustModifierMethod b: ExecBlock.getMethodExecBlocks(_type)) {
             if (b.hiddenInstance()) {
                 continue;
             }
@@ -713,7 +713,7 @@ public final class TypeUtil {
         for (String s: _type.getAllGenericSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
             ExecRootBlock b_ = _classes.getClasses().getClassBody(base_);
-            for (GeneCustMethod b: ExecBlock.getMethodExecBlocks(b_)) {
+            for (GeneCustModifierMethod b: ExecBlock.getMethodExecBlocks(b_)) {
                 if (b.hiddenInstance()) {
                     continue;
                 }

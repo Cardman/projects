@@ -107,7 +107,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return staticField;
     }
 
-    @Override
     public boolean isFinalField() {
         return finalField;
     }

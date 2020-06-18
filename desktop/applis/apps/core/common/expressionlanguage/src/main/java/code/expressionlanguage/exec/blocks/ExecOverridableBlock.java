@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneCustMethod;
+import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.AccessibleBlock;
 import code.expressionlanguage.methods.MethodKind;
@@ -13,7 +14,7 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class ExecOverridableBlock extends ExecNamedFunctionBlock implements AccessibleBlock,GeneCustMethod,ReturnableWithSignature {
+public final class ExecOverridableBlock extends ExecNamedFunctionBlock implements AccessibleBlock,GeneCustModifierMethod,ReturnableWithSignature {
 
     private final int modifierOffset;
 

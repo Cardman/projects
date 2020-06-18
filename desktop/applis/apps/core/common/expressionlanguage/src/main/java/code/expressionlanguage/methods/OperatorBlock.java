@@ -49,11 +49,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
         return new MethodId(MethodAccessKind.STATIC, name_, pTypes_, isVarargs());
     }
 
-    public boolean hiddenInstance() {
-        return true;
-    }
-
-    @Override
     public boolean isStaticMethod() {
         return true;
     }
@@ -75,9 +70,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
         return imports;
     }
 
-    public StringList getFileImports() {
-        return getFile().getImports();
-    }
     public Ints getImportsOffset() {
         return importsOffset;
     }

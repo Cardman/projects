@@ -6,7 +6,6 @@ public interface GeneField {
 
     boolean isStaticField();
 
-    boolean isFinalField();
 
     StringList getFieldName();
 }

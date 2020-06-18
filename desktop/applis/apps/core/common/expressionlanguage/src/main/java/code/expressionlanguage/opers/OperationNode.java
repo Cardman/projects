@@ -1548,7 +1548,7 @@ public abstract class OperationNode {
                                                String _cl, GeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap) {
         String fullName_ = _root.getFullName();
         String genericString_ = _root.getGenericString();
-        for (GeneMethod e: ExecBlock.getMethodBlocks(_root)) {
+        for (GeneCustStaticMethod e: ExecBlock.getMethodBlocks(_root)) {
             MethodId id_ = e.getId();
             MethodAccessKind k_ = id_.getKind();
             if (_kind == MethodAccessKind.STATIC) {
@@ -1606,7 +1606,7 @@ public abstract class OperationNode {
         }
     }
 
-    private static MethodInfo fetchedParamMethod(GeneMethod _m,String _s,boolean _keepParams,
+    private static MethodInfo fetchedParamMethod(GeneCustStaticMethod _m,String _s,boolean _keepParams,
                                                  ContextEl _conf, ClassMethodIdAncestor _uniqueId,
                                                  String _glClass, int _anc, String _f, StringMap<String> _superTypesBaseMap) {
         String base_ = Templates.getIdFromAllTypes(_s);
@@ -1651,7 +1651,7 @@ public abstract class OperationNode {
         return !Classes.canAccess(_glClass,_acc, _conf);
     }
 
-    private static MethodInfo buildMethodInfo(GeneMethod _m, boolean _keepParams, ContextEl _conf, int _anc, String _formattedClass) {
+    private static MethodInfo buildMethodInfo(GeneCustStaticMethod _m, boolean _keepParams, ContextEl _conf, int _anc, String _formattedClass) {
         String ret_ = _m.getImportedReturnType();
         ret_ = Templates.wildCardFormatReturn(_formattedClass, ret_, _conf);
         ParametersGroup p_ = new ParametersGroup();
@@ -1659,9 +1659,9 @@ public abstract class OperationNode {
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setClassName(_formattedClass);
         mloc_.setStaticMethod(id_.getKind());
-        if (_m instanceof GeneCustMethod) {
-            mloc_.setAbstractMethod(((GeneCustMethod)_m).isAbstractMethod());
-            mloc_.setFinalMethod(((GeneCustMethod)_m).isFinalMethod());
+        if (_m instanceof GeneCustModifierMethod) {
+            mloc_.setAbstractMethod(((GeneCustModifierMethod)_m).isAbstractMethod());
+            mloc_.setFinalMethod(((GeneCustModifierMethod)_m).isFinalMethod());
         }
         mloc_.setConstraints(id_);
         mloc_.setParameters(p_);

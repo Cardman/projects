@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
+import code.expressionlanguage.methods.ClassBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.util.StringList;
 
@@ -13,7 +14,7 @@ public final class ExecClassBlock extends ExecRootBlock implements ExecUniqueRoo
     private final boolean abstractType;
     private final boolean staticType;
 
-    public ExecClassBlock(RootBlock _offset) {
+    public ExecClassBlock(ClassBlock _offset) {
         super(_offset);
         finalType = _offset.isFinalType();
         abstractType = _offset.isAbstractType();

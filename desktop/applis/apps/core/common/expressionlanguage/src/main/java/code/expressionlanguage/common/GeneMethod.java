@@ -7,6 +7,5 @@ public interface GeneMethod extends GeneFunction {
 
     MethodId getId();
 
-    boolean isStaticMethod();
 
 }

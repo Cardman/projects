@@ -7,6 +7,7 @@ import code.expressionlanguage.methods.WithNotEmptyEl;
 public interface ExecInfoBlock extends WithNotEmptyEl, GeneField, ExecAnnotableBlock {
 
     String getImportedClassName();
+    boolean isFinalField();
     String getRealImportedClassName();
 
     void buildImportedTypes(InfoBlock _key);

@@ -23,21 +23,6 @@ public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements G
         importsOffset = _offset.getImportsOffset();
     }
 
-    @Override
-    public boolean isFinalMethod() {
-        return false;
-    }
-
-    @Override
-    public boolean hiddenInstance() {
-        return true;
-    }
-
-    @Override
-    public boolean isAbstractMethod() {
-        return false;
-    }
-
     public void buildImportedTypes(OperatorBlock _key) {
         setImportedReturnType(_key.getImportedReturnType());
         getImportedParametersTypes().addAllElts(_key.getImportedParametersTypes());
@@ -55,11 +40,6 @@ public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements G
             pTypes_.add(n_);
         }
         return new MethodId(MethodAccessKind.STATIC, name_, pTypes_, isVarargs());
-    }
-
-    @Override
-    public boolean isStaticMethod() {
-        return true;
     }
 
     @Override

@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneCustMethod;
+import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -20,7 +21,7 @@ import code.util.CustList;
 import code.util.StringList;
 
 public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock implements
-        GeneCustMethod, WithNotEmptyEl {
+        GeneCustModifierMethod, WithNotEmptyEl {
     private String defaultValue;
     private int defaultValueOffset;
 

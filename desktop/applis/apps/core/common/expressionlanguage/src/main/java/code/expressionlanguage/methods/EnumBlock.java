@@ -13,8 +13,6 @@ import code.util.StringList;
 
 public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
-    private final StringList allSuperTypes = new StringList();
-
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
 
@@ -30,20 +28,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public void setupBasicOverrides(ContextEl _context,ExecRootBlock _exec) {
         checkAccess(_context,_exec);
-    }
-
-    public StringList getAllSuperTypes() {
-        return allSuperTypes;
-    }
-
-    @Override
-    public boolean isFinalType() {
-        return true;
-    }
-
-    @Override
-    public boolean isAbstractType() {
-        return true;
     }
 
     @Override

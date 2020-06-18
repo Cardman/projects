@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.exec.CallPrepareState;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.Initializer;
@@ -171,7 +172,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         ExecRootBlock info_ = _conf.getClasses().getClassBody(classNameFound_);
         MethodId methodId_;
         if (info_ == null
-                || ((GeneCustMethod) ExecBlock.getMethodBodiesById(_conf, classNameFound_, id_).first()).isFinalMethod()) {
+                || ((GeneCustModifierMethod) ExecBlock.getMethodBodiesById(_conf, classNameFound_, id_).first()).isFinalMethod()) {
             classNameFound_ = _classMethodId.getClassName();
             methodId_ = id_;
         } else {
@@ -536,7 +537,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return getEnumValue(_exit,_classNameFound, arg_, _cont);
         }
         if (prev_ instanceof AbstractFunctionalInstance) {
-            GeneCustMethod gene_ = (GeneCustMethod) methods_.first();
+            GeneCustModifierMethod gene_ = (GeneCustModifierMethod) methods_.first();
             if (gene_.isAbstractMethod()) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)prev_).getFunctional());
                 return prepareCallDyn(fct_, _firstArgs, _cont);

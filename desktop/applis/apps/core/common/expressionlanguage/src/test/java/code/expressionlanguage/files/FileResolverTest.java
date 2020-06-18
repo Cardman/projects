@@ -250,7 +250,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq("<TWO,THREE>",eOne_.getTempClass());
         assertEq("\"\"<\"\"",eOne_.getValue());
         assertSame(eOne_, getCustomTypes(context_, 1));
-        assertTrue(eOne_.isFinalType());
         assertEq(24, eOne_.getFieldNameOffset());
         assertEq(27, eOne_.getTempClassOffset());
         assertEq(39, eOne_.getValueOffest());
@@ -260,7 +259,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq("FOUR",eTwo_.getUniqueFieldName());
         assertEq("<FIVE,SIX>",eTwo_.getTempClass());
         assertEq("\"\">\"\"",eTwo_.getValue());
-        assertTrue(eTwo_.isFinalType());
         assertEq(50, eTwo_.getFieldNameOffset());
         assertEq(54, eTwo_.getTempClassOffset());
         assertEq(65, eTwo_.getValueOffest());
@@ -616,7 +614,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("", ((ElementBlock)field_).getValue());
@@ -626,7 +623,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("1i,\n3i", ((ElementBlock)field_).getValue());
@@ -636,7 +632,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("HERE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("", ((ElementBlock)field_).getValue());
@@ -4226,7 +4221,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("", ((ElementBlock)field_).getValue());
@@ -4236,7 +4230,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("1i,\n3i", ((ElementBlock)field_).getValue());
@@ -4246,7 +4239,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("HERE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("", ((ElementBlock)field_).getValue());
@@ -4440,7 +4432,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("", ((ElementBlock)field_).getValue());
@@ -4450,7 +4441,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("1i,\n3i", ((ElementBlock)field_).getValue());
@@ -4460,7 +4450,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("HERE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("", ((ElementBlock)field_).getValue());
@@ -4685,7 +4674,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("<ExTwo>", ((ElementBlock)field_).getTempClass());
 
@@ -4697,7 +4685,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("<ExThree>", ((ElementBlock)field_).getTempClass());
 
@@ -4709,7 +4696,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("HERE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("", ((ElementBlock)field_).getValue());
@@ -4774,7 +4760,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("", ((ElementBlock)field_).getValue());
@@ -4784,7 +4769,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("1i,\n3i", ((ElementBlock)field_).getValue());
@@ -4800,7 +4784,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("HERE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("", ((ElementBlock)field_).getValue());
@@ -6189,8 +6172,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
         assertEq(0,r_.getDirectSuperTypes().size());
-        assertTrue(!r_.isAbstractType());
-        assertTrue(r_.isFinalType());
+        assertTrue(!cl_.isAbstractType());
+        assertTrue(cl_.isFinalType());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -6221,8 +6204,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
         assertEq(0,r_.getDirectSuperTypes().size());
-        assertTrue(r_.isAbstractType());
-        assertTrue(!r_.isFinalType());
+        assertTrue(cl_.isAbstractType());
+        assertTrue(!cl_.isFinalType());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
         FieldBlock field_ = (FieldBlock) child_;
@@ -6252,8 +6235,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
-        assertTrue(r_.isAbstractType());
-        assertTrue(r_.isFinalType());
+        assertTrue(cl_.isAbstractType());
+        assertTrue(cl_.isFinalType());
         assertEq(0,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof FieldBlock);
@@ -8073,7 +8056,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(child_ instanceof ElementBlock);
         InfoBlock field_ = (InfoBlock) child_;
         assertTrue(field_.isStaticField());
-        assertTrue(field_.isFinalField());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq(102, field_.getFieldNameOffset());

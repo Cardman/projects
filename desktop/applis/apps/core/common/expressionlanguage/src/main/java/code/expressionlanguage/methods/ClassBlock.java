@@ -12,8 +12,6 @@ import code.util.StringList;
 
 public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 
-    private final StringList allSuperTypes = new StringList();
-
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
     private final boolean finalType;
@@ -40,16 +38,10 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         checkAccess(_context,_exec);
     }
 
-    public StringList getAllSuperTypes() {
-        return allSuperTypes;
-    }
-
-    @Override
     public boolean isFinalType() {
         return finalType;
     }
 
-    @Override
     public boolean isAbstractType() {
         return abstractType;
     }

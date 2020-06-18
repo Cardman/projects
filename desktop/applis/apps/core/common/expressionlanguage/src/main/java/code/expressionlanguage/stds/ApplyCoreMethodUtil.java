@@ -2,6 +2,7 @@ package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -613,12 +614,12 @@ public class ApplyCoreMethodUtil {
         }
         if (!methods_.isEmpty()) {
             ExecNamedFunctionBlock meth_ = methods_.first();
-            if (seed_ instanceof AbstractFunctionalInstance &&((GeneCustMethod)meth_).isAbstractMethod()) {
+            if (seed_ instanceof AbstractFunctionalInstance &&((GeneCustModifierMethod)meth_).isAbstractMethod()) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
-            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,((GeneCustMethod)meth_).getId(),argsToPass_,null));
+            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,((GeneCustModifierMethod)meth_).getId(),argsToPass_,null));
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
@@ -648,12 +649,12 @@ public class ApplyCoreMethodUtil {
         }
         if (!methods_.isEmpty()) {
             ExecNamedFunctionBlock meth_ = methods_.first();
-            if (seed_ instanceof AbstractFunctionalInstance &&((GeneCustMethod)meth_).isAbstractMethod()) {
+            if (seed_ instanceof AbstractFunctionalInstance &&((GeneCustModifierMethod)meth_).isAbstractMethod()) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
-            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,((GeneCustMethod)meth_).getId(),argsToPass_,null));
+            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,((GeneCustModifierMethod)meth_).getId(),argsToPass_,null));
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

@@ -12,7 +12,6 @@ import code.util.StringList;
 
 public final class InterfaceBlock extends RootBlock {
 
-    private final StringList allSuperTypes = new StringList();
     private StringList importedDirectSuperInterfaces = new StringList();
     private final boolean staticType;
 
@@ -29,20 +28,6 @@ public final class InterfaceBlock extends RootBlock {
     @Override
     public void setupBasicOverrides(ContextEl _context,ExecRootBlock _exec) {
         useSuperTypesOverrides(_context);
-    }
-
-    public StringList getAllSuperTypes() {
-        return allSuperTypes;
-    }
-
-    @Override
-    public boolean isFinalType() {
-        return false;
-    }
-
-    @Override
-    public boolean isAbstractType() {
-        return true;
     }
 
     @Override
@@ -74,9 +59,6 @@ public final class InterfaceBlock extends RootBlock {
     @Override
     public void buildErrorDirectGenericSuperTypes(ContextEl _classes) {
         importedDirectSuperInterfaces.clear();
-    }
-    public StringList getImportedDirectSuperInterfaces() {
-        return importedDirectSuperInterfaces;
     }
 
     @Override

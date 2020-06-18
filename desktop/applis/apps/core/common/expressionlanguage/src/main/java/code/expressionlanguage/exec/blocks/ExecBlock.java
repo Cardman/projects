@@ -1,9 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneCustMethod;
-import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -123,7 +121,7 @@ public abstract class ExecBlock {
         String base_ = Templates.getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
         ExecRootBlock r_ = classes_.getClassBody(base_);
-        for (GeneCustMethod m: getMethodExecBlocks(r_)) {
+        for (GeneCustModifierMethod m: getMethodExecBlocks(r_)) {
             methods_.add((ExecNamedFunctionBlock)m);
         }
         return methods_;
@@ -153,10 +151,10 @@ public abstract class ExecBlock {
         }
         return methods_;
     }
-    public static CustList<GeneMethod> getMethodBlocks(GeneType _element) {
-        CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
+    public static CustList<GeneCustStaticMethod> getMethodBlocks(GeneType _element) {
+        CustList<GeneCustStaticMethod> methods_ = new CustList<GeneCustStaticMethod>();
         if (_element instanceof ExecRootBlock) {
-            for (GeneCustMethod m:getMethodExecBlocks((ExecRootBlock) _element)) {
+            for (GeneCustModifierMethod m:getMethodExecBlocks((ExecRootBlock) _element)) {
                 methods_.add(m);
             }
         }
@@ -168,11 +166,11 @@ public abstract class ExecBlock {
         return methods_;
     }
 
-    public static CustList<GeneCustMethod> getMethodExecBlocks(ExecRootBlock _element) {
-        CustList<GeneCustMethod> methods_ = new CustList<GeneCustMethod>();
+    public static CustList<GeneCustModifierMethod> getMethodExecBlocks(ExecRootBlock _element) {
+        CustList<GeneCustModifierMethod> methods_ = new CustList<GeneCustModifierMethod>();
         for (ExecBlock b: getDirectChildren(_element)) {
             if (b instanceof ExecOverridableBlock) {
-                methods_.add((GeneCustMethod) b);
+                methods_.add((GeneCustModifierMethod) b);
             }
             if (b instanceof ExecAnnotationMethodBlock) {
                 methods_.add((ExecAnnotationMethodBlock) b);
@@ -195,7 +193,7 @@ public abstract class ExecBlock {
     private static CustList<ExecNamedFunctionBlock> filter(CustList<ExecNamedFunctionBlock> _methods,MethodId _id) {
         CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
         for (ExecNamedFunctionBlock m: _methods) {
-            if (((GeneCustMethod)m).getId().eq(_id)) {
+            if (((GeneMethod)m).getId().eq(_id)) {
                 methods_.add(m);
                 break;
             }

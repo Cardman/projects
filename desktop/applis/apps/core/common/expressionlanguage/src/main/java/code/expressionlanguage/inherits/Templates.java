@@ -3,6 +3,7 @@ package code.expressionlanguage.inherits;
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.common.GeneCustMethod;
+import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ErrorType;
@@ -1417,7 +1418,7 @@ public final class Templates {
             String name_ = _id.getName();
             if (StringList.quickEq("[]=", name_)) {
                 String id_ = getIdFromAllTypes(_classNameFound);
-                for (GeneCustMethod g: ExecBlock.getMethodExecBlocks(_conf.getClasses().getClassBody(id_))) {
+                for (GeneCustModifierMethod g: ExecBlock.getMethodExecBlocks(_conf.getClasses().getClassBody(id_))) {
                     if (!StringList.quickEq("[]",g.getId().getName())) {
                         continue;
                     }

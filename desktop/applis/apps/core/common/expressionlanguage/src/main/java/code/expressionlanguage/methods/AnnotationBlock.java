@@ -24,20 +24,6 @@ public final class AnnotationBlock extends RootBlock {
         return true;
     }
 
-    public StringList getAllSuperTypes() {
-        return allSuperTypes;
-    }
-
-    @Override
-    public boolean isFinalType() {
-        return true;
-    }
-
-    @Override
-    public boolean isAbstractType() {
-        return true;
-    }
-
     @Override
     public boolean mustImplement() {
         return false;

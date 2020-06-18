@@ -1,12 +1,13 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.common.GeneCustStaticMethod;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class StandardMethod extends StandardNamedFunction implements GeneMethod {
+public final class StandardMethod extends StandardNamedFunction implements GeneCustStaticMethod {
 
     private final MethodModifier modifier;
 

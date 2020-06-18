@@ -303,7 +303,7 @@ public final class Classes {
         page_.getFoundTypes().add(_root);
         page_.getAllFoundTypes().add(_root);
         if (_root instanceof ClassBlock) {
-            ExecClassBlock e_ = new ExecClassBlock(_root);
+            ExecClassBlock e_ = new ExecClassBlock((ClassBlock) _root);
             page_.getMapTypes().put(_root, e_);
             page_.getMapTypesUniqType().put((ClassBlock) _root, e_);
             classesBodies.put(fullName_, e_);
