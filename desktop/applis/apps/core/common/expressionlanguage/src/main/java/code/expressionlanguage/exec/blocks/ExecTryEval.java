@@ -24,14 +24,6 @@ public final class ExecTryEval extends ExecBracedBlock implements StackableBlock
         refLabel(_parts,label,labelOffset);
     }
 
-    public String getRealLabel() {
-        return label;
-    }
-
-    public int getRealLabelOffset() {
-        return labelOffset;
-    }
-
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();

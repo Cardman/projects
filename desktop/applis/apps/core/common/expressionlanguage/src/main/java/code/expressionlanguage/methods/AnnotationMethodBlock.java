@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.exec.blocks.ExecEnumBlock;
@@ -32,7 +33,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class AnnotationMethodBlock extends NamedFunctionBlock implements
-        GeneCustMethod {
+        GeneMethod {
 
     private String defaultValue;
     private int defaultValueOffset;
@@ -106,21 +107,14 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
-    public boolean hiddenInstance() {
-        return false;
-    }
-
-    @Override
     public boolean isStaticMethod() {
         return false;
     }
 
-    @Override
     public boolean isFinalMethod() {
         return false;
     }
 
-    @Override
     public boolean isAbstractMethod() {
         return true;
     }
@@ -170,9 +164,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         AbstractPageEl ip_ = _cont.getLastPage();
         Argument gl_ = ip_.getGlobalArgument();
         ExecInvokingOperation.setInstanceField(_cl, _name, _returnType, gl_, _arg, _cont);
-    }
-    public CustList<ExecOperationNode> getOpValue() {
-        return opValue;
     }
 
 }

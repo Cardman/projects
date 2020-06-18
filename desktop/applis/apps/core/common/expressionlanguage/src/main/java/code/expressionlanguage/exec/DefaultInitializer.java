@@ -27,7 +27,7 @@ public class DefaultInitializer implements Initializer {
     public CustList<ClassFieldStruct> feedFields(ContextEl _context, String _className) {
         Classes classes_ = _context.getClasses();
         String baseClass_ = Templates.getIdFromAllTypes(_className);
-        ExecRootBlock class_ = classes_.getExecClassBody(baseClass_);
+        ExecRootBlock class_ = classes_.getClassBody(baseClass_);
         StringList allClasses_ = new StringList(class_.getGenericString());
         allClasses_.addAllElts(class_.getAllGenericSuperTypes());
         CustList<ClassFieldStruct> fields_;
@@ -35,7 +35,7 @@ public class DefaultInitializer implements Initializer {
         for (String c: allClasses_) {
             String id_ = Templates.getIdFromAllTypes(c);
             String formatted_ = Templates.quickFormat(_className,c,_context);
-            ExecRootBlock clMetaLoc_ = classes_.getExecClassBody(id_);
+            ExecRootBlock clMetaLoc_ = classes_.getClassBody(id_);
             for (ExecBlock b: ExecBlock.getDirectChildren(clMetaLoc_)) {
                 if (!(b instanceof ExecFieldBlock)) {
                     continue;
@@ -60,13 +60,13 @@ public class DefaultInitializer implements Initializer {
             String _className) {
         Classes classes_ = _context.getClasses();
         String baseClass_ = Templates.getIdFromAllTypes(_className);
-        ExecRootBlock class_ = classes_.getExecClassBody(baseClass_);
+        ExecRootBlock class_ = classes_.getClassBody(baseClass_);
         StringList allClasses_ = new StringList(baseClass_);
         allClasses_.addAllElts(class_.getAllSuperTypes());
         CustList<ClassFieldStruct> fields_;
         fields_ = new CustList<ClassFieldStruct>();
         for (String c: allClasses_) {
-            ExecRootBlock clMetaLoc_ = classes_.getExecClassBody(c);
+            ExecRootBlock clMetaLoc_ = classes_.getClassBody(c);
             for (ExecBlock b: ExecBlock.getDirectChildren(clMetaLoc_)) {
                 if (!(b instanceof ExecAnnotationMethodBlock)) {
                     continue;

@@ -67,7 +67,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         }
         if (l_.isCallThis()) {
             constIdSameClass = l_.getConstId();
-            _exec.setConstIdSameClass(constIdSameClass);
             return;
         }
         implicitCallSuper = true;

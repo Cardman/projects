@@ -11,9 +11,9 @@ import code.util.StringMap;
 
 public final class AssCatchEval extends AssBracedStack implements AssEval,AssBreakableBlock {
     private String label;
-    AssCatchEval(boolean _completeNormally, boolean _completeNormallyGroup, AbstractCatchEval _a) {
+    AssCatchEval(boolean _completeNormally, boolean _completeNormallyGroup, String _a) {
         super(_completeNormally,_completeNormallyGroup);
-        label = _a.getRealLabel();
+        label = _a;
     }
 
     @Override

@@ -10,9 +10,7 @@ import code.expressionlanguage.exec.calls.MethodPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.structs.*;
@@ -6041,7 +6039,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     private static Argument calculatePrepareStaticResult(ContextEl _context, boolean _exc) {
-        ExecRootBlock cl_ = _context.getClasses().getExecClassBody("code.formathtml.classes.Apply");
+        ExecRootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
         _context.getLastPage().setGlobalClass("code.formathtml.classes.Apply");
         ExecFieldBlock f_ = (ExecFieldBlock) cl_.getFirstChild();
         ExpressionLanguage el_ = f_.getValueEl();

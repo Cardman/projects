@@ -124,7 +124,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return arg_;
         }
         String idClass_ = Templates.getIdFromAllTypes(_className);
-        ExecRootBlock execSuperClass_ = _conf.getClasses().getExecClassBody(idClass_);
+        ExecRootBlock execSuperClass_ = _conf.getClasses().getClassBody(idClass_);
         _conf.setCallingState(new CustomFoundConstructor(_className, execSuperClass_, _fieldName, _blockIndex,_constId, needed_, _arguments, InstancingStep.NEWING));
         return Argument.createVoid();
     }
@@ -158,7 +158,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
 
     public static Argument instancePrepareAnnotation(ContextEl _conf, String _className, StringMap<AnnotationTypeInfo> _fieldNames, CustList<Argument> _arguments) {
         String idClass_ = Templates.getIdFromAllTypes(_className);
-        ExecRootBlock superClass_ = _conf.getClasses().getExecClassBody(idClass_);
+        ExecRootBlock superClass_ = _conf.getClasses().getClassBody(idClass_);
         _conf.setCallingState(new CustomFoundAnnotation(_className,superClass_, _fieldNames, _arguments));
         return Argument.createVoid();
     }
@@ -168,10 +168,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String argClassName_ = _previous.getClassName(_conf);
         String base_ = Templates.getIdFromAllTypes(argClassName_);
         MethodId id_ = _classMethodId.getConstraints();
-        ExecRootBlock info_ = _conf.getClasses().getExecClassBody(classNameFound_);
+        ExecRootBlock info_ = _conf.getClasses().getClassBody(classNameFound_);
         MethodId methodId_;
         if (info_ == null
-                || ((GeneCustMethod) Classes.getMethodBodiesById(_conf, classNameFound_, id_).first()).isFinalMethod()) {
+                || ((GeneCustMethod) ExecBlock.getMethodBodiesById(_conf, classNameFound_, id_).first()).isFinalMethod()) {
             classNameFound_ = _classMethodId.getClassName();
             methodId_ = id_;
         } else {
@@ -265,7 +265,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (StringList.quickEq(aliasEnumsValues_, _methodId.getName())) {
                 ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_previous.getStruct());
                 String enumName_ = cl_.getName();
-                ExecRootBlock r_ = classes_.getExecClassBody(enumName_);
+                ExecRootBlock r_ = classes_.getClassBody(enumName_);
                 if (r_ == null || !cl_.isTypeEnum()) {
                     return new Argument();
                 }
@@ -523,12 +523,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             argRes_.setStruct(res_.getResult());
             return argRes_;
         }
-        CustList<ExecNamedFunctionBlock> methods_ = Classes.getMethodBodiesById(_cont, _classNameFound, _methodId);
+        CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(_cont, _classNameFound, _methodId);
         if (methods_.isEmpty()) {
             //static enum methods
             String values_ = _cont.getStandards().getAliasEnumValues();
             if (StringList.quickEq(_methodId.getName(), values_)) {
-                ExecRootBlock e_ = classes_.getExecClassBody(_classNameFound);
+                ExecRootBlock e_ = classes_.getClassBody(_classNameFound);
                 String className_ = e_.getWildCardElement();
                 return getEnumValues(_exit,className_, _cont);
             }
@@ -579,7 +579,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         if (_state == CallPrepareState.CTOR) {
             String idClass_ = Templates.getIdFromAllTypes(_classNameFound);
-            ExecRootBlock execSuperClass_ = _conf.getClasses().getExecClassBody(idClass_);
+            ExecRootBlock execSuperClass_ = _conf.getClasses().getClassBody(idClass_);
             _conf.setCallingState(new CustomFoundConstructor(_classNameFound, execSuperClass_, EMPTY_STRING, -1, (ConstructorId) _methodId, _previous, _firstArgs, _kindCall));
             return "";
         }
@@ -870,7 +870,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         Classes classes_ = _conf.getClasses();
         CustList<Struct> enums_ = new CustList<Struct>();
-        for (ExecBlock b: ExecBlock.getDirectChildren(classes_.getExecClassBody(id_))) {
+        for (ExecBlock b: ExecBlock.getDirectChildren(classes_.getClassBody(id_))) {
             if (!(b instanceof ExecInnerTypeOrElement)) {
                 continue;
             }
@@ -902,7 +902,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return new Argument();
         }
         Classes classes_ = _conf.getClasses();
-        for (ExecBlock b: ExecBlock.getDirectChildren(classes_.getExecClassBody(enumName_))) {
+        for (ExecBlock b: ExecBlock.getDirectChildren(classes_.getClassBody(enumName_))) {
             if (!(b instanceof ExecInnerTypeOrElement)) {
                 continue;
             }

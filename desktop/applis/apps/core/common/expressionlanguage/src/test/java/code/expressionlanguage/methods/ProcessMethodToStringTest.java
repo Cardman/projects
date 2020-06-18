@@ -974,6 +974,32 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         assertEq("static", getString(ret_));
     }
     @Test
+    public void calculate24_Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String test(){\n");
+        xml_.append("  $var toSpecString = \"\";\n");
+        xml_.append("  $return toSpecString+$staticCall(ExTwo).toSpecString();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo{\n");
+        xml_.append(" $public $staticCall String toSpecString()\n");
+        xml_.append(" {\n");
+        xml_.append("  $return \"static call\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElToString();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("static call", getString(ret_));
+    }
+    @Test
     public void calculate25Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

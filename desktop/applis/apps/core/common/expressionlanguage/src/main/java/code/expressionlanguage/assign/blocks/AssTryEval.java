@@ -9,9 +9,9 @@ import code.util.IdMap;
 
 public final class AssTryEval extends AssBracedStack implements AssEval,AssBreakableBlock {
     private String label;
-    AssTryEval(boolean _completeNormally, boolean _completeNormallyGroup, TryEval _t) {
+    AssTryEval(boolean _completeNormally, boolean _completeNormallyGroup, String _t) {
         super(_completeNormally,_completeNormallyGroup);
-        label = _t.getRealLabel();
+        label = _t;
     }
 
     @Override

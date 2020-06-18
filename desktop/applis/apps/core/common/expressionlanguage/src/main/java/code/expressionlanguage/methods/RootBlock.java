@@ -60,7 +60,6 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     private int nameLength;
 
     private CustList<Ints> paramTypesConstraintsOffset = new CustList<Ints>();
-    private CustList<PartOffset> superTypesParts = new CustList<PartOffset>();
     private CustList<PartOffset> constraintsParts = new CustList<PartOffset>();
 
     private StringList staticInitImportedInterfaces = new StringList();
@@ -168,10 +167,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     public StringList getAnnotations() {
         return annotations;
     }
-    @Override
-    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
-        return annotationsOps;
-    }
+
     @Override
     public Ints getAnnotationsIndexes() {
         return annotationsIndexes;
@@ -181,10 +177,6 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         return imports;
     }
 
-
-    public StringList getFileImports() {
-        return getFile().getImports();
-    }
 
     public Ints getImportsOffset() {
         return importsOffset;
@@ -219,7 +211,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         StringList allGenericSuperClasses_ = new StringList();
         for (String s: allGenericSuperTypes) {
             String base_ = Templates.getIdFromAllTypes(s);
-            if (classesRef_.getExecClassBody(base_) instanceof ExecClassBlock) {
+            if (classesRef_.getClassBody(base_) instanceof ExecClassBlock) {
                 allGenericSuperClasses_.add(s);
             }
         }
@@ -235,7 +227,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             CustList<ClassMethodId> locGeneCl_ = new CustList<ClassMethodId>();
             for (ClassMethodId c: e.getMethodIds()) {
                 String base_ = Templates.getIdFromAllTypes(c.getClassName());
-                ExecRootBlock r_ = classesRef_.getExecClassBody(base_);
+                ExecRootBlock r_ = classesRef_.getClassBody(base_);
                 if (r_ instanceof ExecInterfaceBlock) {
                     locGeneInt_.add(c);
                 }
@@ -246,11 +238,11 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             for (ClassMethodId i: locGeneInt_) {
                 String name_ = i.getClassName();
                 MethodId id_ = i.getConstraints();
-                ExecNamedFunctionBlock supInt_ = Classes.getMethodBodiesById(_context,name_, id_).first();
+                ExecNamedFunctionBlock supInt_ = ExecBlock.getMethodBodiesById(_context,name_, id_).first();
                 for (ClassMethodId c: locGeneCl_) {
                     String nameCl_ = c.getClassName();
                     MethodId idCl_ = c.getConstraints();
-                    ExecNamedFunctionBlock supCl_ = Classes.getMethodBodiesById(_context,nameCl_, idCl_).first();
+                    ExecNamedFunctionBlock supCl_ = ExecBlock.getMethodBodiesById(_context,nameCl_, idCl_).first();
                     if (supInt_.getAccess().isStrictMoreAccessibleThan(supCl_.getAccess())) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
@@ -940,7 +932,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             StringList next_ = new StringList();
             for (String c: current_) {
                 String baseType_ = Templates.getIdFromAllTypes(c);
-                ExecRootBlock curType_ = classes_.getExecClassBody(baseType_);
+                ExecRootBlock curType_ = classes_.getClassBody(baseType_);
                 if (curType_ == null) {
                     continue;
                 }
@@ -971,7 +963,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             StringList next_ = new StringList();
             for (String c: current_) {
                 String baseType_ = Templates.getIdFromAllTypes(c);
-                ExecRootBlock curType_ = classes_.getExecClassBody(baseType_);
+                ExecRootBlock curType_ = classes_.getClassBody(baseType_);
                 if (!(curType_ instanceof ExecUniqueRootedBlock)) {
                     continue;
                 }
@@ -1161,13 +1153,13 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             }
         }
         if (concreteClass_) {
-            for (GeneCustMethod b: Classes.getMethodBlocks(this)) {
+            for (GeneCustMethod b: ExecBlock.getMethodExecBlocks(_exec)) {
                 MethodId idFor_ = b.getId();
                 if (b.isAbstractMethod()) {
                     FoundErrorInterpret err_;
                     err_ = new FoundErrorInterpret();
                     err_.setFileName(getFile().getFileName());
-                    err_.setIndexFile(((OverridableBlock) b).getNameOffset());
+                    err_.setIndexFile(((ExecOverridableBlock) b).getNameOffset());
                     //abstract key word
                     err_.buildError(
                             _context.getAnalysisMessages().getAbstractMethodConc(),
@@ -1179,7 +1171,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             StringList allSuperClass_ = getAllGenericSuperTypes();
             for (String s: allSuperClass_) {
                 String base_ = Templates.getIdFromAllTypes(s);
-                ExecRootBlock superBl_ = classesRef_.getExecClassBody(base_);
+                ExecRootBlock superBl_ = classesRef_.getClassBody(base_);
                 for (GeneCustMethod m: ExecBlock.getMethodExecBlocks(superBl_)) {
                     if (m.isAbstractMethod()) {
                         abstractMethods_.add(new ClassMethodId(s, m.getId()));
@@ -1189,7 +1181,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             for (ClassMethodId m: abstractMethods_) {
                 String baseClass_ = m.getClassName();
                 baseClass_ = Templates.getIdFromAllTypes(baseClass_);
-                ExecRootBlock info_ = classesRef_.getExecClassBody(baseClass_);
+                ExecRootBlock info_ = classesRef_.getClassBody(baseClass_);
                 StringMap<ClassMethodId> map_ = TypeUtil.getConcreteMethodsToCall(info_, m.getConstraints(), _context);
                 if (!map_.contains(getFullName())) {
                     FoundErrorInterpret err_;
@@ -1210,7 +1202,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             allSuperClass_.addAllElts(getAllGenericSuperTypes());
             for (String s: allSuperClass_) {
                 String base_ = Templates.getIdFromAllTypes(s);
-                ExecRootBlock superBl_ = classesRef_.getExecClassBody(base_);
+                ExecRootBlock superBl_ = classesRef_.getClassBody(base_);
                 for (GeneCustMethod m: ExecBlock.getMethodExecBlocks(superBl_)) {
                     if (m.isAbstractMethod()) {
                         abstractMethods_.add(new ClassMethodId(s, m.getId()));
@@ -1220,7 +1212,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             for (ClassMethodId m: abstractMethods_) {
                 String baseClass_ = m.getClassName();
                 baseClass_ = Templates.getIdFromAllTypes(baseClass_);
-                ExecRootBlock info_ = classesRef_.getExecClassBody(baseClass_);
+                ExecRootBlock info_ = classesRef_.getClassBody(baseClass_);
                 StringMap<ClassMethodId> map_ = TypeUtil.getConcreteMethodsToCall(info_, m.getConstraints(), _context);
                 if (!map_.contains(getFullName())) {
                     functional.add(m);
@@ -1510,7 +1502,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         }
         String superClass_ = ((UniqueRootedBlock)this).getImportedDirectGenericSuperClass();
         String superClassId_ = Templates.getIdFromAllTypes(superClass_);
-        ExecRootBlock clMeta_ = _cont.getClasses().getExecClassBody(superClassId_);
+        ExecRootBlock clMeta_ = _cont.getClasses().getClassBody(superClassId_);
         if (clMeta_ == null) {
             return true;
         }
@@ -1536,14 +1528,6 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
 
     public CustList<PartOffset> getConstraintsParts() {
         return constraintsParts;
-    }
-
-    public CustList<ClassMethodId> getFunctional() {
-        return functional;
-    }
-
-    public CustList<PartOffset> getSuperTypesParts() {
-        return superTypesParts;
     }
 
     public abstract boolean mustImplement();

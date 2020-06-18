@@ -1,11 +1,12 @@
 package code.expressionlanguage.assign.blocks;
 
+import code.expressionlanguage.exec.blocks.ExecBreakBlock;
 import code.expressionlanguage.methods.BreakBlock;
 import code.util.StringList;
 
 public final class AssBreakBlock extends AssAbruptBlock {
     private String label;
-    AssBreakBlock(boolean _completeNormally, boolean _completeNormallyGroup, BreakBlock _b) {
+    AssBreakBlock(boolean _completeNormally, boolean _completeNormallyGroup, ExecBreakBlock _b) {
         super(_completeNormally,_completeNormallyGroup);
         label = _b.getLabel();
     }

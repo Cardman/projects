@@ -5,23 +5,24 @@ import code.expressionlanguage.methods.Block;
 import code.util.BooleanList;
 import code.util.IdList;
 import code.util.IdMap;
+import code.util.StringList;
 
-public final class BlocksFlags {
+public final class BlocksLabels {
     private IdMap<ExecBlock,Block> mapping = new IdMap<ExecBlock,Block>();
     private IdList<Block> blocks = new IdList<Block>();
-    private BooleanList flags = new BooleanList();
-    public boolean getVal(ExecBlock _reach) {
+    private StringList flags = new StringList();
+    public String getVal(ExecBlock _reach) {
         return getVal(mapping.getVal(_reach));
     }
-    public boolean getVal(Block _reach) {
+    public String getVal(Block _reach) {
         int i_ = index(_reach);
         if (!flags.isValidIndex(i_)) {
-            return false;
+            return "";
         }
         return flags.get(i_);
     }
 
-    public void put(Block _reach, boolean _b) {
+    public void put(Block _reach, String _b) {
         int i_ = index(_reach);
         if (i_ < 0) {
             blocks.add(_reach);

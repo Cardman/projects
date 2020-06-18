@@ -44,14 +44,6 @@ public final class ReturnMethod extends AbruptBlock {
         return expression;
     }
 
-    public ExpressionLanguage getElRet() {
-        return new ExpressionLanguage(opRet);
-    }
-
-    public CustList<ExecOperationNode> getOpRet() {
-        return opRet;
-    }
-
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {

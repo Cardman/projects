@@ -8,9 +8,9 @@ import code.util.IdMap;
 
 public final class AssDoBlock extends AssBracedStack implements AssLoop {
     private String label;
-    AssDoBlock(boolean _completeNormally, boolean _completeNormallyGroup, DoBlock _do) {
+    AssDoBlock(boolean _completeNormally, boolean _completeNormallyGroup, String _do) {
         super(_completeNormally, _completeNormallyGroup);
-        label = _do.getRealLabel();
+        label = _do;
     }
 
     @Override

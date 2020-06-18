@@ -9,8 +9,6 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
@@ -37,7 +35,7 @@ public final class ValuesOperation extends LeafOperation {
         Classes classes_ = _conf.getClasses();
         String clName_;
         clName_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,0,className);
-        ExecRootBlock r_ = classes_.getExecClassBody(clName_);
+        ExecRootBlock r_ = classes_.getClassBody(clName_);
         if (!(r_ instanceof ExecEnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());

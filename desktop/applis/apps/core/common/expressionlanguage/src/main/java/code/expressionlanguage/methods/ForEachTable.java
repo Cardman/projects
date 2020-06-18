@@ -102,10 +102,6 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         return labelOffset;
     }
 
-    public ExpressionLanguage getEl() {
-        return new ExpressionLanguage(opList);
-    }
-
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
@@ -407,8 +403,4 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
     }
 
 
-
-    public CustList<ExecOperationNode> getOpList() {
-        return opList;
-    }
 }

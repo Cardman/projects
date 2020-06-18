@@ -5,7 +5,7 @@ import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.methods.FieldBlock;
+import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
 import code.expressionlanguage.assign.util.SimpleAssignment;
 import code.util.CustList;
@@ -16,7 +16,7 @@ import code.util.StringMap;
 public final class AssFieldBlock extends AssLeaf implements AssInfoBlock {
 
     private CustList<AssOperationNode> opList;
-    public AssFieldBlock(FieldBlock _f) {
+    public AssFieldBlock(ExecFieldBlock _f) {
         super(true,true);
         opList = AssUtil.getExecutableNodes(_f.getOpValue());
     }

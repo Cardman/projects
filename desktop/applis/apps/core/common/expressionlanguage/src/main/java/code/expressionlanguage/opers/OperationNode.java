@@ -460,7 +460,7 @@ public abstract class OperationNode {
 
     static void checkClassAccess(ContextEl _conf, String _glClass, String _classStr) {
         Classes classes_ = _conf.getClasses();
-        ExecRootBlock r_ = classes_.getExecClassBody(_classStr);
+        ExecRootBlock r_ = classes_.getClassBody(_classStr);
         String curClassBase_ = Templates.getIdFromAllTypes(_glClass);
         if (!Classes.canAccess(curClassBase_, (ExecBlock) r_, _conf)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
@@ -909,7 +909,7 @@ public abstract class OperationNode {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         String baseCurName_ = Templates.getIdFromAllTypes(_class);
-        ExecRootBlock root_ = _conf.getClasses().getExecClassBody(baseCurName_);
+        ExecRootBlock root_ = _conf.getClasses().getClassBody(baseCurName_);
         if (root_ != null) {
             fetchToStringMethods(_conf,root_,baseCurName_,methods_);
         }
@@ -1331,7 +1331,7 @@ public abstract class OperationNode {
             return;
         }
         String di_ = Templates.getIdFromAllTypes(_id);
-        ExecRootBlock r_ = _conf.getClasses().getExecClassBody(di_);
+        ExecRootBlock r_ = _conf.getClasses().getClassBody(di_);
         if (r_ == null) {
             return;
         }
@@ -1717,7 +1717,7 @@ public abstract class OperationNode {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         String idClass_ = Templates.getIdFromAllTypes(_className);
-        ExecRootBlock r_ = _conf.getClasses().getExecClassBody(idClass_);
+        ExecRootBlock r_ = _conf.getClasses().getClassBody(idClass_);
         if (!(r_ instanceof ExecEnumBlock)) {
             return methods_;
         }

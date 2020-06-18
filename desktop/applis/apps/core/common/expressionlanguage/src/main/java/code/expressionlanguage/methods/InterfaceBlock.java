@@ -1,7 +1,6 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.files.OffsetAccessInfo;
@@ -64,7 +63,7 @@ public final class InterfaceBlock extends RootBlock {
             _classes.addErrorIfNoMatch(s_,c_,this,index_);
             i_++;
             String base_ = Templates.getIdFromAllTypes(s_);
-            ExecRootBlock r_ = _classes.getClasses().getExecClassBody(base_);
+            ExecRootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof ExecInterfaceBlock)) {
                 continue;
             }

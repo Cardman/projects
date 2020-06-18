@@ -11,9 +11,9 @@ import code.util.StringMap;
 
 public final class AssFinallyEval extends AssBracedStack implements AssEval,AssBreakableBlock {
     private String label;
-    AssFinallyEval(boolean _completeNormally, boolean _completeNormallyGroup, FinallyEval _f) {
+    AssFinallyEval(boolean _completeNormally, boolean _completeNormallyGroup, String _f) {
         super(_completeNormally,_completeNormallyGroup);
-        label = _f.getRealLabel();
+        label = _f;
     }
     @Override
     public void setAssignmentAfter(ContextEl _an, AssignedVariablesBlock _anEl) {

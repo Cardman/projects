@@ -4,22 +4,14 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecElementBlock;
 import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.StaticInitPageEl;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.instr.PartOffsetAffect;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.exec.opers.ExecAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.opers.ExecStandardInstancingOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -78,9 +70,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     public int getTempClassOffset() {
         return tempClassOffset;
     }
-    public ExpressionLanguage getValueEl() {
-        return new ExpressionLanguage(opValue);
-    }
 
     @Override
     public boolean isFinalField() {
@@ -100,11 +89,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     @Override
     public String getUniqueFieldName() {
         return fieldName;
-    }
-
-    @Override
-    public CustList<ExecOperationNode> getOpValue() {
-        return opValue;
     }
 
     @Override
@@ -182,10 +166,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     public StringList getAnnotations() {
         return annotations;
     }
-    @Override
-    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
-        return annotationsOps;
-    }
+
     @Override
     public Ints getAnnotationsIndexes() {
         return annotationsIndexes;
@@ -202,11 +183,4 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         return importedClassName;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
-        return partOffsets;
-    }
-
-    public int getTrOffset() {
-        return trOffset;
-    }
 }

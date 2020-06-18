@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
@@ -2368,7 +2367,7 @@ public class LgNamesGui extends LgNamesUtils {
         if (_arg instanceof EventStruct) {
             String className_ = _arg.getClassName(_cont);
             String id_ = Templates.getIdFromAllTypes(className_);
-            ExecRootBlock clBody_ = _cont.getClasses().getExecClassBody(id_);
+            ExecRootBlock clBody_ = _cont.getClasses().getClassBody(id_);
             if (!ContextEl.isEnumType(clBody_)) {
                 return new StringStruct(_arg.getClassName(_cont));
             }

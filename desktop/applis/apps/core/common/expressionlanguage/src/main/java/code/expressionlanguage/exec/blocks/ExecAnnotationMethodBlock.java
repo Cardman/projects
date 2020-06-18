@@ -66,10 +66,6 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         return true;
     }
 
-    public boolean isNormalMethod() {
-        return false;
-    }
-
     @Override
     public MethodId getId() {
         return new MethodId(MethodAccessKind.INSTANCE, getName(), new StringList(), false);
@@ -102,10 +98,6 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
             int endBl_ = blOffset_ + defaultValue.length();
             ElUtil.buildCoverageReport(_cont,blOffset_,this,opValue,endBl_,_parts);
         }
-    }
-
-    public MethodAccessKind getStaticContext() {
-        return MethodAccessKind.INSTANCE;
     }
 
     @Override

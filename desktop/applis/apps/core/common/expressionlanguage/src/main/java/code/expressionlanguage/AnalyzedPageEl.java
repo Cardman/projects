@@ -76,6 +76,7 @@ public final class AnalyzedPageEl {
     private StringList initFieldsCtors = new StringList();
     private StringList assignedDeclaredFields = new StringList();
     private StringList allDeclaredFields = new StringList();
+    private ExecDeclareVariable execDeclareVariable;
 
     private AbstractProcessKeyWord processKeyWord;
     private AbstractHiddenTypes hiddenTypes;
@@ -637,4 +638,11 @@ public final class AnalyzedPageEl {
         this.blockToWrite = blockToWrite;
     }
 
+    public ExecDeclareVariable getExecDeclareVariable() {
+        return execDeclareVariable;
+    }
+
+    public void setExecDeclareVariable(ExecDeclareVariable execDeclareVariable) {
+        this.execDeclareVariable = execDeclareVariable;
+    }
 }

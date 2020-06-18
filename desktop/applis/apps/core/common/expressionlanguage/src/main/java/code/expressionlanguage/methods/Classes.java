@@ -429,7 +429,7 @@ public final class Classes {
         Classes cl_ = _context.getClasses();
         DefaultLockingClass dl_ = cl_.getLocks();
         dl_.init(_context);
-        for (ExecRootBlock c: cl_.getExecClassBodies()) {
+        for (ExecRootBlock c: cl_.getClassBodies()) {
             for (ExecBlock b:getSortedDescNodes(c)) {
                 if (b instanceof ReducableOperations) {
                     ((ReducableOperations)b).reduce(_context);
@@ -467,7 +467,7 @@ public final class Classes {
         dl_.initAlwaysSuccess();
         for (String t: _context.getOptions().getTypesInit()) {
             String res_ = ResolvingImportTypes.resolveCandidate(_context,StringExpUtil.removeDottedSpaces(t));
-            if (_context.getClasses().getExecClassBody(res_) == null) {
+            if (_context.getClasses().getClassBody(res_) == null) {
                 continue;
             }
             _context.getInitializingTypeInfos().resetInitEnums(_context);
@@ -477,7 +477,7 @@ public final class Classes {
         StringList notInit_ = dl_.initAlwaysSuccess();
         if (_context.getOptions().isFailIfNotAllInit()) {
             for (String s: notInit_) {
-                ExecRootBlock r_ = cl_.getExecClassBody(s);
+                ExecRootBlock r_ = cl_.getClassBody(s);
                 ExecFileBlock file_ = r_.getFile();
                 FoundErrorInterpret n_ = new FoundErrorInterpret();
                 n_.setFileName(file_.getFileName());
@@ -657,18 +657,7 @@ public final class Classes {
             current_ = n_;
         }
     }
-    public static CustList<GeneCustMethod> getMethodBlocks(RootBlock _element) {
-        CustList<GeneCustMethod> methods_ = new CustList<GeneCustMethod>();
-        for (Block b: Classes.getDirectChildren(_element)) {
-            if (b instanceof OverridableBlock) {
-                methods_.add((GeneCustMethod) b);
-            }
-            if (b instanceof AnnotationMethodBlock) {
-                methods_.add((AnnotationMethodBlock) b);
-            }
-        }
-        return methods_;
-    }
+
     public static CustList<Block> getDirectChildren(Block _element) {
         CustList<Block> list_ = new CustList<Block>();
         Block elt_ = _element.getFirstChild();
@@ -754,7 +743,7 @@ public final class Classes {
                 allDirectSuperTypes_.add(s_.getFullName());
             }
             for (String a: allAncestors_) {
-                ExecRootBlock a_ = classes_.getExecClassBody(a);
+                ExecRootBlock a_ = classes_.getClassBody(a);
                 for (ExecBlock m: ExecBlock.getDirectChildren(a_)) {
                     if (!(m instanceof ExecRootBlock)) {
                         continue;
@@ -946,7 +935,7 @@ public final class Classes {
                         exec_.getImportedDirectBaseSuperTypes().add(k_);
                         continue;
                     }
-                    ExecRootBlock s_ =_context.getClasses(). getExecClassBody(k_);
+                    ExecRootBlock s_ =_context.getClasses().getClassBody(k_);
                     int offset_ = r.getRowColDirectSuperTypes().getKey(indexType_);
                     if (s_ instanceof ExecUniqueRootedBlock) {
                         nbDirectSuperClass_++;
@@ -1027,7 +1016,7 @@ public final class Classes {
                 }
                 exec_.getAllSuperTypes().addAllElts(foundNames_.getKeys());
                 for (String f: foundNames_.getKeys()) {
-                    ExecRootBlock s_ = _context.getClasses().getExecClassBody(f);
+                    ExecRootBlock s_ = _context.getClasses().getClassBody(f);
                     if (s_ != null) {
                         exec_.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
                     }
@@ -1180,7 +1169,7 @@ public final class Classes {
                         for (String b: upperNotObj_) {
                             String baseParamsUpp_ = Templates.getIdFromAllTypes(b);
                             String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParamsUpp_).getComponent();
-                            ExecRootBlock r_ = getExecClassBody(base_);
+                            ExecRootBlock r_ = getClassBody(base_);
                             if (!(r_ instanceof ExecUniqueRootedBlock)) {
                                 continue;
                             }
@@ -1429,7 +1418,7 @@ public final class Classes {
             return true;
         }
         String baseClass_ = Templates.getIdFromAllTypes(_className);
-        ExecRootBlock root_ = _context.getClasses().getExecClassBody(baseClass_);
+        ExecRootBlock root_ = _context.getClasses().getClassBody(baseClass_);
         if (root_ == null) {
             return false;
         }
@@ -1729,8 +1718,9 @@ public final class Classes {
                     InnerTypeOrElement method_ = (InnerTypeOrElement) b;
                     page_.setCurrentBlock(b);
                     page_.setCurrentAnaBlock(b);
-                    method_.buildExpressionLanguageReadOnly(_context,mem_.getAllElementFields().getVal(method_));
-                    AssInfoBlock aInfo_ = new AssElementBlock(method_);
+                    ExecInnerTypeOrElement val_ = mem_.getAllElementFields().getVal(method_);
+                    method_.buildExpressionLanguageReadOnly(_context, val_);
+                    AssInfoBlock aInfo_ = new AssElementBlock(val_);
                     aInfo_.setAssignmentBeforeAsLeaf(_context,assVars_,pr_);
                     aInfo_.buildExpressionLanguage(_context,assVars_);
                     aInfo_.setAssignmentAfterAsLeaf(_context,assVars_,pr_);
@@ -1745,9 +1735,10 @@ public final class Classes {
                     }
                     page_.setCurrentBlock(b);
                     page_.setCurrentAnaBlock(b);
-                    method_.buildExpressionLanguageReadOnly(_context,mem_.getAllExplicitFields().getVal(method_));
+                    ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
+                    method_.buildExpressionLanguageReadOnly(_context, exp_);
                     AssInfoBlock aInfo_;
-                    aInfo_ = new AssFieldBlock(method_);
+                    aInfo_ = new AssFieldBlock(exp_);
                     aInfo_.setAssignmentBeforeAsLeaf(_context,assVars_,pr_);
                     aInfo_.buildExpressionLanguage(_context,assVars_);
                     aInfo_.setAssignmentAfterAsLeaf(_context,assVars_,pr_);
@@ -1840,8 +1831,9 @@ public final class Classes {
                     FieldBlock method_ = (FieldBlock) b;
                     page_.setCurrentBlock(b);
                     page_.setCurrentAnaBlock(b);
-                    method_.buildExpressionLanguageReadOnly(_context,mem_.getAllExplicitFields().getVal(method_));
-                    AssFieldBlock aInfo_ = new AssFieldBlock(method_);
+                    ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
+                    method_.buildExpressionLanguageReadOnly(_context, exp_);
+                    AssFieldBlock aInfo_ = new AssFieldBlock(exp_);
                     aInfo_.setAssignmentBeforeAsLeaf(_context,assVars_,pr_);
                     aInfo_.buildExpressionLanguage(_context,assVars_);
                     aInfo_.setAssignmentAfterAsLeaf(_context,assVars_,pr_);
@@ -2025,12 +2017,12 @@ public final class Classes {
             StringList.removeAllElements(allCopy_, _context.getStandards().getPredefinedInterfacesInitOrder());
             String superClass_ = un_.getImportedDirectGenericSuperClass();
             String superClassId_ = Templates.getIdFromAllTypes(superClass_);
-            ExecRootBlock superType_ = classes_.getExecClassBody(superClassId_);
+            ExecRootBlock superType_ = classes_.getClassBody(superClassId_);
             if (superType_ instanceof ExecUniqueRootedBlock) {
                 StringList.removeAllElements(allCopy_, superType_.getAllSuperTypes());
             }
             for (String i: allCopy_) {
-                ExecRootBlock int_ = classes_.getExecClassBody(i);
+                ExecRootBlock int_ = classes_.getClassBody(i);
                 if (!(int_ instanceof ExecInterfaceBlock)) {
                     continue;
                 }
@@ -2190,37 +2182,12 @@ public final class Classes {
         return pkgs_;
     }
 
-    public CustList<ExecRootBlock> getExecClassBodies() {
+    public CustList<ExecRootBlock> getClassBodies() {
         return classesBodies.values();
     }
 
-    public ExecRootBlock getExecClassBody(String _className) {
+    public ExecRootBlock getClassBody(String _className) {
         return classesBodies.getVal(_className);
-    }
-
-    public static CustList<ExecNamedFunctionBlock> getMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {
-        return filter(getMethodBodies(_context,_genericClassName),_id);
-    }
-    private static CustList<ExecNamedFunctionBlock> getMethodBodies(ContextEl _context,String _genericClassName) {
-        CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
-        String base_ = Templates.getIdFromAllTypes(_genericClassName);
-        Classes classes_ = _context.getClasses();
-        ExecRootBlock r_ = classes_.getExecClassBody(base_);
-        for (GeneCustMethod m: ExecBlock.getMethodExecBlocks(r_)) {
-            methods_.add((ExecNamedFunctionBlock)m);
-        }
-        return methods_;
-    }
-
-    private static CustList<ExecNamedFunctionBlock> filter(CustList<ExecNamedFunctionBlock> _methods,MethodId _id) {
-        CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
-        for (ExecNamedFunctionBlock m: _methods) {
-            if (((GeneCustMethod)m).getId().eq(_id)) {
-                methods_.add(m);
-                break;
-            }
-        }
-        return methods_;
     }
 
     public static CustList<GeneConstructor> getConstructorBodies(GeneType _type) {

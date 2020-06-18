@@ -4899,7 +4899,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className,"", _var));
         files_.put("pkg/Ex", _file);
         ContextEl cont_ = contextEl(files_, _mustFail);
-        ExecRootBlock r_ = cont_.getClasses().getExecClassBody("code.formathtml.classes.Apply");
+        ExecRootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
         f_ = (ExecFieldBlock) f_.getNextSibling();
         return f_.getOpValue();
@@ -4912,7 +4912,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className, _param,_var));
         files_.put("pkg/Ex", _file);
         ContextEl cont_ = contextEl(files_, _mustFail);
-        ExecRootBlock r_ = cont_.getClasses().getExecClassBody("code.formathtml.classes.Apply");
+        ExecRootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
         f_ = (ExecFieldBlock) f_.getNextSibling();
         return f_.getOpValue();

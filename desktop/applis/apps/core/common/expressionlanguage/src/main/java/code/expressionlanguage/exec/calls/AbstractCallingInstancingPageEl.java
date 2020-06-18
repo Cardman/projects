@@ -54,13 +54,13 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
         if (implicitConstr_) {
             String curClass_ = getGlobalClass();
             String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
-            ExecRootBlock class_ = classes_.getExecClassBody(curClassBase_);
+            ExecRootBlock class_ = classes_.getClassBody(curClassBase_);
             if (class_ instanceof ExecUniqueRootedBlock) {
                 //class or enum (included inner enum)
                 ExecUniqueRootedBlock root_ = (ExecUniqueRootedBlock) class_;
                 String id_ = root_.getImportedDirectGenericSuperClass();
                 String superClassBase_ = Templates.getIdFromAllTypes(id_);
-                ExecRootBlock execSuperClass_ = classes_.getExecClassBody(superClassBase_);
+                ExecRootBlock execSuperClass_ = classes_.getClassBody(superClassBase_);
                 if (!calledImplicitConstructor && execSuperClass_ != null) {
                     calledImplicitConstructor = true;
                     ConstructorId super_ = new ConstructorId(superClassBase_, new StringList(), false);

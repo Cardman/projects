@@ -24,17 +24,14 @@ public abstract class AssMemberCallingsBlock extends AssBracedBlock {
             }
             AssBlock n_ = en_.getFirstChild();
             addParent(_cont,en_,n_);
-            boolean visit_ = true;
             if (en_ != this) {
-                visit_ = tryBuildExpressionLanguage(en_, _cont,_a);
+                tryBuildExpressionLanguage(en_, _cont, _a);
             }
-            if (visit_ && n_ != null) {
+            if (n_ != null) {
                 en_ = n_;
                 continue;
             }
-            if (visit_) {
-                en_.setAssignmentAfter(_cont, _a);
-            }
+            en_.setAssignmentAfter(_cont, _a);
             while (true) {
                 n_ = en_.getNextSibling();
                 if (n_ != null) {
@@ -78,7 +75,7 @@ public abstract class AssMemberCallingsBlock extends AssBracedBlock {
         } else {
             en_.buildEmptyEl(cont,a);
         }
-        return !(en_ instanceof AssRootBlock);
+        return true;
     }
     public abstract void setAssignmentBeforeCall(ContextEl _an, AssBlock _prev,AssignedVariablesBlock _anEl);
     public abstract void setAssignmentAfterCall(ContextEl _an, AssignedVariablesBlock _anEl);

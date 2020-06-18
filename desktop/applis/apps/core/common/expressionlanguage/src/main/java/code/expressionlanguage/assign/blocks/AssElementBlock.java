@@ -6,7 +6,7 @@ import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.methods.InnerTypeOrElement;
+import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
 import code.expressionlanguage.assign.util.Assignment;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
 import code.expressionlanguage.assign.util.SimpleAssignment;
@@ -18,7 +18,7 @@ public final class AssElementBlock extends AssLeaf implements AssInfoBlock {
     private String fieldName;
     private CustList<AssOperationNode> opList;
 
-    public AssElementBlock(InnerTypeOrElement _e) {
+    public AssElementBlock(ExecInnerTypeOrElement _e) {
         super(true, true);
         fieldName = _e.getUniqueFieldName();
         opList = AssUtil.getExecutableNodes(_e.getOpValue());

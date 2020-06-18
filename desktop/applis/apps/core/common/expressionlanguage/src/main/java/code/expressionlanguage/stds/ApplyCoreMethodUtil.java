@@ -3,6 +3,7 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.common.GeneCustMethod;
@@ -608,7 +609,7 @@ public class ApplyCoreMethodUtil {
             className_ = Templates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
             MethodId ct_ = polymorph_.getConstraints();
-            methods_ = Classes.getMethodBodiesById(_cont, className_, ct_);
+            methods_ = ExecBlock.getMethodBodiesById(_cont, className_, ct_);
         }
         if (!methods_.isEmpty()) {
             ExecNamedFunctionBlock meth_ = methods_.first();
@@ -642,7 +643,7 @@ public class ApplyCoreMethodUtil {
             className_ = Templates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
             MethodId ct_ = polymorph_.getConstraints();
-            methods_ = Classes.getMethodBodiesById(_cont, className_, ct_);
+            methods_ = ExecBlock.getMethodBodiesById(_cont, className_, ct_);
             argsToPass_.add(new Argument(_args[0]));
         }
         if (!methods_.isEmpty()) {

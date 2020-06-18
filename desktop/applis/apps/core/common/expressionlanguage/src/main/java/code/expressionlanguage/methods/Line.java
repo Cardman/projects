@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecDeclareVariable;
 import code.expressionlanguage.exec.blocks.ExecLine;
 import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -44,10 +45,6 @@ public final class Line extends Leaf implements BuildableElMethod {
         return expression;
     }
 
-    public ExpressionLanguage getRightEl() {
-        return new ExpressionLanguage(opExp);
-    }
-
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
@@ -55,15 +52,20 @@ public final class Line extends Leaf implements BuildableElMethod {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
+        String import_ = _cont.getStandards().getAliasObject();
         opExp = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(st_));
         if (page_.isMerged()) {
             StringList vars_ = page_.getVariablesNames();
             DeclareVariable declaring_ = (DeclareVariable) getPreviousSibling();
-            String import_ = declaring_.getImportedClassName();
+            import_ = declaring_.getImportedClassName();
             AffectationOperation.processInfer(_cont, import_);
             declaring_.getVariableNames().addAllElts(vars_);
-            declaring_.getExec().setImportedClassName(import_);
         }
+        ExecDeclareVariable ex_ = page_.getExecDeclareVariable();
+        if (ex_ != null) {
+            ex_.setImportedClassName(import_);
+        }
+        page_.setExecDeclareVariable(null);
         page_.setMerged(false);
         page_.setAcceptCommaInstr(false);
         page_.setFinalVariable(false);

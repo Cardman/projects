@@ -30,7 +30,7 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
 
     private int finalVariableOffset;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
-    private ExecDeclareVariable exec;
+
     public DeclareVariable(OffsetBooleanInfo _finalVar, OffsetStringInfo _className, OffsetsBlock _offset) {
         super(_offset);
         finalVariable = _finalVar.isInfo();
@@ -58,10 +58,11 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         processVariable(_cont);
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        exec = new ExecDeclareVariable(getOffset(),className,classNameOffset,importedClassName,variableNames,partOffsets);
-        page_.getBlockToWrite().appendChild(exec);
-        page_.getAnalysisAss().getMappingMembers().put(exec,this);
-        _cont.getCoverage().putBlockOperations(_cont, exec,this);
+        ExecDeclareVariable exec_ = new ExecDeclareVariable(getOffset(),className,classNameOffset,importedClassName,variableNames,partOffsets);
+        page_.setExecDeclareVariable(exec_);
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private void processVariable(ContextEl _cont) {
@@ -76,16 +77,13 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
             importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
             partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
         }
+        page_.getAnalysisAss().putFinal(this,finalVariable);
         page_.setMerged(true);
         page_.setAcceptCommaInstr(true);
         page_.setFinalVariable(finalVariable);
         page_.setCurrentVarSetting(importedClassName);
         page_.getVariablesNames().clear();
         page_.getVariablesNamesToInfer().clear();
-    }
-
-    public ExecDeclareVariable getExec() {
-        return exec;
     }
 
     public boolean isFinalVariable() {

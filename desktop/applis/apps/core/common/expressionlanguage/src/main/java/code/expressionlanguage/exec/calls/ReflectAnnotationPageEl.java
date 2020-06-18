@@ -53,7 +53,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             } else if (structBlock_ instanceof ClassMetaInfo) {
                 String cl_ = ApplyCoreMethodUtil.getClass(structBlock_).getName();
                 String id_ = Templates.getIdFromAllTypes(cl_);
-                ExecRootBlock type_ = _context.getClasses().getExecClassBody(id_);
+                ExecRootBlock type_ = _context.getClasses().getClassBody(id_);
                 if (type_ != null) {
                     annotations= type_.getAnnotationsOps();
                 }
@@ -78,7 +78,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 String fieldId_ = ApplyCoreMethodUtil.getField(structBlock_).getName();
                 String cl_ = ApplyCoreMethodUtil.getField(structBlock_).getDeclaringClass();
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
-                ExecRootBlock type_ = _context.getClasses().getExecClassBody(idClass_);
+                ExecRootBlock type_ = _context.getClasses().getClassBody(idClass_);
                 if (type_ != null) {
                     for (ExecInfoBlock f: ExecBlock.getFieldBlocks(type_)) {
                         if (!StringList.contains(f.getFieldName(), fieldId_)) {

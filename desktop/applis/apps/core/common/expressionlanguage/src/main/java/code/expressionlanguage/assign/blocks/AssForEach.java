@@ -7,6 +7,8 @@ import code.expressionlanguage.assign.util.AssignedBooleanVariables;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesDesc;
+import code.expressionlanguage.exec.blocks.ExecForEachLoop;
+import code.expressionlanguage.exec.blocks.ExecForEachTable;
 import code.expressionlanguage.methods.ForEachLoop;
 import code.expressionlanguage.methods.ForEachTable;
 import code.expressionlanguage.assign.util.AssignmentBefore;
@@ -17,14 +19,14 @@ import code.util.*;
 public final class AssForEach extends AssBracedStack implements AssLoop, AssBuildableElMethod {
     private String label;
     private CustList<AssOperationNode> opList;
-    AssForEach(boolean _completeNormally, boolean _completeNormallyGroup, ForEachLoop _for) {
+    AssForEach(boolean _completeNormally, boolean _completeNormallyGroup, String _label, ExecForEachLoop _for) {
         super(_completeNormally, _completeNormallyGroup);
-        label = _for.getRealLabel();
+        label = _label;
         opList = AssUtil.getExecutableNodes(_for.getOpList());
     }
-    AssForEach(boolean _completeNormally, boolean _completeNormallyGroup, ForEachTable _for) {
+    AssForEach(boolean _completeNormally, boolean _completeNormallyGroup, String _label, ExecForEachTable _for) {
         super(_completeNormally, _completeNormallyGroup);
-        label = _for.getRealLabel();
+        label = _label;
         opList = AssUtil.getExecutableNodes(_for.getOpList());
     }
 

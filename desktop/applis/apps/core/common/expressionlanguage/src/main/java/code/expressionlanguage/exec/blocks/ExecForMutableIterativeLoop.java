@@ -270,4 +270,15 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         return new ExpressionLanguage(opStep);
     }
 
+    public CustList<ExecOperationNode> getOpInit() {
+        return opInit;
+    }
+
+    public CustList<ExecOperationNode> getOpExp() {
+        return opExp;
+    }
+
+    public CustList<ExecOperationNode> getOpStep() {
+        return opStep;
+    }
 }

@@ -3,14 +3,13 @@ package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.methods.DeclareVariable;
 
 public final class AssDeclareVariable extends AssLeaf implements AssBuildableElMethod {
 
     private final boolean finalVar;
-    AssDeclareVariable(boolean _completeNormally, boolean _completeNormallyGroup, DeclareVariable _d) {
+    AssDeclareVariable(boolean _completeNormally, boolean _completeNormallyGroup, boolean _d) {
         super(_completeNormally,_completeNormallyGroup);
-        finalVar = _d.isFinalVariable();
+        finalVar = _d;
     }
 
     @Override

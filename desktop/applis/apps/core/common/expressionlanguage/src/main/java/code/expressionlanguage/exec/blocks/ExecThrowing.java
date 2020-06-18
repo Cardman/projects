@@ -71,4 +71,8 @@ public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
     public ExpressionLanguage getEl() {
         return new ExpressionLanguage(opThrow);
     }
+
+    public CustList<ExecOperationNode> getOpThrow() {
+        return opThrow;
+    }
 }

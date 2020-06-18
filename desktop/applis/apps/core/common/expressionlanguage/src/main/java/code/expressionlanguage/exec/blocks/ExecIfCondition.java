@@ -23,14 +23,6 @@ public final class ExecIfCondition extends ExecCondition implements StackableBlo
         labelOffset = _labelOffset;
     }
 
-    public String getRealLabel() {
-        return label;
-    }
-
-    public int getRealLabelOffset() {
-        return labelOffset;
-    }
-
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();

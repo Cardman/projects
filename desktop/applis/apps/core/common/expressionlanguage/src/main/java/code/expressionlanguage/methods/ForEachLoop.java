@@ -117,10 +117,6 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         return expression;
     }
 
-    public ExpressionLanguage getEl() {
-        return new ExpressionLanguage(opList);
-    }
-
 
     @Override
     public String getImportedClassName() {
@@ -327,7 +323,4 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         }
     }
 
-    public CustList<ExecOperationNode> getOpList() {
-        return opList;
-    }
 }

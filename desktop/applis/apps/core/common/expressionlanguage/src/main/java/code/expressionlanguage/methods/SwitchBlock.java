@@ -68,10 +68,6 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         return value;
     }
 
-    public ExpressionLanguage getEl() {
-        return new ExpressionLanguage(opValue);
-    }
-
     public CustList<ExecOperationNode> getOpValue() {
         return opValue;
     }
@@ -199,7 +195,4 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         return def_;
     }
 
-    public boolean isEnumTest() {
-        return enumTest;
-    }
 }

@@ -8,9 +8,7 @@ import code.expressionlanguage.methods.ImportingBlock;
 import code.util.*;
 
 public final class ExecFileBlock extends ExecBracedBlock implements ImportingBlock {
-    private static final char LINE_RETURN = '\n';
-    private static final char CARR_RETURN = '\r';
-    private static final char TAB = '\t';
+
     private Ints lineReturns;
     private Ints tabulations;
 
@@ -21,7 +19,7 @@ public final class ExecFileBlock extends ExecBracedBlock implements ImportingBlo
 
     private Ints importsOffset;
 
-    private String fileName;
+    private final String fileName;
 
     private boolean predefined;
 
@@ -73,29 +71,9 @@ public final class ExecFileBlock extends ExecBracedBlock implements ImportingBlo
         return predefined;
     }
 
-    public Ints getBeginComments() {
-        return beginComments;
-    }
-
-    public Ints getEndComments() {
-        return endComments;
-    }
-
-    public Ints getTabulations() {
-        return tabulations;
-    }
-
-    public Ints getLineReturns() {
-        return lineReturns;
-    }
-
     @Override
     public StringList getImports() {
         return imports;
-    }
-
-    public Ints getImportsOffset() {
-        return importsOffset;
     }
 
     public String getFileName() {
@@ -104,9 +82,6 @@ public final class ExecFileBlock extends ExecBracedBlock implements ImportingBlo
 
     public String getRenderFileName() {
         return fileName+".html";
-    }
-    public void setFileName(String _fileName) {
-        fileName = _fileName;
     }
 
     public static StringMap<String> export(ContextEl _cont) {

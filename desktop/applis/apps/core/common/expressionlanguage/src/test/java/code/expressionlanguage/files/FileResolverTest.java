@@ -5203,7 +5203,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, op_.getParametersNamesOffset().size());
         assertEq(23, op_.getParametersNamesOffset().get(0));
         assertEq(33, op_.getParametersNamesOffset().get(1));
-        assertTrue(op_.hiddenInstance());
         assertTrue(op_.isStaticMethod());
         Block b_ = op_.getFirstChild();
         assertTrue(b_ instanceof ReturnMethod);

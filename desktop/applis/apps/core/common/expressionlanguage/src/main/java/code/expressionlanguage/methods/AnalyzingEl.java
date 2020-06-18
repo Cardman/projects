@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.BlocksFlags;
+import code.expressionlanguage.analyze.BlocksLabels;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 import code.expressionlanguage.inherits.Mapping;
@@ -15,6 +16,8 @@ public final class AnalyzingEl {
     private BlocksFlags canCompleteNormallyGroup = new BlocksFlags();
 
     private BlocksFlags reachable = new BlocksFlags();
+    private BlocksFlags finals = new BlocksFlags();
+    private BlocksLabels labelsMapping = new BlocksLabels();
     private IdMap<BreakBlock, BreakableBlock> breakables = new IdMap<BreakBlock, BreakableBlock>();
     private IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>> breakablesAncestors = new IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>>();
     private IdMap<ContinueBlock, Loop> continuables = new IdMap<ContinueBlock, Loop>();
@@ -36,6 +39,8 @@ public final class AnalyzingEl {
         canCompleteNormally.setMapping(mappingMembers);
         canCompleteNormallyGroup.setMapping(mappingMembers);
         reachable.setMapping(mappingMembers);
+        finals.setMapping(mappingMembers);
+        labelsMapping.setMapping(mappingMembers);
     }
 
     public boolean isReachable(Block _reach) {
@@ -62,6 +67,30 @@ public final class AnalyzingEl {
         reachable.put(_reach, true);
         canCompleteNormally.put(_reach, true);
         canCompleteNormallyGroup.put(_reach, true);
+    }
+
+    public void putLabel(Block _reach) {
+        labelsMapping.put(_reach,"");
+    }
+
+    public void putFinal(Block _reach) {
+        finals.put(_reach,false);
+    }
+
+    public void putLabel(Block _reach, String _label) {
+        labelsMapping.put(_reach,_label);
+    }
+
+    public void putFinal(Block _reach, boolean _label) {
+        finals.put(_reach,_label);
+    }
+
+    public BlocksLabels getLabelsMapping() {
+        return labelsMapping;
+    }
+
+    public BlocksFlags getFinals() {
+        return finals;
     }
 
     public void completeAbruptGroup(Block _reach) {

@@ -5,23 +5,15 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.StaticInitPageEl;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.types.ResolvingSuperTypes;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.instr.PartOffsetAffect;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.exec.opers.ExecAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.opers.ExecStandardInstancingOperation;
-import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
@@ -45,8 +37,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     private int valueOffest;
 
     private int trOffset;
-
-    private final StringList allSuperTypes = new StringList();
 
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
@@ -83,10 +73,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         return tempClassOffset;
     }
 
-    public StringList getAllSuperTypes() {
-        return allSuperTypes;
-    }
-
     @Override
     public boolean isFinalType() {
         return true;
@@ -105,11 +91,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     @Override
     public String getUniqueFieldName() {
         return fieldName;
-    }
-
-    @Override
-    public CustList<ExecOperationNode> getOpValue() {
-        return opValue;
     }
 
     @Override
@@ -245,7 +226,4 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
 
-    public int getTrOffset() {
-        return trOffset;
-    }
 }

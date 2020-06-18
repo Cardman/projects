@@ -3,6 +3,7 @@ package code.expressionlanguage.assign.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
+import code.expressionlanguage.exec.blocks.ExecElseCondition;
 import code.expressionlanguage.methods.ElseCondition;
 import code.expressionlanguage.assign.util.SimpleAssignment;
 import code.util.CustList;
@@ -11,9 +12,9 @@ import code.util.StringMap;
 
 public final class AssElseCondition extends AssBracedStack implements AssBreakableBlock {
     private String label;
-    AssElseCondition(boolean _completeNormally, boolean _completeNormallyGroup, ElseCondition _e) {
+    AssElseCondition(boolean _completeNormally, boolean _completeNormallyGroup, String _label) {
         super(_completeNormally, _completeNormallyGroup);
-        label = _e.getRealLabel();
+        label = _label;
     }
 
     @Override

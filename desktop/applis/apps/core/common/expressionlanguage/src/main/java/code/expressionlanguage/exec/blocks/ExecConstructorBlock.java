@@ -13,8 +13,6 @@ import code.util.StringList;
 
 public final class ExecConstructorBlock extends ExecNamedFunctionBlock implements AccessibleBlock,GeneConstructor,ReturnableWithSignature {
 
-    private ConstructorId constIdSameClass;
-
     private boolean implicitCallSuper;
 
     private int leftPar;
@@ -77,15 +75,6 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
         return getId().getSignature(_ana);
     }
 
-    @Override
-    public String getName() {
-        return EMPTY_STRING;
-    }
-
-    public MethodAccessKind getStaticContext() {
-        return MethodAccessKind.INSTANCE;
-    }
-
     public boolean implicitConstr() {
         return implicitCallSuper;
     }
@@ -110,10 +99,6 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
     @Override
     public String getOuterFullName() {
         return ((ExecRootBlock)getParent()).getOuter().getFullName();
-    }
-
-    public void setConstIdSameClass(ConstructorId constIdSameClass) {
-        this.constIdSameClass = constIdSameClass;
     }
 
     public void setImplicitCallSuper(boolean implicitCallSuper) {

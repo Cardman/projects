@@ -57,11 +57,13 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         page_.setOffset(0);
         page_.setBlockToWrite(_mem);
         Block firstChild_ = getFirstChild();
+        page_.setExecDeclareVariable(null);
         StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         AnalyzingEl anEl_ = new AnalyzingEl(mapping_);
         anEl_.getMappingBracedMembers().put(this,_mem);
+        anEl_.getMappingMembers().put(_mem,this);
         _cont.getCoverage().putBlockOperations(_cont,_mem,this);
         _cont.getAnalyzing().setAnalysisAss(anEl_);
         _cont.getAnalyzing().setCurrentFct(this);
@@ -81,6 +83,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         while (true) {
             page_.setCurrentBlock(en_);
             page_.setCurrentAnaBlock(en_);
+            anEl_.putLabel(this);
+            anEl_.putFinal(this);
             addPossibleEmpty(en_);
             _cont.getCoverage().putBlockOperations(_cont,en_);
             if (en_ == this) {
@@ -91,7 +95,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             }
             processUnreachable(_cont, anEl_, en_);
             Block n_ = en_.getFirstChild();
-            addParent(_cont, en_, parents_, parentsBreakables_, parentsContinuable_, parentsReturnable_, n_);
+            addParent(_cont,anEl_, en_, parents_, parentsBreakables_, parentsContinuable_, parentsReturnable_, n_);
             boolean visit_ = true;
             if (en_ != anEl_.getRoot()) {
                 visit_ = tryBuildExpressionLanguageReadOnly(en_, _cont);
@@ -145,10 +149,13 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
-    private static void addParent(ContextEl _cont, Block _en, CustList<BracedBlock> _parents,
+    private static void addParent(ContextEl _cont, AnalyzingEl _anEl,Block _en, CustList<BracedBlock> _parents,
                                   CustList<BreakableBlock> _parentsBreakables, CustList<Loop> _parentsContinuable,
                                   CustList<Eval> _parentsReturnable, Block _n) {
         if (_en instanceof BracedBlock && _n != null) {
+            if (_en instanceof BreakableBlock) {
+                _anEl.putLabel(_en,((BreakableBlock)_en).getRealLabel());
+            }
             _cont.getAnalyzing().initLocalVars();
             _cont.getAnalyzing().initVars();
             _cont.getAnalyzing().initMutableLoopVars();

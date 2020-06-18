@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
-import code.expressionlanguage.methods.*;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -18,7 +17,6 @@ import code.expressionlanguage.opers.util.Identifiable;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.types.PartTypeUtil;
 import code.util.*;
 
 public final class Templates {
@@ -1419,7 +1417,7 @@ public final class Templates {
             String name_ = _id.getName();
             if (StringList.quickEq("[]=", name_)) {
                 String id_ = getIdFromAllTypes(_classNameFound);
-                for (GeneCustMethod g: ExecBlock.getMethodExecBlocks(_conf.getClasses().getExecClassBody(id_))) {
+                for (GeneCustMethod g: ExecBlock.getMethodExecBlocks(_conf.getClasses().getClassBody(id_))) {
                     if (!StringList.quickEq("[]",g.getId().getName())) {
                         continue;
                     }

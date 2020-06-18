@@ -8,7 +8,6 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.RootBlock;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -57,7 +56,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         }
         String idOwner_= Templates.getIdFromAllTypes(foundOwners_.first());
         String in_ = StringList.concat(idOwner_,"..", _type);
-        ExecRootBlock inner_ = classes_.getExecClassBody(in_);
+        ExecRootBlock inner_ = classes_.getClassBody(in_);
         if (inner_.isStaticType()) {
             checkWithoutInstanceInner(_type, owner_, foundOwners_.first(), "..");
             return;
@@ -113,7 +112,7 @@ final class AnaNamePartType extends AnaLeafPartType {
 
     private boolean analyzeFull(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _type) {
         String id_ = Templates.getIdFromAllTypes(_type);
-        ExecRootBlock root_ = _an.getClasses().getExecClassBody(id_);
+        ExecRootBlock root_ = _an.getClasses().getClassBody(id_);
         if (root_ != null) {
             analyzeFullType(_type);
             return true;
@@ -199,7 +198,7 @@ final class AnaNamePartType extends AnaLeafPartType {
                 String genStr_ = owners_.first();
                 String id_ = Templates.getIdFromAllTypes(genStr_);
                 String in_ = StringList.concat(id_,"..",type_);
-                ExecRootBlock inner_ = classes_.getExecClassBody(in_);
+                ExecRootBlock inner_ = classes_.getClassBody(in_);
                 if (inner_.isStaticType()) {
                     setAnalyzedType(StringList.concat(id_,"..",type_));
                     owner = a;
@@ -299,8 +298,8 @@ final class AnaNamePartType extends AnaLeafPartType {
     private static void checkAccessIntern(ContextEl _an, ExecAccessingImportingBlock _global, String _found, String _owner, int _indexInType) {
         String idOwner_ = Templates.getIdFromAllTypes(_owner);
         String idFound_ = Templates.getIdFromAllTypes(_found);
-        ExecRootBlock owner_ = _an.getClasses().getExecClassBody(idOwner_);
-        ExecRootBlock found_ = _an.getClasses().getExecClassBody(idFound_);
+        ExecRootBlock owner_ = _an.getClasses().getClassBody(idOwner_);
+        ExecRootBlock found_ = _an.getClasses().getClassBody(idFound_);
         if (found_ == null) {
             return;
         }
@@ -328,7 +327,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             }
             String in_ = StringList.concat(id_,sep_,type_);
             Classes classes_ = _an.getClasses();
-            ExecRootBlock inner_ = classes_.getExecClassBody(in_);
+            ExecRootBlock inner_ = classes_.getClassBody(in_);
             if (inner_ == null) {
                 return;
             }

@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesDesc;
+import code.expressionlanguage.exec.blocks.ExecWhileCondition;
 import code.expressionlanguage.methods.WhileCondition;
 import code.expressionlanguage.assign.util.AssignmentBefore;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
@@ -12,9 +13,9 @@ import code.util.*;
 
 public final class AssWhileCondition extends AssCondition implements AssLoop {
     private String label;
-    AssWhileCondition(boolean _completeNormally, boolean _completeNormallyGroup, WhileCondition _c) {
+    AssWhileCondition(boolean _completeNormally, boolean _completeNormallyGroup, String _label,ExecWhileCondition _c) {
         super(_completeNormally, _completeNormallyGroup, _c);
-        label = _c.getRealLabel();
+        label = _label;
     }
 
     @Override

@@ -71,7 +71,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             String c_ = getImportedDirectBaseSuperType(i_);
             i_++;
             String base_ = Templates.getIdFromAllTypes(s_);
-            ExecRootBlock r_ = _classes.getClasses().getExecClassBody(base_);
+            ExecRootBlock r_ = _classes.getClasses().getClassBody(base_);
             _classes.addErrorIfNoMatch(s_,c_,this,index_);
             if (!(r_ instanceof ExecClassBlock)) {
                 if (r_ instanceof ExecInterfaceBlock) {

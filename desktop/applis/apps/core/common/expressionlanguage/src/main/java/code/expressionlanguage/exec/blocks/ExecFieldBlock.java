@@ -47,11 +47,6 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock,Acce
     }
 
     @Override
-    public int getFieldNameOffset() {
-        return valueOffset;
-    }
-
-    @Override
     public String getImportedClassName() {
         return getRealImportedClassName();
     }

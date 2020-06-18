@@ -23,7 +23,6 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
     private final boolean finalMethod;
     private final boolean abstractMethod;
 
-    private final boolean normalMethod;
     private final MethodKind kind;
     public ExecOverridableBlock(OverridableBlock _offset) {
         super(_offset);
@@ -32,7 +31,6 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
         staticCallMethod = _offset.isStaticCallMethod();
         finalMethod = _offset.isFinalMethod();
         abstractMethod = _offset.isAbstractMethod();
-        normalMethod = _offset.isNormalMethod();
         kind = _offset.getKind();
     }
 
@@ -49,10 +47,6 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
     @Override
     public boolean isAbstractMethod() {
         return abstractMethod;
-    }
-
-    public boolean isNormalMethod() {
-        return normalMethod;
     }
 
     @Override

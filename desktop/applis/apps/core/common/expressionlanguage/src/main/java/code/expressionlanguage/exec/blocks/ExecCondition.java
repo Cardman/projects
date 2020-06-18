@@ -68,9 +68,7 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
     public final ExpressionLanguage getElCondition() {
         return new ExpressionLanguage(opCondition);
     }
-    public ExecOperationNode getRoot() {
-        return getOpCondition().last();
-    }
+
     public CustList<ExecOperationNode> getOpCondition() {
         return opCondition;
     }

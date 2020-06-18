@@ -5,6 +5,7 @@ import code.expressionlanguage.assign.util.AssignedBooleanVariables;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesDesc;
+import code.expressionlanguage.exec.blocks.ExecCondition;
 import code.expressionlanguage.methods.Condition;
 import code.expressionlanguage.assign.util.AssignmentBefore;
 import code.expressionlanguage.assign.util.BooleanAssignment;
@@ -12,7 +13,7 @@ import code.expressionlanguage.assign.util.SimpleAssignment;
 import code.util.*;
 
 public final class AssDoWhileCondition extends AssCondition {
-    AssDoWhileCondition(boolean _completeNormally, boolean _completeNormallyGroup, Condition _c) {
+    AssDoWhileCondition(boolean _completeNormally, boolean _completeNormallyGroup, ExecCondition _c) {
         super(_completeNormally, _completeNormallyGroup, _c);
     }
 

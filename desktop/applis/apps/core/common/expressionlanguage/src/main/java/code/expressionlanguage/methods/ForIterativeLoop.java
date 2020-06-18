@@ -162,18 +162,6 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         return eq;
     }
 
-    public ExpressionLanguage getInitEl() {
-        return new ExpressionLanguage(opInit);
-    }
-
-    public ExpressionLanguage getExpressionEl() {
-        return new ExpressionLanguage(opExp);
-    }
-
-    public ExpressionLanguage getStepEl() {
-        return new ExpressionLanguage(opStep);
-    }
-
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         processVariableNames(_cont);
@@ -294,15 +282,4 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         }
     }
 
-    public CustList<ExecOperationNode> getOpInit() {
-        return opInit;
-    }
-
-    public CustList<ExecOperationNode> getOpExp() {
-        return opExp;
-    }
-
-    public CustList<ExecOperationNode> getOpStep() {
-        return opStep;
-    }
 }

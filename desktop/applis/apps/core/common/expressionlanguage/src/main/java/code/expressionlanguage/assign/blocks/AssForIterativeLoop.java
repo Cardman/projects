@@ -7,6 +7,7 @@ import code.expressionlanguage.assign.util.AssignedBooleanVariables;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesDesc;
+import code.expressionlanguage.exec.blocks.ExecForIterativeLoop;
 import code.expressionlanguage.methods.ForIterativeLoop;
 import code.expressionlanguage.assign.util.Assignment;
 import code.expressionlanguage.assign.util.AssignmentBefore;
@@ -21,12 +22,12 @@ public final class AssForIterativeLoop extends AssBracedStack implements AssLoop
     private CustList<AssOperationNode> opExp;
 
     private CustList<AssOperationNode> opStep;
-    AssForIterativeLoop(boolean _completeNormally, boolean _completeNormallyGroup, ForIterativeLoop _for) {
+    AssForIterativeLoop(boolean _completeNormally, boolean _completeNormallyGroup, String _label, ExecForIterativeLoop _for) {
         super(_completeNormally, _completeNormallyGroup);
         opInit = AssUtil.getExecutableNodes(_for.getOpInit());
         opExp = AssUtil.getExecutableNodes(_for.getOpExp());
         opStep = AssUtil.getExecutableNodes(_for.getOpStep());
-        label = _for.getRealLabel();
+        label = _label;
     }
 
     @Override

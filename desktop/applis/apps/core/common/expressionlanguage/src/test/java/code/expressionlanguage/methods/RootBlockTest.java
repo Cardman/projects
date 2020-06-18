@@ -28,7 +28,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = getClassBody(cont_, "pkg.ExTwo").getAllGenericSuperTypes(cont_,cont_.getClasses().getExecClassBody("pkg.ExTwo"));
+        StringList superTypes_ = getClassBody(cont_, "pkg.ExTwo").getAllGenericSuperTypes(cont_,cont_.getClasses().getClassBody("pkg.ExTwo"));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#T>", superTypes_.first());
     }
@@ -48,7 +48,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = getClassBody(cont_, "pkg.ExThree").getAllGenericSuperTypes(cont_,cont_.getClasses().getExecClassBody("pkg.ExThree"));
+        StringList superTypes_ = getClassBody(cont_, "pkg.ExThree").getAllGenericSuperTypes(cont_,cont_.getClasses().getClassBody("pkg.ExThree"));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<#S>", superTypes_.first());
         assertEq("pkg.Ex<#S>", superTypes_.get(1));
@@ -69,7 +69,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = getClassBody(cont_, "pkg.ExThree").getAllGenericSuperTypes(cont_,cont_.getClasses().getExecClassBody("pkg.ExThree"));
+        StringList superTypes_ = getClassBody(cont_, "pkg.ExThree").getAllGenericSuperTypes(cont_,cont_.getClasses().getClassBody("pkg.ExThree"));
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<java.lang.String>", superTypes_.first());
         assertEq("pkg.Ex<java.lang.String>", superTypes_.get(1));
@@ -93,7 +93,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = getClassBody(cont_, "pkg.ExFour").getAllGenericSuperTypes(cont_,cont_.getClasses().getExecClassBody("pkg.ExFour"));
+        StringList superTypes_ = getClassBody(cont_, "pkg.ExFour").getAllGenericSuperTypes(cont_,cont_.getClasses().getClassBody("pkg.ExFour"));
         assertEq(3, superTypes_.size());
         assertEq("pkg.ExTwo<java.lang.String>", superTypes_.first());
         assertEq("pkg.ExThree<java.lang.String>", superTypes_.get(1));

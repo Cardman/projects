@@ -343,4 +343,8 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
     public ExpressionLanguage getEl() {
         return new ExpressionLanguage(opList);
     }
+
+    public CustList<ExecOperationNode> getOpList() {
+        return opList;
+    }
 }

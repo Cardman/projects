@@ -105,10 +105,6 @@ public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements G
         return getId().getSignature(_ana);
     }
 
-    public MethodAccessKind getStaticContext() {
-        return MethodAccessKind.STATIC;
-    }
-
     @Override
     public StringList getImports() {
         return imports;

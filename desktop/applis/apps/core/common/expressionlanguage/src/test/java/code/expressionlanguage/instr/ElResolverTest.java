@@ -3280,7 +3280,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
-        ExecRootBlock re_ = classes_.getExecClassBody("pkg.ExTwo");
+        ExecRootBlock re_ = classes_.getClassBody("pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3334,7 +3334,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
-        ExecRootBlock re_ = classes_.getExecClassBody("pkg.ExTwo");
+        ExecRootBlock re_ = classes_.getClassBody("pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3378,7 +3378,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
-        ExecRootBlock re_ = classes_.getExecClassBody("pkg.ExTwo");
+        ExecRootBlock re_ = classes_.getClassBody("pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3424,7 +3424,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
-        ExecRootBlock re_ = classes_.getExecClassBody("pkg.ExTwo");
+        ExecRootBlock re_ = classes_.getClassBody("pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3478,7 +3478,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
-        ExecRootBlock re_ = classes_.getExecClassBody("pkg.ExTwo");
+        ExecRootBlock re_ = classes_.getClassBody("pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
@@ -3524,7 +3524,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
-        ExecRootBlock re_ = classes_.getExecClassBody("pkg.ExTwo");
+        ExecRootBlock re_ = classes_.getClassBody("pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);

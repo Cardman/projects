@@ -15,7 +15,6 @@ import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
@@ -1009,7 +1008,7 @@ public class LgNamesUtils extends LgNames {
         if (_arg instanceof RunnableStruct) {
             String className_ = _arg.getClassName(_cont);
             String id_ = Templates.getIdFromAllTypes(className_);
-            ExecRootBlock clBody_ = _cont.getClasses().getExecClassBody(id_);
+            ExecRootBlock clBody_ = _cont.getClasses().getClassBody(id_);
             if (!ContextEl.isEnumType(clBody_)) {
                 return new StringStruct(_arg.getClassName(_cont));
             }

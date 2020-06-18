@@ -18,12 +18,12 @@ public final class StaticInitPageEl extends AbstractPageEl {
 
         String curClass_ = getGlobalClass();
         String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
-        ExecRootBlock root_ =  classes_.getExecClassBody(curClassBase_);
+        ExecRootBlock root_ =  classes_.getClassBody(curClassBase_);
         //Super interfaces have no super classes
         if (root_ instanceof ExecUniqueRootedBlock) {
             String gene_ = ((ExecUniqueRootedBlock) root_).getImportedDirectGenericSuperClass();
             String superClass_ = Templates.getIdFromAllTypes(gene_);
-            if (classes_.getExecClassBody(superClass_) != null) {
+            if (classes_.getClassBody(superClass_) != null) {
                 //initialize the super class first
                 if (_context.hasToExit(superClass_)) {
                     return false;

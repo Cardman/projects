@@ -253,10 +253,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public StringList getAnnotations() {
         return annotations;
     }
-    @Override
-    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
-        return annotationsOps;
-    }
+
     @Override
     public Ints getAnnotationsIndexes() {
         return annotationsIndexes;

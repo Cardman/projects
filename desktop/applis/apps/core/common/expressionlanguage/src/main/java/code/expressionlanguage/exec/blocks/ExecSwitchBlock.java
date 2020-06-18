@@ -68,14 +68,6 @@ public final class ExecSwitchBlock extends ExecBracedBlock implements StackableB
         refLabel(_parts,label,labelOffset);
     }
 
-    public String getRealLabel() {
-        return label;
-    }
-
-    public int getRealLabelOffset() {
-        return labelOffset;
-    }
-
     @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
         return getEl();
@@ -181,5 +173,9 @@ public final class ExecSwitchBlock extends ExecBracedBlock implements StackableB
             if_.setCurrentVisitedBlock(found_);
         }
         ip_.addBlock(if_);
+    }
+
+    public CustList<ExecOperationNode> getOpValue() {
+        return opValue;
     }
 }

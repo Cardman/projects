@@ -337,4 +337,8 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         StringMap<LoopVariable> vars_ = ip_.getVars();
         incrementLoop(_cont, l_, vars_);
     }
+
+    public CustList<ExecOperationNode> getOpList() {
+        return opList;
+    }
 }

@@ -1672,7 +1672,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (StringList.quickEq(id_.getName(),"[]=")) {
             CustList<ExecOverridableBlock> getIndexers_ = new CustList<ExecOverridableBlock>();
             String idCl_ = Templates.getIdFromAllTypes(_id.getRealClass());
-            for (ExecBlock b: ExecBlock.getDirectChildren(_an.getClasses().getExecClassBody(idCl_))) {
+            for (ExecBlock b: ExecBlock.getDirectChildren(_an.getClasses().getClassBody(idCl_))) {
                 if (!(b instanceof ExecOverridableBlock)) {
                     continue;
                 }

@@ -2,6 +2,7 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.NamedFunctionBlock;
@@ -117,7 +118,7 @@ public final class GuiProcess implements Runnable {
         String folder_ = executingOptions.getLogFolder();
         new File(folder_).mkdirs();
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, mName, new StringList());
-        CustList<ExecNamedFunctionBlock> methods_ = Classes.getMethodBodiesById(context, clName, id_);
+        CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(context, clName, id_);
         if (!methods_.isEmpty()) {
             ProcessMethod.initializeClass(clName,context);
             if (context.hasException()) {

@@ -4,9 +4,6 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecFieldBlock;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.FieldInitPageEl;
-import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetBooleanInfo;
@@ -99,10 +96,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     public AccessEnum getAccess() {
         return access;
-    }
-
-    public ExpressionLanguage getValueEl() {
-        return new ExpressionLanguage(opValue);
     }
 
     public CustList<ExecOperationNode> getOpValue() {
@@ -268,10 +261,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     public StringList getAnnotations() {
         return annotations;
     }
-    @Override
-    public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
-        return annotationsOps;
-    }
+
     @Override
     public Ints getAnnotationsIndexes() {
         return annotationsIndexes;

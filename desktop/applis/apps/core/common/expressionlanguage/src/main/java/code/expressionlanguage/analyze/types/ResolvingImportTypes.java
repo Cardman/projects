@@ -235,7 +235,7 @@ public final class ResolvingImportTypes {
         }
         CustList<PartOffset> partOffsets_ = _analyzable.getCoverage().getCurrentParts();
         partOffsets_.clear();
-        ExecRootBlock b_ = _analyzable.getClasses().getExecClassBody(res_);
+        ExecRootBlock b_ = _analyzable.getClasses().getClassBody(res_);
         if (b_ == null) {
             String id_ = lookupImportType(_analyzable,base_,r_, new AlwaysReadyTypes());
             if (id_.isEmpty()) {
@@ -267,7 +267,7 @@ public final class ResolvingImportTypes {
                 delta_ = 2;
                 resId_ = StringList.concat(res_,"-",i_.trim());
             }
-            ExecRootBlock inner_ = _analyzable.getClasses().getExecClassBody(resId_);
+            ExecRootBlock inner_ = _analyzable.getClasses().getClassBody(resId_);
             if (inner_ == null) {
                 //ERROR
                 FoundErrorInterpret undef_;

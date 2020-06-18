@@ -44,9 +44,6 @@ public final class CatchEval extends AbstractCatchEval {
         return className;
     }
 
-    public String getImportedClassName() {
-        return importedClassName;
-    }
     public String getVariableName() {
         return variableName;
     }

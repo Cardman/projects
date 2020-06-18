@@ -21,10 +21,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
 
     private AccessEnum access;
 
-    private int accessOffset;
-
-    private String templateDef;
-
     private StringList imports = new StringList();
 
     private Ints importsOffset = new Ints();
@@ -37,13 +33,8 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
 
     private final StringList importedDirectBaseSuperTypes = new StringList();
 
-    private IntMap< Boolean> explicitDirectSuperTypes = new IntMap< Boolean>();
-
     private int idRowCol;
 
-    private int categoryOffset;
-
-    private StringList staticInitInterfaces = new StringList();
     private int nameLength;
 
     private CustList<Ints> paramTypesConstraintsOffset = new CustList<Ints>();
@@ -51,7 +42,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
     private CustList<PartOffset> constraintsParts = new CustList<PartOffset>();
 
     private StringList staticInitImportedInterfaces = new StringList();
-    private Ints staticInitInterfacesOffset = new Ints();
 
     private StringList annotations = new StringList();
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
@@ -59,7 +49,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
     private final StringList allGenericSuperTypes = new StringList();
     private final StringList allGenericClasses = new StringList();
     private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
-    private int nbOperators;
 
     ExecRootBlock(RootBlock _offset) {
         super(_offset.getOffset());
@@ -68,20 +57,11 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
         name = _offset.getName();
         access = _offset.getAccess();
         imports = _offset.getImports();
-        templateDef = _offset.getTemplateDef();
         annotations = _offset.getAnnotations();
         idRowCol = _offset.getIdRowCol();
         paramTypes = _offset.getParamTypes();
         nameLength = _offset.getNameLength();
         annotationsIndexes = _offset.getAnnotationsIndexes();
-    }
-
-    public int getAccessOffset() {
-        return accessOffset;
-    }
-
-    public int getCategoryOffset() {
-        return categoryOffset;
     }
 
     public ExecRootBlock getOuter() {
@@ -224,21 +204,10 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
 
     public abstract StringList getImportedDirectSuperTypes();
 
-    public IntMap< Boolean> getExplicitDirectSuperTypes() {
-        return explicitDirectSuperTypes;
-    }
-
-    public StringList getStaticInitInterfaces() {
-        return staticInitInterfaces;
-    }
-
     public StringList getStaticInitImportedInterfaces() {
         return staticInitImportedInterfaces;
     }
 
-    public Ints getStaticInitInterfacesOffset() {
-        return staticInitInterfacesOffset;
-    }
     public final ExecRootBlock getParentType() {
         ExecBracedBlock p_ = getParent();
         while (!(p_ instanceof ExecRootBlock)) {
@@ -264,10 +233,13 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
     public final CustList<ExecRootBlock> getSelfAndParentTypes() {
         CustList<ExecRootBlock> pars_ = new CustList<ExecRootBlock>();
         ExecRootBlock c_ = this;
-        while (true) {
-            pars_.add(c_);
+        boolean add_ = true;
+        while (c_ != null) {
+            if (add_) {
+                pars_.add(c_);
+            }
             if (c_.withoutInstance()) {
-                break;
+                add_ = false;
             }
             c_ = c_.getParentType();
         }
@@ -288,9 +260,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
         return annotationsOps;
     }
 
-    public Ints getAnnotationsIndexes() {
-        return annotationsIndexes;
-    }
     @Override
     public StringList getImports() {
         return imports;
@@ -334,13 +303,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
         paramTypes = _root.getParamTypes();
         paramTypesMap = _root.getParamTypesMap();
         constraintsParts = _root.getConstraintsParts();
-    }
-    public String getFullDefinition() {
-        return StringList.concat(getFullName(),getTemplateDef());
-    }
-
-    public String getTemplateDef() {
-        return templateDef;
     }
 
     public String getName() {
@@ -427,20 +389,11 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
         return !Classes.canAccess(getFullName(), (AccessibleBlock)_class, _analyzable);
     }
 
-    public StringList getAnnotations() {
-        return annotations;
-    }
-
-    public int getNbOperators() {
-        return nbOperators;
-    }
-
     public StringList getImportedDirectBaseSuperTypes() {
         return importedDirectBaseSuperTypes;
     }
 
     public final void validateIds(RootBlock _key, IdMap<RootBlock, Members> _mapMembers) {
-        nbOperators = _key.getNbOperators();
         Members mem_ = _mapMembers.getVal(_key);
         for (EntryCust<OverridableBlock,ExecOverridableBlock> e: mem_.getAllMethods().entryList()) {
             e.getValue().buildImportedTypes(e.getKey());
@@ -468,7 +421,4 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
         return idRowCol;
     }
 
-    public StringMap<TypeVar> getParamTypesMap() {
-        return paramTypesMap;
-    }
 }

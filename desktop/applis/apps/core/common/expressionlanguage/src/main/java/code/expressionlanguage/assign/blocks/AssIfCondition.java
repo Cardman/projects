@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.util.AssignedBooleanVariables;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.methods.IfCondition;
+import code.expressionlanguage.exec.blocks.ExecIfCondition;
 import code.expressionlanguage.assign.util.SimpleAssignment;
 import code.util.CustList;
 import code.util.IdMap;
@@ -12,9 +12,9 @@ import code.util.StringMap;
 
 public final class AssIfCondition extends AssCondition implements AssBreakableBlock {
     private String label;
-    AssIfCondition(boolean _completeNormally, boolean _completeNormallyGroup, IfCondition _c) {
+    AssIfCondition(boolean _completeNormally, boolean _completeNormallyGroup, String _label, ExecIfCondition _c) {
         super(_completeNormally, _completeNormallyGroup,_c);
-        label = _c.getRealLabel();
+        label = _label;
     }
 
     @Override

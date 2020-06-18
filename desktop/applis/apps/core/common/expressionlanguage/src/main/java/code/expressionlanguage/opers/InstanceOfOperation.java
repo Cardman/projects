@@ -6,7 +6,6 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -39,7 +38,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         sub_ = ResolvingImportTypes.resolveCorrectType(_conf, begin_ + off_, sub_, exact_);
         partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         if (!exact_) {
-            ExecRootBlock r_ = _conf.getClasses().getExecClassBody(Templates.getIdFromAllTypes(sub_));
+            ExecRootBlock r_ = _conf.getClasses().getClassBody(Templates.getIdFromAllTypes(sub_));
             if (r_ != null) {
                 sub_ = r_.getWildCardString();
             }

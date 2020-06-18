@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneCustMethod;
+import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -16,7 +17,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public final class OverridableBlock extends NamedFunctionBlock implements GeneCustMethod,ReturnableWithSignature {
+public final class OverridableBlock extends NamedFunctionBlock implements GeneMethod,ReturnableWithSignature {
 
     private int modifierOffset;
 
@@ -102,12 +103,10 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         return staticMethod;
     }
 
-    @Override
     public boolean isFinalMethod() {
         return finalMethod;
     }
 
-    @Override
     public boolean isAbstractMethod() {
         return abstractMethod;
     }

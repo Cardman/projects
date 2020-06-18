@@ -776,7 +776,7 @@ public final class Configuration {
 
     public ExecAccessingImportingBlock getCurrentGlobalBlock(ExecAccessingImportingBlock _bl) {
         String gl_ = getGlobalClass();
-        ExecRootBlock root_ = getContext().getClasses().getExecClassBody(Templates.getIdFromAllTypes(gl_));
+        ExecRootBlock root_ = getContext().getClasses().getClassBody(Templates.getIdFromAllTypes(gl_));
         return getAccessingImportingBlock(_bl, root_);
     }
 

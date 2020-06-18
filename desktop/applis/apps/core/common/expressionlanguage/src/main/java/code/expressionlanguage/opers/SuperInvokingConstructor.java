@@ -7,8 +7,6 @@ import code.expressionlanguage.exec.blocks.ExecUniqueRootedBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 
 public final class SuperInvokingConstructor extends AbstractInvokingConstructor {
@@ -23,7 +21,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _conf.getAnalyzing().getGlobalClass();
         String base_ = Templates.getIdFromAllTypes(clCurName_);
-        ExecRootBlock clBody_ = classes_.getExecClassBody(base_);
+        ExecRootBlock clBody_ = classes_.getClassBody(base_);
         if (!(clBody_ instanceof ExecUniqueRootedBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());

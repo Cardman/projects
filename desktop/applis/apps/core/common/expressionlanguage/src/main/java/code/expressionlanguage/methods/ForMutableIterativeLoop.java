@@ -11,7 +11,6 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
@@ -151,18 +150,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         importedClassName = _importedClassName;
     }
 
-    private ExpressionLanguage getInitEl() {
-        return new ExpressionLanguage(opInit);
-    }
-
-    private ExpressionLanguage getExpressionEl() {
-        return new ExpressionLanguage(opExp);
-    }
-
-    private ExpressionLanguage getStepEl() {
-        return new ExpressionLanguage(opStep);
-    }
-
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         processVariables(_cont);
@@ -240,6 +227,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
             }
             page_.setMerged(true);
+            page_.getAnalysisAss().putFinal(this,finalVariable);
             page_.setFinalVariable(finalVariable);
             page_.setCurrentVarSetting(importedClassName);
         } else {
@@ -327,15 +315,4 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         }
     }
 
-    public CustList<ExecOperationNode> getOpInit() {
-        return opInit;
-    }
-
-    public CustList<ExecOperationNode> getOpStep() {
-        return opStep;
-    }
-
-    public CustList<ExecOperationNode> getOpExp() {
-        return opExp;
-    }
 }

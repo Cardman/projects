@@ -8,5 +8,4 @@ import code.util.CustList;
 public interface InnerTypeOrElement extends InfoBlock {
     String getUniqueFieldName();
     void buildExpressionLanguageReadOnly(ContextEl _cont, ExecInnerTypeOrElement _exec);
-    CustList<ExecOperationNode> getOpValue();
 }

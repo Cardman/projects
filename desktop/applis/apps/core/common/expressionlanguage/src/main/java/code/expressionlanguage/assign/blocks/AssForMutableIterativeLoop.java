@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.*;
+import code.expressionlanguage.exec.blocks.ExecForMutableIterativeLoop;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.assign.util.Assignment;
@@ -22,13 +23,13 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
     private CustList<AssOperationNode> opStep;
     private String label;
     private final boolean finalVar;
-    AssForMutableIterativeLoop(boolean _completeNormally, boolean _completeNormallyGroup,ForMutableIterativeLoop _block) {
+    AssForMutableIterativeLoop(boolean _completeNormally, boolean _completeNormallyGroup, boolean _final, String _label,ExecForMutableIterativeLoop _block) {
         super(_completeNormally,_completeNormallyGroup);
         opInit = AssUtil.getExecutableNodes(_block.getOpInit());
         opExp = AssUtil.getExecutableNodes(_block.getOpExp());
         opStep = AssUtil.getExecutableNodes(_block.getOpStep());
-        label = _block.getRealLabel();
-        finalVar = _block.isFinalVariable();
+        label = _label;
+        finalVar = _final;
     }
     @Override
     protected AssignedVariables buildNewAssignedVariable() {

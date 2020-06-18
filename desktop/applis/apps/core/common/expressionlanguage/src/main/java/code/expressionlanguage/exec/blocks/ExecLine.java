@@ -32,9 +32,6 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
         opExp = _opExp;
     }
 
-    public int getExpressionOffset() {
-        return expressionOffset;
-    }
     public String getExpression() {
         return expression;
     }
@@ -45,10 +42,6 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
 
     public CustList<ExecOperationNode> getExp() {
         return opExp;
-    }
-
-    public ConstructorId getConstId() {
-        return ((ExecCurrentInvokingConstructor) opExp.last()).getConstId();
     }
 
     public boolean isCallSuper() {

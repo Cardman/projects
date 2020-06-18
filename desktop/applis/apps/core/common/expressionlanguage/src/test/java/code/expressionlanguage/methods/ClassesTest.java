@@ -126,7 +126,7 @@ public final class ClassesTest extends ProcessMethodCommon {
     }
 
     private static StringList getAllGenericClasses(ContextEl context_, String _className) {
-        return context_.getClasses().getExecClassBody(_className).getAllGenericClasses();
+        return context_.getClasses().getClassBody(_className).getAllGenericClasses();
     }
 
     @Test
@@ -2810,7 +2810,7 @@ public final class ClassesTest extends ProcessMethodCommon {
     }
 
     private static StringList getImportedDirectSuperTypes(ContextEl ctx_, String _className) {
-        return ctx_.getClasses().getExecClassBody(_className).getImportedDirectSuperTypes();
+        return ctx_.getClasses().getClassBody(_className).getImportedDirectSuperTypes();
     }
 
     @Test

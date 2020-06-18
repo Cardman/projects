@@ -8,7 +8,6 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.Line;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -61,7 +60,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         }
         String clCurName_ = clArg_.getName();
         classFromName = clCurName_;
-        ExecRootBlock type_ = _conf.getClasses().getExecClassBody(Templates.getIdFromAllTypes(clCurName_));
+        ExecRootBlock type_ = _conf.getClasses().getClassBody(Templates.getIdFromAllTypes(clCurName_));
         ConstrustorIdVarArg ctorRes_;
         ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, clArg_,type_, feed_, varargParam_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (ctorRes_.getRealId() == null) {

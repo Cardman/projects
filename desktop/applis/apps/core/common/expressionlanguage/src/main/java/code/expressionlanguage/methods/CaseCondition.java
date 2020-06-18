@@ -195,10 +195,6 @@ public final class CaseCondition extends SwitchPartBlock {
         }
     }
 
-    public CustList<ExecOperationNode> getOpValue() {
-        return opValue;
-    }
-
     private void checkDuplicateCase(ContextEl _cont, Argument _arg) {
         BracedBlock par_ = getParent();
         Block first_ = par_.getFirstChild();

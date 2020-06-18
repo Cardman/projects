@@ -53,7 +53,7 @@ public final class TypeUtil {
                 page_.setGlobalOffset(offset_);
                 page_.setOffset(0);
                 base_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,base_);
-                ExecRootBlock r_ = classes_.getExecClassBody(base_);
+                ExecRootBlock r_ = classes_.getClassBody(base_);
                 if (!(r_ instanceof ExecInterfaceBlock)) {
                     FoundErrorInterpret enum_;
                     enum_ = new FoundErrorInterpret();
@@ -76,7 +76,7 @@ public final class TypeUtil {
                 page_.setGlobalOffset(offsetSup_);
                 page_.setOffset(0);
                 sup_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sup_);
-                ExecRootBlock rs_ = classes_.getExecClassBody(sup_);
+                ExecRootBlock rs_ = classes_.getClassBody(sup_);
                 if (rs_ == null) {
                     continue;
                 }
@@ -90,7 +90,7 @@ public final class TypeUtil {
                     page_.setGlobalOffset(offsetSub_);
                     page_.setOffset(0);
                     sub_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sub_);
-                    rs_ = classes_.getExecClassBody(sub_);
+                    rs_ = classes_.getClassBody(sub_);
                     if (rs_ == null) {
                         continue;
                     }
@@ -125,13 +125,13 @@ public final class TypeUtil {
             StringList.removeAllElements(allCopy_, _context.getStandards().getPredefinedInterfacesInitOrder());
             String clName_ = un_.getImportedDirectGenericSuperClass();
             String id_ = Templates.getIdFromAllTypes(clName_);
-            ExecRootBlock superType_ = classes_.getExecClassBody(id_);
+            ExecRootBlock superType_ = classes_.getClassBody(id_);
             if (superType_ instanceof ExecUniqueRootedBlock) {
                 StringList.removeAllElements(allCopy_, superType_.getAllSuperTypes());
             }
             StringList filteredStatic_ = new StringList();
             for (String i: allCopy_) {
-                ExecRootBlock int_ = classes_.getExecClassBody(i);
+                ExecRootBlock int_ = classes_.getClassBody(i);
                 if (!(int_ instanceof ExecInterfaceBlock)) {
                     continue;
                 }
@@ -218,7 +218,7 @@ public final class TypeUtil {
             FoundErrorInterpret err_;
             err_ = new FoundErrorInterpret();
             err_.setFileName(fileName_);
-            ExecNamedFunctionBlock sub_ = Classes.getMethodBodiesById(_context,c.getClassName(),c.getConstraints()).first();
+            ExecNamedFunctionBlock sub_ = ExecBlock.getMethodBodiesById(_context,c.getClassName(),c.getConstraints()).first();
             err_.setIndexFile(sub_.getReturnTypeOffset());
             //type id len
             err_.buildError(_context.getAnalysisMessages().getDuplicatedOverriding(),
@@ -230,14 +230,14 @@ public final class TypeUtil {
         for (TypeVar t: _type.getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        for (OverridingMethod e: getAllInstanceSignatures(_type,val_, _context)) {
+        for (OverridingMethod e: getAllInstanceSignatures(val_, _context)) {
             FormattedMethodId key_ = e.getFormattedMethodId();
             CustList<OverridingRelation> pairs_ = new CustList<OverridingRelation>();
             CustList<ClassMethodId> allMethods_ = e.getMethodIds();
             for (ClassMethodId c: allMethods_) {
                 String templClass_ = c.getClassName();
                 String typeName_ = Templates.getIdFromAllTypes(templClass_);
-                ExecRootBlock sub_ = classesRef_.getExecClassBody(typeName_);
+                ExecRootBlock sub_ = classesRef_.getClassBody(typeName_);
                 StringList allSuperTypes_ = sub_.getAllSuperTypes();
                 for (ClassMethodId s: allMethods_) {
                     String super_ = s.getClassName();
@@ -257,8 +257,8 @@ public final class TypeUtil {
             for (OverridingRelation l: pairs_) {
                 ClassMethodId subId_ = l.getSubMethod();
                 ClassMethodId supId_ = l.getSupMethod();
-                ExecNamedFunctionBlock sub_ = Classes.getMethodBodiesById(_context,subId_.getClassName(), subId_.getConstraints()).first();
-                ExecNamedFunctionBlock sup_ = Classes.getMethodBodiesById(_context,supId_.getClassName(), supId_.getConstraints()).first();
+                ExecNamedFunctionBlock sub_ = ExecBlock.getMethodBodiesById(_context,subId_.getClassName(), subId_.getConstraints()).first();
+                ExecNamedFunctionBlock sup_ = ExecBlock.getMethodBodiesById(_context,supId_.getClassName(), supId_.getConstraints()).first();
                 if (subId_.eq(supId_)) {
                     if (Classes.canAccess(_type.getFullName(), sub_, _context)) {
                         relations_.add(l);
@@ -270,8 +270,8 @@ public final class TypeUtil {
             for (OverridingRelation l: relations_) {
                 ClassMethodId subId_ = l.getSubMethod();
                 ClassMethodId supId_ = l.getSupMethod();
-                ExecNamedFunctionBlock sub_ = Classes.getMethodBodiesById(_context,subId_.getClassName(), subId_.getConstraints()).first();
-                ExecNamedFunctionBlock sup_ = Classes.getMethodBodiesById(_context,supId_.getClassName(), supId_.getConstraints()).first();
+                ExecNamedFunctionBlock sub_ = ExecBlock.getMethodBodiesById(_context,subId_.getClassName(), subId_.getConstraints()).first();
+                ExecNamedFunctionBlock sup_ = ExecBlock.getMethodBodiesById(_context,supId_.getClassName(), supId_.getConstraints()).first();
                 if (subId_.eq(supId_)) {
                     addClass(_type.getAllOverridingMethods(), key_, subId_);
                 } else {
@@ -352,7 +352,7 @@ public final class TypeUtil {
     public static StringMap<ClassMethodId> getConcreteMethodsToCall(GeneType _type,MethodId _realId, ContextEl _conf) {
         StringMap<ClassMethodId> eq_ = new StringMap<ClassMethodId>();
         String baseClassFound_ = _type.getFullName();
-        for (ExecRootBlock c: _conf.getClasses().getExecClassBodies()) {
+        for (ExecRootBlock c: _conf.getClasses().getClassBodies()) {
             String name_ = c.getFullName();
             String baseCond_ = Templates.getOverridingFullTypeByBases(c.getGenericString(), baseClassFound_, _conf);
             if (baseCond_.isEmpty()) {
@@ -369,7 +369,7 @@ public final class TypeUtil {
             all_.add(name_);
             all_.addAllElts(c.getAllSuperTypes());
             for (String s: all_) {
-                ExecRootBlock r_ = _conf.getClasses().getExecClassBody(s);
+                ExecRootBlock r_ = _conf.getClasses().getClassBody(s);
                 if (!(r_ instanceof GeneInterface)) {
                     continue;
                 }
@@ -392,7 +392,7 @@ public final class TypeUtil {
                     if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
                         found_ = true;
                     }
-                    ExecRootBlock sub_ = _conf.getClasses().getExecClassBody(baseSuperType_);
+                    ExecRootBlock sub_ = _conf.getClasses().getClassBody(baseSuperType_);
                     if (!sub_.isSubTypeOf(baseClassFound_,_conf)) {
                         continue;
                     }
@@ -441,7 +441,7 @@ public final class TypeUtil {
         for (ClassMethodId t: foundSuperClasses_) {
             String t_ = t.getClassName();
             String baseSuperType_ = Templates.getIdFromAllTypes(t_);
-            GeneCustMethod method_ = (GeneCustMethod) Classes.getMethodBodiesById(_conf,baseSuperType_, t.getConstraints()).first();
+            GeneCustMethod method_ = (GeneCustMethod) ExecBlock.getMethodBodiesById(_conf,baseSuperType_, t.getConstraints()).first();
             if (method_.isAbstractMethod()) {
                 continue;
             }
@@ -480,13 +480,13 @@ public final class TypeUtil {
     private static ClassMethodId tryGetUniqueId(String _subTypeName, ExecRootBlock _type, MethodId _realId, ContextEl _conf) {
         if (ContextEl.isEnumType(_type)) {
             String en_ = _conf.getStandards().getAliasEnumType();
-            if (!Classes.getMethodBodiesById(_conf,en_, _realId).isEmpty()) {
+            if (!ExecBlock.getMethodBodiesById(_conf,en_, _realId).isEmpty()) {
                 return new ClassMethodId(en_, _realId);
             }
         }
         //c is a concrete sub type of type input
         for (String s: _type.getAllGenericClasses()) {
-            ExecRootBlock r_ = _conf.getClasses().getExecClassBody(Templates.getIdFromAllTypes(s));
+            ExecRootBlock r_ = _conf.getClasses().getClassBody(Templates.getIdFromAllTypes(s));
             String gene_ = r_.getGenericString();
             String v_ = Templates.getOverridingFullTypeByBases(gene_, _subTypeName, _conf);
             if (v_.isEmpty()) {
@@ -520,7 +520,7 @@ public final class TypeUtil {
             }
             classNameFound_ = tree_.firstKey();
             realId_ = tree_.firstValue();
-            if (((GeneCustMethod) Classes.getMethodBodiesById(_conf,classNameFound_, realId_).first()).isAbstractMethod()) {
+            if (((GeneCustMethod) ExecBlock.getMethodBodiesById(_conf,classNameFound_, realId_).first()).isAbstractMethod()) {
                 continue;
             }
             return new ClassMethodId(classNameFound_, realId_);
@@ -675,7 +675,7 @@ public final class TypeUtil {
             CustList<MethodId> all_;
             all_ = new CustList<MethodId>();
             String base_ = Templates.getIdFromAllTypes(s);
-            ExecRootBlock b_ = _classes.getClasses().getExecClassBody(base_);
+            ExecRootBlock b_ = _classes.getClasses().getClassBody(base_);
             for (GeneCustMethod b: ExecBlock.getMethodExecBlocks(b_)) {
                 if (b.hiddenInstance()) {
                     continue;
@@ -698,21 +698,21 @@ public final class TypeUtil {
         return list_;
     }
 
-    private static CustList<OverridingMethod> getAllInstanceSignatures(RootBlock _type, ExecRootBlock _exec, ContextEl _classes) {
+    private static CustList<OverridingMethod> getAllInstanceSignatures(ExecRootBlock _type, ContextEl _classes) {
         CustList<OverridingMethod> map_;
         map_ = new CustList<OverridingMethod>();
-        for (GeneCustMethod b: Classes.getMethodBlocks(_type)) {
+        for (GeneCustMethod b: ExecBlock.getMethodExecBlocks(_type)) {
             if (b.hiddenInstance()) {
                 continue;
             }
             MethodId m_ = b.getId();
             OverridingMethod o_ = new OverridingMethod(MethodId.to(m_));
-            o_.getMethodIds().add(new ClassMethodId(_exec.getGenericString(), m_));
+            o_.getMethodIds().add(new ClassMethodId(_type.getGenericString(), m_));
             map_.add(o_);
         }
         for (String s: _type.getAllGenericSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
-            ExecRootBlock b_ = _classes.getClasses().getExecClassBody(base_);
+            ExecRootBlock b_ = _classes.getClasses().getClassBody(base_);
             for (GeneCustMethod b: ExecBlock.getMethodExecBlocks(b_)) {
                 if (b.hiddenInstance()) {
                     continue;

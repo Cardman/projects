@@ -308,4 +308,16 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
     public boolean isEq() {
         return eq;
     }
+
+    public CustList<ExecOperationNode> getOpStep() {
+        return opStep;
+    }
+
+    public CustList<ExecOperationNode> getOpInit() {
+        return opInit;
+    }
+
+    public CustList<ExecOperationNode> getOpExp() {
+        return opExp;
+    }
 }

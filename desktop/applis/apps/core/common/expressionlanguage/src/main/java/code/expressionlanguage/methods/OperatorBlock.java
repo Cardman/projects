@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneCustMethod;
+import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -16,7 +17,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public final class OperatorBlock extends NamedFunctionBlock implements GeneCustMethod,ReturnableWithSignature {
+public final class OperatorBlock extends NamedFunctionBlock implements GeneMethod,ReturnableWithSignature {
 
     private StringList imports = new StringList();
 
@@ -48,7 +49,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneCustM
         return new MethodId(MethodAccessKind.STATIC, name_, pTypes_, isVarargs());
     }
 
-    @Override
     public boolean hiddenInstance() {
         return true;
     }
@@ -58,12 +58,10 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneCustM
         return true;
     }
 
-    @Override
     public boolean isFinalMethod() {
         return false;
     }
 
-    @Override
     public boolean isAbstractMethod() {
         return false;
     }

@@ -32,10 +32,6 @@ public final class Throwing extends AbruptBlock {
         return expression;
     }
 
-    public ExpressionLanguage getEl() {
-        return new ExpressionLanguage(opThrow);
-    }
-
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
@@ -49,7 +45,4 @@ public final class Throwing extends AbruptBlock {
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
-    public CustList<ExecOperationNode> getOpThrow() {
-        return opThrow;
-    }
 }

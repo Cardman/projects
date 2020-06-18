@@ -1,14 +1,12 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.AbstractReflectPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.InvokeTargetErrorStruct;
 import code.expressionlanguage.structs.Struct;
@@ -22,7 +20,7 @@ public class DefaultLockingClass {
 
     public final void init(ContextEl _context) {
         Classes cl_ = _context.getClasses();
-        for (ExecRootBlock r: cl_.getExecClassBodies()) {
+        for (ExecRootBlock r: cl_.getClassBodies()) {
             String name_ = r.getFullName();
             classes.addEntry(name_, InitClassState.NOT_YET);
         }

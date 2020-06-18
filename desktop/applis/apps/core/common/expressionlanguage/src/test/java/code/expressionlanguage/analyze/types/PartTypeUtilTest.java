@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.util.StringList;
 import code.util.StringMap;
@@ -31,7 +30,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
          String solved_ = AnaPartTypeUtil.processAnalyze("OuterTwo", "", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("pkgtwo.OuterTwo", solved_);
@@ -59,7 +58,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<OuterFour>", "",context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("pkgtwo.OuterThree<pkgthree.OuterFour>", solved_);
@@ -89,7 +88,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<OuterFive<OuterFour>>", "",context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("pkgtwo.OuterThree<pkgtwo.OuterFive<pkgthree.OuterFour>>", solved_);
@@ -117,7 +116,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterTwo.InnerThree", "",context_, root_);
         assertEq("pkgtwo.OuterTwo..InnerThree", solved_);
     }
@@ -144,7 +143,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyze("Outer.InnerThree", "",context_, root_);
         assertEq("pkgtwo.OuterTwo..InnerThree", solved_);
     }
@@ -179,7 +178,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyze("Outer.InnerThree.InnerInner", "",context_, root_);
         assertEq("pkgtwo.OuterThree..InnerFive..InnerInner", solved_);
     }
@@ -214,7 +213,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("InnerThree.InnerInner", "pkg.Outer",context_, root_);
         assertEq("pkgtwo.OuterThree..InnerFive..InnerInner", solved_);
@@ -242,7 +241,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("Outer.InnerThree", "",context_, root_);
         assertEq("pkgtwo.OuterTwo<java.lang.Number>..InnerThree", solved_);
@@ -270,7 +269,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("Outer<java.lang.Number>.InnerThree", "",context_, root_);
         assertEq("pkgtwo.OuterTwo<java.lang.Number>..InnerThree", solved_);
@@ -298,7 +297,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("Outer<java.lang.Number>.InnerThree<java.lang.String>", "",context_, root_);
         assertEq("pkgtwo.OuterTwo<java.lang.Number>..InnerThree<java.lang.String>", solved_);
@@ -326,7 +325,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("InnerThree<java.lang.String>", "pkg.Outer<#U>",context_, root_);
         assertEq("pkgtwo.OuterTwo<#U>..InnerThree<java.lang.String>", solved_);
@@ -362,7 +361,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         context_.getAnalyzing().getAvailableVariables().addEntry("D",0);
         context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
@@ -385,7 +384,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterTwo[]", "", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
@@ -406,7 +405,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterTwo<java.lang.Number>[]", "", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
@@ -443,7 +442,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         context_.getAnalyzing().getAvailableVariables().addEntry("D",0);
         context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
@@ -463,7 +462,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("java.lang.$Fct<$void>", "", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
@@ -492,7 +491,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<?OuterFour>", "",context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
@@ -521,7 +520,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<!OuterFour>", "",context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
@@ -550,7 +549,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<?>", "",context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
@@ -571,7 +570,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterTwo<?java.lang.Number>[]", "", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
@@ -600,7 +599,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<?OuterFour[]>", "",context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
@@ -629,7 +628,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<!OuterFour[]>", "",context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
@@ -646,7 +645,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("java.lang.$Fct<?>", "", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
@@ -675,7 +674,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterTwo.InnerThree<Outer.Inner>", "",context_, root_);
         assertEq("pkgtwo.OuterTwo..InnerThree<pkg.Outer..Inner>", solved_);
     }
@@ -710,7 +709,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.D");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.D");
 
         context_.getAnalyzing().getAvailableVariables().addEntry("D",0);
         context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
@@ -742,7 +741,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterTwo.InnerThree<Outer.Inner>", "",context_, root_);
         assertEq("pkgtwo.OuterTwo..InnerThree<pkg.Outer..Inner>", solved_);
     }
@@ -769,7 +768,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
 
         String solved_ = AnaPartTypeUtil.processAnalyze("Outer.InnerThree", "",context_, root_);
         assertEq("pkgtwo.OuterTwo..InnerThree", solved_);
@@ -797,7 +796,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
 
         String solved_ = AnaPartTypeUtil.processAnalyze("Outer<java.lang.String>.InnerThree<java.lang.Number>.InnerInnerThree", "",context_, root_);
         assertEq("pkgtwo.OuterTwo<java.lang.String>..InnerFour..InnerInnerThree", solved_);
@@ -813,7 +812,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("pkg.Outer<$void>", "", context_, root_);
         assertEq("", solved_);
@@ -829,7 +828,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("$Fct<$void,$int>", "", context_, root_);
         assertEq("", solved_);
@@ -845,7 +844,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("java.lang.$Fct<!java.lang.Number,?java.lang.Number>", "", context_, root_);
         assertEq("", solved_);
@@ -861,7 +860,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("java.lang.$Fct<java.lang.Number,?java.lang.Number>", "", context_, root_);
         assertEq("", solved_);
@@ -889,7 +888,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
 
         String solved_ = AnaPartTypeUtil.processAnalyze("Outer<java.lang.Number,java.lang.Number>.InnerThree", "",context_, root_);
         assertEq("", solved_);
@@ -917,7 +916,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
 
         String solved_ = AnaPartTypeUtil.processAnalyze("Outer.InnerThree", "",context_, root_);
         assertEq("", solved_);
@@ -945,7 +944,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
 
         String solved_ = AnaPartTypeUtil.processAnalyze("Outer.Inner", "",context_, root_);
         assertEq("", solved_);
@@ -965,7 +964,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
 
         String solved_ = AnaPartTypeUtil.processAnalyze("Outer..Inner", "",context_, root_);
         assertEq("", solved_);
@@ -993,7 +992,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
 
         String solved_ = AnaPartTypeUtil.processAnalyze("Outer<java.lang.String>.InnerThree.InnerInnerThree", "",context_, root_);
         assertEq("", solved_);
@@ -1021,7 +1020,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
 
         String solved_ = AnaPartTypeUtil.processAnalyze("?java.lang.String", "",context_, root_);
         assertEq("", solved_);
@@ -1055,7 +1054,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyzeLine("OuterThree<OuterFour>", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("pkgtwo.OuterThree<pkgthree.OuterFour>", solved_);
@@ -1083,7 +1082,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyzeLine("OuterFour.OuterThree<OuterFour>", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("pkgthree.OuterFour..OuterThree<pkgthree.OuterFour>", solved_);
@@ -1111,7 +1110,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyzeLine("OuterFour.OuterThree<$void>", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("", solved_);
@@ -1139,7 +1138,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyzeLine("OuterFour.OuterThree<$void", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("", solved_);
@@ -1167,7 +1166,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
         Classes cl_ = context_.getClasses();
-        ExecRootBlock root_ = cl_.getExecClassBody("pkg.Outer");
+        ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyzeLine("OuterFour..OuterThree<$void>", context_, root_);
         assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
         assertEq("", solved_);

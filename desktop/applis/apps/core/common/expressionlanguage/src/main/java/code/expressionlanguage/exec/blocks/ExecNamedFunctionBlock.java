@@ -20,8 +20,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private int nameOffset;
 
-    private Ints parametersTypesOffset;
-
     private String importedReturnType;
 
     private StringList importedParametersTypes;
@@ -56,7 +54,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         accessOffset = _offset.getAccessOffset();
         returnTypeOffset = _offset.getReturnTypeOffset();
         parametersNames = _offset.getParametersNames();
-        parametersTypesOffset = _offset.getParametersTypesOffset();
         parametersNamesOffset = _offset.getParametersNamesOffset();
         annotationsIndexes = _offset.getAnnotationsIndexes();
         annotationsIndexesParams = _offset.getAnnotationsIndexesParams();
@@ -110,9 +107,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
     public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
         return annotationsOpsParams;
     }
-    public Ints getParametersTypesOffset() {
-        return parametersTypesOffset;
-    }
 
     public Ints getParametersNamesOffset() {
         return parametersNamesOffset;
@@ -153,10 +147,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         return importedParametersTypes;
     }
 
-    public void setImportedParametersTypes(StringList importedParametersTypes) {
-        this.importedParametersTypes = importedParametersTypes;
-    }
-
     @Override
     public String getImportedReturnType() {
         return importedReturnType;
@@ -166,27 +156,12 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         return annotationsOps;
     }
 
-    public Ints getAnnotationsIndexes() {
-        return annotationsIndexes;
-    }
     public void setImportedReturnType(String _importedReturnType) {
         importedReturnType = _importedReturnType;
     }
 
-    public CustList<StringList> getAnnotationsParams() {
-        return annotationsParams;
-    }
-
-    public CustList<Ints> getAnnotationsIndexesParams() {
-        return annotationsIndexesParams;
-    }
-
     public CustList<CustList<PartOffset>> getPartOffsetsParams() {
         return partOffsetsParams;
-    }
-
-    public StringList getAnnotations() {
-        return annotations;
     }
 
     public CustList<PartOffset> getPartOffsetsReturn() {

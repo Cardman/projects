@@ -89,7 +89,7 @@ public abstract class ContextEl {
 
     public GeneType getClassBody(String _type) {
         if (classes.isCustomType(_type)) {
-            return classes.getExecClassBody(_type);
+            return classes.getClassBody(_type);
         }
         return standards.getStandards().getVal(_type);
     }

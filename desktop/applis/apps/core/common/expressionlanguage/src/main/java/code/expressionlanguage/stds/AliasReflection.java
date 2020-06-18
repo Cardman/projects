@@ -969,7 +969,7 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasGetAllClasses)) {
                 CustList<ClassMetaInfo> classes_  = new CustList<ClassMetaInfo>();
                 Classes classesInfo_ = _cont.getClasses();
-                for (ExecRootBlock c: classesInfo_.getExecClassBodies()) {
+                for (ExecRootBlock c: classesInfo_.getClassBodies()) {
                     String forName_ = c.getGenericString();
                     classes_.add(Classes.getClassMetaInfo(c, forName_, _cont));
                 }

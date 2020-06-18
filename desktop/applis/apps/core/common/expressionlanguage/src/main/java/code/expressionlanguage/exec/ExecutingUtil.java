@@ -97,7 +97,7 @@ public final class ExecutingUtil {
     public static AbstractPageEl createInstancingClass(ContextEl _context,String _class) {
         _context.setCallingState(null);
         String baseClass_ = Templates.getIdFromAllTypes(_class);
-        ExecRootBlock class_ = _context.getClasses().getExecClassBody(baseClass_);
+        ExecRootBlock class_ = _context.getClasses().getClassBody(baseClass_);
         ExecBlock firstChild_ = class_.getFirstChild();
         StaticInitPageEl page_ = new StaticInitPageEl();
         Argument argGl_ = new Argument();
@@ -153,7 +153,7 @@ public final class ExecutingUtil {
     public static CastPageEl createCallingCast(ContextEl _context, String _class, MethodId _method, CustList<Argument> _args) {
         _context.setCallingState(null);
         ExecNamedFunctionBlock methodLoc_;
-        methodLoc_ = Classes.getMethodBodiesById(_context, _class, _method).first();
+        methodLoc_ = ExecBlock.getMethodBodiesById(_context, _class, _method).first();
         String idCl_ = Templates.getIdFromAllTypes(_class);
         _context.getCoverage().passCalls(_context,idCl_,methodLoc_);
         String ret_ = methodLoc_.getImportedReturnType();
@@ -257,7 +257,7 @@ public final class ExecutingUtil {
     private static FieldInitPageEl createInitFields(ContextEl _context,String _class, Argument _current) {
         _context.setCallingState(null);
         String baseClass_ = Templates.getIdFromAllTypes(_class);
-        ExecRootBlock class_ = _context.getClasses().getExecClassBody(baseClass_);
+        ExecRootBlock class_ = _context.getClasses().getClassBody(baseClass_);
         FieldInitPageEl page_ = new FieldInitPageEl();
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(_current);

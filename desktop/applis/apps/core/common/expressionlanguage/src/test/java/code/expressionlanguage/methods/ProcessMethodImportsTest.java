@@ -20,6 +20,42 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
     private static final String CUST_SEC_LIST_PATH = "pkg/SecCustList";
 
     @Test
+    public void calculateArgument0Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$static pkg.Annot.method;\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $static(ExTwo).exmethtwo()+method+method();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int method(){\n");
+        xml_.append("  $return 6;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.Annot {\n");
+        xml_.append(" $final $int method = 5;\n");
+        xml_.append(" $int method();\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int exmethtwo(){\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t=8;\n");
+        xml_.append("  $return 1i+$($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(20, getNumber(ret_));
+    }
+    @Test
     public void calculateArgument1Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

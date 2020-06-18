@@ -122,7 +122,7 @@ public abstract class ExecBlock {
         CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
         String base_ = Templates.getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
-        ExecRootBlock r_ = classes_.getExecClassBody(base_);
+        ExecRootBlock r_ = classes_.getClassBody(base_);
         for (GeneCustMethod m: getMethodExecBlocks(r_)) {
             methods_.add((ExecNamedFunctionBlock)m);
         }
