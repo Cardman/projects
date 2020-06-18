@@ -1,9 +1,10 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.EndCallValue;
-import code.expressionlanguage.exec.ExecutingUtil;
-import code.expressionlanguage.exec.Initializer;
+import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecFieldBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -26,7 +27,7 @@ public class DefaultInitializer implements Initializer {
     public CustList<ClassFieldStruct> feedFields(ContextEl _context, String _className) {
         Classes classes_ = _context.getClasses();
         String baseClass_ = Templates.getIdFromAllTypes(_className);
-        RootBlock class_ = classes_.getClassBody(baseClass_);
+        ExecRootBlock class_ = classes_.getExecClassBody(baseClass_);
         StringList allClasses_ = new StringList(class_.getGenericString());
         allClasses_.addAllElts(class_.getAllGenericSuperTypes());
         CustList<ClassFieldStruct> fields_;
@@ -34,12 +35,12 @@ public class DefaultInitializer implements Initializer {
         for (String c: allClasses_) {
             String id_ = Templates.getIdFromAllTypes(c);
             String formatted_ = Templates.quickFormat(_className,c,_context);
-            RootBlock clMetaLoc_ = classes_.getClassBody(id_);
-            for (Block b: Classes.getDirectChildren(clMetaLoc_)) {
-                if (!(b instanceof FieldBlock)) {
+            ExecRootBlock clMetaLoc_ = classes_.getExecClassBody(id_);
+            for (ExecBlock b: ExecBlock.getDirectChildren(clMetaLoc_)) {
+                if (!(b instanceof ExecFieldBlock)) {
                     continue;
                 }
-                FieldBlock f_ = (FieldBlock) b;
+                ExecFieldBlock f_ = (ExecFieldBlock) b;
                 if (f_.isStaticField()) {
                     continue;
                 }
@@ -59,18 +60,18 @@ public class DefaultInitializer implements Initializer {
             String _className) {
         Classes classes_ = _context.getClasses();
         String baseClass_ = Templates.getIdFromAllTypes(_className);
-        RootBlock class_ = classes_.getClassBody(baseClass_);
+        ExecRootBlock class_ = classes_.getExecClassBody(baseClass_);
         StringList allClasses_ = new StringList(baseClass_);
         allClasses_.addAllElts(class_.getAllSuperTypes());
         CustList<ClassFieldStruct> fields_;
         fields_ = new CustList<ClassFieldStruct>();
         for (String c: allClasses_) {
-            RootBlock clMetaLoc_ = classes_.getClassBody(c);
-            for (Block b: Classes.getDirectChildren(clMetaLoc_)) {
-                if (!(b instanceof AnnotationMethodBlock)) {
+            ExecRootBlock clMetaLoc_ = classes_.getExecClassBody(c);
+            for (ExecBlock b: ExecBlock.getDirectChildren(clMetaLoc_)) {
+                if (!(b instanceof ExecAnnotationMethodBlock)) {
                     continue;
                 }
-                AnnotationMethodBlock f_ = (AnnotationMethodBlock) b;
+                ExecAnnotationMethodBlock f_ = (ExecAnnotationMethodBlock) b;
                 Struct str_ = f_.getDefaultArgument();
                 String fieldName_ = f_.getName();
                 String fieldDeclClass_ = f_.getImportedReturnType();

@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessEnum;
@@ -59,7 +60,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
                 superClass = EMPTY_STRING;
                 access = AccessEnum.PUBLIC;
             } else {
-                RootBlock g_ = _context.getClasses().getClassBody(comp_);
+                ExecRootBlock g_ = _context.getClasses().getExecClassBody(comp_);
                 if (g_ == null) {
                     access = AccessEnum.PUBLIC;
                 } else {
@@ -196,7 +197,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         list_ = new CustList<ClassMetaInfo>();
         String id_ = Templates.getIdFromAllTypes(variableOwner);
         CustList<TypeVar> vars_;
-        RootBlock g_ = _cont.getClasses().getClassBody(id_);
+        ExecRootBlock g_ = _cont.getClasses().getExecClassBody(id_);
         if (g_ == null) {
             return list_;
         }
@@ -216,7 +217,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         CustList<ClassMetaInfo> list_;
         list_ = new CustList<ClassMetaInfo>();
         String id_ = Templates.getIdFromAllTypes(name);
-        RootBlock g_ = _cont.getClasses().getClassBody(id_);
+        ExecRootBlock g_ = _cont.getClasses().getExecClassBody(id_);
         if (g_ == null) {
             return list_;
         }

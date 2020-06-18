@@ -2,6 +2,9 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneCustMethod;
+import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -13,7 +16,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public final class OperatorBlock extends NamedFunctionBlock implements GeneCustMethod, AccessingImportingBlock,ReturnableWithSignature {
+public final class OperatorBlock extends NamedFunctionBlock implements GeneCustMethod,ReturnableWithSignature {
 
     private StringList imports = new StringList();
 
@@ -25,14 +28,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneCustM
                          OffsetsBlock _offset) {
         super(new OffsetAccessInfo(0, AccessEnum.PUBLIC),
                 _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
-    }
-
-    public MethodModifier getModifier() {
-        return MethodModifier.STATIC;
-    }
-
-    public String getDeclaringType() {
-        return EMPTY_STRING;
     }
 
     @Override
@@ -78,40 +73,18 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneCustM
         return MethodAccessKind.STATIC;
     }
 
-    @Override
     public StringList getImports() {
         return imports;
     }
 
-    @Override
     public StringList getFileImports() {
         return getFile().getImports();
     }
     public Ints getImportsOffset() {
         return importsOffset;
     }
-    @Override
-    public boolean isTypeHidden(RootBlock _type, ContextEl _analyzable) {
-        return _type.getAccess() != AccessEnum.PUBLIC;
-    }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        buildAnnotationsReport(_cont,_parts);
-        int begName_ = getNameOffset();
-        int endName_ = begName_ + getName().length();
-        _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
-        _parts.add(new PartOffset("</a>",endName_));
-        _parts.addAllElts(getPartOffsetsReturn());
-        int len_ = getParametersNamesOffset().size();
-        for (int i = 0; i < len_; i++) {
-            buildAnnotationsReport(i,_cont,_parts);
-            _parts.addAllElts(getPartOffsetsParams().get(i));
-            Integer off_ = getParametersNamesOffset().get(i);
-            String param_ = getParametersNames().get(i);
-            _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
-            _parts.add(new PartOffset("</a>",off_+param_.length()));
-            _cont.getCoverage().getParamVars().put(param_,off_);
-        }
+    public void buildAnnotationsParams(ExecOperatorBlock _val) {
+        _val.getAnnotationsOpsParams().addAllElts(getAnnotationsOpsParams());
     }
 }

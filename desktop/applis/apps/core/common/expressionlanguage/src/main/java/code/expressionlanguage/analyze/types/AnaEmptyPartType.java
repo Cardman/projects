@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -13,17 +13,17 @@ final class AnaEmptyPartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyze(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _globalType, AccessingImportingBlock _local, AccessingImportingBlock _rooted) {
+    void analyze(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _globalType, ExecAccessingImportingBlock _local, ExecAccessingImportingBlock _rooted) {
         analyzeTemplate(_an,_dels,new StringMap<StringList>());
     }
 
     @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessingImportingBlock _local, AccessingImportingBlock _rooted) {
+    void analyzeLine(ContextEl _an, ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, ExecAccessingImportingBlock _local, ExecAccessingImportingBlock _rooted) {
        //
     }
 
     @Override
-    void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap<String>> _dels, AccessingImportingBlock _rooted) {
+    void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap<String>> _dels, ExecAccessingImportingBlock _rooted) {
         //
     }
 

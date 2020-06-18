@@ -2,6 +2,9 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.common.GeneType;
@@ -23,7 +26,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
-public final class InnerElementBlock extends RootBlock implements InnerTypeOrElement, UniqueRootedBlock {
+public final class InnerElementBlock extends RootBlock implements InnerTypeOrElement,UniqueRootedBlock {
 
     private final String fieldName;
 
@@ -64,8 +67,8 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
-    public void setupBasicOverrides(ContextEl _context) {
-        checkAccess(_context);
+    public void setupBasicOverrides(ContextEl _context,ExecRootBlock _exec) {
+        checkAccess(_context,_exec);
     }
 
     public String getValue() {
@@ -80,7 +83,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         return tempClassOffset;
     }
 
-    @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;
     }
@@ -126,8 +128,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         return valueOffest;
     }
 
-    @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+    public void buildExpressionLanguageReadOnly(ContextEl _cont, ExecInnerTypeOrElement _exec) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(fieldNameOffest);
         page_.setOffset(0);
@@ -136,11 +137,14 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         String idType_ = getFullName();
         String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_," ",idType_, PAR_LEFT, value, PAR_RIGHT);
         trOffset = valueOffest  -1 -fieldName.length()- fieldNameOffest - 2 - newKeyWord_.length() - idType_.length();
+        _exec.setTrOffset(trOffset);
         page_.setTranslatedOffset(trOffset);
         int index_ = getIndex();
         _cont.setCurrentChildTypeIndex(index_);
+        _cont.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
         _cont.getCoverage().putBlockOperations(_cont,this);
         opValue = ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName));
+        _exec.setOpValue(opValue);
         page_.setTranslatedOffset(0);
     }
 
@@ -153,11 +157,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
             n_ = n_.getPreviousSibling();
         }
         return index_;
-    }
-    public void reduce(ContextEl _context) {
-        super.reduce(_context);
-        ExecOperationNode r_ = opValue.last();
-        opValue = ElUtil.getReducedNodes(r_);
     }
 
     @Override
@@ -184,6 +183,10 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
+    public CustList<PartOffset> getTypePartOffsets() {
+        return partOffsets;
+    }
+    @Override
     public boolean isStaticField() {
         return true;
     }
@@ -205,11 +208,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
-    public boolean withoutInstance() {
-        return true;
-    }
-
-    @Override
     public StringList getImportedDirectSuperTypes() {
         StringList l_ = new StringList(importedDirectSuperClass);
         l_.addAllElts(importedDirectSuperInterfaces);
@@ -217,14 +215,14 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
-    public void buildDirectGenericSuperTypes(ContextEl _classes) {
+    public void buildDirectGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec) {
         IntMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, this,index_);
+            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, _exec,index_);
             String c_ = getImportedDirectBaseSuperType(i_);
             _classes.addErrorIfNoMatch(s_,c_,this,index_);
             i_++;
@@ -238,66 +236,16 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         importedDirectSuperClass = _classes.getStandards().getAliasObject();
     }
 
-    @Override
     public String getImportedDirectGenericSuperClass() {
         return importedDirectSuperClass;
     }
 
-    @Override
     public StringList getImportedDirectGenericSuperInterfaces() {
         return importedDirectSuperInterfaces;
     }
 
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return new ExpressionLanguage(opValue);
-    }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        processAnnotationReport(_cont,_parts);
-        ExecAffectationOperation root_ = (ExecAffectationOperation) opValue.last();
-        ExecStandardInstancingOperation inst_ = (ExecStandardInstancingOperation) root_.getFirstChild().getNextSibling();
-        String cl_ = inst_.getClassName();
-        cl_ = Templates.getIdFromAllTypes(cl_);
-        ConstructorId c_ = inst_.getConstId();
-        GeneType type_ = _cont.getClassBody(cl_);
-        String file_ = ((RootBlock) type_).getFile().getFileName();
-        String fileName_ = _cont.getCoverage().getCurrentFileName();
-        CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, c_);
-        if (!ctors_.isEmpty()) {
-            ConstructorBlock ctor_ = ctors_.first();
-            String rel_ = ElUtil.relativize(fileName_,file_+".html#m"+ctor_.getNameOffset());
-            String tag_ = "<a name=\"m"+fieldNameOffest+"\" title=\""+ ElUtil.transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_,fieldNameOffest));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,fieldNameOffest+fieldName.length()));
-        } else {
-            String tag_ = "<a name=\"m"+fieldNameOffest+"\">";
-            _parts.add(new PartOffset(tag_,fieldNameOffest));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,fieldNameOffest+fieldName.length()));
-        }
-        _parts.addAllElts(partOffsets);
-        int blOffset_ = valueOffest;
-        int endBl_ = valueOffest + value.length();
-        ElUtil.buildCoverageReport(_cont,blOffset_,this,opValue,endBl_,_parts,trOffset-1,fieldName,false);
+    public int getTrOffset() {
+        return trOffset;
     }
-
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        if (ip_ instanceof StaticInitPageEl) {
-            ip_.setGlobalOffset(fieldNameOffest);
-            ip_.setOffset(0);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            ElUtil.tryToCalculate(_cont,el_, trOffset);
-            if (_cont.callsOrException()) {
-                return;
-            }
-            ip_.clearCurrentEls();
-        }
-        processBlock(_cont);
-    }
-
 }

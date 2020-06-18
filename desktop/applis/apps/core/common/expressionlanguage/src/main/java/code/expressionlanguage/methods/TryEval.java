@@ -1,5 +1,7 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecTryEval;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -10,7 +12,7 @@ import code.expressionlanguage.exec.stacks.TryBlockStack;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class TryEval extends BracedStack implements Eval {
+public final class TryEval extends BracedBlock implements Eval {
 
 
     private String label;
@@ -42,6 +44,12 @@ public final class TryEval extends BracedStack implements Eval {
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        ExecTryEval exec_ = new ExecTryEval(getOffset(),label,labelOffset);
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     @Override
@@ -66,31 +74,5 @@ public final class TryEval extends BracedStack implements Eval {
         }
     }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        refLabel(_parts,label,labelOffset);
-    }
-
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        Block n_ = getNextSibling();
-        TryBlockStack tryStack_ = new TryBlockStack();
-        while (n_ instanceof AbstractCatchEval || n_ instanceof FinallyEval) {
-            tryStack_.setLastBlock((BracedBlock) n_);
-            n_ = n_.getNextSibling();
-        }
-        tryStack_.setCurrentVisitedBlock(this);
-        tryStack_.setBlock(this);
-        ip_.addBlock(tryStack_);
-        ip_.getReadWrite().setBlock(getFirstChild());
-    }
-
-    @Override
-    public void exitStack(ContextEl _context) {
-        AbstractPageEl ip_ = _context.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        rw_.setBlock(getNextSibling());
-    }
 
 }

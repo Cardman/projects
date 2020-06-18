@@ -1,8 +1,8 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 
 public interface AbstractHiddenTypes {
-    boolean isHidden(AccessingImportingBlock _global, RootBlock _type);
+    boolean isHidden(ExecAccessingImportingBlock _global, ExecRootBlock _type);
 }

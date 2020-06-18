@@ -3,18 +3,17 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.*;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.OperatorBlock;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.types.PartTypeUtil;
 import code.util.*;
 
 public final class AliasReflection {
@@ -918,7 +917,7 @@ public final class AliasReflection {
                 CustList<MethodMetaInfo> operators_ = new CustList<MethodMetaInfo>();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasMethod_);
                 if (args_.length == 0) {
-                    for (OperatorBlock o: _cont.getClasses().getOperators()) {
+                    for (ExecOperatorBlock o: _cont.getClasses().getOperators()) {
                         MethodId id_ = o.getId();
                         String ret_ = o.getImportedReturnType();
                         AccessEnum acc_ = o.getAccess();
@@ -943,7 +942,7 @@ public final class AliasReflection {
                 }
                 CustList<MethodMetaInfo> candidates_;
                 candidates_ = new CustList<MethodMetaInfo>();
-                for (OperatorBlock o: _cont.getClasses().getOperators()) {
+                for (ExecOperatorBlock o: _cont.getClasses().getOperators()) {
                     MethodId id_ = o.getId();
                     if (eq(id_,args_[0],NullStruct.NULL_VALUE,args_[1],args_[2])) {
                         String ret_ = o.getImportedReturnType();
@@ -970,7 +969,7 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasGetAllClasses)) {
                 CustList<ClassMetaInfo> classes_  = new CustList<ClassMetaInfo>();
                 Classes classesInfo_ = _cont.getClasses();
-                for (RootBlock c: classesInfo_.getClassBodies()) {
+                for (ExecRootBlock c: classesInfo_.getExecClassBodies()) {
                     String forName_ = c.getGenericString();
                     classes_.add(Classes.getClassMetaInfo(c, forName_, _cont));
                 }

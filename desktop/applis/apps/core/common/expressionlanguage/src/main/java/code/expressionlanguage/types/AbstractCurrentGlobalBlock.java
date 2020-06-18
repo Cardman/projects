@@ -1,9 +1,9 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 
 public interface AbstractCurrentGlobalBlock {
 
-    AccessingImportingBlock getCurrentGlobalBlock();
-    AccessingImportingBlock getCurrentGlobalBlock(AccessingImportingBlock _bl);
+    ExecAccessingImportingBlock getCurrentGlobalBlock();
+    ExecAccessingImportingBlock getCurrentGlobalBlock(ExecAccessingImportingBlock _bl);
 }

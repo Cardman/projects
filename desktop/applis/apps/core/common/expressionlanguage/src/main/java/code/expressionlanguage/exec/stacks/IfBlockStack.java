@@ -1,37 +1,35 @@
 package code.expressionlanguage.exec.stacks;
+import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 import code.expressionlanguage.methods.BracedBlock;
 
 
 public final class IfBlockStack extends IfStack implements RemovableVars {
 
-    private BracedBlock block;
-    private BracedBlock lastBlock;
-    private BracedBlock curentVisitedBlock;
+    private ExecBracedBlock execBlock;
+    private ExecBracedBlock execLastBlock;
+    private ExecBracedBlock execCurentVisitedBlock;
 
-    @Override
-    public BracedBlock getBlock() {
-        return block;
+    public ExecBracedBlock getBlock() {
+        return execBlock;
     }
 
-    @Override
-    public void setCurrentVisitedBlock(BracedBlock _bl) {
-        curentVisitedBlock = _bl;
+    public void setCurrentVisitedBlock(ExecBracedBlock _execCurentVisitedBlock) {
+        execCurentVisitedBlock = _execCurentVisitedBlock;
     }
 
-    public void setBlock(BracedBlock _block) {
-        block = _block;
-    }
-    @Override
-    public BracedBlock getLastBlock() {
-        return lastBlock;
+    public void setExecBlock(ExecBracedBlock _execBlock) {
+        execBlock = _execBlock;
     }
 
-    public void setLastBlock(BracedBlock _lastBlock) {
-        lastBlock = _lastBlock;
+    public ExecBracedBlock getLastBlock() {
+        return execLastBlock;
     }
 
-    @Override
-    public BracedBlock getCurrentVisitedBlock() {
-        return curentVisitedBlock;
+    public void setExecLastBlock(ExecBracedBlock execLastBlock) {
+        this.execLastBlock = execLastBlock;
+    }
+
+    public ExecBracedBlock getCurrentVisitedBlock() {
+        return execCurentVisitedBlock;
     }
 }

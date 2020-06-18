@@ -1,7 +1,7 @@
 package code.expressionlanguage.methods;
 
 
-public interface BreakableBlock extends StackableBlock {
+public interface BreakableBlock {
     String getRealLabel();
     int getRealLabelOffset();
 }

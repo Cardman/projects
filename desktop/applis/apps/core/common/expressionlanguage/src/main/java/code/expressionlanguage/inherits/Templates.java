@@ -6,6 +6,8 @@ import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.analyze.util.TypeVar;
@@ -1417,7 +1419,7 @@ public final class Templates {
             String name_ = _id.getName();
             if (StringList.quickEq("[]=", name_)) {
                 String id_ = getIdFromAllTypes(_classNameFound);
-                for (GeneCustMethod g: Classes.getMethodBlocks(_conf.getClasses().getClassBody(id_))) {
+                for (GeneCustMethod g: ExecBlock.getMethodExecBlocks(_conf.getClasses().getExecClassBody(id_))) {
                     if (!StringList.quickEq("[]",g.getId().getName())) {
                         continue;
                     }
@@ -2053,8 +2055,8 @@ public final class Templates {
 
     private static StringList getSuperInterfaceNames(String _className, ContextEl _context) {
         GeneType r_ = _context.getClassBody(_className);
-        if (r_ instanceof RootBlock) {
-            return ((RootBlock)r_).getImportedDirectSuperTypes();
+        if (r_ instanceof ExecRootBlock) {
+            return ((ExecRootBlock)r_).getImportedDirectSuperTypes();
         }
         return ((StandardType)r_).getDirectSuperTypes();
     }

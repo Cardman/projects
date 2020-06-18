@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.methods.InitBlock;
+import code.expressionlanguage.exec.blocks.ExecInitBlock;
 
 public final class CustomFoundBlock implements CallingState {
 
@@ -8,10 +8,10 @@ public final class CustomFoundBlock implements CallingState {
 
     private final Argument currentObject;
 
-    private final InitBlock block;
+    private final ExecInitBlock block;
 
     public CustomFoundBlock(String _className,
-            Argument _currentObject, InitBlock _block) {
+                            Argument _currentObject, ExecInitBlock _block) {
         className = _className;
         currentObject = _currentObject;
         block = _block;
@@ -24,7 +24,8 @@ public final class CustomFoundBlock implements CallingState {
     public Argument getCurrentObject() {
         return currentObject;
     }
-    public InitBlock getBlock() {
+
+    public ExecInitBlock getBlock() {
         return block;
     }
 }

@@ -2,6 +2,8 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneInterface;
+import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.types.ResolvingSuperTypes;
@@ -9,7 +11,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.util.*;
 import code.util.StringList;
 
-public final class InterfaceBlock extends RootBlock implements GeneInterface,AccessibleBlock {
+public final class InterfaceBlock extends RootBlock {
 
     private final StringList allSuperTypes = new StringList();
     private StringList importedDirectSuperInterfaces = new StringList();
@@ -26,18 +28,12 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface,Acc
         return staticType;
     }
     @Override
-    public void setupBasicOverrides(ContextEl _context) {
+    public void setupBasicOverrides(ContextEl _context,ExecRootBlock _exec) {
         useSuperTypesOverrides(_context);
     }
 
-    @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;
-    }
-
-    @Override
-    public RootBlock belong() {
-        return this;
     }
 
     @Override
@@ -56,20 +52,20 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface,Acc
     }
 
     @Override
-    public void buildDirectGenericSuperTypes(ContextEl _classes) {
+    public void buildDirectGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec) {
         IntMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, this,index_);
+            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, _exec,index_);
             String c_ = getImportedDirectBaseSuperType(i_);
             _classes.addErrorIfNoMatch(s_,c_,this,index_);
             i_++;
             String base_ = Templates.getIdFromAllTypes(s_);
-            RootBlock r_ = _classes.getClasses().getClassBody(base_);
-            if (!(r_ instanceof InterfaceBlock)) {
+            ExecRootBlock r_ = _classes.getClasses().getExecClassBody(base_);
+            if (!(r_ instanceof ExecInterfaceBlock)) {
                 continue;
             }
             importedDirectSuperInterfaces.add(s_);

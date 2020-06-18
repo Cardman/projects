@@ -1,16 +1,20 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.BlocksFlags;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.util.*;
 
 public final class AnalyzingEl {
+    private IdMap<ExecBlock,Block> mappingMembers = new IdMap<ExecBlock,Block>();
+    private IdMap<BracedBlock,ExecBracedBlock> mappingBracedMembers = new IdMap<BracedBlock,ExecBracedBlock>();
+    private BlocksFlags canCompleteNormally = new BlocksFlags();
+    private BlocksFlags canCompleteNormallyGroup = new BlocksFlags();
 
-    private IdMap<Block, Boolean> canCompleteNormally = new IdMap<Block, Boolean>();
-    private IdMap<Block, Boolean> canCompleteNormallyGroup = new IdMap<Block, Boolean>();
-
-    private IdMap<Block, Boolean> reachable = new IdMap<Block, Boolean>();
+    private BlocksFlags reachable = new BlocksFlags();
     private IdMap<BreakBlock, BreakableBlock> breakables = new IdMap<BreakBlock, BreakableBlock>();
     private IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>> breakablesAncestors = new IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>>();
     private IdMap<ContinueBlock, Loop> continuables = new IdMap<ContinueBlock, Loop>();
@@ -29,25 +33,28 @@ public final class AnalyzingEl {
 
     public AnalyzingEl(Mapping _mapping) {
         mapping = _mapping;
+        canCompleteNormally.setMapping(mappingMembers);
+        canCompleteNormallyGroup.setMapping(mappingMembers);
+        reachable.setMapping(mappingMembers);
     }
 
-    public Boolean isReachable(Block _reach) {
+    public boolean isReachable(Block _reach) {
         return reachable.getVal(_reach);
     }
 
-    public Boolean canCompleteNormally(Block _reach) {
+    public boolean canCompleteNormally(Block _reach) {
         return canCompleteNormally.getVal(_reach);
     }
 
-    public Boolean canCompleteNormallyGroup(Block _reach) {
+    public boolean canCompleteNormallyGroup(Block _reach) {
         return canCompleteNormallyGroup.getVal(_reach);
     }
 
-    public IdMap<Block, Boolean> getCanCompleteNormally() {
+    public BlocksFlags getCanCompleteNormally() {
         return canCompleteNormally;
     }
 
-    public IdMap<Block, Boolean> getCanCompleteNormallyGroup() {
+    public BlocksFlags getCanCompleteNormallyGroup() {
         return canCompleteNormallyGroup;
     }
 
@@ -138,5 +145,13 @@ public final class AnalyzingEl {
 
     public void setRoot(MemberCallingsBlock _root) {
         root = _root;
+    }
+
+    public IdMap<ExecBlock, Block> getMappingMembers() {
+        return mappingMembers;
+    }
+
+    public IdMap<BracedBlock, ExecBracedBlock> getMappingBracedMembers() {
+        return mappingBracedMembers;
     }
 }

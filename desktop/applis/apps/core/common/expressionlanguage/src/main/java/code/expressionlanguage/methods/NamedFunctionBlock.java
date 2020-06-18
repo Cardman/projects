@@ -3,6 +3,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -97,9 +99,8 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
 
-    @Override
-    public void buildAnnotations(ContextEl _context) {
-        buildAnnotationsBasic(_context);
+    public void buildAnnotations(ContextEl _context, ExecAnnotableBlock _ex) {
+        buildAnnotationsBasic(_context,_ex);
         annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
         int j_ = 0;
         for (Ints l: annotationsIndexesParams) {
@@ -118,32 +119,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             annotationsOpsParams.add(annotation_);
             j_++;
         }
-    }
-    protected void buildAnnotationsReport(int _index,ContextEl _cont, CustList<PartOffset> _parts) {
-        int len_ = annotationsIndexesParams.get(_index).size();
-        StringList list_ = annotationsParams.get(_index);
-        for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexesParams.get(_index).get(i);
-            int end_ = begin_ + list_.get(i).length();
-            ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOpsParams.get(_index).get(i),end_,_parts,0,"",true);
-        }
-    }
-
-    @Override
-    public void reduce(ContextEl _context) {
-        reduceBasic(_context);
-        CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams_;
-        annotationsOpsParams_ = new CustList<CustList<CustList<ExecOperationNode>>>();
-        for (CustList<CustList<ExecOperationNode>> l: annotationsOpsParams) {
-            CustList<CustList<ExecOperationNode>> l_;
-            l_ = new CustList<CustList<ExecOperationNode>>();
-            for (CustList<ExecOperationNode> k: l) {
-                ExecOperationNode o_ = k.last();
-                l_.add(ElUtil.getReducedNodes(o_));
-            }
-            annotationsOpsParams_.add(l_);
-        }
-        annotationsOpsParams = annotationsOpsParams_;
     }
 
     @Override
@@ -169,9 +144,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         }
     }
 
-    public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
-        return annotationsOpsParams;
-    }
     public Ints getParametersTypesOffset() {
         return parametersTypesOffset;
     }
@@ -263,7 +235,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return importedReturnType;
     }
 
-    public void buildAnnotationsBasic(ContextEl _context) {
+    public void buildAnnotationsBasic(ContextEl _context, ExecAnnotableBlock _ex) {
         annotationsOps = new CustList<CustList<ExecOperationNode>>();
         int len_ = annotationsIndexes.size();
         AnalyzedPageEl page_ = _context.getAnalyzing();
@@ -274,26 +246,9 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
         }
+        _ex.getAnnotationsOps().addAllElts(annotationsOps);
     }
 
-    protected void buildAnnotationsReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int len_ = annotationsIndexes.size();
-        for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexes.get(i);
-            int end_ = begin_ + annotations.get(i).length();
-            ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOps.get(i),end_,_parts,0,"",true);
-        }
-    }
-
-    public void reduceBasic(ContextEl _context) {
-        CustList<CustList<ExecOperationNode>> annotationsOps_;
-        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
-        for (CustList<ExecOperationNode> a: annotationsOps) {
-            ExecOperationNode r_ = a.last();
-            annotationsOps_.add(ElUtil.getReducedNodes(r_));
-        }
-        annotationsOps = annotationsOps_;
-    }
     @Override
     public StringList getAnnotations() {
         return annotations;
@@ -324,5 +279,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public CustList<PartOffset> getPartOffsetsReturn() {
         return partOffsetsReturn;
+    }
+
+    public void buildAnnotationsParams(ExecNamedFunctionBlock _val) {
+        _val.getAnnotationsOpsParams().addAllElts(annotationsOpsParams);
+    }
+
+    public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
+        return annotationsOpsParams;
     }
 }

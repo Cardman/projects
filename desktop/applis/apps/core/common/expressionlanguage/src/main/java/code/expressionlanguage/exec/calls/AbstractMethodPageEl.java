@@ -2,9 +2,9 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.WithEl;
 
 public abstract class AbstractMethodPageEl extends AbstractPageEl implements ForwardPageEl,ReturnableValuePageEl {
@@ -34,7 +34,7 @@ public abstract class AbstractMethodPageEl extends AbstractPageEl implements For
     public void tryProcessEl(ContextEl _context) {
         //method walk through
         ReadWrite rw_ = getReadWrite();
-        Block en_ = rw_.getBlock();
+        ExecBlock en_ = rw_.getBlock();
         if (en_ instanceof WithEl) {
             ((WithEl)en_).processEl(_context);
             return;

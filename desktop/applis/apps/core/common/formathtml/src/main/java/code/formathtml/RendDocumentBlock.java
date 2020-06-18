@@ -3,17 +3,17 @@ package code.formathtml;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.CustList;
 
-public final class RendDocumentBlock extends RendParentBlock implements AccessingImportingBlock {
+public final class RendDocumentBlock extends RendParentBlock implements ExecAccessingImportingBlock {
 
     private Element elt;
 
@@ -224,7 +224,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessin
     }
 
     @Override
-    public boolean isTypeHidden(RootBlock _class, ContextEl _analyzable) {
+    public boolean isTypeHidden(ExecRootBlock _class, ContextEl _analyzable) {
         return _class.getAccess() != AccessEnum.PUBLIC;
     }
 }

@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -573,13 +574,26 @@ public final class ElUtil {
             _pageEl.setTranslatedOffset(0);
         }
     }
-
+    public static void buildCoverageReport(ContextEl _cont,int _offsetBlock,
+                                           ExecBlock _block,
+                                           CustList<ExecOperationNode> _nodes,
+                                           int _endBlock,
+                                           CustList<PartOffset> _parts) {
+        buildCoverageReport(_cont,_offsetBlock,_cont.getCoverage().getMappingBlocks().getVal(_block),_nodes,_endBlock,_parts);
+    }
     public static void buildCoverageReport(ContextEl _cont,int _offsetBlock,
                                            Block _block,
                                            CustList<ExecOperationNode> _nodes,
                                            int _endBlock,
                                            CustList<PartOffset> _parts) {
         buildCoverageReport(_cont,_offsetBlock,_block,_nodes,_endBlock,_parts,0,"",false);
+    }
+    public static void buildCoverageReport(ContextEl _cont,int _offsetBlock,
+                                           ExecBlock _block,
+                                           CustList<ExecOperationNode> _nodes,
+                                           int _endBlock,
+                                           CustList<PartOffset> _parts, int _tr, String _fieldName, boolean _annotation) {
+        buildCoverageReport(_cont,_offsetBlock,_cont.getCoverage().getMappingBlocks().getVal(_block),_nodes,_endBlock,_parts,_tr,_fieldName,_annotation);
     }
     public static void buildCoverageReport(ContextEl _cont,int _offsetBlock,
                                            Block _block,
@@ -1421,9 +1435,9 @@ public final class ElUtil {
         GeneType type_ = _cont.getClassBody(cl_);
         if (!isFromCustFile(type_)) {
             if (_id instanceof MethodId) {
-                CustList<NamedFunctionBlock> opers_ = Classes.getOperatorsBodiesById(_cont, (MethodId) _id);
+                CustList<ExecNamedFunctionBlock> opers_ = ExecBlock.getOperatorsBodiesById(_cont, (MethodId) _id);
                 if (!opers_.isEmpty()) {
-                    NamedFunctionBlock operator_ = opers_.first();
+                    ExecNamedFunctionBlock operator_ = opers_.first();
                     String file_ = operator_.getFile().getRenderFileName();
                     rel_ = relativize(_currentFileName, file_ + "#m" + operator_.getNameOffset());
                     return rel_;
@@ -1432,8 +1446,8 @@ public final class ElUtil {
             return "";
         }
         if (_id instanceof MethodId){
-            NamedFunctionBlock method_;
-            CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(_cont, _className, (MethodId) _id);
+            ExecNamedFunctionBlock method_;
+            CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(_cont, _className, (MethodId) _id);
             if (methods_.isEmpty()) {
                 return "";
             }
@@ -1441,11 +1455,11 @@ public final class ElUtil {
             rel_ = relativize(_currentFileName, method_.getFile().getRenderFileName() + "#m" + method_.getNameOffset());
             return rel_;
         }
-        CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, _className, (ConstructorId) _id);
+        CustList<ExecConstructorBlock> ctors_ = ExecBlock.getConstructorBodiesById(_cont, _className, (ConstructorId) _id);
         if (ctors_.isEmpty()) {
             return "";
         }
-        ConstructorBlock ctor_ = ctors_.first();
+        ExecConstructorBlock ctor_ = ctors_.first();
         rel_ = relativize(_currentFileName, ctor_.getFile().getRenderFileName() + "#m" + ctor_.getNameOffset());
         return rel_;
     }
@@ -1481,11 +1495,11 @@ public final class ElUtil {
             return;
         }
         int delta_ = -1;
-        for (Block b: Classes.getDirectChildren((Block) type_)) {
-            if (!(b instanceof FieldBlock)) {
+        for (ExecBlock b: ExecBlock.getDirectChildren((ExecBlock) type_)) {
+            if (!(b instanceof ExecFieldBlock)) {
                 continue;
             }
-            FieldBlock f_ = (FieldBlock) b;
+            ExecFieldBlock f_ = (ExecFieldBlock) b;
             int i_ = 0;
             int index_ = -1;
             for (String n: f_.getFieldName()) {
@@ -1500,24 +1514,24 @@ public final class ElUtil {
             }
         }
         if (delta_ > -1) {
-            String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+            String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
             String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
             String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
             _parts.add(new PartOffset(tag_,_begin));
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_,_begin+_length));
         } else {
-            for (Block b: Classes.getDirectChildren((Block) type_)) {
-                if (!(b instanceof InnerTypeOrElement)) {
+            for (ExecBlock b: ExecBlock.getDirectChildren((ExecBlock) type_)) {
+                if (!(b instanceof ExecInnerTypeOrElement)) {
                     continue;
                 }
-                InnerTypeOrElement f_ = (InnerTypeOrElement)b;
+                ExecInnerTypeOrElement f_ = (ExecInnerTypeOrElement)b;
                 if (!StringList.quickEq(f_.getUniqueFieldName(),_id.getFieldName())) {
                     continue;
                 }
                 delta_ = f_.getFieldNameOffset();
             }
-            String file_ = ((RootBlock) type_).getFile().getRenderFileName();
+            String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
             String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
             String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
             _parts.add(new PartOffset(tag_,_begin));
@@ -1583,10 +1597,10 @@ public final class ElUtil {
         for (String s: _type.getNames()) {
             String id_ = Templates.getIdFromAllTypes(s);
             GeneType cl_ = _cont.getClassBody(id_);
-            if (!(cl_ instanceof RootBlock)) {
+            if (!(cl_ instanceof ExecRootBlock)) {
                 continue;
             }
-            if (cl_ instanceof AnnotationBlock) {
+            if (cl_ instanceof ExecAnnotationBlock) {
                 continue;
             }
             if (OperationNode.tryGetDeclaredToString(_cont,s).isFoundMethod()) {
@@ -1597,10 +1611,10 @@ public final class ElUtil {
     }
 
     public static boolean isFromCustFile(GeneType _g) {
-        if (!(_g instanceof RootBlock)) {
+        if (!(_g instanceof ExecRootBlock)) {
             return false;
         }
-        return !((RootBlock)_g).getFile().isPredefined();
+        return !((ExecRootBlock)_g).getFile().isPredefined();
     }
     public static void tryCalculate(FieldBlock _field, CustList<OperationNode> _ops, ContextEl _context, String _fieldName) {
         CustList<OperationNode> nodes_ = _ops;

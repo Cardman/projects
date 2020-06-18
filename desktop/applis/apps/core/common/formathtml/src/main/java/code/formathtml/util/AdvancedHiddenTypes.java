@@ -1,7 +1,7 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.types.AbstractHiddenTypes;
 import code.formathtml.Configuration;
 
@@ -13,7 +13,7 @@ public final class AdvancedHiddenTypes implements AbstractHiddenTypes {
     }
 
     @Override
-    public boolean isHidden(AccessingImportingBlock _global, RootBlock _type) {
+    public boolean isHidden(ExecAccessingImportingBlock _global, ExecRootBlock _type) {
         if (_global == null) {
             return false;
         }

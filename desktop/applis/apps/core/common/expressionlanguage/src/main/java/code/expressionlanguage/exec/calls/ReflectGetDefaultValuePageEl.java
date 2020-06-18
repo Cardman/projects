@@ -3,6 +3,9 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
+import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
@@ -27,14 +30,14 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
         String cl_ = instance_.getFormClassName();
         String id_ = Templates.getIdFromAllTypes(cl_);
         GeneType type_ = _context.getClassBody(id_);
-        if (!(type_ instanceof AnnotationBlock)) {
+        if (!(type_ instanceof ExecAnnotationBlock)) {
             setReturnedArgument(new Argument());
             return true;
         }
         if (!init) {
             String name_ = instance_.getName();
-            AnnotationBlock ann_ = (AnnotationBlock) type_;
-            for (AnnotationMethodBlock m: ContextEl.getAnnotationMethods(ann_)) {
+            ExecAnnotationBlock ann_ = (ExecAnnotationBlock) type_;
+            for (ExecAnnotationMethodBlock m: ExecBlock.getAnnotationMethods(ann_)) {
                 if (!StringList.quickEq(m.getName(), name_)) {
                     continue;
                 }

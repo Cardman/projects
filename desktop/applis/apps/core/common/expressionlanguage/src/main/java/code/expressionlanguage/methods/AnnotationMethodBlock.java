@@ -3,6 +3,9 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
+import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
+import code.expressionlanguage.exec.blocks.ExecEnumBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.common.GeneCustMethod;
@@ -29,7 +32,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class AnnotationMethodBlock extends NamedFunctionBlock implements
-        GeneCustMethod, WithNotEmptyEl {
+        GeneCustMethod {
 
     private String defaultValue;
     private int defaultValueOffset;
@@ -50,10 +53,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     @Override
     public MethodAccessKind getStaticContext() {
         return MethodAccessKind.INSTANCE;
-    }
-
-    public MethodModifier getModifier() {
-        return MethodModifier.ABSTRACT;
     }
 
     @Override
@@ -77,10 +76,10 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             return;
         }
         GeneType r_ = _stds.getClassBody(type_);
-        if (r_ instanceof AnnotationBlock) {
+        if (r_ instanceof ExecAnnotationBlock) {
             return;
         }
-        if (r_ instanceof EnumBlock) {
+        if (r_ instanceof ExecEnumBlock) {
             return;
         }
         if (StringList.quickEq(type_, string_)) {
@@ -102,16 +101,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         return defaultValue;
     }
 
-    public Struct getDefaultArgument() {
-        if (opValue.isEmpty()) {
-            return null;
-        }
-        Argument arg_ = opValue.last().getArgument();
-        if (arg_ == null) {
-            return null;
-        }
-        return arg_.getStruct();
-    }
     public int getDefaultValueOffset() {
         return defaultValueOffset;
     }
@@ -140,16 +129,18 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         return false;
     }
 
-    public void buildExpressionLanguage(ContextEl _cont) {
+    public void buildExpressionLanguage(ContextEl _cont, ExecAnnotationMethodBlock _exec) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (defaultValue.trim().isEmpty()) {
             opValue = new CustList<ExecOperationNode>();
+            _exec.setOpValue(opValue);
             return;
         }
         page_.setGlobalOffset(defaultValueOffset);
         page_.setOffset(0);
         _cont.getCoverage().putBlockOperationsField(_cont,this);
         opValue = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, _cont, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        _exec.setOpValue(opValue);
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         Mapping mapping_ = new Mapping();
@@ -172,43 +163,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         }
     }
 
-    @Override
-    public void reduce(ContextEl _context) {
-        super.reduce(_context);
-        if (opValue.isEmpty()) {
-            return;
-        }
-        ExecOperationNode r_ = opValue.last();
-        opValue = ElUtil.getReducedNodes(r_);
-    }
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        boolean in_ = false;
-        if (ip_ instanceof FieldInitPageEl) {
-            in_ = true;
-        }
-        if (in_ && !defaultValue.trim().isEmpty()) {
-            ip_.setGlobalOffset(defaultValueOffset);
-            ip_.setOffset(0);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            Argument arg_ = ElUtil.tryToCalculate(_cont,el_,0);
-            setValue(_cont,arg_);
-            if (_cont.callsOrException()) {
-                return;
-            }
-            ip_.clearCurrentEls();
-        }
-        processBlock(_cont);
-    }
-
-    private void setValue(ContextEl _cont, Argument _arg) {
-        String name_ = getName();
-        RootBlock r_ = (RootBlock) getParent();
-        String idCl_ = r_.getFullName();
-        String ret_ = getImportedReturnType();
-        setValue(idCl_,name_,ret_,_cont,_arg);
-    }
     public static void setValue(String _cl, String _name, String _returnType,ContextEl _cont, Argument _arg) {
         if (_cont.callsOrException()) {
             return;
@@ -217,27 +171,8 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         Argument gl_ = ip_.getGlobalArgument();
         ExecInvokingOperation.setInstanceField(_cl, _name, _returnType, gl_, _arg, _cont);
     }
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return new ExpressionLanguage(opValue);
-    }
     public CustList<ExecOperationNode> getOpValue() {
         return opValue;
     }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        buildAnnotationsReport(_cont,_parts);
-        _parts.addAllElts(getPartOffsetsReturn());
-        int begName_ = getNameOffset();
-        _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
-        int endName_ = begName_ + getName().length();
-        _parts.add(new PartOffset("</a>",endName_));
-        if (!opValue.isEmpty()) {
-            int blOffset_ = defaultValueOffset;
-            int endBl_ = blOffset_ + defaultValue.length();
-            ElUtil.buildCoverageReport(_cont,blOffset_,this,opValue,endBl_,_parts);
-        }
-    }
 }

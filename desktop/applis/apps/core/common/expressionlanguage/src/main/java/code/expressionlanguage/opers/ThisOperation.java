@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.RootBlock;
@@ -49,8 +50,8 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             String gl_ = _conf.getAnalyzing().getGlobalClass();
             gl_ = Templates.getIdFromAllTypes(gl_);
             GeneType g_ = _conf.getClassBody(gl_);
-            RootBlock r_ = (RootBlock) g_;
-            for (RootBlock r: r_.getSelfAndParentTypes().getReverse()) {
+            ExecRootBlock r_ = (ExecRootBlock) g_;
+            for (ExecRootBlock r: r_.getSelfAndParentTypes().getReverse()) {
                 if (StringList.quickEq(r.getFullName(), id_)) {
                     if (_conf.getAnalyzing().getStaticContext() != MethodAccessKind.INSTANCE) {
                         MethodOperation root_ = getParent();

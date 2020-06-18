@@ -2,6 +2,10 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecElementBlock;
+import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.common.GeneType;
@@ -128,7 +132,11 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+    public CustList<PartOffset> getTypePartOffsets() {
+        return partOffsets;
+    }
+
+    public void buildExpressionLanguageReadOnly(ContextEl _cont, ExecInnerTypeOrElement _exec) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(fieldNameOffest);
         page_.setOffset(0);
@@ -136,11 +144,14 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_," ",importedClassName, PAR_LEFT, value, PAR_RIGHT);
         trOffset = valueOffest -1 -fieldName.length() - fieldNameOffest - 2 - newKeyWord_.length() - importedClassName.length();
+        _exec.setTrOffset(trOffset);
         page_.setTranslatedOffset(trOffset);
         int index_ = getIndex();
         _cont.setCurrentChildTypeIndex(index_);
+        _cont.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
         _cont.getCoverage().putBlockOperations(_cont,this);
         opValue = ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName));
+        _exec.setOpValue(opValue);
         page_.setTranslatedOffset(0);
     }
 
@@ -154,8 +165,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         return index_;
     }
 
-    @Override
-    public void buildAnnotations(ContextEl _context) {
+    public void buildAnnotations(ContextEl _context, ExecAnnotableBlock _ex) {
         annotationsOps = new CustList<CustList<ExecOperationNode>>();
         int len_ = annotationsIndexes.size();
         AnalyzedPageEl page_ = _context.getAnalyzing();
@@ -166,18 +176,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
         }
-    }
-    @Override
-    public void reduce(ContextEl _context) {
-        CustList<CustList<ExecOperationNode>> annotationsOps_;
-        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
-        for (CustList<ExecOperationNode> a: annotationsOps) {
-            ExecOperationNode r_ = a.last();
-            annotationsOps_.add(ElUtil.getReducedNodes(r_));
-        }
-        annotationsOps = annotationsOps_;
-        ExecOperationNode r_ = opValue.last();
-        opValue = ElUtil.getReducedNodes(r_);
+        _ex.getAnnotationsOps().addAllElts(annotationsOps);
     }
     @Override
     public StringList getAnnotations() {
@@ -192,27 +191,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         return annotationsIndexes;
     }
 
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        if (ip_ instanceof StaticInitPageEl) {
-            ip_.setGlobalOffset(fieldNameOffest);
-            ip_.setOffset(0);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            ElUtil.tryToCalculate(_cont,el_, trOffset);
-            if (_cont.callsOrException()) {
-                return;
-            }
-            ip_.clearCurrentEls();
-        }
-        processBlock(_cont);
-    }
-
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return getValueEl();
-    }
 
     @Override
     public String getImportedClassName() {
@@ -224,39 +202,11 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         return importedClassName;
     }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int len_ = annotationsIndexes.size();
-        for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexes.get(i);
-            int end_ = begin_ + annotations.get(i).length();
-            ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOps.get(i),end_,_parts,0,"",true);
-        }
-        ExecAffectationOperation root_ = (ExecAffectationOperation) opValue.last();
-        ExecStandardInstancingOperation inst_ = (ExecStandardInstancingOperation) root_.getFirstChild().getNextSibling();
-        String cl_ = inst_.getClassName();
-        cl_ = Templates.getIdFromAllTypes(cl_);
-        ConstructorId c_ = inst_.getConstId();
-        GeneType type_ = _cont.getClassBody(cl_);
-        String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-        String fileName_ = _cont.getCoverage().getCurrentFileName();
-        CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_cont, cl_, c_);
-        if (!ctors_.isEmpty()) {
-            ConstructorBlock ctor_ = ctors_.first();
-            String rel_ = ElUtil.relativize(fileName_,file_+"#m"+ctor_.getNameOffset());
-            String tag_ = "<a name=\"m"+fieldNameOffest+"\" title=\""+ ElUtil.transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_,fieldNameOffest));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,fieldNameOffest+fieldName.length()));
-        } else {
-            String tag_ = "<a name=\"m"+fieldNameOffest+"\">";
-            _parts.add(new PartOffset(tag_,fieldNameOffest));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,fieldNameOffest+fieldName.length()));
-        }
-        _parts.addAllElts(partOffsets);
-        int blOffset_ = valueOffest;
-        int endBl_ = valueOffest + value.length();
-        ElUtil.buildCoverageReport(_cont,blOffset_,this,opValue,endBl_,_parts,trOffset-1,fieldName,false);
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
+
+    public int getTrOffset() {
+        return trOffset;
     }
 }

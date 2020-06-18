@@ -1,14 +1,15 @@
 package code.expressionlanguage.exec.calls.util;
-import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 
 public final class ReadWrite {
-    private Block block;
+    private ExecBlock execBlock;
 
-    public Block getBlock() {
-        return block;
+    public ExecBlock getBlock() {
+        return execBlock;
     }
 
-    public void setBlock(Block _block) {
-        block = _block;
+    public void setBlock(ExecBlock _execBlock) {
+        execBlock = _execBlock;
     }
+
 }

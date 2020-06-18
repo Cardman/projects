@@ -1,9 +1,9 @@
 package code.expressionlanguage.files;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq(43,cl_.getAccessOffset());
@@ -47,7 +47,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof InterfaceBlock);
         assertNull(r_.getFirstChild());
     }
@@ -64,7 +64,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         assertNull(r_.getFirstChild());
     }
@@ -81,7 +81,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         assertNull(r_.getFirstChild());
     }
@@ -97,7 +97,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof AnnotationBlock);
         assertNull(r_.getFirstChild());
     }
@@ -113,7 +113,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         assertNull(r_.getFirstChild());
     }
@@ -129,7 +129,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         assertNull(r_.getFirstChild());
     }
@@ -149,10 +149,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
         assertEq("pkgtwo.ExInt", getCustomTypes(context_, 1).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         assertNull(r_.getFirstChild());
-        r_ = context_.getClasses().getClassBody("pkgtwo.ExInt");
+        r_ = getClassBody(context_, "pkgtwo.ExInt");
         assertTrue(r_ instanceof InterfaceBlock);
         assertNull(r_.getFirstChild());
     }
@@ -171,10 +171,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
         assertEq("pkgtwo.ExInt", getCustomTypes(context_, 1).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         assertNull(r_.getFirstChild());
-        r_ = context_.getClasses().getClassBody("pkgtwo.ExInt");
+        r_ = getClassBody(context_, "pkgtwo.ExInt");
         assertTrue(r_ instanceof InterfaceBlock);
         assertNull(r_.getFirstChild());
     }
@@ -193,9 +193,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
         assertEq("pkgtwo.ExClass..Inner", getCustomTypes(context_, 1).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof AnnotationBlock);
-        RootBlock i_ = context_.getClasses().getClassBody("pkgtwo.ExClass..Inner");
+        RootBlock i_ = getClassBody(context_, "pkgtwo.ExClass..Inner");
         assertTrue(i_ instanceof EnumBlock);
         assertSame(i_,r_.getFirstChild());
     }
@@ -211,7 +211,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof EnumBlock);
         Block eltOne_ = r_.getFirstChild();
         assertTrue(eltOne_ instanceof ElementBlock);
@@ -241,7 +241,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
         assertEq(3, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof EnumBlock);
         Block eltOne_ = r_.getFirstChild();
         assertTrue(eltOne_ instanceof InnerElementBlock);
@@ -282,7 +282,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         assertEq("<#T>",r_.getTemplateDef());
         ClassBlock cl_ = (ClassBlock) r_;
@@ -302,7 +302,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
@@ -322,7 +322,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
@@ -344,7 +344,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
@@ -366,7 +366,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
@@ -390,7 +390,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
@@ -440,7 +440,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -604,7 +604,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -803,7 +803,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
@@ -924,7 +924,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
@@ -1046,7 +1046,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -1176,12 +1176,12 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
         assertEq("pkgtwo.ExClassTwo", getCustomTypes(context_,1).getFullName());
-        r_ = context_.getClasses().getClassBody("pkgtwo.ExClassTwo");
+        r_ = getClassBody(context_, "pkgtwo.ExClassTwo");
         assertTrue(r_ instanceof ClassBlock);
         cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
@@ -1211,7 +1211,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
@@ -1344,7 +1344,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -1487,7 +1487,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -1654,7 +1654,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -1819,7 +1819,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -1954,7 +1954,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2089,7 +2089,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2223,7 +2223,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2342,7 +2342,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2377,7 +2377,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2423,7 +2423,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2475,7 +2475,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2538,7 +2538,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2608,7 +2608,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2670,7 +2670,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2732,7 +2732,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2790,7 +2790,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2846,7 +2846,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2913,7 +2913,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -2973,7 +2973,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
@@ -3011,7 +3011,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
@@ -3026,7 +3026,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(70, offs_.first());
         assertEq(78, offs_.last());
         assertEq("pkgtwo.ExClassTwo", getCustomTypes(context_,1).getFullName());
-        r_ = context_.getClasses().getClassBody("pkgtwo.ExClassTwo");
+        r_ = getClassBody(context_, "pkgtwo.ExClassTwo");
         assertTrue(r_ instanceof ClassBlock);
         cl_ = (ClassBlock) r_;
         ints_ = cl_.getStaticInitInterfaces();
@@ -3050,7 +3050,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
@@ -3063,7 +3063,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(1, offs_.size());
         assertEq(70, offs_.first());
         assertEq("pkgtwo.ExClassTwo", getCustomTypes(context_,1).getFullName());
-        r_ = context_.getClasses().getClassBody("pkgtwo.ExClassTwo");
+        r_ = getClassBody(context_, "pkgtwo.ExClassTwo");
         assertTrue(r_ instanceof ClassBlock);
         cl_ = (ClassBlock) r_;
         ints_ = cl_.getStaticInitInterfaces();
@@ -3098,7 +3098,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -3239,7 +3239,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -3378,7 +3378,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -3441,7 +3441,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -3505,7 +3505,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -3564,7 +3564,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -3617,7 +3617,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -3687,7 +3687,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -3756,7 +3756,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -3904,7 +3904,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -3960,7 +3960,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -4027,7 +4027,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -4085,7 +4085,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
@@ -4121,7 +4121,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
@@ -4157,7 +4157,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T:pkgtwo.Inherit>",r_.getTemplateDef());
@@ -4214,7 +4214,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -4424,7 +4424,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -4616,7 +4616,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         assertEq(1, countFileTypes(context_));
         ClassBlock cl_ = (ClassBlock) r_;
@@ -4641,7 +4641,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         assertEq(1, countFileTypes(context_));
         ClassBlock cl_ = (ClassBlock) r_;
@@ -4673,7 +4673,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -4739,7 +4739,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyClass");
+        RootBlock r_ = getClassBody(context_, "pkg.MyClass");
         assertEq(1,r_.getAnnotations().size());
         assertEq("@MyAnnot",r_.getAnnotations().first());
         assertEq(1,r_.getAnnotationsIndexes().size());
@@ -4762,7 +4762,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -4823,7 +4823,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -4861,7 +4861,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -4902,7 +4902,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -4954,7 +4954,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        RootBlock r_ = getClassBody(context_, "pkg.MyAnnot");
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -4977,7 +4977,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        RootBlock r_ = getClassBody(context_, "pkg.MyAnnot");
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -5018,7 +5018,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        RootBlock r_ = getClassBody(context_, "pkg.MyAnnot");
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -5061,7 +5061,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        RootBlock r_ = getClassBody(context_, "pkg.MyAnnot");
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -5104,7 +5104,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        RootBlock r_ = getClassBody(context_, "pkg.MyAnnot");
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -5147,7 +5147,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        RootBlock r_ = getClassBody(context_, "pkg.MyAnnot");
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -5184,7 +5184,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -5215,6 +5215,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(!op_.isAbstractMethod());
         assertTrue(!op_.isFinalMethod());
     }
+
+    private CustList<OperatorBlock> getOperators(ContextEl context_) {
+        return context_.getAnalyzing().getMapOperators().getKeys();
+    }
+
     @Test
     public void parseFile65Test() {
         StringBuilder file_ = new StringBuilder();
@@ -5224,7 +5229,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq(1, op_.getAnnotations().size());
@@ -5263,7 +5268,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -5309,14 +5314,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
         assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        RootBlock r_ = getClassBody(context_, "pkg.Outer");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block inner_ = cl_.getFirstChild();
         assertTrue(inner_ instanceof ClassBlock);
         assertNull(inner_.getNextSibling());
         assertNull(cl_.getNextSibling());
-        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+        assertSame(inner_, getClassBody(context_, "pkg.Outer..Inner"));
     }
     @Test
     public void parseFile671Test() {
@@ -5330,14 +5335,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
         assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        RootBlock r_ = getClassBody(context_, "pkg.Outer");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block inner_ = cl_.getFirstChild();
         assertTrue(inner_ instanceof ClassBlock);
         assertNull(inner_.getNextSibling());
         assertNull(cl_.getNextSibling());
-        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+        assertSame(inner_, getClassBody(context_, "pkg.Outer..Inner"));
     }
     @Test
     public void parseFile672Test() {
@@ -5351,14 +5356,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
         assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        RootBlock r_ = getClassBody(context_, "pkg.Outer");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block inner_ = cl_.getFirstChild();
         assertTrue(inner_ instanceof ClassBlock);
         assertNull(inner_.getNextSibling());
         assertNull(cl_.getNextSibling());
-        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+        assertSame(inner_, getClassBody(context_, "pkg.Outer..Inner"));
     }
     @Test
     public void parseFile68Test() {
@@ -5372,14 +5377,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
         assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        RootBlock r_ = getClassBody(context_, "pkg.Outer");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block inner_ = cl_.getFirstChild();
         assertTrue(inner_ instanceof ClassBlock);
         assertNull(inner_.getNextSibling());
         assertNull(cl_.getNextSibling());
-        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+        assertSame(inner_, getClassBody(context_, "pkg.Outer..Inner"));
     }
     @Test
     public void parseFile69Test() {
@@ -5393,14 +5398,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
         assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        RootBlock r_ = getClassBody(context_, "pkg.Outer");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block inner_ = cl_.getFirstChild();
         assertTrue(inner_ instanceof ClassBlock);
         assertNull(inner_.getNextSibling());
         assertNull(cl_.getNextSibling());
-        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+        assertSame(inner_, getClassBody(context_, "pkg.Outer..Inner"));
     }
     @Test
     public void parseFile70Test() {
@@ -5416,7 +5421,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        RootBlock r_ = getClassBody(context_, "pkg.MyAnnot");
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -5450,7 +5455,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        RootBlock r_ = getClassBody(context_, "pkg.MyAnnot");
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -5485,7 +5490,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        RootBlock r_ = getClassBody(context_, "pkg.MyAnnot");
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -5520,7 +5525,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        RootBlock r_ = getClassBody(context_, "pkg.MyAnnot");
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -5554,14 +5559,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
         assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        RootBlock r_ = getClassBody(context_, "pkg.Outer");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block inner_ = cl_.getFirstChild();
         assertTrue(inner_ instanceof ClassBlock);
         assertNull(inner_.getNextSibling());
         assertNull(cl_.getNextSibling());
-        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+        assertSame(inner_, getClassBody(context_, "pkg.Outer..Inner"));
     }
     @Test
     public void parseFile75Test() {
@@ -5575,14 +5580,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
         assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        RootBlock r_ = getClassBody(context_, "pkg.Outer");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block inner_ = cl_.getFirstChild();
         assertTrue(inner_ instanceof ClassBlock);
         assertNull(inner_.getNextSibling());
         assertNull(cl_.getNextSibling());
-        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+        assertSame(inner_, getClassBody(context_, "pkg.Outer..Inner"));
     }
     @Test
     public void parseFile76Test() {
@@ -5597,14 +5602,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
         assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        RootBlock r_ = getClassBody(context_, "pkg.Outer");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block inner_ = cl_.getFirstChild();
         assertTrue(inner_ instanceof ClassBlock);
         assertNull(inner_.getNextSibling());
         assertNull(cl_.getNextSibling());
-        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+        assertSame(inner_, getClassBody(context_, "pkg.Outer..Inner"));
     }
     @Test
     public void parseFile77Test() {
@@ -5619,14 +5624,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
         assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        RootBlock r_ = getClassBody(context_, "pkg.Outer");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block inner_ = cl_.getFirstChild();
         assertTrue(inner_ instanceof ClassBlock);
         assertNull(inner_.getNextSibling());
         assertNull(cl_.getNextSibling());
-        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+        assertSame(inner_, getClassBody(context_, "pkg.Outer..Inner"));
     }
     @Test
     public void parseFile78Test() {
@@ -5642,7 +5647,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -5684,7 +5689,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -5726,7 +5731,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -5769,14 +5774,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        RootBlock r_ = getClassBody(context_, "pkg.MyAnnot");
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ClassBlock);
-        RootBlock i_ = context_.getClasses().getClassBody("pkg.MyAnnot..StaticInner");
+        RootBlock i_ = getClassBody(context_, "pkg.MyAnnot..StaticInner");
         assertSame(i_, child_);
         assertNull(child_.getNextSibling());
         assertEq(1, countFileTypes(context_));
@@ -5796,14 +5801,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        RootBlock r_ = getClassBody(context_, "pkg.MyAnnot");
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ClassBlock);
-        RootBlock i_ = context_.getClasses().getClassBody("pkg.MyAnnot..StaticInner");
+        RootBlock i_ = getClassBody(context_, "pkg.MyAnnot..StaticInner");
         assertSame(i_, child_);
         assertEq(1, i_.getImports().size());
         assertEq("my.Class", i_.getImports().first());
@@ -5825,14 +5830,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        RootBlock r_ = getClassBody(context_, "pkg.MyAnnot");
         assertTrue(r_ instanceof AnnotationBlock);
         AnnotationBlock cl_ = (AnnotationBlock) r_;
         assertEq("",r_.getTemplateDef());
         assertEq(1,r_.getDirectSuperTypes().size());
         Block child_ = cl_.getFirstChild();
         assertTrue(child_ instanceof ClassBlock);
-        RootBlock i_ = context_.getClasses().getClassBody("pkg.MyAnnot..StaticInner");
+        RootBlock i_ = getClassBody(context_, "pkg.MyAnnot..StaticInner");
         assertSame(i_, child_);
         assertNull(child_.getNextSibling());
         assertEq(1, countFileTypes(context_));
@@ -5851,14 +5856,14 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
         assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        RootBlock r_ = getClassBody(context_, "pkg.Outer");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block inner_ = cl_.getFirstChild();
         assertTrue(inner_ instanceof ClassBlock);
         assertNull(inner_.getNextSibling());
         assertNull(cl_.getNextSibling());
-        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+        assertSame(inner_, getClassBody(context_, "pkg.Outer..Inner"));
         assertEq(1, ((RootBlock)inner_).getAnnotations().size());
         assertEq("@MyAnnot", ((RootBlock)inner_).getAnnotations().first());
         assertEq(1, ((RootBlock)inner_).getImports().size());
@@ -5890,7 +5895,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -6030,7 +6035,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -6180,7 +6185,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -6212,7 +6217,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -6244,7 +6249,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -6285,7 +6290,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -6342,7 +6347,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -6405,7 +6410,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -6535,7 +6540,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -6596,7 +6601,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -6650,7 +6655,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -6715,7 +6720,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -6866,7 +6871,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -7003,7 +7008,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -7036,7 +7041,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertNull(cl_.getFirstChild());
@@ -7057,7 +7062,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7090,7 +7095,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7129,7 +7134,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7172,7 +7177,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7218,7 +7223,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7265,7 +7270,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7314,7 +7319,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7360,7 +7365,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7393,7 +7398,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7433,7 +7438,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7478,7 +7483,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7526,7 +7531,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7570,7 +7575,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7601,7 +7606,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7638,7 +7643,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7679,7 +7684,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7723,7 +7728,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7769,7 +7774,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7813,7 +7818,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7857,7 +7862,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7900,7 +7905,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7941,7 +7946,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -7981,7 +7986,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -8004,7 +8009,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -8028,7 +8033,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -8057,7 +8062,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8108,7 +8113,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof EnumBlock);
         EnumBlock cl_ = (EnumBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8156,7 +8161,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8187,7 +8192,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8218,7 +8223,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8249,7 +8254,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8280,7 +8285,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8311,7 +8316,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8342,7 +8347,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8373,7 +8378,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8404,7 +8409,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8430,7 +8435,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8456,7 +8461,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8482,7 +8487,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8508,7 +8513,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8530,7 +8535,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8562,7 +8567,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -8609,7 +8614,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -8656,7 +8661,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -8703,7 +8708,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         Block first_ = cl_.getFirstChild();
@@ -8746,7 +8751,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("",r_.getTemplateDef());
@@ -8772,7 +8777,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -8797,7 +8802,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -8822,7 +8827,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -8847,7 +8852,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -8872,7 +8877,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -8897,7 +8902,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -8922,7 +8927,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -8947,7 +8952,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -8972,7 +8977,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -8997,7 +9002,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -9022,7 +9027,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -9047,7 +9052,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
         assertEq("+", op_.getName());
@@ -9247,7 +9252,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -9388,7 +9393,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -9513,7 +9518,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -9555,7 +9560,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.Toto");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq("<#T>",r_.getTemplateDef());
@@ -9598,7 +9603,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq(44,cl_.getAccessOffset());
@@ -9633,7 +9638,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
-        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        RootBlock r_ = getClassBody(context_, "pkgtwo.ExClass");
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq(43,cl_.getAccessOffset());
@@ -9851,7 +9856,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
     private static int countCustomTypes(ContextEl _cont) {
         int count_ = 0;
-        for (RootBlock r: _cont.getClasses().getClassBodies()) {
+        for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
             if (!StringList.contains(_cont.getStandards().getPredefinedClasses(), r.getFullName())) {
                 count_++;
             }
@@ -9860,29 +9865,27 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
     private static int countFileTypes(ContextEl _cont) {
         int count_ = 0;
-        for (EntryCust<String, FileBlock> r: _cont.getClasses().getFilesBodies().entryList()) {
+        for (EntryCust<String, ExecFileBlock> r: _cont.getClasses().getFilesBodies().entryList()) {
             if (!r.getValue().isPredefined()) {
                 count_++;
             }
         }
         return count_;
     }
-    private static FileBlock getFileTypes(ContextEl _cont,int _i) {
-        int count_ = 0;
-        for (EntryCust<String, FileBlock> r: _cont.getClasses().getFilesBodies().entryList()) {
-            if (r.getValue().isPredefined()) {
-                continue;
+
+    private static RootBlock getClassBody(ContextEl _cont, String _className) {
+        for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
+            if (StringList.quickEq(r.getFullName(),Templates.getIdFromAllTypes(_className))) {
+                return r;
             }
-            if (count_ == _i) {
-                return r.getValue();
-            }
-            count_++;
         }
         return null;
     }
+
+
     private static RootBlock getCustomTypes(ContextEl _cont,int _i) {
         int count_ = 0;
-        for (RootBlock r: _cont.getClasses().getClassBodies()) {
+        for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
             if (StringList.contains(_cont.getStandards().getPredefinedClasses(), r.getFullName())) {
                 continue;
             }

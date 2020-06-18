@@ -3,6 +3,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecEnumBlock;
+import code.expressionlanguage.exec.blocks.ExecSwitchBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -21,7 +23,7 @@ import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.util.*;
 
-public final class SwitchBlock extends BracedStack implements BreakableBlock, WithNotEmptyEl,BuildableElMethod {
+public final class SwitchBlock extends BracedBlock implements BreakableBlock,BuildableElMethod {
 
     private String label;
     private int labelOffset;
@@ -75,19 +77,18 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
     }
 
     @Override
-    public void reduce(ContextEl _context) {
-        ExecOperationNode r_ = opValue.last();
-        opValue = ElUtil.getReducedNodes(r_);
-    }
-
-    @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(f_.getStaticContext()));
         processAfterEl(_cont);
+        ExecSwitchBlock exec_ = new ExecSwitchBlock(getOffset(), label, labelOffset, value, valueOffset, enumTest, opValue);
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private void processAfterEl(ContextEl _cont) {
@@ -107,7 +108,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
             String id_ = Templates.getIdFromAllTypes(type_);
             if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
-                    if (!(_cont.getClassBody(id_) instanceof EnumBlock)) {
+                    if (!(_cont.getClassBody(id_) instanceof ExecEnumBlock)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(getFile().getFileName());
                         un_.setIndexFile(valueOffset);
@@ -183,39 +184,6 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         }
     }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int full_ = 0;
-        int count_ = 0;
-        IdMap<Block, StandardCoverageResult> cases_ = _cont.getCoverage().getCoverSwitchs().getVal(this);
-        for (EntryCust<Block, StandardCoverageResult> e: cases_.entryList()) {
-            StandardCoverageResult res_ = e.getValue();
-            count_ += res_.getCovered();
-            full_ += res_.getFull();
-        }
-        StandardCoverageResult noDef_ = _cont.getCoverage().getCoverNoDefSwitchs().getVal(this);
-        if (noDef_ != null) {
-            count_ += noDef_.getCovered();
-            full_ += noDef_.getFull();
-        }
-        String tag_;
-        if (count_ == full_) {
-            tag_ = "<span class=\"f\">";
-        } else if (count_ > 0) {
-            tag_ = "<span class=\"p\">";
-        } else {
-            tag_ = "<span class=\"n\">";
-        }
-        int off_ = getOffset().getOffsetTrim();
-        _parts.add(new PartOffset(tag_+"<a title=\""+count_+"/"+full_+"\">",off_));
-        tag_ = "</span>";
-        _parts.add(new PartOffset("</a>"+tag_,off_+ _cont.getKeyWords().getKeyWordSwitch().length()));
-        off_ = getValueOffset();
-        int offsetEndBlock_ = off_ + getValue().length();
-        ElUtil.buildCoverageReport(_cont,off_,this,getOpValue(),offsetEndBlock_,_parts);
-        refLabel(_parts,label,labelOffset);
-    }
-
     private boolean hasDefaultCase() {
         Block ch_ = getFirstChild();
         boolean def_ = false;
@@ -230,101 +198,8 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock, Wi
         }
         return def_;
     }
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont);
-            return;
-        }
-        ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-        ip_.setGlobalOffset(valueOffset);
-        ip_.setOffset(0);
-        Argument arg_ =  ElUtil.tryToCalculate(_cont,el_,0);
-        if (_cont.callsOrException()) {
-            return;
-        }
-        ip_.clearCurrentEls();
-        SwitchBlockStack if_ = new SwitchBlockStack();
-        Block n_ = getFirstChild();
-        CustList<BracedBlock> children_;
-        children_ = new CustList<BracedBlock>();
-        while (n_ != null) {
-            children_.add((BracedBlock)n_);
-            if_.setLastVisitedBlock((BracedBlock) n_);
-            n_ = n_.getNextSibling();
-        }
-        if_.setBlock(this);
-        Block def_ = null;
-        BracedBlock found_ = null;
-        if (arg_.isNull()) {
-            for (Block b: children_) {
-                if (!(b instanceof CaseCondition)) {
-                    def_ = b;
-                    continue;
-                }
-                CaseCondition c_ = (CaseCondition) b;
-                Argument argRes_ = c_.getOpValue().last().getArgument();
-                if (argRes_ == null) {
-                    continue;
-                }
-                if (argRes_.isNull()) {
-                    found_ = c_;
-                    break;
-                }
-            }
-        } else if (enumTest) {
-            String name_ = ApplyCoreMethodUtil.getNameOfEnum(arg_.getStruct());
-            for (Block b: children_) {
-                if (!(b instanceof CaseCondition)) {
-                    def_ = b;
-                    continue;
-                }
-                CaseCondition c_ = (CaseCondition) b;
-                ExecOperationNode op_ = c_.getOpValue().last();
-                if (op_.getArgument() != null) {
-                    continue;
-                }
-                if (StringList.quickEq(c_.getValue().trim(), name_)) {
-                    found_ = c_;
-                    break;
-                }
-            }
-        } else {
-            for (Block b: children_) {
-                if (!(b instanceof CaseCondition)) {
-                    def_ = b;
-                    continue;
-                }
-                CaseCondition c_ = (CaseCondition) b;
-                Argument argRes_ = c_.getOpValue().last().getArgument();
-                if (argRes_.getStruct().sameReference(arg_.getStruct())) {
-                    found_ = c_;
-                    break;
-                }
-            }
-        }
-        if (found_ == null) {
-            if (def_ != null) {
-                _cont.getCoverage().passSwitch(_cont,def_,arg_);
-                rw_.setBlock(def_);
-                if_.setCurrentVisitedBlock((BracedBlock) def_);
-            } else {
-                _cont.getCoverage().passSwitch(_cont,arg_);
-                if_.setCurrentVisitedBlock(this);
-            }
-        } else {
-            _cont.getCoverage().passSwitch(_cont,found_,arg_);
-            rw_.setBlock(found_);
-            if_.setCurrentVisitedBlock(found_);
-        }
-        ip_.addBlock(if_);
-    }
 
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return getEl();
+    public boolean isEnumTest() {
+        return enumTest;
     }
 }

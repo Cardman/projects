@@ -2,6 +2,8 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
+import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
@@ -21,7 +23,7 @@ import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
-public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock {
+public final class FieldBlock extends Leaf implements InfoBlock {
 
     private final StringList fieldName = new StringList();
 
@@ -95,7 +97,6 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
         return accessOffset;
     }
 
-    @Override
     public AccessEnum getAccess() {
         return access;
     }
@@ -154,6 +155,11 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
         page_.setCurrentAnaBlock(this);
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
         partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
+    }
+
+    @Override
+    public CustList<PartOffset> getTypePartOffsets() {
+        return partOffsets;
     }
     @Override
     public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
@@ -220,13 +226,13 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
     }
 
 
-    @Override
-    public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+    public void buildExpressionLanguageReadOnly(ContextEl _cont, ExecFieldBlock _exec) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
-        processPutCoverage(_cont);
+        processPutCoverage(_cont,_exec);
         opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(staticField));
+        _exec.setOpValue(opValue);
         processReducing(_cont);
     }
     public CustList<OperationNode> buildExpressionLanguageQuickly(ContextEl _cont) {
@@ -240,12 +246,12 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
         opValue = ElUtil.getReducedNodes(opValue.last());
     }
 
-    private void processPutCoverage(ContextEl _cont) {
+    private void processPutCoverage(ContextEl _cont, ExecFieldBlock _exec) {
+        _cont.getCoverage().putBlockOperations(_cont,_exec,this);
         _cont.getCoverage().putBlockOperations(_cont,this);
     }
 
-    @Override
-    public void buildAnnotations(ContextEl _context) {
+    public void buildAnnotations(ContextEl _context, ExecAnnotableBlock _ex) {
         annotationsOps = new CustList<CustList<ExecOperationNode>>();
         int len_ = annotationsIndexes.size();
         AnalyzedPageEl page_ = _context.getAnalyzing();
@@ -256,18 +262,7 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
         }
-    }
-    @Override
-    public void reduce(ContextEl _context) {
-        CustList<CustList<ExecOperationNode>> annotationsOps_;
-        annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
-        for (CustList<ExecOperationNode> a: annotationsOps) {
-            ExecOperationNode r_ = a.last();
-            annotationsOps_.add(ElUtil.getReducedNodes(r_));
-        }
-        annotationsOps = annotationsOps_;
-        ExecOperationNode r_ = opValue.last();
-        opValue = ElUtil.getReducedNodes(r_);
+        _ex.getAnnotationsOps().addAllElts(annotationsOps);
     }
     @Override
     public StringList getAnnotations() {
@@ -282,51 +277,4 @@ public final class FieldBlock extends Leaf implements InfoBlock,AccessibleBlock 
         return annotationsIndexes;
     }
 
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        boolean static_ = isStaticField();
-        boolean in_ = false;
-        if (ip_ instanceof FieldInitPageEl && !static_) {
-            in_ = true;
-        } else if (ip_ instanceof StaticInitPageEl && static_) {
-            in_ = true;
-        }
-        if (in_) {
-            ip_.setGlobalOffset(valueOffset);
-            ip_.setOffset(0);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            ElUtil.tryToCalculate(_cont,el_,0);
-            if (_cont.callsOrException()) {
-                return;
-            }
-            ip_.clearCurrentEls();
-        }
-        processBlock(_cont);
-    }
-
-    @Override
-    public RootBlock belong() {
-        return (RootBlock) getParent();
-    }
-
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return getValueEl();
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int len_ = annotationsIndexes.size();
-        for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexes.get(i);
-            int end_ = begin_ + annotations.get(i).length();
-            ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOps.get(i),end_,_parts,0,"",true);
-        }
-        _parts.addAllElts(partOffsets);
-        int blOffset_ = valueOffset;
-        int endBl_ = blOffset_ + value.length();
-        ElUtil.buildCoverageReport(_cont,blOffset_,this,getOpValue(),endBl_,_parts);
-    }
 }

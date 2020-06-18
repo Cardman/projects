@@ -1,5 +1,7 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecDoBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -11,7 +13,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class DoBlock extends BracedStack implements Loop {
+public final class DoBlock extends BracedBlock implements Loop {
 
     private String label;
     private int labelOffset;
@@ -75,40 +77,13 @@ public final class DoBlock extends BracedStack implements Loop {
     }
 
     @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        refLabel(_parts,label,labelOffset);
-    }
-
-    @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-    }
-
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        LoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
-        if (c_ != null) {
-            ip_.processVisitedLoop(c_,this,getNextSibling(),_cont);
-            return;
-        }
-        LoopBlockStack l_ = new LoopBlockStack();
-        l_.setBlock(this);
-        l_.setCurrentVisitedBlock(this);
-        ip_.addBlock(l_);
-        rw_.setBlock(getFirstChild());
-    }
-
-    @Override
-    public void exitStack(ContextEl _context) {
-        processLastElementLoop(_context);
-    }
-
-    @Override
-    public void processLastElementLoop(ContextEl _conf) {
-        AbstractPageEl ip_ = _conf.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        rw_.setBlock(getNextSibling());
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        ExecDoBlock exec_ = new ExecDoBlock(getOffset(),label,labelOffset);
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
 }

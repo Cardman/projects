@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecEnumBlock;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -66,7 +67,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             String id_ = Templates.getIdFromAllTypes(type_);
             if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont.getContext())) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
-                    if (!(_cont.getContext().getClassBody(id_) instanceof EnumBlock)) {
+                    if (!(_cont.getContext().getClassBody(id_) instanceof ExecEnumBlock)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(valueOffset);

@@ -2,10 +2,10 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -33,17 +33,17 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             if (onParameters) {
                 if (structBlock_ instanceof ConstructorMetaInfo){
                     ConstructorMetaInfo ctor_ = ApplyCoreMethodUtil.getCtor(structBlock_);
-                    for (ConstructorBlock o: Classes.getConstructorBodiesById(_context,ctor_.getClassName(),ctor_.getRealId())) {
+                    for (ExecConstructorBlock o: ExecBlock.getConstructorBodiesById(_context,ctor_.getClassName(),ctor_.getRealId())) {
                         annotationsParams = o.getAnnotationsOpsParams();
                     }
                 } else if (structBlock_ instanceof MethodMetaInfo) {
                     MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(structBlock_);
                     if (method_.isOperator()) {
-                        for (NamedFunctionBlock o: Classes.getOperatorsBodiesById(_context,method_.getRealId())) {
+                        for (ExecNamedFunctionBlock o: ExecBlock.getOperatorsBodiesById(_context,method_.getRealId())) {
                             annotationsParams = o.getAnnotationsOpsParams();
                         }
                     } else {
-                        for (NamedFunctionBlock o: Classes.getMethodBodiesById(_context, method_.getClassName(),method_.getRealId())) {
+                        for (ExecNamedFunctionBlock o: ExecBlock.getMethodBodiesById(_context, method_.getClassName(),method_.getRealId())) {
                             annotationsParams = o.getAnnotationsOpsParams();
                         }
                     }
@@ -53,23 +53,23 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             } else if (structBlock_ instanceof ClassMetaInfo) {
                 String cl_ = ApplyCoreMethodUtil.getClass(structBlock_).getName();
                 String id_ = Templates.getIdFromAllTypes(cl_);
-                RootBlock type_ = _context.getClasses().getClassBody(id_);
+                ExecRootBlock type_ = _context.getClasses().getExecClassBody(id_);
                 if (type_ != null) {
                     annotations= type_.getAnnotationsOps();
                 }
             } else if (structBlock_ instanceof ConstructorMetaInfo){
                 ConstructorMetaInfo ctor_ = ApplyCoreMethodUtil.getCtor(structBlock_);
-                for (ConstructorBlock o: Classes.getConstructorBodiesById(_context,ctor_.getClassName(),ctor_.getRealId())) {
+                for (ExecConstructorBlock o: ExecBlock.getConstructorBodiesById(_context,ctor_.getClassName(),ctor_.getRealId())) {
                     annotations = o.getAnnotationsOps();
                 }
             } else if (structBlock_ instanceof MethodMetaInfo){
                 MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(structBlock_);
                 if (method_.isOperator()) {
-                    for (NamedFunctionBlock o: Classes.getOperatorsBodiesById(_context,method_.getRealId())) {
+                    for (ExecNamedFunctionBlock o: ExecBlock.getOperatorsBodiesById(_context,method_.getRealId())) {
                         annotations = o.getAnnotationsOps();
                     }
                 } else {
-                    for (NamedFunctionBlock o: Classes.getMethodBodiesById(_context, method_.getClassName(),method_.getRealId())) {
+                    for (ExecNamedFunctionBlock o: ExecBlock.getMethodBodiesById(_context, method_.getClassName(),method_.getRealId())) {
                         annotations = o.getAnnotationsOps();
                     }
                 }
@@ -78,9 +78,9 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 String fieldId_ = ApplyCoreMethodUtil.getField(structBlock_).getName();
                 String cl_ = ApplyCoreMethodUtil.getField(structBlock_).getDeclaringClass();
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
-                RootBlock type_ = _context.getClasses().getClassBody(idClass_);
+                ExecRootBlock type_ = _context.getClasses().getExecClassBody(idClass_);
                 if (type_ != null) {
-                    for (InfoBlock f: ContextEl.getFieldBlocks(type_)) {
+                    for (ExecInfoBlock f: ExecBlock.getFieldBlocks(type_)) {
                         if (!StringList.contains(f.getFieldName(), fieldId_)) {
                             continue;
                         }
@@ -176,7 +176,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 indexAnnotation++;
             }
         }
-        
+
         Argument out_ = new Argument();
         out_.setStruct(array);
         setReturnedArgument(out_);

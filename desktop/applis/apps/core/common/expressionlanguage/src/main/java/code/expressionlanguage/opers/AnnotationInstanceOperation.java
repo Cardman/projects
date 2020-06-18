@@ -3,6 +3,9 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.*;
+import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
+import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -53,13 +56,13 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 inst_ = (AnnotationInstanceOperation)mOpAss_;
                 String className_ = inst_.getClassName();
                 GeneType typeInfo_ = _conf.getClassBody(className_);
-                if (!(typeInfo_ instanceof Block)) {
+                if (!(typeInfo_ instanceof ExecBlock)) {
                     className = _conf.getStandards().getAliasObject();
                     return;
                 }
-                Block ann_ = (Block) typeInfo_;
+                ExecBlock ann_ = (ExecBlock) typeInfo_;
                 String type_ = EMPTY_STRING;
-                CustList<AnnotationMethodBlock> list_ = Classes.getMethodAnnotationBodiesById(ann_, fieldName_);
+                CustList<ExecAnnotationMethodBlock> list_ = ExecBlock.getMethodAnnotationBodiesById(ann_, fieldName_);
                 if (!list_.isEmpty()) {
                     type_ = list_.first().getImportedReturnType();
                 }
@@ -76,24 +79,24 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     inst_ = (AnnotationInstanceOperation)mOp_;
                     String className_ = inst_.getClassName();
                     GeneType type_ = _conf.getClassBody(className_);
-                    if (!(type_ instanceof Block)) {
+                    if (!(type_ instanceof ExecBlock)) {
                         className = _conf.getStandards().getAliasObject();
                         return;
                     }
-                    Block ann_ = (Block) type_;
-                    CustList<Block> bls_ = Classes.getDirectChildren(ann_);
-                    CustList<AnnotationMethodBlock> blsAnn_ = new CustList<AnnotationMethodBlock>();
-                    for (Block b: bls_) {
-                        if (!(b instanceof AnnotationMethodBlock)) {
+                    ExecBlock ann_ = (ExecBlock) type_;
+                    CustList<ExecBlock> bls_ = ExecBlock.getDirectChildren(ann_);
+                    CustList<ExecAnnotationMethodBlock> blsAnn_ = new CustList<ExecAnnotationMethodBlock>();
+                    for (ExecBlock b: bls_) {
+                        if (!(b instanceof ExecAnnotationMethodBlock)) {
                             continue;
                         }
-                        AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
+                        ExecAnnotationMethodBlock a_ = (ExecAnnotationMethodBlock) b;
                         blsAnn_.add(a_);
                     }
                     if (blsAnn_.size() != 1) {
                         className = _conf.getStandards().getAliasObject();
                     } else {
-                        AnnotationMethodBlock a_ =blsAnn_.first();
+                        ExecAnnotationMethodBlock a_ =blsAnn_.first();
                         className = a_.getImportedReturnType();
                     }
                 }
@@ -105,7 +108,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             realClassName_ = ResolvingImportTypes.resolveCorrectType(_conf,1,realClassName_);
             partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
             GeneType g_ = _conf.getClassBody(realClassName_);
-            if (!(g_ instanceof AnnotationBlock)) {
+            if (!(g_ instanceof ExecAnnotationBlock)) {
                 className = _conf.getStandards().getAliasObject();
                 setResultClass(new ClassArgumentMatching(realClassName_));
                 return;
@@ -197,11 +200,11 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
 
         GeneType g_ = _conf.getClassBody(className);
         StringMap<AnnotationFieldInfo> fields_ = new StringMap<AnnotationFieldInfo>();
-        for (Block b: Classes.getDirectChildren((Block)g_)) {
-            if (!(b instanceof AnnotationMethodBlock)) {
+        for (ExecBlock b: ExecBlock.getDirectChildren((ExecBlock)g_)) {
+            if (!(b instanceof ExecAnnotationMethodBlock)) {
                 continue;
             }
-            AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
+            ExecAnnotationMethodBlock a_ = (ExecAnnotationMethodBlock) b;
             fields_.put(a_.getName(), new AnnotationFieldInfo(a_.getImportedReturnType(),!a_.getDefaultValue().isEmpty()));
         }
         StringList suppliedFields_ = new StringList();

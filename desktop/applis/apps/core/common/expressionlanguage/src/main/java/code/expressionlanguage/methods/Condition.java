@@ -3,6 +3,7 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecCondition;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -18,7 +19,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.StringList;
 
-public abstract class Condition extends BracedStack implements WithNotEmptyEl, BuildableElMethod {
+public abstract class Condition extends BracedBlock implements BuildableElMethod {
 
     private String condition;
 
@@ -39,13 +40,20 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         opCondition = ElUtil.getAnalyzedOperationsReadOnly(condition, _cont, Calculation.staticCalculation(f_.getStaticContext()));
+        ExecCondition exec_ = newCondition(condition, conditionOffset, opCondition);
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
         processBoolean(_cont);
     }
+
+    protected abstract ExecCondition newCondition(String _condition, int _conditionOffset,CustList<ExecOperationNode> _ops);
 
     private void processBoolean(ContextEl _cont) {
         ExecOperationNode elCondition_ = opCondition.last();
@@ -62,22 +70,7 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
         elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
     }
 
-    @Override
-    public void reduce(ContextEl _context) {
-        ExecOperationNode r_ = opCondition.last();
-        opCondition = ElUtil.getReducedNodes(r_);
-    }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int off_ = getConditionOffset();
-        int offsetEndBlock_ = off_ + getCondition().length();
-        ElUtil.buildCoverageReport(_cont,off_,this,getOpCondition(),offsetEndBlock_,_parts);
-    }
-
-    public final ExpressionLanguage getElCondition() {
-        return new ExpressionLanguage(opCondition);
-    }
     public ExecOperationNode getRoot() {
         return getOpCondition().last();
     }
@@ -89,26 +82,6 @@ public abstract class Condition extends BracedStack implements WithNotEmptyEl, B
         return condition;
     }
 
-    final ConditionReturn evaluateCondition(ContextEl _context) {
-        AbstractPageEl last_ = _context.getLastPage();
-        ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-        last_.setOffset(0);
-        last_.setGlobalOffset(conditionOffset);
-        Argument arg_ = ElUtil.tryToCalculate(_context,exp_,0);
-        if (_context.callsOrException()) {
-            return ConditionReturn.CALL_EX;
-        }
-        last_.clearCurrentEls();
-        if (BooleanStruct.isTrue(ClassArgumentMatching.convertToBoolean(arg_.getStruct()))) {
-            return ConditionReturn.YES;
-        }
-        return ConditionReturn.NO;
-    }
 
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return getElCondition();
-    }
 
 }

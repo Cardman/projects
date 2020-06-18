@@ -2,7 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.files.OffsetsBlock;
 
-public abstract class Leaf extends Block implements WithEl {
+public abstract class Leaf extends Block {
 
     Leaf(OffsetsBlock _offset) {
         super(_offset);

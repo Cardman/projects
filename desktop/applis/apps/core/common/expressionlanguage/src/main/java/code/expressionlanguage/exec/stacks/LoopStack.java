@@ -10,7 +10,7 @@ public abstract class LoopStack {
     private long index;
 
     private long maxIteration;
-
+    private String label;
     public boolean hasNext() {
         return index + 1 < maxIteration;
     }
@@ -41,5 +41,13 @@ public abstract class LoopStack {
 
     public void setIndex(long _index) {
         index = _index;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String _label) {
+        label = _label;
     }
 }

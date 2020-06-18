@@ -1,21 +1,20 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecContinueBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.stacks.RemovableVars;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ContinueBlock extends AbruptBlock implements CallingFinally {
+public final class ContinueBlock extends AbruptBlock {
 
     private String label;
     private int labelOffset;
@@ -38,6 +37,11 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         checkLoop(_cont);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        ExecContinueBlock exec_ = new ExecContinueBlock(getOffset(),label,labelOffset,labelOffsetRef);
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private void checkLoop(ContextEl _cont) {
@@ -129,52 +133,5 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
         id_.put((Loop) a_, pars_);
         continuablesAncestors_.put(this, id_);
         continuables_.put(this, (Loop) a_);
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        if (getLabel().isEmpty()) {
-            return;
-        }
-        String tag_ = "<a href=\"#"+labelOffsetRef+"\">";
-        _parts.add(new PartOffset(tag_,labelOffset));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_,labelOffset+getLabel().length()));
-    }
-    @Override
-    public void processEl(ContextEl _cont) {
-        removeBlockFinally(_cont);
-    }
-
-    @Override
-    public void removeBlockFinally(ContextEl _conf) {
-        AbstractPageEl ip_ = _conf.getLastPage();
-        Loop loop_;
-        while (true) {
-            RemovableVars bl_ = ip_.getLastStack();
-            if (bl_ instanceof LoopBlockStack) {
-                BracedBlock br_ = bl_.getBlock();
-                if (label.isEmpty()) {
-                    br_.removeLocalVars(ip_);
-                    loop_ = (Loop) br_;
-                    break;
-                }
-                if (StringList.quickEq(label, ((BreakableBlock) br_).getRealLabel())){
-                    br_.removeLocalVars(ip_);
-                    loop_ = (Loop) br_;
-                    break;
-                }
-            }
-            if (AbstractPageEl.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
-                return;
-            }
-        }
-        ip_.getReadWrite().setBlock((Block) loop_);
-        loop_.processLastElementLoop(_conf);
-    }
-
-    @Override
-    public AbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
-        return new AbruptCallingFinally(this);
     }
 }

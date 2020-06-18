@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.RootBlock;
@@ -16,7 +17,7 @@ public final class ResolvingSuperTypes {
 
 
     /**Used at building mapping constraints*/
-    public static String resolveTypeMapping(ContextEl _context,String _in, RootBlock _currentBlock,
+    public static String resolveTypeMapping(ContextEl _context,String _in, ExecRootBlock _currentBlock,
                                      int _location) {
         String void_ = _context.getStandards().getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
@@ -30,7 +31,7 @@ public final class ResolvingSuperTypes {
             return _context.getStandards().getAliasObject();
         }
         StringMap<Integer> variables_ = new StringMap<Integer>();
-        for (RootBlock r: _currentBlock.getSelfAndParentTypes()) {
+        for (ExecRootBlock r: _currentBlock.getSelfAndParentTypes()) {
             for (TypeVar t: r.getParamTypes()) {
                 variables_.addEntry(t.getName(),t.getOffset());
             }
@@ -64,10 +65,10 @@ public final class ResolvingSuperTypes {
         return resType_;
     }
     /**Used at building mapping constraints*/
-    public static String resolveTypeInherits(ContextEl _context, String _in, RootBlock _currentBlock,
+    public static String resolveTypeInherits(ContextEl _context, String _in, ExecRootBlock _currentBlock,
                                       int _location) {
         StringMap<Integer> variables_ = new StringMap<Integer>();
-        for (RootBlock r: _currentBlock.getSelfAndParentTypes()) {
+        for (ExecRootBlock r: _currentBlock.getSelfAndParentTypes()) {
             for (TypeVar t: r.getParamTypes()) {
                 variables_.addEntry(t.getName(),t.getOffset());
             }
@@ -77,7 +78,7 @@ public final class ResolvingSuperTypes {
         _context.getAnalyzing().getAvailableVariables().putAllMap(variables_);
         String gl_ = _currentBlock.getGenericString();
         CustList<PartOffset> partOffsets_ = _currentBlock.getSuperTypesParts();
-        RootBlock scope_ = _currentBlock.getParentType();
+        ExecRootBlock scope_ = _currentBlock.getParentType();
         _context.getAnalyzing().getCurrentBadIndexes().clear();
         String resType_ = AnaPartTypeUtil.processAnalyze(_in,true,gl_,_context,scope_,_currentBlock, _location,partOffsets_);
         for (int i: _context.getAnalyzing().getCurrentBadIndexes()) {
@@ -124,10 +125,10 @@ public final class ResolvingSuperTypes {
         return resType_;
     }
 
-    public static String resolveBaseInherits(ContextEl _context, String _idSup, RootBlock _root, StringList _readyTypes) {
+    public static String resolveBaseInherits(ContextEl _context, String _idSup, ExecRootBlock _root, StringList _readyTypes) {
         String id_ = Templates.getIdFromAllTypes(_idSup);
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        RootBlock scope_ = _root.getParentType();
+        ExecRootBlock scope_ = _root.getParentType();
         InheritReadyTypes inh_ = new InheritReadyTypes(_readyTypes);
         return AnaPartTypeUtil.processAnalyzeLineInherits(id_, inh_,true, _context,scope_,_root, -1,partOffsets_);
     }

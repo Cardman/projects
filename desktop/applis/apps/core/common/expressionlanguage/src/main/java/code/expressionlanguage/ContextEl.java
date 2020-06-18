@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.common.*;
@@ -76,35 +77,11 @@ public abstract class ContextEl {
         setFullStack(new DefaultFullStack(this));
     }
 
-    public static CustList<AnnotationMethodBlock> getAnnotationMethods(GeneType _element) {
-        CustList<AnnotationMethodBlock> methods_ = new CustList<AnnotationMethodBlock>();
-        for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
-            if (b instanceof AnnotationMethodBlock) {
-                methods_.add((AnnotationMethodBlock) b);
-            }
-        }
-        return methods_;
-    }
-    public static CustList<GeneMethod> getMethodBlocks(GeneType _element) {
-        CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
-        if (_element instanceof RootBlock) {
-            for (GeneCustMethod m:Classes.getMethodBlocks((RootBlock) _element)) {
-                methods_.add(m);
-            }
-        }
-        if (_element instanceof StandardType) {
-            for (StandardMethod m : ((StandardType) _element).getMethods().values()) {
-                methods_.add(m);
-            }
-        }
-        return methods_;
-    }
-
-    public static CustList<InfoBlock> getFieldBlocks(RootBlock _element){
-        CustList<InfoBlock> methods_ = new CustList<InfoBlock>();
-        for (Block b: Classes.getDirectChildren(_element)) {
-            if (b instanceof InfoBlock) {
-                methods_.add((InfoBlock) b);
+    public static CustList<ExecInfoBlock> getFieldBlocks(ExecRootBlock _element){
+        CustList<ExecInfoBlock> methods_ = new CustList<ExecInfoBlock>();
+        for (ExecBlock b: ExecBlock.getDirectChildren(_element)) {
+            if (b instanceof ExecInfoBlock) {
+                methods_.add((ExecInfoBlock) b);
             }
         }
         return methods_;
@@ -112,7 +89,7 @@ public abstract class ContextEl {
 
     public GeneType getClassBody(String _type) {
         if (classes.isCustomType(_type)) {
-            return classes.getClassBody(_type);
+            return classes.getExecClassBody(_type);
         }
         return standards.getStandards().getVal(_type);
     }
@@ -154,7 +131,7 @@ public abstract class ContextEl {
     }
 
     private String getLocationFile(String _fileName, int _sum) {
-        FileBlock file_ = classes.getFileBody(_fileName);
+        ExecFileBlock file_ = classes.getFileBody(_fileName);
         int r_ = file_.getRowFile(_sum);
         int c_ = file_.getColFile(_sum,r_);
         return StringList.concat( Integer.toString(r_),",",Integer.toString(c_),",",Integer.toString(_sum));
@@ -266,7 +243,7 @@ public abstract class ContextEl {
         if (bl_ instanceof RootBlock) {
             return ((RootBlock)bl_).isStaticType();
         }
-        FunctionBlock fct_ = analyzing.getCurrentFct();
+        MemberCallingsBlock fct_ = analyzing.getCurrentFct();
         return fct_.getStaticContext() == MethodAccessKind.STATIC;
     }
 
@@ -373,13 +350,13 @@ public abstract class ContextEl {
         if (_type instanceof StandardInterface) {
             return true;
         }
-        if (_type instanceof RootBlock) {
-            return ((RootBlock)_type).isAbstractType();
+        if (_type instanceof ExecRootBlock) {
+            return ((ExecRootBlock)_type).isAbstractType();
         }
         return ((StandardClass)_type).isAbstractStdType();
     }
     public static boolean isEnumType(GeneType _type) {
-        return _type instanceof EnumBlock || _type instanceof InnerElementBlock;
+        return _type instanceof ExecEnumBlock || _type instanceof ExecInnerElementBlock;
     }
 
     public void setCurrentChildTypeIndex(int _index) {
@@ -412,7 +389,7 @@ public abstract class ContextEl {
     public StackTraceElementStruct newStackTraceElement(int _index) {
         AbstractPageEl call_ = getCall(_index);
         int indexFileType = call_.getTraceIndex();
-        FileBlock f_ = call_.getFile();
+        ExecFileBlock f_ = call_.getFile();
         String fileName;
         int row;
         int col;
@@ -426,7 +403,7 @@ public abstract class ContextEl {
             col = 0;
         }
         String currentClassName = call_.getGlobalClass();
-        Block bl_ = call_.getBlockRoot();
+        ExecBlock bl_ = call_.getBlockRoot();
         if (bl_ != null) {
             FunctionBlock fct_ = bl_.getFunction();
             if (fct_ instanceof ReturnableWithSignature) {
@@ -462,14 +439,14 @@ public abstract class ContextEl {
             return new StringMap<TypeVar>();
         }
         Block bl_ = analyzing.getCurrentBlock();
-        AccessingImportingBlock r_ = getCurrentGlobalBlock();
+        ExecAccessingImportingBlock r_ = getCurrentGlobalBlock();
         StringMap<TypeVar> vars_ = new StringMap<TypeVar>();
 
         boolean static_;
         if (bl_ instanceof InfoBlock) {
             static_ = ((InfoBlock)bl_).isStaticField();
         } else {
-            FunctionBlock fct_ = analyzing.getCurrentFct();
+            MemberCallingsBlock fct_ = analyzing.getCurrentFct();
             if (fct_ == null) {
                 static_ = true;
             } else if (isExplicitFct(fct_)){
@@ -478,8 +455,8 @@ public abstract class ContextEl {
                 static_ = fct_.getStaticContext() == MethodAccessKind.STATIC;
             }
         }
-        if (r_ instanceof RootBlock && !static_) {
-            for (TypeVar t: ((RootBlock)r_).getParamTypesMapValues()) {
+        if (r_ instanceof ExecRootBlock && !static_) {
+            for (TypeVar t: ((ExecRootBlock)r_).getParamTypesMapValues()) {
                 vars_.put(t.getName(), t);
             }
         }
@@ -501,12 +478,12 @@ public abstract class ContextEl {
         if (!ElUtil.isFromCustFile(g_)) {
             return;
         }
-        AccessingImportingBlock r_ = getCurrentGlobalBlock();
+        ExecAccessingImportingBlock r_ = getCurrentGlobalBlock();
         int rc_ = getCurrentLocationIndex();
-        String curr_ = ((Block)r_).getFile().getRenderFileName();
-        String ref_ = ((RootBlock) g_).getFile().getRenderFileName();
+        String curr_ = ((ExecBlock)r_).getFile().getRenderFileName();
+        String ref_ = ((ExecRootBlock) g_).getFile().getRenderFileName();
         String rel_ = ElUtil.relativize(curr_,ref_);
-        int id_ = ((RootBlock) g_).getIdRowCol();
+        int id_ = ((ExecRootBlock) g_).getIdRowCol();
         _parts.add(new PartOffset("<a title=\""+g_.getFullName()+"\" href=\""+rel_+"#m"+id_+"\">",rc_+_begin));
         _parts.add(new PartOffset("</a>",rc_+_end));
     }
@@ -523,12 +500,12 @@ public abstract class ContextEl {
     public FieldInfo getFieldInfo(ClassField _classField) {
         GeneType g_ = getClassBody(_classField.getClassName());
         String search_ = _classField.getFieldName();
-        if (g_ instanceof RootBlock) {
-            for (Block b: Classes.getDirectChildren((Block) g_)) {
-                if (!(b instanceof InfoBlock)) {
+        if (g_ instanceof ExecRootBlock) {
+            for (ExecBlock b: ExecBlock.getDirectChildren((ExecBlock) g_)) {
+                if (!(b instanceof ExecInfoBlock)) {
                     continue;
                 }
-                InfoBlock i_ = (InfoBlock) b;
+                ExecInfoBlock i_ = (ExecInfoBlock) b;
                 if (!StringList.contains(i_.getFieldName(), search_)) {
                     continue;
                 }
@@ -719,12 +696,12 @@ public abstract class ContextEl {
     }
 
 
-    public AccessingImportingBlock getCurrentGlobalBlock() {
+    public ExecAccessingImportingBlock getCurrentGlobalBlock() {
         return getAnalyzing().getImporting();
     }
 
 
-    public AccessingImportingBlock getCurrentGlobalBlock(AccessingImportingBlock _bl) {
+    public ExecAccessingImportingBlock getCurrentGlobalBlock(ExecAccessingImportingBlock _bl) {
         CustList<PartOffset> offs_ = getCoverage().getCurrentParts();
         offs_.clear();
         return _bl;

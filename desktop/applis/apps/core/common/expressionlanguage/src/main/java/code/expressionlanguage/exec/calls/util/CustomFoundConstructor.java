@@ -1,13 +1,13 @@
 package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 
 public final class CustomFoundConstructor implements CallingState {
 
     private final String className;
-    private final RootBlock type;
+    private final ExecRootBlock type;
 
     private final String fieldName;
     private final int childIndex;
@@ -20,7 +20,8 @@ public final class CustomFoundConstructor implements CallingState {
 
     private final InstancingStep instanceStep;
 
-    public CustomFoundConstructor(String _className, RootBlock _type,
+    public CustomFoundConstructor(String _className,
+                                  ExecRootBlock _type,
                                   String _fieldName, int _childIndex,
             ConstructorId _id, Argument _currentObject, CustList<Argument> _arguments, InstancingStep _instance) {
         className = _className;
@@ -42,7 +43,7 @@ public final class CustomFoundConstructor implements CallingState {
         return call_;
     }
 
-    public RootBlock getType() {
+    public ExecRootBlock getType() {
         return type;
     }
 

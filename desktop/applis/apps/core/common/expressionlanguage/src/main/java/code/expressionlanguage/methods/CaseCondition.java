@@ -3,6 +3,9 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.exec.blocks.ExecCaseCondition;
+import code.expressionlanguage.exec.blocks.ExecEnumBlock;
+import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.common.GeneField;
@@ -50,7 +53,7 @@ public final class CaseCondition extends SwitchPartBlock {
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
@@ -69,13 +72,18 @@ public final class CaseCondition extends SwitchPartBlock {
             //key word len
             _cont.addError(un_);
             opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
+            ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset,builtEnum,typeEnum,opValue);
+            page_.getBlockToWrite().appendChild(exec_);
+            page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+            page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+            _cont.getCoverage().putBlockOperations(_cont, exec_,this);
             return;
         }
         _cont.getCoverage().putBlockOperationsSwitchs(_cont,par_,this);
         SwitchBlock sw_ = (SwitchBlock) par_;
         ClassArgumentMatching resSwitch_ = sw_.getOpValue().last().getResultClass();
         String type_ = resSwitch_.getSingleNameOrEmpty();
-        EnumBlock e_ = getEnumType(_cont, type_);
+        ExecEnumBlock e_ = getEnumType(_cont, type_);
         if (e_ != null) {
             String id_ = Templates.getIdFromAllTypes(type_);
             for (GeneField f: ContextEl.getFieldBlocks(e_)) {
@@ -95,33 +103,48 @@ public final class CaseCondition extends SwitchPartBlock {
                 opValue = new CustList<ExecOperationNode>();
                 opValue.add(ExecOperationNode.createExecOperationNode(op_));
                 checkDuplicateEnumCase(_cont);
+                ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset,builtEnum,typeEnum,opValue);
+                page_.getBlockToWrite().appendChild(exec_);
+                page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+                page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+                _cont.getCoverage().putBlockOperations(_cont, exec_,this);
                 return;
             }
             opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
             processNullValue(_cont);
+            ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset,builtEnum,typeEnum,opValue);
+            page_.getBlockToWrite().appendChild(exec_);
+            page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+            page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+            _cont.getCoverage().putBlockOperations(_cont, exec_,this);
             return;
         }
         opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
         processNumValues(_cont, resSwitch_);
+        ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset,builtEnum,typeEnum,opValue);
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
-    private EnumBlock getEnumType(ContextEl _cont,String _type) {
+    private ExecEnumBlock getEnumType(ContextEl _cont,String _type) {
         if (_type.isEmpty()) {
             return null;
         }
         String id_ = Templates.getIdFromAllTypes(_type);
         GeneType g_ = _cont.getClassBody(id_);
-        if (g_ instanceof EnumBlock) {
-            return (EnumBlock) g_;
+        if (g_ instanceof ExecEnumBlock) {
+            return (ExecEnumBlock) g_;
         }
         return null;
 
     }
     private boolean match(GeneField _f) {
-        if (!(_f instanceof InnerTypeOrElement)) {
+        if (!(_f instanceof ExecInnerTypeOrElement)) {
             return false;
         }
-        InnerTypeOrElement e_ = (InnerTypeOrElement) _f;
+        ExecInnerTypeOrElement e_ = (ExecInnerTypeOrElement) _f;
         return StringList.quickEq(e_.getUniqueFieldName(), value.trim());
     }
     private void processNullValue(ContextEl _cont) {
@@ -225,54 +248,5 @@ public final class CaseCondition extends SwitchPartBlock {
             }
             first_ = first_.getNextSibling();
         }
-    }
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        ip_.setGlobalOffset(valueOffset);
-        ip_.setOffset(0);
-        rw_.setBlock(getFirstChild());
-        ip_.getLastStack().setCurrentVisitedBlock(this);
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        BracedBlock parent_ = getParent();
-        AbstractCoverageResult result_ = _cont.getCoverage().getCoverSwitchs().getVal(parent_).getVal(this);
-        String tag_;
-        if (result_.isFullCovered()) {
-            tag_ = "<span class=\"f\">";
-        } else {
-            tag_ = "<span class=\"n\">";
-        }
-        int off_ = getValueOffset();
-        _parts.add(new PartOffset(tag_,off_));
-        if (builtEnum) {
-            GeneType type_ = _cont.getClassBody(typeEnum);
-            int delta_ = -1;
-            for (Block b: Classes.getDirectChildren((Block) type_)) {
-                if (!(b instanceof InnerTypeOrElement)) {
-                    continue;
-                }
-                InnerTypeOrElement f_ = (InnerTypeOrElement)b;
-                if (!StringList.quickEq(f_.getUniqueFieldName(),getValue())) {
-                    continue;
-                }
-                delta_ = f_.getFieldNameOffset();
-            }
-            String file_ = ((RootBlock) type_).getFile().getRenderFileName();
-            String currentFileName_ = _cont.getCoverage().getCurrentFileName();
-            String rel_ = ElUtil.relativize(currentFileName_,file_+"#m"+delta_);
-            tag_ = "<a title=\""+ElUtil.transform(typeEnum +"."+ getValue())+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_,off_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,off_+getValue().length()));
-        } else {
-            int offsetEndBlock_ = off_ + getValue().length();
-            ElUtil.buildCoverageReport(_cont,off_,this,getOpValue(),offsetEndBlock_,_parts);
-        }
-        tag_ = "</span>";
-        _parts.add(new PartOffset(tag_,off_+ getValue().length()));
     }
 }

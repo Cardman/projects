@@ -1,11 +1,12 @@
 package code.expressionlanguage.exec.stacks;
-import code.expressionlanguage.methods.BracedBlock;
+import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 
 public interface RemovableVars {
 
-    BracedBlock getBlock();
-    void setCurrentVisitedBlock(BracedBlock _bl);
-    BracedBlock getCurrentVisitedBlock();
-    BracedBlock getLastBlock();
+    ExecBracedBlock getBlock();
+    void setCurrentVisitedBlock(ExecBracedBlock _bl);
+    ExecBracedBlock getCurrentVisitedBlock();
+    ExecBracedBlock getLastBlock();
 
+    String getLabel();
 }

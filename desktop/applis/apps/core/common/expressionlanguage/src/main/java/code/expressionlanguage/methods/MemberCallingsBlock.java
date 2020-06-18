@@ -3,8 +3,10 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -49,15 +51,18 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         }
     }
 
-    public final void buildFctInstructionsReadOnly(ContextEl _cont) {
+    public final void buildFctInstructionsReadOnly(ContextEl _cont, ExecMemberCallingsBlock _mem) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
+        page_.setBlockToWrite(_mem);
         Block firstChild_ = getFirstChild();
         StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         AnalyzingEl anEl_ = new AnalyzingEl(mapping_);
+        anEl_.getMappingBracedMembers().put(this,_mem);
+        _cont.getCoverage().putBlockOperations(_cont,_mem,this);
         _cont.getAnalyzing().setAnalysisAss(anEl_);
         _cont.getAnalyzing().setCurrentFct(this);
         anEl_.setRoot(this);
@@ -91,6 +96,9 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             if (en_ != anEl_.getRoot()) {
                 visit_ = tryBuildExpressionLanguageReadOnly(en_, _cont);
             }
+            if (visit_ && en_ instanceof BracedBlock&& n_ != null) {
+                page_.setBlockToWrite(anEl_.getMappingBracedMembers().getVal((BracedBlock) en_));
+            }
             if (visit_ && n_ != null) {
                 en_ = n_;
                 continue;
@@ -121,9 +129,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                     page_.removeCatchVars();
                     return;
                 }
-                if (par_ instanceof ForMutableIterativeLoop) {
-                    ((ForMutableIterativeLoop)par_).buildIncrementPartReadOnly(_cont);
-                }
                 par_.checkTree(_cont, anEl_);
                 parents_.removeLast();
                 removeBreakablePar(parentsBreakables_, par_);
@@ -134,6 +139,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 page_.removeMutableLoopVars();
                 page_.removeCatchVars();
                 removeLabel(par_, labels_);
+                page_.setBlockToWrite(page_.getBlockToWrite().getParent());
                 en_ = par_;
             }
         }
@@ -221,5 +227,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     }
 
     public abstract void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl);
+
+    public abstract  MethodAccessKind getStaticContext();
 
 }

@@ -5,6 +5,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -1668,13 +1670,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
         }
         if (StringList.quickEq(id_.getName(),"[]=")) {
-            CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
+            CustList<ExecOverridableBlock> getIndexers_ = new CustList<ExecOverridableBlock>();
             String idCl_ = Templates.getIdFromAllTypes(_id.getRealClass());
-            for (Block b: Classes.getDirectChildren(_an.getClasses().getClassBody(idCl_))) {
-                if (!(b instanceof OverridableBlock)) {
+            for (ExecBlock b: ExecBlock.getDirectChildren(_an.getClasses().getExecClassBody(idCl_))) {
+                if (!(b instanceof ExecOverridableBlock)) {
                     continue;
                 }
-                OverridableBlock i_ = (OverridableBlock) b;
+                ExecOverridableBlock i_ = (ExecOverridableBlock) b;
                 if (i_.getKind() != MethodKind.GET_INDEX) {
                     continue;
                 }
@@ -1684,7 +1686,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 getIndexers_.add(i_);
             }
             if (getIndexers_.size() == 1) {
-                OverridableBlock matching_ = getIndexers_.first();
+                ExecOverridableBlock matching_ = getIndexers_.first();
                 String importedReturnType_ = matching_.getImportedReturnType();
                 String real_ = _id.getRealClass();
                 importedReturnType_ = Templates.wildCardFormatReturn(real_, importedReturnType_, _an);

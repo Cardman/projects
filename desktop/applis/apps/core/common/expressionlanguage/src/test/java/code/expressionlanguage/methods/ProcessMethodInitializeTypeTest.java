@@ -11,6 +11,44 @@ import static org.junit.Assert.assertTrue;
 
 public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
     @Test
+    public void calculate0Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  ExThree e = $null;\n");
+        xml_.append("  e.$superaccess(ExThree)inst().append(\"word\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExInit {\n");
+        xml_.append(" $static{\n");
+        xml_.append("  $classchoice(ExTwo)inst().append(\"word\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final StringBuilder inst=$new StringBuilder();\n");
+        xml_.append(" $public $static StringBuilder inst(){\n");
+        xml_.append("  $return inst;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $final StringBuilder inst=$new StringBuilder();\n");
+        xml_.append(" $public $static StringBuilder inst(){\n");
+        xml_.append("  $return inst;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!cont_.getClasses().isInitialized("pkg.ExInit"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+    }
+    @Test
     public void calculate1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

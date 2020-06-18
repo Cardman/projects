@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecDeclareVariable;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -15,7 +16,7 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class DeclareVariable extends Leaf implements InitVariable,BuildableElMethod {
+public final class DeclareVariable extends Leaf implements BuildableElMethod {
 
     private final StringList variableNames = new StringList();
 
@@ -29,6 +30,7 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
 
     private int finalVariableOffset;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private ExecDeclareVariable exec;
     public DeclareVariable(OffsetBooleanInfo _finalVar, OffsetStringInfo _className, OffsetsBlock _offset) {
         super(_offset);
         finalVariable = _finalVar.isInfo();
@@ -37,7 +39,6 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
         classNameOffset = _className.getOffset();
     }
 
-    @Override
     public StringList getVariableNames() {
         return variableNames;
     }
@@ -56,6 +57,11 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         processVariable(_cont);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        exec = new ExecDeclareVariable(getOffset(),className,classNameOffset,importedClassName,variableNames,partOffsets);
+        page_.getBlockToWrite().appendChild(exec);
+        page_.getAnalysisAss().getMappingMembers().put(exec,this);
+        _cont.getCoverage().putBlockOperations(_cont, exec,this);
     }
 
     private void processVariable(ContextEl _cont) {
@@ -78,30 +84,8 @@ public final class DeclareVariable extends Leaf implements InitVariable,Buildabl
         page_.getVariablesNamesToInfer().clear();
     }
 
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        KeyWords keyWords_ = _cont.getKeyWords();
-        String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (StringList.quickEq(className.trim(), keyWordVar_)) {
-            String tag_ = "<b title=\""+ElUtil.transform(importedClassName)+"\">";
-            _parts.add(new PartOffset(tag_,classNameOffset));
-            tag_ = "</b>";
-            _parts.add(new PartOffset(tag_,classNameOffset+ _cont.getKeyWords().getKeyWordFor().length()));
-        } else {
-            _parts.addAllElts(partOffsets);
-        }
-    }
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        String formatted_ = ip_.formatVarType(importedClassName, _cont);
-        Struct struct_ = PrimitiveTypeUtil.defaultValue(formatted_, _cont);
-        for (String v: getVariableNames()) {
-            LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,formatted_);
-            ip_.putLocalVar(v, lv_);
-        }
-        processBlock(_cont);
+    public ExecDeclareVariable getExec() {
+        return exec;
     }
 
     public boolean isFinalVariable() {

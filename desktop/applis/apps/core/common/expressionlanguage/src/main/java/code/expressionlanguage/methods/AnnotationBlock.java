@@ -1,12 +1,13 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.*;
 import code.util.StringList;
 
-public final class AnnotationBlock extends RootBlock implements AccessibleBlock {
+public final class AnnotationBlock extends RootBlock {
 
     private final StringList allSuperTypes = new StringList();
 
@@ -23,7 +24,6 @@ public final class AnnotationBlock extends RootBlock implements AccessibleBlock 
         return true;
     }
 
-    @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;
     }
@@ -44,17 +44,12 @@ public final class AnnotationBlock extends RootBlock implements AccessibleBlock 
     }
 
     @Override
-    public RootBlock belong() {
-        return this;
-    }
-
-    @Override
-    public void setupBasicOverrides(ContextEl _context) {
+    public void setupBasicOverrides(ContextEl _context,ExecRootBlock _exec) {
         useSuperTypesOverrides(_context);
     }
 
     @Override
-    public void buildDirectGenericSuperTypes(ContextEl _classes) {
+    public void buildDirectGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec) {
         importedDirectSuperInterfaces.clear();
         importedDirectSuperInterfaces.add(_classes.getStandards().getAliasAnnotationType());
     }

@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ParseLinesArgUtil;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
@@ -1008,7 +1009,7 @@ public class LgNamesUtils extends LgNames {
         if (_arg instanceof RunnableStruct) {
             String className_ = _arg.getClassName(_cont);
             String id_ = Templates.getIdFromAllTypes(className_);
-            RootBlock clBody_ = _cont.getClasses().getClassBody(id_);
+            ExecRootBlock clBody_ = _cont.getClasses().getExecClassBody(id_);
             if (!ContextEl.isEnumType(clBody_)) {
                 return new StringStruct(_arg.getClassName(_cont));
             }

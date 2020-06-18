@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.exec.blocks.ExecCatchEval;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -53,6 +54,12 @@ public final class CatchEval extends AbstractCatchEval {
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         processVariable(_cont);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        ExecCatchEval exec_ = new ExecCatchEval(getOffset(),variableName,variableNameOffset,importedClassName,partOffsets);
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private void processVariable(ContextEl _cont) {
@@ -118,21 +125,4 @@ public final class CatchEval extends AbstractCatchEval {
         }
     }
 
-    @Override
-    public void removeAllVars(AbstractPageEl _ip) {
-        super.removeAllVars(_ip);
-        String var_ = getVariableName();
-        _ip.getCatchVars().removeKey(var_);
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        super.processReport(_cont, _parts);
-        _parts.addAllElts(partOffsets);
-        String tag_ = "<a name=\"m"+ variableNameOffset +"\">";
-        _parts.add(new PartOffset(tag_,variableNameOffset));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_,variableNameOffset+variableName.length()));
-        _cont.getCoverage().getCatchVars().put(variableName,variableNameOffset);
-    }
 }

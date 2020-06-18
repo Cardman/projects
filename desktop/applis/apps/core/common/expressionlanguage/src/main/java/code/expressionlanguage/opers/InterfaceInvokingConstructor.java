@@ -2,6 +2,8 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.*;
@@ -25,7 +27,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         String cl_ = getMethodName();
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
         cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,cl_.indexOf(PAR_LEFT)+1,cl_);
-        if (!(_conf.getClasses().getClassBody(cl_) instanceof InterfaceBlock)) {
+        if (!(_conf.getClasses().getExecClassBody(cl_) instanceof ExecInterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -129,7 +131,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
     private static void checkInherits(ContextEl _conf, StringList _previousInts, Block _n, String _cl) {
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
-            RootBlock supType_ = _conf.getClasses().getClassBody(sup_);
+            ExecRootBlock supType_ = _conf.getClasses().getExecClassBody(sup_);
             if (supType_.isSubTypeOf(_cl,_conf)) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();

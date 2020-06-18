@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
@@ -73,12 +74,12 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         if (!type_.isEmpty()) {
             String id_ = Templates.getIdFromAllTypes(type_);
             GeneType g_ = _cont.getContext().getClassBody(id_);
-            if (g_ instanceof EnumBlock) {
-                for (InfoBlock f: ContextEl.getFieldBlocks((RootBlock) g_)) {
-                    if (!(f instanceof InnerTypeOrElement)) {
+            if (g_ instanceof ExecEnumBlock) {
+                for (ExecInfoBlock f: ExecBlock.getFieldBlocks((ExecRootBlock) g_)) {
+                    if (!(f instanceof ExecInnerTypeOrElement)) {
                         continue;
                     }
-                    InnerTypeOrElement e_ = (InnerTypeOrElement) f;
+                    ExecInnerTypeOrElement e_ = (ExecInnerTypeOrElement) f;
                     if (!StringList.quickEq(e_.getUniqueFieldName(), value.trim())) {
                         continue;
                     }

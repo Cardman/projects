@@ -2,6 +2,8 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.InterfaceBlock;
@@ -24,7 +26,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         String cl_ = getMethodName();
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
         cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,cl_.indexOf(PAR_LEFT)+1,cl_);
-        if (!(_conf.getClasses().getClassBody(cl_) instanceof InterfaceBlock)) {
+        if (!(_conf.getClasses().getExecClassBody(cl_) instanceof ExecInterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -49,8 +51,8 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             return null;
         }
         String idCl_ = Templates.getIdFromAllTypes(className_);
-        RootBlock sub_ = _conf.getClasses().getClassBody(idCl_);
-        if (!(sub_ instanceof InterfaceBlock)|| !sub_.isStaticType()) {
+        ExecRootBlock sub_ = _conf.getClasses().getExecClassBody(idCl_);
+        if (!(sub_ instanceof ExecInterfaceBlock)|| !sub_.isStaticType()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());

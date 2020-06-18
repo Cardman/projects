@@ -1,8 +1,8 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 
 public final class DefaultHiddenTypes implements AbstractHiddenTypes {
     private final ContextEl context;
@@ -12,7 +12,7 @@ public final class DefaultHiddenTypes implements AbstractHiddenTypes {
     }
 
     @Override
-    public boolean isHidden(AccessingImportingBlock _global, RootBlock _type) {
+    public boolean isHidden(ExecAccessingImportingBlock _global, ExecRootBlock _type) {
         return _global.isTypeHidden(_type, context);
     }
 }

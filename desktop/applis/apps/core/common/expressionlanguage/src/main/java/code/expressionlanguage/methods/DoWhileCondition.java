@@ -3,6 +3,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecCondition;
+import code.expressionlanguage.exec.blocks.ExecDoWhileCondition;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -21,22 +23,8 @@ public final class DoWhileCondition extends Condition {
     }
 
     @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
-        l_.setEvaluatingKeepLoop(true);
-        _cont.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
-        _cont.getLastPage().setOffset(0);
-        ConditionReturn keep_ = evaluateCondition(_cont);
-        if (keep_ == ConditionReturn.CALL_EX) {
-            return;
-        }
-        if (keep_ == ConditionReturn.NO) {
-            l_.setFinished(true);
-        }
-        l_.setEvaluatingKeepLoop(false);
-        rw_.setBlock(getPreviousSibling());
+    protected ExecCondition newCondition(String _condition, int _conditionOffset, CustList<ExecOperationNode> _ops) {
+        return new ExecDoWhileCondition(getOffset(),_condition,_conditionOffset,_ops);
     }
 
     @Override
@@ -93,22 +81,4 @@ public final class DoWhileCondition extends Condition {
     }
 
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        ExecOperationNode root_ = getOpCondition().last();
-        AbstractCoverageResult result_ = _cont.getCoverage().getCovers().getVal(this).getVal(root_);
-        String tag_;
-        if (result_.isFullCovered()) {
-            tag_ = "<span class=\"f\">";
-        } else if (result_.isPartialCovered()) {
-            tag_ = "<span class=\"p\">";
-        } else {
-            tag_ = "<span class=\"n\">";
-        }
-        int off_ = getOffset().getOffsetTrim();
-        _parts.add(new PartOffset(tag_,off_));
-        tag_ = "</span>";
-        _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordWhile().length()));
-        super.processReport(_cont,_parts);
-    }
 }

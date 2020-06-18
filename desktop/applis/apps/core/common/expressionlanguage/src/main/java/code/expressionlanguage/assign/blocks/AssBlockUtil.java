@@ -1,7 +1,9 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.BlocksFlags;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
+import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.methods.*;
 import code.util.IdMap;
 
@@ -9,14 +11,14 @@ public final class AssBlockUtil {
     private AssBlockUtil() {
     }
 
-    public static AssMemberCallingsBlock buildFctInstructions(MemberCallingsBlock _mem, ContextEl _cont, AssBlock _prev,AssignedVariablesBlock _a) {
-        _mem.buildFctInstructionsReadOnly(_cont);
+    public static AssMemberCallingsBlock buildFctInstructions(MemberCallingsBlock _mem, ExecMemberCallingsBlock _execMem, ContextEl _cont, AssBlock _prev, AssignedVariablesBlock _a) {
+        _mem.buildFctInstructionsReadOnly(_cont,_execMem);
         AnalyzingEl a_ = _cont.getAnalyzing().getAnalysisAss();
         AssMemberCallingsBlock meth_ = AssBlockUtil.getExecutableNodes(a_.getCanCompleteNormally(), a_.getCanCompleteNormallyGroup(), _mem);
         meth_.buildFctInstructions(_cont,_prev,_a);
         return meth_;
     }
-    public static AssMemberCallingsBlock getExecutableNodes(IdMap<Block, Boolean> _normal, IdMap<Block, Boolean> _group, MemberCallingsBlock _list) {
+    public static AssMemberCallingsBlock getExecutableNodes(BlocksFlags _normal, BlocksFlags _group, MemberCallingsBlock _list) {
         AssMemberCallingsBlock m_ = getAssMemberCalling(_normal, _group, _list);
         if (_list.getFirstChild() == null) {
             return m_;
@@ -53,7 +55,7 @@ public final class AssBlockUtil {
         }
         return m_;
     }
-    public static AssBlock createAssBlock(IdMap<Block, Boolean> _normal, IdMap<Block, Boolean> _group, Block _anaNode) {
+    public static AssBlock createAssBlock(BlocksFlags _normal, BlocksFlags _group, Block _anaNode) {
         if (_anaNode instanceof ForMutableIterativeLoop) {
             return new AssForMutableIterativeLoop(get(_normal,_anaNode), get(_group,_anaNode), (ForMutableIterativeLoop) _anaNode);
         }
@@ -126,7 +128,7 @@ public final class AssBlockUtil {
         return new AssUnclassedBracedBlock(get(_normal,_anaNode), get(_group,_anaNode));
     }
 
-    private static AssMemberCallingsBlock getAssMemberCalling(IdMap<Block, Boolean> _normal, IdMap<Block, Boolean> _group, Block _anaNode) {
+    private static AssMemberCallingsBlock getAssMemberCalling(BlocksFlags _normal, BlocksFlags _group, Block _anaNode) {
         if (_anaNode instanceof ConstructorBlock) {
             return new AssConstructorBlock(get(_normal,_anaNode),get(_group,_anaNode));
         }
@@ -135,7 +137,7 @@ public final class AssBlockUtil {
         }
         return new AssStdMethodBlock(get(_normal,_anaNode), get(_group,_anaNode));
     }
-    private static boolean get(IdMap<Block, Boolean> _normal, Block _anaNode) {
+    private static boolean get(BlocksFlags _normal, Block _anaNode) {
         return _normal.getVal(_anaNode);
     }
 }

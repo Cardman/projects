@@ -1,43 +1,52 @@
 package code.expressionlanguage.exec.stacks;
-import code.expressionlanguage.methods.BracedBlock;
+import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 
 public final class SwitchBlockStack implements RemovableVars {
 
-    private BracedBlock block;
+    private ExecBracedBlock execBlock;
 
-    private BracedBlock lastVisitedBlock;
+    private ExecBracedBlock execLastVisitedBlock;
 
-    private BracedBlock currentVisitedBlock;
-    @Override
-    public BracedBlock getBlock() {
-        return block;
-    }
-
-    public void setBlock(BracedBlock _block) {
-        block = _block;
-    }
+    private ExecBracedBlock execCurrentVisitedBlock;
+    private String label;
 
     @Override
-    public void setCurrentVisitedBlock(BracedBlock _bl) {
-        currentVisitedBlock = _bl;
+    public ExecBracedBlock getBlock() {
+        return execBlock;
+    }
+
+    public void setExecBlock(ExecBracedBlock _execBlock) {
+        execBlock = _execBlock;
     }
 
     @Override
-    public BracedBlock getLastBlock() {
-        return block;
+    public void setCurrentVisitedBlock(ExecBracedBlock execCurrentVisitedBlock) {
+        this.execCurrentVisitedBlock = execCurrentVisitedBlock;
     }
 
     @Override
-    public BracedBlock getCurrentVisitedBlock() {
-        return currentVisitedBlock;
+    public ExecBracedBlock getLastBlock() {
+        return execBlock;
     }
 
-    public BracedBlock getLastVisitedBlock() {
-        return lastVisitedBlock;
+    @Override
+    public ExecBracedBlock getCurrentVisitedBlock() {
+        return execCurrentVisitedBlock;
     }
 
-    public void setLastVisitedBlock(BracedBlock _lastVisitedBlock) {
-        lastVisitedBlock = _lastVisitedBlock;
+    public ExecBracedBlock getExecLastVisitedBlock() {
+        return execLastVisitedBlock;
     }
 
+    public void setExecLastVisitedBlock(ExecBracedBlock _execLastVisitedBlock) {
+        execLastVisitedBlock = _execLastVisitedBlock;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String _label) {
+        label = _label;
+    }
 }

@@ -3,6 +3,7 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.StringExpUtil;
@@ -594,7 +595,7 @@ public class ApplyCoreMethodUtil {
         LgNames lgNames_ = _cont.getStandards();
         Struct seed_ = _cont.getSeed();
         Argument argSeed_ = new Argument(seed_);
-        CustList<NamedFunctionBlock> methods_ = new CustList<NamedFunctionBlock>();
+        CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
         if (seed_ != NullStruct.NULL_VALUE
@@ -610,7 +611,7 @@ public class ApplyCoreMethodUtil {
             methods_ = Classes.getMethodBodiesById(_cont, className_, ct_);
         }
         if (!methods_.isEmpty()) {
-            NamedFunctionBlock meth_ = methods_.first();
+            ExecNamedFunctionBlock meth_ = methods_.first();
             if (seed_ instanceof AbstractFunctionalInstance &&((GeneCustMethod)meth_).isAbstractMethod()) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
@@ -628,7 +629,7 @@ public class ApplyCoreMethodUtil {
         LgNames lgNames_ = _cont.getStandards();
         Struct seed_ = _cont.getSeed();
         Argument argSeed_ = new Argument(seed_);
-        CustList<NamedFunctionBlock> methods_ = new CustList<NamedFunctionBlock>();
+        CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
         if (seed_ != NullStruct.NULL_VALUE
@@ -645,7 +646,7 @@ public class ApplyCoreMethodUtil {
             argsToPass_.add(new Argument(_args[0]));
         }
         if (!methods_.isEmpty()) {
-            NamedFunctionBlock meth_ = methods_.first();
+            ExecNamedFunctionBlock meth_ = methods_.first();
             if (seed_ instanceof AbstractFunctionalInstance &&((GeneCustMethod)meth_).isAbstractMethod()) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());

@@ -5,6 +5,8 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.NumberInfos;
 import code.expressionlanguage.common.VariableInfo;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
 import code.util.*;
 import org.junit.Test;
@@ -535,12 +537,12 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.BeanOne");
         Classes classes_ = conf_.getClasses();
-        RootBlock r_ = classes_.getClassBody("pkg.BeanOne");
+        RootBlock r_ = getAnaClassBody(conf_, "pkg.BeanOne");
         Block field_ = r_.getFirstChild();
         AnalyzedPageEl page_ = conf_.getAnalyzing();
         page_.setCurrentBlock(field_);
         page_.setCurrentAnaBlock(field_);
-        RootBlock rTwo_ = classes_.getClassBody("pkg.Composite");
+        RootBlock rTwo_ = getAnaClassBody(conf_, "pkg.Composite");
         page_.setCurrentBlock(rTwo_.getFirstChild());
         page_.setCurrentAnaBlock(rTwo_.getFirstChild());
         Block b_ = field_.getNextSibling().getFirstChild();
@@ -1943,7 +1945,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.BeanOne");
         Classes classes_ = conf_.getClasses();
-        RootBlock r_ = classes_.getClassBody("pkg.BeanOne");
+        RootBlock r_ = getAnaClassBody(conf_, "pkg.BeanOne");
         Block field_ = r_.getFirstChild();
         AnalyzedPageEl page_ = conf_.getAnalyzing();
         page_.setCurrentBlock(field_);
@@ -3278,11 +3280,12 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
-        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        ExecRootBlock re_ = classes_.getExecClassBody("pkg.ExTwo");
+        RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         conf_.getAnalyzing().setCurrentAnaBlock(b_);
-        conf_.getAnalyzing().setImporting(r_);
+        conf_.getAnalyzing().setImporting(re_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3299,6 +3302,16 @@ public final class ElResolverTest extends ProcessMethodCommon{
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
         assertEq("pkg.Ex", d_.getDelKeyWordStaticExtract().first());
     }
+
+    private static RootBlock getAnaClassBody(ContextEl classes_, String _className) {
+        for (RootBlock r: classes_.getAnalyzing().getFoundTypes()) {
+            if (StringList.quickEq(r.getFullName(),Templates.getIdFromAllTypes(_className))) {
+                return r;
+            }
+        }
+        return null;
+    }
+
     @Test
     public void getOperationsSequence196Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -3321,11 +3334,12 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
-        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        ExecRootBlock re_ = classes_.getExecClassBody("pkg.ExTwo");
+        RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         conf_.getAnalyzing().setCurrentAnaBlock(b_);
-        conf_.getAnalyzing().setImporting(r_);
+        conf_.getAnalyzing().setImporting(re_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3364,11 +3378,12 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
-        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        ExecRootBlock re_ = classes_.getExecClassBody("pkg.ExTwo");
+        RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         conf_.getAnalyzing().setCurrentAnaBlock(b_);
-        conf_.getAnalyzing().setImporting(r_);
+        conf_.getAnalyzing().setImporting(re_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3409,11 +3424,12 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
-        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        ExecRootBlock re_ = classes_.getExecClassBody("pkg.ExTwo");
+        RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         conf_.getAnalyzing().setCurrentAnaBlock(b_);
-        conf_.getAnalyzing().setImporting(r_);
+        conf_.getAnalyzing().setImporting(re_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3462,11 +3478,12 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
-        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        ExecRootBlock re_ = classes_.getExecClassBody("pkg.ExTwo");
+        RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         conf_.getAnalyzing().setCurrentAnaBlock(b_);
-        conf_.getAnalyzing().setImporting(r_);
+        conf_.getAnalyzing().setImporting(re_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3507,11 +3524,12 @@ public final class ElResolverTest extends ProcessMethodCommon{
         addImportingPage(conf_);
         conf_.setGlobalClass("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
-        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        ExecRootBlock re_ = classes_.getExecClassBody("pkg.ExTwo");
+        RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         conf_.getAnalyzing().setCurrentAnaBlock(b_);
-        conf_.getAnalyzing().setImporting(r_);
+        conf_.getAnalyzing().setImporting(re_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -5381,7 +5399,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
     }
 
     private static void addImportingPage(ContextEl _conf) {
-        _conf.setAnalyzing();
+
     }
 
     private ContextEl prepare(StringMap<String> _files) {

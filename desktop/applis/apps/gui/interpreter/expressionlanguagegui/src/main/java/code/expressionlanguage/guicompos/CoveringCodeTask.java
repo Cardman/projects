@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.methods.FileBlock;
 import code.stream.StreamTextFile;
@@ -21,7 +22,7 @@ public final class CoveringCodeTask implements Runnable {
         if (contextEl.isCovering()) {
             contextEl.getCustInit().joinHooks(contextEl);
             String exp_ = executingOptions.getCoverFolder();
-            for (EntryCust<String,String> f:FileBlock.export(contextEl).entryList()) {
+            for (EntryCust<String,String> f:ExecFileBlock.export(contextEl).entryList()) {
                 String full_ = exp_ + f.getKey();
                 int end_ = full_.lastIndexOf('/');
                 if (end_ > -1) {

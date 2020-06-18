@@ -1,14 +1,14 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.types.*;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.LoopVariable;
 import code.util.*;
 
 public final class AnalyzedPageEl {
@@ -30,12 +30,19 @@ public final class AnalyzedPageEl {
 
     private StringMap<AnaLocalVariable> parameters = new StringMap<AnaLocalVariable>();
 
-    private FunctionBlock currentFct;
-    private AccessingImportingBlock importing;
-    private final StringList listTypesNames = new StringList();
+    private MemberCallingsBlock currentFct;
+    private ExecAccessingImportingBlock importing;
+    private final CustList<RootBlock> listTypesNames = new CustList<RootBlock>();
+    private final IdMap<RootBlock,ExecRootBlock> mapTypes = new IdMap<RootBlock,ExecRootBlock>();
+    private final IdMap<InnerElementBlock,ExecInnerElementBlock> mapInnerEltTypes = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
+    private final IdMap<UniqueRootedBlock,ExecUniqueRootedBlock> mapTypesUniqType = new IdMap<UniqueRootedBlock,ExecUniqueRootedBlock>();
+    private final IdMap<RootBlock,ExecInterfacable> mapInterfaces = new IdMap<RootBlock,ExecInterfacable>();
+    private final IdMap<RootBlock,Members> mapMembers = new IdMap<RootBlock,Members>();
+    private final IdMap<OperatorBlock,ExecOperatorBlock> mapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
     private final CustList<RootBlock> allFoundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> previousFoundTypes = new CustList<RootBlock>();
+    private ExecBracedBlock blockToWrite;
     private boolean duplicatedType;
 
     private int offset;
@@ -324,19 +331,19 @@ public final class AnalyzedPageEl {
         staticContext = _staticContext;
     }
 
-    public FunctionBlock getCurrentFct() {
+    public MemberCallingsBlock getCurrentFct() {
         return currentFct;
     }
 
-    public void setCurrentFct(FunctionBlock _currentFct) {
+    public void setCurrentFct(MemberCallingsBlock _currentFct) {
         currentFct = _currentFct;
     }
 
-    public AccessingImportingBlock getImporting() {
+    public ExecAccessingImportingBlock getImporting() {
         return importing;
     }
 
-    public void setImporting(AccessingImportingBlock _importing) {
+    public void setImporting(ExecAccessingImportingBlock _importing) {
         importing = _importing;
     }
 
@@ -486,7 +493,7 @@ public final class AnalyzedPageEl {
         return allDeclaredFields;
     }
 
-    public StringList getListTypesNames() {
+    public CustList<RootBlock> getListTypesNames() {
         return listTypesNames;
     }
 
@@ -496,6 +503,30 @@ public final class AnalyzedPageEl {
 
     public CustList<RootBlock> getAllFoundTypes() {
         return allFoundTypes;
+    }
+
+    public IdMap<RootBlock, ExecRootBlock> getMapTypes() {
+        return mapTypes;
+    }
+
+    public IdMap<InnerElementBlock, ExecInnerElementBlock> getMapInnerEltTypes() {
+        return mapInnerEltTypes;
+    }
+
+    public IdMap<UniqueRootedBlock, ExecUniqueRootedBlock> getMapTypesUniqType() {
+        return mapTypesUniqType;
+    }
+
+    public IdMap<RootBlock, ExecInterfacable> getMapInterfaces() {
+        return mapInterfaces;
+    }
+
+    public IdMap<RootBlock, Members> getMapMembers() {
+        return mapMembers;
+    }
+
+    public IdMap<OperatorBlock, ExecOperatorBlock> getMapOperators() {
+        return mapOperators;
     }
 
     public CustList<RootBlock> getPreviousFoundTypes() {
@@ -597,4 +628,13 @@ public final class AnalyzedPageEl {
     public void setTokenValidation(AbstractTokenValidation tokenValidation) {
         this.tokenValidation = tokenValidation;
     }
+
+    public ExecBracedBlock getBlockToWrite() {
+        return blockToWrite;
+    }
+
+    public void setBlockToWrite(ExecBracedBlock blockToWrite) {
+        this.blockToWrite = blockToWrite;
+    }
+
 }

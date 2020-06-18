@@ -3,6 +3,8 @@ package code.formathtml;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.exec.InitClassState;
+import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.*;
@@ -514,8 +516,8 @@ public final class Configuration {
         return analyzingDoc.getInternGlobalClass();
     }
 
-    private static AccessingImportingBlock getAccessingImportingBlock(AccessingImportingBlock _r, RootBlock _root) {
-        AccessingImportingBlock a_;
+    private static ExecAccessingImportingBlock getAccessingImportingBlock(ExecAccessingImportingBlock _r, ExecRootBlock _root) {
+        ExecAccessingImportingBlock a_;
         if (_root != null) {
             a_ = _root;
         } else {
@@ -767,14 +769,14 @@ public final class Configuration {
     }
 
 
-    public AccessingImportingBlock getCurrentGlobalBlock() {
+    public ExecAccessingImportingBlock getCurrentGlobalBlock() {
         return getAnalyzingDoc().getCurrentDoc();
     }
 
 
-    public AccessingImportingBlock getCurrentGlobalBlock(AccessingImportingBlock _bl) {
+    public ExecAccessingImportingBlock getCurrentGlobalBlock(ExecAccessingImportingBlock _bl) {
         String gl_ = getGlobalClass();
-        RootBlock root_ = getContext().getClasses().getClassBody(Templates.getIdFromAllTypes(gl_));
+        ExecRootBlock root_ = getContext().getClasses().getExecClassBody(Templates.getIdFromAllTypes(gl_));
         return getAccessingImportingBlock(_bl, root_);
     }
 

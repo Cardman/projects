@@ -4,10 +4,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.methods.AnnotationMethodBlock;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
 import code.util.*;
 import code.util.StringList;
 
@@ -40,7 +39,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
         String annotationClass_ = par_.getClassName();
         GeneType type_ = _conf.getClassBody(annotationClass_);
-        if (type_ instanceof Block) {
+        if (type_ instanceof ExecBlock) {
             annotation = annotationClass_;
         }
     }
@@ -50,14 +49,14 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
         String annotationClass_ = par_.getClassName();
         GeneType type_ = _conf.getClassBody(annotationClass_);
-        if (type_ instanceof Block) {
-            Block ann_ = (Block) type_;
+        if (type_ instanceof ExecBlock) {
+            ExecBlock ann_ = (ExecBlock) type_;
             boolean ok_ = false;
-            for (Block b: Classes.getDirectChildren(ann_)) {
-                if (!(b instanceof AnnotationMethodBlock)) {
+            for (ExecBlock b: ExecBlock.getDirectChildren(ann_)) {
+                if (!(b instanceof ExecAnnotationMethodBlock)) {
                     continue;
                 }
-                AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
+                ExecAnnotationMethodBlock a_ = (ExecAnnotationMethodBlock) b;
                 if (StringList.quickEq(a_.getName(), fieldName)) {
                     ok_ = true;
                     break;

@@ -2,6 +2,8 @@ package code.expressionlanguage.exec.coverage;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.ReflectAnnotationPageEl;
 import code.expressionlanguage.exec.calls.ReflectGetDefaultValuePageEl;
@@ -26,6 +28,7 @@ public final class Coverage {
     private IdMap<Block,IdMap<Block,StandardCoverageResult>> coverSwitchs = new IdMap<Block,IdMap<Block,StandardCoverageResult>>();
     private IdMap<Block,StandardCoverageResult> coverNoDefSwitchs = new IdMap<Block,StandardCoverageResult>();
     private IdMap<Block,Boolean> catches = new IdMap<Block,Boolean>();
+    private IdMap<ExecBlock,Block> mappingBlocks = new IdMap<ExecBlock,Block>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mapping = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mappingAnnot = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mappingAnnotMembers = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
@@ -64,6 +67,12 @@ public final class Coverage {
         }
         covers.put(_block, new IdMap<ExecOperationNode, AbstractCoverageResult>());
         getMapping().put(_block,new IdMap<ExecOperationNode, OperationNode>());
+    }
+    public void putBlockOperations(ContextEl _context, ExecBlock _exec,Block _block) {
+        if (!_context.isCovering()) {
+            return;
+        }
+        getMappingBlocks().put(_exec,_block);
     }
     public void putBlockOperationsField(ContextEl _context, Block _block) {
         if (!_context.isCovering()) {
@@ -147,33 +156,33 @@ public final class Coverage {
         }
         catches.put(_block,false);
     }
-    public void passLoop(ContextEl _context, Argument _value) {
+    public void passExecLoop(ContextEl _context, Argument _value) {
         if (!_context.isCovering()) {
             return;
         }
         ReadWrite rw_ = _context.getLastPage().getReadWrite();
-        Block en_ = rw_.getBlock();
-        BooleanCoverageResult cov_ = coverLoops.getVal(en_);
+        ExecBlock en_ = rw_.getBlock();
+        BooleanCoverageResult cov_ = coverLoops.getVal(mappingBlocks.getVal(en_));
         cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         cov_.cover(_value);
     }
-    public void passSwitch(ContextEl _context, Block _child,Argument _value) {
+    public void passSwitch(ContextEl _context, ExecBlock _child,Argument _value) {
         if (!_context.isCovering()) {
             return;
         }
         ReadWrite rw_ = _context.getLastPage().getReadWrite();
-        Block en_ = rw_.getBlock();
-        StandardCoverageResult cov_ = coverSwitchs.getVal(en_).getVal(_child);
+        ExecBlock en_ = rw_.getBlock();
+        StandardCoverageResult cov_ = coverSwitchs.getVal(mappingBlocks.getVal(en_)).getVal(mappingBlocks.getVal(_child));
         cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         cov_.cover(_value);
     }
-    public void passSwitch(ContextEl _context, Argument _value) {
+    public void passExecSwitch(ContextEl _context, Argument _value) {
         if (!_context.isCovering()) {
             return;
         }
         ReadWrite rw_ = _context.getLastPage().getReadWrite();
-        Block en_ = rw_.getBlock();
-        StandardCoverageResult cov_ = coverNoDefSwitchs.getVal(en_);
+        ExecBlock en_ = rw_.getBlock();
+        StandardCoverageResult cov_ = coverNoDefSwitchs.getVal(mappingBlocks.getVal(en_));
         cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         cov_.cover(_value);
     }
@@ -186,9 +195,9 @@ public final class Coverage {
             return;
         }
         ReadWrite rw_ = lastPage_.getReadWrite();
-        Block en_ = rw_.getBlock();
+        ExecBlock en_ = rw_.getBlock();
         IdMap<ExecOperationNode,AbstractCoverageResult> instr_;
-        instr_ = covers.getVal(en_);
+        instr_ = covers.getVal(mappingBlocks.getVal(en_));
         if (instr_ == null) {
             return;
         }
@@ -203,17 +212,20 @@ public final class Coverage {
             result_.cover(_value);
         }
     }
-    public void passCalls(ContextEl _context, String _type,NamedFunctionBlock _block) {
+    public void passCalls(ContextEl _context, String _type,ExecNamedFunctionBlock _block) {
         if (!_context.isCovering()) {
             return;
         }
-        calls.getVal(_type).set(_block,true);
+        calls.getVal(_type).set((NamedFunctionBlock)mappingBlocks.getVal(_block),true);
     }
-    public void passCatches(ContextEl _context, Block _block) {
+    public void passCatches(ContextEl _context, ExecBlock _block) {
         if (!_context.isCovering()) {
             return;
         }
-        catches.set(_block,true);
+        catches.set(mappingBlocks.getVal(_block),true);
+    }
+    public IdMap<ExecOperationNode, AbstractCoverageResult> getCovers(ExecBlock _exec) {
+        return covers.getVal(mappingBlocks.getVal(_exec));
     }
     public IdMap<Block, IdMap<ExecOperationNode, AbstractCoverageResult>> getCovers() {
         return covers;
@@ -227,6 +239,10 @@ public final class Coverage {
         return mapping;
     }
 
+    public IdMap<ExecBlock, Block> getMappingBlocks() {
+        return mappingBlocks;
+    }
+
     public IdMap<Block, IdMap<ExecOperationNode, OperationNode>> getMappingAnnot() {
         return mappingAnnot;
     }
@@ -235,8 +251,20 @@ public final class Coverage {
         return mappingAnnotMembers;
     }
 
+    public StandardCoverageResult getCoverSwitchs(ExecBlock _sw, ExecBlock _child) {
+        return coverSwitchs.getVal(mappingBlocks.getVal(_sw)).getVal(mappingBlocks.getVal(_child));
+    }
+
+    public  IdMap<Block, StandardCoverageResult> getCoverSwitchs(ExecBlock _sw) {
+        return coverSwitchs.getVal(mappingBlocks.getVal(_sw));
+    }
+
     public IdMap<Block, IdMap<Block, StandardCoverageResult>> getCoverSwitchs() {
         return coverSwitchs;
+    }
+
+    public StandardCoverageResult getCoverNoDefSwitchs(ExecBlock _sw) {
+        return coverNoDefSwitchs.getVal(mappingBlocks.getVal(_sw));
     }
 
     public IdMap<Block, StandardCoverageResult> getCoverNoDefSwitchs() {
@@ -289,5 +317,13 @@ public final class Coverage {
 
     public CustList<PartOffset> getCurrentParts() {
         return currentParts;
+    }
+
+    public boolean getCatches(ExecBlock _catch) {
+        return catches.getVal(mappingBlocks.getVal(_catch));
+    }
+
+    public AbstractCoverageResult getCoverLoops(ExecBlock _bl) {
+        return coverLoops.getVal(mappingBlocks.getVal(_bl));
     }
 }

@@ -3,6 +3,8 @@ package code.expressionlanguage.files;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.options.KeyWords;
@@ -37,10 +39,11 @@ public final class FileResolver {
     }
     public static void parseFile(String _fileName, String _file, boolean _predefined, ContextEl _context) {
         int tabWidth_ = _context.getTabWidth();
-        FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined,tabWidth_);
+        FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
         fileBlock_.setFileName(_fileName);
         Classes cls_ = _context.getClasses();
-        cls_.putFileBlock(_fileName, fileBlock_);
+        ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_, tabWidth_);
+        cls_.putFileBlock(_fileName, exFile_);
         StringList importedTypes_ = new StringList();
         StringBuilder str_ = new StringBuilder();
         KeyWords keyWords_ = _context.getKeyWords();
@@ -201,7 +204,7 @@ public final class FileResolver {
                                         s_);
                                 _context.addError(d_);
                             }
-                            cls_.processBracedClass(cur_, _context);
+                            cls_.processBracedClass(exFile_,r_,cur_, _context);
                         }
                         Block fc_ = c_.getFirstChild();
                         if (fc_ != null) {
@@ -234,14 +237,17 @@ public final class FileResolver {
                         }
                     }
                 } else {
-                    cls_.processBracedClass(r_, _context);
+                    cls_.processBracedClass(exFile_,r_,r_, _context);
                 }
             }
             if (res_ instanceof ResultOperatorCreation) {
                 ResultOperatorCreation restype_ = (ResultOperatorCreation) res_;
                 OperatorBlock r_ = restype_.getType();
                 fileBlock_.appendChild(r_);
-                cls_.getOperators().add(r_);
+                ExecOperatorBlock e_ = new ExecOperatorBlock(r_);
+                exFile_.appendChild(e_);
+                cls_.getOperators().add(e_);
+                _context.getAnalyzing().getMapOperators().put(r_,e_);
             }
             i_ = res_.getNextIndex();
             boolean hasNext_ = false;

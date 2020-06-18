@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.exec.calls.AbstractReflectPageEl;
 import code.expressionlanguage.exec.calls.CastPageEl;
@@ -29,7 +30,7 @@ public final class ProcessMethod {
         _cont.addPage(ExecutingUtil.createInstancingClass(_cont,_class));
         _cont.getInit().loopCalling(_cont);
     }
-    public static Argument instanceArgument(String _class, RootBlock _root, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
+    public static Argument instanceArgument(String _class, ExecRootBlock _root, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
         CallConstructor call_ = new CallConstructor();
         call_.setArgument(_global);
         call_.setId(_id);

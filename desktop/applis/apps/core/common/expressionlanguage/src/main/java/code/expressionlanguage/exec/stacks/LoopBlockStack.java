@@ -1,4 +1,5 @@
 package code.expressionlanguage.exec.stacks;
+import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 import code.expressionlanguage.methods.BracedBlock;
 
 
@@ -6,15 +7,15 @@ public final class LoopBlockStack extends LoopStack implements RemovableVars {
 
     private boolean evaluatingKeepLoop;
 
-    private BracedBlock block;
+    private ExecBracedBlock execBlock;
 
     @Override
-    public BracedBlock getBlock() {
-        return block;
+    public ExecBracedBlock getBlock() {
+        return execBlock;
     }
 
-    public void setBlock(BracedBlock _block) {
-        block = _block;
+    public void setExecBlock(ExecBracedBlock _execBlock) {
+        execBlock = _execBlock;
     }
 
     public boolean isEvaluatingKeepLoop() {
@@ -26,17 +27,17 @@ public final class LoopBlockStack extends LoopStack implements RemovableVars {
     }
 
     @Override
-    public BracedBlock getLastBlock() {
-        return block;
+    public ExecBracedBlock getLastBlock() {
+        return execBlock;
     }
 
     @Override
-    public BracedBlock getCurrentVisitedBlock() {
-        return block;
+    public ExecBracedBlock getCurrentVisitedBlock() {
+        return execBlock;
     }
 
     @Override
-    public void setCurrentVisitedBlock(BracedBlock _bl) {
-        block = _bl;
+    public void setCurrentVisitedBlock(ExecBracedBlock _bl) {
+        execBlock = _bl;
     }
 }

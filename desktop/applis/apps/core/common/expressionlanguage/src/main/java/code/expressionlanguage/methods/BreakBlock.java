@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecBreakBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -14,7 +15,7 @@ import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class BreakBlock extends AbruptBlock implements CallingFinally {
+public final class BreakBlock extends AbruptBlock {
 
     private String label;
     private int labelOffset;
@@ -37,6 +38,11 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         checkBreakable(_cont);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        ExecBreakBlock exec_ = new ExecBreakBlock(getOffset(),label,labelOffset,labelOffsetRef);
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private void checkBreakable(ContextEl _cont) {
@@ -142,58 +148,5 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
         id_.put((BreakableBlock) a_, pars_);
         breakablesAncestors_.put(this, id_);
         breakables_.put(this, (BreakableBlock) a_);
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        if (getLabel().isEmpty()) {
-            return;
-        }
-        String tag_ = "<a href=\"#"+labelOffsetRef+"\">";
-        _parts.add(new PartOffset(tag_,labelOffset));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_,labelOffset+getLabel().length()));
-    }
-
-    @Override
-    public void processEl(ContextEl _cont) {
-        removeBlockFinally(_cont);
-    }
-
-    @Override
-    public void removeBlockFinally(ContextEl _conf) {
-        AbstractPageEl ip_ = _conf.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        //when labelled this loop does not remove if
-        //the last statement is a "try" with "finally" clause
-        //and the current block is a "try" or a "catch"
-        RemovableVars stack_;
-        while (true) {
-            RemovableVars bl_ = ip_.getLastStack();
-            stack_ = bl_;
-            if (label.isEmpty()) {
-                if (bl_ instanceof LoopBlockStack || bl_ instanceof SwitchBlockStack) {
-                    break;
-                }
-            } else {
-                BreakableBlock br_ = (BreakableBlock) bl_.getBlock();
-                if (StringList.quickEq(label, br_.getRealLabel())){
-                    break;
-                }
-            }
-            if (AbstractPageEl.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
-                return;
-            }
-        }
-        Block forLoopLoc_ = stack_.getLastBlock();
-        rw_.setBlock(forLoopLoc_);
-        if (stack_ instanceof LoopStack) {
-            ((LoopStack)stack_).setFinished(true);
-        }
-    }
-
-    @Override
-    public AbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
-        return new AbruptCallingFinally(this);
     }
 }

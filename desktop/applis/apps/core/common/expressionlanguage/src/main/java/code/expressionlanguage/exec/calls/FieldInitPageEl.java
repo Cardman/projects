@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundBlock;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.methods.*;
@@ -8,7 +9,7 @@ import code.util.IdMap;
 
 public final class FieldInitPageEl extends AbstractPageEl {
 
-    private IdMap<InitBlock, Boolean> processedBlocks = new IdMap<InitBlock, Boolean>();
+    private IdMap<ExecInitBlock, Boolean> processedBlocks = new IdMap<ExecInitBlock, Boolean>();
 
     @Override
     public boolean checkCondition(ContextEl _context) {
@@ -19,7 +20,7 @@ public final class FieldInitPageEl extends AbstractPageEl {
     public void tryProcessEl(ContextEl _context) {
         //initializing instance fields in the type walk through
         ReadWrite rw_ = getReadWrite();
-        Block en_ = rw_.getBlock();
+        ExecBlock en_ = rw_.getBlock();
         if (en_ instanceof WithEl) {
             ((WithEl)en_).processEl(_context);
             return;
@@ -28,18 +29,18 @@ public final class FieldInitPageEl extends AbstractPageEl {
             en_.processBlock(_context);
             return;
         }
-        if (en_ instanceof RootBlock) {
+        if (en_ instanceof ExecRootBlock) {
             en_.processBlock(_context);
             return;
         }
-        if (en_ instanceof StaticBlock) {
+        if (en_ instanceof ExecStaticBlock) {
             en_.processBlock(_context);
             return;
         }
-        if (en_ instanceof InstanceBlock) {
-            if (!processedBlocks.getVal((InitBlock)en_)) {
-                processedBlocks.put((InitBlock)en_, true);
-                CustomFoundBlock cust_ = new CustomFoundBlock(getGlobalClass(), getGlobalArgument(), (InitBlock)en_);
+        if (en_ instanceof ExecInstanceBlock) {
+            if (!processedBlocks.getVal((ExecInitBlock)en_)) {
+                processedBlocks.put((ExecInitBlock)en_, true);
+                CustomFoundBlock cust_ = new CustomFoundBlock(getGlobalClass(), getGlobalArgument(), (ExecInitBlock)en_);
                 _context.setCallingState(cust_);
                 return;
             }
@@ -49,7 +50,8 @@ public final class FieldInitPageEl extends AbstractPageEl {
         setNullReadWrite();
     }
 
-    public IdMap<InitBlock, Boolean> getProcessedBlocks() {
+
+    public IdMap<ExecInitBlock, Boolean> getProcessedBlocks() {
         return processedBlocks;
     }
 

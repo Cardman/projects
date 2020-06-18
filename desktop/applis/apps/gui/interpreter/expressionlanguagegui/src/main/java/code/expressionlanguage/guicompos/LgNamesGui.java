@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -2367,7 +2368,7 @@ public class LgNamesGui extends LgNamesUtils {
         if (_arg instanceof EventStruct) {
             String className_ = _arg.getClassName(_cont);
             String id_ = Templates.getIdFromAllTypes(className_);
-            RootBlock clBody_ = _cont.getClasses().getClassBody(id_);
+            ExecRootBlock clBody_ = _cont.getClasses().getExecClassBody(id_);
             if (!ContextEl.isEnumType(clBody_)) {
                 return new StringStruct(_arg.getClassName(_cont));
             }

@@ -2,18 +2,17 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecConstructorBlock;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.*;
 import code.util.*;
 
-public final class ConstructorBlock extends NamedFunctionBlock implements AccessibleBlock,GeneConstructor,ReturnableWithSignature {
+public final class ConstructorBlock extends NamedFunctionBlock implements GeneConstructor,ReturnableWithSignature {
 
     private ConstructorId constIdSameClass;
 
@@ -48,39 +47,31 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Access
         return new ConstructorId(name_, pTypes_, isVarargs());
     }
 
-    public ConstructorId getGenericId() {
-        RootBlock clBlock_ = (RootBlock) getParent();
-        String name_ = clBlock_.getGenericString();
-        StringList types_ = getImportedParametersTypes();
-        int len_ = types_.size();
-        StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
-            pTypes_.add(n_);
-        }
-        return new ConstructorId(name_, pTypes_, isVarargs());
-    }
-    public void setupInstancingStep(ContextEl _cont) {
+    public void setupInstancingStep(ContextEl _cont, ExecConstructorBlock _exec) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         Block first_ = getFirstChild();
         if (!(first_ instanceof Line)) {
             implicitCallSuper = true;
+            _exec.setImplicitCallSuper(true);
             return;
         }
         Line l_ = (Line) first_;
         if (l_.isCallInts()) {
             implicitCallSuper = true;
+            _exec.setImplicitCallSuper(true);
         }
         if (l_.isCallSuper() || l_.isCallInts()) {
             return;
         }
         if (l_.isCallThis()) {
             constIdSameClass = l_.getConstId();
+            _exec.setConstIdSameClass(constIdSameClass);
             return;
         }
         implicitCallSuper = true;
+        _exec.setImplicitCallSuper(true);
     }
 
     public boolean implicitConstr() {
@@ -106,15 +97,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Access
         return EMPTY_STRING;
     }
 
-    @Override
-    public RootBlock belong() {
-        return (RootBlock) getParent();
-    }
-
-    public String getDeclaringType() {
-        RootBlock clBlock_ = (RootBlock) getParent();
-        return clBlock_.getFullName();
-    }
 
     @Override
     public void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl) {
@@ -180,21 +162,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Access
         }
     }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        buildAnnotationsReport(_cont,_parts);
-        int begName_ = getNameOffset();
-        _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
-        _parts.add(new PartOffset("</a>",leftPar));
-        int len_ = getParametersNamesOffset().size();
-        for (int i = 0; i < len_; i++) {
-            buildAnnotationsReport(i,_cont,_parts);
-            _parts.addAllElts(getPartOffsetsParams().get(i));
-            Integer off_ = getParametersNamesOffset().get(i);
-            String param_ = getParametersNames().get(i);
-            _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
-            _parts.add(new PartOffset("</a>",off_+param_.length()));
-            _cont.getCoverage().getParamVars().put(param_,off_);
-        }
+
+    public int getLeftPar() {
+        return leftPar;
     }
 }

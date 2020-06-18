@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -19,7 +20,7 @@ public abstract class AbstractPageEl extends PageEl {
     protected static final String EMPTY_STRING = "";
 
     private ReadWrite readWrite;
-    private Block blockRoot;
+    private ExecBlock blockRoot;
 
     private CustList<RemovableVars> blockStacks = new CustList<RemovableVars>();
 
@@ -31,7 +32,7 @@ public abstract class AbstractPageEl extends PageEl {
 
     private int offset;
     private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
-    private FileBlock file;
+    private ExecFileBlock file;
 
     public void receive(Argument _argument, ContextEl _context) {
         basicReceive(_argument,_context);
@@ -44,7 +45,7 @@ public abstract class AbstractPageEl extends PageEl {
         getLastEl().setArgument(_argument, _context);
     }
 
-    public void processVisitedLoop(LoopBlockStack _l,Loop _bl,Block _next,ContextEl _context) {
+    public void processVisitedLoop(LoopBlockStack _l, ExecLoop _bl, ExecBlock _next, ContextEl _context) {
         if (_l.isEvaluatingKeepLoop()) {
             _bl.processLastElementLoop(_context);
             return;
@@ -105,7 +106,7 @@ public abstract class AbstractPageEl extends PageEl {
         return !blockStacks.isEmpty();
     }
 
-    public LoopBlockStack getLastLoopIfPossible(Block _bl) {
+    public LoopBlockStack getLastLoopIfPossible(ExecBlock _bl) {
         LoopBlockStack c_ = null;
         if (hasBlock() && getLastStack() instanceof LoopBlockStack) {
             c_ = (LoopBlockStack) getLastStack();
@@ -115,7 +116,7 @@ public abstract class AbstractPageEl extends PageEl {
         }
         return null;
     }
-    public boolean matchStatement(Block _bl) {
+    public boolean matchStatement(ExecBlock _bl) {
         if (!hasBlock()) {
             return false;
         }
@@ -142,12 +143,12 @@ public abstract class AbstractPageEl extends PageEl {
             return false;
         }
         TryBlockStack try_ = (TryBlockStack) _vars;
-        if (try_.getCurrentVisitedBlock() instanceof FinallyEval) {
+        if (try_.getCurrentVisitedBlock() instanceof ExecFinallyEval) {
             _ip.removeLastBlock();
             return false;
         }
-        BracedBlock br_ = try_.getLastBlock();
-        if (br_ instanceof FinallyEval) {
+        ExecBracedBlock br_ = try_.getLastBlock();
+        if (br_ instanceof ExecFinallyEval) {
             _ip.getReadWrite().setBlock(br_);
             try_.setCalling(_call.newAbruptCallingFinally(_ex));
             return true;
@@ -188,24 +189,23 @@ public abstract class AbstractPageEl extends PageEl {
 
     public abstract void tryProcessEl(ContextEl _context);
 
-    public Block getBlockRoot() {
+    public ExecBlock getBlockRoot() {
         return blockRoot;
     }
 
-    public void setBlockRoot(Block _blockRoot) {
-        blockRoot = _blockRoot;
+    public void setBlockRoot(ExecBlock _execBlockRoot) {
+        blockRoot = _execBlockRoot;
     }
 
     public StringMap<LocalVariable> getInternVars() {
         return internVars;
     }
 
-    public FileBlock getFile() {
+    public ExecFileBlock getFile() {
         return file;
     }
 
-    public void setFile(FileBlock _file) {
-        file = _file;
+    public void setFile(ExecFileBlock _execFile) {
+        file = _execFile;
     }
-    
 }

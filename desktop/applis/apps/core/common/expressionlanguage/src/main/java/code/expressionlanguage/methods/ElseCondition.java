@@ -1,5 +1,7 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecElseCondition;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -10,7 +12,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ElseCondition extends BracedStack implements BlockCondition, BuildableElMethod {
+public final class ElseCondition extends BracedBlock implements BlockCondition, BuildableElMethod {
 
     public ElseCondition(OffsetsBlock _offset) {
         super(_offset);
@@ -40,6 +42,12 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        ExecElseCondition exec_ = new ExecElseCondition(getOffset());
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     @Override
@@ -64,23 +72,6 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         }
     }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-
-    }
-
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
-        if_.setCurrentVisitedBlock(this);
-        if (!if_.isEntered()) {
-            if_.setEntered(true);
-            ip_.getReadWrite().setBlock(getFirstChild());
-            return;
-        }
-        processBlockAndRemove(_cont);
-    }
 
     @Override
     public void reach(ContextEl _an, AnalyzingEl _anEl) {

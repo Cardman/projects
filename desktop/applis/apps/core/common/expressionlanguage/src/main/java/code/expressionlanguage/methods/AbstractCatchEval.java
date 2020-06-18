@@ -1,18 +1,12 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.exec.stacks.TryBlockStack;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringList;
-import code.util.StringMap;
 
-public abstract class AbstractCatchEval extends BracedStack implements Eval {
+public abstract class AbstractCatchEval extends BracedBlock implements Eval {
 
     protected AbstractCatchEval(OffsetsBlock _offset) {
         super(_offset);
@@ -98,31 +92,5 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval {
         return next_ instanceof AbstractCatchEval || next_ instanceof FinallyEval;
     }
 
-    @Override
-    public final void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        TryBlockStack ts_ = (TryBlockStack) ip_.getLastStack();
-        if (ts_.getLastBlock() == this) {
-            processBlockAndRemove(_cont);
-        } else {
-            ts_.setCurrentVisitedBlock(this);
-            rw_.setBlock(getNextSibling());
-        }
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        String tag_;
-        if (_cont.getCoverage().getCatches().getVal(this)) {
-            tag_ = "<span class=\"f\">";
-        } else {
-            tag_ = "<span class=\"n\">";
-        }
-        int off_ = getOffset().getOffsetTrim();
-        _parts.add(new PartOffset(tag_,off_));
-        tag_ = "</span>";
-        _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordCatch().length()));
-    }
 
 }

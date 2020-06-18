@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.calls.util.NotInitializedFields;
@@ -31,7 +32,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
     public void tryProcessEl(ContextEl _context) {
         //constructor walk through (class, enum, interface)
         ReadWrite rw_ = getReadWrite();
-        Block en_ = rw_.getBlock();
+        ExecBlock en_ = rw_.getBlock();
         if (en_ instanceof WithEl) {
             ((WithEl)en_).processEl(_context);
             return;
@@ -42,7 +43,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
     public final boolean checkCondition(ContextEl _context) {
         Classes classes_ = _context.getClasses();
         boolean implicitConstr_ = false;
-        ConstructorBlock ctor_ = (ConstructorBlock) getBlockRoot();
+        ExecConstructorBlock ctor_ = (ExecConstructorBlock) getBlockRoot();
         if (ctor_ == null) {
             //No constructor found in the current class => call the super one
             implicitConstr_ = true;
@@ -53,31 +54,31 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
         if (implicitConstr_) {
             String curClass_ = getGlobalClass();
             String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
-            RootBlock class_ = classes_.getClassBody(curClassBase_);
-            if (class_ instanceof UniqueRootedBlock) {
+            ExecRootBlock class_ = classes_.getExecClassBody(curClassBase_);
+            if (class_ instanceof ExecUniqueRootedBlock) {
                 //class or enum (included inner enum)
-                UniqueRootedBlock root_ = (UniqueRootedBlock) class_;
+                ExecUniqueRootedBlock root_ = (ExecUniqueRootedBlock) class_;
                 String id_ = root_.getImportedDirectGenericSuperClass();
                 String superClassBase_ = Templates.getIdFromAllTypes(id_);
-                RootBlock superClass_ = classes_.getClassBody(superClassBase_);
-                if (!calledImplicitConstructor && superClass_ != null) {
+                ExecRootBlock execSuperClass_ = classes_.getExecClassBody(superClassBase_);
+                if (!calledImplicitConstructor && execSuperClass_ != null) {
                     calledImplicitConstructor = true;
                     ConstructorId super_ = new ConstructorId(superClassBase_, new StringList(), false);
                     Argument global_ = getGlobalArgument();
-                    _context.setCallingState(new CustomFoundConstructor(formatVarType(id_,_context), superClass_,EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER_IMPL));
+                    _context.setCallingState(new CustomFoundConstructor(formatVarType(id_,_context), execSuperClass_,EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER_IMPL));
                     return false;
                 }
                 //the super constructor is called here
             }
             boolean initFields_ = false;
-            Block bl_ = null;
+            ExecBlock bl_ = null;
             if (ctor_ != null) {
                 bl_ = ctor_.getFirstChild();
             }
-            if (!(bl_ instanceof Line)) {
+            if (!(bl_ instanceof ExecLine)) {
                 initFields_ = true;
             } else {
-                Line l_ = (Line) bl_;
+                ExecLine l_ = (ExecLine) bl_;
                 if (!l_.isCallInts()) {
                     initFields_ = true;
                 }

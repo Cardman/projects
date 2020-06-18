@@ -1,6 +1,8 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecNullCatchEval;
 import code.expressionlanguage.files.OffsetsBlock;
 
 public final class NullCatchEval extends AbstractCatchEval {
@@ -33,6 +35,12 @@ public final class NullCatchEval extends AbstractCatchEval {
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         _cont.getCoverage().putCatches(_cont,this);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        ExecNullCatchEval exec_ = new ExecNullCatchEval(getOffset());
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
 }

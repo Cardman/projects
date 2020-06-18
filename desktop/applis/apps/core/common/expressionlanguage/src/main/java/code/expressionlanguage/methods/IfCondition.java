@@ -2,6 +2,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecCondition;
+import code.expressionlanguage.exec.blocks.ExecIfCondition;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -46,6 +48,11 @@ public final class IfCondition extends Condition implements BlockCondition {
     }
 
     @Override
+    protected ExecCondition newCondition(String _condition, int _conditionOffset,CustList<ExecOperationNode> _ops) {
+        return new ExecIfCondition(getOffset(),_condition,_conditionOffset,label,labelOffset,_ops);
+    }
+
+    @Override
     public void abruptGroup(AnalyzingEl _anEl) {
         if (canBeIncrementedCurGroup()) {
             return;
@@ -72,63 +79,5 @@ public final class IfCondition extends Condition implements BlockCondition {
         Argument arg_ = op_.getArgument();
         return !Argument.isTrueValue(arg_);
     }
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont);
-            return;
-        }
-        ConditionReturn assert_ = evaluateCondition(_cont);
-        if (assert_ == ConditionReturn.CALL_EX) {
-            return;
-        }
-        IfBlockStack if_ = new IfBlockStack();
-        if_.setLastBlock(this);
-        Block n_ = getNextSibling();
-        while (n_ instanceof ElseIfCondition || n_ instanceof ElseCondition) {
-            if_.setLastBlock((BracedBlock) n_);
-            n_ = n_.getNextSibling();
-        }
-        if_.setBlock(this);
-        if_.setCurrentVisitedBlock(this);
-        if (assert_ == ConditionReturn.YES) {
-            ip_.addBlock(if_);
-            if_.setEntered(true);
-            rw_.setBlock(getFirstChild());
-        } else {
-            ip_.addBlock(if_);
-            exitStack(_cont);
-        }
-    }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        ExecOperationNode root_ = getOpCondition().last();
-        AbstractCoverageResult result_ = _cont.getCoverage().getCovers().getVal(this).getVal(root_);
-        String tag_;
-        if (result_.isFullCovered()) {
-            tag_ = "<span class=\"f\">";
-        } else if (result_.isPartialCovered()) {
-            tag_ = "<span class=\"p\">";
-        } else {
-            tag_ = "<span class=\"n\">";
-        }
-        int off_ = getOffset().getOffsetTrim();
-        _parts.add(new PartOffset(tag_,off_));
-        tag_ = "</span>";
-        _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordIf().length()));
-        super.processReport(_cont,_parts);
-        refLabel(_parts,label,labelOffset);
-    }
-    @Override
-    public void exitStack(ContextEl _context) {
-        AbstractPageEl ip_ = _context.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
-        if (if_.getLastBlock() != this) {
-            rw_.setBlock(getNextSibling());
-        }
-    }
 }

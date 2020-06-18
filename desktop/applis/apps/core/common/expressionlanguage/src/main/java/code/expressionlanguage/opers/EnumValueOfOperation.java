@@ -2,6 +2,9 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecEnumBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.Classes;
@@ -41,8 +44,8 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         Classes classes_ = _conf.getClasses();
         String clName_;
         clName_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,0,className);
-        RootBlock r_ = classes_.getClassBody(clName_);
-        if (!(r_ instanceof EnumBlock)) {
+        ExecRootBlock r_ = classes_.getExecClassBody(clName_);
+        if (!(r_ instanceof ExecEnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -55,7 +58,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             return;
         }
         String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
-        if (!Classes.canAccess(curClassBase_, r_, _conf)) {
+        if (!Classes.canAccess(curClassBase_,(ExecBlock) r_, _conf)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());

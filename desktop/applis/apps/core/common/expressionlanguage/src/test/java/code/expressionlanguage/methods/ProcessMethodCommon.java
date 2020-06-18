@@ -3,6 +3,9 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.files.CommentDelimiters;
@@ -41,8 +44,8 @@ public abstract class ProcessMethodCommon {
 
     protected static Argument calculateError(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.getKind(), _method.getName(),_method.getParametersTypes());
-        NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, _class, fct_).first();
-        Block firstChild_ = method_.getFirstChild();
+        ExecNamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, _class, fct_).first();
+        ExecBlock firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
             return new Argument();
         }
@@ -54,8 +57,8 @@ public abstract class ProcessMethodCommon {
     }
     protected static Argument calculateNormal(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.getKind(), _method.getName(),_method.getParametersTypes());
-        NamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, _class, fct_).first();
-        Block firstChild_ = method_.getFirstChild();
+        ExecNamedFunctionBlock method_ = Classes.getMethodBodiesById(_cont, _class, fct_).first();
+        ExecBlock firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
             return new Argument();
         }
@@ -81,7 +84,7 @@ public abstract class ProcessMethodCommon {
             constraints_.add(n_);
         }
         ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
-        RootBlock type_ = _cont.getClasses().getClassBody(Templates.getIdFromAllTypes(_class));
+        ExecRootBlock type_ = _cont.getClasses().getExecClassBody(Templates.getIdFromAllTypes(_class));
         Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, id_, _args, _cont);
         assertNotNull(getException(_cont));
         return arg_;
@@ -94,7 +97,7 @@ public abstract class ProcessMethodCommon {
             constraints_.add(n_);
         }
         ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
-        RootBlock type_ = _cont.getClasses().getClassBody(Templates.getIdFromAllTypes(_class));
+        ExecRootBlock type_ = _cont.getClasses().getExecClassBody(Templates.getIdFromAllTypes(_class));
         Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, id_, _args, _cont);
         assertNull(getException(_cont));
         return arg_;

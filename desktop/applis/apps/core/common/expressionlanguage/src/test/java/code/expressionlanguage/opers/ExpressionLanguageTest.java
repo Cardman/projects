@@ -4,6 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.exec.blocks.ExecFieldBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.MethodPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.instr.ElUtil;
@@ -6039,9 +6041,9 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     private static Argument calculatePrepareStaticResult(ContextEl _context, boolean _exc) {
-        RootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
+        ExecRootBlock cl_ = _context.getClasses().getExecClassBody("code.formathtml.classes.Apply");
         _context.getLastPage().setGlobalClass("code.formathtml.classes.Apply");
-        FieldBlock f_ = (FieldBlock) cl_.getFirstChild();
+        ExecFieldBlock f_ = (ExecFieldBlock) cl_.getFirstChild();
         ExpressionLanguage el_ = f_.getValueEl();
         Argument arg_ = ElUtil.tryToCalculate(_context,el_,0);
         if (!_exc) {

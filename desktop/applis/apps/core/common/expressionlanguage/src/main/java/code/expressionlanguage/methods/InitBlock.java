@@ -21,8 +21,4 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
     public void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl) {
     }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-
-    }
 }

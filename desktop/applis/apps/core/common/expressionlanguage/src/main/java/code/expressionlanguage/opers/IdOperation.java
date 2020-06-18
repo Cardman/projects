@@ -1,6 +1,8 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.methods.InterfaceBlock;
@@ -39,8 +41,8 @@ public final class IdOperation extends AbstractUnaryOperation {
             }
             String base_ = ((CastOperation) par_).getClassName();
             String id_ = Templates.getIdFromAllTypes(base_);
-            RootBlock rBase_ = _conf.getClasses().getClassBody(id_);
-            if (!(rBase_ instanceof InterfaceBlock)) {
+            ExecRootBlock rBase_ = _conf.getClasses().getExecClassBody(id_);
+            if (!(rBase_ instanceof ExecInterfaceBlock)) {
                 LgNames stds_ = _conf.getStandards();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -129,7 +131,7 @@ public final class IdOperation extends AbstractUnaryOperation {
     private static void checkInherits(ContextEl _conf, StringList _previousInts, String _cl) {
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
-            RootBlock supType_ = _conf.getClasses().getClassBody(sup_);
+            ExecRootBlock supType_ = _conf.getClasses().getExecClassBody(sup_);
             if (supType_.isSubTypeOf(_cl,_conf)) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();

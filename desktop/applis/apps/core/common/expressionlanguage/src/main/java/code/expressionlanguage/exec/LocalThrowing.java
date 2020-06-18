@@ -2,6 +2,7 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
@@ -17,20 +18,20 @@ public final class LocalThrowing implements CallingFinally {
     @Override
     public void removeBlockFinally(ContextEl _conf) {
         Struct custCause_ = (Struct) _conf.getCallingState();
-        AbstractCatchEval catchElt_ = null;
+        ExecAbstractCatchEval catchElt_ = null;
         while (_conf.hasPages()) {
             AbstractPageEl bkIp_ = _conf.getLastPage();
             bkIp_.clearCurrentEls();
             _conf.setException(null);
             while (bkIp_.hasBlock()) {
                 RemovableVars bl_ = bkIp_.getLastStack();
-                Block currentBlock_ = bl_.getCurrentVisitedBlock();
-                if (currentBlock_ instanceof TryEval) {
-                    Block n_ = currentBlock_.getNextSibling();
+                ExecBlock currentBlock_ = bl_.getCurrentVisitedBlock();
+                if (currentBlock_ instanceof ExecTryEval) {
+                    ExecBlock n_ = currentBlock_.getNextSibling();
                     //process try block
-                    while (n_ instanceof AbstractCatchEval) {
-                        if (n_ instanceof CatchEval) {
-                            CatchEval ca_ = (CatchEval) n_;
+                    while (n_ instanceof ExecAbstractCatchEval) {
+                        if (n_ instanceof ExecCatchEval) {
+                            ExecCatchEval ca_ = (ExecCatchEval) n_;
                             String name_ = ca_.getImportedClassName();
                             if (custCause_ == NullStruct.NULL_VALUE) {
                                 n_ = n_.getNextSibling();
@@ -44,7 +45,7 @@ public final class LocalThrowing implements CallingFinally {
                                 break;
                             }
                         } else {
-                            NullCatchEval ca_ = (NullCatchEval) n_;
+                            ExecNullCatchEval ca_ = (ExecNullCatchEval) n_;
                             if (custCause_ == NullStruct.NULL_VALUE) {
                                 catchElt_ = ca_;
                                 bl_.setCurrentVisitedBlock(ca_);
@@ -55,9 +56,9 @@ public final class LocalThrowing implements CallingFinally {
                     }
                     if (catchElt_ != null) {
                         _conf.getCoverage().passCatches(_conf,catchElt_);
-                        Block childCatch_ = catchElt_.getFirstChild();
-                        if (catchElt_ instanceof CatchEval) {
-                            CatchEval c_ = (CatchEval) catchElt_;
+                        ExecBlock childCatch_ = catchElt_.getFirstChild();
+                        if (catchElt_ instanceof ExecCatchEval) {
+                            ExecCatchEval c_ = (ExecCatchEval) catchElt_;
                             String var_ = c_.getVariableName();
                             LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,_conf);
                             bkIp_.getCatchVars().put(var_, lv_);

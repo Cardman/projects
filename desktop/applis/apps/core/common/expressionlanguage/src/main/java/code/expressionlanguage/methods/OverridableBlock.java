@@ -16,7 +16,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public final class OverridableBlock extends NamedFunctionBlock implements AccessibleBlock,GeneCustMethod,ReturnableWithSignature {
+public final class OverridableBlock extends NamedFunctionBlock implements GeneCustMethod,ReturnableWithSignature {
 
     private int modifierOffset;
 
@@ -112,6 +112,10 @@ public final class OverridableBlock extends NamedFunctionBlock implements Access
         return abstractMethod;
     }
 
+    public boolean isStaticCallMethod() {
+        return staticCallMethod;
+    }
+
     public boolean isNormalMethod() {
         return normalMethod;
     }
@@ -125,11 +129,6 @@ public final class OverridableBlock extends NamedFunctionBlock implements Access
             return MethodAccessKind.STATIC_CALL;
         }
         return MethodAccessKind.INSTANCE;
-    }
-
-    @Override
-    public RootBlock belong() {
-        return (RootBlock) getParent();
     }
 
     @Override
@@ -163,49 +162,4 @@ public final class OverridableBlock extends NamedFunctionBlock implements Access
         kind = _kind;
     }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        buildAnnotationsReport(_cont,_parts);
-        int begName_ = getNameOffset();
-        if (kind == MethodKind.OPERATOR) {
-            _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
-            int endName_ = begName_ + getName().length();
-            _parts.add(new PartOffset("</a>",endName_));
-            _parts.addAllElts(getPartOffsetsReturn());
-            refParams(_cont, _parts);
-            return;
-        }
-        _parts.addAllElts(getPartOffsetsReturn());
-        if (kind == MethodKind.GET_INDEX) {
-            _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
-            int endName_ = begName_ + _cont.getKeyWords().getKeyWordThis().length();
-            _parts.add(new PartOffset("</a>",endName_));
-            refParams(_cont, _parts);
-            return;
-        }
-        if (kind == MethodKind.SET_INDEX) {
-            _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
-            int endName_ = begName_ + _cont.getKeyWords().getKeyWordThis().length();
-            _parts.add(new PartOffset("</a>",endName_));
-            refParams(_cont, _parts);
-            return;
-        }
-        int endName_ = begName_ + getName().length();
-        _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
-        _parts.add(new PartOffset("</a>",endName_));
-        refParams(_cont, _parts);
-    }
-
-    private void refParams(ContextEl _cont, CustList<PartOffset> _parts) {
-        int len_ = getParametersNamesOffset().size();
-        for (int i = 0; i < len_; i++) {
-            buildAnnotationsReport(i,_cont,_parts);
-            _parts.addAllElts(getPartOffsetsParams().get(i));
-            Integer off_ = getParametersNamesOffset().get(i);
-            String param_ = getParametersNames().get(i);
-            _parts.add(new PartOffset("<a name=\"m"+off_+"\">",off_));
-            _parts.add(new PartOffset("</a>",off_+param_.length()));
-            _cont.getCoverage().getParamVars().put(param_,off_);
-        }
-    }
 }

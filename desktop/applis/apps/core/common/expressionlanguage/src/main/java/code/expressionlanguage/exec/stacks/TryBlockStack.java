@@ -1,42 +1,44 @@
 package code.expressionlanguage.exec.stacks;
+import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 import code.expressionlanguage.methods.BracedBlock;
-import code.expressionlanguage.methods.CallingFinally;
 
 public final class TryBlockStack extends TryStack implements RemovableVars {
 
     private AbruptCallingFinally calling;
 
-    private BracedBlock block;
+    private ExecBracedBlock execBlock;
 
-    private BracedBlock lastBlock;
+    private ExecBracedBlock execLastBlock;
 
-    private BracedBlock currentBlock;
+    private ExecBracedBlock execCurrentBlock;
 
     @Override
-    public BracedBlock getBlock() {
-        return block;
+    public ExecBracedBlock getBlock() {
+        return execBlock;
     }
 
-    public void setBlock(BracedBlock _block) {
-        block = _block;
-    }
-    @Override
-    public BracedBlock getLastBlock() {
-        return lastBlock;
-    }
-
-    public void setLastBlock(BracedBlock _lastBlock) {
-        lastBlock = _lastBlock;
+    public void setExecBlock(ExecBracedBlock _execBlock) {
+        execBlock = _execBlock;
     }
 
     @Override
-    public BracedBlock getCurrentVisitedBlock() {
-        return currentBlock;
+    public ExecBracedBlock getLastBlock() {
+        return execLastBlock;
+    }
+
+
+    public void setExecLastBlock(ExecBracedBlock _execLastBlock) {
+        execLastBlock = _execLastBlock;
     }
 
     @Override
-    public void setCurrentVisitedBlock(BracedBlock _bl) {
-        currentBlock = _bl;
+    public ExecBracedBlock getCurrentVisitedBlock() {
+        return execCurrentBlock;
+    }
+
+    @Override
+    public void setCurrentVisitedBlock(ExecBracedBlock _bl) {
+        execCurrentBlock = _bl;
     }
 
     public AbruptCallingFinally getCalling() {

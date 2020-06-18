@@ -3,7 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.common.GeneClass;
 import code.util.StringList;
 
-public interface UniqueRootedBlock extends GeneClass {
+public interface UniqueRootedBlock {
 
     String getImportedDirectGenericSuperClass();
 

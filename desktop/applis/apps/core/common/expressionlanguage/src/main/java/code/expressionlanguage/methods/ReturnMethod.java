@@ -1,10 +1,8 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.ReturnableValuePageEl;
+import code.expressionlanguage.exec.blocks.ExecReturnMethod;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -12,19 +10,15 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
-import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
-import code.expressionlanguage.exec.stacks.RemovableVars;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.Struct;
 import code.util.*;
 
-public final class ReturnMethod extends AbruptBlock implements CallingFinally, WithNotEmptyEl  {
+public final class ReturnMethod extends AbruptBlock {
 
     private final String expression;
 
@@ -61,9 +55,14 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
         String retType_ = processReturnValue(_cont);
         if (retType_.isEmpty()) {
+            AnalyzedPageEl page_ = _cont.getAnalyzing();
+            ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(),expression,expressionOffset,null, retType_);
+            page_.getBlockToWrite().appendChild(exec_);
+            page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+            _cont.getCoverage().putBlockOperations(_cont, exec_,this);
             return;
         }
         MethodAccessKind stCtx_ = f_.getStaticContext();
@@ -72,6 +71,10 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
         page_.setOffset(0);
         opRet = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(stCtx_));
         checkTypes(_cont, retType_);
+        ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(),expression,expressionOffset,opRet, retType_);
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private String processReturnValue(ContextEl _cont) {
@@ -136,14 +139,6 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
         }
     }
 
-    @Override
-    public void reduce(ContextEl _context) {
-        if (opRet == null) {
-            return;
-        }
-        ExecOperationNode r_ = opRet.last();
-        opRet = ElUtil.getReducedNodes(r_);
-    }
 
     @Override
     public void abrupt(ContextEl _an, AnalyzingEl _anEl) {
@@ -179,57 +174,4 @@ public final class ReturnMethod extends AbruptBlock implements CallingFinally, W
         }
     }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        if (isEmpty()) {
-            return;
-        }
-        int off_ = getExpressionOffset();
-        int offsetEndBlock_ = off_ + getExpression().length();
-        ElUtil.buildCoverageReport(_cont,off_,this,getOpRet(),offsetEndBlock_,_parts);
-    }
-
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        if (!isEmpty()) {
-            ip_.setOffset(0);
-            ip_.setGlobalOffset(expressionOffset);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            Argument arg_ = ElUtil.tryToCalculate(_cont,el_,0);
-            if (_cont.callsOrException()) {
-                return;
-            }
-            ip_.clearCurrentEls();
-            String type_ = processReturnValue(_cont);
-            type_ = ip_.formatVarType(type_,_cont);
-            if (!Templates.checkQuick(type_,arg_,_cont)) {
-                return;
-            }
-            ((ReturnableValuePageEl) _cont.getLastPage()).setReturnedArgument(arg_);
-        }
-        removeBlockFinally(_cont);
-    }
-
-    @Override
-    public void removeBlockFinally(ContextEl _conf) {
-        AbstractPageEl ip_ = _conf.getLastPage();
-        while (ip_.hasBlock()) {
-            RemovableVars bl_ = ip_.getLastStack();
-            if (AbstractPageEl.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
-                return;
-            }
-        }
-        ip_.setNullReadWrite();
-    }
-
-    @Override
-    public AbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
-        return new AbruptCallingFinally(this);
-    }
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return getElRet();
-    }
 }

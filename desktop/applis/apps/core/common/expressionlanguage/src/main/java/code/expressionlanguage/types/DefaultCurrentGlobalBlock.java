@@ -1,7 +1,7 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 
 public final class DefaultCurrentGlobalBlock implements AbstractCurrentGlobalBlock {
     private final ContextEl context;
@@ -11,12 +11,12 @@ public final class DefaultCurrentGlobalBlock implements AbstractCurrentGlobalBlo
     }
 
     @Override
-    public AccessingImportingBlock getCurrentGlobalBlock() {
+    public ExecAccessingImportingBlock getCurrentGlobalBlock() {
         return context.getCurrentGlobalBlock();
     }
 
     @Override
-    public AccessingImportingBlock getCurrentGlobalBlock(AccessingImportingBlock _bl) {
+    public ExecAccessingImportingBlock getCurrentGlobalBlock(ExecAccessingImportingBlock _bl) {
         return context.getCurrentGlobalBlock(_bl);
     }
 }

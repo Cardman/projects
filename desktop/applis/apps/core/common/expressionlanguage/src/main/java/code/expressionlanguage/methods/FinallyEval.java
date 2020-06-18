@@ -1,5 +1,7 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecFinallyEval;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -9,7 +11,7 @@ import code.expressionlanguage.exec.stacks.ExceptionCallingFinally;
 import code.expressionlanguage.exec.stacks.TryBlockStack;
 import code.util.*;
 
-public final class FinallyEval extends BracedStack implements Eval {
+public final class FinallyEval extends BracedBlock implements Eval {
 
     public FinallyEval(OffsetsBlock _offset) {
         super(_offset);
@@ -38,6 +40,12 @@ public final class FinallyEval extends BracedStack implements Eval {
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        ExecFinallyEval exec_ = new ExecFinallyEval(getOffset());
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     @Override
@@ -62,37 +70,6 @@ public final class FinallyEval extends BracedStack implements Eval {
         }
     }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-
-    }
-
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        TryBlockStack ts_ = (TryBlockStack) ip_.getLastStack();
-        ts_.setCurrentVisitedBlock(this);
-        if (ts_.isVisitedFinally()) {
-            processBlockAndRemove(_cont);
-            return;
-        }
-        ts_.setVisitedFinally(true);
-        ip_.getReadWrite().setBlock(getFirstChild());
-    }
-
-    @Override
-    public void exitStack(ContextEl _context) {
-        AbstractPageEl ip_ = _context.getLastPage();
-        TryBlockStack tryStack_ = (TryBlockStack) ip_.getLastStack();
-        AbruptCallingFinally call_ = tryStack_.getCalling();
-        if (call_ != null) {
-            CallingFinally callingFinally_ = call_.getCallingFinally();
-            if (call_ instanceof ExceptionCallingFinally) {
-                _context.setException(((ExceptionCallingFinally)call_).getException());
-            }
-            callingFinally_.removeBlockFinally(_context);
-        }
-    }
 
     @Override
     public void reach(ContextEl _an, AnalyzingEl _anEl) {

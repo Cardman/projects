@@ -2,6 +2,7 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
@@ -84,7 +85,7 @@ public final class CustContextFactory {
         showUpdates_.stop();
         if (rCont_.isCovering()) {
             String exp_ = _exec.getCoverFolder();
-            for (EntryCust<String,String> f:FileBlock.export(rCont_).entryList()) {
+            for (EntryCust<String,String> f:ExecFileBlock.export(rCont_).entryList()) {
                 _definedLgNames.coverFile(exp_,f.getKey(),f.getValue(),rCont_);
             }
         }

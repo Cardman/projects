@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecDefaultCondition;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -18,6 +19,12 @@ public final class DefaultCondition extends SwitchPartBlock {
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         checkDefault(_cont);
+        ExecDefaultCondition exec_ = new ExecDefaultCondition(getOffset());
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private void checkDefault(ContextEl _cont) {
@@ -55,29 +62,4 @@ public final class DefaultCondition extends SwitchPartBlock {
         }
     }
 
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        ip_.setGlobalOffset(getOffset().getOffsetTrim());
-        ip_.setOffset(0);
-        rw_.setBlock(getFirstChild());
-        ip_.getLastStack().setCurrentVisitedBlock(this);
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        BracedBlock parent_ = getParent();
-        AbstractCoverageResult result_ = _cont.getCoverage().getCoverSwitchs().getVal(parent_).getVal(this);
-        String tag_;
-        if (result_.isFullCovered()) {
-            tag_ = "<span class=\"f\">";
-        } else {
-            tag_ = "<span class=\"n\">";
-        }
-        int off_ = getOffset().getOffsetTrim();
-        _parts.add(new PartOffset(tag_,off_));
-        tag_ = "</span>";
-        _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordDefault().length()));
-    }
 }

@@ -1,11 +1,10 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
+import code.expressionlanguage.exec.blocks.ExecUnclassedBracedBlock;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.PartOffset;
 import code.util.*;
 
 public abstract class Block implements AnalyzedBlock {
@@ -108,6 +107,12 @@ public abstract class Block implements AnalyzedBlock {
 
     private static boolean processOther(Block _block, ContextEl _cont) {
         if (_block instanceof UnclassedBracedBlock) {
+            AnalyzedPageEl page_ = _cont.getAnalyzing();
+            ExecUnclassedBracedBlock exec_ = new ExecUnclassedBracedBlock(_block.getOffset());
+            page_.getBlockToWrite().appendChild(exec_);
+            page_.getAnalysisAss().getMappingMembers().put(exec_,_block);
+            page_.getAnalysisAss().getMappingBracedMembers().put((BracedBlock) _block,exec_);
+            _cont.getCoverage().putBlockOperations(_cont, exec_,_block);
             return true;
         }
         FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -119,44 +124,6 @@ public abstract class Block implements AnalyzedBlock {
         return false;
     }
 
-    public abstract void processReport(ContextEl _cont, CustList<PartOffset> _parts);
-    public final void processBlockAndRemove(ContextEl _conf) {
-        AbstractPageEl ip_ = _conf.getLastPage();
-        ip_.removeLastBlock();
-        processBlock(_conf);
-    }
-    public final void processBlock(ContextEl _conf) {
-        Block n_ = getNextSibling();
-        AbstractPageEl ip_ = _conf.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        if (n_ != null) {
-            rw_.setBlock(n_);
-            return;
-        }
-        BracedBlock par_ = getParent();
-        if (par_ != ip_.getBlockRoot()) {
-            if (par_ instanceof Loop) {
-                par_.removeLocalVars(ip_);
-            } else {
-                par_.removeAllVars(ip_);
-            }
-            rw_.setBlock(par_);
-            par_.exitStack(_conf);
-            return;
-        }
-        ip_.setNullReadWrite();
-    }
-
-    public final FunctionBlock getFunction() {
-        Block b_ = this;
-        while (b_ != null) {
-            if (b_ instanceof FunctionBlock) {
-                return (FunctionBlock)b_;
-            }
-            b_ = b_.getParent();
-        }
-        return null;
-    }
     public final FileBlock getFile() {
         Block b_ = this;
         while (!(b_ instanceof FileBlock)) {

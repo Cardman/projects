@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -53,27 +54,27 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
             if (str_ instanceof LambdaStruct) {
                 String id_ = Templates.getIdFromAllTypes(_className);
                 GeneType r_ = _conf.getClassBody(id_);
-                if (r_ instanceof InterfaceBlock && r_.isStaticType()) {
+                if (r_ instanceof ExecInterfaceBlock && r_.isStaticType()) {
                     int instEltCount_ = 0;
                     StringList superType_ = new StringList(id_);
                     superType_.addAllElts(r_.getAllSuperTypes());
                     for (String i: superType_) {
-                        for (Block b: Classes.getDirectChildren(_conf.getClasses().getClassBody(i))) {
-                            if ((b instanceof FieldBlock)) {
-                                if (((FieldBlock)b).isStaticField()) {
+                        for (ExecBlock b: ExecBlock.getDirectChildren(_conf.getClasses().getExecClassBody(i))) {
+                            if ((b instanceof ExecFieldBlock)) {
+                                if (((ExecFieldBlock)b).isStaticField()) {
                                     continue;
                                 }
                                 instEltCount_++;
                             }
-                            if (b instanceof InstanceBlock) {
+                            if (b instanceof ExecInstanceBlock) {
                                 instEltCount_++;
                             }
-                            if (b instanceof ConstructorBlock) {
+                            if (b instanceof ExecConstructorBlock) {
                                 instEltCount_++;
                             }
                         }
                     }
-                    CustList<ClassMethodId> functional_ = ((RootBlock) r_).getFunctional();
+                    CustList<ClassMethodId> functional_ = ((ExecRootBlock) r_).getFunctional();
                     if ((instEltCount_ == 0 || _full)&& functional_.size() == 1) {
                         ClassMethodId clRealId_ = functional_.first();
                         MethodId realId_ = clRealId_.getConstraints();

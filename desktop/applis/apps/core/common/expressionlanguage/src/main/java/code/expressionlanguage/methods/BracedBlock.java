@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -65,22 +64,11 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
     public void abruptGroup(AnalyzingEl _anEl) {
     }
 
-    public void exitStack(ContextEl _context){
-    }
     @Override
     public final Block getFirstChild() {
         return firstChild;
     }
 
-    public final void removeLocalVars(AbstractPageEl _ip) {
-        for (Block s: Classes.getDirectChildren(this)) {
-            if (s instanceof DeclareVariable) {
-                for (String v: ((DeclareVariable)s).getVariableNames()) {
-                    _ip.removeLocalVar(v);
-                }
-            }
-        }
-    }
 
     @Override
     public void reach(ContextEl _an, AnalyzingEl _anEl) {
@@ -97,8 +85,5 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         }
     }
 
-    public void removeAllVars(AbstractPageEl _ip) {
-        removeLocalVars(_ip);
-    }
 
 }

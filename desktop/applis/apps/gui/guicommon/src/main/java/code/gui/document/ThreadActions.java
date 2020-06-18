@@ -4,6 +4,7 @@ import javax.swing.Timer;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
@@ -125,7 +126,7 @@ public final class ThreadActions implements Runnable {
                         String arrStr_ = PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasString());
                         MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
                         ContextEl ctx_ = conf_.getContext();
-                        CustList<NamedFunctionBlock> methods_ = Classes.getMethodBodiesById(ctx_, classDbName, id_);
+                        CustList<ExecNamedFunctionBlock> methods_ = Classes.getMethodBodiesById(ctx_, classDbName, id_);
                         if (!methods_.isEmpty()) {
                             ProcessMethod.initializeClass(classDbName,ctx_);
                             if (ctx_.hasException()) {

@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecLine;
 import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.NotInitializedFields;
@@ -22,7 +23,7 @@ import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,BuildableElMethod {
+public final class Line extends Leaf implements BuildableElMethod {
 
     private final String expression;
 
@@ -49,7 +50,7 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        FunctionBlock f_ = _cont.getAnalyzing().getCurrentFct();
+        MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
         MethodAccessKind st_ = f_.getStaticContext();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
@@ -61,17 +62,17 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
             String import_ = declaring_.getImportedClassName();
             AffectationOperation.processInfer(_cont, import_);
             declaring_.getVariableNames().addAllElts(vars_);
+            declaring_.getExec().setImportedClassName(import_);
         }
         page_.setMerged(false);
         page_.setAcceptCommaInstr(false);
         page_.setFinalVariable(false);
+        ExecLine exec_ = new ExecLine(getOffset(),expression,expressionOffset,opExp);
+        page_.getBlockToWrite().appendChild(exec_);
+        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
-    @Override
-    public void reduce(ContextEl _context) {
-        ExecOperationNode r_ = opExp.last();
-        opExp = ElUtil.getReducedNodes(r_);
-    }
 
     public CustList<ExecOperationNode> getExp() {
         return opExp;
@@ -105,54 +106,4 @@ public final class Line extends Leaf implements StackableBlock, WithNotEmptyEl,B
         return opExp.last() instanceof ExecCurrentInvokingConstructor;
     }
 
-    @Override
-    public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        
-        ip_.setGlobalOffset(expressionOffset);
-        ip_.setOffset(0);
-        ExpressionLanguage el_ = ip_.getCurrentEl(_cont ,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-        ElUtil.tryToCalculate(_cont,el_,0);
-        if (_cont.callsOrException()) {
-            return;
-        }
-        if (isCallSuper() || isCallInts()) {
-            AbstractCallingInstancingPageEl inst_ = (AbstractCallingInstancingPageEl)ip_;
-            String curClass_ = inst_.getGlobalClass();
-
-            boolean initFields_ = false;
-            Block bl_ = getNextSibling();
-            if (!(bl_ instanceof Line)) {
-                initFields_ = true;
-            } else {
-                Line l_ = (Line) bl_;
-                if (!l_.isCallInts()) {
-                    initFields_ = true;
-                }
-            }
-            //initialize fields if there is no interface constructors to call
-            if (!inst_.isFirstField() && initFields_) {
-                inst_.setFirstField(true);
-                Argument global_ = inst_.getGlobalArgument();
-                _cont.setCallingState(new NotInitializedFields(curClass_, global_));
-                return;
-            }
-            //fields of the current class are initialized if there is no other interface constructors to call
-        }
-        ip_.clearCurrentEls();
-        processBlock(_cont);
-    }
-
-    @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
-        return getRightEl();
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int blOffset_ = expressionOffset;
-        int endBl_ = blOffset_ + getExpression().length();
-        ElUtil.buildCoverageReport(_cont,blOffset_,this,getExp(),endBl_,_parts);
-    }
 }
