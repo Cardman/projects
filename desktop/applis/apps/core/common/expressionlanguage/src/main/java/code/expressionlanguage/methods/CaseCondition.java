@@ -6,8 +6,6 @@ import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.exec.blocks.ExecCaseCondition;
 import code.expressionlanguage.exec.blocks.ExecEnumBlock;
 import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -16,7 +14,6 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.*;
-import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
@@ -29,7 +26,7 @@ import code.util.StringList;
 public final class CaseCondition extends SwitchPartBlock {
 
     private final String value;
-    private CustList<ExecOperationNode> opValue;
+    private Argument argument;
 
     private boolean builtEnum;
 
@@ -71,8 +68,10 @@ public final class CaseCondition extends SwitchPartBlock {
                     _cont.getKeyWords().getKeyWordSwitch());
             //key word len
             _cont.addError(un_);
-            opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
-            ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset,builtEnum,typeEnum,opValue);
+            CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
+            ExecOperationNode last_ = op_.last();
+            argument = last_.getArgument();
+            ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset,builtEnum,typeEnum,op_);
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
@@ -81,7 +80,7 @@ public final class CaseCondition extends SwitchPartBlock {
         }
         _cont.getCoverage().putBlockOperationsSwitchs(_cont,par_,this);
         SwitchBlock sw_ = (SwitchBlock) par_;
-        ClassArgumentMatching resSwitch_ = sw_.getOpValue().last().getResultClass();
+        ClassArgumentMatching resSwitch_ = sw_.getResult();
         String type_ = resSwitch_.getSingleNameOrEmpty();
         ExecEnumBlock e_ = getEnumType(_cont, type_);
         if (e_ != null) {
@@ -100,28 +99,32 @@ public final class CaseCondition extends SwitchPartBlock {
                 op_.setOrder(0);
                 builtEnum = true;
                 typeEnum = id_;
-                opValue = new CustList<ExecOperationNode>();
-                opValue.add(ExecOperationNode.createExecOperationNode(op_));
+                CustList<ExecOperationNode> ops_ = new CustList<ExecOperationNode>();
+                ops_.add(ExecOperationNode.createExecOperationNode(op_));
                 checkDuplicateEnumCase(_cont);
-                ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset,builtEnum,typeEnum,opValue);
+                ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset,builtEnum,typeEnum,ops_);
                 page_.getBlockToWrite().appendChild(exec_);
                 page_.getAnalysisAss().getMappingMembers().put(exec_,this);
                 page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
                 _cont.getCoverage().putBlockOperations(_cont, exec_,this);
                 return;
             }
-            opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
+            CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
+            ExecOperationNode last_ = op_.last();
+            argument = last_.getArgument();
             processNullValue(_cont);
-            ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset,builtEnum,typeEnum,opValue);
+            ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset,builtEnum,typeEnum,op_);
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
             _cont.getCoverage().putBlockOperations(_cont, exec_,this);
             return;
         }
-        opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
-        processNumValues(_cont, resSwitch_);
-        ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset,builtEnum,typeEnum,opValue);
+        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
+        ExecOperationNode last_ = op_.last();
+        argument = last_.getArgument();
+        processNumValues(_cont, resSwitch_, last_.getResultClass());
+        ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset,builtEnum,typeEnum,op_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
@@ -148,9 +151,8 @@ public final class CaseCondition extends SwitchPartBlock {
         return StringList.quickEq(e_.getUniqueFieldName(), value.trim());
     }
     private void processNullValue(ContextEl _cont) {
-        Argument a_ = opValue.last().getArgument();
-        if (Argument.isNullValue(a_)) {
-            checkDuplicateCase(_cont, a_);
+        if (Argument.isNullValue(argument)) {
+            checkDuplicateCase(_cont, argument);
             return;
         }
         FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -163,11 +165,8 @@ public final class CaseCondition extends SwitchPartBlock {
         _cont.addError(un_);
     }
 
-    private void processNumValues(ContextEl _cont, ClassArgumentMatching _resSwitch) {
-        ExecOperationNode op_ = opValue.last();
-        ClassArgumentMatching resCase_ = op_.getResultClass();
-        Argument arg_ = op_.getArgument();
-        if (arg_ == null) {
+    private void processNumValues(ContextEl _cont, ClassArgumentMatching _resSwitch, ClassArgumentMatching _resCase) {
+        if (argument == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
@@ -177,9 +176,9 @@ public final class CaseCondition extends SwitchPartBlock {
                     value);
             _cont.addError(un_);
         } else {
-            checkDuplicateCase(_cont, arg_);
+            checkDuplicateCase(_cont, argument);
             Mapping m_ = new Mapping();
-            m_.setArg(resCase_);
+            m_.setArg(_resCase);
             m_.setParam(_resSwitch);
             if (!Templates.isCorrectOrNumbers(m_,_cont)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -188,7 +187,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 //key word len
                 un_.buildError(_cont.getAnalysisMessages().getUnexpectedCaseValue(),
                         _cont.getKeyWords().getKeyWordCase(),
-                        ExecCatOperation.getString(arg_,_cont),
+                        ExecCatOperation.getString(argument,_cont),
                         StringList.join(_resSwitch.getNames(),"&"));
                 _cont.addError(un_);
             }
@@ -201,8 +200,7 @@ public final class CaseCondition extends SwitchPartBlock {
         while (first_ != this) {
             if (first_ instanceof CaseCondition) {
                 CaseCondition c_ = (CaseCondition) first_;
-                ExecOperationNode curOp_ = c_.opValue.last();
-                Argument a_ = curOp_.getArgument();
+                Argument a_ = c_.getArgument();
                 if (a_ != null) {
                     if (_arg.getStruct().sameReference(a_.getStruct())) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -244,5 +242,9 @@ public final class CaseCondition extends SwitchPartBlock {
             }
             first_ = first_.getNextSibling();
         }
+    }
+
+    public Argument getArgument() {
+        return argument;
     }
 }

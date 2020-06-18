@@ -50,15 +50,13 @@ public final class WhileCondition extends Condition implements Loop {
 
     @Override
     public boolean accessibleCondition() {
-        ExecOperationNode op_ = getRoot();
-        Argument arg_ = op_.getArgument();
+        Argument arg_ = getArgument();
         return Argument.isNotFalseValue(arg_);
     }
     @Override
     public void abruptGroup(AnalyzingEl _anEl) {
         boolean abr_ = true;
-        ExecOperationNode op_ = getRoot();
-        Argument arg_ = op_.getArgument();
+        Argument arg_ = getArgument();
         boolean proc_ = Argument.isTrueValue(arg_);
         if (_anEl.isReachable(this)) {
             if (!proc_) {

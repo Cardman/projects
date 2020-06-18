@@ -67,15 +67,11 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         if (f_ != curBlock_) {
             StringList previousInts_ = new StringList();
             if (f_ instanceof Line){
-                ExecOperationNode root_ = ((Line)f_).getExp().last();
-                if (root_ instanceof ExecInterfaceInvokingConstructor) {
-                    ExecAbstractInvokingConstructor ctor_ = (ExecAbstractInvokingConstructor) root_;
-                    ConstructorId cid_ = ctor_.getConstId();
-                    if (cid_ != null) {
-                        String cl_ = cid_.getName();
-                        cl_ = Templates.getIdFromAllTypes(cl_);
-                        previousInts_.add(cl_);
-                    }
+                ConstructorId cid_ = ((Line)f_).getCallInts();
+                if (cid_ != null) {
+                    String cl_ = cid_.getName();
+                    cl_ = Templates.getIdFromAllTypes(cl_);
+                    previousInts_.add(cl_);
                 }
             }
             while (true) {
@@ -90,8 +86,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         call_.buildError(_conf.getAnalysisMessages().getCallCtorIntAfterSuperThis());
                         _conf.addError(call_);
                     } else {
-                        ExecOperationNode root_ = ((Line)f_).getExp().last();
-                        if (!(root_ instanceof ExecAbstractInvokingConstructor)) {
+                        if (!((Line)f_).isCallFromCtorToCtor()) {
                             //error
                             FoundErrorInterpret call_ = new FoundErrorInterpret();
                             call_.setFileName(curLine_.getFile().getFileName());
@@ -104,16 +99,12 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                     break;
                 }
                 if (n_ instanceof Line){
-                    ExecOperationNode root_ = ((Line)n_).getExp().last();
-                    if (root_ instanceof ExecInterfaceInvokingConstructor) {
-                        ExecAbstractInvokingConstructor ctor_ = (ExecAbstractInvokingConstructor) root_;
-                        ConstructorId cid_ = ctor_.getConstId();
-                        if (cid_ != null) {
-                            String cl_ = cid_.getName();
-                            cl_ = Templates.getIdFromAllTypes(cl_);
-                            checkInherits(_conf, previousInts_, n_, cl_);
-                            previousInts_.add(cl_);
-                        }
+                    ConstructorId cid_ = ((Line)n_).getCallInts();
+                    if (cid_ != null) {
+                        String cl_ = cid_.getName();
+                        cl_ = Templates.getIdFromAllTypes(cl_);
+                        checkInherits(_conf, previousInts_, n_, cl_);
+                        previousInts_.add(cl_);
                     }
                 }
                 f_ = n_;

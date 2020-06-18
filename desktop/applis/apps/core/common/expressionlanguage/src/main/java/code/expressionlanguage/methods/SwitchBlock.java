@@ -31,7 +31,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
     private final String value;
     private int valueOffset;
 
-    private CustList<ExecOperationNode> opValue;
+    private ClassArgumentMatching result;
 
     private boolean enumTest;
 
@@ -68,19 +68,16 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         return value;
     }
 
-    public CustList<ExecOperationNode> getOpValue() {
-        return opValue;
-    }
-
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
-        opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(f_.getStaticContext()));
+        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(f_.getStaticContext()));
+        result = op_.last().getResultClass();
         processAfterEl(_cont);
-        ExecSwitchBlock exec_ = new ExecSwitchBlock(getOffset(), label, labelOffset, value, valueOffset, enumTest, opValue);
+        ExecSwitchBlock exec_ = new ExecSwitchBlock(getOffset(), label, labelOffset, value, valueOffset, enumTest, op_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
@@ -89,9 +86,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
 
     private void processAfterEl(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        ExecOperationNode op_ = opValue.last();
-        ClassArgumentMatching clArg_ = op_.getResultClass();
-        String type_ = clArg_.getSingleNameOrEmpty();
+        String type_ = result.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());
@@ -195,4 +190,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         return def_;
     }
 
+    public ClassArgumentMatching getResult() {
+        return result;
+    }
 }

@@ -1,10 +1,8 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.exec.blocks.ExecForIterativeLoop;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -13,19 +11,10 @@ import code.expressionlanguage.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
-import code.expressionlanguage.exec.stacks.LoopBlockStack;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
-import code.expressionlanguage.exec.variables.LoopVariable;
 import code.util.*;
 
 public final class ForIterativeLoop extends BracedBlock implements ForLoop {
@@ -55,12 +44,6 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
 
     private final boolean eq;
     private int eqOffset;
-
-    private CustList<ExecOperationNode> opInit;
-
-    private CustList<ExecOperationNode> opExp;
-
-    private CustList<ExecOperationNode> opStep;
 
     public ForIterativeLoop(ContextEl _importingPage,
                             OffsetStringInfo _className, OffsetStringInfo _variable,
@@ -172,18 +155,18 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
-        opInit = ElUtil.getAnalyzedOperationsReadOnly(init, _cont, Calculation.staticCalculation(static_));
-        ExecOperationNode initEl_ = opInit.last();
+        CustList<ExecOperationNode> init_ = ElUtil.getAnalyzedOperationsReadOnly(init, _cont, Calculation.staticCalculation(static_));
+        ExecOperationNode initEl_ = init_.last();
         checkType(_cont, elementClass_, initEl_, initOffset);
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        opExp = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
-        ExecOperationNode expressionEl_ = opExp.last();
+        CustList<ExecOperationNode> exp_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
+        ExecOperationNode expressionEl_ = exp_.last();
         checkType(_cont, elementClass_, expressionEl_, expressionOffset);
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
-        opStep = ElUtil.getAnalyzedOperationsReadOnly(step, _cont, Calculation.staticCalculation(static_));
-        ExecOperationNode stepEl_ = opStep.last();
+        CustList<ExecOperationNode> step_ = ElUtil.getAnalyzedOperationsReadOnly(step, _cont, Calculation.staticCalculation(static_));
+        ExecOperationNode stepEl_ = step_.last();
         checkType(_cont, elementClass_, stepEl_, stepOffset);
         AnaLoopVariable lv_ = new AnaLoopVariable();
         lv_.setClassName(cl_);
@@ -192,7 +175,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         _cont.getCoverage().putBlockOperationsLoops(_cont,this);
         ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label,labelOffset,importedClassName,
                 importedClassIndexName,variableName,variableNameOffset,init,initOffset,
-                expression,expressionOffset,step,stepOffset,eq,opInit,opExp,opStep);
+                expression,expressionOffset,step,stepOffset,eq,init_,exp_,step_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);

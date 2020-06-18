@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.blocks.ExecConstructorBlock;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.util.*;
 import code.util.*;
@@ -117,7 +118,10 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                 break;
             }
             if (l_.isCallInts()) {
-                ints_.add(l_.getCalledInterface());
+                ConstructorId ctor_ = l_.getConstId();
+                if (ctor_ != null) {
+                    ints_.add(Templates.getIdFromAllTypes(ctor_.getName()));
+                }
             }
             firstChild_ = firstChild_.getNextSibling();
         }

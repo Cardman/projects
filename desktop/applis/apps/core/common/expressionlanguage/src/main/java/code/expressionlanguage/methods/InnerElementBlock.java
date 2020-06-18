@@ -13,7 +13,6 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.instr.PartOffsetAffect;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
@@ -30,13 +29,9 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     private String importedClassName;
 
-    private CustList<ExecOperationNode> opValue;
-
     private int fieldNameOffest;
 
     private int valueOffest;
-
-    private int trOffset;
 
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
@@ -107,15 +102,14 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String idType_ = getFullName();
         String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_," ",idType_, PAR_LEFT, value, PAR_RIGHT);
-        trOffset = valueOffest  -1 -fieldName.length()- fieldNameOffest - 2 - newKeyWord_.length() - idType_.length();
-        _exec.setTrOffset(trOffset);
-        page_.setTranslatedOffset(trOffset);
+        int trOffset_ = valueOffest  -1 -fieldName.length()- fieldNameOffest - 2 - newKeyWord_.length() - idType_.length();
+        _exec.setTrOffset(trOffset_);
+        page_.setTranslatedOffset(trOffset_);
         int index_ = getIndex();
         _cont.setCurrentChildTypeIndex(index_);
         _cont.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
         _cont.getCoverage().putBlockOperations(_cont,this);
-        opValue = ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName));
-        _exec.setOpValue(opValue);
+        _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName)));
         page_.setTranslatedOffset(0);
     }
 

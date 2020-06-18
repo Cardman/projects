@@ -16,8 +16,6 @@ public final class Throwing extends AbruptBlock {
 
     private int expressionOffset;
 
-    private CustList<ExecOperationNode> opThrow;
-
     public Throwing(OffsetStringInfo _expression, OffsetsBlock _offset) {
         super(_offset);
         expression = _expression.getInfo();
@@ -38,8 +36,8 @@ public final class Throwing extends AbruptBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
-        opThrow = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(f_.getStaticContext()));
-        ExecThrowing exec_ = new ExecThrowing(getOffset(),expression,expressionOffset,opThrow);
+        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(f_.getStaticContext()));
+        ExecThrowing exec_ = new ExecThrowing(getOffset(),expression,expressionOffset,op_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);

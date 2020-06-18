@@ -35,8 +35,7 @@ public final class DoWhileCondition extends Condition {
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
         }
-        ExecOperationNode op_ = getRoot();
-        Argument arg_ = op_.getArgument();
+        Argument arg_ = getArgument();
         boolean proc_ = Argument.isTrueValue(arg_);
         if (!proc_) {
             if (_anEl.canCompleteNormallyGroup(last_)) {

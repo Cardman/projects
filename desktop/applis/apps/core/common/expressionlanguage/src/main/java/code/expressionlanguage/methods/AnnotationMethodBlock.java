@@ -39,8 +39,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     private String defaultValue;
     private int defaultValueOffset;
 
-    private CustList<ExecOperationNode> opValue;
-
     public AnnotationMethodBlock(OffsetStringInfo _retType, OffsetStringInfo _fctName,
                                  OffsetStringInfo _defaultValue,
                                  OffsetsBlock _offset) {
@@ -127,20 +125,19 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     public void buildExpressionLanguage(ContextEl _cont, ExecAnnotationMethodBlock _exec) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (defaultValue.trim().isEmpty()) {
-            opValue = new CustList<ExecOperationNode>();
-            _exec.setOpValue(opValue);
+            _exec.setOpValue(new CustList<ExecOperationNode>());
             return;
         }
         page_.setGlobalOffset(defaultValueOffset);
         page_.setOffset(0);
         _cont.getCoverage().putBlockOperationsField(_cont,this);
-        opValue = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, _cont, Calculation.staticCalculation(MethodAccessKind.STATIC));
-        _exec.setOpValue(opValue);
+        CustList<ExecOperationNode> ops_ = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, _cont, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        _exec.setOpValue(ops_);
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        ClassArgumentMatching arg_ = opValue.last().getResultClass();
+        ClassArgumentMatching arg_ = ops_.last().getResultClass();
         mapping_.setArg(arg_);
         mapping_.setParam(import_);
         if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
@@ -154,7 +151,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             _cont.addError(cast_);
         }
         if (PrimitiveTypeUtil.isPrimitive(import_, _cont)) {
-            opValue.last().getResultClass().setUnwrapObject(import_);
+            ops_.last().getResultClass().setUnwrapObject(import_);
         }
     }
 

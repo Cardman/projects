@@ -60,8 +60,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         if (canBeIncrementedCurGroup()) {
             return;
         }
-        ExecOperationNode op_ = getRoot();
-        Argument arg_ = op_.getArgument();
+        Argument arg_ = getArgument();
         boolean abr_ = Argument.isTrueValue(arg_);
         if (!abr_) {
             return;
@@ -112,14 +111,12 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
 
     @Override
     public boolean accessibleCondition() {
-        ExecOperationNode op_ = getRoot();
-        Argument arg_ = op_.getArgument();
+        Argument arg_ = getArgument();
         return Argument.isNotFalseValue(arg_);
     }
     @Override
     public boolean accessibleForNext() {
-        ExecOperationNode op_ = getRoot();
-        Argument arg_ = op_.getArgument();
+        Argument arg_ = getArgument();
         return !Argument.isTrueValue(arg_);
     }
 

@@ -47,7 +47,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     private int accessOffset;
 
-    private CustList<ExecOperationNode> opValue;
     private StringList annotations = new StringList();
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Ints annotationsIndexes = new Ints();
@@ -96,10 +95,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     public AccessEnum getAccess() {
         return access;
-    }
-
-    public CustList<ExecOperationNode> getOpValue() {
-        return opValue;
     }
 
     @Override
@@ -223,19 +218,13 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         processPutCoverage(_cont,_exec);
-        opValue = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(staticField));
-        _exec.setOpValue(opValue);
-        processReducing(_cont);
+        _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(staticField)));
     }
     public CustList<OperationNode> buildExpressionLanguageQuickly(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         return ElUtil.getAnalyzedOperationsQucikly(value, _cont, Calculation.staticCalculation(staticField));
-    }
-
-    private void processReducing(ContextEl _cont) {
-        opValue = ElUtil.getReducedNodes(opValue.last());
     }
 
     private void processPutCoverage(ContextEl _cont, ExecFieldBlock _exec) {

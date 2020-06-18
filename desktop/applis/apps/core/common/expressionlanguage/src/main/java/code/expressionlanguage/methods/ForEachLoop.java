@@ -12,7 +12,6 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
@@ -43,7 +42,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
 
     private int expressionOffset;
 
-    private CustList<ExecOperationNode> opList;
+    private Argument argument;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
@@ -183,9 +182,8 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         return static_;
     }
 
-    public void inferArrayClass(ContextEl _cont) {
-        ExecOperationNode el_ = opList.last();
-        ClassArgumentMatching compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass());
+    public void inferArrayClass(ContextEl _cont, ClassArgumentMatching _elt) {
+        ClassArgumentMatching compo_ = PrimitiveTypeUtil.getQuickComponentType(_elt);
         KeyWords keyWords_ = _cont.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringList.quickEq(className.trim(), keyWordVar_) && compo_.getNames().onlyOneElt()) {
@@ -224,22 +222,22 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         MethodAccessKind static_ = processVarTypes(_cont);
-        opList = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
-        checkMatchs(_cont);
+        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
+        ExecOperationNode l_ = op_.last();
+        argument = l_.getArgument();
+        checkMatchs(_cont, l_.getResultClass());
         processVariable(_cont);
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         ExecForEachLoop exec_ = new ExecForEachLoop(getOffset(),label,labelOffset,className,importedClassName,classNameOffset,
-                importedClassIndexName,variableName,variableNameOffset,expression,expressionOffset,opList, partOffsets);
+                importedClassIndexName,variableName,variableNameOffset,expression,expressionOffset,op_, partOffsets);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
-    private void checkMatchs(ContextEl _cont) {
-        ExecOperationNode el_ = opList.last();
-        Argument arg_ = el_.getArgument();
-        if (Argument.isNullValue(arg_)) {
+    private void checkMatchs(ContextEl _cont, ClassArgumentMatching _elt) {
+        if (Argument.isNullValue(argument)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_cont.getCurrentFileName());
             static_.setIndexFile(_cont.getCurrentLocationIndex());
@@ -247,12 +245,14 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             static_.buildError(_cont.getAnalysisMessages().getNullValue(),
                     _cont.getStandards().getAliasNullPe());
             _cont.addError(static_);
-        } else if (el_.getResultClass().isArray()) {
-            inferArrayClass(_cont);
         } else {
-            StringList names_ = el_.getResultClass().getNames();
-            StringList out_ = getInferredIterable(names_, _cont);
-            checkIterableCandidates(out_, _cont);
+            if (_elt.isArray()) {
+                inferArrayClass(_cont, _elt);
+            } else {
+                StringList names_ = _elt.getNames();
+                StringList out_ = getInferredIterable(names_, _cont);
+                checkIterableCandidates(out_, _cont);
+            }
         }
     }
 

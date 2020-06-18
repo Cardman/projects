@@ -1,24 +1,14 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecDeclareVariable;
 import code.expressionlanguage.exec.blocks.ExecLine;
-import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.NotInitializedFields;
+import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.exec.opers.ExecCurrentInvokingConstructor;
-import code.expressionlanguage.exec.opers.ExecInterfaceInvokingConstructor;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.opers.ExecSuperInvokingConstructor;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.util.CustList;
@@ -30,7 +20,11 @@ public final class Line extends Leaf implements BuildableElMethod {
 
     private int expressionOffset;
 
-    private CustList<ExecOperationNode> opExp;
+    private ConstructorId constId;
+    private boolean callSuper;
+    private boolean callThis;
+    private boolean callInts;
+    private boolean callFromCtorToCtor;
 
     public Line(OffsetStringInfo _left, OffsetsBlock _offset) {
         super(_offset);
@@ -53,7 +47,20 @@ public final class Line extends Leaf implements BuildableElMethod {
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         String import_ = _cont.getStandards().getAliasObject();
-        opExp = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(st_));
+        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(st_));
+        if (op_.last() instanceof ExecCurrentInvokingConstructor) {
+            callThis = true;
+        }
+        if (op_.last() instanceof ExecSuperInvokingConstructor) {
+            callSuper = true;
+        }
+        if (op_.last() instanceof ExecInterfaceInvokingConstructor) {
+            callInts = true;
+        }
+        if (op_.last() instanceof ExecAbstractInvokingConstructor) {
+            callFromCtorToCtor = true;
+            constId =((ExecAbstractInvokingConstructor)op_.last()).getConstId();
+        }
         if (page_.isMerged()) {
             StringList vars_ = page_.getVariablesNames();
             DeclareVariable declaring_ = (DeclareVariable) getPreviousSibling();
@@ -69,43 +76,37 @@ public final class Line extends Leaf implements BuildableElMethod {
         page_.setMerged(false);
         page_.setAcceptCommaInstr(false);
         page_.setFinalVariable(false);
-        ExecLine exec_ = new ExecLine(getOffset(),expression,expressionOffset,opExp);
+        ExecLine exec_ = new ExecLine(getOffset(),expression,expressionOffset,op_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
 
-    public CustList<ExecOperationNode> getExp() {
-        return opExp;
-    }
-
     public ConstructorId getConstId() {
-        return ((ExecCurrentInvokingConstructor) opExp.last()).getConstId();
+        return constId;
     }
 
     public boolean isCallSuper() {
-        return opExp.last() instanceof ExecSuperInvokingConstructor;
+        return callSuper;
     }
 
-    public String getCalledInterface() {
-        ExecOperationNode last_ = opExp.last();
-        ExecInterfaceInvokingConstructor int_ = (ExecInterfaceInvokingConstructor) last_;
-        String cl_ = int_.getConstId().getName();
-        cl_ = Templates.getIdFromAllTypes(cl_);
-        return cl_;
+    public boolean isCallFromCtorToCtor() {
+        return callFromCtorToCtor;
     }
+
     public boolean isCallInts() {
-        ExecOperationNode last_ = opExp.last();
-        if (!(last_ instanceof ExecInterfaceInvokingConstructor)) {
-            return false;
+        return callInts;
+    }
+    public ConstructorId getCallInts() {
+        if (!callInts) {
+            return null;
         }
-        ExecInterfaceInvokingConstructor int_ = (ExecInterfaceInvokingConstructor) last_;
-        return int_.getConstId() != null;
+        return constId;
     }
 
     public boolean isCallThis() {
-        return opExp.last() instanceof ExecCurrentInvokingConstructor;
+        return callThis;
     }
 
 }

@@ -11,7 +11,6 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.*;
@@ -23,8 +22,6 @@ public final class ReturnMethod extends AbruptBlock {
     private final String expression;
 
     private int expressionOffset;
-
-    private CustList<ExecOperationNode> opRet;
 
     public ReturnMethod(OffsetStringInfo _expression, OffsetsBlock _offset) {
         super(_offset);
@@ -61,9 +58,9 @@ public final class ReturnMethod extends AbruptBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        opRet = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(stCtx_));
-        checkTypes(_cont, retType_);
-        ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(),expression,expressionOffset,opRet, retType_);
+        CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(stCtx_));
+        checkTypes(_cont, retType_, op_.last().getResultClass());
+        ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(),expression,expressionOffset,op_, retType_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
@@ -89,12 +86,12 @@ public final class ReturnMethod extends AbruptBlock {
         }
         return retType_;
     }
-    private void checkTypes(ContextEl _cont, String _retType) {
+    private void checkTypes(ContextEl _cont, String _retType, ClassArgumentMatching _ret) {
         LgNames stds_ = _cont.getStandards();
         StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        mapping_.setArg(opRet.last().getResultClass());
+        mapping_.setArg(_ret);
         mapping_.setParam(_retType);
         if (StringList.quickEq(_retType, stds_.getAliasVoid())) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -108,12 +105,11 @@ public final class ReturnMethod extends AbruptBlock {
         }
         if (!Templates.isCorrectOrNumbers(mapping_, _cont)) {
             //look for implicit casts
-            ExecOperationNode last_ = opRet.last();
-            ClassArgumentMatching reClass_ = last_.getResultClass();
+            ClassArgumentMatching reClass_ = _ret;
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _retType, reClass_);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                last_.getResultClass().getImplicits().add(cl_);
+                _ret.getImplicits().add(cl_);
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());
@@ -127,7 +123,7 @@ public final class ReturnMethod extends AbruptBlock {
 
         }
         if (PrimitiveTypeUtil.isPrimitive(_retType, _cont)) {
-            opRet.last().getResultClass().setUnwrapObject(_retType);
+            _ret.setUnwrapObject(_retType);
         }
     }
 

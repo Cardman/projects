@@ -29,8 +29,6 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     private String importedClassName;
 
-    private CustList<ExecOperationNode> opValue;
-
     private int fieldNameOffest;
 
     private int valueOffest;
@@ -129,8 +127,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         _cont.setCurrentChildTypeIndex(index_);
         _cont.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
         _cont.getCoverage().putBlockOperations(_cont,this);
-        opValue = ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName));
-        _exec.setOpValue(opValue);
+        _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName)));
         page_.setTranslatedOffset(0);
     }
 
