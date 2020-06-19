@@ -5,7 +5,6 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.util.CustList;
 import code.util.StringList;
@@ -66,7 +65,7 @@ public final class ResolvingSuperTypes {
     }
     /**Used at building mapping constraints*/
     public static String resolveTypeInherits(ContextEl _context, String _in, ExecRootBlock _currentBlock,
-                                      int _location) {
+                                             int _location, CustList<PartOffset> _partOffsets) {
         StringMap<Integer> variables_ = new StringMap<Integer>();
         for (ExecRootBlock r: _currentBlock.getSelfAndParentTypes()) {
             for (TypeVar t: r.getParamTypes()) {
@@ -77,10 +76,9 @@ public final class ResolvingSuperTypes {
         _context.getAnalyzing().getAvailableVariables().clear();
         _context.getAnalyzing().getAvailableVariables().putAllMap(variables_);
         String gl_ = _currentBlock.getGenericString();
-        CustList<PartOffset> partOffsets_ = _currentBlock.getSuperTypesParts();
         ExecRootBlock scope_ = _currentBlock.getParentType();
         _context.getAnalyzing().getCurrentBadIndexes().clear();
-        String resType_ = AnaPartTypeUtil.processAnalyze(_in,true,gl_,_context,scope_,_currentBlock, _location,partOffsets_);
+        String resType_ = AnaPartTypeUtil.processAnalyze(_in,true,gl_,_context,scope_,_currentBlock, _location, _partOffsets);
         for (int i: _context.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());

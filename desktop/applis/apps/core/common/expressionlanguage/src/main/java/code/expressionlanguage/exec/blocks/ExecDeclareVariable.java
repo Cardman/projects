@@ -5,10 +5,8 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.StackableBlock;
-import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
@@ -32,20 +30,6 @@ public final class ExecDeclareVariable extends ExecLeaf implements StackableBloc
         classNameOffset = _classNameOffset;
         variableNames = _variableNames;
         partOffsets = _partOffsets;
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        KeyWords keyWords_ = _cont.getKeyWords();
-        String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (StringList.quickEq(className.trim(), keyWordVar_)) {
-            String tag_ = "<b title=\""+ElUtil.transform(importedClassName)+"\">";
-            _parts.add(new PartOffset(tag_,classNameOffset));
-            tag_ = "</b>";
-            _parts.add(new PartOffset(tag_,classNameOffset+ _cont.getKeyWords().getKeyWordFor().length()));
-        } else {
-            _parts.addAllElts(partOffsets);
-        }
     }
 
     @Override

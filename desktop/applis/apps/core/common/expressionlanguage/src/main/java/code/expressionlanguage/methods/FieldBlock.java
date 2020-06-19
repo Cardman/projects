@@ -51,6 +51,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private Ints annotationsIndexes = new Ints();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private StringList assignedDeclaredFields = new StringList();
+    private OperationNode root;
+    private CustList<OperationNode> roots = new CustList<OperationNode>();
     public FieldBlock(OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
                       OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -218,6 +220,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         page_.setOffset(0);
         processPutCoverage(_cont,_exec);
         _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(staticField)));
+        root = _cont.getCoverage().getCurrentRoot();
     }
     public CustList<OperationNode> buildExpressionLanguageQuickly(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
@@ -235,12 +238,14 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         int len_ = annotationsIndexes.size();
         AnalyzedPageEl page_ = _context.getAnalyzing();
+        roots = new CustList<OperationNode>();
         for (int i = 0; i < len_; i++) {
             int begin_ = annotationsIndexes.get(i);
             page_.setGlobalOffset(begin_);
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
+            roots.add(_context.getCoverage().getCurrentRoot());
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }
@@ -252,6 +257,14 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     public Ints getAnnotationsIndexes() {
         return annotationsIndexes;
+    }
+
+    public OperationNode getRoot() {
+        return root;
+    }
+
+    public CustList<OperationNode> getRoots() {
+        return roots;
     }
 
 }

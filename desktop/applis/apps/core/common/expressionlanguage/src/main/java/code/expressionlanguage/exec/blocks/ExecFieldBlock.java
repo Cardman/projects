@@ -21,7 +21,7 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock,Acce
     private final StringList fieldName = new StringList();
     private Ints valuesOffset = new Ints();
     private String importedClassName;
-    private final String value;
+
     private int valueOffset;
 
     private final boolean staticField;
@@ -31,19 +31,14 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock,Acce
     private final AccessEnum access;
 
     private CustList<ExecOperationNode> opValue;
-    private StringList annotations = new StringList();
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
-    private Ints annotationsIndexes = new Ints();
-    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+
     public ExecFieldBlock(FieldBlock _offset) {
         super(_offset.getOffset());
-        value = _offset.getValue();
         valueOffset = _offset.getValueOffset();
         staticField = _offset.isStaticField();
         finalField = _offset.isFinalField();
         access = _offset.getAccess();
-        annotations = _offset.getAnnotations();
-        annotationsIndexes = _offset.getAnnotationsIndexes();
     }
 
     @Override
@@ -84,7 +79,6 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock,Acce
     @Override
     public void buildImportedTypes(InfoBlock _key) {
         importedClassName = _key.getImportedClassName();
-        partOffsets = _key.getTypePartOffsets();
         fieldName.addAllElts(_key.getFieldName());
     }
 
@@ -94,20 +88,6 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock,Acce
 
     public void setValuesOffset(Ints valuesOffset) {
         this.valuesOffset = valuesOffset;
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int len_ = annotationsIndexes.size();
-        for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexes.get(i);
-            int end_ = begin_ + annotations.get(i).length();
-            ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOps.get(i),end_,_parts,0,"",true);
-        }
-        _parts.addAllElts(partOffsets);
-        int blOffset_ = valueOffset;
-        int endBl_ = blOffset_ + value.length();
-        ElUtil.buildCoverageReport(_cont,blOffset_,this,getOpValue(),endBl_,_parts);
     }
 
     @Override

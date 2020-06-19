@@ -18,7 +18,6 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
 
     private ClassMethodId classMethodId;
     private int offsetOper;
-    private CustList<PartOffset> partOffsets;
 
     public ExecExplicitOperatorOperation(ExplicitOperatorOperation _fct) {
         super(_fct);
@@ -26,7 +25,6 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
         lastType = _fct.getLastType();
         naturalVararg = _fct.getNaturalVararg();
         offsetOper = _fct.getOffsetOper();
-        partOffsets = _fct.getPartOffsets();
     }
 
     @Override
@@ -40,15 +38,8 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
         checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, prev_,firstArgs_);
     }
 
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
-    }
-
     public int getOffsetOper() {
         return offsetOper;
     }
 
-    public CustList<PartOffset> getPartOffsets() {
-        return partOffsets;
-    }
 }

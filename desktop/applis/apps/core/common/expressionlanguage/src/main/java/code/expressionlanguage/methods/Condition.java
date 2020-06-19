@@ -9,6 +9,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -20,6 +21,8 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
     private int conditionOffset;
 
     private Argument argument;
+
+    private OperationNode root;
 
     public Condition(OffsetStringInfo _condition, OffsetsBlock _offset) {
         super(_offset);
@@ -39,10 +42,12 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         CustList<ExecOperationNode> opCondition_ = ElUtil.getAnalyzedOperationsReadOnly(condition, _cont, Calculation.staticCalculation(f_.getStaticContext()));
+        root = _cont.getCoverage().getCurrentRoot();
         ExecCondition exec_ = newCondition(condition, conditionOffset, opCondition_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+        _cont.getCoverage().putBlockOperationsConditions(_cont,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
         ExecOperationNode last_ = opCondition_.last();
         processBoolean(_cont, last_);
@@ -75,5 +80,7 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
     }
 
 
-
+    public OperationNode getRoot() {
+        return root;
+    }
 }

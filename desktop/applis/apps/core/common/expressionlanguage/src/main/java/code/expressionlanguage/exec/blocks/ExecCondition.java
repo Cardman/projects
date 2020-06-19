@@ -7,8 +7,6 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.Condition;
 import code.expressionlanguage.methods.WithNotEmptyEl;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -17,16 +15,14 @@ import code.util.CustList;
 
 public abstract class ExecCondition extends ExecBracedBlock implements WithNotEmptyEl {
 
-    private String condition;
 
     private int conditionOffset;
 
     private CustList<ExecOperationNode> opCondition;
 
-    ExecCondition(OffsetsBlock _offset, String _condition, int _conditionOffset, CustList<ExecOperationNode> _opCondition) {
+    ExecCondition(OffsetsBlock _offset, int _conditionOffset, CustList<ExecOperationNode> _opCondition) {
         super(_offset);
         conditionOffset = _conditionOffset;
-        condition = _condition;
         opCondition = _opCondition;
     }
 
@@ -34,13 +30,6 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
     public void reduce(ContextEl _context) {
         ExecOperationNode r_ = opCondition.last();
         opCondition = ElUtil.getReducedNodes(r_);
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int off_ = getConditionOffset();
-        int offsetEndBlock_ = off_ + getCondition().length();
-        ElUtil.buildCoverageReport(_cont,off_,this,getOpCondition(),offsetEndBlock_,_parts);
     }
 
     final ConditionReturn evaluateCondition(ContextEl _context) {
@@ -53,6 +42,7 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
             return ConditionReturn.CALL_EX;
         }
         last_.clearCurrentEls();
+        _context.getCoverage().passConditions(_context,arg_,opCondition.last());
         if (BooleanStruct.isTrue(ClassArgumentMatching.convertToBoolean(arg_.getStruct()))) {
             return ConditionReturn.YES;
         }
@@ -73,11 +63,4 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
         return opCondition;
     }
 
-    public int getConditionOffset() {
-        return conditionOffset;
-    }
-
-    public String getCondition() {
-        return condition;
-    }
 }

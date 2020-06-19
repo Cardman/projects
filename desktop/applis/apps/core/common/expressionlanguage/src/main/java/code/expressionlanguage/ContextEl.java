@@ -10,6 +10,7 @@ import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.instr.*;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.analyze.util.TypeVar;
@@ -475,14 +476,14 @@ public abstract class ContextEl {
             return;
         }
         GeneType g_ = getClassBody(_in);
-        if (!ElUtil.isFromCustFile(g_)) {
+        if (!LinkageUtil.isFromCustFile(g_)) {
             return;
         }
         ExecAccessingImportingBlock r_ = getCurrentGlobalBlock();
         int rc_ = getCurrentLocationIndex();
         String curr_ = ((ExecBlock)r_).getFile().getRenderFileName();
         String ref_ = ((ExecRootBlock) g_).getFile().getRenderFileName();
-        String rel_ = ElUtil.relativize(curr_,ref_);
+        String rel_ = LinkageUtil.relativize(curr_,ref_);
         int id_ = ((ExecRootBlock) g_).getIdRowCol();
         _parts.add(new PartOffset("<a title=\""+g_.getFullName()+"\" href=\""+rel_+"#m"+id_+"\">",rc_+_begin));
         _parts.add(new PartOffset("</a>",rc_+_end));
@@ -493,7 +494,7 @@ public abstract class ContextEl {
             return;
         }
         int rc_ = getCurrentLocationIndex();
-        _parts.add(new PartOffset("<a title=\""+ElUtil.transform(_in)+"\">",rc_+_begin));
+        _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(_in)+"\">",rc_+_begin));
         _parts.add(new PartOffset("</a>",rc_+_end));
     }
 

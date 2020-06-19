@@ -12,9 +12,8 @@ import code.util.Ints;
 import code.util.StringList;
 
 public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock implements Returnable,ExecAnnotableParametersBlock {
-    private StringList annotations;
+
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
-    private Ints annotationsIndexes;
 
     private final String name;
 
@@ -28,19 +27,13 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private final StringList parametersNames;
 
-    private Ints parametersNamesOffset;
-
     private final AccessEnum access;
 
     private int accessOffset;
 
     private final boolean varargs;
-    private CustList<StringList> annotationsParams = new CustList<StringList>();
-    private CustList<Ints> annotationsIndexesParams;
-    private CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
-    private CustList<CustList<PartOffset>> partOffsetsParams = new CustList<CustList<PartOffset>>();
-    private CustList<PartOffset> partOffsetsReturn = new CustList<PartOffset>();
+    private CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
     ExecNamedFunctionBlock(NamedFunctionBlock _offset) {
         super(_offset.getOffset());
@@ -49,32 +42,9 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         nameOffset = _offset.getNameOffset();
         varargs = _offset.isVarargs();
         access = _offset.getAccess();
-        annotations = _offset.getAnnotations();
-        annotationsParams = _offset.getAnnotationsParams();
         accessOffset = _offset.getAccessOffset();
         returnTypeOffset = _offset.getReturnTypeOffset();
         parametersNames = _offset.getParametersNames();
-        parametersNamesOffset = _offset.getParametersNamesOffset();
-        annotationsIndexes = _offset.getAnnotationsIndexes();
-        annotationsIndexesParams = _offset.getAnnotationsIndexesParams();
-    }
-
-    protected void buildAnnotationsReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int len_ = annotationsIndexes.size();
-        for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexes.get(i);
-            int end_ = begin_ + annotations.get(i).length();
-            ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOps.get(i),end_,_parts,0,"",true);
-        }
-    }
-    protected void buildAnnotationsReport(int _index, ContextEl _cont, CustList<PartOffset> _parts) {
-        int len_ = annotationsIndexesParams.get(_index).size();
-        StringList list_ = annotationsParams.get(_index);
-        for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexesParams.get(_index).get(i);
-            int end_ = begin_ + list_.get(i).length();
-            ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOpsParams.get(_index).get(i),end_,_parts,0,"",true);
-        }
     }
 
     @Override
@@ -107,10 +77,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
     @Override
     public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
         return annotationsOpsParams;
-    }
-
-    public Ints getParametersNamesOffset() {
-        return parametersNamesOffset;
     }
 
     public int getNameOffset() {
@@ -161,19 +127,4 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         importedReturnType = _importedReturnType;
     }
 
-    public CustList<CustList<PartOffset>> getPartOffsetsParams() {
-        return partOffsetsParams;
-    }
-
-    public CustList<PartOffset> getPartOffsetsReturn() {
-        return partOffsetsReturn;
-    }
-
-    public void setPartOffsetsParams(CustList<CustList<PartOffset>> partOffsetsParams) {
-        this.partOffsetsParams = partOffsetsParams;
-    }
-
-    public void setPartOffsetsReturn(CustList<PartOffset> partOffsetsReturn) {
-        this.partOffsetsReturn = partOffsetsReturn;
-    }
 }

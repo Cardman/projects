@@ -94,19 +94,4 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
         return previousArgument;
     }
 
-    public ClassMethodId getMethod() {
-        return method;
-    }
-
-    public ConstructorId getRealId() {
-        return realId;
-    }
-
-    public ClassField getFieldId() {
-        return fieldId;
-    }
-
-    public String getFoundClass() {
-        return foundClass;
-    }
 }

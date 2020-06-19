@@ -25,6 +25,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
@@ -37,6 +38,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         GeneCustStaticMethod {
 
     private String defaultValue;
+    private OperationNode root;
     private int defaultValueOffset;
 
     public AnnotationMethodBlock(OffsetStringInfo _retType, OffsetStringInfo _fctName,
@@ -132,6 +134,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         page_.setOffset(0);
         _cont.getCoverage().putBlockOperationsField(_cont,this);
         CustList<ExecOperationNode> ops_ = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, _cont, Calculation.staticCalculation(MethodAccessKind.STATIC));
+        root = _cont.getCoverage().getCurrentRoot();
         _exec.setOpValue(ops_);
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();
@@ -156,4 +159,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
 
+    public OperationNode getRoot() {
+        return root;
+    }
 }

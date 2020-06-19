@@ -13,6 +13,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
@@ -45,6 +46,9 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
     private final boolean eq;
     private int eqOffset;
 
+    private OperationNode rootInit;
+    private OperationNode rootExp;
+    private OperationNode rootStep;
     public ForIterativeLoop(ContextEl _importingPage,
                             OffsetStringInfo _className, OffsetStringInfo _variable,
                             OffsetStringInfo _from,
@@ -156,16 +160,19 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         page_.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
         CustList<ExecOperationNode> init_ = ElUtil.getAnalyzedOperationsReadOnly(init, _cont, Calculation.staticCalculation(static_));
+        rootInit = _cont.getCoverage().getCurrentRoot();
         ExecOperationNode initEl_ = init_.last();
         checkType(_cont, elementClass_, initEl_, initOffset);
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         CustList<ExecOperationNode> exp_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
+        rootExp = _cont.getCoverage().getCurrentRoot();
         ExecOperationNode expressionEl_ = exp_.last();
         checkType(_cont, elementClass_, expressionEl_, expressionOffset);
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         CustList<ExecOperationNode> step_ = ElUtil.getAnalyzedOperationsReadOnly(step, _cont, Calculation.staticCalculation(static_));
+        rootStep = _cont.getCoverage().getCurrentRoot();
         ExecOperationNode stepEl_ = step_.last();
         checkType(_cont, elementClass_, stepEl_, stepOffset);
         AnaLoopVariable lv_ = new AnaLoopVariable();
@@ -173,9 +180,9 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableName, lv_);
         _cont.getCoverage().putBlockOperationsLoops(_cont,this);
-        ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label,labelOffset,importedClassName,
-                importedClassIndexName,variableName,variableNameOffset,init,initOffset,
-                expression,expressionOffset,step,stepOffset,eq,init_,exp_,step_);
+        ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label, importedClassName,
+                importedClassIndexName,variableName,variableNameOffset, initOffset,
+                expressionOffset, stepOffset,eq,init_,exp_,step_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
@@ -263,6 +270,18 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         if (!_anEl.isReachable(this)) {
             _anEl.completeAbruptGroup(this);
         }
+    }
+
+    public OperationNode getRootInit() {
+        return rootInit;
+    }
+
+    public OperationNode getRootExp() {
+        return rootExp;
+    }
+
+    public OperationNode getRootStep() {
+        return rootStep;
     }
 
 }

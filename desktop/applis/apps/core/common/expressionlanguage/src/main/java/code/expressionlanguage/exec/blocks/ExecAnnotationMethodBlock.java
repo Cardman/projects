@@ -2,14 +2,12 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneCustMethod;
 import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.WithNotEmptyEl;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -87,21 +85,6 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
     }
 
     @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        buildAnnotationsReport(_cont,_parts);
-        _parts.addAllElts(getPartOffsetsReturn());
-        int begName_ = getNameOffset();
-        _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
-        int endName_ = begName_ + getName().length();
-        _parts.add(new PartOffset("</a>",endName_));
-        if (!opValue.isEmpty()) {
-            int blOffset_ = defaultValueOffset;
-            int endBl_ = blOffset_ + defaultValue.length();
-            ElUtil.buildCoverageReport(_cont,blOffset_,this,opValue,endBl_,_parts);
-        }
-    }
-
-    @Override
     public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
         return new ExpressionLanguage(opValue);
     }
@@ -113,7 +96,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         if (ip_ instanceof FieldInitPageEl) {
             in_ = true;
         }
-        if (in_ && !defaultValue.trim().isEmpty()) {
+        if (in_ && !opValue.isEmpty()) {
             ip_.setGlobalOffset(defaultValueOffset);
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
@@ -150,8 +133,6 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
     public void buildImportedTypes(AnnotationMethodBlock _key) {
         setImportedReturnType(_key.getImportedReturnType());
         getImportedParametersTypes().addAllElts(_key.getImportedParametersTypes());
-        setPartOffsetsParams(_key.getPartOffsetsParams());
-        setPartOffsetsReturn(_key.getPartOffsetsReturn());
     }
 
     public String getDefaultValue() {

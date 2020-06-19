@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.stacks.RemovableVars;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.CallingFinally;
 import code.expressionlanguage.methods.WithNotEmptyEl;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -18,28 +17,18 @@ import code.util.CustList;
 
 public final class ExecReturnMethod extends ExecLeaf implements CallingFinally,WithNotEmptyEl {
 
-    private final String expression;
+    private boolean empty;
 
     private int expressionOffset;
 
     private CustList<ExecOperationNode> opRet;
     private String returnMethod;
-    public ExecReturnMethod(OffsetsBlock _offset, String _expression, int _expressionOffset, CustList<ExecOperationNode> _opRet, String _returnMethod) {
+    public ExecReturnMethod(OffsetsBlock _offset, boolean _empty, int _expressionOffset, CustList<ExecOperationNode> _opRet, String _returnMethod) {
         super(_offset);
-        expression = _expression;
+        empty = _empty;
         expressionOffset = _expressionOffset;
         opRet = _opRet;
         returnMethod = _returnMethod;
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        if (isEmpty()) {
-            return;
-        }
-        int off_ = getExpressionOffset();
-        int offsetEndBlock_ = off_ + getExpression().length();
-        ElUtil.buildCoverageReport(_cont,off_,this,opRet,offsetEndBlock_,_parts);
     }
 
     @Override
@@ -94,16 +83,8 @@ public final class ExecReturnMethod extends ExecLeaf implements CallingFinally,W
         removeBlockFinally(_cont);
     }
 
-    public int getExpressionOffset() {
-        return expressionOffset;
-    }
-
     public boolean isEmpty() {
-        return expression.trim().isEmpty();
-    }
-
-    public String getExpression() {
-        return expression;
+        return empty;
     }
 
     public ExpressionLanguage getElRet() {

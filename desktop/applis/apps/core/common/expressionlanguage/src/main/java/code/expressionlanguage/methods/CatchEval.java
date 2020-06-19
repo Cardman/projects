@@ -122,4 +122,7 @@ public final class CatchEval extends AbstractCatchEval {
         }
     }
 
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
 }

@@ -34,17 +34,6 @@ public final class ExecCatchEval extends ExecAbstractCatchEval {
         _ip.getCatchVars().removeKey(variableName);
     }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        super.processReport(_cont, _parts);
-        _parts.addAllElts(partOffsets);
-        String tag_ = "<a name=\"m"+ variableNameOffset +"\">";
-        _parts.add(new PartOffset(tag_,variableNameOffset));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_,variableNameOffset+variableName.length()));
-        _cont.getCoverage().getCatchVars().put(variableName,variableNameOffset);
-    }
-
     public String getVariableName() {
         return variableName;
     }

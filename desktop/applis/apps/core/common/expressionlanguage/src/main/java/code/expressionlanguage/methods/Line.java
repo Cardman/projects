@@ -9,6 +9,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.util.CustList;
@@ -25,6 +26,7 @@ public final class Line extends Leaf implements BuildableElMethod {
     private boolean callThis;
     private boolean callInts;
     private boolean callFromCtorToCtor;
+    private OperationNode root;
 
     public Line(OffsetStringInfo _left, OffsetsBlock _offset) {
         super(_offset);
@@ -48,6 +50,7 @@ public final class Line extends Leaf implements BuildableElMethod {
         page_.setOffset(0);
         String import_ = _cont.getStandards().getAliasObject();
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(st_));
+        root = _cont.getCoverage().getCurrentRoot();
         if (op_.last() instanceof ExecCurrentInvokingConstructor) {
             callThis = true;
         }
@@ -76,7 +79,7 @@ public final class Line extends Leaf implements BuildableElMethod {
         page_.setMerged(false);
         page_.setAcceptCommaInstr(false);
         page_.setFinalVariable(false);
-        ExecLine exec_ = new ExecLine(getOffset(),expression,expressionOffset,op_);
+        ExecLine exec_ = new ExecLine(getOffset(), expressionOffset,op_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
@@ -109,4 +112,7 @@ public final class Line extends Leaf implements BuildableElMethod {
         return callThis;
     }
 
+    public OperationNode getRoot() {
+        return root;
+    }
 }

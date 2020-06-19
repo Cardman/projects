@@ -5,17 +5,14 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
-import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.WithNotEmptyEl;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -24,10 +21,6 @@ import code.util.StringList;
 public final class ExecForMutableIterativeLoop extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
     private String label;
-    private int labelOffset;
-
-    private final String className;
-    private int classNameOffset;
 
     private final String importedClassName;
 
@@ -35,13 +28,10 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
 
     private final StringList variableNames;
 
-    private final String init;
     private int initOffset;
 
-    private final String expression;
     private int expressionOffset;
 
-    private final String step;
     private int stepOffset;
 
     private CustList<ExecOperationNode> opInit;
@@ -50,74 +40,18 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
 
     private CustList<ExecOperationNode> opStep;
 
-    private CustList<PartOffset> partOffsets;
-
-    public ExecForMutableIterativeLoop(OffsetsBlock _offset, String label, int labelOffset, String className, int classNameOffset, String importedClassName, String importedClassIndexName, StringList variableNames, String init, int initOffset, String expression, int expressionOffset, String step, int stepOffset, CustList<ExecOperationNode> opInit, CustList<ExecOperationNode> opExp, CustList<ExecOperationNode> opStep, CustList<PartOffset> partOffsets) {
+    public ExecForMutableIterativeLoop(OffsetsBlock _offset, String label, String importedClassName, String importedClassIndexName, StringList variableNames, int initOffset, int expressionOffset, int stepOffset, CustList<ExecOperationNode> opInit, CustList<ExecOperationNode> opExp, CustList<ExecOperationNode> opStep) {
         super(_offset);
         this.label = label;
-        this.labelOffset = labelOffset;
-        this.className = className;
-        this.classNameOffset = classNameOffset;
         this.importedClassName = importedClassName;
         this.importedClassIndexName = importedClassIndexName;
         this.variableNames = variableNames;
-        this.init = init;
         this.initOffset = initOffset;
-        this.expression = expression;
         this.expressionOffset = expressionOffset;
-        this.step = step;
         this.stepOffset = stepOffset;
         this.opInit = opInit;
         this.opExp = opExp;
         this.opStep = opStep;
-        this.partOffsets = partOffsets;
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        if (!opExp.isEmpty()) {
-            AbstractCoverageResult result_ = _cont.getCoverage().getCovers(this).getVal(opExp.last());
-            String tag_;
-            if (result_.isFullCovered()) {
-                tag_ = "<span class=\"f\">";
-            } else if (result_.isPartialCovered()) {
-                tag_ = "<span class=\"p\">";
-            } else {
-                tag_ = "<span class=\"n\">";
-            }
-            int off_ = getOffset().getOffsetTrim();
-            _parts.add(new PartOffset(tag_,off_));
-            tag_ = "</span>";
-            _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordFor().length()));
-        }
-        KeyWords keyWords_ = _cont.getKeyWords();
-        String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (StringList.quickEq(className.trim(), keyWordVar_)) {
-            String tag_ = "<b title=\""+ElUtil.transform(importedClassName)+"\">";
-            _parts.add(new PartOffset(tag_,classNameOffset));
-            tag_ = "</b>";
-            _parts.add(new PartOffset(tag_,classNameOffset+ _cont.getKeyWords().getKeyWordFor().length()));
-        } else {
-            _parts.addAllElts(partOffsets);
-        }
-        if (!opInit.isEmpty()) {
-            _cont.getCoverage().setPossibleDeclareLoopVars(true);
-            int off_ = initOffset;
-            int offsetEndBlock_ = off_ + init.length();
-            ElUtil.buildCoverageReport(_cont,off_,this,opInit,offsetEndBlock_,_parts);
-            _cont.getCoverage().setPossibleDeclareLoopVars(false);
-        }
-        if (!opExp.isEmpty()) {
-            int off_ = expressionOffset;
-            int offsetEndBlock_ = off_ + expression.length();
-            ElUtil.buildCoverageReport(_cont,off_,this,opExp,offsetEndBlock_,_parts);
-        }
-        if (!opStep.isEmpty()) {
-            int off_ = stepOffset;
-            int offsetEndBlock_ = off_ + step.length();
-            ElUtil.buildCoverageReport(_cont,off_,this,opStep,offsetEndBlock_,_parts);
-        }
-        refLabel(_parts,label,labelOffset);
     }
 
     @Override
@@ -248,6 +182,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
             return ConditionReturn.CALL_EX;
         }
         last_.clearCurrentEls();
+        _context.getCoverage().passConditions(_context,arg_,opExp.last());
         if (BooleanStruct.isTrue(arg_.getStruct())) {
             return ConditionReturn.YES;
         }

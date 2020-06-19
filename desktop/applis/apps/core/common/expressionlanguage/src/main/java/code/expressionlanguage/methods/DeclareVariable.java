@@ -97,4 +97,8 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
     public String getImportedClassName() {
         return importedClassName;
     }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
 }

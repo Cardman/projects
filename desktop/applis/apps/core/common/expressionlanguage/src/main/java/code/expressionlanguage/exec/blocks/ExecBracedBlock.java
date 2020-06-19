@@ -13,7 +13,7 @@ public abstract class ExecBracedBlock extends ExecBlock {
     ExecBracedBlock(OffsetsBlock _offset) {
         super(_offset);
     }
-    protected static void refLabel(CustList<PartOffset> _parts, String _label, int _offset) {
+    public static void refLabel(CustList<PartOffset> _parts, String _label, int _offset) {
         if (_label.isEmpty()) {
             return;
         }

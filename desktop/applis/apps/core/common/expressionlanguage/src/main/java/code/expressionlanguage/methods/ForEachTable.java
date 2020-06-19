@@ -13,6 +13,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -53,6 +54,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
     private int expressionOffset;
 
     private Argument argument;
+    private OperationNode root;
     private CustList<PartOffset> partOffsetsFirst = new CustList<PartOffset>();
 
     private CustList<PartOffset> partOffsetsSecond = new CustList<PartOffset>();
@@ -105,15 +107,16 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         MethodAccessKind static_ = processVarTypes(_cont);
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
+        root = _cont.getCoverage().getCurrentRoot();
         ExecOperationNode l_ = op_.last();
         argument = l_.getArgument();
         checkMatchs(_cont, l_.getResultClass());
         processVariables(_cont);
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        ExecForEachTable exec_ = new ExecForEachTable(getOffset(),label,labelOffset,classNameFirst,importedClassNameFirst,classNameOffsetFirst,
-                classNameSecond,importedClassNameSecond,classNameOffsetSecond,
-                importedClassIndexName,variableNameFirst,variableNameOffsetFirst,
-                variableNameSecond,variableNameOffsetSecond,expression,expressionOffset,op_, partOffsetsFirst, partOffsetsSecond);
+        ExecForEachTable exec_ = new ExecForEachTable(getOffset(),label, importedClassNameFirst,
+                importedClassNameSecond,
+                importedClassIndexName,variableNameFirst,
+                variableNameSecond, expressionOffset,op_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
@@ -400,5 +403,15 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         }
     }
 
+    public OperationNode getRoot() {
+        return root;
+    }
 
+    public CustList<PartOffset> getPartOffsetsFirst() {
+        return partOffsetsFirst;
+    }
+
+    public CustList<PartOffset> getPartOffsetsSecond() {
+        return partOffsetsSecond;
+    }
 }

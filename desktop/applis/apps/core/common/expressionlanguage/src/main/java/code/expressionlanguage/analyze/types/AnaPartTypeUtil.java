@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.types.*;
@@ -417,9 +418,9 @@ public final class AnaPartTypeUtil {
                     String imported_ = l.getAnalyzedType();
                     String idCl_ = Templates.getIdFromAllTypes(imported_);
                     GeneType g_ = _an.getClassBody(idCl_);
-                    if (ElUtil.isFromCustFile(g_)) {
+                    if (LinkageUtil.isFromCustFile(g_)) {
                         String ref_ = ((ExecRootBlock) g_).getFile().getRenderFileName();
-                        String rel_ = ElUtil.relativize(curr_,ref_);
+                        String rel_ = LinkageUtil.relativize(curr_,ref_);
                         int id_ = ((ExecRootBlock) g_).getIdRowCol();
                         int begin_ = _loc + l.getIndexInType();
                         _offs.add(new PartOffset("<a title=\""+g_.getFullName()+"\" href=\""+rel_+"#m"+id_+"\">", begin_));
@@ -432,7 +433,7 @@ public final class AnaPartTypeUtil {
                     Integer id_ = _an.getAnalyzing().getAvailableVariables().getVal(imported_.substring(1));
                     String rel_ = "";
                     if (!_refFileName.isEmpty()) {
-                        rel_ = ElUtil.relativize(curr_,_refFileName);
+                        rel_ = LinkageUtil.relativize(curr_,_refFileName);
                     }
                     int begin_ = _loc + l.getIndexInType();
                     _offs.add(new PartOffset("<a href=\""+rel_+"#m"+id_+"\">", begin_));

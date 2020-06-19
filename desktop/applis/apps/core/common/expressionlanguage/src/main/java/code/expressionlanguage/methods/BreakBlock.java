@@ -149,4 +149,8 @@ public final class BreakBlock extends AbruptBlock {
         breakablesAncestors_.put(this, id_);
         breakables_.put(this, (BreakableBlock) a_);
     }
+
+    public int getLabelOffsetRef() {
+        return labelOffsetRef;
+    }
 }

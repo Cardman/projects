@@ -134,4 +134,8 @@ public final class ContinueBlock extends AbruptBlock {
         continuablesAncestors_.put(this, id_);
         continuables_.put(this, (Loop) a_);
     }
+
+    public int getLabelOffsetRef() {
+        return labelOffsetRef;
+    }
 }

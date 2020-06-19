@@ -23,8 +23,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
 
     private StringList imports = new StringList();
 
-    private Ints importsOffset = new Ints();
-
     private CustList<OverridingMethod> allOverridingMethods = new CustList<OverridingMethod>();
 
     private CustList<TypeVar> paramTypes = new CustList<TypeVar>();
@@ -35,17 +33,9 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
 
     private int idRowCol;
 
-    private int nameLength;
-
-    private CustList<Ints> paramTypesConstraintsOffset = new CustList<Ints>();
-    private CustList<PartOffset> superTypesParts = new CustList<PartOffset>();
-    private CustList<PartOffset> constraintsParts = new CustList<PartOffset>();
-
     private StringList staticInitImportedInterfaces = new StringList();
 
-    private StringList annotations = new StringList();
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
-    private Ints annotationsIndexes = new Ints();
     private final StringList allGenericSuperTypes = new StringList();
     private final StringList allGenericClasses = new StringList();
     private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
@@ -53,15 +43,11 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
     ExecRootBlock(RootBlock _offset) {
         super(_offset.getOffset());
         imports = _offset.getImports();
-        importsOffset = _offset.getImportsOffset();
         packageName = _offset.getPackageName();
         name = _offset.getName();
         access = _offset.getAccess();
-        annotations = _offset.getAnnotations();
         idRowCol = _offset.getIdRowCol();
         paramTypes = _offset.getParamTypes();
-        nameLength = _offset.getNameLength();
-        annotationsIndexes = _offset.getAnnotationsIndexes();
     }
 
     public ExecRootBlock getOuter() {
@@ -302,7 +288,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
     public void buildMapParamType(RootBlock _root) {
         paramTypes = _root.getParamTypes();
         paramTypesMap = _root.getParamTypesMap();
-        constraintsParts = _root.getConstraintsParts();
     }
 
     public String getName() {
@@ -345,41 +330,8 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
     }
 
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        processAnnotationReport(_cont, _parts);
-        int len_ = imports.size();
-        for (int i = 0; i < len_; i++) {
-            _parts.add(new PartOffset("<span class=\"i\">",importsOffset.get(i)));
-            _parts.add(new PartOffset("</span>",importsOffset.get(i)+imports.get(i).length()));
-        }
-        _parts.add(new PartOffset("<a name=\"m"+idRowCol+"\">",idRowCol));
-        _parts.add(new PartOffset("</a>",idRowCol+nameLength));
-        for (PartOffset p: constraintsParts) {
-            _parts.add(p);
-        }
-
-        for (PartOffset p: superTypesParts) {
-            _parts.add(p);
-        }
-
-    }
-
-    protected void processAnnotationReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int len_ = annotationsIndexes.size();
-        for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexes.get(i);
-            int end_ = begin_ + annotations.get(i).length();
-            ElUtil.buildCoverageReport(_cont,begin_,this,annotationsOps.get(i),end_,_parts,0,"",true);
-        }
-    }
-
     public CustList<ClassMethodId> getFunctional() {
         return functional;
-    }
-
-    public CustList<PartOffset> getSuperTypesParts() {
-        return superTypesParts;
     }
 
     public boolean isSubTypeOf(String _fullName, ContextEl _an) {

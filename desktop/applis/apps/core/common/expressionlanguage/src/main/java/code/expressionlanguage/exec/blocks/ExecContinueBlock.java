@@ -6,10 +6,8 @@ import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.stacks.RemovableVars;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.CallingFinally;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.StringList;
 
 public final class ExecContinueBlock extends ExecLeaf implements CallingFinally {
@@ -22,17 +20,6 @@ public final class ExecContinueBlock extends ExecLeaf implements CallingFinally 
         label = _label;
         labelOffset = _labelOffset;
         labelOffsetRef = _labelOffsetRef;
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        if (getLabel().isEmpty()) {
-            return;
-        }
-        String tag_ = "<a href=\"#"+labelOffsetRef+"\">";
-        _parts.add(new PartOffset(tag_,labelOffset));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_,labelOffset+getLabel().length()));
     }
 
     @Override

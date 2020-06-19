@@ -61,6 +61,8 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
 
     private CustList<Ints> paramTypesConstraintsOffset = new CustList<Ints>();
     private CustList<PartOffset> constraintsParts = new CustList<PartOffset>();
+    private CustList<PartOffset> superTypesParts = new CustList<PartOffset>();
+
 
     private StringList staticInitImportedInterfaces = new StringList();
     private Ints staticInitInterfacesOffset = new Ints();
@@ -71,6 +73,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     private final StringList allGenericSuperTypes = new StringList();
     private final StringList allGenericClasses = new StringList();
     private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
+    private CustList<OperationNode> roots = new CustList<OperationNode>();
     private int nbOperators;
 
     RootBlock(int _idRowCol, int _categoryOffset, String _name,
@@ -146,12 +149,14 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         int len_ = annotationsIndexes.size();
         AnalyzedPageEl page_ = _context.getAnalyzing();
+        roots = new CustList<OperationNode>();
         for (int i = 0; i < len_; i++) {
             int begin_ = annotationsIndexes.get(i);
             page_.setGlobalOffset(begin_);
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
+            roots.add(_context.getCoverage().getCurrentRoot());
         }
         _ex.getAnnotationsOps().clear();
         _ex.getAnnotationsOps().addAllElts(ops_);
@@ -1534,5 +1539,13 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
 
     public StringMap<TypeVar> getParamTypesMap() {
         return paramTypesMap;
+    }
+
+    public CustList<OperationNode> getRoots() {
+        return roots;
+    }
+
+    public CustList<PartOffset> getSuperTypesParts() {
+        return superTypesParts;
     }
 }

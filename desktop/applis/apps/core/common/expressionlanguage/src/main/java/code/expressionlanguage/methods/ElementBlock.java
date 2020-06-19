@@ -12,6 +12,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.instr.PartOffsetAffect;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -34,9 +35,12 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private int valueOffest;
 
     private StringList annotations = new StringList();
+    private OperationNode root;
+    private CustList<OperationNode> roots = new CustList<OperationNode>();
     private Ints annotationsIndexes = new Ints();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private String className;
+    private int trOffset;
 
     public ElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                         OffsetStringInfo _type,
@@ -119,6 +123,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_," ",importedClassName, PAR_LEFT, value, PAR_RIGHT);
         int tr_ = valueOffest -1 -fieldName.length() - fieldNameOffest - 2 - newKeyWord_.length() - importedClassName.length();
+        trOffset = tr_;
         _exec.setTrOffset(tr_);
         page_.setTranslatedOffset(tr_);
         int index_ = getIndex();
@@ -126,6 +131,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         _cont.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
         _cont.getCoverage().putBlockOperations(_cont,this);
         _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName)));
+        root = _cont.getCoverage().getCurrentRoot();
         page_.setTranslatedOffset(0);
     }
 
@@ -143,12 +149,14 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         int len_ = annotationsIndexes.size();
         AnalyzedPageEl page_ = _context.getAnalyzing();
+        roots = new CustList<OperationNode>();
         for (int i = 0; i < len_; i++) {
             int begin_ = annotationsIndexes.get(i);
             page_.setGlobalOffset(begin_);
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
+            roots.add(_context.getCoverage().getCurrentRoot());
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }
@@ -162,6 +170,22 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         return annotationsIndexes;
     }
 
+
+    public OperationNode getRoot() {
+        return root;
+    }
+
+    public CustList<OperationNode> getRoots() {
+        return roots;
+    }
+
+    public int getFieldNameOffest() {
+        return fieldNameOffest;
+    }
+
+    public int getTrOffset() {
+        return trOffset;
+    }
 
     @Override
     public String getImportedClassName() {

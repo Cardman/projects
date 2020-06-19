@@ -12,6 +12,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -50,6 +51,9 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private boolean alwaysTrue;
     private Argument argument;
 
+    private OperationNode rootInit;
+    private OperationNode rootExp;
+    private OperationNode rootStep;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
@@ -167,6 +171,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             init_ = new CustList<ExecOperationNode>();
         } else {
             init_ = ElUtil.getAnalyzedOperationsReadOnly(init, _cont, Calculation.staticCalculation(static_));
+            rootInit = _cont.getCoverage().getCurrentRoot();
         }
         addVars(_cont);
         page_.setGlobalOffset(expressionOffset);
@@ -182,7 +187,9 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             argument = l_.getArgument();
             ClassArgumentMatching clArg_ = l_.getResultClass();
             checkBoolCondition(_cont, clArg_);
+            rootExp = _cont.getCoverage().getCurrentRoot();
         }
+        _cont.getCoverage().putBlockOperationsConditions(_cont,this);
         MemberCallingsBlock f_1 = _cont.getAnalyzing().getCurrentFct();
         page_.setMerged(false);
         page_.setGlobalOffset(stepOffset);
@@ -197,12 +204,13 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             step_ = new CustList<ExecOperationNode>();
         } else {
             step_ = ElUtil.getAnalyzedOperationsReadOnly(step, _cont, Calculation.staticCalculation(static_1));
+            rootStep = _cont.getCoverage().getCurrentRoot();
         }
         page_.setMerged(false);
         page_.setAcceptCommaInstr(false);
-        ExecForMutableIterativeLoop exec_ = new ExecForMutableIterativeLoop(getOffset(),label,labelOffset,className,classNameOffset, importedClassName, importedClassIndexName,
-                variableNames, init,initOffset,expression,expressionOffset,step,stepOffset,
-                init_,exp_,step_, partOffsets);
+        ExecForMutableIterativeLoop exec_ = new ExecForMutableIterativeLoop(getOffset(),label, importedClassName, importedClassIndexName,
+                variableNames, initOffset, expressionOffset, stepOffset,
+                init_,exp_,step_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
@@ -312,5 +320,25 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
 
     public Argument getArgument() {
         return argument;
+    }
+
+    public OperationNode getRootInit() {
+        return rootInit;
+    }
+
+    public OperationNode getRootExp() {
+        return rootExp;
+    }
+
+    public OperationNode getRootStep() {
+        return rootStep;
+    }
+
+    public String getImportedClassName() {
+        return importedClassName;
+    }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
     }
 }

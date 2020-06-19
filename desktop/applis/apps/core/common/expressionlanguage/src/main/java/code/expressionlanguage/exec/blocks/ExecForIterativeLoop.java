@@ -3,14 +3,12 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.WithNotEmptyEl;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -24,7 +22,6 @@ import code.util.StringMap;
 public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
     private String label;
-    private int labelOffset;
 
     private String importedClassName;
 
@@ -33,13 +30,10 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
     private final String variableName;
     private int variableNameOffset;
 
-    private final String init;
     private int initOffset;
 
-    private final String expression;
     private int expressionOffset;
 
-    private final String step;
     private int stepOffset;
 
     private final boolean eq;
@@ -50,56 +44,20 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
 
     private CustList<ExecOperationNode> opStep;
 
-    public ExecForIterativeLoop(OffsetsBlock _offset, String label, int labelOffset, String importedClassName, String importedClassIndexName, String variableName, int variableNameOffset, String init, int initOffset, String expression, int expressionOffset, String step, int stepOffset, boolean eq, CustList<ExecOperationNode> opInit, CustList<ExecOperationNode> opExp, CustList<ExecOperationNode> opStep) {
+    public ExecForIterativeLoop(OffsetsBlock _offset, String label, String importedClassName, String importedClassIndexName, String variableName, int variableNameOffset, int initOffset, int expressionOffset, int stepOffset, boolean eq, CustList<ExecOperationNode> opInit, CustList<ExecOperationNode> opExp, CustList<ExecOperationNode> opStep) {
         super(_offset);
         this.label = label;
-        this.labelOffset = labelOffset;
         this.importedClassName = importedClassName;
         this.importedClassIndexName = importedClassIndexName;
         this.variableName = variableName;
         this.variableNameOffset = variableNameOffset;
-        this.init = init;
         this.initOffset = initOffset;
-        this.expression = expression;
         this.expressionOffset = expressionOffset;
-        this.step = step;
         this.stepOffset = stepOffset;
         this.eq = eq;
         this.opInit = opInit;
         this.opExp = opExp;
         this.opStep = opStep;
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        AbstractCoverageResult result_ = _cont.getCoverage().getCoverLoops(this);
-        String tag_;
-        if (result_.isFullCovered()) {
-            tag_ = "<span class=\"f\">";
-        } else if (result_.isPartialCovered()) {
-            tag_ = "<span class=\"p\">";
-        } else {
-            tag_ = "<span class=\"n\">";
-        }
-        int off_ = getOffset().getOffsetTrim();
-        _parts.add(new PartOffset(tag_,off_));
-        tag_ = "</span>";
-        _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordIter().length()));
-        tag_ = "<a name=\"m"+ variableNameOffset +"\">";
-        _parts.add(new PartOffset(tag_,variableNameOffset));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_,variableNameOffset+variableName.length()));
-        off_ = initOffset;
-        int offsetEndBlock_ = off_ + init.length();
-        ElUtil.buildCoverageReport(_cont,off_,this,opInit,offsetEndBlock_,_parts);
-        off_ = expressionOffset;
-        offsetEndBlock_ = off_ + expression.length();
-        ElUtil.buildCoverageReport(_cont,off_,this,opExp,offsetEndBlock_,_parts);
-        off_ = stepOffset;
-        offsetEndBlock_ = off_ + step.length();
-        ElUtil.buildCoverageReport(_cont,off_,this,opStep,offsetEndBlock_,_parts);
-        _cont.getCoverage().getLoopVars().put(variableName,variableNameOffset);
-        refLabel(_parts,label,labelOffset);
     }
 
     @Override
@@ -109,11 +67,11 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         if (l_.hasNext()) {
             incrementLoop(_conf, l_, vars_);
-            _conf.getCoverage().passExecLoop(_conf, new Argument(BooleanStruct.of(true)));
+            _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(true)));
             return;
         }
         l_.setFinished(true);
-        _conf.getCoverage().passExecLoop(_conf, new Argument(BooleanStruct.of(false)));
+        _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(false)));
 
     }
 
@@ -164,11 +122,11 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         }
         c_ = (LoopBlockStack) ip_.getLastStack();
         if (c_.isFinished()) {
-            _cont.getCoverage().passExecLoop(_cont, new Argument(BooleanStruct.of(false)));
+            _cont.getCoverage().passLoop(_cont, new Argument(BooleanStruct.of(false)));
             processBlockAndRemove(_cont);
             return;
         }
-        _cont.getCoverage().passExecLoop(_cont, new Argument(BooleanStruct.of(true)));
+        _cont.getCoverage().passLoop(_cont, new Argument(BooleanStruct.of(true)));
         ip_.getReadWrite().setBlock(getFirstChild());
     }
     void processLoop(ContextEl _conf) {

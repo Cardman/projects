@@ -15,7 +15,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ExecChoiceFctOperation extends ExecInvokingOperation implements NamedCalledOperation {
+public final class ExecChoiceFctOperation extends ExecInvokingOperation {
 
     private String methodName;
 
@@ -29,8 +29,6 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation implemen
     private int naturalVararg;
     private int anc;
 
-    private int delta;
-
     public ExecChoiceFctOperation(ChoiceFctOperation _choice) {
         super(_choice);
         methodName = _choice.getMethodName();
@@ -40,7 +38,6 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation implemen
         lastType = _choice.getLastType();
         naturalVararg = _choice.getNaturalVararg();
         anc = _choice.getAnc();
-        delta = _choice.getDelta();
     }
 
     @Override
@@ -95,7 +92,6 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation implemen
         return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
-    @Override
     public ClassMethodId getClassMethodId() {
         return classMethodId;
     }
@@ -104,8 +100,4 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation implemen
         return naturalVararg;
     }
 
-    @Override
-    public int getDelta() {
-        return delta;
-    }
 }

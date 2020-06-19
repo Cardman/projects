@@ -13,6 +13,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.instr.PartOffsetAffect;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
@@ -36,6 +37,8 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private int trOffset;
+    private OperationNode root;
     private String className;
 
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
@@ -103,6 +106,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         String idType_ = getFullName();
         String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_," ",idType_, PAR_LEFT, value, PAR_RIGHT);
         int trOffset_ = valueOffest  -1 -fieldName.length()- fieldNameOffest - 2 - newKeyWord_.length() - idType_.length();
+        trOffset = trOffset_;
         _exec.setTrOffset(trOffset_);
         page_.setTranslatedOffset(trOffset_);
         int index_ = getIndex();
@@ -110,6 +114,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         _cont.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
         _cont.getCoverage().putBlockOperations(_cont,this);
         _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName)));
+        root = _cont.getCoverage().getCurrentRoot();
         page_.setTranslatedOffset(0);
     }
 
@@ -182,7 +187,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, _exec,index_);
+            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, _exec,index_, getSuperTypesParts());
             String c_ = getImportedDirectBaseSuperType(i_);
             _classes.addErrorIfNoMatch(s_,c_,this,index_);
             i_++;
@@ -204,5 +209,16 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         return importedDirectSuperInterfaces;
     }
 
+    public int getFieldNameOffest() {
+        return fieldNameOffest;
+    }
+
+    public int getTrOffset() {
+        return trOffset;
+    }
+
+    public OperationNode getRoot() {
+        return root;
+    }
 
 }

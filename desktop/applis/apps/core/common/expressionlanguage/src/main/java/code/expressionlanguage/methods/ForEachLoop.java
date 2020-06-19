@@ -13,6 +13,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.IterableAnalysisResult;
@@ -43,6 +44,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
     private int expressionOffset;
 
     private Argument argument;
+    private OperationNode root;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
@@ -223,13 +225,14 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         MethodAccessKind static_ = processVarTypes(_cont);
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
+        root = _cont.getCoverage().getCurrentRoot();
         ExecOperationNode l_ = op_.last();
         argument = l_.getArgument();
         checkMatchs(_cont, l_.getResultClass());
         processVariable(_cont);
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        ExecForEachLoop exec_ = new ExecForEachLoop(getOffset(),label,labelOffset,className,importedClassName,classNameOffset,
-                importedClassIndexName,variableName,variableNameOffset,expression,expressionOffset,op_, partOffsets);
+        ExecForEachLoop exec_ = new ExecForEachLoop(getOffset(),label, importedClassName,
+                importedClassIndexName,variableName,variableNameOffset, expressionOffset,op_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
@@ -323,4 +326,11 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         }
     }
 
+    public OperationNode getRoot() {
+        return root;
+    }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
 }

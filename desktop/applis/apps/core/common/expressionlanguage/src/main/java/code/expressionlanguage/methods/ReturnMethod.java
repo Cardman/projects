@@ -21,6 +21,7 @@ public final class ReturnMethod extends AbruptBlock {
 
     private final String expression;
 
+    private OperationNode root;
     private int expressionOffset;
 
     public ReturnMethod(OffsetStringInfo _expression, OffsetsBlock _offset) {
@@ -48,7 +49,7 @@ public final class ReturnMethod extends AbruptBlock {
         String retType_ = processReturnValue(_cont);
         if (retType_.isEmpty()) {
             AnalyzedPageEl page_ = _cont.getAnalyzing();
-            ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(),expression,expressionOffset,null, retType_);
+            ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), true,expressionOffset,null, retType_);
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             _cont.getCoverage().putBlockOperations(_cont, exec_,this);
@@ -60,7 +61,8 @@ public final class ReturnMethod extends AbruptBlock {
         page_.setOffset(0);
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(stCtx_));
         checkTypes(_cont, retType_, op_.last().getResultClass());
-        ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(),expression,expressionOffset,op_, retType_);
+        ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), false,expressionOffset,op_, retType_);
+        root = _cont.getCoverage().getCurrentRoot();
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
@@ -162,4 +164,7 @@ public final class ReturnMethod extends AbruptBlock {
         }
     }
 
+    public OperationNode getRoot() {
+        return root;
+    }
 }

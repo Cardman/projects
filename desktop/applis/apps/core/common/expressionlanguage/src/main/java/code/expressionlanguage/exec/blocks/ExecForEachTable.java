@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -13,125 +12,44 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.WithNotEmptyEl;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop, WithNotEmptyEl {
 
     private String label;
-    private int labelOffset;
-
-    private final String classNameFirst;
 
     private String importedClassNameFirst;
 
-    private int classNameOffsetFirst;
-
-    private final String classNameSecond;
-
     private String importedClassNameSecond;
-
-    private int classNameOffsetSecond;
 
     private String importedClassIndexName;
 
     private final String variableNameFirst;
 
-    private int variableNameOffsetFirst;
-
     private final String variableNameSecond;
-
-    private int variableNameOffsetSecond;
-
-    private final String expression;
 
     private int expressionOffset;
 
     private CustList<ExecOperationNode> opList;
 
-    private CustList<PartOffset> partOffsetsFirst;
-
-    private CustList<PartOffset> partOffsetsSecond;
-
-    public ExecForEachTable(OffsetsBlock _offset, String label, int labelOffset, String classNameFirst, String importedClassNameFirst, int classNameOffsetFirst, String classNameSecond, String importedClassNameSecond, int classNameOffsetSecond, String importedClassIndexName, String variableNameFirst, int variableNameOffsetFirst, String variableNameSecond, int variableNameOffsetSecond, String expression, int expressionOffset, CustList<ExecOperationNode> opList, CustList<PartOffset> partOffsetsFirst, CustList<PartOffset> partOffsetsSecond) {
+    public ExecForEachTable(OffsetsBlock _offset, String label, String importedClassNameFirst, String importedClassNameSecond, String importedClassIndexName, String variableNameFirst, String variableNameSecond, int expressionOffset, CustList<ExecOperationNode> opList) {
         super(_offset);
         this.label = label;
-        this.labelOffset = labelOffset;
-        this.classNameFirst = classNameFirst;
         this.importedClassNameFirst = importedClassNameFirst;
-        this.classNameOffsetFirst = classNameOffsetFirst;
-        this.classNameSecond = classNameSecond;
         this.importedClassNameSecond = importedClassNameSecond;
-        this.classNameOffsetSecond = classNameOffsetSecond;
         this.importedClassIndexName = importedClassIndexName;
         this.variableNameFirst = variableNameFirst;
-        this.variableNameOffsetFirst = variableNameOffsetFirst;
         this.variableNameSecond = variableNameSecond;
-        this.variableNameOffsetSecond = variableNameOffsetSecond;
-        this.expression = expression;
         this.expressionOffset = expressionOffset;
         this.opList = opList;
-        this.partOffsetsFirst = partOffsetsFirst;
-        this.partOffsetsSecond = partOffsetsSecond;
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        AbstractCoverageResult result_ = _cont.getCoverage().getCoverLoops(this);
-        String tag_;
-        if (result_.isFullCovered()) {
-            tag_ = "<span class=\"f\">";
-        } else if (result_.isPartialCovered()) {
-            tag_ = "<span class=\"p\">";
-        } else {
-            tag_ = "<span class=\"n\">";
-        }
-        int off_ = getOffset().getOffsetTrim();
-        _parts.add(new PartOffset(tag_,off_));
-        KeyWords keyWords_ = _cont.getKeyWords();
-        String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (StringList.quickEq(classNameFirst.trim(), keyWordVar_)) {
-            tag_ = "<b title=\""+ElUtil.transform(importedClassNameFirst)+"\">";
-            _parts.add(new PartOffset(tag_,classNameOffsetFirst));
-            tag_ = "</b>";
-            _parts.add(new PartOffset(tag_,classNameOffsetFirst+ _cont.getKeyWords().getKeyWordFor().length()));
-        } else {
-            _parts.addAllElts(partOffsetsFirst);
-        }
-        tag_ = "<a name=\"m"+ variableNameOffsetFirst +"\">";
-        _parts.add(new PartOffset(tag_,variableNameOffsetFirst));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_,variableNameOffsetFirst+variableNameFirst.length()));
-        if (StringList.quickEq(classNameSecond.trim(), keyWordVar_)) {
-            tag_ = "<b title=\""+ElUtil.transform(importedClassNameSecond)+"\">";
-            _parts.add(new PartOffset(tag_,classNameOffsetSecond));
-            tag_ = "</b>";
-            _parts.add(new PartOffset(tag_,classNameOffsetSecond+ _cont.getKeyWords().getKeyWordFor().length()));
-        } else {
-            _parts.addAllElts(partOffsetsSecond);
-        }
-        tag_ = "<a name=\"m"+ variableNameOffsetSecond +"\">";
-        _parts.add(new PartOffset(tag_,variableNameOffsetSecond));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_,variableNameOffsetSecond+variableNameSecond.length()));
-        tag_ = "</span>";
-        _parts.add(new PartOffset(tag_,variableNameOffsetSecond+ variableNameSecond.length()));
-        off_ = expressionOffset;
-        int offsetEndBlock_ = off_ + expression.length();
-        ElUtil.buildCoverageReport(_cont,off_,this,opList,offsetEndBlock_,_parts);
-        _cont.getCoverage().getLoopVars().put(variableNameFirst,variableNameOffsetFirst);
-        _cont.getCoverage().getLoopVars().put(variableNameSecond,variableNameOffsetSecond);
-        refLabel(_parts,label,labelOffset);
     }
 
     @Override
@@ -147,10 +65,10 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         boolean hasNext_ = has_ == ConditionReturn.YES;
 
         if (hasNext_) {
-            _conf.getCoverage().passExecLoop(_conf, new Argument(BooleanStruct.of(true)));
+            _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(true)));
             incrementLoop(_conf, l_, vars_);
         } else {
-            _conf.getCoverage().passExecLoop(_conf, new Argument(BooleanStruct.of(false)));
+            _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(false)));
             _conf.getLastPage().clearCurrentEls();
             l_.setFinished(true);
             l_.setEvaluatingKeepLoop(false);

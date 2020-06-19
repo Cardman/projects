@@ -13,7 +13,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ExecSuperFctOperation extends ExecInvokingOperation implements NamedCalledOperation {
+public final class ExecSuperFctOperation extends ExecInvokingOperation {
 
     private String methodName;
 
@@ -80,7 +80,6 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation implement
         return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
-    @Override
     public ClassMethodId getClassMethodId() {
         return classMethodId;
     }
@@ -89,8 +88,4 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation implement
         return naturalVararg;
     }
 
-    @Override
-    public int getDelta() {
-        return delta;
-    }
 }

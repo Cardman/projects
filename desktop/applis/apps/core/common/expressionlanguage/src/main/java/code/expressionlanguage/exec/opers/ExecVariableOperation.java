@@ -147,7 +147,4 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         return variableName;
     }
 
-    public int getOff() {
-        return off;
-    }
 }

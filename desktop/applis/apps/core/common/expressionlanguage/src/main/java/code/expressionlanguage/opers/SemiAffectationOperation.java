@@ -115,4 +115,8 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     public int getOpOffset() {
         return opOffset;
     }
+
+    public SettableElResult getSettable() {
+        return settable;
+    }
 }

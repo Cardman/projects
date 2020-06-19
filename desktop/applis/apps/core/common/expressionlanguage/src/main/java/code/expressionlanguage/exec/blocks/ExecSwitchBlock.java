@@ -4,12 +4,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
-import code.expressionlanguage.exec.coverage.StandardCoverageResult;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.StackableBlock;
 import code.expressionlanguage.methods.WithNotEmptyEl;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -19,53 +17,18 @@ import code.util.StringList;
 
 public final class ExecSwitchBlock extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
     private String label;
-    private int labelOffset;
 
-    private final String value;
     private int valueOffset;
 
     private CustList<ExecOperationNode> opValue;
 
     private boolean enumTest;
-    public ExecSwitchBlock(OffsetsBlock _offset, String _label, int _labelOffset, String _value, int _valueOffset, boolean _enumTest, CustList<ExecOperationNode> _opValue) {
+    public ExecSwitchBlock(OffsetsBlock _offset, String _label, int _valueOffset, boolean _enumTest, CustList<ExecOperationNode> _opValue) {
         super(_offset);
         label = _label;
-        labelOffset = _labelOffset;
-        value = _value;
         valueOffset = _valueOffset;
         enumTest = _enumTest;
         opValue = _opValue;
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int full_ = 0;
-        int count_ = 0;
-        for (StandardCoverageResult e: _cont.getCoverage().getCoverSwitchs(this).values()) {
-            count_ += e.getCovered();
-            full_ += e.getFull();
-        }
-        StandardCoverageResult noDef_ = _cont.getCoverage().getCoverNoDefSwitchs(this);
-        if (noDef_ != null) {
-            count_ += noDef_.getCovered();
-            full_ += noDef_.getFull();
-        }
-        String tag_;
-        if (count_ == full_) {
-            tag_ = "<span class=\"f\">";
-        } else if (count_ > 0) {
-            tag_ = "<span class=\"p\">";
-        } else {
-            tag_ = "<span class=\"n\">";
-        }
-        int off_ = getOffset().getOffsetTrim();
-        _parts.add(new PartOffset(tag_+"<a title=\""+count_+"/"+full_+"\">",off_));
-        tag_ = "</span>";
-        _parts.add(new PartOffset("</a>"+tag_,off_+ _cont.getKeyWords().getKeyWordSwitch().length()));
-        off_ = valueOffset;
-        int offsetEndBlock_ = off_ + value.length();
-        ElUtil.buildCoverageReport(_cont,off_,this,opValue,offsetEndBlock_,_parts);
-        refLabel(_parts,label,labelOffset);
     }
 
     @Override
@@ -164,7 +127,7 @@ public final class ExecSwitchBlock extends ExecBracedBlock implements StackableB
                 rw_.setBlock(def_);
                 if_.setCurrentVisitedBlock((ExecBracedBlock) def_);
             } else {
-                _cont.getCoverage().passExecSwitch(_cont,arg_);
+                _cont.getCoverage().passSwitch(_cont,arg_);
                 if_.setCurrentVisitedBlock(this);
             }
         } else {

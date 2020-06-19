@@ -94,14 +94,6 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         return a_;
     }
 
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
-    }
-
-    public boolean isPost() {
-        return post;
-    }
-
     @Override
     public ExecSettableElResult getSettable() {
         return settable;

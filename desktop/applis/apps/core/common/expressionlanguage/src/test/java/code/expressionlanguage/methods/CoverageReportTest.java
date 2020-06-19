@@ -890,6 +890,94 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage_23Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  t=0i;\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $if(t>=0){\n");
+        xml_.append("    $throw $null;\n");
+        xml_.append("   }\n");
+        xml_.append("   $return 2;\n");
+        xml_.append("  } $catch {\n");
+        xml_.append("   t=1i;\n");
+        xml_.append("   $return t;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m46\">catching</a>(){\n" +
+                "  $int <span class=\"f\"><a name=\"m65\">t</a></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">0i</span></span>;\n" +
+                "  $try{\n" +
+                "   <span class=\"p\">$if</span>(<span class=\"p\"><span class=\"f\"><a href=\"#m65\">t</a></span><a title=\"true\">&gt;=</a><span class=\"f\">0</span></span>){\n" +
+                "    $throw <span class=\"f\">$null</span>;\n" +
+                "   }\n" +
+                "   $return <span class=\"n\">2</span>;\n" +
+                "  } <span class=\"f\">$catch</span> {\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">1i</span></span>;\n" +
+                "   $return <span class=\"f\"><a href=\"#m65\">t</a></span>;\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage__23Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  t=0i;\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $if(t<0){\n");
+        xml_.append("    $throw $null;\n");
+        xml_.append("   }\n");
+        xml_.append("   $return 2;\n");
+        xml_.append("  } $catch {\n");
+        xml_.append("   t=1i;\n");
+        xml_.append("   $return t;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m46\">catching</a>(){\n" +
+                "  $int <span class=\"f\"><a name=\"m65\">t</a></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">0i</span></span>;\n" +
+                "  $try{\n" +
+                "   <span class=\"p\">$if</span>(<span class=\"p\"><span class=\"f\"><a href=\"#m65\">t</a></span><a title=\"false\">&lt;</a><span class=\"f\">0</span></span>){\n" +
+                "    $throw <span class=\"n\">$null</span>;\n" +
+                "   }\n" +
+                "   $return <span class=\"f\">2</span>;\n" +
+                "  } <span class=\"n\">$catch</span> {\n" +
+                "   <span class=\"n\"><span class=\"n\"><a href=\"#m65\">t</a></span>=<span class=\"n\">1i</span></span>;\n" +
+                "   $return <span class=\"n\"><a href=\"#m65\">t</a></span>;\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverage24Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -11449,6 +11537,126 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " public <a href=\"#m287\">T</a> <span class=\"f\"><a name=\"m302\">field</a></span>;\n" +
                 " public static <a href=\"#m287\">T</a> <a name=\"m326\">$</a>(<a title=\"pkg.ExClass\" href=\"#m275\">ExClass</a>&lt;<a href=\"#m287\">T</a>&gt; <a name=\"m339\">i</a>){\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m339\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m302\">field</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage298Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int[] t = s == 1 ?{4i}:{6i};\n");
+        xml_.append("  t[0]=8;\n");
+        xml_.append("  return t[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m72\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>=<span class=\"f\">8</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage299Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int[] t = s == 1 ?{4i}:{6i};\n");
+        xml_.append("  t[0]++;\n");
+        xml_.append("  return t[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m72\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>++</span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage300Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int[] t = s == 1 ?{4i}:{6i};\n");
+        xml_.append("  ++t[0];\n");
+        xml_.append("  return t[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m72\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
+                "  <span class=\"f\">++<span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage301Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int[] t = s == 1 ?{4i}:{6i};\n");
+        xml_.append("  t[0]+=8;\n");
+        xml_.append("  return t[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m72\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>+=<span class=\"f\">8</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());

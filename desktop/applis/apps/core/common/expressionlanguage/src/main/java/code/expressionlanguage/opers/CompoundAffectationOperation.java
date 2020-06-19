@@ -258,4 +258,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
     public ClassMethodId getConverter() {
         return converter;
     }
+
+    public SettableElResult getSettable() {
+        return settable;
+    }
 }

@@ -59,7 +59,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, _exec,index_);
+            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, _exec,index_, getSuperTypesParts());
             String c_ = getImportedDirectBaseSuperType(i_);
             i_++;
             String base_ = Templates.getIdFromAllTypes(s_);

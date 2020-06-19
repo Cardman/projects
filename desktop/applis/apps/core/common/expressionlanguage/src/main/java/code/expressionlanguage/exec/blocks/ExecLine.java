@@ -5,35 +5,25 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.NotInitializedFields;
-import code.expressionlanguage.exec.opers.ExecCurrentInvokingConstructor;
 import code.expressionlanguage.exec.opers.ExecInterfaceInvokingConstructor;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.opers.ExecSuperInvokingConstructor;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.StackableBlock;
 import code.expressionlanguage.methods.WithNotEmptyEl;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 
 public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotEmptyEl {
-    private final String expression;
 
     private int expressionOffset;
 
     private CustList<ExecOperationNode> opExp;
-    public ExecLine(OffsetsBlock _offset, String _expression, int _expressionOffset, CustList<ExecOperationNode> _opExp) {
+    public ExecLine(OffsetsBlock _offset, int _expressionOffset, CustList<ExecOperationNode> _opExp) {
         super(_offset);
-        expression = _expression;
         expressionOffset = _expressionOffset;
         opExp = _opExp;
-    }
-
-    public String getExpression() {
-        return expression;
     }
 
     public ExpressionLanguage getRightEl() {
@@ -51,13 +41,6 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
     public boolean isCallInts() {
         ExecOperationNode last_ = opExp.last();
         return last_ instanceof ExecInterfaceInvokingConstructor;
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-        int blOffset_ = expressionOffset;
-        int endBl_ = blOffset_ + getExpression().length();
-        ElUtil.buildCoverageReport(_cont,blOffset_,this,getExp(),endBl_,_parts);
     }
 
     @Override

@@ -1,26 +1,19 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecEnumBlock;
 import code.expressionlanguage.exec.blocks.ExecSwitchBlock;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.exec.coverage.StandardCoverageResult;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.*;
-import code.expressionlanguage.exec.stacks.SwitchBlockStack;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.util.*;
 
 public final class SwitchBlock extends BracedBlock implements BreakableBlock,BuildableElMethod {
@@ -34,6 +27,8 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
     private ClassArgumentMatching result;
 
     private boolean enumTest;
+
+    private OperationNode root;
 
     public SwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_offset);
@@ -77,7 +72,8 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(f_.getStaticContext()));
         result = op_.last().getResultClass();
         processAfterEl(_cont);
-        ExecSwitchBlock exec_ = new ExecSwitchBlock(getOffset(), label, labelOffset, value, valueOffset, enumTest, op_);
+        ExecSwitchBlock exec_ = new ExecSwitchBlock(getOffset(), label, valueOffset, enumTest, op_);
+        root = _cont.getCoverage().getCurrentRoot();
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
@@ -192,5 +188,9 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
 
     public ClassArgumentMatching getResult() {
         return result;
+    }
+
+    public OperationNode getRoot() {
+        return root;
     }
 }

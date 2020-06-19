@@ -21,14 +21,12 @@ public final class ExecSettableFieldOperation extends
 
     private int anc;
 
-    private int delta;
     public ExecSettableFieldOperation(SettableAbstractFieldOperation _s) {
         super(_s);
         variable = _s.isVariable();
         fieldMetaInfo = _s.getFieldMetaInfo();
         catString = _s.isCatString();
         anc = _s.getAnc();
-        delta = _s.getDelta();
     }
 
     public boolean resultCanBeSet() {
@@ -145,10 +143,6 @@ public final class ExecSettableFieldOperation extends
             prev_ = getPreviousArg(this, _nodes, _conf);
         }
         getCommonSetting(prev_,_conf,_right);
-    }
-
-    public int getDelta() {
-        return delta;
     }
 
     public FieldInfo getFieldMetaInfo() {

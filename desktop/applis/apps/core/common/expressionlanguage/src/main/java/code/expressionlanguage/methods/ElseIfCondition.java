@@ -129,4 +129,8 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
             _anEl.unreach(this);
         }
     }
+
+    public int getDelta() {
+        return delta;
+    }
 }

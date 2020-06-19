@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -46,7 +45,6 @@ public abstract class ExecBlock {
         return offset;
     }
 
-    public abstract void processReport(ContextEl _cont, CustList<PartOffset> _parts);
     public final void processBlockAndRemove(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
         ip_.removeLastBlock();

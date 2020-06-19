@@ -16,7 +16,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ExecFctOperation extends ExecInvokingOperation implements NamedCalledOperation {
+public final class ExecFctOperation extends ExecInvokingOperation {
 
     private String methodName;
 
@@ -32,8 +32,6 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
 
     private int anc;
 
-    private int delta;
-
     protected ExecFctOperation(FctOperation _fct) {
         super(_fct);
         methodName = _fct.getMethodName();
@@ -43,7 +41,6 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
         lastType = _fct.getLastType();
         naturalVararg = _fct.getNaturalVararg();
         anc = _fct.getAnc();
-        delta = _fct.getDelta();
     }
 
     public ExecFctOperation(ClassArgumentMatching _res,
@@ -114,7 +111,6 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
         return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
-    @Override
     public ClassMethodId getClassMethodId() {
         return classMethodId;
     }
@@ -123,8 +119,4 @@ public final class ExecFctOperation extends ExecInvokingOperation implements Nam
         return naturalVararg;
     }
 
-    @Override
-    public int getDelta() {
-        return delta;
-    }
 }

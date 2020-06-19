@@ -5,18 +5,11 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.stacks.IfBlockStack;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.WithEl;
-import code.util.CustList;
 
 public final class ExecUnclassedBracedBlock extends ExecBracedBlock implements WithEl {
     public ExecUnclassedBracedBlock(OffsetsBlock _offset) {
         super(_offset);
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-
     }
 
     @Override

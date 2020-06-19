@@ -100,10 +100,6 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         return settable;
     }
 
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
-    }
-
     public String getOper() {
         return oper;
     }

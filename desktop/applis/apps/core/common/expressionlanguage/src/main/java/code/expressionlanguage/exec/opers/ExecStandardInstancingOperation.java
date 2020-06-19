@@ -70,10 +70,6 @@ public final class ExecStandardInstancingOperation extends
         return instancePrepareFormat(_conf.getLastPage(),_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex);
     }
 
-    public String getClassName() {
-        return className;
-    }
-
     public ConstructorId getConstId() {
         return constId;
     }

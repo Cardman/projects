@@ -13,6 +13,7 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -53,7 +54,7 @@ public final class ResolvingImportTypes {
         String idFromType_ = Templates.getIdFromAllTypes(_fromType);
         GeneType from_ = _analyzable.getClassBody(idFromType_);
         String ref_ = "";
-        if (ElUtil.isFromCustFile(from_)) {
+        if (LinkageUtil.isFromCustFile(from_)) {
             ref_ = ((ExecBlock)from_).getFile().getRenderFileName();
         }
         _analyzable.getAnalyzing().getAvailableVariables().clear();

@@ -28,7 +28,4 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
         ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, Argument.createVoid(), firstArgs_);
     }
 
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
-    }
 }

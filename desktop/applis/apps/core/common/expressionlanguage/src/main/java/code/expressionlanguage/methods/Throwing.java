@@ -6,14 +6,15 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.opers.OperationNode;
 import code.util.CustList;
 
 public final class Throwing extends AbruptBlock {
 
     private final String expression;
 
+    private OperationNode root;
     private int expressionOffset;
 
     public Throwing(OffsetStringInfo _expression, OffsetsBlock _offset) {
@@ -37,10 +38,14 @@ public final class Throwing extends AbruptBlock {
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(f_.getStaticContext()));
-        ExecThrowing exec_ = new ExecThrowing(getOffset(),expression,expressionOffset,op_);
+        root = _cont.getCoverage().getCurrentRoot();
+        ExecThrowing exec_ = new ExecThrowing(getOffset(), expressionOffset,op_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
+    public OperationNode getRoot() {
+        return root;
+    }
 }

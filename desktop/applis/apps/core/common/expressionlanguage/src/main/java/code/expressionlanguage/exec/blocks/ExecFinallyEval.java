@@ -6,20 +6,13 @@ import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
 import code.expressionlanguage.exec.stacks.ExceptionCallingFinally;
 import code.expressionlanguage.exec.stacks.TryBlockStack;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.CallingFinally;
 import code.expressionlanguage.methods.StackableBlock;
-import code.util.CustList;
 
 public final class ExecFinallyEval extends ExecBracedBlock implements StackableBlock {
 
     public ExecFinallyEval(OffsetsBlock _offset) {
         super(_offset);
-    }
-
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-
     }
 
     @Override

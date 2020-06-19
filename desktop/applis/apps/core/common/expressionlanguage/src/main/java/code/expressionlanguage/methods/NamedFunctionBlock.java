@@ -12,6 +12,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -21,7 +22,7 @@ import code.util.StringList;
 
 public abstract class NamedFunctionBlock extends MemberCallingsBlock implements Returnable,AnnotableParametersBlock {
     private StringList annotations = new StringList();
-;
+
     private Ints annotationsIndexes = new Ints();
 
     private final String name;
@@ -55,6 +56,8 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private CustList<CustList<PartOffset>> partOffsetsParams = new CustList<CustList<PartOffset>>();
     private CustList<PartOffset> partOffsetsReturn = new CustList<PartOffset>();
 
+    private CustList<OperationNode> roots = new CustList<OperationNode>();
+    private CustList<CustList<OperationNode>> rootsList = new CustList<CustList<OperationNode>>();
     public NamedFunctionBlock(OffsetAccessInfo _access,
                               OffsetStringInfo _retType, OffsetStringInfo _fctName,
                               StringList _paramTypes, Ints _paramTypesOffset,
@@ -106,9 +109,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public void buildAnnotationsParameters(ContextEl _context, ExecAnnotableParametersBlock _ann) {
         CustList<CustList<CustList<ExecOperationNode>>> ops_ = new CustList<CustList<CustList<ExecOperationNode>>>();
         int j_ = 0;
+        rootsList = new CustList<CustList<OperationNode>>();
         for (Ints l: annotationsIndexesParams) {
             CustList<CustList<ExecOperationNode>> annotation_;
             annotation_ = new CustList<CustList<ExecOperationNode>>();
+            CustList<OperationNode> rootList_ = new CustList<OperationNode>();
             int len_ = l.size();
             AnalyzedPageEl page_ = _context.getAnalyzing();
             StringList list_ = annotationsParams.get(j_);
@@ -118,7 +123,9 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                 page_.setOffset(0);
                 Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
                 annotation_.add(ElUtil.getAnalyzedOperationsReadOnly(list_.get(i), _context, c_));
+                rootList_.add(_context.getCoverage().getCurrentRoot());
             }
+            rootsList.add(rootList_);
             ops_.add(annotation_);
             j_++;
         }
@@ -241,6 +248,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public void buildAnnotationsBasic(ContextEl _context, ExecAnnotableBlock _ex) {
         CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
+        roots = new CustList<OperationNode>();
         int len_ = annotationsIndexes.size();
         AnalyzedPageEl page_ = _context.getAnalyzing();
         for (int i = 0; i < len_; i++) {
@@ -249,6 +257,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
+            roots.add(_context.getCoverage().getCurrentRoot());
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }
@@ -280,4 +289,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return partOffsetsReturn;
     }
 
+    public CustList<OperationNode> getRoots() {
+        return roots;
+    }
+
+    public CustList<CustList<OperationNode>> getRootsList() {
+        return rootsList;
+    }
 }
