@@ -7,22 +7,13 @@ import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.WithEl;
 
-public abstract class AbstractMethodPageEl extends AbstractPageEl implements ForwardPageEl,ReturnableValuePageEl {
-
-    private Argument returnedArgument;
+public abstract class AbstractMethodPageEl extends AbstractPageEl implements ForwardPageEl {
 
     public AbstractMethodPageEl(ContextEl _context,String _ret, Argument _gl, String _glClass) {
         setGlobalArgument(_gl);
         setGlobalClass(_glClass);
         String ret_ = formatVarType(_ret, _context);
-        returnedArgument = new Argument(PrimitiveTypeUtil.defaultValue(ret_,_context));
-    }
-    public Argument getReturnedArgument() {
-        return returnedArgument;
-    }
-    @Override
-    public void setReturnedArgument(Argument _returnedArgument) {
-        returnedArgument = _returnedArgument;
+        setReturnedArgument(new Argument(PrimitiveTypeUtil.defaultValue(ret_,_context)));
     }
 
     @Override

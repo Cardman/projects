@@ -4,7 +4,7 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -19,9 +19,9 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public abstract class NamedFunctionBlock extends MemberCallingsBlock implements Returnable,AnnotableBlock {
+public abstract class NamedFunctionBlock extends MemberCallingsBlock implements Returnable,AnnotableParametersBlock {
     private StringList annotations = new StringList();
-    private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
+;
     private Ints annotationsIndexes = new Ints();
 
     private final String name;
@@ -51,7 +51,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private final boolean varargs;
     private CustList<StringList> annotationsParams = new CustList<StringList>();
     private CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
-    private CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
 
     private CustList<CustList<PartOffset>> partOffsetsParams = new CustList<CustList<PartOffset>>();
     private CustList<PartOffset> partOffsetsReturn = new CustList<PartOffset>();
@@ -101,7 +100,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public void buildAnnotations(ContextEl _context, ExecAnnotableBlock _ex) {
         buildAnnotationsBasic(_context,_ex);
-        annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
+    }
+
+    @Override
+    public void buildAnnotationsParameters(ContextEl _context, ExecAnnotableParametersBlock _ann) {
+        CustList<CustList<CustList<ExecOperationNode>>> ops_ = new CustList<CustList<CustList<ExecOperationNode>>>();
         int j_ = 0;
         for (Ints l: annotationsIndexesParams) {
             CustList<CustList<ExecOperationNode>> annotation_;
@@ -116,9 +119,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                 Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
                 annotation_.add(ElUtil.getAnalyzedOperationsReadOnly(list_.get(i), _context, c_));
             }
-            annotationsOpsParams.add(annotation_);
+            ops_.add(annotation_);
             j_++;
         }
+        _ann.getAnnotationsOpsParams().addAllElts(ops_);
     }
 
     @Override
@@ -236,7 +240,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     public void buildAnnotationsBasic(ContextEl _context, ExecAnnotableBlock _ex) {
-        annotationsOps = new CustList<CustList<ExecOperationNode>>();
+        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         int len_ = annotationsIndexes.size();
         AnalyzedPageEl page_ = _context.getAnalyzing();
         for (int i = 0; i < len_; i++) {
@@ -244,17 +248,15 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             page_.setGlobalOffset(begin_);
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
+            ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
         }
-        _ex.getAnnotationsOps().addAllElts(annotationsOps);
+        _ex.getAnnotationsOps().addAllElts(ops_);
     }
 
-    @Override
     public StringList getAnnotations() {
         return annotations;
     }
 
-    @Override
     public Ints getAnnotationsIndexes() {
         return annotationsIndexes;
     }
@@ -278,11 +280,4 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return partOffsetsReturn;
     }
 
-    public void buildAnnotationsParams(ExecNamedFunctionBlock _val) {
-        _val.getAnnotationsOpsParams().addAllElts(annotationsOpsParams);
-    }
-
-    public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
-        return annotationsOpsParams;
-    }
 }

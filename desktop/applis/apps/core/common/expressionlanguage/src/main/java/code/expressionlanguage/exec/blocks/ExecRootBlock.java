@@ -53,10 +53,10 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
     ExecRootBlock(RootBlock _offset) {
         super(_offset.getOffset());
         imports = _offset.getImports();
+        importsOffset = _offset.getImportsOffset();
         packageName = _offset.getPackageName();
         name = _offset.getName();
         access = _offset.getAccess();
-        imports = _offset.getImports();
         annotations = _offset.getAnnotations();
         idRowCol = _offset.getIdRowCol();
         paramTypes = _offset.getParamTypes();
@@ -348,6 +348,11 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
     @Override
     public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
         processAnnotationReport(_cont, _parts);
+        int len_ = imports.size();
+        for (int i = 0; i < len_; i++) {
+            _parts.add(new PartOffset("<span class=\"i\">",importsOffset.get(i)));
+            _parts.add(new PartOffset("</span>",importsOffset.get(i)+imports.get(i).length()));
+        }
         _parts.add(new PartOffset("<a name=\"m"+idRowCol+"\">",idRowCol));
         _parts.add(new PartOffset("</a>",idRowCol+nameLength));
         for (PartOffset p: constraintsParts) {

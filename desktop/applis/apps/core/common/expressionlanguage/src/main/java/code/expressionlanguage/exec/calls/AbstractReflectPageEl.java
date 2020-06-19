@@ -6,21 +6,11 @@ import code.util.CustList;
 
 public abstract class AbstractReflectPageEl extends AbstractPageEl implements ForwardPageEl {
 
-    private Argument returnedArgument = Argument.createVoid();
-
     private CustList<Argument> arguments;
 
     private boolean wrapException;
 
     private boolean lambda;
-
-    public final Argument getReturnedArgument() {
-        return returnedArgument;
-    }
-
-    public void setReturnedArgument(Argument _returnedArgument) {
-        returnedArgument = _returnedArgument;
-    }
 
     @Override
     public void tryProcessEl(ContextEl _context) {
@@ -29,7 +19,7 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
 
     @Override
     public void receive(Argument _argument, ContextEl _context) {
-        returnedArgument = _argument;
+        setReturnedArgument(_argument);
     }
 
     @Override

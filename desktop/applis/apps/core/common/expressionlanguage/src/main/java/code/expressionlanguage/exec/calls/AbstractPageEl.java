@@ -34,6 +34,10 @@ public abstract class AbstractPageEl extends PageEl {
     private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
     private ExecFileBlock file;
 
+    private Argument returnedArgument = Argument.createVoid();
+
+    private Argument rightArgument;
+
     public void receive(Argument _argument, ContextEl _context) {
         basicReceive(_argument,_context);
     }
@@ -208,4 +212,22 @@ public abstract class AbstractPageEl extends PageEl {
     public void setFile(ExecFileBlock _execFile) {
         file = _execFile;
     }
+
+    public Argument getReturnedArgument() {
+        return returnedArgument;
+    }
+
+    public void setReturnedArgument(Argument _returnedArgument) {
+        returnedArgument = _returnedArgument;
+    }
+
+    public Argument getRightArgument() {
+        return rightArgument;
+    }
+
+    protected void setRightArgument(Argument _rightArgument) {
+        rightArgument = _rightArgument;
+    }
+
+
 }

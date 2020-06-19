@@ -8,9 +8,7 @@ import code.util.Ints;
 import code.util.StringList;
 
 public interface AnnotableBlock {
-    StringList getAnnotations();
 
-    Ints getAnnotationsIndexes();
     void buildAnnotations(ContextEl _context, ExecAnnotableBlock _ann);
 
 }

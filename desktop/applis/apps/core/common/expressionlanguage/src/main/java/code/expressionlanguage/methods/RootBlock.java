@@ -66,7 +66,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     private Ints staticInitInterfacesOffset = new Ints();
 
     private StringList annotations = new StringList();
-    private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
+
     private Ints annotationsIndexes = new Ints();
     private final StringList allGenericSuperTypes = new StringList();
     private final StringList allGenericClasses = new StringList();
@@ -143,7 +143,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     }
 
     public void buildAnnotations(ContextEl _context, ExecAnnotableBlock _ex) {
-        annotationsOps = new CustList<CustList<ExecOperationNode>>();
+        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         int len_ = annotationsIndexes.size();
         AnalyzedPageEl page_ = _context.getAnalyzing();
         for (int i = 0; i < len_; i++) {
@@ -151,17 +151,17 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             page_.setGlobalOffset(begin_);
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
+            ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
         }
         _ex.getAnnotationsOps().clear();
-        _ex.getAnnotationsOps().addAllElts(annotationsOps);
+        _ex.getAnnotationsOps().addAllElts(ops_);
     }
-    @Override
+
     public StringList getAnnotations() {
         return annotations;
     }
 
-    @Override
+
     public Ints getAnnotationsIndexes() {
         return annotationsIndexes;
     }

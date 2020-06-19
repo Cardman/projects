@@ -74,7 +74,4 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
         return importsOffset;
     }
 
-    public void buildAnnotationsParams(ExecOperatorBlock _val) {
-        _val.getAnnotationsOpsParams().addAllElts(getAnnotationsOpsParams());
-    }
 }

@@ -11,7 +11,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock implements Returnable,ExecAnnotableBlock {
+public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock implements Returnable,ExecAnnotableParametersBlock {
     private StringList annotations;
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Ints annotationsIndexes;
@@ -104,6 +104,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         annotationsOps = annotationsOps_;
     }
 
+    @Override
     public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
         return annotationsOpsParams;
     }

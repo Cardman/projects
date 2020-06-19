@@ -1304,13 +1304,16 @@ public final class FileResolver {
                     }
                     if (!meth_) {
                         int fieldNameOffest_ = StringList.getFirstPrintableCharIndex(realFound_) +declaringType_.trim().length() + typeOffset_;
-                        br_ = new FieldBlock(
+                        FieldBlock field_ = new FieldBlock(
                                 new OffsetAccessInfo(-1, AccessEnum.PUBLIC),
                                 new OffsetBooleanInfo(-1, true),
                                 new OffsetBooleanInfo(finalOff_, final_),
                                 new OffsetStringInfo(typeOffset_, declaringType_.trim()),
                                 new OffsetStringInfo(fieldNameOffest_, realFound_.trim()),
                                 new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        field_.getAnnotations().addAllElts(annotations_);
+                        field_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+                        br_ = field_;
                     } else {
                         found_ = realFound_;
                         int fieldOffest_ = typeOffset_;
@@ -1323,14 +1326,15 @@ public final class FileResolver {
                         if (!expression_.trim().isEmpty()) {
                             expressionOffest_ += StringList.getFirstPrintableCharIndex(expression_);
                         }
-                        br_ = new AnnotationMethodBlock(
+                        AnnotationMethodBlock annMeth_ = new AnnotationMethodBlock(
                                 new OffsetStringInfo(typeOffset_, declaringType_.trim()),
-                                new OffsetStringInfo(fieldOffest_,fieldName_.trim()),
-                                new OffsetStringInfo(expressionOffest_,expression_.trim()),
+                                new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
+                                new OffsetStringInfo(expressionOffest_, expression_.trim()),
                                 new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        annMeth_.getAnnotations().addAllElts(annotations_);
+                        annMeth_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+                        br_ = annMeth_;
                     }
-                    ((AnnotableBlock) br_).getAnnotations().addAllElts(annotations_);
-                    ((AnnotableBlock) br_).getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                     currentParent_.appendChild(br_);
                 }
             } else {
@@ -1399,16 +1403,20 @@ public final class FileResolver {
                 }
                 if (_currentChar == BEGIN_BLOCK) {
                     enableByEndLine_ = false;
-                    br_ = new InnerElementBlock((EnumBlock) currentParent_,_pkgName, new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
+                    InnerElementBlock elt_ = new InnerElementBlock((EnumBlock) currentParent_, _pkgName, new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
                             new OffsetStringInfo(templateOffset_, tmpPart_.trim()),
                             new OffsetStringInfo(expressionOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                    elt_.getAnnotations().addAllElts(annotations_);
+                    elt_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+                    br_ = elt_;
                 } else {
-                    br_ = new ElementBlock((EnumBlock) currentParent_,new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
+                    ElementBlock elt_ = new ElementBlock((EnumBlock) currentParent_, new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
                             new OffsetStringInfo(templateOffset_, tmpPart_.trim()),
                             new OffsetStringInfo(expressionOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                    elt_.getAnnotations().addAllElts(annotations_);
+                    elt_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+                    br_ = elt_;
                 }
-                ((AnnotableBlock) br_).getAnnotations().addAllElts(annotations_);
-                ((AnnotableBlock) br_).getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                 currentParent_.appendChild(br_);
                 if (_currentChar == BEGIN_BLOCK) {
                     currentParent_ = (BracedBlock) br_;

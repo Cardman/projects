@@ -82,7 +82,7 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
         if (_cont.callsOrException()) {
             return;
         }
-        if (isCallSuper() || isCallInts()) {
+        if (ip_ instanceof AbstractCallingInstancingPageEl&&(isCallSuper() || isCallInts())) {
             AbstractCallingInstancingPageEl inst_ = (AbstractCallingInstancingPageEl)ip_;
             String curClass_ = inst_.getGlobalClass();
 

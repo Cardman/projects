@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.ReturnableValuePageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
 import code.expressionlanguage.exec.stacks.RemovableVars;
@@ -90,7 +89,7 @@ public final class ExecReturnMethod extends ExecLeaf implements CallingFinally,W
             if (!Templates.checkQuick(type_,arg_,_cont)) {
                 return;
             }
-            ((ReturnableValuePageEl) _cont.getLastPage()).setReturnedArgument(arg_);
+            _cont.getLastPage().setReturnedArgument(arg_);
         }
         removeBlockFinally(_cont);
     }

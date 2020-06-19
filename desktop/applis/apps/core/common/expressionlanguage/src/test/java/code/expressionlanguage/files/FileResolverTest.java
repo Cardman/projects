@@ -4772,10 +4772,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("1i,\n3i", ((ElementBlock)field_).getValue());
-        StringList annots_ = field_.getAnnotations();
+        StringList annots_ = ((ElementBlock)field_).getAnnotations();
         assertEq(1, annots_.size());
         assertEq("@MyAnnot", annots_.first());
-        Ints annotsInd_ = field_.getAnnotationsIndexes();
+        Ints annotsInd_ = ((ElementBlock)field_).getAnnotationsIndexes();
         assertEq(1, annotsInd_.size());
         assertEq(126, annotsInd_.first());
         assertEq(135, ((ElementBlock) child_).getFieldNameOffset());

@@ -15,8 +15,7 @@ public final class ExecValueOperation extends ExecLeafOperation implements
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        MethodPageEl m_ = (MethodPageEl) _conf.getLastPage();
-        Argument arg_ = m_.getRightArgument();
+        Argument arg_ = Argument.getNullableValue(_conf.getLastPage().getRightArgument());
         setSimpleArgument(arg_, _conf, _nodes);
     }
 }

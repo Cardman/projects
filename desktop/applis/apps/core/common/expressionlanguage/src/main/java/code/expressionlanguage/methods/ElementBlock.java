@@ -33,9 +33,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     private int valueOffest;
 
-    private int trOffset;
     private StringList annotations = new StringList();
-    private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private Ints annotationsIndexes = new Ints();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private String className;
@@ -120,9 +118,9 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         KeyWords keyWords_ = _cont.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_," ",importedClassName, PAR_LEFT, value, PAR_RIGHT);
-        trOffset = valueOffest -1 -fieldName.length() - fieldNameOffest - 2 - newKeyWord_.length() - importedClassName.length();
-        _exec.setTrOffset(trOffset);
-        page_.setTranslatedOffset(trOffset);
+        int tr_ = valueOffest -1 -fieldName.length() - fieldNameOffest - 2 - newKeyWord_.length() - importedClassName.length();
+        _exec.setTrOffset(tr_);
+        page_.setTranslatedOffset(tr_);
         int index_ = getIndex();
         _cont.setCurrentChildTypeIndex(index_);
         _cont.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
@@ -142,7 +140,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     public void buildAnnotations(ContextEl _context, ExecAnnotableBlock _ex) {
-        annotationsOps = new CustList<CustList<ExecOperationNode>>();
+        CustList<CustList<ExecOperationNode>> ops_ = new CustList<CustList<ExecOperationNode>>();
         int len_ = annotationsIndexes.size();
         AnalyzedPageEl page_ = _context.getAnalyzing();
         for (int i = 0; i < len_; i++) {
@@ -150,16 +148,16 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
             page_.setGlobalOffset(begin_);
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            annotationsOps.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
+            ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
         }
-        _ex.getAnnotationsOps().addAllElts(annotationsOps);
+        _ex.getAnnotationsOps().addAllElts(ops_);
     }
-    @Override
+
     public StringList getAnnotations() {
         return annotations;
     }
 
-    @Override
+
     public Ints getAnnotationsIndexes() {
         return annotationsIndexes;
     }

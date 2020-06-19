@@ -37,10 +37,6 @@ public final class ExecFileBlock extends ExecBracedBlock implements ImportingBlo
         fileName = _file.getFileName();
     }
 
-    @Override
-    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
-
-    }
     public int getRowFile(int _sum) {
         int len_ = lineReturns.size();
         int i_ = 0;
@@ -128,8 +124,18 @@ public final class ExecFileBlock extends ExecBracedBlock implements ImportingBlo
         cssContent_ += ".n{background-color:red;}\n";
         cssContent_ += ".s{color:blue;}\n";
         cssContent_ += ".c{color:grey;}\n";
+        cssContent_ += ".i{color:red;}\n";
         files_.addEntry("css/style.css",cssContent_);
         return files_;
+    }
+
+    @Override
+    public void processReport(ContextEl _cont, CustList<PartOffset> _parts) {
+        int len_ = imports.size();
+        for (int i = 0; i < len_; i++) {
+            _parts.add(new PartOffset("<span class=\"i\">",importsOffset.get(i)));
+            _parts.add(new PartOffset("</span>",importsOffset.get(i)+imports.get(i).length()));
+        }
     }
 
     private void insertTr(StringBuilder _xml, char _ch, int _index) {

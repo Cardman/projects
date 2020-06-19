@@ -1646,7 +1646,7 @@ public final class Classes {
                     _context.setAnnotAnalysisField(false);
                     _context.getCoverage().putBlockOperationsField(_context,b);
                     ((NamedFunctionBlock)b).buildAnnotations(_context,mem_.getAllNamed().getVal((NamedFunctionBlock) b));
-                    ((NamedFunctionBlock)b).buildAnnotationsParams(mem_.getAllNamed().getVal((NamedFunctionBlock) b));
+                    ((NamedFunctionBlock)b).buildAnnotationsParameters(_context,mem_.getAllNamed().getVal((NamedFunctionBlock) b));
                 }
                 if (b instanceof InfoBlock) {
                     _context.setAnnotAnalysisField(false);
@@ -1664,7 +1664,7 @@ public final class Classes {
             _context.setAnnotAnalysisField(false);
             _context.getCoverage().putBlockOperationsField(_context,e.getKey());
             e.getKey().buildAnnotations(_context,e.getValue());
-            e.getKey().buildAnnotationsParams(e.getValue());
+            e.getKey().buildAnnotationsParameters(_context,e.getValue());
         }
         _context.setAnnotAnalysis(false);
         //init annotations here
