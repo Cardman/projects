@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.StaticInfoOperation;
+import code.expressionlanguage.analyze.opers.StaticInfoOperation;
 import code.util.IdMap;
 
 public final class ExecStaticInfoOperation extends ExecLeafOperation implements

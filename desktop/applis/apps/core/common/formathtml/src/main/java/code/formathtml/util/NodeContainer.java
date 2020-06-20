@@ -1,5 +1,5 @@
 package code.formathtml.util;
-import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;

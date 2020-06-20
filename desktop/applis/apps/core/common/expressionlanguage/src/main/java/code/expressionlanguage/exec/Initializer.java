@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.ClassFieldStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 

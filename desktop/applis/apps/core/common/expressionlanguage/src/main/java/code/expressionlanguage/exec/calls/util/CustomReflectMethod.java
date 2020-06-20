@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.calls.util;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.methods.ReflectingType;
+import code.expressionlanguage.exec.ReflectingType;
 import code.util.CustList;
 
 public final class CustomReflectMethod implements CallingState {

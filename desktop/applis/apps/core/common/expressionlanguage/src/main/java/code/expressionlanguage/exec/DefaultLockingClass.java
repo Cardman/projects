@@ -1,12 +1,12 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.AbstractReflectPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.InvokeTargetErrorStruct;
 import code.expressionlanguage.structs.Struct;
@@ -36,15 +36,15 @@ public class DefaultLockingClass {
         return notInit_;
     }
     public final void initClass(String _className) {
-        String base_ = Templates.getIdFromAllTypes(_className);
+        String base_ = StringExpUtil.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.PROGRESSING);
     }
     public final InitClassState getState(String _className) {
-        String base_ = Templates.getIdFromAllTypes(_className);
+        String base_ = StringExpUtil.getIdFromAllTypes(_className);
         return classes.getVal(base_);
     }
     public InitClassState getState(ContextEl _context, String _className) {
-        String base_ = Templates.getIdFromAllTypes(_className);
+        String base_ = StringExpUtil.getIdFromAllTypes(_className);
         InitClassState old_ = classes.getVal(base_);
         if (old_ == InitClassState.NOT_YET) {
             classes.put(base_, InitClassState.PROGRESSING);
@@ -52,7 +52,7 @@ public class DefaultLockingClass {
         return old_;
     }
     public void successClass(String _className) {
-        String base_ = Templates.getIdFromAllTypes(_className);
+        String base_ = StringExpUtil.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.SUCCESS);
     }
     public final Struct processErrorClass(ContextEl _context, Struct _cause) {
@@ -72,7 +72,7 @@ public class DefaultLockingClass {
     }
     private void errorClass(ContextEl _context, String _className) {
         _context.getInitializingTypeInfos().failInitEnums();
-        String base_ = Templates.getIdFromAllTypes(_className);
+        String base_ = StringExpUtil.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.ERROR);
     }
 }

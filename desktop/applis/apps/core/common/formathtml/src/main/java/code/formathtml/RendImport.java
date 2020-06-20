@@ -1,9 +1,9 @@
 package code.formathtml;
 
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendIfStack;
@@ -97,7 +97,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
                         continue;
                     }
                     RendClass cl_ = (RendClass) c;
-                    if (!Templates.isCorrectExecute(className_,cl_.getFullName(),_cont.getContext())) {
+                    if (!ExecTemplates.isCorrectExecute(className_,cl_.getFullName(),_cont.getContext())) {
                         continue;
                     }
                     for (RendBlock f: getDirectChildren(c)) {

@@ -2,8 +2,8 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -13,7 +13,7 @@ public final class ResourcesStruct {
 	}
 	public static Struct getResourceNames(ContextEl _contextEl) {
 		String cl_ = _contextEl.getStandards().getAliasString();
-		cl_ = PrimitiveTypeUtil.getPrettyArrayType(cl_);
+		cl_ = StringExpUtil.getPrettyArrayType(cl_);
 		StringMap<String> res_ = _contextEl.getClasses().getResources();
 		Struct[] arr_ = new Struct[res_.size()];
 		int i_ = 0;

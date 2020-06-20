@@ -2,10 +2,10 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.SettableAbstractFieldOperation;
+import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.FieldInfo;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.CustList;

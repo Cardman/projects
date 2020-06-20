@@ -2,7 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.BitXorOperation;
+import code.expressionlanguage.analyze.opers.BitXorOperation;
 import code.expressionlanguage.structs.NumberStruct;
 
 public final class RendBitXorOperation extends RendStdNumericOperation {

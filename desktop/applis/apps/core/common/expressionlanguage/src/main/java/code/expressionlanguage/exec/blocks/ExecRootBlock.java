@@ -1,16 +1,17 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.*;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.OverridingMethod;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.OverridingMethod;
 import code.util.*;
 
 public abstract class ExecRootBlock extends ExecBracedBlock implements AccessibleBlock,GeneType, ExecAccessingImportingBlock, ExecAnnotableBlock {
@@ -343,7 +344,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
 
     @Override
     public boolean isTypeHidden(ExecRootBlock _class, ContextEl _analyzable) {
-        return !Classes.canAccess(getFullName(), (AccessibleBlock)_class, _analyzable);
+        return !ContextUtil.canAccess(getFullName(), (AccessibleBlock)_class, _analyzable);
     }
 
     public StringList getImportedDirectBaseSuperTypes() {

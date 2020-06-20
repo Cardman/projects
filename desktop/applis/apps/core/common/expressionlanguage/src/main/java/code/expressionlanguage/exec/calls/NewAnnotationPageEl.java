@@ -3,9 +3,8 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.AnnotationMethodBlock;
-import code.expressionlanguage.opers.util.AnnotationTypeInfo;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -28,7 +27,7 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
             String t_ = i_.getType();
             if (i_.isWrap()) {
                 ArrayStruct a_ = new ArrayStruct(new Struct[1], t_);
-                Templates.setCheckedElements(new CustList<Argument>(value_),a_,_context);
+                ExecTemplates.setCheckedElements(new CustList<Argument>(value_),a_,_context);
                 ExecAnnotationMethodBlock.setValue(className_,name_,t_,_context,new Argument(a_));
                 if (_context.callsOrException()) {
                     return;

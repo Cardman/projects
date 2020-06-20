@@ -1,10 +1,11 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.PageEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.DimensionArrayInstancing;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.analyze.opers.DimensionArrayInstancing;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -35,7 +36,7 @@ public final class RendDimensionArrayInstancing extends
         String className_ = getClassName();
         PageEl page_ = _conf.getPageEl();
         className_ = page_.formatVarType(className_, _conf.getContext());
-        className_ = PrimitiveTypeUtil.getPrettyArrayType(className_, countArrayDims);
+        className_ = StringExpUtil.getPrettyArrayType(className_, countArrayDims);
 
         int[] args_;
 
@@ -59,7 +60,7 @@ public final class RendDimensionArrayInstancing extends
         for (int d: args_) {
             dims_.add(d);
         }
-        a_.setStruct(PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf.getContext()));
+        a_.setStruct(ExecTemplates.newCustomArray(className_, dims_, _conf.getContext()));
         return a_;
     }
 

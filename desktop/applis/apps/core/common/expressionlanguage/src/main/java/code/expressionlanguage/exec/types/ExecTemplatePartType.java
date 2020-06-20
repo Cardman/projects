@@ -1,10 +1,13 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.DimComp;
+
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -58,7 +61,7 @@ final class ExecTemplatePartType extends ExecBinaryType {
         ExecPartType f_ = getFirstChild();
         String tempCl_ = f_.getAnalyzedType();
         String tempClFull_ = fetchTemplate();
-        tempCl_ = Templates.getIdFromAllTypes(tempCl_);
+        tempCl_ = StringExpUtil.getIdFromAllTypes(tempCl_);
         GeneType type_ = _an.getClassBody(tempCl_);
         CustList<StringList> boundsAll_ = type_.getBoundAll();
         for (StringList t: boundsAll_) {
@@ -73,13 +76,13 @@ final class ExecTemplatePartType extends ExecBinaryType {
             } else if (comp_.startsWith(Templates.SUP_TYPE)) {
                 comp_ = comp_.substring(Templates.SUP_TYPE.length());
             }
-            DimComp dimCompArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(comp_);
+            DimComp dimCompArg_ = StringExpUtil.getQuickComponentBaseType(comp_);
             comp_ = dimCompArg_.getComponent();
             StringList bounds_ = new StringList();
             bounds_.add(comp_);
             for (String e: t) {
                 String param_ = Templates.format(tempClFull_, e, _an);
-                if (!Templates.isCorrectExecute(comp_, param_, _an)) {
+                if (!ExecTemplates.isCorrectExecute(comp_, param_, _an)) {
                     return;
                 }
             }

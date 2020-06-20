@@ -1,5 +1,5 @@
 package code.formathtml.exec;
-import code.expressionlanguage.opers.AndOperation;
+import code.expressionlanguage.analyze.opers.AndOperation;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 

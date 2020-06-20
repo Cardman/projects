@@ -3,10 +3,11 @@ package code.formathtml.util;
 import code.expressionlanguage.common.DoubleInfo;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.structs.Message;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -88,7 +89,7 @@ public abstract class BeanLgNames extends LgNames {
         StringList values_ = _container.getValue();
         if (_container.isArrayConverter()) {
             int len_ = values_.size();
-            ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasString()));
+            ArrayStruct arr_ = new ArrayStruct(new Struct[len_],StringExpUtil.getPrettyArrayType(getAliasString()));
             for (int i = 0; i < len_; i++) {
                 arr_.getInstance()[i] = new StringStruct(values_.get(i));
             }
@@ -147,10 +148,7 @@ public abstract class BeanLgNames extends LgNames {
             return true;
         }
 
-        if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_className,this)) {
-            return true;
-        }
-        return false;
+        return PrimitiveTypeUtil.isPrimitiveOrWrapper(_className, this);
     }
     public abstract void setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files);
     protected static Struct wrapStd(String _element) {

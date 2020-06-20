@@ -2,8 +2,8 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 
 public final class LambdaMethodStruct extends WithoutParentIdStruct implements LambdaStruct {
 

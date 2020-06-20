@@ -3,15 +3,12 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.AnnotationBlock;
-import code.expressionlanguage.methods.AnnotationMethodBlock;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.structs.MethodMetaInfo;
@@ -28,7 +25,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
     public boolean checkCondition(ContextEl _context) {
         MethodMetaInfo instance_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct());
         String cl_ = instance_.getFormClassName();
-        String id_ = Templates.getIdFromAllTypes(cl_);
+        String id_ = StringExpUtil.getIdFromAllTypes(cl_);
         GeneType type_ = _context.getClassBody(id_);
         if (!(type_ instanceof ExecAnnotationBlock)) {
             setReturnedArgument(new Argument());
@@ -54,7 +51,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
             init = true;
         }
         ExpressionLanguage el_ = getCurrentEl(0,ops);
-        Argument ret_ = ElUtil.tryToCalculate(_context,el_,0);
+        Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0);
         if (_context.callsOrException()) {
             return false;
         }

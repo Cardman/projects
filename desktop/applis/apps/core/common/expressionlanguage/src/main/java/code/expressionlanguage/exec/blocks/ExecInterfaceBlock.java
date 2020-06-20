@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.common.GeneInterface;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.util.StringList;
 
 public final class ExecInterfaceBlock extends ExecRootBlock implements GeneInterface,ExecInterfacable {

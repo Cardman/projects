@@ -2,13 +2,15 @@ package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.blocks.AssFieldBlock;
 import code.expressionlanguage.assign.blocks.AssForMutableIterativeLoop;
 import code.expressionlanguage.assign.util.*;
-import code.expressionlanguage.methods.ForLoopPart;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -135,7 +137,7 @@ public final class AssUtil {
         if (_conf.isAssignedFields()) {
             checkFinal_ = true;
         } else if (_conf.isAssignedStaticFields()) {
-            FieldInfo meta_ = _conf.getFieldInfo(_cl);
+            FieldInfo meta_ = ContextUtil.getFieldInfo(_conf,_cl);
             if (meta_.isStaticField()) {
                 checkFinal_ = true;
             } else if (!_fromCurClass) {

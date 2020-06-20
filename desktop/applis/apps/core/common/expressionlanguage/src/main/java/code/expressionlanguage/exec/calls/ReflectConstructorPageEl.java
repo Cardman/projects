@@ -2,10 +2,13 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -23,16 +26,16 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         LgNames stds_ = _context.getStandards();
         ConstructorMetaInfo method_ = ApplyCoreMethodUtil.getCtor(getGlobalArgument().getStruct());
         String className_ = method_.getClassName();
-        String id_ = Templates.getIdFromAllTypes(className_);
+        String id_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
         boolean static_ = type_.isStaticType();
-        if (ContextEl.isAbstractType(type_)) {
+        if (ContextUtil.isAbstractType(type_)) {
             String null_;
             null_ = stds_.getAliasIllegalArg();
             _context.setException(new ErrorStruct(_context,null_));
             return false;
         }
-        String res_ = Templates.correctClassPartsDynamic(className_, _context, true);
+        String res_ = ExecTemplates.correctClassPartsDynamic(className_, _context, true);
         if (res_.isEmpty()) {
             String null_;
             null_ = stds_.getAliasIllegalArg();
@@ -41,7 +44,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         }
         if (!initClass) {
             initClass = true;
-            if (static_ && _context.hasToExit(res_)) {
+            if (static_ && ExecutingUtil.hasToExit(_context,res_)) {
                 setWrapException(true);
                 return false;
             }

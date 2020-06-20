@@ -1,9 +1,9 @@
 package aiki.beans.facade.simulation.dto;
 import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;

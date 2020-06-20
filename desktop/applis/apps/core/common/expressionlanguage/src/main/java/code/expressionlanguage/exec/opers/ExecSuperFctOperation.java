@@ -3,12 +3,14 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.SuperFctOperation;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.analyze.opers.SuperFctOperation;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -58,13 +60,13 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
         if (!staticMethod) {
             prev_.setStruct(_previous.getStruct());
             classNameFound_ = classMethodId.getClassName();
-            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, prev_.getStruct(), _conf));
+            prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, prev_.getStruct(), _conf));
             if (_conf.callsOrException()) {
                 return new Argument();
             }
             String argClassName_ = prev_.getObjectClassName(_conf);
-            String base_ = Templates.getIdFromAllTypes(classNameFound_);
-            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
+            String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
+            String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = classMethodId.getConstraints();
@@ -73,7 +75,7 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
             classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
             lastType_ = classMethodId.formatType(classNameFound_,lastType_,_conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
-            if (_conf.hasToExit(classNameFound_)) {
+            if (ExecutingUtil.hasToExit(_conf,classNameFound_)) {
                 return Argument.createVoid();
             }
         }

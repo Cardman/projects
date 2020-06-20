@@ -1,6 +1,6 @@
 package code.expressionlanguage.files;
 
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 
 public final class ResultTypeCreation extends ResultCreation {
 

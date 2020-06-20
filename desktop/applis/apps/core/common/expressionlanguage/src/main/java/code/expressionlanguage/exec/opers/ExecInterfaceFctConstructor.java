@@ -3,10 +3,11 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.InterfaceFctConstructor;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.analyze.opers.InterfaceFctConstructor;
+import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -24,14 +25,14 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
             //init and test
             int order_ = getParent().getFirstChild().getOrder();
             Argument lda_ = _nodes.getValue(order_).getArgument();
-            if (!Templates.checkObject(_conf.getStandards().getAliasFct(), lda_, _conf)) {
+            if (!ExecTemplates.checkObject(_conf.getStandards().getAliasFct(), lda_, _conf)) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;
             }
             String form_ = _conf.getLastPage().formatVarType(className, _conf);
             Argument ref_ = new Argument(lda_.getStruct());
             ExecCastOperation.wrapFct(form_,true,new CustList<Argument>(ref_),_conf);
-            if (!Templates.checkObject(form_, ref_, _conf)) {
+            if (!ExecTemplates.checkObject(form_, ref_, _conf)) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;
             }

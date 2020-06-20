@@ -4,10 +4,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.InfoBlock;
-import code.expressionlanguage.methods.InnerElementBlock;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.analyze.blocks.InfoBlock;
+import code.expressionlanguage.analyze.blocks.InnerElementBlock;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -123,7 +122,7 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
             ip_.setGlobalOffset(fieldNameOffest);
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            ElUtil.tryToCalculate(_cont,el_, trOffset);
+            ExpressionLanguage.tryToCalculate(_cont,el_, trOffset);
             if (_cont.callsOrException()) {
                 return;
             }

@@ -1,6 +1,6 @@
 package code.expressionlanguage.files;
 
-import code.expressionlanguage.methods.AccessEnum;
+import code.expressionlanguage.common.AccessEnum;
 
 public final class OffsetAccessInfo {
 

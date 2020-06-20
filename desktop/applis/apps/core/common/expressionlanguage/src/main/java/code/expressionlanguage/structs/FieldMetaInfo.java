@@ -1,7 +1,7 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.AccessEnum;
+import code.expressionlanguage.common.AccessEnum;
 import code.util.StringList;
 
 

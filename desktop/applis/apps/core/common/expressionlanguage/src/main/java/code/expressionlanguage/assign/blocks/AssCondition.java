@@ -7,7 +7,6 @@ import code.expressionlanguage.assign.util.AssignedBooleanVariables;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.exec.blocks.ExecCondition;
-import code.expressionlanguage.methods.Condition;
 import code.util.CustList;
 
 public abstract class AssCondition extends AssBracedStack implements AssBuildableElMethod {

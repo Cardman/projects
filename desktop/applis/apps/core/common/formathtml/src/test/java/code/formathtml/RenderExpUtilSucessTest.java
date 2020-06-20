@@ -2,14 +2,14 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -1214,7 +1214,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(PrimitiveTypeUtil.getPrettyArrayType(context_.getStandards().getAliasPrimInteger()));
+        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getStandards().getAliasPrimInteger()));
         localVars_.put("arg", lv_);
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
@@ -6121,7 +6121,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         Struct[] arr_ = new Struct[1];
         arr_[0] = new StringStruct("add ");
-        String arrayType_ = PrimitiveTypeUtil.getPrettyArrayType(context_.getStandards().getAliasString());
+        String arrayType_ = StringExpUtil.getPrettyArrayType(context_.getStandards().getAliasString());
         lv_.setStruct(new ArrayStruct(arr_, arrayType_));
         lv_.setClassName(arrayType_);
         localVars_.put("v", lv_);

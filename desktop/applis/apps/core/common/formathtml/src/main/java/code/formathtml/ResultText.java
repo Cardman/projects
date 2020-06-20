@@ -1,9 +1,9 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.instr.ElUtil;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
@@ -200,7 +200,7 @@ public final class ResultText {
                 Mapping m_ = new Mapping();
                 m_.setArg(e.last().getResultClass());
                 m_.setParam(_cont.getStandards().getAliasNumber());
-                if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(colsGrId_);

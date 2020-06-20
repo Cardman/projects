@@ -2,11 +2,13 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.StandardInstancingOperation;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
+import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -60,8 +62,8 @@ public final class ExecStandardInstancingOperation extends
         PageEl page_ = _conf.getLastPage();
         className_ = page_.formatVarType(className, _conf);
         if (fieldName.isEmpty()) {
-            String base_ = Templates.getIdFromAllTypes(className_);
-            if (_conf.hasToExit(base_)) {
+            String base_ = StringExpUtil.getIdFromAllTypes(className_);
+            if (ExecutingUtil.hasToExit(_conf,base_)) {
                 return Argument.createVoid();
             }
         }

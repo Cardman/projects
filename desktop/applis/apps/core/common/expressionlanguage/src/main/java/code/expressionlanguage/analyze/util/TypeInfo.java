@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.util;
 
-import code.expressionlanguage.opers.util.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.StringList;
 
 public final class TypeInfo {

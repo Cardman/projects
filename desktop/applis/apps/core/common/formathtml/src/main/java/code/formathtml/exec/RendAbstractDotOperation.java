@@ -1,8 +1,8 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;

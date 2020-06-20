@@ -2,9 +2,9 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.ExplicitOperation;
+import code.expressionlanguage.analyze.opers.ExplicitOperation;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;

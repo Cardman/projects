@@ -2,9 +2,9 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
-import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.StaticInitOperation;
+import code.expressionlanguage.analyze.opers.StaticInitOperation;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 

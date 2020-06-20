@@ -1,7 +1,7 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.Ints;
 import code.util.StringList;

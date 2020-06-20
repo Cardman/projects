@@ -1,10 +1,10 @@
 package aiki.beans.facade.solution.dto;
 import aiki.beans.DefaultStruct;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;

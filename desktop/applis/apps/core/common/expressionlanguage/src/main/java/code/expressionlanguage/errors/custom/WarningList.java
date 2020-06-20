@@ -1,6 +1,6 @@
 package code.expressionlanguage.errors.custom;
 
-import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.analyze.blocks.Classes;
 import code.util.CustList;
 import code.util.StringList;
 

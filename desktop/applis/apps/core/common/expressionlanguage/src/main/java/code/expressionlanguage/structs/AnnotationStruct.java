@@ -1,9 +1,10 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassFieldStruct;
+import code.expressionlanguage.common.ClassField;
+
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.CustList;
 import code.util.StringList;

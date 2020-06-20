@@ -10,9 +10,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.opers.ExecSuperInvokingConstructor;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.StackableBlock;
-import code.expressionlanguage.methods.WithNotEmptyEl;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.util.CustList;
 
 public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotEmptyEl {
@@ -61,7 +59,7 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont ,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-        ElUtil.tryToCalculate(_cont,el_,0);
+        ExpressionLanguage.tryToCalculate(_cont,el_,0);
         if (_cont.callsOrException()) {
             return;
         }

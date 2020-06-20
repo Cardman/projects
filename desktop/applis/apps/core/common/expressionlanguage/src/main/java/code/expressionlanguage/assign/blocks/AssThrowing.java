@@ -5,7 +5,6 @@ import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.exec.blocks.ExecThrowing;
-import code.expressionlanguage.methods.Throwing;
 import code.util.CustList;
 
 public final class AssThrowing extends AssAbruptBlock implements AssBuildableElMethod {

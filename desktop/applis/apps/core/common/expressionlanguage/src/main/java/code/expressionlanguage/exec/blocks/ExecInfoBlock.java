@@ -1,8 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.common.GeneField;
-import code.expressionlanguage.methods.InfoBlock;
-import code.expressionlanguage.methods.WithNotEmptyEl;
+import code.expressionlanguage.analyze.blocks.InfoBlock;
 
 public interface ExecInfoBlock extends WithNotEmptyEl, GeneField, ExecAnnotableBlock {
 

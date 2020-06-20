@@ -1,10 +1,15 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.*;
@@ -14,12 +19,9 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.errors.stds.StdErrorList;
 import code.expressionlanguage.errors.stds.StdWordError;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.*;
-import code.expressionlanguage.methods.*;
+
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.CausingErrorStruct;
@@ -122,10 +124,10 @@ public final class Configuration {
             arr_[i] = newStackTraceElement(i);
         }
         for (int i = 0; i < lenArrCtx_; i++) {
-            arr_[i+count_] = context.newStackTraceElement(i);
+            arr_[i+count_] = ExecutingUtil.newStackTraceElement(context,i);
         }
         String cl_ = getStandards().getAliasStackTraceElement();
-        cl_ = PrimitiveTypeUtil.getPrettyArrayType(cl_);
+        cl_ = StringExpUtil.getPrettyArrayType(cl_);
         return new ArrayStruct(arr_, cl_);
     }
 
@@ -145,7 +147,7 @@ public final class Configuration {
         currentUrl = firstUrl;
         prefix = StringList.concat(prefix,SEP);
         standards.build();
-        ApplyCoreMethodUtil.setupOverrides(context);
+        ValidatorStandard.setupOverrides(context);
         renderFiles.removeAllString(firstUrl);
         renderFiles.add(firstUrl);
     }
@@ -553,11 +555,11 @@ public final class Configuration {
         if (!isValidToken(_id)) {
             return false;
         }
-        return context.idDisjointToken(_id);
+        return ContextUtil.idDisjointToken(context,_id);
     }
 
     public boolean isValidToken(String _id) {
-        return context.isValidToken(_id,false);
+        return ContextUtil.isValidToken(context,_id,false);
     }
 
     public void processInternKeyWord(String _string, int _fr,
@@ -632,7 +634,7 @@ public final class Configuration {
 
     public boolean hasToExit(String _className) {
         Classes classes_ = getClasses();
-        String idCl_ = Templates.getIdFromAllTypes(_className);
+        String idCl_ = StringExpUtil.getIdFromAllTypes(_className);
         ExecRootBlock c_ = classes_.getClassBody(idCl_);
         if (c_ != null) {
             InitClassState res_ = classes_.getLocks().getState(getContext(), idCl_);
@@ -777,7 +779,7 @@ public final class Configuration {
 
     public ExecAccessingImportingBlock getCurrentGlobalBlock(ExecAccessingImportingBlock _bl) {
         String gl_ = getGlobalClass();
-        ExecRootBlock root_ = getContext().getClasses().getClassBody(Templates.getIdFromAllTypes(gl_));
+        ExecRootBlock root_ = getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(gl_));
         return getAccessingImportingBlock(_bl, root_);
     }
 

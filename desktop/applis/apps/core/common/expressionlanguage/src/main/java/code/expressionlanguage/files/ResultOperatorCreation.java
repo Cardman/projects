@@ -1,6 +1,6 @@
 package code.expressionlanguage.files;
 
-import code.expressionlanguage.methods.OperatorBlock;
+import code.expressionlanguage.analyze.blocks.OperatorBlock;
 
 public final class ResultOperatorCreation extends ResultCreation {
 

@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.util.StringList;
 
 public final class ExecAnnotationBlock extends ExecRootBlock implements ExecInterfacable {

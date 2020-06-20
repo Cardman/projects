@@ -1,8 +1,8 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.functionid.ConstructorId;
 import code.util.StringList;
 
 public final class ConstructorMetaInfo extends WithoutParentStruct implements AnnotatedStruct {

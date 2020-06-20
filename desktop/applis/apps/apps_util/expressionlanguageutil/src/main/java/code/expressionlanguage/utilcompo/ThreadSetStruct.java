@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -19,7 +20,7 @@ public final class ThreadSetStruct extends WithoutParentIdStruct implements Stru
         String thClass_ = ((LgNamesUtils)_contextEl.getStandards()).getAliasThread();
         int len_ = instantKeys_.size();
         Struct[] innArr_ = new Struct[len_];
-        ArrayStruct arr_ = new ArrayStruct(innArr_,PrimitiveTypeUtil.getPrettyArrayType(thClass_));
+        ArrayStruct arr_ = new ArrayStruct(innArr_,StringExpUtil.getPrettyArrayType(thClass_));
         for (int i = 0; i < len_; i++) {
             Struct e_ = instantKeys_.get(i);
             _contextEl.getInitializingTypeInfos().addSensibleField(this,e_);

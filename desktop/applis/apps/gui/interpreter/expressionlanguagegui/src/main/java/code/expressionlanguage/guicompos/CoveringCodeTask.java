@@ -2,7 +2,6 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
-import code.expressionlanguage.methods.FileBlock;
 import code.stream.StreamTextFile;
 import code.util.EntryCust;
 

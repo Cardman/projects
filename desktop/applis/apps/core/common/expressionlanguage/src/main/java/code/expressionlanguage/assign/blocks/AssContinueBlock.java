@@ -1,7 +1,6 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.exec.blocks.ExecContinueBlock;
-import code.expressionlanguage.methods.ContinueBlock;
 import code.util.StringList;
 
 public final class AssContinueBlock extends AssAbruptBlock {

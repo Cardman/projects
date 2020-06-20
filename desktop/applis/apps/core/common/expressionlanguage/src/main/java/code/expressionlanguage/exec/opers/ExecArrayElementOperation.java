@@ -3,9 +3,8 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.PageEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.AbstractArrayInstancingOperation;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.analyze.opers.AbstractArrayInstancingOperation;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.Ints;
@@ -34,8 +33,8 @@ public final class ExecArrayElementOperation extends
         Ints dims_;
         dims_ = new Ints();
         dims_.add(nbCh_);
-        Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
-        Templates.setCheckedElements(_arguments,str_,_conf);
+        Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _conf);
+        ExecTemplates.setCheckedElements(_arguments,str_,_conf);
         a_.setStruct(str_);
         return a_;
     }

@@ -1,6 +1,6 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.opers.StaticInfoOperation;
+import code.expressionlanguage.analyze.opers.StaticInfoOperation;
 
 public final class RendStaticInfoOperation extends RendLeafOperation {
 

@@ -1,20 +1,23 @@
 package code.formathtml;
 
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.*;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.ImportForEachLoop;
+import code.expressionlanguage.analyze.blocks.ImportForEachLoop;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.IterableAnalysisResult;
+import code.expressionlanguage.options.IterableAnalysisResult;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -139,7 +142,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     }
     public void inferArrayClass(Configuration _cont) {
         RendDynOperationNode el_ = opList.last();
-        ClassArgumentMatching compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass());
+        ClassArgumentMatching compo_ = StringExpUtil.getQuickComponentType(el_.getResultClass());
         if (toInfer(_cont) && compo_.getNames().onlyOneElt()) {
             importedClassName = compo_.getName();
         } else {
@@ -156,7 +159,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 mapping_.setParam(importedClassName);
                 StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!Templates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
@@ -197,7 +200,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         if (_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
-            String paramArg_ = Templates.getAllTypes(type_).last();
+            String paramArg_ = StringExpUtil.getAllTypes(type_).last();
             if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
                 paramArg_ = _cont.getStandards().getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
@@ -212,7 +215,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 mapping_.setParam(importedClassName);
                 StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!Templates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
@@ -401,7 +404,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         } else {
             arg_ = new Argument(element_);
         }
-        if (!Templates.checkQuick(importedClassName, arg_, _conf.getContext())) {
+        if (!ExecTemplates.checkQuick(importedClassName, arg_, _conf.getContext())) {
             return;
         }
         lv_.setStruct(element_);

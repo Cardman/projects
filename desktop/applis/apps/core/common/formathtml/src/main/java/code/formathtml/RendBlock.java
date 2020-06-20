@@ -1,13 +1,14 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.exec.EndCallValue;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.AnalyzedBlock;
+import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -948,7 +949,7 @@ public abstract class RendBlock implements AnalyzedBlock {
     protected static String lookForVar(Configuration _cont, StringList _varNames) {
         String varLoc_ = TMP_LOC;
         int indexLoc_ = 0;
-        while (!_cont.getContext().isNotVar(varLoc_) || StringList.contains(_varNames,varLoc_)) {
+        while (!ContextUtil.isNotVar(_cont.getContext(),varLoc_) || StringList.contains(_varNames,varLoc_)) {
             varLoc_ = StringList.concatNbs(TMP_LOC,indexLoc_);
             indexLoc_++;
         }

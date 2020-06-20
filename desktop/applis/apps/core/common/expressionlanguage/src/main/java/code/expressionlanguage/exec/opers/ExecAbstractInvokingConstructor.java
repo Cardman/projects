@@ -3,8 +3,8 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.AbstractInvokingConstructor;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.analyze.opers.AbstractInvokingConstructor;
+import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
 

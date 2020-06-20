@@ -3,11 +3,11 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.LambdaOperation;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.analyze.opers.LambdaOperation;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
 import code.util.IdMap;
 
@@ -26,6 +26,8 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
     private boolean expCast;
     private ConstructorId realId;
     private ClassField fieldId;
+    private boolean staticField;
+    private boolean finalField;
     private boolean affField;
     private String returnFieldType;
 
@@ -41,6 +43,8 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
         abstractMethod = _l.isAbstractMethod();
         realId = _l.getRealId();
         fieldId = _l.getFieldId();
+        staticField = _l.isStaticField();
+        finalField = _l.isFinalField();
         affField = _l.isAffField();
         returnFieldType = _l.getReturnFieldType();
         directCast = _l.isDirectCast();
@@ -69,6 +73,8 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
             String formatType_ = _conf.getLastPage().formatVarType(returnFieldType, _conf);
             LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_, fieldId, shiftArgument, ancestor,affField, formatType_);
             l_.setInstanceCall(_previous);
+            l_.setStaticField(staticField);
+            l_.setFinalField(finalField);
             return l_;
         }
         if (method == null) {

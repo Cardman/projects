@@ -6,7 +6,6 @@ import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.exec.blocks.ExecSwitchBlock;
-import code.expressionlanguage.methods.SwitchBlock;
 import code.expressionlanguage.assign.util.AssignmentBefore;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
 import code.expressionlanguage.assign.util.SimpleAssignment;

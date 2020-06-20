@@ -1,11 +1,10 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.FieldUpdates;
@@ -55,7 +54,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
             Mapping m_ = new Mapping();
             m_.setArg(opsRead.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
-            if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
+            if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
@@ -80,7 +79,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                 }
                 m_.setArg(opsConverter.last().getResultClass());
                 m_.setParam(opsRead.last().getResultClass());
-                if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(attr_);
@@ -110,7 +109,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
             Mapping m_ = new Mapping();
             m_.setArg(opsConverterField.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
-            if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
+            if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(attr_);

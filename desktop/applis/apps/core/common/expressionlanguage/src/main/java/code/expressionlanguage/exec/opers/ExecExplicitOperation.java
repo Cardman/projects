@@ -6,10 +6,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundCast;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.ExplicitOperation;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.analyze.opers.ExplicitOperation;
+import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -60,7 +60,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
             return true;
         }
         MethodId check_ = new MethodId(_castOpId.getKind(),_castOpId.getName(),_castOpId.shiftFirst(),_castOpId.isVararg());
-        if (!Templates.okArgs(check_,true, paramNameOwner_,_arguments, _conf, null)) {
+        if (!ExecTemplates.okArgs(check_,true, paramNameOwner_,_arguments, _conf, null)) {
             return true;
         }
         _conf.setCallingState(new CustomFoundCast(paramNameOwner_,_castOpId,_arguments));
@@ -70,7 +70,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     static Argument getArgument(CustList<Argument> _arguments, String _className, PageEl _page, ContextEl _conf) {
         Argument objArg_ = _arguments.first();
         String paramName_ = _page.formatVarType(_className, _conf);
-        Templates.checkObject(paramName_, objArg_, _conf);
+        ExecTemplates.checkObject(paramName_, objArg_, _conf);
         return objArg_;
     }
 }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.util.CollCapacity;
 import code.util.StringList;
 
@@ -23,8 +24,8 @@ public final class CausingErrorStruct extends WithoutParentIdStruct implements E
     private CausingErrorStruct(String _message,Struct _cause, ContextEl _cont) {
         message = _message;
         cause = _cause;
-        stack = _cont.newStackTraceElementArray();
-        fullStack = _cont.newStackTraceElementArrayFull();
+        stack = ExecutingUtil.newStackTraceElementArray(_cont);
+        fullStack = ExecutingUtil.newStackTraceElementArrayFull(_cont);
     }
 
     @Override

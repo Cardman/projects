@@ -2,14 +2,15 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.opers.util.ClassCategory;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.exec.ClassCategory;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -52,8 +53,8 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         staticType = true;
         typeOwner = EMPTY_STRING;
         if (_cat == ClassCategory.ARRAY) {
-            String id_ = Templates.getIdFromAllTypes(_name);
-            String comp_ = PrimitiveTypeUtil.getQuickComponentBaseType(id_).getComponent();
+            String id_ = StringExpUtil.getIdFromAllTypes(_name);
+            String comp_ = StringExpUtil.getQuickComponentBaseType(id_).getComponent();
             if (PrimitiveTypeUtil.isPrimitive(comp_, _context)) {
                 abstractType = true;
                 superClass = EMPTY_STRING;
@@ -194,7 +195,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     public CustList<ClassMetaInfo> getBounds(ContextEl _cont) {
         CustList<ClassMetaInfo> list_;
         list_ = new CustList<ClassMetaInfo>();
-        String id_ = Templates.getIdFromAllTypes(variableOwner);
+        String id_ = StringExpUtil.getIdFromAllTypes(variableOwner);
         CustList<TypeVar> vars_;
         ExecRootBlock g_ = _cont.getClasses().getClassBody(id_);
         if (g_ == null) {
@@ -215,7 +216,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     public CustList<ClassMetaInfo> getTypeParameters(ContextEl _cont) {
         CustList<ClassMetaInfo> list_;
         list_ = new CustList<ClassMetaInfo>();
-        String id_ = Templates.getIdFromAllTypes(name);
+        String id_ = StringExpUtil.getIdFromAllTypes(name);
         ExecRootBlock g_ = _cont.getClasses().getClassBody(id_);
         if (g_ == null) {
             return list_;

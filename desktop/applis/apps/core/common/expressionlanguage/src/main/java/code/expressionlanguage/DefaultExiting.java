@@ -1,5 +1,7 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.exec.ExecutingUtil;
+
 public final class DefaultExiting implements AbstractExiting {
     private final ContextEl context;
 
@@ -9,6 +11,6 @@ public final class DefaultExiting implements AbstractExiting {
 
     @Override
     public boolean hasToExit(String _className) {
-        return context.hasToExit(_className);
+        return ExecutingUtil.hasToExit(context,_className);
     }
 }

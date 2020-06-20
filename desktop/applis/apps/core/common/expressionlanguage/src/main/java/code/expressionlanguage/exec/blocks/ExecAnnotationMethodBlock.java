@@ -8,12 +8,11 @@ import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.AnnotationMethodBlock;
-import code.expressionlanguage.methods.WithNotEmptyEl;
-import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
+import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
@@ -100,7 +99,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
             ip_.setGlobalOffset(defaultValueOffset);
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            Argument arg_ = ElUtil.tryToCalculate(_cont,el_,0);
+            Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0);
             setValue(_cont,arg_);
             if (_cont.callsOrException()) {
                 return;

@@ -3,8 +3,8 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.AffectationOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.AffectationOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.IdMap;
 

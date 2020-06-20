@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.stacks;
 
-import code.expressionlanguage.methods.CallingFinally;
+import code.expressionlanguage.exec.blocks.CallingFinally;
 
 public class AbruptCallingFinally {
     private final CallingFinally callingFinally;

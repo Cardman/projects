@@ -2,8 +2,8 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.RotateLeftOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.RotateLeftOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NumberStruct;
 
 public final class RendRotateLeftOperation extends RendStdNumericOperation {

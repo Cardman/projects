@@ -1,9 +1,9 @@
 package code.formathtml;
 
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.opers.AffectationOperation;
+import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.formathtml.exec.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringList;

@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.CallDynMethodOperation;
+import code.expressionlanguage.analyze.opers.CallDynMethodOperation;
 import code.util.CustList;
 import code.util.IdMap;
 

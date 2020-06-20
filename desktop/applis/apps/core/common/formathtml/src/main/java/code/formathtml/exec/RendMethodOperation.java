@@ -1,6 +1,6 @@
 package code.formathtml.exec;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.CustList;
 
 public abstract class RendMethodOperation extends RendDynOperationNode {

@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.annotation;
 
-import code.expressionlanguage.opers.util.ClassFieldStruct;
+
+import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;

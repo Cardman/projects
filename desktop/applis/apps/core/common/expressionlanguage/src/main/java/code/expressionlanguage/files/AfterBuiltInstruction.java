@@ -1,7 +1,7 @@
 
 package code.expressionlanguage.files;
 
-import code.expressionlanguage.methods.BracedBlock;
+import code.expressionlanguage.analyze.blocks.BracedBlock;
 
 public final class AfterBuiltInstruction {
 

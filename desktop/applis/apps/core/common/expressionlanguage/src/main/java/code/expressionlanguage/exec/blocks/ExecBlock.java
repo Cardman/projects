@@ -5,11 +5,10 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.FunctionBlock;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.analyze.blocks.FunctionBlock;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
@@ -116,7 +115,7 @@ public abstract class ExecBlock {
     }
     private static CustList<ExecNamedFunctionBlock> getMethodBodies(ContextEl _context,String _genericClassName) {
         CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
-        String base_ = Templates.getIdFromAllTypes(_genericClassName);
+        String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
         ExecRootBlock r_ = classes_.getClassBody(base_);
         for (GeneCustModifierMethod m: getMethodExecBlocks(r_)) {
@@ -200,7 +199,7 @@ public abstract class ExecBlock {
     }
     public static CustList<ExecConstructorBlock> getConstructorBodiesById(ContextEl _context,String _genericClassName, ConstructorId _id) {
         CustList<ExecConstructorBlock> methods_ = new CustList<ExecConstructorBlock>();
-        String base_ = Templates.getIdFromAllTypes(_genericClassName);
+        String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
         for (EntryCust<String, ExecRootBlock> c: classes_.getClassesBodies().entryList()) {
             if (!StringList.quickEq(c.getKey(), base_)) {

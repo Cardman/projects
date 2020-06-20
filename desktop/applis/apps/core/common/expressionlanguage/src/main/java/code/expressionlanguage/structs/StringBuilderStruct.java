@@ -2,11 +2,11 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -72,7 +72,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
         }
         StringBuilderStruct one_ = ApplyCoreMethodUtil.getStrBuilder(_struct);
         if (StringList.quickEq(name_, lgNames_.getAliasAppend())) {
-            if (list_.size() == 1 && StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar_))) {
+            if (list_.size() == 1 && StringList.quickEq(list_.first(), StringExpUtil.getPrettyArrayType(aliasPrimChar_))) {
                 one_.appendChars(_args[0], _cont, _res);
                 return;
             }
@@ -80,7 +80,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
                 one_.append(ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont), _cont, _res);
                 return;
             }
-            if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
+            if (StringList.quickEq(list_.first(), StringExpUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
                 one_.appendChars(_args[0], ClassArgumentMatching.convertToNumber(_args[1]), ClassArgumentMatching.convertToNumber(_args[2]), _cont, _res);
                 return;
             }
@@ -108,7 +108,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
             return;
         }
         if (StringList.quickEq(name_, lgNames_.getAliasInsert())) {
-            if (list_.size() == 2 && StringList.quickEq(list_.get(1), PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar_))) {
+            if (list_.size() == 2 && StringList.quickEq(list_.get(1), StringExpUtil.getPrettyArrayType(aliasPrimChar_))) {
                 one_.insertChars(ClassArgumentMatching.convertToNumber(_args[0]), _args[1], _cont, _res);
                 return;
             }
@@ -117,7 +117,7 @@ public final class StringBuilderStruct extends CharSequenceStruct {
                         ExecCatOperation.getDisplayable(new Argument(_args[1]),_cont), _cont, _res);
                 return;
             }
-            if (StringList.quickEq(list_.get(1), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
+            if (StringList.quickEq(list_.get(1), StringExpUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
                 one_.insertChars(ClassArgumentMatching.convertToNumber(_args[0]), _args[1], ClassArgumentMatching.convertToNumber(_args[2]), ClassArgumentMatching.convertToNumber(_args[3]), _cont, _res);
                 return;
             }

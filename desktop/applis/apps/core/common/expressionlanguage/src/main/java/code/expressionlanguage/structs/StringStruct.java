@@ -2,10 +2,11 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -165,7 +166,7 @@ public final class StringStruct extends CharSequenceStruct {
 
     public static void calculateString(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
-            ApplyCoreMethodUtil.getString(_struct).calculateLocString(_cont, _res, _method, _args);
+            AnaApplyCoreMethodUtil.getString(_struct).calculateLocString(_cont, _res, _method, _args);
             return;
         }
         String name_ = _method.getConstraints().getName();
@@ -201,7 +202,7 @@ public final class StringStruct extends CharSequenceStruct {
 
     public static Struct calculateString(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
-            return ApplyCoreMethodUtil.getString(_struct).calculateLocString(_cont, _method, _args);
+            return AnaApplyCoreMethodUtil.getString(_struct).calculateLocString(_cont, _method, _args);
         }
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();

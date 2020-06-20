@@ -1,5 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ByteStruct;
@@ -36,7 +37,7 @@ public final class ZipBinStructUtil {
         }
 
         String arr_ = ((LgNamesUtils)_ctx.getStandards()).getAliasEntryBinary();
-        arr_ = PrimitiveTypeUtil.getPrettyArrayType(arr_);
+        arr_ = StringExpUtil.getPrettyArrayType(arr_);
         ArrayStruct files_ = new ArrayStruct(new Struct[filesMap_.size()],arr_);
         int i_ = 0;
         for (EntryBinaryStruct entry_ :filesMap_) {
@@ -49,7 +50,7 @@ public final class ZipBinStructUtil {
     public static CustList<EntryBinaryStruct> getEntryBinaryStructs(byte[] bytes_, RunnableContextEl _ctx) {
         try {
             String cont_ = _ctx.getStandards().getAliasPrimByte();
-            cont_ = PrimitiveTypeUtil.getPrettyArrayType(cont_);
+            cont_ = StringExpUtil.getPrettyArrayType(cont_);
             ByteArrayInputStream bais_ = new ByteArrayInputStream(bytes_);
             ZipInputStream zis_ = new ZipInputStream(bais_);
             CustList<EntryBinaryStruct> filesMap_ = new CustList<EntryBinaryStruct>();
@@ -91,7 +92,7 @@ public final class ZipBinStructUtil {
         }
         int lengthFile_ = exp_.length;
         String cont_ = _ctx.getStandards().getAliasPrimByte();
-        cont_ = PrimitiveTypeUtil.getPrettyArrayType(cont_);
+        cont_ = StringExpUtil.getPrettyArrayType(cont_);
         ArrayStruct bs_ = new ArrayStruct(new Struct[lengthFile_],cont_);
         for (int j = 0; j < lengthFile_; j++) {
             bs_.getInstance()[j] = new ByteStruct(exp_[j]);

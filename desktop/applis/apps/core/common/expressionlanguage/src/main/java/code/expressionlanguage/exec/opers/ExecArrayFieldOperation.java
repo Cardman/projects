@@ -2,8 +2,8 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.ArrayFieldOperation;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.analyze.opers.ArrayFieldOperation;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -32,7 +32,7 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         String argCl_ = _previous.getObjectClassName(_conf);
         String arrObj_ = _conf.getStandards().getAliasObject();
-        arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(arrObj_);
+        arrObj_ = StringExpUtil.getPrettyArrayType(arrObj_);
         _conf.setException(new ErrorStruct(_conf, StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),npe_));
         a_ = new Argument();
         return a_;
@@ -46,7 +46,7 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
         if (_str instanceof ArrayStruct) {
             return (ArrayStruct) _str;
         }
-        String arr_ = PrimitiveTypeUtil.getPrettyArrayType(_cont.getStandards().getAliasObject());
+        String arr_ = StringExpUtil.getPrettyArrayType(_cont.getStandards().getAliasObject());
         return new ArrayStruct(new Struct[0], arr_);
     }
 }

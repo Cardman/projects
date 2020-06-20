@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodId;
 
 public final class ImportedMethod {
     private String returnType;

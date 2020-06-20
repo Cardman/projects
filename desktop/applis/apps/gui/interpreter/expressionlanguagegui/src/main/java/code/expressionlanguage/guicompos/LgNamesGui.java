@@ -1,12 +1,14 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.KeyValueMemberName;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
@@ -912,7 +914,7 @@ public class LgNamesGui extends LgNamesUtils {
         method_ = new StandardMethod(aliasWindowSetRemove, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasWindowSetSnapshot, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasWindowType), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasWindowSetSnapshot, params_, StringExpUtil.getPrettyArrayType(aliasWindowType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         getStandards().put(aliasWindowSet, std_);
@@ -924,7 +926,7 @@ public class LgNamesGui extends LgNamesUtils {
         method_ = new StandardMethod(aliasWindow, params_, aliasFrame, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasArgs, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasArgs, params_, StringExpUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         StandardConstructor ctor_;
         params_ = new StringList();
@@ -1232,7 +1234,7 @@ public class LgNamesGui extends LgNamesUtils {
         method_ = new StandardMethod(aliasTableGetSelectedRowCount, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableGetSelectedRows, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger()), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasTableGetSelectedRows, params_, StringExpUtil.getPrettyArrayType(getAliasPrimInteger()), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger());
         method_ = new StandardMethod(aliasTableMoveColumn, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
@@ -1650,7 +1652,7 @@ public class LgNamesGui extends LgNamesUtils {
         method_ = new StandardMethod(aliasImageDraw, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
 
-        String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger());
+        String arrInt_ = StringExpUtil.getPrettyArrayType(getAliasPrimInteger());
         params_ = new StringList(getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger(),getAliasPrimInteger());
         method_ = new StandardMethod(aliasImageDrawLine, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -1966,10 +1968,10 @@ public class LgNamesGui extends LgNamesUtils {
         method_ = new StandardMethod(aliasGrListSet, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetListView, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasObject()), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGrListGetListView, params_, StringExpUtil.getPrettyArrayType(getAliasObject()), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGrListGetSelectedIndexes, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger()), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGrListGetSelectedIndexes, params_, StringExpUtil.getPrettyArrayType(getAliasPrimInteger()), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimInteger());
         method_ = new StandardMethod(aliasGrListSetSelectedIndexes, params_, getAliasVoid(), true, MethodModifier.FINAL, stdcl_);
@@ -2014,7 +2016,7 @@ public class LgNamesGui extends LgNamesUtils {
         method_ = new StandardMethod(aliasComboGetSelectedIndex, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasComboGetSelectedIndexes, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger()), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasComboGetSelectedIndexes, params_, StringExpUtil.getPrettyArrayType(getAliasPrimInteger()), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasComboGetSelectedItem, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
@@ -2366,9 +2368,9 @@ public class LgNamesGui extends LgNamesUtils {
     public DisplayableStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         if (_arg instanceof EventStruct) {
             String className_ = _arg.getClassName(_cont);
-            String id_ = Templates.getIdFromAllTypes(className_);
+            String id_ = StringExpUtil.getIdFromAllTypes(className_);
             ExecRootBlock clBody_ = _cont.getClasses().getClassBody(id_);
-            if (!ContextEl.isEnumType(clBody_)) {
+            if (!ContextUtil.isEnumType(clBody_)) {
                 return new StringStruct(_arg.getClassName(_cont));
             }
         }
@@ -2985,7 +2987,7 @@ public class LgNamesGui extends LgNamesUtils {
             if (StringList.quickEq(name_, aliasGetWindowListeners)) {
                 WindowListener[] listeners_ = inst_.getWindowListeners();
                 int len_ = listeners_.length;
-                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(aliasWindowListener));
+                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],StringExpUtil.getPrettyArrayType(aliasWindowListener));
                 for (int i = 0; i< len_; i++) {
                     arr_.getInstance()[i] = (Struct)listeners_[i];
                 }
@@ -3126,7 +3128,7 @@ public class LgNamesGui extends LgNamesUtils {
             }
             StringList mainArgs_ = ((GuiContextEl) _cont).getMainArgs();
             String typeStr_ = getAliasString();
-            typeStr_ = PrimitiveTypeUtil.getPrettyArrayType(typeStr_);
+            typeStr_ = StringExpUtil.getPrettyArrayType(typeStr_);
             int len_ = mainArgs_.size();
             Struct[] struct_ = new Struct[len_];
             for (int i = 0; i < len_; i++) {

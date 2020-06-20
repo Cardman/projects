@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.util.StringList;

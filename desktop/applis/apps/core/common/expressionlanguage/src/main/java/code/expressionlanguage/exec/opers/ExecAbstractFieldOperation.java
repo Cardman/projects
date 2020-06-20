@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.AbstractFieldOperation;
+import code.expressionlanguage.analyze.opers.AbstractFieldOperation;
 import code.util.IdMap;
 
 public abstract class ExecAbstractFieldOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {

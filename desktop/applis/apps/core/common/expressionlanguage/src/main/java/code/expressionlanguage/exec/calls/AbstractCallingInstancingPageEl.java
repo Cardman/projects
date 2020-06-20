@@ -2,14 +2,15 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.calls.util.NotInitializedFields;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.*;
-import code.expressionlanguage.opers.util.ConstructorId;
+
+import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -53,13 +54,13 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
         }
         if (implicitConstr_) {
             String curClass_ = getGlobalClass();
-            String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
+            String curClassBase_ = StringExpUtil.getIdFromAllTypes(curClass_);
             ExecRootBlock class_ = classes_.getClassBody(curClassBase_);
             if (class_ instanceof ExecUniqueRootedBlock) {
                 //class or enum (included inner enum)
                 ExecUniqueRootedBlock root_ = (ExecUniqueRootedBlock) class_;
                 String id_ = root_.getImportedDirectGenericSuperClass();
-                String superClassBase_ = Templates.getIdFromAllTypes(id_);
+                String superClassBase_ = StringExpUtil.getIdFromAllTypes(id_);
                 ExecRootBlock execSuperClass_ = classes_.getClassBody(superClassBase_);
                 if (!calledImplicitConstructor && execSuperClass_ != null) {
                     calledImplicitConstructor = true;

@@ -2,9 +2,10 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringMap;
@@ -48,7 +49,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "array"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "array"));
         assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Struct[] array_ = ((ArrayStruct)field_).getInstance();
         assertEq(15, ((NumberStruct) array_[0]).intStruct());
@@ -86,7 +87,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "array"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "array"));
         assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Struct[] array_ = ((ArrayStruct)field_).getInstance();
         assertEq(15, ((NumberStruct) array_[0]).intStruct());
@@ -131,7 +132,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "array"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "array"));
         assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Struct[] array_ = ((ArrayStruct)field_).getInstance();
         assertEq(15, ((NumberStruct) array_[0]).intStruct());
@@ -177,7 +178,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "array"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "array"));
         assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Struct[] array_ = ((ArrayStruct)field_).getInstance();
         assertEq(15, ((NumberStruct) array_[0]).intStruct());
@@ -224,7 +225,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "array"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "array"));
         assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Struct[] array_ = ((ArrayStruct)field_).getInstance();
         assertEq(15, ((NumberStruct) array_[0]).intStruct());
@@ -270,7 +271,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "array"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "array"));
         assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Struct[] array_ = ((ArrayStruct)field_).getInstance();
         assertEq(15, ((NumberStruct) array_[0]).intStruct());
@@ -323,7 +324,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExCont", "inst"));
+        field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq(STRING, field_.getClassName(cont_));
         assertEq("TWO",((StringStruct)field_).getInstance());
     }
@@ -369,7 +370,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExCont", "inst"));
+        field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq(STRING, field_.getClassName(cont_));
         assertEq("TWO",((StringStruct)field_).getInstance());
     }
@@ -415,7 +416,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExCont", "inst"));
+        field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq(STRING, field_.getClassName(cont_));
         assertEq("TWO",((StringStruct)field_).getInstance());
     }
@@ -467,7 +468,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExCont", "inst"));
+        field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, ((NumberStruct)field_).intStruct());
     }
@@ -519,7 +520,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExCont", "inst"));
+        field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq(STRING, field_.getClassName(cont_));
         assertEq("TWO", ((StringStruct)field_).getInstance());
     }
@@ -571,7 +572,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExCont", "inst"));
+        field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, ((NumberStruct)field_).intStruct());
     }
@@ -610,7 +611,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkgtwo.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
     }
@@ -647,7 +648,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "array"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "array"));
         assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Struct[] array_ = ((ArrayStruct)field_).getInstance();
         assertEq(10, ((NumberStruct) array_[0]).intStruct());
@@ -685,7 +686,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "array"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "array"));
         assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Struct[] array_ = ((ArrayStruct)field_).getInstance();
         assertEq(2, ((NumberStruct) array_[0]).intStruct());
@@ -723,7 +724,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "array"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "array"));
         assertEq(ARR_INTEGER, field_.getClassName(cont_));
         Struct[] array_ = ((ArrayStruct)field_).getInstance();
         assertEq(2, ((NumberStruct) array_[0]).intStruct());
@@ -760,7 +761,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkgtwo.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
     }
@@ -812,7 +813,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExCont", "inst"));
+        field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq(STRING, field_.getClassName(cont_));
         assertEq("TWO", ((StringStruct)field_).getInstance());
     }
@@ -855,7 +856,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(16, ((NumberStruct)field_).intStruct());
     }
@@ -898,7 +899,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExThree", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(16, ((NumberStruct)field_).intStruct());
     }
@@ -926,7 +927,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExTwo", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExTwo", "ance"));
+        field_ = getField(str_, new ClassField("pkg.ExTwo", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
@@ -954,7 +955,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExTwo", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExTwo", "ance"));
+        field_ = getField(str_, new ClassField("pkg.ExTwo", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
@@ -993,7 +994,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkgtwo.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
     }
@@ -1032,7 +1033,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkgtwo.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
     }
@@ -1071,7 +1072,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExCont", "inst"));
+        field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq(STRING, field_.getClassName(cont_));
         assertEq("TWO",((StringStruct)field_).getInstance());
     }
@@ -1110,7 +1111,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExCont", "inst"));
+        field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, ((NumberStruct)field_).intStruct());
     }
@@ -1161,7 +1162,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExCont", "inst"));
+        field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq(STRING, field_.getClassName(cont_));
         assertEq("TWO",((StringStruct)field_).getInstance());
     }
@@ -1212,7 +1213,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.ExCont", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExCont", "inst"));
+        field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, ((NumberStruct)field_).intStruct());
     }
@@ -1241,10 +1242,10 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertEq("pkg.Ex", valueOne_.getClassName(cont_));
         assertEq("pkg.Ex", valueTwo_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)valueOne_, new ClassField("pkg.Ex", "first"));
+        field_ = getField(valueOne_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)valueTwo_, new ClassField("pkg.Ex", "first"));
+        field_ = getField(valueTwo_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
     }
@@ -1273,10 +1274,10 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertEq("pkg.Ex", valueOne_.getClassName(cont_));
         assertEq("pkg.Ex", valueTwo_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)valueOne_, new ClassField("pkg.Ex", "first"));
+        field_ = getField(valueOne_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(4, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)valueTwo_, new ClassField("pkg.Ex", "first"));
+        field_ = getField(valueTwo_, new ClassField("pkg.Ex", "first"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
     }
@@ -1315,7 +1316,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkgtwo.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
     }
@@ -1354,7 +1355,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkgtwo.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
     }
@@ -1393,7 +1394,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkgtwo.ExThree", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct)str_, new ClassField("pkgtwo.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkgtwo.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
     }

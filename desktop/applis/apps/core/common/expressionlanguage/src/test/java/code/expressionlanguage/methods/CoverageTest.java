@@ -2,10 +2,12 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.*;
+
 import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.exec.coverage.BooleanCoverageResult;
 import code.expressionlanguage.exec.coverage.StandardCoverageResult;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;

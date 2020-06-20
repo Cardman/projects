@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.methods.FunctionBlock;
+import code.expressionlanguage.analyze.blocks.FunctionBlock;
 
 public abstract class ExecMemberCallingsBlock extends ExecBracedBlock implements FunctionBlock {
     ExecMemberCallingsBlock(OffsetsBlock _offset) {

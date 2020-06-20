@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.WithEl;
+import code.expressionlanguage.exec.blocks.WithEl;
 
 public abstract class AbstractMethodPageEl extends AbstractPageEl implements ForwardPageEl {
 

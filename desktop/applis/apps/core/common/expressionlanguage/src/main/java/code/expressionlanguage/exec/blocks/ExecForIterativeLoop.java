@@ -9,9 +9,8 @@ import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.WithNotEmptyEl;
-import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -143,7 +142,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         ip_.setGlobalOffset(initOffset);
         ip_.setOffset(0);
         ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-        Argument argFrom_ = ElUtil.tryToCalculate(_conf,from_,0);
+        Argument argFrom_ = ExpressionLanguage.tryToCalculate(_conf,from_,0);
         if (_conf.callsOrException()) {
             return;
         }
@@ -154,7 +153,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage to_ = ip_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, CustList.SECOND_INDEX);
-        Argument argTo_ = ElUtil.tryToCalculate(_conf,to_,0);
+        Argument argTo_ = ExpressionLanguage.tryToCalculate(_conf,to_,0);
         if (_conf.callsOrException()) {
             return;
         }
@@ -165,7 +164,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         ip_.setGlobalOffset(stepOffset);
         ip_.setOffset(0);
         ExpressionLanguage step_ = ip_.getCurrentEl(_conf,this, CustList.SECOND_INDEX + 1, CustList.SECOND_INDEX + 1);
-        Argument argStep_ = ElUtil.tryToCalculate(_conf,step_,0);
+        Argument argStep_ = ExpressionLanguage.tryToCalculate(_conf,step_,0);
         if (_conf.callsOrException()) {
             return;
         }

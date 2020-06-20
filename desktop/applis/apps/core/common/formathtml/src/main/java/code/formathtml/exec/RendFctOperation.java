@@ -1,9 +1,9 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.FctOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.analyze.opers.FctOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;

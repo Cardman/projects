@@ -9,8 +9,6 @@ import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesDesc;
 import code.expressionlanguage.exec.blocks.ExecForEachLoop;
 import code.expressionlanguage.exec.blocks.ExecForEachTable;
-import code.expressionlanguage.methods.ForEachLoop;
-import code.expressionlanguage.methods.ForEachTable;
 import code.expressionlanguage.assign.util.AssignmentBefore;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
 import code.expressionlanguage.assign.util.SimpleAssignment;

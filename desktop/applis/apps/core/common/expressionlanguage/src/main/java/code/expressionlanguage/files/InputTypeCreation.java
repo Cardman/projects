@@ -1,6 +1,6 @@
 package code.expressionlanguage.files;
 
-import code.expressionlanguage.methods.FileBlock;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.util.Ints;
 
 public final class InputTypeCreation {

@@ -2,10 +2,14 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.ReflectingType;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringList;

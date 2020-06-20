@@ -2,9 +2,8 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.calls.PageEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.AbstractArrayInstancingOperation;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.analyze.opers.AbstractArrayInstancingOperation;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.CustList;
@@ -34,8 +33,8 @@ public final class RendArrayElementOperation extends
         Ints dims_;
         dims_ = new Ints();
         dims_.add(nbCh_);
-        Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf.getContext());
-        Templates.setCheckedElements(_arguments,str_,_conf.getContext());
+        Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _conf.getContext());
+        ExecTemplates.setCheckedElements(_arguments,str_,_conf.getContext());
         a_.setStruct(str_);
         return a_;
     }

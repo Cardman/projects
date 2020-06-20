@@ -3,7 +3,7 @@ package code.expressionlanguage.assign.util;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.opers.AssAffectationOperation;
-import code.expressionlanguage.methods.ForLoopPart;
+import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.StringMap;

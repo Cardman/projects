@@ -3,6 +3,12 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -10,8 +16,9 @@ import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.files.FileResolver;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -84,7 +91,7 @@ public abstract class ProcessMethodCommon {
             constraints_.add(n_);
         }
         ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
-        ExecRootBlock type_ = _cont.getClasses().getClassBody(Templates.getIdFromAllTypes(_class));
+        ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, id_, _args, _cont);
         assertNotNull(getException(_cont));
         return arg_;
@@ -97,7 +104,7 @@ public abstract class ProcessMethodCommon {
             constraints_.add(n_);
         }
         ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
-        ExecRootBlock type_ = _cont.getClasses().getClassBody(Templates.getIdFromAllTypes(_class));
+        ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, id_, _args, _cont);
         assertNull(getException(_cont));
         return arg_;

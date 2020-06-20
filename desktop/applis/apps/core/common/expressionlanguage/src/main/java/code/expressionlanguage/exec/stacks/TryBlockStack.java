@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.stacks;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
-import code.expressionlanguage.methods.BracedBlock;
 
 public final class TryBlockStack extends TryStack implements RemovableVars {
 

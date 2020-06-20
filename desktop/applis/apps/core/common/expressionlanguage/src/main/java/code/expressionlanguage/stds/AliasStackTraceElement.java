@@ -1,10 +1,11 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -34,7 +35,7 @@ public final class AliasStackTraceElement {
         String aliasToString_ = _stds.getAliasToStringMethod();
         stdcl_ = new StandardClass(aliasStackTraceElement, fields_, constructors_, methods_, aliasObject_ , MethodModifier.ABSTRACT);
         String out_ = aliasStackTraceElement;
-        out_ = PrimitiveTypeUtil.getPrettyArrayType(out_);
+        out_ = StringExpUtil.getPrettyArrayType(out_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCurrentStack, params_, out_, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -53,11 +54,11 @@ public final class AliasStackTraceElement {
         LgNames lgNames_ = _cont.getStandards();
         AliasStackTraceElement ref_ = lgNames_.getStackElt();
         if (StringList.quickEq(name_, ref_.aliasCurrentStack)) {
-            result_.setResult(_cont.newStackTraceElementArray());
+            result_.setResult(ExecutingUtil.newStackTraceElementArray(_cont));
             return result_;
         }
         if (StringList.quickEq(name_, ref_.aliasCurrentFullStack)) {
-            result_.setResult(_cont.newStackTraceElementArrayFull());
+            result_.setResult(ExecutingUtil.newStackTraceElementArrayFull(_cont));
             return result_;
         }
         result_.setResult(StackTraceElementStruct.getStack(_struct).getDisplayedString(_cont));

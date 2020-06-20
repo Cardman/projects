@@ -3,9 +3,9 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.calls.PageEl;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.InstanceOfOperation;
+import code.expressionlanguage.analyze.opers.InstanceOfOperation;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.Configuration;
 import code.util.CustList;
@@ -38,7 +38,7 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
         }
         PageEl page_ = _conf.getPageEl();
         String str_ = page_.formatVarType(className, _conf.getContext());
-        boolean res_ = Templates.safeObject(str_, objArg_, _conf.getContext()) == ErrorType.NOTHING;
+        boolean res_ = ExecTemplates.safeObject(str_, objArg_, _conf.getContext()) == ErrorType.NOTHING;
         Argument arg_ = new Argument();
         arg_.setStruct(BooleanStruct.of(res_));
         return arg_;

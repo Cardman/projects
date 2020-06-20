@@ -2,11 +2,12 @@ package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -144,34 +145,34 @@ public final class AliasCharSequence {
         method_ = new StandardMethod(aliasIsEmpty, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasToCharArray, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar_), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(aliasToCharArray, params_, StringExpUtil.getPrettyArrayType(aliasPrimChar_), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetBytes, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasPrimByte_), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(aliasGetBytes, params_, StringExpUtil.getPrettyArrayType(aliasPrimByte_), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasCharSequence);
         method_ = new StandardMethod(aliasFormat, params_, aliasString, true, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasCharSequence);
-        method_ = new StandardMethod(aliasSplit, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(aliasSplit, params_, StringExpUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasCharSequence, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasSplit, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(aliasSplit, params_, StringExpUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasSplit, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(aliasSplit, params_, StringExpUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar_, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasSplit, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(aliasSplit, params_, StringExpUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasCharSequence);
-        method_ = new StandardMethod(aliasSplitStrings, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(aliasSplitStrings, params_, StringExpUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger_, aliasCharSequence);
-        method_ = new StandardMethod(aliasSplitStrings, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(aliasSplitStrings, params_, StringExpUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasSplitChars, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(aliasSplitChars, params_, StringExpUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasPrimInteger_, aliasCharSequence, aliasPrimInteger_, aliasPrimInteger_);
         method_ = new StandardMethod(aliasRegionMatches, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL, std_);
@@ -307,10 +308,10 @@ public final class AliasCharSequence {
         params_ = new StringList(aliasStringBuilder,aliasPrimInteger_,aliasPrimInteger_);
         method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar_));
+        params_ = new StringList(StringExpUtil.getPrettyArrayType(aliasPrimChar_));
         method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar_),aliasPrimInteger_,aliasPrimInteger_);
+        params_ = new StringList(StringExpUtil.getPrettyArrayType(aliasPrimChar_),aliasPrimInteger_,aliasPrimInteger_);
         method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
@@ -361,10 +362,10 @@ public final class AliasCharSequence {
         params_ = new StringList(aliasPrimInteger_, aliasStringBuilder,aliasPrimInteger_,aliasPrimInteger_);
         method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimInteger_, PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar_));
+        params_ = new StringList(aliasPrimInteger_, StringExpUtil.getPrettyArrayType(aliasPrimChar_));
         method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimInteger_, PrimitiveTypeUtil.getPrettyArrayType(aliasPrimChar_),aliasPrimInteger_,aliasPrimInteger_);
+        params_ = new StringList(aliasPrimInteger_, StringExpUtil.getPrettyArrayType(aliasPrimChar_),aliasPrimInteger_,aliasPrimInteger_);
         method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
@@ -421,14 +422,14 @@ public final class AliasCharSequence {
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_;
         result_ = new ResultErrorStd();
-        Struct[] args_ = ApplyCoreMethodUtil.getObjects(_args);
+        Struct[] args_ = AnaApplyCoreMethodUtil.getObjects(_args);
         StringBuilderStruct.calculateStrBuilder(_cont, result_, _method, _struct, args_);
         return result_;
     }
 
     static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
-        Struct[] args_ = ApplyCoreMethodUtil.getObjects(_args);
+        Struct[] args_ = AnaApplyCoreMethodUtil.getObjects(_args);
         LgNames lgNames_ = _cont.getStandards();
         String type_ = _method.getClassName();
         String stringType_ = lgNames_.getAliasString();
@@ -439,8 +440,8 @@ public final class AliasCharSequence {
         CharSequenceStruct.calculateCharSeq(_cont, result_, _method, _struct, args_);
         return result_;
     }
-    static Struct invokeAnalyzisStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
-        Struct[] args_ = ApplyCoreMethodUtil.getObjects(_args);
+    public static Struct invokeAnalyzisStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
+        Struct[] args_ = AnaApplyCoreMethodUtil.getObjects(_args);
         LgNames lgNames_ = _cont.getStandards();
         String type_ = _method.getClassName();
         String stringType_ = lgNames_.getAliasString();

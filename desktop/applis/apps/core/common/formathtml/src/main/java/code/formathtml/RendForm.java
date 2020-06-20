@@ -1,9 +1,9 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.NodeContainer;
 import code.sml.Element;
@@ -39,7 +39,7 @@ public final class RendForm extends RendElement {
                 Mapping m_ = new Mapping();
                 m_.setArg(e.last().getResultClass());
                 m_.setParam(_cont.getStandards().getAliasNumber());
-                if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(rowsGrId_);

@@ -2,13 +2,24 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.analyze.blocks.FunctionBlock;
+import code.expressionlanguage.analyze.blocks.MethodKind;
+import code.expressionlanguage.analyze.blocks.ReturnableWithSignature;
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.common.AnnotationTypeInfo;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.*;
-import code.expressionlanguage.opers.util.*;
+
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -96,7 +107,7 @@ public final class ExecutingUtil {
     }
     public static AbstractPageEl createInstancingClass(ContextEl _context,String _class) {
         _context.setCallingState(null);
-        String baseClass_ = Templates.getIdFromAllTypes(_class);
+        String baseClass_ = StringExpUtil.getIdFromAllTypes(_class);
         ExecRootBlock class_ = _context.getClasses().getClassBody(baseClass_);
         ExecBlock firstChild_ = class_.getFirstChild();
         StaticInitPageEl page_ = new StaticInitPageEl();
@@ -131,7 +142,7 @@ public final class ExecutingUtil {
         CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(_context, _class, _method);
         if (!methods_.isEmpty()) {
             methodLoc_ = methods_.first();
-            String idCl_ = Templates.getIdFromAllTypes(_class);
+            String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
             _context.getCoverage().passCalls(_context,idCl_,methodLoc_);
         } else {
             CustList<ExecNamedFunctionBlock> opers_ = ExecBlock.getOperatorsBodiesById(_context, _method);
@@ -154,7 +165,7 @@ public final class ExecutingUtil {
         _context.setCallingState(null);
         ExecNamedFunctionBlock methodLoc_;
         methodLoc_ = ExecBlock.getMethodBodiesById(_context, _class, _method).first();
-        String idCl_ = Templates.getIdFromAllTypes(_class);
+        String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
         _context.getCoverage().passCalls(_context,idCl_,methodLoc_);
         String ret_ = methodLoc_.getImportedReturnType();
         CastPageEl pageLoc_ = new CastPageEl(_context,ret_,Argument.createVoid(),_class);
@@ -237,7 +248,7 @@ public final class ExecutingUtil {
         _page.setGlobalClass(_class);
         ReadWrite rw_ = new ReadWrite();
         if (!methods_.isEmpty()) {
-            String idCl_ = Templates.getIdFromAllTypes(_class);
+            String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
             method_ = methods_.first();
             _context.getCoverage().passCalls(_context,idCl_,method_);
             StringList params_ = method_.getParametersNames();
@@ -256,7 +267,7 @@ public final class ExecutingUtil {
     }
     private static FieldInitPageEl createInitFields(ContextEl _context,String _class, Argument _current) {
         _context.setCallingState(null);
-        String baseClass_ = Templates.getIdFromAllTypes(_class);
+        String baseClass_ = StringExpUtil.getIdFromAllTypes(_class);
         ExecRootBlock class_ = _context.getClasses().getClassBody(baseClass_);
         FieldInitPageEl page_ = new FieldInitPageEl();
         page_.setGlobalClass(_class);
@@ -330,7 +341,7 @@ public final class ExecutingUtil {
     }
 
     private static ClassMetaInfo getCustomClassMetaInfo(String _name, ContextEl _context) {
-        String base_ = Templates.getIdFromAllTypes(_name);
+        String base_ = StringExpUtil.getIdFromAllTypes(_name);
         for (ExecRootBlock c: _context.getClasses().getClassBodies()) {
             String k_ = c.getFullName();
             if (!StringList.quickEq(k_, base_)) {
@@ -460,7 +471,7 @@ public final class ExecutingUtil {
             met_.setFileName(fileName_);
             infos_.put(id_, met_);
             id_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
-            ret_ = PrimitiveTypeUtil.getPrettyArrayType(ret_);
+            ret_ = StringExpUtil.getPrettyArrayType(ret_);
             fid_ = id_;
             met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, decl_);
             met_.setFileName(fileName_);
@@ -481,7 +492,7 @@ public final class ExecutingUtil {
         AccessEnum acc_ = _type.getAccess();
         boolean st_ = _type.isStaticType();
         if (_type instanceof ExecInterfaceBlock) {
-            ClassMetaInfo cl_ = new ClassMetaInfo(_name, ((ExecInterfaceBlock) _type).getImportedDirectGenericSuperInterfaces(), format_, inners_,
+            ClassMetaInfo cl_ = new ClassMetaInfo(_name, _type.getImportedDirectGenericSuperInterfaces(), format_, inners_,
                     infosFields_, infosExplicits_,infosImplicits_,infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
             cl_.setFileName(fileName_);
             return cl_;
@@ -498,8 +509,8 @@ public final class ExecutingUtil {
         }
         boolean abs_ = _type.isAbstractType();
         boolean final_ = _type.isFinalType();
-        String superClass_ = ((ExecUniqueRootedBlock) _type).getImportedDirectGenericSuperClass();
-        StringList superInterfaces_ = ((ExecUniqueRootedBlock) _type).getImportedDirectGenericSuperInterfaces();
+        String superClass_ = _type.getImportedDirectGenericSuperClass();
+        StringList superInterfaces_ = _type.getImportedDirectGenericSuperInterfaces();
         ClassMetaInfo cl_ = new ClassMetaInfo(_name, superClass_, superInterfaces_, format_, inners_,
                 infosFields_, infosExplicits_,infosImplicits_,infos_, infosConst_, cat_, abs_, st_, final_, acc_);
         cl_.setFileName(fileName_);
@@ -538,7 +549,7 @@ public final class ExecutingUtil {
         if (new ClassArgumentMatching(_name).isArray()) {
             return new ClassMetaInfo(_name, _context, ClassCategory.ARRAY, "");
         }
-        String base_ = Templates.getIdFromAllTypes(_name);
+        String base_ = StringExpUtil.getIdFromAllTypes(_name);
         LgNames stds_ = _context.getStandards();
         for (EntryCust<String, StandardType> c: stds_.getStandards().entryList()) {
             String k_ = c.getKey();
@@ -608,4 +619,90 @@ public final class ExecutingUtil {
         return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infosExplicits_,infosImplicits_,infos_, infosConst_, cat_, abs_, st_, final_,AccessEnum.PUBLIC);
     }
 
+    public static ArrayStruct newStackTraceElementArrayFull(ContextEl _cont) {
+        return _cont.getFullStack().newStackTraceElementArray();
+    }
+
+    public static ArrayStruct newStackTraceElementArray(ContextEl _cont) {
+        int count_ = _cont.nbPages();
+        Struct[] arr_ = new Struct[count_];
+        for (int i = 0; i < count_; i++) {
+            arr_[i] = newStackTraceElement(_cont,i);
+        }
+        String cl_ = _cont.getStandards().getAliasStackTraceElement();
+        cl_ = StringExpUtil.getPrettyArrayType(cl_);
+        return new ArrayStruct(arr_, cl_);
+    }
+
+    public static StackTraceElementStruct newStackTraceElement(ContextEl _cont, int _index) {
+        AbstractPageEl call_ = _cont.getCall(_index);
+        int indexFileType = call_.getTraceIndex();
+        ExecFileBlock f_ = call_.getFile();
+        String fileName;
+        int row;
+        int col;
+        if (f_ != null) {
+            fileName = f_.getFileName();
+            row = f_.getRowFile(indexFileType);
+            col = f_.getColFile(indexFileType,row);
+        } else {
+            fileName = "";
+            row = 0;
+            col = 0;
+        }
+        String currentClassName = call_.getGlobalClass();
+        ExecBlock bl_ = call_.getBlockRoot();
+        if (bl_ != null) {
+            FunctionBlock fct_ = bl_.getFunction();
+            if (fct_ instanceof ReturnableWithSignature) {
+                String signature =((ReturnableWithSignature)fct_).getSignature(_cont);
+                return new StackTraceElementStruct(fileName,row,col,indexFileType,currentClassName,signature);
+            }
+        }
+        String signature = "";
+        return new StackTraceElementStruct(fileName,row,col,indexFileType,currentClassName,signature);
+    }
+
+    public static void addPage(ContextEl _cont,AbstractPageEl _page) {
+        LgNames stds_ = _cont.getStandards();
+        String sof_ = stds_.getAliasSof();
+        if (_cont.getStackOverFlow() >= CustList.FIRST_INDEX && _cont.getStackOverFlow() <= _cont.nbPages()) {
+            _cont.setCallingState( new ErrorStruct(_cont,sof_));
+        } else {
+            _cont.addInternPage(_page);
+        }
+    }
+
+    public static boolean hasToExit(ContextEl _cont,String _className) {
+        Classes classes_ = _cont.getClasses();
+        String idClass_ = StringExpUtil.getIdFromAllTypes(_className);
+        String curClass_ = _cont.getLastPage().getGlobalClass();
+        curClass_ = StringExpUtil.getIdFromAllTypes(curClass_);
+        if (StringList.quickEq(curClass_, idClass_)) {
+            return false;
+        }
+        ExecRootBlock c_ = classes_.getClassBody(idClass_);
+        if (c_ != null) {
+            DefaultLockingClass locks_ = classes_.getLocks();
+            if (_cont.getInitializingTypeInfos().isInitEnums()) {
+                InitClassState res_ = locks_.getState(idClass_);
+                if (res_ != InitClassState.SUCCESS) {
+                    _cont.getInitializingTypeInfos().failInitEnums();
+                    return true;
+                }
+                return false;
+            }
+            InitClassState res_ = locks_.getState(_cont, idClass_);
+            if (res_ == InitClassState.NOT_YET) {
+                _cont.setCallingState(new NotInitializedClass(idClass_));
+                return true;
+            }
+            if (res_ == InitClassState.ERROR) {
+                CausingErrorStruct causing_ = new CausingErrorStruct(idClass_, _cont);
+                _cont.setException(causing_);
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -2,13 +2,11 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneCustModifierMethod;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.AccessibleBlock;
-import code.expressionlanguage.methods.MethodKind;
-import code.expressionlanguage.methods.OverridableBlock;
-import code.expressionlanguage.methods.ReturnableWithSignature;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.analyze.blocks.MethodKind;
+import code.expressionlanguage.analyze.blocks.OverridableBlock;
+import code.expressionlanguage.analyze.blocks.ReturnableWithSignature;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 import code.util.StringList;
 

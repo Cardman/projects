@@ -4,8 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
-import code.expressionlanguage.opers.CurrentInvokingConstructor;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.analyze.opers.CurrentInvokingConstructor;
+import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 
 public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingConstructor {

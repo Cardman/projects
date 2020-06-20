@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.opers.IdFctOperation;
-import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.analyze.opers.IdFctOperation;
 
 public final class RendIdFctOperation extends RendLeafOperation {
 

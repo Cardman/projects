@@ -1,9 +1,9 @@
 package cards.gui.dialogs.help.beans;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;

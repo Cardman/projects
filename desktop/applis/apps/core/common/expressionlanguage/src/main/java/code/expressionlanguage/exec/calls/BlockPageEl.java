@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
-import code.expressionlanguage.methods.WithEl;
+import code.expressionlanguage.exec.blocks.WithEl;
 
 public final class BlockPageEl extends AbstractPageEl {
 

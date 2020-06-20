@@ -1,10 +1,9 @@
 package code.formathtml;
 
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
 import code.util.CustList;

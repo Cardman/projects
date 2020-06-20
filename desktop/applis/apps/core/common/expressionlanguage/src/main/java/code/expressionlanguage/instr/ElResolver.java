@@ -1,10 +1,10 @@
 package code.expressionlanguage.instr;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.FieldBlock;
+import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;

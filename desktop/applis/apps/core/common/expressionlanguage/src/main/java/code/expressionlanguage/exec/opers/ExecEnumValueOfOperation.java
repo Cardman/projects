@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.EnumValueOfOperation;
+import code.expressionlanguage.analyze.opers.EnumValueOfOperation;
 import code.util.IdMap;
 
 public final class ExecEnumValueOfOperation extends ExecAbstractUnaryOperation {

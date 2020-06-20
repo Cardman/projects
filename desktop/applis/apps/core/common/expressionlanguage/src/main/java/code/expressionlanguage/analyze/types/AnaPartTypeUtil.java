@@ -7,11 +7,8 @@ import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.types.*;
 import code.util.*;
 
@@ -416,7 +413,7 @@ public final class AnaPartTypeUtil {
                 if (l instanceof AnaNamePartType) {
                     String type_ = l.getTypeName();
                     String imported_ = l.getAnalyzedType();
-                    String idCl_ = Templates.getIdFromAllTypes(imported_);
+                    String idCl_ = StringExpUtil.getIdFromAllTypes(imported_);
                     GeneType g_ = _an.getClassBody(idCl_);
                     if (LinkageUtil.isFromCustFile(g_)) {
                         String ref_ = ((ExecRootBlock) g_).getFile().getRenderFileName();

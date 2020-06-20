@@ -2,7 +2,8 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
@@ -21,8 +22,8 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
             initClass = true;
             if (method_.isStaticField()) {
                 String baseClass_ = method_.getDeclaringClass();
-                baseClass_ = Templates.getIdFromAllTypes(baseClass_);
-                if (_context.hasToExit(baseClass_)) {
+                baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
+                if (ExecutingUtil.hasToExit(_context,baseClass_)) {
                     setWrapException(true);
                     return false;
                 }

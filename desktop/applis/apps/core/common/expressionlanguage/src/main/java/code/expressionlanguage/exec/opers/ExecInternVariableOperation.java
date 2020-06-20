@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.IdMap;
 

@@ -1,8 +1,7 @@
 package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.util.AnnotationTypeInfo;
+import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.util.CustList;
 import code.util.StringMap;
 

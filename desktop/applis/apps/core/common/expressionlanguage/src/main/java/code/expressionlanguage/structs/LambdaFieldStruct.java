@@ -2,7 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.common.ClassField;
 
 public final class LambdaFieldStruct extends WithoutParentIdStruct implements LambdaStruct {
 
@@ -16,6 +16,8 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
 
     private final int ancestor;
     private final boolean affect;
+    private boolean staticField;
+    private boolean finalField;
     private final String returnFieldType;
 
     public LambdaFieldStruct(String _className, ClassField _fid,
@@ -30,6 +32,22 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
 
     public Argument getInstanceCall() {
         return instanceCall;
+    }
+
+    public boolean isStaticField() {
+        return staticField;
+    }
+
+    public void setStaticField(boolean staticField) {
+        this.staticField = staticField;
+    }
+
+    public boolean isFinalField() {
+        return finalField;
+    }
+
+    public void setFinalField(boolean finalField) {
+        this.finalField = finalField;
     }
 
     public void setInstanceCall(Argument _instanceCall) {

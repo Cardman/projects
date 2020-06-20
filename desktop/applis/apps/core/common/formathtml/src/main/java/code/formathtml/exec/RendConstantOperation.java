@@ -1,5 +1,5 @@
 package code.formathtml.exec;
-import code.expressionlanguage.opers.ConstantOperation;
+import code.expressionlanguage.analyze.opers.ConstantOperation;
 
 public final class RendConstantOperation extends RendLeafOperation {
 

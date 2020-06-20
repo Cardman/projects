@@ -1,6 +1,7 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.util.ContextUtil;
 
 public final class DefaultBuildingConstraints implements AbstractBuildingConstraints {
     private final ContextEl context;
@@ -11,6 +12,6 @@ public final class DefaultBuildingConstraints implements AbstractBuildingConstra
 
     @Override
     public void buildCurrentConstraintsFull() {
-        context.buildCurrentConstraintsFull();
+        ContextUtil.buildCurrentConstraintsFull(context);
     }
 }

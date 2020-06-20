@@ -1,12 +1,13 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.FieldInfo;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.assign.util.SimpleAssignment;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -44,10 +45,10 @@ public final class AssConstructorBlock extends AssNamedFunctionBlock {
     }
 
     private void checkAssignments(ContextEl _an, EntryCust<String, SimpleAssignment> _pair, boolean _add) {
-        String cl_ = Templates.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
+        String cl_ = StringExpUtil.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
         String name_ = _pair.getKey();
         ClassField key_ = new ClassField(cl_, name_);
-        FieldInfo finfo_ = _an.getFieldInfo(key_);
+        FieldInfo finfo_ = ContextUtil.getFieldInfo(_an,key_);
         if (!finfo_.isFinalField()) {
             return;
         }

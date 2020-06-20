@@ -2,9 +2,10 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -55,7 +56,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(3, ((NumberStruct)field_).intStruct());
     }
@@ -93,7 +94,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(25, ((NumberStruct)field_).intStruct());
     }
@@ -131,7 +132,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(25, ((NumberStruct)field_).intStruct());
     }
@@ -166,7 +167,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(25, ((NumberStruct)field_).intStruct());
     }
@@ -207,7 +208,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(25, ((NumberStruct)field_).intStruct());
     }
@@ -334,7 +335,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
     }
@@ -375,7 +376,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(8, ((NumberStruct)field_).intStruct());
     }
@@ -416,7 +417,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
     }
@@ -457,7 +458,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(8, ((NumberStruct)field_).intStruct());
     }
@@ -497,7 +498,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(50, ((NumberStruct)field_).intStruct());
     }
@@ -535,7 +536,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(25, ((NumberStruct)field_).intStruct());
     }
@@ -573,7 +574,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(25, ((NumberStruct)field_).intStruct());
     }
@@ -611,7 +612,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(25, ((NumberStruct)field_).intStruct());
     }
@@ -649,7 +650,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(25, ((NumberStruct)field_).intStruct());
     }
@@ -690,7 +691,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
     }
@@ -731,7 +732,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(8, ((NumberStruct)field_).intStruct());
     }
@@ -827,7 +828,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "res"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "res"));
         assertEq(BOOLEAN, field_.getClassName(cont_));
         assertTrue(BooleanStruct.isFalse(field_));
     }

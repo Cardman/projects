@@ -1,11 +1,13 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.opers.*;
 import code.expressionlanguage.assign.util.*;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.*;
 import code.util.*;
 
 public abstract class AssBracedStack extends AssBracedBlock {
@@ -70,9 +72,9 @@ public abstract class AssBracedStack extends AssBracedBlock {
                 continue;
             }
             String key_ = e.getKey();
-            String cl_ = Templates.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
+            String cl_ = StringExpUtil.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
             ClassField id_ = new ClassField(cl_,key_);
-            FieldInfo meta_ = _an.getFieldInfo(id_);
+            FieldInfo meta_ = ContextUtil.getFieldInfo(_an,id_);
             if (!meta_.isFinalField()) {
                 continue;
             }
@@ -194,7 +196,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
                 continue;
             }
             AssSettableFieldOperation cst_ = (AssSettableFieldOperation) set_;
-            String cl_ = Templates.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
+            String cl_ = StringExpUtil.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
             ClassField key_ = new ClassField(cl_,_field);
             if (!cst_.matchFieldId(key_)) {
                 continue;

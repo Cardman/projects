@@ -6,8 +6,6 @@ import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
 import code.expressionlanguage.exec.stacks.ExceptionCallingFinally;
 import code.expressionlanguage.exec.stacks.TryBlockStack;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.methods.CallingFinally;
-import code.expressionlanguage.methods.StackableBlock;
 
 public final class ExecFinallyEval extends ExecBracedBlock implements StackableBlock {
 

@@ -1,8 +1,8 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.SymbolOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.SymbolOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;

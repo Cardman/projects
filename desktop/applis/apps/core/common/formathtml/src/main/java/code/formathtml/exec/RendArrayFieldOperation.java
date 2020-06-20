@@ -1,8 +1,8 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.ArrayFieldOperation;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.analyze.opers.ArrayFieldOperation;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -33,7 +33,7 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         String argCl_ = arg_.getObjectClassName(_conf.getContext());
         String arrObj_ = _conf.getStandards().getAliasObject();
-        arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(arrObj_);
+        arrObj_ = StringExpUtil.getPrettyArrayType(arrObj_);
         _conf.setException(new ErrorStruct(_conf.getContext(), StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),npe_));
         a_ = new Argument();
         return a_;

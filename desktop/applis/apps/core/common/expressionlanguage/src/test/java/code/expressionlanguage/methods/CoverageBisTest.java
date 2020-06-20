@@ -2,9 +2,10 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.exec.coverage.BooleanCoverageResult;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;

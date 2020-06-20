@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
@@ -98,7 +99,7 @@ public final class ResolvingSuperTypes {
             _context.addError(un_);
             return _context.getStandards().getAliasObject();
         }
-        for (String p:Templates.getAllTypes(resType_).mid(1)){
+        for (String p:StringExpUtil.getAllTypes(resType_).mid(1)){
             if (p.startsWith(Templates.SUB_TYPE)) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFileName(_currentBlock.getFile().getFileName());
@@ -124,7 +125,7 @@ public final class ResolvingSuperTypes {
     }
 
     public static String resolveBaseInherits(ContextEl _context, String _idSup, ExecRootBlock _root, StringList _readyTypes) {
-        String id_ = Templates.getIdFromAllTypes(_idSup);
+        String id_ = StringExpUtil.getIdFromAllTypes(_idSup);
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         ExecRootBlock scope_ = _root.getParentType();
         InheritReadyTypes inh_ = new InheritReadyTypes(_readyTypes);

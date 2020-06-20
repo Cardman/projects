@@ -1,6 +1,6 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.util.StringList;
 import org.junit.Assert;
 

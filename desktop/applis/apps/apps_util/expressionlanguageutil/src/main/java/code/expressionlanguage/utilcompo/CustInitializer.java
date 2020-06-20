@@ -4,14 +4,15 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
+import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
-import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.opers.util.ClassFieldStruct;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
+
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.threads.ThreadUtil;
@@ -66,7 +67,7 @@ public class CustInitializer extends DefaultInitializer {
                         outConv_.setStruct(ExecCatOperation.getDisplayable(out_,_cont).getDisplayedString(_cont));
                         out_ = outConv_;
                     }
-                    String text_ = ApplyCoreMethodUtil.getString(out_.getStruct()).getInstance();
+                    String text_ = AnaApplyCoreMethodUtil.getString(out_.getStruct()).getInstance();
                     log(_cont,text_);
                 } else {
                     log(_cont,_cont.getStandards().getDisplayedStrings().getNullString());

@@ -1,12 +1,14 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.TypeUtil;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.OverridingMethod;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.OverridingMethod;
 import code.util.*;
 import org.junit.Test;
 
@@ -597,7 +599,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
 
     private static RootBlock getClassBody(ContextEl cont_, String _className) {
         for (RootBlock r: cont_.getAnalyzing().getFoundTypes()) {
-            if (StringList.quickEq(r.getFullName(),Templates.getIdFromAllTypes(_className))) {
+            if (StringList.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
                 return r;
             }
         }
@@ -1181,7 +1183,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         StringMap<ClassMethodId> tr_ = new StringMap<ClassMethodId>();
         for (EntryCust<String,ClassMethodId> e: conc_.entryList()) {
             ClassMethodId value_ = e.getValue();
-            tr_.addEntry(e.getKey(),new ClassMethodId(Templates.getIdFromAllTypes(value_.getClassName()),value_.getConstraints()));
+            tr_.addEntry(e.getKey(),new ClassMethodId(StringExpUtil.getIdFromAllTypes(value_.getClassName()),value_.getConstraints()));
         }
         return tr_;
     }

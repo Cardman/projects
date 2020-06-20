@@ -1,9 +1,9 @@
 package code.formathtml;
 
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.FieldInfo;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.formathtml.exec.*;
 import code.sml.Element;
 import code.util.CustList;

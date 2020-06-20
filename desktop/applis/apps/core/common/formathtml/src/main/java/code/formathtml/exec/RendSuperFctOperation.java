@@ -1,13 +1,14 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.SuperFctOperation;
+import code.expressionlanguage.analyze.opers.SuperFctOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -57,14 +58,14 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
         if (!staticMethod) {
             prev_.setStruct(_previous.getStruct());
             classNameFound_ = classMethodId.getClassName();
-            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, prev_.getStruct(), _conf.getContext()));
+            prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, prev_.getStruct(), _conf.getContext()));
             if (_conf.getContext().hasException()) {
                 Argument a_ = new Argument();
                 return a_;
             }
             String argClassName_ = prev_.getObjectClassName(_conf.getContext());
-            String base_ = Templates.getIdFromAllTypes(classNameFound_);
-            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf.getContext());
+            String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
+            String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = classMethodId.getConstraints();

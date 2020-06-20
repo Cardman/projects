@@ -4,8 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.*;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
 import code.expressionlanguage.exec.stacks.ExceptionCallingFinally;
 import code.expressionlanguage.exec.stacks.RemovableVars;
@@ -39,7 +38,7 @@ public final class LocalThrowing implements CallingFinally {
                             }
                             name_ = bkIp_.formatVarType(name_, _conf);
                             Argument arg_ = new Argument(custCause_);
-                            if (Templates.safeObject(name_, arg_, _conf) == ErrorType.NOTHING) {
+                            if (ExecTemplates.safeObject(name_, arg_, _conf) == ErrorType.NOTHING) {
                                 catchElt_ = ca_;
                                 bl_.setCurrentVisitedBlock(ca_);
                                 break;

@@ -1,6 +1,7 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -13,6 +14,6 @@ public final class DefaultCurrentConstraints implements AbstractCurrentConstrain
 
     @Override
     public StringMap<StringList> getCurrentConstraints() {
-        return context.getCurrentConstraints();
+        return ContextUtil.getCurrentConstraints(context);
     }
 }

@@ -2,11 +2,12 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.AnnotationInstanceOperation;
-import code.expressionlanguage.opers.util.AnnotationTypeInfo;
+import code.expressionlanguage.analyze.opers.AnnotationInstanceOperation;
+import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
 
@@ -46,14 +47,14 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
             Ints dims_;
             dims_ = new Ints();
             dims_.add(nbCh_);
-            String className_ = PrimitiveTypeUtil.getQuickComponentType(className);
-            Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
-            Templates.setCheckedElements(_arguments,str_,_conf);
+            String className_ = StringExpUtil.getQuickComponentType(className);
+            Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _conf);
+            ExecTemplates.setCheckedElements(_arguments,str_,_conf);
             a_.setStruct(str_);
             return a_;
         }
-        String base_ = Templates.getIdFromAllTypes(className);
-        if (_conf.hasToExit(base_)) {
+        String base_ = StringExpUtil.getIdFromAllTypes(className);
+        if (ExecutingUtil.hasToExit(_conf,base_)) {
             return Argument.createVoid();
         }
         return instancePrepareAnnotation(_conf, className, fieldNames, _arguments);

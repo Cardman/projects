@@ -5,8 +5,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.SuperInvokingConstructor;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.analyze.opers.SuperInvokingConstructor;
+import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 
 public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingConstructor {

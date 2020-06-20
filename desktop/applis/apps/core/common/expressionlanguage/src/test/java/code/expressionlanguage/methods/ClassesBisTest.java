@@ -1,9 +1,8 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.options.Options;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.NumberStruct;
 import code.util.StringMap;
 import org.junit.Test;
@@ -1036,7 +1035,6 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append("/* *");
         files_.put("pkg/ExTwentyEight", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("");
         files_.put("pkg/ExTwentyNine", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("a\t\t");

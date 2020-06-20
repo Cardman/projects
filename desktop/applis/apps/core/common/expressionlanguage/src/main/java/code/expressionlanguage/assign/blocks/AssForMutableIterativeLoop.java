@@ -1,13 +1,12 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.exec.blocks.ExecForMutableIterativeLoop;
-import code.expressionlanguage.methods.ForLoopPart;
-import code.expressionlanguage.methods.ForMutableIterativeLoop;
+import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.assign.util.Assignment;
 import code.expressionlanguage.assign.util.AssignmentBefore;
 import code.expressionlanguage.assign.util.AssignmentsUtil;

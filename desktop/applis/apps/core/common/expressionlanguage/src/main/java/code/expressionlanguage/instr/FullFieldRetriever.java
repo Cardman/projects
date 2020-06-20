@@ -1,17 +1,18 @@
 package code.expressionlanguage.instr;
 
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.common.VariableInfo;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.inherits.TypeUtil;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.FieldResult;
-import code.expressionlanguage.opers.util.SearchingMemberStatus;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.util.FieldResult;
+import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.Ints;
@@ -194,7 +195,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         }
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         String join_ = StringList.join(partsFieldsBisFields_, "");
-        StringList inns_ = Templates.getAllInnerTypes(join_, _conf);
+        StringList inns_ = AnaTemplates.getAllInnerTypes(join_, _conf);
         String trim_ = inns_.first().trim();
         int nextOff_ = _from;
         int nb_ = 0;
@@ -206,7 +207,7 @@ public final class FullFieldRetriever implements FieldRetriever {
                 }
             }
             start_ = trim_;
-            _conf.appendParts(_from, _from +inns_.first().length(),trim_,partOffsets_);
+            ContextUtil.appendParts(_conf,_from, _from +inns_.first().length(),trim_,partOffsets_);
             nextOff_ += inns_.first().length() + 1;
         } else {
             start_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from,inns_.first(), false);
@@ -222,12 +223,12 @@ public final class FullFieldRetriever implements FieldRetriever {
             String p_ = fullPart_.trim();
             if (StringList.quickEq("..",inns_.get(iPart_-1))) {
                 StringList res_;
-                res_ = TypeUtil.getEnumOwners(start_, p_, _conf);
+                res_ = AnaTypeUtil.getEnumOwners(start_, p_, _conf);
                 if (!res_.onlyOneElt()) {
                     break;
                 }
                 start_ = StringList.concat(res_.first(),"-",p_);
-                _conf.appendParts(nextOff_+1+locOff_,nextOff_+1+locOff_+p_.length(),start_,partOffsets_);
+                ContextUtil.appendParts(_conf,nextOff_+1+locOff_,nextOff_+1+locOff_+p_.length(),start_,partOffsets_);
                 nextOff_ += fullPart_.length() + 1;
                 nb_++;
                 iPart_+=2;
@@ -237,12 +238,12 @@ public final class FullFieldRetriever implements FieldRetriever {
             if (fieldLoc_) {
                 break;
             }
-            StringList res_ = TypeUtil.getInners(start_, p_, _conf);
+            StringList res_ = AnaTypeUtil.getInners(start_, p_, _conf);
             if (!res_.onlyOneElt()) {
                 break;
             }
             start_ = res_.first();
-            _conf.appendParts(nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_);
+            ContextUtil.appendParts(_conf,nextOff_+locOff_,nextOff_+locOff_+p_.length(),start_,partOffsets_);
             nextOff_ += fullPart_.length() + 1;
             nb_++;
             iPart_+=2;

@@ -1,13 +1,11 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.formathtml.exec.*;
 import code.formathtml.util.FieldUpdates;
 import code.sml.Element;
@@ -47,7 +45,7 @@ public abstract class RendInput extends RendElement {
             Mapping m_ = new Mapping();
             m_.setArg(opsRead.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
-            if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
+            if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 String string_ = _cont.getStandards().getAliasString();
                 StringList varNames_ = new StringList();
                 String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
@@ -64,7 +62,7 @@ public abstract class RendInput extends RendElement {
                 }
                 m_.setArg(opsConverter.last().getResultClass());
                 m_.setParam(opsRead.last().getResultClass());
-                if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(attr_);
@@ -119,7 +117,7 @@ public abstract class RendInput extends RendElement {
             Mapping m_ = new Mapping();
             m_.setArg(opsConverterField.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
-            if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
+            if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(attr_);

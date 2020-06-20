@@ -1,7 +1,7 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.opers.LeafOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.LeafOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 
 public abstract class RendLeafOperation extends RendDynOperationNode {
 

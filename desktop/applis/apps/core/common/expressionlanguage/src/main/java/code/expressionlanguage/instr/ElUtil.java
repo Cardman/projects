@@ -2,39 +2,31 @@ package code.expressionlanguage.instr;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.FieldBlock;
+import code.expressionlanguage.analyze.blocks.ForLoopPart;
+import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.coverage.*;
-import code.expressionlanguage.exec.opers.*;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.exec.opers.ExecAffectationOperation;
+import code.expressionlanguage.exec.opers.ExecCompoundAffectationOperation;
+import code.expressionlanguage.exec.opers.ExecMethodOperation;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.opers.ExecPossibleIntermediateDotted;
+import code.expressionlanguage.exec.opers.ExecSemiAffectationOperation;
+import code.expressionlanguage.exec.opers.ReductibleOperable;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.*;
-import code.expressionlanguage.opers.*;
-import code.expressionlanguage.opers.util.*;
-import code.expressionlanguage.structs.Struct;
 import code.util.*;
 
 public final class ElUtil {
 
     private ElUtil() {
-    }
-
-    public static Argument tryToCalculate(ContextEl _conf, ExpressionLanguage _right, int _offset) {
-        if (_right.isFinished()) {
-            return _right.getArgument();
-        }
-        IdMap<ExecOperationNode, ArgumentsPair> allRight_ = _right.getArguments();
-        calculate(allRight_, _right, _conf, _offset);
-        if (_conf.callsOrException()) {
-            return _right.getArgument();
-        }
-        _right.finish();
-        return _right.getArgument();
     }
 
     public static CustList<PartOffsetAffect> getFieldNames(int _valueOffset, String _el, ContextEl _conf, Calculation _calcul) {
@@ -468,7 +460,7 @@ public final class ElUtil {
     public static boolean checkFinalFieldReadOnly(ContextEl _conf, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass) {
         boolean fromCurClass_ = _cst.isFromCurrentClassReadOnly(_conf);
         ClassField cl_ = _cst.getFieldIdReadOnly();
-        FieldInfo meta_ = _conf.getFieldInfo(cl_);
+        FieldInfo meta_ = ContextUtil.getFieldInfo(_conf,cl_);
         if (meta_ == null) {
             return false;
         }
@@ -480,7 +472,7 @@ public final class ElUtil {
         if (_conf.isAssignedFields()) {
             checkFinal_ = true;
         } else if (_conf.isAssignedStaticFields()) {
-            FieldInfo meta_ = _conf.getFieldInfo(_cl);
+            FieldInfo meta_ = ContextUtil.getFieldInfo(_conf,_cl);
             if (meta_.isStaticField()) {
                 checkFinal_ = true;
             } else if (!_fromCurClass) {
@@ -522,58 +514,6 @@ public final class ElUtil {
         return checkFinal_;
     }
 
-    private static void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, int _offset) {
-        AbstractPageEl pageEl_ = _context.getLastPage();
-        pageEl_.setTranslatedOffset(_offset);
-        int fr_ = _el.getIndex();
-        int len_ = _nodes.size();
-        while (fr_ < len_) {
-            ExecOperationNode o = _nodes.getKey(fr_);
-            ArgumentsPair pair_ = _nodes.getValue(fr_);
-            if (!(o instanceof AtomicExecCalculableOperation)) {
-                Argument a_ = Argument.getNullableValue(o.getArgument());
-                if (!pair_.getImplicits().isEmpty()) {
-                    o.setSimpleArgument(a_,_context,_nodes);
-                }
-                if (_context.callsOrException()) {
-                    processCalling(_el, _context, pageEl_, o);
-                    return;
-                }
-                _context.getCoverage().passBlockOperation(_context,o,a_,true);
-                fr_++;
-                continue;
-            }
-            if (pair_.getArgument() != null) {
-                if (!pair_.getImplicits().isEmpty()) {
-                    o.setSimpleArgument(pair_.getArgument(),_context,_nodes);
-                }
-                if (_context.callsOrException()) {
-                    processCalling(_el, _context, pageEl_, o);
-                    return;
-                }
-                _context.getCoverage().passBlockOperation(_context,o,pair_.getArgument(),true);
-                fr_++;
-                continue;
-            }
-            AtomicExecCalculableOperation a_ = (AtomicExecCalculableOperation)o;
-            a_.calculate(_nodes, _context);
-            if (_context.callsOrException()) {
-                processCalling(_el, _context, pageEl_, o);
-                return;
-            }
-            Argument res_ = pair_.getArgument();
-            Struct st_ = res_.getStruct();
-            fr_ = ExecOperationNode.getNextIndex(o, st_);
-        }
-        pageEl_.setTranslatedOffset(0);
-    }
-
-    private static void processCalling(ExpressionLanguage _el, ContextEl _context, AbstractPageEl _pageEl, ExecOperationNode _o) {
-        _el.setCurrentOper(_o);
-        if (!_context.calls()) {
-            _pageEl.setTranslatedOffset(0);
-        }
-    }
     public static void tryCalculate(FieldBlock _field, CustList<OperationNode> _ops, ContextEl _context, String _fieldName) {
         CustList<OperationNode> nodes_ = _ops;
         OperationNode root_ = nodes_.last();

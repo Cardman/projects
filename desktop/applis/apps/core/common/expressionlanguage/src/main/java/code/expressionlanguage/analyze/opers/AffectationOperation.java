@@ -1,0 +1,288 @@
+package code.expressionlanguage.analyze.opers;
+
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodIdReturn;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.OperationsSequence;
+
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.Struct;
+import code.util.*;
+
+public final class AffectationOperation extends MethodOperation {
+
+    private OperationNode settableOp;
+
+    private boolean synthetic;
+
+    private int opOffset;
+
+    public AffectationOperation(int _index, int _indexChild,
+            MethodOperation _m, OperationsSequence _op) {
+        super(_index, _indexChild, _m, _op);
+    }
+
+    public void setSynthetic(boolean synthetic) {
+        this.synthetic = synthetic;
+    }
+
+    @Override
+    void calculateChildren() {
+        IntTreeMap< String> vs_ = getOperations().getValues();
+        getChildren().putAllMap(vs_);
+        opOffset = getOperations().getOperators().firstKey();
+    }
+
+    @Override
+    public void analyze(ContextEl _conf) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        OperationNode root_ = chidren_.first();
+        OperationNode right_ = chidren_.last();
+        SettableElResult elt_ = tryGetSettable(this);
+        boolean ok_ = elt_ != null;
+        LgNames stds_ = _conf.getStandards();
+        if (!ok_) {
+            root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            //oper
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedAffect(),
+                    "=");
+            _conf.getAnalyzing().getLocalizer().addError(un_);
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
+        }
+        if (elt_ instanceof VariableOperation) {
+            VariableOperation v_ = (VariableOperation)elt_;
+            settableOp = v_;
+            String inf_ = v_.getVariableName();
+            if (ElUtil.isDeclaringVariable(v_, _conf) && StringList.contains(_conf.getAnalyzing().getLastLocalVarsInfers(), inf_)) {
+                ClassArgumentMatching clMatchRight_ = right_.getResultClass();
+                String type_ = clMatchRight_.getSingleNameOrEmpty();
+                if (!type_.isEmpty()) {
+                    ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
+                    AnaLocalVariable lv_ = _conf.getAnalyzing().getLocalVar(inf_);
+                    lv_.setClassName(type_);
+                    _conf.getAnalyzing().getVariablesNamesToInfer().removeString(inf_);
+                    _conf.getAnalyzing().getLocalDeclaring().setupDeclaratorClass(type_);
+                    _conf.getAnalyzing().setCurrentVarSetting(type_);
+                    v_.setResultClass(n_);
+                }
+            }
+        }
+        if (elt_ instanceof MutableLoopVariableOperation) {
+            MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)elt_;
+            settableOp = v_;
+            String inf_ = v_.getVariableName();
+            if (ElUtil.isDeclaringLoopVariable(v_, _conf) && StringList.contains(_conf.getAnalyzing().getLastMutableLoopVarsInfers(), inf_)) {
+                ClassArgumentMatching clMatchRight_ = right_.getResultClass();
+                String type_ = clMatchRight_.getSingleNameOrEmpty();
+                if (!type_.isEmpty()) {
+                    ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
+                    AnaLoopVariable lv_ = _conf.getAnalyzing().getMutableLoopVar(inf_);
+                    lv_.setClassName(type_);
+                    _conf.getAnalyzing().getVariablesNamesLoopToInfer().removeString(inf_);
+                    _conf.getAnalyzing().getLoopDeclaring().setupLoopDeclaratorClass(type_);
+                    _conf.getAnalyzing().setCurrentVarSetting(type_);
+                    v_.setResultClass(n_);
+                }
+            }
+        }
+        if (elt_ instanceof SettableAbstractFieldOperation) {
+            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)elt_;
+            settableOp = cst_;
+            StringMap<Boolean> fieldsAfterLast_ = _conf.getAnalyzing().getDeclaredAssignments();
+            if (!synthetic&&ElUtil.checkFinalFieldReadOnly(_conf, cst_, fieldsAfterLast_)) {
+                cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                //field name len
+                un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                        cst_.getFieldName());
+                _conf.getAnalyzing().getLocalizer().addError(un_);
+            }
+        }
+        setResultClass(new ClassArgumentMatching(elt_.getResultClass()));
+        elt_.setVariable(true);
+        ClassArgumentMatching clMatchRight_ = right_.getResultClass();
+        ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
+        root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
+
+        if (clMatchRight_.isVariable()) {
+            if (!clMatchLeft_.isPrimitive(_conf)) {
+                return;
+            }
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
+            cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            //oper
+            cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                    StringList.join(clMatchRight_.getNames(),"&"),
+                    StringList.join(clMatchLeft_.getNames(),"&"));
+            _conf.getAnalyzing().getLocalizer().addError(cast_);
+            return;
+        }
+        StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        Mapping mapping_ = new Mapping();
+        mapping_.setMapping(vars_);
+        mapping_.setArg(clMatchRight_);
+        mapping_.setParam(clMatchLeft_);
+        if (clMatchLeft_.isNumericInt(_conf)) {
+            String primInt_ = stds_.getAliasPrimInteger();
+            String primShort_ = stds_.getAliasPrimShort();
+            String primChar_ = stds_.getAliasPrimChar();
+            String primByte_ = stds_.getAliasPrimByte();
+            String int_ = stds_.getAliasInteger();
+            String short_ = stds_.getAliasShort();
+            String char_ = stds_.getAliasCharacter();
+            String byte_ = stds_.getAliasByte();
+            Argument rightArg_ = right_.getArgument();
+            if (rightArg_ != null && rightArg_.getStruct() instanceof NumberStruct) {
+                StringList first_ = clMatchLeft_.getNames();
+                long valueUnwrapped_ = ClassArgumentMatching.convertToNumber(rightArg_.getStruct()).longStruct();
+                if ((StringList.contains(first_, primByte_) || StringList.contains(first_, byte_)) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
+                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
+                    return;
+                }
+                if ((StringList.contains(first_, primChar_) || StringList.contains(first_, char_)) && valueUnwrapped_ >= Character.MIN_VALUE && valueUnwrapped_ <= Character.MAX_VALUE) {
+                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
+                    return;
+                }
+                if ((StringList.contains(first_, primShort_) || StringList.contains(first_, short_))&& valueUnwrapped_ >= Short.MIN_VALUE && valueUnwrapped_ <= Short.MAX_VALUE) {
+                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
+                    return;
+                }
+                if ((StringList.contains(first_, primInt_) || StringList.contains(first_, int_)) && valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
+                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
+                    return;
+                }
+            }
+        }
+        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
+            ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_conf, clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_);
+            if (res_.isFoundMethod()) {
+                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                clMatchRight_.getImplicits().add(cl_);
+            } else {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                //oper
+                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                        StringList.join(clMatchRight_.getNames(),"&"),
+                        StringList.join(clMatchLeft_.getNames(),"&"));
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
+            }
+        }
+        if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_, _conf)) {
+            right_.getResultClass().setUnwrapObject(clMatchLeft_);
+            right_.cancelArgument();
+        }
+    }
+
+    public static void processInfer(ContextEl _cont, String _import) {
+        StringList vars_ = _cont.getAnalyzing().getVariablesNames();
+        if (StringList.quickEq(_import,_cont.getKeyWords().getKeyWordVar())) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            //'var' len
+            un_.buildError(_cont.getAnalysisMessages().getUnassignedInferingType(),
+                    _import,
+                    StringList.join(vars_,"&"));
+            _cont.getAnalyzing().getLocalizer().addError(un_);
+        } else {
+            for (String v: _cont.getAnalyzing().getVariablesNamesToInfer()) {
+                AnaLocalVariable lv_ = _cont.getAnalyzing().getLocalVar(v);
+                lv_.setClassName(_import);
+            }
+        }
+    }
+
+    public static void processInferLoop(ContextEl _cont, String _import) {
+        StringList vars_ = _cont.getAnalyzing().getVariablesNames();
+        if (StringList.quickEq(_import,_cont.getKeyWords().getKeyWordVar())) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            //'var' len
+            un_.buildError(_cont.getAnalysisMessages().getUnassignedInferingType(),
+                    _import,
+                    StringList.join(vars_,"&"));
+            _cont.getAnalyzing().getLocalizer().addError(un_);
+        } else {
+            for (String v: _cont.getAnalyzing().getVariablesNamesLoopToInfer()) {
+                AnaLoopVariable lv_ = _cont.getAnalyzing().getMutableLoopVar(v);
+                lv_.setClassName(_import);
+            }
+        }
+    }
+    static SettableElResult tryGetSettable(MethodOperation _operation) {
+        OperationNode root_ = getFirstToBeAnalyzed(_operation);
+        SettableElResult elt_;
+        if (!(root_ instanceof AbstractDotOperation)) {
+            elt_ = castTo(root_);
+        } else {
+            OperationNode beforeLast_ = ((MethodOperation)root_).getChildrenNodes().last();
+            elt_ = castTo(beforeLast_);
+        }
+        return elt_;
+    }
+    public static OperationNode getFirstToBeAnalyzed(MethodOperation _operation) {
+        OperationNode root_ = _operation.getFirstChild();
+        while (root_ instanceof IdOperation) {
+            root_ = root_.getFirstChild();
+        }
+        return root_;
+    }
+    private static SettableElResult castTo(OperationNode _op) {
+        if (_op instanceof SettableElResult) {
+            return (SettableElResult) _op;
+        }
+        return null;
+    }
+    @Override
+    public void quickCalculate(ContextEl _conf) {
+        setArg(_conf,this, getSettableOp());
+    }
+
+    public static void setArg(ContextEl _conf, MethodOperation _current, OperationNode _settable) {
+        if (!ElUtil.isDeclaringField(_settable, _conf)) {
+            return;
+        }
+        StandardFieldOperation fieldRef_ = (StandardFieldOperation) _settable;
+        OperationNode lastChild_ = _current.getChildrenNodes().get(1);
+        Argument value_ = lastChild_.getArgument();
+        ClassField id_ = fieldRef_.getFieldId();
+        FieldInfo fm_ = ContextUtil.getFieldInfo(_conf,id_);
+        Struct str_ = value_.getStruct();
+        LgNames stds_ = _conf.getStandards();
+        String to_ = fm_.getType();
+        str_ = PrimitiveTypeUtil.unwrapObject(to_, str_, stds_);
+        _conf.getClasses().initializeStaticField(id_, str_);
+        _current.setSimpleArgument(value_);
+    }
+
+    public int getOpOffset() {
+        return opOffset;
+    }
+
+    public OperationNode getSettableOp() {
+        return settableOp;
+    }
+}

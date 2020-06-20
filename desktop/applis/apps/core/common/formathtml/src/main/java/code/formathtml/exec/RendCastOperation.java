@@ -1,9 +1,9 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.CastOperation;
+import code.expressionlanguage.analyze.opers.CastOperation;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.formathtml.Configuration;
 import code.util.CustList;
@@ -32,7 +32,7 @@ public final class RendCastOperation extends RendAbstractUnaryOperation {
         Argument objArg_ = _arguments.first();
         String paramName_ = _conf.getPageEl().formatVarType(className, _conf.getContext());
         ExecCastOperation.wrapFct(paramName_,false,_arguments,_conf.getContext());
-        Templates.checkObject(paramName_, objArg_, _conf.getContext());
+        ExecTemplates.checkObject(paramName_, objArg_, _conf.getContext());
         return objArg_;
     }
 }

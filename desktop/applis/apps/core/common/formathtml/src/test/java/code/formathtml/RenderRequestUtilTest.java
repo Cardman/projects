@@ -1,7 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;

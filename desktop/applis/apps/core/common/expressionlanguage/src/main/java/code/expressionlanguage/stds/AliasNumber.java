@@ -1,7 +1,7 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;

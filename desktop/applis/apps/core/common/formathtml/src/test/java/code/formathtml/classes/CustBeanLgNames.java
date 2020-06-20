@@ -2,9 +2,13 @@ package code.formathtml.classes;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
-import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
@@ -1854,25 +1858,25 @@ public final class CustBeanLgNames extends BeanNatLgNames {
 
     private String getOtherBeanStructClassName(Object _struct) {
         if (_struct instanceof int[]) {
-            return PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger());
+            return StringExpUtil.getPrettyArrayType(getAliasPrimInteger());
         }
         if (_struct instanceof Integer[]) {
-            return PrimitiveTypeUtil.getPrettyArrayType(getAliasInteger());
+            return StringExpUtil.getPrettyArrayType(getAliasInteger());
         }
         if (_struct instanceof int[][]) {
-            return PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger(),2);
+            return StringExpUtil.getPrettyArrayType(getAliasPrimInteger(),2);
         }
         if (_struct instanceof Integer[][]) {
-            return PrimitiveTypeUtil.getPrettyArrayType(getAliasInteger(),2);
+            return StringExpUtil.getPrettyArrayType(getAliasInteger(),2);
         }
         if (_struct instanceof Object[][]) {
-            return PrimitiveTypeUtil.getPrettyArrayType(getAliasObject(), 2);
+            return StringExpUtil.getPrettyArrayType(getAliasObject(), 2);
         }
         if (_struct instanceof String[]) {
-            return PrimitiveTypeUtil.getPrettyArrayType(getAliasString());
+            return StringExpUtil.getPrettyArrayType(getAliasString());
         }
         if (_struct instanceof Object[]) {
-            return PrimitiveTypeUtil.getPrettyArrayType(getAliasObject());
+            return StringExpUtil.getPrettyArrayType(getAliasObject());
         }
         if (_struct instanceof EnumNumber) {
             return TYPE_ENUM_NUMBER;

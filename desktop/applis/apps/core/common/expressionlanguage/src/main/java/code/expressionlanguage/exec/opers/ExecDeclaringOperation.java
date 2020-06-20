@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.opers.DeclaringOperation;
+import code.expressionlanguage.analyze.opers.DeclaringOperation;
 
 public final class ExecDeclaringOperation extends ExecMethodOperation {
 

@@ -4,9 +4,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.SymbolOperation;
-import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.SymbolOperation;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.util.CustList;
 import code.util.IdMap;
 

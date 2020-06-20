@@ -1,8 +1,8 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.SafeDotOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.SafeDotOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
 import code.util.CustList;

@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.util;
 
-import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.util.StringList;
 
 public final class ToStringMethodHeader {

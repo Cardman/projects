@@ -6,8 +6,7 @@ import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.inherits.TypeUtil;
-import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.analyze.blocks.Classes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -43,18 +42,18 @@ final class AnaNamePartType extends AnaLeafPartType {
         String owner_ = _part.getAnalyzedType();
         Classes classes_ = _an.getClasses();
         if (StringList.quickEq("..",getPreviousSeparator())) {
-            StringList foundOwners_ = TypeUtil.getEnumOwners(owner_, _type, _an);
+            StringList foundOwners_ = AnaTypeUtil.getEnumOwners(owner_, _type, _an);
             if (!foundOwners_.onlyOneElt()) {
                 return;
             }
             checkWithoutInstanceInner(_type, owner_, foundOwners_.first(), "-");
             return;
         }
-        StringList foundOwners_ = TypeUtil.getGenericOwners(owner_, _type, _an);
+        StringList foundOwners_ = AnaTypeUtil.getGenericOwners(owner_, _type, _an);
         if (!foundOwners_.onlyOneElt()) {
             return;
         }
-        String idOwner_= Templates.getIdFromAllTypes(foundOwners_.first());
+        String idOwner_= StringExpUtil.getIdFromAllTypes(foundOwners_.first());
         String in_ = StringList.concat(idOwner_,"..", _type);
         ExecRootBlock inner_ = classes_.getClassBody(in_);
         if (inner_.isStaticType()) {
@@ -111,7 +110,7 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     private boolean analyzeFull(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _type) {
-        String id_ = Templates.getIdFromAllTypes(_type);
+        String id_ = StringExpUtil.getIdFromAllTypes(_type);
         ExecRootBlock root_ = _an.getClasses().getClassBody(id_);
         if (root_ != null) {
             analyzeFullType(_type);
@@ -130,21 +129,21 @@ final class AnaNamePartType extends AnaLeafPartType {
 
     private void analyzeOnwer(ContextEl _an, ReadyTypes _ready, AnaPartType _part, String _type) {
         String owner_ = _part.getAnalyzedType();
-        String id_ = Templates.getIdFromAllTypes(owner_);
+        String id_ = StringExpUtil.getIdFromAllTypes(owner_);
         if (!_ready.isReady(id_)) {
             return;
         }
         if (StringList.quickEq("..",getPreviousSeparator())) {
-            StringList foundOwners_ = TypeUtil.getEnumOwners(id_, _type, _an);
+            StringList foundOwners_ = AnaTypeUtil.getEnumOwners(id_, _type, _an);
             if (!foundOwners_.onlyOneElt()) {
                 return;
             }
-            String idOwner_= Templates.getIdFromAllTypes(foundOwners_.first());
+            String idOwner_= StringExpUtil.getIdFromAllTypes(foundOwners_.first());
             setAnalyzedType(StringList.concat(idOwner_,"-", _type));
             owner = id_;
             return;
         }
-        StringList foundOwners_ = TypeUtil.getOwners(id_, _type, _an);
+        StringList foundOwners_ = AnaTypeUtil.getOwners(id_, _type, _an);
         if (foundOwners_.onlyOneElt()) {
             String new_ = foundOwners_.first();
             setAnalyzedType(StringList.concat(new_,"..", _type));
@@ -160,7 +159,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         AnaPartType prev_ = par_.getFirstChild();
         if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
             String base_ = prev_.getAnalyzedType();
-            base_ = Templates.getIdFromAllTypes(base_);
+            base_ = StringExpUtil.getIdFromAllTypes(base_);
             if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                 setAnalyzedType(getTypeName().trim());
             }
@@ -190,13 +189,13 @@ final class AnaNamePartType extends AnaLeafPartType {
             p_ = p_.getParentType();
         }
         for (String a: allAncestors_) {
-            StringList owners_ = TypeUtil.getGenericOwners(a, type_, _an);
+            StringList owners_ = AnaTypeUtil.getGenericOwners(a, type_, _an);
             if (owners_.isEmpty()) {
                 continue;
             }
             if (owners_.onlyOneElt()) {
                 String genStr_ = owners_.first();
-                String id_ = Templates.getIdFromAllTypes(genStr_);
+                String id_ = StringExpUtil.getIdFromAllTypes(genStr_);
                 String in_ = StringList.concat(id_,"..",type_);
                 ExecRootBlock inner_ = classes_.getClassBody(in_);
                 if (inner_.isStaticType()) {
@@ -240,7 +239,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             if (!_ready.isReady(a)) {
                 return true;
             }
-            StringList owners_ = TypeUtil.getOwners(a, type_, _an);
+            StringList owners_ = AnaTypeUtil.getOwners(a, type_, _an);
             if (owners_.isEmpty()) {
                 continue;
             }
@@ -279,14 +278,14 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     private static void checkAccess(ContextEl _an, ExecAccessingImportingBlock _global, String _analyzedType, int _indexInType) {
-        StringList parts_ = Templates.getAllPartInnerTypes(_analyzedType);
-        String idFound_ = Templates.getIdFromAllTypes(parts_.first());
+        StringList parts_ = StringExpUtil.getAllPartInnerTypes(_analyzedType);
+        String idFound_ = StringExpUtil.getIdFromAllTypes(parts_.first());
         StringBuilder id_ = new StringBuilder(idFound_);
         StringBuilder idOwner_ = new StringBuilder(idFound_);
         checkAccessIntern(_an,_global,idFound_,idFound_, _indexInType);
         int len_ = parts_.size();
         for (int i = 2; i < len_; i+=2) {
-            idFound_ = Templates.getIdFromAllTypes(parts_.get(i));
+            idFound_ = StringExpUtil.getIdFromAllTypes(parts_.get(i));
             id_.append(parts_.get(i-1));
             id_.append(idFound_);
             checkAccessIntern(_an,_global,id_.toString(),idOwner_.toString(), _indexInType);
@@ -296,8 +295,8 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     private static void checkAccessIntern(ContextEl _an, ExecAccessingImportingBlock _global, String _found, String _owner, int _indexInType) {
-        String idOwner_ = Templates.getIdFromAllTypes(_owner);
-        String idFound_ = Templates.getIdFromAllTypes(_found);
+        String idOwner_ = StringExpUtil.getIdFromAllTypes(_owner);
+        String idFound_ = StringExpUtil.getIdFromAllTypes(_found);
         ExecRootBlock owner_ = _an.getClasses().getClassBody(idOwner_);
         ExecRootBlock found_ = _an.getClasses().getClassBody(idFound_);
         if (found_ == null) {
@@ -318,7 +317,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         type_ = StringExpUtil.removeDottedSpaces(type_);
         if (part_ != null) {
             String owner_ = part_.getAnalyzedType();
-            String id_ = Templates.getIdFromAllTypes(owner_);
+            String id_ = StringExpUtil.getIdFromAllTypes(owner_);
             String sep_;
             if (StringList.quickEq("..",getPreviousSeparator())) {
                 sep_ = "-";
@@ -353,7 +352,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             AnaPartType prev_ = getParent().getFirstChild();
             if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
                 String base_ = prev_.getAnalyzedType();
-                base_ = Templates.getIdFromAllTypes(base_);
+                base_ = StringExpUtil.getIdFromAllTypes(base_);
                 if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                     setAnalyzedType(getTypeName().trim());
                 }

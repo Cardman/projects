@@ -3,10 +3,10 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.PageEl;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.VariableOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.VariableOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.IdMap;
@@ -91,7 +91,7 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
     }
     public static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right) {
         String formattedClassVar_ = _loc.getClassName();
-        if (!Templates.checkQuick(formattedClassVar_, _right, _conf)) {
+        if (!ExecTemplates.checkQuick(formattedClassVar_, _right, _conf)) {
             return Argument.createVoid();
         }
         _loc.setStruct(_right.getStruct());

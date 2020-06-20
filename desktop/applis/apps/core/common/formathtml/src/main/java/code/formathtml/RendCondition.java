@@ -1,6 +1,6 @@
 package code.formathtml;
 
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;

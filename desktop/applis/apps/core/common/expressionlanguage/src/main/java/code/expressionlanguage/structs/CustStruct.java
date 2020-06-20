@@ -1,8 +1,9 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassFieldStruct;
+import code.expressionlanguage.common.ClassField;
+
+import code.expressionlanguage.exec.ClassFieldStruct;
 import code.util.CustList;
 
 public final class CustStruct extends WithoutParentIdStruct implements FieldableStruct {

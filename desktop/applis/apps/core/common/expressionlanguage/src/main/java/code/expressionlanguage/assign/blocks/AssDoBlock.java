@@ -3,7 +3,6 @@ package code.expressionlanguage.assign.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.methods.DoBlock;
 import code.util.IdMap;
 
 public final class AssDoBlock extends AssBracedStack implements AssLoop {

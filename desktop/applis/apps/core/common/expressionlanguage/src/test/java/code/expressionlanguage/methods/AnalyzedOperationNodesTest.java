@@ -1,16 +1,17 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.blocks.ExecLine;
 import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.*;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -4916,15 +4917,6 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
         f_ = (ExecFieldBlock) f_.getNextSibling();
         return f_.getOpValue();
-    }
-
-    private static RootBlock getClassBody(ContextEl cont_, String _className) {
-        for (RootBlock r: cont_.getAnalyzing().getFoundTypes()) {
-            if (StringList.quickEq(r.getFullName(),Templates.getIdFromAllTypes(_className))) {
-                return r;
-            }
-        }
-        return null;
     }
 
     private static String addonFileStaticResult(String _el, String _type, String _param, String _var) {

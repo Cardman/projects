@@ -6,12 +6,10 @@ import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.methods.AccessibleBlock;
-import code.expressionlanguage.methods.FieldBlock;
-import code.expressionlanguage.methods.InfoBlock;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.analyze.blocks.FieldBlock;
+import code.expressionlanguage.analyze.blocks.InfoBlock;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -122,7 +120,7 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock,Acce
             ip_.setGlobalOffset(valueOffset);
             ip_.setOffset(0);
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-            ElUtil.tryToCalculate(_cont,el_,0);
+            ExpressionLanguage.tryToCalculate(_cont,el_,0);
             if (_cont.callsOrException()) {
                 return;
             }

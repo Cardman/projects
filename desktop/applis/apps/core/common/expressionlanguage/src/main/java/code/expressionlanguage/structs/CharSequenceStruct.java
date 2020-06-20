@@ -1,9 +1,9 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -288,7 +288,7 @@ public abstract class CharSequenceStruct extends WithoutParentStruct implements 
         String bytePrim_ = _stds.getAliasPrimByte();
         String seq_ = toStringInstance();
         byte[] list_ = StringList.encode(seq_);
-        bytePrim_ = PrimitiveTypeUtil.getPrettyArrayType(bytePrim_);
+        bytePrim_ = StringExpUtil.getPrettyArrayType(bytePrim_);
         int len_ = list_.length;
         Struct[] strArr_ = new Struct[len_];
         for (int i = 0; i < len_; i++) {
@@ -562,7 +562,7 @@ public abstract class CharSequenceStruct extends WithoutParentStruct implements 
             arr_[i] = new StringStruct(parts_.get(i));
         }
         String aliasString_ = _stds.getAliasString();
-        aliasString_ = PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
+        aliasString_ = StringExpUtil.getPrettyArrayType(aliasString_);
         _res.setResult(new ArrayStruct(arr_, aliasString_));
     }
     private void splitChars(Struct _seps, LgNames _stds, ResultErrorStd _res) {
@@ -586,7 +586,7 @@ public abstract class CharSequenceStruct extends WithoutParentStruct implements 
             arr_[i] = new StringStruct(parts_.get(i));
         }
         String aliasString_ = _stds.getAliasString();
-        aliasString_ = PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
+        aliasString_ = StringExpUtil.getPrettyArrayType(aliasString_);
         _res.setResult(new ArrayStruct(arr_, aliasString_));
     }
     private void splitSingleString(Struct _sep, LgNames _stds, ResultErrorStd _res) {
@@ -627,7 +627,7 @@ public abstract class CharSequenceStruct extends WithoutParentStruct implements 
             arr_[i] = new StringStruct(parts_.get(i));
         }
         String aliasString_ = _stds.getAliasString();
-        aliasString_ = PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
+        aliasString_ = StringExpUtil.getPrettyArrayType(aliasString_);
         _res.setResult(new ArrayStruct(arr_, aliasString_));
     }
     private void splitSingleString(Struct _sep, NumberStruct _lim, LgNames _stds, ResultErrorStd _res) {
@@ -651,7 +651,7 @@ public abstract class CharSequenceStruct extends WithoutParentStruct implements 
             arr_[i] = new StringStruct(parts_.get(i));
         }
         String aliasString_ = _stds.getAliasString();
-        aliasString_ = PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
+        aliasString_ = StringExpUtil.getPrettyArrayType(aliasString_);
         _res.setResult(new ArrayStruct(arr_, aliasString_));
     }
     
@@ -663,7 +663,7 @@ public abstract class CharSequenceStruct extends WithoutParentStruct implements 
     }
     private void toCharArray(LgNames _stds,ResultErrorStd _res) {
         String aliasChar_ = _stds.getAliasPrimChar();
-        aliasChar_ = PrimitiveTypeUtil.getPrettyArrayType(aliasChar_);
+        aliasChar_ = StringExpUtil.getPrettyArrayType(aliasChar_);
         int len_ = length();
         Struct[] arrOut_ = new Struct[len_];
         for (int i = 0; i < len_; i++) {

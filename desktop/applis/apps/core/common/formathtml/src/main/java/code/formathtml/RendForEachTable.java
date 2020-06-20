@@ -1,17 +1,20 @@
 package code.formathtml;
 
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.*;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.ImportForEachTable;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.blocks.ImportForEachTable;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -208,7 +211,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         if (_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
-            String paramArg_ = Templates.getAllTypes(type_).get(1);
+            String paramArg_ = StringExpUtil.getAllTypes(type_).get(1);
             if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
                 paramArg_ = _cont.getStandards().getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
@@ -223,7 +226,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                 mapping_.setParam(importedClassNameFirst);
                 StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!Templates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
@@ -234,7 +237,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                 }
             }
             mapping_ = new Mapping();
-            paramArg_ = Templates.getAllTypes(type_).last();
+            paramArg_ = StringExpUtil.getAllTypes(type_).last();
             if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
                 paramArg_ = _cont.getStandards().getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
@@ -249,7 +252,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                 mapping_.setParam(importedClassNameSecond);
                 StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
-                if (!Templates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_cont.getCurrentFileName());
                     cast_.setIndexFile(expressionOffset);
@@ -428,7 +431,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         if (_conf.getContext().hasException()) {
             return;
         }
-        if (!Templates.checkQuick(importedClassNameFirst, arg_, _conf.getContext())) {
+        if (!ExecTemplates.checkQuick(importedClassNameFirst, arg_, _conf.getContext())) {
             return;
         }
         LoopVariable lv_ = _vars.getVal(variableNameFirst);
@@ -438,7 +441,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         if (_conf.getContext().hasException()) {
             return;
         }
-        if (!Templates.checkQuick(importedClassNameSecond, arg_, _conf.getContext())) {
+        if (!ExecTemplates.checkQuick(importedClassNameSecond, arg_, _conf.getContext())) {
             return;
         }
         lv_ = _vars.getVal(variableNameSecond);

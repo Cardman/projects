@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.AssocationOperation;
+import code.expressionlanguage.analyze.opers.AssocationOperation;
 import code.util.IdMap;
 
 public final class ExecAssocationOperation extends ExecAbstractUnaryOperation {

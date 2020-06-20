@@ -1,10 +1,10 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.util.StringList;
 
 

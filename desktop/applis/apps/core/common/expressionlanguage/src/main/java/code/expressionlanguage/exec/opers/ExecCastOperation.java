@@ -3,15 +3,17 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.CastOperation;
-import code.expressionlanguage.opers.ExplicitOperation;
-import code.expressionlanguage.opers.LambdaOperation;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.ClassMethodIdReturn;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.analyze.opers.CastOperation;
+import code.expressionlanguage.analyze.opers.ExplicitOperation;
+import code.expressionlanguage.analyze.opers.LambdaOperation;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodIdReturn;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.Struct;
@@ -43,7 +45,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
         Argument objArg_ = _arguments.first();
         String paramName_ = _conf.getLastPage().formatVarType(className, _conf);
         wrapFct(paramName_,false,_arguments,_conf);
-        Templates.checkObject(paramName_, objArg_, _conf);
+        ExecTemplates.checkObject(paramName_, objArg_, _conf);
         return objArg_;
     }
     public static void wrapFct(String _className, boolean _full,CustList<Argument> _arguments, ContextEl _conf) {
@@ -51,7 +53,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
         if (ExplicitOperation.customCast(_className)) {
             Struct str_ = objArg_.getStruct();
             if (str_ instanceof LambdaStruct) {
-                String id_ = Templates.getIdFromAllTypes(_className);
+                String id_ = StringExpUtil.getIdFromAllTypes(_className);
                 GeneType r_ = _conf.getClassBody(id_);
                 if (r_ instanceof ExecInterfaceBlock && r_.isStaticType()) {
                     int instEltCount_ = 0;
@@ -91,7 +93,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         String fctParam_ = LambdaOperation.formatReturn(EMPTY_STRING,_conf, parmMe_, false);
                         fctParam_ = Templates.quickFormat(geneFor_,fctParam_,_conf);
                         String argCl_ = objArg_.getObjectClassName(_conf);
-                        if (Templates.isCorrectExecute(argCl_,fctParam_,_conf)) {
+                        if (ExecTemplates.isCorrectExecute(argCl_,fctParam_,_conf)) {
                             if (_full) {
                                 AbstractFunctionalInstance struct_ = _conf.getStandards().newFullFunctionalInstance(_className,(LambdaStruct) str_,_conf);
                                 objArg_.setStruct(struct_);

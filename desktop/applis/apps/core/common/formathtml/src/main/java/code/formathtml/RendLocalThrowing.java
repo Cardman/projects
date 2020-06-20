@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -37,7 +38,7 @@ public final class RendLocalThrowing implements RendCallingFinally {
                                 continue;
                             }
                             Argument arg_ = new Argument(custCause_);
-                            if (Templates.safeObject(name_, arg_, _conf.getContext()) == ErrorType.NOTHING) {
+                            if (ExecTemplates.safeObject(name_, arg_, _conf.getContext()) == ErrorType.NOTHING) {
                                 catchElt_ = ca_;
                                 bl_.setCurrentVisitedBlock(ca_);
                                 break;

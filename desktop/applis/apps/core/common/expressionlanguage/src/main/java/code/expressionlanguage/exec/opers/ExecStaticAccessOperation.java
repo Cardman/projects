@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.opers.LeafOperation;
+import code.expressionlanguage.analyze.opers.LeafOperation;
 
 public final class ExecStaticAccessOperation extends ExecLeafOperation {
 

@@ -1,9 +1,14 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.errors.KeyValueMemberName;
-import code.expressionlanguage.methods.PredefinedClasses;
-import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.options.IterableAnalysisResult;
+import code.expressionlanguage.options.PredefinedClasses;
+import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.structs.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.*;
@@ -934,18 +939,18 @@ public abstract class LgNames {
     }
 
     public ResultErrorStd getSimpleResult(ContextEl _conf, ClassField _classField) {
-        return ApplyCoreMethodUtil.getSimpleResultBase(_conf, _classField);
+        return ValidatorStandard.getSimpleResultBase(_conf, _classField);
     }
 
     /**@param _first le premier*/
     public IterableAnalysisResult getCustomType(StringList _names, String _first, ContextEl _context) {
-        return ApplyCoreMethodUtil.getCustomTypeBase(_names, _context);
+        return ValidatorStandard.getCustomTypeBase(_names, _context);
     }
 
     /**@param _first le premier
     @param _second le second*/
     public IterableAnalysisResult getCustomTableType(StringList _names, ContextEl _context, String _first, String _second) {
-        return ApplyCoreMethodUtil.getCustomTableType(_names, _context);
+        return ValidatorStandard.getCustomTableType(_names, _context);
     }
 
     public StringMap<String> buildFiles(ContextEl _context) {

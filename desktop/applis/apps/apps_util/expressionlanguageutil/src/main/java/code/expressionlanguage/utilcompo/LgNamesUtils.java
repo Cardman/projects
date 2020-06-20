@@ -7,15 +7,16 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.ParseLinesArgUtil;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.files.CommentDelimiters;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
@@ -742,7 +743,7 @@ public class LgNamesUtils extends LgNames {
         method_ = new StandardMethod(aliasThreadSetRemove, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasThreadSetSnapshot, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasThread), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasThreadSetSnapshot, params_, StringExpUtil.getPrettyArrayType(aliasThread), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         getStandards().put(aliasThreadSet, std_);
@@ -891,9 +892,9 @@ public class LgNamesUtils extends LgNames {
         method_ = new StandardMethod(aliasEntryName, params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasEntryValue, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasEntryValue, params_, StringExpUtil.getPrettyArrayType(getAliasPrimByte()), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(getAliasString(), PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()));
+        params_ = new StringList(getAliasString(), StringExpUtil.getPrettyArrayType(getAliasPrimByte()));
         ctor_ = new StandardConstructor(params_,false,stdcl_);
         constructors_.add(ctor_);
         std_ = stdcl_;
@@ -925,9 +926,9 @@ public class LgNamesUtils extends LgNames {
         method_ = new StandardMethod(aliasWrite, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
-        method_ = new StandardMethod(aliasFileReadBin, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasFileReadBin, params_, StringExpUtil.getPrettyArrayType(getAliasPrimByte()), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(getAliasString(),PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()));
+        params_ = new StringList(getAliasString(),StringExpUtil.getPrettyArrayType(getAliasPrimByte()));
         method_ = new StandardMethod(aliasFileWriteBin, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
@@ -955,10 +956,10 @@ public class LgNamesUtils extends LgNames {
         method_ = new StandardMethod(aliasFileLastModif, params_, getAliasPrimLong(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
-        method_ = new StandardMethod(aliasFileListDirectories, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasFileListDirectories, params_, StringExpUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
-        method_ = new StandardMethod(aliasFileListFiles, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasFileListFiles, params_, StringExpUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasFileIsDirectory, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
@@ -973,19 +974,19 @@ public class LgNamesUtils extends LgNames {
         method_ = new StandardMethod(aliasFileZipBin, params_, getAliasPrimBoolean(), true, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasEntryBinary);
-        method_ = new StandardMethod(aliasFileZipBinArray, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()), true, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasFileZipBinArray, params_, StringExpUtil.getPrettyArrayType(getAliasPrimByte()), true, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString(),aliasEntryText);
         method_ = new StandardMethod(aliasFileZipText, params_, getAliasPrimBoolean(), true, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
-        method_ = new StandardMethod(aliasFileZippedBin, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasEntryBinary), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasFileZippedBin, params_, StringExpUtil.getPrettyArrayType(aliasEntryBinary), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()));
-        method_ = new StandardMethod(aliasFileZippedBinArray, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasEntryBinary), false, MethodModifier.STATIC, stdcl_);
+        params_ = new StringList(StringExpUtil.getPrettyArrayType(getAliasPrimByte()));
+        method_ = new StandardMethod(aliasFileZippedBinArray, params_, StringExpUtil.getPrettyArrayType(aliasEntryBinary), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
-        method_ = new StandardMethod(aliasFileZippedText, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasEntryText), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasFileZippedText, params_, StringExpUtil.getPrettyArrayType(aliasEntryText), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasFileMakeDirs, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
@@ -1007,9 +1008,9 @@ public class LgNamesUtils extends LgNames {
     public DisplayableStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         if (_arg instanceof RunnableStruct) {
             String className_ = _arg.getClassName(_cont);
-            String id_ = Templates.getIdFromAllTypes(className_);
+            String id_ = StringExpUtil.getIdFromAllTypes(className_);
             ExecRootBlock clBody_ = _cont.getClasses().getClassBody(id_);
-            if (!ContextEl.isEnumType(clBody_)) {
+            if (!ContextUtil.isEnumType(clBody_)) {
                 return new StringStruct(_arg.getClassName(_cont));
             }
         }
@@ -1052,7 +1053,7 @@ public class LgNamesUtils extends LgNames {
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont,
-            ConstructorId _method, Struct... _args) {
+                                         ConstructorId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String name_ = _method.getName();
         if (StringList.quickEq(name_,getAliasObject())) {
@@ -1131,7 +1132,7 @@ public class LgNamesUtils extends LgNames {
         }
         if (StringList.quickEq(name_,aliasEntryBinary)) {
             String cont_ = _cont.getStandards().getAliasPrimByte();
-            cont_ = PrimitiveTypeUtil.getPrettyArrayType(cont_);
+            cont_ = StringExpUtil.getPrettyArrayType(cont_);
             EntryBinaryStruct std_ = new EntryBinaryStruct(_args[0],_args[1],cont_);
             res_.setResult(std_);
             return res_;
@@ -1644,7 +1645,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 int len_ = read_.length;
-                ArrayStruct bin_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimByte()));
+                ArrayStruct bin_ = new ArrayStruct(new Struct[len_],StringExpUtil.getPrettyArrayType(getAliasPrimByte()));
                 for (int i = 0; i < len_; i++) {
                     bin_.getInstance()[i] = new ByteStruct(read_[i]);
                 }
@@ -1734,7 +1735,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 int len_ = files_.size();
-                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasString()));
+                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],StringExpUtil.getPrettyArrayType(getAliasString()));
                 for (int i = 0; i < len_; i++) {
                     arr_.getInstance()[i] = new StringStruct(files_.get(i));
                 }
@@ -1749,7 +1750,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 int len_ = files_.size();
-                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],PrimitiveTypeUtil.getPrettyArrayType(getAliasString()));
+                ArrayStruct arr_ = new ArrayStruct(new Struct[len_],StringExpUtil.getPrettyArrayType(getAliasString()));
                 for (int i = 0; i < len_; i++) {
                     arr_.getInstance()[i] = new StringStruct(files_.get(i));
                 }
@@ -1785,7 +1786,7 @@ public class LgNamesUtils extends LgNames {
                             EntryTextStruct cont_ = (EntryTextStruct)s;
                             byte[] encoded_ = StringList.encode(cont_.getText().getInstance());
                             String contType_ = _cont.getStandards().getAliasPrimByte();
-                            contType_ = PrimitiveTypeUtil.getPrettyArrayType(contType_);
+                            contType_ = StringExpUtil.getPrettyArrayType(contType_);
                             int bLen_ = encoded_.length;
                             ArrayStruct bs_ = new ArrayStruct(new Struct[bLen_],contType_);
                             for (int j = 0; j < bLen_; j++) {
@@ -1797,7 +1798,7 @@ public class LgNamesUtils extends LgNames {
                 }
                 int bLen_ = bins_.size();
                 String arrType_ = getAliasEntryBinary();
-                arrType_ = PrimitiveTypeUtil.getPrettyArrayType(arrType_);
+                arrType_ = StringExpUtil.getPrettyArrayType(arrType_);
                 ArrayStruct bs_ = new ArrayStruct(new Struct[bLen_],arrType_);
                 for (int j = 0; j < bLen_; j++) {
                     bs_.getInstance()[j] = bins_.get(j);
@@ -1819,7 +1820,7 @@ public class LgNamesUtils extends LgNames {
                     return res_;
                 }
                 String cont_ = _cont.getStandards().getAliasPrimByte();
-                cont_ = PrimitiveTypeUtil.getPrettyArrayType(cont_);
+                cont_ = StringExpUtil.getPrettyArrayType(cont_);
                 int bLen_ = bytes_.length;
                 ArrayStruct bs_ = new ArrayStruct(new Struct[bLen_],cont_);
                 for (int j = 0; j < bLen_; j++) {
@@ -1838,7 +1839,7 @@ public class LgNamesUtils extends LgNames {
                 CustList<EntryBinaryStruct> arrList_ = ZipBinStructUtil.getEntryBinaryStructs(bytes_, (RunnableContextEl) _cont);
                 if (arrList_ != null) {
                     String arrType_ = getAliasEntryText();
-                    arrType_ = PrimitiveTypeUtil.getPrettyArrayType(arrType_);
+                    arrType_ = StringExpUtil.getPrettyArrayType(arrType_);
                     int len_ = arrList_.size();
                     ArrayStruct filesOut_ = new ArrayStruct(new Struct[len_],arrType_);
                     for (int i = 0; i < len_; i++) {

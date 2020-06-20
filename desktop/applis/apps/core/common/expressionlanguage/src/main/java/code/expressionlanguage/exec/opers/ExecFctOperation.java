@@ -2,13 +2,15 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.FctOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.analyze.opers.FctOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
@@ -74,7 +76,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
         if (!staticMethod) {
             classNameFound_ = classMethodId.getClassName();
             Struct argPrev_ = _previous.getStruct();
-            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, argPrev_, _conf));
+            prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, argPrev_, _conf));
             if (_conf.callsOrException()) {
                 return new Argument();
             }
@@ -82,10 +84,10 @@ public final class ExecFctOperation extends ExecInvokingOperation {
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
             }
-            String base_ = Templates.getIdFromAllTypes(classNameFound_);
+            String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
             if (staticChoiceMethod) {
                 String argClassName_ = prev_.getObjectClassName(_conf);
-                String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
+                String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 methodId_ = classMethodId.getConstraints();
@@ -93,7 +95,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
                 Struct previous_ = prev_.getStruct();
                 ClassMethodId methodToCall_ = polymorph(_conf, previous_, classMethodId);
                 String argClassName_ = stds_.getStructClassName(previous_, _conf);
-                String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
+                String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 methodId_ = methodToCall_.getConstraints();
@@ -104,7 +106,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
             classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
             lastType_ = classMethodId.formatType(classNameFound_,lastType_,_conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
-            if (_conf.hasToExit(classNameFound_)) {
+            if (ExecutingUtil.hasToExit(_conf,classNameFound_)) {
                 return Argument.createVoid();
             }
         }

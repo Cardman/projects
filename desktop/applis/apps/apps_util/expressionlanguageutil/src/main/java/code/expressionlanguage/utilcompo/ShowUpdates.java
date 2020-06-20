@@ -1,6 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 

@@ -1,8 +1,8 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -66,7 +66,7 @@ public final class AliasCore {
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasError, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
         String stackElt_ = _lgNames.getAliasStackTraceElement();
-        stackElt_ = PrimitiveTypeUtil.getPrettyArrayType(stackElt_);
+        stackElt_ = StringExpUtil.getPrettyArrayType(stackElt_);
         params_ = new StringList();
         method_ = new StandardMethod(_lgNames.getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.NORMAL,stdcl_);
         methods_.put(method_.getId(), method_);
@@ -191,7 +191,7 @@ public final class AliasCore {
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasResources, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasReadResourcesNames, params_, PrimitiveTypeUtil.getPrettyArrayType(_lgNames.getAliasString()), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasReadResourcesNames, params_, StringExpUtil.getPrettyArrayType(_lgNames.getAliasString()), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(_lgNames.getAliasString());
         method_ = new StandardMethod(aliasReadResources, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, stdcl_);

@@ -3,11 +3,15 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.ArrOperation;
-import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.analyze.opers.ArrOperation;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
@@ -127,22 +131,22 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         Argument prev_ = new Argument();
         classNameFound_ = classMethodId.getClassName();
         Struct argPrev_ = _previous.getStruct();
-        prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, argPrev_, _conf));
+        prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, argPrev_, _conf));
         if (_conf.callsOrException()) {
             return new Argument();
         }
-        String base_ = Templates.getIdFromAllTypes(classNameFound_);
+        String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
         if (staticChoiceMethod) {
             String argClassName_ = prev_.getObjectClassName(_conf);
             classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
-            if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
+            if (!ExecTemplates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                 String cast_;
                 cast_ = stds_.getAliasCastType();
                 _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
                 return new Argument();
             }
-            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
+            String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = classMethodId.getConstraints();
@@ -150,7 +154,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             Struct previous_ = prev_.getStruct();
             ClassMethodId methodToCall_ = polymorph(_conf, previous_, classMethodId);
             String argClassName_ = stds_.getStructClassName(previous_, _conf);
-            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
+            String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = methodToCall_.getConstraints();

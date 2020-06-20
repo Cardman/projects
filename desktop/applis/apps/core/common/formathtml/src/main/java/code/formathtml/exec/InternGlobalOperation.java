@@ -3,9 +3,9 @@ package code.formathtml.exec;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.opers.LeafOperation;
-import code.expressionlanguage.opers.MethodOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.LeafOperation;
+import code.expressionlanguage.analyze.opers.MethodOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.formathtml.Configuration;
 
 public final class InternGlobalOperation extends LeafOperation {

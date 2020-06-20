@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.OperationNode;
 
 public final class ExecErrorParentOperation extends ExecMethodOperation {
 

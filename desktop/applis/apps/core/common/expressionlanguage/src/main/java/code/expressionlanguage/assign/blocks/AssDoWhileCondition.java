@@ -6,7 +6,6 @@ import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesDesc;
 import code.expressionlanguage.exec.blocks.ExecCondition;
-import code.expressionlanguage.methods.Condition;
 import code.expressionlanguage.assign.util.AssignmentBefore;
 import code.expressionlanguage.assign.util.BooleanAssignment;
 import code.expressionlanguage.assign.util.SimpleAssignment;

@@ -2,8 +2,8 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.opers.ShiftLeftOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.ShiftLeftOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NumberStruct;
 
 public final class ExecShiftLeftOperation extends ExecStdNumericOperation {

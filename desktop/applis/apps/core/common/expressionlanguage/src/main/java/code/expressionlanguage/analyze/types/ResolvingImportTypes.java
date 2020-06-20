@@ -3,20 +3,16 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ImportedField;
 import code.expressionlanguage.analyze.ImportedMethod;
+import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
-import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecInfoBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.inherits.TypeUtil;
-import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.methods.*;
 import code.expressionlanguage.analyze.util.TypeVar;
-import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardType;
 import code.util.*;
@@ -51,7 +47,7 @@ public final class ResolvingImportTypes {
         }
         ExecAccessingImportingBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        String idFromType_ = Templates.getIdFromAllTypes(_fromType);
+        String idFromType_ = StringExpUtil.getIdFromAllTypes(_fromType);
         GeneType from_ = _analyzable.getClassBody(idFromType_);
         String ref_ = "";
         if (LinkageUtil.isFromCustFile(from_)) {
@@ -77,7 +73,7 @@ public final class ResolvingImportTypes {
             _analyzable.getAnalyzing().getLocalizer().addError(un_);
             return _analyzable.getStandards().getAliasObject();
         }
-        if (!Templates.isCorrectTemplateAll(resType_, vars_, _analyzable)) {
+        if (!AnaTemplates.isCorrectTemplateAll(resType_, vars_, _analyzable)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
@@ -116,7 +112,7 @@ public final class ResolvingImportTypes {
             partOffsets_.clear();
             return "";
         }
-        if (!Templates.isCorrectTemplateAll(resType_, varsCt_, _analyzable, _exact)) {
+        if (!AnaTemplates.isCorrectTemplateAll(resType_, varsCt_, _analyzable, _exact)) {
             partOffsets_.clear();
             return "";
         }
@@ -196,7 +192,7 @@ public final class ResolvingImportTypes {
             _analyzable.getAnalyzing().getLocalizer().addError(un_);
             return _analyzable.getStandards().getAliasObject();
         }
-        if (!Templates.isCorrectTemplateAll(resType_, varsCt_, _analyzable, _exact)) {
+        if (!AnaTemplates.isCorrectTemplateAll(resType_, varsCt_, _analyzable, _exact)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
@@ -247,10 +243,10 @@ public final class ResolvingImportTypes {
                 _analyzable.getAnalyzing().getLocalizer().addError(undef_);
                 return "";
             }
-            _analyzable.appendParts(firstOff_+_loc,firstOff_+_loc + base_.length(),id_,partOffsets_);
+            ContextUtil.appendParts(_analyzable,firstOff_+_loc,firstOff_+_loc + base_.length(),id_,partOffsets_);
             res_ = id_;
         } else {
-            _analyzable.appendParts(firstOff_+_loc,firstOff_+_loc + res_.length(),res_,partOffsets_);
+            ContextUtil.appendParts(_analyzable,firstOff_+_loc,firstOff_+_loc + res_.length(),res_,partOffsets_);
         }
         int offset_ = _loc;
         offset_ += inners_.first().length();
@@ -278,7 +274,7 @@ public final class ResolvingImportTypes {
                 _analyzable.getAnalyzing().getLocalizer().addError(undef_);
                 return "";
             }
-            _analyzable.appendParts(offset_+delta_,offset_+delta_ + i_.trim().length(),resId_,partOffsets_);
+            ContextUtil.appendParts(_analyzable,offset_+delta_,offset_+delta_ + i_.trim().length(),resId_,partOffsets_);
             res_ = resId_;
             offset_ += i_.length() + delta_;
         }
@@ -367,7 +363,7 @@ public final class ResolvingImportTypes {
             stQualifier_ = true;
         }
         String typeInner_ = StringList.concat(beginImp_, _look);
-        StringList allInnerTypes_ = Templates.getAllInnerTypes(typeInner_, _an);
+        StringList allInnerTypes_ = AnaTemplates.getAllInnerTypes(typeInner_, _an);
         String owner_ = allInnerTypes_.first();
         GeneType cl_ = _an.getClassBody(owner_);
         String res_ = owner_;
@@ -379,7 +375,7 @@ public final class ResolvingImportTypes {
                 if (!_ready.isReady(res_)) {
                     return true;
                 }
-                StringList builtInners_ = TypeUtil.getInners(res_, allInnerTypes_.get(i-1), i_, stQualifier_, _an);
+                StringList builtInners_ = AnaTypeUtil.getInners(res_, allInnerTypes_.get(i-1), i_, stQualifier_, _an);
                 if (builtInners_.onlyOneElt()) {
                     res_ = builtInners_.first();
                     continue;
@@ -476,10 +472,10 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 if (e instanceof AccessibleBlock) {
-                    if (!Classes.canAccess(_typeLoc, (AccessibleBlock)e, _analyzable)) {
+                    if (!ContextUtil.canAccess(_typeLoc, (AccessibleBlock)e, _analyzable)) {
                         continue;
                     }
-                    if (!Classes.canAccess(_glClass, (AccessibleBlock)e, _analyzable)) {
+                    if (!ContextUtil.canAccess(_glClass, (AccessibleBlock)e, _analyzable)) {
                         continue;
                     }
                 }
@@ -570,7 +566,7 @@ public final class ResolvingImportTypes {
             for (int i = 2; i < size_; i+=2) {
                 String i_ = allInnerTypes_.get(i).trim();
                 String part_ = allInnerTypes_.get(i-1);
-                StringList builtInners_ = TypeUtil.getInners(res_,part_,i_,false,_analyzable);
+                StringList builtInners_ = AnaTypeUtil.getInners(res_,part_,i_,false,_analyzable);
                 if (builtInners_.onlyOneElt()) {
                     res_ = builtInners_.first();
                     continue;
@@ -583,7 +579,7 @@ public final class ResolvingImportTypes {
 
     public static StringList getParts(ContextEl _analyzable,String _c) {
         StringList allInnerTypes_;
-        allInnerTypes_ = Templates.getAllInnerTypes(_c, _analyzable);
+        allInnerTypes_ = AnaTemplates.getAllInnerTypes(_c, _analyzable);
         return allInnerTypes_;
     }
 
@@ -602,15 +598,15 @@ public final class ResolvingImportTypes {
                     addImport(_methods,s, new ImportedField(_import,m));
                 }
             } else {
-                for (ExecInfoBlock e: ContextEl.getFieldBlocks((ExecRootBlock) super_)) {
+                for (ExecInfoBlock e: ContextUtil.getFieldBlocks((ExecRootBlock) super_)) {
                     if (notMatch(_method, e)) {
                         continue;
                     }
                     if (e instanceof AccessibleBlock) {
-                        if (!Classes.canAccess(_typeLoc, (AccessibleBlock)e, _analyzable)) {
+                        if (!ContextUtil.canAccess(_typeLoc, (AccessibleBlock)e, _analyzable)) {
                             continue;
                         }
-                        if (!Classes.canAccess(_glClass, (AccessibleBlock)e, _analyzable)) {
+                        if (!ContextUtil.canAccess(_glClass, (AccessibleBlock)e, _analyzable)) {
                             continue;
                         }
                     }

@@ -4,17 +4,16 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.WithNotEmptyEl;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -121,7 +120,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         LocalVariable locVar_ = LocalVariable.newLocalVariable(its_,_cont);
         _cont.getLastPage().getInternVars().put(locName_, locVar_);
         ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(_cont,this, CustList.SECOND_INDEX,CustList.SECOND_INDEX);
-        Argument arg_ = ElUtil.tryToCalculate(_cont,dyn_,0);
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,dyn_,0);
         if (_cont.callsOrException()) {
             return;
         }
@@ -158,7 +157,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(_conf, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-        Argument arg_ = ElUtil.tryToCalculate(_conf,el_,0);
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,el_,0);
         if (_conf.callsOrException()) {
             return NullStruct.NULL_VALUE;
         }
@@ -195,7 +194,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
             _conf.getLastPage().getInternVars().put(locName_, locVar_);
         }
         ExpressionLanguage nextEl_ = call_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 3);
-        ElUtil.tryToCalculate(_conf,nextEl_,0);
+        ExpressionLanguage.tryToCalculate(_conf,nextEl_,0);
         if (_conf.callsOrException()) {
             return;
         }
@@ -207,11 +206,11 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
             _conf.getLastPage().getInternVars().put(locName_, locVar_);
         }
         ExpressionLanguage firstEl_ = call_.getCurrentEl(_conf,this, 2, 4);
-        Argument arg_ = ElUtil.tryToCalculate(_conf,firstEl_,0);
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,firstEl_,0);
         if (_conf.callsOrException()) {
             return;
         }
-        if (!Templates.checkQuick(classNameFirst_, arg_, _conf)) {
+        if (!ExecTemplates.checkQuick(classNameFirst_, arg_, _conf)) {
             return;
         }
         String classNameSecond_ = _conf.getLastPage().formatVarType(importedClassNameSecond, _conf);
@@ -225,11 +224,11 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
             _conf.getLastPage().getInternVars().put(locName_, locVar_);
         }
         ExpressionLanguage secondEl_ = call_.getCurrentEl(_conf,this, 3, 5);
-        arg_ = ElUtil.tryToCalculate(_conf,secondEl_,0);
+        arg_ = ExpressionLanguage.tryToCalculate(_conf,secondEl_,0);
         if (_conf.callsOrException()) {
             return;
         }
-        if (!Templates.checkQuick(classNameSecond_, arg_, _conf)) {
+        if (!ExecTemplates.checkQuick(classNameSecond_, arg_, _conf)) {
             return;
         }
         LoopVariable lv_ = _vars.getVal(variableNameSecond);
@@ -248,7 +247,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         LocalVariable locVar_ = LocalVariable.newLocalVariable(strIter_,_conf);
         _conf.getLastPage().getInternVars().put(locName_, locVar_);
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, 2);
-        Argument arg_ = ElUtil.tryToCalculate(_conf,dyn_,0);
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0);
         if (_conf.callsOrException()) {
             return ConditionReturn.CALL_EX;
         }

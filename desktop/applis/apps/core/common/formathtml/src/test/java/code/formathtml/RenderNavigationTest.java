@@ -3,7 +3,7 @@ package code.formathtml;
 import code.formathtml.structs.BeanInfo;
 
 import code.formathtml.structs.ValidatorInfo;
-import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.*;
 
 import code.formathtml.util.*;

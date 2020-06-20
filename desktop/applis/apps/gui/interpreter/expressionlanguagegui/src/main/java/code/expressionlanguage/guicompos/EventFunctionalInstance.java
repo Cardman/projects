@@ -2,15 +2,14 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassFieldStruct;
+import code.expressionlanguage.common.ClassField;
+
+import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableFunctionalInstance;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.ObjectMap;
 
 import javax.swing.event.*;
 import javax.swing.tree.DefaultMutableTreeNode;

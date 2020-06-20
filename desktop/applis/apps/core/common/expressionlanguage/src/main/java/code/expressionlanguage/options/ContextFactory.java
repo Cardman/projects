@@ -7,8 +7,7 @@ import code.expressionlanguage.SingleContextEl;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.files.CommentDelimiters;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
+import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -63,8 +62,8 @@ public final class ContextFactory {
         _definedKw.validateNbWordContents(_context, nbWords_);
         _definedKw.validateBinarySeparators(_context);
         StringMap<String> prims_ = _definedLgNames.allPrimitives();
-        ApplyCoreMethodUtil.validatePrimitiveContents(_context, prims_);
-        ApplyCoreMethodUtil.validatePrimitiveDuplicates(_context, prims_);
+        ValidatorStandard.validatePrimitiveContents(_context, prims_);
+        ValidatorStandard.validatePrimitiveDuplicates(_context, prims_);
         _definedKw.validateKeyWordDuplicates(_context, keyWords_);
         _definedKw.validateEscapingsDuplicates(_context, escapings_);
         StringMap<String> nbWordsDec_ = _definedKw.allNbWords(_definedKw.allNbWordsDec());
@@ -75,27 +74,27 @@ public final class ContextFactory {
         _definedKw.validateNbWordDuplicates(_context, nbWordsPreBin_);
         _definedKw.validateStartsPrefixesDuplicates(_context);
         StringMap<String> refTypes_ = _definedLgNames.allRefTypes();
-        ApplyCoreMethodUtil.validateRefTypeContents(_context, refTypes_, prims_);
-        boolean dup_ = ApplyCoreMethodUtil.validateRefTypeDuplicates(_context, refTypes_);
+        ValidatorStandard.validateRefTypeContents(_context, refTypes_, prims_);
+        boolean dup_ = ValidatorStandard.validateRefTypeDuplicates(_context, refTypes_);
         if (dup_) {
             return;
         }
         StringMap<CustList<KeyValueMemberName>> methods_ = _definedLgNames.allTableTypeMethodNames();
-        ApplyCoreMethodUtil.validateMethodsContents(_context, methods_, prims_);
+        ValidatorStandard.validateMethodsContents(_context, methods_, prims_);
         StringMap<CustList<KeyValueMemberName>> fields_ = _definedLgNames.allTableTypeFieldNames();
-        ApplyCoreMethodUtil.validateFieldsContents(_context, fields_, prims_);
+        ValidatorStandard.validateFieldsContents(_context, fields_, prims_);
         StringMap<CustList<KeyValueMemberName>> varTypes_ = _definedLgNames.allTableTypeVarTypes();
-        ApplyCoreMethodUtil.validateVarTypesContents(_context, varTypes_, prims_);
+        ValidatorStandard.validateVarTypesContents(_context, varTypes_, prims_);
         //duplicates
-        ApplyCoreMethodUtil.validateMethodsDuplicates(_context, methods_);
-        ApplyCoreMethodUtil.validateFieldsDuplicates(_context, fields_);
-        ApplyCoreMethodUtil.validateVarTypesDuplicates(_context, varTypes_);
+        ValidatorStandard.validateMethodsDuplicates(_context, methods_);
+        ValidatorStandard.validateFieldsDuplicates(_context, fields_);
+        ValidatorStandard.validateVarTypesDuplicates(_context, varTypes_);
         CustList<CustList<KeyValueMemberName>> merge_ = _definedLgNames.allMergeTableTypeMethodNames();
-        ApplyCoreMethodUtil.validateMergedDuplicates(_context, merge_);
+        ValidatorStandard.validateMergedDuplicates(_context, merge_);
         if (!_context.getClasses().isEmptyStdError()) {
             return;
         }
         _definedLgNames.build();
-        ApplyCoreMethodUtil.setupOverrides(_context);
+        ValidatorStandard.setupOverrides(_context);
     }
 }

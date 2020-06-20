@@ -1,11 +1,14 @@
 package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.analyze.blocks.Returnable;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundBlock;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.*;
+
 import code.util.IdMap;
 
 public final class StaticInitPageEl extends AbstractPageEl {
@@ -17,21 +20,21 @@ public final class StaticInitPageEl extends AbstractPageEl {
         Classes classes_ = _context.getClasses();
 
         String curClass_ = getGlobalClass();
-        String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
+        String curClassBase_ = StringExpUtil.getIdFromAllTypes(curClass_);
         ExecRootBlock root_ =  classes_.getClassBody(curClassBase_);
         //Super interfaces have no super classes
         if (root_ instanceof ExecUniqueRootedBlock) {
-            String gene_ = ((ExecUniqueRootedBlock) root_).getImportedDirectGenericSuperClass();
-            String superClass_ = Templates.getIdFromAllTypes(gene_);
+            String gene_ = root_.getImportedDirectGenericSuperClass();
+            String superClass_ = StringExpUtil.getIdFromAllTypes(gene_);
             if (classes_.getClassBody(superClass_) != null) {
                 //initialize the super class first
-                if (_context.hasToExit(superClass_)) {
+                if (ExecutingUtil.hasToExit(_context,superClass_)) {
                     return false;
                 }
             }
             for (String i: root_.getStaticInitImportedInterfaces()) {
                 //then initialize the additional super interfaces (not provided by the super class)
-                if (_context.hasToExit(i)) {
+                if (ExecutingUtil.hasToExit(_context,i)) {
                     return false;
                 }
             }
@@ -78,7 +81,7 @@ public final class StaticInitPageEl extends AbstractPageEl {
 
     public void sucessClass(ContextEl _context) {
         String curClass_ = getGlobalClass();
-        String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
+        String curClassBase_ = StringExpUtil.getIdFromAllTypes(curClass_);
         _context.getClasses().getLocks().successClass(curClassBase_);
     }
 }

@@ -1,6 +1,6 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.opers.LeafOperation;
+import code.expressionlanguage.analyze.opers.LeafOperation;
 
 public final class RendStaticAccessOperation extends RendLeafOperation {
 

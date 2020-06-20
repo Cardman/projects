@@ -2,10 +2,9 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneConstructor;
-import code.expressionlanguage.methods.AccessibleBlock;
-import code.expressionlanguage.methods.ConstructorBlock;
-import code.expressionlanguage.methods.ReturnableWithSignature;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.analyze.blocks.ConstructorBlock;
+import code.expressionlanguage.analyze.blocks.ReturnableWithSignature;
+import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
 

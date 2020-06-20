@@ -1,26 +1,22 @@
 package code.formathtml;
 
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.InfoBlock;
-import code.expressionlanguage.methods.InnerTypeOrElement;
-import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.MethodAccessKind;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendSwitchBlockStack;
@@ -72,7 +68,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         ClassArgumentMatching resSwitch_ = sw_.getOpValue().last().getResultClass();
         String type_ = resSwitch_.getSingleNameOrEmpty();
         if (!type_.isEmpty()) {
-            String id_ = Templates.getIdFromAllTypes(type_);
+            String id_ = StringExpUtil.getIdFromAllTypes(type_);
             GeneType g_ = _cont.getContext().getClassBody(id_);
             if (g_ instanceof ExecEnumBlock) {
                 for (ExecInfoBlock f: ExecBlock.getFieldBlocks((ExecRootBlock) g_)) {
@@ -129,7 +125,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
             Mapping m_ = new Mapping();
             m_.setArg(resCase_);
             m_.setParam(resSwitch_);
-            if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
+            if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(valueOffset);

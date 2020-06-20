@@ -1,8 +1,14 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
-import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.exec.ProcessMethod;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
@@ -10,13 +16,11 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.errors.AnalysisMessages;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
@@ -211,7 +215,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         method_ = new StandardMethod(aliasMessageFormat, params_, getAliasString(), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMessageGetArgs, params_, PrimitiveTypeUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.NORMAL, std_);
+        method_ = new StandardMethod(aliasMessageGetArgs, params_, StringExpUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.NORMAL, std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());
         method_ = new StandardMethod(aliasMessageSetArgs, params_, getAliasVoid(), true, MethodModifier.NORMAL, std_);
@@ -431,7 +435,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         args_.addEntry(validateVarArgNewValue,getAliasObject());
         args_.addEntry(validateVarArgOldValue,getAliasObject());
         args_.addEntry(validateVarArgBean,getAliasObject());
-        args_.addEntry(validateVarArgForm,PrimitiveTypeUtil.getPrettyArrayType(getAliasObject()));
+        args_.addEntry(validateVarArgForm,StringExpUtil.getPrettyArrayType(getAliasObject()));
         args_.addEntry(validateVarArgClassField,getAliasString());
         args_.addEntry(vlidateVarArgNameField,getAliasString());
         expsValidate = newCall(validateVar,aliasValidator,
@@ -439,7 +443,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                         getAliasObject(),
                         getAliasObject(),
                         getAliasObject(),
-                        PrimitiveTypeUtil.getPrettyArrayType(getAliasObject()),
+                        StringExpUtil.getPrettyArrayType(getAliasObject()),
                         getAliasString(),
                         getAliasString()
                 ))),
@@ -907,7 +911,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             }
             Struct strBean_ = arg_.getStruct();
             String clName_ = strBean_.getClassName(_conf.getContext());
-            if (!Templates.isCorrectExecute(clName_,getAliasBean(),_conf.getContext())) {
+            if (!ExecTemplates.isCorrectExecute(clName_,getAliasBean(),_conf.getContext())) {
                 _conf.removeLastPage();
                 _conf.getBuiltBeans().setValue(index_,strBean_);
                 index_++;
@@ -956,7 +960,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             if (list_.isEmpty()) {
                 res_.setResult(MessageStruct.newInstance(Message.newStandardMessage(),aliasMessage));
             } else {
-                String value_ = ApplyCoreMethodUtil.getString(_args[0]).getInstance();
+                String value_ = AnaApplyCoreMethodUtil.getString(_args[0]).getInstance();
                 res_.setResult(MessageStruct.newInstance(Message.newStandardMessage(value_),aliasMessage));
             }
             return res_;
@@ -967,7 +971,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
         if (StringList.quickEq(name_, aliasMessageGetArgs)) {
             StringList resArgs_ = instance_.getArgs();
-            String arrStr_ = PrimitiveTypeUtil.getPrettyArrayType(getAliasString());
+            String arrStr_ = StringExpUtil.getPrettyArrayType(getAliasString());
             int len_ = resArgs_.size();
             ArrayStruct arr_ = new ArrayStruct(new Struct[len_],arrStr_);
             for (int i = 0; i < len_; i++){
@@ -1032,7 +1036,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     public Argument getForms(Struct _bean, Configuration _conf) {
         String clName_ = _bean.getClassName(_conf.getContext());
         _conf.getLastPage().setEnabledOp(false);
-        if (!Templates.isCorrectExecute(clName_,getAliasBean(),_conf.getContext())) {
+        if (!ExecTemplates.isCorrectExecute(clName_,getAliasBean(),_conf.getContext())) {
             return RenderExpUtil.calculateReuse(opsMap, _conf);
         }
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_bean,_conf.getContext());
@@ -1123,7 +1127,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         boolean staticField_ = _rend.getFieldMetaInfo().isStaticField();
         Argument previous_ = new Argument();
         if (!staticField_) {
-            previous_.setStruct(PrimitiveTypeUtil.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf.getContext()));
+            previous_.setStruct(ExecTemplates.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf.getContext()));
         }
         String fieldType_ = _rend.getFieldMetaInfo().getRealType();
         Argument arg_ = getField(_conf, off_, className_, fieldName_, staticField_, previous_, fieldType_);
@@ -1154,7 +1158,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String fieldName_ = fieldId_.getFieldName();
         Argument previous_ = new Argument();
         if (!isStatic_) {
-            previous_.setStruct(PrimitiveTypeUtil.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf.getContext()));
+            previous_.setStruct(ExecTemplates.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf.getContext()));
         }
         //Come from code directly so constant static fields can be initialized here
         Argument arg_ = setField(_conf, _right, off_, fieldType_, isStatic_, isFinal_, className_, fieldName_, previous_);
@@ -1188,7 +1192,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         Argument prev_ = new Argument();
         if (!_rend.isStaticMethod()) {
             classNameFound_ = _rend.getClassMethodId().getClassName();
-            prev_.setStruct(PrimitiveTypeUtil.getParent(_rend.getAnc(), classNameFound_, _previous.getStruct(), _conf.getContext()));
+            prev_.setStruct(ExecTemplates.getParent(_rend.getAnc(), classNameFound_, _previous.getStruct(), _conf.getContext()));
             if (_conf.getContext().hasException()) {
                 Argument a_ = new Argument();
                 return a_;
@@ -1197,10 +1201,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, null);
             }
-            String base_ = Templates.getIdFromAllTypes(classNameFound_);
+            String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
             if (_rend.isStaticChoiceMethod()) {
                 String argClassName_ = prev_.getObjectClassName(_conf.getContext());
-                String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf.getContext());
+                String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
                 firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 methodId_ = _rend.getClassMethodId().getConstraints();
@@ -1209,7 +1213,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 ContextEl context_ = _conf.getContext();
                 ClassMethodId methodToCall_ = ExecInvokingOperation.polymorph(context_, previous_, _rend.getClassMethodId());
                 String argClassName_ = stds_.getStructClassName(previous_, context_);
-                String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf.getContext());
+                String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
                 lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
                 firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 methodId_ = methodToCall_.getConstraints();
@@ -1346,12 +1350,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().getInternVars().put(validateVarArgBean, locVar_);
         CustList<Struct> params_ = _cont.getStructParam();
         int size_ = params_.size();
-        ArrayStruct arr_ = new ArrayStruct(new Struct[size_ +1],PrimitiveTypeUtil.getPrettyArrayType(getAliasObject()));
+        ArrayStruct arr_ = new ArrayStruct(new Struct[size_ +1],StringExpUtil.getPrettyArrayType(getAliasObject()));
         arr_.getInstance()[0] = _cont.getUpdated();
         for (int i = 0; i < size_; i++) {
             arr_.getInstance()[i+1] = params_.get(i);
         }
-        locVar_ = LocalVariable.newLocalVariable(arr_,PrimitiveTypeUtil.getPrettyArrayType(getAliasObject()));
+        locVar_ = LocalVariable.newLocalVariable(arr_,StringExpUtil.getPrettyArrayType(getAliasObject()));
         _conf.getLastPage().getInternVars().put(validateVarArgForm, locVar_);
         locVar_ = LocalVariable.newLocalVariable(new StringStruct(_cont.getIdFieldClass()),_conf.getContext());
         _conf.getLastPage().getInternVars().put(validateVarArgClassField, locVar_);
@@ -1386,7 +1390,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     @Override
     public void beforeDisplaying(Struct _arg, Configuration _cont) {
         String clName_ = getStructClassName(_arg, _cont.getContext());
-        if (!Templates.isCorrectExecute(clName_,getAliasBean(),_cont.getContext())) {
+        if (!ExecTemplates.isCorrectExecute(clName_,getAliasBean(),_cont.getContext())) {
             return;
         }
         String locName_ = getBeforeDisplayingVar();
@@ -1407,7 +1411,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (_cont.getContext().hasException() || argument_.isNull()) {
             return "";
         }
-        return ApplyCoreMethodUtil.getString(argument_.getStruct()).getInstance();
+        return AnaApplyCoreMethodUtil.getString(argument_.getStruct()).getInstance();
     }
     public void setScope(Struct _bean, String _scope,Configuration _cont) {
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_bean,_cont.getContext());
@@ -1534,7 +1538,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (_cont.getContext().hasException()) {
             return "";
         }
-        return ApplyCoreMethodUtil.getString(arg_.getStruct()).getInstance();
+        return AnaApplyCoreMethodUtil.getString(arg_.getStruct()).getInstance();
     }
 
     @Override

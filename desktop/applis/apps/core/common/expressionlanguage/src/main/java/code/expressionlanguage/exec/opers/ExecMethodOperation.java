@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.opers;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.CustList;
 
 public abstract class ExecMethodOperation extends ExecOperationNode {

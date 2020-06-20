@@ -1,8 +1,6 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.common.GeneField;
-import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.methods.AccessEnum;
 import code.util.StringList;
 
 public final class StandardField implements GeneField {

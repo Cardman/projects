@@ -1,12 +1,14 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
-import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.DimComp;
+
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -75,7 +77,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
         AnaPartType f_ = getFirstChild();
         String tempCl_ = f_.getAnalyzedType();
         String tempClFull_ = fetchTemplate();
-        tempCl_ = Templates.getIdFromAllTypes(tempCl_);
+        tempCl_ = StringExpUtil.getIdFromAllTypes(tempCl_);
         GeneType type_ = _an.getClassBody(tempCl_);
         CustList<StringList> boundsAll_ = type_.getBoundAll();
         for (StringList t: boundsAll_) {
@@ -90,7 +92,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
             } else if (comp_.startsWith(Templates.SUP_TYPE)) {
                 comp_ = comp_.substring(Templates.SUP_TYPE.length());
             }
-            DimComp dimCompArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(comp_);
+            DimComp dimCompArg_ = StringExpUtil.getQuickComponentBaseType(comp_);
             comp_ = dimCompArg_.getComponent();
             boolean lookInInherit_ = comp_.startsWith(Templates.PREFIX_VAR_TYPE);
             StringList bounds_ = new StringList();
@@ -110,7 +112,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
                 for (String v: bounds_) {
                     m_.setArg(v);
                     m_.setMapping(_inherit);
-                    if (Templates.isCorrect(m_, _an)) {
+                    if (AnaTemplates.isCorrect(m_, _an)) {
                         ok_ = true;
                         break;
                     }

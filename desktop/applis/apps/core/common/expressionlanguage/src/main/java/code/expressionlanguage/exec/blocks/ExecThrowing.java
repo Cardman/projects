@@ -6,8 +6,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.WithNotEmptyEl;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
@@ -40,7 +39,7 @@ public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
         ip_.setOffset(0);
         ip_.setGlobalOffset(expressionOffset);
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-        Argument arg_ = ElUtil.tryToCalculate(_cont,el_,0);
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,el_,0);
         if (_cont.callsOrException()) {
             return;
         }

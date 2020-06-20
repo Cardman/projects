@@ -1,9 +1,8 @@
 package code.formathtml;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
@@ -147,8 +146,8 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         Struct[] exp_ = new Struct[1];
         exp_[0] = new IntStruct(0);
-        lv_.setStruct(new ArrayStruct(exp_, PrimitiveTypeUtil.getPrettyArrayType(primIntType_)));
-        lv_.setClassName(PrimitiveTypeUtil.getPrettyArrayType(primIntType_));
+        lv_.setStruct(new ArrayStruct(exp_, StringExpUtil.getPrettyArrayType(primIntType_)));
+        lv_.setClassName(StringExpUtil.getPrettyArrayType(primIntType_));
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         processEl("$this()", context_);
@@ -164,8 +163,8 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         Struct[] exp_ = new Struct[1];
         exp_[0] = new IntStruct(0);
-        lv_.setStruct(new ArrayStruct(exp_, PrimitiveTypeUtil.getPrettyArrayType(primIntType_)));
-        lv_.setClassName(PrimitiveTypeUtil.getPrettyArrayType(primIntType_));
+        lv_.setStruct(new ArrayStruct(exp_, StringExpUtil.getPrettyArrayType(primIntType_)));
+        lv_.setClassName(StringExpUtil.getPrettyArrayType(primIntType_));
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         processEl("v(1)", context_);
@@ -182,8 +181,8 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         LocalVariable lv_ = new LocalVariable();
         Struct[] exp_ = new Struct[1];
         exp_[0] = new IntStruct(0);
-        lv_.setStruct(new ArrayStruct(exp_, PrimitiveTypeUtil.getPrettyArrayType(primIntType_)));
-        lv_.setClassName(PrimitiveTypeUtil.getPrettyArrayType(primIntType_));
+        lv_.setStruct(new ArrayStruct(exp_, StringExpUtil.getPrettyArrayType(primIntType_)));
+        lv_.setClassName(StringExpUtil.getPrettyArrayType(primIntType_));
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         processEl("v(1)", context_);

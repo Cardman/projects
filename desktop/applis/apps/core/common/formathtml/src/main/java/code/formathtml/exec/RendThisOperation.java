@@ -3,7 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.ThisOperation;
+import code.expressionlanguage.analyze.opers.ThisOperation;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.IdMap;

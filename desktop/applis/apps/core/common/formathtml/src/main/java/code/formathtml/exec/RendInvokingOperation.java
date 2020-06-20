@@ -1,11 +1,10 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.InvokingOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.analyze.opers.InvokingOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.*;
-import code.formathtml.Configuration;
 import code.util.CustList;
 
 public abstract class RendInvokingOperation extends RendMethodOperation implements RendPossibleIntermediateDotted {
@@ -48,9 +47,9 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
             Argument argRem_ = new Argument();
             int len_ = optArgs_.size();
             Struct[] array_ = new Struct[len_];
-            String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(_lastType);
+            String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
             ArrayStruct str_ = new ArrayStruct(array_,clArr_);
-            Templates.setElements(optArgs_,str_);
+            ExecTemplates.setElements(optArgs_,str_);
             argRem_.setStruct(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;

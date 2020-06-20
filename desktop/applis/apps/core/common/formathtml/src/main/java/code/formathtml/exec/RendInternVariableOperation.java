@@ -2,7 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;

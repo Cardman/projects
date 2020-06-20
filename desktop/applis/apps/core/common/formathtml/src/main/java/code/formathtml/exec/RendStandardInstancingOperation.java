@@ -1,13 +1,14 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.StandardInstancingOperation;
+import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.functionid.ConstructorId;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -66,7 +67,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         String className_;
         PageEl page_ = _conf.getPageEl();
         className_ = page_.formatVarType(className, _conf.getContext());
-        String base_ = Templates.getIdFromAllTypes(className_);
+        String base_ = StringExpUtil.getIdFromAllTypes(className_);
         if (_conf.hasToExit(base_)) {
             return Argument.createVoid();
         }

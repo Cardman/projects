@@ -7,9 +7,8 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.WithNotEmptyEl;
-import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 
@@ -37,7 +36,7 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
         ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
         last_.setOffset(0);
         last_.setGlobalOffset(conditionOffset);
-        Argument arg_ = ElUtil.tryToCalculate(_context,exp_,0);
+        Argument arg_ = ExpressionLanguage.tryToCalculate(_context,exp_,0);
         if (_context.callsOrException()) {
             return ConditionReturn.CALL_EX;
         }

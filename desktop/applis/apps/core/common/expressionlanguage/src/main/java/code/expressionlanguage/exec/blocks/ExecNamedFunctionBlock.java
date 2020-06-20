@@ -3,12 +3,10 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.methods.Returnable;
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.blocks.Returnable;
 import code.util.CustList;
-import code.util.Ints;
 import code.util.StringList;
 
 public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock implements Returnable,ExecAnnotableParametersBlock {

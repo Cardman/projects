@@ -1,16 +1,16 @@
 package code.formathtml;
 
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.ForLoopPart;
-import code.expressionlanguage.opers.AffectationOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.blocks.ForLoopPart;
+import code.expressionlanguage.analyze.opers.AffectationOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;

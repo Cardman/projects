@@ -2,12 +2,14 @@ package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.*;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.opers.ExecSettableFieldOperation;
-import code.expressionlanguage.opers.util.*;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -64,7 +66,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
             }
         }
         if (_conf.isAssignedStaticFields()) {
-            FieldInfo meta_ = _conf.getFieldInfo(cl_);
+            FieldInfo meta_ = ContextUtil.getFieldInfo(_conf,cl_);
             if (meta_.isStaticField()) {
                 procField_ = false;
             }
@@ -75,7 +77,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         if (procField_) {
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                 if (StringList.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
-                    FieldInfo meta_ = _conf.getFieldInfo(cl_);
+                    FieldInfo meta_ = ContextUtil.getFieldInfo(_conf,cl_);
                     if (meta_.isFinalField() && !AssUtil.isDeclaringField(this, _ass)) {
                         //error if final field
                         setRelativeOffsetPossibleAnalyzable(_conf);
@@ -124,7 +126,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
     private boolean notMatchCurrentType(ContextEl _an) {
         ClassField clField_ = fieldMetaInfo.getClassField();
         String gl_ = _an.getAnalyzing().getGlobalClass();
-        String id_ = Templates.getIdFromAllTypes(gl_);
+        String id_ = StringExpUtil.getIdFromAllTypes(gl_);
         return !StringList.quickEq(clField_.getClassName(), id_);
     }
 

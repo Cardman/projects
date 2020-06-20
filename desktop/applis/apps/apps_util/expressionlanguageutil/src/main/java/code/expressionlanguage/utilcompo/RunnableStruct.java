@@ -2,19 +2,21 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.TypeUtil;
-import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.ReflectingType;
-import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithParentStruct;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.ObjectMap;
 import code.util.StringList;
 
 public final class RunnableStruct implements WithParentStruct, EnumerableStruct,Runnable {
@@ -95,8 +97,8 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     }
     public static void invoke(Struct _instance,RunnableContextEl _r, String _typeName, String _methName, StringList _argTypes, CustList<Argument> _args) {
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, _methName, _argTypes);
-        GeneType type_ = _r.getClassBody(Templates.getIdFromAllTypes(_typeName));
-        String base_ = Templates.getIdFromAllTypes(_instance.getClassName(_r));
+        GeneType type_ = _r.getClassBody(StringExpUtil.getIdFromAllTypes(_typeName));
+        String base_ = StringExpUtil.getIdFromAllTypes(_instance.getClassName(_r));
         ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, _r).getVal(base_);
         if (mId_ == null) {
             _r.getCustInit().removeThreadFromList(_r);

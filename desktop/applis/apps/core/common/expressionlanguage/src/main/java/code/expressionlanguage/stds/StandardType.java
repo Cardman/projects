@@ -3,7 +3,7 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.analyze.util.TypeVar;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.util.*;
 
 public abstract class StandardType implements GeneType {

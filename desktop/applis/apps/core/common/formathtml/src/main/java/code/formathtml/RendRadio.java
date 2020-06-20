@@ -1,11 +1,11 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Mapping;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -55,7 +55,7 @@ public final class RendRadio extends RendInput {
             Mapping m_ = new Mapping();
             m_.setArg(opsConverterFieldValue.last().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
-            if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
+            if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(attr_);

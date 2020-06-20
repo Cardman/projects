@@ -1,13 +1,13 @@
 package code.formathtml;
 
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.opers.util.MethodAccessKind;
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;

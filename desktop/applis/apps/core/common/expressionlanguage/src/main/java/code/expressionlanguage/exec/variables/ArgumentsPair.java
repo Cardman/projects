@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.variables;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.util.CustList;
 
 public class ArgumentsPair {

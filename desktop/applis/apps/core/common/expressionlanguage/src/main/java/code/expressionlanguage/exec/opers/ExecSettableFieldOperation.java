@@ -2,12 +2,12 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.SettableAbstractFieldOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.FieldInfo;
+import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
@@ -45,7 +45,7 @@ public final class ExecSettableFieldOperation extends
         }
         Argument previous_ = new Argument();
         if (!staticField_) {
-            previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
+            previous_.setStruct(ExecTemplates.getParent(anc, className_, _previous.getStruct(), _conf));
         }
         if (_conf.callsOrException()) {
             return Argument.createVoid();
@@ -94,7 +94,7 @@ public final class ExecSettableFieldOperation extends
         String fieldName_ = fieldId_.getFieldName();
         Argument previous_ = new Argument();
         if (!isStatic_) {
-            previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
+            previous_.setStruct(ExecTemplates.getParent(anc, className_, _previous.getStruct(), _conf));
         }
         if (_conf.callsOrException()) {
             return Argument.createVoid();

@@ -1,6 +1,6 @@
 package code.formathtml.exec;
 
-import code.expressionlanguage.opers.VarargOperation;
+import code.expressionlanguage.analyze.opers.VarargOperation;
 
 public final class RendVarargOperation extends RendLeafOperation {
 

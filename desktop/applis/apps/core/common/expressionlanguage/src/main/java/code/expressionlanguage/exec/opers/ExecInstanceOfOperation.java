@@ -4,9 +4,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.calls.PageEl;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.InstanceOfOperation;
+import code.expressionlanguage.analyze.opers.InstanceOfOperation;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -39,7 +39,7 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
         }
         PageEl page_ = _conf.getLastPage();
         String str_ = page_.formatVarType(className, _conf);
-        boolean res_ = Templates.safeObject(str_, objArg_, _conf) == ErrorType.NOTHING;
+        boolean res_ = ExecTemplates.safeObject(str_, objArg_, _conf) == ErrorType.NOTHING;
         Argument arg_ = new Argument();
         arg_.setStruct(BooleanStruct.of(res_));
         return arg_;

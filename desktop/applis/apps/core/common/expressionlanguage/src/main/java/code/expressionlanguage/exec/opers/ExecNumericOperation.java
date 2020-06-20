@@ -1,10 +1,10 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.SymbolOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.SymbolOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ErrorStruct;

@@ -1,5 +1,5 @@
 package code.expressionlanguage.exec.opers;
-import code.expressionlanguage.opers.ConstantOperation;
+import code.expressionlanguage.analyze.opers.ConstantOperation;
 
 public final class ExecConstantOperation extends ExecLeafOperation {
 

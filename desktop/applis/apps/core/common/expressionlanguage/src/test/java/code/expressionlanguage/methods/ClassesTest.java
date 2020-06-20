@@ -1,14 +1,15 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.classes.CustLgNames;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
-import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;

@@ -2,8 +2,8 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.methods.FileBlock;
-import code.expressionlanguage.methods.ImportingBlock;
+import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.blocks.ImportingBlock;
 import code.util.*;
 
 public final class ExecFileBlock extends ExecBracedBlock implements ImportingBlock {

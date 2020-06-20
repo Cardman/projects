@@ -2,7 +2,7 @@ package code.expressionlanguage.gui.unit;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.utilcompo.*;
-import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.*;
 import code.gui.*;
 import code.gui.Menu;

@@ -3,10 +3,9 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.ExplicitOperatorOperation;
-import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.analyze.opers.ExplicitOperatorOperation;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.util.CustList;
 import code.util.IdMap;
 

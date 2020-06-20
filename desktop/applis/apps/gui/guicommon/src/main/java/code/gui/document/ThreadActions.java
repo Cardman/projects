@@ -4,15 +4,13 @@ import javax.swing.Timer;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.util.CallingState;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErroneousStruct;
@@ -124,7 +122,7 @@ public final class ThreadActions implements Runnable {
                     Configuration conf_ = page.getNavigation().getSession();
                     if (conf_.isEmptyErrors()) {
                         LgNames stds_ = conf_.getStandards();
-                        String arrStr_ = PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasString());
+                        String arrStr_ = StringExpUtil.getPrettyArrayType(stds_.getAliasString());
                         MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
                         ContextEl ctx_ = conf_.getContext();
                         CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(ctx_, classDbName, id_);

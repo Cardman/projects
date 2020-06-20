@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.methods.ClassBlock;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.analyze.blocks.ClassBlock;
 import code.util.StringList;
 
 public final class ExecClassBlock extends ExecRootBlock implements ExecUniqueRootedBlock {

@@ -1,13 +1,13 @@
 package code.expressionlanguage.instr;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.common.NumberInfos;
-import code.expressionlanguage.common.VariableInfo;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.*;
+
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.*;
+
+import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.*;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 
-public final class ElResolverTest extends ProcessMethodCommon{
+public final class ElResolverTest extends ProcessMethodCommon {
 
     @Test
     public void getOperationsSequence1Test() {
@@ -3305,7 +3305,7 @@ public final class ElResolverTest extends ProcessMethodCommon{
 
     private static RootBlock getAnaClassBody(ContextEl classes_, String _className) {
         for (RootBlock r: classes_.getAnalyzing().getFoundTypes()) {
-            if (StringList.quickEq(r.getFullName(),Templates.getIdFromAllTypes(_className))) {
+            if (StringList.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
                 return r;
             }
         }

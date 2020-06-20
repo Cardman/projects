@@ -1,6 +1,6 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.opers.util.Identifiable;
+import code.expressionlanguage.functionid.Identifiable;
 import code.util.StringList;
 
 public final class FunctionIdUtil {

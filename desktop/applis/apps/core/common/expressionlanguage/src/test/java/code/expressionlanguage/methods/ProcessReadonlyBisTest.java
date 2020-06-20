@@ -2,9 +2,10 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -57,13 +58,13 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExTwo", "sec"));
+        field_ = getField(str_, new ClassField("pkg.ExTwo", "sec"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(24, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
     }
@@ -107,13 +108,13 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExTwo", "sec"));
+        field_ = getField(str_, new ClassField("pkg.ExTwo", "sec"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
     }
@@ -177,13 +178,13 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExTwo", "sec"));
+        field_ = getField(str_, new ClassField("pkg.ExTwo", "sec"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
         assertEq(1,((IntStruct)cont_.getClasses().getStaticField(new ClassField("pkg.ExThree","anceSt"))).intStruct());
@@ -232,13 +233,13 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExTwo", "sec"));
+        field_ = getField(str_, new ClassField("pkg.ExTwo", "sec"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
         assertEq(3,((IntStruct)cont_.getClasses().getStaticField(new ClassField("pkg.ExThree","anceSt"))).intStruct());
@@ -287,13 +288,13 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExTwo", "sec"));
+        field_ = getField(str_, new ClassField("pkg.ExTwo", "sec"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.ExThree", "ance"));
+        field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(17, ((NumberStruct)field_).intStruct());
         assertEq(3,((IntStruct)cont_.getClasses().getStaticField(new ClassField("pkg.ExThree","anceSt"))).intStruct());
@@ -589,10 +590,10 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
@@ -621,10 +622,10 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
-        field_ = getField((FieldableStruct) str_, new ClassField("pkg.Ex", "inst"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "inst"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(5, ((NumberStruct)field_).intStruct());
-        field_ = getField((FieldableStruct)str_, new ClassField("pkg.Ex", "ance"));
+        field_ = getField(str_, new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
     }

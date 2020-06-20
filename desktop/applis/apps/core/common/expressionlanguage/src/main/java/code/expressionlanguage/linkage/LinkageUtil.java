@@ -1,16 +1,19 @@
 package code.expressionlanguage.linkage;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.coverage.*;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.methods.*;
-import code.expressionlanguage.opers.*;
-import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.util.*;
 
@@ -601,7 +604,7 @@ public class LinkageUtil {
         AffectationOperation root_ = (AffectationOperation) _cond.getRoot();
         StandardInstancingOperation inst_ = (StandardInstancingOperation) root_.getFirstChild().getNextSibling();
         String cl_ = inst_.getClassName();
-        cl_ = Templates.getIdFromAllTypes(cl_);
+        cl_ = StringExpUtil.getIdFromAllTypes(cl_);
         ConstructorId c_ = inst_.getConstId();
         GeneType type_ = _cont.getClassBody(cl_);
         String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
@@ -726,7 +729,7 @@ public class LinkageUtil {
         AffectationOperation root_ = (AffectationOperation) _cond.getRoot();
         StandardInstancingOperation inst_ = (StandardInstancingOperation) root_.getFirstChild().getNextSibling();
         String cl_ = inst_.getClassName();
-        cl_ = Templates.getIdFromAllTypes(cl_);
+        cl_ = StringExpUtil.getIdFromAllTypes(cl_);
         ConstructorId c_ = inst_.getConstId();
         GeneType type_ = _cont.getClassBody(cl_);
         String file_ = ((ExecRootBlock) type_).getFile().getFileName();
@@ -1015,7 +1018,7 @@ public class LinkageUtil {
             ArrOperation par_ = (ArrOperation) val_;
             ClassMethodId classMethodId_ = par_.getClassMethodId();
             String className_ = classMethodId_.getClassName();
-            className_ = Templates.getIdFromAllTypes(className_);
+            className_ = StringExpUtil.getIdFromAllTypes(className_);
             MethodId methodId_ = classMethodId_.getConstraints();
             MethodId id_;
             if (par_.isVariable()) {
@@ -1038,7 +1041,7 @@ public class LinkageUtil {
             int delta_ = a_.getSum();
             String className_ = c_.getClassName();
             String currentFileName_ = _cont.getCoverage().getCurrentFileName();
-            className_ = Templates.getIdFromAllTypes(className_);
+            className_ = StringExpUtil.getIdFromAllTypes(className_);
             addParts(_cont,currentFileName_,className_,
                     new MethodId(MethodAccessKind.INSTANCE,c_.getFieldName(),new StringList()),
                     sum_ +delta_+ val_.getIndexInEl(),fieldName_.length(),_parts
@@ -1057,13 +1060,13 @@ public class LinkageUtil {
     }
 
     private static void processNamedFct(ContextEl _cont, String currentFileName_, int sum_, OperationNode val_, CustList<PartOffset> _parts) {
-        if (val_ instanceof FctOperation||val_ instanceof ChoiceFctOperation||val_ instanceof SuperFctOperation) {
+        if (val_ instanceof FctOperation||val_ instanceof ChoiceFctOperation ||val_ instanceof SuperFctOperation) {
             if (val_ instanceof FctOperation) {
                 _parts.addAllElts(((FctOperation)val_).getPartOffsets());
                 int delta_ = ((FctOperation) val_).getDelta();
                 ClassMethodId classMethodId_ = ((FctOperation) val_).getClassMethodId();
                 String className_ = classMethodId_.getClassName();
-                className_ = Templates.getIdFromAllTypes(className_);
+                className_ = StringExpUtil.getIdFromAllTypes(className_);
                 MethodId id_ = classMethodId_.getConstraints();
                 addParts(_cont,currentFileName_,className_,id_,
                         sum_ +delta_+ val_.getIndexInEl(),id_.getName().length(),
@@ -1074,7 +1077,7 @@ public class LinkageUtil {
                 int delta_ = ((ChoiceFctOperation) val_).getDelta();
                 ClassMethodId classMethodId_ = ((ChoiceFctOperation) val_).getClassMethodId();
                 String className_ = classMethodId_.getClassName();
-                className_ = Templates.getIdFromAllTypes(className_);
+                className_ = StringExpUtil.getIdFromAllTypes(className_);
                 MethodId id_ = classMethodId_.getConstraints();
                 addParts(_cont,currentFileName_,className_,id_,
                         sum_ +delta_+ val_.getIndexInEl(),id_.getName().length(),
@@ -1085,7 +1088,7 @@ public class LinkageUtil {
                 int delta_ = ((SuperFctOperation) val_).getDelta();
                 ClassMethodId classMethodId_ = ((SuperFctOperation) val_).getClassMethodId();
                 String className_ = classMethodId_.getClassName();
-                className_ = Templates.getIdFromAllTypes(className_);
+                className_ = StringExpUtil.getIdFromAllTypes(className_);
                 MethodId id_ = classMethodId_.getConstraints();
                 addParts(_cont,currentFileName_,className_,id_,
                         sum_ +delta_+ val_.getIndexInEl(),id_.getName().length(),
@@ -1230,7 +1233,7 @@ public class LinkageUtil {
     private static void processInstances(ContextEl _cont, String currentFileName_, int sum_, OperationNode val_, CustList<PartOffset> _parts) {
         if (val_ instanceof StandardInstancingOperation) {
             String cl_ = ((StandardInstancingOperation)val_).getClassName();
-            cl_ = Templates.getIdFromAllTypes(cl_);
+            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
             ConstructorId c_ = ((StandardInstancingOperation)val_).getConstId();
             StandardInstancingOperation inst_ = (StandardInstancingOperation) val_;
             if (inst_.getFieldName().isEmpty()) {
@@ -1283,14 +1286,14 @@ public class LinkageUtil {
         int off_ = ((LambdaOperation)val_).getClassNameOffset();
         if (classMethodId_ != null) {
             String className_ = classMethodId_.getClassName();
-            className_ = Templates.getIdFromAllTypes(className_);
+            className_ = StringExpUtil.getIdFromAllTypes(className_);
             MethodId id_ = classMethodId_.getConstraints();
             addParts(_cont,currentFileName_,className_,id_,
                     off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),
                     _parts);
         } else if (realId_ != null) {
             String cl_ = ((LambdaOperation) val_).getFoundClass();
-            cl_ = Templates.getIdFromAllTypes(cl_);
+            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
             addParts(_cont,currentFileName_,cl_,realId_,
                     off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),
                     _parts);
@@ -1311,7 +1314,7 @@ public class LinkageUtil {
             if (val_ instanceof InterfaceInvokingConstructor) {
                 ConstructorId c_ = ((AbstractInvokingConstructor)val_).getConstId();
                 String cl_ = c_.getName();
-                cl_ = Templates.getIdFromAllTypes(cl_);
+                cl_ = StringExpUtil.getIdFromAllTypes(cl_);
                 addParts(_cont,currentFileName_,cl_,c_,
                         sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
                         _parts);
@@ -1319,7 +1322,7 @@ public class LinkageUtil {
             } else if (val_ instanceof InterfaceFctConstructor) {
                 ConstructorId c_ = ((AbstractInvokingConstructor)val_).getConstId();
                 String cl_ = c_.getName();
-                cl_ = Templates.getIdFromAllTypes(cl_);
+                cl_ = StringExpUtil.getIdFromAllTypes(cl_);
                 addParts(_cont,currentFileName_,cl_,c_,
                         sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
                         _parts);
@@ -1327,7 +1330,7 @@ public class LinkageUtil {
             } else{
                 ConstructorId c_ = ((AbstractInvokingConstructor) val_).getConstId();
                 String cl_ = c_.getName();
-                cl_ = Templates.getIdFromAllTypes(cl_);
+                cl_ = StringExpUtil.getIdFromAllTypes(cl_);
                 addParts(_cont, currentFileName_, cl_, c_,
                         sum_ + val_.getIndexInEl(), ((AbstractInvokingConstructor) val_).getOffsetOper(),
                         _parts);
@@ -1369,7 +1372,7 @@ public class LinkageUtil {
             String className_ = ((ExplicitOperation) val_).getClassName();
             int offsetOp_ = val_.getOperations().getOperators().firstKey();
             MethodId castId_ = ((ExplicitOperation) val_).getCastOpId();
-            addParts(_cont,currentFileName_,Templates.getIdFromAllTypes(className_),castId_,
+            addParts(_cont,currentFileName_,StringExpUtil.getIdFromAllTypes(className_),castId_,
                     offsetOp_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordExplicit().length(),
                     _parts);
             _parts.addAllElts(((ExplicitOperation)val_).getPartOffsets());
@@ -1378,7 +1381,7 @@ public class LinkageUtil {
             String className_ = ((ImplicitOperation) val_).getClassName();
             int offsetOp_ = val_.getOperations().getOperators().firstKey();
             MethodId castId_ = ((ImplicitOperation) val_).getCastOpId();
-            addParts(_cont,currentFileName_,Templates.getIdFromAllTypes(className_),castId_,
+            addParts(_cont,currentFileName_,StringExpUtil.getIdFromAllTypes(className_),castId_,
                     offsetOp_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordCast().length(),
                     _parts);
             _parts.addAllElts(((ImplicitOperation)val_).getPartOffsets());
@@ -1399,7 +1402,7 @@ public class LinkageUtil {
                     ArrOperation parArr_ = (ArrOperation) par_.getSettable();
                     ClassMethodId classMethodIdArr_ = parArr_.getClassMethodId();
                     String className_ = classMethodIdArr_.getClassName();
-                    className_ = Templates.getIdFromAllTypes(className_);
+                    className_ = StringExpUtil.getIdFromAllTypes(className_);
                     MethodId methodId_ = classMethodIdArr_.getConstraints();
                     MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                     addParts(_cont,currentFileName_,className_,id_,
@@ -1547,7 +1550,7 @@ public class LinkageUtil {
             ArrOperation parArr_ = (ArrOperation) settable_;
             ClassMethodId classMethodIdArr_ = parArr_.getClassMethodId();
             String className_ = classMethodIdArr_.getClassName();
-            className_ = Templates.getIdFromAllTypes(className_);
+            className_ = StringExpUtil.getIdFromAllTypes(className_);
             MethodId methodId_ = classMethodIdArr_.getConstraints();
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
             addParts(_cont,currentFileName_,className_,id_,opDelta_+offsetEnd_,1,_parts);
@@ -1577,7 +1580,7 @@ public class LinkageUtil {
             ArrOperation par_ = (ArrOperation) parentOp_;
             ClassMethodId classMethodId_ = par_.getClassMethodId();
             String className_ = classMethodId_.getClassName();
-            className_ = Templates.getIdFromAllTypes(className_);
+            className_ = StringExpUtil.getIdFromAllTypes(className_);
             MethodId methodId_ = classMethodId_.getConstraints();
             MethodId id_;
             if (par_.isVariable()) {
@@ -1606,7 +1609,7 @@ public class LinkageUtil {
                     ArrOperation parArr_ = (ArrOperation) par_.getSettable();
                     ClassMethodId classMethodIdArr_ = parArr_.getClassMethodId();
                     String className_ = classMethodIdArr_.getClassName();
-                    className_ = Templates.getIdFromAllTypes(className_);
+                    className_ = StringExpUtil.getIdFromAllTypes(className_);
                     MethodId methodId_ = classMethodIdArr_.getConstraints();
                     MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                     addParts(_cont,currentFileName_,className_,id_,offsetEnd_+1,1,_parts);
@@ -1689,7 +1692,7 @@ public class LinkageUtil {
         if (_id == null) {
             return;
         }
-        String cl_ = Templates.getIdFromAllTypes(_className);
+        String cl_ = StringExpUtil.getIdFromAllTypes(_className);
         String rel_ = getRelativize(_cont, _currentFileName, _className, _id);
         if (rel_.isEmpty()) {
             return;
@@ -1710,7 +1713,7 @@ public class LinkageUtil {
     }
     private static String getRelativize(ContextEl _cont, String _currentFileName, String _className, Identifiable _id) {
         String rel_;
-        String cl_ = Templates.getIdFromAllTypes(_className);
+        String cl_ = StringExpUtil.getIdFromAllTypes(_className);
         GeneType type_ = _cont.getClassBody(cl_);
         if (!isFromCustFile(type_)) {
             if (_id instanceof MethodId) {
@@ -1759,7 +1762,7 @@ public class LinkageUtil {
     private static void updateFieldAnchor(ContextEl _cont, CustList<PartOffset> _parts, ClassField _id, int _begin, int _length) {
         String className_ = _id.getClassName();
         String currentFileName_ = _cont.getCoverage().getCurrentFileName();
-        className_ = Templates.getIdFromAllTypes(className_);
+        className_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _cont.getClassBody(className_);
         if (!isFromCustFile(type_)) {
             return;
@@ -1865,7 +1868,7 @@ public class LinkageUtil {
             return false;
         }
         for (String s: _type.getNames()) {
-            String id_ = Templates.getIdFromAllTypes(s);
+            String id_ = StringExpUtil.getIdFromAllTypes(s);
             GeneType cl_ = _cont.getClassBody(id_);
             if (!(cl_ instanceof ExecRootBlock)) {
                 continue;
@@ -1873,7 +1876,7 @@ public class LinkageUtil {
             if (cl_ instanceof ExecAnnotationBlock) {
                 continue;
             }
-            if (OperationNode.tryGetDeclaredToString(_cont,s).isFoundMethod()) {
+            if (ExecOperationNode.tryGetDeclaredToString(_cont,s).isFoundMethod()) {
                 return true;
             }
         }

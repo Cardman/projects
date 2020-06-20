@@ -8,9 +8,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.methods.StackableBlock;
-import code.expressionlanguage.methods.WithNotEmptyEl;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.util.CustList;
 import code.util.StringList;
@@ -56,7 +54,7 @@ public final class ExecSwitchBlock extends ExecBracedBlock implements StackableB
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
         ip_.setGlobalOffset(valueOffset);
         ip_.setOffset(0);
-        Argument arg_ =  ElUtil.tryToCalculate(_cont,el_,0);
+        Argument arg_ =  ExpressionLanguage.tryToCalculate(_cont,el_,0);
         if (_cont.callsOrException()) {
             return;
         }

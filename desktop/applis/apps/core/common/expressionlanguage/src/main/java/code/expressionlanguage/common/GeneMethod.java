@@ -1,6 +1,6 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.functionid.MethodId;
 
 
 public interface GeneMethod extends GeneFunction {

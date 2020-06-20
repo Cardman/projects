@@ -2,7 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.opers.BitOrOperation;
+import code.expressionlanguage.analyze.opers.BitOrOperation;
 import code.expressionlanguage.structs.NumberStruct;
 
 public final class ExecBitOrOperation extends ExecStdNumericOperation {

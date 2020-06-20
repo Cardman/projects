@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.*;
@@ -100,7 +101,7 @@ public final class GraphicComboStruct extends InputStruct {
     }
     public ArrayStruct getSelectedIndexes(ContextEl _cont) {
         int selectedIndex_ = graphicCombo.getSelectedIndex();
-        String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(_cont.getStandards().getAliasPrimInteger());
+        String arrInt_ = StringExpUtil.getPrettyArrayType(_cont.getStandards().getAliasPrimInteger());
         if (selectedIndex_ == -1) {
             return new ArrayStruct(new Struct[0], arrInt_);
         }

@@ -2,7 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.EnumValueOfOperation;
+import code.expressionlanguage.analyze.opers.EnumValueOfOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;

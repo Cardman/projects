@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.DotOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.DotOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.IdMap;
 
 public final class ExecDotOperation extends ExecAbstractDotOperation {

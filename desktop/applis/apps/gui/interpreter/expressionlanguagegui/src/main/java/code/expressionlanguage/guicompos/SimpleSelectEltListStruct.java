@@ -2,11 +2,10 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.MethodAccessKind;
-import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.utilcompo.RunnableStruct;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.gui.IndexableListener;
 import code.util.CustList;
 import code.util.StringList;

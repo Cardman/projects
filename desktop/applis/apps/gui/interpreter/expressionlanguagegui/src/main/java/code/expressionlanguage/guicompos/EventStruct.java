@@ -2,7 +2,8 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.*;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.utilcompo.LgNamesUtils;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilcompo.RunnableStruct;
@@ -11,8 +12,6 @@ import code.expressionlanguage.structs.*;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.ObjectMap;
 import code.util.StringList;
 
 import javax.swing.event.*;

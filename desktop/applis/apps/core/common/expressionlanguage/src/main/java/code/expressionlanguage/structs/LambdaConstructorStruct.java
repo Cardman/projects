@@ -2,7 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.functionid.ConstructorId;
 
 public final class LambdaConstructorStruct extends WithoutParentIdStruct implements LambdaStruct {
 

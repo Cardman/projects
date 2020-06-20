@@ -2,10 +2,11 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.calls.util.CustomReflectMethod;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassFieldStruct;
+import code.expressionlanguage.common.ClassField;
+
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 

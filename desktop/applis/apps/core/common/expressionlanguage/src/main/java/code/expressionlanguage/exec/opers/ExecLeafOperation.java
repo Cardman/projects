@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.opers.LeafOperation;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.LeafOperation;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 
 public abstract class ExecLeafOperation extends ExecOperationNode {
 

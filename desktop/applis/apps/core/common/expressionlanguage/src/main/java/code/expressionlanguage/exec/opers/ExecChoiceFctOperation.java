@@ -3,12 +3,14 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.ChoiceFctOperation;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CustList;
@@ -63,19 +65,19 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
         Argument prev_ = new Argument();
         if (!staticMethod) {
             classNameFound_ = classMethodId.getClassName();
-            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
+            prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
             if (_conf.callsOrException()) {
                 return new Argument();
             }
             String argClassName_ = prev_.getStruct().getClassName(_conf);
             classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
-            if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
+            if (!ExecTemplates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                 _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
                 return new Argument();
             }
-            String base_ = Templates.getIdFromAllTypes(classNameFound_);
-            String fullClassNameFound_ = Templates.getSuperGeneric(argClassName_, base_, _conf);
+            String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
+            String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = realId;
@@ -85,7 +87,7 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
             classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
             lastType_ = classMethodId.formatType(classNameFound_,lastType_,_conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
-            if (_conf.hasToExit(classNameFound_)) {
+            if (ExecutingUtil.hasToExit(_conf,classNameFound_)) {
                 return Argument.createVoid();
             }
         }

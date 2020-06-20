@@ -1,15 +1,14 @@
 package code.formathtml;
 
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecEnumBlock;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
@@ -64,7 +63,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                     type_);
             _cont.addError(un_);
         } else {
-            String id_ = Templates.getIdFromAllTypes(type_);
+            String id_ = StringExpUtil.getIdFromAllTypes(type_);
             if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont.getContext())) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
                     if (!(_cont.getContext().getClassBody(id_) instanceof ExecEnumBlock)) {

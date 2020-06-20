@@ -1,6 +1,7 @@
 package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
@@ -8,8 +9,8 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.assign.util.Assignment;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.FieldInfo;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -108,7 +109,7 @@ public final class AssCompoundAffectationOperation extends AssMultMethodOperatio
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
             if (AssUtil.checkFinalField(_conf, _ass,cst_, fieldsAfterLast_)) {
                 ClassField cl_ = cst_.getFieldId();
-                FieldInfo meta_ = _conf.getFieldInfo(cl_);
+                FieldInfo meta_ = ContextUtil.getFieldInfo(_conf,cl_);
                 if (meta_.isFinalField()) {
                     //error if final field
                     firstChild_.setRelativeOffsetPossibleAnalyzable(_conf);

@@ -1,7 +1,7 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.QuickOperation;
+import code.expressionlanguage.analyze.opers.QuickOperation;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.CustList;

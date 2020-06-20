@@ -3,9 +3,9 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.PageEl;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.ThisOperation;
+import code.expressionlanguage.analyze.opers.ThisOperation;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
@@ -37,7 +37,7 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
         a_.setStruct(struct_);
         if (isIntermediateDottedOperation()) {
             String c_ = getResultClass().getName();
-            a_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors, c_, a_.getStruct(), _conf));
+            a_.setStruct(ExecTemplates.getParent(nbAncestors, c_, a_.getStruct(), _conf));
         }
         return a_;
     }

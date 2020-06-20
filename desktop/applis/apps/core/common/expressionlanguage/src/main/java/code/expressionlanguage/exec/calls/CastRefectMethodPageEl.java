@@ -3,10 +3,11 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.ExplicitOperation;
+import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.analyze.opers.ExplicitOperation;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
@@ -25,7 +26,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
         if (direct) {
             return false;
         }
-        String res_ = Templates.correctClassPartsDynamic(method_.getClassName(), _cont, false);
+        String res_ = ExecTemplates.correctClassPartsDynamic(method_.getClassName(), _cont, false);
         if (res_.isEmpty()) {
             String null_;
             null_ = _cont.getStandards().getAliasIllegalArg();
@@ -36,10 +37,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
             return false;
         }
         String paramNameOwner_ = _cont.getLastPage().formatVarType(res_, _cont);
-        if (_cont.hasToExit(paramNameOwner_)) {
-            return true;
-        }
-        return false;
+        return ExecutingUtil.hasToExit(_cont, paramNameOwner_);
     }
 
     @Override
@@ -54,7 +52,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     @Override
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        String res_ = Templates.correctClassPartsDynamic(_className, _context, false);
+        String res_ = ExecTemplates.correctClassPartsDynamic(_className, _context, false);
         if (res_.isEmpty()) {
             String null_;
             null_ = _context.getStandards().getAliasIllegalArg();

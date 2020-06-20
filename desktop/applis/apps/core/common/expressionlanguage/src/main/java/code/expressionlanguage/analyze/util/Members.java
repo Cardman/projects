@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.util;
 
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.methods.*;
 import code.util.IdMap;
 
 public final class Members {

@@ -1,9 +1,13 @@
 package code.expressionlanguage.files;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.*;
+
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.methods.*;
+
+import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 import org.junit.Test;
@@ -9856,7 +9860,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
 
     private static RootBlock getClassBody(ContextEl _cont, String _className) {
         for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
-            if (StringList.quickEq(r.getFullName(),Templates.getIdFromAllTypes(_className))) {
+            if (StringList.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
                 return r;
             }
         }

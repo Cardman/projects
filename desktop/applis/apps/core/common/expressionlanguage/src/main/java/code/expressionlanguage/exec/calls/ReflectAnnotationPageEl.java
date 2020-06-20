@@ -2,14 +2,12 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
@@ -52,7 +50,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 }
             } else if (structBlock_ instanceof ClassMetaInfo) {
                 String cl_ = ApplyCoreMethodUtil.getClass(structBlock_).getName();
-                String id_ = Templates.getIdFromAllTypes(cl_);
+                String id_ = StringExpUtil.getIdFromAllTypes(cl_);
                 ExecRootBlock type_ = _context.getClasses().getClassBody(id_);
                 if (type_ != null) {
                     annotations= type_.getAnnotationsOps();
@@ -77,7 +75,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 //Field
                 String fieldId_ = ApplyCoreMethodUtil.getField(structBlock_).getName();
                 String cl_ = ApplyCoreMethodUtil.getField(structBlock_).getDeclaringClass();
-                String idClass_ = Templates.getIdFromAllTypes(cl_);
+                String idClass_ = StringExpUtil.getIdFromAllTypes(cl_);
                 ExecRootBlock type_ = _context.getClasses().getClassBody(idClass_);
                 if (type_ != null) {
                     for (ExecInfoBlock f: ExecBlock.getFieldBlocks(type_)) {
@@ -124,8 +122,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             if (onParameters) {
                 int len_ = annotationsParams.size();
                 String annot_ = stds_.getAliasAnnotationType();
-                annot_ = PrimitiveTypeUtil.getPrettyArrayType(annot_);
-                String annotArr_ = PrimitiveTypeUtil.getPrettyArrayType(annot_);
+                annot_ = StringExpUtil.getPrettyArrayType(annot_);
+                String annotArr_ = StringExpUtil.getPrettyArrayType(annot_);
                 array = new ArrayStruct(new Struct[len_], annotArr_);
                 int i_ = 0;
                 for (CustList<CustList<ExecOperationNode>> e: annotationsParams) {
@@ -137,7 +135,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             } else {
                 int len_ = annotations.size();
                 String annot_ = stds_.getAliasAnnotationType();
-                annot_ = PrimitiveTypeUtil.getPrettyArrayType(annot_);
+                annot_ = StringExpUtil.getPrettyArrayType(annot_);
                 array = new ArrayStruct(new Struct[len_], annot_);
             }
             retrievedAnnot = true;
@@ -151,7 +149,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 for (int j = indexAnnotation; j < lenLoc_; j++) {
                     CustList<ExecOperationNode> ops_ = annotationsParams.get(i).get(j);
                     ExpressionLanguage el_ = getCurrentEl(0,ops_);
-                    Argument ret_ = ElUtil.tryToCalculate(_context,el_,0);
+                    Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0);
                     if (_context.callsOrException()) {
                         return false;
                     }
@@ -167,7 +165,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             for (int i = indexAnnotation; i < len_; i++) {
                 CustList<ExecOperationNode> ops_ = annotations.get(i);
                 ExpressionLanguage el_ = getCurrentEl(0,ops_);
-                Argument ret_ = ElUtil.tryToCalculate(_context,el_,0);
+                Argument ret_ = ExpressionLanguage.tryToCalculate(_context,el_,0);
                 if (_context.callsOrException()) {
                     return false;
                 }

@@ -3,10 +3,11 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -28,7 +29,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
 
     protected boolean initDefault(ContextEl _cont) {
         MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct());
-        return method_.isWideStatic()&&_cont.hasToExit(method_.getClassName());
+        return method_.isWideStatic()&&ExecutingUtil.hasToExit(_cont,method_.getClassName());
     }
 
     @Override

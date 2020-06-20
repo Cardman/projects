@@ -1,5 +1,7 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
@@ -8,16 +10,8 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.files.CommentDelimiters;
-import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.instr.*;
-import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.methods.*;
 import code.expressionlanguage.exec.coverage.Coverage;
-import code.expressionlanguage.analyze.util.TypeVar;
-import code.expressionlanguage.opers.AnnotationInstanceOperation;
-import code.expressionlanguage.opers.AssocationOperation;
-import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
@@ -78,16 +72,6 @@ public abstract class ContextEl {
         setFullStack(new DefaultFullStack(this));
     }
 
-    public static CustList<ExecInfoBlock> getFieldBlocks(ExecRootBlock _element){
-        CustList<ExecInfoBlock> methods_ = new CustList<ExecInfoBlock>();
-        for (ExecBlock b: ExecBlock.getDirectChildren(_element)) {
-            if (b instanceof ExecInfoBlock) {
-                methods_.add((ExecInfoBlock) b);
-            }
-        }
-        return methods_;
-    }
-
     public GeneType getClassBody(String _type) {
         ExecRootBlock c_ = classes.getClassBody(_type);
         if (c_ != null) {
@@ -117,19 +101,6 @@ public abstract class ContextEl {
 
     public void setTabWidth(int _tabWidth) {
         tabWidth = _tabWidth;
-    }
-
-    public void addErrorIfNoMatch(String _generic, String _base, Block _currentBlock, int _location) {
-        String id_ = Templates.getIdFromAllTypes(_generic);
-        if (!StringList.quickEq(id_,_base)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_currentBlock.getFile().getFileName());
-            un_.setIndexFile(_location);
-            //one full direct super type
-            un_.buildError(getAnalysisMessages().getUnknownType(),
-                    _generic);
-            addError(un_);
-        }
     }
 
     private String getLocationFile(String _fileName, int _sum) {
@@ -195,58 +166,16 @@ public abstract class ContextEl {
         importing.removeLast();
     }
 
-    public void addPage(AbstractPageEl _page) {
-        LgNames stds_ = getStandards();
-        String sof_ = stds_.getAliasSof();
-        if (getStackOverFlow() >= CustList.FIRST_INDEX && getStackOverFlow() <= importing.size()) {
-            callingState = new ErrorStruct(this,sof_);
-        } else {
-            importing.add(_page);
-        }
+    public void addInternPage(AbstractPageEl _page) {
+        importing.add(_page);
     }
 
     public String getCurrentFileName() {
         return analyzing.getCurrentBlock().getFile().getFileName();
     }
 
-    public boolean hasDeclarator() {
-        Block bl_ = analyzing.getCurrentBlock();
-        return bl_.getPreviousSibling() instanceof DeclareVariable;
-    }
-
-    public void setupDeclaratorClass(String _className) {
-        Block bl_ = analyzing.getCurrentBlock();
-        Block previousSibling_ = bl_.getPreviousSibling();
-        ((DeclareVariable)previousSibling_).setImportedClassName(_className);
-    }
-
-    public boolean hasLoopDeclarator() {
-        Block bl_ = analyzing.getCurrentBlock();
-        return bl_ instanceof ForMutableIterativeLoop;
-    }
-
-    public void setupLoopDeclaratorClass(String _className) {
-        Block bl_ = analyzing.getCurrentBlock();
-        ((ForMutableIterativeLoop)bl_).setImportedClassName(_className);
-    }
-
     public AnalyzedPageEl getAnalyzing() {
         return analyzing;
-    }
-
-    public boolean isStaticAccess() {
-        if (isAnnotAnalysis()) {
-            return true;
-        }
-        Block bl_ = analyzing.getCurrentBlock();
-        if (bl_ instanceof InfoBlock) {
-            return ((InfoBlock)bl_).isStaticField();
-        }
-        if (bl_ instanceof RootBlock) {
-            return ((RootBlock)bl_).isStaticType();
-        }
-        MemberCallingsBlock fct_ = analyzing.getCurrentFct();
-        return fct_.getStaticContext() == MethodAccessKind.STATIC;
     }
 
     public void setAnalyzing() {
@@ -330,37 +259,6 @@ public abstract class ContextEl {
 
     public abstract Initializer getInit();
 
-    public static int getCurrentChildTypeIndex(ContextEl _an, OperationNode _op, GeneType _type, String _fieldName, String _realClassName) {
-        if (isEnumType(_type)) {
-            if (_fieldName.isEmpty()) {
-                FoundErrorInterpret call_ = new FoundErrorInterpret();
-                String file_ = _an.getAnalyzing().getLocalizer().getCurrentFileName();
-                int fileIndex_ = _an.getAnalyzing().getLocalizer().getCurrentLocationIndex();
-                call_.setFileName(file_);
-                call_.setIndexFile(fileIndex_);
-                //type len
-                call_.buildError(_an.getAnalysisMessages().getIllegalCtorEnum());
-                _an.getAnalyzing().getLocalizer().addError(call_);
-                _op.setResultClass(new ClassArgumentMatching(_realClassName));
-                return -2;
-            }
-            return _an.getAnalyzing().getIndexChildType();
-        }
-        return -1;
-    }
-    public static boolean isAbstractType(GeneType _type) {
-        if (_type instanceof StandardInterface) {
-            return true;
-        }
-        if (_type instanceof ExecRootBlock) {
-            return ((ExecRootBlock)_type).isAbstractType();
-        }
-        return ((StandardClass)_type).isAbstractStdType();
-    }
-    public static boolean isEnumType(GeneType _type) {
-        return _type instanceof ExecEnumBlock || _type instanceof ExecInnerElementBlock;
-    }
-
     public void setCurrentChildTypeIndex(int _index) {
         analyzing.setIndexChildType(_index);
     }
@@ -369,169 +267,18 @@ public abstract class ContextEl {
         return analyzing.isFinalLocalVar(_key, _index);
     }
 
+    public AbstractFullStack getFullStack() {
+        return fullStack;
+    }
+
     public final void setFullStack(AbstractFullStack fullStack) {
         this.fullStack = fullStack;
-    }
-
-    public ArrayStruct newStackTraceElementArrayFull() {
-        return fullStack.newStackTraceElementArray();
-    }
-
-    public ArrayStruct newStackTraceElementArray() {
-        int count_ = nbPages();
-        Struct[] arr_ = new Struct[count_];
-        for (int i = 0; i < count_; i++) {
-            arr_[i] = newStackTraceElement(i);
-        }
-        String cl_ = getStandards().getAliasStackTraceElement();
-        cl_ = PrimitiveTypeUtil.getPrettyArrayType(cl_);
-        return new ArrayStruct(arr_, cl_);
-    }
-
-    public StackTraceElementStruct newStackTraceElement(int _index) {
-        AbstractPageEl call_ = getCall(_index);
-        int indexFileType = call_.getTraceIndex();
-        ExecFileBlock f_ = call_.getFile();
-        String fileName;
-        int row;
-        int col;
-        if (f_ != null) {
-            fileName = f_.getFileName();
-            row = f_.getRowFile(indexFileType);
-            col = f_.getColFile(indexFileType,row);
-        } else {
-            fileName = "";
-            row = 0;
-            col = 0;
-        }
-        String currentClassName = call_.getGlobalClass();
-        ExecBlock bl_ = call_.getBlockRoot();
-        if (bl_ != null) {
-            FunctionBlock fct_ = bl_.getFunction();
-            if (fct_ instanceof ReturnableWithSignature) {
-                String signature =((ReturnableWithSignature)fct_).getSignature(this);
-                return new StackTraceElementStruct(fileName,row,col,indexFileType,currentClassName,signature);
-            }
-        }
-        String signature = "";
-        return new StackTraceElementStruct(fileName,row,col,indexFileType,currentClassName,signature);
     }
 
     public StringList getNeedInterfaces() {
         return analyzing.getNeedInterfaces();
     }
 
-    public StringMap<StringList> getCurrentConstraints() {
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (EntryCust<String,TypeVar> e: getCurrentConstraintsFull().entryList()) {
-            vars_.addEntry(e.getKey(), e.getValue().getConstraints());
-        }
-        return vars_;
-    }
-
-    public void buildCurrentConstraintsFull() {
-        StringMap<TypeVar> vars_ = getCurrentConstraintsFull();
-        analyzing.getAvailableVariables().clear();
-        for (EntryCust<String,TypeVar> e: vars_.entryList()) {
-            analyzing.getAvailableVariables().addEntry(e.getKey(),e.getValue().getOffset());
-        }
-    }
-    private StringMap<TypeVar> getCurrentConstraintsFull() {
-        if (isAnnotAnalysis()) {
-            return new StringMap<TypeVar>();
-        }
-        Block bl_ = analyzing.getCurrentBlock();
-        ExecAccessingImportingBlock r_ = getCurrentGlobalBlock();
-        StringMap<TypeVar> vars_ = new StringMap<TypeVar>();
-
-        boolean static_;
-        if (bl_ instanceof InfoBlock) {
-            static_ = ((InfoBlock)bl_).isStaticField();
-        } else {
-            MemberCallingsBlock fct_ = analyzing.getCurrentFct();
-            if (fct_ == null) {
-                static_ = true;
-            } else if (isExplicitFct(fct_)){
-                static_ = false;
-            } else {
-                static_ = fct_.getStaticContext() == MethodAccessKind.STATIC;
-            }
-        }
-        if (r_ instanceof ExecRootBlock && !static_) {
-            for (TypeVar t: ((ExecRootBlock)r_).getParamTypesMapValues()) {
-                vars_.put(t.getName(), t);
-            }
-        }
-        return vars_;
-    }
-
-    private boolean isExplicitFct(FunctionBlock _fct) {
-        return _fct instanceof OverridableBlock
-                && (((OverridableBlock) _fct).getKind() == MethodKind.EXPLICIT_CAST
-        ||((OverridableBlock) _fct).getKind() == MethodKind.IMPLICIT_CAST);
-    }
-
-
-    public void appendParts(int _begin, int _end, String _in, CustList<PartOffset> _parts) {
-        if (!isCovering()) {
-            return;
-        }
-        GeneType g_ = getClassBody(_in);
-        if (!LinkageUtil.isFromCustFile(g_)) {
-            return;
-        }
-        ExecAccessingImportingBlock r_ = getCurrentGlobalBlock();
-        int rc_ = getCurrentLocationIndex();
-        String curr_ = ((ExecBlock)r_).getFile().getRenderFileName();
-        String ref_ = ((ExecRootBlock) g_).getFile().getRenderFileName();
-        String rel_ = LinkageUtil.relativize(curr_,ref_);
-        int id_ = ((ExecRootBlock) g_).getIdRowCol();
-        _parts.add(new PartOffset("<a title=\""+g_.getFullName()+"\" href=\""+rel_+"#m"+id_+"\">",rc_+_begin));
-        _parts.add(new PartOffset("</a>",rc_+_end));
-    }
-
-    public void appendTitleParts(int _begin, int _end, String _in, CustList<PartOffset> _parts) {
-        if (!isCovering()) {
-            return;
-        }
-        int rc_ = getCurrentLocationIndex();
-        _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(_in)+"\">",rc_+_begin));
-        _parts.add(new PartOffset("</a>",rc_+_end));
-    }
-
-    public FieldInfo getFieldInfo(ClassField _classField) {
-        GeneType g_ = getClassBody(_classField.getClassName());
-        String search_ = _classField.getFieldName();
-        if (g_ instanceof ExecRootBlock) {
-            for (ExecBlock b: ExecBlock.getDirectChildren((ExecBlock) g_)) {
-                if (!(b instanceof ExecInfoBlock)) {
-                    continue;
-                }
-                ExecInfoBlock i_ = (ExecInfoBlock) b;
-                if (!StringList.contains(i_.getFieldName(), search_)) {
-                    continue;
-                }
-                String type_ = i_.getImportedClassName();
-                boolean final_ = i_.isFinalField();
-                boolean static_ = i_.isStaticField();
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_,i_);
-            }
-            return null;
-        }
-        if (g_ instanceof StandardType) {
-            for (EntryCust<String, StandardField> f: ((StandardType)g_).getFields().entryList()) {
-                StandardField f_ = f.getValue();
-                if (!StringList.contains(f_.getFieldName(), search_)) {
-                    continue;
-                }
-                String type_ = f_.getImportedClassName();
-                boolean final_ = f_.isFinalField();
-                boolean static_ = f_.isStaticField();
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, f_);
-            }
-        }
-        return null;
-    }
 
     public boolean isAssignedStaticFields() {
         return analyzing.isAssignedStaticFields();
@@ -555,20 +302,6 @@ public abstract class ContextEl {
 
     public String getIndexClassName() {
         return ((ForMutableIterativeLoop)analyzing.getCurrentBlock()).getImportedClassIndexName();
-    }
-
-    public boolean isAnnotAnalysis(OperationNode _op, OperationsSequence _seq) {
-        boolean ok_ = false;
-        if ((analyzing.getCurrentBlock() instanceof AnnotationMethodBlock && _op == null)
-                || _op instanceof AssocationOperation
-                || _op instanceof AnnotationInstanceOperation) {
-            ok_ = true;
-        }
-        if (!ok_) {
-            return false;
-        }
-        String op_ = _seq.getOperators().firstValue();
-        return StringList.quickEq(op_, String.valueOf('{'));
     }
 
     public boolean isAnnotAnalysis() {
@@ -604,94 +337,6 @@ public abstract class ContextEl {
 
     public void setKeyWords(KeyWords _keyWords) {
         keyWords = _keyWords;
-    }
-
-    public boolean isValidSingleToken(String _id) {
-        if (!isValidToken(_id)) {
-            return false;
-        }
-        return idDisjointToken(_id);
-    }
-
-    public boolean idDisjointToken(String _id) {
-        return isNotVar(_id);
-    }
-
-    public boolean isNotVar(String _id) {
-        if (analyzing.containsLocalVar(_id)) {
-            return false;
-        }
-        if (analyzing.containsCatchVar(_id)) {
-            return false;
-        }
-        if (analyzing.containsMutableLoopVar(_id)) {
-            return false;
-        }
-        if (analyzing.containsVar(_id)) {
-            return false;
-        }
-        return !analyzing.getParameters().contains(_id);
-    }
-
-    public boolean isValidToken(String _id) {
-        Block b_ = analyzing.getCurrentBlock();
-        boolean pred_ = b_.getFile().isPredefined();
-        return isValidToken(_id, pred_);
-    }
-
-    public boolean isValidToken(String _id, boolean _pred) {
-        if (_pred) {
-            if (!StringList.isDollarWord(_id)) {
-                return false;
-            }
-        } else {
-            if (!StringList.isWord(_id)) {
-                return false;
-            }
-        }
-        if (PrimitiveTypeUtil.isPrimitive(_id, this)) {
-            return false;
-        }
-        if (keyWords.isKeyWordNotVar(_id)) {
-            return false;
-        }
-        if (StringList.quickEq(_id, standards.getAliasVoid())) {
-            return false;
-        }
-        return !StringExpUtil.isDigit(_id.charAt(0));
-    }
-
-    public boolean hasToExit(String _className) {
-        Classes classes_ = getClasses();
-        String idClass_ = Templates.getIdFromAllTypes(_className);
-        String curClass_ = getLastPage().getGlobalClass();
-        curClass_ = Templates.getIdFromAllTypes(curClass_);
-        if (StringList.quickEq(curClass_, idClass_)) {
-            return false;
-        }
-        ExecRootBlock c_ = classes_.getClassBody(idClass_);
-        if (c_ != null) {
-            DefaultLockingClass locks_ = classes_.getLocks();
-            if (getInitializingTypeInfos().isInitEnums()) {
-                InitClassState res_ = locks_.getState(idClass_);
-                if (res_ != InitClassState.SUCCESS) {
-                    getInitializingTypeInfos().failInitEnums();
-                    return true;
-                }
-                return false;
-            }
-            InitClassState res_ = locks_.getState(this, idClass_);
-            if (res_ == InitClassState.NOT_YET) {
-                setCallingState(new NotInitializedClass(idClass_));
-                return true;
-            }
-            if (res_ == InitClassState.ERROR) {
-                CausingErrorStruct causing_ = new CausingErrorStruct(idClass_, this);
-                setException(causing_);
-                return true;
-            }
-        }
-        return false;
     }
 
     public CustList<CommentDelimiters> getComments() {

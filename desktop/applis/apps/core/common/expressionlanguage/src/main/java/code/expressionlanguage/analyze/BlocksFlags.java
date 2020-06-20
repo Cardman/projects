@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.analyze.blocks.Block;
 import code.util.BooleanList;
 import code.util.IdList;
 import code.util.IdMap;

@@ -1,7 +1,7 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.EqOperation;
+import code.expressionlanguage.analyze.opers.EqOperation;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.Configuration;
 import code.util.CustList;

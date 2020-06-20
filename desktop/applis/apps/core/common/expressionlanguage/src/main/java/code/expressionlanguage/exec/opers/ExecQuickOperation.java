@@ -2,7 +2,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.QuickOperation;
+import code.expressionlanguage.analyze.opers.QuickOperation;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;

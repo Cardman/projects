@@ -4,8 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.opers.ImplicitOperation;
-import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.analyze.opers.ImplicitOperation;
+import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.IdMap;
 

@@ -1,16 +1,16 @@
 package code.formathtml;
 
-import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.Mapping;
+import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
@@ -167,7 +167,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         Mapping m_ = new Mapping();
         m_.setArg(initEl_.getResultClass());
         m_.setParam(elementClass_);
-        if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
+        if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(initEl_.getResultClass());
             mapping_.setParam(elementClass_);
@@ -186,7 +186,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         RendDynOperationNode expressionEl_ = opExp.last();
         m_.setArg(expressionEl_.getResultClass());
         m_.setParam(elementClass_);
-        if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
+        if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(expressionEl_.getResultClass());
             mapping_.setParam(elementClass_);
@@ -205,7 +205,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         RendDynOperationNode stepEl_ = opStep.last();
         m_.setArg(stepEl_.getResultClass());
         m_.setParam(elementClass_);
-        if (!Templates.isCorrectOrNumbers(m_,_cont.getContext())) {
+        if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(stepEl_.getResultClass());
             mapping_.setParam(elementClass_);

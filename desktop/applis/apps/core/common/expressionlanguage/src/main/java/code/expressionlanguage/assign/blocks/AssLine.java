@@ -5,7 +5,6 @@ import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.exec.blocks.ExecLine;
-import code.expressionlanguage.methods.Line;
 import code.util.CustList;
 
 public final class AssLine extends AssLeaf implements AssBuildableElMethod {

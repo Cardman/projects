@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
@@ -32,7 +33,7 @@ final class AnaWildCardPartType extends AnaParentPartType {
         }
         AnaPartType prev_ = getParent().getFirstChild();
         String base_ = prev_.getAnalyzedType();
-        base_ = Templates.getIdFromAllTypes(base_);
+        base_ = StringExpUtil.getIdFromAllTypes(base_);
         if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
             return;
         }
@@ -48,7 +49,7 @@ final class AnaWildCardPartType extends AnaParentPartType {
         }
         AnaPartType prev_ = getParent().getFirstChild();
         String base_ = prev_.getAnalyzedType();
-        base_ = Templates.getIdFromAllTypes(base_);
+        base_ = StringExpUtil.getIdFromAllTypes(base_);
         if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
             return;
         }

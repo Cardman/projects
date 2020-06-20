@@ -1,6 +1,7 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.util.CollCapacity;
 import code.util.StringList;
 
@@ -18,8 +19,8 @@ public final class ErrorStruct extends WithoutParentIdStruct implements Erroneou
     }
 
     public ErrorStruct(ContextEl _context, String _message, String _className) {
-        stack = _context.newStackTraceElementArray();
-        fullStack = _context.newStackTraceElementArrayFull();
+        stack = ExecutingUtil.newStackTraceElementArray(_context);
+        fullStack = ExecutingUtil.newStackTraceElementArrayFull(_context);
         className = _className;
         message = _message;
     }
