@@ -704,6 +704,11 @@ public class LinkageUtil {
         int endName_ = begName_ + _cond.getName().length();
         _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
         _parts.add(new PartOffset("</a>",endName_));
+        int lenImp_ = _cond.getImports().size();
+        for (int i = 0; i < lenImp_; i++) {
+            _parts.add(new PartOffset("<span class=\"i\">", _cond.getImportsOffset().get(i)));
+            _parts.add(new PartOffset("</span>", _cond.getImportsOffset().get(i)+ _cond.getImports().get(i).length()));
+        }
         _parts.addAllElts(_cond.getPartOffsetsReturn());
         int len_ = _cond.getParametersNamesOffset().size();
         for (int i = 0; i < len_; i++) {
@@ -748,6 +753,9 @@ public class LinkageUtil {
 
     private static void processRootBlockReport(RootBlock _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         processAnnotationReport(_cond,_cont, _parts);
+        for (PartOffset p: _cond.getPartsStaticInitInterfacesOffset()) {
+            _parts.add(p);
+        }
         int len_ = _cond.getImports().size();
         for (int i = 0; i < len_; i++) {
             _parts.add(new PartOffset("<span class=\"i\">", _cond.getImportsOffset().get(i)));
@@ -1293,13 +1301,37 @@ public class LinkageUtil {
     }
 
     private static void processRichHeader(ContextEl _cont, String currentFileName_, int sum_, OperationNode val_, CustList<PartOffset> _parts) {
+        if (val_ instanceof EnumValueOfOperation) {
+            _parts.addAllElts(((EnumValueOfOperation)val_).getPartOffsets());
+        }
+        if (val_ instanceof ValuesOperation) {
+            _parts.addAllElts(((ValuesOperation)val_).getPartOffsets());
+        }
         if (val_ instanceof AbstractInvokingConstructor) {
-            ConstructorId c_ = ((AbstractInvokingConstructor)val_).getConstId();
-            String cl_ = c_.getName();
-            cl_ = Templates.getIdFromAllTypes(cl_);
-            addParts(_cont,currentFileName_,cl_,c_,
-                    sum_ + val_.getIndexInEl(),((AbstractInvokingConstructor)val_).getOffsetOper(),
-                    _parts);
+            if (val_ instanceof InterfaceInvokingConstructor) {
+                ConstructorId c_ = ((AbstractInvokingConstructor)val_).getConstId();
+                String cl_ = c_.getName();
+                cl_ = Templates.getIdFromAllTypes(cl_);
+                addParts(_cont,currentFileName_,cl_,c_,
+                        sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
+                        _parts);
+                _parts.addAllElts(((InterfaceInvokingConstructor)val_).getPartOffsets());
+            } else if (val_ instanceof InterfaceFctConstructor) {
+                ConstructorId c_ = ((AbstractInvokingConstructor)val_).getConstId();
+                String cl_ = c_.getName();
+                cl_ = Templates.getIdFromAllTypes(cl_);
+                addParts(_cont,currentFileName_,cl_,c_,
+                        sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
+                        _parts);
+                _parts.addAllElts(((InterfaceFctConstructor)val_).getPartOffsets());
+            } else{
+                ConstructorId c_ = ((AbstractInvokingConstructor) val_).getConstId();
+                String cl_ = c_.getName();
+                cl_ = Templates.getIdFromAllTypes(cl_);
+                addParts(_cont, currentFileName_, cl_, c_,
+                        sum_ + val_.getIndexInEl(), ((AbstractInvokingConstructor) val_).getOffsetOper(),
+                        _parts);
+            }
         }
         if (val_ instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation par_ = (ExplicitOperatorOperation) val_;

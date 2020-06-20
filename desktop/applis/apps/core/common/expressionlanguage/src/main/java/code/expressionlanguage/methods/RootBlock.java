@@ -66,6 +66,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
 
     private StringList staticInitImportedInterfaces = new StringList();
     private Ints staticInitInterfacesOffset = new Ints();
+    private CustList<PartOffset> partsStaticInitInterfacesOffset = new CustList<PartOffset>();
 
     private StringList annotations = new StringList();
 
@@ -1547,5 +1548,9 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
 
     public CustList<PartOffset> getSuperTypesParts() {
         return superTypesParts;
+    }
+
+    public CustList<PartOffset> getPartsStaticInitInterfacesOffset() {
+        return partsStaticInitInterfacesOffset;
     }
 }

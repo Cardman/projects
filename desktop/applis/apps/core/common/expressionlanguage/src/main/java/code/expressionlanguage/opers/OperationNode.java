@@ -1502,6 +1502,9 @@ public abstract class OperationNode {
             }
         }
         GeneType info_ = _conf.getClassBody(id_);
+        if (info_ == null) {
+            return;
+        }
         t_.setBase(_base);
         t_.setSuperTypes(info_.getAllSuperTypes());
         _list.add(t_);

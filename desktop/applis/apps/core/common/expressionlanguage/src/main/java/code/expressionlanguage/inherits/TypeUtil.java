@@ -53,6 +53,7 @@ public final class TypeUtil {
                 page_.setGlobalOffset(offset_);
                 page_.setOffset(0);
                 base_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,base_);
+                c.getPartsStaticInitInterfacesOffset().addAllElts(_context.getCoverage().getCurrentParts());
                 ExecRootBlock r_ = classes_.getClassBody(base_);
                 if (!(r_ instanceof ExecInterfaceBlock)) {
                     FoundErrorInterpret enum_;

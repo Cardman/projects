@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -17,6 +18,8 @@ public final class ValuesOperation extends LeafOperation {
 
     private String className;
     private int argOffset;
+
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public ValuesOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -35,6 +38,7 @@ public final class ValuesOperation extends LeafOperation {
         Classes classes_ = _conf.getClasses();
         String clName_;
         clName_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,0,className);
+        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         ExecRootBlock r_ = classes_.getClassBody(clName_);
         if (!(r_ instanceof ExecEnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -69,5 +73,9 @@ public final class ValuesOperation extends LeafOperation {
     }
     public int getArgOffset() {
         return argOffset;
+    }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
     }
 }

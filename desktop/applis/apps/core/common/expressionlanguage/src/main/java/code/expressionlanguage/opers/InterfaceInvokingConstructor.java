@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.*;
 import code.expressionlanguage.exec.opers.ExecAbstractInvokingConstructor;
 import code.expressionlanguage.exec.opers.ExecInterfaceInvokingConstructor;
@@ -13,10 +14,12 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.util.CustList;
 import code.util.StringList;
 
 public final class InterfaceInvokingConstructor extends AbstractInvokingConstructor {
 
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public InterfaceInvokingConstructor(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -25,8 +28,10 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
     @Override
     ClassArgumentMatching getFrom(ContextEl _conf) {
         String cl_ = getMethodName();
-        cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
-        cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,cl_.indexOf(PAR_LEFT)+1,cl_);
+        int leftPar_ = cl_.indexOf(PAR_LEFT) + 1;
+        cl_ = cl_.substring(leftPar_, cl_.lastIndexOf(PAR_RIGHT));
+        cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf, leftPar_,cl_);
+        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         if (!(_conf.getClasses().getClassBody(cl_) instanceof ExecInterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -138,4 +143,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         }
     }
 
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
 }

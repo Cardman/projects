@@ -498,6 +498,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                     return;
                 }
+                partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
                 MethodAccessId acc_ = new MethodAccessId(4);
                 acc_.setupAncestor(_args,4);
                 int ind_ = acc_.getIndex();

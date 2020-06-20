@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecEnumBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -17,6 +18,8 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
 
     private String className;
     private int argOffset;
+
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public EnumValueOfOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -42,6 +45,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         Classes classes_ = _conf.getClasses();
         String clName_;
         clName_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,0,className);
+        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
         ExecRootBlock r_ = classes_.getClassBody(clName_);
         if (!(r_ instanceof ExecEnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -79,6 +83,10 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         }
         className = r_.getWildCardElement();
         setResultClass(new ClassArgumentMatching(className));
+    }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
     }
 
     public String getClassName() {

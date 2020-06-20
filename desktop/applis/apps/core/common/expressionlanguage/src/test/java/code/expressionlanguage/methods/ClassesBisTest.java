@@ -13,6 +13,24 @@ import static org.junit.Assert.assertTrue;
 
 public final class ClassesBisTest extends ProcessMethodCommon {
     @Test
+    public void calculateStaticField183__FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class $interfaces(ExInt) pkg.Ex:Ex.ExInt {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $interface ExInt {\n");
+        xml_.append("  $public $static $int v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDotDefaultReadOnly();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(!ctx_.isEmptyErrors());
+    }
+    @Test
     public void calculateStaticField183FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

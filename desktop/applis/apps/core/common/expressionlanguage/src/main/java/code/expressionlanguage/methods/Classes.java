@@ -689,7 +689,7 @@ public final class Classes {
                 ExecRootBlock val_ = page_.getMapTypes().getVal(c_);
                 c_.buildDirectGenericSuperTypes(_context, val_);
                 StringList l_ = new StringList();
-                String s_ = "";
+                String s_ = _context.getStandards().getAliasObject();
                 if (c_ instanceof UniqueRootedBlock) {
                     l_ = ((UniqueRootedBlock)c_).getImportedDirectGenericSuperInterfaces();
                     s_ = ((UniqueRootedBlock)c_).getImportedDirectGenericSuperClass();
