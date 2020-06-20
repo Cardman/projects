@@ -4,6 +4,6 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.RootBlock;
 
 public interface ExecInterfacable extends GeneType {
-    void buildTypes(RootBlock _uniq);
+
 
 }

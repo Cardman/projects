@@ -8,8 +8,6 @@ public final class ExecClassBlock extends ExecRootBlock implements ExecUniqueRoo
 
     private final StringList allSuperTypes = new StringList();
 
-    private String importedDirectSuperClass = "";
-    private StringList importedDirectSuperInterfaces = new StringList();
     private final boolean finalType;
     private final boolean abstractType;
     private final boolean staticType;
@@ -39,29 +37,6 @@ public final class ExecClassBlock extends ExecRootBlock implements ExecUniqueRoo
     @Override
     public boolean isStaticType() {
         return staticType;
-    }
-
-    @Override
-    public StringList getImportedDirectSuperTypes() {
-        StringList l_ = new StringList(importedDirectSuperClass);
-        l_.addAllElts(importedDirectSuperInterfaces);
-        return l_;
-    }
-
-    @Override
-    public void buildTypes(StringList _ints,String _sup) {
-        importedDirectSuperInterfaces = _ints;
-        importedDirectSuperClass = _sup;
-    }
-
-    @Override
-    public String getImportedDirectGenericSuperClass() {
-        return importedDirectSuperClass;
-    }
-
-    @Override
-    public StringList getImportedDirectGenericSuperInterfaces() {
-        return importedDirectSuperInterfaces;
     }
 
 

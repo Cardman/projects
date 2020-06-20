@@ -89,8 +89,9 @@ public abstract class ContextEl {
     }
 
     public GeneType getClassBody(String _type) {
-        if (classes.isCustomType(_type)) {
-            return classes.getClassBody(_type);
+        ExecRootBlock c_ = classes.getClassBody(_type);
+        if (c_ != null) {
+            return c_;
         }
         return standards.getStandards().getVal(_type);
     }
@@ -668,7 +669,8 @@ public abstract class ContextEl {
         if (StringList.quickEq(curClass_, idClass_)) {
             return false;
         }
-        if (classes_.isCustomType(idClass_)) {
+        ExecRootBlock c_ = classes_.getClassBody(idClass_);
+        if (c_ != null) {
             DefaultLockingClass locks_ = classes_.getLocks();
             if (getInitializingTypeInfos().isInitEnums()) {
                 InitClassState res_ = locks_.getState(idClass_);

@@ -13,8 +13,6 @@ import code.util.StringList;
 
 public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
-    private String importedDirectSuperClass = "";
-    private StringList importedDirectSuperInterfaces = new StringList();
 
     public EnumBlock(int _idRowCol, int _categoryOffset, String _name, String _packageName, OffsetAccessInfo _access,
                      String _templateDef, IntMap< String> _directSuperTypes, OffsetsBlock _offset) {
@@ -42,52 +40,5 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     public String getOriginalName() {
         return formatName("..",".");
     }
-    @Override
-    public void buildDirectGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec) {
-        IntMap< String> rcs_;
-        rcs_ = getRowColDirectSuperTypes();
-        int i_ = 0;
-        importedDirectSuperInterfaces.clear();
-        for (String s: getDirectSuperTypes()) {
-            int index_ = rcs_.getKey(i_);
-            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, _exec,index_, getSuperTypesParts());
-            String c_ = getImportedDirectBaseSuperType(i_);
-            i_++;
-            String base_ = Templates.getIdFromAllTypes(s_);
-            _classes.addErrorIfNoMatch(s_,c_,this,index_);
-            ExecRootBlock r_ = _classes.getClasses().getClassBody(base_);
-            if (!(r_ instanceof ExecClassBlock)) {
-                if (r_ instanceof ExecInterfaceBlock) {
-                    importedDirectSuperInterfaces.add(s_);
-                }
-            } else {
-                importedDirectSuperClass = s_;
-            }
-        }
-        if (importedDirectSuperClass.isEmpty()) {
-            importedDirectSuperClass = _classes.getStandards().getAliasObject();
-        }
-    }
 
-    @Override
-    public void buildErrorDirectGenericSuperTypes(ContextEl _classes) {
-        importedDirectSuperInterfaces.clear();
-        importedDirectSuperClass = _classes.getStandards().getAliasObject();
-    }
-    @Override
-    public String getImportedDirectGenericSuperClass() {
-        return importedDirectSuperClass;
-    }
-
-    @Override
-    public StringList getImportedDirectGenericSuperInterfaces() {
-        return importedDirectSuperInterfaces;
-    }
-
-    @Override
-    public StringList getImportedDirectSuperTypes() {
-        StringList l_ = new StringList(importedDirectSuperClass);
-        l_.addAllElts(importedDirectSuperInterfaces);
-        return l_;
-    }
 }

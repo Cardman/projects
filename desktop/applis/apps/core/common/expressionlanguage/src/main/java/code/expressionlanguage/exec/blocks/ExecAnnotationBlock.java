@@ -6,8 +6,6 @@ import code.util.StringList;
 public final class ExecAnnotationBlock extends ExecRootBlock implements ExecInterfacable {
     private final StringList allSuperTypes = new StringList();
 
-    private StringList importedDirectSuperInterfaces = new StringList();
-
     public ExecAnnotationBlock(RootBlock _offset) {
         super(_offset);
     }
@@ -32,14 +30,5 @@ public final class ExecAnnotationBlock extends ExecRootBlock implements ExecInte
         return true;
     }
 
-    @Override
-    public StringList getImportedDirectSuperTypes() {
-        return allSuperTypes;
-    }
-
-    @Override
-    public void buildTypes(RootBlock _uniq) {
-        importedDirectSuperInterfaces = _uniq.getImportedDirectSuperTypes();
-    }
 
 }

@@ -633,7 +633,8 @@ public final class Configuration {
     public boolean hasToExit(String _className) {
         Classes classes_ = getClasses();
         String idCl_ = Templates.getIdFromAllTypes(_className);
-        if (classes_.isCustomType(idCl_)) {
+        ExecRootBlock c_ = classes_.getClassBody(idCl_);
+        if (c_ != null) {
             InitClassState res_ = classes_.getLocks().getState(getContext(), idCl_);
             if (res_ == InitClassState.NOT_YET) {
                 getContext().setCallingState(new NotInitializedClass(idCl_));

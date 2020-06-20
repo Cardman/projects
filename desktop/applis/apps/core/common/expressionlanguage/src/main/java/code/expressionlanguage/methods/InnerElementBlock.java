@@ -34,8 +34,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     private int valueOffest;
 
-    private String importedDirectSuperClass = "";
-    private StringList importedDirectSuperInterfaces = new StringList();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private int trOffset;
     private OperationNode root;
@@ -172,42 +170,6 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         return false;
     }
 
-    @Override
-    public StringList getImportedDirectSuperTypes() {
-        StringList l_ = new StringList(importedDirectSuperClass);
-        l_.addAllElts(importedDirectSuperInterfaces);
-        return l_;
-    }
-
-    @Override
-    public void buildDirectGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec) {
-        IntMap< String> rcs_;
-        rcs_ = getRowColDirectSuperTypes();
-        int i_ = 0;
-        importedDirectSuperInterfaces.clear();
-        for (String s: getDirectSuperTypes()) {
-            int index_ = rcs_.getKey(i_);
-            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, _exec,index_, getSuperTypesParts());
-            String c_ = getImportedDirectBaseSuperType(i_);
-            _classes.addErrorIfNoMatch(s_,c_,this,index_);
-            i_++;
-            importedDirectSuperClass = s_;
-        }
-    }
-
-    @Override
-    public void buildErrorDirectGenericSuperTypes(ContextEl _classes) {
-        importedDirectSuperInterfaces.clear();
-        importedDirectSuperClass = _classes.getStandards().getAliasObject();
-    }
-
-    public String getImportedDirectGenericSuperClass() {
-        return importedDirectSuperClass;
-    }
-
-    public StringList getImportedDirectGenericSuperInterfaces() {
-        return importedDirectSuperInterfaces;
-    }
 
     public int getFieldNameOffest() {
         return fieldNameOffest;

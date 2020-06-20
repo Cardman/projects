@@ -9,9 +9,6 @@ import code.util.StringList;
 
 public final class AnnotationBlock extends RootBlock {
 
-    private final StringList allSuperTypes = new StringList();
-
-    private StringList importedDirectSuperInterfaces = new StringList();
     public AnnotationBlock(int _idRowCol, int _categoryOffset, String _name,
                            String _packageName, OffsetAccessInfo _access, String _templateDef,
                            IntMap< String> _directSuperTypes, OffsetsBlock _offset) {
@@ -32,21 +29,6 @@ public final class AnnotationBlock extends RootBlock {
     @Override
     public void setupBasicOverrides(ContextEl _context,ExecRootBlock _exec) {
         useSuperTypesOverrides(_context);
-    }
-
-    @Override
-    public void buildDirectGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec) {
-        importedDirectSuperInterfaces.clear();
-        importedDirectSuperInterfaces.add(_classes.getStandards().getAliasAnnotationType());
-    }
-
-    @Override
-    public void buildErrorDirectGenericSuperTypes(ContextEl _classes) {
-    }
-
-    @Override
-    public StringList getImportedDirectSuperTypes() {
-        return allSuperTypes;
     }
     
 }

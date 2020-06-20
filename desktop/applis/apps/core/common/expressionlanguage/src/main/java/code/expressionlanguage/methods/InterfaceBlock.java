@@ -12,7 +12,6 @@ import code.util.StringList;
 
 public final class InterfaceBlock extends RootBlock {
 
-    private StringList importedDirectSuperInterfaces = new StringList();
     private final boolean staticType;
 
     public InterfaceBlock(int _idRowCol, int _categoryOffset, String _name, String _packageName, OffsetAccessInfo _access,
@@ -33,36 +32,5 @@ public final class InterfaceBlock extends RootBlock {
     @Override
     public boolean mustImplement() {
         return false;
-    }
-
-    @Override
-    public void buildDirectGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec) {
-        IntMap< String> rcs_;
-        rcs_ = getRowColDirectSuperTypes();
-        int i_ = 0;
-        importedDirectSuperInterfaces.clear();
-        for (String s: getDirectSuperTypes()) {
-            int index_ = rcs_.getKey(i_);
-            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, _exec,index_, getSuperTypesParts());
-            String c_ = getImportedDirectBaseSuperType(i_);
-            _classes.addErrorIfNoMatch(s_,c_,this,index_);
-            i_++;
-            String base_ = Templates.getIdFromAllTypes(s_);
-            ExecRootBlock r_ = _classes.getClasses().getClassBody(base_);
-            if (!(r_ instanceof ExecInterfaceBlock)) {
-                continue;
-            }
-            importedDirectSuperInterfaces.add(s_);
-        }
-    }
-
-    @Override
-    public void buildErrorDirectGenericSuperTypes(ContextEl _classes) {
-        importedDirectSuperInterfaces.clear();
-    }
-
-    @Override
-    public StringList getImportedDirectSuperTypes() {
-        return new StringList(importedDirectSuperInterfaces);
     }
 }

@@ -325,7 +325,7 @@ public final class ResolvingImportTypes {
         if (_rooted instanceof ExecRootBlock) {
             ExecRootBlock r_ = (ExecRootBlock) _rooted;
             String type_ = StringExpUtil.removeDottedSpaces(StringList.concat(r_.getPackageName(),".",_type));
-            if (_an.getClasses().isCustomType(type_)) {
+            if (_an.getClasses().getClassBody(type_) != null) {
                 return type_;
             }
         }

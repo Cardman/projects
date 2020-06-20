@@ -34,11 +34,7 @@ class ExecNamePartType extends ExecLeafPartType {
             curr_ = curr_.getPreviousSibling();
         }
         String type_ = StringList.join(pr_, "");
-        if (_an.getClasses().isCustomType(type_)) {
-            setImportedTypeName(typeName_);
-            return;
-        }
-        if (_an.getStandards().getStandards().contains(type_)) {
+        if (_an.getClassBody(type_) != null) {
             setImportedTypeName(typeName_);
             return;
         }

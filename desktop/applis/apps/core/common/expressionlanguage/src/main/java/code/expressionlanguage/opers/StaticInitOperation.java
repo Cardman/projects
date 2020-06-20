@@ -33,7 +33,7 @@ public final class StaticInitOperation extends LeafOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         Classes classes_ = _conf.getClasses();
-        if (classes_.isCustomType(_base)) {
+        if (classes_.getClassBody(_base) != null) {
             possibleInitClass = true;
         } else {
             setSimpleArgument(new Argument());

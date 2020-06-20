@@ -7,19 +7,15 @@ import code.expressionlanguage.opers.util.MethodAccessKind;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.CustList;
-import code.util.Ints;
 import code.util.StringList;
 
 public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements GeneCustMethod, ExecAccessingImportingBlock,ReturnableWithSignature {
 
     private StringList imports;
 
-    private Ints importsOffset;
-
     public ExecOperatorBlock(OperatorBlock _offset) {
         super(_offset);
         imports = _offset.getImports();
-        importsOffset = _offset.getImportsOffset();
     }
 
     public void buildImportedTypes(OperatorBlock _key) {

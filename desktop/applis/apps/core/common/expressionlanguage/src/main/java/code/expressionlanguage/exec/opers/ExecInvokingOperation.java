@@ -118,14 +118,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (!Templates.okArgs(_constId,false, _className,_arguments, _conf,null)) {
             return new Argument();
         }
-        if (!_conf.getClasses().isCustomType(base_)) {
+        ExecRootBlock execSuperClass_ = _conf.getClasses().getClassBody(base_);
+        if (execSuperClass_ == null) {
             ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_conf, _constId, Argument.toArgArray(_arguments));
             Argument arg_ = new Argument();
             arg_.setStruct(res_.getResult());
             return arg_;
         }
-        String idClass_ = Templates.getIdFromAllTypes(_className);
-        ExecRootBlock execSuperClass_ = _conf.getClasses().getClassBody(idClass_);
         _conf.setCallingState(new CustomFoundConstructor(_className, execSuperClass_, _fieldName, _blockIndex,_constId, needed_, _arguments, InstancingStep.NEWING));
         return Argument.createVoid();
     }
@@ -204,6 +203,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _cont.setCallingState(new CustomFoundMethod(_previous, classFound_, _methodId, _firstArgs,null));
             return Argument.createVoid();
         }
+        String idClassNameFound_ = Templates.getIdFromAllTypes(_classNameFound);
         Classes classes_ = _cont.getClasses();
         String aliasForName_ = stds_.getAliasForName();
         String aliasValueOf_ = stds_.getAliasEnumValueOf();
@@ -237,7 +237,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return a_;
             }
         }
-        if (StringList.quickEq(aliasAnnotated_, _classNameFound)) {
+        if (StringList.quickEq(aliasAnnotated_, idClassNameFound_)) {
             if (StringList.quickEq(aliasGetAnnotations_, _methodId.getName())) {
                 _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION, _previous, _firstArgs, false));
                 return new Argument();
@@ -253,7 +253,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String aliasMethod_ = stds_.getAliasMethod();
         String aliasConstructor_ = stds_.getAliasConstructor();
         String aliasClass_ = stds_.getAliasClassType();
-        if (StringList.quickEq(aliasClass_, _classNameFound)) {
+        if (StringList.quickEq(aliasClass_, idClassNameFound_)) {
             if (StringList.quickEq(aliasValueOf_, _methodId.getName())) {
                 ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_previous.getStruct());
                 if (!cl_.isTypeEnum()) {
@@ -417,7 +417,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String aliasInvokeDirect_ = stds_.getAliasInvokeDirect();
         String aliasGetDefaultValue_ = stds_.getAliasGetDefaultValue();
         String aliasNewInstance_ = stds_.getAliasNewInstance();
-        if (StringList.quickEq(aliasMethod_, _classNameFound)) {
+        if (StringList.quickEq(aliasMethod_, idClassNameFound_)) {
             if (StringList.quickEq(aliasGetDefaultValue_, _methodId.getName())) {
                 _cont.setCallingState(new CustomReflectMethod(ReflectingType.DEFAULT_VALUE, _previous, _firstArgs, false));
                 return new Argument();
@@ -465,7 +465,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         Struct prev_ =_previous.getStruct();
         String aliasFct_ = stds_.getAliasFct();
-        if (StringList.quickEq(aliasFct_, _classNameFound)) {
+        if (StringList.quickEq(aliasFct_, idClassNameFound_)) {
             CustList<Argument> ar_ = new CustList<Argument>();
             Argument instance_ = _firstArgs.first();
             Struct inst_ = instance_.getStruct();
@@ -480,7 +480,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             return prepareCallDyn(_previous, ar_, _cont);
         }
-        if (StringList.quickEq(aliasConstructor_, _classNameFound)) {
+        if (StringList.quickEq(aliasConstructor_, idClassNameFound_)) {
             if (StringList.quickEq(aliasNewInstance_, _methodId.getName())) {
                 ConstructorMetaInfo meta_ = ApplyCoreMethodUtil.getCtor(_previous.getStruct());
                 if(!meta_.isInvokable()) {
@@ -493,7 +493,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument();
             }
         }
-        if (StringList.quickEq(aliasField_, _classNameFound)) {
+        if (StringList.quickEq(aliasField_, idClassNameFound_)) {
             if (StringList.quickEq(aliasGetField_, _methodId.getName())) {
                 FieldMetaInfo meta_ = ApplyCoreMethodUtil.getField(_previous.getStruct());
                 if (!meta_.isInvokable()) {
@@ -517,24 +517,24 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument();
             }
         }
-        if (!classes_.isCustomType(_classNameFound)) {
-            ClassMethodId dyn_ = new ClassMethodId(_classNameFound, _methodId);
+        ExecRootBlock e_ = classes_.getClassBody(idClassNameFound_);
+        if (e_ == null) {
+            ClassMethodId dyn_ = new ClassMethodId(idClassNameFound_, _methodId);
             ResultErrorStd res_ = LgNames.invokeMethod(_cont, dyn_, _previous.getStruct(), Argument.toArgArray(_firstArgs));
             Argument argRes_ = new Argument();
             argRes_.setStruct(res_.getResult());
             return argRes_;
         }
-        CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(_cont, _classNameFound, _methodId);
+        CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(_cont, idClassNameFound_, _methodId);
         if (methods_.isEmpty()) {
             //static enum methods
             String values_ = _cont.getStandards().getAliasEnumValues();
             if (StringList.quickEq(_methodId.getName(), values_)) {
-                ExecRootBlock e_ = classes_.getClassBody(_classNameFound);
                 String className_ = e_.getWildCardElement();
                 return getEnumValues(_exit,className_, _cont);
             }
             Argument arg_ = _firstArgs.first();
-            return getEnumValue(_exit,_classNameFound, arg_, _cont);
+            return getEnumValue(_exit,idClassNameFound_, arg_, _cont);
         }
         if (prev_ instanceof AbstractFunctionalInstance) {
             GeneCustModifierMethod gene_ = (GeneCustModifierMethod) methods_.first();

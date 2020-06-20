@@ -14,6 +14,7 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 
 public abstract class SettableAbstractFieldOperation extends
         AbstractFieldOperation implements SettableElResult, ReductibleOperable {
@@ -174,7 +175,9 @@ public abstract class SettableAbstractFieldOperation extends
         }
         Classes cl_ = _conf.getClasses();
         ClassField fieldId_ = _info.getClassField();
-        if (!cl_.isCustomType(fieldId_.getClassName())) {
+        StringMap<Struct> map_ = cl_.getStaticFieldMap(fieldId_.getClassName());
+        Struct str_ = cl_.getStaticField(fieldId_);
+        if (map_.isEmpty()) {
             ResultErrorStd res_ = _conf.getStandards().getSimpleResult(_conf, fieldId_);
             Argument arg_ = Argument.createVoid();
             arg_.setStruct(res_.getResult());
@@ -186,7 +189,6 @@ public abstract class SettableAbstractFieldOperation extends
             _oper.setSimpleArgument(arg_);
             return;
         }
-        Struct str_ = cl_.getStaticField(fieldId_);
         if (str_ != null) {
             Argument arg_ = Argument.createVoid();
             arg_.setStruct(str_);

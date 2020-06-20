@@ -26,9 +26,6 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
 
     private final StringList allSuperTypes = new StringList();
 
-    private String importedDirectSuperClass = "";
-    private StringList importedDirectSuperInterfaces = new StringList();
-
     public ExecInnerElementBlock(InnerElementBlock _offset) {
         super(_offset);
         fieldName = _offset.getUniqueFieldName();
@@ -112,28 +109,6 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     @Override
     public boolean withoutInstance() {
         return true;
-    }
-
-    @Override
-    public StringList getImportedDirectSuperTypes() {
-        StringList l_ = new StringList(importedDirectSuperClass);
-        l_.addAllElts(importedDirectSuperInterfaces);
-        return l_;
-    }
-
-    @Override
-    public void buildTypes(StringList _ints,String _sup) {
-        importedDirectSuperInterfaces = _ints;
-        importedDirectSuperClass = _sup;
-    }
-    @Override
-    public String getImportedDirectGenericSuperClass() {
-        return importedDirectSuperClass;
-    }
-
-    @Override
-    public StringList getImportedDirectGenericSuperInterfaces() {
-        return importedDirectSuperInterfaces;
     }
 
     @Override

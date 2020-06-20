@@ -68,6 +68,10 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     private Ints staticInitInterfacesOffset = new Ints();
     private CustList<PartOffset> partsStaticInitInterfacesOffset = new CustList<PartOffset>();
 
+
+    private String importedDirectSuperClass = "";
+    private StringList importedDirectSuperInterfaces = new StringList();
+
     private StringList annotations = new StringList();
 
     private Ints annotationsIndexes = new Ints();
@@ -132,8 +136,11 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         return allGenericClasses;
     }
 
-    public abstract StringList getImportedDirectSuperTypes();
-
+    public StringList getImportedDirectSuperTypes() {
+        StringList l_ = new StringList(importedDirectSuperClass);
+        l_.addAllElts(importedDirectSuperInterfaces);
+        return l_;
+    }
     public IntMap< Boolean> getExplicitDirectSuperTypes() {
         return explicitDirectSuperTypes;
     }
@@ -317,7 +324,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         return pars_;
     }
 
-    public void buildMapParamType(ContextEl _analyze,ExecRootBlock _exec) {
+    public final void buildMapParamType(ContextEl _analyze,ExecRootBlock _exec) {
         paramTypesMap = new StringMap<TypeVar>();
         boolean add_ = true;
         CustList<RootBlock> par_ = getAllParentTypes();
@@ -372,7 +379,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             }
         }
     }
-    public void buildErrorMapParamType(ContextEl _analyze,ExecRootBlock _exec) {
+    public final void buildErrorMapParamType(ContextEl _analyze,ExecRootBlock _exec) {
         paramTypesMap = new StringMap<TypeVar>();
         for (ExecRootBlock r: _exec.getSelfAndParentTypes()) {
             for (TypeVar t: r.getParamTypes()) {
@@ -918,8 +925,37 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         TypeUtil.buildOverrides(this, _context);
     }
 
-    public abstract void buildDirectGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec);
-    public abstract void buildErrorDirectGenericSuperTypes(ContextEl _classes);
+    public final void buildDirectGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec){
+        IntMap< String> rcs_;
+        rcs_ = getRowColDirectSuperTypes();
+        int i_ = 0;
+        importedDirectSuperInterfaces.clear();
+        for (String s: getDirectSuperTypes()) {
+            int index_ = rcs_.getKey(i_);
+            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, _exec,index_, getSuperTypesParts());
+            String c_ = getImportedDirectBaseSuperType(i_);
+            i_++;
+            String base_ = Templates.getIdFromAllTypes(s_);
+            _classes.addErrorIfNoMatch(s_,c_,this,index_);
+            ExecRootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (_exec instanceof ExecAnnotationBlock||r_ instanceof ExecInterfaceBlock) {
+                _exec.getImportedDirectGenericSuperInterfaces().add(s_);
+                importedDirectSuperInterfaces.add(s_);
+            } else {
+                _exec.setImportedDirectSuperClass(s_);
+                importedDirectSuperClass = s_;
+            }
+        }
+        if (_exec.getImportedDirectGenericSuperClass().isEmpty()) {
+            _exec.setImportedDirectSuperClass(_classes.getStandards().getAliasObject());
+            importedDirectSuperClass = _classes.getStandards().getAliasObject();
+
+        }
+    }
+    public final void buildErrorDirectGenericSuperTypes(ContextEl _classes) {
+        importedDirectSuperInterfaces.clear();
+        importedDirectSuperClass = _classes.getStandards().getAliasObject();
+    }
 
     public final StringList getAllGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec) {
         Classes classes_ = _classes.getClasses();
@@ -1498,7 +1534,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         if (!(this instanceof UniqueRootedBlock)) {
             return true;
         }
-        String superClass_ = ((UniqueRootedBlock)this).getImportedDirectGenericSuperClass();
+        String superClass_ = getImportedDirectGenericSuperClass();
         String superClassId_ = Templates.getIdFromAllTypes(superClass_);
         ExecRootBlock clMeta_ = _cont.getClasses().getClassBody(superClassId_);
         if (clMeta_ == null) {
@@ -1553,4 +1589,9 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     public CustList<PartOffset> getPartsStaticInitInterfacesOffset() {
         return partsStaticInitInterfacesOffset;
     }
+
+    public String getImportedDirectGenericSuperClass(){
+        return importedDirectSuperClass;
+    }
+
 }

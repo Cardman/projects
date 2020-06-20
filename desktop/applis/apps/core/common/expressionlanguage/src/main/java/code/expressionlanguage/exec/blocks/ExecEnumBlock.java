@@ -7,8 +7,6 @@ public final class ExecEnumBlock extends ExecRootBlock implements ExecUniqueRoot
 
     private final StringList allSuperTypes = new StringList();
 
-    private String importedDirectSuperClass = "";
-    private StringList importedDirectSuperInterfaces = new StringList();
     public ExecEnumBlock(RootBlock _offset) {
         super(_offset);
     }
@@ -31,29 +29,6 @@ public final class ExecEnumBlock extends ExecRootBlock implements ExecUniqueRoot
     @Override
     public boolean isStaticType() {
         return true;
-    }
-
-    @Override
-    public StringList getImportedDirectSuperTypes() {
-        StringList l_ = new StringList(importedDirectSuperClass);
-        l_.addAllElts(importedDirectSuperInterfaces);
-        return l_;
-    }
-
-    @Override
-    public void buildTypes(StringList _ints,String _sup) {
-        importedDirectSuperInterfaces = _ints;
-        importedDirectSuperClass = _sup;
-    }
-
-    @Override
-    public String getImportedDirectGenericSuperClass() {
-        return importedDirectSuperClass;
-    }
-
-    @Override
-    public StringList getImportedDirectGenericSuperInterfaces() {
-        return importedDirectSuperInterfaces;
     }
 
 }

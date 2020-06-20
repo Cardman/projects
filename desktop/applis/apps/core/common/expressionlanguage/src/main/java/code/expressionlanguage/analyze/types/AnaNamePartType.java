@@ -341,11 +341,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             setAnalyzedType(StringList.concat(owner_,sep_,type_));
             return;
         }
-        if (_an.getClasses().isCustomType(type_)) {
-            setAnalyzedType(type_);
-            return;
-        }
-        if (_an.getStandards().getStandards().contains(type_)) {
+        if (_an.getClassBody(type_) != null) {
             setAnalyzedType(type_);
             return;
         }

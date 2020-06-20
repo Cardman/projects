@@ -10,6 +10,6 @@ public interface ExecUniqueRootedBlock extends GeneClass {
 
     StringList getImportedDirectGenericSuperInterfaces();
     StringList getStaticInitImportedInterfaces();
-    void buildTypes(StringList _ints,String _sup);
+
     ExecFileBlock getFile();
 }

@@ -1326,7 +1326,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = ((ExecInterfaceBlock) context_.getClassBody("pkg.Outer..InnerTwo")).getImportedDirectSuperInterfaces();
+        StringList types_ = ((ExecInterfaceBlock) context_.getClassBody("pkg.Outer..InnerTwo")).getImportedDirectGenericSuperInterfaces();
         assertTrue(StringList.contains(types_, "pkg.OuterThree..InnerThree"));
     }
     @Test

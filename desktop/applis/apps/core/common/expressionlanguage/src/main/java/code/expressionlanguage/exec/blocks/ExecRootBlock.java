@@ -39,6 +39,8 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
     private final StringList allGenericSuperTypes = new StringList();
     private final StringList allGenericClasses = new StringList();
     private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
+    private String importedDirectSuperClass = "";
+    private StringList importedDirectSuperInterfaces = new StringList();
 
     ExecRootBlock(RootBlock _offset) {
         super(_offset.getOffset());
@@ -187,8 +189,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
     public StringList getAllGenericClasses() {
         return allGenericClasses;
     }
-
-    public abstract StringList getImportedDirectSuperTypes();
 
     public StringList getStaticInitImportedInterfaces() {
         return staticInitImportedInterfaces;
@@ -376,6 +376,25 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
 
     public int getIdRowCol() {
         return idRowCol;
+    }
+
+
+    public StringList getImportedDirectSuperTypes() {
+        StringList l_ = new StringList(importedDirectSuperClass);
+        l_.addAllElts(importedDirectSuperInterfaces);
+        return l_;
+    }
+
+    public String getImportedDirectGenericSuperClass() {
+        return importedDirectSuperClass;
+    }
+
+    public StringList getImportedDirectGenericSuperInterfaces() {
+        return importedDirectSuperInterfaces;
+    }
+
+    public void setImportedDirectSuperClass(String importedDirectSuperClass) {
+        this.importedDirectSuperClass = importedDirectSuperClass;
     }
 
 }

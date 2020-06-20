@@ -683,23 +683,10 @@ public final class Classes {
         }
         if (StringList.equalsSet(listTypesNames_,resTwo_)) {
             for (RootBlock s: listTypes_) {
-                RootBlock c_ = s;
-                page_.setCurrentBlock(c_);
-                page_.setCurrentAnaBlock(c_);
-                ExecRootBlock val_ = page_.getMapTypes().getVal(c_);
-                c_.buildDirectGenericSuperTypes(_context, val_);
-                StringList l_ = new StringList();
-                String s_ = _context.getStandards().getAliasObject();
-                if (c_ instanceof UniqueRootedBlock) {
-                    l_ = ((UniqueRootedBlock)c_).getImportedDirectGenericSuperInterfaces();
-                    s_ = ((UniqueRootedBlock)c_).getImportedDirectGenericSuperClass();
-                }
-                if (val_ instanceof ExecUniqueRootedBlock) {
-                    ((ExecUniqueRootedBlock)val_).buildTypes(l_,s_);
-                }
-                if (val_ instanceof ExecInterfacable) {
-                    ((ExecInterfacable)val_).buildTypes(c_);
-                }
+                page_.setCurrentBlock(s);
+                page_.setCurrentAnaBlock(s);
+                ExecRootBlock val_ = page_.getMapTypes().getVal(s);
+                s.buildDirectGenericSuperTypes(_context, val_);
             }
             for (RootBlock c: page_.getFoundTypes()) {
                 page_.setCurrentBlock(c);
@@ -2083,7 +2070,7 @@ public final class Classes {
     }
 
     private void checkConstField(ContextEl _context, RootBlock _cl, String _clName, String _field) {
-        if (staticFields.getVal(_clName).getVal(_field) == null) {
+        if (getStaticFieldMap(_clName).getVal(_field) == null) {
             if (!_cl.isStaticType()) {
                 //ERROR
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -2217,7 +2204,7 @@ public final class Classes {
     }
 
     public void initializeStaticField(ClassField _clField, Struct _str) {
-        staticFields.getVal(_clField.getClassName()).set(_clField.getFieldName(), _str);
+        getStaticFieldMap(_clField.getClassName()).set(_clField.getFieldName(), _str);
     }
     int staticFieldCount() {
         int sum_ = 0;
@@ -2239,197 +2226,20 @@ public final class Classes {
         return PrimitiveTypeUtil.defaultClass(_returnType, _context);
     }
     public Struct getStaticField(ClassField _clField) {
-        return staticFields.getVal(_clField.getClassName()).getVal(_clField.getFieldName());
-    }
-    public boolean isCustomType(String _name) {
-        String base_ = Templates.getIdFromAllTypes(_name);
-        for (EntryCust<String, ExecRootBlock> c: classesBodies.entryList()) {
-            String k_ = c.getKey();
-            if (!StringList.quickEq(k_, base_)) {
-                continue;
-            }
-            return true;
+        StringMap<Struct> map_ = getStaticFieldMap(_clField.getClassName());
+        if (map_.isEmpty()) {
+            return null;
         }
-        return false;
+        return map_.getVal(_clField.getFieldName());
+    }
+    public StringMap<Struct> getStaticFieldMap(String _clField) {
+        StringMap<Struct> map_ = staticFields.getVal(_clField);
+        if (map_ == null) {
+            map_ = new StringMap<Struct>();
+        }
+        return map_;
     }
 
-    public ClassMetaInfo getClassMetaInfo(String _name, ContextEl _context) {
-        String base_ = Templates.getIdFromAllTypes(_name);
-        for (EntryCust<String, ExecRootBlock> c: classesBodies.entryList()) {
-            String k_ = c.getKey();
-            if (!StringList.quickEq(k_, base_)) {
-                continue;
-            }
-            ExecRootBlock clblock_ = c.getValue();
-            return getClassMetaInfo(clblock_, _name, _context);
-        }
-        return new ClassMetaInfo(_context.getStandards().getAliasVoid(),_context, ClassCategory.VOID,"");
-    }
-    public static ClassMetaInfo getClassMetaInfo(ExecRootBlock _type,String _name, ContextEl _context) {
-        ObjectMap<MethodId, MethodMetaInfo> infos_;
-        infos_ = new ObjectMap<MethodId, MethodMetaInfo>();
-        ObjectMap<MethodId, MethodMetaInfo> infosExplicits_;
-        ObjectMap<MethodId, MethodMetaInfo> infosImplicits_;
-        infosExplicits_ = new ObjectMap<MethodId, MethodMetaInfo>();
-        infosImplicits_ = new ObjectMap<MethodId, MethodMetaInfo>();
-        StringMap<FieldMetaInfo> infosFields_;
-        infosFields_ = new StringMap<FieldMetaInfo>();
-        ObjectMap<ConstructorId, ConstructorMetaInfo> infosConst_;
-        infosConst_ = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
-        CustList<ExecBlock> bl_ = ExecBlock.getDirectChildren(_type);
-        String fileName_ = _type.getFile().getFileName();
-        StringList inners_ = new StringList();
-        boolean existCtor_ = false;
-        for (ExecBlock b: bl_) {
-            AccessEnum access_ = AccessEnum.PUBLIC;
-            if (b instanceof AccessibleBlock) {
-                access_ = ((AccessibleBlock)b).getAccess();
-            }
-            if (b instanceof ExecRootBlock) {
-                inners_.add(((ExecRootBlock) b).getFullName());
-            }
-            if (b instanceof ExecInfoBlock) {
-                ExecInfoBlock method_ = (ExecInfoBlock) b;
-                String ret_ = method_.getImportedClassName();
-                boolean staticElement_ = method_.isStaticField();
-                boolean finalElement_ = method_.isFinalField();
-
-                for (String f: method_.getFieldName()) {
-                    FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, access_);
-                    met_.setFileName(fileName_);
-                    infosFields_.put(f, met_);
-                }
-            }
-            if (b instanceof ExecOverridableBlock) {
-                ExecOverridableBlock method_ = (ExecOverridableBlock) b;
-                MethodId id_ = method_.getId();
-                String ret_ = method_.getImportedReturnType();
-                MethodId fid_;
-                String formCl_ = _type.getFullName();
-                boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL || method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST;
-                if (Templates.correctNbParameters(_name, _context)) {
-                    fid_ = id_.reflectFormat(_name, _context);
-                    formCl_ = _name;
-                } else {
-                    fid_ = id_;
-                }
-                String idCl_ = _type.getFullName();
-                if (param_) {
-                    idCl_ = _name;
-                }
-                MethodMetaInfo met_ = new MethodMetaInfo(access_, idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
-                met_.setFileName(fileName_);
-                met_.setExpCast(method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST);
-                infos_.put(id_, met_);
-                if (method_.getKind() == MethodKind.EXPLICIT_CAST) {
-                    met_ = new MethodMetaInfo(access_, idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
-                    met_.setFileName(fileName_);
-                    met_.setExpCast(true);
-                    infosExplicits_.put(id_, met_);
-                }
-                if (method_.getKind() == MethodKind.IMPLICIT_CAST) {
-                    met_ = new MethodMetaInfo(access_, idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
-                    met_.setFileName(fileName_);
-                    met_.setExpCast(true);
-                    infosImplicits_.put(id_, met_);
-                }
-            }
-            if (b instanceof ExecAnnotationMethodBlock) {
-                ExecAnnotationMethodBlock method_ = (ExecAnnotationMethodBlock) b;
-                MethodId id_ = method_.getId();
-                String ret_ = method_.getImportedReturnType();
-                MethodId fid_;
-                String formCl_ = _type.getFullName();
-                fid_ = id_;
-                MethodMetaInfo met_ = new MethodMetaInfo(access_,_type.getFullName(), id_, method_.getModifier(), ret_, fid_, formCl_);
-                met_.setFileName(fileName_);
-                infos_.put(id_, met_);
-            }
-            if (b instanceof ExecConstructorBlock) {
-                existCtor_ = true;
-                ExecConstructorBlock method_ = (ExecConstructorBlock) b;
-                ConstructorId id_ = method_.getGenericId();
-                ConstructorId fid_;
-                String ret_ = method_.getImportedReturnType();
-                String formCl_ = method_.getDeclaringType();
-                if (Templates.correctNbParameters(_name, _context)) {
-                    fid_ = id_.reflectFormat(_name, _context);
-                } else {
-                    fid_ = id_;
-                }
-                ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, access_, id_, ret_, fid_, formCl_);
-                met_.setFileName(fileName_);
-                infosConst_.put(id_, met_);
-            }
-        }
-        if (!existCtor_) {
-            ConstructorId id_ = new ConstructorId(_name, new StringList(), false);
-            AccessEnum acc_ = _type.getAccess();
-            ConstructorId fid_;
-            String ret_ = _context.getStandards().getAliasVoid();
-            fid_ = id_;
-            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, _name);
-            met_.setFileName(fileName_);
-            infosConst_.put(id_, met_);
-        }
-        if (_type instanceof ExecEnumBlock) {
-            String valueOf_ = _context.getStandards().getAliasEnumPredValueOf();
-            String values_ = _context.getStandards().getAliasEnumValues();
-            String string_ = _context.getStandards().getAliasString();
-            MethodId id_ = new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_));
-            String ret_ = _type.getWildCardString();
-            MethodId fid_;
-            fid_ = id_;
-            String decl_ = _type.getFullName();
-            MethodMetaInfo met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, decl_);
-            met_.setFileName(fileName_);
-            infos_.put(id_, met_);
-            id_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
-            ret_ = PrimitiveTypeUtil.getPrettyArrayType(ret_);
-            fid_ = id_;
-            met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, decl_);
-            met_.setFileName(fileName_);
-            infos_.put(id_, met_);
-        }
-        ExecRootBlock par_ = _type.getParentType();
-        String format_;
-        if (par_ != null) {
-            String gene_ = par_.getGenericString();
-            if (Templates.correctNbParameters(_name, _context)) {
-                format_ = Templates.quickFormat(_name, gene_, _context);
-            } else {
-                format_ = par_.getFullName();
-            }
-        } else {
-            format_ = "";
-        }
-        AccessEnum acc_ = _type.getAccess();
-        boolean st_ = _type.isStaticType();
-        if (_type instanceof ExecInterfaceBlock) {
-            ClassMetaInfo cl_ = new ClassMetaInfo(_name, ((ExecInterfaceBlock) _type).getImportedDirectSuperInterfaces(), format_, inners_,
-                    infosFields_, infosExplicits_,infosImplicits_,infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
-            cl_.setFileName(fileName_);
-            return cl_;
-        }
-        if (_type instanceof ExecAnnotationBlock) {
-            ClassMetaInfo cl_ = new ClassMetaInfo(_name, new StringList(), format_, inners_,
-                    infosFields_, infosExplicits_,infosImplicits_,infos_, infosConst_, ClassCategory.ANNOTATION, st_, acc_);
-            cl_.setFileName(fileName_);
-            return cl_;
-        }
-        ClassCategory cat_ = ClassCategory.CLASS;
-        if (_type instanceof ExecEnumBlock) {
-            cat_ = ClassCategory.ENUM;
-        }
-        boolean abs_ = _type.isAbstractType();
-        boolean final_ = _type.isFinalType();
-        String superClass_ = ((ExecUniqueRootedBlock) _type).getImportedDirectGenericSuperClass();
-        StringList superInterfaces_ = ((ExecUniqueRootedBlock) _type).getImportedDirectGenericSuperInterfaces();
-        ClassMetaInfo cl_ = new ClassMetaInfo(_name, superClass_, superInterfaces_, format_, inners_,
-                infosFields_, infosExplicits_,infosImplicits_,infos_, infosConst_, cat_, abs_, st_, final_, acc_);
-        cl_.setFileName(fileName_);
-        return cl_;
-    }
     public DefaultLockingClass getLocks() {
         return locks;
     }
