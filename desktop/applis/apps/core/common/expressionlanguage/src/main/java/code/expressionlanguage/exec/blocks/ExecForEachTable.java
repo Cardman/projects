@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -98,7 +97,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
     @Override
     public void reduce(ContextEl _context) {
         ExecOperationNode r_ = opList.last();
-        opList = ElUtil.getReducedNodes(r_);
+        opList = ExpressionLanguage.getReducedNodes(r_);
     }
 
     @Override

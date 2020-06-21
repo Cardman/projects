@@ -7,7 +7,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
-import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.stds.AliasNumber;
 import code.util.StringList;
 
 public final class RotateRightOperation extends NumericOperation {
@@ -51,7 +51,7 @@ public final class RotateRightOperation extends NumericOperation {
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
             ContextEl _an) {
-        return new Argument(NumberStruct.calculateRotateRight(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+        return new Argument(AliasNumber.calculateRotateRight(ClassArgumentMatching.convertToNumber(_a.getStruct()),
                 ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
     }
 

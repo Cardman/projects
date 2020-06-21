@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.common.GeneCustModifierMethod;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -16,7 +17,6 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.structs.*;
 import code.maths.montecarlo.AbMonteCarlo;
@@ -195,7 +195,7 @@ public final class ApplyCoreMethodUtil {
             return result_;
         }
         if (StringList.quickEq(type_, stringBuilderType_)) {
-            StringBuilderStruct.instantiate(_cont, result_, _method, args_);
+            AliasCharSequence.instantiateStringBuilder(_cont, result_, _method, args_);
             processError(_cont, result_);
             return result_;
         }
@@ -249,51 +249,15 @@ public final class ApplyCoreMethodUtil {
             previous_ = _firstArgs.first().getStruct();
         }
         if (StringList.quickEq(_id,aliasMethod_)) {
-            return getMethod(previous_);
+            return NumParsers.getMethod(previous_);
         }
         if (StringList.quickEq(_id,aliasConstructor_)) {
-            return getCtor(previous_);
+            return NumParsers.getCtor(previous_);
         }
         if (StringList.quickEq(_id,aliasField_)) {
-            return getField(previous_);
+            return NumParsers.getField(previous_);
         }
-        return getClass(previous_);
-    }
-    public static AnnotatedStruct getAnnotated(Struct _struct) {
-        if (_struct instanceof MethodMetaInfo) {
-            return (MethodMetaInfo) _struct;
-        }
-        if (_struct instanceof ConstructorMetaInfo) {
-            return (ConstructorMetaInfo) _struct;
-        }
-        if (_struct instanceof FieldMetaInfo) {
-            return (FieldMetaInfo) _struct;
-        }
-        return getClass(_struct);
-    }
-    public static MethodMetaInfo getMethod(Struct _struct) {
-        if (_struct instanceof MethodMetaInfo) {
-            return (MethodMetaInfo) _struct;
-        }
-        return new MethodMetaInfo();
-    }
-    public static ConstructorMetaInfo getCtor(Struct _struct) {
-        if (_struct instanceof ConstructorMetaInfo) {
-            return (ConstructorMetaInfo) _struct;
-        }
-        return new ConstructorMetaInfo();
-    }
-    public static FieldMetaInfo getField(Struct _struct) {
-        if (_struct instanceof FieldMetaInfo) {
-            return (FieldMetaInfo) _struct;
-        }
-        return new FieldMetaInfo();
-    }
-    public static ClassMetaInfo getClass(Struct _struct) {
-        if (_struct instanceof ClassMetaInfo) {
-            return (ClassMetaInfo) _struct;
-        }
-        return new ClassMetaInfo();
+        return NumParsers.getClass(previous_);
     }
 
     public static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
@@ -377,7 +341,7 @@ public final class ApplyCoreMethodUtil {
         if (StringList.quickEq(type_, mathType_)) {
             return AliasMath.invokeStdMethod(_cont, _method, _args);
         }
-        NumberStruct.calculate(_cont, result_, _method, _struct, args_);
+        AliasNumber.calculateNumber(_cont, result_, _method, _struct, args_);
         return result_;
     }
     public static ResultErrorStd newInstance(ContextEl _cont, ConstructorId _method, Argument... _args) {
@@ -405,7 +369,7 @@ public final class ApplyCoreMethodUtil {
             return result_;
         }
         if (StringList.quickEq(type_, stringType_)) {
-            StringStruct.instantiate(lgNames_, result_, _method, args_);
+            AliasCharSequence.instantiateString(lgNames_, result_, _method, args_);
             return result_;
         }
         if (StringList.quickEq(type_, booleanType_)
@@ -416,7 +380,7 @@ public final class ApplyCoreMethodUtil {
                 || StringList.quickEq(type_, longType_)
                 || StringList.quickEq(type_, floatType_)
                 || StringList.quickEq(type_, doubleType_)) {
-            NumberStruct.instantiate(_cont, result_, _method, args_);
+            AliasNumber.instantiateNumber(_cont, result_, _method, args_);
             return result_;
         }
         return result_;
@@ -441,37 +405,13 @@ public final class ApplyCoreMethodUtil {
             return AnaApplyCoreMethodUtil.getString(previous_);
         }
         if (StringList.quickEq(aliasStringBuilder_, _id)) {
-            return getStrBuilder(previous_);
+            return NumParsers.getStrBuilder(previous_);
         }
         String aliasRepl_ = stds_.getAliasReplacement();
         if (StringList.quickEq(aliasRepl_, _id)) {
-            return getReplacement(previous_);
+            return NumParsers.getReplacement(previous_);
         }
         return stds_.defaultInstance(_conf,_id).getStruct();
-    }
-
-    public static ReplacementStruct getReplacement(Struct _previous) {
-        if (_previous instanceof ReplacementStruct) {
-            return (ReplacementStruct) _previous;
-        }
-        Replacement r_ = new Replacement();
-        r_.setOldString("");
-        r_.setNewString("");
-        return new ReplacementStruct(r_);
-    }
-
-    public static CharSequenceStruct getCharSeq(Struct _previous) {
-        if (_previous instanceof StringBuilderStruct) {
-            return (StringBuilderStruct) _previous;
-        }
-        return AnaApplyCoreMethodUtil.getString(_previous);
-    }
-
-    public static StringBuilderStruct getStrBuilder(Struct _previous) {
-        if (_previous instanceof StringBuilderStruct) {
-            return (StringBuilderStruct) _previous;
-        }
-        return new StringBuilderStruct(new StringBuilder());
     }
 
     private static ErroneousStruct getError(Struct _err, ContextEl _cont) {
@@ -490,13 +430,6 @@ public final class ApplyCoreMethodUtil {
             str_ =  Argument.getNull(_arg).getClassName(_cont);
         }
         return new StringStruct(str_);
-    }
-
-    public static String getNameOfEnum(Struct _arg) {
-        if (_arg instanceof EnumerableStruct) {
-            return ((EnumerableStruct)_arg).getName();
-        }
-        return ";";
     }
 
 }

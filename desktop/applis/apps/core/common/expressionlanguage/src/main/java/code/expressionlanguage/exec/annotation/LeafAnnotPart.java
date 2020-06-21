@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.annotation;
 
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 
 final class LeafAnnotPart extends InfoAnnotPart {
@@ -16,14 +16,14 @@ final class LeafAnnotPart extends InfoAnnotPart {
             return ((BooleanStruct)part).exportValue().getInstance();
         }
         if (part instanceof CharSequenceStruct) {
-            return ((CharSequenceStruct)part).exportValue().getInstance();
+            return NumParsers.exportValue((CharSequenceStruct)part).getInstance();
         }
         if (part instanceof NumberStruct) {
-            return ((NumberStruct)part).exportValue(_infinity,_nan,_exp).getInstance();
+            return NumParsers.exportValue((NumberStruct)part,_infinity,_nan,_exp).getInstance();
         }
         if (part instanceof ClassMetaInfo) {
             return ((ClassMetaInfo)part).exportValue().getInstance();
         }
-        return ApplyCoreMethodUtil.getNameOfEnum(part);
+        return NumParsers.getNameOfEnum(part);
     }
 }

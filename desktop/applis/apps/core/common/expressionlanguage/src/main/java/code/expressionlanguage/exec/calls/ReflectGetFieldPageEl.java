@@ -2,11 +2,11 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.FieldMetaInfo;
 
@@ -17,7 +17,7 @@ public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        FieldMetaInfo method_ = ApplyCoreMethodUtil.getField(getGlobalArgument().getStruct());
+        FieldMetaInfo method_ = NumParsers.getField(getGlobalArgument().getStruct());
         if (!initClass) {
             initClass = true;
             if (method_.isStaticField()) {

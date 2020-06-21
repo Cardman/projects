@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
@@ -100,11 +99,11 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
     @Override
     public void reduce(ContextEl _context) {
         ExecOperationNode i_ = opInit.last();
-        opInit = ElUtil.getReducedNodes(i_);
+        opInit = ExpressionLanguage.getReducedNodes(i_);
         ExecOperationNode e_ = opExp.last();
-        opExp = ElUtil.getReducedNodes(e_);
+        opExp = ExpressionLanguage.getReducedNodes(e_);
         ExecOperationNode s_ = opStep.last();
-        opStep = ElUtil.getReducedNodes(s_);
+        opStep = ExpressionLanguage.getReducedNodes(s_);
     }
 
     @Override

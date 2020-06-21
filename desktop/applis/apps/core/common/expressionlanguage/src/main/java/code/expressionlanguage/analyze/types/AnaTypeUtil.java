@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.accessing.Accessed;
+import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
@@ -72,11 +74,13 @@ public final class AnaTypeUtil {
                 ClassMethodId supId_ = l.getSupMethod();
                 ExecNamedFunctionBlock sub_ = ExecBlock.getMethodBodiesById(_context,subId_.getClassName(), subId_.getConstraints()).first();
                 ExecNamedFunctionBlock sup_ = ExecBlock.getMethodBodiesById(_context,supId_.getClassName(), supId_.getConstraints()).first();
+                Accessed subAcc_ = newAccessed(sub_);
+                Accessed supAcc_ = newAccessed(sup_);
                 if (subId_.eq(supId_)) {
-                    if (ContextUtil.canAccess(_type.getFullName(), sub_, _context)) {
+                    if (ContextUtil.canAccess(_type.getFullName(), subAcc_, _context)) {
                         relations_.add(l);
                     }
-                } else if (ContextUtil.canAccess(subId_.getClassName(), sup_, _context)) {
+                } else if (ContextUtil.canAccess(subId_.getClassName(), supAcc_, _context)) {
                     relations_.add(l);
                 }
             }
@@ -163,6 +167,13 @@ public final class AnaTypeUtil {
         val_.getAllOverridingMethods().addAllElts(_type.getAllOverridingMethods());
     }
 
+    private static Accessed newAccessed(ExecNamedFunctionBlock _named) {
+        if (_named instanceof ExecOverridableBlock) {
+            ExecOverridableBlock c = (ExecOverridableBlock) _named;
+            return new Accessed(c.getAccess(), c.getPackageName(), c.getFullName(), c.getOuterFullName());
+        }
+        return new Accessed(AccessEnum.PUBLIC, "", "", "");
+    }
     private static CustList<ClassMethodId> getAllDuplicates(RootBlock _type, ContextEl _classes) {
         CustList<ClassMethodId> list_;
         list_ = new CustList<ClassMethodId>();
@@ -241,6 +252,8 @@ public final class AnaTypeUtil {
         for (RootBlock c: page_.getFoundTypes()) {
             ExecRootBlock type_ = _context.getAnalyzing().getMapTypes().getVal(c);
             page_.setImporting(type_);
+            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingTypes(type_);
             page_.setCurrentBlock(c);
             page_.setCurrentAnaBlock(c);
             page_.setGlobalClass(type_.getGenericString());

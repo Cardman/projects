@@ -4,12 +4,12 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
@@ -24,7 +24,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        ConstructorMetaInfo method_ = ApplyCoreMethodUtil.getCtor(getGlobalArgument().getStruct());
+        ConstructorMetaInfo method_ = NumParsers.getCtor(getGlobalArgument().getStruct());
         String className_ = method_.getClassName();
         String id_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);

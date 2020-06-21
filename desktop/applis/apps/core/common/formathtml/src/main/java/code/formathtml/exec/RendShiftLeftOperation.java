@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.ShiftLeftOperation;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.stds.AliasNumber;
 
 public final class RendShiftLeftOperation extends RendStdNumericOperation {
 
@@ -15,7 +15,7 @@ public final class RendShiftLeftOperation extends RendStdNumericOperation {
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b,
             ContextEl _cont) {
-        return new Argument(NumberStruct.calculateShiftLeft(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+        return new Argument(AliasNumber.calculateShiftLeft(ClassArgumentMatching.convertToNumber(_a.getStruct()),
                 ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
     }
 

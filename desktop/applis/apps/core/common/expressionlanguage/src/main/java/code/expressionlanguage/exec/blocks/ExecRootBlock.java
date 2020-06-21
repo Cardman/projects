@@ -7,14 +7,14 @@ import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.OverridingMethod;
 import code.util.*;
 
-public abstract class ExecRootBlock extends ExecBracedBlock implements AccessibleBlock,GeneType, ExecAccessingImportingBlock, ExecAnnotableBlock {
+public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,AccessedBlock, ExecAnnotableBlock {
 
     private String name;
 
@@ -194,7 +194,13 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
     public StringList getStaticInitImportedInterfaces() {
         return staticInitImportedInterfaces;
     }
-
+    public final String getParentFullName() {
+        ExecRootBlock par_ = getParentType();
+        if (par_ == null) {
+            return "";
+        }
+        return par_.getFullName();
+    }
     public final ExecRootBlock getParentType() {
         ExecBracedBlock p_ = getParent();
         while (!(p_ instanceof ExecRootBlock)) {
@@ -238,7 +244,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
         annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
         for (CustList<ExecOperationNode> a: annotationsOps) {
             ExecOperationNode r_ = a.last();
-            annotationsOps_.add(ElUtil.getReducedNodes(r_));
+            annotationsOps_.add(ExpressionLanguage.getReducedNodes(r_));
         }
         annotationsOps = annotationsOps_;
     }
@@ -342,11 +348,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
         return StringList.contains(getAllSuperTypes(),_fullName);
     }
 
-    @Override
-    public boolean isTypeHidden(ExecRootBlock _class, ContextEl _analyzable) {
-        return !ContextUtil.canAccess(getFullName(), (AccessibleBlock)_class, _analyzable);
-    }
-
     public StringList getImportedDirectBaseSuperTypes() {
         return importedDirectBaseSuperTypes;
     }
@@ -370,7 +371,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements Accessibl
         }
     }
 
-    @Override
     public String getOuterFullName() {
         return getOuter().getFullName();
     }

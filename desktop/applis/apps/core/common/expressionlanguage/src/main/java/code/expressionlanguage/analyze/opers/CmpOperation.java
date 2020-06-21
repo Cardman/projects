@@ -7,9 +7,9 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.stds.AliasNumber;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -176,9 +176,9 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         }
         BooleanStruct arg_;
         if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = NumberStruct.quickCalculateLowerNb(_one.getStruct(), _two.getStruct());
+            arg_ = AliasNumber.quickCalculateLowerNb(_one.getStruct(), _two.getStruct());
         } else {
-            arg_ = NumberStruct.quickCalculateGreaterNb(_one.getStruct(), _two.getStruct());
+            arg_ = AliasNumber.quickCalculateGreaterNb(_one.getStruct(), _two.getStruct());
         }
         if (complement_) {
             arg_ = arg_.neg();
@@ -197,9 +197,9 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         }
         BooleanStruct arg_;
         if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = NumberStruct.quickCalculateLowerStr(_one.getStruct(), _two.getStruct());
+            arg_ = AliasNumber.quickCalculateLowerStr(_one.getStruct(), _two.getStruct());
         } else {
-            arg_ = NumberStruct.quickCalculateGreaterStr(_one.getStruct(), _two.getStruct());
+            arg_ = AliasNumber.quickCalculateGreaterStr(_one.getStruct(), _two.getStruct());
         }
         if (complement_) {
             arg_ = arg_.neg();

@@ -1,5 +1,6 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.types.AbstractHiddenTypes;
@@ -17,6 +18,7 @@ public final class AdvancedHiddenTypes implements AbstractHiddenTypes {
         if (_global == null) {
             return false;
         }
-        return _global.isTypeHidden(_type, configuration.getContext());
+        Accessed a_ = new Accessed(_type.getAccess(), _type.getPackageName(), _type.getParentFullName(), _type.getFullName(), _type.getOuterFullName());
+        return _global.isTypeHidden(a_, configuration.getContext());
     }
 }

@@ -6,6 +6,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.stds.AliasNumber;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -96,9 +97,9 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         }
         ClassArgumentMatching to_ = _par.getResultClass();
         if (StringList.quickEq(_oper, PLUS)) {
-            out_.setStruct(NumberStruct.idNumber(ClassArgumentMatching.convertToNumber(nb_), _conf, to_));
+            out_.setStruct(AliasNumber.idNumber(ClassArgumentMatching.convertToNumber(nb_), _conf, to_));
         } else {
-            out_.setStruct(NumberStruct.opposite(ClassArgumentMatching.convertToNumber(nb_), _conf, to_));
+            out_.setStruct(AliasNumber.opposite(ClassArgumentMatching.convertToNumber(nb_), _conf, to_));
         }
         _par.setSimpleArgumentAna(out_, _conf);
     }

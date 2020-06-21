@@ -6,7 +6,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
-import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.stds.AliasNumber;
 import code.util.StringList;
 
 
@@ -21,14 +21,14 @@ public final class MultOperation extends NumericOperation {
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
             ContextEl _an) {
         if (StringList.quickEq(_op.trim(), MULT)) {
-            return new Argument(NumberStruct.calculateMult(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+            return new Argument(AliasNumber.calculateMult(ClassArgumentMatching.convertToNumber(_a.getStruct()),
                     ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
         }
         if (StringList.quickEq(_op.trim(), DIV)) {
-            return new Argument(NumberStruct.calculateDiv(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+            return new Argument(AliasNumber.calculateDiv(ClassArgumentMatching.convertToNumber(_a.getStruct()),
                     ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
         }
-        return new Argument(NumberStruct.calculateMod(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+        return new Argument(AliasNumber.calculateMod(ClassArgumentMatching.convertToNumber(_a.getStruct()),
                 ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
     }
 

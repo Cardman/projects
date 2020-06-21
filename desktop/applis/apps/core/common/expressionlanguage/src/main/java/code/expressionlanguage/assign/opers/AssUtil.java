@@ -130,15 +130,14 @@ public final class AssUtil {
         for (EntryCust<String,Assignment> e: _ass.entryList()) {
             ass_.addEntry(e.getKey(),e.getValue().isUnassignedAfter());
         }
-        return checkFinalReadOnly(_conf, _as,_cst, ass_, fromCurClass_, cl_, fieldName_);
+        return checkFinalReadOnly(_conf, _as,_cst, ass_, fromCurClass_, fieldName_, ContextUtil.getFieldInfo(_conf, cl_));
     }
-    private static boolean checkFinalReadOnly(ContextEl _conf, AssBlock _as,AssSettableFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, ClassField _cl, String _fieldName) {
+    private static boolean checkFinalReadOnly(ContextEl _conf, AssBlock _as, AssSettableFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, FieldInfo _meta) {
         boolean checkFinal_;
         if (_conf.isAssignedFields()) {
             checkFinal_ = true;
         } else if (_conf.isAssignedStaticFields()) {
-            FieldInfo meta_ = ContextUtil.getFieldInfo(_conf,_cl);
-            if (meta_.isStaticField()) {
+            if (_meta.isStaticField()) {
                 checkFinal_ = true;
             } else if (!_fromCurClass) {
                 checkFinal_ = true;

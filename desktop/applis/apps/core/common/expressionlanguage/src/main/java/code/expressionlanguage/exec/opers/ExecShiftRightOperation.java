@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.opers.ShiftRightOperation;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.stds.AliasNumber;
 
 public final class ExecShiftRightOperation extends ExecStdNumericOperation {
 
@@ -15,7 +15,7 @@ public final class ExecShiftRightOperation extends ExecStdNumericOperation {
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b,
                            ContextEl _cont) {
-        return new Argument(NumberStruct.calculateShiftRight(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+        return new Argument(AliasNumber.calculateShiftRight(ClassArgumentMatching.convertToNumber(_a.getStruct()),
                 ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
     }
 

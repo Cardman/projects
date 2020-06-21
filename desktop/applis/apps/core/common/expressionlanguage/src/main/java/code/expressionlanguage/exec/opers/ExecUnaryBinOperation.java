@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.UnaryBinOperation;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.stds.AliasNumber;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -28,7 +28,7 @@ public final class ExecUnaryBinOperation extends ExecAbstractUnaryOperation {
         Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         ClassArgumentMatching res_ = getResultClass();
-        out_.setStruct(NumberStruct.negBinNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, res_));
+        out_.setStruct(AliasNumber.negBinNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, res_));
         return out_;
     }
 }

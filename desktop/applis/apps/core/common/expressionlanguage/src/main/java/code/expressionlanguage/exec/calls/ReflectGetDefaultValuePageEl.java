@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
@@ -10,7 +11,6 @@ import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -23,7 +23,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
 
     @Override
     public boolean checkCondition(ContextEl _context) {
-        MethodMetaInfo instance_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct());
+        MethodMetaInfo instance_ = NumParsers.getMethod(getGlobalArgument().getStruct());
         String cl_ = instance_.getFormClassName();
         String id_ = StringExpUtil.getIdFromAllTypes(cl_);
         GeneType type_ = _context.getClassBody(id_);

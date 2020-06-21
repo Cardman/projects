@@ -3,6 +3,8 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ClassFieldBlock;
+import code.expressionlanguage.analyze.accessing.OperatorAccessor;
+import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
@@ -1291,6 +1293,8 @@ public final class Classes {
             ExecRootBlock type_ = mapTypes_.getVal(c);
             page_.setGlobalClass(type_.getGenericString());
             page_.setImporting(type_);
+            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingTypes(type_);
             c.validateIds(_context, type_,page_.getMapMembers().getVal(c));
             if (c.getNbOperators() > 0) {
                 _context.getClasses().getTypesWithInnerOperators().add(c.getFullName());
@@ -1304,6 +1308,8 @@ public final class Classes {
         for (EntryCust<OperatorBlock,ExecOperatorBlock> e: page_.getMapOperators().entryList()) {
             String name_ = e.getKey().getName();
             page_.setImporting(e.getValue());
+            page_.setImportingAcces(new OperatorAccessor());
+            page_.setImportingTypes(e.getValue());
             e.getKey().buildImportedTypes(_context);
             e.getValue().buildImportedTypes(e.getKey());
             if (!StringExpUtil.isOper(name_)) {
@@ -1413,6 +1419,8 @@ public final class Classes {
                 Members mem_ = page_.getMapMembers().getVal(c);
                 ExecRootBlock type_ = page_.getMapTypes().getVal(c);
                 page_.setImporting(type_);
+                page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+                page_.setImportingTypes(type_);
                 page_.getInitFields().clear();
                 page_.getAssignedDeclaredFields().clear();
                 page_.getAllDeclaredFields().clear();
@@ -1468,6 +1476,8 @@ public final class Classes {
             for (RootBlock c: page_.getFoundTypes()) {
                 ExecRootBlock type_ = page_.getMapTypes().getVal(c);
                 page_.setImporting(type_);
+                page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+                page_.setImportingTypes(type_);
                 Members mem_ = page_.getMapMembers().getVal(c);
                 page_.getInitFields().clear();
                 page_.getAssignedDeclaredFields().clear();
@@ -1529,6 +1539,8 @@ public final class Classes {
             for (RootBlock c: page_.getFoundTypes()) {
                 ExecRootBlock type_ = page_.getMapTypes().getVal(c);
                 page_.setImporting(type_);
+                page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+                page_.setImportingTypes(type_);
                 Members mem_ = page_.getMapMembers().getVal(c);
                 String fullName_ = c.getFullName();
                 CustList<Block> bl_ = getDirectChildren(c);
@@ -1563,6 +1575,8 @@ public final class Classes {
             _context.getCoverage().putCalls(_context,"");
             for (EntryCust<OperatorBlock,ExecOperatorBlock> e: page_.getMapOperators().entryList()) {
                 page_.setImporting(e.getValue());
+                page_.setImportingAcces(new OperatorAccessor());
+                page_.setImportingTypes(e.getValue());
                 _context.getCoverage().putCalls(_context,"",e.getKey());
                 StringList params_ = e.getKey().getParametersNames();
                 StringList types_ = e.getKey().getImportedParametersTypes();
@@ -1576,6 +1590,8 @@ public final class Classes {
         for (RootBlock c: page_.getFoundTypes()) {
             ExecRootBlock type_ = page_.getMapTypes().getVal(c);
             page_.setImporting(type_);
+            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingTypes(type_);
             Members mem_ = page_.getMapMembers().getVal(c);
             page_.setGlobalClass(type_.getGenericString());
             CustList<Block> annotated_ = new CustList<Block>();
@@ -1615,6 +1631,8 @@ public final class Classes {
         page_.setGlobalClass("");
         for (EntryCust<OperatorBlock,ExecOperatorBlock> e: page_.getMapOperators().entryList()) {
             page_.setImporting(e.getValue());
+            page_.setImportingAcces(new OperatorAccessor());
+            page_.setImportingTypes(e.getValue());
             page_.setCurrentBlock(e.getKey());
             page_.setCurrentAnaBlock(e.getKey());
             _context.setAnnotAnalysisField(false);
@@ -1636,6 +1654,8 @@ public final class Classes {
             Members mem_ = page_.getMapMembers().getVal(c);
             ExecRootBlock type_ = page_.getMapTypes().getVal(c);
             page_.setImporting(type_);
+            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingTypes(type_);
             page_.getInitFields().clear();
             page_.getAssignedDeclaredFields().clear();
             page_.getAllDeclaredFields().clear();
@@ -1734,6 +1754,8 @@ public final class Classes {
             Members mem_ = page_.getMapMembers().getVal(c);
             ExecRootBlock type_ = page_.getMapTypes().getVal(c);
             page_.setImporting(type_);
+            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingTypes(type_);
             page_.getInitFields().clear();
             page_.getAssignedDeclaredFields().clear();
             page_.getAllDeclaredFields().clear();
@@ -1881,6 +1903,8 @@ public final class Classes {
         for (RootBlock c: page_.getFoundTypes()) {
             ExecRootBlock type_ = page_.getMapTypes().getVal(c);
             page_.setImporting(type_);
+            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingTypes(type_);
             Members mem_ = page_.getMapMembers().getVal(c);
             String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
@@ -1915,6 +1939,8 @@ public final class Classes {
         _context.getCoverage().putCalls(_context,"");
         for (EntryCust<OperatorBlock,ExecOperatorBlock> e: page_.getMapOperators().entryList()) {
             page_.setImporting(e.getValue());
+            page_.setImportingAcces(new OperatorAccessor());
+            page_.setImportingTypes(e.getValue());
             _context.getCoverage().putCalls(_context,"",e.getKey());
             StringList params_ = e.getKey().getParametersNames();
             StringList types_ = e.getKey().getImportedParametersTypes();
@@ -2077,6 +2103,8 @@ public final class Classes {
         for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
             ExecRootBlock type_ = _context.getAnalyzing().getMapTypes().getVal(c);
             page_.setImporting(type_);
+            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingTypes(type_);
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 if (!(b instanceof FieldBlock)) {

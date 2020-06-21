@@ -3,7 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.BitAndOperation;
-import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.stds.AliasNumber;
 
 public final class RendBitAndOperation extends RendStdNumericOperation {
 
@@ -15,7 +15,7 @@ public final class RendBitAndOperation extends RendStdNumericOperation {
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b,
             ContextEl _cont) {
-        return new Argument(NumberStruct.calculateAnd(_a.getStruct(), _b.getStruct(), _cont, getResultClass()));
+        return new Argument(AliasNumber.calculateAnd(_a.getStruct(), _b.getStruct(), _cont, getResultClass()));
     }
 
 

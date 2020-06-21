@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.opers.BitXorOperation;
-import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.stds.AliasNumber;
 
 public final class ExecBitXorOperation extends ExecStdNumericOperation {
 
@@ -15,7 +15,7 @@ public final class ExecBitXorOperation extends ExecStdNumericOperation {
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b,
                            ContextEl _cont) {
-        return new Argument(NumberStruct.calculateXor(_a.getStruct(), _b.getStruct(), _cont, getResultClass()));
+        return new Argument(AliasNumber.calculateXor(_a.getStruct(), _b.getStruct(), _cont, getResultClass()));
     }
 
 }

@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -28,7 +27,7 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
     @Override
     public void reduce(ContextEl _context) {
         ExecOperationNode r_ = opCondition.last();
-        opCondition = ElUtil.getReducedNodes(r_);
+        opCondition = ExpressionLanguage.getReducedNodes(r_);
     }
 
     final ConditionReturn evaluateCondition(ContextEl _context) {

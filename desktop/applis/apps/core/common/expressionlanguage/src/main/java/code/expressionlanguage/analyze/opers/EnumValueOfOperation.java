@@ -1,10 +1,10 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecEnumBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -61,7 +61,8 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             return;
         }
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
-        if (!ContextUtil.canAccess(curClassBase_,(ExecBlock) r_, _conf)) {
+        Accessed a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_.getParentFullName(), clName_, r_.getOuterFullName());
+        if (!ContextUtil.canAccessType(curClassBase_,a_, _conf)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());

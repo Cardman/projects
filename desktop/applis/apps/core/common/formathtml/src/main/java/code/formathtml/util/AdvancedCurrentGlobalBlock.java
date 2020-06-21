@@ -1,5 +1,6 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.exec.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.types.AbstractCurrentGlobalBlock;
 import code.formathtml.Configuration;
@@ -12,12 +13,22 @@ public final class AdvancedCurrentGlobalBlock implements AbstractCurrentGlobalBl
     }
 
     @Override
-    public ExecAccessingImportingBlock getCurrentGlobalBlock() {
+    public AccessedBlock getCurrentGlobalBlockImporting() {
         return configuration.getCurrentGlobalBlock();
     }
 
     @Override
-    public ExecAccessingImportingBlock getCurrentGlobalBlock(ExecAccessingImportingBlock _bl) {
+    public ExecAccessingImportingBlock getImportingAcces() {
+        return configuration.getCurrentGlobalBlock();
+    }
+
+    @Override
+    public AccessedBlock getCurrentGlobalBlock() {
+        return configuration.getCurrentGlobalBlock();
+    }
+
+    @Override
+    public AccessedBlock getCurrentGlobalBlock(AccessedBlock _bl) {
         return configuration.getCurrentGlobalBlock(_bl);
     }
 }

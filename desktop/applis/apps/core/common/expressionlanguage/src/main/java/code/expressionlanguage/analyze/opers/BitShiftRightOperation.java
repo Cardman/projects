@@ -7,7 +7,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.stds.AliasNumber;
 import code.util.StringList;
 
 public final class BitShiftRightOperation extends NumericOperation {
@@ -52,7 +52,7 @@ public final class BitShiftRightOperation extends NumericOperation {
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
                               ContextEl _an) {
-        return new Argument(NumberStruct.calculateBitShiftRight(ClassArgumentMatching.convertToNumber(_a.getStruct()),
+        return new Argument(AliasNumber.calculateBitShiftRight(ClassArgumentMatching.convertToNumber(_a.getStruct()),
                 ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
     }
 

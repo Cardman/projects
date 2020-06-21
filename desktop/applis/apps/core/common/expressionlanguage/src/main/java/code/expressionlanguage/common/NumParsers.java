@@ -1,15 +1,13 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.structs.ByteStruct;
-import code.expressionlanguage.structs.CharStruct;
-import code.expressionlanguage.structs.DoubleStruct;
-import code.expressionlanguage.structs.FloatStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.ShortStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.structs.*;
+import code.util.CustList;
+import code.util.Numbers;
+import code.util.Replacement;
 import code.util.StringList;
+
 public final class NumParsers {
     private static final int DEFAULT_RADIX = 10;
     private static final long N_MULTMAX_RADIX_TEN = -Long.MAX_VALUE / DEFAULT_RADIX;
@@ -1020,5 +1018,276 @@ public final class NumParsers {
             return null;
         }
         return infos_;
+    }
+
+    public static StringStruct exportValue(NumberStruct _nb, String _infinity, String _nan, String _exp) {
+        return getStringValue(_nb,_infinity,_nan,_exp);
+    }
+
+    public static StringStruct getStringValue(NumberStruct _nb, String _infinity, String _nan, String _exp) {
+        if (_nb instanceof DoubleStruct) {
+            return getDoubleString(_nb,_infinity, _nan, _exp);
+        }
+        if (_nb instanceof FloatStruct) {
+            return getFloatString(_nb,_infinity, _nan, _exp);
+        }
+        return new StringStruct(Long.toString(_nb.longStruct()));
+    }
+
+    public static StringStruct getFloatString(NumberStruct _nb, String _infinity, String _nan, String _exp) {
+        float f_ = _nb.floatStruct();
+        if (Float.isInfinite(f_)) {
+            if (f_ > 0.0) {
+                return new StringStruct(_infinity);
+            }
+            return new StringStruct(StringList.concat("-",_infinity));
+        }
+        if (Float.isNaN(f_)) {
+            return new StringStruct(_nan);
+        }
+        return new StringStruct(StringList.replace(Float.toString(f_),"E",_exp));
+    }
+
+    public static StringStruct getDoubleString(NumberStruct _nb, String _infinity, String _nan, String _exp) {
+        double d_ = _nb.doubleStruct();
+        if (Double.isInfinite(d_)) {
+            if (d_ > 0.0) {
+                return new StringStruct(_infinity);
+            }
+            return new StringStruct(StringList.concat("-",_infinity));
+        }
+        if (Double.isNaN(d_)) {
+            return new StringStruct(_nan);
+        }
+        return new StringStruct(StringList.replace(Double.toString(d_),"E",_exp));
+    }
+
+    public static int compareGene(NumberStruct _nb1, NumberStruct _nb2) {
+        if (_nb1 instanceof DoubleStruct || _nb1 instanceof FloatStruct || _nb2 instanceof DoubleStruct || _nb2 instanceof FloatStruct) {
+            if (_nb1.doubleStruct() < _nb2.doubleStruct()) {
+                return CustList.NO_SWAP_SORT;
+            }
+            if (_nb1.doubleStruct() > _nb2.doubleStruct()) {
+                return CustList.SWAP_SORT;
+            }
+            return CustList.EQ_CMP;
+        }
+        return compare(_nb1,_nb2);
+    }
+
+    public static int compare(NumberStruct _nb1, NumberStruct _nb2) {
+        return Numbers.compareLg(_nb1.longStruct(),_nb2.longStruct());
+    }
+
+    public static double asDouble(Struct _struct, StringList list_, Struct[] _args) {
+        double one_;
+        if (list_.isEmpty()) {
+            NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+            one_ = instance_.doubleStruct();
+        } else {
+            one_ = (ClassArgumentMatching.convertToNumber(_args[0])).doubleStruct();
+        }
+        return one_;
+    }
+
+    public static int getRadix(StringList _list, Struct[] _args) {
+        int radix_ = DEFAULT_RADIX;
+        if (_list.size() != 1) {
+            radix_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
+        }
+        return radix_;
+    }
+
+    public static IntStruct cmpBool(BooleanStruct _one, BooleanStruct _two) {
+        if (_one.sameReference(_two)) {
+            return new IntStruct(CustList.EQ_CMP);
+        }
+        if (BooleanStruct.isTrue(_one)) {
+            return new IntStruct(CustList.SWAP_SORT);
+        }
+        return new IntStruct(CustList.NO_SWAP_SORT);
+    }
+
+    public static boolean sameReference(NumberStruct _first, NumberStruct _other) {
+        if (isFloatType(_first) && !isFloatType(_other)) {
+            return false;
+        }
+        if (!isFloatType(_first) && isFloatType(_other)) {
+            return false;
+        }
+        return cmpWide(_first, _other);
+    }
+
+    public static boolean sameValue(Struct _first, Struct _other) {
+        NumberStruct first_ = ClassArgumentMatching.convertToNumber(_first);
+        NumberStruct other_ = ClassArgumentMatching.convertToNumber(_other);
+        return cmpWide(first_, other_);
+    }
+
+    public static boolean cmpWide(NumberStruct _first, NumberStruct _other) {
+        if (isFloatType(_first, _other)) {
+            return compareFloat(_first, _other);
+        }
+        return _first.longStruct() == _other.longStruct();
+    }
+
+    public static boolean isFloatType(Struct _first, Struct _other) {
+        return isFloatType(_first) || isFloatType(_other);
+    }
+
+    public static boolean compareFloat(NumberStruct _first, NumberStruct _other) {
+        double f_ = _first.doubleStruct();
+        double d_ = _other.doubleStruct();
+        return Double.compare(f_,d_) == 0;
+    }
+
+    public static boolean isFloatType(Struct _value) {
+        return _value instanceof DoubleStruct || _value instanceof FloatStruct;
+    }
+
+    public static StringStruct exportValue(CharSequenceStruct _ch) {
+        StringBuilder out_ = new StringBuilder();
+        out_.append("\"");
+        for (char c: _ch.toStringInstance().toCharArray()) {
+            if (c == '"' || c == '\\') {
+                out_.append("\\");
+                out_.append(c);
+                continue;
+            }
+            if (c == 0) {
+                out_.append("\\u0000");
+                continue;
+            }
+            if (c < 16) {
+                out_.append("\\u000");
+                out_.append(Integer.toHexString(c));
+                continue;
+            }
+            if (c < 31) {
+                out_.append("\\u00");
+                out_.append(Integer.toHexString(c));
+                continue;
+            }
+            out_.append(c);
+        }
+        out_.append("\"");
+        return new StringStruct(out_.toString());
+    }
+
+    public static boolean sameEq(CharSequenceStruct _current, Struct _other) {
+        if (!(_other instanceof CharSequenceStruct)) {
+            return false;
+        }
+        CharSequenceStruct other_ = getCharSeq(_other);
+        int len_ = _current.length();
+        if (len_ != other_.length()) {
+            return false;
+        }
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            if (_current.charAt(i) != other_.charAt(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isDisplay(StringList list_, Struct arg_) {
+        return list_.size() == 1 && arg_ instanceof DisplayableStruct;
+    }
+
+    public static Struct getArg(StringList list_, Struct[] _args) {
+        Struct arg_;
+        if (list_.size() == 1) {
+            arg_ = _args[0];
+        } else {
+            arg_ = _args[2];
+        }
+        return arg_;
+    }
+
+    public static boolean okArray(char[] arr_, int one_, int two_) {
+        return one_ < 0 || two_ < 0 || one_ + two_ > arr_.length;
+    }
+
+    public static String getString(Struct _oldChar) {
+        String old_;
+        if (_oldChar instanceof StringStruct) {
+            old_ = ((StringStruct)_oldChar).getInstance();
+        } else {
+            old_ = null;
+        }
+        return old_;
+    }
+
+    public static AnnotatedStruct getAnnotated(Struct _struct) {
+        if (_struct instanceof MethodMetaInfo) {
+            return (MethodMetaInfo) _struct;
+        }
+        if (_struct instanceof ConstructorMetaInfo) {
+            return (ConstructorMetaInfo) _struct;
+        }
+        if (_struct instanceof FieldMetaInfo) {
+            return (FieldMetaInfo) _struct;
+        }
+        return getClass(_struct);
+    }
+
+    public static MethodMetaInfo getMethod(Struct _struct) {
+        if (_struct instanceof MethodMetaInfo) {
+            return (MethodMetaInfo) _struct;
+        }
+        return new MethodMetaInfo();
+    }
+
+    public static ConstructorMetaInfo getCtor(Struct _struct) {
+        if (_struct instanceof ConstructorMetaInfo) {
+            return (ConstructorMetaInfo) _struct;
+        }
+        return new ConstructorMetaInfo();
+    }
+
+    public static FieldMetaInfo getField(Struct _struct) {
+        if (_struct instanceof FieldMetaInfo) {
+            return (FieldMetaInfo) _struct;
+        }
+        return new FieldMetaInfo();
+    }
+
+    public static ClassMetaInfo getClass(Struct _struct) {
+        if (_struct instanceof ClassMetaInfo) {
+            return (ClassMetaInfo) _struct;
+        }
+        return new ClassMetaInfo();
+    }
+
+    public static ReplacementStruct getReplacement(Struct _previous) {
+        if (_previous instanceof ReplacementStruct) {
+            return (ReplacementStruct) _previous;
+        }
+        Replacement r_ = new Replacement();
+        r_.setOldString("");
+        r_.setNewString("");
+        return new ReplacementStruct(r_);
+    }
+
+    public static CharSequenceStruct getCharSeq(Struct _previous) {
+        if (_previous instanceof StringBuilderStruct) {
+            return (StringBuilderStruct) _previous;
+        }
+        return AnaApplyCoreMethodUtil.getString(_previous);
+    }
+
+    public static StringBuilderStruct getStrBuilder(Struct _previous) {
+        if (_previous instanceof StringBuilderStruct) {
+            return (StringBuilderStruct) _previous;
+        }
+        return new StringBuilderStruct(new StringBuilder());
+    }
+
+    public static String getNameOfEnum(Struct _arg) {
+        if (_arg instanceof EnumerableStruct) {
+            return ((EnumerableStruct)_arg).getName();
+        }
+        return ";";
     }
 }

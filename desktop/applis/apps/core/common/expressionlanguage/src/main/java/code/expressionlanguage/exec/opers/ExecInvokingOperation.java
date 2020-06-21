@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.blocks.Classes;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
@@ -245,7 +244,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION_PARAM, _previous, _firstArgs, false));
                 return new Argument();
             }
-            String fileName_ = ApplyCoreMethodUtil.getAnnotated(_previous.getStruct()).getFileName();
+            String fileName_ = NumParsers.getAnnotated(_previous.getStruct()).getFileName();
             return new Argument(new StringStruct(fileName_));
         }
         String aliasField_ = stds_.getAliasField();
@@ -254,7 +253,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String aliasClass_ = stds_.getAliasClassType();
         if (StringList.quickEq(aliasClass_, idClassNameFound_)) {
             if (StringList.quickEq(aliasValueOf_, _methodId.getName())) {
-                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_previous.getStruct());
+                ClassMetaInfo cl_ = NumParsers.getClass(_previous.getStruct());
                 if (!cl_.isTypeEnum()) {
                     return new Argument();
                 }
@@ -263,7 +262,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return getEnumValue(_exit,enumName_, clArg_, _cont);
             }
             if (StringList.quickEq(aliasEnumsValues_, _methodId.getName())) {
-                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_previous.getStruct());
+                ClassMetaInfo cl_ = NumParsers.getClass(_previous.getStruct());
                 String enumName_ = cl_.getName();
                 ExecRootBlock r_ = classes_.getClassBody(enumName_);
                 if (r_ == null || !cl_.isTypeEnum()) {
@@ -300,7 +299,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return a_;
             }
             if (StringList.quickEq(aliasDefaultInstance_, _methodId.getName())) {
-                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_previous.getStruct());
+                ClassMetaInfo cl_ = NumParsers.getClass(_previous.getStruct());
                 String className_ = cl_.getName();
                 String id_ = StringExpUtil.getIdFromAllTypes(className_);
                 GeneType type_ = _cont.getClassBody(id_);
@@ -404,7 +403,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return a_;
             }
             if (StringList.quickEq(aliasInit_, _methodId.getName())) {
-                ClassMetaInfo cl_ = ApplyCoreMethodUtil.getClass(_previous.getStruct());
+                ClassMetaInfo cl_ = NumParsers.getClass(_previous.getStruct());
                 String clDyn_ = cl_.getName();
                 _exit.hasToExit(clDyn_);
                 return Argument.createVoid();
@@ -424,7 +423,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             boolean invoke_ = StringList.quickEq(aliasInvoke_, _methodId.getName());
             boolean invokeDirect_ = StringList.quickEq(aliasInvokeDirect_, _methodId.getName());
             if (invoke_) {
-                MethodMetaInfo m_ = ApplyCoreMethodUtil.getMethod(_previous.getStruct());
+                MethodMetaInfo m_ = NumParsers.getMethod(_previous.getStruct());
                 if (!m_.isInvokable()) {
                     String null_;
                     null_ = stds_.getAliasIllegalArg();
@@ -443,7 +442,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument();
             }
             if (invokeDirect_) {
-                MethodMetaInfo m_ = ApplyCoreMethodUtil.getMethod(_previous.getStruct());
+                MethodMetaInfo m_ = NumParsers.getMethod(_previous.getStruct());
                 if (!m_.isInvokable()) {
                     String null_;
                     null_ = stds_.getAliasIllegalArg();
@@ -481,7 +480,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         if (StringList.quickEq(aliasConstructor_, idClassNameFound_)) {
             if (StringList.quickEq(aliasNewInstance_, _methodId.getName())) {
-                ConstructorMetaInfo meta_ = ApplyCoreMethodUtil.getCtor(_previous.getStruct());
+                ConstructorMetaInfo meta_ = NumParsers.getCtor(_previous.getStruct());
                 if(!meta_.isInvokable()) {
                     String null_;
                     null_ = stds_.getAliasIllegalArg();
@@ -494,7 +493,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         if (StringList.quickEq(aliasField_, idClassNameFound_)) {
             if (StringList.quickEq(aliasGetField_, _methodId.getName())) {
-                FieldMetaInfo meta_ = ApplyCoreMethodUtil.getField(_previous.getStruct());
+                FieldMetaInfo meta_ = NumParsers.getField(_previous.getStruct());
                 if (!meta_.isInvokable()) {
                     String null_;
                     null_ = stds_.getAliasIllegalArg();
@@ -505,7 +504,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument();
             }
             if (StringList.quickEq(aliasSetField_, _methodId.getName())) {
-                FieldMetaInfo meta_ = ApplyCoreMethodUtil.getField(_previous.getStruct());
+                FieldMetaInfo meta_ = NumParsers.getField(_previous.getStruct());
                 if (!meta_.isInvokable()) {
                     String null_;
                     null_ = stds_.getAliasIllegalArg();

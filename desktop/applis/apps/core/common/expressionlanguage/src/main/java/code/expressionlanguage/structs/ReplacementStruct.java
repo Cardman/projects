@@ -2,8 +2,8 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.Replacement;
@@ -30,10 +30,10 @@ public final class ReplacementStruct extends WithoutParentStruct implements Stru
     private static Replacement getReplacement(Struct[] _args) {
         Replacement rep_ = new Replacement();
         if (_args[0] instanceof CharSequenceStruct) {
-            rep_.setOldString(ApplyCoreMethodUtil.getCharSeq(_args[0]).toStringInstance());
+            rep_.setOldString(NumParsers.getCharSeq(_args[0]).toStringInstance());
         }
         if (_args[1] instanceof CharSequenceStruct) {
-            rep_.setNewString(ApplyCoreMethodUtil.getCharSeq(_args[1]).toStringInstance());
+            rep_.setNewString(NumParsers.getCharSeq(_args[1]).toStringInstance());
         }
         return rep_;
     }
@@ -41,7 +41,7 @@ public final class ReplacementStruct extends WithoutParentStruct implements Stru
     public static void calculate(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct) {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
-        ReplacementStruct rp_ = ApplyCoreMethodUtil.getReplacement(_struct);
+        ReplacementStruct rp_ = NumParsers.getReplacement(_struct);
         if (StringList.quickEq(name_, lgNames_.getAliasGetNewString())) {
             rp_.getNewString(_res);
             return;
@@ -53,7 +53,7 @@ public final class ReplacementStruct extends WithoutParentStruct implements Stru
     public static Struct calculate(ContextEl _cont, ClassMethodId _method, Struct _struct) {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
-        ReplacementStruct rp_ = ApplyCoreMethodUtil.getReplacement(_struct);
+        ReplacementStruct rp_ = NumParsers.getReplacement(_struct);
         if (StringList.quickEq(name_, lgNames_.getAliasGetNewString())) {
             String old_ = rp_.instance.getNewString();
             return Argument.wrapStr(old_);
@@ -87,7 +87,7 @@ public final class ReplacementStruct extends WithoutParentStruct implements Stru
         if (!(_other instanceof ReplacementStruct)) {
             return false;
         }
-        ReplacementStruct other_ = ApplyCoreMethodUtil.getReplacement(_other);
+        ReplacementStruct other_ = NumParsers.getReplacement(_other);
         if (!StringList.quickEq(instance.getOldString(),other_.instance.getOldString())) {
             return false;
         }

@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.opers.ExecInterfaceInvokingConstructor;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.opers.ExecSuperInvokingConstructor;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.util.CustList;
 
@@ -49,7 +48,7 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
     @Override
     public void reduce(ContextEl _context) {
         ExecOperationNode r_ = opExp.last();
-        opExp = ElUtil.getReducedNodes(r_);
+        opExp = ExpressionLanguage.getReducedNodes(r_);
     }
 
     @Override

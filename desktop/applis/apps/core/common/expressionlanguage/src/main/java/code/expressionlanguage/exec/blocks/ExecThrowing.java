@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -30,7 +29,7 @@ public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
     @Override
     public void reduce(ContextEl _context) {
         ExecOperationNode r_ = opThrow.last();
-        opThrow = ElUtil.getReducedNodes(r_);
+        opThrow = ExpressionLanguage.getReducedNodes(r_);
     }
 
     @Override

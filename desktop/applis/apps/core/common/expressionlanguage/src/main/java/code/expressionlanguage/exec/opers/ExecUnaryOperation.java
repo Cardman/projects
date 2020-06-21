@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.UnaryOperation;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.stds.AliasNumber;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -36,9 +36,9 @@ public final class ExecUnaryOperation extends ExecAbstractUnaryOperation {
     public static Argument getArgument(ContextEl _conf, Argument _in, ClassArgumentMatching _to, String _oper) {
         Argument out_ = new Argument();
         if (StringList.quickEq(_oper, PLUS)) {
-            out_.setStruct(NumberStruct.idNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, _to));
+            out_.setStruct(AliasNumber.idNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, _to));
         } else {
-            out_.setStruct(NumberStruct.opposite(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, _to));
+            out_.setStruct(AliasNumber.opposite(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, _to));
         }
         return out_;
     }

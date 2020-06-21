@@ -5,7 +5,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.*;
 
-public final class FileBlock extends BracedBlock implements ImportingBlock {
+public final class FileBlock extends BracedBlock {
     private static final char LINE_RETURN = '\n';
     private static final char CARR_RETURN = '\r';
     private static final char TAB = '\t';
@@ -96,7 +96,6 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return lineReturns;
     }
 
-    @Override
     public StringList getImports() {
         return imports;
     }

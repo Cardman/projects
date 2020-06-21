@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
 import code.expressionlanguage.exec.stacks.RemovableVars;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -57,7 +56,7 @@ public final class ExecReturnMethod extends ExecLeaf implements CallingFinally,W
             return;
         }
         ExecOperationNode r_ = opRet.last();
-        opRet = ElUtil.getReducedNodes(r_);
+        opRet = ExpressionLanguage.getReducedNodes(r_);
     }
 
     @Override

@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
@@ -34,12 +35,12 @@ final class AnaTemplatePartType extends AnaBinaryType {
         return Templates.TEMPLATE_END;
     }
     @Override
-    void analyze(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _globalType, ExecAccessingImportingBlock _local, ExecAccessingImportingBlock _rooted) {
+    void analyze(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted) {
         analyzeLine(_an,null,_dels,_local,_rooted);
     }
 
     @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, ExecAccessingImportingBlock _local, ExecAccessingImportingBlock _rooted) {
+    void analyzeLine(ContextEl _an, ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted) {
         CustList<AnaPartType> ch_ = new CustList<AnaPartType>();
         AnaPartType f_ = getFirstChild();
         while (f_ != null) {
@@ -56,7 +57,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
     }
 
     @Override
-    void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap<String>> _dels, ExecAccessingImportingBlock _rooted) {
+    void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted) {
         CustList<AnaPartType> ch_ = new CustList<AnaPartType>();
         AnaPartType f_ = getFirstChild();
         while (f_ != null) {

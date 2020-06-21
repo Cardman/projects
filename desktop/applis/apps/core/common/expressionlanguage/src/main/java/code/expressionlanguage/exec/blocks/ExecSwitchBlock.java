@@ -2,14 +2,13 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.exec.ExpressionLanguage;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -40,7 +39,7 @@ public final class ExecSwitchBlock extends ExecBracedBlock implements StackableB
     @Override
     public void reduce(ContextEl _context) {
         ExecOperationNode r_ = opValue.last();
-        opValue = ElUtil.getReducedNodes(r_);
+        opValue = ExpressionLanguage.getReducedNodes(r_);
     }
 
     @Override
@@ -89,7 +88,7 @@ public final class ExecSwitchBlock extends ExecBracedBlock implements StackableB
                 }
             }
         } else if (enumTest) {
-            String name_ = ApplyCoreMethodUtil.getNameOfEnum(arg_.getStruct());
+            String name_ = NumParsers.getNameOfEnum(arg_.getStruct());
             for (ExecBlock b: children_) {
                 if (!(b instanceof ExecCaseCondition)) {
                     def_ = b;

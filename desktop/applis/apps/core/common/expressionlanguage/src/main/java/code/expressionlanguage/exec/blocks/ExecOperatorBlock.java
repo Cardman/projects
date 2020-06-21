@@ -11,7 +11,7 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements GeneCustMethod, ExecAccessingImportingBlock,ReturnableWithSignature {
+public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements GeneCustMethod,AccessedBlock,ReturnableWithSignature {
 
     private StringList imports;
 
@@ -35,11 +35,6 @@ public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements G
             pTypes_.add(n_);
         }
         return new MethodId(MethodAccessKind.STATIC, name_, pTypes_, isVarargs());
-    }
-
-    @Override
-    public boolean isTypeHidden(ExecRootBlock _class, ContextEl _analyzable) {
-        return _class.getAccess() != AccessEnum.PUBLIC;
     }
 
     public MethodModifier getModifier() {

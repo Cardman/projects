@@ -7,7 +7,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
-import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.stds.AliasNumber;
 import code.util.StringList;
 
 public final class BitXorOperation extends NumericOperation {
@@ -58,7 +58,7 @@ public final class BitXorOperation extends NumericOperation {
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
             ContextEl _an) {
-        return new Argument(NumberStruct.calculateXor(_a.getStruct(), _b.getStruct(), _an, getResultClass()));
+        return new Argument(AliasNumber.calculateXor(_a.getStruct(), _b.getStruct(), _an, getResultClass()));
     }
 
     @Override

@@ -1,8 +1,8 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.Returnable;
@@ -55,7 +55,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
             l_ = new CustList<CustList<ExecOperationNode>>();
             for (CustList<ExecOperationNode> k: l) {
                 ExecOperationNode o_ = k.last();
-                l_.add(ElUtil.getReducedNodes(o_));
+                l_.add(ExpressionLanguage.getReducedNodes(o_));
             }
             annotationsOpsParams_.add(l_);
         }
@@ -67,7 +67,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
         for (CustList<ExecOperationNode> a: annotationsOps) {
             ExecOperationNode r_ = a.last();
-            annotationsOps_.add(ElUtil.getReducedNodes(r_));
+            annotationsOps_.add(ExpressionLanguage.getReducedNodes(r_));
         }
         annotationsOps = annotationsOps_;
     }

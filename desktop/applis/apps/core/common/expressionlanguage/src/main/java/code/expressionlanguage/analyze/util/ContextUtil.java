@@ -22,43 +22,67 @@ public final class ContextUtil {
     private ContextUtil() {
     }
 
-    public static boolean canAccess(String _className, ExecBlock _block, ContextEl _context) {
-        if (!(_block instanceof AccessibleBlock)) {
+    public static boolean canAccess(String _className, AccessibleBlock _block, ContextEl _context) {
+        CodeAccess code_ = processBegin(_className, _block, _context);
+        ExecRootBlock root_ = code_.getRoot();
+        if (root_ == null) {
+            return access(code_.getCode());
+        }
+        String belongPkg_ = _block.getPackageName();
+        String rootPkg_ = root_.getPackageName();
+        if (_block.getAccess() == AccessEnum.PROTECTED) {
+            return processNormalProtected(_block, _context, root_, belongPkg_, rootPkg_);
+        }
+        return processPackagePrivate(_block, root_, belongPkg_, rootPkg_);
+    }
+
+    private static boolean processNormalProtected(AccessibleBlock _block, ContextEl _context, ExecRootBlock root_, String belongPkg_, String rootPkg_) {
+        if (root_.isSubTypeOf(_block.getFullName(),_context)) {
             return true;
         }
-        return canAccess(_className,(AccessibleBlock)_block,_context);
+        return StringList.quickEq(belongPkg_, rootPkg_);
     }
-    public static boolean canAccess(String _className, AccessibleBlock _block, ContextEl _context) {
+
+    public static boolean canAccessType(String _className, AccessibleBlock _block, ContextEl _context) {
+        CodeAccess code_ = processBegin(_className, _block, _context);
+        ExecRootBlock root_ = code_.getRoot();
+        if (root_ == null) {
+            return access(code_.getCode());
+        }
+        String belongPkg_ = _block.getPackageName();
+        String parName_ = _block.getParentFullName();
+        String rootPkg_ = root_.getPackageName();
+        if (_block.getAccess() == AccessEnum.PROTECTED) {
+            if (!parName_.isEmpty()) {
+                if (root_.isSubTypeOf(parName_,_context)) {
+                    return true;
+                }
+            }
+            return processNormalProtected(_block, _context, root_, belongPkg_, rootPkg_);
+        }
+        return processPackagePrivate(_block, root_, belongPkg_, rootPkg_);
+    }
+    private static CodeAccess processBegin(String _className, AccessibleBlock _block, ContextEl _context) {
         if (_block.getAccess() == AccessEnum.PUBLIC) {
-            return true;
+            return new CodeAccess(2,null);
         }
         String baseClass_ = StringExpUtil.getIdFromAllTypes(_className);
         ExecRootBlock root_ = _context.getClasses().getClassBody(baseClass_);
         if (root_ == null) {
-            return false;
+            return new CodeAccess(0,null);
         }
-        String belongPkg_ = _block.getPackageName();
-        ExecRootBlock parType_ = null;
-        if (_block instanceof ExecRootBlock) {
-            parType_ = ((ExecRootBlock) _block).getParentType();
-        }
-        String rootPkg_ = root_.getPackageName();
-        if (_block.getAccess() == AccessEnum.PROTECTED) {
-            if (parType_ != null) {
-                if (root_.isSubTypeOf(parType_.getFullName(),_context)) {
-                    return true;
-                }
-            }
-            if (root_.isSubTypeOf(_block.getFullName(),_context)) {
-                return true;
-            }
-            return StringList.quickEq(belongPkg_, rootPkg_);
-        }
+        return new CodeAccess(1,root_);
+    }
+    private static boolean access(int _code) {
+        return _code == 2;
+    }
+    private static boolean processPackagePrivate(AccessibleBlock _block, ExecRootBlock root_, String belongPkg_, String rootPkg_) {
         if (_block.getAccess() == AccessEnum.PACKAGE) {
             return StringList.quickEq(belongPkg_, rootPkg_);
         }
         return StringList.quickEq(_block.getOuterFullName(), root_.getOuterFullName());
     }
+
     public static CustList<ExecInfoBlock> getFieldBlocks(ExecRootBlock _element){
         CustList<ExecInfoBlock> methods_ = new CustList<ExecInfoBlock>();
         for (ExecBlock b: ExecBlock.getDirectChildren(_element)) {
@@ -203,7 +227,7 @@ public final class ContextUtil {
             return new StringMap<TypeVar>();
         }
         Block bl_ = _cont.getAnalyzing().getCurrentBlock();
-        ExecAccessingImportingBlock r_ =_cont.getCurrentGlobalBlock();
+        AccessedBlock r_ =_cont.getCurrentGlobalBlock();
         StringMap<TypeVar> vars_ = new StringMap<TypeVar>();
 
         boolean static_;
@@ -235,7 +259,7 @@ public final class ContextUtil {
         if (!LinkageUtil.isFromCustFile(g_)) {
             return;
         }
-        ExecAccessingImportingBlock r_ = _cont.getCurrentGlobalBlock();
+        AccessedBlock r_ = _cont.getCurrentGlobalBlock();
         int rc_ = _cont.getCurrentLocationIndex();
         String curr_ = ((ExecBlock)r_).getFile().getRenderFileName();
         String ref_ = ((ExecRootBlock) g_).getFile().getRenderFileName();

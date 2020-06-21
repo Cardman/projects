@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -42,6 +43,8 @@ public final class ResolvingSuperTypes {
         String gl_ = _currentBlock.getGenericString();
         CustList<PartOffset> partOffsets_ = _context.getCoverage().getCurrentParts();
         _context.getAnalyzing().getCurrentBadIndexes().clear();
+        _context.getAnalyzing().setImportingAcces(new TypeAccessor(_currentBlock.getFullName()));
+        _context.getAnalyzing().setImportingTypes(_currentBlock);
         String resType_ = AnaPartTypeUtil.processAnalyze(_in, false,gl_, _context, _currentBlock,_currentBlock, _location,partOffsets_);
         for (int i: _context.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -79,6 +82,8 @@ public final class ResolvingSuperTypes {
         String gl_ = _currentBlock.getGenericString();
         ExecRootBlock scope_ = _currentBlock.getParentType();
         _context.getAnalyzing().getCurrentBadIndexes().clear();
+        _context.getAnalyzing().setImportingAcces(new TypeAccessor(_currentBlock.getFullName()));
+        _context.getAnalyzing().setImportingTypes(_currentBlock);
         String resType_ = AnaPartTypeUtil.processAnalyze(_in,true,gl_,_context,scope_,_currentBlock, _location, _partOffsets);
         for (int i: _context.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -129,6 +134,7 @@ public final class ResolvingSuperTypes {
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         ExecRootBlock scope_ = _root.getParentType();
         InheritReadyTypes inh_ = new InheritReadyTypes(_readyTypes);
+        _context.getAnalyzing().setImportingTypes(_root);
         return AnaPartTypeUtil.processAnalyzeLineInherits(id_, inh_,true, _context,scope_,_root, -1,partOffsets_);
     }
 }

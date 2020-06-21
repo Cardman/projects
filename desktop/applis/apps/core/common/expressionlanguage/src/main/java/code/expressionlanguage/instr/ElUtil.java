@@ -460,20 +460,19 @@ public final class ElUtil {
     public static boolean checkFinalFieldReadOnly(ContextEl _conf, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass) {
         boolean fromCurClass_ = _cst.isFromCurrentClassReadOnly(_conf);
         ClassField cl_ = _cst.getFieldIdReadOnly();
-        FieldInfo meta_ = ContextUtil.getFieldInfo(_conf,cl_);
+        FieldInfo meta_ = ContextUtil.getFieldInfo(_conf, cl_);
         if (meta_ == null) {
             return false;
         }
         String fieldName_ = cl_.getFieldName();
-        return meta_.isFinalField() && checkFinalReadOnly(_conf, _cst, _ass, fromCurClass_, cl_, fieldName_);
+        return meta_.isFinalField() && checkFinalReadOnly(_conf, _cst, _ass, fromCurClass_, fieldName_, meta_);
     }
-    private static boolean checkFinalReadOnly(ContextEl _conf, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, ClassField _cl, String _fieldName) {
+    private static boolean checkFinalReadOnly(ContextEl _conf, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, FieldInfo _meta) {
         boolean checkFinal_;
         if (_conf.isAssignedFields()) {
             checkFinal_ = true;
         } else if (_conf.isAssignedStaticFields()) {
-            FieldInfo meta_ = ContextUtil.getFieldInfo(_conf,_cl);
-            if (meta_.isStaticField()) {
+            if (_meta.isStaticField()) {
                 checkFinal_ = true;
             } else if (!_fromCurClass) {
                 checkFinal_ = true;
@@ -617,39 +616,6 @@ public final class ElUtil {
                 }
                 current_ = op_;
                 exp_ = par_;
-            }
-        }
-        return out_;
-    }
-    public static CustList<ExecOperationNode> getReducedNodes(ExecOperationNode _root) {
-        CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
-        ExecOperationNode current_ = _root;
-        while (current_ != null) {
-            ExecOperationNode op_ = current_.getFirstChild();
-            if (op_ != null && current_.getArgument() == null) {
-                current_ = op_;
-                continue;
-            }
-            while (true) {
-                current_.setOrder(out_.size());
-                out_.add(current_);
-                op_ = current_.getNextSibling();
-                if (op_ != null) {
-                    current_ = op_;
-                    break;
-                }
-                op_ = current_.getParent();
-                if (op_ == _root) {
-                    op_.setOrder(out_.size());
-                    out_.add(op_);
-                    current_ = null;
-                    break;
-                }
-                if (op_ == null) {
-                    current_ = null;
-                    break;
-                }
-                current_ = op_;
             }
         }
         return out_;

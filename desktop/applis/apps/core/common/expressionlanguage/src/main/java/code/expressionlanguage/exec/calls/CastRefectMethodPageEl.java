@@ -3,12 +3,12 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.opers.ExplicitOperation;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
@@ -22,7 +22,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     @Override
     boolean initType(ContextEl _cont) {
-        MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct());
+        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalArgument().getStruct());
         if (direct) {
             return false;
         }

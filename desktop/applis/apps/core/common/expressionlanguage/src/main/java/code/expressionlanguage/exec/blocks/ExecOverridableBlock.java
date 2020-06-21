@@ -10,7 +10,7 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class ExecOverridableBlock extends ExecNamedFunctionBlock implements AccessibleBlock,GeneCustModifierMethod,ReturnableWithSignature {
+public final class ExecOverridableBlock extends ExecNamedFunctionBlock implements GeneCustModifierMethod,ReturnableWithSignature {
 
     private final int modifierOffset;
 
@@ -93,17 +93,14 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
         getImportedParametersTypes().addAllElts(_key.getImportedParametersTypes());
     }
 
-    @Override
     public String getPackageName() {
         return ((ExecRootBlock)getParent()).getPackageName();
     }
 
-    @Override
     public String getFullName() {
         return ((ExecRootBlock)getParent()).getFullName();
     }
 
-    @Override
     public String getOuterFullName() {
         return ((ExecRootBlock)getParent()).getOuter().getFullName();
     }

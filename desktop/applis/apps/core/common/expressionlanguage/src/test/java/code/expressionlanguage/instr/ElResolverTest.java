@@ -2,6 +2,7 @@ package code.expressionlanguage.instr;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 
 import code.expressionlanguage.common.*;
@@ -3285,7 +3286,9 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         conf_.getAnalyzing().setCurrentAnaBlock(b_);
+        conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
         conf_.getAnalyzing().setImporting(re_);
+        conf_.getAnalyzing().setImportingTypes(re_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3339,7 +3342,9 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         conf_.getAnalyzing().setCurrentAnaBlock(b_);
+        conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
         conf_.getAnalyzing().setImporting(re_);
+        conf_.getAnalyzing().setImportingTypes(re_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3383,7 +3388,9 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         conf_.getAnalyzing().setCurrentAnaBlock(b_);
+        conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
         conf_.getAnalyzing().setImporting(re_);
+        conf_.getAnalyzing().setImportingTypes(re_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3429,7 +3436,9 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         conf_.getAnalyzing().setCurrentAnaBlock(b_);
+        conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
         conf_.getAnalyzing().setImporting(re_);
+        conf_.getAnalyzing().setImportingTypes(re_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3483,7 +3492,9 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         conf_.getAnalyzing().setCurrentAnaBlock(b_);
+        conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
         conf_.getAnalyzing().setImporting(re_);
+        conf_.getAnalyzing().setImportingTypes(re_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3529,7 +3540,9 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Block b_ = r_.getFirstChild();
         conf_.getAnalyzing().setCurrentBlock(b_);
         conf_.getAnalyzing().setCurrentAnaBlock(b_);
+        conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
         conf_.getAnalyzing().setImporting(re_);
+        conf_.getAnalyzing().setImportingTypes(re_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);

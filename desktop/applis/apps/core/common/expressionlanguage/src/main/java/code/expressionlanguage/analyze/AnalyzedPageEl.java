@@ -1,5 +1,7 @@
 package code.expressionlanguage.analyze;
 
+import code.expressionlanguage.analyze.accessing.OperatorAccessor;
+import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -31,7 +33,9 @@ public final class AnalyzedPageEl {
     private StringMap<AnaLocalVariable> parameters = new StringMap<AnaLocalVariable>();
 
     private MemberCallingsBlock currentFct;
-    private ExecAccessingImportingBlock importing;
+    private AccessedBlock importing;
+    private ExecAccessingImportingBlock importingAcces;
+    private AccessedBlock importingTypes;
     private final CustList<RootBlock> listTypesNames = new CustList<RootBlock>();
     private final IdMap<RootBlock,ExecRootBlock> mapTypes = new IdMap<RootBlock,ExecRootBlock>();
     private final IdMap<InnerElementBlock,ExecInnerElementBlock> mapInnerEltTypes = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
@@ -340,12 +344,28 @@ public final class AnalyzedPageEl {
         currentFct = _currentFct;
     }
 
-    public ExecAccessingImportingBlock getImporting() {
+    public AccessedBlock getImporting() {
         return importing;
     }
 
-    public void setImporting(ExecAccessingImportingBlock _importing) {
+    public void setImporting(AccessedBlock _importing) {
         importing = _importing;
+    }
+
+    public ExecAccessingImportingBlock getImportingAcces() {
+        return importingAcces;
+    }
+
+    public void setImportingAcces(ExecAccessingImportingBlock importingAcces) {
+        this.importingAcces = importingAcces;
+    }
+
+    public AccessedBlock getImportingTypes() {
+        return importingTypes;
+    }
+
+    public void setImportingTypes(AccessedBlock importingTypes) {
+        this.importingTypes = importingTypes;
     }
 
     public int getIndexChildType() {

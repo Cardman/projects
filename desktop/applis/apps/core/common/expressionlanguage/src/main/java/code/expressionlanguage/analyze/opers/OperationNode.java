@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.ImportedField;
 import code.expressionlanguage.analyze.ImportedMethod;
+import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.analyze.blocks.FunctionBlock;
 import code.expressionlanguage.analyze.blocks.MethodKind;
@@ -468,7 +469,13 @@ public abstract class OperationNode {
         Classes classes_ = _conf.getClasses();
         ExecRootBlock r_ = classes_.getClassBody(_classStr);
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(_glClass);
-        if (!ContextUtil.canAccess(curClassBase_, (ExecBlock) r_, _conf)) {
+        Accessed a_;
+        if (r_ != null) {
+            a_ = new Accessed(r_.getAccess(), r_.getPackageName(), _classStr, r_.getOuterFullName());
+        } else {
+            a_ = new Accessed(AccessEnum.PUBLIC,"", "","");
+        }
+        if (!ContextUtil.canAccessType(curClassBase_, a_, _conf)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -574,9 +581,8 @@ public abstract class OperationNode {
                 ImportedField v_ = e.getValue();
                 max_ = Math.max(max_, v_.getImported() +maxAnc_);
                 FieldResult res_ = new FieldResult();
-                FieldInfo fi_ = ContextUtil.getFieldInfo(_cont,new ClassField(e.getKey(),_name.trim()));
-                String realType_ = fi_.getType();
-                boolean finalField_ = fi_.isFinalField();
+                String realType_ = v_.getType();
+                boolean finalField_ = v_.isFinalField();
                 String formatted_ = e.getKey();
                 FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff,v_.getReturnType());
                 res_.setId(if_);
@@ -640,8 +646,10 @@ public abstract class OperationNode {
             }
         }
         GeneField e_ = fi_.getGeneField();
-        if (e_ instanceof AccessibleBlock) {
-            if (cannotAccess(_conf,fullName_,(AccessibleBlock)e_,_glClass,_superTypesBaseMap)) {
+        if (e_ instanceof ExecFieldBlock) {
+            ExecFieldBlock c = (ExecFieldBlock) e_;
+            Accessed a_ = new Accessed(c.getAccess(), c.getPackageName(), c.getFullName(), c.getOuterFullName());
+            if (cannotAccess(_conf,fullName_,a_,_glClass,_superTypesBaseMap)) {
                 return;
             }
         }
@@ -703,7 +711,7 @@ public abstract class OperationNode {
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         for (GeneConstructor e: constructors_) {
             ConstructorId ctor_ = e.getId();
-            if (exclude(_conf,_uniqueId,varargOnly_,_class,e)) {
+            if (exclude(_conf,_uniqueId,varargOnly_, e)) {
                 continue;
             }
             ParametersGroup pg_ = new ParametersGroup();
@@ -772,7 +780,7 @@ public abstract class OperationNode {
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         for (GeneConstructor e: constructors_) {
             ConstructorId ctor_ = e.getId();
-            if (exclude(_conf,_uniqueId,varargOnly_,_class,e)) {
+            if (exclude(_conf,_uniqueId,varargOnly_, e)) {
                 continue;
             }
             ParametersGroup pg_ = new ParametersGroup();
@@ -818,7 +826,7 @@ public abstract class OperationNode {
         return varargOnly_ > -1;
     }
 
-    private static boolean exclude(ContextEl _conf, ConstructorId _uniqueId, int _varargOnly,ClassArgumentMatching _class,GeneConstructor e) {
+    private static boolean exclude(ContextEl _conf, ConstructorId _uniqueId, int _varargOnly, GeneConstructor e) {
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
         ConstructorId ctor_ = e.getId();
         boolean varArg_ = ctor_.isVararg();
@@ -832,8 +840,10 @@ public abstract class OperationNode {
                 return true;
             }
         }
-        if (e instanceof AccessibleBlock) {
-            return !ContextUtil.canAccess(glClass_, (AccessibleBlock) e, _conf);
+        if (e instanceof ExecConstructorBlock) {
+            ExecConstructorBlock c = (ExecConstructorBlock) e;
+            Accessed a_ = new Accessed(c.getAccess(), c.getPackageName(), c.getFullName(), c.getOuterFullName());
+            return !ContextUtil.canAccess(glClass_, a_, _conf);
         }
         return false;
     }
@@ -1289,7 +1299,7 @@ public abstract class OperationNode {
         methods_ = new CustList<CustList<MethodInfo>>();
         fetchParamClassAncMethods(_conf,_fromClasses,_staticContext,_accessFromSuper,_superClass,_uniqueId,methods_);
         if (_import) {
-            for (CustList<ImportedMethod> l: ResolvingImportTypes.lookupImportStaticMethods(_conf,glClass_, _name, _conf.getAnalyzing().getCurrentBlock())) {
+            for (CustList<ImportedMethod> l: ResolvingImportTypes.lookupImportStaticMethods(_conf,glClass_, _name)) {
                 CustList<MethodInfo> m_ = new CustList<MethodInfo>();
                 for (ImportedMethod e:l) {
                     ClassMethodId m = e.getId();
@@ -1528,8 +1538,10 @@ public abstract class OperationNode {
         } else {
             formattedClass_ = _f;
         }
-        if (_m instanceof AccessibleBlock) {
-            if (cannotAccess(_conf,base_,(AccessibleBlock)_m,_glClass,_superTypesBaseMap)) {
+        if (_m instanceof ExecOverridableBlock) {
+            ExecOverridableBlock c = (ExecOverridableBlock) _m;
+            Accessed a_ = new Accessed(c.getAccess(), c.getPackageName(), c.getFullName(), c.getOuterFullName());
+            if (cannotAccess(_conf,base_,a_,_glClass,_superTypesBaseMap)) {
                 return null;
             }
         }
@@ -1544,7 +1556,8 @@ public abstract class OperationNode {
         if (isCandidateMethod(_uniqueId, 0, base_, id_)) {
             return null;
         }
-        if (cannotAccess(_conf,base_, _m,_glClass,_superTypesBaseMap)) {
+        Accessed a_ = new Accessed(_m.getAccess(), _m.getPackageName(), _m.getFullName(), _m.getOuterFullName());
+        if (cannotAccess(_conf,base_, a_,_glClass,_superTypesBaseMap)) {
             return null;
         }
         return buildCastMethodInfo(_m,_uniqueId, _conf, _returnType,_s);

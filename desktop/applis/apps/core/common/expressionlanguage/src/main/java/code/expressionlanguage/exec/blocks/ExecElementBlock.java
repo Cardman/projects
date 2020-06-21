@@ -1,10 +1,10 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.blocks.ElementBlock;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
@@ -30,6 +30,11 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
         fieldName = _offset.getUniqueFieldName();
         fieldNameOffest = _offset.getFieldNameOffset();
 
+    }
+
+    @Override
+    public AccessEnum getAccess() {
+        return AccessEnum.PUBLIC;
     }
 
     @Override
@@ -105,11 +110,11 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
         annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
         for (CustList<ExecOperationNode> a: annotationsOps) {
             ExecOperationNode r_ = a.last();
-            annotationsOps_.add(ElUtil.getReducedNodes(r_));
+            annotationsOps_.add(ExpressionLanguage.getReducedNodes(r_));
         }
         annotationsOps = annotationsOps_;
         ExecOperationNode r_ = opValue.last();
-        opValue = ElUtil.getReducedNodes(r_);
+        opValue = ExpressionLanguage.getReducedNodes(r_);
     }
 
     @Override

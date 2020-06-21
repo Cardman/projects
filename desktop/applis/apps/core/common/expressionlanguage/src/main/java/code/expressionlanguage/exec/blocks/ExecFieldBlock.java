@@ -5,7 +5,6 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.calls.StaticInitPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
@@ -14,7 +13,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock,AccessibleBlock {
+public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
 
     private final StringList fieldName = new StringList();
     private Ints valuesOffset = new Ints();
@@ -64,7 +63,6 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock,Acce
         return fieldName;
     }
 
-    @Override
     public AccessEnum getAccess() {
         return access;
     }
@@ -99,11 +97,11 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock,Acce
         annotationsOps_ = new CustList<CustList<ExecOperationNode>>();
         for (CustList<ExecOperationNode> a: annotationsOps) {
             ExecOperationNode r_ = a.last();
-            annotationsOps_.add(ElUtil.getReducedNodes(r_));
+            annotationsOps_.add(ExpressionLanguage.getReducedNodes(r_));
         }
         annotationsOps = annotationsOps_;
         ExecOperationNode r_ = opValue.last();
-        opValue = ElUtil.getReducedNodes(r_);
+        opValue = ExpressionLanguage.getReducedNodes(r_);
     }
 
     @Override
@@ -141,17 +139,14 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock,Acce
         return opValue;
     }
 
-    @Override
     public String getPackageName() {
         return ((ExecRootBlock)getParent()).getPackageName();
     }
 
-    @Override
     public String getFullName() {
         return ((ExecRootBlock)getParent()).getFullName();
     }
 
-    @Override
     public String getOuterFullName() {
         return ((ExecRootBlock)getParent()).getOuter().getFullName();
     }

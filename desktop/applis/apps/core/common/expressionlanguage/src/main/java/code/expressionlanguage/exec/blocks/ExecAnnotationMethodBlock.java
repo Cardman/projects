@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.FieldInitPageEl;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -76,7 +75,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
             return;
         }
         ExecOperationNode r_ = opValue.last();
-        opValue = ElUtil.getReducedNodes(r_);
+        opValue = ExpressionLanguage.getReducedNodes(r_);
     }
 
     public void setOpValue(CustList<ExecOperationNode> opValue) {

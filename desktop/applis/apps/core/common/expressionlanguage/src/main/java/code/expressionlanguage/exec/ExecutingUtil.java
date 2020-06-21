@@ -367,10 +367,6 @@ public final class ExecutingUtil {
         StringList inners_ = new StringList();
         boolean existCtor_ = false;
         for (ExecBlock b: bl_) {
-            AccessEnum access_ = AccessEnum.PUBLIC;
-            if (b instanceof AccessibleBlock) {
-                access_ = ((AccessibleBlock)b).getAccess();
-            }
             if (b instanceof ExecRootBlock) {
                 inners_.add(((ExecRootBlock) b).getFullName());
             }
@@ -381,7 +377,7 @@ public final class ExecutingUtil {
                 boolean finalElement_ = method_.isFinalField();
 
                 for (String f: method_.getFieldName()) {
-                    FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, access_);
+                    FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, method_.getAccess());
                     met_.setFileName(fileName_);
                     infosFields_.put(f, met_);
                 }
@@ -403,18 +399,18 @@ public final class ExecutingUtil {
                 if (param_) {
                     idCl_ = _name;
                 }
-                MethodMetaInfo met_ = new MethodMetaInfo(access_, idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
+                MethodMetaInfo met_ = new MethodMetaInfo(method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
                 met_.setFileName(fileName_);
                 met_.setExpCast(method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST);
                 infos_.put(id_, met_);
                 if (method_.getKind() == MethodKind.EXPLICIT_CAST) {
-                    met_ = new MethodMetaInfo(access_, idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
+                    met_ = new MethodMetaInfo(method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
                     infosExplicits_.put(id_, met_);
                 }
                 if (method_.getKind() == MethodKind.IMPLICIT_CAST) {
-                    met_ = new MethodMetaInfo(access_, idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
+                    met_ = new MethodMetaInfo(method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
                     infosImplicits_.put(id_, met_);
@@ -427,7 +423,7 @@ public final class ExecutingUtil {
                 MethodId fid_;
                 String formCl_ = _type.getFullName();
                 fid_ = id_;
-                MethodMetaInfo met_ = new MethodMetaInfo(access_,_type.getFullName(), id_, method_.getModifier(), ret_, fid_, formCl_);
+                MethodMetaInfo met_ = new MethodMetaInfo(AccessEnum.PUBLIC,_type.getFullName(), id_, method_.getModifier(), ret_, fid_, formCl_);
                 met_.setFileName(fileName_);
                 infos_.put(id_, met_);
             }
@@ -443,7 +439,7 @@ public final class ExecutingUtil {
                 } else {
                     fid_ = id_;
                 }
-                ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, access_, id_, ret_, fid_, formCl_);
+                ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, method_.getAccess(), id_, ret_, fid_, formCl_);
                 met_.setFileName(fileName_);
                 infosConst_.put(id_, met_);
             }

@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.InitClassState;
+import code.expressionlanguage.exec.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.options.ValidatorStandard;
@@ -518,8 +519,8 @@ public final class Configuration {
         return analyzingDoc.getInternGlobalClass();
     }
 
-    private static ExecAccessingImportingBlock getAccessingImportingBlock(ExecAccessingImportingBlock _r, ExecRootBlock _root) {
-        ExecAccessingImportingBlock a_;
+    private static AccessedBlock getAccessingImportingBlock(AccessedBlock _r, ExecRootBlock _root) {
+        AccessedBlock a_;
         if (_root != null) {
             a_ = _root;
         } else {
@@ -772,12 +773,12 @@ public final class Configuration {
     }
 
 
-    public ExecAccessingImportingBlock getCurrentGlobalBlock() {
+    public RendDocumentBlock getCurrentGlobalBlock() {
         return getAnalyzingDoc().getCurrentDoc();
     }
 
 
-    public ExecAccessingImportingBlock getCurrentGlobalBlock(ExecAccessingImportingBlock _bl) {
+    public AccessedBlock getCurrentGlobalBlock(AccessedBlock _bl) {
         String gl_ = getGlobalClass();
         ExecRootBlock root_ = getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(gl_));
         return getAccessingImportingBlock(_bl, root_);

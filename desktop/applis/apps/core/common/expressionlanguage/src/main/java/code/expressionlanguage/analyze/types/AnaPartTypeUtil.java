@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -118,10 +119,11 @@ public final class AnaPartTypeUtil {
         _l.add((AnaLeafPartType) _p);
     }
 
-    static String processAnalyze(String _input, String _globalType, ContextEl _an, ExecAccessingImportingBlock _rooted) {
+    static String processAnalyze(String _input, String _globalType, ContextEl _an, ExecRootBlock _rooted) {
+        _an.getAnalyzing().setImportingTypes(_rooted);
         return processAnalyze(_input, false,_globalType,_an,_rooted,_rooted, 0,new CustList<PartOffset>());
     }
-    public static String processAnalyze(String _input, boolean _rootName, String _globalType, ContextEl _an, ExecAccessingImportingBlock _local, ExecAccessingImportingBlock _rooted, int _loc, CustList<PartOffset> _offs) {
+    public static String processAnalyze(String _input, boolean _rootName, String _globalType, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return "";
@@ -176,16 +178,16 @@ public final class AnaPartTypeUtil {
         if (analyzedType_.isEmpty()) {
             return analyzedType_;
         }
-        checkAccess(root_,_an, _rooted);
+        checkAccess(root_,_an);
         if (_loc > -1) {
             addTypeParts(_an, _rooted, "", _loc, _offs, l_);
         }
         return analyzedType_;
     }
 
-    private static void checkAccessGeneral(ContextEl _an, ExecAccessingImportingBlock _rooted, AnaPartType _current) {
+    private static void checkAccessGeneral(ContextEl _an, AnaPartType _current) {
         if (_current instanceof AnaNamePartType) {
-            ((AnaNamePartType) _current).checkAccessGeneral(_an,_rooted);
+            ((AnaNamePartType) _current).checkAccessGeneral(_an);
         }
     }
 
@@ -244,20 +246,21 @@ public final class AnaPartTypeUtil {
         return !root_.getAnalyzedType().isEmpty();
     }
 
-    static String processAnalyzeLine(String _input, ContextEl _an, ExecAccessingImportingBlock _rooted) {
+    static String processAnalyzeLine(String _input, ContextEl _an, ExecRootBlock _rooted) {
+        _an.getAnalyzing().setImportingTypes(_rooted);
         return processAnalyzeLine(_input,false, _an,_rooted,_rooted, 0,new CustList<PartOffset>());
     }
-    public static String processAnalyzeLine(String _input, boolean _rootName, ContextEl _an, ExecAccessingImportingBlock _local, ExecAccessingImportingBlock _rooted, int _loc, CustList<PartOffset> _offs) {
+    public static String processAnalyzeLine(String _input, boolean _rootName, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         CustList<AnaLeafPartType> ls_ = new CustList<AnaLeafPartType>();
         AnaPartType anaType_ = getAnalyzeLine(_input, new AlwaysReadyTypes(), _rootName, _an, _local, _rooted, _loc, ls_, _offs);
         if (anaType_ == null) {
             return "";
         }
-        checkAccess(anaType_,_an, _rooted);
+        checkAccess(anaType_,_an);
         addTypeParts(_an, _rooted, "", _loc, _offs, ls_);
         return anaType_.getAnalyzedType();
     }
-    public static String processAnalyzeLineInherits(String _input, ReadyTypes _ready, boolean _rootName, ContextEl _an, ExecAccessingImportingBlock _local, ExecAccessingImportingBlock _rooted, int _loc, CustList<PartOffset> _offs) {
+    public static String processAnalyzeLineInherits(String _input, ReadyTypes _ready, boolean _rootName, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         CustList<AnaLeafPartType> ls_ = new CustList<AnaLeafPartType>();
         AnaPartType anaType_ = getAnalyzeLine(_input, _ready, _rootName, _an, _local, _rooted, _loc, ls_, _offs);
         if (anaType_ == null) {
@@ -269,7 +272,7 @@ public final class AnaPartTypeUtil {
         }
         return ana_;
     }
-    static AnaPartType getAnalyzeLine(String _input, ReadyTypes _ready, boolean _rootName, ContextEl _an, ExecAccessingImportingBlock _local, ExecAccessingImportingBlock _rooted, int _loc, CustList<AnaLeafPartType> _leaves, CustList<PartOffset> _offs) {
+    static AnaPartType getAnalyzeLine(String _input, ReadyTypes _ready, boolean _rootName, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<AnaLeafPartType> _leaves, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return null;
@@ -321,7 +324,7 @@ public final class AnaPartTypeUtil {
         }
         return root_;
     }
-    static void checkAccess(AnaPartType _root, ContextEl _an, ExecAccessingImportingBlock _rooted) {
+    static void checkAccess(AnaPartType _root, ContextEl _an) {
         AnaPartType current_ = _root;
         while (true) {
             AnaPartType child_ = current_.getFirstChild();
@@ -331,7 +334,7 @@ public final class AnaPartTypeUtil {
             }
             boolean stop_ = false;
             while (true) {
-                checkAccessGeneral(_an, _rooted, current_);
+                checkAccessGeneral(_an, current_);
                 AnaPartType next_ = current_.getNextSibling();
                 AnaParentPartType par_ = current_.getParent();
                 if (next_ != null) {
@@ -350,7 +353,7 @@ public final class AnaPartTypeUtil {
         }
     }
 
-    static String processAnalyzeAccessibleId(String _input, ContextEl _an, ExecAccessingImportingBlock _rooted, String _refFileName, int _loc, CustList<PartOffset> _offs) {
+    static String processAnalyzeAccessibleId(String _input, ContextEl _an, AccessedBlock _rooted, String _refFileName, int _loc, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return "";
@@ -405,7 +408,7 @@ public final class AnaPartTypeUtil {
         return root_.getAnalyzedType();
     }
 
-    private static void addTypeParts(ContextEl _an, ExecAccessingImportingBlock _rooted,
+    private static void addTypeParts(ContextEl _an, AccessedBlock _rooted,
                                      String _refFileName, int _loc, CustList<PartOffset> _offs, CustList<AnaLeafPartType> _leaves) {
         if (_an.isCovering()) {
             String curr_ = ((ExecBlock)_rooted).getFile().getRenderFileName();

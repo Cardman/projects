@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
@@ -100,15 +99,15 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
     public void reduce(ContextEl _context) {
         if (!opInit.isEmpty()) {
             ExecOperationNode i_ = opInit.last();
-            opInit = ElUtil.getReducedNodes(i_);
+            opInit = ExpressionLanguage.getReducedNodes(i_);
         }
         if (!opExp.isEmpty()) {
             ExecOperationNode e_ = opExp.last();
-            opExp = ElUtil.getReducedNodes(e_);
+            opExp = ExpressionLanguage.getReducedNodes(e_);
         }
         if (!opStep.isEmpty()) {
             ExecOperationNode s_ = opStep.last();
-            opStep = ElUtil.getReducedNodes(s_);
+            opStep = ExpressionLanguage.getReducedNodes(s_);
         }
     }
 

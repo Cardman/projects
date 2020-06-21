@@ -89,6 +89,40 @@ public final class ExpressionLanguage {
         }
     }
 
+    public static CustList<ExecOperationNode> getReducedNodes(ExecOperationNode _root) {
+        CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
+        ExecOperationNode current_ = _root;
+        while (current_ != null) {
+            ExecOperationNode op_ = current_.getFirstChild();
+            if (op_ != null && current_.getArgument() == null) {
+                current_ = op_;
+                continue;
+            }
+            while (true) {
+                current_.setOrder(out_.size());
+                out_.add(current_);
+                op_ = current_.getNextSibling();
+                if (op_ != null) {
+                    current_ = op_;
+                    break;
+                }
+                op_ = current_.getParent();
+                if (op_ == _root) {
+                    op_.setOrder(out_.size());
+                    out_.add(op_);
+                    current_ = null;
+                    break;
+                }
+                if (op_ == null) {
+                    current_ = null;
+                    break;
+                }
+                current_ = op_;
+            }
+        }
+        return out_;
+    }
+
     private IdMap<ExecOperationNode,ArgumentsPair> buildArguments() {
         IdMap<ExecOperationNode,ArgumentsPair> arguments_;
         arguments_ = new IdMap<ExecOperationNode,ArgumentsPair>();

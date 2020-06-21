@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ImportedField;
 import code.expressionlanguage.analyze.ImportedMethod;
-import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.*;
@@ -26,9 +26,9 @@ public final class ResolvingImportTypes {
         if (StringList.quickEq(_in.trim(), void_)) {
             return "";
         }
-        ExecAccessingImportingBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex()+_loc;
-        ExecAccessingImportingBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
+        AccessedBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         CustList<PartOffset> offs_ = _analyzable.getCoverage().getCurrentParts();
         return AnaPartTypeUtil.processAnalyzeLine(_in,false, _analyzable,a_,r_, rc_, offs_);
     }
@@ -45,7 +45,7 @@ public final class ResolvingImportTypes {
             _analyzable.getAnalyzing().getLocalizer().addError(un_);
             return _analyzable.getStandards().getAliasObject();
         }
-        ExecAccessingImportingBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         String idFromType_ = StringExpUtil.getIdFromAllTypes(_fromType);
         GeneType from_ = _analyzable.getClassBody(idFromType_);
@@ -90,10 +90,10 @@ public final class ResolvingImportTypes {
         if (StringList.quickEq(_in.trim(), void_)) {
             return "";
         }
-        ExecAccessingImportingBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
         StringMap<StringList> varsCt_ = _analyzable.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         _analyzable.getAnalyzing().getBuildingConstraints().buildCurrentConstraintsFull();
-        ExecAccessingImportingBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
+        AccessedBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         CustList<PartOffset> partOffsets_ = _analyzable.getCoverage().getCurrentParts();
         String gl_ = _analyzable.getAnalyzing().getGlobalClass();
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex() + _loc;
@@ -132,10 +132,10 @@ public final class ResolvingImportTypes {
             _analyzable.getAnalyzing().getLocalizer().addError(un_);
             return _analyzable.getStandards().getAliasObject();
         }
-        ExecAccessingImportingBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
         StringMap<StringList> varsCt_ = _analyzable.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         _analyzable.getAnalyzing().getBuildingConstraints().buildCurrentConstraintsFull();
-        ExecAccessingImportingBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
+        AccessedBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         CustList<PartOffset> partOffsets_ = _analyzable.getCoverage().getCurrentParts();
         String gl_ = _analyzable.getAnalyzing().getGlobalClass();
         String resType_;
@@ -170,10 +170,10 @@ public final class ResolvingImportTypes {
             _analyzable.getAnalyzing().getLocalizer().addError(un_);
             return _analyzable.getStandards().getAliasObject();
         }
-        ExecAccessingImportingBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
         StringMap<StringList> varsCt_ = _analyzable.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         _analyzable.getAnalyzing().getBuildingConstraints().buildCurrentConstraintsFull();
-        ExecAccessingImportingBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
+        AccessedBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         CustList<PartOffset> partOffsets_ = _analyzable.getCoverage().getCurrentParts();
         String gl_ = _analyzable.getAnalyzing().getGlobalClass();
         String resType_;
@@ -218,7 +218,7 @@ public final class ResolvingImportTypes {
             _analyzable.getAnalyzing().getLocalizer().addError(un_);
             return "";
         }
-        ExecAccessingImportingBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
         StringList inners_ = getParts(_analyzable,_in);
         String firstFull_ = inners_.first();
         int firstOff_ = StringList.getFirstPrintableCharIndex(firstFull_);
@@ -287,16 +287,17 @@ public final class ResolvingImportTypes {
         return resolveCorrectType(_an, _loc, _in, true);
     }
 
-    public static String lookupImportType(ContextEl _an,String _type, ExecAccessingImportingBlock _rooted, ReadyTypes _ready) {
+    public static String lookupImportType(ContextEl _an,String _type, AccessedBlock _rooted, ReadyTypes _ready) {
         String prefixedType_;
         prefixedType_ = getRealSinglePrefixedMemberType(_an,_type, _rooted,_ready);
         return prefixedType_;
     }
-    private static String getRealSinglePrefixedMemberType(ContextEl _an,String _type, ExecAccessingImportingBlock _rooted, ReadyTypes _ready) {
+    private static String getRealSinglePrefixedMemberType(ContextEl _an,String _type, AccessedBlock _rooted, ReadyTypes _ready) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
-        fetchImports(_rooted, imports_);
+        AccessedBlock typeImp_ = _an.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
+        fetchImports(typeImp_, imports_);
         for (StringList s: imports_) {
             for (String i: s) {
                 String tr_ = i.trim();
@@ -395,9 +396,9 @@ public final class ResolvingImportTypes {
         return false;
     }
 
-    public static CustList<CustList<ImportedMethod>> lookupImportStaticMethods(ContextEl _analyzable,String _glClass, String _method, Block _rooted) {
+    public static CustList<CustList<ImportedMethod>> lookupImportStaticMethods(ContextEl _analyzable, String _glClass, String _method) {
         CustList<CustList<ImportedMethod>> methods_ = new CustList<CustList<ImportedMethod>>();
-        ExecAccessingImportingBlock type_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock type_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
         CustList<StringList> imports_ = new CustList<StringList>();
         fetchImports(type_, imports_);
         String keyWordStatic_ = _analyzable.getKeyWords().getKeyWordStatic();
@@ -471,11 +472,13 @@ public final class ResolvingImportTypes {
                 if (!StringList.quickEq(_method.trim(), e.getId().getName())) {
                     continue;
                 }
-                if (e instanceof AccessibleBlock) {
-                    if (!ContextUtil.canAccess(_typeLoc, (AccessibleBlock)e, _analyzable)) {
+                if (e instanceof ExecOverridableBlock) {
+                    ExecOverridableBlock c = (ExecOverridableBlock) e;
+                    Accessed a_ = new Accessed(c.getAccess(), c.getPackageName(), c.getFullName(), c.getOuterFullName());
+                    if (!ContextUtil.canAccess(_typeLoc, a_, _analyzable)) {
                         continue;
                     }
-                    if (!ContextUtil.canAccess(_glClass, (AccessibleBlock)e, _analyzable)) {
+                    if (!ContextUtil.canAccess(_glClass, a_, _analyzable)) {
                         continue;
                     }
                 }
@@ -497,7 +500,7 @@ public final class ResolvingImportTypes {
     public static StringMap<ImportedField> lookupImportStaticFields(ContextEl _analyzable, String _glClass, String _method) {
         StringMap<ImportedField> methods_ = new StringMap<ImportedField>();
         int import_ = 1;
-        ExecAccessingImportingBlock type_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock type_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
         CustList<StringList> imports_ = new CustList<StringList>();
         fetchImports(type_, imports_);
         String keyWordStatic_ = _analyzable.getKeyWords().getKeyWordStatic();
@@ -595,22 +598,24 @@ public final class ResolvingImportTypes {
                     if (notMatch(_method, m)) {
                         continue;
                     }
-                    addImport(_methods,s, new ImportedField(_import,m));
+                    addImport(_methods,s, new ImportedField(_import,m,m.getImportedClassName(),m.isFinalField()));
                 }
             } else {
                 for (ExecInfoBlock e: ContextUtil.getFieldBlocks((ExecRootBlock) super_)) {
                     if (notMatch(_method, e)) {
                         continue;
                     }
-                    if (e instanceof AccessibleBlock) {
-                        if (!ContextUtil.canAccess(_typeLoc, (AccessibleBlock)e, _analyzable)) {
+                    if (e instanceof ExecFieldBlock) {
+                        ExecFieldBlock c = (ExecFieldBlock) e;
+                        Accessed a_ = new Accessed(c.getAccess(), c.getPackageName(), c.getFullName(), c.getOuterFullName());
+                        if (!ContextUtil.canAccess(_typeLoc, a_, _analyzable)) {
                             continue;
                         }
-                        if (!ContextUtil.canAccess(_glClass, (AccessibleBlock)e, _analyzable)) {
+                        if (!ContextUtil.canAccess(_glClass, a_, _analyzable)) {
                             continue;
                         }
                     }
-                    addImport(_methods,s, new ImportedField(_import,e));
+                    addImport(_methods,s, new ImportedField(_import,e,e.getImportedClassName(),e.isFinalField()));
                 }
             }
         }

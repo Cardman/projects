@@ -3,12 +3,12 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -28,14 +28,14 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     private Argument rightArg;
 
     protected boolean initDefault(ContextEl _cont) {
-        MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct());
+        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalArgument().getStruct());
         return method_.isWideStatic()&&ExecutingUtil.hasToExit(_cont,method_.getClassName());
     }
 
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct());
+        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalArgument().getStruct());
         if (!initClass) {
             initClass = true;
             if (initType(_context)) {

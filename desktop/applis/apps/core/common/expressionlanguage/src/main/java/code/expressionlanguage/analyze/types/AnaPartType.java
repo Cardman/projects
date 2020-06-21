@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.types.AnalyzingType;
 import code.expressionlanguage.types.KindPartType;
@@ -124,10 +125,10 @@ abstract class AnaPartType {
         return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue());
     }
 
-    abstract void analyze(ContextEl _an, CustList<IntTreeMap< String>> _dels, String _globalType, ExecAccessingImportingBlock _local,ExecAccessingImportingBlock _rooted);
-    abstract void analyzeLine(ContextEl _an, ReadyTypes _ready, CustList<IntTreeMap< String>> _dels, ExecAccessingImportingBlock _local, ExecAccessingImportingBlock _rooted);
+    abstract void analyze(ContextEl _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted);
+    abstract void analyzeLine(ContextEl _an, ReadyTypes _ready, CustList<IntTreeMap< String>> _dels, AccessedBlock _local, AccessedBlock _rooted);
 
-    abstract void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap< String>>_dels, ExecAccessingImportingBlock _rooted);
+    abstract void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap< String>>_dels, AccessedBlock _rooted);
 
     abstract void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit);
 

@@ -10,6 +10,7 @@ public interface AccessibleBlock {
     String getPackageName();
 
     String getFullName();
+    String getParentFullName();
 
     String getOuterFullName();
 }

@@ -344,12 +344,20 @@ public abstract class ContextEl {
     }
 
 
-    public ExecAccessingImportingBlock getCurrentGlobalBlock() {
+    public AccessedBlock getCurrentGlobalBlockImporting() {
+        return getAnalyzing().getImportingTypes();
+    }
+
+    public ExecAccessingImportingBlock getImportingAcces() {
+        return getAnalyzing().getImportingAcces();
+    }
+
+    public AccessedBlock getCurrentGlobalBlock() {
         return getAnalyzing().getImporting();
     }
 
 
-    public ExecAccessingImportingBlock getCurrentGlobalBlock(ExecAccessingImportingBlock _bl) {
+    public AccessedBlock getCurrentGlobalBlock(AccessedBlock _bl) {
         CustList<PartOffset> offs_ = getCoverage().getCurrentParts();
         offs_.clear();
         return _bl;

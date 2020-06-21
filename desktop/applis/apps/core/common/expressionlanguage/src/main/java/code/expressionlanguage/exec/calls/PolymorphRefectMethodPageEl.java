@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
@@ -21,7 +21,7 @@ public final class PolymorphRefectMethodPageEl extends AbstractRefectMethodPageE
     @Override
     boolean isPolymorph(ContextEl _cont) {
         LgNames stds_ = _cont.getStandards();
-        MethodMetaInfo method_ = ApplyCoreMethodUtil.getMethod(getGlobalArgument().getStruct());
+        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalArgument().getStruct());
         String className_ = method_.getClassName();
         return !method_.isWideStatic() && !className_.startsWith("[");
     }

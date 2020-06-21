@@ -1,7 +1,10 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.accessing.Accessed;
+import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -21,7 +24,7 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyze(ContextEl _an, CustList<IntTreeMap< String>> _dels, String _globalType, ExecAccessingImportingBlock _local, ExecAccessingImportingBlock _rooted) {
+    void analyze(ContextEl _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted) {
         if (skipGenericInners(_an,_dels)) {
             return;
         }
@@ -91,7 +94,7 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     @Override
-    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, ExecAccessingImportingBlock _local,ExecAccessingImportingBlock _rooted) {
+    void analyzeLine(ContextEl _an, ReadyTypes _ready,CustList<IntTreeMap< String>> _dels, AccessedBlock _local,AccessedBlock _rooted) {
         if (skipInners(_an,_ready,_dels)) {
             return;
         }
@@ -169,8 +172,8 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     private void tryAnalyzeInnerParts(ContextEl _an,
-                                      ExecAccessingImportingBlock _local,
-                                      ExecAccessingImportingBlock _rooted) {
+                                      AccessedBlock _local,
+                                      AccessedBlock _rooted) {
         if (_local instanceof ExecRootBlock) {
             if (skipGenericImports(_an, (ExecRootBlock)_local)) {
                 return;
@@ -215,8 +218,8 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
     private void tryAnalyzeInnerPartsLine(ContextEl _an,
                                           ReadyTypes _ready,
-                                          ExecAccessingImportingBlock _local,
-                                          ExecAccessingImportingBlock _rooted) {
+                                          AccessedBlock _local,
+                                          AccessedBlock _rooted) {
         if (_local instanceof ExecRootBlock) {
             if (skipImports(_an,_ready,(ExecRootBlock)_local)) {
                 return;
@@ -252,7 +255,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         }
         return false;
     }
-    private void lookupImports(ContextEl _an, ExecAccessingImportingBlock _rooted, boolean _line, ReadyTypes _ready) {
+    private void lookupImports(ContextEl _an, AccessedBlock _rooted, boolean _line, ReadyTypes _ready) {
         String type_ = getTypeName().trim();
         String res_ = ResolvingImportTypes.lookupImportType(_an,type_, _rooted, _ready);
         if (!res_.isEmpty()) {
@@ -267,51 +270,52 @@ final class AnaNamePartType extends AnaLeafPartType {
             checkAccessLoop = true;
         }
     }
-    void checkAccessGeneral(ContextEl _an, ExecAccessingImportingBlock _rooted) {
+    void checkAccessGeneral(ContextEl _an) {
         String analyzedType_ = getAnalyzedType();
         int indexInType_ = getIndexInType();
         if (checkAccessLoop) {
-            checkAccess(_an,_rooted, analyzedType_, indexInType_);
+            checkAccess(_an, analyzedType_, indexInType_);
         } else {
-            checkAccessIntern(_an,_rooted, analyzedType_, owner, indexInType_);
+            checkAccessIntern(_an, analyzedType_, owner, indexInType_);
         }
     }
 
-    private static void checkAccess(ContextEl _an, ExecAccessingImportingBlock _global, String _analyzedType, int _indexInType) {
+    private static void checkAccess(ContextEl _an, String _analyzedType, int _indexInType) {
         StringList parts_ = StringExpUtil.getAllPartInnerTypes(_analyzedType);
         String idFound_ = StringExpUtil.getIdFromAllTypes(parts_.first());
         StringBuilder id_ = new StringBuilder(idFound_);
         StringBuilder idOwner_ = new StringBuilder(idFound_);
-        checkAccessIntern(_an,_global,idFound_,idFound_, _indexInType);
+        checkAccessIntern(_an, idFound_,idFound_, _indexInType);
         int len_ = parts_.size();
         for (int i = 2; i < len_; i+=2) {
             idFound_ = StringExpUtil.getIdFromAllTypes(parts_.get(i));
             id_.append(parts_.get(i-1));
             id_.append(idFound_);
-            checkAccessIntern(_an,_global,id_.toString(),idOwner_.toString(), _indexInType);
+            checkAccessIntern(_an, id_.toString(),idOwner_.toString(), _indexInType);
             idOwner_.append(parts_.get(i-1));
             idOwner_.append(idFound_);
         }
     }
 
-    private static void checkAccessIntern(ContextEl _an, ExecAccessingImportingBlock _global, String _found, String _owner, int _indexInType) {
+    private static void checkAccessIntern(ContextEl _an, String _found, String _owner, int _indexInType) {
         String idOwner_ = StringExpUtil.getIdFromAllTypes(_owner);
         String idFound_ = StringExpUtil.getIdFromAllTypes(_found);
-        ExecRootBlock owner_ = _an.getClasses().getClassBody(idOwner_);
         ExecRootBlock found_ = _an.getClasses().getClassBody(idFound_);
         if (found_ == null) {
             return;
         }
-        if (_an.getAnalyzing().getHiddenTypes().isHidden(_global,found_)) {
+        ExecAccessingImportingBlock gl_ = _an.getAnalyzing().getCurrentGlobalBlock().getImportingAcces();
+        if (_an.getAnalyzing().getHiddenTypes().isHidden(gl_,found_)) {
             _an.getAnalyzing().getCurrentBadIndexes().add(_indexInType);
         }
-        if (owner_.isTypeHidden(found_,_an)) {
+        Accessed a_ = new Accessed(found_.getAccess(), found_.getPackageName(), found_.getParentFullName(), found_.getFullName(), found_.getOuterFullName());
+        if (new TypeAccessor(idOwner_).isTypeHidden(a_,_an)) {
             _an.getAnalyzing().getCurrentBadIndexes().add(_indexInType);
         }
     }
 
     @Override
-    void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap<String>> _dels, ExecAccessingImportingBlock _rooted) {
+    void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted) {
         AnaPartType part_ = getPreviousPartType();
         String type_ = getTypeName();
         type_ = StringExpUtil.removeDottedSpaces(type_);

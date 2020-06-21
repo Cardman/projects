@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -1570,7 +1571,8 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             return true;
         }
         for (ExecConstructorBlock c: ctors_) {
-            if (!ContextUtil.canAccess(getFullName(), (AccessibleBlock) c, _cont)) {
+            Accessed a_ = new Accessed(c.getAccess(), c.getPackageName(), c.getFullName(), c.getOuterFullName());
+            if (!ContextUtil.canAccess(getFullName(), a_, _cont)) {
                 continue;
             }
             if (c.getId().getParametersTypes().isEmpty()) {

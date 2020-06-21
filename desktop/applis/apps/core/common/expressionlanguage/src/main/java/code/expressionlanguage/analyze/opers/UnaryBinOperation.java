@@ -6,6 +6,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.stds.AliasNumber;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
@@ -79,7 +80,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             return;
         }
         ClassArgumentMatching res_ = _par.getResultClass();
-        out_.setStruct(NumberStruct.negBinNumber(ClassArgumentMatching.convertToNumber(nb_), _conf, res_));
+        out_.setStruct(AliasNumber.negBinNumber(ClassArgumentMatching.convertToNumber(nb_), _conf, res_));
         _par.setSimpleArgumentAna(out_, _conf);
     }
 

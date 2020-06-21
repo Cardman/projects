@@ -8,7 +8,7 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class ExecConstructorBlock extends ExecNamedFunctionBlock implements AccessibleBlock,GeneConstructor,ReturnableWithSignature {
+public final class ExecConstructorBlock extends ExecNamedFunctionBlock implements GeneConstructor,ReturnableWithSignature {
 
     private boolean implicitCallSuper;
 
@@ -62,17 +62,14 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
         getImportedParametersTypes().addAllElts(_key.getImportedParametersTypes());
     }
 
-    @Override
     public String getPackageName() {
         return ((ExecRootBlock)getParent()).getPackageName();
     }
 
-    @Override
     public String getFullName() {
         return ((ExecRootBlock)getParent()).getFullName();
     }
 
-    @Override
     public String getOuterFullName() {
         return ((ExecRootBlock)getParent()).getOuter().getFullName();
     }
