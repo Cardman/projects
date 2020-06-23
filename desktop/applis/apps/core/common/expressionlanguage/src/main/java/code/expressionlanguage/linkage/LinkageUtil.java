@@ -139,6 +139,11 @@ public class LinkageUtil {
             if (child_ instanceof FileBlock) {
                 processFileBlockError((FileBlock)child_,list_);
             }
+            if (child_ instanceof RootBlock) {
+                if (child_.getFile().getErrorsFiles().isEmpty()) {
+                    processGlobalRootBlockError((RootBlock) child_, list_);
+                }
+            }
             Block firstChild_ = child_.getFirstChild();
             if (firstChild_ != null) {
                 child_ = firstChild_;
@@ -167,6 +172,15 @@ public class LinkageUtil {
 
     private static void processFileBlockError(FileBlock _cond, CustList<PartOffset> _parts) {
         for (GraphicErrorInterpret g: _cond.getErrorsFiles()) {
+            int index_ = g.getIndexFile();
+            _parts.add(new PartOffset("<span class=\"e\">", index_));
+            _parts.add(new PartOffset("<a title=\""+g.getBuiltError()+"\">", index_));
+            _parts.add(new PartOffset("</a>", index_+ g.getLength()));
+            _parts.add(new PartOffset("</span>", index_+ g.getLength()));
+        }
+    }
+    private static void processGlobalRootBlockError(RootBlock _cond, CustList<PartOffset> _parts) {
+        for (GraphicErrorInterpret g: _cond.getErrorsPars()) {
             int index_ = g.getIndexFile();
             _parts.add(new PartOffset("<span class=\"e\">", index_));
             _parts.add(new PartOffset("<a title=\""+g.getBuiltError()+"\">", index_));

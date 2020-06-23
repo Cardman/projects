@@ -8544,11 +8544,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("    first();\n");
         file_.append("    return condition?one:two;\n");
         file_.append("   case 1:\n");
-        file_.append("   //comment\n");
+        file_.append("   \\\\comment\n");
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextEnDefault();
+        ContextEl context_ = simpleContextEnDefaultComment();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8591,11 +8591,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("    first();\n");
         file_.append("    return condition?one:two;\n");
         file_.append("   case 1:\n");
-        file_.append("   /*comment * */\n");
+        file_.append("   \\*comment * *\\\n");
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        ContextEl context_ = simpleContextEnDefault();
+        ContextEl context_ = simpleContextEnDefaultComment();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -9673,7 +9673,12 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
+        ContextEl contextBis_ = getRootContextEl();
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("my_file",file_.toString());
+        Classes.validateWithoutInit(files_,contextBis_);
+        assertTrue(!contextBis_.isEmptyErrors());
     }
     @Test
     public void parseFile4FailTest() {
@@ -9824,7 +9829,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$annotation pkg.MyAnnot{$public $int v=r{}y}");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file", file_.toString(), false, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
     }
     @Test
     public void parseFile19FailTest() {
@@ -9837,7 +9842,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(context_.isEmptyErrors());
     }
     private static int countCustomTypes(ContextEl _cont) {
         int count_ = 0;

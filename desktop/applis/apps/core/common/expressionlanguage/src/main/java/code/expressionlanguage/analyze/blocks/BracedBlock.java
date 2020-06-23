@@ -1,13 +1,18 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.errors.custom.GraphicErrorList;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.EntryCust;
 import code.util.IdMap;
+import code.util.Ints;
 
 public abstract class BracedBlock extends Block {
 
     private Block firstChild;
 
+    private Ints badParentheses = new Ints();
+
+    private GraphicErrorList errorsPars = new GraphicErrorList();
     BracedBlock(OffsetsBlock _offset) {
         super(_offset);
     }
@@ -86,4 +91,11 @@ public abstract class BracedBlock extends Block {
     }
 
 
+    public Ints getBadParentheses() {
+        return badParentheses;
+    }
+
+    public GraphicErrorList getErrorsPars() {
+        return errorsPars;
+    }
 }

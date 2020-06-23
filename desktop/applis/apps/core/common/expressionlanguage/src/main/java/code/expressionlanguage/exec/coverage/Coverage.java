@@ -33,12 +33,9 @@ public final class Coverage {
     private IdMap<Block,Boolean> catches = new IdMap<Block,Boolean>();
     private IdMap<ExecBlock,Block> mappingBlocks = new IdMap<ExecBlock,Block>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mapping = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
-    private IdMap<Block,CustList<OperationNode>> mappingRoot = new IdMap<Block,CustList<OperationNode>>();
     private OperationNode currentRoot;
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mappingAnnot = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
-    private IdMap<Block,CustList<OperationNode>> mappingAnnotRoot = new IdMap<Block,CustList<OperationNode>>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mappingAnnotMembers = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
-    private IdMap<Block,CustList<OperationNode>> mappingAnnotMembersRoot = new IdMap<Block,CustList<OperationNode>>();
     private StringMap<Integer> localVars = new StringMap<Integer>();
     private StringMap<Integer> mutableVars = new StringMap<Integer>();
     private StringMap<Integer> loopVars = new StringMap<Integer>();

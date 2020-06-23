@@ -1399,6 +1399,26 @@ public final class Classes {
         Classes cls_ = _context.getClasses();
         cls_.initStaticFields(_context);
         AnalyzedPageEl page_ = _context.getAnalyzing();
+        CustList<BracedBlock> brBl_ = new CustList<BracedBlock>();
+        for (OperatorBlock c: page_.getMapOperators().getKeys()) {
+            brBl_.add(c);
+        }
+        for (RootBlock c: page_.getFoundTypes()) {
+            brBl_.add(c);
+        }
+        for (BracedBlock c: brBl_) {
+            for (int i: c.getBadParentheses()) {
+                FoundErrorInterpret b_ = new FoundErrorInterpret();
+                b_.setFileName(c.getFile().getFileName());
+                b_.setIndexFile(Math.max(0,i-1));
+                //underline index char
+                b_.buildError(_context.getAnalysisMessages().getBadIndexInParser());
+                _context.addError(b_);
+                GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
+                g_.setLength(1);
+                c.getErrorsPars().add(g_);
+            }
+        }
         if (!_context.getOptions().isReadOnly()) {
             validateFinals(_context);
         } else {

@@ -63,6 +63,9 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         group_.add(this);
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof IfCondition)) {
+            if (p_ == null) {
+                break;
+            }
             group_.add(p_);
             p_ = p_.getPreviousSibling();
         }

@@ -12,6 +12,33 @@ import static org.junit.Assert.assertTrue;
 
 public final class ClassesBisTest extends ProcessMethodCommon {
     @Test
+    public void calculate1FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$annotation pkg.MyAnnot{$public $int v=r{}y}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDotDefaultReadOnly();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(!ctx_.isEmptyErrors());
+    }
+    @Test
+    public void calculate2FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("outer {\n");
+        xml_.append("inner {\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDotDefaultReadOnly();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(!ctx_.isEmptyErrors());
+    }
+    @Test
     public void calculateStaticField183__FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
