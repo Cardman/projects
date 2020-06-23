@@ -71,6 +71,9 @@ public final class ExecFileBlock extends ExecBracedBlock implements ImportingBlo
         return fileName+".html";
     }
 
+    public static StringMap<String> errors(ContextEl _cont) {
+        return LinkageUtil.errors(_cont);
+    }
     public static StringMap<String> export(ContextEl _cont) {
         return LinkageUtil.export(_cont);
     }

@@ -16,8 +16,6 @@ public final class StringExpUtil {
     public static final String TEMPLATE_SEP = ",";
     public static final String TEMPLATE_END = ">";
     public static final String TEMPLATE_BEGIN = "<";
-    public static final char EXTENDS_DEF = ':';
-    public static final char SEP_BOUNDS = '&';
     public static final char SEP_CLASS_CHAR = '.';
     public static final String PREFIX_VAR_TYPE = "#";
     public static final char SUB_TYPE_CHAR = '?';

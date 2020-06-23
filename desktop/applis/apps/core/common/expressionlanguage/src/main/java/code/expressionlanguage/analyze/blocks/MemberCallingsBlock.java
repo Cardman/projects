@@ -75,6 +75,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         CustList<Eval> parentsReturnable_ = anEl_.getParentsReturnables();
         StringList labels_ = anEl_.getLabels();
         if (firstChild_ == null) {
+            checkIndexes(_cont, en_);
             anEl_.reach(this);
             abrupt(_cont, anEl_);
             setAssignmentAfterCallReadOnly(_cont, anEl_);
@@ -94,6 +95,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 en_.reach(_cont, anEl_);
             }
             processUnreachable(_cont, anEl_, en_);
+            checkIndexes(_cont, en_);
             Block n_ = en_.getFirstChild();
             addParent(_cont,anEl_, en_, parents_, parentsBreakables_, parentsContinuable_, parentsReturnable_, n_);
             boolean visit_ = true;
@@ -146,6 +148,17 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 page_.setBlockToWrite(page_.getBlockToWrite().getParent());
                 en_ = par_;
             }
+        }
+    }
+
+    private void checkIndexes(ContextEl _cont, Block en_) {
+        for (int i:en_.getBadIndexes()) {
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
+            b_.setFileName(getFile().getFileName());
+            b_.setIndexFile(i);
+            //underline index char
+            b_.buildError(_cont.getAnalysisMessages().getBadIndexInParser());
+            _cont.addError(b_);
         }
     }
 

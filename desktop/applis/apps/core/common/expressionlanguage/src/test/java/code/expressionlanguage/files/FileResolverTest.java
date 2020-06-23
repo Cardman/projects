@@ -9078,7 +9078,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);
-        assertEq(0, countCustomTypes(context_));
+        assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
     }
     @Test

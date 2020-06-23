@@ -79,6 +79,8 @@ public abstract class OperationNode {
 
     private OperationsSequence operations;
 
+    private GraphicErrorList errors = new GraphicErrorList();
+
     private int indexInEl;
 
     private int order = CustList.INDEX_NOT_FOUND_ELT;
@@ -1431,9 +1433,6 @@ public abstract class OperationNode {
             }
         }
         GeneType info_ = _conf.getClassBody(id_);
-        if (info_ == null) {
-            return;
-        }
         t_.setBase(_base);
         t_.setSuperTypes(info_.getAllSuperTypes());
         _list.add(t_);

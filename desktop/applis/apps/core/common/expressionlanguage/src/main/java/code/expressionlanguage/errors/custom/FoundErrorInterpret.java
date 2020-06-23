@@ -36,6 +36,10 @@ public final class FoundErrorInterpret {
         fullLocationFile = str_.toString();
     }
 
+    public String getBuiltError() {
+        return builtError;
+    }
+
     public String getFileName() {
         return fileName;
     }

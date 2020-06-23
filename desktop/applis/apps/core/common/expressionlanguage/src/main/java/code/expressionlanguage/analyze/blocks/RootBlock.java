@@ -386,19 +386,6 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             }
         }
     }
-    public final void buildErrorMapParamType(ContextEl _analyze,ExecRootBlock _exec) {
-        paramTypesMap = new StringMap<TypeVar>();
-        for (ExecRootBlock r: _exec.getSelfAndParentTypes()) {
-            for (TypeVar t: r.getParamTypes()) {
-                StringList const_ = new StringList();
-                const_.add(_analyze.getStandards().getAliasObject());
-                TypeVar t_ = new TypeVar();
-                t_.setConstraints(const_);
-                t_.setName(t.getName());
-                paramTypesMap.put(t.getName(), t_);
-            }
-        }
-    }
 
     public CustList<TypeVar> getParamTypesMapValues() {
         return paramTypesMap.values();
@@ -971,11 +958,6 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                     _generic);
             _cont.addError(un_);
         }
-    }
-
-    public final void buildErrorDirectGenericSuperTypes(ContextEl _classes) {
-        importedDirectSuperInterfaces.clear();
-        importedDirectSuperClass = _classes.getStandards().getAliasObject();
     }
 
     public final StringList getAllGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec) {

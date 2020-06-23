@@ -33,6 +33,7 @@ public abstract class Block implements AnalyzedBlock {
 
     private OffsetsBlock offset;
 
+    private Ints badIndexes = new Ints();
 
     Block(OffsetsBlock _offset) {
         offset = _offset;
@@ -149,5 +150,9 @@ public abstract class Block implements AnalyzedBlock {
 
     public final BracedBlock getParent() {
         return parent;
+    }
+
+    public Ints getBadIndexes() {
+        return badIndexes;
     }
 }

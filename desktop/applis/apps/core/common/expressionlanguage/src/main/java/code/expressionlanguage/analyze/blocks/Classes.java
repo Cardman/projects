@@ -679,38 +679,24 @@ public final class Classes {
         String objectClassName_ = _context.getStandards().getAliasObject();
         Classes classes_ = _context.getClasses();
         validateInheritingClassesId(_context);
-        StringList resTwo_ = new StringList();
         AnalyzedPageEl page_ = _context.getAnalyzing();
-        for (RootBlock s: page_.getFoundTypes()) {
-            resTwo_.add(s.getFullName());
-        }
         CustList<RootBlock> listTypes_ = page_.getListTypesNames();
-        StringList listTypesNames_ = new StringList();
-        for (RootBlock r: listTypes_) {
-            listTypesNames_.add(r.getFullName());
+        for (RootBlock s: listTypes_) {
+            page_.setCurrentBlock(s);
+            page_.setCurrentAnaBlock(s);
+            ExecRootBlock val_ = page_.getMapTypes().getVal(s);
+            s.buildDirectGenericSuperTypes(_context, val_);
         }
-        if (StringList.equalsSet(listTypesNames_,resTwo_)) {
-            for (RootBlock s: listTypes_) {
-                page_.setCurrentBlock(s);
-                page_.setCurrentAnaBlock(s);
-                ExecRootBlock val_ = page_.getMapTypes().getVal(s);
-                s.buildDirectGenericSuperTypes(_context, val_);
-            }
-            for (RootBlock c: page_.getFoundTypes()) {
-                page_.setCurrentBlock(c);
-                page_.setCurrentAnaBlock(c);
-                c.buildMapParamType(_context,page_.getMapTypes().getVal(c));
-            }
-        } else {
-            //Error but continue
-            for (RootBlock c: page_.getFoundTypes()) {
-                c.buildErrorDirectGenericSuperTypes(_context);
-            }
-            for (RootBlock c: page_.getFoundTypes()) {
-                page_.setCurrentBlock(c);
-                page_.setCurrentAnaBlock(c);
-                c.buildErrorMapParamType(_context,page_.getMapTypes().getVal(c));
-            }
+        for (RootBlock s: page_.getNotFound()) {
+            page_.setCurrentBlock(s);
+            page_.setCurrentAnaBlock(s);
+            ExecRootBlock val_ = page_.getMapTypes().getVal(s);
+            s.buildDirectGenericSuperTypes(_context, val_);
+        }
+        for (RootBlock c: page_.getFoundTypes()) {
+            page_.setCurrentBlock(c);
+            page_.setCurrentAnaBlock(c);
+            c.buildMapParamType(_context,page_.getMapTypes().getVal(c));
         }
         for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
             e.getValue().buildMapParamType(e.getKey());
@@ -1024,6 +1010,7 @@ public final class Classes {
             }
             if (next_.isEmpty()) {
                 for (RootBlock r: stClNames_) {
+                    _context.getAnalyzing().getNotFound().add(r);
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
                     undef_.setFileName(r.getFile().getFileName());

@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
+import code.expressionlanguage.errors.custom.GraphicErrorList;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.*;
 
@@ -24,6 +26,7 @@ public final class FileBlock extends BracedBlock {
 
     private boolean predefined;
 
+    private GraphicErrorList errorsFiles = new GraphicErrorList();
 
     public FileBlock(OffsetsBlock _offset, boolean _predefined) {
         super(_offset);
@@ -58,7 +61,7 @@ public final class FileBlock extends BracedBlock {
             badChars_.sort();
             badChars_.removeDuplicates();
             FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setIndexFile(0);
+            d_.setIndexFile(badChars_.first());
             d_.setFileName(fileName);
             StringList badCharsStr_ = new StringList();
             for (int i: badChars_) {
@@ -68,8 +71,18 @@ public final class FileBlock extends BracedBlock {
             d_.buildError(_context.getAnalysisMessages().getIllegalCharacter(),
                     StringList.join(badCharsStr_,","));
             _context.addError(d_);
+            for (int i: badChars_) {
+                d_.setIndexFile(i);
+                GraphicErrorInterpret g_ = new GraphicErrorInterpret(d_);
+                g_.setLength(1);
+                errorsFiles.add(g_);
+            }
         }
         return foundBinChar_;
+    }
+
+    public GraphicErrorList getErrorsFiles() {
+        return errorsFiles;
     }
 
     public boolean isPredefined() {
