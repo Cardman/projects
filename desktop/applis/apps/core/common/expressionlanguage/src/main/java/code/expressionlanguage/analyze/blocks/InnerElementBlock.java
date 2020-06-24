@@ -112,7 +112,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         _cont.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
         _cont.getCoverage().putBlockOperations(_cont,this);
         _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName)));
-        root = _cont.getCoverage().getCurrentRoot();
+        root = page_.getCurrentRoot();
         page_.setTranslatedOffset(0);
     }
 
@@ -125,6 +125,11 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
             n_ = n_.getPreviousSibling();
         }
         return index_;
+    }
+
+    @Override
+    public boolean withoutInstance() {
+        return true;
     }
 
     @Override
@@ -147,7 +152,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         int len_ = -className.length();
         String fullClassName_ =  StringList.concat(className, tempClass);
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,len_,fullClassName_);
-        partOffsets.addAllElts(_cont.getCoverage().getCurrentParts().mid(2));
+        partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts().mid(2));
     }
 
     @Override

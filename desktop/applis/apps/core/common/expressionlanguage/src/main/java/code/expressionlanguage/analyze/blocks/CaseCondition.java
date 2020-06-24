@@ -73,7 +73,7 @@ public final class CaseCondition extends SwitchPartBlock {
             _cont.addError(un_);
             CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
             ExecOperationNode last_ = op_.last();
-            root = _cont.getCoverage().getCurrentRoot();
+            root = page_.getCurrentRoot();
             argument = last_.getArgument();
             ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset, op_);
             page_.getBlockToWrite().appendChild(exec_);
@@ -115,7 +115,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 return;
             }
             CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
-            root = _cont.getCoverage().getCurrentRoot();
+            root = page_.getCurrentRoot();
             ExecOperationNode last_ = op_.last();
             argument = last_.getArgument();
             processNullValue(_cont);
@@ -128,7 +128,7 @@ public final class CaseCondition extends SwitchPartBlock {
         }
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
         ExecOperationNode last_ = op_.last();
-        root = _cont.getCoverage().getCurrentRoot();
+        root = page_.getCurrentRoot();
         argument = last_.getArgument();
         processNumValues(_cont, resSwitch_, last_.getResultClass());
         ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset, op_);

@@ -1,9 +1,9 @@
 package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.common.StringExpUtil;
 
 public final class FieldInfo {
@@ -13,9 +13,9 @@ public final class FieldInfo {
     private final boolean staticField;
     private final boolean finalField;
     private final ClassField classField;
-    private final GeneField geneField;
+    private final Accessed accessed;
     private FieldInfo(String _name, String _declaringClass, String _type, String _realType,
-                      boolean _staticField, boolean _finalField, GeneField _geneField) {
+                      boolean _staticField, boolean _finalField, Accessed _accessed) {
         declaringClass = _declaringClass;
         String declaringBaseClass_ = StringExpUtil.getIdFromAllTypes(_declaringClass);
         classField = new ClassField(declaringBaseClass_, _name);
@@ -23,10 +23,10 @@ public final class FieldInfo {
         realType = _realType;
         staticField = _staticField;
         finalField = _finalField;
-        geneField = _geneField;
+        accessed = _accessed;
     }
     public static FieldInfo newFieldInfo(String _name, String _declaringClass, String _type,
-                                         boolean _staticField, boolean _finalField, ContextEl _cont, boolean _aff, GeneField _geneField) {
+                                         boolean _staticField, boolean _finalField, ContextEl _cont, boolean _aff, Accessed _accessed) {
         String formattedType_ = _type;
         if (_aff) {
             formattedType_ = AnaTemplates.wildCardFormatParam(_declaringClass, formattedType_, _cont);
@@ -36,15 +36,11 @@ public final class FieldInfo {
         if (formattedType_.isEmpty()) {
             return null;
         }
-        return new FieldInfo(_name, _declaringClass, formattedType_, _type, _staticField, _finalField, _geneField);
+        return new FieldInfo(_name, _declaringClass, formattedType_, _type, _staticField, _finalField, _accessed);
     }
     public static FieldInfo newFieldMetaInfo(String _name, String _declaringClass, String _type,
-                                             boolean _staticField, boolean _finalField, GeneField _geneField) {
-        return new FieldInfo(_name, _declaringClass, _type, _type, _staticField, _finalField, _geneField);
-    }
-
-    public GeneField getGeneField() {
-        return geneField;
+                                             boolean _staticField, boolean _finalField, Accessed _accessed) {
+        return new FieldInfo(_name, _declaringClass, _type, _type, _staticField, _finalField, _accessed);
     }
 
     public ClassField getClassField() {
@@ -64,5 +60,9 @@ public final class FieldInfo {
     }
     public boolean isFinalField() {
         return finalField;
+    }
+
+    public Accessed getAccessed() {
+        return accessed;
     }
 }

@@ -70,7 +70,7 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
             importedClassName = keyWordVar_;
         } else {
             importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
-            partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts());
         }
         page_.getAnalysisAss().putFinal(this,finalVariable);
         page_.setMerged(true);

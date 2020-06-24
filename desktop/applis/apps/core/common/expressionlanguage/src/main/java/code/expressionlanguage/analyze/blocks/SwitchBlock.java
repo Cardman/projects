@@ -73,7 +73,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         result = op_.last().getResultClass();
         processAfterEl(_cont);
         ExecSwitchBlock exec_ = new ExecSwitchBlock(getOffset(), label, valueOffset, enumTest, op_);
-        root = _cont.getCoverage().getCurrentRoot();
+        root = page_.getCurrentRoot();
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);

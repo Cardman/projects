@@ -25,7 +25,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public boolean mustImplement() {
-        for (Block b: Classes.getDirectChildren(this)) {
+        for (Block b: ClassesUtil.getDirectChildren(this)) {
             if (b instanceof ElementBlock) {
                 return true;
             }

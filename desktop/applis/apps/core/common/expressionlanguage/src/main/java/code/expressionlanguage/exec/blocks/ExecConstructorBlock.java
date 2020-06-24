@@ -62,18 +62,6 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
         getImportedParametersTypes().addAllElts(_key.getImportedParametersTypes());
     }
 
-    public String getPackageName() {
-        return ((ExecRootBlock)getParent()).getPackageName();
-    }
-
-    public String getFullName() {
-        return ((ExecRootBlock)getParent()).getFullName();
-    }
-
-    public String getOuterFullName() {
-        return ((ExecRootBlock)getParent()).getOuter().getFullName();
-    }
-
     public void setImplicitCallSuper(boolean implicitCallSuper) {
         this.implicitCallSuper = implicitCallSuper;
     }

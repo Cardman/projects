@@ -87,18 +87,7 @@ public final class FinallyEval extends BracedBlock implements Eval {
     }
     @Override
     public void abruptGroup(AnalyzingEl _anEl) {
-        CustList<Block> group_ = new CustList<Block>();
-        Block p_ = getPreviousSibling();
-        while (!(p_ instanceof TryEval)) {
-            if (p_ == null) {
-                break;
-            }
-            group_.add(p_);
-            p_ = p_.getPreviousSibling();
-        }
-        if (p_ != null) {
-            group_.add(p_);
-        }
+        CustList<Block> group_ = getTryBlocks();
         if (!_anEl.canCompleteNormally(this)) {
             for (Block b: group_) {
                 _anEl.completeAbruptGroup(b);

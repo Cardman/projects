@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
@@ -13,10 +14,6 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.analyze.blocks.Classes;
-import code.expressionlanguage.analyze.blocks.InterfaceBlock;
-import code.expressionlanguage.analyze.blocks.MethodKind;
-import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -63,8 +60,11 @@ public final class AnaTypeUtil {
                         }
                     }
                     OverridingRelation ovRel_ = new OverridingRelation();
+                    ExecRootBlock sup_ = classesRef_.getClassBody(isSuper_);
                     ovRel_.setSubMethod(c);
+                    ovRel_.setSub(sub_);
                     ovRel_.setSupMethod(s);
+                    ovRel_.setSup(sup_);
                     pairs_.add(ovRel_);
                 }
             }
@@ -74,8 +74,8 @@ public final class AnaTypeUtil {
                 ClassMethodId supId_ = l.getSupMethod();
                 ExecNamedFunctionBlock sub_ = ExecBlock.getMethodBodiesById(_context,subId_.getClassName(), subId_.getConstraints()).first();
                 ExecNamedFunctionBlock sup_ = ExecBlock.getMethodBodiesById(_context,supId_.getClassName(), supId_.getConstraints()).first();
-                Accessed subAcc_ = newAccessed(sub_);
-                Accessed supAcc_ = newAccessed(sup_);
+                Accessed subAcc_ = newAccessed(sub_,l.getSub());
+                Accessed supAcc_ = newAccessed(sup_,l.getSup());
                 if (subId_.eq(supId_)) {
                     if (ContextUtil.canAccess(_type.getFullName(), subAcc_, _context)) {
                         relations_.add(l);
@@ -167,10 +167,10 @@ public final class AnaTypeUtil {
         val_.getAllOverridingMethods().addAllElts(_type.getAllOverridingMethods());
     }
 
-    private static Accessed newAccessed(ExecNamedFunctionBlock _named) {
+    private static Accessed newAccessed(ExecNamedFunctionBlock _named, ExecRootBlock _root) {
         if (_named instanceof ExecOverridableBlock) {
             ExecOverridableBlock c = (ExecOverridableBlock) _named;
-            return new Accessed(c.getAccess(), c.getPackageName(), c.getFullName(), c.getOuterFullName());
+            return new Accessed(c.getAccess(), _root.getPackageName(), _root.getFullName(), _root.getOuterFullName());
         }
         return new Accessed(AccessEnum.PUBLIC, "", "", "");
     }
@@ -278,7 +278,7 @@ public final class AnaTypeUtil {
                 page_.setGlobalOffset(offset_);
                 page_.setOffset(0);
                 base_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,base_);
-                c.getPartsStaticInitInterfacesOffset().addAllElts(_context.getCoverage().getCurrentParts());
+                c.getPartsStaticInitInterfacesOffset().addAllElts(page_.getCurrentParts());
                 ExecRootBlock r_ = classes_.getClassBody(base_);
                 if (!(r_ instanceof ExecInterfaceBlock)) {
                     FoundErrorInterpret enum_;
@@ -509,7 +509,7 @@ public final class AnaTypeUtil {
     }
 
     private static void added(String _innerName, boolean _staticOnly, StringList owners_, String s, ExecRootBlock sub_) {
-        for (ExecRootBlock b: Classes.accessedClassMembers(sub_)) {
+        for (ExecRootBlock b: ClassesUtil.accessedClassMembers(sub_)) {
             if (_staticOnly) {
                 if (!b.isStaticType()) {
                     continue;
@@ -532,7 +532,7 @@ public final class AnaTypeUtil {
         return owners_;
     }
     private static void addedInnerElement(String _innerName, StringList owners_, String s, ExecRootBlock sub_) {
-        for (ExecRootBlock b: Classes.accessedInnerElements(sub_)) {
+        for (ExecRootBlock b: ClassesUtil.accessedInnerElements(sub_)) {
             String name_ = b.getName();
             if (StringList.quickEq(name_, _innerName)) {
                 owners_.add(s);

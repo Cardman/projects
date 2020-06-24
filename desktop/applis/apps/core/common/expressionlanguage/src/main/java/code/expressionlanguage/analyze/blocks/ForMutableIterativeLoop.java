@@ -173,7 +173,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             init_ = new CustList<ExecOperationNode>();
         } else {
             init_ = ElUtil.getAnalyzedOperationsReadOnly(init, _cont, Calculation.staticCalculation(static_));
-            rootInit = _cont.getCoverage().getCurrentRoot();
+            rootInit = page_.getCurrentRoot();
         }
         addVars(_cont);
         page_.setGlobalOffset(expressionOffset);
@@ -189,7 +189,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             argument = l_.getArgument();
             ClassArgumentMatching clArg_ = l_.getResultClass();
             checkBoolCondition(_cont, clArg_);
-            rootExp = _cont.getCoverage().getCurrentRoot();
+            rootExp = page_.getCurrentRoot();
         }
         _cont.getCoverage().putBlockOperationsConditions(_cont,this);
         MemberCallingsBlock f_1 = _cont.getAnalyzing().getCurrentFct();
@@ -206,7 +206,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             step_ = new CustList<ExecOperationNode>();
         } else {
             step_ = ElUtil.getAnalyzedOperationsReadOnly(step, _cont, Calculation.staticCalculation(static_1));
-            rootStep = _cont.getCoverage().getCurrentRoot();
+            rootStep = page_.getCurrentRoot();
         }
         page_.setMerged(false);
         page_.setAcceptCommaInstr(false);
@@ -254,7 +254,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 importedClassName = keyWordVar_;
             } else {
                 importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
-                partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
+                partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts());
             }
             page_.setMerged(true);
             page_.getAnalysisAss().putFinal(this,finalVariable);

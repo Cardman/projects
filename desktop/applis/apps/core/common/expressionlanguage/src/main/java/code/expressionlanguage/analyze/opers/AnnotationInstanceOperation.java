@@ -105,7 +105,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
             String realClassName_ = methodName.trim().substring(AROBASE.length());
             realClassName_ = ResolvingImportTypes.resolveCorrectType(_conf,1,realClassName_);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             GeneType g_ = _conf.getClassBody(realClassName_);
             if (!(g_ instanceof ExecAnnotationBlock)) {
                 className = _conf.getStandards().getAliasObject();

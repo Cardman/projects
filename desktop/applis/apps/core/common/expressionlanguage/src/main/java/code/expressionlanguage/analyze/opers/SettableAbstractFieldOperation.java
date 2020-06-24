@@ -28,6 +28,7 @@ public abstract class SettableAbstractFieldOperation extends
     private boolean variable;
     private FieldInfo fieldMetaInfo;
     private MethodAccessKind staticAccess;
+    private String fieldType = EMPTY_STRING;
 
     private boolean catString;
 
@@ -81,6 +82,7 @@ public abstract class SettableAbstractFieldOperation extends
             return;
         }
         e_ = r_.getId();
+        fieldType = e_.getType();
         fieldMetaInfo = e_;
         String c_ = fieldMetaInfo.getType();
         setResultClass(new ClassArgumentMatching(c_));
@@ -210,5 +212,8 @@ public abstract class SettableAbstractFieldOperation extends
     public int getAnc() {
         return anc;
     }
-    
+
+    public String getFieldType() {
+        return fieldType;
+    }
 }

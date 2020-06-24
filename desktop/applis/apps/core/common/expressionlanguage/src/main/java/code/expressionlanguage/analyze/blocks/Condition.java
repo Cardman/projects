@@ -42,7 +42,7 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         CustList<ExecOperationNode> opCondition_ = ElUtil.getAnalyzedOperationsReadOnly(condition, _cont, Calculation.staticCalculation(f_.getStaticContext()));
-        root = _cont.getCoverage().getCurrentRoot();
+        root = page_.getCurrentRoot();
         ExecCondition exec_ = newCondition(condition, conditionOffset, opCondition_);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);

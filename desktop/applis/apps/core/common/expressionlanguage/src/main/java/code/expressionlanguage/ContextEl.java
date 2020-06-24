@@ -358,7 +358,7 @@ public abstract class ContextEl {
 
 
     public AccessedBlock getCurrentGlobalBlock(AccessedBlock _bl) {
-        CustList<PartOffset> offs_ = getCoverage().getCurrentParts();
+        CustList<PartOffset> offs_ = getAnalyzing().getCurrentParts();
         offs_.clear();
         return _bl;
     }

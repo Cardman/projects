@@ -38,7 +38,7 @@ public final class ValuesOperation extends LeafOperation {
         Classes classes_ = _conf.getClasses();
         String clName_;
         clName_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,0,className);
-        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         ExecRootBlock r_ = classes_.getClassBody(clName_);
         if (!(r_ instanceof ExecEnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

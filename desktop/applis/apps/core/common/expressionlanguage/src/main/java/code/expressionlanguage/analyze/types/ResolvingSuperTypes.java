@@ -41,7 +41,7 @@ public final class ResolvingSuperTypes {
         _context.getAnalyzing().getAvailableVariables().clear();
         _context.getAnalyzing().getAvailableVariables().putAllMap(variables_);
         String gl_ = _currentBlock.getGenericString();
-        CustList<PartOffset> partOffsets_ = _context.getCoverage().getCurrentParts();
+        CustList<PartOffset> partOffsets_ = _context.getAnalyzing().getCurrentParts();
         _context.getAnalyzing().getCurrentBadIndexes().clear();
         _context.getAnalyzing().setImportingAcces(new TypeAccessor(_currentBlock.getFullName()));
         _context.getAnalyzing().setImportingTypes(_currentBlock);

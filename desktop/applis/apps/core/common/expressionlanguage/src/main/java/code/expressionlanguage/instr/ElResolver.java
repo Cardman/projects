@@ -2542,7 +2542,7 @@ public final class ElResolver {
             _d.getDelCast().add(_from);
             _d.getDelCast().add(indexParRight_);
             _d.getDelCastExtract().add(typeOut_);
-            _d.getCastParts().add(new CustList<PartOffset>(_conf.getCoverage().getCurrentParts()));
+            _d.getCastParts().add(new CustList<PartOffset>(_conf.getAnalyzing().getCurrentParts()));
             return indexParRight_ + 1;
         }
         return _from;

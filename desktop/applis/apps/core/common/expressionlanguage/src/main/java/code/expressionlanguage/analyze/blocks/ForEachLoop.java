@@ -178,7 +178,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (!StringList.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
-            partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts());
         } else {
             importedClassName = "";
         }
@@ -230,12 +230,12 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         MethodAccessKind static_ = processVarTypes(_cont);
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
-        root = _cont.getCoverage().getCurrentRoot();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        root = page_.getCurrentRoot();
         ExecOperationNode l_ = op_.last();
         argument = l_.getArgument();
         checkMatchs(_cont, l_.getResultClass());
         processVariable(_cont);
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
         ExecForEachLoop exec_ = new ExecForEachLoop(getOffset(),label, importedClassName,
                 importedClassIndexName,variableName,variableNameOffset, expressionOffset,op_);
         page_.getBlockToWrite().appendChild(exec_);

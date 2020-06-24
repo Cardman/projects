@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.util;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
@@ -279,7 +280,8 @@ public final class ContextUtil {
     }
 
     public static FieldInfo getFieldInfo(ContextEl _cont, ClassField _classField) {
-        GeneType g_ = _cont.getClassBody(_classField.getClassName());
+        String fullName_ = _classField.getClassName();
+        GeneType g_ = _cont.getClassBody(fullName_);
         String search_ = _classField.getFieldName();
         if (g_ instanceof ExecRootBlock) {
             for (ExecBlock b: ExecBlock.getDirectChildren((ExecBlock) g_)) {
@@ -293,7 +295,8 @@ public final class ContextUtil {
                 String type_ = i_.getImportedClassName();
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_,i_);
+                Accessed a_ = new Accessed(i_.getAccess(),g_.getPackageName(),fullName_,((ExecRootBlock) g_).getOuterFullName());
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, a_);
             }
             return null;
         }
@@ -306,7 +309,8 @@ public final class ContextUtil {
                 String type_ = f_.getImportedClassName();
                 boolean final_ = f_.isFinalField();
                 boolean static_ = f_.isStaticField();
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, f_);
+                Accessed a_ = new Accessed(AccessEnum.PUBLIC,"","","");
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, a_);
             }
         }
         return null;

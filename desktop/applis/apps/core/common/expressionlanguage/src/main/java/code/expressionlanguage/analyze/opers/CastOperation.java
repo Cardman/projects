@@ -40,7 +40,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
             res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,className.indexOf(PAR_LEFT)+1,res_,true);
             if (!res_.isEmpty()) {
                 className = res_;
-                partOffsets = new CustList<PartOffset>(_an.getCoverage().getCurrentParts());
+                partOffsets = new CustList<PartOffset>(_an.getAnalyzing().getCurrentParts());
             } else {
                 className = EMPTY_STRING;
                 partOffsets = new CustList<PartOffset>();

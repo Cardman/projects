@@ -30,7 +30,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
             classStr_ = ResolvingImportTypes.resolveCorrectType(_conf,str_.indexOf(PAR_LEFT)+1,realCl_);
-            partOffsets = new CustList<PartOffset>(_conf.getCoverage().getCurrentParts());
+            partOffsets = new CustList<PartOffset>(_conf.getAnalyzing().getCurrentParts());
         } else {
             implicit = true;
             classStr_ = glClass_;

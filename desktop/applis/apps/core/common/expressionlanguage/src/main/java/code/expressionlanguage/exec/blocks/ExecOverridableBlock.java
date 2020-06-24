@@ -93,18 +93,6 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
         getImportedParametersTypes().addAllElts(_key.getImportedParametersTypes());
     }
 
-    public String getPackageName() {
-        return ((ExecRootBlock)getParent()).getPackageName();
-    }
-
-    public String getFullName() {
-        return ((ExecRootBlock)getParent()).getFullName();
-    }
-
-    public String getOuterFullName() {
-        return ((ExecRootBlock)getParent()).getOuter().getFullName();
-    }
-
     public MethodKind getKind() {
         return kind;
     }

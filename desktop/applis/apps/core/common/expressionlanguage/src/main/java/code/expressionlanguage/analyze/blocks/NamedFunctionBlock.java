@@ -124,7 +124,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                 page_.setOffset(0);
                 Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
                 annotation_.add(ElUtil.getAnalyzedOperationsReadOnly(list_.get(i), _context, c_));
-                rootList_.add(_context.getCoverage().getCurrentRoot());
+                rootList_.add(page_.getCurrentRoot());
             }
             rootsList.add(rootList_);
             ops_.add(annotation_);
@@ -197,7 +197,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             page_.setGlobalOffset(parametersTypesOffset.get(i_));
             page_.setOffset(0);
             params_.add(ResolvingImportTypes.resolveCorrectType(_stds,p));
-            partOffsets_.addAllElts(_stds.getCoverage().getCurrentParts());
+            partOffsets_.addAllElts(_stds.getAnalyzing().getCurrentParts());
             partOffsetsParams.add(partOffsets_);
             i_++;
         }
@@ -218,7 +218,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         page_.setGlobalOffset(returnTypeOffset);
         page_.setOffset(0);
         importedReturnType = ResolvingImportTypes.resolveCorrectType(_stds,returnType);
-        partOffsetsReturn.addAllElts(_stds.getCoverage().getCurrentParts());
+        partOffsetsReturn.addAllElts(_stds.getAnalyzing().getCurrentParts());
     }
     public String getReturnType() {
         return returnType;
@@ -258,7 +258,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
-            roots.add(_context.getCoverage().getCurrentRoot());
+            roots.add(page_.getCurrentRoot());
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }

@@ -558,7 +558,7 @@ public final class ElUtil {
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
         ExecOperationNode exp_ = ExecOperationNode.createExecOperationNode(current_);
-        _an.getCoverage().setCurrentRoot(root_);
+        _an.getAnalyzing().setCurrentRoot(root_);
         _an.getCoverage().putBlockOperation(_an,bl_,root_,current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();

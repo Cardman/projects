@@ -112,12 +112,12 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         MethodAccessKind static_ = processVarTypes(_cont);
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
-        root = _cont.getCoverage().getCurrentRoot();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        root = page_.getCurrentRoot();
         ExecOperationNode l_ = op_.last();
         argument = l_.getArgument();
         checkMatchs(_cont, l_.getResultClass());
         processVariables(_cont);
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
         ExecForEachTable exec_ = new ExecForEachTable(getOffset(),label, importedClassNameFirst,
                 importedClassNameSecond,
                 importedClassIndexName,variableNameFirst,
@@ -229,7 +229,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         page_.setOffset(0);
         if (!StringList.quickEq(classNameFirst.trim(), keyWordVar_)) {
             importedClassNameFirst = ResolvingImportTypes.resolveCorrectType(_cont,classNameFirst);
-            partOffsetsFirst.addAllElts(_cont.getCoverage().getCurrentParts());
+            partOffsetsFirst.addAllElts(_cont.getAnalyzing().getCurrentParts());
         } else {
             importedClassNameFirst = "";
         }
@@ -237,7 +237,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         page_.setOffset(0);
         if (!StringList.quickEq(classNameSecond.trim(), keyWordVar_)) {
             importedClassNameSecond = ResolvingImportTypes.resolveCorrectType(_cont,classNameSecond);
-            partOffsetsSecond.addAllElts(_cont.getCoverage().getCurrentParts());
+            partOffsetsSecond.addAllElts(_cont.getAnalyzing().getCurrentParts());
         } else {
             importedClassNameSecond = "";
         }

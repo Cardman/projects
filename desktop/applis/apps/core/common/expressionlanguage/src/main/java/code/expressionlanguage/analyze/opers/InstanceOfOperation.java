@@ -36,7 +36,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         String compo_ = StringExpUtil.getQuickComponentBaseType(sub_).getComponent();
         boolean exact_ = compo_.contains(Templates.TEMPLATE_BEGIN);
         sub_ = ResolvingImportTypes.resolveCorrectType(_conf, begin_ + off_, sub_, exact_);
-        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         if (!exact_) {
             ExecRootBlock r_ = _conf.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(sub_));
             if (r_ != null) {

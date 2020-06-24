@@ -90,7 +90,7 @@ public final class FctOperation extends InvokingOperation {
             className_ = className_.substring(lenPref_);
             int loc_ = StringList.getFirstPrintableCharIndex(className_);
             className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             Mapping map_ = new Mapping();
             map_.setParam(className_);
             map_.setArg(clCur_);

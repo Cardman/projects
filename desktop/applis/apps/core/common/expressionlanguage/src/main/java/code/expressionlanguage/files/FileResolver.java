@@ -47,6 +47,7 @@ public final class FileResolver {
         ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_, tabWidth_);
         cls_.putFileBlock(_fileName, exFile_);
         _context.getCoverage().putFile(_context,fileBlock_);
+        _context.getAnalyzing().getErrors().putFile(fileBlock_);
         StringList importedTypes_ = new StringList();
         StringBuilder str_ = new StringBuilder();
         KeyWords keyWords_ = _context.getKeyWords();
@@ -163,7 +164,7 @@ public final class FileResolver {
             for (int i: badIndexes_) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
                 b_.setFileName(_fileName);
-                b_.setIndexFile(Math.max(0,i-1));
+                b_.setIndexFile(Math.max(0,Math.min(fileBlock_.getLength()-1,i)));
                 //if empty file => add underlined space
                 //else underline last char
                 b_.buildError(_context.getAnalysisMessages().getBadIndexInParser());
@@ -181,7 +182,7 @@ public final class FileResolver {
             for (int i: badIndexes_) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
                 b_.setFileName(_fileName);
-                b_.setIndexFile(Math.max(0,i-1));
+                b_.setIndexFile(Math.max(0,Math.min(fileBlock_.getLength()-1,i)));
                 //underline index char
                 b_.buildError(_context.getAnalysisMessages().getBadIndexInParser());
                 _context.addError(b_);
@@ -212,8 +213,9 @@ public final class FileResolver {
                                 d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
                                         s_);
                                 _context.addError(d_);
+                                cur_.addNameErrors(d_);
                             }
-                            cls_.processBracedClass(exFile_,r_,cur_, _context);
+                            ClassesUtil.processBracedClass(exFile_,r_,cur_, _context);
                         }
                         Block fc_ = c_.getFirstChild();
                         if (fc_ != null) {
@@ -246,7 +248,7 @@ public final class FileResolver {
                         }
                     }
                 } else {
-                    cls_.processBracedClass(exFile_,r_,r_, _context);
+                    ClassesUtil.processBracedClass(exFile_,r_,r_, _context);
                 }
             }
             if (res_ instanceof ResultOperatorCreation) {
@@ -387,7 +389,7 @@ public final class FileResolver {
             access_ = AccessEnum.PACKAGE;
         } else {
             //ERROR
-            badIndexes_.add(nextIndex_+1);
+            badIndexes_.add(nextIndex_);
             return out_;
         }
         if (oper_) {
@@ -526,7 +528,7 @@ public final class FileResolver {
                 nextIndex_ = nextIndex_ + keyWordFinal_.length();
                 nextIndex_ = skipWhitespace(nextIndex_, _file);
             }
-            int categoryOffset_ = nextIndex_ - 1;
+            int categoryOffset_ = nextIndex_;
             String type_;
             String beforeCat_ = _file.substring(nextIndex_);
             if (StringExpUtil.startsWithKeyWord(beforeCat_, keyWordClass_)) {
@@ -674,6 +676,7 @@ public final class FileResolver {
                 typeBlock_ = new AnnotationBlock(beginDefinition_, categoryOffset_, baseName_, packageName_,
                         new OffsetAccessInfo(accessOffsetType_, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_,beginType_));
             }
+            typeBlock_.setCategoryLength(type_.length());
             if (!okType_) {
                 typeBlock_.getBadIndexes().add(bad_);
             }
@@ -735,7 +738,7 @@ public final class FileResolver {
                 if (currentChar_ == ESCAPE) {
                     if (i_ + 1 >= len_) {
                         //ERROR
-                        _currentParent.getBadParentheses().add(i_);
+                        addBadIndex(currentParent_,_currentParent,_nextIndex);
                         break;
                     }
                     instruction_.append(_file.charAt(i_+1));
@@ -761,7 +764,7 @@ public final class FileResolver {
                 if (currentChar_ == ESCAPE) {
                     if (i_ + 1 >= len_) {
                         //ERROR
-                        _currentParent.getBadParentheses().add(i_);
+                        addBadIndex(currentParent_,_currentParent,_nextIndex);
                         break;
                     }
                     instruction_.append(_file.charAt(i_+1));
@@ -786,7 +789,7 @@ public final class FileResolver {
                 instruction_.append(currentChar_);
                 if (i_ + 1 >= len_) {
                     //ERROR
-                    _currentParent.getBadParentheses().add(i_);
+                    addBadIndex(currentParent_,_currentParent,_nextIndex);
                     break;
                 }
                 if(currentChar_ == DEL_TEXT) {
@@ -914,14 +917,14 @@ public final class FileResolver {
             }
             if (currentChar_ == END_CALLING) {
                 if (parentheses_.isEmpty()) {
-                    _currentParent.getBadParentheses().add(i_);
+                    addBadIndex(currentParent_,_currentParent,_nextIndex);
                     break;
                 }
                 parentheses_.removeLast();
             }
             if (currentChar_ == END_ARRAY) {
                 if (parentheses_.isEmpty()) {
-                    _currentParent.getBadParentheses().add(i_);
+                    addBadIndex(currentParent_,_currentParent,_nextIndex);
                     break;
                 }
                 parentheses_.removeLast();
@@ -941,7 +944,7 @@ public final class FileResolver {
                 }
             }
             if (currentParent_ == null) {
-                _currentParent.getBadParentheses().add(_nextIndex);
+                addBadIndex(currentParent_,_currentParent,_nextIndex);
                 break;
             }
             if (endInstruction_) {
@@ -966,13 +969,20 @@ public final class FileResolver {
 
             i_ = i_ + 1;
         } else {
-            _currentParent.getBadParentheses().add(len_);
+            addBadIndex(currentParent_,_currentParent,len_);
         }
         _out.setNextIndex(i_);
         _out.setOk(true);
         return _out;
     }
 
+    private static void addBadIndex(BracedBlock _currentParent,BracedBlock _currentType, int _index) {
+        if (_currentParent == null) {
+            _currentType.getBadIndexes().add(_index);
+        } else {
+            _currentParent.getBadIndexes().add(_index);
+        }
+    }
     private static void appendEnd(FileBlock _fileBlock, int _i, String _e) {
         if (_e.trim().isEmpty()) {
             _fileBlock.getEndComments().add(_i -2);
@@ -1787,6 +1797,7 @@ public final class FileResolver {
                     new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_,
                     new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
         }
+        typeBlock_.setCategoryLength(_type.length());
         typeBlock_.setupOffsets(typeName_,"");
         typeBlock_.getImports().addAllElts(_importedTypes);
         typeBlock_.getImportsOffset().addAllElts(_offsetsImports);

@@ -65,7 +65,7 @@ public final class ReturnMethod extends AbruptBlock {
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(stCtx_));
         checkTypes(_cont, retType_, op_.last().getResultClass());
         ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), false,expressionOffset,op_, retType_);
-        root = _cont.getCoverage().getCurrentRoot();
+        root = page_.getCurrentRoot();
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);

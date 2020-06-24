@@ -53,7 +53,7 @@ public final class DimensionArrayInstancing extends
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         MethodOperation m_;
         type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(_an,newKeyWord_.length()+local_,inferForm_);
-        partOffsets_.addAllElts(_an.getCoverage().getCurrentParts());
+        partOffsets_.addAllElts(_an.getAnalyzing().getCurrentParts());
         if (type_.isEmpty()) {
             return;
         }
@@ -136,7 +136,7 @@ public final class DimensionArrayInstancing extends
         if (typeInfer.isEmpty()) {
             int local_ = StringList.getFirstPrintableCharIndex(className_);
             className_ = ResolvingImportTypes.resolveCorrectType(_conf,new_.length()+local_,className_);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         } else {
             className_ = typeInfer;
         }

@@ -647,13 +647,8 @@ public abstract class OperationNode {
                 return;
             }
         }
-        GeneField e_ = fi_.getGeneField();
-        if (e_ instanceof ExecFieldBlock) {
-            ExecFieldBlock c = (ExecFieldBlock) e_;
-            Accessed a_ = new Accessed(c.getAccess(), c.getPackageName(), c.getFullName(), c.getOuterFullName());
-            if (cannotAccess(_conf,fullName_,a_,_glClass,_superTypesBaseMap)) {
-                return;
-            }
+        if (cannotAccess(_conf,fullName_,fi_.getAccessed(),_glClass,_superTypesBaseMap)) {
+            return;
         }
         if (filterMember(_accessFromSuper,_superClass,_superTypesBase,fullName_)) {
             return;
@@ -666,7 +661,7 @@ public abstract class OperationNode {
         }
         String realType_ = fi_.getType();
         boolean finalField_ = fi_.isFinalField();
-        FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, staticField_, finalField_, _conf, _aff, e_);
+        FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, staticField_, finalField_, _conf, _aff, null);
         if (if_ == null) {
             return;
         }
@@ -713,7 +708,7 @@ public abstract class OperationNode {
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         for (GeneConstructor e: constructors_) {
             ConstructorId ctor_ = e.getId();
-            if (exclude(_conf,_uniqueId,varargOnly_, e)) {
+            if (exclude(_type,_conf,_uniqueId,varargOnly_, e)) {
                 continue;
             }
             ParametersGroup pg_ = new ParametersGroup();
@@ -782,7 +777,7 @@ public abstract class OperationNode {
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         for (GeneConstructor e: constructors_) {
             ConstructorId ctor_ = e.getId();
-            if (exclude(_conf,_uniqueId,varargOnly_, e)) {
+            if (exclude(_type,_conf,_uniqueId,varargOnly_, e)) {
                 continue;
             }
             ParametersGroup pg_ = new ParametersGroup();
@@ -828,7 +823,7 @@ public abstract class OperationNode {
         return varargOnly_ > -1;
     }
 
-    private static boolean exclude(ContextEl _conf, ConstructorId _uniqueId, int _varargOnly, GeneConstructor e) {
+    private static boolean exclude(GeneType _g,ContextEl _conf, ConstructorId _uniqueId, int _varargOnly, GeneConstructor e) {
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
         ConstructorId ctor_ = e.getId();
         boolean varArg_ = ctor_.isVararg();
@@ -842,9 +837,13 @@ public abstract class OperationNode {
                 return true;
             }
         }
+        String outer_ ="";
+        if (_g instanceof ExecRootBlock) {
+            outer_ = ((ExecRootBlock)_g).getOuterFullName();
+        }
         if (e instanceof ExecConstructorBlock) {
             ExecConstructorBlock c = (ExecConstructorBlock) e;
-            Accessed a_ = new Accessed(c.getAccess(), c.getPackageName(), c.getFullName(), c.getOuterFullName());
+            Accessed a_ = new Accessed(c.getAccess(), _g.getPackageName(), _g.getFullName(), outer_);
             return !ContextUtil.canAccess(glClass_, a_, _conf);
         }
         return false;
@@ -1223,10 +1222,12 @@ public abstract class OperationNode {
         superTypesBaseAncBis_.addEntry(id_,id_);
         CustList<ExecOverridableBlock> casts_ = _conf.getClasses().getExplicitCastMethods().getVal(id_);
         CustList<ExecOverridableBlock> castsId_ = _conf.getClasses().getExplicitIdCastMethods().getVal(id_);
+        ExecRootBlock tId_ = _conf.getClasses().getClassBody(id_);
         CustList<ExecOverridableBlock> castsFrom_ = _conf.getClasses().getExplicitFromCastMethods().getVal(idFrom_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, casts_, superTypesBaseAncBis_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, castsId_, superTypesBaseAncBis_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass,_single, castsFrom_, superTypesBaseAnc_);
+        ExecRootBlock tDi_ = _conf.getClasses().getClassBody(idFrom_);
+        fetchCastMethods(tId_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, casts_, superTypesBaseAncBis_);
+        fetchCastMethods(tId_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, castsId_, superTypesBaseAncBis_);
+        fetchCastMethods(tDi_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_single, castsFrom_, superTypesBaseAnc_);
         return methods_;
     }
 
@@ -1242,10 +1243,12 @@ public abstract class OperationNode {
         superTypesBaseAncBis_.addEntry(id_,id_);
         CustList<ExecOverridableBlock> casts_ = _conf.getClasses().getImplicitCastMethods().getVal(id_);
         CustList<ExecOverridableBlock> castsId_ = _conf.getClasses().getImplicitIdCastMethods().getVal(id_);
+        ExecRootBlock tId_ = _conf.getClasses().getClassBody(id_);
         CustList<ExecOverridableBlock> castsFrom_ = _conf.getClasses().getImplicitFromCastMethods().getVal(idFrom_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, casts_, superTypesBaseAncBis_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, castsId_, superTypesBaseAncBis_);
-        fetchCastMethods(_conf,  _uniqueId, glClass_, methods_, _fromClass,_single, castsFrom_, superTypesBaseAnc_);
+        ExecRootBlock tDi_ = _conf.getClasses().getClassBody(idFrom_);
+        fetchCastMethods(tId_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, casts_, superTypesBaseAncBis_);
+        fetchCastMethods(tId_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, castsId_, superTypesBaseAncBis_);
+        fetchCastMethods(tDi_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_single, castsFrom_, superTypesBaseAnc_);
         return methods_;
     }
 
@@ -1276,7 +1279,8 @@ public abstract class OperationNode {
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
             superTypesBaseAncBis_.addEntry(supId_,supId_);
             CustList<ExecOverridableBlock> castsFrom_ = _conf.getClasses().getImplicitFromCastMethods().getVal(supId_);
-            fetchCastMethods(_conf,  null, glClass_, methods_, _returnType,formatted_, castsFrom_, superTypesBaseAncBis_);
+            ExecRootBlock t_ = _conf.getClasses().getClassBody(di_);
+            fetchCastMethods(t_,_conf,  null, glClass_, methods_, _returnType,formatted_, castsFrom_, superTypesBaseAncBis_);
         }
     }
 
@@ -1289,8 +1293,9 @@ public abstract class OperationNode {
         superTypesBaseAncBis_.addEntry(di_,di_);
         CustList<ExecOverridableBlock> casts_ = _conf.getClasses().getImplicitCastMethods().getVal(di_);
         CustList<ExecOverridableBlock> castsId_ = _conf.getClasses().getImplicitIdCastMethods().getVal(di_);
-        fetchCastMethods(_conf,  null, glClass_, methods_, _returnType,_id, casts_, superTypesBaseAncBis_);
-        fetchCastMethods(_conf,  null, glClass_, methods_, _returnType,_id, castsId_, superTypesBaseAncBis_);
+        ExecRootBlock t_ = _conf.getClasses().getClassBody(di_);
+        fetchCastMethods(t_,_conf,  null, glClass_, methods_, _returnType,_id, casts_, superTypesBaseAncBis_);
+        fetchCastMethods(t_,_conf,  null, glClass_, methods_, _returnType,_id, castsId_, superTypesBaseAncBis_);
     }
 
     private static CustList<CustList<MethodInfo>>
@@ -1458,14 +1463,14 @@ public abstract class OperationNode {
         return t_;
     }
 
-    private static void fetchCastMethods(ContextEl _conf, ClassMethodId _uniqueId, String _glClass, CustList<MethodInfo> _methods, String _returnType,String _cl, CustList<ExecOverridableBlock> _casts, StringMap<String> _superTypesBaseMap) {
+    private static void fetchCastMethods(ExecRootBlock _type,ContextEl _conf, ClassMethodId _uniqueId, String _glClass, CustList<MethodInfo> _methods, String _returnType,String _cl, CustList<ExecOverridableBlock> _casts, StringMap<String> _superTypesBaseMap) {
         ClassMethodIdAncestor uniq_ = null;
         if (_uniqueId != null) {
             uniq_ = new ClassMethodIdAncestor(new ClassMethodId(StringExpUtil.getIdFromAllTypes(_uniqueId.getClassName()),_uniqueId.getConstraints()),0);
         }
         if (_casts != null) {
             for (ExecOverridableBlock e: _casts) {
-                MethodInfo stMeth_ = fetchedParamCastMethod(e,_returnType,_cl, _conf,uniq_,_glClass, _superTypesBaseMap);
+                MethodInfo stMeth_ = fetchedParamCastMethod(_type,e,_returnType,_cl, _conf,uniq_,_glClass, _superTypesBaseMap);
                 if (stMeth_ == null) {
                     continue;
                 }
@@ -1497,7 +1502,7 @@ public abstract class OperationNode {
             if (filterMember(_accessFromSuper,_superClass,_superTypesBase,fullName_)) {
                 continue;
             }
-            MethodInfo stMeth_ = fetchedParamMethod(e,genericString_,k_ == MethodAccessKind.STATIC,_conf, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap);
+            MethodInfo stMeth_ = fetchedParamMethod(_root,e,genericString_,k_ == MethodAccessKind.STATIC,_conf, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap);
             if (stMeth_ == null) {
                 continue;
             }
@@ -1523,7 +1528,7 @@ public abstract class OperationNode {
         return false;
     }
 
-    private static MethodInfo fetchedParamMethod(GeneCustStaticMethod _m,String _s,boolean _keepParams,
+    private static MethodInfo fetchedParamMethod(GeneType _type,GeneCustStaticMethod _m,String _s,boolean _keepParams,
                                                  ContextEl _conf, ClassMethodIdAncestor _uniqueId,
                                                  String _glClass, int _anc, String _f, StringMap<String> _superTypesBaseMap) {
         String base_ = StringExpUtil.getIdFromAllTypes(_s);
@@ -1537,9 +1542,13 @@ public abstract class OperationNode {
         } else {
             formattedClass_ = _f;
         }
+        String outer_ = "";
+        if (_type instanceof ExecRootBlock) {
+            outer_ = ((ExecRootBlock)_type).getOuterFullName();
+        }
         if (_m instanceof ExecOverridableBlock) {
             ExecOverridableBlock c = (ExecOverridableBlock) _m;
-            Accessed a_ = new Accessed(c.getAccess(), c.getPackageName(), c.getFullName(), c.getOuterFullName());
+            Accessed a_ = new Accessed(c.getAccess(), _type.getPackageName(), _type.getFullName(), outer_);
             if (cannotAccess(_conf,base_,a_,_glClass,_superTypesBaseMap)) {
                 return null;
             }
@@ -1547,7 +1556,7 @@ public abstract class OperationNode {
         return buildMethodInfo(_m, _keepParams, _conf, _anc, formattedClass_);
     }
 
-    private static MethodInfo fetchedParamCastMethod(ExecOverridableBlock _m, String _returnType, String _s,
+    private static MethodInfo fetchedParamCastMethod(ExecRootBlock _type,ExecOverridableBlock _m, String _returnType, String _s,
                                                      ContextEl _conf, ClassMethodIdAncestor _uniqueId,
                                                      String _glClass, StringMap<String> _superTypesBaseMap) {
         String base_ = StringExpUtil.getIdFromAllTypes(_s);
@@ -1555,7 +1564,7 @@ public abstract class OperationNode {
         if (isCandidateMethod(_uniqueId, 0, base_, id_)) {
             return null;
         }
-        Accessed a_ = new Accessed(_m.getAccess(), _m.getPackageName(), _m.getFullName(), _m.getOuterFullName());
+        Accessed a_ = new Accessed(_m.getAccess(), _type.getPackageName(), _type.getFullName(), _type.getOuterFullName());
         if (cannotAccess(_conf,base_, a_,_glClass,_superTypesBaseMap)) {
             return null;
         }

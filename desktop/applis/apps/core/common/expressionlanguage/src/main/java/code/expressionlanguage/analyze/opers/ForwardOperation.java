@@ -63,7 +63,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             className_ = className_.substring(lenPref_);
             int loc_ = StringList.getFirstPrintableCharIndex(className_);
             classType = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             Mapping map_ = new Mapping();
             map_.setParam(classType);
             map_.setArg(getResultClass());
@@ -87,7 +87,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             className_ = className_.substring(lenPref_);
             int loc_ = StringList.getFirstPrintableCharIndex(className_);
             classType = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             setResultClass(new ClassArgumentMatching(classType));
             accessSuperTypes = false;
             staticChoiceMethod = true;
@@ -98,7 +98,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             className_ = className_.substring(lenPref_);
             int loc_ = StringList.getFirstPrintableCharIndex(className_);
             className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             classType = className_;
             Mapping map_ = new Mapping();
             map_.setParam(classType);

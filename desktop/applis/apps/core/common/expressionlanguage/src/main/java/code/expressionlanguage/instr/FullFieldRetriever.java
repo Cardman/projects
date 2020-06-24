@@ -211,7 +211,7 @@ public final class FullFieldRetriever implements FieldRetriever {
             nextOff_ += inns_.first().length() + 1;
         } else {
             start_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from,inns_.first(), false);
-            partOffsets_.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets_.addAllElts(_conf.getAnalyzing().getCurrentParts());
             nb_ = 0;
             nextOff_ += inns_.first().length() + 1;
         }

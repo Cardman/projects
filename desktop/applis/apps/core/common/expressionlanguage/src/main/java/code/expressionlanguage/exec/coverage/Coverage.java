@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.ReflectAnnotationPageEl;
 import code.expressionlanguage.exec.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
-import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
@@ -33,17 +32,9 @@ public final class Coverage {
     private IdMap<Block,Boolean> catches = new IdMap<Block,Boolean>();
     private IdMap<ExecBlock,Block> mappingBlocks = new IdMap<ExecBlock,Block>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mapping = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
-    private OperationNode currentRoot;
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mappingAnnot = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mappingAnnotMembers = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
-    private StringMap<Integer> localVars = new StringMap<Integer>();
-    private StringMap<Integer> mutableVars = new StringMap<Integer>();
-    private StringMap<Integer> loopVars = new StringMap<Integer>();
-    private StringMap<Integer> catchVars = new StringMap<Integer>();
-    private StringMap<Integer> paramVars = new StringMap<Integer>();
-    private String currentFileName = "";
-    private boolean possibleDeclareLoopVars;
-    private CustList<PartOffset> currentParts = new CustList<PartOffset>();
+
     public void putFile(ContextEl _context, FileBlock _file) {
         if (!_context.isCovering()) {
             return;
@@ -306,46 +297,6 @@ public final class Coverage {
         return catches;
     }
 
-    public StringMap<Integer> getLocalVars() {
-        return localVars;
-    }
-
-    public StringMap<Integer> getMutableVars() {
-        return mutableVars;
-    }
-
-    public StringMap<Integer> getLoopVars() {
-        return loopVars;
-    }
-
-    public StringMap<Integer> getCatchVars() {
-        return catchVars;
-    }
-
-    public StringMap<Integer> getParamVars() {
-        return paramVars;
-    }
-
-    public boolean isPossibleDeclareLoopVars() {
-        return possibleDeclareLoopVars;
-    }
-
-    public void setPossibleDeclareLoopVars(boolean _possibleDeclareLoopVars) {
-        possibleDeclareLoopVars = _possibleDeclareLoopVars;
-    }
-
-    public String getCurrentFileName() {
-        return currentFileName;
-    }
-
-    public void setCurrentFileName(String _currentFileName) {
-        currentFileName = _currentFileName;
-    }
-
-    public CustList<PartOffset> getCurrentParts() {
-        return currentParts;
-    }
-
     public boolean getCatches(Block _catch) {
         return catches.getVal(_catch);
     }
@@ -354,11 +305,4 @@ public final class Coverage {
         return coverLoops.getVal(_bl);
     }
 
-    public OperationNode getCurrentRoot() {
-        return currentRoot;
-    }
-
-    public void setCurrentRoot(OperationNode _currentRoot) {
-        currentRoot = _currentRoot;
-    }
 }

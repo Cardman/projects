@@ -79,17 +79,7 @@ public final class ElseCondition extends BracedBlock implements BlockCondition, 
     }
     @Override
     public void abruptGroup(AnalyzingEl _anEl) {
-        CustList<Block> group_ = new CustList<Block>();
-        group_.add(this);
-        Block p_ = getPreviousSibling();
-        while (!(p_ instanceof IfCondition)) {
-            if (p_ == null) {
-                break;
-            }
-            group_.add(p_);
-            p_ = p_.getPreviousSibling();
-        }
-        group_.add(p_);
+        CustList<Block> group_ = getConditionBlocks();
         boolean canCmpNormally_ = false;
         for (Block b: group_) {
             if (_anEl.canCompleteNormally(b)) {

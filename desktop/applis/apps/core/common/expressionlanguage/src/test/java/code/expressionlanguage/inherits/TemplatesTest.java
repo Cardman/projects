@@ -1,6 +1,7 @@
 package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.analyze.blocks.Classes;
@@ -943,10 +944,10 @@ public final class TemplatesTest extends ProcessMethodCommon {
         CustList<RootBlock> foundTypes_ = _cont.getAnalyzing().getFoundTypes();
         _cont.setAnalyzing();
         _cont.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
-        Classes.tryBuildBracedClassesBodies(_files, _cont, false);
+        ClassesUtil.tryBuildBracedClassesBodies(_files, _cont, false);
         assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
         assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
-        Classes.validateInheritingClasses(_cont);
+        ClassesUtil.validateInheritingClasses(_cont);
         assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
         return _cont;
     }

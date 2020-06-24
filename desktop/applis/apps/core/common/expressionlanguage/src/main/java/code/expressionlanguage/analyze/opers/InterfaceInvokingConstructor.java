@@ -33,7 +33,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         int leftPar_ = cl_.indexOf(PAR_LEFT) + 1;
         cl_ = cl_.substring(leftPar_, cl_.lastIndexOf(PAR_RIGHT));
         cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf, leftPar_,cl_);
-        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         if (!(_conf.getClasses().getClassBody(cl_) instanceof ExecInterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());

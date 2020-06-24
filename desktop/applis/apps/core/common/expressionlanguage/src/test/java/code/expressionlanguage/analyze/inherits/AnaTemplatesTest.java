@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.inherits;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.structs.DoubleStruct;
@@ -6251,10 +6252,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         CustList<RootBlock> foundTypes_ = _cont.getAnalyzing().getFoundTypes();
         _cont.setAnalyzing();
         _cont.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
-        Classes.tryBuildBracedClassesBodies(_files, _cont, false);
+        ClassesUtil.tryBuildBracedClassesBodies(_files, _cont, false);
         assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
         assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
-        Classes.validateInheritingClasses(_cont);
+        ClassesUtil.validateInheritingClasses(_cont);
         assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
         return _cont;
     }

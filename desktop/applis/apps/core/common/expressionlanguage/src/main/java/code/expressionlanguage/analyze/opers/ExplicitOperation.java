@@ -54,7 +54,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         res_ = ResolvingImportTypes.resolveCorrectType(_conf,leftPar_ +1,types_.first());
         className = res_;
         classNameOwner = res_;
-        partOffsets = new CustList<PartOffset>(_conf.getCoverage().getCurrentParts());
+        partOffsets = new CustList<PartOffset>(_conf.getAnalyzing().getCurrentParts());
         setResultClass(new ClassArgumentMatching(className));
         if (!customCast(res_)) {
             return;
@@ -73,7 +73,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             //add a type for full id
             String arg_ = types_.last();
             String lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf, leftPar_ + types_.first().length() + 2, arg_, className);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             GeneType geneType_ = _conf.getClassBody(StringExpUtil.getIdFromAllTypes(className));
             if (geneType_ == null) {
                 int rc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
@@ -115,10 +115,10 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             String arg_ = types_.get(1);
             int lc_ = leftPar_ + types_.first().length() + 2;
             String midType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf, lc_,arg_, className);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             arg_ = types_.last();
             String lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,lc_ +types_.get(1).length()+1,arg_, className);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             uniq_ = new ClassMethodId(className,new MethodId(MethodAccessKind.STATIC,exp_,new StringList(midType_,lastType_)));
             ClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
             ClassArgumentMatching virtual_ = new ClassArgumentMatching(Templates.quickFormat(className, midType_, _conf));

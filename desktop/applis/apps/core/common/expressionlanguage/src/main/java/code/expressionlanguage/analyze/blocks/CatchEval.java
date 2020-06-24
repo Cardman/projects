@@ -94,7 +94,7 @@ public final class CatchEval extends AbstractCatchEval {
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         importedClassName = ResolvingImportTypes.resolveCorrectType(_an,className);
-        partOffsets.addAllElts(_an.getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_an.getAnalyzing().getCurrentParts());
         StringList classes_ = new StringList();
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {

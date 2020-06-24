@@ -132,7 +132,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int offset_ = className.indexOf('(')+1;
             offset_ += StringList.getFirstPrintableCharIndex(_args.first());
             String type_ = ResolvingImportTypes.resolveCorrectType(_conf,offset_,_fromType);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             MethodId argsRes_;
             if (matchIdKeyWord(_args, _len, i_, keyWordId_)) {
                 String cl_ = StringExpUtil.getIdFromAllTypes(type_);
@@ -328,7 +328,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 int offset_ = className.indexOf('(')+1;
                 offset_ += StringList.getFirstPrintableCharIndex(_args.first());
                 String type_ = ResolvingImportTypes.resolveCorrectType(_conf, offset_, _fromType, staticFlag_ != MethodAccessKind.STATIC);
-                partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+                partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
                 str_ = InvokingOperation.getBounds(type_, _conf);
                 String cl_ = StringExpUtil.getIdFromAllTypes(type_);
                 argsRes_ = resolveArguments(i_+1, _conf, cl_, staticFlag_, _args);
@@ -508,7 +508,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                     return;
                 }
-                partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+                partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
                 MethodAccessId acc_ = new MethodAccessId(4);
                 acc_.setupAncestor(_args,4);
                 int ind_ = acc_.getIndex();
@@ -593,7 +593,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int offset_ = className.indexOf('(')+1;
             offset_ += StringList.getFirstPrintableCharIndex(_args.first());
             String type_ = ResolvingImportTypes.resolveCorrectType(_conf, offset_, _fromType, stCtx_ != MethodAccessKind.STATIC);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             str_ = InvokingOperation.getBounds(type_, _conf);
             String cl_ = StringExpUtil.getIdFromAllTypes(type_);
             argsRes_ = resolveArguments(i_+1, _conf, cl_, stCtx_, _args);
@@ -826,7 +826,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String clFrom_ = EMPTY_STRING;
         if (!isIntermediateDottedOperation()) {
             clFrom_ = ResolvingImportTypes.resolveCorrectType(_conf,offset_,_fromType);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             if (clFrom_.startsWith(ARR)) {
                 processArray(_conf, _stds, _args, _len, _methodTypes, clFrom_);
                 return;
@@ -841,7 +841,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String type_ = EMPTY_STRING;
         if (_len > 2 &&StringList.quickEq(_args.get(2).trim(), keyWordId_)) {
             type_ = ResolvingImportTypes.resolveCorrectType(_conf,offset_,_fromType);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             String cl_ = StringExpUtil.getIdFromAllTypes(type_);
             argsRes_ = resolveArguments(3, _conf, cl_, MethodAccessKind.INSTANCE, _args);
             if (argsRes_ == null) {
@@ -1026,7 +1026,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         for (String a: StringExpUtil.getAllTypes(cl_).mid(1)) {
             int loc_ = StringList.getFirstPrintableCharIndex(a);
             String res_ = ResolvingImportTypes.resolveCorrectType(_conf,offset_+loc_,a);
-            partOffsets_.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets_.addAllElts(_conf.getAnalyzing().getCurrentParts());
             partsArgs_.add(res_);
             offset_ += a.length() + 1;
         }
@@ -1189,7 +1189,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 offset_ += StringList.getFirstPrintableCharIndex(_args.get(i_));
                 String type_ = _args.get(i_).trim();
                 String arg_ = ResolvingImportTypes.resolveCorrectType(_conf,offset_,type_);
-                partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+                partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
                 StringMap<StringList> map_ = new StringMap<StringList>();
                 getRefConstraints(_conf, map_);
                 Mapping mapping_ = new Mapping();
@@ -1243,7 +1243,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 offset_ += StringList.getFirstPrintableCharIndex(_args.get(i_));
                 String type_ = _args.get(i_).trim();
                 String arg_ = ResolvingImportTypes.resolveCorrectType(_conf,offset_,type_);
-                partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+                partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
                 StringMap<StringList> map_ = new StringMap<StringList>();
                 getRefConstraints(_conf, map_);
                 Mapping mapping_ = new Mapping();
@@ -1341,7 +1341,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             offset_ += StringList.getFirstPrintableCharIndex(_args.get(i_));
             String type_ = _args.get(i_).trim();
             String arg_ = ResolvingImportTypes.resolveCorrectType(_conf,offset_,type_);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             Mapping mapping_ = new Mapping();
             mapping_.setArg(arg_);
             mapping_.setParam(out_);
@@ -1399,7 +1399,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int offset_ = className.indexOf(',')+1;
             offset_ += StringList.getFirstPrintableCharIndex(operator_);
             String type_ = ResolvingImportTypes.resolveCorrectType(_conf, offset_, operator_, false);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             from_ = type_;
             if (_len > i_) {
                 operator_ = _args.get(i_).trim();
@@ -1600,7 +1600,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 type_ = arg_;
             }
             arg_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,off_ + loc_,type_, _fromType);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             off_ += _params.get(i).length() + 1;
             out_.add(arg_);
         }
@@ -1641,7 +1641,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 type_ = arg_;
             }
             arg_ = ResolvingImportTypes.resolveCorrectType(_conf,offset_+loc_,type_);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             if (wrap_) {
                 arg_ = StringExpUtil.getPrettyArrayType(arg_);
             }
@@ -1655,14 +1655,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int offset_ = className.indexOf('(')+1;
         offset_ += StringList.getFirstPrintableCharIndex(_args.first());
         String type_ = ResolvingImportTypes.resolveCorrectType(_an, offset_, _type, _exact);
-        partOffsets.addAllElts(_an.getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_an.getAnalyzing().getCurrentParts());
         return InvokingOperation.getBounds(type_, _an);
     }
     private StringList resolveCorrectTypesExact(ContextEl _an, String _type, StringList _args) {
         int offset_ = className.indexOf('(')+1;
         offset_ += StringList.getFirstPrintableCharIndex(_args.first());
         String type_ = ResolvingImportTypes.resolveCorrectType(_an,offset_,_type);
-        partOffsets.addAllElts(_an.getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_an.getAnalyzing().getCurrentParts());
         return InvokingOperation.getBounds(type_, _an);
     }
     public static String formatReturn(String _foundClass, ContextEl _an, ClassMethodIdReturn _id, boolean _demand) {

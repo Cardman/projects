@@ -40,17 +40,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval {
         }
         CustList<Block> group_ = new CustList<Block>();
         group_.add(this);
-        Block p_ = getPreviousSibling();
-        while (!(p_ instanceof TryEval)) {
-            if (p_ == null) {
-                break;
-            }
-            group_.add(p_);
-            p_ = p_.getPreviousSibling();
-        }
-        if (p_ != null) {
-            group_.add(p_);
-        }
+        group_.addAllElts(getTryBlocks());
         boolean canCmpNormally_ = false;
         for (Block b: group_) {
             if (_anEl.canCompleteNormally(b)) {

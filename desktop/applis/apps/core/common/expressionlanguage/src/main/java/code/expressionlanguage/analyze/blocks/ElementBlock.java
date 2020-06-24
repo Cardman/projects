@@ -107,7 +107,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         int len_ = -className.length();
         String fullClassName_ = StringList.concat(className, tempClass);
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,len_,fullClassName_);
-        partOffsets.addAllElts(_cont.getCoverage().getCurrentParts().mid(2));
+        partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts().mid(2));
     }
 
     @Override
@@ -131,7 +131,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         _cont.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
         _cont.getCoverage().putBlockOperations(_cont,this);
         _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName)));
-        root = _cont.getCoverage().getCurrentRoot();
+        root = page_.getCurrentRoot();
         page_.setTranslatedOffset(0);
     }
 
@@ -156,7 +156,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
-            roots.add(_context.getCoverage().getCurrentRoot());
+            roots.add(page_.getCurrentRoot());
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }

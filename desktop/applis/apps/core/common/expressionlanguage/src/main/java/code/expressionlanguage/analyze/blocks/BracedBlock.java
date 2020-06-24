@@ -2,17 +2,15 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.GraphicErrorList;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.Ints;
 
 public abstract class BracedBlock extends Block {
 
     private Block firstChild;
 
-    private Ints badParentheses = new Ints();
-
-    private GraphicErrorList errorsPars = new GraphicErrorList();
+    private GraphicErrorList globalErrorsPars = new GraphicErrorList();
     BracedBlock(OffsetsBlock _offset) {
         super(_offset);
     }
@@ -62,6 +60,38 @@ public abstract class BracedBlock extends Block {
         }
     }
 
+    protected CustList<Block> getConditionBlocks() {
+        CustList<Block> group_ = new CustList<Block>();
+        group_.add(this);
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof IfCondition)) {
+            if (p_ == null) {
+                break;
+            }
+            group_.add(p_);
+            p_ = p_.getPreviousSibling();
+        }
+        if (p_ != null) {
+            group_.add(p_);
+        }
+        return group_;
+    }
+
+    protected CustList<Block> getTryBlocks() {
+        CustList<Block> group_ = new CustList<Block>();
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof TryEval)) {
+            if (p_ == null) {
+                break;
+            }
+            group_.add(p_);
+            p_ = p_.getPreviousSibling();
+        }
+        if (p_ != null) {
+            group_.add(p_);
+        }
+        return group_;
+    }
     @Override
     public void checkTree(ContextEl _an, AnalyzingEl _anEl) {
     }
@@ -91,11 +121,7 @@ public abstract class BracedBlock extends Block {
     }
 
 
-    public Ints getBadParentheses() {
-        return badParentheses;
-    }
-
-    public GraphicErrorList getErrorsPars() {
-        return errorsPars;
+    public GraphicErrorList getGlobalErrorsPars() {
+        return globalErrorsPars;
     }
 }

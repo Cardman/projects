@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
@@ -142,6 +143,11 @@ public abstract class ProcessMethodCommon {
         ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
         ct_.setCovering(true);
         return ct_;
+    }
+    protected static ContextEl contextElErrorReadOnlyDef() {
+        Options opt_ = new Options();
+        opt_.setReadOnly(true);
+        return InitializationLgNames.buildStdOne(opt_);
     }
     protected static ContextEl contextElCoverageReadOnlyDef() {
         Options opt_ = new Options();
@@ -385,12 +391,12 @@ public abstract class ProcessMethodCommon {
         Classes classes_ = cont_.getClasses();
         parseCustomFiles(_files, cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_);
+        ClassesUtil.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateIds(cont_);
-        Classes.validateOverridingInherit(cont_);
+        ClassesUtil.validateIds(cont_);
+        ClassesUtil.validateOverridingInherit(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        classes_.initStaticFields(cont_);
+        ClassesUtil.initStaticFields(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
@@ -402,7 +408,7 @@ public abstract class ProcessMethodCommon {
         Classes classes_ = cont_.getClasses();
         parseCustomFiles(_files, cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_);
+        ClassesUtil.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
@@ -413,7 +419,7 @@ public abstract class ProcessMethodCommon {
         Classes classes_ = cont_.getClasses();
         parseCustomFiles(_files, cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_);
+        ClassesUtil.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }
@@ -424,7 +430,7 @@ public abstract class ProcessMethodCommon {
         Classes classes_ = cont_.getClasses();
         parseCustomFiles(_files, cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_);
+        ClassesUtil.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
     }
 
@@ -435,7 +441,7 @@ public abstract class ProcessMethodCommon {
         parseCustomFiles(_files, cont_);
         Classes classes_ = cont_.getClasses();
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_);
+        ClassesUtil.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
     }
 
@@ -445,7 +451,7 @@ public abstract class ProcessMethodCommon {
         CustList<RootBlock> foundTypes_ = _cont.getAnalyzing().getFoundTypes();
         _cont.setAnalyzing();
         _cont.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
-        Classes.tryBuildBracedClassesBodies(_files, _cont, false);
+        ClassesUtil.tryBuildBracedClassesBodies(_files, _cont, false);
     }
 
     protected static ContextEl getRootContextEl() {

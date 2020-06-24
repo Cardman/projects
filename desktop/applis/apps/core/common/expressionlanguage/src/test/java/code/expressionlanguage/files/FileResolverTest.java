@@ -34,7 +34,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq(43,cl_.getAccessOffset());
-        assertEq(50,cl_.getCategoryOffset());
+        assertEq(51,cl_.getCategoryOffset());
         assertNull(cl_.getFirstChild());
         assertEq(1, countFileTypes(context_));
     }
@@ -9592,7 +9592,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq(44,cl_.getAccessOffset());
-        assertEq(51,cl_.getCategoryOffset());
+        assertEq(52,cl_.getCategoryOffset());
         assertNull(cl_.getFirstChild());
         assertEq(1, countFileTypes(context_));
     }
@@ -9627,7 +9627,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(r_ instanceof ClassBlock);
         ClassBlock cl_ = (ClassBlock) r_;
         assertEq(43,cl_.getAccessOffset());
-        assertEq(50,cl_.getCategoryOffset());
+        assertEq(51,cl_.getCategoryOffset());
         assertNull(cl_.getFirstChild());
         assertEq(1, countFileTypes(context_));
     }

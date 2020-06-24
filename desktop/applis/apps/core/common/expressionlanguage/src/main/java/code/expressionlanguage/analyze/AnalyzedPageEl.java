@@ -1,8 +1,7 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.accessing.OperatorAccessor;
-import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -10,6 +9,7 @@ import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.types.*;
 import code.util.*;
 
@@ -48,7 +48,6 @@ public final class AnalyzedPageEl {
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> previousFoundTypes = new CustList<RootBlock>();
     private ExecBracedBlock blockToWrite;
-    private boolean duplicatedType;
 
     private int offset;
 
@@ -82,6 +81,10 @@ public final class AnalyzedPageEl {
     private StringList assignedDeclaredFields = new StringList();
     private StringList allDeclaredFields = new StringList();
     private ExecDeclareVariable execDeclareVariable;
+
+    private CustList<PartOffset> currentParts = new CustList<PartOffset>();
+    private OperationNode currentRoot;
+    private final Errors errors = new Errors();
 
     private AbstractProcessKeyWord processKeyWord;
     private AbstractHiddenTypes hiddenTypes;
@@ -559,14 +562,6 @@ public final class AnalyzedPageEl {
         return previousFoundTypes;
     }
 
-    public boolean isDuplicatedType() {
-        return duplicatedType;
-    }
-
-    public void setDuplicatedType(boolean _duplicatedType) {
-        duplicatedType = _duplicatedType;
-    }
-
     public AbstractProcessKeyWord getProcessKeyWord() {
         return processKeyWord;
     }
@@ -669,5 +664,21 @@ public final class AnalyzedPageEl {
 
     public void setExecDeclareVariable(ExecDeclareVariable execDeclareVariable) {
         this.execDeclareVariable = execDeclareVariable;
+    }
+
+    public CustList<PartOffset> getCurrentParts() {
+        return currentParts;
+    }
+
+    public OperationNode getCurrentRoot() {
+        return currentRoot;
+    }
+
+    public void setCurrentRoot(OperationNode currentRoot) {
+        this.currentRoot = currentRoot;
+    }
+
+    public Errors getErrors() {
+        return errors;
     }
 }

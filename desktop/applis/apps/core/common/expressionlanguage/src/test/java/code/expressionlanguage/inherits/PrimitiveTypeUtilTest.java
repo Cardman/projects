@@ -2,6 +2,7 @@ package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.CustList;
 import code.util.StringList;
@@ -78,7 +79,7 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
         parseCustomFiles(_files, cont_);
         Classes classes_ = cont_.getClasses();
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_);
+        ClassesUtil.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }

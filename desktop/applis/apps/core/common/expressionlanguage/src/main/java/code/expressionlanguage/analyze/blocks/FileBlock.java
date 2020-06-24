@@ -28,6 +28,8 @@ public final class FileBlock extends BracedBlock {
 
     private GraphicErrorList errorsFiles = new GraphicErrorList();
 
+    private int length;
+
     public FileBlock(OffsetsBlock _offset, boolean _predefined) {
         super(_offset);
         predefined = _predefined;
@@ -35,6 +37,7 @@ public final class FileBlock extends BracedBlock {
     public boolean processLinesTabsWithError(ContextEl _context, String _file) {
         int i_ = CustList.FIRST_INDEX;
         int len_ = _file.length();
+        length = len_;
         getLineReturns().add(-1);
         boolean foundBinChar_ = false;
         Ints badChars_ = new Ints();
@@ -71,7 +74,7 @@ public final class FileBlock extends BracedBlock {
             d_.buildError(_context.getAnalysisMessages().getIllegalCharacter(),
                     StringList.join(badCharsStr_,","));
             _context.addError(d_);
-            for (int i: badChars_) {
+            for (int i: getBinChars()) {
                 d_.setIndexFile(i);
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(d_);
                 g_.setLength(1);
@@ -115,6 +118,10 @@ public final class FileBlock extends BracedBlock {
 
     public Ints getImportsOffset() {
         return importsOffset;
+    }
+
+    public int getLength() {
+        return length;
     }
 
     public String getFileName() {

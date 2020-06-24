@@ -126,7 +126,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         page_.setOffset(0);
         _cont.getCoverage().putBlockOperationsField(_cont,this);
         CustList<ExecOperationNode> ops_ = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, _cont, Calculation.staticCalculation(MethodAccessKind.STATIC));
-        root = _cont.getCoverage().getCurrentRoot();
+        root = page_.getCurrentRoot();
         _exec.setOpValue(ops_);
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();

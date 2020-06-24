@@ -59,17 +59,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
         if (!abr_) {
             return;
         }
-        CustList<Block> group_ = new CustList<Block>();
-        group_.add(this);
-        Block p_ = getPreviousSibling();
-        while (!(p_ instanceof IfCondition)) {
-            if (p_ == null) {
-                break;
-            }
-            group_.add(p_);
-            p_ = p_.getPreviousSibling();
-        }
-        group_.add(p_);
+        CustList<Block> group_ = getConditionBlocks();
         boolean canCmpNormally_ = false;
         for (Block b: group_) {
             if (_anEl.canCompleteNormally(b)) {

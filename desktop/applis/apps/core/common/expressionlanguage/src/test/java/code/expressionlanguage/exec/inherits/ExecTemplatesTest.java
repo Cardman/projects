@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.methods.ProcessMethodCommon;
@@ -511,7 +512,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         parseCustomFiles(_files, cont_);
         Classes classes_ = cont_.getClasses();
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClasses(cont_);
+        ClassesUtil.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }

@@ -33,6 +33,9 @@ import code.util.*;
 public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
 
     private final String name;
+    private final StringList nameErrors = new StringList();
+
+    private final StringList categoryErrors = new StringList();
 
     private final String packageName;
 
@@ -61,6 +64,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     private int idRowCol;
 
     private int categoryOffset;
+    private int categoryLength;
 
     private StringList staticInitInterfaces = new StringList();
     private int templateDefOffset;
@@ -71,7 +75,6 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     private CustList<PartOffset> superTypesParts = new CustList<PartOffset>();
 
 
-    private StringList staticInitImportedInterfaces = new StringList();
     private Ints staticInitInterfacesOffset = new Ints();
     private CustList<PartOffset> partsStaticInitInterfacesOffset = new CustList<PartOffset>();
 
@@ -171,7 +174,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
-            roots.add(_context.getCoverage().getCurrentRoot());
+            roots.add(page_.getCurrentRoot());
         }
         _ex.getAnnotationsOps().clear();
         _ex.getAnnotationsOps().addAllElts(ops_);
@@ -330,22 +333,27 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         }
         return pars_;
     }
-
-    public final void buildMapParamType(ContextEl _analyze,ExecRootBlock _exec) {
-        paramTypesMap = new StringMap<TypeVar>();
-        boolean add_ = true;
-        CustList<RootBlock> par_ = getAllParentTypes();
-        par_.add(0,this);
+    public final CustList<RootBlock> getSelfAndParentTypes() {
         CustList<RootBlock> pars_ = new CustList<RootBlock>();
-        for (RootBlock r: par_) {
+        RootBlock c_ = this;
+        boolean add_ = true;
+        while (c_ != null) {
             if (add_) {
-                pars_.add(r);
+                pars_.add(c_);
             }
-            if (r instanceof InnerElementBlock||r.isStaticType()) {
+            if (c_.withoutInstance()) {
                 add_ = false;
             }
+            c_ = c_.getParentType();
         }
-        for (RootBlock r: pars_.getReverse()) {
+        return pars_.getReverse();
+    }
+    public boolean withoutInstance() {
+        return isStaticType();
+    }
+    public final void buildMapParamType(ContextEl _analyze,ExecRootBlock _exec) {
+        paramTypesMap = new StringMap<TypeVar>();
+        for (RootBlock r: getSelfAndParentTypes()) {
             if (r == this) {
                 int j_ = 0;
                 for (TypeVar t: paramTypes) {
@@ -353,7 +361,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                     Ints ints_ = paramTypesConstraintsOffset.get(j_);
                     constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\">",t.getOffset()));
                     constraintsParts.add(new PartOffset("</a>",t.getOffset()+t.getLength()));
-                    _analyze.getCoverage().getCurrentParts().clear();
+                    _analyze.getAnalyzing().getCurrentParts().clear();
                     int off_ = t.getOffset() + 1;
                     int i_ = 0;
                     for (String c: t.getConstraints()) {
@@ -361,7 +369,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                         const_.add(ResolvingSuperTypes.resolveTypeMapping(_analyze,c,_exec, off_+d_));
                         i_++;
                     }
-                    constraintsParts.addAllElts(_analyze.getCoverage().getCurrentParts());
+                    constraintsParts.addAllElts(_analyze.getAnalyzing().getCurrentParts());
                     j_++;
                     TypeVar t_ = new TypeVar();
                     t_.setOffset(t.getOffset());
@@ -471,7 +479,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         CustList<OverridableBlock> indexersSet_ = new CustList<OverridableBlock>();
         CustList<ConstructorId> idConstructors_ = new CustList<ConstructorId>();
         CustList<Block> bl_;
-        bl_ = Classes.getDirectChildren(this);
+        bl_ = ClassesUtil.getDirectChildren(this);
         KeyWords keyWords_ = _context.getKeyWords();
         LgNames stds_ = _context.getStandards();
         String keyWordValue_ = keyWords_.getKeyWordValue();
@@ -1169,7 +1177,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        for (Block b: Classes.getDirectChildren(this)) {
+        for (Block b: ClassesUtil.getDirectChildren(this)) {
             if (!(b instanceof OverridableBlock)) {
                 continue;
             }
@@ -1462,7 +1470,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         boolean opt_ = optionalCallConstr(_cont);
         CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
         IdMap<ConstructorId,ConstructorBlock> ctorsId_ = new IdMap<ConstructorId,ConstructorBlock>();
-        for (Block b: Classes.getDirectChildren(this)) {
+        for (Block b: ClassesUtil.getDirectChildren(this)) {
             if (b instanceof ConstructorBlock) {
                 ctors_.add((ConstructorBlock) b);
                 ctorsId_.addEntry(((ConstructorBlock) b).getId(),(ConstructorBlock) b);
@@ -1553,7 +1561,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             return true;
         }
         for (ExecConstructorBlock c: ctors_) {
-            Accessed a_ = new Accessed(c.getAccess(), c.getPackageName(), c.getFullName(), c.getOuterFullName());
+            Accessed a_ = new Accessed(c.getAccess(), clMeta_.getPackageName(), clMeta_.getFullName(), clMeta_.getOuterFullName());
             if (!ContextUtil.canAccess(getFullName(), a_, _cont)) {
                 continue;
             }
@@ -1598,4 +1606,25 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         return importedDirectSuperClass;
     }
 
+    public void addNameErrors(FoundErrorInterpret _error) {
+        nameErrors.add(_error.getBuiltError());
+    }
+    public StringList getNameErrors() {
+        return nameErrors;
+    }
+
+    public void addCategoryErrors(FoundErrorInterpret _error) {
+        categoryErrors.add(_error.getBuiltError());
+    }
+    public StringList getCategoryErrors() {
+        return categoryErrors;
+    }
+
+    public int getCategoryLength() {
+        return categoryLength;
+    }
+
+    public void setCategoryLength(int _categoryLength) {
+        categoryLength = _categoryLength;
+    }
 }

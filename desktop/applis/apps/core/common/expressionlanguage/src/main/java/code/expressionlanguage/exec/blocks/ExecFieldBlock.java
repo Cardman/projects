@@ -139,15 +139,4 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
         return opValue;
     }
 
-    public String getPackageName() {
-        return ((ExecRootBlock)getParent()).getPackageName();
-    }
-
-    public String getFullName() {
-        return ((ExecRootBlock)getParent()).getFullName();
-    }
-
-    public String getOuterFullName() {
-        return ((ExecRootBlock)getParent()).getOuter().getFullName();
-    }
 }

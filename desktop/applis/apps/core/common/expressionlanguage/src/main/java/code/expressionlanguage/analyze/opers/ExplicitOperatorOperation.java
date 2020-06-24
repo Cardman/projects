@@ -39,7 +39,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation {
             int off_ = StringList.getFirstPrintableCharIndex(args_.get(1));
             String fromType_ = StringExpUtil.removeDottedSpaces(args_.get(1));
             from_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,off_+methodName.indexOf(',')+1,fromType_);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         }
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();

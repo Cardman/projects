@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.AccessEnum;
@@ -22,11 +21,11 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     private AccessEnum access;
 
-    private StringList imports = new StringList();
+    private StringList imports;
 
     private CustList<OverridingMethod> allOverridingMethods = new CustList<OverridingMethod>();
 
-    private CustList<TypeVar> paramTypes = new CustList<TypeVar>();
+    private CustList<TypeVar> paramTypes;
 
     private StringMap<TypeVar> paramTypesMap = new StringMap<TypeVar>();
 

@@ -268,11 +268,10 @@ public final class AffectationOperation extends MethodOperation {
         StandardFieldOperation fieldRef_ = (StandardFieldOperation) _settable;
         OperationNode lastChild_ = _current.getChildrenNodes().get(1);
         Argument value_ = lastChild_.getArgument();
-        ClassField id_ = fieldRef_.getFieldId();
-        FieldInfo fm_ = ContextUtil.getFieldInfo(_conf,id_);
+        ClassField id_ = fieldRef_.getFieldIdReadOnly();
         Struct str_ = value_.getStruct();
         LgNames stds_ = _conf.getStandards();
-        String to_ = fm_.getType();
+        String to_ = fieldRef_.getFieldType();
         str_ = PrimitiveTypeUtil.unwrapObject(to_, str_, stds_);
         _conf.getClasses().initializeStaticField(id_, str_);
         _current.setSimpleArgument(value_);

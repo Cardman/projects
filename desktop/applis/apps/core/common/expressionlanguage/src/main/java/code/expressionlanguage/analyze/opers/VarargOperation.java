@@ -57,7 +57,7 @@ public final class VarargOperation extends LeafOperation {
         String str_ = className.substring(afterLeftPar_, className.lastIndexOf(PAR_RIGHT));
         int off_ = StringList.getFirstPrintableCharIndex(str_);
         str_ = ResolvingImportTypes.resolveCorrectTypeAccessible(_conf,afterLeftPar_+off_,str_);
-        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         setResultClass(new ClassArgumentMatching(str_));
         className = str_;
         setSimpleArgument(new Argument());

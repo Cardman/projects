@@ -2,6 +2,7 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.Ints;
 import code.util.StringList;
@@ -881,7 +882,7 @@ public class ParserTypeTest extends ProcessMethodCommon {
         parseCustomFiles(_files, cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        Classes.validateInheritingClassesId(cont_);
+        ClassesUtil.validateInheritingClassesId(cont_);
         assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
         return cont_;
     }

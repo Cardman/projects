@@ -38,7 +38,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         String className_ = m_.trim().substring(new_.length());
         int loc_ = StringList.getFirstPrintableCharIndex(className_);
         className_ = ResolvingImportTypes.resolveCorrectType(_conf,new_.length()+loc_,className_);
-        partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         if (!className_.startsWith(ARR)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());

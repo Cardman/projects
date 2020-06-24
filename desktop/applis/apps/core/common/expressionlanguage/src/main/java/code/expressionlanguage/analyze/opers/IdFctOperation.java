@@ -72,7 +72,7 @@ public final class IdFctOperation extends LeafOperation {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
             String keyWordStaticCall_ = _conf.getKeyWords().getKeyWordStaticCall();
             MethodAccessId idUpdate_ = new MethodAccessId(1);
@@ -121,7 +121,7 @@ public final class IdFctOperation extends LeafOperation {
                 type_ = arg_;
             }
             arg_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,off_ + loc_,type_, _fromType);
-            partOffsets.addAllElts(_conf.getCoverage().getCurrentParts());
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             off_ += _params.get(i).length() + 1;
             out_.add(arg_);
         }

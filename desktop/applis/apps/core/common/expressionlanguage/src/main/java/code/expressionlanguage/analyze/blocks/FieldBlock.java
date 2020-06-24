@@ -144,7 +144,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         page_.setCurrentBlock(this);
         page_.setCurrentAnaBlock(this);
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
-        partOffsets.addAllElts(_cont.getCoverage().getCurrentParts());
+        partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts());
     }
 
     @Override
@@ -222,7 +222,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         page_.setOffset(0);
         processPutCoverage(_cont,_exec);
         _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(staticField)));
-        root = _cont.getCoverage().getCurrentRoot();
+        root = page_.getCurrentRoot();
     }
     public CustList<OperationNode> buildExpressionLanguageQuickly(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
@@ -247,7 +247,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             page_.setOffset(0);
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
             ops_.add(ElUtil.getAnalyzedOperationsReadOnly(annotations.get(i), _context, c_));
-            roots.add(_context.getCoverage().getCurrentRoot());
+            roots.add(page_.getCurrentRoot());
         }
         _ex.getAnnotationsOps().addAllElts(ops_);
     }
