@@ -308,6 +308,9 @@ public final class AnaPartTypeUtil {
                 }
                 if (par_ == root_) {
                     par_.analyzeLine(_an, _ready,dels_,_local, _rooted);
+                    if (par_.getAnalyzedType().isEmpty()) {
+                        return null;
+                    }
                     stop_ = true;
                     break;
                 }
@@ -404,8 +407,12 @@ public final class AnaPartTypeUtil {
                 break;
             }
         }
+        String analyzedType_ = root_.getAnalyzedType();
+        if (analyzedType_.isEmpty()) {
+            return analyzedType_;
+        }
         addTypeParts(_an, _rooted, _refFileName, _loc, _offs, l_);
-        return root_.getAnalyzedType();
+        return analyzedType_;
     }
 
     private static void addTypeParts(ContextEl _an, AccessedBlock _rooted,
