@@ -130,15 +130,6 @@ public final class ClassesUtil {
         }
         int tempOff_ = _root.getTemplateDefOffset() + 1;
         for (String p: params_.mid(CustList.SECOND_INDEX)) {
-            if (p.isEmpty()) {
-                FoundErrorInterpret badCl_ = new FoundErrorInterpret();
-                badCl_.setFileName(_root.getFile().getFileName());
-                badCl_.setIndexFile(_root.getIdRowCol());
-                //char after def
-                badCl_.buildError(_context.getAnalysisMessages().getEmptyPartClassName());
-                _context.addError(badCl_);
-                continue;
-            }
             int delta_ = 0;
             String name_;
             if (p.startsWith(Templates.PREFIX_VAR_TYPE)) {
@@ -151,35 +142,60 @@ public final class ClassesUtil {
             int indexDef_ = name_.indexOf(Templates.EXTENDS_DEF);
             StringList parts_ = StringList.splitInTwo(name_, indexDef_);
             String id_ = parts_.first();
+            int offId_ = tempOff_ + StringList.getFirstPrintableCharIndex(p);
+            if (id_.isEmpty()) {
+                FoundErrorInterpret badCl_ = new FoundErrorInterpret();
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setIndexFile(offId_);
+                //char after def
+                badCl_.buildError(_context.getAnalysisMessages().getEmptyPartClassName());
+                _context.addError(badCl_);
+                StringList constraints_ = new StringList();
+                Ints ct_ = new Ints();
+                ct_.add(0);
+                _root.getParamTypesConstraintsOffset().add(ct_);
+                constraints_.add(objectClassName_);
+                type_.getErrors().add(badCl_.getBuiltError());
+                type_.setConstraints(constraints_);
+                type_.setName(id_);
+                _root.getParamTypes().add(type_);
+                type_.setOffset(offId_);
+                type_.setLength(id_.length()+1);
+                tempOff_ += p.length() + 1;
+                continue;
+            }
             if (!ContextUtil.isValidToken(_context,id_)) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                 badCl_.setFileName(_root.getFile().getFileName());
-                badCl_.setIndexFile(_root.getIdRowCol());
+                badCl_.setIndexFile(offId_);
                 //id_ len
                 badCl_.buildError(_context.getAnalysisMessages().getBadPartVarClassName(),
                         id_
                 );
                 _context.addError(badCl_);
+                type_.getErrors().add(badCl_.getBuiltError());
             }
             if (StringList.contains(varTypes_, id_)) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                 badCl_.setFileName(_root.getFile().getFileName());
-                badCl_.setIndexFile(_root.getIdRowCol());
+                badCl_.setIndexFile(offId_);
                 //id_ len
                 badCl_.buildError(_context.getAnalysisMessages().getBadPartVarClassName(),
                         id_
                 );
                 _context.addError(badCl_);
+                type_.getErrors().add(badCl_.getBuiltError());
             }
             if (StringList.contains(namesFromParent_, id_)) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                 badCl_.setFileName(_root.getFile().getFileName());
-                badCl_.setIndexFile(_root.getIdRowCol());
+                badCl_.setIndexFile(offId_);
                 //id_ len
                 badCl_.buildError(_context.getAnalysisMessages().getBadPartVarClassName(),
                         id_
                 );
                 _context.addError(badCl_);
+                type_.getErrors().add(badCl_.getBuiltError());
             }
             varTypes_.add(id_);
             StringList constraints_ = new StringList();
@@ -202,8 +218,7 @@ public final class ClassesUtil {
             type_.setConstraints(constraints_);
             type_.setName(id_);
             _root.getParamTypes().add(type_);
-            int off_ = tempOff_ + StringList.getFirstPrintableCharIndex(p);
-            type_.setOffset(off_);
+            type_.setOffset(offId_);
             type_.setLength(id_.length()+delta_);
             tempOff_ += p.length() + 1;
         }

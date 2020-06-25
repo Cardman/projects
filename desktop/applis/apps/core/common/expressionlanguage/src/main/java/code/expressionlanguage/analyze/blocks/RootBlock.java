@@ -359,7 +359,12 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                 for (TypeVar t: paramTypes) {
                     StringList const_ = new StringList();
                     Ints ints_ = paramTypesConstraintsOffset.get(j_);
-                    constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\">",t.getOffset()));
+                    if (t.getErrors().isEmpty()) {
+                        constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\">",t.getOffset()));
+                    } else {
+                        String err_ = StringList.join(t.getErrors(),"\n\n");
+                        constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\" title=\""+err_+"\">",t.getOffset()));
+                    }
                     constraintsParts.add(new PartOffset("</a>",t.getOffset()+t.getLength()));
                     _analyze.getAnalyzing().getCurrentParts().clear();
                     int off_ = t.getOffset() + 1;
