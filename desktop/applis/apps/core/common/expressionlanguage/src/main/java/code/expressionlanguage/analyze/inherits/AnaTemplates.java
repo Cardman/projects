@@ -8,6 +8,7 @@ import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.InheritedType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.inherits.InferenceConstraints;
 import code.expressionlanguage.inherits.MappingPairs;
 import code.expressionlanguage.inherits.Matching;
@@ -360,14 +361,14 @@ public final class AnaTemplates {
         StringList types_ = StringExpUtil.getAllTypes(_first);
         String className_ = StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent();
         GeneType root_ = _classes.getClassBody(className_);
-        CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
+        CustList<ExecTypeVar> typeVar_ = root_.getParamTypesMapValues();
         String objType_ = _classes.getStandards().getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
             int arr_ = dc_.getDim();
             String name_ = _second.substring(PREFIX_VAR_TYPE.length()+arr_);
 
             int index_ = -1;
-            for (TypeVar t: typeVar_) {
+            for (ExecTypeVar t: typeVar_) {
                 index_++;
                 if (StringList.quickEq(t.getName(), name_)) {
                     String formatted_ = types_.get(index_+1);
@@ -391,7 +392,7 @@ public final class AnaTemplates {
         }
         StringMap<String> varTypes_ = new StringMap<String>();
         int i_ = CustList.FIRST_INDEX;
-        for (TypeVar t: typeVar_) {
+        for (ExecTypeVar t: typeVar_) {
             i_++;
             String arg_ = types_.get(i_);
             varTypes_.put(t.getName(), arg_);
@@ -406,14 +407,14 @@ public final class AnaTemplates {
         StringList types_ = StringExpUtil.getAllTypes(_first);
         String className_ = StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent();
         GeneType root_ = _classes.getClassBody(className_);
-        CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
+        CustList<ExecTypeVar> typeVar_ = root_.getParamTypesMapValues();
         String objType_ = _classes.getStandards().getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
             int arr_ = dc_.getDim();
             String name_ = _second.substring(PREFIX_VAR_TYPE.length()+arr_);
 
             int index_ = -1;
-            for (TypeVar t: typeVar_) {
+            for (ExecTypeVar t: typeVar_) {
                 index_++;
                 if (StringList.quickEq(t.getName(), name_)) {
                     String formatted_ = types_.get(index_+1);
@@ -434,7 +435,7 @@ public final class AnaTemplates {
         }
         StringMap<String> varTypes_ = new StringMap<String>();
         int i_ = CustList.FIRST_INDEX;
-        for (TypeVar t: typeVar_) {
+        for (ExecTypeVar t: typeVar_) {
             i_++;
             String arg_ = types_.get(i_);
             varTypes_.put(t.getName(), arg_);

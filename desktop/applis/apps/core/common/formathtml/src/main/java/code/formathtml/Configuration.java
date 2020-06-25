@@ -612,6 +612,7 @@ public final class Configuration {
 
     public void setupInts() {
         context.setAnalyzing();
+        context.getAnalyzing().getAllFoundTypes().addAllElts(standards.getHeaders().getAllFound());
         context.getAnalyzing().setHeaders(standards.getHeaders());
         context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));
         context.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(this));

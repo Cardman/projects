@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ImportedField;
 import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.analyze.accessing.Accessed;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.*;
@@ -54,8 +55,9 @@ public final class ResolvingImportTypes {
             ref_ = ((ExecBlock)from_).getFile().getRenderFileName();
         }
         _analyzable.getAnalyzing().getAvailableVariables().clear();
-        if (from_ != null) {
-            for (TypeVar t: from_.getParamTypesMapValues()) {
+        RootBlock fr_ = _analyzable.getAnalyzing().getAnaClassBody(idFromType_);
+        if (fr_ != null) {
+            for (TypeVar t: fr_.getParamTypesMapValues()) {
                 _analyzable.getAnalyzing().getAvailableVariables().addEntry(t.getName(),t.getOffset());
                 vars_.addEntry(t.getName(), t.getConstraints());
             }

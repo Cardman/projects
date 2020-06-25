@@ -6,6 +6,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.functionid.ClassMethodIdAncestor;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -122,7 +123,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
             GeneType gl_ = _conf.getClassBody(curClassBase_);
             StringMap<StringList> mapping_ = new StringMap<StringList>();
-            for (TypeVar t: gl_.getParamTypesMapValues()) {
+            for (ExecTypeVar t: gl_.getParamTypesMapValues()) {
                 mapping_.put(t.getName(), t.getConstraints());
             }
             bounds_.addAllElts(Mapping.getAllUpperBounds(mapping_, _cl.substring(1), objectClassName_));

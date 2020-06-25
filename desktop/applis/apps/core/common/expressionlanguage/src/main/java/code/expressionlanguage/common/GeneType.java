@@ -1,6 +1,7 @@
 package code.expressionlanguage.common;
 
 import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.util.*;
 
 public interface GeneType extends InheritedType {
@@ -14,7 +15,7 @@ public interface GeneType extends InheritedType {
 
     Ints getTypeVarCounts();
     CustList<StringList> getBoundAll();
-    CustList<TypeVar> getParamTypesMapValues();
+    CustList<ExecTypeVar> getParamTypesMapValues();
     StringList getParamTypesValues();
 
 

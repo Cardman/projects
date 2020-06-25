@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
+import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.*;
@@ -653,12 +654,12 @@ public final class ExecTemplates {
         }
         String pref_ = root_.getGenericString();
         StringMap<String> varTypes_ = new StringMap<String>();
-        CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
+        CustList<ExecTypeVar> typeVar_ = root_.getParamTypesMapValues();
         if (typeVar_.size() != _classNames.size()) {
             return null;
         }
         int i_ = CustList.FIRST_INDEX;
-        for (TypeVar t: typeVar_) {
+        for (ExecTypeVar t: typeVar_) {
             String arg_ = _classNames.get(i_);
             if (arg_.contains(PREFIX_VAR_TYPE)) {
                 return null;

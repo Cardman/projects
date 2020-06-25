@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze;
 
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.errors.custom.ErrorList;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
@@ -24,6 +25,7 @@ public final class MethodHeaders {
     private final WarningList warningsDet = new WarningList();
     private final StdErrorList stdErrorDet = new StdErrorList();
     private final StringList messagesErrorDet = new StringList();
+    private final CustList<RootBlock> allFound = new CustList<RootBlock>();
 
     public StringMap<CustList<MethodHeaderInfo>> getExplicitCastMethods() {
         return explicitCastMethods;
@@ -96,4 +98,7 @@ public final class MethodHeaders {
         return warningsDet.display();
     }
 
+    public CustList<RootBlock> getAllFound() {
+        return allFound;
+    }
 }

@@ -264,6 +264,7 @@ public final class ClassesUtil {
         }
         page_.getFoundTypes().add(_root);
         page_.getAllFoundTypes().add(_root);
+        page_.getHeaders().getAllFound().add(_root);
         if (_root instanceof ClassBlock) {
             ExecClassBlock e_ = new ExecClassBlock((ClassBlock) _root);
             page_.getMapTypes().put(_root, e_);

@@ -3,6 +3,7 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.*;
 
@@ -62,8 +63,8 @@ public abstract class StandardType implements GeneType {
     }
 
     @Override
-    public CustList<TypeVar> getParamTypesMapValues() {
-        return new CustList<TypeVar>();
+    public CustList<ExecTypeVar> getParamTypesMapValues() {
+        return new CustList<ExecTypeVar>();
     }
 
     public StringList getParamTypesValues() {

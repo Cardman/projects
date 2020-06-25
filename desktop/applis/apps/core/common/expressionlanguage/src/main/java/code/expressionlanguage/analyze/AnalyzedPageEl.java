@@ -423,6 +423,15 @@ public final class AnalyzedPageEl {
         return needInterfaces;
     }
 
+    public RootBlock getAnaClassBody(String _type) {
+        for (RootBlock r: allFoundTypes) {
+            if (StringList.quickEq(r.getFullName(),_type)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
     public StringMap<Integer> getAvailableVariables() {
         return availableVariables;
     }

@@ -17,6 +17,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.functionid.*;
@@ -231,7 +232,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             }
         }
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (TypeVar t: _exec.getParamTypesMapValues()) {
+        for (ExecTypeVar t: _exec.getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
         String gene_ = _exec.getGenericString();
@@ -365,7 +366,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                     int i_ = 0;
                     for (String c: t.getConstraints()) {
                         int d_ = ints_.get(i_);
-                        const_.add(ResolvingSuperTypes.resolveTypeMapping(_analyze,c,_exec, off_+d_));
+                        const_.add(ResolvingSuperTypes.resolveTypeMapping(_analyze,c,this,_exec, off_+d_));
                         i_++;
                     }
                     constraintsParts.addAllElts(_analyze.getAnalyzing().getCurrentParts());
@@ -400,6 +401,14 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
 
     public CustList<TypeVar> getParamTypes() {
         return paramTypes;
+    }
+
+    public StringList getParamTypesAsStringList() {
+        StringList list_ = new StringList();
+        for (TypeVar t: paramTypes) {
+            list_.add(t.getName());
+        }
+        return list_;
     }
 
     public int getTemplateDefOffset() {
@@ -933,7 +942,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s, _exec,index_, getSuperTypesParts());
+            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s,this, _exec,index_, getSuperTypesParts());
             String c_ = getImportedDirectBaseSuperType(i_);
             i_++;
             String base_ = StringExpUtil.getIdFromAllTypes(s_);
@@ -1585,8 +1594,15 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         return nameLength;
     }
 
-    public StringMap<TypeVar> getParamTypesMap() {
-        return paramTypesMap;
+    public StringMap<ExecTypeVar> getParamTypesMapAsExec() {
+        StringMap<ExecTypeVar> map_ = new StringMap<ExecTypeVar>();
+        for (EntryCust<String,TypeVar> e: paramTypesMap.entryList()) {
+            ExecTypeVar t_ = new ExecTypeVar();
+            t_.setName(e.getValue().getName());
+            t_.setConstraints(e.getValue().getConstraints());
+            map_.addEntry(e.getKey(), t_);
+        }
+        return map_;
     }
 
     public CustList<OperationNode> getRoots() {

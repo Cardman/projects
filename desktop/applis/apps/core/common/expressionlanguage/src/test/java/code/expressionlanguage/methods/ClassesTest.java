@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
+import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -280,7 +281,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#T:ExThree<#T>> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        CustList<TypeVar> types_ = context_.getClassBody("pkg.ExTwo").getParamTypesMapValues();
+        CustList<ExecTypeVar> types_ = context_.getClassBody("pkg.ExTwo").getParamTypesMapValues();
         assertEq(1, types_.size());
         assertEq("T", types_.first().getName());
         assertEq(1, types_.first().getConstraints().size());
@@ -305,7 +306,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#T:ExThree<#T>> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        CustList<TypeVar> types_ = context_.getClassBody("pkg.ExTwo").getParamTypesMapValues();
+        CustList<ExecTypeVar> types_ = context_.getClassBody("pkg.ExTwo").getParamTypesMapValues();
         assertEq(1, types_.size());
         assertEq("T", types_.first().getName());
         assertEq(1, types_.first().getConstraints().size());
@@ -330,7 +331,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#T:ExThree<#T>> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        CustList<TypeVar> types_ = context_.getClassBody("pkg.ExTwo").getParamTypesMapValues();
+        CustList<ExecTypeVar> types_ = context_.getClassBody("pkg.ExTwo").getParamTypesMapValues();
         assertEq(1, types_.size());
         assertEq("T", types_.first().getName());
         assertEq(1, types_.first().getConstraints().size());

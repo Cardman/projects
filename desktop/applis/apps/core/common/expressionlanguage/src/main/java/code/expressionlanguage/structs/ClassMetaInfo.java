@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.common.AccessEnum;
@@ -196,14 +197,14 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         CustList<ClassMetaInfo> list_;
         list_ = new CustList<ClassMetaInfo>();
         String id_ = StringExpUtil.getIdFromAllTypes(variableOwner);
-        CustList<TypeVar> vars_;
+        CustList<ExecTypeVar> vars_;
         ExecRootBlock g_ = _cont.getClasses().getClassBody(id_);
         if (g_ == null) {
             return list_;
         }
         vars_ = g_.getParamTypesMapValues();
         String varName_ = name.substring(Templates.PREFIX_VAR_TYPE.length());
-        for (TypeVar b: vars_) {
+        for (ExecTypeVar b: vars_) {
             if (!StringList.quickEq(b.getName(), varName_)) {
                 continue;
             }
@@ -221,11 +222,11 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         if (g_ == null) {
             return list_;
         }
-        CustList<TypeVar> vars_;
+        CustList<ExecTypeVar> vars_;
         vars_ = g_.getParamTypesMapValues();
         StringList upperBounds_ = new StringList();
         StringList lowerBounds_ = new StringList();
-        for (TypeVar b: vars_) {
+        for (ExecTypeVar b: vars_) {
             String pref_ = StringList.concat(Templates.PREFIX_VAR_TYPE, b.getName());
             list_.add(new ClassMetaInfo(pref_, ClassCategory.VARIABLE, upperBounds_, lowerBounds_, name, g_.getAccess()));
         }

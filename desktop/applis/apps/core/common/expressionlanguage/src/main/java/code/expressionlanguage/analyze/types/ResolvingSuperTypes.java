@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -18,8 +19,8 @@ public final class ResolvingSuperTypes {
 
 
     /**Used at building mapping constraints*/
-    public static String resolveTypeMapping(ContextEl _context,String _in, ExecRootBlock _currentBlock,
-                                     int _location) {
+    public static String resolveTypeMapping(ContextEl _context, String _in, RootBlock _ana, ExecRootBlock _currentBlock,
+                                            int _location) {
         String void_ = _context.getStandards().getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -32,7 +33,7 @@ public final class ResolvingSuperTypes {
             return _context.getStandards().getAliasObject();
         }
         StringMap<Integer> variables_ = new StringMap<Integer>();
-        for (ExecRootBlock r: _currentBlock.getSelfAndParentTypes()) {
+        for (RootBlock r: _ana.getSelfAndParentTypes()) {
             for (TypeVar t: r.getParamTypes()) {
                 variables_.addEntry(t.getName(),t.getOffset());
             }
@@ -68,10 +69,10 @@ public final class ResolvingSuperTypes {
         return resType_;
     }
     /**Used at building mapping constraints*/
-    public static String resolveTypeInherits(ContextEl _context, String _in, ExecRootBlock _currentBlock,
+    public static String resolveTypeInherits(ContextEl _context, String _in,  RootBlock _ana,ExecRootBlock _currentBlock,
                                              int _location, CustList<PartOffset> _partOffsets) {
         StringMap<Integer> variables_ = new StringMap<Integer>();
-        for (ExecRootBlock r: _currentBlock.getSelfAndParentTypes()) {
+        for (RootBlock r: _ana.getSelfAndParentTypes()) {
             for (TypeVar t: r.getParamTypes()) {
                 variables_.addEntry(t.getName(),t.getOffset());
             }

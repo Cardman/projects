@@ -244,8 +244,12 @@ public final class ContextUtil {
                 static_ = fct_.getStaticContext() == MethodAccessKind.STATIC;
             }
         }
-        if (r_ instanceof ExecRootBlock && !static_) {
-            for (TypeVar t: ((ExecRootBlock)r_).getParamTypesMapValues()) {
+        RootBlock root_ = null;
+        if (r_ instanceof ExecRootBlock) {
+            root_ = _cont.getAnalyzing().getAnaClassBody(((ExecRootBlock) r_).getFullName());
+        }
+        if (root_ != null && !static_) {
+            for (TypeVar t: root_.getParamTypesMapValues()) {
                 vars_.put(t.getName(), t);
             }
         }

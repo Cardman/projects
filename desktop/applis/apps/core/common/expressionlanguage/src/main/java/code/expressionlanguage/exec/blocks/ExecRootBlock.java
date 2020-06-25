@@ -8,6 +8,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.OverridingMethod;
@@ -25,9 +26,9 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     private CustList<OverridingMethod> allOverridingMethods = new CustList<OverridingMethod>();
 
-    private CustList<TypeVar> paramTypes;
+    private StringList paramTypes;
 
-    private StringMap<TypeVar> paramTypesMap = new StringMap<TypeVar>();
+    private StringMap<ExecTypeVar> paramTypesMap = new StringMap<ExecTypeVar>();
 
     private final StringList importedDirectBaseSuperTypes = new StringList();
 
@@ -49,7 +50,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         name = _offset.getName();
         access = _offset.getAccess();
         idRowCol = _offset.getIdRowCol();
-        paramTypes = _offset.getParamTypes();
+        paramTypes = _offset.getParamTypesAsStringList();
     }
 
     public ExecRootBlock getOuter() {
@@ -66,23 +67,23 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     public StringList getParamTypesValues() {
         StringList l_ = new StringList();
         for (ExecRootBlock r: getSelfAndParentTypes()) {
-            for (TypeVar t: r.paramTypes) {
-                l_.add(t.getName());
+            for (String t: r.paramTypes) {
+                l_.add(t);
             }
         }
         return l_;
     }
     @Override
-    public CustList<TypeVar> getParamTypesMapValues() {
+    public CustList<ExecTypeVar> getParamTypesMapValues() {
         return paramTypesMap.values();
     }
     @Override
     public CustList<StringList> getBoundAll() {
         CustList<StringList> boundsAll_ = new CustList<StringList>();
-        for (TypeVar t: getParamTypesMapValues()) {
+        for (ExecTypeVar t: getParamTypesMapValues()) {
             boolean contained_ = false;
-            for (TypeVar u: getParamTypes()) {
-                if (!StringList.quickEq(t.getName(),u.getName())) {
+            for (String u: paramTypes) {
+                if (!StringList.quickEq(t.getName(),u)) {
                     continue;
                 }
                 contained_ = true;
@@ -97,9 +98,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
             boundsAll_.add(localBound_);
         }
         return boundsAll_;
-    }
-    public CustList<TypeVar> getParamTypes() {
-        return paramTypes;
     }
 
     public Ints getTypeVarCounts() {
@@ -279,8 +277,8 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
             generic_.append(r.getName());
             if (!r.paramTypes.isEmpty()) {
                 StringList vars_ = new StringList();
-                for (TypeVar t:r.paramTypes) {
-                    vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
+                for (String t:r.paramTypes) {
+                    vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t));
                 }
                 generic_.append(Templates.TEMPLATE_BEGIN);
                 generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
@@ -292,8 +290,8 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     }
 
     public void buildMapParamType(RootBlock _root) {
-        paramTypes = _root.getParamTypes();
-        paramTypesMap = _root.getParamTypesMap();
+        paramTypes = _root.getParamTypesAsStringList();
+        paramTypesMap = _root.getParamTypesMapAsExec();
     }
 
     public String getName() {
