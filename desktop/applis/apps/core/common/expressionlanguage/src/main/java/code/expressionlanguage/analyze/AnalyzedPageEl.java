@@ -101,11 +101,13 @@ public final class AnalyzedPageEl {
     private AbstractBuildingConstraints buildingConstraints;
     private AbstractLocalizer localizer;
     private AbstractTokenValidation tokenValidation;
+    private final StringMap<ExecFileBlock> filesBodies;
 
     public AnalyzedPageEl() {
         setCatchVars(new CustList<StringMap<AnaLocalVariable>>());
         setLocalVars(new CustList<StringMap<AnaLocalVariable>>());
         setVars(new CustList<StringMap<AnaLoopVariable>>());
+        filesBodies = new StringMap<ExecFileBlock>();
     }
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
@@ -753,4 +755,13 @@ public final class AnalyzedPageEl {
         headers.addWarning(_warning);
     }
 
+    public void putFileBlock(String _fileName, ExecFileBlock _fileBlock) {
+        filesBodies.put(_fileName, _fileBlock);
+    }
+    public ExecFileBlock getFileBody(String _string) {
+        return filesBodies.getVal(_string);
+    }
+    public StringMap<ExecFileBlock> getFilesBodies() {
+        return filesBodies;
+    }
 }

@@ -1,28 +1,22 @@
-package code.expressionlanguage.analyze.blocks;
+package code.expressionlanguage.exec;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.MethodHeaders;
-import code.expressionlanguage.analyze.util.*;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
+import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
-import code.expressionlanguage.errors.stds.StdErrorList;
-import code.expressionlanguage.errors.stds.StdWordError;
-import code.expressionlanguage.exec.DefaultLockingClass;
-import code.expressionlanguage.exec.InitClassState;
-import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.util.ToStringMethodHeader;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.options.ValidatorStandard;
-import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 
 public final class Classes {
 
     private final StringMap<ExecRootBlock> classesBodies;
-    private final StringMap<ExecFileBlock> filesBodies;
     private final StringMap<String> resources;
 
     private StringMap<StringMap<Struct>> staticFields;
@@ -49,19 +43,11 @@ public final class Classes {
 
     public Classes(){
         classesBodies = new StringMap<ExecRootBlock>();
-        filesBodies = new StringMap<ExecFileBlock>();
         resources = new StringMap<String>();
         staticFields = new StringMap<StringMap<Struct>>();
         operators = new CustList<ExecOperatorBlock>();
     }
 
-    public void putFileBlock(String _fileName, ExecFileBlock _fileBlock) {
-        filesBodies.put(_fileName, _fileBlock);
-    }
-
-    public ExecFileBlock getFileBody(String _string) {
-        return filesBodies.getVal(_string);
-    }
 
     public StringMap<String> getResources() {
 		return resources;
@@ -90,7 +76,7 @@ public final class Classes {
         MethodHeaders headers_ = _context.getAnalyzing().getHeaders();
         _context.setAnalyzing();
         _context.getAnalyzing().setHeaders(headers_);
-        Classes.buildPredefinedBracesBodies(_context);
+        ClassesUtil.buildPredefinedBracesBodies(_context);
         CustList<RootBlock> foundTypes_ = _context.getAnalyzing().getFoundTypes();
         CustList<RootBlock> allFoundTypes_ = _context.getAnalyzing().getAllFoundTypes();
         CustList<FileBlock> fs_ = _context.getAnalyzing().getErrors().getFiles();
@@ -99,7 +85,7 @@ public final class Classes {
         _context.getAnalyzing().getErrors().getFiles().addAllElts(fs_);
         _context.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         _context.getAnalyzing().getAllFoundTypes().addAllElts(allFoundTypes_);
-        tryValidateCustom(_files, _context);
+        ClassesUtil.tryValidateCustom(_files, _context);
         if (!_context.isEmptyErrors()) {
             //all errors are logged here
             return headers_;
@@ -107,9 +93,7 @@ public final class Classes {
         _context.setNullAnalyzing();
         return headers_;
     }
-    public static void tryValidateCustom(StringMap<String> _files, ContextEl _context) {
-        ClassesUtil.builtTypes(_files, _context, false);
-    }
+
     public static void tryInitStaticlyTypes(ContextEl _context) {
         Classes cl_ = _context.getClasses();
         DefaultLockingClass dl_ = cl_.getLocks();
@@ -134,7 +118,7 @@ public final class Classes {
             StringList new_ = new StringList();
             for (String c: all_) {
                 _context.getInitializingTypeInfos().resetInitEnums(_context);
-                StringMap<StringMap<Struct>> bk_ = ClassesUtil.buildFieldValues(cl_.staticFields);
+                StringMap<StringMap<Struct>> bk_ = buildFieldValues(cl_.staticFields);
                 ProcessMethod.initializeClassPre(c, _context);
                 if (_context.isFailInit()) {
                     cl_.staticFields = bk_;
@@ -175,13 +159,17 @@ public final class Classes {
         _context.getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
     }
 
-    public static void buildPredefinedBracesBodies(ContextEl _context) {
-        LgNames stds_ = _context.getStandards();
-        StringMap<String> files_ = stds_.buildFiles(_context);
-        ClassesUtil.builtTypes(files_, _context, true);
-        ValidatorStandard.buildIterable(_context);
+    private static StringMap<StringMap<Struct>> buildFieldValues(StringMap<StringMap<Struct>> _infos) {
+        StringMap<StringMap<Struct>> bkSt_ = new StringMap<StringMap<Struct>>();
+        for (EntryCust<String, StringMap<Struct>> e: _infos.entryList()) {
+            StringMap<Struct> b_ = new StringMap<Struct>();
+            for (EntryCust<String, Struct> f: e.getValue().entryList()) {
+                b_.addEntry(f.getKey(), f.getValue());
+            }
+            bkSt_.addEntry(e.getKey(), b_);
+        }
+        return bkSt_;
     }
-
     public CustList<ExecOperatorBlock> getOperators() {
         return operators;
     }
@@ -360,7 +348,4 @@ public final class Classes {
         return classesBodies;
     }
 
-    public StringMap<ExecFileBlock> getFilesBodies() {
-        return filesBodies;
-    }
 }

@@ -2,7 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.MethodHeaders;
-import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.blocks.ExecLine;
@@ -4889,14 +4889,14 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         MethodHeaders headers_ = _context.getAnalyzing().getHeaders();
         _context.setAnalyzing();
         _context.getAnalyzing().setHeaders(headers_);
-        Classes.buildPredefinedBracesBodies(_context);
+        ClassesUtil.buildPredefinedBracesBodies(_context);
         CustList<RootBlock> foundTypes_ = _context.getAnalyzing().getFoundTypes();
         CustList<RootBlock> allFoundTypes_ = _context.getAnalyzing().getAllFoundTypes();
         _context.setAnalyzing();
         _context.getAnalyzing().setHeaders(headers_);
         _context.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         _context.getAnalyzing().getAllFoundTypes().addAllElts(allFoundTypes_);
-        Classes.tryValidateCustom(_files, _context);
+        ClassesUtil.tryValidateCustom(_files, _context);
     }
 
     private static CustList<ExecOperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className, String _file, boolean _mustFail) {

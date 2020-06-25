@@ -9,7 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.exec.Classes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;

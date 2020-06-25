@@ -1,12 +1,9 @@
 package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.Classes;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;

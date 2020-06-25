@@ -1,7 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.common.ClassField;

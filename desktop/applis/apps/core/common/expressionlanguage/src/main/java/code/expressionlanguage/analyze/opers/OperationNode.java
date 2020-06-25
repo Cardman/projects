@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.ImportedField;
 import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.accessing.Accessed;
-import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.FunctionBlock;
 import code.expressionlanguage.analyze.blocks.MethodKind;
 import code.expressionlanguage.analyze.blocks.OverridableBlock;

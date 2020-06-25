@@ -1,7 +1,6 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
-import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.util.CallingState;
@@ -19,7 +18,7 @@ import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.options.KeyWords;
@@ -862,6 +861,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (!_conf.isEmptyErrors()) {
             return;
         }
+        _conf.getAnalyzing().setHeaders(null);
+        _conf.getContext().setNullAnalyzing();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
         Classes.tryInitStaticlyTypes(_conf.getContext());
         _conf.getContext().setFullStack(new AdvancedFullStack(_conf));

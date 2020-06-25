@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.MethodHeaders;
-import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.ClassField;
@@ -436,7 +436,7 @@ public abstract class ProcessMethodCommon {
         MethodHeaders headers_ = _cont.getAnalyzing().getHeaders();
         _cont.setAnalyzing();
         _cont.getAnalyzing().setHeaders(headers_);
-        Classes.buildPredefinedBracesBodies(_cont);
+        ClassesUtil.buildPredefinedBracesBodies(_cont);
         CustList<RootBlock> foundTypes_ = _cont.getAnalyzing().getFoundTypes();
         _cont.setAnalyzing();
         _cont.getAnalyzing().setHeaders(headers_);

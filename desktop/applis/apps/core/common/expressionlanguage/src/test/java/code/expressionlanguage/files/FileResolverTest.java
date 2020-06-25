@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.*;
 
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
@@ -9855,7 +9856,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
     private static int countFileTypes(ContextEl _cont) {
         int count_ = 0;
-        for (EntryCust<String, ExecFileBlock> r: _cont.getClasses().getFilesBodies().entryList()) {
+        for (EntryCust<String, ExecFileBlock> r: _cont.getAnalyzing().getFilesBodies().entryList()) {
             if (!r.getValue().isPredefined()) {
                 count_++;
             }

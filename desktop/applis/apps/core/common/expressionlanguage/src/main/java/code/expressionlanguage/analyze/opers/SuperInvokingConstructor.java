@@ -7,7 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.blocks.ExecUniqueRootedBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 
 public final class SuperInvokingConstructor extends AbstractInvokingConstructor {

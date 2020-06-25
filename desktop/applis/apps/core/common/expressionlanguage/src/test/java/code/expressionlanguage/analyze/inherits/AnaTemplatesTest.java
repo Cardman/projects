@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.inherits;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.MethodHeaders;
-import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -6251,7 +6251,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         MethodHeaders headers_ = _cont.getAnalyzing().getHeaders();
         _cont.setAnalyzing();
         _cont.getAnalyzing().setHeaders(headers_);
-        Classes.buildPredefinedBracesBodies(_cont);
+        ClassesUtil.buildPredefinedBracesBodies(_cont);
         CustList<RootBlock> foundTypes_ = _cont.getAnalyzing().getFoundTypes();
         _cont.setAnalyzing();
         _cont.getAnalyzing().setHeaders(headers_);
@@ -6269,7 +6269,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         MethodHeaders headers_ = cont_.getAnalyzing().getHeaders();
         cont_.setAnalyzing();
         cont_.getAnalyzing().setHeaders(headers_);
-        Classes.buildPredefinedBracesBodies(cont_);
+        ClassesUtil.buildPredefinedBracesBodies(cont_);
         CustList<RootBlock> foundTypes_ = cont_.getAnalyzing().getFoundTypes();
         cont_.setAnalyzing();
         cont_.getAnalyzing().setHeaders(headers_);

@@ -13,7 +13,7 @@ import org.junit.Test;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.options.Options;

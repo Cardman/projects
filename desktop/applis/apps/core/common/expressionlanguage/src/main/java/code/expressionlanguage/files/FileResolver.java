@@ -6,6 +6,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
 import code.expressionlanguage.inherits.Templates;
@@ -45,7 +46,7 @@ public final class FileResolver {
         fileBlock_.setFileName(_fileName);
         Classes cls_ = _context.getClasses();
         ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_, tabWidth_);
-        cls_.putFileBlock(_fileName, exFile_);
+        _context.getAnalyzing().putFileBlock(_fileName, exFile_);
         _context.getCoverage().putFile(_context,fileBlock_);
         _context.getAnalyzing().getErrors().putFile(_context,fileBlock_);
         StringList importedTypes_ = new StringList();

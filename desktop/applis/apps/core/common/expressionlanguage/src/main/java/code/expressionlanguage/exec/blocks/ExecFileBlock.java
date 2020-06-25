@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.ImportingBlock;
@@ -28,32 +29,10 @@ public final class ExecFileBlock extends ExecBracedBlock implements ImportingBlo
         fileName = _file.getFileName();
     }
 
-    public int getRowFile(int _sum) {
-        int len_ = lineReturns.size();
-        int i_ = 0;
-        int s_ = Math.max(0,_sum);
-        while (i_ < len_) {
-            if (s_ <= lineReturns.get(i_)) {
-                break;
-            }
-            i_++;
-        }
-        return i_;
+    public FileMetrics getMetrics() {
+        return new FileMetrics(lineReturns,tabulations,tabWidth);
     }
-    public int getColFile(int _sum, int _row) {
-        int j_ = 0;
-        int s_ = Math.max(0,_sum);
-        int begin_ = lineReturns.get(_row - 1)+1;
-        for (int j = begin_; j < s_; j++) {
-            if (tabulations.containsObj(j)) {
-                j_ += tabWidth;
-                j_ -= j_ % tabWidth;
-            } else {
-                j_++;
-            }
-        }
-        return j_+1;
-    }
+
     public boolean isPredefined() {
         return predefined;
     }

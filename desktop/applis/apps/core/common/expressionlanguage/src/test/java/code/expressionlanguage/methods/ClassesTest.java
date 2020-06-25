@@ -1,7 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.common.ClassField;

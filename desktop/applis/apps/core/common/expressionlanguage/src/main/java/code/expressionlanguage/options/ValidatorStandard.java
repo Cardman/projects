@@ -1,8 +1,7 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.MethodHeaders;
-import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.common.ClassField;

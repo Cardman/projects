@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;

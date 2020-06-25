@@ -24,6 +24,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.files.FileResolver;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -31,6 +32,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardType;
@@ -43,6 +45,16 @@ public final class ClassesUtil {
     private ClassesUtil(){
     }
 
+    public static void tryValidateCustom(StringMap<String> _files, ContextEl _context) {
+        builtTypes(_files, _context, false);
+    }
+
+    public static void buildPredefinedBracesBodies(ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        StringMap<String> files_ = stds_.buildFiles(_context);
+        builtTypes(files_, _context, true);
+        ValidatorStandard.buildIterable(_context);
+    }
     public static void processBracedClass(ExecFileBlock _exFile, RootBlock _outer, RootBlock _root, ContextEl _context) {
         String fullName_ = _root.getFullName();
         AnalyzedPageEl page_ = _context.getAnalyzing();
@@ -294,18 +306,6 @@ public final class ClassesUtil {
         if (_outer == _root) {
             _exFile.appendChild(e_);
         }
-    }
-
-    static StringMap<StringMap<Struct>> buildFieldValues(StringMap<StringMap<Struct>> _infos) {
-        StringMap<StringMap<Struct>> bkSt_ = new StringMap<StringMap<Struct>>();
-        for (EntryCust<String, StringMap<Struct>> e: _infos.entryList()) {
-            StringMap<Struct> b_ = new StringMap<Struct>();
-            for (EntryCust<String, Struct> f: e.getValue().entryList()) {
-                b_.addEntry(f.getKey(), f.getValue());
-            }
-            bkSt_.addEntry(e.getKey(), b_);
-        }
-        return bkSt_;
     }
 
     public static void builtTypes(StringMap<String> _files, ContextEl _context, boolean _predefined) {
@@ -1962,4 +1962,5 @@ public final class ClassesUtil {
         pkgs_.removeDuplicates();
         return pkgs_;
     }
+
 }

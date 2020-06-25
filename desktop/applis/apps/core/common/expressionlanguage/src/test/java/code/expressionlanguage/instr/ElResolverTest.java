@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 
 import code.expressionlanguage.common.*;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;

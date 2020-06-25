@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.Classes;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.Returnable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;

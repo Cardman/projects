@@ -2,12 +2,12 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.analyze.blocks.FunctionBlock;
 import code.expressionlanguage.analyze.blocks.MethodKind;
 import code.expressionlanguage.analyze.blocks.ReturnableWithSignature;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.AnnotationTypeInfo;
+import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
@@ -639,8 +639,9 @@ public final class ExecutingUtil {
         int col;
         if (f_ != null) {
             fileName = f_.getFileName();
-            row = f_.getRowFile(indexFileType);
-            col = f_.getColFile(indexFileType,row);
+            FileMetrics metrics_ = f_.getMetrics();
+            row = metrics_.getRowFile(indexFileType);
+            col = metrics_.getColFile(indexFileType,row);
         } else {
             fileName = "";
             row = 0;
