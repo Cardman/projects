@@ -95,7 +95,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.ExTwo</a>{}\n" +
-                "$public $class <a name=\"m42 title=\"The type name pkg.ExTwo is duplicated with an other custom type.\"><span class=\"e\">pkg.ExTwo</span></a>{}</pre></body></html>", filesExp_.firstValue());
+                "$public $class <a name=\"m42\" title=\"The type name pkg.ExTwo is duplicated with an other custom type.\"><span class=\"e\">pkg.ExTwo</span></a>{}</pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -110,7 +110,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.ExTwo</a>{\n" +
-                " $public $class <a name=\"m42 title=\"The inner type simple name ExTwo is duplicated.\"><span class=\"e\">ExTwo</span></a>{}\n" +
+                " $public $class <a name=\"m42\" title=\"The inner type simple name ExTwo is duplicated.\"><span class=\"e\">ExTwo</span></a>{}\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
 
@@ -125,6 +125,62 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public <a title=\"A type must have an non empty package.\"><span class=\"e\">$class</span></a> <a name=\"m15\">ExTwo</a>{\n" +
+                "}</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report8Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class a.#ExTwo{\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The part #ExTwo in a type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\"><span class=\"e\">a.#ExTwo</span></a>{\n" +
+                "}</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report9Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class #a.ExTwo{\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The part #a in a type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\"><span class=\"e\">#a.ExTwo</span></a>{\n" +
+                "}</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report10Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class .{\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public <a title=\"A type must have an non empty package.\"><span class=\"e\">$class</span></a> <a name=\"m15\" title=\"The part . in a type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\"><span class=\"e\">.</span></a>{\n" +
+                "}</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report11Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class .ExTwo{\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public <a title=\"A type must have an non empty package.\"><span class=\"e\">$class</span></a> <a name=\"m15\" title=\"The part .ExTwo in a type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\"><span class=\"e\">.ExTwo</span></a>{\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
     private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {

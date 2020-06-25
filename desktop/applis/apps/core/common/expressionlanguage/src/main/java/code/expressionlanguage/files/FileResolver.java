@@ -661,6 +661,9 @@ public final class FileResolver {
             } else {
                 baseName_ = typeName_;
             }
+            if (lastDot_ >= 0&&packageName_.isEmpty()) {
+                baseName_ = typeName_.substring(lastDot_);
+            }
             
             if (StringList.quickEq(type_, keyWordEnum_)) {
                 enableByEndLine_ = true;

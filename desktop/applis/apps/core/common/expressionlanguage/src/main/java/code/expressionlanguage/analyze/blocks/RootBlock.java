@@ -115,18 +115,15 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     }
 
     public void setupOffsets(String _name, String _packageName) {
+        nameLength = _name.length();
         if (!templateDef.isEmpty()) {
-            nameLength = _name.length();
             templateDefOffset = idRowCol + nameLength;
             if (!_packageName.isEmpty()) {
                 templateDefOffset += _packageName.length() + 1;
-                nameLength += _packageName.length() + 1;
             }
-        } else {
-            nameLength = _name.length();
-            if (!_packageName.isEmpty()) {
-                nameLength += _packageName.length() + 1;
-            }
+        }
+        if (!_packageName.isEmpty()) {
+            nameLength += _packageName.length() + 1;
         }
     }
 

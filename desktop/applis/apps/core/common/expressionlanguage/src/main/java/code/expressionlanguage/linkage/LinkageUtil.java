@@ -874,7 +874,7 @@ public final class LinkageUtil {
         }
         StringList list_ = _cond.getNameErrors();
         if (!list_.isEmpty()) {
-            _parts.add(new PartOffset("<a name=\"m"+ _cond.getIdRowCol() +" title=\""+ StringList.join(list_,"\n\n")+"\">", _cond.getIdRowCol()));
+            _parts.add(new PartOffset("<a name=\"m"+ _cond.getIdRowCol() +"\" title=\""+ StringList.join(list_,"\n\n")+"\">", _cond.getIdRowCol()));
             _parts.add(new PartOffset("<span class=\"e\">", _cond.getIdRowCol()));
             _parts.add(new PartOffset("</span>", _cond.getIdRowCol() + _cond.getNameLength()));
         } else {
