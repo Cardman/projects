@@ -33,8 +33,9 @@ public final class RendAnalysisMessagesTest {
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
+        s_.setAnalyzing();
         AnalysisMessages.validateMessageContents(s_,def_.allMessages());
-        assertTrue(s_.getClasses().displayMessageErrors(),!s_.getClasses().isEmptyMessageError());
+        assertTrue(!s_.isEmptyMessageError());
     }
 
     private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options opts_) {

@@ -64,8 +64,8 @@ public final class CustContextFactory {
                                ProgressingTests _progressingTests) {
         RunnableContextEl rCont_ = build(_stack, _options, _exec, _mess,_definedKw,
                 _definedLgNames, _files, _exec.getTabWidth());
-        if (!rCont_.getClasses().isEmptyStdError() || !rCont_.getClasses().isEmptyMessageError()||!rCont_.isEmptyErrors()) {
-            _progressingTests.showErrors(rCont_,_exec);
+        if (!_options.isEmptyErrors()||!rCont_.isEmptyErrors()) {
+            _progressingTests.showErrors(rCont_,_options,_exec);
             return;
         }
         String aliasExecuteTests_ = _definedLgNames.getAliasExecuteTests();
@@ -95,8 +95,7 @@ public final class CustContextFactory {
         CustLockingClass cl_ = new CustLockingClass();
         CustInitializer ci_ = new CustInitializer();
         RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _mess,_definedKw, _definedLgNames,_tabWidth);
-        r_.setCovering(_exec.isCovering());
-        ContextFactory.validate(_mess,_definedKw,_definedLgNames,_files,r_,_exec.getSrcFolder(),_definedLgNames.defComments());
+        _exec.setMethodHeaders(ContextFactory.validate(_mess,_definedKw,_definedLgNames,_files,r_,_exec.getSrcFolder(),_definedLgNames.defComments()));
         return r_;
     }
 }

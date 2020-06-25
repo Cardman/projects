@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -131,44 +132,41 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl contextElCoverageDefault() {
         Options opt_ = new Options();
-        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
-        ct_.setCovering(true);
-        return ct_;
+        opt_.setCovering(true);
+        return InitializationLgNames.buildStdOne(opt_);
     }
 
     protected static ContextEl contextElCoverageDefaultComment() {
         Options opt_ = new Options();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
-        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
-        ct_.setCovering(true);
-        return ct_;
+        opt_.setCovering(true);
+        return InitializationLgNames.buildStdOne(opt_);
     }
     protected static ContextEl contextElErrorReadOnlyDef() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
+        opt_.setGettingErrors(true);
         return InitializationLgNames.buildStdOne(opt_);
     }
     protected static ContextEl contextElCoverageReadOnlyDef() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
-        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
-        ct_.setCovering(true);
-        return ct_;
+        opt_.setCovering(true);
+        return InitializationLgNames.buildStdOne(opt_);
     }
 
     protected static ContextEl contextElCoverageReadOnlyDefault() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
-        ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
-        ct_.setCovering(true);
-        return ct_;
+        opt_.setCovering(true);
+        return InitializationLgNames.buildStdOne("en", opt_);
     }
 
     protected static ContextEl contextElCoverageDisplayDef() {
         Options opt_ = new Options();
+        opt_.setCovering(true);
         ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
-        ct_.setCovering(true);
         ct_.getStandards().getDisplayedStrings().setTrueString("\"");
         ct_.getStandards().getDisplayedStrings().setFalseString("&");
         return ct_;
@@ -176,29 +174,24 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl contextElCoverageOtherIniDef() {
         Options opt_ = new Options();
-        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
-        ct_.setCovering(true);
-        return ct_;
+        opt_.setCovering(true);
+        return InitializationLgNames.buildStdOne(opt_);
     }
     protected static ContextEl contextElCoverageEnDefault() {
         Options opt_ = new Options();
-        ContextEl ct_ = InitializationLgNames.buildStdOne("en",opt_);
-        ct_.setCovering(true);
-        return ct_;
+        opt_.setCovering(true);
+        return InitializationLgNames.buildStdOne("en",opt_);
     }
     protected static ContextEl contextElCoverageReadOnlyEnDefault() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
-        ContextEl ct_ = InitializationLgNames.buildStdOne("en",opt_);
-        ct_.setCovering(true);
-        return ct_;
+        opt_.setCovering(true);
+        return InitializationLgNames.buildStdOne("en",opt_);
     }
     protected static ContextEl contextElCoverageEnDefaultSingle() {
         Options opt_ = new Options();
-        
-        ContextEl ct_ = InitializationLgNames.buildStdOne("en",opt_);
-        ct_.setCovering(true);
-        return ct_;
+        opt_.setCovering(true);
+        return InitializationLgNames.buildStdOne("en",opt_);
     }
 
     protected static ContextEl contextElSingle(int... _m) {
@@ -344,9 +337,8 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes.validateWithoutInit(_files,cont_);
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
+        MethodHeaders headers_ = Classes.validateWithoutInit(_files, cont_);
+        assertTrue(headers_.displayErrors(), !cont_.isEmptyErrors());
     }
     protected static ContextEl contextElSingleDotDefault(int... _m) {
         Options opt_ = new Options();
@@ -388,16 +380,15 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
         parseCustomFiles(_files, cont_);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue( cont_.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue( cont_.isEmptyErrors());
         ClassesUtil.validateIds(cont_);
         ClassesUtil.validateOverridingInherit(cont_);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue( cont_.isEmptyErrors());
         ClassesUtil.initStaticFields(cont_);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue( cont_.isEmptyErrors());
         return cont_;
     }
 
@@ -405,33 +396,30 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
         parseCustomFiles(_files, cont_);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue( cont_.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue( cont_.isEmptyErrors());
         return cont_;
     }
     protected ContextEl unfullValidateInheritingClassesSingle(StringMap<String> _files) {
         Options opt_ = new Options();
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
         parseCustomFiles(_files, cont_);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue( cont_.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue( cont_.isEmptyErrors());
         return cont_;
     }
 
     protected void failValidateInheritingClasses(StringMap<String> _files) {
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes classes_ = cont_.getClasses();
         parseCustomFiles(_files, cont_);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue( cont_.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
 
     protected void failValidateInheritingClassesSingle(StringMap<String> _files) {
@@ -439,17 +427,19 @@ public abstract class ProcessMethodCommon {
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         parseCustomFiles(_files, cont_);
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue( cont_.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
 
     protected static void parseCustomFiles(StringMap<String> _files, ContextEl _cont) {
+        MethodHeaders headers_ = _cont.getAnalyzing().getHeaders();
         _cont.setAnalyzing();
+        _cont.getAnalyzing().setHeaders(headers_);
         Classes.buildPredefinedBracesBodies(_cont);
         CustList<RootBlock> foundTypes_ = _cont.getAnalyzing().getFoundTypes();
         _cont.setAnalyzing();
+        _cont.getAnalyzing().setHeaders(headers_);
         _cont.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         ClassesUtil.tryBuildBracedClassesBodies(_files, _cont, false);
     }
@@ -463,7 +453,9 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         LgNames stds_ = cont_.getStandards();
+        MethodHeaders headers_ = cont_.getAnalyzing().getHeaders();
         cont_.setAnalyzing();
+        cont_.getAnalyzing().setHeaders(headers_);
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
@@ -477,7 +469,9 @@ public abstract class ProcessMethodCommon {
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         LgNames stds_ = cont_.getStandards();
+        MethodHeaders headers_ = cont_.getAnalyzing().getHeaders();
         cont_.setAnalyzing();
+        cont_.getAnalyzing().setHeaders(headers_);
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();

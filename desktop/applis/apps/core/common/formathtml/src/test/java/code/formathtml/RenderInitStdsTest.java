@@ -53,11 +53,11 @@ public final class RenderInitStdsTest {
         ContextEl cont_ = ContextFactory.build(-1,lk_, di_, _opt, _mess,_kw, _beanLgNames,4);
         conf_.setContext(cont_);
         cont_.setFullStack(new DefaultFullStack(cont_));
-        Classes.validateWithoutInit(_files, cont_);
-        assertTrue(cont_.isEmptyErrors());
-        conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
+        conf_.getAdvStandards().setHeaders(CommonRender.getHeaders(_files, cont_));
+        assertTrue(cont_.isEmptyErrors());
+        conf_.setContext(cont_);
         cont_.setFullStack(new AdvancedFullStack(conf_));
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;

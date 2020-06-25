@@ -253,7 +253,7 @@ public final class ContextUtil {
     }
 
     public static void appendParts(ContextEl _cont,int _begin, int _end, String _in, CustList<PartOffset> _parts) {
-        if (!_cont.isCovering()) {
+        if (!_cont.isGettingParts()) {
             return;
         }
         GeneType g_ = _cont.getClassBody(_in);
@@ -271,7 +271,7 @@ public final class ContextUtil {
     }
 
     public static void appendTitleParts(ContextEl _cont, int _begin, int _end, String _in, CustList<PartOffset> _parts) {
-        if (!_cont.isCovering()) {
+        if (!_cont.isGettingParts()) {
             return;
         }
         int rc_ = _cont.getCurrentLocationIndex();

@@ -29,9 +29,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isEmptyStdError());
         assertTrue(cont_.isEmptyErrors());
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         assertEq(0, AssignmentsUtil.getOrEmptyBefore(new CustList<StringMap<AssignmentBefore>>(),0).size());
         assertEq(0, AssignmentsUtil.getOrEmpty(new CustList<StringMap<Assignment>>(),0).size());
         assertEq(0, AssignmentsUtil.getOrEmptyBool(new CustList<StringMap<BooleanAssignment>>(),0).size());
@@ -53,7 +51,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, a_,kw_, lgName_,4);
         Classes.validateAll(new StringMap<String>(),out_);
-        assertTrue(!out_.getClasses().isEmptyStdError());
+        assertTrue(!out_.isEmptyStdError());
         assertTrue(!out_.isEmptyErrors());
     }
 
@@ -72,7 +70,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, a_,kw_, lgName_,4);
         Classes.validateAll(new StringMap<String>(),out_);
-        assertTrue(!out_.getClasses().isEmptyStdError());
+        assertTrue(!out_.isEmptyStdError());
     }
 
     @Test
@@ -88,7 +86,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, a_,kw_, lgName_,4);
         Classes.validateAll(new StringMap<String>(),out_);
-        assertTrue(!out_.getClasses().isEmptyMessageError());
+        assertTrue(!out_.isEmptyMessageError());
         assertTrue(!out_.isEmptyErrors());
     }
     @Test
@@ -103,7 +101,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, a_,kw_, lgName_,4);
         Classes.validateAll(new StringMap<String>(),out_);
-        assertTrue(!out_.getClasses().isEmptyMessageError());
+        assertTrue(!out_.isEmptyMessageError());
         assertTrue(!out_.isEmptyErrors());
     }
     @Test
@@ -5520,7 +5518,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
 
     @Test
@@ -5533,7 +5531,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
 
     @Test
@@ -5547,7 +5545,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateElFailTest() {
@@ -5560,7 +5558,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl2FailTest() {
@@ -5573,7 +5571,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl3FailTest() {
@@ -5586,7 +5584,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl4FailTest() {
@@ -5599,7 +5597,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
 
     @Test
@@ -5613,7 +5611,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl6FailTest() {
@@ -5626,7 +5624,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl7FailTest() {
@@ -5639,7 +5637,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl8FailTest() {
@@ -5655,7 +5653,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl9FailTest() {
@@ -5668,7 +5666,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl10FailTest() {
@@ -5746,7 +5744,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl16FailTest() {
@@ -5823,7 +5821,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl21FailTest() {
@@ -5836,7 +5834,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl31FailTest() {
@@ -5914,7 +5912,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl37FailTest() {
@@ -5953,7 +5951,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl40FailTest() {
@@ -5966,7 +5964,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl41FailTest() {
@@ -5979,7 +5977,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl42FailTest() {
@@ -5992,7 +5990,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl43FailTest() {
@@ -6006,7 +6004,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl44FailTest() {
@@ -6020,7 +6018,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl45FailTest() {
@@ -6039,7 +6037,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl46FailTest() {
@@ -6054,7 +6052,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl47FailTest() {
@@ -6069,7 +6067,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl48FailTest() {
@@ -6084,7 +6082,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl49FailTest() {
@@ -6099,7 +6097,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl50FailTest() {
@@ -6114,7 +6112,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl51FailTest() {
@@ -6128,7 +6126,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl52FailTest() {
@@ -6142,7 +6140,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl53FailTest() {
@@ -6156,7 +6154,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl54FailTest() {
@@ -6170,7 +6168,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl55FailTest() {
@@ -6183,7 +6181,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl57FailTest() {
@@ -6196,7 +6194,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl58FailTest() {
@@ -6216,7 +6214,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl59FailTest() {
@@ -6250,7 +6248,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl60FailTest() {
@@ -6267,7 +6265,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl61FailTest() {
@@ -6284,7 +6282,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl62FailTest() {
@@ -6301,7 +6299,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl63FailTest() {
@@ -6318,7 +6316,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl64FailTest() {
@@ -6344,7 +6342,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl65FailTest() {
@@ -6364,7 +6362,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl66FailTest() {
@@ -6384,7 +6382,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl67FailTest() {
@@ -6416,7 +6414,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl68FailTest() {
@@ -6436,7 +6434,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(),!cont_.isEmptyErrors());
+        assertTrue(!cont_.isEmptyErrors());
     }
     @Test
     public void validateEl69FailTest() {
@@ -6880,7 +6878,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl103FailTest() {
@@ -6894,7 +6892,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl104FailTest() {
@@ -6907,7 +6905,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl105FailTest() {
@@ -6920,7 +6918,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl106FailTest() {
@@ -6933,7 +6931,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl107FailTest() {
@@ -6946,7 +6944,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl108FailTest() {
@@ -6959,7 +6957,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl109FailTest() {
@@ -6972,7 +6970,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl110FailTest() {
@@ -6985,7 +6983,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl111FailTest() {
@@ -6998,7 +6996,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl112FailTest() {
@@ -7011,7 +7009,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl113FailTest() {
@@ -7024,7 +7022,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl114FailTest() {
@@ -7037,7 +7035,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl115FailTest() {
@@ -7050,7 +7048,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl116FailTest() {
@@ -7063,7 +7061,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl117FailTest() {
@@ -7076,7 +7074,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl118FailTest() {
@@ -7089,7 +7087,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl119FailTest() {
@@ -7102,7 +7100,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl120FailTest() {
@@ -7115,7 +7113,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl121FailTest() {
@@ -7128,7 +7126,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl122FailTest() {
@@ -7141,7 +7139,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl123FailTest() {
@@ -7154,7 +7152,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElSingleDot();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl124FailTest() {
@@ -7167,7 +7165,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElSingleDot();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl125FailTest() {
@@ -7180,7 +7178,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElSingleDot();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl126FailTest() {
@@ -7193,7 +7191,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElSingleDot();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl127FailTest() {
@@ -7206,7 +7204,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElSingleDot();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl128FailTest() {
@@ -7219,7 +7217,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElSingleDot();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
 
     @Test
@@ -7236,7 +7234,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl132FailTest() {
@@ -7251,7 +7249,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl133FailTest() {
@@ -7268,7 +7266,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl134FailTest() {
@@ -7285,7 +7283,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl135FailTest() {
@@ -7298,7 +7296,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl136FailTest() {
@@ -7311,7 +7309,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl137FailTest() {
@@ -7324,7 +7322,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl138FailTest() {
@@ -7337,7 +7335,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl139FailTest() {
@@ -7350,7 +7348,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl140FailTest() {
@@ -7363,7 +7361,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl142FailTest() {
@@ -7376,7 +7374,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl143FailTest() {
@@ -7389,7 +7387,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl144FailTest() {
@@ -7402,7 +7400,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl145FailTest() {
@@ -7415,7 +7413,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl146FailTest() {
@@ -7428,7 +7426,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl147FailTest() {
@@ -7441,7 +7439,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl152FailTest() {
@@ -7454,7 +7452,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl153FailTest() {
@@ -7468,7 +7466,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl154FailTest() {
@@ -7481,7 +7479,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl155FailTest() {
@@ -7494,7 +7492,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl156FailTest() {
@@ -7507,7 +7505,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl157FailTest() {
@@ -7520,7 +7518,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl158FailTest() {
@@ -7532,7 +7530,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl159FailTest() {
@@ -7544,7 +7542,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl160FailTest() {
@@ -7556,7 +7554,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl161FailTest() {
@@ -7568,7 +7566,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl162FailTest() {
@@ -7580,7 +7578,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl163FailTest() {
@@ -7592,7 +7590,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl164FailTest() {
@@ -7604,7 +7602,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl165FailTest() {
@@ -7616,7 +7614,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl166FailTest() {
@@ -7648,7 +7646,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExSeven", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
 
     @Test
@@ -7686,7 +7684,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl170FailTest() {
@@ -7731,7 +7729,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl171FailTest() {
@@ -7760,7 +7758,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl172FailTest() {
@@ -7780,7 +7778,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl173FailTest() {
@@ -7797,7 +7795,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl174FailTest() {
@@ -7817,7 +7815,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
 
     @Test
@@ -7831,7 +7829,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
     @Test
     public void validateEl181FailTest() {

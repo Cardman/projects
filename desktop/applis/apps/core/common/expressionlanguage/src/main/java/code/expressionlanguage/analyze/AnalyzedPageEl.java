@@ -6,6 +6,10 @@ import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
+import code.expressionlanguage.errors.custom.ErrorList;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.errors.custom.FoundWarningInterpret;
+import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -85,6 +89,7 @@ public final class AnalyzedPageEl {
     private CustList<PartOffset> currentParts = new CustList<PartOffset>();
     private OperationNode currentRoot;
     private final Errors errors = new Errors();
+    private MethodHeaders headers = new MethodHeaders();
 
     private AbstractProcessKeyWord processKeyWord;
     private AbstractHiddenTypes hiddenTypes;
@@ -681,4 +686,71 @@ public final class AnalyzedPageEl {
     public Errors getErrors() {
         return errors;
     }
+
+    public MethodHeaders getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(MethodHeaders _headers) {
+        headers = _headers;
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getExplicitCastMethods() {
+        return headers.getExplicitCastMethods();
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getExplicitIdCastMethods() {
+        return headers.getExplicitIdCastMethods();
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getExplicitFromCastMethods() {
+        return headers.getExplicitFromCastMethods();
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getImplicitCastMethods() {
+        return headers.getImplicitCastMethods();
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getImplicitIdCastMethods() {
+        return headers.getImplicitIdCastMethods();
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getImplicitFromCastMethods() {
+        return headers.getImplicitFromCastMethods();
+    }
+
+    public StringList getTypesWithInnerOperators() {
+        return headers.getTypesWithInnerOperators();
+    }
+
+    public StringList getPackagesFound() {
+        return headers.getPackagesFound();
+    }
+
+    public boolean isEmptyErrors() {
+        return headers.isEmptyErrors();
+    }
+
+    public void addError(FoundErrorInterpret _error) {
+        headers.addError(_error);
+    }
+
+    public boolean isEmptyMessageError() {
+        return headers.isEmptyMessageError();
+    }
+    public void addMessageError(String _std) {
+        headers.addMessageError(_std);
+    }
+
+    public boolean isEmptyStdError() {
+        return headers.isEmptyStdError();
+    }
+    public void addStdError(StdWordError _std) {
+        headers.addStdError(_std);
+    }
+
+    public void addWarning(FoundWarningInterpret _warning) {
+        headers.addWarning(_warning);
+    }
+
 }

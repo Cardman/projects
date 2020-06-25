@@ -821,11 +821,11 @@ public final class SubmitFormTest extends CommonRender {
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         conf_.setContext(cont_);
         cont_.setFullStack(new AdvancedFullStack(conf_));
-        Classes.validateWithoutInit(_files, cont_);
-        assertTrue(cont_.isEmptyErrors());
-        conf_.setContext(cont_);
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
+        conf_.getAdvStandards().setHeaders(getHeaders(_files, cont_));
+        assertTrue(cont_.isEmptyErrors());
+        conf_.setContext(cont_);
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;
     }

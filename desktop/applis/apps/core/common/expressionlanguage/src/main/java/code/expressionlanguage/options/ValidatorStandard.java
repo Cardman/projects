@@ -1,6 +1,7 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -41,21 +42,21 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyPrimitive(),key_));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
-                _cont.getClasses().addStdError(err_);
+                _cont.addStdError(err_);
                 continue;
             }
             if (_cont.getKeyWords().isKeyWord(value_)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getPrimitiveKeyWord(),key_,value_));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
-                _cont.getClasses().addStdError(err_);
+                _cont.addStdError(err_);
             }
             for (char c: value_.toCharArray()) {
                 if (!StringList.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharPrimitive(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                     break;
                 }
             }
@@ -63,7 +64,7 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstPrimitive(),key_,value_));
                 err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
-                _cont.getClasses().addStdError(err_);
+                _cont.addStdError(err_);
             }
         }
     }
@@ -77,7 +78,7 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicatePrimtive(),v_,e.getKey()));
                 err_.setErrCat(ErrorCat.DUPLICATE_PRIMITIVE_WORD);
-                _cont.getClasses().addStdError(err_);
+                _cont.addStdError(err_);
             }
         }
     }
@@ -93,7 +94,7 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyRefType(),key_));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                _cont.getClasses().addStdError(err_);
+                _cont.addStdError(err_);
                 continue;
             }
             for (String p : StringList.splitChars(value_, '.')) {
@@ -101,27 +102,27 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyRefTypeIn(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                     continue;
                 }
                 if (StringList.contains(_prims.values(), p)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getRefTypePrimitive(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
                 if (_cont.getKeyWords().isKeyWord(p)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getRefTypeKeyWord(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
                 for (char c: p.toCharArray()) {
                     if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
                         err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharRefType(),key_,value_));
                         err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                        _cont.getClasses().addStdError(err_);
+                        _cont.addStdError(err_);
                         break;
                     }
                 }
@@ -129,7 +130,7 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstRefType(),key_,value_));
                     err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
             }
             String pkg_ = StandardType.getPackagePart(value_);
@@ -137,7 +138,7 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyPkgRefType(),key_,value_));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                _cont.getClasses().addStdError(err_);
+                _cont.addStdError(err_);
             }
             allPkgs_.add(pkg_);
         }
@@ -152,14 +153,14 @@ public final class ValidatorStandard {
             StdWordError err_ = new StdWordError();
             err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgNoMatch(), stds_.getDefaultPkg()));
             err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-            _cont.getClasses().addStdError(err_);
+            _cont.addStdError(err_);
         }
         for (String k: _list.values()) {
             if (stds_.getDefaultPkg().contains(k)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDefaultPkgRefType(),k, stds_.getDefaultPkg()));
                 err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
-                _cont.getClasses().addStdError(err_);
+                _cont.addStdError(err_);
             }
         }
     }
@@ -174,7 +175,7 @@ public final class ValidatorStandard {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateRefType(),v_));
                 err_.setErrCat(ErrorCat.DUPLICATE_TYPE_WORD);
-                _cont.getClasses().addStdError(err_);
+                _cont.addStdError(err_);
                 dup_ = true;
             }
         }
@@ -191,27 +192,27 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyMethod(),key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                     continue;
                 }
                 if (_cont.getKeyWords().isKeyWordNotVar(value_)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getMethodKeyWord(),value_,key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
                 if (StringList.contains(_prims.values(), value_)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getMethodPrimitive(),value_,key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
                 for (char c: value_.toCharArray()) {
                     if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
                         err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharMethod(),value_,e.getKey(),Character.toString(c)));
                         err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                        _cont.getClasses().addStdError(err_);
+                        _cont.addStdError(err_);
                         break;
                     }
                 }
@@ -219,7 +220,7 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstMethod(),value_,e.getKey(),Character.toString(value_.charAt(0))));
                     err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
             }
         }
@@ -238,7 +239,7 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateMethod(),v_));
                     err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
             }
         }
@@ -257,7 +258,7 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateMergedMethod(),v_,f.getKey()));
                     err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
             }
         }
@@ -273,27 +274,27 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyField(),key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                     continue;
                 }
                 if (_cont.getKeyWords().isKeyWord(value_)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getFieldKeyWord(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
                 if (StringList.contains(_prims.values(), value_)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getFieldPrimitive(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
                 for (char c: value_.toCharArray()) {
                     if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
                         err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharField(),value_,e.getKey(),key_));
                         err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
-                        _cont.getClasses().addStdError(err_);
+                        _cont.addStdError(err_);
                         break;
                     }
                 }
@@ -301,7 +302,7 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstField(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
             }
         }
@@ -320,7 +321,7 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateField(),v_,e.getKey()));
                     err_.setErrCat(ErrorCat.DUPLICATE_FIELD_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
             }
         }
@@ -336,27 +337,27 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyVarType(),key_,e.getKey()));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                     continue;
                 }
                 if (_cont.getKeyWords().isKeyWord(value_)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getVarTypeKeyWord(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
                 if (StringList.contains(_prims.values(), value_)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getVarTypePrimitive(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
                 for (char c: value_.toCharArray()) {
                     if (!StringList.isDollarWordChar(c)) {
                         StdWordError err_ = new StdWordError();
                         err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharVarType(),value_,e.getKey(),key_));
                         err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
-                        _cont.getClasses().addStdError(err_);
+                        _cont.addStdError(err_);
                         break;
                     }
                 }
@@ -364,7 +365,7 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstVarType(),value_,e.getKey(),key_));
                     err_.setErrCat(ErrorCat.WRITE_VAR_TYPE_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
             }
         }
@@ -383,7 +384,7 @@ public final class ValidatorStandard {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateVarType(),v_,e.getKey()));
                     err_.setErrCat(ErrorCat.DUPLICATE_VAR_TYPE_WORD);
-                    _cont.getClasses().addStdError(err_);
+                    _cont.addStdError(err_);
                 }
             }
         }
@@ -401,8 +402,8 @@ public final class ValidatorStandard {
             }
         }
         pkgs_.removeDuplicates();
-        _cont.getClasses().getPackagesFound().addAllElts(pkgs_);
         _cont.setAnalyzing();
+        _cont.getAnalyzing().getHeaders().getPackagesFound().addAllElts(pkgs_);
         buildInherits(_cont);
     }
 

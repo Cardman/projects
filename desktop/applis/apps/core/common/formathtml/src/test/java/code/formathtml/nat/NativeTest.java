@@ -1470,13 +1470,17 @@ public final class NativeTest extends CommonRender {
     private static ContextEl buildStdOne(Options _opt) {
         BeanLgNames lgNames_ = new CustBeanLgNames();
         basicStandards(lgNames_);
-        return InitializationLgNames.build(CustList.INDEX_NOT_FOUND_ELT,lgNames_, _opt);
+        ContextEl c_ = InitializationLgNames.build(CustList.INDEX_NOT_FOUND_ELT, lgNames_, _opt);
+        lgNames_.setHeaders(c_.getAnalyzing().getHeaders());
+        return c_;
     }
     private static ContextEl buildStdTwo(Options _opt) {
         BeanLgNames lgNames_ = new CustLgNames();
         basicStandards(lgNames_);
         lgNames_.setAliasMath("java.lang.$math");
-        return InitializationLgNames.build(CustList.INDEX_NOT_FOUND_ELT,lgNames_, _opt);
+        ContextEl c_ = InitializationLgNames.build(CustList.INDEX_NOT_FOUND_ELT, lgNames_, _opt);
+        lgNames_.setHeaders(c_.getAnalyzing().getHeaders());
+        return c_;
     }
 
     private static void addBeanInfo(Configuration _conf, String _id, Struct _str) {

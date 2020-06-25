@@ -57,7 +57,7 @@ public final class ReadConfiguration {
         context_.setOptions(opt_);
         _conf.setContext(context_);
         AnalysisMessages.validateMessageContents(context_, rMess_.allMessages());
-        if (!context_.getClasses().isEmptyMessageError()) {
+        if (!context_.isEmptyMessageError()) {
             _conf.setContext(null);
             return;
         }
@@ -80,9 +80,9 @@ public final class ReadConfiguration {
         rkw_.validateStyleUnitContents(_conf,allStyleUnits_);
         rkw_.validateDuplicates(_conf,allStyleUnits_);
         for (StdWordError s: _conf.getStdErrorDet()) {
-            context_.getClasses().addStdError(s);
+            context_.addStdError(s);
         }
-        if (!context_.getClasses().isEmptyStdError()) {
+        if (!context_.isEmptyStdError()) {
             _conf.setContext(null);
             return;
         }

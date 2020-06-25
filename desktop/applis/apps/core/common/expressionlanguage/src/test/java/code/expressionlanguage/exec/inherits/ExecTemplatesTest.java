@@ -510,10 +510,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = getSimpleContextEl();
         parseCustomFiles(_files, cont_);
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
         return cont_;
     }
 

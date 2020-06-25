@@ -385,8 +385,7 @@ public final class ClassesUtil {
             }
             page_.getMapMembers().addEntry(k_, mem_);
         }
-        Classes cl_ = _context.getClasses();
-        StringList pkgFound_ = cl_.getPackagesFound();
+        StringList pkgFound_ = _context.getAnalyzing().getPackagesFound();
         pkgFound_.addAllElts(getPackages(_context));
         validatePkgNames(_context);
     }
@@ -400,8 +399,7 @@ public final class ClassesUtil {
     }
 
     private static void validatePkgNames(ContextEl _context) {
-        Classes cl_ = _context.getClasses();
-        StringList pkgFound_ = cl_.getPackagesFound();
+        StringList pkgFound_ = _context.getAnalyzing().getPackagesFound();
         for (RootBlock r: _context.getAnalyzing().getFoundTypes()) {
             if (!(r.getParent() instanceof FileBlock)) {
                 continue;
@@ -1076,7 +1074,7 @@ public final class ClassesUtil {
             page_.setImportingTypes(type_);
             c.validateIds(_context, type_,page_.getMapMembers().getVal(c));
             if (c.getNbOperators() > 0) {
-                _context.getClasses().getTypesWithInnerOperators().add(c.getFullName());
+                _context.getAnalyzing().getTypesWithInnerOperators().add(c.getFullName());
             }
         }
         for (EntryCust<RootBlock,ExecRootBlock> e: mapTypes_.entryList()) {

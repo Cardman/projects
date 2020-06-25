@@ -1753,10 +1753,9 @@ public final class RootBlockTest extends ProcessMethodCommon {
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = getRootContextEl();
         parseCustomFiles(_files, cont_);
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue( cont_.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue( cont_.isEmptyErrors());
         return cont_;
     }
 
@@ -1764,18 +1763,16 @@ public final class RootBlockTest extends ProcessMethodCommon {
     private static void failValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = getRootContextEl();
         parseCustomFiles(_files, cont_);
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
+        assertTrue( cont_.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue(classes_.displayErrors(), !cont_.isEmptyErrors());
+        assertTrue( !cont_.isEmptyErrors());
     }
 
     private static void checkOverrides(ContextEl _cont) {
-        Classes classes_ = _cont.getClasses();
         ClassesUtil.validateIds(_cont);
-        assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
+        assertTrue( _cont.isEmptyErrors());
         ClassesUtil.validateOverridingInherit(_cont);
-        assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
+        assertTrue( _cont.isEmptyErrors());
     }
 
     private void failOverrides(StringMap<String> _files) {
@@ -1784,11 +1781,10 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
     private static void checkErrors(ContextEl _cont) {
-        Classes classes_ = _cont.getClasses();
         ClassesUtil.validateIds(_cont);
-        assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
+        assertTrue( _cont.isEmptyErrors());
         ClassesUtil.validateOverridingInherit(_cont);
-        assertTrue(classes_.displayErrors(),!_cont.isEmptyErrors());
+        assertTrue(!_cont.isEmptyErrors());
     }
 
     private static ContextEl getContextEl(StringMap<String> _files) {

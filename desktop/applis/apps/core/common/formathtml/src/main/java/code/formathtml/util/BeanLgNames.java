@@ -1,5 +1,6 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.common.DoubleInfo;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
@@ -25,6 +26,7 @@ public abstract class BeanLgNames extends LgNames {
     public static final String OFF = "off";
     public static final String ON = "on";
 
+    private MethodHeaders headers = new MethodHeaders();
     public BeanLgNames(AbstractGenerator _gene) {
         super(_gene);
     }
@@ -224,5 +226,11 @@ public abstract class BeanLgNames extends LgNames {
 
     public abstract Message validate(Configuration _conf,NodeContainer _cont, String _validatorId);
 
+    public MethodHeaders getHeaders() {
+        return headers;
+    }
+    public void setHeaders(MethodHeaders _headers) {
+        headers = _headers;
+    }
 
 }

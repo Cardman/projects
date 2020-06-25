@@ -47,7 +47,7 @@ public final class FileResolver {
         ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_, tabWidth_);
         cls_.putFileBlock(_fileName, exFile_);
         _context.getCoverage().putFile(_context,fileBlock_);
-        _context.getAnalyzing().getErrors().putFile(fileBlock_);
+        _context.getAnalyzing().getErrors().putFile(_context,fileBlock_);
         StringList importedTypes_ = new StringList();
         StringBuilder str_ = new StringBuilder();
         KeyWords keyWords_ = _context.getKeyWords();

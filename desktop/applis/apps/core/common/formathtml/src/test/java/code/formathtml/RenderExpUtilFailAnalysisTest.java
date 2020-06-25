@@ -441,7 +441,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         cont_.setFullStack(new AdvancedFullStack(conf_));
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        Classes.validateAll(_files, cont_);
+        standards_.setHeaders(getHeaders(_files, cont_));
         assertTrue(cont_.isEmptyErrors());
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;

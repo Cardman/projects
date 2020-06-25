@@ -1,6 +1,7 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
+import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.util.CallingState;
@@ -885,7 +886,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             }
         }
         //!classFiles_.isEmpty()
-        Classes.validateWithoutInit(classFiles_, _conf.getContext());
+        setHeaders(Classes.validateWithoutInit(classFiles_, _conf.getContext()));
         buildIterables(_conf);
     }
     @Override

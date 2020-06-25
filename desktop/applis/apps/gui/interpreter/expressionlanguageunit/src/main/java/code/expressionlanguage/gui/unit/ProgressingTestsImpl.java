@@ -1,6 +1,7 @@
 package code.expressionlanguage.gui.unit;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.ProgressingTests;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
@@ -16,21 +17,27 @@ public final class ProgressingTestsImpl implements ProgressingTests {
     }
 
     @Override
-    public void showErrors(RunnableContextEl _ctx, ExecutingOptions _exec) {
+    public void showErrors(RunnableContextEl _ctx, Options _opts, ExecutingOptions _exec) {
+        if (!_opts.isEmptyErrors()) {
+            String folder_ = _exec.getLogFolder();
+            String time_ = Clock.getDateTimeText("_", "_", "_");
+            String dtPart_ = time_+".txt";
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_opts.displayErrors());
+        }
         if (!_ctx.isEmptyErrors()) {
             String folder_ = _exec.getLogFolder();
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_ctx.getClasses().displayErrors());
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_ctx.getClasses().displayWarnings());
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_ctx.getClasses().displayStdErrors());
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_ctx.getClasses().displayMessageErrors());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_exec.getMethodHeaders().displayErrors());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_exec.getMethodHeaders().displayWarnings());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_exec.getMethodHeaders().displayStdErrors());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_exec.getMethodHeaders().displayMessageErrors());
         }
-        if (!_ctx.getClasses().isEmptyWarnings()) {
+        if (!_exec.getMethodHeaders().isEmptyWarnings()) {
             String folder_ = _exec.getLogFolder();
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_ctx.getClasses().displayWarnings());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_exec.getMethodHeaders().displayWarnings());
         }
     }
 

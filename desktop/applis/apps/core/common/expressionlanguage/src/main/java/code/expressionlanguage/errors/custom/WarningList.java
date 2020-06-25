@@ -1,6 +1,5 @@
 package code.expressionlanguage.errors.custom;
 
-import code.expressionlanguage.analyze.blocks.Classes;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -11,10 +10,10 @@ public class WarningList extends CustList<FoundWarningInterpret> {
     public WarningList() {
     }
 
-    public String display(Classes _classes) {
+    public String display() {
         StringList l_ = new StringList();
         for (FoundWarningInterpret f: this) {
-            l_.add(f.display(_classes));
+            l_.add(f.display());
         }
         return StringList.join(l_, SEP_INFO);
     }

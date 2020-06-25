@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
@@ -16,7 +17,6 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
 public final class Classes {
@@ -27,17 +27,7 @@ public final class Classes {
 
     private StringMap<StringMap<Struct>> staticFields;
     private final StringMap<ToStringMethodHeader> toStringMethods = new StringMap<ToStringMethodHeader>();
-    private final StringMap<CustList<ExecOverridableBlock>> explicitCastMethods = new StringMap<CustList<ExecOverridableBlock>>();
-    private final StringMap<CustList<ExecOverridableBlock>> explicitIdCastMethods = new StringMap<CustList<ExecOverridableBlock>>();
-    private final StringMap<CustList<ExecOverridableBlock>> explicitFromCastMethods = new StringMap<CustList<ExecOverridableBlock>>();
-    private final StringMap<CustList<ExecOverridableBlock>> implicitCastMethods = new StringMap<CustList<ExecOverridableBlock>>();
-    private final StringMap<CustList<ExecOverridableBlock>> implicitIdCastMethods = new StringMap<CustList<ExecOverridableBlock>>();
-    private final StringMap<CustList<ExecOverridableBlock>> implicitFromCastMethods = new StringMap<CustList<ExecOverridableBlock>>();
 
-    private final ErrorList errorsDet;
-    private final WarningList warningsDet;
-    private final StdErrorList stdErrorDet;
-    private final StringList messagesErrorDet;
     private DefaultLockingClass locks;
     private String iteratorVarCust;
     private String hasNextVarCust;
@@ -56,26 +46,17 @@ public final class Classes {
     private CustList<ExecOperationNode> expsFirstCust;
     private CustList<ExecOperationNode> expsSecondCust;
     private CustList<ExecOperatorBlock> operators;
-    private StringList typesWithInnerOperators = new StringList();
-    private StringList packagesFound = new StringList();
 
     public Classes(){
         classesBodies = new StringMap<ExecRootBlock>();
         filesBodies = new StringMap<ExecFileBlock>();
         resources = new StringMap<String>();
-        errorsDet = new ErrorList();
-        warningsDet = new WarningList();
         staticFields = new StringMap<StringMap<Struct>>();
         operators = new CustList<ExecOperatorBlock>();
-        stdErrorDet = new StdErrorList();
-        messagesErrorDet = new StringList();
     }
 
     public void putFileBlock(String _fileName, ExecFileBlock _fileBlock) {
         filesBodies.put(_fileName, _fileBlock);
-    }
-    public StringList getPackagesFound() {
-        return packagesFound;
     }
 
     public ExecFileBlock getFileBody(String _string) {
@@ -86,84 +67,45 @@ public final class Classes {
 		return resources;
 	}
 
-    public boolean isEmptyErrors() {
-        return errorsDet.isEmpty();
-    }
-    public String displayErrors() {
-        return errorsDet.display();
-    }
-    public void addError(FoundErrorInterpret _error) {
-        errorsDet.add(_error);
-    }
-    public ErrorList getErrorsDet() {
-        return errorsDet;
-    }
-    public String displayMessageErrors() {
-        return messagesErrorDet.display();
-    }
-    public boolean isEmptyMessageError() {
-        return messagesErrorDet.isEmpty();
-    }
-    public void addMessageError(String _std) {
-        messagesErrorDet.add(_std);
-    }
-
-    public String displayStdErrors() {
-        return stdErrorDet.display();
-    }
-    public boolean isEmptyStdError() {
-        return stdErrorDet.isEmpty();
-    }
-    public void addStdError(StdWordError _std) {
-        stdErrorDet.add(_std);
-    }
-
-    public boolean isEmptyWarnings() {
-        return warningsDet.isEmpty();
-    }
-    public void addWarning(FoundWarningInterpret _warning) {
-        warningsDet.add(_warning);
-    }
-    public String displayWarnings() {
-        return warningsDet.display(this);
-    }
-
     public void addResources(StringMap<String> _resources) {
     	for (EntryCust<String, String> e: _resources.entryList()) {
     		resources.addEntry(e.getKey(), e.getValue());
     	}
     }
     /**Resources are possibly added before analyzing file types*/
-    public static void validateAll(StringMap<String> _files, ContextEl _context) {
-        validateWithoutInit(_files, _context);
-        Classes classes_ = _context.getClasses();
-        if (!classes_.isEmptyStdError() || !classes_.isEmptyMessageError()||!_context.isEmptyErrors()) {
+    public static MethodHeaders validateAll(StringMap<String> _files, ContextEl _context) {
+        MethodHeaders headers_ = validateWithoutInit(_files, _context);
+        if (!_context.isEmptyErrors()) {
             //all errors are logged here
-            return;
+            return headers_;
         }
         tryInitStaticlyTypes(_context);
+        return headers_;
     }
-    public static void validateWithoutInit(StringMap<String> _files, ContextEl _context) {
-        Classes classes_ = _context.getClasses();
-        if (!classes_.isEmptyStdError() || !classes_.isEmptyMessageError()) {
+    public static MethodHeaders validateWithoutInit(StringMap<String> _files, ContextEl _context) {
+        if (!_context.isEmptyStdError() || !_context.isEmptyMessageError()) {
             //all standards errors are logged here
-            return;
+            return new MethodHeaders();
         }
+        MethodHeaders headers_ = _context.getAnalyzing().getHeaders();
         _context.setAnalyzing();
+        _context.getAnalyzing().setHeaders(headers_);
         Classes.buildPredefinedBracesBodies(_context);
         CustList<RootBlock> foundTypes_ = _context.getAnalyzing().getFoundTypes();
         CustList<RootBlock> allFoundTypes_ = _context.getAnalyzing().getAllFoundTypes();
         CustList<FileBlock> fs_ = _context.getAnalyzing().getErrors().getFiles();
         _context.setAnalyzing();
+        _context.getAnalyzing().setHeaders(headers_);
         _context.getAnalyzing().getErrors().getFiles().addAllElts(fs_);
         _context.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         _context.getAnalyzing().getAllFoundTypes().addAllElts(allFoundTypes_);
         tryValidateCustom(_files, _context);
         if (!_context.isEmptyErrors()) {
             //all errors are logged here
-            return;
+            return headers_;
         }
         _context.setNullAnalyzing();
+        return headers_;
     }
     public static void tryValidateCustom(StringMap<String> _files, ContextEl _context) {
         ClassesUtil.builtTypes(_files, _context, false);
@@ -209,7 +151,7 @@ public final class Classes {
         _context.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
         dl_.initAlwaysSuccess();
         for (String t: _context.getOptions().getTypesInit()) {
-            String res_ = ResolvingImportTypes.resolveCandidate(_context,StringExpUtil.removeDottedSpaces(t));
+            String res_ = StringExpUtil.removeDottedSpaces(t);
             if (_context.getClasses().getClassBody(res_) == null) {
                 continue;
             }
@@ -227,7 +169,7 @@ public final class Classes {
                 n_.setIndexFile(r_.getIdRowCol());
                 n_.buildError(_context.getAnalysisMessages().getNotInitClass(),
                         s);
-                _context.addError(n_);
+                _context.getOptions().addError(n_);
             }
         }
         _context.getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
@@ -412,34 +354,6 @@ public final class Classes {
 
     public StringMap<ToStringMethodHeader> getToStringMethods() {
         return toStringMethods;
-    }
-
-    public StringMap<CustList<ExecOverridableBlock>> getExplicitCastMethods() {
-        return explicitCastMethods;
-    }
-
-    public StringMap<CustList<ExecOverridableBlock>> getExplicitIdCastMethods() {
-        return explicitIdCastMethods;
-    }
-
-    public StringMap<CustList<ExecOverridableBlock>> getExplicitFromCastMethods() {
-        return explicitFromCastMethods;
-    }
-
-    public StringMap<CustList<ExecOverridableBlock>> getImplicitCastMethods() {
-        return implicitCastMethods;
-    }
-
-    public StringMap<CustList<ExecOverridableBlock>> getImplicitIdCastMethods() {
-        return implicitIdCastMethods;
-    }
-
-    public StringMap<CustList<ExecOverridableBlock>> getImplicitFromCastMethods() {
-        return implicitFromCastMethods;
-    }
-
-    public StringList getTypesWithInnerOperators() {
-        return typesWithInnerOperators;
     }
 
     public StringMap<ExecRootBlock> getClassesBodies() {

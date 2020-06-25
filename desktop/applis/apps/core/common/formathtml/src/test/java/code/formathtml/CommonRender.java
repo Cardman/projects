@@ -1,5 +1,8 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.MethodHeaders;
+import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
@@ -52,10 +55,13 @@ public abstract class CommonRender {
         cont_.setFullStack(new AdvancedFullStack(conf_));
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        Classes.validateWithoutInit(_files, cont_);
+        standards_.setHeaders(getHeaders(_files, cont_));
         assertTrue(cont_.isEmptyErrors());
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;
+    }
+    protected static MethodHeaders getHeaders(StringMap<String> _files,ContextEl _cont) {
+        return Classes.validateWithoutInit(_files,_cont);
     }
     protected static RendDocumentBlock buildRendWithoutBean(String html_, Configuration conf_) {
         setLocale("en", conf_);

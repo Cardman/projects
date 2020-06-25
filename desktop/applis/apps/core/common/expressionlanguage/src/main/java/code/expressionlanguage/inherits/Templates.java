@@ -84,7 +84,7 @@ public final class Templates {
                 String foundId_ = builtId_.toString();
                 if (!inner_) {
                     boolean foundPkg_ = false;
-                    for (String p: _an.getClasses().getPackagesFound()) {
+                    for (String p: _an.getAnalyzing().getPackagesFound()) {
                         if (StringList.quickEq(p, StringExpUtil.removeDottedSpaces(foundId_))) {
                             foundPkg_ = true;
                             break;

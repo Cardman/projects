@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -413,7 +414,7 @@ public final class Configuration {
     }
 
     public boolean isEmptyErrors() {
-        return getContext().getClasses().isEmptyErrors() && getErrorsDet().isEmpty();
+        return standards.getHeaders().isEmptyErrors() && getErrorsDet().isEmpty();
     }
 
     public ErrorList getErrorsDet() {
@@ -613,6 +614,7 @@ public final class Configuration {
 
     public void setupInts() {
         context.setAnalyzing();
+        context.getAnalyzing().setHeaders(standards.getHeaders());
         context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));
         context.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(this));
         context.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(this));

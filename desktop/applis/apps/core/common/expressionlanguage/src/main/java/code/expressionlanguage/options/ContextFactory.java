@@ -1,6 +1,7 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.SingleContextEl;
@@ -18,14 +19,8 @@ public final class ContextFactory {
 
     private ContextFactory(){}
 
-    public static ContextEl build(int _stack, DefaultLockingClass _lock,Initializer _init,
-            Options _options,AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, int _tabWidth, String _folder) {
-        ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options,  _mess, _definedKw, _definedLgNames, _tabWidth);
-        return validate( _mess,_definedKw,_definedLgNames, _files, contextEl_,_folder, new CustList<CommentDelimiters>());
-    }
-
-    public static ContextEl validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
-                                     CustList<CommentDelimiters> _comments) {
+    public static MethodHeaders validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
+                                         CustList<CommentDelimiters> _comments) {
         validateStds(_contextEl, _mess, _definedKw, _definedLgNames,_comments);
         StringMap<String> srcFiles_ = new StringMap<String>();
         String pref_ = StringList.concat(_folder,"/");
@@ -36,8 +31,7 @@ public final class ContextFactory {
         	srcFiles_.addEntry(e.getKey(), e.getValue());
         }
         _contextEl.getClasses().addResources(_files);
-        Classes.validateAll(srcFiles_, _contextEl);
-        return _contextEl;
+        return Classes.validateAll(srcFiles_, _contextEl);
     }
 
     public static ContextEl build(int _stack, DefaultLockingClass _lock, Initializer _init,
@@ -48,10 +42,11 @@ public final class ContextFactory {
     }
     public static void validateStds(ContextEl _context, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames,
                                     CustList<CommentDelimiters> _comments) {
+        _context.setAnalyzing();
         CommentsUtil.checkAndUpdateComments(_context.getComments(),_comments);
         _context.setStandards(_definedLgNames);
         AnalysisMessages.validateMessageContents(_context,_mess.allMessages());
-        if (!_context.getClasses().isEmptyMessageError()) {
+        if (!_context.isEmptyMessageError()) {
             return;
         }
         StringMap<String> keyWords_ = _definedKw.allKeyWords();
@@ -91,7 +86,7 @@ public final class ContextFactory {
         ValidatorStandard.validateVarTypesDuplicates(_context, varTypes_);
         CustList<CustList<KeyValueMemberName>> merge_ = _definedLgNames.allMergeTableTypeMethodNames();
         ValidatorStandard.validateMergedDuplicates(_context, merge_);
-        if (!_context.getClasses().isEmptyStdError()) {
+        if (!_context.isEmptyStdError()) {
             return;
         }
         _definedLgNames.build();

@@ -2,6 +2,7 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
@@ -45,17 +46,19 @@ public abstract class ContextEl {
     private KeyWords keyWords;
     private InitializingTypeInfos initializingTypeInfos = new InitializingTypeInfos();
     private boolean covering;
+    private boolean gettingErrors;
     private Coverage coverage;
     private AbstractFullStack fullStack;
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private Struct seed = NullStruct.NULL_VALUE;
 
-    public ContextEl(boolean _covering, int _stackOverFlow,
-                     DefaultLockingClass _lock,Options _options,
+    public ContextEl(int _stackOverFlow,
+                     DefaultLockingClass _lock, Options _options,
                      AnalysisMessages _mess,
                      KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
         this();
-        setCovering(_covering);
+        setGettingErrors(_options.isGettingErrors());
+        setCovering(_options.isCovering());
         setOptions(_options);
         setStackOverFlow(_stackOverFlow);
         setStandards(_stds);
@@ -112,16 +115,28 @@ public abstract class ContextEl {
 
     public void addWarning(FoundWarningInterpret _warning) {
         _warning.setLocationFile(getLocationFile(_warning.getFileName(),_warning.getIndexFile()));
-        classes.addWarning(_warning);
+        analyzing.addWarning(_warning);
+    }
+
+    public boolean isEmptyMessageError() {
+        return analyzing.isEmptyMessageError();
+    }
+    public void addMessageError(String _std) {
+        analyzing.addMessageError(_std);
     }
 
     public boolean isEmptyErrors() {
-        return classes.isEmptyErrors() && classes.isEmptyStdError() && classes.isEmptyMessageError();
+        return analyzing == null || (analyzing.isEmptyErrors() && analyzing.isEmptyStdError() && analyzing.isEmptyMessageError());
     }
-
+    public boolean isEmptyStdError() {
+        return analyzing.isEmptyStdError();
+    }
+    public void addStdError(StdWordError _std) {
+        analyzing.addStdError(_std);
+    }
     public void addError(FoundErrorInterpret _error) {
         _error.setLocationFile(getLocationFile(_error.getFileName(),_error.getIndexFile()));
-        classes.addError(_error);
+        analyzing.addError(_error);
     }
 
     public Classes getClasses() {
@@ -140,12 +155,24 @@ public abstract class ContextEl {
         coverage = _coverage;
     }
 
+    public boolean isGettingParts() {
+        return isCovering() || isGettingErrors();
+    }
+
     public boolean isCovering() {
         return covering;
     }
 
     public void setCovering(boolean _covering) {
         covering = _covering;
+    }
+
+    public boolean isGettingErrors() {
+        return gettingErrors;
+    }
+
+    public void setGettingErrors(boolean _gettingErrors) {
+        gettingErrors = _gettingErrors;
     }
 
     public void clearPages() {

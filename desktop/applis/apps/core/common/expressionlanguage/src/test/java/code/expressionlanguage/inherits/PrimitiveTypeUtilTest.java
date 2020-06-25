@@ -74,16 +74,6 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
         assertEq(context_.getStandards().getAliasVoid(), sub_.get(0));
     }
 
-    private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
-        ContextEl cont_ = getSimpleContextEl();
-        parseCustomFiles(_files, cont_);
-        Classes classes_ = cont_.getClasses();
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue(classes_.displayErrors(), cont_.isEmptyErrors());
-        return cont_;
-    }
-
     private ContextEl simpleContextEl() {
         return getSimpleContextEl();
     }

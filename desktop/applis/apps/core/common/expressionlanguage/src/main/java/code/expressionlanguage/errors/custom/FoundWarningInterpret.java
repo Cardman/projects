@@ -1,5 +1,4 @@
 package code.expressionlanguage.errors.custom;
-import code.expressionlanguage.analyze.blocks.Classes;
 
 public abstract class FoundWarningInterpret {
 
@@ -16,7 +15,7 @@ public abstract class FoundWarningInterpret {
     private int indexFile;
     private String locationFile;
 
-    public String display(Classes _classes) {
+    public String display() {
         StringBuilder str_ = new StringBuilder(SEP_INFO);
         str_.append(FILE).append(SEP_KEY_VAL).append(fileName).append(SEP_INFO);
         str_.append(LINE_COL).append(SEP_KEY_VAL).append(locationFile).append(SEP_INFO);

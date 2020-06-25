@@ -458,7 +458,7 @@ public final class AnaTemplates {
      Sample 4: "my.pkg.MyThirdClass.Inner.SecInner" => ["my.pkg.MySecondClass","Inner","SecInner"]<br/>
      */
     public static StringList getAllInnerTypes(String _type, ContextEl _an) {
-        return getAllInnerTypes(_type,_an.getClasses().getPackagesFound());
+        return getAllInnerTypes(_type,_an.getAnalyzing().getPackagesFound());
     }
     public static StringList getAllInnerTypes(String _type, StringList _pkg) {
         StringList types_ = new StringList();

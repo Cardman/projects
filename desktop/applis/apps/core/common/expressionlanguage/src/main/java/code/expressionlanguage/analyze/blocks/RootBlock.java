@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -531,12 +532,12 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                 }
             }
         }
-        CustList<ExecOverridableBlock> explicit_ = new CustList<ExecOverridableBlock>();
-        CustList<ExecOverridableBlock> explicitId_ = new CustList<ExecOverridableBlock>();
-        CustList<ExecOverridableBlock> explicitFrom_ = new CustList<ExecOverridableBlock>();
-        CustList<ExecOverridableBlock> implicit_ = new CustList<ExecOverridableBlock>();
-        CustList<ExecOverridableBlock> implicitId_ = new CustList<ExecOverridableBlock>();
-        CustList<ExecOverridableBlock> implicitFrom_ = new CustList<ExecOverridableBlock>();
+        CustList<MethodHeaderInfo> explicit_ = new CustList<MethodHeaderInfo>();
+        CustList<MethodHeaderInfo> explicitId_ = new CustList<MethodHeaderInfo>();
+        CustList<MethodHeaderInfo> explicitFrom_ = new CustList<MethodHeaderInfo>();
+        CustList<MethodHeaderInfo> implicit_ = new CustList<MethodHeaderInfo>();
+        CustList<MethodHeaderInfo> implicitId_ = new CustList<MethodHeaderInfo>();
+        CustList<MethodHeaderInfo> implicitFrom_ = new CustList<MethodHeaderInfo>();
         for (Block b: bl_) {
             if (!(b instanceof Returnable)) {
                 continue;
@@ -599,19 +600,19 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                     } else {
                         if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
                             if (StringList.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
-                                explicitId_.add(_mem.getAllMethods().getVal(m_));
+                                explicitId_.add(new MethodHeaderInfo(m_.getId(),m_.getImportedReturnType(), m_.getAccess()));
                             } else if (StringList.quickEq(m_.getImportedReturnType(),_exec.getGenericString())){
-                                explicit_.add(_mem.getAllMethods().getVal(m_));
+                                explicit_.add(new MethodHeaderInfo(m_.getId(),m_.getImportedReturnType(), m_.getAccess()));
                             } else {
-                                explicitFrom_.add(_mem.getAllMethods().getVal(m_));
+                                explicitFrom_.add(new MethodHeaderInfo(m_.getId(),m_.getImportedReturnType(), m_.getAccess()));
                             }
                         } else {
                             if (StringList.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
-                                implicitId_.add(_mem.getAllMethods().getVal(m_));
+                                implicitId_.add(new MethodHeaderInfo(m_.getId(),m_.getImportedReturnType(), m_.getAccess()));
                             } else if (StringList.quickEq(m_.getImportedReturnType(),_exec.getGenericString())){
-                                implicit_.add(_mem.getAllMethods().getVal(m_));
+                                implicit_.add(new MethodHeaderInfo(m_.getId(),m_.getImportedReturnType(), m_.getAccess()));
                             } else {
-                                implicitFrom_.add(_mem.getAllMethods().getVal(m_));
+                                implicitFrom_.add(new MethodHeaderInfo(m_.getId(),m_.getImportedReturnType(), m_.getAccess()));
                             }
                         }
                     }
@@ -834,12 +835,12 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             }
         }
         buildFieldInfos(_context, bl_);
-        _context.getClasses().getExplicitCastMethods().addEntry(getFullName(),explicit_);
-        _context.getClasses().getExplicitIdCastMethods().addEntry(getFullName(),explicitId_);
-        _context.getClasses().getExplicitFromCastMethods().addEntry(getFullName(),explicitFrom_);
-        _context.getClasses().getImplicitCastMethods().addEntry(getFullName(),implicit_);
-        _context.getClasses().getImplicitIdCastMethods().addEntry(getFullName(),implicitId_);
-        _context.getClasses().getImplicitFromCastMethods().addEntry(getFullName(),implicitFrom_);
+        _context.getAnalyzing().getExplicitCastMethods().addEntry(getFullName(),explicit_);
+        _context.getAnalyzing().getExplicitIdCastMethods().addEntry(getFullName(),explicitId_);
+        _context.getAnalyzing().getExplicitFromCastMethods().addEntry(getFullName(),explicitFrom_);
+        _context.getAnalyzing().getImplicitCastMethods().addEntry(getFullName(),implicit_);
+        _context.getAnalyzing().getImplicitIdCastMethods().addEntry(getFullName(),implicitId_);
+        _context.getAnalyzing().getImplicitFromCastMethods().addEntry(getFullName(),implicitFrom_);
         validateIndexers(_context, indexersGet_, indexersSet_);
     }
 

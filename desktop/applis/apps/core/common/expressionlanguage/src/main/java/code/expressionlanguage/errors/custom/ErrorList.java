@@ -11,9 +11,6 @@ public class ErrorList extends CustList<FoundErrorInterpret> {
     }
 
     public String display() {
-        if (isEmpty()) {
-            return EMPTY_STRING;
-        }
         StringList str_ = new StringList();
         for (FoundErrorInterpret e: this) {
             str_.add(e.display());

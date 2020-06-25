@@ -27,7 +27,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
                       CustInitializer _init, Options _options, ExecutingOptions _exec,
                                 AnalysisMessages _mess,
                                 KeyWords _keyWords, LgNames _stds, int _tabWidth) {
-        super(_exec.isCovering(),_stackOverFlow, _lock, _options, _mess,_keyWords, _stds, _tabWidth);
+        super(_stackOverFlow, _lock, _options, _mess,_keyWords, _stds, _tabWidth);
         custInit = _init;
         executingOptions = _exec;
         interrupt = _exec.getInterrupt();

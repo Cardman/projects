@@ -410,7 +410,7 @@ public final class AnaPartTypeUtil {
 
     private static void addTypeParts(ContextEl _an, AccessedBlock _rooted,
                                      String _refFileName, int _loc, CustList<PartOffset> _offs, CustList<AnaLeafPartType> _leaves) {
-        if (_an.isCovering()) {
+        if (_an.isGettingParts()) {
             String curr_ = ((ExecBlock)_rooted).getFile().getRenderFileName();
             for (AnaLeafPartType l: _leaves){
                 if (l instanceof AnaNamePartType) {

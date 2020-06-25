@@ -32,7 +32,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         Classes cl_ = context_.getClasses();
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
          String solved_ = AnaPartTypeUtil.processAnalyze("OuterTwo", "", context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("pkgtwo.OuterTwo", solved_);
     }
     @Test
@@ -60,7 +60,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         Classes cl_ = context_.getClasses();
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<OuterFour>", "",context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("pkgtwo.OuterThree<pkgthree.OuterFour>", solved_);
     }
     @Test
@@ -90,7 +90,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         Classes cl_ = context_.getClasses();
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<OuterFive<OuterFour>>", "",context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("pkgtwo.OuterThree<pkgtwo.OuterFive<pkgthree.OuterFour>>", solved_);
     }
     @Test
@@ -387,7 +387,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterTwo[]", "", context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("[pkgtwo.OuterTwo", solved_);
     }
     @Test
@@ -408,7 +408,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterTwo<java.lang.Number>[]", "", context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("[pkgtwo.OuterTwo<java.lang.Number>", solved_);
     }
     @Test
@@ -448,7 +448,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
         context_.getAnalyzing().getAvailableVariables().addEntry("I",0);
         String solved_ = AnaPartTypeUtil.processAnalyze("Outer<#D[]>.InnerThree<#H[]>.InnerInner<#I[]>[]", "",context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("[pkgtwo.OuterThree<[#D>..InnerFive<[#H>..InnerInner<[#I>", solved_);
     }
     @Test
@@ -465,7 +465,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("java.lang.$Fct<$void>", "", context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("java.lang.$Fct<$void>", solved_);
     }
     @Test
@@ -494,7 +494,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<?OuterFour>", "",context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("pkgtwo.OuterThree<?pkgthree.OuterFour>", solved_);
     }
     @Test
@@ -523,7 +523,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<!OuterFour>", "",context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("pkgtwo.OuterThree<!pkgthree.OuterFour>", solved_);
     }
     @Test
@@ -552,7 +552,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<?>", "",context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("pkgtwo.OuterThree<?>", solved_);
     }
     @Test
@@ -573,7 +573,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterTwo<?java.lang.Number>[]", "", context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("[pkgtwo.OuterTwo<?java.lang.Number>", solved_);
     }
     @Test
@@ -602,7 +602,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<?OuterFour[]>", "",context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("pkgtwo.OuterThree<?[pkgthree.OuterFour>", solved_);
     }
     @Test
@@ -631,7 +631,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("OuterThree<!OuterFour[]>", "",context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("pkgtwo.OuterThree<![pkgthree.OuterFour>", solved_);
     }
     @Test
@@ -648,7 +648,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         
         String solved_ = AnaPartTypeUtil.processAnalyze("java.lang.$Fct<?>", "", context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("java.lang.$Fct<?>", solved_);
     }
     @Test
@@ -715,7 +715,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
         context_.getAnalyzing().getAvailableVariables().addEntry("I",0);
         String solved_ = AnaPartTypeUtil.processAnalyze("D<#D[]>.InnerThree<#H[]>.InnerInner<#I[]>[]", "",context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("[pkgtwo.OuterThree<[#D>..InnerFive<[#H>..InnerInner<[#I>", solved_);
     }
     @Test
@@ -1056,7 +1056,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         Classes cl_ = context_.getClasses();
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyzeLine("OuterThree<OuterFour>", context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("pkgtwo.OuterThree<pkgthree.OuterFour>", solved_);
     }
     @Test
@@ -1084,7 +1084,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         Classes cl_ = context_.getClasses();
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyzeLine("OuterFour.OuterThree<OuterFour>", context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("pkgthree.OuterFour..OuterThree<pkgthree.OuterFour>", solved_);
     }
     @Test
@@ -1112,7 +1112,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         Classes cl_ = context_.getClasses();
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyzeLine("OuterFour.OuterThree<$void>", context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("", solved_);
     }
     @Test
@@ -1140,7 +1140,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         Classes cl_ = context_.getClasses();
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyzeLine("OuterFour.OuterThree<$void", context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("", solved_);
     }
     @Test
@@ -1168,7 +1168,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         Classes cl_ = context_.getClasses();
         ExecRootBlock root_ = cl_.getClassBody("pkg.Outer");
         String solved_ = AnaPartTypeUtil.processAnalyzeLine("OuterFour..OuterThree<$void>", context_, root_);
-        assertTrue(cl_.displayErrors(), context_.isEmptyErrors());
+        assertTrue( context_.isEmptyErrors());
         assertEq("", solved_);
     }
 

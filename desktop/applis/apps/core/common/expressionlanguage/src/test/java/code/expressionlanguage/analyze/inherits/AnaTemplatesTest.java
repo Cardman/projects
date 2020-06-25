@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.blocks.Classes;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
@@ -6247,25 +6248,31 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
 
     private static ContextEl getContextEl(StringMap<String> _files, ContextEl _cont) {
         Classes classes_ = _cont.getClasses();
+        MethodHeaders headers_ = _cont.getAnalyzing().getHeaders();
         _cont.setAnalyzing();
+        _cont.getAnalyzing().setHeaders(headers_);
         Classes.buildPredefinedBracesBodies(_cont);
         CustList<RootBlock> foundTypes_ = _cont.getAnalyzing().getFoundTypes();
         _cont.setAnalyzing();
+        _cont.getAnalyzing().setHeaders(headers_);
         _cont.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         ClassesUtil.tryBuildBracedClassesBodies(_files, _cont, false);
-        assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
-        assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
+        assertTrue( _cont.isEmptyErrors());
+        assertTrue( _cont.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(_cont);
-        assertTrue(classes_.displayErrors(), _cont.isEmptyErrors());
+        assertTrue( _cont.isEmptyErrors());
         return _cont;
     }
 
     private static ContextEl simpleContextEl() {
         ContextEl cont_ = getSimpleContextEl();
+        MethodHeaders headers_ = cont_.getAnalyzing().getHeaders();
         cont_.setAnalyzing();
+        cont_.getAnalyzing().setHeaders(headers_);
         Classes.buildPredefinedBracesBodies(cont_);
         CustList<RootBlock> foundTypes_ = cont_.getAnalyzing().getFoundTypes();
         cont_.setAnalyzing();
+        cont_.getAnalyzing().setHeaders(headers_);
         cont_.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         return cont_;
     }

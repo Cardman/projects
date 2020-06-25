@@ -18,7 +18,7 @@ public final class ParserType {
     private ParserType(){}
 
     public static Ints getIndexes(String _input, ContextEl _an) {
-        return getIndexes(_input,_an.getClasses().getPackagesFound());
+        return getIndexes(_input,_an.getAnalyzing().getPackagesFound());
     }
     public static Ints getIndexes(String _input, StringList _pkg) {
         int count_ = 0;
