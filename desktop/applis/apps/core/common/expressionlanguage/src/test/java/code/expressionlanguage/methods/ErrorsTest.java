@@ -273,6 +273,21 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void report18Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer<T,T> {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Outer</a>&lt;<a name=\"m25\">T</a>,<a name=\"m27\" title=\"The part T in a variable type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\">T</a>&gt; {\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
         validate(cont_,files_);
         assertTrue(!cont_.isEmptyErrors());
