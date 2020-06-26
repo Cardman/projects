@@ -830,7 +830,7 @@ public final class StringExpUtil {
             return true;
         }
         char first_ = _found.charAt(_keyWord.length()+_start);
-        return !StringList.isDollarWordChar(first_);
+        return !StringExpUtil.isTypeLeafChar(first_);
     }
     public static boolean isVar(String _string) {
         String tr_ = _string.trim();

@@ -245,7 +245,7 @@ public final class ElResolver {
                 ctorCall_ = resKeyWords_.isCallCtor();
                 continue;
             }
-            if (StringList.isDollarWordChar(curChar_)) {
+            if (StringExpUtil.isTypeLeafChar(curChar_)) {
                 resWords_.setNextIndex(i_);
                 resWords_.setLastDoubleDot(lastDoubleDot_);
                 resWords_.setCallCtor(ctorCall_);
@@ -437,7 +437,7 @@ public final class ElResolver {
                 //instanceof
                 while (next_ < len_) {
                     char curLoc_ = _string.charAt(next_);
-                    if (StringList.isDollarWordChar(curLoc_)) {
+                    if (StringExpUtil.isTypeLeafChar(curLoc_)) {
                         next_++;
                         continue;
                     }
@@ -446,10 +446,6 @@ public final class ElResolver {
                         continue;
                     }
                     if (Character.isWhitespace(curLoc_)) {
-                        next_++;
-                        continue;
-                    }
-                    if (curLoc_ == Templates.PREFIX_VAR_TYPE_CHAR) {
                         next_++;
                         continue;
                     }
@@ -718,7 +714,7 @@ public final class ElResolver {
                     afterSuper_++;
                     continue;
                 }
-                if (!StringList.isDollarWordChar(_string.charAt(afterSuper_))) {
+                if (!StringExpUtil.isTypeLeafChar(_string.charAt(afterSuper_))) {
                     break;
                 }
                 afterSuper_++;
@@ -788,7 +784,7 @@ public final class ElResolver {
             boolean pass_ = false;
             while (afterClassChoice_ < len_) {
                 char loc_ = _string.charAt(afterClassChoice_);
-                if (!StringList.isDollarWordChar(loc_)) {
+                if (!StringExpUtil.isTypeLeafChar(loc_)) {
                     break;
                 }
                 pass_ = true;
@@ -870,7 +866,7 @@ public final class ElResolver {
             boolean pass_ = false;
             while (afterClassChoice_ < len_) {
                 char loc_ = _string.charAt(afterClassChoice_);
-                if (!StringList.isDollarWordChar(loc_)) {
+                if (!StringExpUtil.isTypeLeafChar(loc_)) {
                     break;
                 }
                 pass_ = true;
@@ -951,7 +947,7 @@ public final class ElResolver {
             }
             while (afterClassChoice_ < len_) {
                 char loc_ = _string.charAt(afterClassChoice_);
-                if (!StringList.isDollarWordChar(loc_)) {
+                if (!StringExpUtil.isTypeLeafChar(loc_)) {
                     break;
                 }
                 afterClassChoice_++;
@@ -1075,7 +1071,7 @@ public final class ElResolver {
                     afterSuper_++;
                     continue;
                 }
-                if (!StringList.isDollarWordChar(_string.charAt(afterSuper_))) {
+                if (!StringExpUtil.isTypeLeafChar(_string.charAt(afterSuper_))) {
                     break;
                 }
                 afterSuper_++;
@@ -1164,7 +1160,7 @@ public final class ElResolver {
         int beginWord_ = i_;
         while (i_ < len_) {
             char locChar_ = _string.charAt(i_);
-            if (!StringList.isDollarWordChar(locChar_) && locChar_ != Templates.PREFIX_VAR_TYPE_CHAR) {
+            if (!StringExpUtil.isTypeLeafChar(locChar_)) {
                 break;
             }
             i_++;
@@ -1228,7 +1224,7 @@ public final class ElResolver {
             int last_ = i_;
             while (j_ < len_) {
                 char locChar_ = _string.charAt(j_);
-                if (StringList.isDollarWordChar(locChar_)) {
+                if (StringExpUtil.isTypeLeafChar(locChar_)) {
                     last_ = j_;
                     j_++;
                     continue;
@@ -1879,7 +1875,7 @@ public final class ElResolver {
         int iExp_ = j_;
         while (j_ < _max) {
             char current_ = _string.charAt(j_);
-            if (!StringList.isDollarWordChar(current_)) {
+            if (!StringExpUtil.isTypeLeafChar(current_)) {
                 int n_ = StringExpUtil.nextPrintChar(j_ + 1, _max, _string);
                 if (current_ == DOT_VAR) {
                     if (_seenDot) {

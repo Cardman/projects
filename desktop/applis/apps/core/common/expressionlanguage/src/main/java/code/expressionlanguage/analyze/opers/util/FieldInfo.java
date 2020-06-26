@@ -28,6 +28,9 @@ public final class FieldInfo {
     public static FieldInfo newFieldInfo(String _name, String _declaringClass, String _type,
                                          boolean _staticField, boolean _finalField, ContextEl _cont, boolean _aff, Accessed _accessed) {
         String formattedType_ = _type;
+        if (_staticField) {
+            return new FieldInfo(_name, _declaringClass, formattedType_, _type, true, _finalField, _accessed);
+        }
         if (_aff) {
             formattedType_ = AnaTemplates.wildCardFormatParam(_declaringClass, formattedType_, _cont);
         } else {
@@ -36,7 +39,7 @@ public final class FieldInfo {
         if (formattedType_.isEmpty()) {
             return null;
         }
-        return new FieldInfo(_name, _declaringClass, formattedType_, _type, _staticField, _finalField, _accessed);
+        return new FieldInfo(_name, _declaringClass, formattedType_, _type, false, _finalField, _accessed);
     }
     public static FieldInfo newFieldMetaInfo(String _name, String _declaringClass, String _type,
                                              boolean _staticField, boolean _finalField, Accessed _accessed) {

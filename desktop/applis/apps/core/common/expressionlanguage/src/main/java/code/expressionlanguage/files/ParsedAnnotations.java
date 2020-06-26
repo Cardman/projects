@@ -1,5 +1,6 @@
 package code.expressionlanguage.files;
 
+import code.expressionlanguage.common.StringExpUtil;
 import code.util.Ints;
 import code.util.StringList;
 
@@ -100,7 +101,7 @@ public final class ParsedAnnotations {
             if (cur_ == BEGIN_CALLING) {
                 nbPars_++;
             }
-            if (StringList.isDollarWordChar(cur_) && nbPars_ == 0) {
+            if (StringExpUtil.isTypeLeafChar(cur_) && nbPars_ == 0) {
                 String after_ = instruction.substring(j_+1);
                 if (after_.isEmpty() || !isPart(after_.charAt(0))) {
                     String afterTrim_ = after_.trim();
@@ -161,7 +162,7 @@ public final class ParsedAnnotations {
         }
     }
     private static boolean isPart(char _char) {
-        if (StringList.isDollarWordChar(_char)) {
+        if (StringExpUtil.isTypeLeafChar(_char)) {
             return true;
         }
         if (_char == '.') {

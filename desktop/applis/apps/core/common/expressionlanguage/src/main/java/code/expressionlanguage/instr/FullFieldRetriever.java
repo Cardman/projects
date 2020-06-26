@@ -139,7 +139,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         int k_ = _from;
         while (j_ < len_) {
             char locChar_ = _string.charAt(j_);
-            if (StringList.isDollarWordChar(locChar_)) {
+            if (StringExpUtil.isTypeLeafChar(locChar_)) {
                 part_.append(locChar_);
                 j_++;
                 continue;

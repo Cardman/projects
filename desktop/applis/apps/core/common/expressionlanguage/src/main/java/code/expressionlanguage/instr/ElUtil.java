@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.opers.ExecAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecCompoundAffectationOperation;
@@ -88,7 +89,7 @@ public final class ElUtil {
         StringBuilder fieldName_ = new StringBuilder();
         while (k_ < lenField_) {
             char fieldChar_ = _v.charAt(k_);
-            if (!StringList.isDollarWordChar(fieldChar_)) {
+            if (!StringExpUtil.isTypeLeafChar(fieldChar_)) {
                 break;
             }
             fieldName_.append(fieldChar_);
