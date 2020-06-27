@@ -203,14 +203,14 @@ public final class ResultText {
             for (CustList<RendDynOperationNode> e: opExp_) {
                 Mapping m_ = new Mapping();
                 m_.setArg(e.last().getResultClass());
-                m_.setParam(_cont.getStandards().getAliasNumber());
+                m_.setParam(_cont.getStandards().getAliasLong());
                 if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(colsGrId_);
                     badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(e.last().getResultClass().getNames(),RendBlock.AND_ERR),
-                            _cont.getStandards().getAliasNumber());
+                            _cont.getStandards().getAliasLong());
                     _cont.addError(badEl_);
                 }
             }

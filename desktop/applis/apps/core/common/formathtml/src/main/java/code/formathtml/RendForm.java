@@ -40,14 +40,14 @@ public final class RendForm extends RendElement {
             for (CustList<RendDynOperationNode> e: opExp) {
                 Mapping m_ = new Mapping();
                 m_.setArg(e.last().getResultClass());
-                m_.setParam(_cont.getStandards().getAliasNumber());
+                m_.setParam(_cont.getStandards().getAliasLong());
                 if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_cont.getCurrentFileName());
                     badEl_.setIndexFile(rowsGrId_);
                     badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(e.last().getResultClass().getNames(),AND_ERR),
-                            _cont.getStandards().getAliasNumber());
+                            _cont.getStandards().getAliasLong());
                     _cont.addError(badEl_);
                 }
             }
@@ -66,17 +66,6 @@ public final class RendForm extends RendElement {
                 _cont.getLocalVarsAna().last().addEntry(v,lv_);
                 formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
                 i_++;
-            }
-            StringList argList_ = new StringList();
-            for (CustList<RendDynOperationNode> e: opExp) {
-                String cl_ = e.last().getResultClass().getSingleNameOrEmpty();
-                if (cl_.isEmpty()) {
-                    argList_.add(_cont.getKeyWords().getKeyWordNull());
-                } else {
-                    String cast_ = _cont.getKeyWords().getKeyWordCast();
-                    cast_ = StringList.concat(cast_,RendBlock.LEFT_PAR,cl_,RendBlock.RIGHT_PAR);
-                    argList_.add(StringList.concat(cast_,ZERO));
-                }
             }
             String pref_ = r_.quickRender(lk_, formArg_);
             if (pref_.indexOf('(') < 0) {

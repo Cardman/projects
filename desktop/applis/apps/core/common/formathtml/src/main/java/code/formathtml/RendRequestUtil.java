@@ -1,7 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -28,7 +28,7 @@ final class RendRequestUtil {
         ImportingPage ip_ = _conf.getLastPage();
         int s_ = varNames_.size();
         for (int i =0; i< s_; i++) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(new IntStruct(Numbers.parseInt(args_.get(i))),_conf.getStandards().getAliasPrimInteger());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(Numbers.parseLongZero(args_.get(i))),_conf.getContext());
             ip_.putLocalVar(varNames_.get(i), locVar_);
         }
         Argument arg_ = RenderExpUtil.calculateReuse(exps_,_conf,_bean);
