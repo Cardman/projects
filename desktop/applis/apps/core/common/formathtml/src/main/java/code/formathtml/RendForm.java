@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -14,6 +15,7 @@ import code.util.StringList;
 
 public final class RendForm extends RendElement {
     private CustList<CustList<RendDynOperationNode>> opExp;
+    private CustList<RendDynOperationNode> opForm;
 
     private StringList texts = new StringList();
     private StringList varNames = new StringList();
@@ -49,6 +51,22 @@ public final class RendForm extends RendElement {
                     _cont.addError(badEl_);
                 }
             }
+            int l_ = opExp.size();
+            StringList formArg_ = new StringList();
+            StringList varNames_ = new StringList();
+            for (int i = 0; i< l_; i++) {
+                String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                varNames_.add(varLoc_);
+            }
+            varNames = varNames_;
+            int i_ = 0;
+            for (String v:varNames_) {
+                AnaLocalVariable lv_ = new AnaLocalVariable();
+                lv_.setClassName(opExp.get(i_).last().getResultClass().getSingleNameOrEmpty());
+                _cont.getLocalVarsAna().last().addEntry(v,lv_);
+                formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
+                i_++;
+            }
             StringList argList_ = new StringList();
             for (CustList<RendDynOperationNode> e: opExp) {
                 String cl_ = e.last().getResultClass().getSingleNameOrEmpty();
@@ -60,11 +78,11 @@ public final class RendForm extends RendElement {
                     argList_.add(StringList.concat(cast_,ZERO));
                 }
             }
-            String pref_ = r_.quickRender(lk_, argList_);
+            String pref_ = r_.quickRender(lk_, formArg_);
             if (pref_.indexOf('(') < 0) {
                 pref_ = StringList.concat(pref_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
             }
-            RenderExpUtil.getAnalyzedOperations(pref_,rowsGrId_,0,_cont);
+            opForm = RenderExpUtil.getAnalyzedOperations(pref_,rowsGrId_,0,_cont);
         }
     }
 
@@ -78,11 +96,11 @@ public final class RendForm extends RendElement {
         currentForm_++;
         _cont.setCurrentForm(currentForm_);
         String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-        _cont.getCallsFormExps().add(new CustList<RendDynOperationNode>());
-        _cont.getFormsArgs().add(new StringList());
+        _cont.getCallsFormExps().add(opForm);
         _cont.getFormsVars().add(varNames);
         Element elt_ = (Element) _nextWrite;
         if (!href_.startsWith(CALL_METHOD)) {
+            _cont.getFormsArgs().add(new StringList());
             if (elt_.hasAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))) {
                 elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), EMPTY_STRING);
             }
@@ -91,13 +109,21 @@ public final class RendForm extends RendElement {
             elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), String.valueOf(currentForm_ - 1));
             return;
         }
-        String render_ = ResultText.render(opExp, texts, _cont);
+        StringList alt_ = ResultText.renderAltList(opExp, texts, _cont);
+        StringList arg_ = new StringList();
+        int len_ = alt_.size();
+        for (int i = 1; i < len_; i += 2) {
+            arg_.add(alt_.get(i));
+        }
+        String render_ = StringList.join(alt_,"");
         if (_cont.getContext().hasException()) {
+            _cont.getFormsArgs().add(new StringList());
             _cont.getFormsNames().add(EMPTY_STRING);
             currentForm_ = _cont.getCurrentForm();
             elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), String.valueOf(currentForm_ - 1));
             return;
         }
+        _cont.getFormsArgs().add(arg_);
         _cont.getFormsNames().add(render_);
         String beanName_ = _cont.getLastPage().getBeanName();
         elt_.setAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringList.concat(CALL_METHOD,beanName_,DOT,render_));

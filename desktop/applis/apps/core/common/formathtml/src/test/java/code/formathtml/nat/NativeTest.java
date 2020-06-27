@@ -381,7 +381,7 @@ public final class NativeTest extends CommonRender {
         if (_cont.hasPages() && _cont.getContext().getAnalyzing() != null) {
             _cont.getContext().setGlobalClass(_cont.getLastPage().getGlobalClass());
         }
-        return RenderExpUtil.processEl(_el, 0, _cont);
+        return processEl(_el, 0, _cont);
     }
     private static void addBean(Configuration _conf, Object _bean) {
         _conf.getLastPage().setGlobalArgumentStruct(StdStruct.newInstance(_bean, NativeTest.ALIAS_BEAN_ONE),_conf);

@@ -6745,7 +6745,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         if (_cont.hasPages() && _cont.getContext().getAnalyzing() != null) {
             _cont.getContext().setGlobalClass(_cont.getLastPage().getGlobalClass());
         }
-        Argument arg_ = RenderExpUtil.processEl(_el, 0, _cont);
+        Argument arg_ = processEl(_el, 0, _cont);
         assertNull(getException(_cont));
         return arg_;
     }

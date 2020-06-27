@@ -128,6 +128,9 @@ public abstract class RendBlock implements AnalyzedBlock {
         _conf.getHtmlPage().setCallsExps(_conf.getCallsExps());
         _conf.getHtmlPage().setAnchorsArgs(_conf.getAnchorsArgs());
         _conf.getHtmlPage().setAnchorsVars(_conf.getAnchorsVars());
+        _conf.getHtmlPage().setCallsFormExps(_conf.getCallsFormExps());
+        _conf.getHtmlPage().setFormsArgs(_conf.getFormsArgs());
+        _conf.getHtmlPage().setFormsVars(_conf.getFormsVars());
         _conf.setBeanName(doc_.getDocumentElement().getAttribute(StringList.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean())));
         doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean()));
         doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrAlias()));

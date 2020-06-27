@@ -433,7 +433,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         addImportingPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
-        RendRequestUtil.invokeMethodWithNumbersBis(conf_, "");
+        RendRequestUtil.redirect(conf_, new Argument(build_), 0);
         assertNotNull(getException(conf_));
     }
     @Test

@@ -95,7 +95,6 @@ public final class Configuration {
     private CustList<CustList<RendDynOperationNode>> callsExps = new CustList<CustList<RendDynOperationNode>>();
     private CustList<StringList> anchorsArgs = new CustList<StringList>();
     private CustList<StringList> anchorsVars = new CustList<StringList>();
-    private StringList anchorsNames = new StringList();
 
     private CustList<CustList<RendDynOperationNode>> callsFormExps = new CustList<CustList<RendDynOperationNode>>();
     private CustList<StringList> formsArgs = new CustList<StringList>();
@@ -180,7 +179,6 @@ public final class Configuration {
         callsExps = new CustList<CustList<RendDynOperationNode>>();
         anchorsArgs = new CustList<StringList>();
         anchorsVars = new CustList<StringList>();
-        anchorsNames = new StringList();
         containersMap = new LongMap<LongTreeMap<NodeContainer>>();
         containersMapStack = new CustList<LongTreeMap<NodeContainer>>();
         indexes = new IndexesFormInput();

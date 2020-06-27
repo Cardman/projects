@@ -17,18 +17,14 @@ final class RendRequestUtil {
     }
 
 
-    static Struct invokeMethodWithNumbersBis(Configuration _conf, String _action) {
-        Argument arg_ = RenderExpUtil.processEl(_action, 0, _conf);
-        if (!_conf.isEmptyErrors() || _conf.getContext().hasException()) {
-            return NullStruct.NULL_VALUE;
-        }
-        return arg_.getStruct();
-    }
-
     static Struct redirect(Configuration _conf, Argument _bean, int _url) {
         StringList varNames_ = _conf.getHtmlPage().getAnchorsVars().get(_url);
         CustList<RendDynOperationNode> exps_ = _conf.getHtmlPage().getCallsExps().get(_url);
         StringList args_ = _conf.getHtmlPage().getAnchorsArgs().get(_url);
+        return calculate(_conf, _bean, varNames_, exps_, args_);
+    }
+
+    private static Struct calculate(Configuration _conf, Argument _bean, StringList varNames_, CustList<RendDynOperationNode> exps_, StringList args_) {
         ImportingPage ip_ = _conf.getLastPage();
         int s_ = varNames_.size();
         for (int i =0; i< s_; i++) {
@@ -43,6 +39,13 @@ final class RendRequestUtil {
             return NullStruct.NULL_VALUE;
         }
         return arg_.getStruct();
+    }
+
+    static Struct redirectForm(Configuration _conf, Argument _bean, int _url) {
+        StringList varNames_ = _conf.getHtmlPage().getFormsVars().get(_url);
+        CustList<RendDynOperationNode> exps_ = _conf.getHtmlPage().getCallsFormExps().get(_url);
+        StringList args_ = _conf.getHtmlPage().getFormsArgs().get(_url);
+        return calculate(_conf, _bean, varNames_, exps_, args_);
     }
     static void setRendObject(Configuration _conf, NodeContainer _nodeContainer,
                           Struct _attribute) {

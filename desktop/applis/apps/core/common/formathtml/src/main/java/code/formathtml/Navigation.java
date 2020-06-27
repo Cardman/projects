@@ -171,11 +171,9 @@ public final class Navigation {
                     .substring(indexPoint_ + 1);
             String methodName_;
             String suffix_;
-            boolean getArg_ = true;
             if (action_.indexOf(BEGIN_ARGS) == CustList.INDEX_NOT_FOUND_ELT) {
                 methodName_ = action_;
                 suffix_ = EMPTY_STRING;
-                getArg_ = false;
             } else {
                 methodName_ = action_.substring(CustList.FIRST_INDEX, action_.indexOf(BEGIN_ARGS));
                 suffix_ = action_.substring(action_.indexOf(BEGIN_ARGS));
@@ -194,17 +192,9 @@ public final class Navigation {
             Struct bean_ = getBeanOrNull(beanName_);
             ip_.setOffset(indexPoint_+1);
             ip_.setGlobalArgumentStruct(bean_, session);
-            session.setupInts();
-            session.getContext().setGlobalClass(ip_.getGlobalClass());
             Struct return_;
             if (htmlPage_.isForm()) {
-                if (getArg_) {
-                    return_ = RendRequestUtil.invokeMethodWithNumbersBis(
-                            session, action_);
-                } else {
-                    return_ = RendRequestUtil.invokeMethodWithNumbersBis(
-                            session, StringList.concat(action_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR));
-                }
+                return_ = RendRequestUtil.redirectForm(session,new Argument(bean_),(int)htmlPage_.getUrl());
             } else {
                 return_=RendRequestUtil.redirect(session,new Argument(bean_),(int)htmlPage_.getUrl());
             }
@@ -308,10 +298,7 @@ public final class Navigation {
         if (_char == BEGIN_ARGS) {
             return false;
         }
-        if (_char == END_ARGS) {
-            return false;
-        }
-        return true;
+        return _char != END_ARGS;
     }
 
     public void processRendFormRequest() {
@@ -533,9 +520,7 @@ public final class Navigation {
             return false;
         }
         if (StringList.quickEq(scope_,PAGE)) {
-            if (StringList.quickEq(currentUrl,StringList.getFirstToken(_dest, REF_TAG))) {
-                return false;
-            }
+            return !StringList.quickEq(currentUrl, StringList.getFirstToken(_dest, REF_TAG));
         }
         return true;
     }

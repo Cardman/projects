@@ -18,6 +18,10 @@ public final class HtmlPage {
 
     private LongMap<StringList> formatIdMap = new LongMap<StringList>();
 
+    private CustList<CustList<RendDynOperationNode>> callsFormExps = new CustList<CustList<RendDynOperationNode>>();
+    private CustList<StringList> formsArgs = new CustList<StringList>();
+    private CustList<StringList> formsVars = new CustList<StringList>();
+
     private long url = CustList.INDEX_NOT_FOUND_ELT;
 
     private boolean form;
@@ -59,6 +63,14 @@ public final class HtmlPage {
         callsExps = _callsExps;
     }
 
+    public CustList<CustList<RendDynOperationNode>> getCallsFormExps() {
+        return callsFormExps;
+    }
+
+    public void setCallsFormExps(CustList<CustList<RendDynOperationNode>> _callsFormExps) {
+        callsFormExps = _callsFormExps;
+    }
+
     public CustList<StringList> getAnchorsArgs() {
         return anchorsArgs;
     }
@@ -67,12 +79,28 @@ public final class HtmlPage {
         anchorsArgs = _anchorsArgs;
     }
 
+    public CustList<StringList> getFormsArgs() {
+        return formsArgs;
+    }
+
+    public void setFormsArgs(CustList<StringList> _formsArgs) {
+        formsArgs = _formsArgs;
+    }
+
     public CustList<StringList> getAnchorsVars() {
         return anchorsVars;
     }
 
     public void setAnchorsVars(CustList<StringList> _anchorsVars) {
         anchorsVars = _anchorsVars;
+    }
+
+    public CustList<StringList> getFormsVars() {
+        return formsVars;
+    }
+
+    public void setFormsVars(CustList<StringList> _formsVars) {
+        formsVars = _formsVars;
     }
 
     public LongMap<StringList> getFormatIdMap() {

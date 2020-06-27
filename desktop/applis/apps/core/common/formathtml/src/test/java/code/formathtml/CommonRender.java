@@ -1,6 +1,15 @@
 package code.formathtml;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.MethodHeaders;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.instr.ElResolver;
+import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
@@ -231,5 +240,53 @@ public abstract class CommonRender {
             return (Struct) str_;
         }
         return null;
+    }
+
+    public static Argument processEl(String _el, int _index, Configuration _conf) {
+        ContextEl context_ = _conf.getContext();
+        CustList<RendDynOperationNode> out_ = getAnalyzed(_el,_index,_conf);
+        if (!_conf.isEmptyErrors()) {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            badEl_.setLocationFile(_conf.getLocationFile(badEl_.getFileName(),badEl_.getIndexFile()));
+            badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                    ElUtil.possibleChar(_index,_el),
+                    Integer.toString(_index),
+                    _el);
+            _conf.setException(new ErrorStruct(_conf.getContext(), badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
+            context_.setNullAnalyzing();
+            return Argument.createVoid();
+        }
+        context_.setNullAnalyzing();
+        out_ = RenderExpUtil.getReducedNodes(out_.last());
+        return RenderExpUtil.calculateReuse(out_, _conf);
+    }
+
+    private static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, Configuration _conf) {
+        _conf.setupAnalyzing();
+        Argument argGl_ = _conf.getPageEl().getGlobalArgument();
+        boolean static_ = argGl_.isNull();
+        _conf.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
+        Delimiters d_ = ElResolver.checkSyntax(_el, _conf.getContext(), _index);
+        int badOffset_ = d_.getBadOffset();
+        if (badOffset_ >= 0) {
+            _conf.getLastPage().setOffset(badOffset_);
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                    ElUtil.possibleChar(badOffset_,_el),
+                    Integer.toString(badOffset_),
+                    _el);
+            _conf.addError(badEl_);
+            _conf.setException(new ErrorStruct(_conf.getContext(), badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
+            return new CustList<RendDynOperationNode>();
+        }
+        String el_ = _el.substring(_index);
+        OperationsSequence opTwo_ = RenderExpUtil.getOperationsSequence(_index, el_, _conf, d_);
+        OperationNode op_ = RenderExpUtil.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
+        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, _conf);
+        return RenderExpUtil.getExecutableNodes(all_);
     }
 }
