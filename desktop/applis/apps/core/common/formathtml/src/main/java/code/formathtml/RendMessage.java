@@ -195,8 +195,6 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 if (StringList.quickEq(nextEltWrite_.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())){
                     _cont.getAnchorsArgs().add(anchorArg_);
                     _cont.getAnchorsVars().add(varNames);
-                    _cont.getConstAnchors().add(false);
-                    _cont.getAnchorsNames().add(EMPTY_STRING);
                 }
                 incrAncNb(_cont, nextEltWrite_);
             } else {

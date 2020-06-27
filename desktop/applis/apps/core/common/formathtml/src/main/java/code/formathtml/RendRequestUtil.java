@@ -26,14 +26,8 @@ final class RendRequestUtil {
     }
 
     static Struct redirect(Configuration _conf, Argument _bean, int _url) {
-        if (_conf.getHtmlPage().getConstAnchors().get(_url)) {
-            String action_ = _conf.getHtmlPage().getAnchorsNames().get(_url);
-            if (action_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
-                action_ = StringList.concat(action_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
-            }
-            return invokeMethodWithNumbersBis(_conf,action_);
-        }
         StringList varNames_ = _conf.getHtmlPage().getAnchorsVars().get(_url);
+        CustList<RendDynOperationNode> exps_ = _conf.getHtmlPage().getCallsExps().get(_url);
         StringList args_ = _conf.getHtmlPage().getAnchorsArgs().get(_url);
         ImportingPage ip_ = _conf.getLastPage();
         int s_ = varNames_.size();
@@ -41,7 +35,6 @@ final class RendRequestUtil {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(new IntStruct(Numbers.parseInt(args_.get(i))),_conf.getStandards().getAliasPrimInteger());
             ip_.putLocalVar(varNames_.get(i), locVar_);
         }
-        CustList<RendDynOperationNode> exps_ = _conf.getHtmlPage().getCallsExps().get(_url);
         Argument arg_ = RenderExpUtil.calculateReuse(exps_,_conf,_bean);
         for (String n: varNames_) {
             ip_.removeLocalVar(n);

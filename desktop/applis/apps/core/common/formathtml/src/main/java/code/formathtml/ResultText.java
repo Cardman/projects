@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.instr.ElUtil;
@@ -20,8 +21,10 @@ public final class ResultText {
     private static final char LEFT_EL = '{';
     private static final char QUOTE = 39;
     private CustList<CustList<RendDynOperationNode>> opExp;
+    private CustList<RendDynOperationNode> opExpAnchor;
 
     private StringList texts = new StringList();
+    private StringList varNames = new StringList();
     private Ints expOffsets = new Ints();
     private Ints expEnds = new Ints();
     public void build(String _expression,Configuration _conf, int _off, RendDocumentBlock _doc) {
@@ -189,6 +192,7 @@ public final class ResultText {
         _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         ResultText r_ = new ResultText();
+        r_.opExpAnchor = new CustList<RendDynOperationNode>();
         r_.opExp = new CustList<CustList<RendDynOperationNode>>();
         r_.texts = new StringList();
         if (href_.startsWith(CALL_METHOD)) {
@@ -210,22 +214,30 @@ public final class ResultText {
                     _cont.addError(badEl_);
                 }
             }
-            StringList argList_ = new StringList();
-            for (CustList<RendDynOperationNode> e: opExp_) {
-                String cl_ = e.last().getResultClass().getSingleNameOrEmpty();
-                if (cl_.isEmpty()) {
-                    argList_.add(_cont.getKeyWords().getKeyWordNull());
-                } else {
-                    String cast_ = _cont.getKeyWords().getKeyWordCast();
-                    cast_ = StringList.concat(cast_,RendBlock.LEFT_PAR,cl_,RendBlock.RIGHT_PAR);
-                    argList_.add(StringList.concat(cast_,RendBlock.ZERO));
-                }
+            int l_ = opExp_.size();
+            StringList formArg_ = new StringList();
+            StringList varNames_ = new StringList();
+            for (int i = 0; i< l_; i++) {
+                String varLoc_ = RendBlock.lookForVar(_cont, varNames_);
+                varNames_.add(varLoc_);
             }
-            String pref_ = r_.quickRender(lk_, argList_);
+            r_.varNames = varNames_;
+            int i_ = 0;
+            for (String v:varNames_) {
+                AnaLocalVariable lv_ = new AnaLocalVariable();
+                lv_.setClassName(opExp_.get(i_).last().getResultClass().getSingleNameOrEmpty());
+                _cont.getLocalVarsAna().last().addEntry(v,lv_);
+                formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
+                i_++;
+            }
+            String pref_ = r_.quickRender(lk_, formArg_);
             if (pref_.indexOf('(') < 0) {
                 pref_ = StringList.concat(pref_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
             }
-            RenderExpUtil.getAnalyzedOperations(pref_,colsGrId_,0,_cont);
+            r_.opExpAnchor = RenderExpUtil.getAnalyzedOperations(pref_, colsGrId_, 0, _cont);
+            for (String v:varNames_) {
+                _cont.getLocalVarsAna().last().removeKey(v);
+            }
         }
         return r_;
     }
@@ -265,22 +277,45 @@ public final class ResultText {
     public static String render(CustList<CustList<RendDynOperationNode>> _opExp,StringList _texts,Configuration _cont) {
         int s_ = _opExp.size();
         StringBuilder str_ = new StringBuilder();
-        BeanLgNames standards_ = _cont.getAdvStandards();
         for (int i = 0; i < s_; i++) {
             str_.append(_texts.get(i));
             CustList<RendDynOperationNode> exp_ = _opExp.get(i);
-            Argument argument_ = RenderExpUtil.calculateReuse(exp_, _cont);
-            if (_cont.getContext().hasException()) {
+            String st_ = tryCalculate(exp_, _cont);
+            if (st_ == null) {
                 return str_.toString();
             }
-            String string_ = standards_.processString(argument_, _cont);
-            if (_cont.getContext().hasException()) {
-                return str_.toString();
-            }
-            str_.append(string_);
+            str_.append(st_);
         }
         str_.append(_texts.last());
         return str_.toString();
+    }
+
+    public static StringList renderAltList(CustList<CustList<RendDynOperationNode>> _opExp,StringList _texts,Configuration _cont) {
+        int s_ = _opExp.size();
+        StringList str_ = new StringList();
+        for (int i = 0; i < s_; i++) {
+            str_.add(_texts.get(i));
+            CustList<RendDynOperationNode> exp_ = _opExp.get(i);
+            String st_ = tryCalculate(exp_, _cont);
+            if (st_ == null) {
+                return str_;
+            }
+            str_.add(st_);
+        }
+        str_.add(_texts.last());
+        return str_;
+    }
+    private static String tryCalculate(CustList<RendDynOperationNode> _e,Configuration _cont) {
+        Argument argument_ = RenderExpUtil.calculateReuse(_e, _cont);
+        BeanLgNames standards_ = _cont.getAdvStandards();
+        if (_cont.getContext().hasException()) {
+            return null;
+        }
+        String string_ = standards_.processString(argument_, _cont);
+        if (_cont.getContext().hasException()) {
+            return null;
+        }
+        return string_;
     }
     public StringList getTexts() {
         return texts;
@@ -288,5 +323,13 @@ public final class ResultText {
 
     public CustList<CustList<RendDynOperationNode>> getOpExp() {
         return opExp;
+    }
+
+    public CustList<RendDynOperationNode> getOpExpAnchor() {
+        return opExpAnchor;
+    }
+
+    public StringList getVarNames() {
+        return varNames;
     }
 }

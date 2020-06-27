@@ -75,8 +75,6 @@ public final class RenderAnchorTest extends CommonRender {
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><a c:command=\"$bean_one.click(5)\" href=\"\" n-a=\"0\">two</a></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
-        assertEq(1,conf_.getHtmlPage().getAnchorsNames().size());
-        assertEq("click(5)",conf_.getHtmlPage().getAnchorsNames().get(0));
     }
     @Test
     public void process3Test() {

@@ -15,8 +15,6 @@ public final class HtmlPage {
     private CustList<CustList<RendDynOperationNode>> callsExps = new CustList<CustList<RendDynOperationNode>>();
     private CustList<StringList> anchorsArgs = new CustList<StringList>();
     private CustList<StringList> anchorsVars = new CustList<StringList>();
-    private BooleanList constAnchors = new BooleanList();
-    private StringList anchorsNames = new StringList();
 
     private LongMap<StringList> formatIdMap = new LongMap<StringList>();
 
@@ -75,22 +73,6 @@ public final class HtmlPage {
 
     public void setAnchorsVars(CustList<StringList> _anchorsVars) {
         anchorsVars = _anchorsVars;
-    }
-
-    public BooleanList getConstAnchors() {
-        return constAnchors;
-    }
-
-    public void setConstAnchors(BooleanList _constAnchors) {
-        constAnchors = _constAnchors;
-    }
-
-    public StringList getAnchorsNames() {
-        return anchorsNames;
-    }
-
-    public void setAnchorsNames(StringList _anchorsNames) {
-        anchorsNames = _anchorsNames;
     }
 
     public LongMap<StringList> getFormatIdMap() {

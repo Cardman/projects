@@ -128,8 +128,6 @@ public abstract class RendBlock implements AnalyzedBlock {
         _conf.getHtmlPage().setCallsExps(_conf.getCallsExps());
         _conf.getHtmlPage().setAnchorsArgs(_conf.getAnchorsArgs());
         _conf.getHtmlPage().setAnchorsVars(_conf.getAnchorsVars());
-        _conf.getHtmlPage().setAnchorsNames(_conf.getAnchorsNames());
-        _conf.getHtmlPage().setConstAnchors(_conf.getConstAnchors());
         _conf.setBeanName(doc_.getDocumentElement().getAttribute(StringList.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean())));
         doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean()));
         doc_.getDocumentElement().removeAttribute(StringList.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrAlias()));
@@ -561,27 +559,30 @@ public abstract class RendBlock implements AnalyzedBlock {
         return pres_;
     }
 
-    protected static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, CustList<CustList<RendDynOperationNode>> _opExp, StringList _texts) {
+    protected static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, CustList<CustList<RendDynOperationNode>> _opExp, StringList _texts, CustList<RendDynOperationNode> _anc) {
         String href_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-        _cont.getCallsExps().add(new CustList<RendDynOperationNode>());
-        _cont.getConstAnchors().add(true);
-        _cont.getAnchorsArgs().add(new StringList());
+        _cont.getCallsExps().add(_anc);
         _cont.getAnchorsVars().add(_varNames);
         if (!href_.startsWith(CALL_METHOD)) {
+            _cont.getAnchorsArgs().add(new StringList());
             if (_nextWrite.hasAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))) {
                 _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
             }
-            _cont.getAnchorsNames().add(EMPTY_STRING);
             incrAncNb(_cont, _nextWrite);
             return;
         }
-        String render_ = ResultText.render(_opExp, _texts, _cont);
+        StringList alt_ = ResultText.renderAltList(_opExp, _texts, _cont);
+        StringList arg_ = new StringList();
+        int len_ = alt_.size();
+        for (int i = 1; i < len_; i += 2) {
+            arg_.add(alt_.get(i));
+        }
+        _cont.getAnchorsArgs().add(arg_);
+        String render_ = StringList.join(alt_,"");
         if (_cont.getContext().hasException()) {
-            _cont.getAnchorsNames().add(EMPTY_STRING);
             incrAncNb(_cont, _nextWrite);
             return;
         }
-        _cont.getAnchorsNames().add(render_);
         String beanName_ = _cont.getLastPage().getBeanName();
         _nextWrite.setAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringList.concat(CALL_METHOD,beanName_,DOT,render_));
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);

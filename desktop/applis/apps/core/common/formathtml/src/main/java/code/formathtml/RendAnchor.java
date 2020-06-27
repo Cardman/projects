@@ -9,6 +9,7 @@ import code.util.StringList;
 
 public final class RendAnchor extends RendElement {
     private CustList<CustList<RendDynOperationNode>> opExp;
+    private CustList<RendDynOperationNode> opExpAnch;
 
     private StringList texts = new StringList();
     private StringList varNames = new StringList();
@@ -20,13 +21,15 @@ public final class RendAnchor extends RendElement {
     protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
         ResultText res_ = ResultText.buildAnchor(_cont,this, _doc, _read, _list);
+        varNames = res_.getVarNames();
         opExp = res_.getOpExp();
+        opExpAnch = res_.getOpExpAnchor();
         texts = res_.getTexts();
     }
 
     @Override
     protected void processExecAttr(Configuration _cont, MutableNode _nextWrite, Element _read) {
-        processLink(_cont, (Element) _nextWrite, _read, varNames, opExp, texts);
+        processLink(_cont, (Element) _nextWrite, _read, varNames, opExp, texts,opExpAnch);
     }
 
     @Override

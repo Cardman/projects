@@ -1,6 +1,5 @@
 package code.formathtml;
 
-import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.exec.RendDynOperationNode;
 import code.sml.Document;
@@ -14,7 +13,7 @@ import code.util.StringMap;
 
 public final class RendTitledAnchor extends RendElement {
     private CustList<CustList<RendDynOperationNode>> opExp;
-
+    private CustList<RendDynOperationNode> opExpAnch;
     private StringList texts = new StringList();
     private StringList varNames = new StringList();
 
@@ -29,6 +28,8 @@ public final class RendTitledAnchor extends RendElement {
     protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
         ResultText res_ = ResultText.buildAnchor(_cont,this, _doc, _read, _list);
+        varNames = res_.getVarNames();
+        opExpAnch = res_.getOpExpAnchor();
         opExp = res_.getOpExp();
         texts = res_.getTexts();
         _list.removeAllString(_cont.getRendKeyWords().getAttrValue());
@@ -71,7 +72,6 @@ public final class RendTitledAnchor extends RendElement {
             ResultText r_ = e.getValue();
             objects_.add(ResultText.render(r_.getOpExp(), r_.getTexts(),_cont));
             if (_cont.getContext().hasException()) {
-                _cont.getAnchorsNames().add(EMPTY_STRING);
                 incrAncNb(_cont, (Element) _nextWrite);
                 return;
             }
@@ -79,7 +79,7 @@ public final class RendTitledAnchor extends RendElement {
         }
         curWr_.setAttribute(_cont.getRendKeyWords().getAttrTitle(), StringList.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
         ownerDocument_.renameNode(curWr_, _cont.getRendKeyWords().getKeyWordAnchor());
-        processLink(_cont,curWr_,_read,varNames,opExp,texts);
+        processLink(_cont,curWr_,_read,varNames,opExp,texts, opExpAnch);
     }
 
     @Override
