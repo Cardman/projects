@@ -148,7 +148,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         lv_.setStruct(new ArrayStruct(exp_, StringExpUtil.getPrettyArrayType(primIntType_)));
         lv_.setClassName(StringExpUtil.getPrettyArrayType(primIntType_));
         localVars_.put("v", lv_);
-        context_.getLastPage().setLocalVars(localVars_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         processEl("$this()", context_);
         assertNotNull(getException(context_));
     }
@@ -165,7 +165,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         lv_.setStruct(new ArrayStruct(exp_, StringExpUtil.getPrettyArrayType(primIntType_)));
         lv_.setClassName(StringExpUtil.getPrettyArrayType(primIntType_));
         localVars_.put("v", lv_);
-        context_.getLastPage().setLocalVars(localVars_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         processEl("v(1)", context_);
         assertNotNull(getException(context_));
     }
@@ -183,7 +183,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         lv_.setStruct(new ArrayStruct(exp_, StringExpUtil.getPrettyArrayType(primIntType_)));
         lv_.setClassName(StringExpUtil.getPrettyArrayType(primIntType_));
         localVars_.put("v", lv_);
-        context_.getLastPage().setLocalVars(localVars_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         processEl("v(1)", context_);
         assertNotNull(getException(context_));
     }
@@ -196,7 +196,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         lv_.setStruct(new IntStruct(1));
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
-        context_.getLastPage().getParameters().putAllMap(localVars_);
+        context_.getLastPage().getPageEl().getParameters().putAllMap(localVars_);
         processEl("v=12i", context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -211,7 +211,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         lv_.setStruct(new ArrayStruct(c_, ARR_INT));
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
-        context_.getLastPage().setLocalVars(localVars_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         processEl("v[0i]=\"12i\"", context_);
         assertTrue(!context_.isEmptyErrors());
     }

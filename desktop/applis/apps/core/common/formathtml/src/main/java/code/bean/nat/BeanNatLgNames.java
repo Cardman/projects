@@ -414,11 +414,13 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     protected abstract Struct newId(Object _obj, String _className);
 
-    public void setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
+    public boolean setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
         _nav.initInstancesPattern();
         _nav.setupRenders();
+        _conf.getAdvStandards().setHeaders(null);
         _conf.getAnalyzing().setHeaders(null);
         _conf.getContext().setNullAnalyzing();
+        return true;
     }
     public abstract Struct wrapStd(Object _element);
 

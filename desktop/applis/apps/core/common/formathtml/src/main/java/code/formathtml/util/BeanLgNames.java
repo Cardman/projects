@@ -152,7 +152,7 @@ public abstract class BeanLgNames extends LgNames {
 
         return PrimitiveTypeUtil.isPrimitiveOrWrapper(_className, this);
     }
-    public abstract void setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files);
+    public abstract boolean setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files);
     protected static Struct wrapStd(String _element) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;

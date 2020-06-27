@@ -139,11 +139,7 @@ public final class ImportingPage {
     }
 
     public StringMap<LoopVariable> getVars() {
-        return pageEl.getVars();
-    }
-
-    public void setVars(StringMap<LoopVariable> _vars) {
-        pageEl.setVars(_vars);
+        return getPageEl().getVars();
     }
 
 
@@ -155,20 +151,8 @@ public final class ImportingPage {
         pageEl.removeLocalVar(_key);
     }
 
-    public StringMap<LocalVariable> getLocalVars() {
-        return pageEl.getLocalVars();
-    }
-
-    public void setLocalVars(StringMap<LocalVariable> _localVars) {
-        pageEl.setLocalVars(_localVars);
-    }
-
     public StringMap<LocalVariable> getCatchVars() {
-        return pageEl.getCatchVars();
-    }
-
-    public StringMap<LocalVariable> getParameters() {
-        return pageEl.getParameters();
+        return getPageEl().getCatchVars();
     }
 
     public void addBlock(RendRemovableVars _b) {

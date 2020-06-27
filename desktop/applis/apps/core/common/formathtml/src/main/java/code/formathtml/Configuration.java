@@ -423,37 +423,6 @@ public final class Configuration {
         return analyzingDoc.getFileName();
     }
 
-    public StringMap<AnaLoopVariable> getVars() {
-        StringMap<AnaLoopVariable> m_ = new StringMap<AnaLoopVariable>();
-        for (EntryCust<String,LoopVariable> e: getLastPage().getVars().entryList()) {
-            AnaLoopVariable a_ = new AnaLoopVariable();
-            a_.setClassName(e.getValue().getClassName());
-            a_.setIndexClassName(e.getValue().getIndexClassName());
-            m_.addEntry(e.getKey(), a_);
-        }
-        return m_;
-    }
-
-    public StringMap<AnaLocalVariable> getLocalVars() {
-        StringMap<AnaLocalVariable> m_ = new StringMap<AnaLocalVariable>();
-        for (EntryCust<String,LocalVariable> e: getLastPage().getLocalVars().entryList()) {
-            AnaLocalVariable a_ = new AnaLocalVariable();
-            a_.setClassName(e.getValue().getClassName());
-            m_.addEntry(e.getKey(), a_);
-        }
-        return m_;
-    }
-
-    public StringMap<AnaLocalVariable> getCatchVars() {
-        StringMap<AnaLocalVariable> m_ = new StringMap<AnaLocalVariable>();
-        for (EntryCust<String,LocalVariable> e: getLastPage().getCatchVars().entryList()) {
-            AnaLocalVariable a_ = new AnaLocalVariable();
-            a_.setClassName(e.getValue().getClassName());
-            m_.addEntry(e.getKey(), a_);
-        }
-        return m_;
-    }
-
     public void setOffset(int _offset) {
         getLastPage().setOffset(_offset);
     }
@@ -575,35 +544,6 @@ public final class Configuration {
                 }
             }
         }
-    }
-
-    public void setupAnalyzing() {
-        boolean merged_ = false;
-        boolean accept_ = false;
-        String currentVarSetting_ = "";
-        String globalClass_ = "";
-        if (context.getAnalyzing() != null) {
-            merged_ = getAnalyzing().isMerged();
-            accept_ = getAnalyzing().isAcceptCommaInstr();
-            currentVarSetting_ = context.getAnalyzing().getCurrentVarSetting();
-            globalClass_ = getGlobalClass();
-        }
-        setupInts();
-        context.getAnalyzing().setGlobalClass(globalClass_);
-        context.getAnalyzing().initLocalVars();
-        context.getAnalyzing().initMutableLoopVars();
-        CustList<StringMap<AnaLocalVariable>> l_ = new CustList<StringMap<AnaLocalVariable>>();
-        l_.add(getLocalVars());
-        context.getAnalyzing().setLocalVars(l_);
-        CustList<StringMap<AnaLoopVariable>> lv_ = new CustList<StringMap<AnaLoopVariable>>();
-        lv_.add(getVars());
-        context.getAnalyzing().setVars(lv_);
-        CustList<StringMap<AnaLocalVariable>> lc_ = new CustList<StringMap<AnaLocalVariable>>();
-        lc_.add(getCatchVars());
-        context.getAnalyzing().setCatchVars(lc_);
-        context.getAnalyzing().setMerged(merged_);
-        context.getAnalyzing().setAcceptCommaInstr(accept_);
-        context.getAnalyzing().setCurrentVarSetting(currentVarSetting_);
     }
 
     public void setupInts() {

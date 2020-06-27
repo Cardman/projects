@@ -95,6 +95,10 @@ public final class ThreadActions implements Runnable {
     @Override
     public void run() {
         if (directFirst) {
+            Configuration conf_ = page.getNavigation().getSession();
+            if (!conf_.isEmptyErrors()) {
+                return;
+            }
             page.getNavigation().initializeRendSession();
             afterAction();
             return;
@@ -116,44 +120,50 @@ public final class ThreadActions implements Runnable {
                 htmlPage_.setUrl(-1);
                 if (fileNames == null) {
                     page.updateFiles();
+                    Configuration conf_ = page.getNavigation().getSession();
+                    if (!conf_.isEmptyErrors()) {
+                        return;
+                    }
                 } else {
                     page.getNavigation().setFiles(fileNames);
-                    page.getNavigation().setupRendClassesInit();
-                    Configuration conf_ = page.getNavigation().getSession();
-                    if (conf_.isEmptyErrors()) {
-                        LgNames stds_ = conf_.getStandards();
-                        String arrStr_ = StringExpUtil.getPrettyArrayType(stds_.getAliasString());
-                        MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
-                        ContextEl ctx_ = conf_.getContext();
-                        CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(ctx_, classDbName, id_);
-                        if (!methods_.isEmpty()) {
-                            ProcessMethod.initializeClass(classDbName,ctx_);
-                            if (ctx_.hasException()) {
-                                afterAction();
-                                return;
-                            }
-                            Argument arg_ = new Argument();
-                            CustList<Argument> args_ = new CustList<Argument>();
-                            int len_ = fileNames.size();
-                            Struct[] names_ = new Struct[len_];
-                            for (int i = 0; i < len_; i++) {
-                                names_[i]= new StringStruct(fileNames.getKey(i));
-                            }
-                            Struct[] contents_ = new Struct[len_];
-                            for (int i = 0; i < len_; i++) {
-                                contents_[i]= new StringStruct(fileNames.getValue(i));
-                            }
-                            ArrayStruct arrNames_ = new ArrayStruct(names_,arrStr_);
-                            ArrayStruct arrContents_ = new ArrayStruct(contents_,arrStr_);
-                            args_.add(new Argument(arrNames_));
-                            args_.add(new Argument(arrContents_));
-                            Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName, id_, args_, ctx_, null);
-                            if (ctx_.hasException()) {
-                                afterAction();
-                                return;
-                            }
-                            page.getNavigation().setDataBaseStruct(out_.getStruct());
+                    if (!page.getNavigation().setupRendClassesInit()) {
+                        return;
+                    }
+                }
+                Configuration conf_ = page.getNavigation().getSession();
+                if (fileNames != null) {
+                    LgNames stds_ = conf_.getStandards();
+                    String arrStr_ = StringExpUtil.getPrettyArrayType(stds_.getAliasString());
+                    MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
+                    ContextEl ctx_ = conf_.getContext();
+                    CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(ctx_, classDbName, id_);
+                    if (!methods_.isEmpty()) {
+                        ProcessMethod.initializeClass(classDbName,ctx_);
+                        if (ctx_.hasException()) {
+                            afterAction();
+                            return;
                         }
+                        Argument arg_ = new Argument();
+                        CustList<Argument> args_ = new CustList<Argument>();
+                        int len_ = fileNames.size();
+                        Struct[] names_ = new Struct[len_];
+                        for (int i = 0; i < len_; i++) {
+                            names_[i]= new StringStruct(fileNames.getKey(i));
+                        }
+                        Struct[] contents_ = new Struct[len_];
+                        for (int i = 0; i < len_; i++) {
+                            contents_[i]= new StringStruct(fileNames.getValue(i));
+                        }
+                        ArrayStruct arrNames_ = new ArrayStruct(names_,arrStr_);
+                        ArrayStruct arrContents_ = new ArrayStruct(contents_,arrStr_);
+                        args_.add(new Argument(arrNames_));
+                        args_.add(new Argument(arrContents_));
+                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName, id_, args_, ctx_, null);
+                        if (ctx_.hasException()) {
+                            afterAction();
+                            return;
+                        }
+                        page.getNavigation().setDataBaseStruct(out_.getStruct());
                     }
                 }
                 page.getNavigation().initializeRendSession();

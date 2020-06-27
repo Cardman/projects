@@ -92,6 +92,10 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         updateFiles();
+        Configuration conf_ = navigation.getSession();
+        if (!conf_.isEmptyErrors()) {
+            return;
+        }
         navigation.initializeRendSession();
         setupText();
     }

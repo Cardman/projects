@@ -96,9 +96,6 @@ public final class Navigation {
     }
 
     public void initializeRendSession() {
-        if (!session.isEmptyErrors()) {
-            return;
-        }
         BeanLgNames stds_ = session.getAdvStandards();
         stds_.initBeans(session,language,dataBaseStruct);
         if (session.getContext().hasException()) {
@@ -129,8 +126,8 @@ public final class Navigation {
         setupText(htmlText);
     }
 
-    public void setupRendClassesInit() {
-        session.getAdvStandards().setupAll(this,session,files);
+    public boolean setupRendClassesInit() {
+        return session.getAdvStandards().setupAll(this,session,files);
     }
 
     public void setupRenders() {

@@ -100,7 +100,6 @@ public final class RenderInitNavTest extends CommonRender {
         n_.setSession(conf_);
         n_.setFiles(files_);
         n_.setupRendClassesInit();
-        n_.initializeRendSession();
         assertTrue(!n_.getSession().isEmptyErrors());
     }
 
@@ -151,7 +150,6 @@ public final class RenderInitNavTest extends CommonRender {
         n_.setSession(conf_);
         n_.setFiles(files_);
         n_.setupRendClassesInit();
-        n_.initializeRendSession();
         assertTrue(!n_.getSession().isEmptyErrors());
     }
     @Test
@@ -195,7 +193,6 @@ public final class RenderInitNavTest extends CommonRender {
         n_.setSession(conf_);
         n_.setFiles(files_);
         n_.setupRendClassesInit();
-        n_.initializeRendSession();
         assertTrue(!n_.getSession().isEmptyErrors());
     }
     @Test

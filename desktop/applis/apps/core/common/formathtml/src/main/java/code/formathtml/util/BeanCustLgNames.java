@@ -854,18 +854,20 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public void setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
+    public boolean setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
         setupRendClasses(_conf,_files);
         _nav.initInstancesPattern();
         _nav.setupRenders();
         if (!_conf.isEmptyErrors()) {
-            return;
+            return false;
         }
+        _conf.getAdvStandards().setHeaders(null);
         _conf.getAnalyzing().setHeaders(null);
         _conf.getContext().setNullAnalyzing();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
         Classes.tryInitStaticlyTypes(_conf.getContext());
         _conf.getContext().setFullStack(new AdvancedFullStack(_conf));
+        return true;
     }
 
     public void setupRendClasses(Configuration _conf, StringMap<String> _files) {

@@ -6169,7 +6169,7 @@ public final class RenderNavigationTest extends CommonRender {
         i_.setScope("page");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
-        initSession(nav_);
+        initSessionFail(nav_);
         assertTrue(!nav_.getSession().isEmptyErrors());
 
     }
@@ -6351,5 +6351,10 @@ public final class RenderNavigationTest extends CommonRender {
         tryInitStaticlyTypes(_nav.getSession());
         _nav.initializeRendSession();
     }
-
+    private static void initSessionFail(Navigation _nav) {
+        _nav.setLanguages(new StringList(_nav.getLanguage()));
+        setupAna(_nav.getSession());
+        _nav.initInstancesPattern();
+        _nav.setupRenders();
+    }
 }

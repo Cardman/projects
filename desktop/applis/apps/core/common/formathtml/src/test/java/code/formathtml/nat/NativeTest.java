@@ -36,7 +36,7 @@ public final class NativeTest extends CommonRender {
         lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
         lv_.setClassName("code.expressionlanguage.classes.Composite");
         localVars_.put("v", lv_);
-        context_.getLastPage().setLocalVars(localVars_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         assertEq(0, c_.getInteger());
         processEl("v.integer=12i", context_);
         assertEq(COMPOSITE, lv_.getClassName());
