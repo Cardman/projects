@@ -350,13 +350,16 @@ public final class StringExpUtil {
     private static boolean tryReplaceType(StringMap<String> _varTypes, StringBuilder _str, String _sub) {
         int j_ = getMaxIndex(_str, _str.length() - 1);
         String value_ = _varTypes.getVal(_sub);
-        if (isSubOrSubChar(_str,j_)) {
-            return false;
-        }
         if (value_.startsWith(SUB_TYPE)) {
+            if (isSubOrSubChar(_str,j_)) {
+                return false;
+            }
             _str.insert(j_ +1, SUB_TYPE);
             _str.append(value_.substring(SUB_TYPE.length()));
         } else if (value_.startsWith(SUP_TYPE)) {
+            if (isSubOrSubChar(_str,j_)) {
+                return false;
+            }
             _str.insert(j_ +1, SUP_TYPE);
             _str.append(value_.substring(SUP_TYPE.length()));
         } else {

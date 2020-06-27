@@ -3,11 +3,11 @@ package code.expressionlanguage.analyze.inherits;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
-import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.InheritedType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.inherits.InferenceConstraints;
 import code.expressionlanguage.inherits.MappingPairs;
@@ -530,12 +530,36 @@ public final class AnaTemplates {
         return StringExpUtil.removeDottedSpaces(tr_);
     }
 
-    public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, ContextEl _context) {
-        return isCorrectTemplateAll(_className, _inherit, _context, true);
+    public static String getCorrectTemplateAll(String _className, StringList _parts, StringMap<StringList> _inherit, ContextEl _context) {
+        String id_ = StringExpUtil.getIdFromAllTypes(_className);
+        ExecRootBlock g_ = _context.getClasses().getClassBody(id_);
+        CustList<StringList> bounds_ = g_.getBoundAll();
+        int len_ = bounds_.size();
+        if (len_ != _parts.size()) {
+            return "";
+        }
+        String realClassName_;
+        if (_parts.isEmpty()) {
+            realClassName_ = _className;
+        } else {
+            realClassName_ = StringList.concat(_className,"<", StringList.join(_parts, ","),">");
+        }
+        for (int i = 0; i < len_; i++) {
+            StringList b_ = bounds_.get(i);
+            for (String b:b_) {
+                Mapping mapp_ = new Mapping();
+                mapp_.setArg(_parts.get(i));
+                String param_ = Templates.format(realClassName_, b, _context);
+                mapp_.setParam(param_);
+                mapp_.setMapping(_inherit);
+                if (!isCorrect(mapp_,_context)){
+                    return "";
+                }
+            }
+        }
+        return realClassName_;
     }
-    public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, ContextEl _context, boolean _exact) {
-        return AnaPartTypeUtil.processAnalyzeConstraints(_className,_inherit,_context,_exact);
-    }
+
     public static String tryInfer(String _erased, StringMap<String> _vars, String _declaring, ContextEl _context) {
         GeneType g_ = _context.getClassBody(_erased);
         String idParam_ = StringExpUtil.getIdFromAllTypes(_declaring);

@@ -2,11 +2,8 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.AccessedBlock;
-import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.util.CustList;
 import code.util.IntTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
 
 final class AnaEmptyPartType extends AnaLeafPartType {
     AnaEmptyPartType(AnaParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator) {
@@ -15,7 +12,6 @@ final class AnaEmptyPartType extends AnaLeafPartType {
 
     @Override
     void analyze(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted) {
-        analyzeTemplate(_an,_dels,new StringMap<StringList>());
     }
 
     @Override
@@ -28,8 +24,4 @@ final class AnaEmptyPartType extends AnaLeafPartType {
         //
     }
 
-    @Override
-    void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
-        //
-    }
 }

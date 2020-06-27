@@ -3,12 +3,10 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.AccessedBlock;
-import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 final class AnaVariablePartType extends AnaLeafPartType {
     AnaVariablePartType(AnaParentPartType _parent, int _index, int _indexInType, String _type, String _previousSeparator) {
@@ -66,9 +64,4 @@ final class AnaVariablePartType extends AnaLeafPartType {
         setAnalyzedType(t_);
     }
 
-    @Override
-    void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
-        String type_ = getTypeName();
-        setAnalyzedType(type_);
-    }
 }

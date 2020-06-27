@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingSuperTypes;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.common.AccessEnum;
@@ -57,6 +58,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     private CustList<TypeVar> paramTypes = new CustList<TypeVar>();
 
     private StringMap<TypeVar> paramTypesMap = new StringMap<TypeVar>();
+    private final CustList<AnaResultPartType> results = new CustList<AnaResultPartType>();
 
     private final StringList directSuperTypes = new StringList();
     private final IntMap<String> importedDirectBaseSuperTypes = new IntMap<String>();
@@ -146,11 +148,6 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         return allGenericClasses;
     }
 
-    public StringList getImportedDirectSuperTypes() {
-        StringList l_ = new StringList(importedDirectSuperClass);
-        l_.addAllElts(importedDirectSuperInterfaces);
-        return l_;
-    }
     public IntMap< Boolean> getExplicitDirectSuperTypes() {
         return explicitDirectSuperTypes;
     }
@@ -204,6 +201,10 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
 
     public int getIdRowCol() {
         return idRowCol;
+    }
+
+    public CustList<AnaResultPartType> getResults() {
+        return results;
     }
 
     public StringList getDirectSuperTypes() {
@@ -358,6 +359,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                 int j_ = 0;
                 for (TypeVar t: paramTypes) {
                     StringList const_ = new StringList();
+                    CustList<AnaResultPartType> results_ = new CustList<AnaResultPartType>();
                     Ints ints_ = paramTypesConstraintsOffset.get(j_);
                     if (t.getErrors().isEmpty()) {
                         constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\">",t.getOffset()));
@@ -371,7 +373,9 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                     int i_ = 0;
                     for (String c: t.getConstraints()) {
                         int d_ = ints_.get(i_);
-                        const_.add(ResolvingSuperTypes.resolveTypeMapping(_analyze,c,this,_exec, off_+d_));
+                        AnaResultPartType res_ = ResolvingSuperTypes.resolveTypeMapping(_analyze, c, this, _exec, off_ + d_);
+                        results_.add(res_);
+                        const_.add(res_.getResult());
                         i_++;
                     }
                     constraintsParts.addAllElts(_analyze.getAnalyzing().getCurrentParts());
@@ -379,6 +383,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                     TypeVar t_ = new TypeVar();
                     t_.setOffset(t.getOffset());
                     t_.setLength(t.getLength());
+                    t_.getResults().addAllElts(results_);
                     t_.setConstraints(const_);
                     t_.setName(t.getName());
                     paramTypesMap.addEntry(t.getName(), t_);
@@ -945,20 +950,22 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
         importedDirectSuperInterfaces.clear();
+        results.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            String s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s,this, _exec,index_, getSuperTypesParts());
+            AnaResultPartType s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s,this, _exec,index_, getSuperTypesParts());
+            results.add(s_);
             String c_ = getImportedDirectBaseSuperType(i_);
             i_++;
-            String base_ = StringExpUtil.getIdFromAllTypes(s_);
-            addErrorIfNoMatch(_classes,s_,c_,this,index_);
+            String base_ = StringExpUtil.getIdFromAllTypes(s_.getResult());
+            addErrorIfNoMatch(_classes,s_.getResult(),c_,this,index_);
             ExecRootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (_exec instanceof ExecAnnotationBlock||r_ instanceof ExecInterfaceBlock) {
-                _exec.getImportedDirectGenericSuperInterfaces().add(s_);
-                importedDirectSuperInterfaces.add(s_);
+                _exec.getImportedDirectGenericSuperInterfaces().add(s_.getResult());
+                importedDirectSuperInterfaces.add(s_.getResult());
             } else {
-                _exec.setImportedDirectSuperClass(s_);
-                importedDirectSuperClass = s_;
+                _exec.setImportedDirectSuperClass(s_.getResult());
+                importedDirectSuperClass = s_.getResult();
             }
         }
         if (_exec.getImportedDirectGenericSuperClass().isEmpty()) {

@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.IndexesComparator;
@@ -10,6 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
+import code.expressionlanguage.exec.types.ExecResultPartType;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodId;
@@ -158,12 +158,13 @@ public final class ExecTemplates {
     }
     /**Calls Templates.isCorrect*/
     public static String correctClassPartsDynamic(String _className, ContextEl _context, boolean _wildCard) {
-        String className_ = ExecPartTypeUtil.processExec(_className, _context);
-        if (className_.isEmpty()) {
+        ExecResultPartType className_ = ExecPartTypeUtil.processExec(_className, _context);
+        String res_ = className_.getResult();
+        if (res_.isEmpty()) {
             return "";
         }
         if (_wildCard) {
-            CustList<String> allArgTypes_ = StringExpUtil.getAllTypes(className_).mid(1);
+            CustList<String> allArgTypes_ = StringExpUtil.getAllTypes(res_).mid(1);
             for (String m: allArgTypes_) {
                 if (m.startsWith(SUB_TYPE)) {
                     return "";
@@ -173,8 +174,11 @@ public final class ExecTemplates {
                 }
             }
         }
+        if (!ExecPartTypeUtil.checkParametersCount(className_, _context)){
+            return "";
+        }
         if (isCorrectTemplateAllExec(className_, _context)) {
-            return className_;
+            return res_;
         }
         return "";
     }
@@ -655,7 +659,8 @@ public final class ExecTemplates {
         String pref_ = root_.getGenericString();
         StringMap<String> varTypes_ = new StringMap<String>();
         CustList<ExecTypeVar> typeVar_ = root_.getParamTypesMapValues();
-        if (typeVar_.size() != _classNames.size()) {
+        int len_ = typeVar_.size();
+        if (len_ != _classNames.size()) {
             return null;
         }
         int i_ = CustList.FIRST_INDEX;
@@ -664,16 +669,24 @@ public final class ExecTemplates {
             if (arg_.contains(PREFIX_VAR_TYPE)) {
                 return null;
             }
+
             varTypes_.put(t.getName(), arg_);
             i_++;
         }
         String formatted_ = StringExpUtil.getQuickFormattedType(pref_, varTypes_);
-        if (!isCorrectTemplateAllExec(formatted_, _context)) {
-            return null;
+        for (int i = 0; i < len_; i++) {
+            ExecTypeVar t = typeVar_.get(i);
+            for (String b:t.getConstraints()) {
+                String param_ = Templates.format(formatted_, b, _context);
+                if (!isCorrectExecute(_classNames.get(i),param_,_context)) {
+                    return null;
+                }
+            }
         }
         return formatted_;
     }
-    public static boolean isCorrectTemplateAllExec(String _className, ContextEl _context) {
+
+    public static boolean isCorrectTemplateAllExec(ExecResultPartType _className, ContextEl _context) {
         return ExecPartTypeUtil.processAnalyzeConstraintsExec(_className,_context);
     }
 

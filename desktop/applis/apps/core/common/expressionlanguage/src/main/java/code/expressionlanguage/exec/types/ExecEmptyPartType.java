@@ -11,11 +11,6 @@ final class ExecEmptyPartType extends ExecLeafPartType {
 
     @Override
     void checkDynExistence(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
-        analyzeTemplateExec(_an,_dels);
     }
 
-    @Override
-    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
-        //
-    }
 }

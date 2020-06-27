@@ -32,13 +32,9 @@ final class ExecArraryPartType extends ExecParentPartType {
 
     @Override
     boolean analyzeTree(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
-        return true;
-    }
-
-    @Override
-    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
+        return true;
     }
 }

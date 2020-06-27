@@ -16,10 +16,7 @@ final class ExecEmptyWildCardPart extends ExecLeafPartType {
             return;
         }
         setImportedTypeName(Templates.SUB_TYPE);
-    }
-
-    @Override
-    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
         setAnalyzedType(Templates.SUB_TYPE);
     }
+
 }

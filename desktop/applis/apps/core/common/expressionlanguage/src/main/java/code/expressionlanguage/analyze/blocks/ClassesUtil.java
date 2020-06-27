@@ -5,12 +5,13 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ClassFieldBlock;
 import code.expressionlanguage.analyze.accessing.OperatorAccessor;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingSuperTypes;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.util.TypeInfo;
@@ -521,8 +522,8 @@ public final class ClassesUtil {
                 allAncestors_.add(p_.getFullName());
                 p_ = p_.getParentType();
             }
-            for (String s: c.getImportedDirectSuperTypes()) {
-                GeneType s_ = _context.getClassBody(StringExpUtil.getIdFromAllTypes(s));
+            for (AnaResultPartType s: c.getResults()) {
+                GeneType s_ = _context.getClassBody(StringExpUtil.getIdFromAllTypes(s.getResult()));
                 if (!(s_ instanceof ExecRootBlock)) {
                     continue;
                 }
@@ -1013,26 +1014,26 @@ public final class ClassesUtil {
                 map_.put(t.getName(), t.getConstraints());
             }
             for (TypeVar t: s.getParamTypesMapValues()) {
-                for (String b: t.getConstraints()) {
-                    if (!AnaTemplates.isCorrectTemplateAll(b, map_, _context)) {
+                for (AnaResultPartType b: t.getResults()) {
+                    if (!AnaPartTypeUtil.processAnalyzeConstraints(b, map_, _context, true)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(s.getFile().getFileName());
                         un_.setIndexFile(s.getIdRowCol());
                         //type var len => at def
                         un_.buildError(_context.getAnalysisMessages().getBadParamerizedType(),
-                                b);
+                                b.getResult());
                         _context.addError(un_);
                     }
                 }
             }
-            for (String t: s.getImportedDirectSuperTypes()) {
-                if (!AnaTemplates.isCorrectTemplateAll(t, map_, _context)) {
+            for (AnaResultPartType t: s.getResults()) {
+                if (!AnaPartTypeUtil.processAnalyzeConstraints(t, map_, _context, true)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(s.getFile().getFileName());
                     un_.setIndexFile(s.getIdRowCol());
                     // char : before super type
                     un_.buildError(_context.getAnalysisMessages().getBadParamerizedType(),
-                            t);
+                            t.getResult());
                     _context.addError(un_);
                 }
             }

@@ -41,13 +41,9 @@ final class ExecWildCardPartType extends ExecParentPartType {
         if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
             return false;
         }
-        return true;
-    }
-
-    @Override
-    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
+        return true;
     }
 }

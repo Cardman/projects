@@ -46,11 +46,6 @@ class ExecInnerPartType extends ExecBinaryType {
 
     @Override
     boolean analyzeTree(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
-        return true;
-    }
-
-    @Override
-    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
         CustList<ExecPartType> ch_ = new CustList<ExecPartType>();
         ExecPartType f_ = getFirstChild();
         while (f_ != null) {
@@ -59,6 +54,7 @@ class ExecInnerPartType extends ExecBinaryType {
         }
         String t_ = ch_.last().getAnalyzedType();
         setAnalyzedType(t_);
+        return true;
     }
 
     public CustList<String> getOperators() {

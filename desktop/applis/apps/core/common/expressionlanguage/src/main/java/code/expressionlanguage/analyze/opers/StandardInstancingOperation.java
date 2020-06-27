@@ -362,7 +362,8 @@ public final class StandardInstancingOperation extends
             realClassName_ = StringList.concat(sup_,"..",idClass_,"<", StringList.join(partsArgs_, ","),">");
         }
         StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
-        if (!AnaTemplates.isCorrectTemplateAll(realClassName_, vars_, _conf)) {
+        String res_ = AnaTemplates.getCorrectTemplateAll(StringList.concat(sup_, "..", idClass_), partsArgs_, vars_, _conf);
+        if (res_.isEmpty()) {
             int rc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());

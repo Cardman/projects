@@ -1039,7 +1039,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             cl_ = StringList.concat(sup_,"..",idClass_,"<", StringList.join(partsArgs_, ","),">");
         }
         StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
-        if (!AnaTemplates.isCorrectTemplateAll(cl_, vars_, _conf)) {
+        String res_ = AnaTemplates.getCorrectTemplateAll(StringList.concat(sup_, "..", idClass_), partsArgs_, vars_, _conf);
+        if (res_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());

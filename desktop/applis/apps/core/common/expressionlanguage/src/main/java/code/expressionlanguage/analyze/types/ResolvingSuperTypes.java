@@ -19,8 +19,8 @@ public final class ResolvingSuperTypes {
 
 
     /**Used at building mapping constraints*/
-    public static String resolveTypeMapping(ContextEl _context, String _in, RootBlock _ana, ExecRootBlock _currentBlock,
-                                            int _location) {
+    public static AnaResultPartType resolveTypeMapping(ContextEl _context, String _in, RootBlock _ana, ExecRootBlock _currentBlock,
+                                                       int _location) {
         String void_ = _context.getStandards().getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -30,7 +30,7 @@ public final class ResolvingSuperTypes {
             un_.buildError(_context.getAnalysisMessages().getVoidType(),
                     void_);
             _context.addError(un_);
-            return _context.getStandards().getAliasObject();
+            return new AnaResultPartType(_context.getStandards().getAliasObject(),null);
         }
         StringMap<Integer> variables_ = new StringMap<Integer>();
         for (RootBlock r: _ana.getSelfAndParentTypes()) {
@@ -46,17 +46,17 @@ public final class ResolvingSuperTypes {
         _context.getAnalyzing().getCurrentBadIndexes().clear();
         _context.getAnalyzing().setImportingAcces(new TypeAccessor(_currentBlock.getFullName()));
         _context.getAnalyzing().setImportingTypes(_currentBlock);
-        String resType_ = AnaPartTypeUtil.processAnalyze(_in, false,gl_, _context, _currentBlock,_currentBlock, _location,partOffsets_);
+        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyze(_in, false,gl_, _context, _currentBlock,_currentBlock, _location,partOffsets_);
         for (int i: _context.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location+i);
             //part len
             un_.buildError(_context.getAnalysisMessages().getInaccessibleType(),
-                    resType_,gl_);
+                    resType_.getResult(),gl_);
             _context.addError(un_);
         }
-        if (resType_.trim().isEmpty()) {
+        if (resType_.getResult().trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location);
@@ -64,13 +64,13 @@ public final class ResolvingSuperTypes {
             un_.buildError(_context.getAnalysisMessages().getUnknownType(),
                     _in);
             _context.addError(un_);
-            return _context.getStandards().getAliasObject();
+            return new AnaResultPartType(_context.getStandards().getAliasObject(),null);
         }
         return resType_;
     }
     /**Used at building mapping constraints*/
-    public static String resolveTypeInherits(ContextEl _context, String _in,  RootBlock _ana,ExecRootBlock _currentBlock,
-                                             int _location, CustList<PartOffset> _partOffsets) {
+    public static AnaResultPartType resolveTypeInherits(ContextEl _context, String _in, RootBlock _ana, ExecRootBlock _currentBlock,
+                                                        int _location, CustList<PartOffset> _partOffsets) {
         StringMap<Integer> variables_ = new StringMap<Integer>();
         for (RootBlock r: _ana.getSelfAndParentTypes()) {
             for (TypeVar t: r.getParamTypes()) {
@@ -85,17 +85,17 @@ public final class ResolvingSuperTypes {
         _context.getAnalyzing().getCurrentBadIndexes().clear();
         _context.getAnalyzing().setImportingAcces(new TypeAccessor(_currentBlock.getFullName()));
         _context.getAnalyzing().setImportingTypes(_currentBlock);
-        String resType_ = AnaPartTypeUtil.processAnalyze(_in,true,gl_,_context,scope_,_currentBlock, _location, _partOffsets);
+        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyze(_in,true,gl_,_context,scope_,_currentBlock, _location, _partOffsets);
         for (int i: _context.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location+i);
             //part len
             un_.buildError(_context.getAnalysisMessages().getInaccessibleType(),
-                    resType_,gl_);
+                    resType_.getResult(),gl_);
             _context.addError(un_);
         }
-        if (resType_.trim().isEmpty()) {
+        if (resType_.getResult().trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location);
@@ -103,9 +103,9 @@ public final class ResolvingSuperTypes {
             un_.buildError(_context.getAnalysisMessages().getUnknownType(),
                     _in);
             _context.addError(un_);
-            return _context.getStandards().getAliasObject();
+            return new AnaResultPartType(_context.getStandards().getAliasObject(),null);
         }
-        for (String p:StringExpUtil.getAllTypes(resType_).mid(1)){
+        for (String p:StringExpUtil.getAllTypes(resType_.getResult()).mid(1)){
             if (p.startsWith(Templates.SUB_TYPE)) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFileName(_currentBlock.getFile().getFileName());
@@ -113,7 +113,7 @@ public final class ResolvingSuperTypes {
                 //_in len
                 call_.buildError(_context.getAnalysisMessages().getIllegalGenericSuperTypeBound(),
                         p,
-                        resType_);
+                        resType_.getResult());
                 _context.addError(call_);
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
@@ -123,7 +123,7 @@ public final class ResolvingSuperTypes {
                 //_in len
                 call_.buildError(_context.getAnalysisMessages().getIllegalGenericSuperTypeBound(),
                         p,
-                        resType_);
+                        resType_.getResult());
                 _context.addError(call_);
             }
         }

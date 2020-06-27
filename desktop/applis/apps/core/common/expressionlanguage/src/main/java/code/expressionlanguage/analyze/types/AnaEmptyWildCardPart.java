@@ -2,12 +2,9 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.AccessedBlock;
-import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.IntTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
 
 final class AnaEmptyWildCardPart extends AnaLeafPartType {
 
@@ -33,11 +30,6 @@ final class AnaEmptyWildCardPart extends AnaLeafPartType {
         if (!(getParent() instanceof AnaTemplatePartType)) {
             return;
         }
-        setAnalyzedType(Templates.SUB_TYPE);
-    }
-
-    @Override
-    void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
         setAnalyzedType(Templates.SUB_TYPE);
     }
 

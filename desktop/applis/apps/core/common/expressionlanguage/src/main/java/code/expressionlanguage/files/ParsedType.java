@@ -2,7 +2,6 @@ package code.expressionlanguage.files;
 
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.types.PartTypeUtil;
 import code.util.CustList;
 
 public final class ParsedType {

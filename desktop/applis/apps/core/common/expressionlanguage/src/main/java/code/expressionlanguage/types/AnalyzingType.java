@@ -52,40 +52,11 @@ public final class AnalyzingType {
         values.put(beginValuePart_, str_);
     }
 
-    public void setupQuickValues(String _string) {
-        values = new IntTreeMap<String>();
-        int beginValuePart_ = CustList.FIRST_INDEX;
-        int endValuePart_ = operators.firstKey();
-        String str_;
-        str_ = _string.substring(beginValuePart_, endValuePart_);
-        values.put(beginValuePart_, str_);
-        int i_ = CustList.SECOND_INDEX;
-        int nbKeys_ = operators.size();
-        while (i_ < nbKeys_) {
-            beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
-            endValuePart_ = operators.getKey(i_);
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put(beginValuePart_, str_);
-            i_++;
-        }
-        beginValuePart_ = endValuePart_ + operators.lastValue().length();
-        str_ = _string.substring(beginValuePart_);
-        values.put(beginValuePart_, str_);
-    }
     public void setupValueExec(String _string) {
         values = new IntTreeMap<String>();
         values.put((int)CustList.FIRST_INDEX, _string);
     }
-    public void setupQuickArrayValues(String _string) {
-        int first_ = 0;
-        int arr_ = first_;
-        first_++;
-        String str_ = _string.substring(first_);
-        values = new IntTreeMap<String>();
-        values.put(first_, str_);
-        operators = new IntTreeMap<String>();
-        operators.put(arr_, Templates.ARR_BEG_STRING);
-    }
+
     public void setupArrayValuesExec(String _string) {
         int first_ = StringList.getFirstPrintableCharIndex(_string);
         int arr_ = first_;
@@ -118,16 +89,7 @@ public final class AnalyzingType {
         operators = new IntTreeMap<String>();
         operators.put(arr_, _op);
     }
-    public void setupQuickWildCardValues(String _op,String _string) {
-        int first_ = 0;
-        int arr_ = first_;
-        first_++;
-        String str_ = _string.substring(first_);
-        values = new IntTreeMap<String>();
-        values.put(first_, str_);
-        operators = new IntTreeMap<String>();
-        operators.put(arr_, _op);
-    }
+
     public void setupValuesExec(String _string) {
         values = new IntTreeMap<String>();
         if (operators.isEmpty()) {

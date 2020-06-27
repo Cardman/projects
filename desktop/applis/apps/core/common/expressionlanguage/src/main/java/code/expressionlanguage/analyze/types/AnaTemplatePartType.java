@@ -6,7 +6,6 @@ import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.AccessedBlock;
-import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 
@@ -73,8 +72,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
         setAnalyzedType(t_);
     }
 
-    @Override
-    void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
+    boolean okTmp(ContextEl _an, StringMap<StringList> _inherit) {
         AnaPartType f_ = getFirstChild();
         String tempCl_ = f_.getAnalyzedType();
         String tempClFull_ = fetchTemplate();
@@ -105,9 +103,6 @@ final class AnaTemplatePartType extends AnaBinaryType {
             for (String e: t) {
                 Mapping m_ = new Mapping();
                 String param_ = Templates.format(tempClFull_, e, _an);
-                if (param_.isEmpty()) {
-                    return;
-                }
                 m_.setParam(param_);
                 boolean ok_ = false;
                 for (String v: bounds_) {
@@ -119,13 +114,12 @@ final class AnaTemplatePartType extends AnaBinaryType {
                     }
                 }
                 if (!ok_) {
-                    return;
+                    return false;
                 }
             }
         }
-        setAnalyzedType(tempClFull_);
+        return true;
     }
-
     private String fetchTemplate() {
         AnaPartType f_ = getFirstChild();
         CustList<AnaPartType> ch_ = new CustList<AnaPartType>();

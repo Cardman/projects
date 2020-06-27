@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.types.PartTypeUtil;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -1024,12 +1023,6 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
 
         String solved_ = AnaPartTypeUtil.processAnalyze("?java.lang.String", "",context_, root_);
         assertEq("", solved_);
-    }
-    @Test
-    public void process11FailTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
-        assertTrue(!PartTypeUtil.checkParametersCount("", new StringMap<StringList>(),context_));
     }
     @Test
     public void processLine1Test() {

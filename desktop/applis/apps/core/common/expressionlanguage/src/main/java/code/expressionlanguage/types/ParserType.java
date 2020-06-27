@@ -131,33 +131,6 @@ public final class ParserType {
         }
         return indexes_;
     }
-    public static Ints getQuickIndexes(String _input) {
-        int len_ = _input.length();
-        int i_ = 0;
-        Ints indexes_ = new Ints();
-        while (i_ < len_) {
-            char curChar_ = _input.charAt(i_);
-            if (curChar_ == Templates.LT) {
-                indexes_.add(i_);
-            }
-            if (curChar_ == Templates.GT) {
-                indexes_.add(i_);
-            }
-            if (curChar_ == Templates.COMMA) {
-                indexes_.add(i_);
-            }
-            if (curChar_ == Templates.SEP_CLASS_CHAR) {
-                if (nextCharIsDot(_input, len_, i_)) {
-                    indexes_.add(i_);
-                    i_++;
-                }
-            } else if (curChar_ == '-') {
-                indexes_.add(i_);
-            }
-            i_++;
-        }
-        return indexes_;
-    }
 
     private static boolean nextCharIsDot(String _input, int _len, int _i) {
         return _i + 1 < _len && _input.charAt(_i + 1) == Templates.SEP_CLASS_CHAR;
@@ -257,92 +230,7 @@ public final class ParserType {
         a_.setupValues(_string);
         return a_;
     }
-    public static AnalyzingType analyzeQuickLocal(int _offset, String _string, Ints _indexes) {
-        AnalyzingType a_ = new AnalyzingType();
-        a_.getIndexes().addAllElts(_indexes);
-        if (_string.trim().isEmpty()) {
-            a_.getValues().put((int)CustList.FIRST_INDEX, _string);
-            a_.setError(true);
-            return a_;
-        }
-        if (StringExpUtil.isVar(_string)) {
-            a_.setKind(KindPartType.VARIABLE);
-            a_.setupValue(_string);
-            return a_;
-        }
-        if (StringExpUtil.isTypeLeaf(_string)) {
-            a_.setKind(KindPartType.TYPE_NAME);
-            a_.setupValue(_string);
-            return a_;
-        }
-        if (StringList.quickEq(_string.trim(), Templates.SUB_TYPE)) {
-            a_.setKind(KindPartType.EMPTY_WILD_CARD);
-            a_.setupValue(_string);
-            return a_;
-        }
-        if (_string.trim().startsWith(Templates.SUB_TYPE)) {
-            a_.setPrio(WILD_CARD_PRIO);
-            a_.setupQuickWildCardValues(Templates.SUB_TYPE, _string);
-            return a_;
-        }
-        if (_string.trim().startsWith(Templates.SUP_TYPE)) {
-            a_.setPrio(WILD_CARD_PRIO);
-            a_.setupQuickWildCardValues(Templates.SUP_TYPE, _string);
-            return a_;
-        }
-        if (_string.trim().startsWith(Templates.ARR_BEG_STRING)) {
-            a_.setPrio(ARR_PRIO);
-            a_.setupQuickArrayValues(_string);
-            return a_;
-        }
-        int count_ = 0;
-        int len_ = _string.length();
-        int i_ = 0;
-        int prio_ = TMP_PRIO;
-        IntTreeMap<String> operators_;
-        operators_ = new IntTreeMap<String>();
-        while (i_ < len_) {
-            char curChar_ = _string.charAt(i_);
-            if (!_indexes.containsObj((long)i_+_offset)) {
-                i_++;
-                continue;
-            }
-            if (curChar_ == Templates.LT) {
-                if (count_== 0 && prio_ == TMP_PRIO) {
-                    operators_.clear();
-                    operators_.put(i_,Templates.TEMPLATE_BEGIN);
-                }
-                count_++;
-            }
-            if (curChar_ == Templates.COMMA && count_ == 1 && prio_ == TMP_PRIO) {
-                operators_.put(i_, Templates.TEMPLATE_SEP);
-            }
-            if (curChar_ == Templates.GT) {
-                count_--;
-                if (count_ == 0 && prio_ == TMP_PRIO) {
-                    operators_.put(i_,Templates.TEMPLATE_END);
-                }
-            }
-            if (count_ == 0) {
-                if (curChar_ == Templates.SEP_CLASS_CHAR || curChar_ == '-') {
-                    if (prio_ > INT_PRIO) {
-                        operators_.clear();
-                        prio_ = INT_PRIO;
-                    }
-                    if (curChar_ == Templates.SEP_CLASS_CHAR){
-                        operators_.put(i_,Templates.INNER_TYPE);
-                    } else {
-                        operators_.put(i_,"-");
-                    }
-                }
-            }
-            i_++;
-        }
-        a_.getOperators().putAllMap(operators_);
-        a_.setPrio(prio_);
-        a_.setupQuickValues(_string);
-        return a_;
-    }
+
     public static AnalyzingType analyzeLocalExec(int _offset, String _string, Ints _indexes) {
         AnalyzingType a_ = new AnalyzingType();
         a_.getIndexes().addAllElts(_indexes);

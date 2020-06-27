@@ -416,6 +416,19 @@ public final class TemplatesTest extends ProcessMethodCommon {
 
 
     @Test
+    public void format_3Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#W> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "!#W";
+        assertEq("",Templates.format(first_, second_, cont_));
+    }
+
+
+    @Test
     public void format4Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -446,7 +459,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "?#W";
-        assertEq("",Templates.format(first_, second_, cont_));
+        assertEq("?java.lang.Number",Templates.format(first_, second_, cont_));
     }
 
 

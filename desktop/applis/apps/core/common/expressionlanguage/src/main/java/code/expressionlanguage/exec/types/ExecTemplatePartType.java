@@ -13,6 +13,7 @@ import code.util.IntTreeMap;
 import code.util.StringList;
 
 final class ExecTemplatePartType extends ExecBinaryType {
+
     ExecTemplatePartType(ExecParentPartType _parent, int _index) {
         super(_parent, _index);
     }
@@ -53,11 +54,12 @@ final class ExecTemplatePartType extends ExecBinaryType {
 
     @Override
     boolean analyzeTree(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
+        String tempClFull_ = fetchTemplate();
+        setAnalyzedType(tempClFull_);
         return true;
     }
 
-    @Override
-    void analyzeTemplateExec(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
+    boolean okTmp(ContextEl _an) {
         ExecPartType f_ = getFirstChild();
         String tempCl_ = f_.getAnalyzedType();
         String tempClFull_ = fetchTemplate();
@@ -83,11 +85,11 @@ final class ExecTemplatePartType extends ExecBinaryType {
             for (String e: t) {
                 String param_ = Templates.format(tempClFull_, e, _an);
                 if (!ExecTemplates.isCorrectExecute(comp_, param_, _an)) {
-                    return;
+                    return false;
                 }
             }
         }
-        setAnalyzedType(tempClFull_);
+        return true;
     }
 
     private String fetchTemplate() {

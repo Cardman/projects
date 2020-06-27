@@ -13,7 +13,6 @@ import code.expressionlanguage.exec.Classes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 final class AnaNamePartType extends AnaLeafPartType {
 
@@ -76,16 +75,6 @@ final class AnaNamePartType extends AnaLeafPartType {
         }
         setAnalyzedType(StringList.concat(_foundOwner, _geneSep, _type));
         owner = _originalOwner;
-    }
-
-    @Override
-    void analyzeTemplate(ContextEl _an, CustList<IntTreeMap<String>> _dels, StringMap<StringList> _inherit) {
-        String type_ = getTypeName();
-        AnaPartType part_ = getPreviousPartType();
-        if (part_ != null) {
-            type_ = StringList.concat(part_.getAnalyzedType(), getPreviousSeparator(), type_);
-        }
-        setAnalyzedType(type_);
     }
 
     private void analyzeFullType(String _type) {
