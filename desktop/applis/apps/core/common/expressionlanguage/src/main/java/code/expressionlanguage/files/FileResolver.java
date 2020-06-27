@@ -1526,7 +1526,7 @@ public final class FileResolver {
                 br_ = bl_;
             }
             boolean emptySwitchPart_ = false;
-            if (br_ instanceof SwitchPartBlock) {
+            if (br_ instanceof SwitchPartBlock && _currentChar == ':') {
                 int c_ = afterComments(_context,_file, _i + 1);
                 if (c_ < 0) {
                     br_.getBadIndexes().add(_file.length());
