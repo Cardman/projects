@@ -110,7 +110,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     private Struct newSimpleBean(String _language, BeanInfo _bean, Configuration _conf) {
-        ConstructorId id_ = new ConstructorId(_bean.getClassName(), new StringList(), false);
+        ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         ResultErrorStd res_ = ApplyCoreMethodUtil.newInstance(_conf.getContext(), id_, Argument.toArgArray(new CustList<Argument>()));
         Struct strBean_ = res_.getResult();
         BeanStruct str_ = (BeanStruct) strBean_;

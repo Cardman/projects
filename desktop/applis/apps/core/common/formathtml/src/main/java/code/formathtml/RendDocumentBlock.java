@@ -6,7 +6,6 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.AccessibleBlock;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -40,7 +39,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
         page_.setAccessStaticContext(MethodAccessKind.STATIC);
         if (_cont.getBeansInfos().contains(beanName)) {
             page_.setAccessStaticContext(MethodAccessKind.INSTANCE);
-            String clName_ = _cont.getBeansInfos().getVal(beanName).getClassName();
+            String clName_ = _cont.getBeansInfos().getVal(beanName).getResolvedClassName();
             page_.setGlobalClass(clName_);
             _cont.getContext().setGlobalClass(clName_);
         }

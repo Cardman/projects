@@ -145,6 +145,7 @@ public final class Navigation {
             CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(
                     StringList.concat(keyWordNew_, " ", info_.getClassName(), RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR),
                     0, session);
+            info_.setResolvedClassName(exps_.last().getResultClass().getSingleNameOrEmpty());
             info_.setExps(exps_);
         }
         for (EntryCust<String,ValidatorInfo> e: session.getLateValidators().entryList()) {

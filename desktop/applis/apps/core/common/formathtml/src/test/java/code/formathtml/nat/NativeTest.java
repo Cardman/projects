@@ -1486,6 +1486,7 @@ public final class NativeTest extends CommonRender {
     private static void addBeanInfo(Configuration _conf, String _id, Struct _str) {
         BeanInfo b_ = new BeanInfo();
         b_.setClassName(_str.getClassName(_conf.getContext()));
+        b_.setResolvedClassName(_str.getClassName(_conf.getContext()));
         _conf.getBeansInfos().addEntry(_id,b_);
         _conf.getBuiltBeans().addEntry(_id,_str);
     }
