@@ -72,6 +72,9 @@ public final class RendForm extends RendElement {
                 pref_ = StringList.concat(pref_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
             }
             opForm = RenderExpUtil.getAnalyzedOperations(pref_,rowsGrId_,0,_cont);
+            for (String v:varNames_) {
+                _cont.getLocalVarsAna().last().removeKey(v);
+            }
         }
     }
 
