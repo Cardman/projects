@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.errors.custom.ErrorList;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.errors.stds.StdWordError;
@@ -41,7 +40,6 @@ public final class AnalyzedPageEl {
     private ExecAccessingImportingBlock importingAcces;
     private AccessedBlock importingTypes;
     private final CustList<RootBlock> listTypesNames = new CustList<RootBlock>();
-    private final CustList<RootBlock> notFound = new CustList<RootBlock>();
     private final IdMap<RootBlock,ExecRootBlock> mapTypes = new IdMap<RootBlock,ExecRootBlock>();
     private final IdMap<InnerElementBlock,ExecInnerElementBlock> mapInnerEltTypes = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
     private final IdMap<UniqueRootedBlock,ExecUniqueRootedBlock> mapTypesUniqType = new IdMap<UniqueRootedBlock,ExecUniqueRootedBlock>();
@@ -536,10 +534,6 @@ public final class AnalyzedPageEl {
 
     public CustList<RootBlock> getListTypesNames() {
         return listTypesNames;
-    }
-
-    public CustList<RootBlock> getNotFound() {
-        return notFound;
     }
 
     public CustList<RootBlock> getFoundTypes() {

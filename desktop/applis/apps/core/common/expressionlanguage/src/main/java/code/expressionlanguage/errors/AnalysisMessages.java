@@ -303,12 +303,12 @@ public final class AnalysisMessages {
     private String badInheritsType="The type {0} cannot have the type {1} as super type.";
     private String badInheritsTypeInn="The type {0} cannot have the type {1} as super type because {1} is instance type.";
     private String badInheritsTypeAsInn="The type {0} cannot have the type {1} as super type because {0} has {2} parents types and {1} has {3} parents types.";
-    private String badInheritsTypeInt="The type {0} cannot have the type {1} as super type because {1} is not an interface.";
+    private String badInheritsTypeInt="The interface {0} cannot have the type {1} as super type because {1} is not an interface.";
     private String finalType="The type {0} cannot have the type {1} as super type because {1} is final.";
     private String duplicateSuper="The type {0} cannot have the type {1} duplicated as super type {2} times.";
     private String reservedType="The type {0} cannot have explicitly the type {1} as super type because {1} is reserved.";
     private String superClass="The class {0} cannot have more than one super class ({1} times).";
-    private String unknownSuperType="The super types of the static type {0} could not be found.";
+    private String unknownSuperType="The super types of the type {0} could not be found.";
     private String cyclicInherits="The type {0} belongs to a cyclic inheriting.";
     private String annotationParam="The annotation {0} cannot be parameterized.";
     private String cyclicMapping="The type variables of the type {0} have a cyclic inheriting.";

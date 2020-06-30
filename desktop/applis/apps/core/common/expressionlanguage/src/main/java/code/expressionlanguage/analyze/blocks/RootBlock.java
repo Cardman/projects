@@ -365,7 +365,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                         constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\">",t.getOffset()));
                     } else {
                         String err_ = StringList.join(t.getErrors(),"\n\n");
-                        constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\" title=\""+err_+"\">",t.getOffset()));
+                        constraintsParts.add(new PartOffset("<a name=\"m"+t.getOffset()+"\" title=\""+err_+"\" class=\"e\">",t.getOffset()));
                     }
                     constraintsParts.add(new PartOffset("</a>",t.getOffset()+t.getLength()));
                     _analyze.getAnalyzing().getCurrentParts().clear();
@@ -975,7 +975,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         }
     }
 
-    private static void addErrorIfNoMatch(ContextEl _cont, String _generic, String _base, Block _currentBlock, int _location) {
+    private static void addErrorIfNoMatch(ContextEl _cont, String _generic, String _base, RootBlock _currentBlock, int _location) {
         String id_ = StringExpUtil.getIdFromAllTypes(_generic);
         if (!StringList.quickEq(id_,_base)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -985,6 +985,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             un_.buildError(_cont.getAnalysisMessages().getUnknownType(),
                     _generic);
             _cont.addError(un_);
+            _currentBlock.addNameErrors(un_);
         }
     }
 

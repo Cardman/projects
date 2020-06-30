@@ -188,19 +188,15 @@ public final class LinkageUtil {
     private static void processFileBlockError(FileBlock _cond, CustList<PartOffset> _parts) {
         for (GraphicErrorInterpret g: _cond.getErrorsFiles()) {
             int index_ = g.getIndexFile();
-            _parts.add(new PartOffset("<span class=\"e\">", index_));
-            _parts.add(new PartOffset("<a title=\""+g.getBuiltError()+"\">", index_));
+            _parts.add(new PartOffset("<a title=\""+g.getBuiltError()+"\" class=\"e\">", index_));
             _parts.add(new PartOffset("</a>", index_+ g.getLength()));
-            _parts.add(new PartOffset("</span>", index_+ g.getLength()));
         }
     }
     private static void processGlobalRootBlockError(RootBlock _cond, CustList<PartOffset> _parts) {
         for (GraphicErrorInterpret g: _cond.getGlobalErrorsPars()) {
             int index_ = g.getIndexFile();
-            _parts.add(new PartOffset("<span class=\"e\">", index_));
-            _parts.add(new PartOffset("<a title=\""+g.getBuiltError()+"\">", index_));
+            _parts.add(new PartOffset("<a title=\""+g.getBuiltError()+"\" class=\"e\">", index_));
             _parts.add(new PartOffset("</a>", index_+ g.getLength()));
-            _parts.add(new PartOffset("</span>", index_+ g.getLength()));
         }
     }
     private static CustList<PartOffset> processReport(FileBlock _ex,String _fileExp,ContextEl _cont){
@@ -845,21 +841,17 @@ public final class LinkageUtil {
         String fileName_ = _vars.getCurrentFileName();
         CustList<ExecConstructorBlock> ctors_ = ExecBlock.getConstructorBodiesById(_cont, cl_, c_);
         StringList list_ = _cond.getNameErrors();
-        CustList<PartOffset> l_ = new CustList<PartOffset>();
         String err_="";
         if (!list_.isEmpty()) {
             err_ = StringList.join(list_,"\n\n");
-            l_.add(new PartOffset("<span class=\"e\">", _cond.getIdRowCol()));
-            l_.add(new PartOffset("</span>", _cond.getIdRowCol() + _cond.getNameLength()));
         }
 
         if (!ctors_.isEmpty()) {
             ExecConstructorBlock ctor_ = ctors_.first();
             String rel_ = relativize(fileName_,file_+".html#m"+ctor_.getNameOffset());
-            if (!l_.isEmpty()) {
-                String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\n\n"+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
+            if (!list_.isEmpty()) {
+                String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\n\n"+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\" class=\"e\">";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                _parts.addAllElts(l_);
             } else {
                 String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
@@ -867,10 +859,9 @@ public final class LinkageUtil {
             String tag_ = "</a>";
             _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() +_cond.getUniqueFieldName().length()));
         } else {
-            if (!l_.isEmpty()) {
-                String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\">";
+            if (!list_.isEmpty()) {
+                String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\" class=\"e\">";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-                _parts.addAllElts(l_);
             } else {
                 String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\">";
                 _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
@@ -892,9 +883,7 @@ public final class LinkageUtil {
         processAnnotationReport(_vars,_cond,_cont, _parts);
         StringList listCat_ = _cond.getCategoryErrors();
         if (!listCat_.isEmpty()) {
-            _parts.add(new PartOffset("<a title=\""+ StringList.join(listCat_,"\n\n")+"\">", _cond.getCategoryOffset()));
-            _parts.add(new PartOffset("<span class=\"e\">", _cond.getCategoryOffset()));
-            _parts.add(new PartOffset("</span>", _cond.getCategoryOffset() + _cond.getCategoryLength()));
+            _parts.add(new PartOffset("<a title=\""+ StringList.join(listCat_,"\n\n")+"\" class=\"e\">", _cond.getCategoryOffset()));
             _parts.add(new PartOffset("</a>", _cond.getCategoryOffset() + _cond.getCategoryLength()));
 
         }
@@ -908,9 +897,7 @@ public final class LinkageUtil {
         }
         StringList list_ = _cond.getNameErrors();
         if (!list_.isEmpty()) {
-            _parts.add(new PartOffset("<a name=\"m"+ _cond.getIdRowCol() +"\" title=\""+ StringList.join(list_,"\n\n")+"\">", _cond.getIdRowCol()));
-            _parts.add(new PartOffset("<span class=\"e\">", _cond.getIdRowCol()));
-            _parts.add(new PartOffset("</span>", _cond.getIdRowCol() + _cond.getNameLength()));
+            _parts.add(new PartOffset("<a name=\"m"+ _cond.getIdRowCol() +"\" title=\""+ StringList.join(list_,"\n\n")+"\" class=\"e\">", _cond.getIdRowCol()));
         } else {
             _parts.add(new PartOffset("<a name=\"m"+ _cond.getIdRowCol() +"\">", _cond.getIdRowCol()));
         }

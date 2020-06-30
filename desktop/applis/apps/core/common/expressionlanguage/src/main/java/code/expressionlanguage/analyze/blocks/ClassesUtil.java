@@ -435,6 +435,7 @@ public final class ClassesUtil {
                         fullName_,
                         p);
                 _context.addError(d_);
+                r.addNameErrors(d_);
             }
         }
     }
@@ -491,12 +492,6 @@ public final class ClassesUtil {
         AnalyzedPageEl page_ = _context.getAnalyzing();
         CustList<RootBlock> listTypes_ = page_.getListTypesNames();
         for (RootBlock s: listTypes_) {
-            page_.setCurrentBlock(s);
-            page_.setCurrentAnaBlock(s);
-            ExecRootBlock val_ = page_.getMapTypes().getVal(s);
-            s.buildDirectGenericSuperTypes(_context, val_);
-        }
-        for (RootBlock s: page_.getNotFound()) {
             page_.setCurrentBlock(s);
             page_.setCurrentAnaBlock(s);
             ExecRootBlock val_ = page_.getMapTypes().getVal(s);
@@ -609,6 +604,7 @@ public final class ClassesUtil {
                         undef_.buildError(_context.getAnalysisMessages().getVoidType(),
                                 void_);
                         _context.addError(undef_);
+                        r.addNameErrors(undef_);
                         index_++;
                         continue;
                     }
@@ -623,6 +619,7 @@ public final class ClassesUtil {
                                     c,
                                     idSuper_);
                             _context.addError(undef_);
+                            r.addNameErrors(undef_);
                             index_++;
                             continue;
                         }
@@ -636,6 +633,7 @@ public final class ClassesUtil {
                                     c,
                                     idSuper_);
                             _context.addError(undef_);
+                            r.addNameErrors(undef_);
                             index_++;
                             continue;
                         }
@@ -667,6 +665,7 @@ public final class ClassesUtil {
                                     c,
                                     foundType_);
                             _context.addError(undef_);
+                            r.addNameErrors(undef_);
                             index_++;
                             continue;
                         }
@@ -680,6 +679,7 @@ public final class ClassesUtil {
                                     c,
                                     foundType_);
                             _context.addError(undef_);
+                            r.addNameErrors(undef_);
                             index_++;
                             continue;
                         }
@@ -709,6 +709,7 @@ public final class ClassesUtil {
                         undef_.buildError(_context.getAnalysisMessages().getDuplicateSuper(),
                                 c,e.getKey(),Integer.toString(e.getValue()));
                         _context.addError(undef_);
+                        r.addNameErrors(undef_);
                         hasDuplicates_ = true;
                     }
                 }
@@ -742,6 +743,7 @@ public final class ClassesUtil {
                                     c,
                                     k_);
                             _context.addError(enum_);
+                            r.addNameErrors(enum_);
                         }
                     } else {
                         int subSise_ = exec_.getSelfAndParentTypes().size();
@@ -758,6 +760,7 @@ public final class ClassesUtil {
                                     Integer.toString(subSise_-1),
                                     Integer.toString(supSise_-1));
                             _context.addError(enum_);
+                            r.addNameErrors(enum_);
                         }
                     }
                     if (exec_ instanceof ExecInterfaceBlock) {
@@ -770,7 +773,7 @@ public final class ClassesUtil {
                             enum_.buildError(_context.getAnalysisMessages().getBadInheritsTypeInt(),
                                     c,k_);
                             _context.addError(enum_);
-                            continue;
+                            r.addNameErrors(enum_);
                         }
                         r.getImportedDirectBaseSuperTypes().put(ind_,k_);
                         exec_.getImportedDirectBaseSuperTypes().add(k_);
@@ -790,7 +793,7 @@ public final class ClassesUtil {
                         enum_.buildError(_context.getAnalysisMessages().getFinalType(),
                                 c,k_);
                         _context.addError(enum_);
-                        continue;
+                        r.addNameErrors(enum_);
                     }
                     r.getImportedDirectBaseSuperTypes().put(ind_,k_);
                     exec_.getImportedDirectBaseSuperTypes().add(k_);
@@ -804,6 +807,7 @@ public final class ClassesUtil {
                     enum_.buildError(_context.getAnalysisMessages().getSuperClass(),
                             c,Integer.toString(nbDirectSuperClass_));
                     _context.addError(enum_);
+                    r.addNameErrors(enum_);
                 }
                 exec_.getAllSuperTypes().addAllElts(foundNames_.getKeys());
                 for (String f: foundNames_.getKeys()) {
@@ -820,7 +824,7 @@ public final class ClassesUtil {
             }
             if (next_.isEmpty()) {
                 for (RootBlock r: stClNames_) {
-                    _context.getAnalyzing().getNotFound().add(r);
+                    _context.getAnalyzing().getListTypesNames().add(r);
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
                     undef_.setFileName(r.getFile().getFileName());
@@ -829,6 +833,7 @@ public final class ClassesUtil {
                     undef_.buildError(_context.getAnalysisMessages().getUnknownSuperType(),
                             r.getFullName());
                     _context.addError(undef_);
+                    r.addNameErrors(undef_);
                 }
                 break;
             }
