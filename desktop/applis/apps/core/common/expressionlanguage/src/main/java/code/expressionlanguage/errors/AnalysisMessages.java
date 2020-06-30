@@ -407,7 +407,7 @@ public final class AnalysisMessages {
     private String unexpectedBlockExp="The block is unexpected.";
     private String unexpectedOperandTypes="The operands types {0} for the operator {1} are unexpected.";
     private String unknownType="The type {0} is unknown.";
-    private String badParamerizedType="The type {1} is not parameterized correctly.";
+    private String badParamerizedType="The type {0} is not parameterized correctly.";
     private String unexpectedTypeBound="The type {0} is unexpected for bound.";
     private String unexpectedVararg="The three dots are unexpected here.";
     private String unexpectedLeaf="The key word {0} is unexpected here.";

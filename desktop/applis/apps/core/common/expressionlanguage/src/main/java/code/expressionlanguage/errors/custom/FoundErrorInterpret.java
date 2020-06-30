@@ -20,9 +20,12 @@ public final class FoundErrorInterpret {
     private String builtError = "";
 
     public void buildError(String _message, String... _args) {
-        builtError = StringList.simpleStringsFormat(_message,_args);
+        builtError = buildARError(_message,_args);
     }
 
+    public static String buildARError(String _message, String... _args) {
+        return StringList.simpleStringsFormat(_message,_args);
+    }
     public String display() {
         StringBuilder str_ = new StringBuilder(fullLocationFile);
         str_.append(builtError);

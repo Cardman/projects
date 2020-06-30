@@ -2,11 +2,11 @@ package code.expressionlanguage.analyze.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.InheritedType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.inherits.InferenceConstraints;
@@ -530,6 +530,27 @@ public final class AnaTemplates {
         return StringExpUtil.removeDottedSpaces(tr_);
     }
 
+    public static String check(String _className, StringList _parts, StringMap<StringList> _inherit, ContextEl _context) {
+        String realClassName_;
+        if (_parts.isEmpty()) {
+            realClassName_ = _className;
+        } else {
+            realClassName_ = StringList.concat(_className,"<", StringList.join(_parts, ","),">");
+        }
+        String res_ = getCorrectTemplateAll(_className, _parts, _inherit,_context);
+        if (res_.isEmpty()) {
+            int rc_ = _context.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_context.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(rc_);
+            //original type len
+            un_.buildError(_context.getAnalysisMessages().getBadParamerizedType(),
+                    realClassName_);
+            _context.getAnalyzing().getLocalizer().addError(un_);
+            realClassName_ = _context.getStandards().getAliasObject();
+        }
+        return realClassName_;
+    }
     public static String getCorrectTemplateAll(String _className, StringList _parts, StringMap<StringList> _inherit, ContextEl _context) {
         String id_ = StringExpUtil.getIdFromAllTypes(_className);
         ExecRootBlock g_ = _context.getClasses().getClassBody(id_);

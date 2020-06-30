@@ -356,24 +356,8 @@ public final class StandardInstancingOperation extends
             partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             offset_ += a.length() + 1;
         }
-        if (partsArgs_.isEmpty()) {
-            realClassName_ = StringList.concat(sup_,"..",idClass_);
-        } else {
-            realClassName_ = StringList.concat(sup_,"..",idClass_,"<", StringList.join(partsArgs_, ","),">");
-        }
         StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
-        String res_ = AnaTemplates.getCorrectTemplateAll(StringList.concat(sup_, "..", idClass_), partsArgs_, vars_, _conf);
-        if (res_.isEmpty()) {
-            int rc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            un_.setIndexFile(rc_);
-            //original type len
-            un_.buildError(_conf.getAnalysisMessages().getBadParamerizedType(),
-                    realClassName_);
-            _conf.getAnalyzing().getLocalizer().addError(un_);
-            realClassName_ = _conf.getStandards().getAliasObject();
-        }
+        realClassName_ = AnaTemplates.check(StringList.concat(sup_, "..", idClass_), partsArgs_, vars_, _conf);
         analyzeCtor(_conf, realClassName_, varargParam_,firstArgs_);
     }
     private void analyzeCtor(ContextEl _conf, String _realClassName, String _paramVargArg,CustList<ClassArgumentMatching> _firstArgs) {

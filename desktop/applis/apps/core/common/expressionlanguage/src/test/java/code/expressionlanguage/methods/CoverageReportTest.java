@@ -7570,6 +7570,74 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage_177Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.ExEnum<T,S> {\n");
+        xml_.append(" ONE< Ex, ExTwo>,\n");
+        xml_.append(" TWO< ExTwo, Ex>{}\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo {}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return 7;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">S</a>&gt; {\n" +
+                " <a name=\"m31\">ONE</a>&lt; <a title=\"pkg.Ex\" href=\"#m108\">Ex</a>, <a title=\"pkg.ExTwo\" href=\"#m82\">ExTwo</a>&gt;,\n" +
+                " <a name=\"m49\">TWO</a>&lt; <a title=\"pkg.ExTwo\" href=\"#m82\">ExTwo</a>, <a title=\"pkg.Ex\" href=\"#m108\">Ex</a>&gt;{}\n" +
+                "}\n" +
+                "public class <a name=\"m82\">pkg.ExTwo </a>{}\n" +
+                "public class <a name=\"m108\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m136\">exmeth</a>(){\n" +
+                "  return <span class=\"f\">7</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage_178Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.ExEnum<T,S> {\n");
+        xml_.append(" ONE< Ex , ExTwo >,\n");
+        xml_.append(" TWO< ExTwo , Ex >{}\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo {}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return 7;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">S</a>&gt; {\n" +
+                " <a name=\"m31\">ONE</a>&lt; <a title=\"pkg.Ex\" href=\"#m112\">Ex</a> , <a title=\"pkg.ExTwo\" href=\"#m86\">ExTwo</a> &gt;,\n" +
+                " <a name=\"m51\">TWO</a>&lt; <a title=\"pkg.ExTwo\" href=\"#m86\">ExTwo</a> , <a title=\"pkg.Ex\" href=\"#m112\">Ex</a> &gt;{}\n" +
+                "}\n" +
+                "public class <a name=\"m86\">pkg.ExTwo </a>{}\n" +
+                "public class <a name=\"m112\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m140\">exmeth</a>(){\n" +
+                "  return <span class=\"f\">7</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverage178Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {\n");

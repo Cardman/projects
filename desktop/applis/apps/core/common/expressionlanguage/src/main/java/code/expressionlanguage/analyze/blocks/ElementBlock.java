@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
@@ -39,14 +41,14 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private Ints annotationsIndexes = new Ints();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
-    private String className;
+    private String classNameRes;
     private int trOffset;
 
     public ElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                         OffsetStringInfo _type,
                         OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_offset);
-        className = _m.getOriginalName();
+        classNameRes = _m.getFullName();
         fieldNameOffest = _fieldName.getOffset();
         valueOffest = _value.getOffset();
         fieldName = _fieldName.getInfo();
@@ -104,10 +106,16 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         page_.setOffset(0);
         page_.setCurrentBlock(this);
         page_.setCurrentAnaBlock(this);
-        int len_ = -className.length();
-        String fullClassName_ = StringList.concat(className, tempClass);
-        importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,len_,fullClassName_);
-        partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts().mid(2));
+        int i_ = 1;
+        StringList j_ = new StringList();
+        for (String p: StringExpUtil.getAllTypes(StringList.concat(classNameRes, tempClass)).mid(1)) {
+            int loc_ = StringList.getFirstPrintableCharIndex(p);
+            j_.add(ResolvingImportTypes.resolveCorrectType(_cont,i_+loc_,p));
+            partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts());
+            i_ += p.length() + 1;
+        }
+        StringMap<StringList> varsCt_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        importedClassName = AnaTemplates.check(classNameRes,j_,varsCt_,_cont);
     }
 
     @Override
