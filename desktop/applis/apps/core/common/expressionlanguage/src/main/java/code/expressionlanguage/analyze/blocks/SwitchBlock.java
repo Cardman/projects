@@ -140,7 +140,8 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                             ),
                             "|"));
             _cont.addError(un_);
-            first_.getBadIndexes().add(first_.getOffset().getOffsetTrim());
+            first_.getErrorsBlock().add(un_.getBuiltError());
+            first_.setReachableError(true);
             first_ = first_.getNextSibling();
         }
         _cont.getCoverage().putBlockOperationsSwitchs(_cont,this,def_);

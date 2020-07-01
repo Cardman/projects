@@ -1520,6 +1520,8 @@ public final class FileResolver {
                         currentParent_.appendChild(br_);
                     }
                     br_ = new Line(new OffsetStringInfo(afterDeclareOffset_, inst_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                    br_.setBegin(_i);
+                    br_.setLengthHeader(1);
                     currentParent_.appendChild(br_);
                 }
             } else {
@@ -2276,6 +2278,8 @@ public final class FileResolver {
             }
             int labelOff_ = conditionOffest_ + lastPar_+ 1;
             br_ = new BreakBlock(new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordBreak_.length());
             _currentParent.appendChild(br_);
             return br_;
         }
@@ -2290,6 +2294,8 @@ public final class FileResolver {
             int labelOff_ = conditionOffest_ + lastPar_+ 1;
             br_ = new ContinueBlock(new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             _currentParent.appendChild(br_);
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordContinue_.length());
             return br_;
         }
         if (StringExpUtil.startsWithKeyWord(_trimmedInstruction,keyWordReturn_)) {
@@ -2300,6 +2306,8 @@ public final class FileResolver {
             }
             br_ = new ReturnMethod(new OffsetStringInfo(expressionOffest_,exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             _currentParent.appendChild(br_);
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordReturn_.length());
             return br_;
         }
         if (StringExpUtil.startsWithKeyWord(_trimmedInstruction,keyWordThrow_)) {
@@ -2310,6 +2318,8 @@ public final class FileResolver {
             }
             br_ = new Throwing(new OffsetStringInfo(expressionOffest_,exp_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             _currentParent.appendChild(br_);
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordThrow_.length());
             return br_;
         }
         if (StringExpUtil.startsWithKeyWord(_trimmedInstruction,keyWordCase_)) {
@@ -2321,12 +2331,16 @@ public final class FileResolver {
                     new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             //if next after i starts with brace or not
             _currentParent.appendChild(br_);
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordCase_.length());
             return br_;
         }
         if (StringList.quickEq(_trimmedInstruction,keyWordDefault_)) {
             br_ = new DefaultCondition(
                     new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             _currentParent.appendChild(br_);
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordDefault_.length());
             return br_;
         }
         if (StringExpUtil.startsWithKeyWord(_trimmedInstruction,keyWordWhile_)) {
@@ -2360,6 +2374,8 @@ public final class FileResolver {
                         new OffsetStringInfo(labelOff_, label_.trim()),
                         new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             }
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordWhile_.length());
             if (!ok_) {
                 br_.getBadIndexes().add(_i);
             }
@@ -2393,6 +2409,8 @@ public final class FileResolver {
             } else {
                 br_ = new NullCatchEval(new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             }
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordCatch_.length());
             _currentParent.appendChild(br_);
             return br_;
         }
@@ -2420,6 +2438,8 @@ public final class FileResolver {
             if (!ok_) {
                 br_.getBadIndexes().add(_i);
             }
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordIf_.length());
             _currentParent.appendChild(br_);
             return br_;
         }
@@ -2439,6 +2459,8 @@ public final class FileResolver {
             if (!ok_) {
                 br_.getBadIndexes().add(_i);
             }
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordElseif_.length());
             _currentParent.appendChild(br_);
             return br_;
         }
@@ -2468,9 +2490,13 @@ public final class FileResolver {
                 if (!ok_) {
                     br_.getBadIndexes().add(_i);
                 }
+                br_.setBegin(_instructionLocation+deltaFirst_-keyWordIf_.length());
+                br_.setLengthHeader(keyWordIf_.length());
                 _currentParent.appendChild(br_);
             } else {
                 br_ = new ElseCondition(new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                br_.setBegin(_instructionLocation);
+                br_.setLengthHeader(keyWordElse_.length());
                 _currentParent.appendChild(br_);
             }
             return br_;
@@ -2485,12 +2511,16 @@ public final class FileResolver {
             }
             int labelOff_ = conditionOffest_ + lastPar_+ 1;
             br_ = new DoBlock(new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordDo_.length());
             _currentParent.appendChild(br_);
             return br_;
         }
         if (StringExpUtil.startsWithKeyWord(_trimmedInstruction,keyWordFinally_)) {
             br_ = new FinallyEval(new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             _currentParent.appendChild(br_);
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordFinally_.length());
             return br_;
         }
         if (StringExpUtil.startsWithKeyWord(_trimmedInstruction,keyWordTry_)) {
@@ -2503,6 +2533,8 @@ public final class FileResolver {
             }
             int labelOff_ = conditionOffest_ + lastPar_+ 1;
             br_ = new TryEval(new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordTry_.length());
             _currentParent.appendChild(br_);
             return br_;
         }
@@ -2583,6 +2615,8 @@ public final class FileResolver {
                         new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
                         new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             }
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordForeach_.length());
             if (!ok_) {
                 br_.getBadIndexes().add(_i);
             }
@@ -2677,6 +2711,8 @@ public final class FileResolver {
             if (!ok_) {
                 br_.getBadIndexes().add(_i);
             }
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordIter_.length());
             _currentParent.appendChild(br_);
             return br_;
         }
@@ -2811,6 +2847,8 @@ public final class FileResolver {
                 _currentParent.appendChild(br_);
                 br_.getBadIndexes().add(_i);
             }
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordFor_.length());
             if (!okIndex_) {
                 br_.getBadIndexes().add(_i);
             }
@@ -2839,11 +2877,15 @@ public final class FileResolver {
                 br_.getBadIndexes().add(_i);
             }
             _currentParent.appendChild(br_);
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordSwitch_.length());
             return br_;
         }
         if (StringList.quickEq(_trimmedInstruction, keyWordStatic_)) {
             br_ = new StaticBlock(new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             _currentParent.appendChild(br_);
+            br_.setBegin(_instructionLocation);
+            br_.setLengthHeader(keyWordStatic_.length());
             return br_;
         }
         if (_trimmedInstruction.isEmpty()) {
@@ -2852,6 +2894,8 @@ public final class FileResolver {
             } else {
                 br_ = new UnclassedBracedBlock(new OffsetsBlock(_instructionRealLocation, _instructionLocation));
             }
+            br_.setBegin(_i);
+            br_.setLengthHeader(1);
             _currentParent.appendChild(br_);
         }
         //Not an error

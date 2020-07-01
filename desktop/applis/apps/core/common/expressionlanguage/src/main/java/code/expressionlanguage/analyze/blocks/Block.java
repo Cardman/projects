@@ -33,6 +33,10 @@ public abstract class Block implements AnalyzedBlock {
 
     private OffsetsBlock offset;
 
+    private int begin;
+
+    private int lengthHeader;
+
     private Ints badIndexes = new Ints();
     private boolean reachableError;
     private StringList errorsBlock = new StringList();
@@ -177,5 +181,21 @@ public abstract class Block implements AnalyzedBlock {
 
     public void setReachableError(boolean _reachableError) {
         reachableError = _reachableError;
+    }
+
+    public int getBegin() {
+        return begin;
+    }
+
+    public void setBegin(int begin) {
+        this.begin = begin;
+    }
+
+    public int getLengthHeader() {
+        return lengthHeader;
+    }
+
+    public void setLengthHeader(int lengthHeader) {
+        this.lengthHeader = lengthHeader;
     }
 }

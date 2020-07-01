@@ -1299,7 +1299,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  $return 1;\n" +
-                "  <a title=\"The code is unreachable in the function method()\" class=\"e\">$</a>return 1;\n" +
+                "  <a title=\"The code is unreachable in the function method()\" class=\"e\">$return</a> 1;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -1756,6 +1756,184 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "   <a title=\"There must be an expression.\" class=\"e\">$case</a> :\n" +
                 "  }\n" +
                 "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report86Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $return 1;\n");
+        xml_.append("  $int i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  $return 1;\n" +
+                "  $int i<a title=\"The code is unreachable in the function method()\" class=\"e\">;</a>\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report87Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $switch (1){\n");
+        xml_.append("   $int i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  $switch (1){\n" +
+                "   $int i<a title=\"The $switch block must contain only one of the blocks $case|$default.\" class=\"e\">;</a>\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report88Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $int v = 1;\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $if (v==v){\n");
+        xml_.append("  }$elseif (){\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $int <a name=\"m33\">v</a> = 1;\n" +
+                " $public $int <a name=\"m54\">method</a>() {\n" +
+                "  $if (<a title=\"pkg.MySub.v\" href=\"#m33\">v</a>==<a title=\"pkg.MySub.v\" href=\"#m33\">v</a>){\n" +
+                "  }$elseif <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report89Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $elseif ($true){\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  <a title=\"The code is unreachable in the function method()\n" +
+                "\n" +
+                "The $elseif block must be preceded by one of the blocks $if|$elseif.\" class=\"e\">$elseif</a> ($true){\n" +
+                "  }\n" +
+                "  <a title=\"The code is unreachable in the function method()\" class=\"e\">$return</a> 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report90Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $else $if ($true){\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  $else <a title=\"The code is unreachable in the function method()\n" +
+                "\n" +
+                "The $elseif block must be preceded by one of the blocks $if|$elseif.\" class=\"e\">$if</a> ($true){\n" +
+                "  }\n" +
+                "  <a title=\"The code is unreachable in the function method()\" class=\"e\">$return</a> 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report91Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $else {\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  <a title=\"The code is unreachable in the function method()\n" +
+                "\n" +
+                "The $else block must be preceded by one of the blocks $if|$elseif.\" class=\"e\">$else</a> {\n" +
+                "  }\n" +
+                "  <a title=\"The code is unreachable in the function method()\" class=\"e\">$return</a> 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report92Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $return 1;\n");
+        xml_.append("  {\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  $return 1;\n" +
+                "  <a title=\"The code is unreachable in the function method()\" class=\"e\">{</a>\n" +
+                "  }\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());

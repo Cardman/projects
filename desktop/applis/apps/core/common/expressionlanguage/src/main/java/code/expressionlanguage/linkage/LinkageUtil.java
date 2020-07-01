@@ -147,7 +147,16 @@ public final class LinkageUtil {
                 }
                 Block parType_ = child_.getOuter();
                 if (parType_.getBadIndexes().isEmpty()) {
-                    if (child_.getBadIndexes().isEmpty()&&!child_.isReachableError()) {
+                    if (child_.getBadIndexes().isEmpty()) {
+                        if (child_.isReachableError()) {
+                            if (!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof EmptyInstruction)) {
+                                String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
+                                int off_ = child_.getBegin();
+                                int l_ = child_.getLengthHeader();
+                                list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
+                                list_.add(new PartOffset("</a>",off_+l_));
+                            }
+                        }
                         if (child_ instanceof RootBlock) {
                             if (child_ instanceof InnerElementBlock) {
                                 processInnerElementBlockReport(true,vars_,(InnerElementBlock)child_,_cont,list_);
@@ -194,11 +203,15 @@ public final class LinkageUtil {
                         if (child_ instanceof DefaultCondition) {
                             processDefaultConditionError((DefaultCondition)child_,_cont,list_);
                         }
-                    } else if (child_.isReachableError()){
-                        String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
-                        int off_ = child_.getOffset().getOffsetTrim();
-                        list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
-                        list_.add(new PartOffset("</a>",off_+1));
+                        if (child_.isReachableError()) {
+                            if (child_ instanceof Line) {
+                                String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
+                                int off_ = child_.getBegin();
+                                int l_ = child_.getLengthHeader();
+                                list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
+                                list_.add(new PartOffset("</a>",off_+l_));
+                            }
+                        }
                     } else {
                         String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
                         for (int i : child_.getBadIndexes()) {

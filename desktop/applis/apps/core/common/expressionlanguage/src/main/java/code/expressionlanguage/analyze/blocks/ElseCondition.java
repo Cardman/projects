@@ -62,6 +62,8 @@ public final class ElseCondition extends BracedBlock implements BlockCondition, 
                                 ),
                                 "|"));
                 //key word len
+                getErrorsBlock().add(un_.getBuiltError());
+                setReachableError(true);
                 _an.addError(un_);
             }
         }
