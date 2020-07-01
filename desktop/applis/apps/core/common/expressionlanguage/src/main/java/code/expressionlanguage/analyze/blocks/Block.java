@@ -34,6 +34,7 @@ public abstract class Block implements AnalyzedBlock {
     private OffsetsBlock offset;
 
     private Ints badIndexes = new Ints();
+    private boolean reachableError;
     private StringList errorsBlock = new StringList();
 
     Block(OffsetsBlock _offset) {
@@ -168,5 +169,13 @@ public abstract class Block implements AnalyzedBlock {
 
     public StringList getErrorsBlock() {
         return errorsBlock;
+    }
+
+    public boolean isReachableError() {
+        return reachableError;
+    }
+
+    public void setReachableError(boolean _reachableError) {
+        reachableError = _reachableError;
     }
 }

@@ -4,9 +4,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecDefaultCondition;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.util.StringList;
 
 public final class DefaultCondition extends SwitchPartBlock {
-
+    private StringList errs = new StringList();
     public DefaultCondition(OffsetsBlock _offset) {
         super(_offset);
     }
@@ -37,6 +38,7 @@ public final class DefaultCondition extends SwitchPartBlock {
                     "",
                     _cont.getKeyWords().getKeyWordSwitch());
             _cont.addError(un_);
+            errs.add(un_.getBuiltError());
         } else {
             _cont.getCoverage().putBlockOperationsSwitchs(_cont,b_,this);
             Block first_ = b_.getFirstChild();
@@ -50,6 +52,7 @@ public final class DefaultCondition extends SwitchPartBlock {
                             _cont.getKeyWords().getKeyWordDefault(),
                             _cont.getKeyWords().getKeyWordSwitch());
                     _cont.addError(un_);
+                    errs.add(un_.getBuiltError());
                     break;
                 }
                 first_ = first_.getNextSibling();
@@ -57,4 +60,7 @@ public final class DefaultCondition extends SwitchPartBlock {
         }
     }
 
+    public StringList getErrs() {
+        return errs;
+    }
 }

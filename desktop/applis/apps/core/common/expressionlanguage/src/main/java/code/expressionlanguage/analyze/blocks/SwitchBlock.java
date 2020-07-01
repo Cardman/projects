@@ -30,6 +30,8 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
 
     private OperationNode root;
 
+    private String err = "";
+
     public SwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_offset);
         value = _value.getInfo();
@@ -70,6 +72,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(f_.getStaticContext()));
+        err = page_.getCurrentEmptyPartErr();
         result = op_.last().getResultClass();
         processAfterEl(_cont);
         ExecSwitchBlock exec_ = new ExecSwitchBlock(getOffset(), label, valueOffset, enumTest, op_);
@@ -137,6 +140,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                             ),
                             "|"));
             _cont.addError(un_);
+            first_.getBadIndexes().add(first_.getOffset().getOffsetTrim());
             first_ = first_.getNextSibling();
         }
         _cont.getCoverage().putBlockOperationsSwitchs(_cont,this,def_);
@@ -192,5 +196,9 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
 
     public OperationNode getRoot() {
         return root;
+    }
+
+    public String getErr() {
+        return err;
     }
 }

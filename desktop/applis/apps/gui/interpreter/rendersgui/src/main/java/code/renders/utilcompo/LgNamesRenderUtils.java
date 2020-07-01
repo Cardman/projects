@@ -2238,6 +2238,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         _mess.setUnexpectedTypeBound(get(_util,_cust,AnalysisMessages.UNEXPECTED_TYPE_BOUND));
         _mess.setUnexpectedVararg(get(_util,_cust,AnalysisMessages.UNEXPECTED_VARARG));
         _mess.setUnexpectedLeaf(get(_util,_cust,AnalysisMessages.UNEXPECTED_LEAF));
+        _mess.setEmptyPart(get(_util,_cust,AnalysisMessages.EMPTY_PART));
     }
     private String get(StringMap<String> _util, StringMap<String> _cust, String _key) {
         String val_ = _cust.getVal(_key);

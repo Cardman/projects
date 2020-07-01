@@ -190,6 +190,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             deadCode_.buildError(_cont.getAnalysisMessages().getDeadCode(),
                     getPseudoSignature(_cont));
             _cont.addError(deadCode_);
+            _en.getErrorsBlock().add(deadCode_.getBuiltError());
+            _en.setReachableError(true);
         }
     }
 

@@ -147,7 +147,7 @@ public final class LinkageUtil {
                 }
                 Block parType_ = child_.getOuter();
                 if (parType_.getBadIndexes().isEmpty()) {
-                    if (child_.getBadIndexes().isEmpty()) {
+                    if (child_.getBadIndexes().isEmpty()&&!child_.isReachableError()) {
                         if (child_ instanceof RootBlock) {
                             if (child_ instanceof InnerElementBlock) {
                                 processInnerElementBlockReport(true,vars_,(InnerElementBlock)child_,_cont,list_);
@@ -170,9 +170,35 @@ public final class LinkageUtil {
                         if (child_ instanceof FieldBlock) {
                             processFieldBlockError(vars_,(FieldBlock)child_,_cont,list_);
                         }
+                        if (child_ instanceof WhileCondition) {
+                            processWhileConditionError(vars_,(WhileCondition)child_,_cont,list_);
+                        }
                         if (child_ instanceof IfCondition) {
                             processIfConditionError(vars_,(IfCondition)child_,_cont,list_);
                         }
+                        if (child_ instanceof ElseIfCondition) {
+                            processConditionError((ElseIfCondition)child_, vars_,_cont,list_);
+                        }
+                        if (child_ instanceof DoBlock) {
+                            processDoBlockReport((DoBlock)child_,list_);
+                        }
+                        if (child_ instanceof DoWhileCondition) {
+                            processConditionError((DoWhileCondition)child_, vars_,_cont,list_);
+                        }
+                        if (child_ instanceof SwitchBlock) {
+                            processSwitchBlockError(vars_,(SwitchBlock)child_,_cont,list_);
+                        }
+                        if (child_ instanceof CaseCondition) {
+                            processCaseConditionError(vars_,(CaseCondition)child_,_cont,list_);
+                        }
+                        if (child_ instanceof DefaultCondition) {
+                            processDefaultConditionError((DefaultCondition)child_,_cont,list_);
+                        }
+                    } else if (child_.isReachableError()){
+                        String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
+                        int off_ = child_.getOffset().getOffsetTrim();
+                        list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
+                        list_.add(new PartOffset("</a>",off_+1));
                     } else {
                         String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
                         for (int i : child_.getBadIndexes()) {
@@ -365,6 +391,10 @@ public final class LinkageUtil {
         processConditionError(_cond, _vars, _cont, _parts);
         ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
+    private static void processWhileConditionError(VariablesOffsets _vars,WhileCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
+        processConditionError(_cond, _vars, _cont, _parts);
+        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+    }
     private static void processElseIfConditionReport(VariablesOffsets _vars,ElseIfCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         AbstractCoverageResult result_ = _cont.getCoverage().getCoversConditions(_cond);
         String tag_;
@@ -472,6 +502,15 @@ public final class LinkageUtil {
         buildCoverageReport(_cont,_vars,off_,_cond, _cond.getRoot(),offsetEndBlock_,_parts);
         ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
+    private static void processSwitchBlockError(VariablesOffsets _vars,SwitchBlock _cond, ContextEl _cont, CustList<PartOffset> _parts) {
+        int off_ = _cond.getValueOffset();
+        if (!_cond.getErr().isEmpty()) {
+            _parts.add(new PartOffset("<a title=\""+_cond.getErr()+"\" class=\"e\">",off_));
+            _parts.add(new PartOffset("</a>",off_+1));
+        }
+        buildErrorReport(_cont,_vars,off_,_cond, _cond.getRoot(),_parts);
+        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+    }
     private static void processCaseConditionReport(VariablesOffsets _vars,CaseCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         BracedBlock parent_ = _cond.getParent();
         AbstractCoverageResult result_ = _cont.getCoverage().getCoverSwitchs(parent_,_cond);
@@ -485,17 +524,7 @@ public final class LinkageUtil {
         _parts.add(new PartOffset(tag_,off_));
         if (_cond.isBuiltEnum()) {
             GeneType type_ = _cont.getClassBody(_cond.getTypeEnum());
-            int delta_ = -1;
-            for (ExecBlock b: ExecBlock.getDirectChildren((ExecBlock) type_)) {
-                if (!(b instanceof ExecInnerTypeOrElement)) {
-                    continue;
-                }
-                ExecInnerTypeOrElement f_ = (ExecInnerTypeOrElement)b;
-                if (!StringList.quickEq(f_.getUniqueFieldName(), _cond.getValue())) {
-                    continue;
-                }
-                delta_ = f_.getFieldNameOffset();
-            }
+            int delta_ = getDelta(_cond, (ExecBlock) type_);
             String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
             String currentFileName_ = _vars.getCurrentFileName();
             String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
@@ -510,6 +539,71 @@ public final class LinkageUtil {
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,off_+ _cond.getValue().length()));
     }
+    private static void processCaseConditionError(VariablesOffsets _vars,CaseCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
+        String errCase_ = _cond.getErrCase();
+        if (!errCase_.isEmpty()) {
+            int off_ = _cond.getValueOffset();
+            String tag_ = "<a title=\""+transform(errCase_)+"\" class=\"e\">";
+            _parts.add(new PartOffset(tag_,off_));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,off_+ _cond.getValue().length()));
+            return;
+        }
+        int off_;
+        if (!_cond.getErrsEmpt().isEmpty()) {
+            off_ = _cond.getOffset().getOffsetTrim();
+            String tag_ = "<a title=\""+transform(StringList.join(_cond.getErrsEmpt(),"\n\n"))+"\" class=\"e\">";
+            _parts.add(new PartOffset(tag_,off_));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordCase().length()));
+            return;
+        }
+        if (!_cond.getErrs().isEmpty()) {
+            off_ = _cond.getOffset().getOffsetTrim();
+            String tag_ = "<a title=\""+transform(StringList.join(_cond.getErrs(),"\n\n"))+"\" class=\"e\">";
+            _parts.add(new PartOffset(tag_,off_));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordCase().length()));
+        }
+        if (_cond.isBuiltEnum()) {
+            off_ = _cond.getValueOffset();
+            GeneType type_ = _cont.getClassBody(_cond.getTypeEnum());
+            int delta_ = getDelta(_cond, (ExecBlock) type_);
+            if (delta_ < 0) {
+                String tag_ = "<a title=\""+transform(StringList.join(_cond.getEmptErrs(),"\n\n"))+"\" class=\"e\">";
+                _parts.add(new PartOffset(tag_,off_));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,off_+ _cond.getValue().length()));
+                return;
+            }
+            String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
+            String currentFileName_ = _vars.getCurrentFileName();
+            String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
+            String tag_ = "<a title=\""+transform(_cond.getTypeEnum() +"."+ _cond.getValue())+"\" href=\""+rel_+"\">";
+            _parts.add(new PartOffset(tag_,off_));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,off_+ _cond.getValue().length()));
+        } else {
+            off_ = _cond.getValueOffset();
+            buildErrorReport(_cont,_vars,off_,_cond,_cond.getRoot(),_parts);
+        }
+    }
+
+    private static int getDelta(CaseCondition _cond, ExecBlock type_) {
+        int delta_ = -1;
+        for (ExecBlock b: ExecBlock.getDirectChildren(type_)) {
+            if (!(b instanceof ExecInnerTypeOrElement)) {
+                continue;
+            }
+            ExecInnerTypeOrElement f_ = (ExecInnerTypeOrElement)b;
+            if (!StringList.quickEq(f_.getUniqueFieldName(), _cond.getValue())) {
+                continue;
+            }
+            delta_ = f_.getFieldNameOffset();
+        }
+        return delta_;
+    }
+
     private static void processDefaultConditionReport(DefaultCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         BracedBlock parent_ = _cond.getParent();
         AbstractCoverageResult result_ = _cont.getCoverage().getCoverSwitchs(parent_,_cond);
@@ -523,6 +617,17 @@ public final class LinkageUtil {
         _parts.add(new PartOffset(tag_,off_));
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordDefault().length()));
+    }
+
+    private static void processDefaultConditionError(DefaultCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
+        StringList errCase_ = _cond.getErrs();
+        if (!errCase_.isEmpty()) {
+            int off_ = _cond.getOffset().getOffsetTrim();
+            String tag_ = "<a title=\""+transform(StringList.join(errCase_,"\n\n"))+"\" class=\"e\">";
+            _parts.add(new PartOffset(tag_,off_));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordDefault().length()));
+        }
     }
     private static void processDoBlockReport(DoBlock _cond, CustList<PartOffset> _parts) {
         ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
@@ -1100,6 +1205,10 @@ public final class LinkageUtil {
     }
     private static void processConditionError(Condition _cond, VariablesOffsets _vars,ContextEl _cont, CustList<PartOffset> _parts) {
         int off_ =  _cond.getConditionOffset();
+        if (!_cond.getErr().isEmpty()) {
+            _parts.add(new PartOffset("<a title=\""+_cond.getErr()+"\" class=\"e\">",off_));
+            _parts.add(new PartOffset("</a>",off_+1));
+        }
         buildErrorReport(_cont,_vars,off_,_cond,_cond.getRoot(), _parts);
     }
 
@@ -1170,6 +1279,9 @@ public final class LinkageUtil {
                                         Block _block,
                                         OperationNode _root,
                                         CustList<PartOffset> _parts, int _tr, String _fieldName) {
+        if (_root == null) {
+            return;
+        }
         OperationNode root_ = adjust(_root,_fieldName);
         int sum_ = _tr + _offsetBlock - _fieldName.length();
         String currentFileName_ = _vars.getCurrentFileName();

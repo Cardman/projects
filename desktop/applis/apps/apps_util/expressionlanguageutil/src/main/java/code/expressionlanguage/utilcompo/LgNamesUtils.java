@@ -3612,6 +3612,7 @@ public class LgNamesUtils extends LgNames {
         _mess.setUnexpectedTypeBound(get(_util,_cust,AnalysisMessages.UNEXPECTED_TYPE_BOUND));
         _mess.setUnexpectedVararg(get(_util,_cust,AnalysisMessages.UNEXPECTED_VARARG));
         _mess.setUnexpectedLeaf(get(_util,_cust,AnalysisMessages.UNEXPECTED_LEAF));
+        _mess.setEmptyPart(get(_util,_cust,AnalysisMessages.EMPTY_PART));
     }
     public void keyWord(KeyWords _kw,String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg/aliases",_lang,"keywords");

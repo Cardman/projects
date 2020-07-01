@@ -24,6 +24,8 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
 
     private OperationNode root;
 
+    private String err = "";
+
     public Condition(OffsetStringInfo _condition, OffsetsBlock _offset) {
         super(_offset);
         condition = _condition.getInfo();
@@ -42,6 +44,7 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         CustList<ExecOperationNode> opCondition_ = ElUtil.getAnalyzedOperationsReadOnly(condition, _cont, Calculation.staticCalculation(f_.getStaticContext()));
+        err = page_.getCurrentEmptyPartErr();
         root = page_.getCurrentRoot();
         ExecCondition exec_ = newCondition(condition, conditionOffset, opCondition_);
         page_.getBlockToWrite().appendChild(exec_);
@@ -82,5 +85,9 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
 
     public OperationNode getRoot() {
         return root;
+    }
+
+    public String getErr() {
+        return err;
     }
 }

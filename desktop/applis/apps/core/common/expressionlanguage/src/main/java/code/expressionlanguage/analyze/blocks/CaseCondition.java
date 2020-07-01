@@ -37,6 +37,11 @@ public final class CaseCondition extends SwitchPartBlock {
 
     private int valueOffset;
 
+    private String errCase = "";
+    private StringList errs = new StringList();
+    private StringList errsEmpt = new StringList();
+    private StringList emptErrs = new StringList();
+
     public CaseCondition(OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_offset);
         value = _value.getInfo();
@@ -71,6 +76,7 @@ public final class CaseCondition extends SwitchPartBlock {
                     _cont.getKeyWords().getKeyWordSwitch());
             //key word len
             _cont.addError(un_);
+            errCase = un_.getBuiltError();
             CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
             ExecOperationNode last_ = op_.last();
             root = page_.getCurrentRoot();
@@ -115,9 +121,16 @@ public final class CaseCondition extends SwitchPartBlock {
                 return;
             }
             CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
+            String emp_ = page_.getCurrentEmptyPartErr();
+            if (!emp_.isEmpty()) {
+                errsEmpt.add(emp_);
+            }
             root = page_.getCurrentRoot();
             ExecOperationNode last_ = op_.last();
             argument = last_.getArgument();
+            if (!Argument.isNullValue(argument)) {
+                builtEnum = true;
+            }
             processNullValue(_cont);
             ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset, op_);
             page_.getBlockToWrite().appendChild(exec_);
@@ -127,6 +140,10 @@ public final class CaseCondition extends SwitchPartBlock {
             return;
         }
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
+        String emp_ = page_.getCurrentEmptyPartErr();
+        if (!emp_.isEmpty()) {
+            errsEmpt.add(emp_);
+        }
         ExecOperationNode last_ = op_.last();
         root = page_.getCurrentRoot();
         argument = last_.getArgument();
@@ -170,6 +187,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 _cont.getKeyWords().getKeyWordCase(),
                 value);
         _cont.addError(un_);
+        emptErrs.add(un_.getBuiltError());
     }
 
     private void processNumValues(ContextEl _cont, ClassArgumentMatching _resSwitch, ClassArgumentMatching _resCase) {
@@ -182,6 +200,7 @@ public final class CaseCondition extends SwitchPartBlock {
                     _cont.getKeyWords().getKeyWordCase(),
                     value);
             _cont.addError(un_);
+            errs.add(un_.getBuiltError());
         } else {
             checkDuplicateCase(_cont, argument);
             Mapping m_ = new Mapping();
@@ -197,6 +216,7 @@ public final class CaseCondition extends SwitchPartBlock {
                         ExecCatOperation.getString(argument,_cont),
                         StringList.join(_resSwitch.getNames(),"&"));
                 _cont.addError(un_);
+                errs.add(un_.getBuiltError());
             }
         }
     }
@@ -219,6 +239,7 @@ public final class CaseCondition extends SwitchPartBlock {
                                 ExecCatOperation.getString(_arg,_cont),
                                 _cont.getKeyWords().getKeyWordSwitch());
                         _cont.addError(un_);
+                        errs.add(un_.getBuiltError());
                         break;
                     }
                 }
@@ -243,6 +264,7 @@ public final class CaseCondition extends SwitchPartBlock {
                             value.trim(),
                             _cont.getKeyWords().getKeyWordSwitch());
                     _cont.addError(un_);
+                    errs.add(un_.getBuiltError());
                     break;
                 }
                 
@@ -265,5 +287,21 @@ public final class CaseCondition extends SwitchPartBlock {
 
     public boolean isBuiltEnum() {
         return builtEnum;
+    }
+
+    public String getErrCase() {
+        return errCase;
+    }
+
+    public StringList getErrs() {
+        return errs;
+    }
+
+    public StringList getErrsEmpt() {
+        return errsEmpt;
+    }
+
+    public StringList getEmptErrs() {
+        return emptErrs;
     }
 }

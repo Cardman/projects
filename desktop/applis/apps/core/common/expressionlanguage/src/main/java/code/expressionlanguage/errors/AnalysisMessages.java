@@ -204,6 +204,7 @@ public final class AnalysisMessages {
     public static final String UNEXPECTED_TYPE_BOUND="UnexpectedTypeBound";
     public static final String UNEXPECTED_VARARG="UnexpectedVararg";
     public static final String UNEXPECTED_LEAF="UnexpectedLeaf";
+    public static final String EMPTY_PART="EmptyPart";
     private String emptyWord = "{0} has an empty key word value.";
     private String notWordChar = "{0} contains a character {1} that is not a character of a word.";
     private String digitFirst = "{0} starts with {1} that is digit.";
@@ -411,6 +412,7 @@ public final class AnalysisMessages {
     private String unexpectedTypeBound="The type {0} is unexpected for bound.";
     private String unexpectedVararg="The three dots are unexpected here.";
     private String unexpectedLeaf="The key word {0} is unexpected here.";
+    private String emptyPart="There must be an expression.";
 
     public static void validateMessageContents(ContextEl _cont, StringMap<String> _list) {
         for (EntryCust<String,String> e: _list.entryList()) {
@@ -622,6 +624,7 @@ public final class AnalysisMessages {
         mess_.addEntry(UNEXPECTED_TYPE_BOUND,getUnexpectedTypeBound());
         mess_.addEntry(UNEXPECTED_VARARG,getUnexpectedVararg());
         mess_.addEntry(UNEXPECTED_LEAF,getUnexpectedLeaf());
+        mess_.addEntry(EMPTY_PART,getEmptyPart());
         return mess_;
     }
 
@@ -2215,5 +2218,13 @@ public final class AnalysisMessages {
 
     public void setUnexpectedLeaf(String unexpectedLeaf) {
         this.unexpectedLeaf = unexpectedLeaf;
+    }
+
+    public String getEmptyPart() {
+        return emptyPart;
+    }
+
+    public void setEmptyPart(String _emptyPart) {
+        emptyPart = _emptyPart;
     }
 }

@@ -87,6 +87,7 @@ public final class AnalyzedPageEl {
 
     private CustList<PartOffset> currentParts = new CustList<PartOffset>();
     private OperationNode currentRoot;
+    private String currentEmptyPartErr = "";
     private final Errors errors = new Errors();
     private MethodHeaders headers = new MethodHeaders();
 
@@ -689,6 +690,14 @@ public final class AnalyzedPageEl {
 
     public void setCurrentRoot(OperationNode currentRoot) {
         this.currentRoot = currentRoot;
+    }
+
+    public String getCurrentEmptyPartErr() {
+        return currentEmptyPartErr;
+    }
+
+    public void setCurrentEmptyPartErr(String currentEmptyPartErr) {
+        this.currentEmptyPartErr = currentEmptyPartErr;
     }
 
     public Errors getErrors() {

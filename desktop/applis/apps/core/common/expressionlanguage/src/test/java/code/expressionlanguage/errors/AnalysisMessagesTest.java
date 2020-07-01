@@ -216,6 +216,7 @@ public final class AnalysisMessagesTest {
         def_.setUnexpectedTypeBound("");
         def_.setUnexpectedVararg("");
         def_.setUnexpectedLeaf("");
+        def_.setEmptyPart("");
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         KeyWords kw_ = new KeyWords();

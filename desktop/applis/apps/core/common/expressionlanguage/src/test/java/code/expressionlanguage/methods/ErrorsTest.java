@@ -1282,6 +1282,484 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report69Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $return 1;\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  $return 1;\n" +
+                "  <a title=\"The code is unreachable in the function method()\" class=\"e\">$</a>return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report70Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $if (){\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  $if <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report71Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $int v = 1;\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $if (v==v){\n");
+        xml_.append("  }$else $if (){\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $int <a name=\"m33\">v</a> = 1;\n" +
+                " $public $int <a name=\"m54\">method</a>() {\n" +
+                "  $if (<a title=\"pkg.MySub.v\" href=\"#m33\">v</a>==<a title=\"pkg.MySub.v\" href=\"#m33\">v</a>){\n" +
+                "  }$else $if <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report72Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $while (){\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  $while <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report73Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $do{}\n");
+        xml_.append("  $while ();\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  $do{}\n" +
+                "  $while <a title=\"There must be an expression.\" class=\"e\">(</a>);\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report74Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $case 1:{}\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  $case <a title=\"The $case block with expression 1 must be child of a block $switch.\" class=\"e\">1</a>:{}\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report75Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $switch (){}\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  $switch <a title=\"There must be an expression.\" class=\"e\">(</a>){}\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report76Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MyEnum e;\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $switch (e){\n");
+        xml_.append("   $case:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum </a>{\n" +
+                "}\n" +
+                "$public $class <a name=\"m44\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a> <a name=\"m64\">e</a>;\n" +
+                " $public $int <a name=\"m81\">method</a>() {\n" +
+                "  $switch (<a title=\"pkg.MySub.e\" href=\"#m64\">e</a>){\n" +
+                "   <a title=\"There must be an expression.\" class=\"e\">$case</a>:\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report77Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append(" TWO\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MyEnum e;\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $switch (e){\n");
+        xml_.append("   $case ONE:\n");
+        xml_.append("   $case TWO:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum </a>{\n" +
+                " <a name=\"m28\">TWO</a>\n" +
+                "}\n" +
+                "$public $class <a name=\"m49\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a> <a name=\"m69\">e</a>;\n" +
+                " $public $int <a name=\"m86\">method</a>() {\n" +
+                "  $switch (<a title=\"pkg.MySub.e\" href=\"#m69\">e</a>){\n" +
+                "   $case <a title=\"The $case block with expression ONE is not constant.\" class=\"e\">ONE</a>:\n" +
+                "   $case <a title=\"pkg.MyEnum.TWO\" href=\"#m28\">TWO</a>:\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report78Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $int e;\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $switch (e){\n");
+        xml_.append("   $case 1:\n");
+        xml_.append("   $case 1:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $int <a name=\"m33\">e</a>;\n" +
+                " $public $int <a name=\"m50\">method</a>() {\n" +
+                "  $switch (<a title=\"pkg.MySub.e\" href=\"#m33\">e</a>){\n" +
+                "   $case 1:\n" +
+                "   <a title=\"The $case block with value 1 is duplicated in the parent $switch block.\" class=\"e\">$case</a> 1:\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report79Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" Integer e;\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $switch (e){\n");
+        xml_.append("   $case $null:\n");
+        xml_.append("   $case $null:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " Integer <a name=\"m36\">e</a>;\n" +
+                " $public $int <a name=\"m53\">method</a>() {\n" +
+                "  $switch (<a title=\"pkg.MySub.e\" href=\"#m36\">e</a>){\n" +
+                "   $case $null:\n" +
+                "   <a title=\"The $case block with value  is duplicated in the parent $switch block.\" class=\"e\">$case</a> $null:\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report80Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $int e;\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $switch (e){\n");
+        xml_.append("   $case \"\":\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $int <a name=\"m33\">e</a>;\n" +
+                " $public $int <a name=\"m50\">method</a>() {\n" +
+                "  $switch (<a title=\"pkg.MySub.e\" href=\"#m33\">e</a>){\n" +
+                "   <a title=\"The $case block with value  is not a sub type of $int.\" class=\"e\">$case</a> <span class=\"s\">\"\"</span>:\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report81Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MyEnum e;\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $switch (e){\n");
+        xml_.append("   $case $null:\n");
+        xml_.append("   $case $null:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum </a>{\n" +
+                "}\n" +
+                "$public $class <a name=\"m44\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a> <a name=\"m64\">e</a>;\n" +
+                " $public $int <a name=\"m81\">method</a>() {\n" +
+                "  $switch (<a title=\"pkg.MySub.e\" href=\"#m64\">e</a>){\n" +
+                "   $case $null:\n" +
+                "   <a title=\"The $case block with value  is duplicated in the parent $switch block.\" class=\"e\">$case</a> $null:\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report82Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $default:{}\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $int <a name=\"m41\">method</a>() {\n" +
+                "  <a title=\"The $default block with expression  must be child of a block $switch.\" class=\"e\">$default</a>:{}\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report83Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MyEnum e;\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $switch (e){\n");
+        xml_.append("   $case $null:\n");
+        xml_.append("   $case $null:\n");
+        xml_.append("   $default:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum </a>{\n" +
+                "}\n" +
+                "$public $class <a name=\"m44\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a> <a name=\"m64\">e</a>;\n" +
+                " $public $int <a name=\"m81\">method</a>() {\n" +
+                "  $switch (<a title=\"pkg.MySub.e\" href=\"#m64\">e</a>){\n" +
+                "   $case $null:\n" +
+                "   <a title=\"The $case block with value  is duplicated in the parent $switch block.\" class=\"e\">$case</a> $null:\n" +
+                "   $default:\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report84Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MyEnum e;\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $switch (e){\n");
+        xml_.append("   $case $null:\n");
+        xml_.append("   $default:\n");
+        xml_.append("   $default:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum </a>{\n" +
+                "}\n" +
+                "$public $class <a name=\"m44\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a> <a name=\"m64\">e</a>;\n" +
+                " $public $int <a name=\"m81\">method</a>() {\n" +
+                "  $switch (<a title=\"pkg.MySub.e\" href=\"#m64\">e</a>){\n" +
+                "   $case $null:\n" +
+                "   $default:\n" +
+                "   <a title=\"The $default block is duplicated in the parent $switch block.\" class=\"e\">$default</a>:\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report85Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $int e;\n");
+        xml_.append(" $public $int method() {\n");
+        xml_.append("  $switch (e){\n");
+        xml_.append("   $case :\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $int <a name=\"m33\">e</a>;\n" +
+                " $public $int <a name=\"m50\">method</a>() {\n" +
+                "  $switch (<a title=\"pkg.MySub.e\" href=\"#m33\">e</a>){\n" +
+                "   <a title=\"There must be an expression.\" class=\"e\">$case</a> :\n" +
+                "  }\n" +
+                "  $return 1;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
         validate(cont_,files_);
         assertTrue(!cont_.isEmptyErrors());

@@ -118,25 +118,12 @@ public final class ElUtil {
     public static CustList<ExecOperationNode> getAnalyzedOperationsReadOnly(String _el, ContextEl _conf, Calculation _calcul) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _conf.getAnalyzing().setAccessStaticContext(hiddenVarTypes_);
+        _conf.getAnalyzing().setCurrentEmptyPartErr("");
+        _conf.getAnalyzing().setCurrentRoot(null);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
-            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            badEl_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            //badOffset char
-            badEl_.buildError(_conf.getAnalysisMessages().getBadExpression(),
-                    possibleChar(badOffset_,_el),
-                    Integer.toString(badOffset_),
-                    _el);
-            _conf.addError(badEl_);
-            OperationsSequence tmpOp_ = new OperationsSequence();
-            tmpOp_.setDelimiter(new Delimiters());
-            ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
-            String argClName_ = _conf.getStandards().getAliasObject();
-            e_.setResultClass(new ClassArgumentMatching(argClName_));
-            e_.setOrder(0);
-            return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_));
+            return buildErr(_el, _conf, badOffset_);
         }
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
@@ -145,6 +132,41 @@ public final class ElUtil {
         setSyntheticRoot(op_, fieldName_);
         CustList<OperationNode> all_ = getSortedDescNodesReadOnly(op_, _conf,fieldName_);
         return getExecutableNodes(_conf,all_);
+    }
+
+    private static CustList<ExecOperationNode> buildErr(String _el, ContextEl _conf, int badOffset_) {
+        if (_el.trim().isEmpty()) {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+            badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            badEl_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            //badOffset char
+            badEl_.buildError(_conf.getAnalysisMessages().getEmptyPart());
+            _conf.addError(badEl_);
+            _conf.getAnalyzing().setCurrentEmptyPartErr(badEl_.getBuiltError());
+            OperationsSequence tmpOp_ = new OperationsSequence();
+            tmpOp_.setDelimiter(new Delimiters());
+            ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
+            String argClName_ = _conf.getStandards().getAliasObject();
+            e_.setResultClass(new ClassArgumentMatching(argClName_));
+            e_.setOrder(0);
+            return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_));
+        }
+        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+        badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+        badEl_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+        //badOffset char
+        badEl_.buildError(_conf.getAnalysisMessages().getBadExpression(),
+                possibleChar(badOffset_,_el),
+                Integer.toString(badOffset_),
+                _el);
+        _conf.addError(badEl_);
+        OperationsSequence tmpOp_ = new OperationsSequence();
+        tmpOp_.setDelimiter(new Delimiters());
+        ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
+        String argClName_ = _conf.getStandards().getAliasObject();
+        e_.setResultClass(new ClassArgumentMatching(argClName_));
+        e_.setOrder(0);
+        return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_));
     }
 
 
