@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.types.InaccessibleType;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -77,7 +78,7 @@ public final class AnalyzedPageEl {
     private boolean annotAnalysis;
     private String lookLocalClass = "";
     private boolean okNumOp;
-    private Ints currentBadIndexes = new Ints();
+    private CustList<InaccessibleType> currentBadIndexes = new CustList<InaccessibleType>();
     private StringList initFields = new StringList();
     private StringList initFieldsCtors = new StringList();
     private StringList assignedDeclaredFields = new StringList();
@@ -100,6 +101,8 @@ public final class AnalyzedPageEl {
     private AbstractLocalizer localizer;
     private AbstractTokenValidation tokenValidation;
     private final StringMap<ExecFileBlock> filesBodies;
+    private int localInType = -1;
+    private String refFileName = "";
 
     public AnalyzedPageEl() {
         setCatchVars(new CustList<StringMap<AnaLocalVariable>>());
@@ -512,7 +515,7 @@ public final class AnalyzedPageEl {
         okNumOp = _okNumOp;
     }
 
-    public Ints getCurrentBadIndexes() {
+    public CustList<InaccessibleType> getCurrentBadIndexes() {
         return currentBadIndexes;
     }
 
@@ -766,5 +769,21 @@ public final class AnalyzedPageEl {
     }
     public StringMap<ExecFileBlock> getFilesBodies() {
         return filesBodies;
+    }
+
+    public int getLocalInType() {
+        return localInType;
+    }
+
+    public void setLocalInType(int _localInType) {
+        localInType = _localInType;
+    }
+
+    public String getRefFileName() {
+        return refFileName;
+    }
+
+    public void setRefFileName(String _refFileName) {
+        refFileName = _refFileName;
     }
 }

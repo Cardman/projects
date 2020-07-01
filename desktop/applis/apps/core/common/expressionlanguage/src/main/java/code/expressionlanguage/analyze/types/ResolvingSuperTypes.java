@@ -46,14 +46,14 @@ public final class ResolvingSuperTypes {
         _context.getAnalyzing().getCurrentBadIndexes().clear();
         _context.getAnalyzing().setImportingAcces(new TypeAccessor(_currentBlock.getFullName()));
         _context.getAnalyzing().setImportingTypes(_currentBlock);
-        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyze(_in, false,gl_, _context, _currentBlock,_currentBlock, _location,partOffsets_);
-        for (int i: _context.getAnalyzing().getCurrentBadIndexes()) {
+        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in, false,gl_, _context, _currentBlock,_currentBlock, _location,partOffsets_);
+        for (InaccessibleType i: _context.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
-            un_.setIndexFile(_location+i);
+            un_.setIndexFile(_location+i.getIndex());
             //part len
             un_.buildError(_context.getAnalysisMessages().getInaccessibleType(),
-                    resType_.getResult(),gl_);
+                    i.getType(),gl_);
             _context.addError(un_);
         }
         if (resType_.getResult().trim().isEmpty()) {
@@ -85,14 +85,14 @@ public final class ResolvingSuperTypes {
         _context.getAnalyzing().getCurrentBadIndexes().clear();
         _context.getAnalyzing().setImportingAcces(new TypeAccessor(_currentBlock.getFullName()));
         _context.getAnalyzing().setImportingTypes(_currentBlock);
-        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyze(_in,true,gl_,_context,scope_,_currentBlock, _location, _partOffsets);
-        for (int i: _context.getAnalyzing().getCurrentBadIndexes()) {
+        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in,true,gl_,_context,scope_,_currentBlock, _location, _partOffsets);
+        for (InaccessibleType i: _context.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
-            un_.setIndexFile(_location+i);
+            un_.setIndexFile(_location+i.getIndex());
             //part len
             un_.buildError(_context.getAnalysisMessages().getInaccessibleType(),
-                    resType_.getResult(),gl_);
+                    i.getType(),gl_);
             _context.addError(un_);
         }
         if (resType_.getResult().trim().isEmpty()) {

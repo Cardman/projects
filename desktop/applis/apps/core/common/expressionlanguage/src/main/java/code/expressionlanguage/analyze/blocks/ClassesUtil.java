@@ -863,6 +863,7 @@ public final class ClassesUtil {
                 b_.buildError(_context.getAnalysisMessages().getAnnotationParam(),
                         c);
                 _context.addError(b_);
+                s.addNameErrors(b_);
                 continue;
             }
             mapping_.setMapping(cts_);
@@ -876,6 +877,7 @@ public final class ClassesUtil {
                 b_.buildError(_context.getAnalysisMessages().getCyclicMapping(),
                         c);
                 _context.addError(b_);
+                s.addNameErrors(b_);
                 continue;
             }
             for (TypeVar t: s.getParamTypesMapValues()) {
@@ -892,6 +894,7 @@ public final class ClassesUtil {
                         un_.buildError(_context.getAnalysisMessages().getUnexpectedTypeBound(),
                                 b);
                         _context.addError(un_);
+                        s.addNameErrors(un_);
                     }
                     if (PrimitiveTypeUtil.isPrimitive(b,_context)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -901,6 +904,7 @@ public final class ClassesUtil {
                         un_.buildError(_context.getAnalysisMessages().getUnexpectedTypeBound(),
                                 b);
                         _context.addError(un_);
+                        s.addNameErrors(un_);
                     }
                     String baseParams_ = StringExpUtil.getIdFromAllTypes(b);
                     String base_ = StringExpUtil.getQuickComponentBaseType(baseParams_).getComponent();
@@ -920,6 +924,7 @@ public final class ClassesUtil {
                     un_.buildError(_context.getAnalysisMessages().getBadParamerizedType(),
                             c);
                     _context.addError(un_);
+                    s.addNameErrors(un_);
                     okLoc_ = false;
                     ok_ = false;
                 }
@@ -939,6 +944,7 @@ public final class ClassesUtil {
                             duplicate_.buildError(_context.getAnalysisMessages().getDuplicatedGenericSuperTypes(),
                                     StringList.join(e.getValue(),"&"));
                             _context.addError(duplicate_);
+                            s.addNameErrors(duplicate_);
                         }
                     }
 
@@ -993,6 +999,7 @@ public final class ClassesUtil {
                             inh_.buildError(_context.getAnalysisMessages().getAbsMapping(),
                                     Integer.toString(nbAbs_));
                             _context.addError(inh_);
+                            s.addNameErrors(inh_);
                             ok_ = false;
                         }
                         if (nbFinal_ > 0) {
@@ -1005,6 +1012,7 @@ public final class ClassesUtil {
                             inh_.buildError(_context.getAnalysisMessages().getFinalMapping(),
                                     Integer.toString(nbFinal_));
                             _context.addError(inh_);
+                            s.addNameErrors(inh_);
                             ok_ = false;
                         }
                     }
@@ -1028,6 +1036,7 @@ public final class ClassesUtil {
                         un_.buildError(_context.getAnalysisMessages().getBadParamerizedType(),
                                 b.getResult());
                         _context.addError(un_);
+                        s.addNameErrors(un_);
                     }
                 }
             }
@@ -1040,6 +1049,7 @@ public final class ClassesUtil {
                     un_.buildError(_context.getAnalysisMessages().getBadParamerizedType(),
                             t.getResult());
                     _context.addError(un_);
+                    s.addNameErrors(un_);
                 }
             }
         }

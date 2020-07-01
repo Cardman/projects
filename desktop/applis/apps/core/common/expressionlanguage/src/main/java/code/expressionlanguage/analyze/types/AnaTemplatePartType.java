@@ -5,18 +5,23 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
 final class AnaTemplatePartType extends AnaBinaryType {
-    AnaTemplatePartType(AnaParentPartType _parent, int _index, int _indexInType) {
+    private int indexChildConstraints = -1;
+    private IntTreeMap<String> operators;
+    AnaTemplatePartType(AnaParentPartType _parent, int _index, int _indexInType, IntTreeMap<String> _operators) {
         super(_parent, _index, _indexInType);
+        operators = _operators;
     }
 
     String getBegin() {
@@ -79,6 +84,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
         tempCl_ = StringExpUtil.getIdFromAllTypes(tempCl_);
         GeneType type_ = _an.getClassBody(tempCl_);
         CustList<StringList> boundsAll_ = type_.getBoundAll();
+        int i_ = 0;
         for (StringList t: boundsAll_) {
             f_ = f_.getNextSibling();
             String arg_ = f_.getAnalyzedType();
@@ -114,11 +120,25 @@ final class AnaTemplatePartType extends AnaBinaryType {
                     }
                 }
                 if (!ok_) {
+                    indexChildConstraints = i_;
                     return false;
                 }
             }
+            i_++;
         }
         return true;
+    }
+
+    void processBadConstraintsOffsets(ContextEl _an) {
+        if (!_an.isGettingParts()) {
+            return;
+        }
+        getErrs().add(FoundErrorInterpret.buildARError(_an.getAnalysisMessages().getBadParamerizedType(),getAnalyzedType()));
+    }
+    void buildBadConstraintsOffset() {
+        int begin_ = getIndexInType() + operators.getKey(indexChildConstraints);
+        int len_ = operators.getValue(indexChildConstraints).length();
+        buildOffsetPart(begin_,len_);
     }
     private String fetchTemplate() {
         AnaPartType f_ = getFirstChild();

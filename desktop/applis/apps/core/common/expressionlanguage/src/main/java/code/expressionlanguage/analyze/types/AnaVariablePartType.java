@@ -1,9 +1,12 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.AccessedBlock;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -64,4 +67,18 @@ final class AnaVariablePartType extends AnaLeafPartType {
         setAnalyzedType(t_);
     }
 
+    void processOffsets(ContextEl _an, AccessedBlock _rooted) {
+        if (!_an.isGettingParts()) {
+            return;
+        }
+        String curr_ = ((ExecBlock)_rooted).getFile().getRenderFileName();
+        String imported_ = getAnalyzedType();
+        AnalyzedPageEl ana_ = _an.getAnalyzing();
+        Integer id_ = ana_.getAvailableVariables().getVal(imported_.substring(1));
+        String rel_ = "";
+        if (!ana_.getRefFileName().isEmpty()) {
+            rel_ = LinkageUtil.relativize(curr_,ana_.getRefFileName());
+        }
+        setHref(rel_+"#m"+id_);
+    }
 }

@@ -843,7 +843,7 @@ public final class LinkageUtil {
         StringList list_ = _cond.getNameErrors();
         String err_="";
         if (!list_.isEmpty()) {
-            err_ = StringList.join(list_,"\n\n");
+            err_ = LinkageUtil.transform(StringList.join(list_,"\n\n"));
         }
 
         if (!ctors_.isEmpty()) {
@@ -883,7 +883,7 @@ public final class LinkageUtil {
         processAnnotationReport(_vars,_cond,_cont, _parts);
         StringList listCat_ = _cond.getCategoryErrors();
         if (!listCat_.isEmpty()) {
-            _parts.add(new PartOffset("<a title=\""+ StringList.join(listCat_,"\n\n")+"\" class=\"e\">", _cond.getCategoryOffset()));
+            _parts.add(new PartOffset("<a title=\""+ LinkageUtil.transform(StringList.join(listCat_,"\n\n"))+"\" class=\"e\">", _cond.getCategoryOffset()));
             _parts.add(new PartOffset("</a>", _cond.getCategoryOffset() + _cond.getCategoryLength()));
 
         }
@@ -897,7 +897,7 @@ public final class LinkageUtil {
         }
         StringList list_ = _cond.getNameErrors();
         if (!list_.isEmpty()) {
-            _parts.add(new PartOffset("<a name=\"m"+ _cond.getIdRowCol() +"\" title=\""+ StringList.join(list_,"\n\n")+"\" class=\"e\">", _cond.getIdRowCol()));
+            _parts.add(new PartOffset("<a name=\"m"+ _cond.getIdRowCol() +"\" title=\""+ LinkageUtil.transform(StringList.join(list_,"\n\n"))+"\" class=\"e\">", _cond.getIdRowCol()));
         } else {
             _parts.add(new PartOffset("<a name=\"m"+ _cond.getIdRowCol() +"\">", _cond.getIdRowCol()));
         }

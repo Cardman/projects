@@ -2,12 +2,16 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.AccessedBlock;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.types.AnalyzingType;
 import code.expressionlanguage.types.KindPartType;
 import code.expressionlanguage.types.ParserType;
 import code.util.CustList;
 import code.util.IntTreeMap;
+import code.util.StringList;
 
 abstract class AnaPartType {
 
@@ -18,6 +22,13 @@ abstract class AnaPartType {
     private int index;
     private int indexInType;
     private String analyzedType = EMPTY_STRING;
+    private PartOffset beginOffset;
+    private PartOffset endOffset;
+    private final CustList<InaccessibleType> inaccessibleTypes = new CustList<InaccessibleType>();
+    private String titleRef = "";
+    private StringList errs = new StringList();
+    private String href = "";
+    private int length;
 
     AnaPartType(AnaParentPartType _parent, int _index, int _indexInType) {
         parent = _parent;
@@ -54,7 +65,7 @@ abstract class AnaPartType {
             return new AnaVariablePartType(_parent, _index, _indexInType, _dels.getValue(_index),str_);
         }
         if (_analyze.getPrio() == ParserType.TMP_PRIO) {
-            return new AnaTemplatePartType(_parent, _index, _indexInType);
+            return new AnaTemplatePartType(_parent, _index, _indexInType,operators_);
         }
         if (_analyze.getPrio() == ParserType.INT_PRIO) {
             return new AnaInnerPartType(_parent, _index, _indexInType,operators_.values());
@@ -84,7 +95,7 @@ abstract class AnaPartType {
             return new AnaVariablePartType(_parent, _index, _indexInType, _dels.getValue(_index),str_);
         }
         if (_analyze.getPrio() == ParserType.TMP_PRIO) {
-            return new AnaTemplatePartType(_parent, _index, _indexInType);
+            return new AnaTemplatePartType(_parent, _index, _indexInType,operators_);
         }
         if (_analyze.getPrio() == ParserType.INT_PRIO) {
             return new AnaInnerPartType(_parent, _index, _indexInType,operators_.values());
@@ -127,5 +138,96 @@ abstract class AnaPartType {
     }
     void setAnalyzedType(String _analyzedType) {
         analyzedType = _analyzedType;
+    }
+
+    void processBadFormedOffsets(ContextEl _an) {
+        if (!_an.isGettingParts()) {
+            return;
+        }
+        getErrs().add(FoundErrorInterpret.buildARError(_an.getAnalysisMessages().getBadParamerizedType(),getAnalyzedType()));
+    }
+
+    void processInexistType(ContextEl _an, String _in) {
+        getErrs().add(FoundErrorInterpret.buildARError(_an.getAnalysisMessages().getUnknownType(),_in));
+    }
+    void buildOffsetPartDefault(ContextEl _an) {
+        int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType();
+        buildOffsetPart(begin_,length);
+    }
+    void buildOffsetPart(int _offset,int _len) {
+        StringBuilder pref_ = new StringBuilder("<a");
+        boolean add_ = false;
+        if (!errs.isEmpty()) {
+            add_ = true;
+            pref_.append(" title=\"");
+            pref_.append(LinkageUtil.transform(StringList.join(errs,"\n\n")));
+            appendTitleRef(pref_, "\n\n"+titleRef);
+            pref_.append("\"");
+            appendHref(pref_);
+            pref_.append(" class=\"e\">");
+        } else {
+            appendTitleRef(pref_, " title=\"" + titleRef + "\"");
+            appendHref(pref_);
+            pref_.append(">");
+        }
+        if (!titleRef.isEmpty()) {
+            add_ = true;
+        }
+        if (!href.isEmpty()) {
+            add_ = true;
+        }
+        if (!add_) {
+            return;
+        }
+        setBeginOffset(new PartOffset(pref_.toString(),_offset));
+        setEndOffset(new PartOffset("</a>",_offset+_len));
+    }
+
+    private void appendTitleRef(StringBuilder _pref, String _str) {
+        if (!titleRef.isEmpty()) {
+            _pref.append(_str);
+        }
+    }
+
+    private void appendHref(StringBuilder _pref) {
+        if (!href.isEmpty()) {
+            _pref.append(" href=\"").append(href).append("\"");
+        }
+    }
+
+    StringList getErrs() {
+        return errs;
+    }
+
+    void setHref(String _href) {
+        href = _href;
+    }
+
+    void setTitleRef(String _titleRef) {
+        titleRef = _titleRef;
+    }
+
+    PartOffset getBeginOffset() {
+        return beginOffset;
+    }
+
+    void setBeginOffset(PartOffset _beginOffset) {
+        beginOffset = _beginOffset;
+    }
+
+    PartOffset getEndOffset() {
+        return endOffset;
+    }
+
+    void setEndOffset(PartOffset _endOffset) {
+        endOffset = _endOffset;
+    }
+
+    CustList<InaccessibleType> getInaccessibleTypes() {
+        return inaccessibleTypes;
+    }
+
+    void setLength(int _length) {
+        length = _length;
     }
 }

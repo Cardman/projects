@@ -415,7 +415,9 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The type cannot be the key word $void.\n" +
                 "\n" +
-                "The type java.lang.Object is unknown.\" class=\"e\">pkg.MyClass</a>:$void {\n" +
+                "The type java.lang.Object is unknown.\n" +
+                "\n" +
+                "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:<a title=\"The type $void is unknown.\" class=\"e\">$void</a> {\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -471,7 +473,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The type pkg.MyClass cannot have explicitly the type java.lang.$Enum as super type because java.lang.$Enum is reserved.\n" +
                 "\n" +
-                "The type java.lang.$Enum<pkg.MyEnum> is unknown.\" class=\"e\">pkg.MyClass</a>:$Enum&lt;<a title=\"pkg.MyEnum\" href=\"#m59\">MyEnum</a>&gt; {\n" +
+                "The type java.lang.$Enum&lt;pkg.MyEnum&gt; is unknown.\" class=\"e\">pkg.MyClass</a>:$Enum&lt;<a title=\"pkg.MyEnum\" href=\"#m59\">MyEnum</a>&gt; {\n" +
                 "}\n" +
                 "$public $enum <a name=\"m59\">pkg.MyEnum </a>{\n" +
                 "}\n" +
@@ -620,6 +622,96 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "$public $class <a name=\"m63\">pkg.MyClass </a>{\n" +
                 "}\n" +
                 "$public $class <a name=\"m94\">pkg.MySecClass </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report36Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass:MySupOne,MySupTwo {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySupOne {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySupTwo {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The super types of the type pkg.MyClass could not be found.\n" +
+                "\n" +
+                "The type java.lang.Object is unknown.\n" +
+                "\n" +
+                "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:<a title=\"The type MySupOne,MySupTwo is unknown.\" class=\"e\">MySupOne,MySupTwo</a> {\n" +
+                "}\n" +
+                "$public $class <a name=\"m64\">pkg.MySupOne </a>{\n" +
+                "}\n" +
+                "$public $class <a name=\"m96\">pkg.MySupTwo </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report37Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass:MySup {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySup<T> {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The type pkg.MySup is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:<a title=\"pkg.MySup\" href=\"#m52\">MySup</a> {\n" +
+                "}\n" +
+                "$public $class <a name=\"m52\">pkg.MySup</a>&lt;<a name=\"m62\">T</a>&gt; {\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report38Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass:MySup<Integer> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySup<T:MyCl> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The type pkg.MySup&lt;java.lang.Integer&gt; is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:<a title=\"pkg.MySup\" href=\"#m61\">MySup</a>&lt;Integer&gt; {\n" +
+                "}\n" +
+                "$public $class <a name=\"m61\">pkg.MySup</a>&lt;<a name=\"m71\">T</a>:<a title=\"pkg.MyCl\" href=\"#m98\">MyCl</a>&gt; {\n" +
+                "}\n" +
+                "$public $class <a name=\"m98\">pkg.MyCl </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report39Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass:pkgtwo.MyCl {\n");
+        xml_.append("}\n");
+        xml_.append("$package $class pkgtwo.MyCl {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass</a>:<a title=\"The type pkgtwo.MyCl is not accessible from the type pkg.MyClass.\n" +
+                "\n" +
+                "pkgtwo.MyCl\" href=\"#m59\" class=\"e\">pkgtwo.MyCl</a> {\n" +
+                "}\n" +
+                "$package $class <a name=\"m59\">pkgtwo.MyCl </a>{\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
