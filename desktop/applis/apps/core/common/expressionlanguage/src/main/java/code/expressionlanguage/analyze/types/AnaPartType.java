@@ -152,7 +152,7 @@ abstract class AnaPartType {
     }
     void buildOffsetPartDefault(ContextEl _an) {
         int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType();
-        buildOffsetPart(begin_,length);
+        buildOffsetPart(begin_,Math.max(1, length));
     }
     void buildOffsetPart(int _offset,int _len) {
         StringBuilder pref_ = new StringBuilder("<a");

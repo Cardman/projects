@@ -30,6 +30,7 @@ public final class ResolvingSuperTypes {
             un_.buildError(_context.getAnalysisMessages().getVoidType(),
                     void_);
             _context.addError(un_);
+            _ana.addNameErrors(un_);
             return new AnaResultPartType(_context.getStandards().getAliasObject(),null);
         }
         StringMap<Integer> variables_ = new StringMap<Integer>();
@@ -115,6 +116,7 @@ public final class ResolvingSuperTypes {
                         p,
                         resType_.getResult());
                 _context.addError(call_);
+                _ana.addNameErrors(call_);
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -125,6 +127,7 @@ public final class ResolvingSuperTypes {
                         p,
                         resType_.getResult());
                 _context.addError(call_);
+                _ana.addNameErrors(call_);
             }
         }
         return resType_;
