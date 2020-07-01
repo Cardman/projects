@@ -556,12 +556,13 @@ public final class ClassesUtil {
                     FoundErrorInterpret enum_;
                     enum_ = new FoundErrorInterpret();
                     enum_.setFileName(c.getFile().getFileName());
-                    enum_.setIndexFile(0);
+                    enum_.setIndexFile(c.getIdRowCol());
                     //super type len
                     enum_.buildError(_context.getAnalysisMessages().getBadInheritsType(),
                             c.getFullName(),
                             s);
                     _context.addError(enum_);
+                    c.addNameErrors(enum_);
                 }
             }
         }
@@ -1070,6 +1071,7 @@ public final class ClassesUtil {
                     duplicate_.buildError(_context.getAnalysisMessages().getDuplicatedGenericSuperTypes(),
                             StringList.join(e.getValue(),"&"));
                     _context.addError(duplicate_);
+                    i.addNameErrors(duplicate_);
                 }
             }
             i.getAllGenericSuperTypes().addAllElts(genericSuperTypes_);

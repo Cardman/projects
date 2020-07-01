@@ -31,7 +31,7 @@ public final class ResolvingImportTypes {
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex()+_loc;
         AccessedBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         CustList<PartOffset> offs_ = _analyzable.getAnalyzing().getCurrentParts();
-        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_in,false,"", _analyzable,a_,r_, rc_, offs_).getResult();
+        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_in,false, _analyzable,a_,r_, rc_, offs_).getResult();
     }
     public static String resolveCorrectAccessibleType(ContextEl _analyzable, int _loc,String _in, String _fromType) {
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex()+_loc;
@@ -180,7 +180,7 @@ public final class ResolvingImportTypes {
         String gl_ = _analyzable.getAnalyzing().getGlobalClass();
         AnaResultPartType resType_;
         _analyzable.getAnalyzing().getCurrentBadIndexes().clear();
-        resType_ = AnaPartTypeUtil.processAnalyze(tr_, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
+        resType_ = AnaPartTypeUtil.processAccAnalyze(tr_, false,gl_, _analyzable, a_,r_, rc_,partOffsets_);
         return checkResType(_analyzable, _in, true, rc_, varsCt_, resType_,partOffsets_);
     }
     private static String checkResType(ContextEl _analyzable, String _in, boolean _exact, int rc_, StringMap<StringList> varsCt_, AnaResultPartType resType_, CustList<PartOffset> _parts) {

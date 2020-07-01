@@ -133,6 +133,18 @@ public final class AnaPartTypeUtil {
         checkAccess(r_,_globalType,_an);
         return new AnaResultPartType(analyzedType_,r_);
     }
+    public static AnaResultPartType processAccAnalyze(String _input, boolean _rootName, String _globalType, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
+        CustList<AnaLeafPartType> l_ = new CustList<AnaLeafPartType>();
+        _an.getAnalyzing().setLocalInType(_loc);
+        _an.getAnalyzing().setRefFileName("");
+        AnaResultPartType res_ = processAccessAnalyze(_input, _rootName, _globalType, _an, _local, _rooted, _loc, _offs, l_);
+        String analyzedType_ = res_.getResult();
+        if (analyzedType_.isEmpty()) {
+            return res_;
+        }
+        AnaPartType r_ = res_.getPartType();
+        return new AnaResultPartType(analyzedType_,r_);
+    }
     public static AnaResultPartType processAnalyzeHeader(String _input, boolean _rootName, String _globalType, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         CustList<AnaLeafPartType> l_ = new CustList<AnaLeafPartType>();
         if (_loc > -1) {
@@ -381,7 +393,7 @@ public final class AnaPartTypeUtil {
         checkAccess(anaType_,_globalType,_an);
         return new AnaResultPartType(anaType_.getAnalyzedType(),anaType_);
     }
-    public static AnaResultPartType processAnalyzeLineWithoutErr(String _input, boolean _rootName, String _globalType, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
+    public static AnaResultPartType processAnalyzeLineWithoutErr(String _input, boolean _rootName, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         CustList<AnaLeafPartType> ls_ = new CustList<AnaLeafPartType>();
         _an.getAnalyzing().setLocalInType(_loc);
         _an.getAnalyzing().setRefFileName("");
@@ -389,7 +401,6 @@ public final class AnaPartTypeUtil {
         if (anaType_ == null) {
             return new AnaResultPartType("",null);
         }
-        checkAccess(anaType_,_globalType,_an);
         appendParts(anaType_,_offs,_an);
         return new AnaResultPartType(anaType_.getAnalyzedType(),anaType_);
     }

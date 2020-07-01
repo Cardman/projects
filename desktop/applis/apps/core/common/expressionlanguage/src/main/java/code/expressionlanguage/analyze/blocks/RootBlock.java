@@ -215,13 +215,6 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         return importedDirectBaseSuperTypes;
     }
 
-    public String getImportedDirectBaseSuperType(int _index) {
-        if (_index >= importedDirectBaseSuperTypes.size()) {
-            return EMPTY_STRING;
-        }
-        return importedDirectBaseSuperTypes.getValue(_index);
-    }
-
     protected void checkAccess(ContextEl _context,ExecRootBlock _exec) {
         useSuperTypesOverrides(_context);
         Classes classesRef_ = _context.getClasses();
@@ -955,10 +948,8 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             int index_ = rcs_.getKey(i_);
             AnaResultPartType s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s,this, _exec,index_, getSuperTypesParts());
             results.add(s_);
-            String c_ = getImportedDirectBaseSuperType(i_);
             i_++;
             String base_ = StringExpUtil.getIdFromAllTypes(s_.getResult());
-            addErrorIfNoMatch(_classes,s_.getResult(),c_,this,index_);
             ExecRootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (_exec instanceof ExecAnnotationBlock||r_ instanceof ExecInterfaceBlock) {
                 _exec.getImportedDirectGenericSuperInterfaces().add(s_.getResult());
@@ -972,20 +963,6 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             _exec.setImportedDirectSuperClass(_classes.getStandards().getAliasObject());
             importedDirectSuperClass = _classes.getStandards().getAliasObject();
 
-        }
-    }
-
-    private static void addErrorIfNoMatch(ContextEl _cont, String _generic, String _base, RootBlock _currentBlock, int _location) {
-        String id_ = StringExpUtil.getIdFromAllTypes(_generic);
-        if (!StringList.quickEq(id_,_base)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_currentBlock.getFile().getFileName());
-            un_.setIndexFile(_location);
-            //one full direct super type
-            un_.buildError(_cont.getAnalysisMessages().getUnknownType(),
-                    _generic);
-            _cont.addError(un_);
-            _currentBlock.addNameErrors(un_);
         }
     }
 
