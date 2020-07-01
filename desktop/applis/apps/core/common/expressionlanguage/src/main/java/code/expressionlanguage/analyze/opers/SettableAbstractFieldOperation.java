@@ -29,6 +29,7 @@ public abstract class SettableAbstractFieldOperation extends
     private FieldInfo fieldMetaInfo;
     private MethodAccessKind staticAccess;
     private String fieldType = EMPTY_STRING;
+    private int valueOffset;
 
     private boolean catString;
 
@@ -58,6 +59,10 @@ public abstract class SettableAbstractFieldOperation extends
         boolean baseAccess_ = isBaseAccess();
         boolean superAccess_ = isSuperAccess();
         boolean affect_ = false;
+        int indexCh_ = 0;
+        if (getParent() instanceof DeclaringOperation) {
+            indexCh_ = getIndexChild();
+        }
         if (getParent() instanceof AbstractDotOperation && isIntermediateDottedOperation()) {
             if (getParent().getParent() instanceof AffectationOperation && getParent().getParent().getFirstChild() == getParent()) {
                 affect_ = true;
@@ -68,6 +73,7 @@ public abstract class SettableAbstractFieldOperation extends
             }
         } else if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this) {
             affect_ = true;
+            indexCh_ = getParent().getIndexChild();
         } else if (getParent() instanceof CompoundAffectationOperation && getParent().getFirstChild() == this) {
             affect_ = true;
         } else if (getParent() instanceof SemiAffectationOperation) {
@@ -82,6 +88,9 @@ public abstract class SettableAbstractFieldOperation extends
             return;
         }
         e_ = r_.getId();
+        if (e_.getValueOffset().isValidIndex(indexCh_)) {
+            valueOffset = e_.getValueOffset().get(indexCh_);
+        }
         fieldType = e_.getType();
         fieldMetaInfo = e_;
         String c_ = fieldMetaInfo.getType();
@@ -215,5 +224,9 @@ public abstract class SettableAbstractFieldOperation extends
 
     public String getFieldType() {
         return fieldType;
+    }
+
+    public int getValueOffset() {
+        return valueOffset;
     }
 }

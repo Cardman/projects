@@ -14,10 +14,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.*;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class ContextUtil {
     private ContextUtil() {
@@ -296,11 +293,15 @@ public final class ContextUtil {
                 if (!StringList.contains(i_.getFieldName(), search_)) {
                     continue;
                 }
+                Ints valueOffset_ = new Ints();
+                if (i_ instanceof ExecFieldBlock) {
+                    valueOffset_ = ((ExecFieldBlock)i_).getValuesOffset();
+                }
                 String type_ = i_.getImportedClassName();
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
                 Accessed a_ = new Accessed(i_.getAccess(),g_.getPackageName(),fullName_,((ExecRootBlock) g_).getOuterFullName());
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, a_);
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, a_, valueOffset_);
             }
             return null;
         }
@@ -314,7 +315,7 @@ public final class ContextUtil {
                 boolean final_ = f_.isFinalField();
                 boolean static_ = f_.isStaticField();
                 Accessed a_ = new Accessed(AccessEnum.PUBLIC,"","","");
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, a_);
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, a_,new Ints());
             }
         }
         return null;

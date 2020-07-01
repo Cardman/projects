@@ -147,30 +147,38 @@ public final class LinkageUtil {
                 }
                 Block parType_ = child_.getOuter();
                 if (parType_.getBadIndexes().isEmpty()) {
-                    if (child_ instanceof RootBlock) {
-                        if (child_ instanceof InnerElementBlock) {
-                            processInnerElementBlockReport(true,vars_,(InnerElementBlock)child_,_cont,list_);
-                        } else {
-                            processRootBlockReport(vars_, (RootBlock) child_, _cont, list_);
+                    if (child_.getBadIndexes().isEmpty()) {
+                        if (child_ instanceof RootBlock) {
+                            if (child_ instanceof InnerElementBlock) {
+                                processInnerElementBlockReport(true,vars_,(InnerElementBlock)child_,_cont,list_);
+                            } else {
+                                processRootBlockReport(vars_, (RootBlock) child_, _cont, list_);
+                            }
                         }
-                    }
-                    if (child_ instanceof ConstructorBlock) {
-                        processConstructorBlockError(vars_,(ConstructorBlock)child_,_cont,list_);
-                    }
-                    if (child_ instanceof OverridableBlock) {
-                        processOverridableBlockError(vars_,(OverridableBlock)child_,_cont,list_);
-                    }
-                    if (child_ instanceof AnnotationMethodBlock) {
-                        processAnnotationMethodBlockReport(vars_,(AnnotationMethodBlock)child_,_cont,list_);
-                    }
-                    if (child_ instanceof ElementBlock) {
-                        processElementBlockReport(vars_,(ElementBlock)child_,_cont,list_);
-                    }
-                    if (child_ instanceof FieldBlock) {
-                        processFieldBlockError(vars_,(FieldBlock)child_,_cont,list_);
-                    }
-                    if (child_ instanceof IfCondition) {
-                        processIfConditionError(vars_,(IfCondition)child_,_cont,list_);
+                        if (child_ instanceof ConstructorBlock) {
+                            processConstructorBlockError(vars_,(ConstructorBlock)child_,_cont,list_);
+                        }
+                        if (child_ instanceof OverridableBlock) {
+                            processOverridableBlockError(vars_,(OverridableBlock)child_,_cont,list_);
+                        }
+                        if (child_ instanceof AnnotationMethodBlock) {
+                            processAnnotationMethodBlockReport(vars_,(AnnotationMethodBlock)child_,_cont,list_);
+                        }
+                        if (child_ instanceof ElementBlock) {
+                            processElementBlockReport(vars_,(ElementBlock)child_,_cont,list_);
+                        }
+                        if (child_ instanceof FieldBlock) {
+                            processFieldBlockError(vars_,(FieldBlock)child_,_cont,list_);
+                        }
+                        if (child_ instanceof IfCondition) {
+                            processIfConditionError(vars_,(IfCondition)child_,_cont,list_);
+                        }
+                    } else {
+                        String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
+                        for (int i : child_.getBadIndexes()) {
+                            list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",i));
+                            list_.add(new PartOffset("</a>",i+1));
+                        }
                     }
                 }
             }
@@ -1091,14 +1099,6 @@ public final class LinkageUtil {
         buildCoverageReport(_cont,_vars,off_,_cond,_cond.getRoot(),offsetEndBlock_,_parts);
     }
     private static void processConditionError(Condition _cond, VariablesOffsets _vars,ContextEl _cont, CustList<PartOffset> _parts) {
-        if (!_cond.getBadIndexes().isEmpty()) {
-            String err_ = StringList.join(_cond.getErrorsBlock(),"\n\n");
-            for (int i : _cond.getBadIndexes()) {
-                _parts.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",i));
-                _parts.add(new PartOffset("</a>",i+1));
-            }
-            return;
-        }
         int off_ =  _cond.getConditionOffset();
         buildErrorReport(_cont,_vars,off_,_cond,_cond.getRoot(), _parts);
     }
@@ -1464,12 +1464,7 @@ public final class LinkageUtil {
         if (val_ instanceof SettableAbstractFieldOperation) {
             if (_block instanceof FieldBlock && ElUtil.isDeclaringVariable(val_)) {
                 ClassField c_ = ((SettableAbstractFieldOperation)val_).getFieldIdReadOnly();
-                int id_;
-                if (val_.getParent() instanceof AffectationOperation) {
-                    id_ = ((FieldBlock) _block).getValuesOffset().get(val_.getParent().getIndexChild());
-                } else {
-                    id_ = ((FieldBlock) _block).getValuesOffset().get(val_.getIndexChild());
-                }
+                int id_ = ((SettableAbstractFieldOperation)val_).getValueOffset();
                 StringList errs_ = ((FieldBlock) _block).getNameErrors();
                 if (errs_.isEmpty()) {
                     String tag_ = "<a name=\"m"+id_+"\">";
