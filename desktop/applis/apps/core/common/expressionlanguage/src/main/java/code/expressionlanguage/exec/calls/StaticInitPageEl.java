@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.analyze.blocks.Returnable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.*;
@@ -50,7 +49,7 @@ public final class StaticInitPageEl extends AbstractPageEl {
             ((WithEl)en_).processEl(_context);
             return;
         }
-        if (en_ instanceof Returnable) {
+        if (en_ instanceof ExecNamedFunctionBlock) {
             en_.processBlock(_context);
             return;
         }

@@ -254,7 +254,7 @@ public final class AnaPartTypeUtil {
         if (!res_) {
             return false;
         }
-        boolean out_ = checkConstrains(root_, _inherit, _context);
+        boolean out_ = checkConstrains(root_, _inherit, _context,_parts);
         if (out_) {
             appendParts(root_,_parts,_context);
         }
@@ -331,7 +331,7 @@ public final class AnaPartTypeUtil {
         return _current instanceof AnaEmptyWildCardPart;
     }
 
-    public static boolean checkConstrains(AnaPartType _root, StringMap<StringList> _inherit, ContextEl _context) {
+    public static boolean checkConstrains(AnaPartType _root, StringMap<StringList> _inherit, ContextEl _context, CustList<PartOffset> _parts) {
         AnaPartType current_ = _root;
         while (true) {
             AnaPartType child_ = current_.getFirstChild();
@@ -343,7 +343,8 @@ public final class AnaPartTypeUtil {
             while (true) {
                 if (koTemp(_inherit, _context, current_)) {
                     ((AnaTemplatePartType)current_).processBadConstraintsOffsets(_context);
-                    ((AnaTemplatePartType)current_).buildBadConstraintsOffset();
+                    ((AnaTemplatePartType)current_).buildBadConstraintsOffset(_context);
+                    appendOffset(_parts,current_);
                     return false;
                 }
                 AnaPartType next_ = current_.getNextSibling();
@@ -355,7 +356,8 @@ public final class AnaPartTypeUtil {
                 if (par_ == _root) {
                     if (koTemp(_inherit, _context, par_)) {
                         ((AnaTemplatePartType)par_).processBadConstraintsOffsets(_context);
-                        ((AnaTemplatePartType)par_).buildBadConstraintsOffset();
+                        ((AnaTemplatePartType)par_).buildBadConstraintsOffset(_context);
+                        appendOffset(_parts,par_);
                         return false;
                     }
                     stop_ = true;

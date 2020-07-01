@@ -135,8 +135,8 @@ final class AnaTemplatePartType extends AnaBinaryType {
         }
         getErrs().add(FoundErrorInterpret.buildARError(_an.getAnalysisMessages().getBadParamerizedType(),getAnalyzedType()));
     }
-    void buildBadConstraintsOffset() {
-        int begin_ = getIndexInType() + operators.getKey(indexChildConstraints);
+    void buildBadConstraintsOffset(ContextEl _an) {
+        int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType() + operators.getKey(indexChildConstraints);
         int len_ = operators.getValue(indexChildConstraints).length();
         buildOffsetPart(begin_,len_);
     }

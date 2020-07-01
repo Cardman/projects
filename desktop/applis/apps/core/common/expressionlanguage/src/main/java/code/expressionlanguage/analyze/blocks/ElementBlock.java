@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
@@ -43,6 +44,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private String classNameRes;
     private int trOffset;
+    private final StringList nameErrors = new StringList();
 
     public ElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                         OffsetStringInfo _type,
@@ -92,7 +94,9 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
         CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
         fields_.add(new PartOffsetAffect(new PartOffset(fieldName,valueOffest),true));
-        FieldBlock.checkFieldsNames(_cont,this,_fieldNames,fields_);
+        for (FoundErrorInterpret e: FieldBlock.checkFieldsNames(_cont,this,_fieldNames,fields_)){
+            addNameErrors(e);
+        }
     }
 
     public String getValue() {
@@ -204,5 +208,14 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     public String getRealImportedClassName() {
         return importedClassName;
     }
+
+
+    public void addNameErrors(FoundErrorInterpret _error) {
+        nameErrors.add(_error.getBuiltError());
+    }
+    public StringList getNameErrors() {
+        return nameErrors;
+    }
+
 
 }

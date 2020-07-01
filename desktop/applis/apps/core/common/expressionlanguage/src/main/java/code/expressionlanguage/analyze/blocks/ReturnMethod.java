@@ -76,9 +76,9 @@ public final class ReturnMethod extends AbruptBlock {
         String retType_ = stds_.getAliasVoid();
         BracedBlock par_ = getParent();
         while (par_ != null) {
-            if (par_ instanceof Returnable) {
-                Returnable meth_;
-                meth_ = (Returnable) par_;
+            if (par_ instanceof NamedFunctionBlock) {
+                NamedFunctionBlock meth_;
+                meth_ = (NamedFunctionBlock) par_;
                 retType_ = meth_.getImportedReturnType();
                 break;
             }

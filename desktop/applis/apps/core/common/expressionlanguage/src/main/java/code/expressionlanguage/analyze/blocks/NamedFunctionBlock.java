@@ -21,7 +21,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public abstract class NamedFunctionBlock extends MemberCallingsBlock implements Returnable,AnnotableParametersBlock {
+public abstract class NamedFunctionBlock extends MemberCallingsBlock implements AnnotableParametersBlock {
     private StringList annotations = new StringList();
 
     private Ints annotationsIndexes = new Ints();
@@ -59,6 +59,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private CustList<CustList<OperationNode>> rootsList = new CustList<CustList<OperationNode>>();
+
+    private final StringList nameErrors = new StringList();
+    private final CustList<StringList> paramErrors = new CustList<StringList>();
+
     public NamedFunctionBlock(OffsetAccessInfo _access,
                               OffsetStringInfo _retType, OffsetStringInfo _fctName,
                               StringList _paramTypes, Ints _paramTypesOffset,
@@ -176,7 +180,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return returnTypeOffset;
     }
 
-    @Override
     public String getName() {
         return name;
     }
@@ -224,12 +227,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return returnType;
     }
 
-    @Override
     public final StringList getParametersNames() {
         return new StringList(parametersNames);
     }
 
-    @Override
     public final boolean isVarargs() {
         return varargs;
     }
@@ -242,7 +243,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return importedParametersTypes;
     }
 
-    @Override
     public String getImportedReturnType() {
         return importedReturnType;
     }
@@ -296,5 +296,23 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public CustList<CustList<OperationNode>> getRootsList() {
         return rootsList;
+    }
+
+    public void addNameErrors(FoundErrorInterpret _error) {
+        nameErrors.add(_error.getBuiltError());
+    }
+
+    public void addParamErrors() {
+        paramErrors.add(new StringList());
+    }
+    public void addParamErrors(int _i,FoundErrorInterpret _error) {
+        paramErrors.get(_i).add(_error.getBuiltError());
+    }
+    public StringList getNameErrors() {
+        return nameErrors;
+    }
+
+    public CustList<StringList> getParamErrors() {
+        return paramErrors;
     }
 }

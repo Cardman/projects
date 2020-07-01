@@ -34,6 +34,7 @@ public abstract class Block implements AnalyzedBlock {
     private OffsetsBlock offset;
 
     private Ints badIndexes = new Ints();
+    private StringList errorsBlock = new StringList();
 
     Block(OffsetsBlock _offset) {
         offset = _offset;
@@ -163,5 +164,9 @@ public abstract class Block implements AnalyzedBlock {
 
     public Ints getBadIndexes() {
         return badIndexes;
+    }
+
+    public StringList getErrorsBlock() {
+        return errorsBlock;
     }
 }

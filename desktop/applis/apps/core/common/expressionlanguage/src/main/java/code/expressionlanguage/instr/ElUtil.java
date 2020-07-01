@@ -42,7 +42,7 @@ public final class ElUtil {
                 String trimmed_ = var_.trim();
                 String name_ = getFieldName(trimmed_);
                 int offset_ = _valueOffset + e.getKey();
-                if (StringList.isDollarWord(trimmed_)) {
+                if (StringExpUtil.isTypeLeafPart(trimmed_)) {
                     addFieldName(names_, var_, offset_, false, name_);
                 }
             }
@@ -54,7 +54,7 @@ public final class ElUtil {
                 String trimmed_ = var_.trim();
                 String name_ = getFieldName(trimmed_);
                 int offset_ = _valueOffset + e.getKey();
-                if (StringList.isDollarWord(trimmed_)) {
+                if (StringExpUtil.isTypeLeafPart(trimmed_)) {
                     addFieldName(names_, var_, offset_, false, name_);
                     continue;
                 }
@@ -71,7 +71,7 @@ public final class ElUtil {
             int off_ = opTwo_.getValues().firstKey();
             String trimmed_ = var_.trim();
             String name_ = getFieldName(trimmed_);
-            if (StringList.isDollarWord(trimmed_)) {
+            if (StringExpUtil.isTypeLeafPart(trimmed_)) {
                 addFieldName(names_,var_,_valueOffset+off_,true,name_);
             }
         }

@@ -1,9 +1,8 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.common.GeneFunction;
 import code.util.StringList;
 
-public abstract class StandardNamedFunction implements GeneFunction {
+public abstract class StandardNamedFunction {
 
     private final String name;
 
@@ -28,7 +27,6 @@ public abstract class StandardNamedFunction implements GeneFunction {
         return owner;
     }
 
-    @Override
     public String getName() {
         return name;
     }
@@ -37,12 +35,10 @@ public abstract class StandardNamedFunction implements GeneFunction {
         return new StringList(parametersTypes);
     }
 
-    @Override
     public String getImportedReturnType() {
         return returnType;
     }
 
-    @Override
     public final boolean isVarargs() {
         return varargs;
     }

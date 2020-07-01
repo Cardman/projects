@@ -5,11 +5,10 @@ import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
-import code.expressionlanguage.analyze.blocks.Returnable;
 import code.util.CustList;
 import code.util.StringList;
 
-public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock implements Returnable,ExecAnnotableParametersBlock {
+public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock implements ExecAnnotableParametersBlock {
 
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
 
@@ -89,17 +88,14 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         return returnTypeOffset;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public final StringList getParametersNames() {
         return new StringList(parametersNames);
     }
 
-    @Override
     public final boolean isVarargs() {
         return varargs;
     }
@@ -112,7 +108,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         return importedParametersTypes;
     }
 
-    @Override
     public String getImportedReturnType() {
         return importedReturnType;
     }

@@ -509,6 +509,8 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                 //block len
                 unexp_.buildError(_context.getAnalysisMessages().getUnexpectedBlockExp());
                 _context.addError(unexp_);
+                b.getBadIndexes().add(where_);
+                b.getErrorsBlock().add(unexp_.getBuiltError());
             }
         }
         if (!isStaticType()) {
@@ -527,6 +529,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                                 getFullName()
                         );
                         _context.addError(unexp_);
+                        ((RootBlock)b).addNameErrors(unexp_);
                     }
                 }
                 if (b instanceof StaticBlock) {
@@ -549,10 +552,10 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         CustList<MethodHeaderInfo> implicitId_ = new CustList<MethodHeaderInfo>();
         CustList<MethodHeaderInfo> implicitFrom_ = new CustList<MethodHeaderInfo>();
         for (Block b: bl_) {
-            if (!(b instanceof Returnable)) {
+            if (!(b instanceof NamedFunctionBlock)) {
                 continue;
             }
-            Returnable method_ = (Returnable) b;
+            NamedFunctionBlock method_ = (NamedFunctionBlock) b;
             String name_ = method_.getName();
             if (method_ instanceof OverridableBlock) {
                 OverridableBlock m_ = (OverridableBlock) method_;
@@ -567,6 +570,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                         badMeth_.buildError(_context.getAnalysisMessages().getBadMethodName(),
                                 name_);
                         _context.addError(badMeth_);
+                        m_.addNameErrors(badMeth_);
                     }
                     nbOperators++;
                 } else if (m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST) {
@@ -579,6 +583,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                         badMeth_.buildError(_context.getAnalysisMessages().getBadParams(),
                                 m_.getSignature(_context));
                         _context.addError(badMeth_);
+                        m_.addNameErrors(badMeth_);
                     } else if (!StringList.quickEq(m_.getImportedReturnType(),_exec.getGenericString())&&!StringList.quickEq(m_.getImportedParametersTypes().first(),_exec.getGenericString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
@@ -589,6 +594,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                                 m_.getSignature(_context),
                                 _exec.getGenericString());
                         _context.addError(badMeth_);
+                        m_.addNameErrors(badMeth_);
                     } else if (!m_.isStaticMethod()) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
@@ -598,6 +604,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                         badMeth_.buildError(_context.getAnalysisMessages().getBadMethodModifier(),
                                 m_.getSignature(_context));
                         _context.addError(badMeth_);
+                        m_.addNameErrors(badMeth_);
                     } else if (m_.isVarargs()) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
@@ -607,6 +614,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                         badMeth_.buildError(_context.getAnalysisMessages().getBadMethodVararg(),
                                 m_.getSignature(_context));
                         _context.addError(badMeth_);
+                        m_.addNameErrors(badMeth_);
                     } else {
                         if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
                             if (StringList.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
@@ -636,6 +644,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                         badMeth_.buildError(_context.getAnalysisMessages().getBadMethodName(),
                                 name_);
                         _context.addError(badMeth_);
+                        m_.addNameErrors(badMeth_);
                     } else if (StringList.quickEq(name_, keyWords_.getKeyWordToString()) && !m_.hiddenInstance() && m_.getParametersTypes().isEmpty()) {
                         if (!StringList.quickEq(m_.getImportedReturnType(),stds_.getAliasString())) {
                             int r_ = m_.getNameOffset();
@@ -647,6 +656,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                                     name_,
                                     stds_.getAliasString());
                             _context.addError(badMeth_);
+                            m_.addNameErrors(badMeth_);
                         } else if (m_.getAccess() != AccessEnum.PUBLIC) {
                             int r_ = m_.getNameOffset();
                             FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
@@ -656,6 +666,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                             badMeth_.buildError(_context.getAnalysisMessages().getBadAccess(),
                                     name_);
                             _context.addError(badMeth_);
+                            m_.addNameErrors(badMeth_);
                         } else {
                             ToStringMethodHeader t_ = new ToStringMethodHeader(m_.getName(), m_.getImportedReturnType(), m_.isFinalMethod(),m_.isAbstractMethod());
                             _context.getClasses().getToStringMethods().addEntry(getFullName(), t_);
@@ -671,6 +682,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                         unexp_.buildError(_context.getAnalysisMessages().getBadIndexerModifier(),
                                 m_.getSignature(_context));
                         _context.addError(unexp_);
+                        m_.addNameErrors(unexp_);
                     }
                     if (m_.getParametersTypes().isEmpty()) {
                         int where_ = b.getOffset().getOffsetTrim();
@@ -681,6 +693,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                         unexp_.buildError(_context.getAnalysisMessages().getBadIndexerParams(),
                                 m_.getSignature(_context));
                         _context.addError(unexp_);
+                        m_.addNameErrors(unexp_);
                     }
                     if (m_.getKind() == MethodKind.GET_INDEX) {
                         indexersGet_.add(m_);
@@ -701,6 +714,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                     badMeth_.buildError(_context.getAnalysisMessages().getBadMethodName(),
                             name_);
                     _context.addError(badMeth_);
+                    m_.addNameErrors(badMeth_);
                 }
             }
             if (method_ instanceof OverridableBlock) {
@@ -721,6 +735,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                             duplicate_.buildError(_context.getAnalysisMessages().getReservedCustomMethod(),
                                     id_.getSignature(_context));
                             _context.addError(duplicate_);
+                            m_.addNameErrors(duplicate_);
                         }
                         if (id_.eq(new MethodId(MethodAccessKind.STATIC, values_, new StringList()))) {
                             int r_ = m_.getOffset().getOffsetTrim();
@@ -732,6 +747,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                             duplicate_.buildError(_context.getAnalysisMessages().getReservedCustomMethod(),
                                     id_.getSignature(_context));
                             _context.addError(duplicate_);
+                            m_.addNameErrors(duplicate_);
                         }
                     }
                     for (MethodId m: idMethods_) {
@@ -745,6 +761,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                             duplicate_.buildError(_context.getAnalysisMessages().getDuplicateCustomMethod(),
                                     id_.getSignature(_context));
                             _context.addError(duplicate_);
+                            m_.addNameErrors(duplicate_);
                         }
                     }
                     idMethods_.add(id_);
@@ -761,6 +778,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                             duplicate_.buildError(_context.getAnalysisMessages().getDuplicateIndexer(),
                                     id_.getSignature(_context));
                             _context.addError(duplicate_);
+                            m_.addNameErrors(duplicate_);
                         }
                     }
                     idMethods_.add(id_);
@@ -780,12 +798,13 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                         duplicate_.buildError(_context.getAnalysisMessages().getDuplicateCustomMethod(),
                                 sgn_);
                         _context.addError(duplicate_);
+                        method_.addNameErrors(duplicate_);
                     }
                 }
                 idMethods_.add(id_);
             }
             if (method_ instanceof ConstructorBlock) {
-                ((ConstructorBlock)method_).buildImportedTypes(_context);
+                method_.buildImportedTypes(_context);
                 ConstructorId idCt_ = ((ConstructorBlock)method_).getId();
                 for (ConstructorId m: idConstructors_) {
                     if (m.eq(idCt_)) {
@@ -798,13 +817,16 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                         duplicate_.buildError(_context.getAnalysisMessages().getDuplicatedCtor(),
                                 idCt_.getSignature(_context));
                         _context.addError(duplicate_);
+                        method_.addNameErrors(duplicate_);
                     }
                 }
                 idConstructors_.add(idCt_);
             }
             StringList l_ = method_.getParametersNames();
             StringList seen_ = new StringList();
+            int j_ = 0;
             for (String v: l_) {
+                method_.addParamErrors();
                 if (!ContextUtil.isValidToken(_context,v)) {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
@@ -814,6 +836,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                     b_.buildError(_context.getAnalysisMessages().getBadParamName(),
                             v);
                     _context.addError(b_);
+                    method_.addParamErrors(j_,b_);
                 }
                 if (method_ instanceof OverridableBlock) {
                     OverridableBlock i_ = (OverridableBlock) method_;
@@ -827,6 +850,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                             b_.buildError(_context.getAnalysisMessages().getReservedParamName(),
                                     v);
                             _context.addError(b_);
+                            method_.addParamErrors(j_,b_);
                         }
                     }
                 }
@@ -839,9 +863,11 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                     b_.buildError(_context.getAnalysisMessages().getDuplicatedParamName(),
                             v);
                     _context.addError(b_);
+                    method_.addParamErrors(j_,b_);
                 } else {
                     seen_.add(v);
                 }
+                j_++;
             }
         }
         buildFieldInfos(_context, bl_);
@@ -887,6 +913,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                 unexp_.buildError(_context.getAnalysisMessages().getBadIndexerPairSet(),
                         i.getSignature(_context));
                 _context.addError(unexp_);
+                i.addNameErrors(unexp_);
             } else {
                 if (set_.getModifier() != i.getModifier()) {
                     int where_ = i.getOffset().getOffsetTrim();
@@ -897,6 +924,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                     unexp_.buildError(_context.getAnalysisMessages().getBadIndexerModifiers(),
                             i.getSignature(_context));
                     _context.addError(unexp_);
+                    i.addNameErrors(unexp_);
                 }
                 if (set_.getAccess() != i.getAccess()) {
                     int where_ = i.getOffset().getOffsetTrim();
@@ -907,6 +935,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                     unexp_.buildError(_context.getAnalysisMessages().getBadIndexerAccesses(),
                             i.getSignature(_context));
                     _context.addError(unexp_);
+                    i.addNameErrors(unexp_);
                 }
             }
         }
@@ -928,6 +957,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                 unexp_.buildError(_context.getAnalysisMessages().getBadIndexerPairGet(),
                         i.getSignature(_context));
                 _context.addError(unexp_);
+                i.addNameErrors(unexp_);
             }
         }
     }

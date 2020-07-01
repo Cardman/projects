@@ -4,7 +4,7 @@ import code.expressionlanguage.functionid.ConstructorId;
 
 
 
-public interface GeneConstructor extends GeneFunction {
+public interface GeneConstructor {
 
     ConstructorId getId();
 }

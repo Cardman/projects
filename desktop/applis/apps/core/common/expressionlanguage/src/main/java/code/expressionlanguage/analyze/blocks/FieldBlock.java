@@ -55,6 +55,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private StringList assignedDeclaredFields = new StringList();
     private OperationNode root;
     private CustList<OperationNode> roots = new CustList<OperationNode>();
+    private final StringList nameRetErrors = new StringList();
+    private final StringList nameErrors = new StringList();
     public FieldBlock(OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
                       OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -165,8 +167,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             //value len
             b_.buildError(_cont.getAnalysisMessages().getNotRetrievedFields());
             _cont.addError(b_);
+            addNameRetErrors(b_);
         }
-        checkFieldsNames(_cont, this, _fieldNames, names_);
+        for (FoundErrorInterpret e: checkFieldsNames(_cont, this, _fieldNames, names_)){
+            addNameErrors(e);
+        }
         for (PartOffsetAffect n: names_) {
             PartOffset p_ = n.getPartOffset();
             String name_ = p_.getPart();
@@ -178,8 +183,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
     }
 
-    static void checkFieldsNames(ContextEl _cont, Block _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names) {
+    static CustList<FoundErrorInterpret> checkFieldsNames(ContextEl _cont, Block _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names) {
         StringList idsField_ = new StringList(_fieldNames);
+        CustList<FoundErrorInterpret> found_ = new CustList<FoundErrorInterpret>();
         for (PartOffsetAffect n: _names) {
             PartOffset p_ = n.getPartOffset();
             String trName_ = p_.getPart();
@@ -192,6 +198,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 b_.buildError(_cont.getAnalysisMessages().getBadFieldName(),
                         trName_);
                 _cont.addError(b_);
+                found_.add(b_);
             }
             for (String m: idsField_) {
                 if (StringList.quickEq(m, trName_)) {
@@ -204,11 +211,13 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                     duplicate_.buildError(_cont.getAnalysisMessages().getDuplicateField(),
                             trName_);
                     _cont.addError(duplicate_);
+                    found_.add(duplicate_);
                 }
             }
             idsField_.add(trName_);
             _fieldNames.add(trName_);
         }
+        return found_;
     }
 
     public Ints getValuesOffset() {
@@ -267,6 +276,21 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     public CustList<OperationNode> getRoots() {
         return roots;
+    }
+
+
+    public void addNameErrors(FoundErrorInterpret _error) {
+        nameErrors.add(_error.getBuiltError());
+    }
+    public StringList getNameErrors() {
+        return nameErrors;
+    }
+
+    public void addNameRetErrors(FoundErrorInterpret _error) {
+        nameRetErrors.add(_error.getBuiltError());
+    }
+    public StringList getNameRetErrors() {
+        return nameRetErrors;
     }
 
 }
