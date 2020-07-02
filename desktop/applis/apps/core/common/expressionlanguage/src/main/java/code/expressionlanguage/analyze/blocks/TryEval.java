@@ -65,6 +65,8 @@ public final class TryEval extends BracedBlock implements Eval {
                                 ),
                                 "|"));
                 _an.addError(un_);
+                setReachableError(true);
+                getErrorsBlock().add(un_.getBuiltError());
             }
         }
     }

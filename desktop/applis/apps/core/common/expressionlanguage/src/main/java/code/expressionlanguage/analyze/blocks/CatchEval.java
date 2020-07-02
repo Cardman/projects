@@ -26,6 +26,8 @@ public final class CatchEval extends AbstractCatchEval {
 
     private int variableNameOffset;
 
+    private final StringList nameErrors = new StringList();
+
     public CatchEval(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetsBlock _offset) {
         super(_offset);
         className = _className.getInfo();
@@ -82,6 +84,7 @@ public final class CatchEval extends AbstractCatchEval {
             b_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
                     variableName);
             _cont.addError(b_);
+            nameErrors.add(b_.getBuiltError());
         }
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);
@@ -124,5 +127,9 @@ public final class CatchEval extends AbstractCatchEval {
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public StringList getNameErrors() {
+        return nameErrors;
     }
 }

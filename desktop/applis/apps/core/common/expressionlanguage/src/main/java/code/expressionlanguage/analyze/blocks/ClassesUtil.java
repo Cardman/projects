@@ -1131,6 +1131,7 @@ public final class ClassesUtil {
                 badMeth_.buildError(_context.getAnalysisMessages().getBadOperatorName(),
                         name_);
                 _context.addError(badMeth_);
+                e.getKey().addNameErrors(badMeth_);
             }
             MethodId id_ = e.getKey().getId();
             for (MethodId m: idMethods_) {
@@ -1143,12 +1144,15 @@ public final class ClassesUtil {
                     duplicate_.buildError(_context.getAnalysisMessages().getDuplicateOperator(),
                             id_.getSignature(_context));
                     _context.addError(duplicate_);
+                    e.getKey().addNameErrors(duplicate_);
                 }
             }
             idMethods_.add(id_);
             StringList l_ = e.getKey().getParametersNames();
             StringList seen_ = new StringList();
+            int i_ = 0;
             for (String v: l_) {
+                e.getKey().addParamErrors();
                 if (!ContextUtil.isValidToken(_context,v)) {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
@@ -1158,6 +1162,7 @@ public final class ClassesUtil {
                     b_.buildError(_context.getAnalysisMessages().getBadParamName(),
                             v);
                     _context.addError(b_);
+                    e.getKey().addParamErrors(i_,b_);
                 }
                 if (StringList.contains(seen_, v)){
                     FoundErrorInterpret b_;
@@ -1168,9 +1173,11 @@ public final class ClassesUtil {
                     b_.buildError(_context.getAnalysisMessages().getDuplicatedParamName(),
                             v);
                     _context.addError(b_);
+                    e.getKey().addParamErrors(i_,b_);
                 } else {
                     seen_.add(v);
                 }
+                i_++;
             }
         }
     }

@@ -568,7 +568,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                         badMeth_.setFileName(getFile().getFileName());
                         badMeth_.setIndexFile(r_);
                         //method name len
-                        badMeth_.buildError(_context.getAnalysisMessages().getBadMethodName(),
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadOperatorName(),
                                 name_);
                         _context.addError(badMeth_);
                         m_.addNameErrors(badMeth_);

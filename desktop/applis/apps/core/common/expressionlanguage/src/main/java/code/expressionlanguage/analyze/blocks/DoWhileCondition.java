@@ -70,6 +70,8 @@ public final class DoWhileCondition extends Condition {
                     _an.getKeyWords().getKeyWordWhile(),
                     _an.getKeyWords().getKeyWordDo());
             _an.addError(un_);
+            setReachableError(true);
+            getErrorsBlock().add(un_.getBuiltError());
         }
     }
 
