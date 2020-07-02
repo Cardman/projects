@@ -53,6 +53,8 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
+    private final StringList nameErrors = new StringList();
+
     public ForEachLoop(ContextEl _importingPage,
                        OffsetStringInfo _className, OffsetStringInfo _variable,
                        OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
@@ -170,6 +172,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             b_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
                     variableName);
             _cont.addError(b_);
+            nameErrors.add(b_.getBuiltError());
         }
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
@@ -337,5 +340,9 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public StringList getNameErrors() {
+        return nameErrors;
     }
 }

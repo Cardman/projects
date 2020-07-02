@@ -64,6 +64,8 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
 
     private CustList<PartOffset> partOffsetsSecond = new CustList<PartOffset>();
 
+    private final StringList nameErrorsFirst = new StringList();
+    private final StringList nameErrorsSecond = new StringList();
     public ForEachTable(ContextEl _importingPage,
                         OffsetStringInfo _className, OffsetStringInfo _variable,
                         OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
@@ -194,6 +196,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
             b_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
                     variableNameFirst);
             _cont.addError(b_);
+            nameErrorsFirst.add(b_.getBuiltError());
         }
         if (_cont.getAnalyzing().containsVar(variableNameSecond)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
@@ -221,6 +224,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
             b_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
                     variableNameSecond);
             _cont.addError(b_);
+            nameErrorsSecond.add(b_.getBuiltError());
         }
         KeyWords keyWords_ = _cont.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -418,5 +422,13 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
 
     public CustList<PartOffset> getPartOffsetsSecond() {
         return partOffsetsSecond;
+    }
+
+    public StringList getNameErrorsFirst() {
+        return nameErrorsFirst;
+    }
+
+    public StringList getNameErrorsSecond() {
+        return nameErrorsSecond;
     }
 }

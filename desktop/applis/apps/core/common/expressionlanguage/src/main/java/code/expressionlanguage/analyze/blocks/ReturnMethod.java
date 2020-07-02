@@ -63,6 +63,10 @@ public final class ReturnMethod extends AbruptBlock {
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(stCtx_));
+        if (!page_.getCurrentEmptyPartErr().isEmpty()) {
+            getErrorsBlock().add(page_.getCurrentEmptyPartErr());
+            setReachableError(true);
+        }
         checkTypes(_cont, retType_, op_.last().getResultClass());
         ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), false,expressionOffset,op_, retType_);
         root = page_.getCurrentRoot();
@@ -106,6 +110,8 @@ public final class ReturnMethod extends AbruptBlock {
             cast_.buildError(_cont.getAnalysisMessages().getVoidType(),
                     _retType);
             _cont.addError(cast_);
+            getErrorsBlock().add(cast_.getBuiltError());
+            setReachableError(true);
             return;
         }
         if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont)) {

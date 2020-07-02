@@ -22,6 +22,8 @@ public final class VariableOperation extends LeafOperation implements
     private int off;
     private String className = EMPTY_STRING;
 
+    private final StringList nameErrors = new StringList();
+
     public VariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
@@ -78,6 +80,7 @@ public final class VariableOperation extends LeafOperation implements
                 b_.buildError(_conf.getAnalysisMessages().getBadVariableName(),
                         str_);
                 _conf.getAnalyzing().getLocalizer().addError(b_);
+                nameErrors.add(b_.getBuiltError());
             }
             String c_ = _conf.getAnalyzing().getCurrentVarSetting();
             KeyWords keyWords_ = _conf.getKeyWords();
@@ -118,5 +121,9 @@ public final class VariableOperation extends LeafOperation implements
 
     public int getOff() {
         return off;
+    }
+
+    public StringList getNameErrors() {
+        return nameErrors;
     }
 }
