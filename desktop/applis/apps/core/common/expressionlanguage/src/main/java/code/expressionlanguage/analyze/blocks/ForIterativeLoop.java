@@ -51,6 +51,8 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
     private OperationNode rootInit;
     private OperationNode rootExp;
     private OperationNode rootStep;
+
+    private final StringList nameErrors = new StringList();
     public ForIterativeLoop(ContextEl _importingPage,
                             OffsetStringInfo _className, OffsetStringInfo _variable,
                             OffsetStringInfo _from,
@@ -263,6 +265,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
             b_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
                     variableName);
             _cont.addError(b_);
+            nameErrors.add(b_.getBuiltError());
         }
     }
 
@@ -286,4 +289,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         return rootStep;
     }
 
+    public StringList getNameErrors() {
+        return nameErrors;
+    }
 }

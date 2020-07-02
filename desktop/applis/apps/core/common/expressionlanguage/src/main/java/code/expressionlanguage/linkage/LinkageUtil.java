@@ -214,6 +214,9 @@ public final class LinkageUtil {
                     if (child_ instanceof Line) {
                         processLineError(vars_,(Line)child_,_cont,list_);
                     }
+                    if (child_ instanceof ForIterativeLoop) {
+                        processForIterativeLoopError(vars_,(ForIterativeLoop)child_,_cont,list_);
+                    }
                     if (child_ instanceof ForEachLoop) {
                         processForEachLoopError(vars_,(ForEachLoop)child_,_cont,list_);
                     }
@@ -801,6 +804,31 @@ public final class LinkageUtil {
         off_ = _cond.getStepOffset();
         offsetEndBlock_ = off_ + _cond.getStep().length();
         buildCoverageReport(_cont,_vars,off_,_cond,_cond.getRootStep(),offsetEndBlock_,_parts);
+        _vars.getLoopVars().put(_cond.getVariableName(), _cond.getVariableNameOffset());
+        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+    }
+    private static void processForIterativeLoopError(VariablesOffsets _vars,ForIterativeLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
+        StringList errs_ = _cond.getNameErrors();
+        if (!errs_.isEmpty()) {
+            String err_ = transform(StringList.join(errs_,"\n\n"));
+            String tag_;
+            tag_ = "<a name=\"m"+ _cond.getVariableNameOffset() +"\" title=\""+err_+"\" class=\"e\">";
+            _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
+        } else {
+            String tag_;
+            tag_ = "<a name=\"m"+ _cond.getVariableNameOffset() +"\">";
+            _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset()));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
+        }
+        int off_ = _cond.getInitOffset();
+        buildErrorReport(_cont,_vars,off_,_cond,_cond.getRootInit(),_parts);
+        off_ = _cond.getExpressionOffset();
+        buildErrorReport(_cont,_vars,off_,_cond,_cond.getRootExp(),_parts);
+        off_ = _cond.getStepOffset();
+        buildErrorReport(_cont,_vars,off_,_cond,_cond.getRootStep(),_parts);
         _vars.getLoopVars().put(_cond.getVariableName(), _cond.getVariableNameOffset());
         ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
