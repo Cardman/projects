@@ -38,7 +38,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         } else {
             beginType = className.indexOf(PAR_LEFT) + 1;
             String res_ = className.substring(beginType, className.lastIndexOf(PAR_RIGHT));
-            if (res_.isEmpty()) {
+            if (res_.trim().isEmpty()) {
                 className = EMPTY_STRING;
                 int rc_ = _an.getAnalyzing().getLocalizer().getCurrentLocationIndex() + className.indexOf(PAR_LEFT)+1;
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -46,21 +46,22 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
                 un_.setIndexFile(rc_);
                 //_in len
                 un_.buildError(_an.getAnalysisMessages().getEmptyType());
-                CustList<PartOffset> partOffsets_ = _an.getAnalyzing().getCurrentParts();
+                CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
                 String err_ = un_.getBuiltError();
                 String pref_ = "<a title=\""+err_+"\" class=\"e\">";
                 partOffsets_.add(new PartOffset(pref_,rc_));
                 partOffsets_.add(new PartOffset("</a>",rc_+1));
-                partOffsets = new CustList<PartOffset>(_an.getAnalyzing().getCurrentParts());
+                partOffsets = partOffsets_;
                 return;
             }
-            res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,className.indexOf(PAR_LEFT)+1,res_,true, _an.getAnalyzing().getCurrentParts());
+            CustList<PartOffset> currentParts_ = _an.getAnalyzing().getCurrentParts();
+            res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,className.indexOf(PAR_LEFT)+1,res_,true, currentParts_);
             if (!res_.isEmpty()) {
                 className = res_;
             } else {
                 className = EMPTY_STRING;
             }
-            partOffsets = new CustList<PartOffset>(_an.getAnalyzing().getCurrentParts());
+            partOffsets = new CustList<PartOffset>(currentParts_);
         }
     }
 

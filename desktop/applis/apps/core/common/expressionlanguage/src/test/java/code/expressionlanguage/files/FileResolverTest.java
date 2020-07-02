@@ -9722,7 +9722,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     @Test
     public void parseFile8FailTest() {
         StringBuilder file_ = new StringBuilder();
-        file_.append("$public $class pkg.Outer<$int> {\n");
+        file_.append("$public $class pkg.Outer<int#> {\n");
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         FileResolver.parseFile("my_file",file_.toString(), false, context_);

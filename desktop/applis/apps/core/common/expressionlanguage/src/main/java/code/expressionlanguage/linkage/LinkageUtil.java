@@ -1255,7 +1255,7 @@ public final class LinkageUtil {
             } else {
                 String err_ = transform(StringList.join(errs_,"\n\n"));
                 _parts.add(new PartOffset("<a name=\"m"+off_+"\" title=\""+err_+"\" class=\"e\">",off_));
-                _parts.add(new PartOffset("</a>",off_+param_.length()));
+                _parts.add(new PartOffset("</a>",off_+Math.max(param_.length(),1)));
             }
             _vars.getParamVars().put(param_,off_);
         }
@@ -1270,7 +1270,7 @@ public final class LinkageUtil {
             return;
         }
         String err_ = transform(StringList.join(errs_,"\n\n"));
-        int endName_ = begName_ + _len;
+        int endName_ = begName_ + Math.max(_len,1);
         _parts.add(new PartOffset("<a name=\"m"+begName_+"\" title=\""+err_+"\" class=\"e\">",begName_));
         _parts.add(new PartOffset("</a>",endName_));
     }
@@ -1415,7 +1415,7 @@ public final class LinkageUtil {
             } else {
                 String err_ = transform(StringList.join(errs_,"\n\n"));
                 _parts.add(new PartOffset("<a name=\"m"+off_+"\" title=\""+err_+"\" class=\"e\">",off_));
-                _parts.add(new PartOffset("</a>",off_+param_.length()));
+                _parts.add(new PartOffset("</a>",off_+Math.max(1,param_.length())));
             }
             _vars.getParamVars().put(param_,off_);
         }

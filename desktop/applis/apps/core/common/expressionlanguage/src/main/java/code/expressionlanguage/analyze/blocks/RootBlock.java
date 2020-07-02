@@ -509,7 +509,6 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                 //block len
                 unexp_.buildError(_context.getAnalysisMessages().getUnexpectedBlockExp());
                 _context.addError(unexp_);
-                b.getBadIndexes().add(where_);
                 b.setReachableError(true);
                 b.getErrorsBlock().add(unexp_.getBuiltError());
             }
@@ -543,6 +542,8 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                             getFullName()
                     );
                     _context.addError(unexp_);
+                    b.setReachableError(true);
+                    b.getErrorsBlock().add(unexp_.getBuiltError());
                 }
             }
         }
@@ -636,7 +637,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                         }
                     }
                 } else if (m_.getKind() == MethodKind.STD_METHOD) {
-                    if (!ContextUtil.isValidToken(_context,name_) && !StringList.quickEq(name_, keyWords_.getKeyWordToString())) {
+                    if (!StringList.quickEq(name_, keyWords_.getKeyWordToString())&&!ContextUtil.isValidToken(_context,name_)) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
