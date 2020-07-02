@@ -38,6 +38,10 @@ public final class Throwing extends AbruptBlock {
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(f_.getStaticContext()));
+        if (!page_.getCurrentEmptyPartErr().isEmpty()) {
+            getErrorsBlock().add(page_.getCurrentEmptyPartErr());
+            setReachableError(true);
+        }
         root = page_.getCurrentRoot();
         ExecThrowing exec_ = new ExecThrowing(getOffset(), expressionOffset,op_);
         page_.getBlockToWrite().appendChild(exec_);

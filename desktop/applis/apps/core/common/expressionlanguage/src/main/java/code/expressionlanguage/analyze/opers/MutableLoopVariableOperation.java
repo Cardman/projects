@@ -21,6 +21,8 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     private int off;
     private String className;
 
+    private final StringList nameErrors = new StringList();
+
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         this(_indexInEl, _indexChild, _m, _op, EMPTY_STRING);
@@ -60,6 +62,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 b_.buildError(_conf.getAnalysisMessages().getBadVariableName(),
                         str_);
                 _conf.getAnalyzing().getLocalizer().addError(b_);
+                nameErrors.add(b_.getBuiltError());
             }
             String c_ = _conf.getAnalyzing().getCurrentVarSetting();
             KeyWords keyWords_ = _conf.getKeyWords();
@@ -111,5 +114,8 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     public boolean isCatString() {
         return catString;
     }
-    
+
+    public StringList getNameErrors() {
+        return nameErrors;
+    }
 }

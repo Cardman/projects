@@ -220,8 +220,14 @@ public final class LinkageUtil {
                     if (child_ instanceof ForEachTable) {
                         processForEachTableError(vars_,(ForEachTable)child_,_cont,list_);
                     }
+                    if (child_ instanceof ForMutableIterativeLoop) {
+                        processForMutableIterativeLoopError(vars_,(ForMutableIterativeLoop)child_,_cont,list_);
+                    }
                     if (child_ instanceof ReturnMethod) {
                         processReturnMethodError(vars_,(ReturnMethod)child_,_cont,list_);
+                    }
+                    if (child_ instanceof Throwing) {
+                        processThrowingError(vars_,(Throwing)child_,_cont,list_);
                     }
                     if (child_.isReachableError()) {
                         if (child_ instanceof Line) {
@@ -470,16 +476,7 @@ public final class LinkageUtil {
             tag_ = "</span>";
             _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordFor().length()));
         }
-        KeyWords keyWords_ = _cont.getKeyWords();
-        String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (StringList.quickEq(_cond.getClassName().trim(), keyWordVar_)) {
-            String tag_ = "<b title=\""+transform(_cond.getImportedClassName())+"\">";
-            _parts.add(new PartOffset(tag_, _cond.getClassNameOffset()));
-            tag_ = "</b>";
-            _parts.add(new PartOffset(tag_, _cond.getClassNameOffset() + keyWordVar_.length()));
-        } else {
-            _parts.addAllElts(_cond.getPartOffsets());
-        }
+        appendVars(_cond, _cont, _parts);
         if (_cond.getRootInit() != null) {
             _vars.setPossibleDeclareLoopVars(true);
             int off_ = _cond.getInitOffset();
@@ -499,6 +496,38 @@ public final class LinkageUtil {
         }
         ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
+    private static void processForMutableIterativeLoopError(VariablesOffsets _vars,ForMutableIterativeLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
+        appendVars(_cond, _cont, _parts);
+        if (_cond.getRootInit() != null) {
+            _vars.setPossibleDeclareLoopVars(true);
+            int off_ = _cond.getInitOffset();
+            buildErrorReport(_cont,_vars,off_,_cond,_cond.getRootInit(),_parts);
+            _vars.setPossibleDeclareLoopVars(false);
+        }
+        if (_cond.getRootExp() != null) {
+            int off_ = _cond.getExpressionOffset();
+            buildErrorReport(_cont,_vars,off_,_cond,_cond.getRootExp(),_parts);
+        }
+        if (_cond.getRootStep() != null) {
+            int off_ = _cond.getStepOffset();
+            buildErrorReport(_cont,_vars,off_,_cond,_cond.getRootStep(),_parts);
+        }
+        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+    }
+
+    private static void appendVars(ForMutableIterativeLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
+        KeyWords keyWords_ = _cont.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        if (StringList.quickEq(_cond.getClassName().trim(), keyWordVar_)) {
+            String tag_ = "<b title=\""+transform(_cond.getImportedClassName())+"\">";
+            _parts.add(new PartOffset(tag_, _cond.getClassNameOffset()));
+            tag_ = "</b>";
+            _parts.add(new PartOffset(tag_, _cond.getClassNameOffset() + keyWordVar_.length()));
+        } else {
+            _parts.addAllElts(_cond.getPartOffsets());
+        }
+    }
+
     private static void processSwitchBlockReport(VariablesOffsets _vars,SwitchBlock _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         int full_ = 0;
         int count_ = 0;
@@ -740,6 +769,10 @@ public final class LinkageUtil {
         int off_ = _cond.getExpressionOffset();
         int offsetEndBlock_ = off_ + _cond.getExpression().length();
         buildCoverageReport(_cont,_vars,off_,_cond,_cond.getRoot(),offsetEndBlock_,_parts);
+    }
+    private static void processThrowingError(VariablesOffsets _vars,Throwing _cond, ContextEl _cont, CustList<PartOffset> _parts) {
+        int off_ = _cond.getExpressionOffset();
+        buildErrorReport(_cont,_vars,off_,_cond,_cond.getRoot(),_parts);
     }
     private static void processForIterativeLoopReport(VariablesOffsets _vars,ForIterativeLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         AbstractCoverageResult result_ = _cont.getCoverage().getCoverLoops(_cond);
@@ -1785,20 +1818,43 @@ public final class LinkageUtil {
                     parAn_ = parAn_.getParent();
                 }
                 if (parAn_ == null) {
-                    String tag_ = "<a name=\"m"+ _offsetBlock +"\">";
-                    _vars.getMutableVars().put(varName_, _offsetBlock);
-                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                    StringList errs_ = ((MutableLoopVariableOperation) val_).getNameErrors();
+                    if (!errs_.isEmpty()) {
+                        String err_ = transform(StringList.join(errs_,"\n\n"));
+                        String tag_ = "<a name=\"m"+ _offsetBlock +"\" title=\""+err_+"\" class=\"e\">";
+                        _vars.getMutableVars().put(varName_, _offsetBlock);
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                        tag_ = "</a>";
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                    } else {
+                        String tag_ = "<a name=\"m"+ _offsetBlock +"\">";
+                        _vars.getMutableVars().put(varName_, _offsetBlock);
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                        tag_ = "</a>";
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                    }
                 } else {
-                    int id_ = parAn_.getChildren().getKey(index_);
-                    id_ += StringList.getFirstPrintableCharIndex(parAn_.getChildren().getValue(index_));
-                    id_ += _offsetBlock;
-                    String tag_ = "<a name=\"m"+id_+"\">";
-                    _vars.getMutableVars().put(varName_,id_);
-                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                    StringList errs_ = ((MutableLoopVariableOperation) val_).getNameErrors();
+                    if (!errs_.isEmpty()) {
+                        String err_ = transform(StringList.join(errs_,"\n\n"));
+                        int id_ = parAn_.getChildren().getKey(index_);
+                        id_ += StringList.getFirstPrintableCharIndex(parAn_.getChildren().getValue(index_));
+                        id_ += _offsetBlock;
+                        String tag_ = "<a name=\"m"+id_+"\" title=\""+err_+"\" class=\"e\">";
+                        _vars.getMutableVars().put(varName_,id_);
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                        tag_ = "</a>";
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                    } else {
+                        int id_ = parAn_.getChildren().getKey(index_);
+                        id_ += StringList.getFirstPrintableCharIndex(parAn_.getChildren().getValue(index_));
+                        id_ += _offsetBlock;
+                        String tag_ = "<a name=\"m"+id_+"\">";
+                        _vars.getMutableVars().put(varName_,id_);
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                        tag_ = "</a>";
+                        _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                    }
                 }
 
             } else {
