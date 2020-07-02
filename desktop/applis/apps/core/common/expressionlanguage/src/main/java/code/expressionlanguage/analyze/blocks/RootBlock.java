@@ -510,6 +510,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                 unexp_.buildError(_context.getAnalysisMessages().getUnexpectedBlockExp());
                 _context.addError(unexp_);
                 b.getBadIndexes().add(where_);
+                b.setReachableError(true);
                 b.getErrorsBlock().add(unexp_.getBuiltError());
             }
         }

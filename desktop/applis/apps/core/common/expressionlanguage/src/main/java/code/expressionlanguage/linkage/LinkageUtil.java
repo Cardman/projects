@@ -147,76 +147,65 @@ public final class LinkageUtil {
                 }
                 Block parType_ = child_.getOuter();
                 if (parType_.getBadIndexes().isEmpty()) {
-                    if (child_.getBadIndexes().isEmpty()) {
-                        if (child_.isReachableError()) {
-                            if (!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof EmptyInstruction)) {
-                                String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
-                                int off_ = child_.getBegin();
-                                int l_ = child_.getLengthHeader();
-                                list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
-                                list_.add(new PartOffset("</a>",off_+l_));
-                            }
+                    if (child_.isReachableError()) {
+                        if (!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof EmptyInstruction)) {
+                            String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
+                            int off_ = child_.getBegin();
+                            int l_ = child_.getLengthHeader();
+                            list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
+                            list_.add(new PartOffset("</a>",off_+l_));
                         }
-                        if (child_ instanceof RootBlock) {
-                            if (child_ instanceof InnerElementBlock) {
-                                processInnerElementBlockReport(true,vars_,(InnerElementBlock)child_,_cont,list_);
-                            } else {
-                                processRootBlockReport(vars_, (RootBlock) child_, _cont, list_);
-                            }
+                    }
+                    if (child_ instanceof RootBlock) {
+                        if (child_ instanceof InnerElementBlock) {
+                            processInnerElementBlockReport(true,vars_,(InnerElementBlock)child_,_cont,list_);
+                        } else {
+                            processRootBlockReport(vars_, (RootBlock) child_, _cont, list_);
                         }
-                        if (child_ instanceof ConstructorBlock) {
-                            processConstructorBlockError(vars_,(ConstructorBlock)child_,_cont,list_);
-                        }
-                        if (child_ instanceof OverridableBlock) {
-                            processOverridableBlockError(vars_,(OverridableBlock)child_,_cont,list_);
-                        }
-                        if (child_ instanceof AnnotationMethodBlock) {
-                            processAnnotationMethodBlockReport(vars_,(AnnotationMethodBlock)child_,_cont,list_);
-                        }
-                        if (child_ instanceof ElementBlock) {
-                            processElementBlockReport(vars_,(ElementBlock)child_,_cont,list_);
-                        }
-                        if (child_ instanceof FieldBlock) {
-                            processFieldBlockError(vars_,(FieldBlock)child_,_cont,list_);
-                        }
-                        if (child_ instanceof WhileCondition) {
-                            processWhileConditionError(vars_,(WhileCondition)child_,_cont,list_);
-                        }
-                        if (child_ instanceof IfCondition) {
-                            processIfConditionError(vars_,(IfCondition)child_,_cont,list_);
-                        }
-                        if (child_ instanceof ElseIfCondition) {
-                            processConditionError((ElseIfCondition)child_, vars_,_cont,list_);
-                        }
-                        if (child_ instanceof DoBlock) {
-                            processDoBlockReport((DoBlock)child_,list_);
-                        }
-                        if (child_ instanceof DoWhileCondition) {
-                            processConditionError((DoWhileCondition)child_, vars_,_cont,list_);
-                        }
-                        if (child_ instanceof SwitchBlock) {
-                            processSwitchBlockError(vars_,(SwitchBlock)child_,_cont,list_);
-                        }
-                        if (child_ instanceof CaseCondition) {
-                            processCaseConditionError(vars_,(CaseCondition)child_,_cont,list_);
-                        }
-                        if (child_ instanceof DefaultCondition) {
-                            processDefaultConditionError((DefaultCondition)child_,_cont,list_);
-                        }
-                        if (child_.isReachableError()) {
-                            if (child_ instanceof Line) {
-                                String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
-                                int off_ = child_.getBegin();
-                                int l_ = child_.getLengthHeader();
-                                list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
-                                list_.add(new PartOffset("</a>",off_+l_));
-                            }
-                        }
-                    } else {
-                        String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
-                        for (int i : child_.getBadIndexes()) {
-                            list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",i));
-                            list_.add(new PartOffset("</a>",i+1));
+                    }
+                    if (child_ instanceof ConstructorBlock) {
+                        processConstructorBlockError(vars_,(ConstructorBlock)child_,_cont,list_);
+                    }
+                    if (child_ instanceof OverridableBlock) {
+                        processOverridableBlockError(vars_,(OverridableBlock)child_,_cont,list_);
+                    }
+                    if (child_ instanceof AnnotationMethodBlock) {
+                        processAnnotationMethodBlockReport(vars_,(AnnotationMethodBlock)child_,_cont,list_);
+                    }
+                    if (child_ instanceof ElementBlock) {
+                        processElementBlockReport(vars_,(ElementBlock)child_,_cont,list_);
+                    }
+                    if (child_ instanceof FieldBlock) {
+                        processFieldBlockError(vars_,(FieldBlock)child_,_cont,list_);
+                    }
+                    if (child_ instanceof WhileCondition) {
+                        processWhileConditionError(vars_,(WhileCondition)child_,_cont,list_);
+                    }
+                    if (child_ instanceof IfCondition) {
+                        processIfConditionError(vars_,(IfCondition)child_,_cont,list_);
+                    }
+                    if (child_ instanceof ElseIfCondition) {
+                        processConditionError((ElseIfCondition)child_, vars_,_cont,list_);
+                    }
+                    if (child_ instanceof DoBlock) {
+                        processDoBlockReport((DoBlock)child_,list_);
+                    }
+                    if (child_ instanceof DoWhileCondition) {
+                        processConditionError((DoWhileCondition)child_, vars_,_cont,list_);
+                    }
+                    if (child_ instanceof SwitchBlock) {
+                        processSwitchBlockError(vars_,(SwitchBlock)child_,_cont,list_);
+                    }
+                    if (child_ instanceof CaseCondition) {
+                        processCaseConditionError(vars_,(CaseCondition)child_,_cont,list_);
+                    }
+                    if (child_.isReachableError()) {
+                        if (child_ instanceof Line) {
+                            String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
+                            int off_ = child_.getBegin();
+                            int l_ = child_.getLengthHeader();
+                            list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
+                            list_.add(new PartOffset("</a>",off_+l_));
                         }
                     }
                 }
@@ -553,31 +542,7 @@ public final class LinkageUtil {
         _parts.add(new PartOffset(tag_,off_+ _cond.getValue().length()));
     }
     private static void processCaseConditionError(VariablesOffsets _vars,CaseCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
-        String errCase_ = _cond.getErrCase();
-        if (!errCase_.isEmpty()) {
-            int off_ = _cond.getValueOffset();
-            String tag_ = "<a title=\""+transform(errCase_)+"\" class=\"e\">";
-            _parts.add(new PartOffset(tag_,off_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,off_+ _cond.getValue().length()));
-            return;
-        }
         int off_;
-        if (!_cond.getErrsEmpt().isEmpty()) {
-            off_ = _cond.getOffset().getOffsetTrim();
-            String tag_ = "<a title=\""+transform(StringList.join(_cond.getErrsEmpt(),"\n\n"))+"\" class=\"e\">";
-            _parts.add(new PartOffset(tag_,off_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordCase().length()));
-            return;
-        }
-        if (!_cond.getErrs().isEmpty()) {
-            off_ = _cond.getOffset().getOffsetTrim();
-            String tag_ = "<a title=\""+transform(StringList.join(_cond.getErrs(),"\n\n"))+"\" class=\"e\">";
-            _parts.add(new PartOffset(tag_,off_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordCase().length()));
-        }
         if (_cond.isBuiltEnum()) {
             off_ = _cond.getValueOffset();
             GeneType type_ = _cont.getClassBody(_cond.getTypeEnum());
@@ -586,7 +551,7 @@ public final class LinkageUtil {
                 String tag_ = "<a title=\""+transform(StringList.join(_cond.getEmptErrs(),"\n\n"))+"\" class=\"e\">";
                 _parts.add(new PartOffset(tag_,off_));
                 tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,off_+ _cond.getValue().length()));
+                _parts.add(new PartOffset(tag_,off_+Math.max(1, _cond.getValue().length())));
                 return;
             }
             String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
@@ -632,16 +597,6 @@ public final class LinkageUtil {
         _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordDefault().length()));
     }
 
-    private static void processDefaultConditionError(DefaultCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
-        StringList errCase_ = _cond.getErrs();
-        if (!errCase_.isEmpty()) {
-            int off_ = _cond.getOffset().getOffsetTrim();
-            String tag_ = "<a title=\""+transform(StringList.join(errCase_,"\n\n"))+"\" class=\"e\">";
-            _parts.add(new PartOffset(tag_,off_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordDefault().length()));
-        }
-    }
     private static void processDoBlockReport(DoBlock _cond, CustList<PartOffset> _parts) {
         ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
     }

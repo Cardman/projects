@@ -37,9 +37,6 @@ public final class CaseCondition extends SwitchPartBlock {
 
     private int valueOffset;
 
-    private String errCase = "";
-    private StringList errs = new StringList();
-    private StringList errsEmpt = new StringList();
     private StringList emptErrs = new StringList();
 
     public CaseCondition(OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -76,7 +73,8 @@ public final class CaseCondition extends SwitchPartBlock {
                     _cont.getKeyWords().getKeyWordSwitch());
             //key word len
             _cont.addError(un_);
-            errCase = un_.getBuiltError();
+            setReachableError(true);
+            getErrorsBlock().add(un_.getBuiltError());
             CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
             ExecOperationNode last_ = op_.last();
             root = page_.getCurrentRoot();
@@ -123,7 +121,8 @@ public final class CaseCondition extends SwitchPartBlock {
             CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
             String emp_ = page_.getCurrentEmptyPartErr();
             if (!emp_.isEmpty()) {
-                errsEmpt.add(emp_);
+                setReachableError(true);
+                getErrorsBlock().add(emp_);
             }
             root = page_.getCurrentRoot();
             ExecOperationNode last_ = op_.last();
@@ -142,7 +141,8 @@ public final class CaseCondition extends SwitchPartBlock {
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
         String emp_ = page_.getCurrentEmptyPartErr();
         if (!emp_.isEmpty()) {
-            errsEmpt.add(emp_);
+            setReachableError(true);
+            getErrorsBlock().add(emp_);
         }
         ExecOperationNode last_ = op_.last();
         root = page_.getCurrentRoot();
@@ -200,7 +200,8 @@ public final class CaseCondition extends SwitchPartBlock {
                     _cont.getKeyWords().getKeyWordCase(),
                     value);
             _cont.addError(un_);
-            errs.add(un_.getBuiltError());
+            setReachableError(true);
+            getErrorsBlock().add(un_.getBuiltError());
         } else {
             checkDuplicateCase(_cont, argument);
             Mapping m_ = new Mapping();
@@ -216,7 +217,8 @@ public final class CaseCondition extends SwitchPartBlock {
                         ExecCatOperation.getString(argument,_cont),
                         StringList.join(_resSwitch.getNames(),"&"));
                 _cont.addError(un_);
-                errs.add(un_.getBuiltError());
+                setReachableError(true);
+                getErrorsBlock().add(un_.getBuiltError());
             }
         }
     }
@@ -239,7 +241,8 @@ public final class CaseCondition extends SwitchPartBlock {
                                 ExecCatOperation.getString(_arg,_cont),
                                 _cont.getKeyWords().getKeyWordSwitch());
                         _cont.addError(un_);
-                        errs.add(un_.getBuiltError());
+                        setReachableError(true);
+                        getErrorsBlock().add(un_.getBuiltError());
                         break;
                     }
                 }
@@ -264,7 +267,8 @@ public final class CaseCondition extends SwitchPartBlock {
                             value.trim(),
                             _cont.getKeyWords().getKeyWordSwitch());
                     _cont.addError(un_);
-                    errs.add(un_.getBuiltError());
+                    setReachableError(true);
+                    getErrorsBlock().add(un_.getBuiltError());
                     break;
                 }
                 
@@ -287,18 +291,6 @@ public final class CaseCondition extends SwitchPartBlock {
 
     public boolean isBuiltEnum() {
         return builtEnum;
-    }
-
-    public String getErrCase() {
-        return errCase;
-    }
-
-    public StringList getErrs() {
-        return errs;
-    }
-
-    public StringList getErrsEmpt() {
-        return errsEmpt;
     }
 
     public StringList getEmptErrs() {

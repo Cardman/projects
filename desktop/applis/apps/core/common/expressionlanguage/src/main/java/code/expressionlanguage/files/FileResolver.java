@@ -2325,7 +2325,9 @@ public final class FileResolver {
         if (StringExpUtil.startsWithKeyWord(_trimmedInstruction,keyWordCase_)) {
             String exp_ = _trimmedInstruction.substring(keyWordCase_.length());
             int valueOffest_ = _instructionLocation + keyWordCase_.length();
-            valueOffest_ += StringList.getFirstPrintableCharIndex(exp_);
+            if (!exp_.trim().isEmpty()) {
+                valueOffest_ += StringList.getFirstPrintableCharIndex(exp_);
+            }
             br_ = new CaseCondition(
                     new OffsetStringInfo(valueOffest_, exp_.trim()),
                     new OffsetsBlock(_instructionRealLocation, _instructionLocation));

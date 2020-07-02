@@ -159,6 +159,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             //underline index char
             b_.buildError(_cont.getAnalysisMessages().getBadIndexInParser());
             _cont.addError(b_);
+            en_.setReachableError(true);
+            en_.getErrorsBlock().add(b_.getBuiltError());
         }
     }
 

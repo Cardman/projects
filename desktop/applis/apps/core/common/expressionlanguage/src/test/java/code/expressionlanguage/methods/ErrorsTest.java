@@ -1227,7 +1227,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " <a title=\"The block is unexpected.\" class=\"e\">$</a>if($true){}\n" +
+                " <a title=\"The block is unexpected.\" class=\"e\">$if</a>($true){}\n" +
                 " {\n" +
                 " $if($true){}\n" +
                 " }\n" +
@@ -1420,7 +1420,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
-                "  $case <a title=\"The $case block with expression 1 must be child of a block $switch.\" class=\"e\">1</a>:{}\n" +
+                "  <a title=\"The $case block with expression 1 must be child of a block $switch.\" class=\"e\">$case</a> 1:{}\n" +
                 "  $return 1;\n" +
                 " }\n" +
                 "}\n" +
@@ -1473,7 +1473,7 @@ public class ErrorsTest extends ProcessMethodCommon {
                 " <a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a> <a name=\"m64\">e</a>;\n" +
                 " $public $int <a name=\"m81\">method</a>() {\n" +
                 "  $switch (<a title=\"pkg.MySub.e\" href=\"#m64\">e</a>){\n" +
-                "   <a title=\"There must be an expression.\" class=\"e\">$case</a>:\n" +
+                "   <a title=\"There must be an expression.\" class=\"e\">$case</a><a title=\"The $case block with expression  is not constant.\" class=\"e\">:</a>\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -1753,7 +1753,9 @@ public class ErrorsTest extends ProcessMethodCommon {
                 " $int <a name=\"m33\">e</a>;\n" +
                 " $public $int <a name=\"m50\">method</a>() {\n" +
                 "  $switch (<a title=\"pkg.MySub.e\" href=\"#m33\">e</a>){\n" +
-                "   <a title=\"There must be an expression.\" class=\"e\">$case</a> :\n" +
+                "   <a title=\"There must be an expression.\n" +
+                "\n" +
+                "The $case block with expression  is not constant.\" class=\"e\">$case</a> :\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
