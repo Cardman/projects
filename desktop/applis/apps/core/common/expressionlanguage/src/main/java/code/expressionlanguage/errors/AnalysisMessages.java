@@ -200,6 +200,7 @@ public final class AnalysisMessages {
     public static final String UNEXPECTED_BLOCK_EXP="UnexpectedBlockExp";
     public static final String UNEXPECTED_OPERAND_TYPES="UnexpectedOperandTypes";
     public static final String UNKNOWN_TYPE="UnknownType";
+    public static final String EMPTY_TYPE="EmptyType";
     public static final String BAD_PARAMERIZED_TYPE="BadParamerizedType";
     public static final String UNEXPECTED_TYPE_BOUND="UnexpectedTypeBound";
     public static final String UNEXPECTED_VARARG="UnexpectedVararg";
@@ -408,6 +409,7 @@ public final class AnalysisMessages {
     private String unexpectedBlockExp="The block is unexpected.";
     private String unexpectedOperandTypes="The operands types {0} for the operator {1} are unexpected.";
     private String unknownType="The type {0} is unknown.";
+    private String emptyType="There must be a type.";
     private String badParamerizedType="The type {0} is not parameterized correctly.";
     private String unexpectedTypeBound="The type {0} is unexpected for bound.";
     private String unexpectedVararg="The three dots are unexpected here.";
@@ -620,6 +622,7 @@ public final class AnalysisMessages {
         mess_.addEntry(UNEXPECTED_BLOCK_EXP,getUnexpectedBlockExp());
         mess_.addEntry(UNEXPECTED_OPERAND_TYPES,getUnexpectedOperandTypes());
         mess_.addEntry(UNKNOWN_TYPE,getUnknownType());
+        mess_.addEntry(EMPTY_TYPE,getEmptyType());
         mess_.addEntry(BAD_PARAMERIZED_TYPE,getBadParamerizedType());
         mess_.addEntry(UNEXPECTED_TYPE_BOUND,getUnexpectedTypeBound());
         mess_.addEntry(UNEXPECTED_VARARG,getUnexpectedVararg());
@@ -2186,6 +2189,14 @@ public final class AnalysisMessages {
 
     public void setUnknownType(String unknownType) {
         this.unknownType = unknownType;
+    }
+
+    public String getEmptyType() {
+        return emptyType;
+    }
+
+    public void setEmptyType(String emptyType) {
+        this.emptyType = emptyType;
     }
 
     public String getBadParamerizedType() {

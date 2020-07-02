@@ -212,6 +212,7 @@ public final class AnalysisMessagesTest {
         def_.setUnexpectedBlockExp("");
         def_.setUnexpectedOperandTypes("");
         def_.setUnknownType("");
+        def_.setEmptyType("");
         def_.setBadParamerizedType("");
         def_.setUnexpectedTypeBound("");
         def_.setUnexpectedVararg("");

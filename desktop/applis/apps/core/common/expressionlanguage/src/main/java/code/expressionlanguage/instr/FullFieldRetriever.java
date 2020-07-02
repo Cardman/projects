@@ -210,8 +210,12 @@ public final class FullFieldRetriever implements FieldRetriever {
             ContextUtil.appendParts(_conf,_from, _from +inns_.first().length(),trim_,partOffsets_);
             nextOff_ += inns_.first().length() + 1;
         } else {
-            start_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from,inns_.first(), false);
-            partOffsets_.addAllElts(_conf.getAnalyzing().getCurrentParts());
+            CustList<PartOffset> currentParts_ = _conf.getAnalyzing().getCurrentParts();
+            start_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from,inns_.first(), false, currentParts_);
+            if (start_.isEmpty()) {
+                currentParts_.clear();
+            }
+            partOffsets_.addAllElts(currentParts_);
             nb_ = 0;
             nextOff_ += inns_.first().length() + 1;
         }

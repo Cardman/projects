@@ -421,6 +421,10 @@ public final class AnaPartTypeUtil {
     static AnaPartType getAnalyzeLine(String _input, ReadyTypes _ready, boolean _rootName, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<AnaLeafPartType> _leaves, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
+            String err_ = FoundErrorInterpret.buildARError(_an.getAnalysisMessages().getUnknownType(), _input);
+            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            _offs.add(new PartOffset(pref_,_loc));
+            _offs.add(new PartOffset("</a>",_loc+_input.length()));
             return null;
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_);

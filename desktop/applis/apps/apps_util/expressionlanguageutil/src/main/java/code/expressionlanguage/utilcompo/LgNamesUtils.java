@@ -3608,6 +3608,7 @@ public class LgNamesUtils extends LgNames {
         _mess.setUnexpectedBlockExp(get(_util,_cust,AnalysisMessages.UNEXPECTED_BLOCK_EXP));
         _mess.setUnexpectedOperandTypes(get(_util,_cust,AnalysisMessages.UNEXPECTED_OPERAND_TYPES));
         _mess.setUnknownType(get(_util,_cust,AnalysisMessages.UNKNOWN_TYPE));
+        _mess.setEmptyType(get(_util,_cust,AnalysisMessages.EMPTY_TYPE));
         _mess.setBadParamerizedType(get(_util,_cust,AnalysisMessages.BAD_PARAMERIZED_TYPE));
         _mess.setUnexpectedTypeBound(get(_util,_cust,AnalysisMessages.UNEXPECTED_TYPE_BOUND));
         _mess.setUnexpectedVararg(get(_util,_cust,AnalysisMessages.UNEXPECTED_VARARG));

@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -37,14 +38,29 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         } else {
             beginType = className.indexOf(PAR_LEFT) + 1;
             String res_ = className.substring(beginType, className.lastIndexOf(PAR_RIGHT));
-            res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,className.indexOf(PAR_LEFT)+1,res_,true);
+            if (res_.isEmpty()) {
+                className = EMPTY_STRING;
+                int rc_ = _an.getAnalyzing().getLocalizer().getCurrentLocationIndex() + className.indexOf(PAR_LEFT)+1;
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFileName(_an.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setIndexFile(rc_);
+                //_in len
+                un_.buildError(_an.getAnalysisMessages().getEmptyType());
+                CustList<PartOffset> partOffsets_ = _an.getAnalyzing().getCurrentParts();
+                String err_ = un_.getBuiltError();
+                String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+                partOffsets_.add(new PartOffset(pref_,rc_));
+                partOffsets_.add(new PartOffset("</a>",rc_+1));
+                partOffsets = new CustList<PartOffset>(_an.getAnalyzing().getCurrentParts());
+                return;
+            }
+            res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,className.indexOf(PAR_LEFT)+1,res_,true, _an.getAnalyzing().getCurrentParts());
             if (!res_.isEmpty()) {
                 className = res_;
-                partOffsets = new CustList<PartOffset>(_an.getAnalyzing().getCurrentParts());
             } else {
                 className = EMPTY_STRING;
-                partOffsets = new CustList<PartOffset>();
             }
+            partOffsets = new CustList<PartOffset>(_an.getAnalyzing().getCurrentParts());
         }
     }
 

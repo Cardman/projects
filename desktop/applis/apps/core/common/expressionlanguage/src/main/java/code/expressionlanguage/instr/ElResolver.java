@@ -2533,14 +2533,16 @@ public final class ElResolver {
                 return _from;
             }
         }
-        String typeOut_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from + 1, sub_, true);
+        CustList<PartOffset> curr_ = _conf.getAnalyzing().getCurrentParts();
+        String typeOut_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from + 1, sub_, true, curr_);
         if (!typeOut_.isEmpty()) {
             _d.getDelCast().add(_from);
             _d.getDelCast().add(indexParRight_);
             _d.getDelCastExtract().add(typeOut_);
-            _d.getCastParts().add(new CustList<PartOffset>(_conf.getAnalyzing().getCurrentParts()));
+            _d.getCastParts().add(new CustList<PartOffset>(curr_));
             return indexParRight_ + 1;
         }
+        curr_.clear();
         return _from;
     }
 
