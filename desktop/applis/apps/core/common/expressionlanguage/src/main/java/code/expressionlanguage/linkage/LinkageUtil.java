@@ -232,6 +232,12 @@ public final class LinkageUtil {
                     if (child_ instanceof Throwing) {
                         processThrowingError(vars_,(Throwing)child_,_cont,list_);
                     }
+                    if (child_ instanceof BreakBlock) {
+                        processBreakBlockError((BreakBlock)child_,list_);
+                    }
+                    if (child_ instanceof ContinueBlock) {
+                        processContinueBlockError((ContinueBlock)child_,list_);
+                    }
                     if (child_.isReachableError()) {
                         if (child_ instanceof Line) {
                             String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
@@ -751,8 +757,44 @@ public final class LinkageUtil {
         tag_ = "</a>";
         _parts.add(new PartOffset(tag_, _cond.getLabelOffset() +_cond.getLabel().length()));
     }
+    private static void processBreakBlockError(BreakBlock _cond, CustList<PartOffset> _parts) {
+        if (_cond.getLabel().isEmpty()) {
+            return;
+        }
+        StringList errs_ = _cond.getErrorsRefLabels();
+        if (!errs_.isEmpty()) {
+            String err_ = transform(StringList.join(errs_,"\n\n"));
+            String tag_ = "<a title=\""+ err_ +"\" class=\"e\">";
+            _parts.add(new PartOffset(tag_, _cond.getLabelOffset()));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_, _cond.getLabelOffset() +_cond.getLabel().length()));
+            return;
+        }
+        String tag_ = "<a href=\"#"+ _cond.getLabelOffsetRef() +"\">";
+        _parts.add(new PartOffset(tag_, _cond.getLabelOffset()));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_, _cond.getLabelOffset() +_cond.getLabel().length()));
+    }
     private static void processContinueBlockReport(ContinueBlock _cond, CustList<PartOffset> _parts) {
         if (_cond.getLabel().isEmpty()) {
+            return;
+        }
+        String tag_ = "<a href=\"#"+ _cond.getLabelOffsetRef() +"\">";
+        _parts.add(new PartOffset(tag_, _cond.getLabelOffset()));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_, _cond.getLabelOffset() +_cond.getLabel().length()));
+    }
+    private static void processContinueBlockError(ContinueBlock _cond, CustList<PartOffset> _parts) {
+        if (_cond.getLabel().isEmpty()) {
+            return;
+        }
+        StringList errs_ = _cond.getErrorsRefLabels();
+        if (!errs_.isEmpty()) {
+            String err_ = transform(StringList.join(errs_,"\n\n"));
+            String tag_ = "<a title=\""+ err_ +"\" class=\"e\">";
+            _parts.add(new PartOffset(tag_, _cond.getLabelOffset()));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_, _cond.getLabelOffset() +_cond.getLabel().length()));
             return;
         }
         String tag_ = "<a href=\"#"+ _cond.getLabelOffsetRef() +"\">";

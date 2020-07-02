@@ -396,7 +396,7 @@ public final class AnalysisMessages {
     private String badOperatorRef="The string {0} is not an operator reference.";
     private String unexpectedCatchElseFinally="The {0} block must be preceded by one of the blocks {1}.";
     private String unexpectedAbrupt="The {0} block must be inner of the blocks {1}.";
-    private String unexpectedAbruptLab="The {0} block with label {1} must be inner of a labelled with {1} block.";
+    private String unexpectedAbruptLab="The {0} block with label {1} must be inner of a labelled with {2} block.";
     private String unexpectedCaseDef="The {0} block with expression {1} must be child of a block {2}.";
     private String unexpectedCaseVar="The {0} block with expression {1} is not constant.";
     private String unexpectedCaseValue="The {0} block with value {1} is not a sub type of {2}.";

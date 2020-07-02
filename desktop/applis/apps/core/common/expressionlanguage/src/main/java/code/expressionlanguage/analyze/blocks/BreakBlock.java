@@ -14,6 +14,7 @@ public final class BreakBlock extends AbruptBlock {
     private String label;
     private int labelOffset;
     private int labelOffsetRef;
+    private StringList errorsRefLabels = new StringList();
 
     public BreakBlock(OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_offset);
@@ -76,6 +77,7 @@ public final class BreakBlock extends AbruptBlock {
                                         _cont.getKeyWords().getKeyWordFor(),
                                         _cont.getKeyWords().getKeyWordForeach(),
                                         _cont.getKeyWords().getKeyWordDo(),
+                                        _cont.getKeyWords().getKeyWordIter(),
                                         _cont.getKeyWords().getKeyWordWhile()
                                 ),
                                 "|"));
@@ -96,11 +98,18 @@ public final class BreakBlock extends AbruptBlock {
                                         _cont.getKeyWords().getKeyWordFor(),
                                         _cont.getKeyWords().getKeyWordForeach(),
                                         _cont.getKeyWords().getKeyWordDo(),
+                                        _cont.getKeyWords().getKeyWordIter(),
                                         _cont.getKeyWords().getKeyWordWhile()
                                 ),
                                 "|"));
             }
             _cont.addError(un_);
+            if (label.isEmpty()) {
+                setReachableError(true);
+                getErrorsBlock().add(un_.getBuiltError());
+            } else {
+                errorsRefLabels.add(un_.getBuiltError());
+            }
         }
     }
 
@@ -146,5 +155,9 @@ public final class BreakBlock extends AbruptBlock {
 
     public int getLabelOffsetRef() {
         return labelOffsetRef;
+    }
+
+    public StringList getErrorsRefLabels() {
+        return errorsRefLabels;
     }
 }
