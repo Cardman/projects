@@ -191,7 +191,7 @@ public final class LinkageUtil {
                         processConditionError((ElseIfCondition)child_, vars_,_cont,list_);
                     }
                     if (child_ instanceof DoBlock) {
-                        processDoBlockReport((DoBlock)child_,list_);
+                        processDoBlockError((DoBlock)child_,list_);
                     }
                     if (child_ instanceof DoWhileCondition) {
                         processConditionError((DoWhileCondition)child_, vars_,_cont,list_);
@@ -203,7 +203,7 @@ public final class LinkageUtil {
                         processCaseConditionError(vars_,(CaseCondition)child_,_cont,list_);
                     }
                     if (child_ instanceof TryEval) {
-                        processTryEvalReport((TryEval)child_,list_);
+                        processTryEvalError((TryEval)child_,list_);
                     }
                     if (child_ instanceof CatchEval) {
                         processCatchEvalError(vars_,(CatchEval)child_,_cont,list_);
@@ -420,15 +420,15 @@ public final class LinkageUtil {
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordIf().length()));
         processConditionReport(_cond,_vars,_cont,_parts);
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processIfConditionError(VariablesOffsets _vars,IfCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         processConditionError(_cond, _vars, _cont, _parts);
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabelError(_cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processWhileConditionError(VariablesOffsets _vars,WhileCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         processConditionError(_cond, _vars, _cont, _parts);
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabelError(_cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processElseIfConditionReport(VariablesOffsets _vars,ElseIfCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         AbstractCoverageResult result_ = _cont.getCoverage().getCoversConditions(_cond);
@@ -461,7 +461,7 @@ public final class LinkageUtil {
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordWhile().length()));
         processConditionReport(_cond,_vars,_cont,_parts);
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processForMutableIterativeLoopReport(VariablesOffsets _vars,ForMutableIterativeLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         if (_cond.getRootExp() != null) {
@@ -497,7 +497,7 @@ public final class LinkageUtil {
             int offsetEndBlock_ = off_ + _cond.getStep().length();
             buildCoverageReport(_cont,_vars,off_,_cond,_cond.getRootStep(),offsetEndBlock_,_parts);
         }
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processForMutableIterativeLoopError(VariablesOffsets _vars,ForMutableIterativeLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         appendVars(_cond, _cont, _parts);
@@ -515,7 +515,7 @@ public final class LinkageUtil {
             int off_ = _cond.getStepOffset();
             buildErrorReport(_cont,_vars,off_,_cond,_cond.getRootStep(),_parts);
         }
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabelError(_cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
 
     private static void appendVars(ForMutableIterativeLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
@@ -558,7 +558,7 @@ public final class LinkageUtil {
         off_ = _cond.getValueOffset();
         int offsetEndBlock_ = off_ + _cond.getValue().length();
         buildCoverageReport(_cont,_vars,off_,_cond, _cond.getRoot(),offsetEndBlock_,_parts);
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processSwitchBlockError(VariablesOffsets _vars,SwitchBlock _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         int off_ = _cond.getValueOffset();
@@ -567,7 +567,7 @@ public final class LinkageUtil {
             _parts.add(new PartOffset("</a>",off_+1));
         }
         buildErrorReport(_cont,_vars,off_,_cond, _cond.getRoot(),_parts);
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabelError(_cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processCaseConditionReport(VariablesOffsets _vars,CaseCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         BracedBlock parent_ = _cond.getParent();
@@ -654,7 +654,11 @@ public final class LinkageUtil {
     }
 
     private static void processDoBlockReport(DoBlock _cond, CustList<PartOffset> _parts) {
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+    }
+
+    private static void processDoBlockError(DoBlock _cond, CustList<PartOffset> _parts) {
+        refLabelError(_cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processDoWhileConditionReport(VariablesOffsets _vars,DoWhileCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         AbstractCoverageResult result_ = _cont.getCoverage().getCoversConditions(_cond);
@@ -673,7 +677,10 @@ public final class LinkageUtil {
         processConditionReport(_cond,_vars,_cont,_parts);
     }
     private static void processTryEvalReport(TryEval _cond, CustList<PartOffset> _parts) {
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+    }
+    private static void processTryEvalError(TryEval _cond, CustList<PartOffset> _parts) {
+        refLabelError(_cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processCatchEvalReport(VariablesOffsets _vars,CatchEval _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         processAbstractCatchEvalReport(_cond,_cont,_parts);
@@ -805,7 +812,7 @@ public final class LinkageUtil {
         offsetEndBlock_ = off_ + _cond.getStep().length();
         buildCoverageReport(_cont,_vars,off_,_cond,_cond.getRootStep(),offsetEndBlock_,_parts);
         _vars.getLoopVars().put(_cond.getVariableName(), _cond.getVariableNameOffset());
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processForIterativeLoopError(VariablesOffsets _vars,ForIterativeLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         StringList errs_ = _cond.getNameErrors();
@@ -830,7 +837,7 @@ public final class LinkageUtil {
         off_ = _cond.getStepOffset();
         buildErrorReport(_cont,_vars,off_,_cond,_cond.getRootStep(),_parts);
         _vars.getLoopVars().put(_cond.getVariableName(), _cond.getVariableNameOffset());
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabelError(_cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processForEachLoopReport(VariablesOffsets _vars,ForEachLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         AbstractCoverageResult result_ = _cont.getCoverage().getCoverLoops(_cond);
@@ -856,7 +863,7 @@ public final class LinkageUtil {
         int offsetEndBlock_ = off_ + _cond.getExpression().length();
         buildCoverageReport(_cont,_vars,off_,_cond,_cond.getRoot(),offsetEndBlock_,_parts);
         _vars.getLoopVars().put(_cond.getVariableName(), _cond.getVariableNameOffset());
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processForEachLoopError(VariablesOffsets _vars,ForEachLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         appendVars(_cond, _cont, _parts);
@@ -878,7 +885,7 @@ public final class LinkageUtil {
         int off_ = _cond.getExpressionOffset();
         buildErrorReport(_cont,_vars,off_,_cond,_cond.getRoot(),_parts);
         _vars.getLoopVars().put(_cond.getVariableName(), _cond.getVariableNameOffset());
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabelError(_cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
 
     private static void appendVars(ForEachLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
@@ -928,7 +935,7 @@ public final class LinkageUtil {
         buildCoverageReport(_cont,_vars,off_,_cond,_cond.getRoot(),offsetEndBlock_,_parts);
         _vars.getLoopVars().put(_cond.getVariableNameFirst(), _cond.getVariableNameOffsetFirst());
         _vars.getLoopVars().put(_cond.getVariableNameSecond(), _cond.getVariableNameOffsetSecond());
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
 
     private static void appendSecondVar(ForEachTable _cond, CustList<PartOffset> _parts, String keyWordVar_) {
@@ -982,7 +989,7 @@ public final class LinkageUtil {
         buildErrorReport(_cont,_vars,off_,_cond,_cond.getRoot(),_parts);
         _vars.getLoopVars().put(_cond.getVariableNameFirst(), _cond.getVariableNameOffsetFirst());
         _vars.getLoopVars().put(_cond.getVariableNameSecond(), _cond.getVariableNameOffsetSecond());
-        ExecBracedBlock.refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        refLabelError(_cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
     }
 
     private static void appendFirstVar(ForEachTable _cond, CustList<PartOffset> _parts, String keyWordVar_) {
@@ -2597,4 +2604,26 @@ public final class LinkageUtil {
         return !((ExecRootBlock)_g).getFile().isPredefined();
     }
 
+    private static void refLabel(CustList<PartOffset> _parts, String _label, int _offset) {
+        if (_label.isEmpty()) {
+            return;
+        }
+        _parts.add(new PartOffset("<a name=\"m"+_offset+"\">",_offset));
+        _parts.add(new PartOffset("</a>",_offset+_label.length()));
+    }
+
+    private static void refLabelError(Block _bl, CustList<PartOffset> _parts, String _label, int _offset) {
+        if (_label.isEmpty()) {
+            return;
+        }
+        StringList errs_ = _bl.getErrorsLabels();
+        if (!errs_.isEmpty()) {
+            String err_ = transform(StringList.join(errs_,"\n\n"));
+            _parts.add(new PartOffset("<a name=\"m"+_offset+"\" title=\""+err_+"\" class=\"e\">",_offset));
+            _parts.add(new PartOffset("</a>",_offset+_label.length()));
+        } else {
+            _parts.add(new PartOffset("<a name=\"m"+_offset+"\">",_offset));
+            _parts.add(new PartOffset("</a>",_offset+_label.length()));
+        }
+    }
 }

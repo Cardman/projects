@@ -40,6 +40,7 @@ public abstract class Block implements AnalyzedBlock {
     private Ints badIndexes = new Ints();
     private boolean reachableError;
     private StringList errorsBlock = new StringList();
+    private StringList errorsLabels = new StringList();
 
     Block(OffsetsBlock _offset) {
         offset = _offset;
@@ -65,18 +66,20 @@ public abstract class Block implements AnalyzedBlock {
             if (!wc_) {
                 FoundErrorInterpret bad_ = new FoundErrorInterpret();
                 bad_.setFileName(getFile().getFileName());
-                bad_.setIndexFile(0);
+                bad_.setIndexFile(((BreakableBlock)this).getRealLabelOffset());
                 //label_ len
                 bad_.buildError(_an.getAnalysisMessages().getBadLabel());
                 _an.addError(bad_);
+                errorsLabels.add(bad_.getBuiltError());
             } else if (!label_.isEmpty()){
                 if (StringList.contains(_anEl.getLabels(), label_)) {
                     FoundErrorInterpret dup_ = new FoundErrorInterpret();
                     dup_.setFileName(getFile().getFileName());
-                    dup_.setIndexFile(0);
+                    dup_.setIndexFile(((BreakableBlock)this).getRealLabelOffset());
                     //label_ len
                     dup_.buildError(_an.getAnalysisMessages().getDuplicatedLabel());
                     _an.addError(dup_);
+                    errorsLabels.add(dup_.getBuiltError());
                 } else {
                     _anEl.getLabels().add(label_);
                 }
@@ -173,6 +176,10 @@ public abstract class Block implements AnalyzedBlock {
 
     public StringList getErrorsBlock() {
         return errorsBlock;
+    }
+
+    public StringList getErrorsLabels() {
+        return errorsLabels;
     }
 
     public boolean isReachableError() {
