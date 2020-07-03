@@ -43,7 +43,7 @@ abstract class AnaPartType {
         if (operators_.isEmpty()) {
             String str_ = ".";
             if (_parent instanceof AnaInnerPartType && _index > 0) {
-                str_ = ((AnaInnerPartType) _parent).getOperators().get(_index - 1);
+                str_ = _parent.getOperators().getValue(_index - 1);
             }
             if (_analyze.getKind() == KindPartType.TYPE_NAME) {
                 String type_ = _dels.getValue(_index);
@@ -68,12 +68,12 @@ abstract class AnaPartType {
             return new AnaTemplatePartType(_parent, _index, _indexInType,operators_);
         }
         if (_analyze.getPrio() == ParserType.INT_PRIO) {
-            return new AnaInnerPartType(_parent, _index, _indexInType,operators_.values());
+            return new AnaInnerPartType(_parent, _index, _indexInType,operators_);
         }
         if (_analyze.getPrio() == ParserType.ARR_PRIO) {
-            return new AnaArraryPartType(_parent, _index, _indexInType);
+            return new AnaArraryPartType(_parent, _index, _indexInType,operators_);
         }
-        return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue());
+        return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_);
     }
     static AnaPartType createPartType(AnaParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, IntTreeMap<String> _dels) {
         if (_analyze.isError()) {
@@ -83,7 +83,7 @@ abstract class AnaPartType {
         if (operators_.isEmpty()) {
             String str_ = ".";
             if (_parent instanceof AnaInnerPartType && _index > 0) {
-                str_ = ((AnaInnerPartType) _parent).getOperators().get(_index - 1);
+                str_ = _parent.getOperators().getValue(_index - 1);
             }
             if (_analyze.getKind() == KindPartType.TYPE_NAME) {
                 String type_ = _dels.getValue(_index);
@@ -98,12 +98,12 @@ abstract class AnaPartType {
             return new AnaTemplatePartType(_parent, _index, _indexInType,operators_);
         }
         if (_analyze.getPrio() == ParserType.INT_PRIO) {
-            return new AnaInnerPartType(_parent, _index, _indexInType,operators_.values());
+            return new AnaInnerPartType(_parent, _index, _indexInType,operators_);
         }
         if (_analyze.getPrio() == ParserType.ARR_PRIO) {
-            return new AnaArraryPartType(_parent, _index, _indexInType);
+            return new AnaArraryPartType(_parent, _index, _indexInType,operators_);
         }
-        return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue());
+        return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_);
     }
 
     abstract void analyze(ContextEl _an, CustList<IntTreeMap< String>> _dels, String _globalType, AccessedBlock _local, AccessedBlock _rooted);
@@ -230,4 +230,5 @@ abstract class AnaPartType {
     void setLength(int _length) {
         length = _length;
     }
+
 }

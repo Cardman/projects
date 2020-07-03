@@ -10,18 +10,17 @@ import code.expressionlanguage.exec.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.inherits.Templates;
 
+import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.util.CustList;
-import code.util.IntTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 final class AnaTemplatePartType extends AnaBinaryType {
-    private int indexChildConstraints = -1;
-    private IntTreeMap<String> operators;
+    private Ints indexesChildConstraints = new Ints();
+    private PartOffset lastPartBegin = new PartOffset("",0);
+    private PartOffset lastPartEnd = new PartOffset("",0);
+
     AnaTemplatePartType(AnaParentPartType _parent, int _index, int _indexInType, IntTreeMap<String> _operators) {
-        super(_parent, _index, _indexInType);
-        operators = _operators;
+        super(_parent, _index, _indexInType,_operators);
     }
 
     String getBegin() {
@@ -45,26 +44,21 @@ final class AnaTemplatePartType extends AnaBinaryType {
 
     @Override
     void analyzeLine(ContextEl _an, ReadyTypes _ready, CustList<IntTreeMap<String>> _dels, AccessedBlock _local, AccessedBlock _rooted) {
-        CustList<AnaPartType> ch_ = new CustList<AnaPartType>();
-        AnaPartType f_ = getFirstChild();
-        while (f_ != null) {
-            ch_.add(f_);
-            f_ = f_.getNextSibling();
-        }
-        String t_ = getBegin();
-        int len_ = ch_.size() - 1;
-        for (int i = 0; i < len_; i++) {
-            t_ = StringList.concat(t_, ch_.get(i).getAnalyzedType(),getSeparator(i));
-        }
-        t_ = StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
-        setAnalyzedType(t_);
+        anaTmp();
     }
 
     @Override
     void analyzeAccessibleId(ContextEl _an, CustList<IntTreeMap<String>> _dels, AccessedBlock _rooted) {
+        anaTmp();
+    }
+
+    private void anaTmp() {
         CustList<AnaPartType> ch_ = new CustList<AnaPartType>();
         AnaPartType f_ = getFirstChild();
         while (f_ != null) {
+            if (f_.getAnalyzedType().isEmpty()){
+                return;
+            }
             ch_.add(f_);
             f_ = f_.getNextSibling();
         }
@@ -86,9 +80,16 @@ final class AnaTemplatePartType extends AnaBinaryType {
         CustList<StringList> boundsAll_ = type_.getBoundAll();
         int i_ = 0;
         for (StringList t: boundsAll_) {
+            getBeginOps().add(new PartOffset("",0));
+            getEndOps().add(new PartOffset("",0));
+            getErrsList().add(new StringList());
             f_ = f_.getNextSibling();
+            if (f_ == null) {
+                break;
+            }
             String arg_ = f_.getAnalyzedType();
             if (StringList.quickEq(arg_, Templates.SUB_TYPE)) {
+                i_++;
                 continue;
             }
             String comp_ = arg_;
@@ -120,26 +121,46 @@ final class AnaTemplatePartType extends AnaBinaryType {
                     }
                 }
                 if (!ok_) {
-                    indexChildConstraints = i_;
-                    return false;
+                    indexesChildConstraints.add(i_);
                 }
             }
             i_++;
         }
-        return true;
+//        getBeginOps().add(new PartOffset("",0));
+//        getEndOps().add(new PartOffset("",0));
+//        getErrsList().add(new StringList());
+        return indexesChildConstraints.isEmpty();
     }
 
-    void processBadConstraintsOffsets(ContextEl _an) {
+    void buildBadConstraintsOffsetList(ContextEl _an) {
         if (!_an.isGettingParts()) {
             return;
         }
-        getErrs().add(FoundErrorInterpret.buildARError(_an.getAnalysisMessages().getBadParamerizedType(),getAnalyzedType()));
+        for (int i: indexesChildConstraints) {
+            String err_ = FoundErrorInterpret.buildARError(_an.getAnalysisMessages().getBadParamerizedType(), getAnalyzedType());
+            getErrsList().get(i).add(err_);
+        }
+        for (int i: indexesChildConstraints) {
+            int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType() + getOperators().getKey(i);
+            int len_ = getOperators().getValue(i).length();
+            String err_ = LinkageUtil.transform(StringList.join(getErrsList().get(i),"\n\n"));
+            getBeginOps().set(i,new PartOffset("<a title=\""+err_+"\" class=\"e\">",begin_));
+            getEndOps().set(i,new PartOffset("</a>",begin_+len_));
+        }
     }
-    void buildBadConstraintsOffset(ContextEl _an) {
-        int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType() + operators.getKey(indexChildConstraints);
-        int len_ = operators.getValue(indexChildConstraints).length();
-        buildOffsetPart(begin_,len_);
+
+    void processBadLen(ContextEl _an) {
+        int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType() + getOperators().lastKey();
+        int len_ = getOperators().lastValue().length();
+        StringList errLen_ = getErrs();
+        if (errLen_.isEmpty()) {
+            return;
+        }
+        String err_ = LinkageUtil.transform(StringList.join(errLen_,"\n\n"));
+        lastPartBegin=(new PartOffset("<a title=\""+err_+"\" class=\"e\">",begin_));
+        lastPartEnd=(new PartOffset("</a>",begin_+len_));
     }
+
     private String fetchTemplate() {
         AnaPartType f_ = getFirstChild();
         CustList<AnaPartType> ch_ = new CustList<AnaPartType>();
@@ -153,5 +174,20 @@ final class AnaTemplatePartType extends AnaBinaryType {
             t_ = StringList.concat(t_, ch_.get(i).getAnalyzedType(),getSeparator(i));
         }
         return StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
+    }
+
+    @Override
+    void buildErrorInexist(ContextEl _an) {
+        int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType() + getOperators().firstKey();
+        int len_ = getOperators().firstValue().length();
+        buildOffsetPart(begin_,len_);
+    }
+
+    PartOffset getLastPartBegin() {
+        return lastPartBegin;
+    }
+
+    PartOffset getLastPartEnd() {
+        return lastPartEnd;
     }
 }

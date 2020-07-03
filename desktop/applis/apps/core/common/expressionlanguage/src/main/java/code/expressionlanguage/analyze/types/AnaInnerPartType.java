@@ -7,10 +7,8 @@ import code.util.IntTreeMap;
 
 final class AnaInnerPartType extends AnaBinaryType {
 
-    private CustList<String> operators;
-    AnaInnerPartType(AnaParentPartType _parent, int _index, int _indexInType, CustList<String> _operators) {
-        super(_parent, _index, _indexInType);
-        operators = _operators;
+    AnaInnerPartType(AnaParentPartType _parent, int _index, int _indexInType, IntTreeMap<String> _operators) {
+        super(_parent, _index, _indexInType,_operators);
     }
 
     @Override
@@ -39,7 +37,10 @@ final class AnaInnerPartType extends AnaBinaryType {
         setAnalyzedType(t_);
     }
 
-    public CustList<String> getOperators() {
-        return operators;
+    @Override
+    void buildErrorInexist(ContextEl _an) {
+        int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType() + getOperators().lastKey();
+        int len_ = getOperators().lastValue().length();
+        buildOffsetPart(begin_,len_);
     }
 }
