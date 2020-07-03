@@ -126,9 +126,6 @@ final class AnaTemplatePartType extends AnaBinaryType {
             }
             i_++;
         }
-//        getBeginOps().add(new PartOffset("",0));
-//        getEndOps().add(new PartOffset("",0));
-//        getErrsList().add(new StringList());
         return indexesChildConstraints.isEmpty();
     }
 

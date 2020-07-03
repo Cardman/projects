@@ -3189,6 +3189,202 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report154Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $iterable<MyCl.Inner[]> v;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append(" $public $class Inner<T>{\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $iterable<a title=\"The type java.lang.$iterable&lt;[pkg.MyCl..Inner&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"pkg.MyCl\" href=\"#m72\">MyCl</a><a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCl..Inner\" href=\"#m98\">Inner</a>[]&gt; <a name=\"m52\">v</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m72\">pkg.MyCl</a>{\n" +
+                " $public $class <a name=\"m98\">Inner</a>&lt;<a name=\"m104\">T</a>&gt;{\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report155Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $iterable<MyCl[]> v;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl<T>{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $iterable<a title=\"The type java.lang.$iterable&lt;[pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
+                "\n" +
+                "pkg.MyCl\" href=\"#m66\" class=\"e\">MyCl</a>[]&gt; <a name=\"m46\">v</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m66\">pkg.MyCl</a>&lt;<a name=\"m75\">T</a>&gt;{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report156Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $iterable<?MyCl> v;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl<T>{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $iterable<a title=\"The type java.lang.$iterable&lt;?pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a>?<a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
+                "\n" +
+                "pkg.MyCl\" href=\"#m65\" class=\"e\">MyCl</a>&gt; <a name=\"m45\">v</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m65\">pkg.MyCl</a>&lt;<a name=\"m74\">T</a>&gt;{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report157Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $iterable<MyCl> v;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl<T>{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $iterable<a title=\"The type java.lang.$iterable&lt;pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
+                "\n" +
+                "pkg.MyCl\" href=\"#m64\" class=\"e\">MyCl</a>&gt; <a name=\"m44\">v</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m64\">pkg.MyCl</a>&lt;<a name=\"m73\">T</a>&gt;{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report158Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MyParam<MyCl.Inner[]> v;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append(" $public $class Inner<T>{\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyParam<S>{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MyParam\" href=\"#m126\">MyParam</a><a title=\"The type pkg.MyParam&lt;[pkg.MyCl..Inner&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"pkg.MyCl\" href=\"#m70\">MyCl</a><a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCl..Inner\" href=\"#m96\">Inner</a>[]&gt; <a name=\"m50\">v</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m70\">pkg.MyCl</a>{\n" +
+                " $public $class <a name=\"m96\">Inner</a>&lt;<a name=\"m102\">T</a>&gt;{\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m126\">pkg.MyParam</a>&lt;<a name=\"m138\">S</a>&gt;{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report159Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MyParam<MyCl[]> v;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl<T>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyParam<S>{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MyParam\" href=\"#m94\">MyParam</a><a title=\"The type pkg.MyParam&lt;[pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
+                "\n" +
+                "pkg.MyCl\" href=\"#m64\" class=\"e\">MyCl</a>[]&gt; <a name=\"m44\">v</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m64\">pkg.MyCl</a>&lt;<a name=\"m73\">T</a>&gt;{\n" +
+                "}\n" +
+                "$public $class <a name=\"m94\">pkg.MyParam</a>&lt;<a name=\"m106\">S</a>&gt;{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report160Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MyParam<?MyCl> v;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl<T>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyParam<S>{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MyParam\" href=\"#m93\">MyParam</a><a title=\"The type pkg.MyParam&lt;?pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a>?<a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
+                "\n" +
+                "pkg.MyCl\" href=\"#m63\" class=\"e\">MyCl</a>&gt; <a name=\"m43\">v</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m63\">pkg.MyCl</a>&lt;<a name=\"m72\">T</a>&gt;{\n" +
+                "}\n" +
+                "$public $class <a name=\"m93\">pkg.MyParam</a>&lt;<a name=\"m105\">S</a>&gt;{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report161Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MyParam<MyCl> v;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl<T>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyParam<S>{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MyParam\" href=\"#m92\">MyParam</a><a title=\"The type pkg.MyParam&lt;pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
+                "\n" +
+                "pkg.MyCl\" href=\"#m62\" class=\"e\">MyCl</a>&gt; <a name=\"m42\">v</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m62\">pkg.MyCl</a>&lt;<a name=\"m71\">T</a>&gt;{\n" +
+                "}\n" +
+                "$public $class <a name=\"m92\">pkg.MyParam</a>&lt;<a name=\"m104\">S</a>&gt;{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
         validate(cont_,files_);
         assertTrue(!cont_.isEmptyErrors());
