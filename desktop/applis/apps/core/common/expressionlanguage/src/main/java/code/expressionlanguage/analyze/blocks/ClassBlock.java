@@ -16,7 +16,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                       boolean _finalType,
                       boolean _abstractType, boolean _staticType,
                       OffsetsBlock _offset) {
-        super(_idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
+        super(_idRowCol, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
         finalType = _finalType;
         abstractType = _abstractType;
         staticType = _staticType;

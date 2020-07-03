@@ -148,7 +148,7 @@ public final class LinkageUtil {
                 Block parType_ = child_.getOuter();
                 if (parType_.getBadIndexes().isEmpty()) {
                     if (child_.isReachableError()) {
-                        if (!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof EmptyInstruction)) {
+                        if (!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof EmptyInstruction)&&!(child_ instanceof RootBlock)) {
                             String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
                             int off_ = child_.getBegin();
                             int l_ = child_.getLengthHeader();
@@ -1169,9 +1169,12 @@ public final class LinkageUtil {
         int blOffset_ = _cond.getValueOffset();
         if (!errs_.isEmpty()) {
             String err_ = StringList.join(errs_,"\n\n");
+            if (_cond.getValue().trim().isEmpty()) {
+                blOffset_ = _cond.getClassNameOffset() + _cond.getClassName().length();
+            }
             _parts.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",blOffset_));
-            int endBl_ = blOffset_ + _cond.getValue().length();
-            _parts.add(new PartOffset("</a>",Math.max(1,endBl_)));
+            int endBl_ = blOffset_ + Math.max(1,_cond.getValue().length());
+            _parts.add(new PartOffset("</a>",endBl_));
             return;
         }
         buildErrorReport(_cont,_vars,blOffset_,_cond,_cond.getRoot(),_parts);
@@ -1461,10 +1464,10 @@ public final class LinkageUtil {
 
     private static void processRootBlockError(VariablesOffsets _vars,RootBlock _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         processAnnotationError(_vars,_cond,_cont, _parts);
-        StringList listCat_ = _cond.getCategoryErrors();
-        if (!listCat_.isEmpty()) {
-            _parts.add(new PartOffset("<a title=\""+ LinkageUtil.transform(StringList.join(listCat_,"\n\n"))+"\" class=\"e\">", _cond.getCategoryOffset()));
-            _parts.add(new PartOffset("</a>", _cond.getCategoryOffset() + _cond.getCategoryLength()));
+        if (_cond.isReachableError()) {
+            StringList listCat_ = _cond.getErrorsBlock();
+            _parts.add(new PartOffset("<a title=\""+ LinkageUtil.transform(StringList.join(listCat_,"\n\n"))+"\" class=\"e\">", _cond.getBegin()));
+            _parts.add(new PartOffset("</a>", _cond.getBegin() + _cond.getLengthHeader()));
 
         }
         int len_ = _cond.getImports().size();

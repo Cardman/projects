@@ -140,6 +140,8 @@ public abstract class Block implements AnalyzedBlock {
         //defined len first key words
         un_.buildError(_cont.getAnalysisMessages().getUnexpectedBlockExp());
         _cont.addError(un_);
+        _block.setReachableError(true);
+        _block.getErrorsBlock().add(un_.getBuiltError());
         return false;
     }
 

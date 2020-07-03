@@ -44,7 +44,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, OffsetsBlock _offset) {
-        super(_fieldName.getOffset(), 0, _fieldName.getInfo(), _pkgName, new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset);
+        super(_fieldName.getOffset(), _fieldName.getInfo(), _pkgName, new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset);
         classNameRes = _m.getFullName();
         fieldNameOffest = _fieldName.getOffset();
         valueOffest = _value.getOffset();

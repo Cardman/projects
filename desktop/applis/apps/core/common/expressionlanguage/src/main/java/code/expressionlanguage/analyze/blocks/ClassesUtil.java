@@ -77,7 +77,7 @@ public final class ClassesUtil {
         if (packageName_.trim().isEmpty()) {
             FoundErrorInterpret badCl_ = new FoundErrorInterpret();
             badCl_.setFileName(_root.getFile().getFileName());
-            badCl_.setIndexFile(_root.getCategoryOffset());
+            badCl_.setIndexFile(_root.getBegin());
             //key word category len
             badCl_.buildError(_context.getAnalysisMessages().getEmptyPackage());
             _context.addError(badCl_);

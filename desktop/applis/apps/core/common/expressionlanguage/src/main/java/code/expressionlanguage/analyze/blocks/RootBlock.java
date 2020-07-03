@@ -39,8 +39,6 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     private final String name;
     private final StringList nameErrors = new StringList();
 
-    private final StringList categoryErrors = new StringList();
-
     private final String packageName;
 
     private final AccessEnum access;
@@ -68,9 +66,6 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
 
     private int idRowCol;
 
-    private int categoryOffset;
-    private int categoryLength;
-
     private StringList staticInitInterfaces = new StringList();
     private int templateDefOffset;
     private int nameLength;
@@ -96,11 +91,10 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private int nbOperators;
 
-    RootBlock(int _idRowCol, int _categoryOffset, String _name,
+    RootBlock(int _idRowCol, String _name,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
-              IntMap< String> _directSuperTypes, OffsetsBlock _offset) {
+              IntMap<String> _directSuperTypes, OffsetsBlock _offset) {
         super(_offset);
-        categoryOffset = _categoryOffset;
         allOverridingMethods = new CustList<OverridingMethod>();
         name = _name.trim();
         packageName = StringExpUtil.removeDottedSpaces(_packageName);
@@ -132,10 +126,6 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
 
     public int getAccessOffset() {
         return accessOffset;
-    }
-
-    public int getCategoryOffset() {
-        return categoryOffset;
     }
 
     public abstract boolean isStaticType();
@@ -1651,17 +1641,8 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     }
 
     public void addCategoryErrors(FoundErrorInterpret _error) {
-        categoryErrors.add(_error.getBuiltError());
-    }
-    public StringList getCategoryErrors() {
-        return categoryErrors;
+        setReachableError(true);
+        getErrorsBlock().add(_error.getBuiltError());
     }
 
-    public int getCategoryLength() {
-        return categoryLength;
-    }
-
-    public void setCategoryLength(int _categoryLength) {
-        categoryLength = _categoryLength;
-    }
 }

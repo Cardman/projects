@@ -680,7 +680,8 @@ public final class FileResolver {
                 typeBlock_ = new AnnotationBlock(beginDefinition_, categoryOffset_, baseName_, packageName_,
                         new OffsetAccessInfo(accessOffsetType_, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_,beginType_));
             }
-            typeBlock_.setCategoryLength(type_.length());
+            typeBlock_.setBegin(categoryOffset_);
+            typeBlock_.setLengthHeader(type_.length());
             if (!okType_) {
                 typeBlock_.getBadIndexes().add(bad_);
             }
@@ -1372,6 +1373,8 @@ public final class FileResolver {
                     afterDeclareOffset_ = affectOffset_;
                     br_ = new Line(new OffsetStringInfo(afterDeclareOffset_, trimmedInstruction_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                     br_.getBadIndexes().add(_nextIndex);
+                    br_.setBegin(_i);
+                    br_.setLengthHeader(1);
                     currentParent_.appendChild(br_);
                 }
                 currentParent_ = currentParent_.getParent();
@@ -1560,6 +1563,8 @@ public final class FileResolver {
                 afterDeclareOffset_ = affectOffset_;
                 br_ = new Line(new OffsetStringInfo(afterDeclareOffset_, trimmedInstruction_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                 br_.getBadIndexes().add(_nextIndex);
+                br_.setBegin(_i);
+                br_.setLengthHeader(1);
                 currentParent_.appendChild(br_);
             }
             if (currentParent_ instanceof SwitchPartBlock) {
@@ -1803,7 +1808,8 @@ public final class FileResolver {
                     new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_,
                     new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
         }
-        typeBlock_.setCategoryLength(_type.length());
+        typeBlock_.setBegin(_categoryOffset);
+        typeBlock_.setLengthHeader(_type.length());
         typeBlock_.setupOffsets(typeName_,"");
         typeBlock_.getImports().addAllElts(_importedTypes);
         typeBlock_.getImportsOffset().addAllElts(_offsetsImports);

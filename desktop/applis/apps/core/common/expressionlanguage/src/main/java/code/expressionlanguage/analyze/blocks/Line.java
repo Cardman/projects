@@ -50,6 +50,10 @@ public final class Line extends Leaf implements BuildableElMethod {
         page_.setOffset(0);
         String import_ = _cont.getStandards().getAliasObject();
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(st_));
+        if (!page_.getCurrentEmptyPartErr().isEmpty()) {
+            getErrorsBlock().add(page_.getCurrentEmptyPartErr());
+            setReachableError(true);
+        }
         root = page_.getCurrentRoot();
         if (op_.last() instanceof ExecCurrentInvokingConstructor) {
             callThis = true;
