@@ -4231,6 +4231,34 @@ public class ErrorsTest extends ProcessMethodCommon {
                 " $int i<a title=\"Bad index by parsing.\" class=\"e\">\n" +
                 "</a></pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report201Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MyParam<MySecond,MyFirst> i;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyParam<T:MyFirst,S:MySecond>{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyFirst{\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySecond{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MyParam\" href=\"#m74\">MyParam</a><a title=\"The type pkg.MyParam&lt;pkg.MySecond,pkg.MyFirst&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"pkg.MySecond\" href=\"#m156\">MySecond</a><a title=\"The type pkg.MyParam&lt;pkg.MySecond,pkg.MyFirst&gt; is not parameterized correctly.\" class=\"e\">,</a><a title=\"pkg.MyFirst\" href=\"#m126\">MyFirst</a>&gt; <a name=\"m54\">i</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m74\">pkg.MyParam</a>&lt;<a name=\"m86\">T</a>:<a title=\"pkg.MyFirst\" href=\"#m126\">MyFirst</a>,<a name=\"m96\">S</a>:<a title=\"pkg.MySecond\" href=\"#m156\">MySecond</a>&gt;{\n" +
+                "}\n" +
+                "$public $class <a name=\"m126\">pkg.MyFirst</a>{\n" +
+                "}\n" +
+                "$public $class <a name=\"m156\">pkg.MySecond</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
         validate(cont_,files_);
         assertTrue(!cont_.isEmptyErrors());
