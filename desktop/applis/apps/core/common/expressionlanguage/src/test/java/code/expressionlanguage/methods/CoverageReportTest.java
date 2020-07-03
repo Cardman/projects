@@ -12311,6 +12311,298 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage311Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" MyAnnotSecond m();\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotSecond {\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot(@MyAnnotSecond)\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations();\n");
+        xml_.append("  $if (arr.length != 1i){\n");
+        xml_.append("   $return 3i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
+                " <a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a> <a name=\"m49\">m</a>();\n" +
+                "}\n" +
+                "$public $annotation <a name=\"m76\">pkg.MyAnnotSecond </a>{\n" +
+                "}\n" +
+                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(@<a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a>)\n" +
+                "$public $class <a name=\"m138\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m169\">catching</a>(){\n" +
+                "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m197\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m138\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m197\">arr</a></span>.<span class=\"f\">length </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "   $return <span class=\"n\">3i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m197\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
+                "   $return <span class=\"n\">2i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><a href=\"#m197\">arr</a></span><span class=\"f\">[<span class=\"f\">0i</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class(<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage312Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" MyAnnotSecond m();\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotSecond {\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot(m=@MyAnnotSecond)\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations();\n");
+        xml_.append("  $if (arr.length != 1i){\n");
+        xml_.append("   $return 3i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
+                " <a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a> <a name=\"m49\">m</a>();\n" +
+                "}\n" +
+                "$public $annotation <a name=\"m76\">pkg.MyAnnotSecond </a>{\n" +
+                "}\n" +
+                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.m()\" href=\"#m49\">m</a>=@<a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a>)\n" +
+                "$public $class <a name=\"m140\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m171\">catching</a>(){\n" +
+                "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m199\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m140\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m199\">arr</a></span>.<span class=\"f\">length </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "   $return <span class=\"n\">3i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m199\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
+                "   $return <span class=\"n\">2i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><a href=\"#m199\">arr</a></span><span class=\"f\">[<span class=\"f\">0i</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class(<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage313Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" MyAnnotSecond m();\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotSecond {\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot( @MyAnnotSecond)\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations();\n");
+        xml_.append("  $if (arr.length != 1i){\n");
+        xml_.append("   $return 3i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
+                " <a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a> <a name=\"m49\">m</a>();\n" +
+                "}\n" +
+                "$public $annotation <a name=\"m76\">pkg.MyAnnotSecond </a>{\n" +
+                "}\n" +
+                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>( @<a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a>)\n" +
+                "$public $class <a name=\"m139\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m170\">catching</a>(){\n" +
+                "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m198\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m139\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m198\">arr</a></span>.<span class=\"f\">length </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "   $return <span class=\"n\">3i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m198\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
+                "   $return <span class=\"n\">2i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><a href=\"#m198\">arr</a></span><span class=\"f\">[<span class=\"f\">0i</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class(<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage314Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" MyAnnotSecond m();\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotSecond {\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot(m= @MyAnnotSecond)\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations();\n");
+        xml_.append("  $if (arr.length != 1i){\n");
+        xml_.append("   $return 3i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr) != $class($Annotation[])){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
+                " <a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a> <a name=\"m49\">m</a>();\n" +
+                "}\n" +
+                "$public $annotation <a name=\"m76\">pkg.MyAnnotSecond </a>{\n" +
+                "}\n" +
+                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.m()\" href=\"#m49\">m</a>= @<a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a>)\n" +
+                "$public $class <a name=\"m141\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m172\">catching</a>(){\n" +
+                "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m200\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m141\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m200\">arr</a></span>.<span class=\"f\">length </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "   $return <span class=\"n\">3i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m200\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
+                "   $return <span class=\"n\">2i</span>;\n" +
+                "  }\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><span class=\"f\"><a href=\"#m200\">arr</a></span><span class=\"f\">[<span class=\"f\">0i</span>]</span></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class(<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)</span></span>){\n" +
+                "   $return <span class=\"n\">1i</span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage315Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int method()1;\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot(method =2)\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  MyAnnot m = (MyAnnot)$class(Ex).getAnnotations()[0];\n");
+        xml_.append("  $return m.method();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m40\">method</a>()1;\n" +
+                "}\n" +
+                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a> =2)\n" +
+                "$public $class <a name=\"m88\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m119\">catching</a>(){\n" +
+                "  <a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> <span class=\"f\"><span class=\"f\"><a name=\"m141\">m</a> </span>=<span class=\"f\"> (<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)<span class=\"f\"><span class=\"f\"><span class=\"f\">$class(<a title=\"pkg.Ex\" href=\"#m88\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span></span>;\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><a href=\"#m141\">m</a></span>.<span class=\"f\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage316Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int method()1;\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot( method =2)\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  MyAnnot m = (MyAnnot)$class(Ex).getAnnotations()[0];\n");
+        xml_.append("  $return m.method();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m40\">method</a>()1;\n" +
+                "}\n" +
+                "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>( <a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a> =2)\n" +
+                "$public $class <a name=\"m89\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m120\">catching</a>(){\n" +
+                "  <a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> <span class=\"f\"><span class=\"f\"><a name=\"m142\">m</a> </span>=<span class=\"f\"> (<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>)<span class=\"f\"><span class=\"f\"><span class=\"f\">$class(<a title=\"pkg.Ex\" href=\"#m89\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span></span></span>;\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><a href=\"#m142\">m</a></span>.<span class=\"f\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

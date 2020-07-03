@@ -19,6 +19,7 @@ import code.expressionlanguage.common.AnnotationFieldInfo;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 
 public final class AnnotationInstanceOperation extends InvokingOperation implements PreAnalyzableOperation {
@@ -129,7 +130,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         if (isIntermediateDottedOperation()){
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex()+off_;
+            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
             un_.setIndexFile(i_);
             un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //first separator char
@@ -147,19 +148,23 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             String eltType_ = StringExpUtil.getQuickComponentType(className);
             if (eltType_ == null) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                un_.setIndexFile(i_);
                 un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 //first separator char
                 un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                         className);
                 _conf.getAnalyzing().getLocalizer().addError(un_);
+                partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
+                partOffsetsErr.add(new PartOffset("</a>",i_+1));
                 setResultClass(new ClassArgumentMatching(className));
                 return;
             }
             Mapping mapping_ = new Mapping();
             mapping_.setParam(eltType_);
+            StringList errs_ = new StringList();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _conf);
             for (OperationNode o: chidren_) {
-                setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
                 ClassArgumentMatching argType_ = o.getResultClass();
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
@@ -172,12 +177,16 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                             StringList.join(argType_.getNames(),"&"),
                             eltType_);
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    errs_.add(cast_.getBuiltError());
                 }
                 if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
                     o.getResultClass().setUnwrapObject(eltType_);
                     o.cancelArgument();
                 }
             }
+            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            partOffsetsErr.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(errs_,"\n\n")) +"\" class=\"e\">",i_));
+            partOffsetsErr.add(new PartOffset("</a>",i_+1));
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
@@ -192,7 +201,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         if (StringList.quickEq(className, objCl_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + StringList.getFirstPrintableCharIndex(methodName);
+            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
             call_.setIndexFile(i_);
             //text header after @
             call_.buildError(_conf.getAnalysisMessages().getIllegalCtorAnnotation(),

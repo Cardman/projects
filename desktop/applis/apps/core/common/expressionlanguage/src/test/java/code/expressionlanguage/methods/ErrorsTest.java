@@ -4025,6 +4025,82 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report190Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot({\"\"})\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int[] v();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m35\">MyAnnot</a>(<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">{</a><span class=\"s\">\"\"</span>})\n" +
+                "$public $annotation <a name=\"m35\">pkg.MyAnnot </a>{\n" +
+                " $int[] <a name=\"m57\">v</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report191Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot( {\"\"})\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int[] v();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m36\">MyAnnot</a>( <a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">{</a><span class=\"s\">\"\"</span>})\n" +
+                "$public $annotation <a name=\"m36\">pkg.MyAnnot </a>{\n" +
+                " $int[] <a name=\"m58\">v</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report192Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot({ \"\"})\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int[] v();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m36\">MyAnnot</a>(<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">{</a> <span class=\"s\">\"\"</span>})\n" +
+                "$public $annotation <a name=\"m36\">pkg.MyAnnot </a>{\n" +
+                " $int[] <a name=\"m58\">v</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report193Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MySub {\n");
+        xml_.append(" @MyCl( @MyCl)\n");
+        xml_.append(" ONE;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m64\">MyCl</a>( <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m64\">MyCl</a>)\n" +
+                " <a name=\"m42\">ONE</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m64\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
         validate(cont_,files_);
         assertTrue(!cont_.isEmptyErrors());
