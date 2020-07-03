@@ -195,7 +195,7 @@ public final class AffectationOperation extends MethodOperation {
         }
     }
 
-    public static void processInfer(ContextEl _cont, String _import) {
+    public static String processInfer(ContextEl _cont, String _import) {
         StringList vars_ = _cont.getAnalyzing().getVariablesNames();
         if (StringList.quickEq(_import,_cont.getKeyWords().getKeyWordVar())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -206,15 +206,16 @@ public final class AffectationOperation extends MethodOperation {
                     _import,
                     StringList.join(vars_,"&"));
             _cont.getAnalyzing().getLocalizer().addError(un_);
-        } else {
-            for (String v: _cont.getAnalyzing().getVariablesNamesToInfer()) {
-                AnaLocalVariable lv_ = _cont.getAnalyzing().getLocalVar(v);
-                lv_.setClassName(_import);
-            }
+            return un_.getBuiltError();
         }
+        for (String v: _cont.getAnalyzing().getVariablesNamesToInfer()) {
+            AnaLocalVariable lv_ = _cont.getAnalyzing().getLocalVar(v);
+            lv_.setClassName(_import);
+        }
+        return "";
     }
 
-    public static void processInferLoop(ContextEl _cont, String _import) {
+    public static String processInferLoop(ContextEl _cont, String _import) {
         StringList vars_ = _cont.getAnalyzing().getVariablesNames();
         if (StringList.quickEq(_import,_cont.getKeyWords().getKeyWordVar())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -225,12 +226,13 @@ public final class AffectationOperation extends MethodOperation {
                     _import,
                     StringList.join(vars_,"&"));
             _cont.getAnalyzing().getLocalizer().addError(un_);
-        } else {
-            for (String v: _cont.getAnalyzing().getVariablesNamesLoopToInfer()) {
-                AnaLoopVariable lv_ = _cont.getAnalyzing().getMutableLoopVar(v);
-                lv_.setClassName(_import);
-            }
+            return un_.getBuiltError();
         }
+        for (String v: _cont.getAnalyzing().getVariablesNamesLoopToInfer()) {
+            AnaLoopVariable lv_ = _cont.getAnalyzing().getMutableLoopVar(v);
+            lv_.setClassName(_import);
+        }
+        return "";
     }
     static SettableElResult tryGetSettable(MethodOperation _operation) {
         OperationNode root_ = getFirstToBeAnalyzed(_operation);

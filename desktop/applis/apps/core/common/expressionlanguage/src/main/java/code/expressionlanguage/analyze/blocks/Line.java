@@ -68,7 +68,8 @@ public final class Line extends Leaf implements BuildableElMethod {
             StringList vars_ = page_.getVariablesNames();
             DeclareVariable declaring_ = (DeclareVariable) getPreviousSibling();
             import_ = declaring_.getImportedClassName();
-            AffectationOperation.processInfer(_cont, import_);
+            String err_ = AffectationOperation.processInfer(_cont, import_);
+            declaring_.setErrInf(err_);
             declaring_.getVariableNames().addAllElts(vars_);
         }
         ExecDeclareVariable ex_ = page_.getExecDeclareVariable();

@@ -3385,6 +3385,646 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report162Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" $int v;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m60\">MyCl</a>\n" +
+                " $int <a name=\"m40\">v</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m60\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report163Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" ONE;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m56\">MyCl</a>\n" +
+                " <a name=\"m34\">ONE</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m56\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report164Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" ONE{};\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m58\">MyCl</a>\n" +
+                " <a name=\"m34\">ONE</a>{};\n" +
+                "}\n" +
+                "$public $class <a name=\"m58\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report165Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" $int v();\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m67\">MyCl</a>\n" +
+                " $int <a name=\"m45\">v</a>();\n" +
+                "}\n" +
+                "$public $class <a name=\"m67\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report166Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" $int v();\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m66\">MyCl</a>\n" +
+                " $int <a name=\"m44\">v</a>();\n" +
+                "}\n" +
+                "$public $class <a name=\"m66\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report167Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" MySub(){}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m66\">MyCl</a>\n" +
+                " <a name=\"m39\">MySub(</a>){}\n" +
+                "}\n" +
+                "$public $class <a name=\"m66\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report168Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" $operator+ $int($int i){\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m97\">MyCl</a>\n" +
+                " $operator<a name=\"m48\">+</a> $int($int <a name=\"m60\">i</a>){\n" +
+                "  $return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m97\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report169Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyCl\n");
+        xml_.append("$operator+ [$static;] $int($int i){\n");
+        xml_.append(" $return 0;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"The type MyCl is unknown.\" class=\"e\">MyCl</a>\n" +
+                "$operator<a name=\"m15\">+</a> [<span class=\"i\">$static</span>;] $int($int <a name=\"m38\">i</a>){\n" +
+                " $return 0;\n" +
+                "}\n" +
+                "$public $class <a name=\"m71\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report170Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" $public $class [$static;] Inner{\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m92\">MyCl</a>\n" +
+                " $public $class [<span class=\"i\">$static</span>;] <a name=\"m65\">Inner</a>{\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m92\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report171Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" $int $this($int i);\n");
+        xml_.append(" $void $this($int i);\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m98\">MyCl</a>\n" +
+                " $int <a name=\"m44\">$this</a>($int <a name=\"m55\">i</a>);\n" +
+                " $void <a name=\"m66\">$this</a>($int <a name=\"m77\">i</a>);\n" +
+                "}\n" +
+                "$public $class <a name=\"m98\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report172Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" $int $this($int i);\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" $void $this($int i);\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " $int <a name=\"m37\">$this</a>($int <a name=\"m48\">i</a>);\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m98\">MyCl</a>\n" +
+                " $void <a name=\"m66\">$this</a>($int <a name=\"m77\">i</a>);\n" +
+                "}\n" +
+                "$public $class <a name=\"m98\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report173Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" $int $this(@MyCl $int i);\n");
+        xml_.append(" $void $this($int i);\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " $int <a name=\"m37\">$this</a>(<a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m97\">MyCl</a> $int <a name=\"m54\">i</a>);\n" +
+                " $void <a name=\"m65\">$this</a>($int <a name=\"m76\">i</a>);\n" +
+                "}\n" +
+                "$public $class <a name=\"m97\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report174Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" $int $this($int i);\n");
+        xml_.append(" $void $this(@MyCl $int i);\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " $int <a name=\"m37\">$this</a>($int <a name=\"m48\">i</a>);\n" +
+                " $void <a name=\"m59\">$this</a>(<a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m97\">MyCl</a> $int <a name=\"m76\">i</a>);\n" +
+                "}\n" +
+                "$public $class <a name=\"m97\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report175Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" $static $int explicit(MySub i){\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m104\">MyCl</a>\n" +
+                " $static $int <a name=\"m52\">explicit</a>(<a title=\"pkg.MySub\" href=\"#m19\">MySub</a> <a name=\"m67\">i</a>){\n" +
+                "  $return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m104\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report176Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" $static MySub explicit($int i){\n");
+        xml_.append("  $return $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m108\">MyCl</a>\n" +
+                " $static <a title=\"pkg.MySub\" href=\"#m19\">MySub</a> <a name=\"m53\">explicit</a>($int <a name=\"m67\">i</a>){\n" +
+                "  $return $null;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m108\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report177Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" $static $int explicit(@MyCl MySub i){\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " $static $int <a name=\"m45\">explicit</a>(<a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m103\">MyCl</a> <a title=\"pkg.MySub\" href=\"#m19\">MySub</a> <a name=\"m66\">i</a>){\n" +
+                "  $return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m103\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report178Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" $static MySub explicit(@MyCl $int i){\n");
+        xml_.append("  $return $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " $static <a title=\"pkg.MySub\" href=\"#m19\">MySub</a> <a name=\"m46\">explicit</a>(<a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m107\">MyCl</a> $int <a name=\"m66\">i</a>){\n" +
+                "  $return $null;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m107\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report179Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" $int v(@MyCl $int i);\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " $int <a name=\"m37\">v</a>(<a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m71\">MyCl</a> $int <a name=\"m50\">i</a>);\n" +
+                "}\n" +
+                "$public $class <a name=\"m71\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report180Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" MySub(@MyCl $int i){}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " <a name=\"m32\">MySub(</a><a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m71\">MyCl</a> $int <a name=\"m49\">i</a>){}\n" +
+                "}\n" +
+                "$public $class <a name=\"m71\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report181Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" ONE;\n");
+        xml_.append(" MySub(){}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m67\">MyCl</a>\n" +
+                " <a name=\"m34\" title=\"pkg.MySub.pkg.MySub()\" href=\"#m40\">ONE</a>;\n" +
+                " <a name=\"m40\">MySub(</a>){}\n" +
+                "}\n" +
+                "$public $class <a name=\"m67\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report182Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" ONE(1);\n");
+        xml_.append(" MySub($int i){}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m76\">MyCl</a>\n" +
+                " <a name=\"m34\" title=\"pkg.MySub.pkg.MySub($int)\" href=\"#m43\">ONE</a>(1);\n" +
+                " <a name=\"m43\">MySub(</a>$int <a name=\"m54\">i</a>){}\n" +
+                "}\n" +
+                "$public $class <a name=\"m76\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report183Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" $int v()1;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m68\">MyCl</a>\n" +
+                " $int <a name=\"m45\">v</a>()1;\n" +
+                "}\n" +
+                "$public $class <a name=\"m68\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report184Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" ONE{};\n");
+        xml_.append(" MySub(){}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m69\">MyCl</a>\n" +
+                " <a name=\"m34\">ONE</a>{};\n" +
+                " <a name=\"m42\">MySub(</a>){}\n" +
+                "}\n" +
+                "$public $class <a name=\"m69\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report185Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" ONE(1){($int i){}};\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl{\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m71\">MyCl</a>\n" +
+                " <a name=\"m34\" title=\"pkg.MySub-ONE.pkg.MySub-ONE($int)\" href=\"#m41\">ONE</a>(1){<a name=\"m41\">(</a>$int <a name=\"m47\">i</a>){}};\n" +
+                "}\n" +
+                "$public $class <a name=\"m71\">pkg.MyCl</a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report186Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" $void m(){\n");
+        xml_.append("  $var i=0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"The type MyCl is unknown.\" class=\"e\">MyCl</a>\n" +
+                " $void <a name=\"m41\">m</a>(){\n" +
+                "  <b title=\"$int\">$var</b> <a name=\"m53\">i</a>=0;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report187Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $void m(){\n");
+        xml_.append("  $var i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $void <a name=\"m34\">m</a>(){\n" +
+                "  <a title=\"The inferring type $var is not defined for the variables i.\" class=\"e\">$var</a> <a name=\"m46\">i</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report188Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" @MyCl\n");
+        xml_.append(" $void m(){\n");
+        xml_.append("  $for($var i=0;;){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"The type MyCl is unknown.\" class=\"e\">MyCl</a>\n" +
+                " $void <a name=\"m41\">m</a>(){\n" +
+                "  $for(<b title=\"$int\">$var</b> <a name=\"m58\">i</a>=0;;){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report189Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $void m(){\n");
+        xml_.append("  $for($var i;;){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $void <a name=\"m34\">m</a>(){\n" +
+                "  $for(<a title=\"The inferring type $var is not defined for the variables i.\" class=\"e\">$var</a> <a name=\"m51\">i</a>;;){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
         validate(cont_,files_);
         assertTrue(!cont_.isEmptyErrors());

@@ -25,6 +25,7 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
 
     private int finalVariableOffset;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private String errInf = EMPTY_STRING;
 
     public DeclareVariable(OffsetBooleanInfo _finalVar, OffsetStringInfo _className, OffsetsBlock _offset) {
         super(_offset);
@@ -95,5 +96,13 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public String getErrInf() {
+        return errInf;
+    }
+
+    public void setErrInf(String _errInf) {
+        errInf = _errInf;
     }
 }

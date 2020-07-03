@@ -58,6 +58,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private OperationNode rootStep;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private String errInf = EMPTY_STRING;
 
     public ForMutableIterativeLoop(ContextEl _importingPage,
                                    OffsetBooleanInfo _final,
@@ -224,11 +225,15 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (page_.isMerged()) {
             StringList vars_ = _cont.getAnalyzing().getVariablesNames();
-            AffectationOperation.processInferLoop(_cont, importedClassName);
+            errInf = AffectationOperation.processInferLoop(_cont, importedClassName);
             getVariableNames().addAllElts(vars_);
         }
         page_.setMerged(false);
         page_.setAcceptCommaInstr(false);
+    }
+
+    public String getErrInf() {
+        return errInf;
     }
 
     private void processVariables(ContextEl _cont) {

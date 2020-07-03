@@ -29,6 +29,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
     private StringMap<AnnotationTypeInfo> fieldNames = new StringMap<AnnotationTypeInfo>();
     private boolean array;
 
+    private CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public AnnotationInstanceOperation(int _index,
@@ -128,12 +129,15 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         if (isIntermediateDottedOperation()){
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex()+off_;
+            un_.setIndexFile(i_);
             un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //first separator char
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     _conf.getStandards().getAliasObject());
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
+            partOffsetsErr.add(new PartOffset("</a>",i_+1));
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }
@@ -188,11 +192,14 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         if (StringList.quickEq(className, objCl_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + StringList.getFirstPrintableCharIndex(methodName);
+            call_.setIndexFile(i_);
             //text header after @
             call_.buildError(_conf.getAnalysisMessages().getIllegalCtorAnnotation(),
                     methodName.trim().substring(AROBASE.length()).trim());
             _conf.getAnalyzing().getLocalizer().addError(call_);
+            partOffsetsErr.add(new PartOffset("<a title=\""+call_.getBuiltError()+"\" class=\"e\">",i_));
+            partOffsetsErr.add(new PartOffset("</a>",i_+1));
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
@@ -363,5 +370,9 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public CustList<PartOffset> getPartOffsetsErr() {
+        return partOffsetsErr;
     }
 }
