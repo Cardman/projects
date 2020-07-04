@@ -92,6 +92,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         cast_.buildError(_stds.getAnalysisMessages().getUnexpectedType(),
                 itype_);
         _stds.addError(cast_);
+        addNameErrors(cast_);
     }
 
     public String getDefaultValue() {
@@ -147,6 +148,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
                     StringList.join(arg_.getNames(),"&"),
                     import_);
             _cont.addError(cast_);
+            addNameErrors(cast_);
         }
         if (PrimitiveTypeUtil.isPrimitive(import_, _cont)) {
             ops_.last().getResultClass().setUnwrapObject(import_);

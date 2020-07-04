@@ -127,8 +127,12 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
     @Override
     public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        if (array) {
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+        } else {
+            int off_ = StringList.getFirstPrintableCharIndex(methodName);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        }
         if (isIntermediateDottedOperation()){
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
@@ -148,8 +152,10 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             map_ = new StringMap<StringList>();
             String eltType_ = StringExpUtil.getQuickComponentType(className);
             if (eltType_ == null) {
+                IntTreeMap<String> operators_ = getOperations().getOperators();
+                int offFirstOp_ = operators_.firstKey();
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex()+offFirstOp_;
                 un_.setIndexFile(i_);
                 un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 //first separator char
