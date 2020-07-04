@@ -32,7 +32,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
 
     private CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
-    private CustList<CustList<PartOffset>> partOffsetsChildren = new CustList<CustList<PartOffset>>();
 
     public AnnotationInstanceOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -171,7 +170,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             mapping_.setParam(eltType_);
             StringList errs_ = new StringList();
             for (OperationNode o: chidren_) {
-                int index_ = partOffsetsChildren.size();
+                int index_ = getPartOffsetsChildren().size();
                 IntTreeMap<String> operators_ = getOperations().getOperators();
                 o.setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _conf);
                 int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
@@ -196,7 +195,15 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     o.getResultClass().setUnwrapObject(eltType_);
                     o.cancelArgument();
                 }
-                partOffsetsChildren.add(parts_);
+                getPartOffsetsChildren().add(parts_);
+            }
+            IntTreeMap<String> operators_ = getOperations().getOperators();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.lastKey(), _conf);
+            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            StringList deep_ = getErrs();
+            if (!deep_.isEmpty()) {
+                getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
+                getPartOffsetsEnd().add(new PartOffset("</a>",i_+1));
             }
             setResultClass(new ClassArgumentMatching(className));
             return;
@@ -396,7 +403,4 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         return partOffsetsErr;
     }
 
-    public CustList<CustList<PartOffset>> getPartOffsetsChildren() {
-        return partOffsetsChildren;
-    }
 }

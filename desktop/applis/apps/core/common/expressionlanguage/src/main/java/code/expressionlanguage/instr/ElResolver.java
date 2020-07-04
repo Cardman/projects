@@ -102,11 +102,13 @@ public final class ElResolver {
 
     public static Delimiters checkSyntax(String _string, ContextEl _conf, int _elOffest) {
         Delimiters d_ = new Delimiters();
+        d_.setLength(_string.length());
         return commonCheck(_string, _conf, _elOffest, new FullFieldRetriever(d_,_string,_conf), d_);
     }
 
     static Delimiters checkSyntaxQuick(String _string, ContextEl _conf) {
         Delimiters d_ = new Delimiters();
+        d_.setLength(_string.length());
         return commonCheck(_string, _conf, 0, new QuickFieldRetriever(d_), d_);
     }
     private static Delimiters commonCheck(String _string, ContextEl _conf, int _minIndex, FieldRetriever _ret, Delimiters _d) {

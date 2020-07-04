@@ -3482,6 +3482,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         xml_.append("  a=$($int[]){};\n");
         xml_.append("  $new CharSequence[]{};\n");
         xml_.append("  $new CharSequence(){};\n");
+        xml_.append("  ($new CharSequence(){});\n");
         xml_.append("  $new $iterable<>(){};\n");
         xml_.append("  $class($int)+{};\n");
         xml_.append("  $throw {};\n");

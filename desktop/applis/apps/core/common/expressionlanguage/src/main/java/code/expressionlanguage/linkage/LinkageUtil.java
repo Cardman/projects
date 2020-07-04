@@ -1857,6 +1857,20 @@ public final class LinkageUtil {
                 }
             }
         }
+        StringList errEmpt_ = new StringList();
+        if (MethodOperation.isEmptyError(val_)&&val_.getParent() == null) {
+            MethodOperation.addEmptyError(val_,errEmpt_);
+        }
+        if (!errEmpt_.isEmpty()) {
+            int off_ = val_.getOperations().getOffset();
+            int begin_ = sum_ + off_ + val_.getIndexInEl();
+            _parts.add(new PartOffset("<a title=\""+transform(StringList.join(errEmpt_,"\n\n"))+"\" class=\"e\">",begin_));
+            _parts.add(new PartOffset("</a>",begin_+val_.getOperations().getDelimiter().getLength()));
+        }
+        if (val_ instanceof BadTernaryOperation) {
+            BadTernaryOperation b_ = (BadTernaryOperation) val_;
+            _parts.addAllElts(b_.getPartOffsetsEnd());
+        }
         processNamedFct(_cont, currentFileName_, sum_, val_, _parts);
         processVariables(_cont, _vars,_offsetBlock, _block, sum_, val_, _parts);
         processConstants(sum_, val_, _parts);
@@ -2399,6 +2413,10 @@ public final class LinkageUtil {
                                     OperationNode nextSiblingOp_,
                                     MethodOperation parent_,
                                     CustList<PartOffset> _parts) {
+        if (curOp_.getIndexChild() == 0 && parent_ instanceof AbstractTernaryOperation) {
+            AbstractTernaryOperation ab_ = (AbstractTernaryOperation) parent_;
+            _parts.addAllElts(ab_.getPartOffsetsEnd());
+        }
         processCat(_cont, offsetEnd_, curOp_, nextSiblingOp_, parent_, _parts);
         processCustomOperator(_cont, currentFileName_, offsetEnd_, parent_, _parts);
         processCompoundAffLeftOp(_cont, currentFileName_, offsetEnd_, nextSiblingOp_, parent_, _parts);
@@ -2527,6 +2545,9 @@ public final class LinkageUtil {
                               CustList<PartOffset> _parts) {
         processRightIndexer(_cont, currentFileName_, offsetEnd_, parent_, _parts);
         processUnaryRightOperations(_cont, currentFileName_, offsetEnd_, parent_, _parts);
+        if (parent_ instanceof AnnotationInstanceOperation) {
+            _parts.addAllElts(parent_.getPartOffsetsEnd());
+        }
     }
 
     private static void processRightIndexer(ContextEl _cont, String currentFileName_, int offsetEnd_, MethodOperation parentOp_, CustList<PartOffset> _parts) {

@@ -4,6 +4,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IntTreeMap;
@@ -30,6 +32,11 @@ public final class BadTernaryOperation extends MethodOperation {
                 _conf.getKeyWords().getKeyWordBool()
         );
         _conf.getAnalyzing().getLocalizer().addError(badNb_);
+        getErrs().add(badNb_.getBuiltError());
+        StringList deep_ = getErrs();
+        int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+        getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
+        getPartOffsetsEnd().add(new PartOffset("</a>",i_+_conf.getKeyWords().getKeyWordBool().length()));
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
 

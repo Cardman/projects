@@ -270,7 +270,7 @@ public final class ElUtil {
         OperationNode current_ = _current;
         while (true) {
             _context.getAnalyzing().setOkNumOp(true);
-            current_.analyze(_context);
+            retrieveErrorsAnalyze(_context, current_);
             current_.setOrder(_sortedNodes.size());
             tryCalculateNode(_context, current_);
             _sortedNodes.add(current_);
@@ -283,7 +283,7 @@ public final class ElUtil {
             }
             if (par_ == _root) {
                 _context.getAnalyzing().setOkNumOp(true);
-                par_.analyze(_context);
+                retrieveErrorsAnalyze(_context, par_);
                 ClassArgumentMatching cl_ = par_.getResultClass();
                 unwrapPrimitive(_context, par_, cl_);
                 tryCalculateNode(_context,par_);
@@ -296,6 +296,13 @@ public final class ElUtil {
             }
             current_ = par_;
         }
+    }
+
+    public static void retrieveErrorsAnalyze(ContextEl _context, OperationNode _current) {
+        if (_current instanceof MethodOperation) {
+            ((MethodOperation) _current).retrieveErrs();
+        }
+        _current.analyze(_context);
     }
 
     private static void unwrapPrimitive(ContextEl _context, MethodOperation _par, ClassArgumentMatching _cl) {

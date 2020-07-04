@@ -9,6 +9,8 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.analyze.inherits.ResultTernary;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
@@ -79,6 +81,13 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(clMatch_.getNames(),"&"));
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            getErrs().add(un_.getBuiltError());
+        }
+        StringList deep_ = getErrs();
+        if (!deep_.isEmpty()) {
+            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
+            getPartOffsetsEnd().add(new PartOffset("</a>",i_+1));
         }
         opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
         opOne_.cancelArgument();

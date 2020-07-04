@@ -102,7 +102,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
                 OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
                 OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);
-                op_.analyze(_cont);
+                ElUtil.retrieveErrorsAnalyze(_cont,op_);
                 page_.setLookLocalClass(EMPTY_STRING);
                 op_.setOrder(0);
                 root = op_;
