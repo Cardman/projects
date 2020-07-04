@@ -203,9 +203,11 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
             cast_.setIndexFile(_offset);
             //char before expression
             cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
-                    StringList.join(_elementClass.getNames(),"&"),
-                    StringList.join(_stepEl.getResultClass().getNames(),"&"));
+                    StringList.join(_stepEl.getResultClass().getNames(),"&"),
+                    StringList.join(_elementClass.getNames(),"&"));
             _cont.addError(cast_);
+            setReachableError(true);
+            getErrorsBlock().add(cast_.getBuiltError());
         }
     }
 
@@ -222,6 +224,8 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
             cast_.buildError(_cont.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
             _cont.addError(cast_);
+            setReachableError(true);
+            getErrorsBlock().add(cast_.getBuiltError());
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
@@ -236,6 +240,8 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
             cast_.buildError(_cont.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassName);
             _cont.addError(cast_);
+            setReachableError(true);
+            getErrorsBlock().add(cast_.getBuiltError());
         }
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);

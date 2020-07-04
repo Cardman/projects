@@ -66,10 +66,14 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
 
     private final StringList nameErrorsFirst = new StringList();
     private final StringList nameErrorsSecond = new StringList();
+
+    private int sepOffset;
+    private final StringList sepErrors = new StringList();
+
     public ForEachTable(ContextEl _importingPage,
                         OffsetStringInfo _className, OffsetStringInfo _variable,
                         OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
-                        OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
+                        OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, int _sepOffset) {
         super(_offset);
         classNameFirst = _className.getInfo();
         classNameOffsetFirst = _className.getOffset();
@@ -89,6 +93,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         label = _label.getInfo();
         labelOffset = _label.getOffset();
         classIndexNameOffset = _classIndex.getOffset();
+        sepOffset = _sepOffset;
     }
 
     @Override
@@ -140,6 +145,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
             static_.buildError(_cont.getAnalysisMessages().getNullValue(),
                     _cont.getStandards().getAliasNullPe());
             _cont.addError(static_);
+            sepErrors.add(static_.getBuiltError());
         } else {
             StringList names_ = _el.getNames();
             StringList out_ = getCustomType(names_, _cont);
@@ -169,6 +175,8 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
             cast_.buildError(_cont.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
             _cont.addError(cast_);
+            setReachableError(true);
+            getErrorsBlock().add(cast_.getBuiltError());
         }
         if (_cont.getAnalyzing().containsVar(variableNameFirst)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
@@ -282,6 +290,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
                             paramArg_,
                             importedClassNameFirst);
                     _cont.addError(cast_);
+                    sepErrors.add(cast_.getBuiltError());
                 }
             }
             mapping_ = new Mapping();
@@ -309,6 +318,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
                             paramArg_,
                             importedClassNameSecond);
                     _cont.addError(cast_);
+                    sepErrors.add(cast_.getBuiltError());
                 }
             }
         } else {
@@ -323,6 +333,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
                     _cont.getStandards().getAliasObject(),
                     _cont.getStandards().getAliasIterableTable());
             _cont.addError(cast_);
+            sepErrors.add(cast_.getBuiltError());
         }
     }
 
@@ -430,5 +441,13 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
 
     public StringList getNameErrorsSecond() {
         return nameErrorsSecond;
+    }
+
+    public int getSepOffset() {
+        return sepOffset;
+    }
+
+    public StringList getSepErrors() {
+        return sepErrors;
     }
 }

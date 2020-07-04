@@ -94,6 +94,8 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             un_.buildError(_cont.getAnalysisMessages().getUnknownType(),
                     type_);
             _cont.addError(un_);
+            setReachableError(true);
+            getErrorsBlock().add(un_.getBuiltError());
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
             if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
@@ -106,6 +108,8 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                         un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
                                 id_);
                         _cont.addError(un_);
+                        setReachableError(true);
+                        getErrorsBlock().add(un_.getBuiltError());
                     } else {
                         enumTest = true;
                     }

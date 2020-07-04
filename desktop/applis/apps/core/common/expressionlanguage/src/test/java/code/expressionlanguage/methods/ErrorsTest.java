@@ -415,7 +415,9 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The type cannot be the key word $void.\n" +
                 "\n" +
-                "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:<a title=\"The type $void is unknown.\" class=\"e\">$void</a> {\n" +
+                "The type cannot be the key word $void.\n" +
+                "\n" +
+                "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:$void {\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -1321,7 +1323,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
-                "  $if <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
+                "  <a title=\"The type java.lang.Object is unexpected.\" class=\"e\">$if</a> <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -1349,7 +1351,7 @@ public class ErrorsTest extends ProcessMethodCommon {
                 " $int <a name=\"m33\">v</a> = 1;\n" +
                 " $public $int <a name=\"m54\">method</a>() {\n" +
                 "  $if (<a title=\"pkg.MySub.v\" href=\"#m33\">v</a>==<a title=\"pkg.MySub.v\" href=\"#m33\">v</a>){\n" +
-                "  }$else $if <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
+                "  }$else <a title=\"The type java.lang.Object is unexpected.\" class=\"e\">$if</a> <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -1373,7 +1375,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
-                "  $while <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
+                "  <a title=\"The type java.lang.Object is unexpected.\" class=\"e\">$while</a> <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -1398,7 +1400,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  $do{}\n" +
-                "  $while <a title=\"There must be an expression.\" class=\"e\">(</a>);\n" +
+                "  <a title=\"The type java.lang.Object is unexpected.\" class=\"e\">$while</a> <a title=\"There must be an expression.\" class=\"e\">(</a>);\n" +
                 "  $return 1;\n" +
                 " }\n" +
                 "}\n" +
@@ -1442,7 +1444,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
-                "  $switch <a title=\"There must be an expression.\" class=\"e\">(</a>){}\n" +
+                "  <a title=\"The type java.lang.Object is unexpected.\" class=\"e\">$switch</a> <a title=\"There must be an expression.\" class=\"e\">(</a>){}\n" +
                 "  $return 1;\n" +
                 " }\n" +
                 "}\n" +
@@ -1831,7 +1833,7 @@ public class ErrorsTest extends ProcessMethodCommon {
                 " $int <a name=\"m33\">v</a> = 1;\n" +
                 " $public $int <a name=\"m54\">method</a>() {\n" +
                 "  $if (<a title=\"pkg.MySub.v\" href=\"#m33\">v</a>==<a title=\"pkg.MySub.v\" href=\"#m33\">v</a>){\n" +
-                "  }$elseif <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
+                "  }<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">$elseif</a> <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
                 "  }\n" +
                 "  $return 1;\n" +
                 " }\n" +
@@ -2329,7 +2331,9 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
-                "  <a title=\"There must be an expression.\" class=\"e\">$return</a>;\n" +
+                "  <a title=\"There must be an expression.\n" +
+                "\n" +
+                "The type java.lang.Object cannot be implicitly cast to $int\" class=\"e\">$return</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2489,7 +2493,11 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
-                "  <a title=\"Bad index by parsing.\" class=\"e\">$iter</a>($int <a name=\"m66\">i</a>=0;;){}\n" +
+                "  <a title=\"Bad index by parsing.\n" +
+                "\n" +
+                "The type java.lang.Object cannot be implicitly cast to $int\n" +
+                "\n" +
+                "The type java.lang.Object cannot be implicitly cast to $int\" class=\"e\">$iter</a>($int <a name=\"m66\">i</a>=0;;){}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -4173,7 +4181,9 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " {\n" +
-                "  <a title=\"Bad index by parsing.\" class=\"e\">$if</a><a title=\"There must be an expression.\" class=\"e\"> </a>{\n" +
+                "  <a title=\"Bad index by parsing.\n" +
+                "\n" +
+                "The type java.lang.Object is unexpected.\" class=\"e\">$if</a><a title=\"There must be an expression.\" class=\"e\"> </a>{\n" +
                 "  }\n" +
                 " }\n" +
                 "}\n" +
@@ -5570,6 +5580,408 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
                 " Object <a name=\"m42\" title=\"The type java.lang.Object is unexpected.\" class=\"e\">m</a>() <a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>};\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report280Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass<T:> {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"There must be a type.\n" +
+                "\n" +
+                "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>&lt;<a name=\"m27\">T</a>:&gt; {\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report281Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass:: {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The super types of the type pkg.MyClass could not be found.\n" +
+                "\n" +
+                "There must be a type.\n" +
+                "\n" +
+                "There must be a type.\n" +
+                "\n" +
+                "The type java.lang.Object is not parameterized correctly.\n" +
+                "\n" +
+                "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:: {\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report282Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass: {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The super types of the type pkg.MyClass could not be found.\n" +
+                "\n" +
+                "There must be a type.\n" +
+                "\n" +
+                "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>: {\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report283Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $for(;1;){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  <a title=\"The type $int is unexpected.\" class=\"e\">$for</a>(;1;){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report284Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $iter(String s=\"\";1;1){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  <a title=\"The type java.lang.String is not a primitive type or a wrapper type.\n" +
+                "\n" +
+                "The type $int cannot be implicitly cast to java.lang.String\n" +
+                "\n" +
+                "The type $int cannot be implicitly cast to java.lang.String\" class=\"e\">$iter</a>(String <a name=\"m47\">s</a>=<span class=\"s\">\"\"</span>;1;1){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report285Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $for[String](;;){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  <a title=\"The type java.lang.Object is not a primitive type or a wrapper type.\" class=\"e\">$for</a>[String](;;){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report286Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $iter[String]($int s=0;1;1){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  <a title=\"The type java.lang.Object is not a primitive type or a wrapper type.\" class=\"e\">$iter</a>[String]($int <a name=\"m53\">s</a>=0;1;1){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report287Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $switch($null){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  <a title=\"The type  is unknown.\" class=\"e\">$switch</a>($null){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report288Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $for[String]($int i:{}){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  <a title=\"The type java.lang.Object is not a primitive type or a wrapper type.\" class=\"e\">$for</a>[String]($int <a name=\"m52\">i</a>:{}){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report289Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $iterableTable<$int,$int> it = $null;\n");
+        xml_.append("  $for[String]($int i,$int j:it){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  $iterableTable&lt;$int,$int&gt; <a name=\"m60\">it</a> = $null;\n" +
+                "  <a title=\"The type java.lang.Object is not a primitive type or a wrapper type.\" class=\"e\">$for</a>[String]($int <a name=\"m92\">i</a>,$int <a name=\"m99\">j</a>:<a href=\"#m60\">it</a>){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report290Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $for($int i:$new String[]{\"\"}){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  $for($int <a name=\"m44\">i</a><a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">:</a>$new String[]{<span class=\"s\">\"\"</span>}){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report291Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $iterable<String> it = $null;\n");
+        xml_.append("  $for($int i:it){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  $iterable&lt;String&gt; <a name=\"m52\">it</a> = $null;\n" +
+                "  $for($int <a name=\"m76\">i</a><a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">:</a><a href=\"#m52\">it</a>){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report292Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  String it = $null;\n");
+        xml_.append("  $for($int i:it){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  String <a name=\"m41\">it</a> = $null;\n" +
+                "  $for($int <a name=\"m65\">i</a><a title=\"The type java.lang.Object cannot be implicitly cast to java.lang.$iterable\" class=\"e\">:</a><a href=\"#m41\">it</a>){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report293Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $iterableTable<String,String> it = $null;\n");
+        xml_.append("  $for($int i,$int j:it){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  $iterableTable&lt;String,String&gt; <a name=\"m64\">it</a> = $null;\n" +
+                "  $for($int <a name=\"m88\">i</a>,$int <a name=\"m95\">j</a><a title=\"The type java.lang.String cannot be implicitly cast to $int\n" +
+                "\n" +
+                "The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">:</a><a href=\"#m64\">it</a>){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report294Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  String it = $null;\n");
+        xml_.append("  $for($int i,$int j:it){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  String <a name=\"m41\">it</a> = $null;\n" +
+                "  $for($int <a name=\"m65\">i</a>,$int <a name=\"m72\">j</a><a title=\"The type java.lang.Object cannot be implicitly cast to java.lang.$iterableTable\" class=\"e\">:</a><a href=\"#m41\">it</a>){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report295Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $for($int i,$int j:$null){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  $for($int <a name=\"m44\">i</a>,$int <a name=\"m51\">j</a><a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\" class=\"e\">:</a>$null){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report296Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $for($int i:($int[])$null){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  $for($int <a name=\"m44\">i</a><a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\" class=\"e\">:</a>($int[])$null){\n" +
+                "  }\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report297Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $for($int i:($iterable<$int>)$null){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  $for($int <a name=\"m44\">i</a><a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\" class=\"e\">:</a>($iterable&lt;$int&gt;)$null){\n" +
+                "  }\n" +
+                " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }

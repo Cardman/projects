@@ -2591,6 +2591,7 @@ public final class FileResolver {
             int endIndex_ = exp_.lastIndexOf(END_CALLING);
             String variable_ = "";
             int expOffset_ = varOffset_;
+            int setOff_ = expOffset_-1;
             if (forBlocks_ < 0 || endIndex_ < forBlocks_ + 1) {
                 ok_ = false;
             } else {
@@ -2598,6 +2599,7 @@ public final class FileResolver {
                 varOffset_ += StringList.getFirstPrintableCharIndex(variable_);
                 expOffset_ = varOffset_;
                 expOffset_ += forBlocks_;
+                setOff_ = expOffset_-1;
                 exp_ = exp_.substring(forBlocks_ + 1, endIndex_);
                 expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
             }
@@ -2606,7 +2608,7 @@ public final class FileResolver {
                 br_ = new ForEachLoop(_context, new OffsetStringInfo(typeOffset_, declaringType_.trim()),
                         new OffsetStringInfo(varOffset_, variableName_),
                         new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation),setOff_);
             } else {
                 int nextIndexVar_ = variableName_.indexOf(',');
                 String firstVar_ = "";
@@ -2630,7 +2632,7 @@ public final class FileResolver {
                         new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, firstVar_),
                         new OffsetStringInfo(secType_, declaringTypeSec_.trim()), new OffsetStringInfo(secVarOff_, secVar_),
                         new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation),setOff_);
             }
             br_.setBegin(_instructionLocation);
             br_.setLengthHeader(keyWordForeach_.length());
@@ -2817,13 +2819,14 @@ public final class FileResolver {
                         varOffset_ += StringList.getFirstPrintableCharIndex(init_);
                         int expOffset_ = varOffset_;
                         expOffset_ += init_.length();
+                        int setOff_ = expOffset_-1;
                         expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
                         label_ = label_.substring(lastPar_ + 1);
                         labelOff_ += getLabelOffset(label_);
                         br_ = new ForEachLoop(_context, new OffsetStringInfo(typeOffset_, declaringType_.trim()),
                                 new OffsetStringInfo(varOffset_, variableName_), new OffsetStringInfo(expOffset_, exp_.trim()),
                                 new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation),setOff_);
                         _currentParent.appendChild(br_);
                     } else {
                         int nextIndexVar_ = variableName_.indexOf(',');
@@ -2847,12 +2850,13 @@ public final class FileResolver {
                                 label_ = label_.substring(lastPar_ + 1);
                                 labelOff_ += getLabelOffset(label_);
                                 exp_ = exp_.substring(init_.length()+1);
+                                int setOff_ = expOffset_-1;
                                 expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
                                 br_ = new ForEachTable(_context,
                                         new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, firstVar_),
                                         new OffsetStringInfo(secType_, declaringTypeSec_.trim()), new OffsetStringInfo(secVarOff_, secVar_),
                                         new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
+                                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation),setOff_);
                                 _currentParent.appendChild(br_);
                             }
                         }

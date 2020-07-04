@@ -130,6 +130,8 @@ public final class ReturnMethod extends AbruptBlock {
                         StringList.join(reClass_.getNames(), "&"),
                         _retType);
                 _cont.addError(cast_);
+                setReachableError(true);
+                getErrorsBlock().add(cast_.getBuiltError());
             }
 
         }

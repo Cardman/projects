@@ -951,6 +951,14 @@ public final class LinkageUtil {
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
         }
+        if (!_cond.getSepErrors().isEmpty()) {
+            String err_ = transform(StringList.join(_cond.getSepErrors(),"\n\n"));
+            String tag_;
+            tag_ = "<a title=\""+err_+"\" class=\"e\">";
+            _parts.add(new PartOffset(tag_, _cond.getSepOffset()));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_, _cond.getSepOffset() + 1));
+        }
         int off_ = _cond.getExpressionOffset();
         buildErrorReport(_cont,_vars,off_,_cond,_cond.getRoot(),_parts);
         _vars.getLoopVars().put(_cond.getVariableName(), _cond.getVariableNameOffset());
@@ -1053,6 +1061,14 @@ public final class LinkageUtil {
             _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond()));
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_, _cond.getVariableNameOffsetSecond() + _cond.getVariableNameSecond().length()));
+        }
+        if (!_cond.getSepErrors().isEmpty()) {
+            String err_ = transform(StringList.join(_cond.getSepErrors(),"\n\n"));
+            String tag_;
+            tag_ = "<a title=\""+err_+"\" class=\"e\">";
+            _parts.add(new PartOffset(tag_, _cond.getSepOffset()));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_, _cond.getSepOffset() + 1));
         }
         int off_ = _cond.getExpressionOffset();
         buildErrorReport(_cont,_vars,off_,_cond,_cond.getRoot(),_parts);

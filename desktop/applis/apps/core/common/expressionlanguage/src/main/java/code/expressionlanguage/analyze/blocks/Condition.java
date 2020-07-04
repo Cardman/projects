@@ -69,6 +69,8 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
             un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(_elCondition.getResultClass().getNames(),"&"));
             _cont.addError(un_);
+            setReachableError(true);
+            getErrorsBlock().add(un_.getBuiltError());
         }
         _elCondition.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
     }

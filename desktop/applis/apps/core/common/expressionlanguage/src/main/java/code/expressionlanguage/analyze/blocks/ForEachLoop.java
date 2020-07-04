@@ -46,6 +46,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
 
     private final String expression;
 
+    private int sepOffset;
     private int expressionOffset;
 
     private Argument argument;
@@ -54,10 +55,11 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     private final StringList nameErrors = new StringList();
+    private final StringList sepErrors = new StringList();
 
     public ForEachLoop(ContextEl _importingPage,
                        OffsetStringInfo _className, OffsetStringInfo _variable,
-                       OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
+                       OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset, int _sepOffset) {
         super(_offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -73,6 +75,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         label = _label.getInfo();
         labelOffset = _label.getOffset();
         classIndexNameOffset = _classIndex.getOffset();
+        sepOffset = _sepOffset;
     }
 
     public String getLabel() {
@@ -145,6 +148,8 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             cast_.buildError(_cont.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
             _cont.addError(cast_);
+            setReachableError(true);
+            getErrorsBlock().add(cast_.getBuiltError());
         }
         if (_cont.getAnalyzing().containsVar(variableName)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
@@ -210,6 +215,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
                 cast_.buildError(_cont.getAnalysisMessages().getUnknownType(),
                         className.trim());
                 _cont.addError(cast_);
+                sepErrors.add(cast_.getBuiltError());
             } else {
                 mapping_.setArg(compo_);
                 mapping_.setParam(importedClassName);
@@ -224,6 +230,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
                             StringList.join(compo_.getNames(),"&"),
                             importedClassName);
                     _cont.addError(cast_);
+                    sepErrors.add(cast_.getBuiltError());
                 }
             }
         }
@@ -256,6 +263,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             static_.buildError(_cont.getAnalysisMessages().getNullValue(),
                     _cont.getStandards().getAliasNullPe());
             _cont.addError(static_);
+            sepErrors.add(static_.getBuiltError());
         } else {
             if (_elt.isArray()) {
                 inferArrayClass(_cont, _elt);
@@ -302,6 +310,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
                             paramArg_,
                             importedClassName);
                     _cont.addError(cast_);
+                    sepErrors.add(cast_.getBuiltError());
                 }
             }
         } else {
@@ -313,6 +322,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
                     _cont.getStandards().getAliasObject(),
                     _cont.getStandards().getAliasIterable());
             _cont.addError(cast_);
+            sepErrors.add(cast_.getBuiltError());
         }
     }
 
@@ -344,5 +354,13 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
 
     public StringList getNameErrors() {
         return nameErrors;
+    }
+
+    public int getSepOffset() {
+        return sepOffset;
+    }
+
+    public StringList getSepErrors() {
+        return sepErrors;
     }
 }

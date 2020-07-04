@@ -21,8 +21,19 @@ public final class ResolvingSuperTypes {
     /**Used at building mapping constraints*/
     public static AnaResultPartType resolveTypeMapping(ContextEl _context, String _in, RootBlock _ana, ExecRootBlock _currentBlock,
                                                        int _location) {
+        String tr_ = _in.trim();
+        if (tr_.isEmpty()) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_currentBlock.getFile().getFileName());
+            un_.setIndexFile(_location);
+            //_in len
+            un_.buildError(_context.getAnalysisMessages().getEmptyType());
+            _context.addError(un_);
+            _ana.addNameErrors(un_);
+            return new AnaResultPartType(_context.getStandards().getAliasObject(),null);
+        }
         String void_ = _context.getStandards().getAliasVoid();
-        if (StringList.quickEq(_in.trim(), void_)) {
+        if (StringList.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setIndexFile(_location);
@@ -72,6 +83,29 @@ public final class ResolvingSuperTypes {
     /**Used at building mapping constraints*/
     public static AnaResultPartType resolveTypeInherits(ContextEl _context, String _in, RootBlock _ana, ExecRootBlock _currentBlock,
                                                         int _location, CustList<PartOffset> _partOffsets) {
+        String tr_ = _in.trim();
+        if (tr_.isEmpty()) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_currentBlock.getFile().getFileName());
+            un_.setIndexFile(_location);
+            //_in len
+            un_.buildError(_context.getAnalysisMessages().getEmptyType());
+            _context.addError(un_);
+            _ana.addNameErrors(un_);
+            return new AnaResultPartType(_context.getStandards().getAliasObject(),null);
+        }
+        String void_ = _context.getStandards().getAliasVoid();
+        if (StringList.quickEq(tr_, void_)) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_currentBlock.getFile().getFileName());
+            un_.setIndexFile(_location);
+            //_in len
+            un_.buildError(_context.getAnalysisMessages().getVoidType(),
+                    void_);
+            _context.addError(un_);
+            _ana.addNameErrors(un_);
+            return new AnaResultPartType(_context.getStandards().getAliasObject(),null);
+        }
         StringMap<Integer> variables_ = new StringMap<Integer>();
         for (RootBlock r: _ana.getSelfAndParentTypes()) {
             for (TypeVar t: r.getParamTypes()) {
