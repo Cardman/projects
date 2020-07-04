@@ -32,6 +32,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
 
     private CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private CustList<CustList<PartOffset>> partOffsetsChildren = new CustList<CustList<PartOffset>>();
 
     public AnnotationInstanceOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -163,30 +164,34 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             Mapping mapping_ = new Mapping();
             mapping_.setParam(eltType_);
             StringList errs_ = new StringList();
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _conf);
             for (OperationNode o: chidren_) {
+                int index_ = partOffsetsChildren.size();
+                IntTreeMap<String> operators_ = getOperations().getOperators();
+                o.setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _conf);
+                int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                CustList<PartOffset> parts_ = new CustList<PartOffset>();
                 ClassArgumentMatching argType_ = o.getResultClass();
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    cast_.setIndexFile(i_);
                     //first separator char child
                     cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(argType_.getNames(),"&"),
                             eltType_);
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
+                    parts_.add(new PartOffset("</a>",i_+1));
                     errs_.add(cast_.getBuiltError());
                 }
                 if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
                     o.getResultClass().setUnwrapObject(eltType_);
                     o.cancelArgument();
                 }
+                partOffsetsChildren.add(parts_);
             }
-            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
-            partOffsetsErr.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(errs_,"\n\n")) +"\" class=\"e\">",i_));
-            partOffsetsErr.add(new PartOffset("</a>",i_+1));
             setResultClass(new ClassArgumentMatching(className));
             return;
         }
@@ -383,5 +388,9 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
 
     public CustList<PartOffset> getPartOffsetsErr() {
         return partOffsetsErr;
+    }
+
+    public CustList<CustList<PartOffset>> getPartOffsetsChildren() {
+        return partOffsetsChildren;
     }
 }

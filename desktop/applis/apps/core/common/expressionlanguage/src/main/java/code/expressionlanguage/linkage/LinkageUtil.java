@@ -1827,6 +1827,15 @@ public final class LinkageUtil {
                                   int sum_,
                                   OperationNode val_,
                                   CustList<PartOffset> _parts, String _currentFileName) {
+        if (val_.getParent() instanceof AnnotationInstanceOperation) {
+            AnnotationInstanceOperation a_ = (AnnotationInstanceOperation) val_.getParent();
+            if (a_.isArray()) {
+                CustList<CustList<PartOffset>> partOffsetsChildren_ = a_.getPartOffsetsChildren();
+                if (partOffsetsChildren_.isValidIndex(val_.getIndexChild())) {
+                    _parts.addAllElts(partOffsetsChildren_.get(val_.getIndexChild()));
+                }
+            }
+        }
         processNamedFct(_cont, currentFileName_, sum_, val_, _parts);
         processVariables(_cont, _vars,_offsetBlock, _block, sum_, val_, _parts);
         processConstants(sum_, val_, _parts);
