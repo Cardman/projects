@@ -32,16 +32,19 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     private String defaultValue;
     private OperationNode root;
     private int defaultValueOffset;
+    private int rightPar;
+    private boolean ko;
 
     public AnnotationMethodBlock(OffsetStringInfo _retType, OffsetStringInfo _fctName,
                                  OffsetStringInfo _defaultValue,
-                                 OffsetsBlock _offset) {
+                                 OffsetsBlock _offset, int _rightPar) {
         super(new OffsetAccessInfo(0, AccessEnum.PUBLIC),
                 _retType, _fctName,
                 new StringList(), new Ints(), new StringList(), new Ints(),
                 _offset);
         defaultValue = _defaultValue.getInfo();
         defaultValueOffset = _defaultValue.getOffset();
+        rightPar = _rightPar;
     }
 
     @Override
@@ -153,5 +156,17 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
 
     public OperationNode getRoot() {
         return root;
+    }
+
+    public void setKo() {
+        ko = true;
+    }
+
+    public boolean isKo() {
+        return ko;
+    }
+
+    public int getRightPar() {
+        return rightPar;
     }
 }

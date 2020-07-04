@@ -1338,19 +1338,28 @@ public final class FileResolver {
                         found_ = realFound_;
                         int fieldOffest_ = typeOffset_;
                         fieldOffest_ += declaringType_.trim().length();
-                        fieldOffest_ += StringList.getFirstPrintableCharIndex(found_);
+                        int offFound_ = StringList.getFirstPrintableCharIndex(found_);
+                        fieldOffest_ += offFound_;
                         int indexBeginCalling_ = found_.indexOf(BEGIN_CALLING);
+                        AnnotationMethodBlock annMeth_;
+                        int rightPar_;
                         fieldName_ = found_.substring(0, indexBeginCalling_);
-                        expression_ = found_.substring(found_.indexOf(END_CALLING)+1);
-                        expressionOffest_ = instructionLocation_ + trimmedInstruction_.indexOf(END_CALLING) + 1 + delta_;
+                        rightPar_ = found_.indexOf(END_CALLING,indexBeginCalling_);
+                        expression_ = found_.substring(rightPar_ +1);
+                        expressionOffest_ = fieldOffest_ - offFound_ + rightPar_ + 1;
                         if (!expression_.trim().isEmpty()) {
                             expressionOffest_ += StringList.getFirstPrintableCharIndex(expression_);
                         }
-                        AnnotationMethodBlock annMeth_ = new AnnotationMethodBlock(
+                        annMeth_ = new AnnotationMethodBlock(
                                 new OffsetStringInfo(typeOffset_, declaringType_.trim()),
                                 new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
                                 new OffsetStringInfo(expressionOffest_, expression_.trim()),
-                                new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                new OffsetsBlock(instructionRealLocation_, instructionLocation_),rightPar_);
+                        if (rightPar_ < indexBeginCalling_) {
+                            annMeth_.setKo();
+                        } else if (!found_.substring(indexBeginCalling_+1,rightPar_).trim().isEmpty()){
+                            annMeth_.setKo();
+                        }
                         annMeth_.getAnnotations().addAllElts(annotations_);
                         annMeth_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                         br_ = annMeth_;

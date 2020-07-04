@@ -697,6 +697,16 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             if (method_ instanceof AnnotationMethodBlock) {
                 AnnotationMethodBlock m_ = (AnnotationMethodBlock) method_;
                 m_.buildImportedTypes(_context);
+                if (m_.isKo()) {
+                    int r_ = m_.getNameOffset();
+                    FoundErrorInterpret b_ = new FoundErrorInterpret();
+                    b_.setFileName(getFile().getFileName());
+                    b_.setIndexFile(r_);
+                    //underline index char
+                    b_.buildError(_context.getAnalysisMessages().getBadIndexInParser());
+                    _context.addError(b_);
+                    m_.addNameErrors(b_);
+                }
                 if (!ContextUtil.isValidToken(_context,name_)) {
                     int r_ = m_.getNameOffset();
                     FoundErrorInterpret badMeth_ = new FoundErrorInterpret();

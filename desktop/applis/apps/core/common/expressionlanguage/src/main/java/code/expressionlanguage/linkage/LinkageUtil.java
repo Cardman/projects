@@ -1299,8 +1299,13 @@ public final class LinkageUtil {
     private static void processAnnotationMethodBlockError(VariablesOffsets _vars,AnnotationMethodBlock _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         buildAnnotationsError(_vars,_cond,_cont,_parts);
         _parts.addAllElts(_cond.getPartOffsetsReturn());
-        int begName_ = _cond.getNameOffset();
-        addNameParts(_cond,_parts, begName_, _cond.getName().length());
+        if (_cond.getName().trim().isEmpty()) {
+            int begName_ = _cond.getNameOffset()+ _cond.getRightPar();
+            addNameParts(_cond, _parts, begName_,0);
+        } else {
+            int begName_ = _cond.getNameOffset();
+            addNameParts(_cond, _parts, begName_, _cond.getName().length());
+        }
         if (_cond.getRoot() != null) {
             int blOffset_ = _cond.getDefaultValueOffset();
             buildErrorReport(_cont,_vars,blOffset_,_cond,_cond.getRoot(),_parts);
