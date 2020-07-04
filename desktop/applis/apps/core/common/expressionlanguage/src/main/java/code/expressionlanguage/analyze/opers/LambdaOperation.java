@@ -504,11 +504,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 offset_ ++;
                 offset_ += StringList.getFirstPrintableCharIndex(_args.get(3));
                 String cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,offset_,nameId_);
+                partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
                 if (cl_.isEmpty()) {
                     setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                     return;
                 }
-                partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
                 MethodAccessId acc_ = new MethodAccessId(4);
                 acc_.setupAncestor(_args,4);
                 int ind_ = acc_.getIndex();

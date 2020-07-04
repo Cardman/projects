@@ -60,6 +60,12 @@ public final class ResolvingImportTypes {
             un_.buildError(_analyzable.getAnalysisMessages().getVoidType(),
                     void_);
             _analyzable.getAnalyzing().getLocalizer().addError(un_);
+            CustList<PartOffset> partOffsets_ = _analyzable.getAnalyzing().getCurrentParts();
+            partOffsets_.clear();
+            String err_ = un_.getBuiltError();
+            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            partOffsets_.add(new PartOffset(pref_,rc_));
+            partOffsets_.add(new PartOffset("</a>",rc_+void_.length()));
             return _analyzable.getStandards().getAliasObject();
         }
         AccessedBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
@@ -195,6 +201,21 @@ public final class ResolvingImportTypes {
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex() + _loc;
         String void_ = _analyzable.getStandards().getAliasVoid();
         String tr_ = _in.trim();
+        if (tr_.isEmpty()) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(rc_);
+            //_in len
+            un_.buildError(_analyzable.getAnalysisMessages().getEmptyType());
+            _analyzable.getAnalyzing().getLocalizer().addError(un_);
+            CustList<PartOffset> partOffsets_ = _analyzable.getAnalyzing().getCurrentParts();
+            partOffsets_.clear();
+            String err_ = un_.getBuiltError();
+            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            partOffsets_.add(new PartOffset(pref_,rc_));
+            partOffsets_.add(new PartOffset("</a>",rc_+1));
+            return _analyzable.getStandards().getAliasObject();
+        }
         if (StringList.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -203,6 +224,12 @@ public final class ResolvingImportTypes {
             un_.buildError(_analyzable.getAnalysisMessages().getVoidType(),
                     void_);
             _analyzable.getAnalyzing().getLocalizer().addError(un_);
+            CustList<PartOffset> partOffsets_ = _analyzable.getAnalyzing().getCurrentParts();
+            partOffsets_.clear();
+            String err_ = un_.getBuiltError();
+            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            partOffsets_.add(new PartOffset(pref_,rc_));
+            partOffsets_.add(new PartOffset("</a>",rc_+void_.length()));
             return _analyzable.getStandards().getAliasObject();
         }
         AccessedBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
@@ -242,8 +269,23 @@ public final class ResolvingImportTypes {
 
     public static String resolveAccessibleIdType(ContextEl _analyzable,int _loc,String _in) {
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+        String tr_ = _in.trim();
         String void_ = _analyzable.getStandards().getAliasVoid();
-        if (StringList.quickEq(_in.trim(), void_)) {
+        AccessedBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
+        StringList inners_ = getParts(_analyzable,_in);
+        String firstFull_ = inners_.first();
+        int firstOff_ = StringList.getFirstPrintableCharIndex(firstFull_);
+        String base_ = firstFull_.trim();
+        if (base_.isEmpty()) {
+            firstOff_ = 0;
+        }
+        String res_ = StringExpUtil.removeDottedSpaces(base_);
+        if (_analyzable.getStandards().getStandards().contains(res_)) {
+            return res_;
+        }
+        CustList<PartOffset> partOffsets_ = _analyzable.getAnalyzing().getCurrentParts();
+        partOffsets_.clear();
+        if (StringList.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
@@ -251,21 +293,28 @@ public final class ResolvingImportTypes {
             un_.buildError(_analyzable.getAnalysisMessages().getVoidType(),
                     void_);
             _analyzable.getAnalyzing().getLocalizer().addError(un_);
+            partOffsets_.clear();
+            String err_ = un_.getBuiltError();
+            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
+            partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc+void_.length()));
             return "";
         }
-        AccessedBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
-        StringList inners_ = getParts(_analyzable,_in);
-        String firstFull_ = inners_.first();
-        int firstOff_ = StringList.getFirstPrintableCharIndex(firstFull_);
-        String base_ = firstFull_.trim();
-        String res_ = StringExpUtil.removeDottedSpaces(base_);
-        if (_analyzable.getStandards().getStandards().contains(res_)) {
-            return res_;
-        }
-        CustList<PartOffset> partOffsets_ = _analyzable.getAnalyzing().getCurrentParts();
-        partOffsets_.clear();
         ExecRootBlock b_ = _analyzable.getClasses().getClassBody(res_);
         if (b_ == null) {
+            if (tr_.isEmpty()) {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setIndexFile(rc_);
+                //_in len
+                un_.buildError(_analyzable.getAnalysisMessages().getEmptyType());
+                _analyzable.getAnalyzing().getLocalizer().addError(un_);
+                String err_ = un_.getBuiltError();
+                String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+                partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
+                partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc+1));
+                return _analyzable.getStandards().getAliasObject();
+            }
             String id_ = lookupImportType(_analyzable,base_,r_, new AlwaysReadyTypes());
             if (id_.isEmpty()) {
                 FoundErrorInterpret undef_;
@@ -276,6 +325,10 @@ public final class ResolvingImportTypes {
                 undef_.buildError(_analyzable.getAnalysisMessages().getUnknownType(),
                         _in);
                 _analyzable.getAnalyzing().getLocalizer().addError(undef_);
+                String err_ = undef_.getBuiltError();
+                String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+                partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
+                partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc + base_.length()));
                 return "";
             }
             ContextUtil.appendParts(_analyzable,firstOff_+_loc,firstOff_+_loc + base_.length(),id_,partOffsets_);
@@ -307,6 +360,10 @@ public final class ResolvingImportTypes {
                 undef_.buildError(_analyzable.getAnalysisMessages().getUnknownType(),
                         _in);
                 _analyzable.getAnalyzing().getLocalizer().addError(undef_);
+                String err_ = undef_.getBuiltError();
+                String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+                partOffsets_.add(new PartOffset(pref_,rc_+offset_+delta_));
+                partOffsets_.add(new PartOffset("</a>",rc_+offset_+delta_ + i_.trim().length()));
                 return "";
             }
             ContextUtil.appendParts(_analyzable,offset_+delta_,offset_+delta_ + i_.trim().length(),resId_,partOffsets_);

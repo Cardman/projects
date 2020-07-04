@@ -5606,6 +5606,62 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertEq(17, ((NumberStruct)intern_).intStruct());
     }
     @Test
+    public void instanceArgument1021Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class [pkg.Int3;pkg.Int2;] $interfaces(Int3) pkgtwo.Ex :Int2{\n");
+        xml_.append("\n");
+        xml_.append(" $public(){\n");
+        xml_.append("  $interfaces(Int3)();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public pkgtwo.Ex inst=$new pkgtwo.Ex();\n");
+        xml_.append(" $public pkgtwo.Ex ance=$new pkgtwo.Ex();\n");
+        xml_.append(" $public (){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int :pkg.Int2{}\n");
+        files_.put("pkg/Int", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int2 :pkg.Int3{}\n");
+        files_.put("pkg/Int2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int3 {\n");
+        xml_.append(" $public $static $int nb=1i;\n");
+        xml_.append(" {\n");
+        xml_.append("  nb++;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int common=nb;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Int3", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExThree");
+
+        Argument ret_;
+        ret_ = instanceNormal("pkg.ExThree", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.ExThree", str_.getClassName(cont_));
+        Struct field_;
+        field_ = getField(str_, new ClassField("pkg.ExThree", "inst"));
+        assertEq("pkgtwo.Ex", field_.getClassName(cont_));
+        Struct subField_ = getField(field_, new ClassField("pkg.Int3", "common"));
+        assertEq(INTEGER, subField_.getClassName(cont_));
+        assertEq(2, ((NumberStruct)subField_).intStruct());
+        field_ = getField(str_, new ClassField("pkg.ExThree", "ance"));
+        assertEq("pkgtwo.Ex", field_.getClassName(cont_));
+        subField_ = getField(field_, new ClassField("pkg.Int3", "common"));
+        assertEq(INTEGER, subField_.getClassName(cont_));
+        assertEq(3, ((NumberStruct)subField_).intStruct());
+    }
+    @Test
     public void instanceArgumentFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.Ex {\n");

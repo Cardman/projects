@@ -68,11 +68,11 @@ public final class IdFctOperation extends LeafOperation {
             int off_ = StringList.getFirstPrintableCharIndex(firstFull_);
             String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
             cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,off_+className.indexOf('(')+1,fromType_);
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             if (cl_.isEmpty()) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
-            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
             String keyWordStaticCall_ = _conf.getKeyWords().getKeyWordStaticCall();
             MethodAccessId idUpdate_ = new MethodAccessId(1);

@@ -12271,6 +12271,79 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage317Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class [pkg.Int3;pkg.Int2;] $interfaces(Int3) pkgtwo.Ex :Int2{\n");
+        xml_.append("\n");
+        xml_.append(" $public(){\n");
+        xml_.append("  $interfaces(Int3)();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public pkgtwo.Ex inst=$new pkgtwo.Ex();\n");
+        xml_.append(" $public pkgtwo.Ex ance=$new pkgtwo.Ex();\n");
+        xml_.append(" $public (){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static ExThree catching(){\n");
+        xml_.append("  $return $new ExThree();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int :pkg.Int2{}\n");
+        files_.put("src/pkg/Int", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int2 :pkg.Int3{}\n");
+        files_.put("src/pkg/Int2", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int3 {\n");
+        xml_.append(" $public $static $int nb=1i;\n");
+        xml_.append(" {\n");
+        xml_.append("  nb++;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int common=nb;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Int3", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.ExThree", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class [<span class=\"i\">pkg.Int3</span>;<span class=\"i\">pkg.Int2</span>;] $interfaces(<a title=\"pkg.Int3\" href=\"Int3.html#m19\">Int3</a>) <a name=\"m54\">pkgtwo.Ex </a>:<a title=\"pkg.Int2\" href=\"Int2.html#m19\">Int2</a>{\n" +
+                "\n" +
+                " <a name=\"m73\">$public(</a>){\n" +
+                "  <span class=\"f\">$interfaces(<a title=\"pkg.Int3\" href=\"Int3.html#m19\">Int3</a>)()</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.ExThree </a>{\n" +
+                " $public <a title=\"pkgtwo.Ex\" href=\"Ex.html#m54\">pkgtwo.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">inst</a></span>=<span class=\"f\"><a title=\"pkgtwo.Ex.pkgtwo.Ex()\" href=\"Ex.html#m73\">$new</a> <a title=\"pkgtwo.Ex\" href=\"Ex.html#m54\">pkgtwo.Ex</a>()</span></span>;\n" +
+                " $public <a title=\"pkgtwo.Ex\" href=\"Ex.html#m54\">pkgtwo.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m90\">ance</a></span>=<span class=\"f\"><a title=\"pkgtwo.Ex.pkgtwo.Ex()\" href=\"Ex.html#m73\">$new</a> <a title=\"pkgtwo.Ex\" href=\"Ex.html#m54\">pkgtwo.Ex</a>()</span></span>;\n" +
+                " <a name=\"m114\">$public (</a>){\n" +
+                " }\n" +
+                " $public $static <a title=\"pkg.ExThree\" href=\"#m15\">ExThree</a> <a name=\"m154\">catching</a>(){\n" +
+                "  $return <span class=\"f\"><a title=\"pkg.ExThree.pkg.ExThree()\" href=\"#m114\">$new</a> <a title=\"pkg.ExThree\" href=\"#m15\">ExThree</a>()</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.getValue(1));
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.Int </a>:<a title=\"pkg.Int2\" href=\"Int2.html#m19\">pkg.Int2</a>{}\n" +
+                "</pre></body></html>", filesExp_.getValue(2));
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.Int2 </a>:<a title=\"pkg.Int3\" href=\"Int3.html#m19\">pkg.Int3</a>{}\n" +
+                "</pre></body></html>", filesExp_.getValue(3));
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.Int3 </a>{\n" +
+                " $public $static $int <span class=\"g\"><span class=\"g\"><a name=\"m52\">nb</a></span>=<span class=\"g\">1i</span></span>;\n" +
+                " {\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Int3.nb\" href=\"#m52\">nb</a></span>++</span>;\n" +
+                " }\n" +
+                " $public $int <span class=\"f\"><span class=\"f\"><a name=\"m87\">common</a></span>=<span class=\"f\"><a title=\"pkg.Int3.nb\" href=\"#m52\">nb</a></span></span>;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.getValue(4));
+    }
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
