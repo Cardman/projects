@@ -396,7 +396,7 @@ final class AnaNamePartType extends AnaLeafPartType {
                     i.getType(),_gl));
         }
     }
-    private AnaPartType getPreviousPartType() {
+    AnaPartType getPreviousPartType() {
         if (getParent() instanceof AnaInnerPartType) {
             return getPreviousSibling();
         }

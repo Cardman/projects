@@ -34,6 +34,7 @@ final class AnaArraryPartType extends AnaParentPartType {
     private void anaArray() {
         String ch_ = getFirstChild().getAnalyzedType();
         if (ch_.isEmpty()) {
+            setAlreadyError();
             return;
         }
         ch_ = StringList.concat(getBegin(),ch_);

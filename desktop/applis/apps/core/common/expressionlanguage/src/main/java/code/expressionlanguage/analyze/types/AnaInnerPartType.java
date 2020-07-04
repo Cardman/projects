@@ -34,6 +34,9 @@ final class AnaInnerPartType extends AnaBinaryType {
             f_ = f_.getNextSibling();
         }
         String t_ = ch_.last().getAnalyzedType();
+        if (t_.isEmpty()){
+            setAlreadyError();
+        }
         setAnalyzedType(t_);
     }
 

@@ -36,6 +36,7 @@ final class AnaWildCardPartType extends AnaParentPartType {
     private void anaWild(ContextEl _an) {
         String ch_ = getFirstChild().getAnalyzedType();
         if (ch_.isEmpty()) {
+            setAlreadyError();
             return;
         }
         if (!(getParent() instanceof AnaTemplatePartType)) {

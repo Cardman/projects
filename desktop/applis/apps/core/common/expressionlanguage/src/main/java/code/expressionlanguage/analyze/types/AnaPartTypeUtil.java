@@ -670,6 +670,9 @@ public final class AnaPartTypeUtil {
     private static void appendQuickParts(AnaPartType _root, CustList<PartOffset> _offs, ContextEl _cont) {
         AnaPartType current_ = _root;
         while (true) {
+            if (current_ instanceof AnaWildCardPartType) {
+                appendOffset(_offs, current_);
+            }
             AnaPartType child_ = current_.getFirstChild();
             if (child_ != null) {
                 current_ = child_;
@@ -718,7 +721,14 @@ public final class AnaPartTypeUtil {
             }
             ch_ = ch_.getNextSibling();
         }
-        if (f_ == null || hasEmpty_) {
+        if (_l instanceof AnaNamePartType) {
+            AnaPartType prev_ = ((AnaNamePartType) _l).getPreviousPartType();
+            if (prev_ == null || !prev_.getAnalyzedType().isEmpty()) {
+                appendIntern(_offs, _l);
+            }
+            return;
+        }
+        if (f_ == null || hasEmpty_ || _l.getAnalyzedType().isEmpty() && !_l.isAlreadyError()) {
             appendIntern(_offs, _l);
         }
     }

@@ -29,6 +29,7 @@ abstract class AnaPartType {
     private StringList errs = new StringList();
     private String href = "";
     private int length;
+    private boolean alreadyError;
 
     AnaPartType(AnaParentPartType _parent, int _index, int _indexInType) {
         parent = _parent;
@@ -231,4 +232,11 @@ abstract class AnaPartType {
         length = _length;
     }
 
+    boolean isAlreadyError() {
+        return alreadyError;
+    }
+
+    void setAlreadyError() {
+        alreadyError = true;
+    }
 }

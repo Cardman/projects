@@ -142,6 +142,11 @@ public final class ResolvingImportTypes {
             un_.buildError(_analyzable.getAnalysisMessages().getVoidType(),
                     void_);
             _analyzable.getAnalyzing().getLocalizer().addError(un_);
+            CustList<PartOffset> partOffsets_ = _analyzable.getAnalyzing().getCurrentParts();
+            String err_ = un_.getBuiltError();
+            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            partOffsets_.add(new PartOffset(pref_,rc_));
+            partOffsets_.add(new PartOffset("</a>",rc_+void_.length()));
             return _analyzable.getStandards().getAliasObject();
         }
         AccessedBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
