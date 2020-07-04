@@ -35,8 +35,24 @@ public final class ResolvingImportTypes {
     }
     public static String resolveCorrectAccessibleType(ContextEl _analyzable, int _loc,String _in, String _fromType) {
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex()+_loc;
+        String tr_ = _in.trim();
+        if (tr_.isEmpty()) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(rc_);
+            //_in len
+            un_.buildError(_analyzable.getAnalysisMessages().getEmptyType());
+            _analyzable.getAnalyzing().getLocalizer().addError(un_);
+            CustList<PartOffset> partOffsets_ = _analyzable.getAnalyzing().getCurrentParts();
+            partOffsets_.clear();
+            String err_ = un_.getBuiltError();
+            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            partOffsets_.add(new PartOffset(pref_,rc_));
+            partOffsets_.add(new PartOffset("</a>",rc_+1));
+            return _analyzable.getStandards().getAliasObject();
+        }
         String void_ = _analyzable.getStandards().getAliasVoid();
-        if (StringList.quickEq(_in.trim(), void_)) {
+        if (StringList.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
@@ -127,6 +143,7 @@ public final class ResolvingImportTypes {
             un_.buildError(_analyzable.getAnalysisMessages().getEmptyType());
             _analyzable.getAnalyzing().getLocalizer().addError(un_);
             CustList<PartOffset> partOffsets_ = _analyzable.getAnalyzing().getCurrentParts();
+            partOffsets_.clear();
             String err_ = un_.getBuiltError();
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
             partOffsets_.add(new PartOffset(pref_,rc_));
@@ -143,6 +160,7 @@ public final class ResolvingImportTypes {
                     void_);
             _analyzable.getAnalyzing().getLocalizer().addError(un_);
             CustList<PartOffset> partOffsets_ = _analyzable.getAnalyzing().getCurrentParts();
+            partOffsets_.clear();
             String err_ = un_.getBuiltError();
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
             partOffsets_.add(new PartOffset(pref_,rc_));

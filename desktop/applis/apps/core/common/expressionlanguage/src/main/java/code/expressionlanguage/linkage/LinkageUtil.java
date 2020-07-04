@@ -1922,6 +1922,9 @@ public final class LinkageUtil {
                 _parts.addAllElts(((FctOperation)val_).getPartOffsets());
                 int delta_ = ((FctOperation) val_).getDelta();
                 ClassMethodId classMethodId_ = ((FctOperation) val_).getClassMethodId();
+                if (classMethodId_ == null) {
+                    return;
+                }
                 String className_ = classMethodId_.getClassName();
                 className_ = StringExpUtil.getIdFromAllTypes(className_);
                 MethodId id_ = classMethodId_.getConstraints();
