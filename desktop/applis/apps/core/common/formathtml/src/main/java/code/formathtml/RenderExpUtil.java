@@ -45,7 +45,7 @@ public final class RenderExpUtil {
                     _el);
             _conf.addError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
-            tmpOp_.setDelimiter(new Delimiters());
+            tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));
@@ -80,7 +80,7 @@ public final class RenderExpUtil {
                     _el);
             _conf.addError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
-            tmpOp_.setDelimiter(new Delimiters());
+            tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));
@@ -280,8 +280,7 @@ public final class RenderExpUtil {
                 Delimiters d_ = block_.getOperations().getDelimiter();
                 OperationsSequence opSeq_ = new OperationsSequence();
                 opSeq_.setFctName(block_.getOperations().getFctName());
-                opSeq_.setDelimiter(new Delimiters());
-                opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
+                opSeq_.setDelimiter(d_);
                 return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
             }
             return null;
@@ -293,8 +292,7 @@ public final class RenderExpUtil {
         if (isInitializeStaticClassFirst(_index, block_)) {
             OperationsSequence opSeq_ = new OperationsSequence();
             opSeq_.setFctName(block_.getOperations().getFctName());
-            opSeq_.setDelimiter(new Delimiters());
-            opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
+            opSeq_.setDelimiter(d_);
             return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
         }
         OperationsSequence r_ = getOperationsSequence(offset_, value_, _context, d_);

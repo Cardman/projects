@@ -12,8 +12,6 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -341,11 +339,7 @@ public abstract class ExecOperationNode {
         if (_anaNode instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) _anaNode;
             if (s_.getFieldId() == null) {
-                OperationsSequence tmpOp_ = new OperationsSequence();
-                tmpOp_.setDelimiter(new Delimiters());
-                ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
-                e_.setResultClass(s_.getResultClass());
-                return new ExecErrorParentOperation(e_);
+                return new ExecErrorParentOperation(_anaNode);
             }
             return new ExecSettableFieldOperation(s_);
         }

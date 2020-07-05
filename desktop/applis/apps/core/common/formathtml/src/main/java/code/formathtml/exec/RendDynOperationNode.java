@@ -254,11 +254,7 @@ public abstract class RendDynOperationNode {
         if (_anaNode instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) _anaNode;
             if (s_.getFieldId() == null) {
-                OperationsSequence tmpOp_ = new OperationsSequence();
-                tmpOp_.setDelimiter(new Delimiters());
-                ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
-                e_.setResultClass(s_.getResultClass());
-                return new RendErrorParentOperation(e_);
+                return new RendErrorParentOperation(_anaNode);
             }
             return new RendSettableFieldOperation(s_);
         }

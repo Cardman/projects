@@ -123,7 +123,7 @@ public final class ElUtil {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
-            return buildErr(_el, _conf, badOffset_);
+            return buildErr(_el, _conf, badOffset_, d_);
         }
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
@@ -134,7 +134,7 @@ public final class ElUtil {
         return getExecutableNodes(_conf,all_);
     }
 
-    private static CustList<ExecOperationNode> buildErr(String _el, ContextEl _conf, int badOffset_) {
+    private static CustList<ExecOperationNode> buildErr(String _el, ContextEl _conf, int badOffset_, Delimiters _delimiter) {
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -144,7 +144,7 @@ public final class ElUtil {
             _conf.addError(badEl_);
             _conf.getAnalyzing().setCurrentEmptyPartErr(badEl_.getBuiltError());
             OperationsSequence tmpOp_ = new OperationsSequence();
-            tmpOp_.setDelimiter(new Delimiters());
+            tmpOp_.setDelimiter(_delimiter);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));
@@ -161,7 +161,7 @@ public final class ElUtil {
                 _el);
         _conf.addError(badEl_);
         OperationsSequence tmpOp_ = new OperationsSequence();
-        tmpOp_.setDelimiter(new Delimiters());
+        tmpOp_.setDelimiter(_delimiter);
         ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
         String argClName_ = _conf.getStandards().getAliasObject();
         e_.setResultClass(new ClassArgumentMatching(argClName_));
@@ -186,7 +186,7 @@ public final class ElUtil {
                     _el);
             _conf.addError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
-            tmpOp_.setDelimiter(new Delimiters());
+            tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));
@@ -332,8 +332,7 @@ public final class ElUtil {
                 Delimiters d_ = block_.getOperations().getDelimiter();
                 OperationsSequence opSeq_ = new OperationsSequence();
                 opSeq_.setFctName(block_.getOperations().getFctName());
-                opSeq_.setDelimiter(new Delimiters());
-                opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
+                opSeq_.setDelimiter(d_);
                 return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
             }
             return null;
@@ -345,8 +344,7 @@ public final class ElUtil {
         if (isInitializeStaticClassFirst(_index, block_)) {
             OperationsSequence opSeq_ = new OperationsSequence();
             opSeq_.setFctName(block_.getOperations().getFctName());
-            opSeq_.setDelimiter(new Delimiters());
-            opSeq_.getDelimiter().setIndexBegin(d_.getIndexBegin());
+            opSeq_.setDelimiter(d_);
             return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
         }
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
