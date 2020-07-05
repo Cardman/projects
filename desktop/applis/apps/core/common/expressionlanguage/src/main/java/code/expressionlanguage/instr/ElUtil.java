@@ -34,17 +34,18 @@ public final class ElUtil {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _conf.getAnalyzing().setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntaxQuick(_el, _conf);
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         CustList<PartOffsetAffect> names_ = new CustList<PartOffsetAffect>();
+        if (d_.getBadOffset() >= 0) {
+            return names_;
+        }
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         if (opTwo_.getOperators().isEmpty()) {
             for (EntryCust<Integer,String> e: opTwo_.getValues().entryList()) {
                 String var_ = e.getValue();
                 String trimmed_ = var_.trim();
                 String name_ = getFieldName(trimmed_);
                 int offset_ = _valueOffset + e.getKey();
-                if (StringExpUtil.isTypeLeafPart(trimmed_)) {
-                    addFieldName(names_, var_, offset_, false, name_);
-                }
+                addPart(names_, var_, trimmed_, name_, offset_, false);
             }
             return names_;
         }
@@ -71,11 +72,15 @@ public final class ElUtil {
             int off_ = opTwo_.getValues().firstKey();
             String trimmed_ = var_.trim();
             String name_ = getFieldName(trimmed_);
-            if (StringExpUtil.isTypeLeafPart(trimmed_)) {
-                addFieldName(names_,var_,_valueOffset+off_,true,name_);
-            }
+            addPart(names_, var_, trimmed_, name_, _valueOffset + off_, true);
         }
         return names_;
+    }
+
+    private static void addPart(CustList<PartOffsetAffect> names_, String var_, String trimmed_, String name_, int i, boolean b) {
+        if (StringExpUtil.isTypeLeafPart(trimmed_)) {
+            addFieldName(names_, var_, i, b, name_);
+        }
     }
 
     private static void addFieldName(CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff, String name_) {
@@ -98,12 +103,6 @@ public final class ElUtil {
         return fieldName_.toString();
     }
 
-    public static String possibleChar(int _index, String _str) {
-        if (_index >= _str.length()) {
-            return " ";
-        }
-        return Character.toString(_str.charAt(_index));
-    }
     private static void setupStaticContext(ContextEl _conf, MethodAccessKind _hiddenVarTypes, OperationNode _op) {
         MethodAccessKind ctorAcc_;
         if (_op instanceof AbstractInvokingConstructor) {
@@ -122,19 +121,6 @@ public final class ElUtil {
         _conf.getAnalyzing().setCurrentRoot(null);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         int badOffset_ = d_.getBadOffset();
-        if (badOffset_ >= 0) {
-            return buildErr(_el, _conf, badOffset_, d_);
-        }
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
-        String fieldName_ = _calcul.getFieldName();
-        setupStaticContext(_conf, hiddenVarTypes_, op_);
-        setSyntheticRoot(op_, fieldName_);
-        CustList<OperationNode> all_ = getSortedDescNodesReadOnly(op_, _conf,fieldName_);
-        return getExecutableNodes(_conf,all_);
-    }
-
-    private static CustList<ExecOperationNode> buildErr(String _el, ContextEl _conf, int badOffset_, Delimiters _delimiter) {
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -144,29 +130,27 @@ public final class ElUtil {
             _conf.addError(badEl_);
             _conf.getAnalyzing().setCurrentEmptyPartErr(badEl_.getBuiltError());
             OperationsSequence tmpOp_ = new OperationsSequence();
-            tmpOp_.setDelimiter(_delimiter);
+            tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));
             e_.setOrder(0);
             return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_));
         }
-        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-        badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-        badEl_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-        //badOffset char
-        badEl_.buildError(_conf.getAnalysisMessages().getBadExpression(),
-                possibleChar(badOffset_,_el),
-                Integer.toString(badOffset_),
-                _el);
-        _conf.addError(badEl_);
-        OperationsSequence tmpOp_ = new OperationsSequence();
-        tmpOp_.setDelimiter(_delimiter);
-        ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
-        String argClName_ = _conf.getStandards().getAliasObject();
-        e_.setResultClass(new ClassArgumentMatching(argClName_));
-        e_.setOrder(0);
-        return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_));
+        OperationNode op_;
+        if (badOffset_ >= 0) {
+            OperationsSequence tmpOp_ = new OperationsSequence();
+            tmpOp_.setDelimiter(d_);
+            op_ = new ErrorPartOperation(0, 0, null, tmpOp_);
+        } else {
+            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
+            op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
+        }
+        String fieldName_ = _calcul.getFieldName();
+        setupStaticContext(_conf, hiddenVarTypes_, op_);
+        setSyntheticRoot(op_, fieldName_);
+        CustList<OperationNode> all_ = getSortedDescNodesReadOnly(op_, _conf,fieldName_);
+        return getExecutableNodes(_conf,all_);
     }
 
 
@@ -175,13 +159,13 @@ public final class ElUtil {
         _conf.getAnalyzing().setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         int badOffset_ = d_.getBadOffset();
-        if (badOffset_ >= 0) {
+        if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             badEl_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //badOffset char
             badEl_.buildError(_conf.getAnalysisMessages().getBadExpression(),
-                    possibleChar(badOffset_,_el),
+                    " ",
                     Integer.toString(badOffset_),
                     _el);
             _conf.addError(badEl_);
@@ -193,8 +177,15 @@ public final class ElUtil {
             e_.setOrder(0);
             return new CustList<OperationNode>(e_);
         }
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
+        OperationNode op_;
+        if (badOffset_ >= 0) {
+            OperationsSequence tmpOp_ = new OperationsSequence();
+            tmpOp_.setDelimiter(d_);
+            op_ = new ErrorPartOperation(0, 0, null, tmpOp_);
+        } else {
+            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
+            op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
+        }
         String fieldName_ = _calcul.getFieldName();
         return getSortedDescNodesReadOnly(op_, _conf,fieldName_);
     }

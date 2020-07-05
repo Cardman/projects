@@ -7,7 +7,6 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.*;
@@ -539,7 +538,7 @@ public abstract class RendBlock implements AnalyzedBlock {
                 badEl_.setFileName(_cont.getCurrentFileName());
                 badEl_.setIndexFile(_offset);
                 badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadExpression(),
-                        ElUtil.possibleChar(index_,cont_),
+                        " ",
                         Integer.toString(index_),
                         content_);
                 _cont.addError(badEl_);

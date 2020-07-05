@@ -1345,8 +1345,13 @@ public final class FileResolver {
                         int rightPar_;
                         fieldName_ = found_.substring(0, indexBeginCalling_);
                         rightPar_ = found_.indexOf(END_CALLING,indexBeginCalling_);
-                        expression_ = found_.substring(rightPar_ +1);
-                        expressionOffest_ = fieldOffest_ - offFound_ + rightPar_ + 1;
+                        if (rightPar_ > -1) {
+                            expression_ = found_.substring(rightPar_ + 1);
+                            expressionOffest_ = fieldOffest_ - offFound_ + rightPar_ + 1;
+                        } else {
+                            expression_ = found_.substring(fieldName_.length());
+                            expressionOffest_ = fieldOffest_ + fieldName_.trim().length();
+                        }
                         if (!expression_.trim().isEmpty()) {
                             expressionOffest_ += StringList.getFirstPrintableCharIndex(expression_);
                         }

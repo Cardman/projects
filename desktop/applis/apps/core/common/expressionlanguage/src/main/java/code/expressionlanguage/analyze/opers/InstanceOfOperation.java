@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -35,6 +36,19 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         int off_ = StringList.getFirstPrintableCharIndex(sub_);
         String compo_ = StringExpUtil.getQuickComponentBaseType(sub_).getComponent();
         boolean exact_ = compo_.contains(Templates.TEMPLATE_BEGIN);
+        if (sub_.isEmpty()) {
+            int rc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + begin_ + off_;
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(rc_);
+            //_in len
+            un_.buildError(_conf.getAnalysisMessages().getEmptyType());
+            _conf.getAnalyzing().getLocalizer().addError(un_);
+            getErrs().add(un_.getBuiltError());
+            className = _conf.getStandards().getAliasObject();
+            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+            return;
+        }
         sub_ = ResolvingImportTypes.resolveCorrectType(_conf, begin_ + off_, sub_, exact_);
         partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         if (!exact_) {

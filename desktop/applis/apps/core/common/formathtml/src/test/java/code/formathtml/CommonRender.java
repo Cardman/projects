@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.instr.ElResolver;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.formathtml.structs.BeanInfo;
@@ -335,7 +334,7 @@ public abstract class CommonRender {
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
             badEl_.setLocationFile(_conf.getLocationFile(badEl_.getFileName(),badEl_.getIndexFile()));
             badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
-                    ElUtil.possibleChar(_index,_el),
+                    " ",
                     Integer.toString(_index),
                     _el);
             _conf.setException(new ErrorStruct(_conf.getContext(), badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
@@ -360,7 +359,7 @@ public abstract class CommonRender {
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_conf.getCurrentLocationIndex());
             badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
-                    ElUtil.possibleChar(badOffset_,_el),
+                    " ",
                     Integer.toString(badOffset_),
                     _el);
             _conf.addError(badEl_);

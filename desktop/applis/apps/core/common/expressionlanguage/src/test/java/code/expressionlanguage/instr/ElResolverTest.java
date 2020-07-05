@@ -4402,7 +4402,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         addImportingPage(conf_);
         String el_ = "$instanceof(";
         Delimiters d_ = checkSyntax(conf_, el_);
-        assertEq(11, d_.getBadOffset());
+        assertEq(12, d_.getBadOffset());
     }
 
     @Test

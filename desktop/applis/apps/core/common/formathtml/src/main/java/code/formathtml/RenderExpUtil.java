@@ -40,7 +40,7 @@ public final class RenderExpUtil {
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_glInd+badOffset_);
             badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
-                    ElUtil.possibleChar(badOffset_,_el),
+                    " ",
                     Integer.toString(badOffset_),
                     _el);
             _conf.addError(badEl_);
@@ -75,7 +75,7 @@ public final class RenderExpUtil {
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setIndexFile(_gl+badOffset_);
             badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
-                    ElUtil.possibleChar(badOffset_,_el),
+                    " ",
                     Integer.toString(badOffset_),
                     _el);
             _conf.addError(badEl_);

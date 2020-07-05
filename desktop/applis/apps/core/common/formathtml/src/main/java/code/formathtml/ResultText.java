@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.instr.ElUtil;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
@@ -157,7 +156,7 @@ public final class ResultText {
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_begin);
                     badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
-                            ElUtil.possibleChar(i_,_expression),
+                            " ",
                             Integer.toString(i_),
                             _expression);
                     _conf.addError(badEl_);
@@ -176,7 +175,7 @@ public final class ResultText {
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setIndexFile(_begin);
                 badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
-                        ElUtil.possibleChar(i_,_expression),
+                        " ",
                         Integer.toString(i_),
                         _expression);
                 _conf.addError(badEl_);

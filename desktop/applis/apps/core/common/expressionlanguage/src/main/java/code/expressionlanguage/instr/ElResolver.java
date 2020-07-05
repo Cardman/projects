@@ -435,78 +435,73 @@ public final class ElResolver {
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInstanceof_)) {
             int next_ = i_ + keyWordInstanceof_.length();
-            if (Character.isWhitespace(_string.charAt(next_))) {
-                //instanceof
+            while (next_ < len_) {
+                char curLoc_ = _string.charAt(next_);
+                if (StringExpUtil.isTypeLeafChar(curLoc_)) {
+                    next_++;
+                    continue;
+                }
+                if (curLoc_ == DOT_VAR) {
+                    next_++;
+                    continue;
+                }
+                if (Character.isWhitespace(curLoc_)) {
+                    next_++;
+                    continue;
+                }
+                break;
+            }
+            if (next_ < len_ && _string.charAt(next_) == LOWER_CHAR) {
+                int nbOpened_ = 1;
+                next_++;
+                boolean exitWhenNoSpace_ = false;
                 while (next_ < len_) {
                     char curLoc_ = _string.charAt(next_);
-                    if (StringExpUtil.isTypeLeafChar(curLoc_)) {
+                    if (curLoc_ == LOWER_CHAR) {
+                        nbOpened_++;
                         next_++;
                         continue;
                     }
-                    if (curLoc_ == DOT_VAR) {
+                    if (curLoc_ == GREATER_CHAR) {
+                        nbOpened_--;
                         next_++;
+                        if (nbOpened_ == 0 && !_string.substring(next_).trim().startsWith(".")) {
+                            exitWhenNoSpace_ = true;
+                        }
                         continue;
                     }
-                    if (Character.isWhitespace(curLoc_)) {
-                        next_++;
-                        continue;
+                    if (nbOpened_ == 0 && exitWhenNoSpace_ && !Character.isWhitespace(curLoc_)) {
+                        break;
                     }
-                    break;
-                }
-                if (next_ < len_ && _string.charAt(next_) == LOWER_CHAR) {
-                    int nbOpened_ = 1;
                     next_++;
-                    boolean exitWhenNoSpace_ = false;
-                    while (next_ < len_) {
-                        char curLoc_ = _string.charAt(next_);
-                        if (curLoc_ == LOWER_CHAR) {
-                            nbOpened_++;
-                            next_++;
-                            continue;
-                        }
-                        if (curLoc_ == GREATER_CHAR) {
-                            nbOpened_--;
-                            next_++;
-                            if (nbOpened_ == 0 && !_string.substring(next_).trim().startsWith(".")) {
-                                exitWhenNoSpace_ = true;
-                            }
-                            continue;
-                        }
-                        if (nbOpened_ == 0 && exitWhenNoSpace_ && !Character.isWhitespace(curLoc_)) {
-                            break;
-                        }
-                        next_++;
-                    }
                 }
-                if (next_ < len_) {
-                    char curLoc_ = _string.charAt(next_);
-                    if (curLoc_ == ARR_LEFT) {
-                        while (next_ < len_) {
-                            curLoc_ = _string.charAt(next_);
-                            if (Character.isWhitespace(curLoc_)) {
-                                next_++;
-                                continue;
-                            }
-                            if (curLoc_ == ARR_LEFT) {
-                                next_++;
-                                continue;
-                            }
-                            if (curLoc_ == ARR_RIGHT) {
-                                next_++;
-                                continue;
-                            }
-                            break;
-                        }
-                    }
-                }
-                _d.getAllowedOperatorsIndexes().add(i_);
-                _d.getDelInstanceof().add(i_);
-                _d.getDelInstanceof().add(next_);
-                i_ = next_;
-                _out.setNextIndex(i_);
-                return;
             }
-            _d.setBadOffset(next_);
+            if (next_ < len_) {
+                char curLoc_ = _string.charAt(next_);
+                if (curLoc_ == ARR_LEFT) {
+                    while (next_ < len_) {
+                        curLoc_ = _string.charAt(next_);
+                        if (Character.isWhitespace(curLoc_)) {
+                            next_++;
+                            continue;
+                        }
+                        if (curLoc_ == ARR_LEFT) {
+                            next_++;
+                            continue;
+                        }
+                        if (curLoc_ == ARR_RIGHT) {
+                            next_++;
+                            continue;
+                        }
+                        break;
+                    }
+                }
+            }
+            _d.getAllowedOperatorsIndexes().add(i_);
+            _d.getDelInstanceof().add(i_);
+            _d.getDelInstanceof().add(next_);
+            i_ = next_;
+            _out.setNextIndex(i_);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordNew_)) {
