@@ -80,7 +80,7 @@ public abstract class OperationNode {
 
     private OperationsSequence operations;
 
-    private GraphicErrorList errors = new GraphicErrorList();
+    private StringList errs = new StringList();
 
     private int indexInEl;
 
@@ -2656,6 +2656,10 @@ public abstract class OperationNode {
 
     public final int getIndexBegin() {
         return operations.getDelimiter().getIndexBegin();
+    }
+
+    public StringList getErrs() {
+        return errs;
     }
 
 }

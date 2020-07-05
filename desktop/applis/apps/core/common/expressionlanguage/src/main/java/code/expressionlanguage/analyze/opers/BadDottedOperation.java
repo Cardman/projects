@@ -6,7 +6,6 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 
 public class BadDottedOperation extends LeafOperation {
-    private String err = "";
     public BadDottedOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
@@ -24,12 +23,9 @@ public class BadDottedOperation extends LeafOperation {
         //if parent is not null => use parent header
         emptyPart_.buildError(_conf.getAnalysisMessages().getEmptyExpressionPart());
         _conf.getAnalyzing().getLocalizer().addError(emptyPart_);
-        err = emptyPart_.getBuiltError();
+        getErrs().add(emptyPart_.getBuiltError());
         argClName_ = _conf.getStandards().getAliasObject();
         setResultClass(new ClassArgumentMatching(argClName_));
     }
 
-    public String getErr() {
-        return err;
-    }
 }

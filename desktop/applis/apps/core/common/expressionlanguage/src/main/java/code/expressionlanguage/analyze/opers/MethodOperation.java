@@ -13,7 +13,6 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
 
     private IntTreeMap<String> children;
     private CustList<CustList<PartOffset>> partOffsetsChildren = new CustList<CustList<PartOffset>>();
-    private StringList errs = new StringList();
     private CustList<PartOffset> partOffsetsEnd = new CustList<PartOffset>();
 
 
@@ -78,23 +77,18 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
 
     public void retrieveErrs() {
         for (OperationNode o: getChildrenNodes()) {
-            if (!isEmptyError(o)) {
-                continue;
-            }
-            addEmptyError(o, errs);
+            processEmptyError(o, getErrs());
+        }
+    }
+
+    public static void processEmptyError(OperationNode _o, StringList _errs) {
+        if (isEmptyError(_o)) {
+            addEmptyError(_o, _errs);
         }
     }
 
     public static void addEmptyError(OperationNode _op, StringList _out) {
-        if (_op instanceof ErrorPartOperation) {
-            _out.add(((ErrorPartOperation) _op).getErr());
-        }
-        if (_op instanceof BadInstancingOperation) {
-            _out.add(((BadInstancingOperation) _op).getErr());
-        }
-        if (_op instanceof BadDottedOperation) {
-            _out.add(((BadDottedOperation) _op).getErr());
-        }
+        _out.addAllElts(_op.getErrs());
     }
     public static boolean isEmptyError(OperationNode _op) {
         if (_op instanceof ErrorPartOperation) {
@@ -107,10 +101,6 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
     }
     public CustList<CustList<PartOffset>> getPartOffsetsChildren() {
         return partOffsetsChildren;
-    }
-
-    public StringList getErrs() {
-        return errs;
     }
 
     public CustList<PartOffset> getPartOffsetsEnd() {

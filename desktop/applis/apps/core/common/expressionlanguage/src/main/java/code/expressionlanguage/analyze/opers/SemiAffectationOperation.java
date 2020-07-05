@@ -34,7 +34,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         LgNames stds_ = _conf.getStandards();
         settable = AffectationOperation.tryGetSettable(this);
         if (settable == null) {
-            leftEl_.setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _conf);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -49,7 +49,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)settable;
             StringMap<Boolean> fieldsAfterLast_ = _conf.getAnalyzing().getDeclaredAssignments();
             if (ElUtil.checkFinalFieldReadOnly(_conf, cst_, fieldsAfterLast_)) {
-                cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
+                setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -94,6 +94,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             cast_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(clMatchLeft_.getNames(),"&"));
             _conf.getAnalyzing().getLocalizer().addError(cast_);
+            getErrs().add(cast_.getBuiltError());
             return;
         }
         clMatchLeft_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf));

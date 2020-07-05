@@ -172,7 +172,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             for (OperationNode o: chidren_) {
                 int index_ = getPartOffsetsChildren().size();
                 IntTreeMap<String> operators_ = getOperations().getOperators();
-                o.setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _conf);
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _conf);
                 int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> parts_ = new CustList<PartOffset>();
                 ClassArgumentMatching argType_ = o.getResultClass();

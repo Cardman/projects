@@ -1660,6 +1660,7 @@ public final class LinkageUtil {
                 String tag_ = getEndTag(addCover_, val_);
                 OperationNode nextSiblingOp_ = val_.getNextSibling();
                 _parts.add(new PartOffset(tag_,offsetEnd_));
+                processUnaryRightOperations(_cont, currentFileName_, sum_, offsetEnd_, val_,parent_, _parts);
                 if (nextSiblingOp_ != null) {
                     middle(_cont,currentFileName_,_block, offsetEnd_,val_,nextSiblingOp_,
                             parent_,_parts);
@@ -1705,6 +1706,7 @@ public final class LinkageUtil {
                 MethodOperation parent_ = val_.getParent();
                 int offsetEnd_ = getOffsetEnd(sum_, val_, parent_);
                 OperationNode nextSiblingOp_ = val_.getNextSibling();
+                processUnaryRightOperations(_cont, currentFileName_, sum_, offsetEnd_, val_,parent_, _parts);
                 if (nextSiblingOp_ != null) {
                     middleError(_cont,currentFileName_, offsetEnd_,val_,nextSiblingOp_,
                             parent_,_parts);
@@ -1737,7 +1739,7 @@ public final class LinkageUtil {
         if (parent_ == null) {
             stopOp_ = true;
         } else {
-            right(_cont,currentFileName_,offsetEnd_, parent_,_parts);
+            right(_cont,currentFileName_, offsetEnd_, parent_,_parts);
             if (parent_ == r_) {
                 stopOp_ = true;
             }
@@ -1858,8 +1860,8 @@ public final class LinkageUtil {
             }
         }
         StringList errEmpt_ = new StringList();
-        if (MethodOperation.isEmptyError(val_)&&val_.getParent() == null) {
-            MethodOperation.addEmptyError(val_,errEmpt_);
+        if (val_.getParent() == null) {
+            MethodOperation.processEmptyError(val_,errEmpt_);
         }
         if (!errEmpt_.isEmpty()) {
             int off_ = val_.getOperations().getOffset();
@@ -2346,6 +2348,11 @@ public final class LinkageUtil {
             SemiAffectationOperation par_ = (SemiAffectationOperation) val_;
             int offsetOp_ = val_.getOperations().getOperators().firstKey();
             if(!par_.isPost()) {
+                if (!par_.getErrs().isEmpty()) {
+                    int begin_ = par_.getOpOffset()+sum_ + par_.getIndexInEl();
+                    _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(par_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                    _parts.add(new PartOffset("</a>",begin_+ 2));
+                }
                 ClassMethodId classMethodId_ = par_.getClassMethodId();
                 if (classMethodId_ != null) {
                     MethodId id_ = classMethodId_.getConstraints();
@@ -2365,6 +2372,34 @@ public final class LinkageUtil {
                             sum_ + val_.getIndexInEl()+offsetOp_+1,1,
                             _parts);
                 }
+            }
+        }
+        if (val_ instanceof IdOperation) {
+            if (!val_.getErrs().isEmpty()) {
+                int begin_ = sum_ + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ 1));
+            }
+        }
+        if (val_ instanceof FirstOptOperation) {
+            if (!val_.getErrs().isEmpty()) {
+                int begin_ = sum_ + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ _cont.getKeyWords().getKeyWordFirstopt().length()));
+            }
+        }
+        if (val_ instanceof DefaultOperation) {
+            if (!val_.getErrs().isEmpty()) {
+                int begin_ = sum_ + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ _cont.getKeyWords().getKeyWordDefault().length()));
+            }
+        }
+        if (val_ instanceof EnumValueOfOperation) {
+            if (!val_.getErrs().isEmpty()) {
+                int begin_ = sum_ + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ _cont.getKeyWords().getKeyWordValueOf().length()));
             }
         }
     }
@@ -2544,7 +2579,6 @@ public final class LinkageUtil {
                               MethodOperation parent_,
                               CustList<PartOffset> _parts) {
         processRightIndexer(_cont, currentFileName_, offsetEnd_, parent_, _parts);
-        processUnaryRightOperations(_cont, currentFileName_, offsetEnd_, parent_, _parts);
         if (parent_ instanceof AnnotationInstanceOperation) {
             _parts.addAllElts(parent_.getPartOffsetsEnd());
         }
@@ -2567,13 +2601,27 @@ public final class LinkageUtil {
         }
     }
 
-    private static void processUnaryRightOperations(ContextEl _cont, String currentFileName_, int offsetEnd_, MethodOperation parent_, CustList<PartOffset> _parts) {
-        if (parent_ instanceof InstanceOfOperation) {
+    private static void processUnaryRightOperations(ContextEl _cont, String currentFileName_, int sum_, int offsetEnd_, OperationNode curOp_,MethodOperation parent_, CustList<PartOffset> _parts) {
+        if (curOp_.getIndexChild() == 0 &&parent_ instanceof InstanceOfOperation) {
+            if (!parent_.getErrs().isEmpty()) {
+                int begin_ = ((InstanceOfOperation)parent_).getOffset()+sum_ + parent_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(parent_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+_cont.getKeyWords().getKeyWordInstanceof().length()));
+            }
             _parts.addAllElts(((InstanceOfOperation)parent_).getPartOffsets());
         }
-        if (parent_ instanceof SemiAffectationOperation) {
+        processPostIncr(_cont, currentFileName_, sum_, offsetEnd_, curOp_,parent_, _parts);
+    }
+
+    private static void processPostIncr(ContextEl _cont, String currentFileName_, int sum_, int offsetEnd_,  OperationNode curOp_,MethodOperation parent_, CustList<PartOffset> _parts) {
+        if (curOp_.getIndexChild() == 0&&parent_ instanceof SemiAffectationOperation) {
             SemiAffectationOperation par_ = (SemiAffectationOperation) parent_;
             if(par_.isPost()) {
+                if (!parent_.getErrs().isEmpty()) {
+                    int begin_ = ((SemiAffectationOperation)parent_).getOpOffset()+sum_ + parent_.getIndexInEl();
+                    _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(parent_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                    _parts.add(new PartOffset("</a>",begin_+2));
+                }
                 ClassMethodId classMethodId_ = par_.getClassMethodId();
                 if (classMethodId_ != null) {
                     MethodId id_ = classMethodId_.getConstraints();

@@ -120,6 +120,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                     Integer.toString(1),
                     Integer.toString(0));
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            getErrs().add(un_.getBuiltError());
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }

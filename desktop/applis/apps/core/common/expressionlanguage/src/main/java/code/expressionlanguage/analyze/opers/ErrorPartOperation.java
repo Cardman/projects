@@ -7,8 +7,6 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 
 public final class ErrorPartOperation extends LeafOperation {
 
-    private String err = "";
-
     public ErrorPartOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
@@ -27,12 +25,9 @@ public final class ErrorPartOperation extends LeafOperation {
         //if parent is not null => use parent header
         emptyPart_.buildError(_conf.getAnalysisMessages().getEmptyExpressionPart());
         _conf.getAnalyzing().getLocalizer().addError(emptyPart_);
-        err = emptyPart_.getBuiltError();
+        getErrs().add(emptyPart_.getBuiltError());
         argClName_ = _conf.getStandards().getAliasObject();
         setResultClass(new ClassArgumentMatching(argClName_));    
     }
 
-    public String getErr() {
-        return err;
-    }
 }

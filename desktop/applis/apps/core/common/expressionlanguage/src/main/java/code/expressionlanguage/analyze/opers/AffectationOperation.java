@@ -55,7 +55,7 @@ public final class AffectationOperation extends MethodOperation {
         boolean ok_ = elt_ != null;
         LgNames stds_ = _conf.getStandards();
         if (!ok_) {
-            root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -107,7 +107,7 @@ public final class AffectationOperation extends MethodOperation {
             settableOp = cst_;
             StringMap<Boolean> fieldsAfterLast_ = _conf.getAnalyzing().getDeclaredAssignments();
             if (!synthetic&&ElUtil.checkFinalFieldReadOnly(_conf, cst_, fieldsAfterLast_)) {
-                cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
+                setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -121,7 +121,7 @@ public final class AffectationOperation extends MethodOperation {
         elt_.setVariable(true);
         ClassArgumentMatching clMatchRight_ = right_.getResultClass();
         ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
-        root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
+        setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
 
         if (clMatchRight_.isVariable()) {
             if (!clMatchLeft_.isPrimitive(_conf)) {

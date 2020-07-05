@@ -31,6 +31,10 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
     void calculateChildren() {
         IntTreeMap< String> vs_ = getOperations().getValues();
         vs_.removeKey(vs_.firstKey());
+        if (vs_.isEmpty()) {
+            className = "";
+            return;
+        }
         className = vs_.firstValue();
         argOffset = vs_.firstKey();
         vs_.removeKey(vs_.firstKey());
