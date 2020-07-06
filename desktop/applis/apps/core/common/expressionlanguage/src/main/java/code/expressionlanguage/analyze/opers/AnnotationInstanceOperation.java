@@ -169,7 +169,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             }
             Mapping mapping_ = new Mapping();
             mapping_.setParam(eltType_);
-            StringList errs_ = new StringList();
             for (OperationNode o: chidren_) {
                 int index_ = getPartOffsetsChildren().size();
                 IntTreeMap<String> operators_ = getOperations().getOperators();
@@ -190,7 +189,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
                     parts_.add(new PartOffset("</a>",i_+1));
-                    errs_.add(cast_.getBuiltError());
                 }
                 if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
                     o.getResultClass().setUnwrapObject(eltType_);

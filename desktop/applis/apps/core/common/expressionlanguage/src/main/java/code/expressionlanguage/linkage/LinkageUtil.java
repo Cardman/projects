@@ -1861,8 +1861,11 @@ public final class LinkageUtil {
                 }
             }
         }
-        if (val_.getParent() instanceof CallDynMethodOperation) {
-            CallDynMethodOperation c_ = (CallDynMethodOperation) val_.getParent();
+        if (val_.getParent() instanceof CallDynMethodOperation
+                ||val_.getParent() instanceof InferArrayInstancing
+                ||val_.getParent() instanceof ElementArrayInstancing
+                ||val_.getParent() instanceof DimensionArrayInstancing) {
+            MethodOperation c_ = val_.getParent();
             CustList<CustList<PartOffset>> partOffsetsChildren_ = c_.getPartOffsetsChildren();
             if (partOffsetsChildren_.isValidIndex(val_.getIndexChild())) {
                 _parts.addAllElts(partOffsetsChildren_.get(val_.getIndexChild()));
@@ -1881,6 +1884,10 @@ public final class LinkageUtil {
         if (val_ instanceof BadTernaryOperation) {
             BadTernaryOperation b_ = (BadTernaryOperation) val_;
             _parts.addAllElts(b_.getPartOffsetsEnd());
+        }
+        if (val_ instanceof InferArrayInstancing) {
+            InferArrayInstancing i_ = (InferArrayInstancing) val_;
+            _parts.addAllElts(i_.getPartOffsetsErr());
         }
         processNamedFct(_cont, currentFileName_, sum_, val_, _parts);
         processVariables(_cont, _vars,_offsetBlock, _block, sum_, val_, _parts);
@@ -2310,6 +2317,7 @@ public final class LinkageUtil {
         }
         if (val_ instanceof ElementArrayInstancing) {
             _parts.addAllElts(((ElementArrayInstancing)val_).getPartOffsets());
+            _parts.addAllElts(((ElementArrayInstancing)val_).getPartOffsetsErr());
         }
     }
 

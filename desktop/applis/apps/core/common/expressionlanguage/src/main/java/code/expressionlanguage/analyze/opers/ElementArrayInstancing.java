@@ -11,16 +11,18 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ClassMethodIdReturn;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
+import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class ElementArrayInstancing extends AbstractArrayInstancingOperation {
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
-
+    private CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
     public ElementArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -47,6 +49,11 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     className_);
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            IntTreeMap<String> operators_ = getOperations().getOperators();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.firstKey(), _conf);
+            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
+            partOffsetsErr.add(new PartOffset("</a>",i_+1));
             String obj_ = _conf.getStandards().getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
             ClassArgumentMatching class_ = new ClassArgumentMatching(obj_);
@@ -59,7 +66,10 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         Mapping mapping_ = new Mapping();
         mapping_.setParam(eltType_);
         for (OperationNode o: chidren_) {
-            setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
+            int index_ = getPartOffsetsChildren().size();
+            IntTreeMap<String> operators_ = getOperations().getOperators();
+            CustList<PartOffset> parts_ = new CustList<PartOffset>();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _conf);
             ClassArgumentMatching argType_ = o.getResultClass();
             mapping_.setArg(argType_);
             mapping_.setMapping(map_);
@@ -71,18 +81,22 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                    cast_.setIndexFile(i_);
                     //first separator char child
                     cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(argType_.getNames(),"&"),
                             eltType_);
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
+                    parts_.add(new PartOffset("</a>",i_+1));
                 }
             }
             if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
                 o.getResultClass().setUnwrapObject(eltType_);
                 o.cancelArgument();
             }
+            getPartOffsetsChildren().add(parts_);
         }
         String arrayCl_ = className_;
         setClassName(StringExpUtil.getQuickComponentType(arrayCl_));
@@ -91,5 +105,9 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public CustList<PartOffset> getPartOffsetsErr() {
+        return partOffsetsErr;
     }
 }

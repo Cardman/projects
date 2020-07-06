@@ -12,9 +12,11 @@ import code.expressionlanguage.analyze.blocks.FunctionBlock;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
+import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -141,18 +143,25 @@ public final class DimensionArrayInstancing extends
             className_ = typeInfer;
         }
         for (OperationNode o: chidren_) {
-            setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
+            int index_ = getPartOffsetsChildren().size();
+            IntTreeMap<String> operators_ = getOperations().getOperators();
+            CustList<PartOffset> parts_ = new CustList<PartOffset>();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(2*index_), _conf);
             if (!o.getResultClass().isNumericInt(_conf)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                un_.setIndexFile(i_);
                 un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 //first part child bracket
                 un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                         StringList.join(o.getResultClass().getNames(),"&"));
                 _conf.getAnalyzing().getLocalizer().addError(un_);
+                parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
+                parts_.add(new PartOffset("</a>",i_+1));
             }
             o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
             o.cancelArgument();
+            getPartOffsetsChildren().add(parts_);
         }
         setClassName(className_);
         setResultClass(new ClassArgumentMatching(StringExpUtil.getPrettyArrayType(className_, chidren_.size()+countArrayDims)));
