@@ -39,6 +39,7 @@ public final class FctOperation extends InvokingOperation {
 
     private int lengthMethod;
     private int delta;
+    private boolean clonedMethod;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public FctOperation(int _index,
@@ -140,6 +141,7 @@ public final class FctOperation extends InvokingOperation {
                 getErrs().add(undefined_.getBuiltError());
                 return;
             }
+            clonedMethod = true;
             String foundClass_ = StringExpUtil.getPrettyArrayType(stds_.getAliasObject());
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, trimMeth_, new StringList());
             classMethodId = new ClassMethodId(foundClass_, id_);
@@ -309,5 +311,9 @@ public final class FctOperation extends InvokingOperation {
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public boolean isClonedMethod() {
+        return clonedMethod;
     }
 }

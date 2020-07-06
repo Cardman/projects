@@ -6620,7 +6620,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
                 " $int[] <a name=\"m39\">i</a>;\n" +
                 " {\n" +
-                "  <a title=\"The expression part is empty.\" class=\"e\">?</a>[0];\n" +
+                "  <a title=\"The expression part is empty.\" class=\"e\">?</a><a title=\"The type java.lang.Object is unexpected.\" class=\"e\">[</a>0];\n" +
                 " }\n" +
                 " $public $abstract $void <a name=\"m81\">$this</a>(Object <a name=\"m94\">o</a>, Object <a name=\"m104\">p</a>);\n" +
                 " $public $abstract $int <a name=\"m132\">$this</a>(Object <a name=\"m145\">o</a>, Object <a name=\"m155\">p</a>);\n" +
@@ -7222,6 +7222,118 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "$public $annotation <a name=\"m38\">pkg.MyAnnot </a>{\n" +
                 " $int <a name=\"m58\">a</a>();\n" +
                 " $int <a name=\"m69\">b</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report355Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  MySub m = $null;\n");
+        xml_.append("  ((MySub)m)[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m38\">m</a> = $null;\n" +
+                "  ((<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>)<a href=\"#m38\">m</a>)<a title=\"The type pkg.MySub is unexpected.\" class=\"e\">[</a>0];\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report356Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  MySub m = $null;\n");
+        xml_.append("  $double v = 1.0;\n");
+        xml_.append("  ((MySub[])m)[v];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m38\">m</a> = $null;\n" +
+                "  $double <a name=\"m59\">v</a> = 1.0;\n" +
+                "  ((<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>[])<a href=\"#m38\">m</a>)[<a href=\"#m59\">v</a><a title=\"The type $double is unexpected.\" class=\"e\">]</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report357Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  MySub m = $null;\n");
+        xml_.append("  ((MySub[])m).len;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m38\">m</a> = $null;\n" +
+                "  ((<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>[])<a href=\"#m38\">m</a>).<a title=\"There is no accessible field named len from the type [pkg.MySub in this context.\" class=\"e\">len</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report358Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  ((MySub[])$null).length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  ((<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>[])$null).<a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\" class=\"e\">length</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report359Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnotCont(@MyAnnot)\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int a();\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotCont {\n");
+        xml_.append(" MyAnnot b();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnotCont\" href=\"#m90\">MyAnnotCont</a>(<a title=\"The field a of the annotatation is compulsory.\" class=\"e\">@</a><a title=\"pkg.MyAnnot\" href=\"#m43\">MyAnnot</a>)\n" +
+                "$public $annotation <a name=\"m43\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m63\">a</a>();\n" +
+                "}\n" +
+                "$public $annotation <a name=\"m90\">pkg.MyAnnotCont </a>{\n" +
+                " <a title=\"pkg.MyAnnot\" href=\"#m43\">MyAnnot</a> <a name=\"m117\">b</a>();\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }

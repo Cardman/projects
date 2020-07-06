@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
+import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.util.*;
@@ -1738,9 +1739,6 @@ public final class LinkageUtil {
         boolean stopOp_ = false;
         if (parent_ == null) {
             stopOp_ = true;
-            if (_cur instanceof AnnotationInstanceOperation) {
-                _parts.addAllElts(((AnnotationInstanceOperation)_cur).getPartOffsetsEnd());
-            }
         } else {
             right(_cont,currentFileName_, offsetEnd_, parent_,_parts);
             if (parent_ == r_) {
@@ -1843,6 +1841,7 @@ public final class LinkageUtil {
         processUnaryLeftOperationsCovers(_cont, sum_, val_, result_, _parts);
         processUnaryLeftOperationsLinks(_cont, currentFileName_, sum_, val_, _parts);
         processLeftIndexer(_cont, currentFileName_, sum_, val_, _parts);
+        processArrLength(sum_, val_, _parts);
     }
 
     private static void leftError(ContextEl _cont,
@@ -1889,7 +1888,30 @@ public final class LinkageUtil {
         processRichHeader(_cont, currentFileName_, sum_, val_, _parts);
         processUnaryLeftOperationsLinks(_cont, currentFileName_, sum_, val_, _parts);
         processLeftIndexer(_cont, currentFileName_, sum_, val_, _parts);
+        if (val_ instanceof AnnotationInstanceOperation&&val_.getFirstChild() == null) {
+            _parts.addAllElts(((AnnotationInstanceOperation)val_).getPartOffsetsEnd());
+        }
+        processArrLength(sum_, val_, _parts);
     }
+
+    private static void processArrLength(int sum_, OperationNode val_, CustList<PartOffset> _parts) {
+        if (val_ instanceof ArrayFieldOperation) {
+            ArrayFieldOperation aField_ = (ArrayFieldOperation) val_;
+            OperationsSequence op_ = aField_.getOperations();
+            int relativeOff_ = op_.getOffset();
+            String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
+            String str_ = originalStr_.trim();
+            int begin_ = sum_ + relativeOff_ + val_.getIndexInEl();
+            if (!aField_.getErrs().isEmpty()) {
+                _parts.add(new PartOffset("<a title=\""+transform(StringList.join(aField_.getErrs(),"\n\n"))+"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+str_.length()));
+            } else {
+                _parts.add(new PartOffset("<b>",begin_));
+                _parts.add(new PartOffset("</b>",begin_+str_.length()));
+            }
+        }
+    }
+
     private static void processConstants(int sum_, OperationNode val_, CustList<PartOffset> _parts) {
         if (val_ instanceof ConstantOperation) {
             if (val_.getOperations().getConstType() == ConstType.STRING) {
@@ -1989,12 +2011,21 @@ public final class LinkageUtil {
                             val_.getErrs(),_parts);
                     return;
                 }
-                String className_ = classMethodId_.getClassName();
-                className_ = StringExpUtil.getIdFromAllTypes(className_);
-                MethodId id_ = classMethodId_.getConstraints();
-                addParts(_cont,currentFileName_,className_,id_,
-                        sum_ +delta_+ val_.getIndexInEl(),l_,
-                        val_.getErrs(),_parts);
+                if (((FctOperation)val_).isClonedMethod()&&val_.getErrs().isEmpty()) {
+                    int begin_ = sum_ +delta_+ val_.getIndexInEl();
+                    String tag_;
+                    tag_ = "<b>";
+                    _parts.add(new PartOffset(tag_,begin_));
+                    tag_ = "</b>";
+                    _parts.add(new PartOffset(tag_,begin_+l_));
+                } else {
+                    String className_ = classMethodId_.getClassName();
+                    className_ = StringExpUtil.getIdFromAllTypes(className_);
+                    MethodId id_ = classMethodId_.getConstraints();
+                    addParts(_cont, currentFileName_, className_, id_,
+                            sum_ + delta_ + val_.getIndexInEl(), l_,
+                            val_.getErrs(), _parts);
+                }
             }
             if (val_ instanceof ChoiceFctOperation) {
                 _parts.addAllElts(((ChoiceFctOperation)val_).getPartOffsets());
@@ -2648,19 +2679,26 @@ public final class LinkageUtil {
     }
 
     private static void processRightIndexer(ContextEl _cont, String currentFileName_, int offsetEnd_, MethodOperation parentOp_, CustList<PartOffset> _parts) {
-        if (parentOp_ instanceof ArrOperation && ((ArrOperation) parentOp_).getClassMethodId() != null) {
+        if (parentOp_ instanceof ArrOperation) {
             ArrOperation par_ = (ArrOperation) parentOp_;
             ClassMethodId classMethodId_ = par_.getClassMethodId();
-            String className_ = classMethodId_.getClassName();
-            className_ = StringExpUtil.getIdFromAllTypes(className_);
-            MethodId methodId_ = classMethodId_.getConstraints();
-            MethodId id_;
-            if (par_.isVariable()) {
-                id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
+            if (classMethodId_ != null) {
+                String className_ = classMethodId_.getClassName();
+                className_ = StringExpUtil.getIdFromAllTypes(className_);
+                MethodId methodId_ = classMethodId_.getConstraints();
+                MethodId id_;
+                if (par_.isVariable()) {
+                    id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
+                } else {
+                    id_ = new MethodId(MethodAccessKind.INSTANCE,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
+                }
+                addParts(_cont,currentFileName_,className_,id_,offsetEnd_,1,new StringList(),_parts);
             } else {
-                id_ = new MethodId(MethodAccessKind.INSTANCE,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
+                String er_ = par_.getNbErr();
+                if (!er_.isEmpty()) {
+                    addParts(_cont,currentFileName_,"",null,offsetEnd_,1,new StringList(er_),_parts);
+                }
             }
-            addParts(_cont,currentFileName_,className_,id_,offsetEnd_,1,new StringList(),_parts);
         }
     }
 

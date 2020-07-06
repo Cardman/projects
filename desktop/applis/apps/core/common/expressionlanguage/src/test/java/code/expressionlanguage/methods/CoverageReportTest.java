@@ -339,7 +339,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$public $class <a name=\"m60\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m91\">catching</a>(){\n" +
                 "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m119\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m60\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
-                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m119\">arr</a></span>.<span class=\"f\">length </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m119\">arr</a></span>.<span class=\"f\"><b>length</b> </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
                 "   $return <span class=\"n\">3i</span>;\n" +
                 "  }\n" +
                 "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m119\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
@@ -1085,7 +1085,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class <a name=\"m90\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m118\">exmeth</a>(){\n" +
-                "  return <span class=\"f\"><span class=\"f\">$values(<a title=\"pkg.ExEnum\" href=\"#m12\">ExEnum</a>)</span>.<span class=\"f\">length</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">$values(<a title=\"pkg.ExEnum\" href=\"#m12\">ExEnum</a>)</span>.<span class=\"f\"><b>length</b></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2595,7 +2595,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$public $class <a name=\"m60\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m91\">catching</a>(){\n" +
                 "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m119\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m60\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
-                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m119\">arr</a></span>.<span class=\"f\">length </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m119\">arr</a></span>.<span class=\"f\"><b>length</b> </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
                 "   $return <span class=\"n\">3i</span>;\n" +
                 "  }\n" +
                 "  <span class=\"p\">$else $if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m119\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
@@ -12025,7 +12025,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$public $class <a name=\"m138\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m169\">catching</a>(){\n" +
                 "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m197\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m138\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
-                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m197\">arr</a></span>.<span class=\"f\">length </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m197\">arr</a></span>.<span class=\"f\"><b>length</b> </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
                 "   $return <span class=\"n\">3i</span>;\n" +
                 "  }\n" +
                 "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m197\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
@@ -12080,7 +12080,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$public $class <a name=\"m140\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m171\">catching</a>(){\n" +
                 "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m199\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m140\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
-                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m199\">arr</a></span>.<span class=\"f\">length </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m199\">arr</a></span>.<span class=\"f\"><b>length</b> </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
                 "   $return <span class=\"n\">3i</span>;\n" +
                 "  }\n" +
                 "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m199\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
@@ -12135,7 +12135,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$public $class <a name=\"m139\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m170\">catching</a>(){\n" +
                 "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m198\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m139\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
-                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m198\">arr</a></span>.<span class=\"f\">length </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m198\">arr</a></span>.<span class=\"f\"><b>length</b> </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
                 "   $return <span class=\"n\">3i</span>;\n" +
                 "  }\n" +
                 "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m198\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
@@ -12190,7 +12190,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$public $class <a name=\"m141\">pkg.Ex </a>{\n" +
                 " $public $static $int <a name=\"m172\">catching</a>(){\n" +
                 "  $Annotation[] <span class=\"f\"><span class=\"f\"><a name=\"m200\">arr</a> </span>=<span class=\"f\"><span class=\"f\"> $class(<a title=\"pkg.Ex\" href=\"#m141\">Ex</a>)</span>.<span class=\"f\">getAnnotations()</span></span></span>;\n" +
-                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m200\">arr</a></span>.<span class=\"f\">length </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
+                "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m200\">arr</a></span>.<span class=\"f\"><b>length</b> </span></span><a title=\"false\">!=</a><span class=\"f\"> 1i</span></span>){\n" +
                 "   $return <span class=\"n\">3i</span>;\n" +
                 "  }\n" +
                 "  <span class=\"p\">$if</span> (<span class=\"p\"><span class=\"f\"><span class=\"f\">$static($Class)</span>.<span class=\"f\">getClass(<span class=\"f\"><a href=\"#m200\">arr</a></span>) </span></span><a title=\"false\">!=</a><span class=\"f\"> $class($Annotation[])</span></span>){\n" +
@@ -12449,6 +12449,60 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " }\n" +
                 " $public $static $int <a name=\"m116\">call</a>(){\n" +
                 "  $return <span class=\"f\">1i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage322Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int[] t = s == 1 ?{4i}:{6i};\n");
+        xml_.append("  return t.length;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m72\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span>.<span class=\"f\"><b>length</b></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage323Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int[] exmeth(){\n");
+        xml_.append("  int s = 1;\n");
+        xml_.append("  int[] t = s == 1 ?{4i}:{6i};\n");
+        xml_.append("  return t.clone();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static int[] <a name=\"m43\">exmeth</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m59\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
+                "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m74\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m59\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m74\">t</a></span>.<span class=\"f\"><b>clone</b>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());

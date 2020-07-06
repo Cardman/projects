@@ -40,6 +40,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
                 str_,
                 StringList.join(cl_.getNames(), "&"));
         _conf.getAnalyzing().getLocalizer().addError(und_);
+        getErrs().add(und_.getBuiltError());
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
     }
 

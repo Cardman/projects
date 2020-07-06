@@ -28,6 +28,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     private boolean staticChoiceMethod;
     private String sepErr = "";
+    private String nbErr = "";
 
     public ArrOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -152,9 +153,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(indexClass_.getNames(),"&"));
             _conf.getAnalyzing().getLocalizer().addError(un_);
-            class_ = new ClassArgumentMatching(_conf.getStandards().getAliasObject());
-            setResultClass(class_);
-            return;
+            nbErr = un_.getBuiltError();
         }
         setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _conf);
         if (!class_.isArray()) {
@@ -165,6 +164,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(class_.getNames(),"&"));
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            getErrs().add(un_.getBuiltError());
             class_ = new ClassArgumentMatching(_conf.getStandards().getAliasObject());
             setResultClass(class_);
             return;
@@ -239,5 +239,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     public String getSepErr() {
         return sepErr;
+    }
+
+    public String getNbErr() {
+        return nbErr;
     }
 }
