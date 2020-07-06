@@ -185,7 +185,7 @@ final class AfterUnaryParts {
                 if (ElResolver.FCT_OPER_PRIO == prio) {
                     leftParFirstOperator = false;
                     if (instance) {
-                        fctName = _string.substring(firstPrintChar_, index);
+                        fctName = _string.substring(CustList.FIRST_INDEX, index);
                         if (operators.isEmpty()) {
                             operators.put(index, ANN_ARR);
                         }
@@ -218,7 +218,7 @@ final class AfterUnaryParts {
 
                     if (instance) {
                         if (operators.isEmpty()) {
-                            fctName = _string.substring(firstPrintChar_, index);
+                            fctName = _string.substring(CustList.FIRST_INDEX, index);
                             operators.put(index, ARR);
                         } else {
                             String op_ = operators.firstValue();

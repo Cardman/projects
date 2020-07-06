@@ -1137,7 +1137,6 @@ public final class LinkageUtil {
         cl_ = StringExpUtil.getIdFromAllTypes(cl_);
         ConstructorId c_ = inst_.getConstId();
         GeneType type_ = _cont.getClassBody(cl_);
-        String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
         String fileName_ = _vars.getCurrentFileName();
         StringList list_ = _cond.getNameErrors();
         String err_="";
@@ -1146,6 +1145,7 @@ public final class LinkageUtil {
         }
         CustList<ExecConstructorBlock> ctors_ = ExecBlock.getConstructorBodiesById(_cont, cl_, c_);
         if (!ctors_.isEmpty()) {
+            String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
             ExecConstructorBlock ctor_ = ctors_.first();
             String rel_ = relativize(fileName_,file_+"#m"+ctor_.getNameOffset());
             if (!list_.isEmpty()) {
@@ -1428,7 +1428,6 @@ public final class LinkageUtil {
         cl_ = StringExpUtil.getIdFromAllTypes(cl_);
         ConstructorId c_ = inst_.getConstId();
         GeneType type_ = _cont.getClassBody(cl_);
-        String file_ = ((ExecRootBlock) type_).getFile().getFileName();
         String fileName_ = _vars.getCurrentFileName();
         CustList<ExecConstructorBlock> ctors_ = ExecBlock.getConstructorBodiesById(_cont, cl_, c_);
         StringList list_ = _cond.getNameErrors();
@@ -1438,6 +1437,7 @@ public final class LinkageUtil {
         }
 
         if (!ctors_.isEmpty()) {
+            String file_ = ((ExecRootBlock) type_).getFile().getFileName();
             ExecConstructorBlock ctor_ = ctors_.first();
             String rel_ = relativize(fileName_,file_+".html#m"+ctor_.getNameOffset());
             if (!list_.isEmpty()) {

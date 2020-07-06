@@ -119,7 +119,11 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
             i_ += p.length() + 1;
         }
         StringMap<StringList> varsCt_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
-        importedClassName = AnaTemplates.check(classNameRes,j_,varsCt_,_cont);
+        StringList errs_ = new StringList();
+        importedClassName = AnaTemplates.check(errs_,classNameRes,j_,varsCt_,_cont);
+        for (String e: errs_) {
+            addNameErrors(e);
+        }
     }
 
     @Override
@@ -212,6 +216,10 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     public void addNameErrors(FoundErrorInterpret _error) {
         nameErrors.add(_error.getBuiltError());
+    }
+
+    public void addNameErrors(String _error) {
+        nameErrors.add(_error);
     }
     public StringList getNameErrors() {
         return nameErrors;

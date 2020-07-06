@@ -1646,6 +1646,10 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     public void addNameErrors(FoundErrorInterpret _error) {
         nameErrors.add(_error.getBuiltError());
     }
+
+    public void addNameErrors(String _error) {
+        nameErrors.add(_error);
+    }
     public StringList getNameErrors() {
         return nameErrors;
     }

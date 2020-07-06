@@ -254,6 +254,7 @@ public final class StandardInstancingOperation extends
                     static_.buildError(_conf.getAnalysisMessages().getIllegalCtorUnknown(),
                             realClassName_);
                     _conf.getAnalyzing().getLocalizer().addError(static_);
+                    getErrs().add(static_.getBuiltError());
                 } else {
                     StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                     Mapping m_ = new Mapping();
@@ -269,6 +270,7 @@ public final class StandardInstancingOperation extends
                                 glClass_,
                                 outer_);
                         _conf.getAnalyzing().getLocalizer().addError(static_);
+                        getErrs().add(static_.getBuiltError());
                     }
                 }
             }
@@ -290,6 +292,7 @@ public final class StandardInstancingOperation extends
             static_.buildError(_conf.getAnalysisMessages().getIllegalCtorUnknown(),
                     realClassName_);
             _conf.getAnalyzing().getLocalizer().addError(static_);
+            getErrs().add(static_.getBuiltError());
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -309,6 +312,7 @@ public final class StandardInstancingOperation extends
                             p,
                             o);
                     _conf.getAnalyzing().getLocalizer().addError(call_);
+                    getErrs().add(call_.getBuiltError());
                     ok_ = false;
                 }
                 if (p.startsWith(Templates.SUP_TYPE)) {
@@ -320,6 +324,7 @@ public final class StandardInstancingOperation extends
                             p,
                             o);
                     _conf.getAnalyzing().getLocalizer().addError(call_);
+                    getErrs().add(call_.getBuiltError());
                     ok_ = false;
                 }
             }
@@ -344,6 +349,7 @@ public final class StandardInstancingOperation extends
                     idClass_
             );
             _conf.getAnalyzing().getLocalizer().addError(static_);
+            getErrs().add(static_.getBuiltError());
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -357,7 +363,7 @@ public final class StandardInstancingOperation extends
             offset_ += a.length() + 1;
         }
         StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
-        realClassName_ = AnaTemplates.check(StringList.concat(sup_, "..", idClass_), partsArgs_, vars_, _conf);
+        realClassName_ = AnaTemplates.check(getErrs(),StringList.concat(sup_, "..", idClass_), partsArgs_, vars_, _conf);
         analyzeCtor(_conf, realClassName_, varargParam_,firstArgs_);
     }
     private void analyzeCtor(ContextEl _conf, String _realClassName, String _paramVargArg,CustList<ClassArgumentMatching> _firstArgs) {
@@ -377,6 +383,7 @@ public final class StandardInstancingOperation extends
                     _realClassName);
             _conf.getAnalyzing().getLocalizer().addError(call_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            getErrs().add(call_.getBuiltError());
             return;
         }
         OperationNode possibleInit_ = getFirstChild();
@@ -397,6 +404,7 @@ public final class StandardInstancingOperation extends
                         p,
                         _realClassName);
                 _conf.getAnalyzing().getLocalizer().addError(call_);
+                getErrs().add(call_.getBuiltError());
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -407,6 +415,7 @@ public final class StandardInstancingOperation extends
                         p,
                         _realClassName);
                 _conf.getAnalyzing().getLocalizer().addError(call_);
+                getErrs().add(call_.getBuiltError());
             }
         }
         if (ContextUtil.isAbstractType(g_) && !ContextUtil.isEnumType(g_)) {
@@ -417,6 +426,7 @@ public final class StandardInstancingOperation extends
             call_.buildError(_conf.getAnalysisMessages().getIllegalCtorAbstract(),
                     base_);
             _conf.getAnalyzing().getLocalizer().addError(call_);
+            getErrs().add(call_.getBuiltError());
             setResultClass(new ClassArgumentMatching(_realClassName));
             return;
         }

@@ -530,7 +530,7 @@ public final class AnaTemplates {
         return StringExpUtil.removeDottedSpaces(tr_);
     }
 
-    public static String check(String _className, StringList _parts, StringMap<StringList> _inherit, ContextEl _context) {
+    public static String check(StringList _errs,String _className, StringList _parts, StringMap<StringList> _inherit, ContextEl _context) {
         String realClassName_;
         if (_parts.isEmpty()) {
             realClassName_ = _className;
@@ -547,6 +547,7 @@ public final class AnaTemplates {
             un_.buildError(_context.getAnalysisMessages().getBadParamerizedType(),
                     realClassName_);
             _context.getAnalyzing().getLocalizer().addError(un_);
+            _errs.add(un_.getBuiltError());
             realClassName_ = _context.getStandards().getAliasObject();
         }
         return realClassName_;

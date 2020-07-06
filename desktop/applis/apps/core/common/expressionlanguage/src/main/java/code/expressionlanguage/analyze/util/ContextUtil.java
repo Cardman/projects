@@ -122,6 +122,7 @@ public final class ContextUtil {
                 call_.buildError(_an.getAnalysisMessages().getIllegalCtorEnum());
                 _an.getAnalyzing().getLocalizer().addError(call_);
                 _op.setResultClass(new ClassArgumentMatching(_realClassName));
+                _op.getErrs().add(call_.getBuiltError());
                 return -2;
             }
             return _an.getAnalyzing().getIndexChildType();

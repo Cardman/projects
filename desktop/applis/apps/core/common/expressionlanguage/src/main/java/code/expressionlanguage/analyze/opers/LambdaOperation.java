@@ -1021,7 +1021,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         partOffsets.clear();
         partOffsets.addAllElts(partOffsets_);
         StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
-        cl_ = AnaTemplates.check(StringList.concat(sup_, "..", idClass_), partsArgs_, vars_, _conf);
+        cl_ = AnaTemplates.check(getErrs(),StringList.concat(sup_, "..", idClass_), partsArgs_, vars_, _conf);
         processCtor(_conf, _stds, _methodTypes, vararg_, null, cl_);
     }
 
