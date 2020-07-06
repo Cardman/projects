@@ -860,6 +860,7 @@ public abstract class OperationNode {
             static_.buildError(_conf.getAnalysisMessages().getNullValue(),
                     _conf.getStandards().getAliasNullPe());
             _conf.getAnalyzing().getLocalizer().addError(static_);
+            getErrs().add(static_.getBuiltError());
         }
     }
     static ClassMethodIdReturn getDeclaredCustMethod(ContextEl _conf, int _varargOnly,

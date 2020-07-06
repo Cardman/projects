@@ -294,6 +294,14 @@ public final class ElUtil {
             ((MethodOperation) _current).retrieveErrs();
         }
         _current.analyze(_context);
+        if (_current instanceof AbstractDotOperation) {
+            OperationNode last_ = ((AbstractDotOperation) _current).getChildrenNodes().last();
+            if (last_ instanceof ArrOperation) {
+                if (_current.getOperations().getOperators().firstValue().isEmpty()) {
+                    last_.getErrs().addAllElts(_current.getErrs());
+                }
+            }
+        }
     }
 
     private static void unwrapPrimitive(ContextEl _context, MethodOperation _par, ClassArgumentMatching _cl) {

@@ -349,10 +349,6 @@ public final class ElResolver {
                 _d.setBadOffset(len_);
                 return;
             }
-            if (indexParRight_ + 1 >= len_) {
-                _d.setBadOffset(len_);
-                return;
-            }
             _d.getDelCast().add(i_);
             _d.getDelCast().add(indexParRight_);
             _d.getDelCastExtract().add(EMPTY_STRING);
@@ -369,10 +365,6 @@ public final class ElResolver {
             }
             int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
             if (indexParRight_ < 0) {
-                _d.setBadOffset(len_);
-                return;
-            }
-            if (indexParRight_ + 1 >= len_) {
                 _d.setBadOffset(len_);
                 return;
             }

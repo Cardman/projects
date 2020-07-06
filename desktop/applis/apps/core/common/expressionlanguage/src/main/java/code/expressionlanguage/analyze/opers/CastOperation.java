@@ -20,6 +20,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
     private int offset;
     private int beginType;
     private CustList<PartOffset> partOffsets;
+    private boolean found;
     public CastOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -35,12 +36,12 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         if (!ext_.isEmpty()) {
             className = ext_;
             partOffsets = getOperations().getPartOffsets();
+            found = true;
         } else {
             beginType = className.indexOf(PAR_LEFT) + 1;
             String res_ = className.substring(beginType, className.lastIndexOf(PAR_RIGHT));
             if (res_.trim().isEmpty()) {
-                className = EMPTY_STRING;
-                int rc_ = _an.getAnalyzing().getLocalizer().getCurrentLocationIndex() + className.indexOf(PAR_LEFT)+1;
+                int rc_ = _an.getAnalyzing().getLocalizer().getCurrentLocationIndex() + className.indexOf(PAR_RIGHT);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_an.getAnalyzing().getLocalizer().getCurrentFileName());
                 un_.setIndexFile(rc_);
@@ -51,6 +52,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
                 String pref_ = "<a title=\""+err_+"\" class=\"e\">";
                 partOffsets_.add(new PartOffset(pref_,rc_));
                 partOffsets_.add(new PartOffset("</a>",rc_+1));
+                className = EMPTY_STRING;
                 partOffsets = partOffsets_;
                 return;
             }
@@ -108,5 +110,9 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public boolean isFound() {
+        return found;
     }
 }

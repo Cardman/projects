@@ -27,6 +27,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     private int anc;
 
     private boolean staticChoiceMethod;
+    private String sepErr = "";
 
     public ArrOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -77,6 +78,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(),false,
                 bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, false, feed_,
                 varargParam_,ClassArgumentMatching.toArgArray(firstArgs_));
+        Argument arg_ = getPreviousArgument();
+        checkNull(arg_,_conf);
         if (clMeth_.isFoundMethod()) {
             if (staticChoiceMethod_) {
                 if (clMeth_.isAbstractMethod()) {
@@ -90,8 +93,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                             clMeth_.getRealClass(),
                             clMeth_.getRealId().getSignature(_conf));
                     _conf.getAnalyzing().getLocalizer().addError(abs_);
-                    setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
-                    return;
+                    getErrs().add(abs_.getBuiltError());
                 }
             }
             staticChoiceMethod = staticChoiceMethod_;
@@ -110,8 +112,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             }
             unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, firstArgs_, _conf);
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
-            Argument arg_ = getPreviousArgument();
-            checkNull(arg_,_conf);
             return;
         }
         if (chidren_.size() != 1) {
@@ -126,6 +126,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                     "[]"
             );
             _conf.getAnalyzing().getLocalizer().addError(badNb_);
+            sepErr = badNb_.getBuiltError();
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }
@@ -234,5 +235,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     public int getAnc() {
         return anc;
+    }
+
+    public String getSepErr() {
+        return sepErr;
     }
 }

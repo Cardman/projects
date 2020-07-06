@@ -37,6 +37,7 @@ public final class FctOperation extends InvokingOperation {
 
     private int anc;
 
+    private int lengthMethod;
     private int delta;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
@@ -198,19 +199,29 @@ public final class FctOperation extends InvokingOperation {
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
         int delta_ = StringList.getFirstPrintableCharIndex(methodName);
+        lengthMethod = methodName.length();
+        int deltaEnd_ = lengthMethod-StringList.getLastPrintableCharIndex(methodName)-1;
+        lengthMethod -= delta_;
         if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
             int after_ = trimMeth_.indexOf('.') + 1;
             delta_ += after_;
+            lengthMethod -= after_;
             delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(after_));
+            lengthMethod -= StringList.getFirstPrintableCharIndex(trimMeth_.substring(after_));
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThat_)) {
             int after_ = trimMeth_.indexOf('.') + 1;
             delta_ += after_;
+            lengthMethod -= after_;
             delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(after_));
+            lengthMethod -= StringList.getFirstPrintableCharIndex(trimMeth_.substring(after_));
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
             int lastAfter_ = trimMeth_.lastIndexOf(PAR_RIGHT) + 1;
             delta_ += lastAfter_;
+            lengthMethod -= lastAfter_;
             delta_ += StringList.getFirstPrintableCharIndex(trimMeth_.substring(lastAfter_));
+            lengthMethod -= StringList.getFirstPrintableCharIndex(trimMeth_.substring(lastAfter_));
         }
+        lengthMethod -= deltaEnd_;
         delta = delta_;
     }
     private static StringList getArrayBounds(StringList _bounds) {
@@ -291,6 +302,10 @@ public final class FctOperation extends InvokingOperation {
 
     public int getDelta() {
         return delta;
+    }
+
+    public int getLengthMethod() {
+        return lengthMethod;
     }
 
     public CustList<PartOffset> getPartOffsets() {

@@ -384,7 +384,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         fct_.append(_stds.getAliasPrimInteger());
                         fct_.append(Templates.TEMPLATE_END);
                         setResultClass(new ClassArgumentMatching(fct_.toString()));
-                        checkNull(_conf);
                         return;
                     }
                     String foundClass_ = StringExpUtil.getPrettyArrayType(_stds.getAliasObject());
@@ -436,7 +435,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     fct_.append(comp_);
                     fct_.append(Templates.TEMPLATE_END);
                     setResultClass(new ClassArgumentMatching(fct_.toString()));
-                    checkNull(_conf);
                     return;
                 }
                 if (checkArrayMethod(_conf, _stds, str_, name_)) {
@@ -454,7 +452,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 fct_.append(foundClass);
                 fct_.append(Templates.TEMPLATE_END);
                 setResultClass(new ClassArgumentMatching(fct_.toString()));
-                checkNull(_conf);
                 return;
             }
             ClassMethodIdReturn id_ = getDeclaredCustMethodLambda(_conf, vararg_,
@@ -652,7 +649,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     fct_.append(_stds.getAliasPrimInteger());
                     fct_.append(Templates.TEMPLATE_END);
                     setResultClass(new ClassArgumentMatching(fct_.toString()));
-                    checkNull(_conf);
                     return;
                 }
                 String foundClass_ = StringExpUtil.getPrettyArrayType(_stds.getAliasObject());
@@ -701,7 +697,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 fct_.append(comp_);
                 fct_.append(Templates.TEMPLATE_END);
                 setResultClass(new ClassArgumentMatching(fct_.toString()));
-                checkNull(_conf);
                 return;
             }
             if (checkArrayMethod(_conf, _stds, bounds_, name_)) {
@@ -716,7 +711,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             fct_.append(foundClass);
             fct_.append(Templates.TEMPLATE_END);
             setResultClass(new ClassArgumentMatching(fct_.toString()));
-            checkNull(_conf);
             return;
         }
         Mapping map_ = new Mapping();
@@ -792,13 +786,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 _a.add(b);
                 foundClass = b;
             }
-        }
-    }
-
-    void checkNull(ContextEl _conf) {
-        Argument arg_ = getPreviousArgument();
-        if (isIntermediateDottedOperation()) {
-            checkNull(arg_, _conf);
         }
     }
 

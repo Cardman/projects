@@ -4366,7 +4366,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         addImportingPage(conf_);
         String el_ = "$()";
         Delimiters d_ = checkSyntax(conf_, el_);
-        assertEq(3, d_.getBadOffset());
+        assertEq(-1, d_.getBadOffset());
     }
 
     @Test
@@ -4815,7 +4815,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         addImportingPage(conf_);
         String el_ = "explicit()";
         Delimiters d_ = checkSyntax(conf_, el_);
-        assertEq(10, d_.getBadOffset());
+        assertEq(-1, d_.getBadOffset());
     }
 
     @Test
