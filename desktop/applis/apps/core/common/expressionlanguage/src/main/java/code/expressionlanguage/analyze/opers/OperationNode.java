@@ -863,7 +863,7 @@ public abstract class OperationNode {
             getErrs().add(static_.getBuiltError());
         }
     }
-    static ClassMethodIdReturn getDeclaredCustMethod(ContextEl _conf, int _varargOnly,
+    static ClassMethodIdReturn getDeclaredCustMethod(OperationNode _op,ContextEl _conf, int _varargOnly,
                                                      MethodAccessKind _staticContext, StringList _classes, String _name,
                                                      boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodIdAncestor _uniqueId, String _param, ClassArgumentMatching... _argsClass) {
         ClassMethodIdReturn res_ = tryGetDeclaredCustMethod(_conf, _varargOnly, _staticContext,false, _classes, _name, _superClass, _accessFromSuper, _import, _uniqueId, _param,_argsClass);
@@ -882,6 +882,7 @@ public abstract class OperationNode {
         undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(_staticContext, _name, classesNames_).getSignature(_conf));
         _conf.getAnalyzing().getLocalizer().addError(undefined_);
+        _op.getErrs().add(undefined_.getBuiltError());
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
         return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
         return_.setRealClass(_classes.first());

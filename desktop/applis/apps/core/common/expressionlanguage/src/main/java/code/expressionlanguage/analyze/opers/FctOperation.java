@@ -106,8 +106,7 @@ public final class FctOperation extends InvokingOperation {
                         StringList.join(clCur_.getNames(),"&"),
                         className_);
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                return;
+                getErrs().add(cast_.getBuiltError());
             }
             trimMeth_ = trimMeth_.substring(trimMeth_.lastIndexOf(PAR_RIGHT) + 1).trim();
             l_ = getBounds(className_, _conf);
@@ -138,6 +137,7 @@ public final class FctOperation extends InvokingOperation {
                         stds_.getAliasClone(),
                         StringList.join(arrayBounds_,"&"));
                 _conf.getAnalyzing().getLocalizer().addError(undefined_);
+                getErrs().add(undefined_.getBuiltError());
                 return;
             }
             String foundClass_ = StringExpUtil.getPrettyArrayType(stds_.getAliasObject());
@@ -149,7 +149,7 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         ClassMethodIdReturn clMeth_;
-        clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, import_, feed_, varargParam_,ClassArgumentMatching.toArgArray(firstArgs_));
+        clMeth_ = getDeclaredCustMethod(this,_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, import_, feed_, varargParam_,ClassArgumentMatching.toArgArray(firstArgs_));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
@@ -167,8 +167,7 @@ public final class FctOperation extends InvokingOperation {
                         clMeth_.getRealClass(),
                         clMeth_.getRealId().getSignature(_conf));
                 _conf.getAnalyzing().getLocalizer().addError(abs_);
-                setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
-                return;
+                getErrs().add(abs_.getBuiltError());
             }
         }
         String foundClass_ = clMeth_.getRealClass();

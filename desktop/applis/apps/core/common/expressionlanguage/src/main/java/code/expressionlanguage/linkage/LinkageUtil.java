@@ -2273,6 +2273,11 @@ public final class LinkageUtil {
 
     private static void processRichHeader(ContextEl _cont, String currentFileName_, int sum_, OperationNode val_, CustList<PartOffset> _parts) {
         if (val_ instanceof EnumValueOfOperation) {
+            if (!val_.getErrs().isEmpty()) {
+                int begin_ = sum_ + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ _cont.getKeyWords().getKeyWordValueOf().length()));
+            }
             _parts.addAllElts(((EnumValueOfOperation)val_).getPartOffsets());
         }
         if (val_ instanceof ValuesOperation) {
@@ -2423,13 +2428,6 @@ public final class LinkageUtil {
                 int begin_ = sum_ + val_.getIndexInEl();
                 _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ _cont.getKeyWords().getKeyWordDefault().length()));
-            }
-        }
-        if (val_ instanceof EnumValueOfOperation) {
-            if (!val_.getErrs().isEmpty()) {
-                int begin_ = sum_ + val_.getIndexInEl();
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ _cont.getKeyWords().getKeyWordValueOf().length()));
             }
         }
     }
@@ -2774,6 +2772,13 @@ public final class LinkageUtil {
         String cl_ = StringExpUtil.getIdFromAllTypes(_className);
         String rel_ = getRelativize(_cont, _currentFileName, _className, _id);
         if (rel_.isEmpty()) {
+            if (!_errors.isEmpty()) {
+                String tag_;
+                tag_ = "<a title=\""+ transform(StringList.join(_errors,"\n\n"))+"\" class=\"e\">";
+                _parts.add(new PartOffset(tag_,_begin));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,_begin+_length));
+            }
             return;
         }
         String tag_;

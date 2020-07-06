@@ -4863,7 +4863,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id(String<a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String<a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -4879,7 +4879,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id(String,$static<a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String,$static<a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -4895,7 +4895,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id(String,0<a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String,0<a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -4911,7 +4911,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id(String<a title=\"There must be a type.\" class=\"e\">,</a><a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String<a title=\"There must be a type.\" class=\"e\">,</a><a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -4927,7 +4927,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id(String,$static,0<a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String,$static,0<a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -4975,7 +4975,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id(String<a title=\"There must be a type.\" class=\"e\">,</a>,String));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String<a title=\"There must be a type.\" class=\"e\">,</a>,String));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -4991,7 +4991,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id(String,<a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String,<a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -5071,7 +5071,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id<a title=\"There must be a type.\" class=\"e\">(</a>));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id<a title=\"There must be a type.\" class=\"e\">(</a>));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -5183,7 +5183,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($vararg(<a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($vararg(<a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -5199,7 +5199,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($vararg( <a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($vararg( <a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -5215,7 +5215,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($vararg<a title=\"There must be a type.\" class=\"e\">(</a>));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($vararg<a title=\"There must be a type.\" class=\"e\">(</a>));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -5231,7 +5231,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($vararg(<a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($vararg(<a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -5247,7 +5247,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($vararg(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>&lt;String<a title=\"The type pkg.MySub is not parameterized correctly.\" class=\"e\">&gt;</a>));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($vararg(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>&lt;String<a title=\"The type pkg.MySub is not parameterized correctly.\" class=\"e\">&gt;</a>));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -5263,7 +5263,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub</a>&lt;<a name=\"m25\">T</a>&gt; {\n" +
-                " Object <a name=\"m38\">v</a>=<span class=\"s\">\"\"</span>.length($vararg(<a title=\"The type pkg.MySub is not parameterized correctly.\n" +
+                " Object <a name=\"m38\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($vararg(<a title=\"The type pkg.MySub is not parameterized correctly.\n" +
                 "\n" +
                 "pkg.MySub\" href=\"#m15\" class=\"e\">MySub</a>));\n" +
                 "}\n" +
@@ -6737,6 +6737,126 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " {\n" +
                 "  <a title=\"The expression part is empty.\" class=\"e\">$</a>(Object,Object);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report333Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" MySub i;\n");
+        xml_.append(" {\n");
+        xml_.append("  i.$that.m();\n");
+        xml_.append(" }\n");
+        xml_.append(" $void m();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MySub\" href=\"#m19\">MySub</a> <a name=\"m38\">i</a>;\n" +
+                " {\n" +
+                "  <a title=\"pkg.MySub.i\" href=\"#m38\">i</a>.$that.<a title=\"The method m() from the type pkg.MySub must not be called directly because of abstract.\n" +
+                "\n" +
+                "pkg.MySub.m()\" href=\"#m69\" class=\"e\">m</a>();\n" +
+                " }\n" +
+                " $void <a name=\"m69\">m</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report334Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  ((MySub)$null).m();\n");
+        xml_.append(" }\n");
+        xml_.append(" $void m();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  ((<a title=\"pkg.MySub\" href=\"#m19\">MySub</a>)$null).<a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\n" +
+                "\n" +
+                "pkg.MySub.m()\" href=\"#m66\" class=\"e\">m</a>();\n" +
+                " }\n" +
+                " $void <a name=\"m66\">m</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report335Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  (($int[])$null).clone();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  (($int[])$null).<a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\" class=\"e\">clone</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report336Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  (($int[])$null).clones();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  (($int[])$null).<a title=\"Only the method clone can ne used for the array type [$int\" class=\"e\">clones</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report337Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $thisaccess(MyCl)m();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" $void m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  $thisaccess(<a title=\"pkg.MyCl\" href=\"#m82\">MyCl</a>)<a title=\"The type pkg.MySub cannot be implicitly cast to pkg.MyCl\n" +
+                "\n" +
+                "pkg.MyCl.m()\" href=\"#m100\" class=\"e\">m</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m82\">pkg.MyCl </a>{\n" +
+                " $void <a name=\"m100\">m</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
