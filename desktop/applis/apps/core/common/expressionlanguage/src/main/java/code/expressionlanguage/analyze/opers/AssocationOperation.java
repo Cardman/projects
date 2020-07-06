@@ -16,12 +16,15 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
 
     private int offset;
     private int delta;
+    private int offEq;
     private String annotation = EMPTY_STRING;
+    private String errAff = EMPTY_STRING;
 
     public AssocationOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op, String _fieldName) {
         super(_index, _indexChild, _m, _op);
         delta = StringList.getFirstPrintableCharIndex(_fieldName);
+        offEq = getOperations().getOperators().firstKey();
         fieldName = _fieldName.trim();
     }
 
@@ -71,6 +74,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
                         fieldName,
                         annotationClass_);
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
+                getErrs().add(cast_.getBuiltError());
             }
         }
         setResultClass(getFirstChild().getResultClass());
@@ -91,5 +95,17 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
 
     public String getAnnotation() {
         return annotation;
+    }
+
+    public String getErrAff() {
+        return errAff;
+    }
+
+    public void setErrAff(String _errAff) {
+        errAff = _errAff;
+    }
+
+    public int getOffEq() {
+        return offEq;
     }
 }

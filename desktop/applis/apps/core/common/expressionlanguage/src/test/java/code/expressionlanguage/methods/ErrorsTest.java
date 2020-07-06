@@ -6995,6 +6995,236 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report343Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot(a=\"1\")\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int a();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m36\">MyAnnot</a>(<a title=\"pkg.MyAnnot.a()\" href=\"#m56\">a</a><a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">=</a><span class=\"s\">\"1\"</span>)\n" +
+                "$public $annotation <a name=\"m36\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m56\">a</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report344Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot(a =\"1\")\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int a();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m37\">MyAnnot</a>(<a title=\"pkg.MyAnnot.a()\" href=\"#m57\">a</a> <a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">=</a><span class=\"s\">\"1\"</span>)\n" +
+                "$public $annotation <a name=\"m37\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m57\">a</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report345Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot( a=\"1\")\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int a();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m37\">MyAnnot</a>( <a title=\"pkg.MyAnnot.a()\" href=\"#m57\">a</a><a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">=</a><span class=\"s\">\"1\"</span>)\n" +
+                "$public $annotation <a name=\"m37\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m57\">a</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report346Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot(a=1,b=2)\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int a();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<a title=\"pkg.MyAnnot.a()\" href=\"#m58\">a</a>=1,<a title=\"There is no accessible field named b from the type pkg.MyAnnot in this context.\" class=\"e\">b</a>=2)\n" +
+                "$public $annotation <a name=\"m38\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m58\">a</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report347Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot(a=1,a=2)\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int a();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<a title=\"The field a of the annotatation is supplied by duplicate.\n" +
+                "\n" +
+                "pkg.MyAnnot.a()\" href=\"#m58\" class=\"e\">a</a>=1,<a title=\"The field a of the annotatation is supplied by duplicate.\n" +
+                "\n" +
+                "pkg.MyAnnot.a()\" href=\"#m58\" class=\"e\">a</a>=2)\n" +
+                "$public $annotation <a name=\"m38\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m58\">a</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report348Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot()\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int a();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m31\">MyAnnot</a>(<a title=\"The field a of the annotatation is compulsory.\" class=\"e\">)</a>\n" +
+                "$public $annotation <a name=\"m31\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m51\">a</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report349Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot(a=1)\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int a();\n");
+        xml_.append(" $int b();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m34\">MyAnnot</a>(<a title=\"pkg.MyAnnot.a()\" href=\"#m54\">a</a>=1<a title=\"The field b of the annotatation is compulsory.\" class=\"e\">)</a>\n" +
+                "$public $annotation <a name=\"m34\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m54\">a</a>();\n" +
+                " $int <a name=\"m65\">b</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report350Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int a();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><a title=\"The field a of the annotatation is compulsory.\" class=\"e\">@</a><a title=\"pkg.MyAnnot\" href=\"#m29\">MyAnnot</a>\n" +
+                "$public $annotation <a name=\"m29\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m49\">a</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report351Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot(a=1)\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int a();\n");
+        xml_.append(" $int b();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m34\">MyAnnot</a>(<a title=\"pkg.MyAnnot.a()\" href=\"#m54\">a</a>=1<a title=\"The field b of the annotatation is compulsory.\" class=\"e\">)</a>\n" +
+                "$public $annotation <a name=\"m34\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m54\">a</a>();\n" +
+                " $int <a name=\"m65\">b</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report352Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot(1)\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int a();\n");
+        xml_.append(" $int b();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m32\">MyAnnot</a>(1<a title=\"The field of the annotatation could not be found uniquely.\" class=\"e\">)</a>\n" +
+                "$public $annotation <a name=\"m32\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m52\">a</a>();\n" +
+                " $int <a name=\"m63\">b</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report353Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot(\"1\")\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int a();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m34\">MyAnnot</a><a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">(</a><span class=\"s\">\"1\"</span>)\n" +
+                "$public $annotation <a name=\"m34\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m54\">a</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report354Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@MyAnnot(\"1\",b=2)\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int a();\n");
+        xml_.append(" $int b();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<span class=\"s\">\"1\"</span>,<a title=\"pkg.MyAnnot.b()\" href=\"#m69\">b</a>=2<a title=\"The field of the annotatation could not be found uniquely.\n" +
+                "\n" +
+                "The field a of the annotatation is compulsory.\" class=\"e\">)</a>\n" +
+                "$public $annotation <a name=\"m38\">pkg.MyAnnot </a>{\n" +
+                " $int <a name=\"m58\">a</a>();\n" +
+                " $int <a name=\"m69\">b</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
         validate(cont_,files_);
         assertTrue(!cont_.isEmptyErrors());

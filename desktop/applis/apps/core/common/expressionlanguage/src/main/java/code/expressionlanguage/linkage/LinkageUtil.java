@@ -1667,7 +1667,7 @@ public final class LinkageUtil {
                     val_=nextSiblingOp_;
                     break;
                 }
-                boolean st_ = end(parent_, _cont, currentFileName_, offsetEnd_, _parts, r_);
+                boolean st_ = end(val_,parent_, _cont, currentFileName_, offsetEnd_, _parts, r_);
                 if (st_) {
                     stopOp_ = true;
                 }
@@ -1713,7 +1713,7 @@ public final class LinkageUtil {
                     val_=nextSiblingOp_;
                     break;
                 }
-                boolean st_ = end(parent_, _cont, currentFileName_, offsetEnd_, _parts, r_);
+                boolean st_ = end(val_,parent_, _cont, currentFileName_, offsetEnd_, _parts, r_);
                 if (st_) {
                     stopOp_ = true;
                 }
@@ -1734,10 +1734,13 @@ public final class LinkageUtil {
         }
         return root_;
     }
-    private static boolean end(MethodOperation parent_, ContextEl _cont, String currentFileName_, int offsetEnd_, CustList<PartOffset> _parts, OperationNode r_) {
+    private static boolean end(OperationNode _cur,MethodOperation parent_, ContextEl _cont, String currentFileName_, int offsetEnd_, CustList<PartOffset> _parts, OperationNode r_) {
         boolean stopOp_ = false;
         if (parent_ == null) {
             stopOp_ = true;
+            if (_cur instanceof AnnotationInstanceOperation) {
+                _parts.addAllElts(((AnnotationInstanceOperation)_cur).getPartOffsetsEnd());
+            }
         } else {
             right(_cont,currentFileName_, offsetEnd_, parent_,_parts);
             if (parent_ == r_) {
@@ -1955,6 +1958,11 @@ public final class LinkageUtil {
                     new MethodId(MethodAccessKind.INSTANCE,c_.getFieldName(),new StringList()),
                     sum_ +delta_+ val_.getIndexInEl(),fieldName_.length(),val_.getErrs(),_parts
             );
+            if (!a_.getErrAff().isEmpty()) {
+                int begin_ = sum_ + a_.getOffEq() + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+transform(a_.getErrAff())+"\" class=\"e\">", begin_));
+                _parts.add(new PartOffset("</a>", begin_+1));
+            }
         }
     }
 
@@ -2028,6 +2036,7 @@ public final class LinkageUtil {
         if (val_ instanceof AnnotationInstanceOperation) {
             _parts.addAllElts(((AnnotationInstanceOperation)val_).getPartOffsetsErr());
             _parts.addAllElts(((AnnotationInstanceOperation)val_).getPartOffsets());
+            _parts.addAllElts(((AnnotationInstanceOperation)val_).getPartOffsetsErrPar());
         }
     }
 
