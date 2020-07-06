@@ -30,6 +30,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
             //key word len
             call_.buildError(_conf.getAnalysisMessages().getCallCtorSuperClassEnumSingleton());
             _conf.getAnalyzing().getLocalizer().addError(call_);
+            getErrs().add(call_.getBuiltError());
             return null;
         }
         ExecUniqueRootedBlock unique_ =(ExecUniqueRootedBlock) clBody_;

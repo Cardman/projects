@@ -38,6 +38,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             //type len
             call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _conf.getAnalyzing().getLocalizer().addError(call_);
+            getErrs().add(call_.getBuiltError());
             return null;
         }
         OperationNode par_ = getParent();
@@ -53,6 +54,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             //type len
             call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _conf.getAnalyzing().getLocalizer().addError(call_);
+            getErrs().add(call_.getBuiltError());
             return null;
         }
         String idCl_ = StringExpUtil.getIdFromAllTypes(className_);
@@ -64,6 +66,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             //type len
             call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _conf.getAnalyzing().getLocalizer().addError(call_);
+            getErrs().add(call_.getBuiltError());
             return null;
         }
         String superClass_ = Templates.getOverridingFullTypeByBases(className_, cl_, _conf);
@@ -74,6 +77,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             //type len
             call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _conf.getAnalyzing().getLocalizer().addError(call_);
+            getErrs().add(call_.getBuiltError());
             return null;
         }
         return new ClassArgumentMatching(superClass_);
@@ -89,6 +93,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             //key word len
             call_.buildError(_conf.getAnalysisMessages().getCallCtorEnd());
             _conf.getAnalyzing().getLocalizer().addError(call_);
+            getErrs().add(call_.getBuiltError());
         }
     }
 

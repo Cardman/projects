@@ -1864,7 +1864,8 @@ public final class LinkageUtil {
         if (val_.getParent() instanceof CallDynMethodOperation
                 ||val_.getParent() instanceof InferArrayInstancing
                 ||val_.getParent() instanceof ElementArrayInstancing
-                ||val_.getParent() instanceof DimensionArrayInstancing) {
+                ||val_.getParent() instanceof DimensionArrayInstancing
+                ||val_.getParent() instanceof IdOperation) {
             MethodOperation c_ = val_.getParent();
             CustList<CustList<PartOffset>> partOffsetsChildren_ = c_.getPartOffsetsChildren();
             if (partOffsetsChildren_.isValidIndex(val_.getIndexChild())) {
@@ -2387,27 +2388,45 @@ public final class LinkageUtil {
         if (val_ instanceof AbstractInvokingConstructor) {
             if (val_ instanceof InterfaceInvokingConstructor) {
                 ConstructorId c_ = ((AbstractInvokingConstructor)val_).getConstId();
-                String cl_ = c_.getName();
-                cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-                addParts(_cont,currentFileName_,cl_,c_,
-                        sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
-                        val_.getErrs(),_parts);
+                if (c_ == null) {
+                    addParts(_cont,currentFileName_,"",null,
+                            sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
+                            val_.getErrs(),_parts);
+                } else {
+                    String cl_ = c_.getName();
+                    cl_ = StringExpUtil.getIdFromAllTypes(cl_);
+                    addParts(_cont,currentFileName_,cl_,c_,
+                            sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
+                            val_.getErrs(),_parts);
+                }
                 _parts.addAllElts(((InterfaceInvokingConstructor)val_).getPartOffsets());
             } else if (val_ instanceof InterfaceFctConstructor) {
                 ConstructorId c_ = ((AbstractInvokingConstructor)val_).getConstId();
-                String cl_ = c_.getName();
-                cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-                addParts(_cont,currentFileName_,cl_,c_,
-                        sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
-                        val_.getErrs(),_parts);
+                if (c_ == null) {
+                    addParts(_cont,currentFileName_,"",null,
+                            sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
+                            val_.getErrs(),_parts);
+                } else {
+                    String cl_ = c_.getName();
+                    cl_ = StringExpUtil.getIdFromAllTypes(cl_);
+                    addParts(_cont,currentFileName_,cl_,c_,
+                            sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
+                            val_.getErrs(),_parts);
+                }
                 _parts.addAllElts(((InterfaceFctConstructor)val_).getPartOffsets());
             } else{
                 ConstructorId c_ = ((AbstractInvokingConstructor) val_).getConstId();
-                String cl_ = c_.getName();
-                cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-                addParts(_cont, currentFileName_, cl_, c_,
-                        sum_ + val_.getIndexInEl(), ((AbstractInvokingConstructor) val_).getOffsetOper(),
-                        val_.getErrs(),_parts);
+                if (c_ == null) {
+                    addParts(_cont, currentFileName_, "", null,
+                            sum_ + val_.getIndexInEl(), ((AbstractInvokingConstructor) val_).getOffsetOper(),
+                            val_.getErrs(),_parts);
+                } else {
+                    String cl_ = c_.getName();
+                    cl_ = StringExpUtil.getIdFromAllTypes(cl_);
+                    addParts(_cont, currentFileName_, cl_, c_,
+                            sum_ + val_.getIndexInEl(), ((AbstractInvokingConstructor) val_).getOffsetOper(),
+                            val_.getErrs(),_parts);
+                }
             }
         }
         if (val_ instanceof ExplicitOperatorOperation) {
@@ -2720,7 +2739,8 @@ public final class LinkageUtil {
                               MethodOperation parent_,
                               CustList<PartOffset> _parts) {
         processRightIndexer(_cont, currentFileName_, offsetEnd_, parent_, _parts);
-        if (parent_ instanceof AnnotationInstanceOperation) {
+        if (parent_ instanceof AnnotationInstanceOperation
+                || parent_ instanceof IdOperation) {
             _parts.addAllElts(parent_.getPartOffsetsEnd());
         }
     }

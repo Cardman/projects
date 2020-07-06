@@ -56,16 +56,18 @@ public final class Line extends Leaf implements BuildableElMethod {
         }
         root = page_.getCurrentRoot();
         if (op_.last() instanceof ExecCurrentInvokingConstructor) {
+            callFromCtorToCtor = true;
             callThis = true;
         }
         if (op_.last() instanceof ExecSuperInvokingConstructor) {
+            callFromCtorToCtor = true;
             callSuper = true;
         }
         if (op_.last() instanceof ExecInterfaceInvokingConstructor) {
+            callFromCtorToCtor = true;
             callInts = true;
         }
         if (op_.last() instanceof ExecAbstractInvokingConstructor) {
-            callFromCtorToCtor = true;
             constId =((ExecAbstractInvokingConstructor)op_.last()).getConstId();
         }
         if (page_.isMerged()) {

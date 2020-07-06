@@ -7673,6 +7673,832 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report376Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  $new MyCl(0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  <a title=\"The constructor pkg.MyCl($int) is undefined.\" class=\"e\">$new</a> <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>(0);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report377Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $this(0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl </a>{\n" +
+                " <a name=\"m27\">MyCl(</a>){\n" +
+                "  <a title=\"The constructor pkg.MyCl($int) is undefined.\" class=\"e\">$this</a>(0);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report378Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $super(0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl </a>{\n" +
+                " <a name=\"m27\">MyCl(</a>){\n" +
+                "  <a title=\"The constructor java.lang.Object($int) is undefined.\" class=\"e\">$super</a>(0);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report379Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MySup {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $super(0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySup {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m74\">MySup</a> {\n" +
+                " <a name=\"m33\">MyCl(</a>){\n" +
+                "  <a title=\"The constructor pkg.MySup($int) is undefined.\" class=\"e\">$super</a>(0);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m74\">pkg.MySup </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report380Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MySup {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $interfaces()(0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySup {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m81\">MySup</a> {\n" +
+                " <a name=\"m33\">MyCl(</a>){\n" +
+                "  <a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"There must be a type.\" class=\"e\">)</a>(0);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m81\">pkg.MySup </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report381Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MySup {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $interfaces(MySup)(0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySup {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m86\">MySup</a> {\n" +
+                " <a name=\"m33\">MyCl(</a>){\n" +
+                "  <a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MySup\" href=\"#m86\">MySup</a>)(0);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m86\">pkg.MySup </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report382Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MySup {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $interfaces(MyInt)(0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySup {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m86\">MySup</a> {\n" +
+                " <a name=\"m33\">MyCl(</a>){\n" +
+                "  <a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m119\">MyInt</a>)(0);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m86\">pkg.MySup </a>{\n" +
+                "}\n" +
+                "$public $interface <a name=\"m119\">pkg.MyInt </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report383Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MyInt {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $interfaces(MyInt)(0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m90\">MyInt</a> {\n" +
+                " <a name=\"m33\">MyCl(</a>){\n" +
+                "  <a title=\"The constructor pkg.MyInt($int) is undefined.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m90\">MyInt</a>)(0);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m90\">pkg.MyInt </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report384Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MyInt {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  ($interfaces(MyInt)());\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m91\">MyInt</a> {\n" +
+                " <a name=\"m33\">MyCl(</a>){\n" +
+                "  (<a title=\"The call of a constructor using implicitly the instance must be applied at the end of the instruction.\" class=\"e\">$interfaces</a>(MyInt)());\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m91\">pkg.MyInt </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report385Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MyInt {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $int i;\n");
+        xml_.append("  $interfaces(MyInt)();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m99\">MyInt</a> {\n" +
+                " <a name=\"m33\">MyCl(</a>){\n" +
+                "  $int <a name=\"m48\">i</a>;\n" +
+                "  <a title=\"A call of a constructor of interface must be applied only after a call of a constructor using implicitly the instance.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m99\">MyInt</a>)();\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m99\">pkg.MyInt </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report386Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyCl:MyInt {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $interfaces(MyInt)();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m93\">MyInt</a> {\n" +
+                " <a name=\"m37\">MyCl(</a>){\n" +
+                "  <a title=\"The call of a constructor of interface must not applied in a constructor of interface.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m93\">MyInt</a>)();\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m93\">pkg.MyInt </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report387Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MyInt:MyInt2 {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $interfaces(MyInt)();\n");
+        xml_.append("  $interfaces(MyInt2)();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt:MyInt2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m121\">MyInt</a>:<a title=\"pkg.MyInt2\" href=\"#m161\">MyInt2</a> {\n" +
+                " <a name=\"m40\">MyCl(</a>){\n" +
+                "  $interfaces(<a title=\"pkg.MyInt\" href=\"#m121\">MyInt</a>)();\n" +
+                "  <a title=\"The call of a constructor of the interface pkg.MyInt cannot be applied before calling the constructor of the interface pkg.MyInt2.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt2\" href=\"#m161\">MyInt2</a>)();\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m121\">pkg.MyInt</a>:<a title=\"pkg.MyInt2\" href=\"#m161\">MyInt2</a> {\n" +
+                "}\n" +
+                "$public $interface <a name=\"m161\">pkg.MyInt2 </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report388Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MySup {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  ($super());\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySup {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m75\">MySup</a> {\n" +
+                " <a name=\"m33\">MyCl(</a>){\n" +
+                "  (<a title=\"The call of a constructor using implicitly the instance must be applied at the end of the instruction.\" class=\"e\">$super</a>());\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m75\">pkg.MySup </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report389Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $super(0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MyCl </a>{\n" +
+                " <a name=\"m31\">MyCl(</a>){\n" +
+                "  <a title=\"The super constructor can be called only from a class or an enum (singleton or normal).\" class=\"e\">$super</a>(0);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report390Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MySup {\n");
+        xml_.append(" {\n");
+        xml_.append("  $super();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySup {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m67\">MySup</a> {\n" +
+                " {\n" +
+                "  <a title=\"The call of a constructor using implicitly the instance must be applied in a constructor.\" class=\"e\">$super</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m67\">pkg.MySup </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report391Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MySup {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $if($true);\n");
+        xml_.append("  $super();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySup {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m87\">MySup</a> {\n" +
+                " <a name=\"m33\">MyCl(</a>){\n" +
+                "  $if($true);\n" +
+                "  <a title=\"The call of a constructor of the type or the super class using implicitly the instance must be applied on the first line.\" class=\"e\">$super</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m87\">pkg.MySup </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report392Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  $(MyInt)($interfaces(MyInt)(),1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  $(<a title=\"pkg.MyInt\" href=\"#m93\">MyInt</a>)(<a title=\"The call of a constructor using implicitly the instance must be applied at the end of the instruction.\" class=\"e\">$interfaces</a>(MyInt)()<a title=\"The number of required operands 1 is different from the number of supplied arguments 2.\" class=\"e\">,</a>1);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m93\">pkg.MyInt </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report393Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  $()(1,$interfaces(MyInt)());\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  $(<a title=\"There must be a type.\" class=\"e\">)</a>(1<a title=\"The number of required operands 1 is different from the number of supplied arguments 2.\" class=\"e\">,</a><a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m88\">MyInt</a>)());\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m88\">pkg.MyInt </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report394Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  $(MyOther)(1,$interfaces(MyInt)());\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyOther {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  $(<a title=\"pkg.MyOther\" href=\"#m124\">MyOther</a>)(1<a title=\"The number of required operands 1 is different from the number of supplied arguments 2.\" class=\"e\">,</a><a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m95\">MyInt</a>)());\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m95\">pkg.MyInt </a>{\n" +
+                "}\n" +
+                "$public $class <a name=\"m124\">pkg.MyOther </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report395Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  $(MyInt)(1,$interfaces(MyOther)());\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyOther {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  $(<a title=\"pkg.MyInt\" href=\"#m95\">MyInt</a>)(1,<a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyOther\" href=\"#m124\">MyOther</a>)());\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m95\">pkg.MyInt </a>{\n" +
+                "}\n" +
+                "$public $class <a name=\"m124\">pkg.MyOther </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report396Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  $(MyInt)(1,$interfaces(MyOther)());\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyOther {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  $(<a title=\"pkg.MyInt\" href=\"#m95\">MyInt</a>)(1,<a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyOther\" href=\"#m128\">MyOther</a>)());\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m95\">pkg.MyInt </a>{\n" +
+                "}\n" +
+                "$public $interface <a name=\"m128\">pkg.MyOther </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report397Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  $(MyInt<?>)(1,$interfaces(MyOther)());\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt<T> {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyOther {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  $(<a title=\"pkg.MyInt\" href=\"#m98\">MyInt</a>&lt;?&gt;)(1,<a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyOther\" href=\"#m134\">MyOther</a>)());\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m98\">pkg.MyInt</a>&lt;<a name=\"m108\">T</a>&gt; {\n" +
+                "}\n" +
+                "$public $interface <a name=\"m134\">pkg.MyOther </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report398Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  $(MyInt)(1,$interfaces(MyOther)(0));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt:MyOther {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyOther {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  $(<a title=\"pkg.MyInt\" href=\"#m96\">MyInt</a>)(1,<a title=\"The constructor pkg.MyOther($int) is undefined.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyOther\" href=\"#m137\">MyOther</a>)(0));\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m96\">pkg.MyInt</a>:<a title=\"pkg.MyOther\" href=\"#m137\">MyOther</a> {\n" +
+                "}\n" +
+                "$public $interface <a name=\"m137\">pkg.MyOther </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report399Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  $(MyInt)(1,$interfaces(MyOther)(),$interfaces(MyOtherTwo)());\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt:MyOther {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyOther:MyOtherTwo {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyOtherTwo {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  $(<a title=\"pkg.MyInt\" href=\"#m121\">MyInt</a>)(1,$interfaces(<a title=\"pkg.MyOther\" href=\"#m162\">MyOther</a>)(),<a title=\"The call of a constructor of the interface pkg.MyOther cannot be applied before calling the constructor of the interface pkg.MyOtherTwo.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyOtherTwo\" href=\"#m208\">MyOtherTwo</a>)()<a title=\"The number of required operands 1 is different from the number of supplied arguments 3.\" class=\"e\">)</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m121\">pkg.MyInt</a>:<a title=\"pkg.MyOther\" href=\"#m162\">MyOther</a> {\n" +
+                "}\n" +
+                "$public $interface <a name=\"m162\">pkg.MyOther</a>:<a title=\"pkg.MyOtherTwo\" href=\"#m208\">MyOtherTwo</a> {\n" +
+                "}\n" +
+                "$public $interface <a name=\"m208\">pkg.MyOtherTwo </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report400Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  $(MyInt)(1,$interfaces(MyOther)(),1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt:MyOther {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyOther {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  $(<a title=\"pkg.MyInt\" href=\"#m97\">MyInt</a>)(1,$interfaces(<a title=\"pkg.MyOther\" href=\"#m138\">MyOther</a>)()<a title=\"The number of required operands 1 is different from the number of supplied arguments 3.\" class=\"e\">,</a>1);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m97\">pkg.MyInt</a>:<a title=\"pkg.MyOther\" href=\"#m138\">MyOther</a> {\n" +
+                "}\n" +
+                "$public $interface <a name=\"m138\">pkg.MyOther </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report401Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  $(MyInt)(1,$interfaces(MyOther)());\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt:MyOther {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyOther:MyOtherTwo {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyOtherTwo {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  $(<a title=\"pkg.MyInt\" href=\"#m95\">MyInt</a>)(1,$interfaces(<a title=\"pkg.MyOther\" href=\"#m136\">MyOther</a>)()<a title=\"The number of required operands 1 is different from the number of supplied arguments 2.\" class=\"e\">)</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m95\">pkg.MyInt</a>:<a title=\"pkg.MyOther\" href=\"#m136\">MyOther</a> {\n" +
+                "}\n" +
+                "$public $interface <a name=\"m136\">pkg.MyOther</a>:<a title=\"pkg.MyOtherTwo\" href=\"#m182\">MyOtherTwo</a> {\n" +
+                "}\n" +
+                "$public $interface <a name=\"m182\">pkg.MyOtherTwo </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report402Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  (1,$interfaces(MyOther)());\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt:MyOther {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyOther:MyOtherTwo {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyOtherTwo {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  (1<a title=\"The number of required operands 1 is different from the number of supplied arguments 2.\" class=\"e\">,</a><a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyOther\" href=\"#m128\">MyOther</a>)());\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m87\">pkg.MyInt</a>:<a title=\"pkg.MyOther\" href=\"#m128\">MyOther</a> {\n" +
+                "}\n" +
+                "$public $interface <a name=\"m128\">pkg.MyOther</a>:<a title=\"pkg.MyOtherTwo\" href=\"#m174\">MyOtherTwo</a> {\n" +
+                "}\n" +
+                "$public $interface <a name=\"m174\">pkg.MyOtherTwo </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report403Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MySup {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $this(0);\n");
+        xml_.append("  $super();\n");
+        xml_.append(" }\n");
+        xml_.append(" MyCl($int i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySup {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m103\">MySup</a> {\n" +
+                " <a name=\"m33\">MyCl(</a>){\n" +
+                "  <a title=\"pkg.MyCl.pkg.MyCl($int)\" href=\"#m69\">$this</a>(0);\n" +
+                "  <a title=\"The call of a constructor of the type or the super class using implicitly the instance must be applied on the first line.\" class=\"e\">$super</a>();\n" +
+                " }\n" +
+                " <a name=\"m69\">MyCl(</a>$int <a name=\"m79\">i</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m103\">pkg.MySup </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report404Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MyInt {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $this(0);\n");
+        xml_.append("  $interfaces(MyInt)();\n");
+        xml_.append(" }\n");
+        xml_.append(" MyCl($int i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySup {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m148\">MyInt</a> {\n" +
+                " <a name=\"m33\">MyCl(</a>){\n" +
+                "  <a title=\"pkg.MyCl.pkg.MyCl($int)\" href=\"#m81\">$this</a>(0);\n" +
+                "  <a title=\"A call of a constructor of interface must be applied only after a call of a constructor using implicitly the instance.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m148\">MyInt</a>)();\n" +
+                " }\n" +
+                " <a name=\"m81\">MyCl(</a>$int <a name=\"m91\">i</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m115\">pkg.MySup </a>{\n" +
+                "}\n" +
+                "$public $interface <a name=\"m148\">pkg.MyInt </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report405Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MyInt {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $int i;\n");
+        xml_.append("  $interfaces(MyInt)();\n");
+        xml_.append(" }\n");
+        xml_.append(" MyCl($int i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySup {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m146\">MyInt</a> {\n" +
+                " <a name=\"m33\">MyCl(</a>){\n" +
+                "  $int <a name=\"m48\">i</a>;\n" +
+                "  <a title=\"A call of a constructor of interface must be applied only after a call of a constructor using implicitly the instance.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m146\">MyInt</a>)();\n" +
+                " }\n" +
+                " <a name=\"m79\">MyCl(</a>$int <a name=\"m89\">i</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m113\">pkg.MySup </a>{\n" +
+                "}\n" +
+                "$public $interface <a name=\"m146\">pkg.MyInt </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report406Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MyInt {\n");
+        xml_.append(" MyCl(){\n");
+        xml_.append("  $if($true);\n");
+        xml_.append("  $interfaces(MyInt)();\n");
+        xml_.append(" }\n");
+        xml_.append(" MyCl($int i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySup {\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyInt {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m150\">MyInt</a> {\n" +
+                " <a name=\"m33\">MyCl(</a>){\n" +
+                "  $if($true);\n" +
+                "  <a title=\"A call of a constructor of interface must be applied only after a call of a constructor using implicitly the instance.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m150\">MyInt</a>)();\n" +
+                " }\n" +
+                " <a name=\"m83\">MyCl(</a>$int <a name=\"m93\">i</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m117\">pkg.MySup </a>{\n" +
+                "}\n" +
+                "$public $interface <a name=\"m150\">pkg.MyInt </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
         validate(cont_,files_);
         assertTrue(!cont_.isEmptyErrors());

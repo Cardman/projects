@@ -687,7 +687,7 @@ public abstract class OperationNode {
         }
         _ancestors.addEntry(_cl,_res);
     }
-    static ConstrustorIdVarArg getDeclaredCustConstructor(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
+    static ConstrustorIdVarArg getDeclaredCustConstructor(OperationNode _oper,ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
                                                           GeneType _type,
                                                           ConstructorId _uniqueId, String _param, ClassArgumentMatching... _args) {
         String clCurName_ = _class.getName();
@@ -740,6 +740,7 @@ public abstract class OperationNode {
             undefined_.buildError(_conf.getAnalysisMessages().getUndefinedCtor(),
                     new ConstructorId(clCurName_, classesNames_, false).getSignature(_conf));
             _conf.getAnalyzing().getLocalizer().addError(undefined_);
+            _oper.getErrs().add(undefined_.getBuiltError());
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
             return out_;

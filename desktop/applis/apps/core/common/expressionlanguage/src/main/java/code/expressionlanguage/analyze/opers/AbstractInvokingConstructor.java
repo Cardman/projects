@@ -66,7 +66,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         classFromName = clCurName_;
         ExecRootBlock type_ = _conf.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(clCurName_));
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, clArg_,type_, feed_, varargParam_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, clArg_,type_, feed_, varargParam_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (ctorRes_.getRealId() == null) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             checkPositionBasis(_conf);
@@ -98,6 +98,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             //key word len
             call_.buildError(_conf.getAnalysisMessages().getCallCtorEnd());
             _conf.addError(call_);
+            getErrs().add(call_.getBuiltError());
         } else {
             if (!(curBlock_.getParent() instanceof ConstructorBlock)) {
                 //error
@@ -107,6 +108,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
                 //key word len
                 call_.buildError(_conf.getAnalysisMessages().getCallCtor());
                 _conf.addError(call_);
+                getErrs().add(call_.getBuiltError());
             } else if (!(curBlock_ instanceof Line)) {
                 //error
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -115,6 +117,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
                 //key word len
                 call_.buildError(_conf.getAnalysisMessages().getCallCtorBeforeBlock());
                 _conf.addError(call_);
+                getErrs().add(call_.getBuiltError());
             } else {
                 checkPosition(_conf);
             }
@@ -129,6 +132,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             //key word len
             call_.buildError(_conf.getAnalysisMessages().getCallCtorFirstLine());
             _conf.addError(call_);
+            getErrs().add(call_.getBuiltError());
         }
     }
 
