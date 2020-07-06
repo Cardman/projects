@@ -24,6 +24,8 @@ public final class VariableOperation extends LeafOperation implements
 
     private final StringList nameErrors = new StringList();
 
+    private int ref;
+
     public VariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
@@ -34,12 +36,13 @@ public final class VariableOperation extends LeafOperation implements
 
     public VariableOperation(int _indexInEl, int _indexChild,
                              MethodOperation _m, OperationsSequence _op,
-                             String _className) {
+                             String _className, int _ref) {
         super(_indexInEl, _indexChild, _m, _op);
         int relativeOff_ = _op.getOffset();
         String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
         off = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
         className = _className;
+        ref = _ref;
     }
 
     @Override
@@ -95,6 +98,8 @@ public final class VariableOperation extends LeafOperation implements
             } else {
                 lv_.setClassName(c_);
             }
+            ref = page_.getTraceIndex();
+            lv_.setRef(page_.getTraceIndex());
             lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
             page_.putLocalVar(str_, lv_);
             page_.getVariablesNames().add(str_);
@@ -125,5 +130,9 @@ public final class VariableOperation extends LeafOperation implements
 
     public StringList getNameErrors() {
         return nameErrors;
+    }
+
+    public int getRef() {
+        return ref;
     }
 }

@@ -333,6 +333,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         } else {
             lv_.setClassName(_cont.getStandards().getAliasObject());
         }
+        lv_.setRef(variableNameOffset);
         lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableName, lv_);
     }

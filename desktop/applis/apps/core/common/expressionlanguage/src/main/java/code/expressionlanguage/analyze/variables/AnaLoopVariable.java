@@ -8,6 +8,8 @@ public class AnaLoopVariable {
 
     private boolean finalVariable;
 
+    private int ref;
+
     public boolean isFinalVariable() {
         return finalVariable;
     }
@@ -30,5 +32,13 @@ public class AnaLoopVariable {
 
     public void setIndexClassName(String _indexClassName) {
         indexClassName = _indexClassName;
+    }
+
+    public int getRef() {
+        return ref;
+    }
+
+    public void setRef(int _ref) {
+        ref = _ref;
     }
 }

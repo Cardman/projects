@@ -88,6 +88,7 @@ public final class CatchEval extends AbstractCatchEval {
         }
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);
+        lv_.setRef(variableNameOffset);
         _cont.getAnalyzing().putCatchVar(variableName, lv_);
     }
 

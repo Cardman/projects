@@ -23,16 +23,19 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
 
     private final StringList nameErrors = new StringList();
 
+    private int ref;
+
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
-        this(_indexInEl, _indexChild, _m, _op, EMPTY_STRING);
+        this(_indexInEl, _indexChild, _m, _op, EMPTY_STRING,0);
     }
 
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
-                                        MethodOperation _m, OperationsSequence _op, String _className) {
+                                        MethodOperation _m, OperationsSequence _op, String _className, int _ref) {
         super(_indexInEl, _indexChild, _m, _op);
         off = _op.getOffset();
         className = _className;
+        ref = _ref;
     }
     @Override
     public void analyze(ContextEl _conf) {
@@ -78,6 +81,8 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             } else {
                 lv_.setClassName(c_);
             }
+            ref = page_.getTraceIndex();
+            lv_.setRef(page_.getTraceIndex());
             lv_.setIndexClassName(indexClassName_);
             lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
             page_.putMutableLoopVar(str_, lv_);
@@ -117,5 +122,9 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
 
     public StringList getNameErrors() {
         return nameErrors;
+    }
+
+    public int getRef() {
+        return ref;
     }
 }

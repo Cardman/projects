@@ -6242,7 +6242,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " {\n" +
-                "  <span class=\"s\">\"\"</span> <a title=\"The number of required operands 1 is different from the number of supplied arguments 2.\" class=\"e\">$instanceof</a> $int[] $int;\n" +
+                "  <span class=\"s\">\"\"</span> <a title=\"The number of required operands 1 is different from the number of supplied arguments 2.\" class=\"e\">$instanceof</a> $int[] <a title=\"There is no accessible field named $int from the type pkg.MySub in this context.\" class=\"e\">$int</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -8774,6 +8774,74 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "  <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>[] <a name=\"m38\">v</a> = $new <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>[0];\n" +
                 "  <a href=\"#m38\">v</a>.<a title=\"The type Inexist is not resolved for instancing.\" class=\"e\">$new</a> Inexist();\n" +
                 " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report420Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  $this.v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  $this.<a title=\"There is no accessible field named v from the type pkg.MyCl in this context.\" class=\"e\">v</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report421Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  $this.$superaccess(MyOther)v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyOther {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  $this.$superaccess(<a title=\"pkg.MyOther\" href=\"#m81\">MyOther</a>)<a title=\"The type pkg.MyCl cannot be implicitly cast to pkg.MyOther\" class=\"e\">v</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m81\">pkg.MyOther </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report422Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl {\n");
+        xml_.append(" {\n");
+        xml_.append("  v=0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyOther {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl </a>{\n" +
+                " {\n" +
+                "  <a title=\"There is no accessible field named v from the type pkg.MyCl in this context.\" class=\"e\">v</a>=0;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m56\">pkg.MyOther </a>{\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }

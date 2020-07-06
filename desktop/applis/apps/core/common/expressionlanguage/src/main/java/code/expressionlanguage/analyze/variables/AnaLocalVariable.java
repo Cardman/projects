@@ -6,6 +6,8 @@ public class AnaLocalVariable {
 
     private boolean finalVariable;
 
+    private int ref;
+
     public String getClassName() {
         return className;
     }
@@ -20,5 +22,13 @@ public class AnaLocalVariable {
 
     public void setFinalVariable(boolean _finalVariable) {
         finalVariable = _finalVariable;
+    }
+
+    public int getRef() {
+        return ref;
+    }
+
+    public void setRef(int _ref) {
+        ref = _ref;
     }
 }

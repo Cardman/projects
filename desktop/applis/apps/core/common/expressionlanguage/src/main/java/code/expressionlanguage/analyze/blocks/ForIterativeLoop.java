@@ -181,6 +181,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         checkType(_cont, elementClass_, stepEl_, stepOffset);
         AnaLoopVariable lv_ = new AnaLoopVariable();
         lv_.setClassName(cl_);
+        lv_.setRef(variableNameOffset);
         lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableName, lv_);
         _cont.getCoverage().putBlockOperationsLoops(_cont,this);

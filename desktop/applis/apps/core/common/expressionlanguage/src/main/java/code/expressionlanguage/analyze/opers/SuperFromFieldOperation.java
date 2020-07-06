@@ -54,6 +54,7 @@ public final class SuperFromFieldOperation extends
                     StringList.join(clCur_.getNames(),"&"),
                     className_);
             _conf.getAnalyzing().getLocalizer().addError(cast_);
+            getErrs().add(cast_.getBuiltError());
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return null;
         }

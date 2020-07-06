@@ -1136,7 +1136,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             boolean aff_ = i_ < _len;
             ClassArgumentMatching fromCl_ = new ClassArgumentMatching(str_);
-            FieldResult r_ = getDeclaredCustField(_conf, MethodAccessKind.INSTANCE, fromCl_, !accessFromSuper_, accessSuper_, fieldName_, false, aff_);
+            FieldResult r_ = getDeclaredCustFieldLambda(_conf, fromCl_, !accessFromSuper_, accessSuper_, fieldName_, aff_);
             if (r_.getStatus() == SearchingMemberStatus.ZERO) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
@@ -1192,7 +1192,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int i_ = 3;
             boolean aff_ = i_ < _len;
             ClassArgumentMatching fromCl_ = new ClassArgumentMatching(str_);
-            FieldResult r_ = getDeclaredCustField(_conf, MethodAccessKind.INSTANCE, fromCl_, true, true, fieldName_, false, aff_);
+            FieldResult r_ = getDeclaredCustFieldLambda(_conf, fromCl_, true, true, fieldName_, aff_);
             if (r_.getStatus() == SearchingMemberStatus.ZERO) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
@@ -1289,7 +1289,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         boolean aff_ = i_ < _len;
         ClassArgumentMatching fromCl_ = new ClassArgumentMatching(str_);
-        FieldResult r_ = getDeclaredCustField(_conf, MethodAccessKind.INSTANCE, fromCl_, !accessFromSuper_, accessSuper_, fieldName_, false, aff_);
+        FieldResult r_ = getDeclaredCustFieldLambda(_conf, fromCl_, !accessFromSuper_, accessSuper_, fieldName_, aff_);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;

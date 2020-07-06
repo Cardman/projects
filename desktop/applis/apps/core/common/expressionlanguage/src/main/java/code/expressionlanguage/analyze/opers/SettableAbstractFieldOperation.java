@@ -30,6 +30,7 @@ public abstract class SettableAbstractFieldOperation extends
     private MethodAccessKind staticAccess;
     private String fieldType = EMPTY_STRING;
     private int valueOffset;
+    private int fieldNameLength;
 
     private boolean catString;
 
@@ -50,12 +51,13 @@ public abstract class SettableAbstractFieldOperation extends
             staticAccess = _conf.getAnalyzing().getStaticContext();
         }
         LgNames stds_ = _conf.getStandards();
+        String fieldName_ = getFieldName();
+        fieldNameLength = fieldName_.length();
         ClassArgumentMatching cl_ = getFrom(_conf);
         if (cl_ == null) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        String fieldName_ = getFieldName();
         boolean baseAccess_ = isBaseAccess();
         boolean superAccess_ = isSuperAccess();
         boolean affect_ = false;
@@ -81,7 +83,7 @@ public abstract class SettableAbstractFieldOperation extends
         }
         FieldResult r_;
         FieldInfo e_;
-        r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_, import_, affect_);
+        r_ = getDeclaredCustField(this,_conf, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_, import_, affect_);
         anc = r_.getAnc();
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -228,5 +230,9 @@ public abstract class SettableAbstractFieldOperation extends
 
     public int getValueOffset() {
         return valueOffset;
+    }
+
+    public int getFieldNameLength() {
+        return fieldNameLength;
     }
 }

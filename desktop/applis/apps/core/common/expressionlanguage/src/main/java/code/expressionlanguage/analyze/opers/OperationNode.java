@@ -447,23 +447,23 @@ public abstract class OperationNode {
                     }
                 }
             }
-            return new FinalVariableOperation(_index, _indexChild, _m, _op,locParam_.getClassName());
+            return new FinalVariableOperation(_index, _indexChild, _m, _op,locParam_.getClassName(),locParam_.getRef());
         }
         AnaLocalVariable catchVar_ = _an.getAnalyzing().getCatchVar(str_);
         if (catchVar_ != null) {
-            return new FinalVariableOperation(_index, _indexChild, _m, _op,catchVar_.getClassName());
+            return new FinalVariableOperation(_index, _indexChild, _m, _op,catchVar_.getClassName(),catchVar_.getRef());
         }
         AnaLoopVariable mutVar_ = _an.getAnalyzing().getMutableLoopVar(str_);
         if (mutVar_ != null) {
-            return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, mutVar_.getClassName());
+            return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, mutVar_.getClassName(), mutVar_.getRef());
         }
         AnaLocalVariable locVar_ = _an.getAnalyzing().getLocalVar(str_);
         if (locVar_ != null) {
-            return new VariableOperation(_index, _indexChild, _m, _op, locVar_.getClassName());
+            return new VariableOperation(_index, _indexChild, _m, _op, locVar_.getClassName(), locVar_.getRef());
         }
         AnaLoopVariable lVar_ = _an.getAnalyzing().getVar(str_);
         if (lVar_ != null) {
-            return new FinalVariableOperation(_index, _indexChild, _m, _op,lVar_.getClassName());
+            return new FinalVariableOperation(_index, _indexChild, _m, _op,lVar_.getClassName(), lVar_.getRef());
         }
         return new StandardFieldOperation(_index, _indexChild, _m, _op);
     }
@@ -508,10 +508,31 @@ public abstract class OperationNode {
         nextSibling = _nextSibling;
     }
 
-    static FieldResult getDeclaredCustField(ContextEl _cont, MethodAccessKind _staticContext, ClassArgumentMatching _class,
+    static FieldResult getDeclaredCustField(OperationNode _op,ContextEl _cont, MethodAccessKind _staticContext, ClassArgumentMatching _class,
                                             boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
         FieldResult fr_ = resolveDeclaredCustField(_cont, _staticContext != MethodAccessKind.INSTANCE,
                 _class, _baseClass, _superClass, _name, _import, _aff);
+        if (fr_.getStatus() == SearchingMemberStatus.UNIQ) {
+            return fr_;
+        }
+        FoundErrorInterpret access_ = new FoundErrorInterpret();
+        access_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
+        access_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+        //_name len
+        access_.buildError(_cont.getAnalysisMessages().getUndefinedAccessibleField(),
+                _name,
+                StringList.join(_class.getNames(),"&"));
+        _cont.getAnalyzing().getLocalizer().addError(access_);
+        _op.getErrs().add(access_.getBuiltError());
+        FieldResult res_ = new FieldResult();
+        res_.setStatus(SearchingMemberStatus.ZERO);
+        return res_;
+    }
+
+    static FieldResult getDeclaredCustFieldLambda(ContextEl _cont, ClassArgumentMatching _class,
+                                                  boolean _baseClass, boolean _superClass, String _name, boolean _aff) {
+        FieldResult fr_ = resolveDeclaredCustField(_cont, false,
+                _class, _baseClass, _superClass, _name, false, _aff);
         if (fr_.getStatus() == SearchingMemberStatus.UNIQ) {
             return fr_;
         }
@@ -527,7 +548,6 @@ public abstract class OperationNode {
         res_.setStatus(SearchingMemberStatus.ZERO);
         return res_;
     }
-
     public static FieldResult resolveDeclaredCustField(ContextEl _cont, boolean _staticContext, ClassArgumentMatching _class,
                                                        boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
         if (!_staticContext) {

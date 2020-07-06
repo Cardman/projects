@@ -353,6 +353,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         } else {
             lv_.setClassName(_cont.getStandards().getAliasObject());
         }
+        lv_.setRef(variableNameOffsetFirst);
         lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableNameFirst, lv_);
         lv_ = new AnaLoopVariable();
@@ -361,6 +362,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         } else {
             lv_.setClassName(_cont.getStandards().getAliasObject());
         }
+        lv_.setRef(variableNameOffsetSecond);
         lv_.setIndexClassName(importedClassIndexName);
         _cont.getAnalyzing().putVar(variableNameSecond, lv_);
     }

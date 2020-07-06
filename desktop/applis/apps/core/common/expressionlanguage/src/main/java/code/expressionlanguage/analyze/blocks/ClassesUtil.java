@@ -1365,7 +1365,7 @@ public final class ClassesUtil {
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
-                        prepareParams(page_, params_, types_, method_.isVarargs());
+                        prepareParams(page_, method_.getParametersNamesOffset(),params_, types_, method_.isVarargs());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllCtors().getVal(method_));
                         page_.getParameters().clear();
                         page_.clearAllLocalVarsReadOnly();
@@ -1391,7 +1391,7 @@ public final class ClassesUtil {
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
-                        prepareParams(page_, params_, types_, method_.isVarargs());
+                        prepareParams(page_, method_.getParametersNamesOffset(),params_, types_, method_.isVarargs());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
                         page_.getParameters().clear();
                         page_.clearAllLocalVarsReadOnly();
@@ -1400,7 +1400,7 @@ public final class ClassesUtil {
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
-                        prepareParams(page_, params_, types_, method_.isVarargs());
+                        prepareParams(page_, method_.getParametersNamesOffset(),params_, types_, method_.isVarargs());
                         processValueParam(_context, page_, type_, method_);
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
                         page_.getParameters().clear();
@@ -1417,7 +1417,7 @@ public final class ClassesUtil {
                 _context.getCoverage().putCalls(_context,"",e.getKey());
                 StringList params_ = e.getKey().getParametersNames();
                 StringList types_ = e.getKey().getImportedParametersTypes();
-                prepareParams(page_, params_, types_, e.getKey().isVarargs());
+                prepareParams(page_, e.getKey().getParametersNamesOffset(),params_, types_, e.getKey().isVarargs());
                 e.getKey().buildFctInstructionsReadOnly(_context,e.getValue());
                 page_.getParameters().clear();
                 page_.clearAllLocalVarsReadOnly();
@@ -1703,7 +1703,7 @@ public final class ClassesUtil {
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_, params_, types_, method_.isVarargs());
+                    prepareParams(page_, method_.getParametersNamesOffset(),params_, types_, method_.isVarargs());
                     AssMemberCallingsBlock met_ = AssBlockUtil.buildFctInstructions(method_,mem_.getAllCtors().getVal(method_), _context,null, assVars_);
                     IdMap<AssBlock, AssignedVariables> id_ = assVars_.getFinalVariables();
                     AssignedVariables assTar_ = id_.getVal(met_);
@@ -1755,7 +1755,7 @@ public final class ClassesUtil {
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_, params_, types_, method_.isVarargs());
+                    prepareParams(page_,method_.getParametersNamesOffset(), params_, types_, method_.isVarargs());
                     AssBlockUtil.buildFctInstructions(method_,mem_.getAllMethods().getVal(method_),_context,null,assVars_);
                     page_.getParameters().clear();
                     page_.clearAllLocalVars(assVars_);
@@ -1764,7 +1764,7 @@ public final class ClassesUtil {
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_, params_, types_, method_.isVarargs());
+                    prepareParams(page_, method_.getParametersNamesOffset(),params_, types_, method_.isVarargs());
                     processValueParam(_context, page_, type_, method_);
                     AssBlockUtil.buildFctInstructions(method_,mem_.getAllMethods().getVal(method_),_context,null,assVars_);
                     page_.getParameters().clear();
@@ -1781,7 +1781,7 @@ public final class ClassesUtil {
             _context.getCoverage().putCalls(_context,"",e.getKey());
             StringList params_ = e.getKey().getParametersNames();
             StringList types_ = e.getKey().getImportedParametersTypes();
-            prepareParams(page_, params_, types_, e.getKey().isVarargs());
+            prepareParams(page_,e.getKey().getParametersNamesOffset(), params_, types_, e.getKey().isVarargs());
             AssBlockUtil.buildFctInstructions(e.getKey(),e.getValue(),_context,null,assVars_);
             page_.getParameters().clear();
             page_.clearAllLocalVars(assVars_);
@@ -1875,7 +1875,7 @@ public final class ClassesUtil {
         }
     }
 
-    private static void prepareParams(AnalyzedPageEl _page, StringList _params, StringList _types, boolean _varargs) {
+    private static void prepareParams(AnalyzedPageEl _page, Ints _offs, StringList _params, StringList _types, boolean _varargs) {
         int len_ = _params.size();
         if (!_varargs) {
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -1883,6 +1883,7 @@ public final class ClassesUtil {
                 String c_ = _types.get(i);
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(c_);
+                lv_.setRef(_offs.get(i));
                 _page.getParameters().put(p_, lv_);
             }
         } else {
@@ -1891,12 +1892,14 @@ public final class ClassesUtil {
                 String c_ = _types.get(i);
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(c_);
+                lv_.setRef(_offs.get(i));
                 _page.getParameters().put(p_, lv_);
             }
             String p_ = _params.last();
             String c_ = _types.last();
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(StringExpUtil.getPrettyArrayType(c_));
+            lv_.setRef(_offs.last());
             _page.getParameters().put(p_, lv_);
         }
     }
