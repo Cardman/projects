@@ -1861,6 +1861,13 @@ public final class LinkageUtil {
                 }
             }
         }
+        if (val_.getParent() instanceof CallDynMethodOperation) {
+            CallDynMethodOperation c_ = (CallDynMethodOperation) val_.getParent();
+            CustList<CustList<PartOffset>> partOffsetsChildren_ = c_.getPartOffsetsChildren();
+            if (partOffsetsChildren_.isValidIndex(val_.getIndexChild())) {
+                _parts.addAllElts(partOffsetsChildren_.get(val_.getIndexChild()));
+            }
+        }
         StringList errEmpt_ = new StringList();
         if (val_.getParent() == null) {
             MethodOperation.processEmptyError(val_,errEmpt_);
@@ -1892,6 +1899,16 @@ public final class LinkageUtil {
             _parts.addAllElts(((AnnotationInstanceOperation)val_).getPartOffsetsEnd());
         }
         processArrLength(sum_, val_, _parts);
+        if (val_.getParent() instanceof CallDynMethodOperation) {
+            CallDynMethodOperation c_ = (CallDynMethodOperation) val_.getParent();
+            if (!c_.getSepErr().isEmpty()&&c_.getIndexCh() == val_.getIndexChild()) {
+                String tag_ = "<a title=\""+transform(c_.getSepErr())+"\" class=\"e\">";
+                int rightPar_ = c_.getOperations().getOperators().getKey(c_.getIndexCh()+1);
+                _parts.add(new PartOffset(tag_,sum_ + c_.getIndexInEl()+rightPar_));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,sum_ + c_.getIndexInEl()+rightPar_+1));
+            }
+        }
     }
 
     private static void processArrLength(int sum_, OperationNode val_, CustList<PartOffset> _parts) {
@@ -1935,10 +1952,32 @@ public final class LinkageUtil {
 
     private static void processDynamicCall(ContextEl _cont, int sum_, OperationNode val_, CustList<PartOffset> _parts) {
         if (val_ instanceof CallDynMethodOperation) {
-            String tag_ = "<b>";
-            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
-            tag_ = "</b>";
-            _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+_cont.getStandards().getAliasCall().length()));
+            if (val_.getErrs().isEmpty()) {
+                String tag_ = "<b>";
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
+                tag_ = "</b>";
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+_cont.getStandards().getAliasCall().length()));
+            } else {
+                String fctName_ = val_.getOperations().getFctName().trim();
+                String tag_ = "<a title=\""+transform(StringList.join(val_.getErrs(),"\n\n"))+"\" class=\"e\">";
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+fctName_.length()));
+            }
+            if (((CallDynMethodOperation) val_).isNoNeed()) {
+                String tag_ = "<a title=\""+transform(((CallDynMethodOperation) val_).getSepErr())+"\" class=\"e\">";
+                int leftPar_ = val_.getOperations().getOperators().firstKey();
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+leftPar_));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+leftPar_+1));
+            }
+            if (val_.getFirstChild() == null&&!((CallDynMethodOperation) val_).getSepErr().isEmpty()) {
+                String tag_ = "<a title=\""+transform(((CallDynMethodOperation) val_).getSepErr())+"\" class=\"e\">";
+                int rightPar_ = val_.getOperations().getOperators().lastKey();
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+rightPar_));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+rightPar_+1));
+            }
         }
     }
 

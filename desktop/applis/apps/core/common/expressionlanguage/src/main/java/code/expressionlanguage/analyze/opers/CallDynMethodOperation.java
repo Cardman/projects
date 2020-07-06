@@ -11,13 +11,18 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ClassMethodIdReturn;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
+import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class CallDynMethodOperation extends InvokingOperation {
-
+    private String sepErr = "";
+    private boolean noNeed;
+    private int indexCh=-1;
     public CallDynMethodOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -36,6 +41,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                     _conf.getStandards().getAliasCall(),
                     _conf.getStandards().getAliasFct());
             _conf.getAnalyzing().getLocalizer().addError(und_);
+            getErrs().add(und_.getBuiltError());
         }
         ClassArgumentMatching clCur_ = getPreviousResultClass();
         String fct_ = clCur_.getName();
@@ -47,7 +53,38 @@ public final class CallDynMethodOperation extends InvokingOperation {
         for (OperationNode o: chidren_) {
             firstArgs_.add(o.getResultClass());
         }
+        checkNull(getPreviousArgument(),_conf);
         if (all_.size() == 1) {
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
+        }
+        if (firstArgs_.size() != param_.size()) {
+            if (param_.isEmpty()) {
+                noNeed = true;
+                FoundErrorInterpret undefined_ = new FoundErrorInterpret();
+                undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                //unexpected coma or right parenthese
+                undefined_.buildError(_conf.getAnalysisMessages().getFunctionalApplyNbDiff(),
+                        Integer.toString(param_.size()),
+                        Integer.toString(firstArgs_.size()),
+                        _conf.getStandards().getAliasFct());
+                _conf.getAnalyzing().getLocalizer().addError(undefined_);
+                sepErr = undefined_.getBuiltError();
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
+            }
+            indexCh = Math.min(param_.size() - 1,firstArgs_.size()-1);
+            FoundErrorInterpret undefined_ = new FoundErrorInterpret();
+            undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            //unexpected coma or right parenthese
+            undefined_.buildError(_conf.getAnalysisMessages().getFunctionalApplyNbDiff(),
+                    Integer.toString(param_.size()),
+                    Integer.toString(firstArgs_.size()),
+                    _conf.getStandards().getAliasFct());
+            _conf.getAnalyzing().getLocalizer().addError(undefined_);
+            sepErr = undefined_.getBuiltError();
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -58,23 +95,13 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 break;
             }
         }
-        if (firstArgs_.size() != param_.size()) {
-            FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-            undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            //unexpected coma or right parenthese
-            undefined_.buildError(_conf.getAnalysisMessages().getFunctionalApplyNbDiff(),
-                    Integer.toString(param_.size()),
-                    Integer.toString(firstArgs_.size()),
-                    _conf.getStandards().getAliasFct());
-            _conf.getAnalyzing().getLocalizer().addError(undefined_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
         if (!allParamWildCard_) {
             int nb_ = param_.size();
             StringMap<StringList> map_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
             for (int i = 0; i < nb_; i++) {
+                IntTreeMap<String> operators_ = getOperations().getOperators();
+                CustList<PartOffset> parts_ = new CustList<PartOffset>();
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(i), _conf);
                 ClassArgumentMatching a_ = firstArgs_.get(i);
                 String pa_ = param_.get(i);
                 ClassArgumentMatching p_ = new ClassArgumentMatching(pa_);
@@ -90,18 +117,22 @@ public final class CallDynMethodOperation extends InvokingOperation {
                     } else {
                         FoundErrorInterpret cast_ = new FoundErrorInterpret();
                         cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                        cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                        int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                        cast_.setIndexFile(i_);
                         //character before
                         cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                                 StringList.join(a_.getNames(),"&"),
                                 StringList.join(p_.getNames(),"&"));
                         _conf.getAnalyzing().getLocalizer().addError(cast_);
+                        parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
+                        parts_.add(new PartOffset("</a>",i_+1));
                     }
                 }
                 if (PrimitiveTypeUtil.isPrimitive(pa_, _conf)) {
                     a_.setUnwrapObject(pa_);
                     chidren_.get(i).cancelArgument();
                 }
+                getPartOffsetsChildren().add(parts_);
             }
         }
         String void_ = stds_.getAliasVoid();
@@ -111,4 +142,15 @@ public final class CallDynMethodOperation extends InvokingOperation {
         setResultClass(new ClassArgumentMatching(ret_));
     }
 
+    public int getIndexCh() {
+        return indexCh;
+    }
+
+    public String getSepErr() {
+        return sepErr;
+    }
+
+    public boolean isNoNeed() {
+        return noNeed;
+    }
 }
