@@ -6861,6 +6861,140 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report338Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $classchoice(MyCl)m();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" $void m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  $classchoice(<a title=\"pkg.MyCl\" href=\"#m83\">MyCl</a>)<a title=\"The method m() from the type pkg.MyCl must not be called directly because of abstract.\n" +
+                "\n" +
+                "pkg.MyCl.m()\" href=\"#m101\" class=\"e\">m</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m83\">pkg.MyCl </a>{\n" +
+                " $void <a name=\"m101\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report339Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $classchoice(MyCl)inexist();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.MyCl {\n");
+        xml_.append(" $void m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  $classchoice(<a title=\"pkg.MyCl\" href=\"#m89\">MyCl</a>)<a title=\"The function inexist() is undefined.\" class=\"e\">inexist</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "$public $interface <a name=\"m89\">pkg.MyCl </a>{\n" +
+                " $void <a name=\"m107\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report340Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $superaccess(MySub)m();\n");
+        xml_.append(" }\n");
+        xml_.append(" $void m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  $superaccess(<a title=\"pkg.MySub\" href=\"#m19\">MySub</a>)<a title=\"The method m() from the type pkg.MySub must not be called directly because of abstract.\n" +
+                "\n" +
+                "pkg.MySub.m()\" href=\"#m70\" class=\"e\">m</a>();\n" +
+                " }\n" +
+                " $void <a name=\"m70\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report341Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $superaccess(MyCl)m();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl {\n");
+        xml_.append(" $void m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  $superaccess(<a title=\"pkg.MyCl\" href=\"#m79\">MyCl</a>)<a title=\"The type pkg.MySub cannot be implicitly cast to pkg.MyCl\n" +
+                "\n" +
+                "pkg.MyCl.m()\" href=\"#m97\" class=\"e\">m</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m79\">pkg.MyCl </a>{\n" +
+                " $void <a name=\"m97\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report342Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $superaccess(MySub)inexist();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  $superaccess(<a title=\"pkg.MySub\" href=\"#m19\">MySub</a>)<a title=\"The function inexist() is undefined.\" class=\"e\">inexist</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
         validate(cont_,files_);
         assertTrue(!cont_.isEmptyErrors());

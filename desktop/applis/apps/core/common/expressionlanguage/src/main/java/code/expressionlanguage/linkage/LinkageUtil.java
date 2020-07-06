@@ -1992,22 +1992,36 @@ public final class LinkageUtil {
                 _parts.addAllElts(((ChoiceFctOperation)val_).getPartOffsets());
                 int delta_ = ((ChoiceFctOperation) val_).getDelta();
                 ClassMethodId classMethodId_ = ((ChoiceFctOperation) val_).getClassMethodId();
+                int l_ = ((ChoiceFctOperation) val_).getLengthMethod();
+                if (classMethodId_ == null) {
+                    addParts(_cont,currentFileName_,"",null,
+                            sum_ +delta_+ val_.getIndexInEl(),l_,
+                            val_.getErrs(),_parts);
+                    return;
+                }
                 String className_ = classMethodId_.getClassName();
                 className_ = StringExpUtil.getIdFromAllTypes(className_);
                 MethodId id_ = classMethodId_.getConstraints();
                 addParts(_cont,currentFileName_,className_,id_,
-                        sum_ +delta_+ val_.getIndexInEl(),id_.getName().length(),
+                        sum_ +delta_+ val_.getIndexInEl(),l_,
                         val_.getErrs(),_parts);
             }
             if (val_ instanceof SuperFctOperation) {
                 _parts.addAllElts(((SuperFctOperation)val_).getPartOffsets());
                 int delta_ = ((SuperFctOperation) val_).getDelta();
                 ClassMethodId classMethodId_ = ((SuperFctOperation) val_).getClassMethodId();
+                int l_ = ((SuperFctOperation) val_).getLengthMethod();
+                if (classMethodId_ == null) {
+                    addParts(_cont,currentFileName_,"",null,
+                            sum_ +delta_+ val_.getIndexInEl(),l_,
+                            val_.getErrs(),_parts);
+                    return;
+                }
                 String className_ = classMethodId_.getClassName();
                 className_ = StringExpUtil.getIdFromAllTypes(className_);
                 MethodId id_ = classMethodId_.getConstraints();
                 addParts(_cont,currentFileName_,className_,id_,
-                        sum_ +delta_+ val_.getIndexInEl(),id_.getName().length(),
+                        sum_ +delta_+ val_.getIndexInEl(),l_,
                         val_.getErrs(),_parts);
             }
         }

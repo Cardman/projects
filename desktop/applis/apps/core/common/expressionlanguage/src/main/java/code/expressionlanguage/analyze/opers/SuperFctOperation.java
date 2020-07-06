@@ -29,6 +29,7 @@ public final class SuperFctOperation extends InvokingOperation {
     private int naturalVararg = -1;
     private int anc;
     private int delta;
+    private int lengthMethod;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
     public SuperFctOperation(int _index, int _indexChild, MethodOperation _m,
@@ -45,7 +46,6 @@ public final class SuperFctOperation extends InvokingOperation {
         String trimMeth_;
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
-        LgNames stds_ = _conf.getStandards();
         boolean import_ = false;
         ClassArgumentMatching clCur_;
         if (!isIntermediateDottedOperation()) {
@@ -79,14 +79,17 @@ public final class SuperFctOperation extends InvokingOperation {
                     StringList.join(clCur_.getNames(),"&"),
                     className_);
             _conf.getAnalyzing().getLocalizer().addError(cast_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
+            getErrs().add(cast_.getBuiltError());
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
 
+        lengthMethod = methodName.length();
+        int deltaEnd_ = lengthMethod-StringList.getLastPrintableCharIndex(methodName)-1;
         delta = methodName.lastIndexOf(PAR_RIGHT)+1;
         String mName_ = methodName.substring(delta);
         delta += StringList.getFirstPrintableCharIndex(mName_);
+        lengthMethod -= delta;
+        lengthMethod -= deltaEnd_;
         trimMeth_ = mName_.trim();
         ClassMethodIdAncestor feed_ = null;
         if (idMethod_ != null) {
@@ -115,8 +118,7 @@ public final class SuperFctOperation extends InvokingOperation {
                     clMeth_.getRealClass(),
                     clMeth_.getRealId().getSignature(_conf));
             _conf.getAnalyzing().getLocalizer().addError(abs_);
-            setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
-            return;
+            getErrs().add(abs_.getBuiltError());
         }
         String foundClass_ = clMeth_.getRealClass();
         MethodId id_ = clMeth_.getRealId();
@@ -169,5 +171,9 @@ public final class SuperFctOperation extends InvokingOperation {
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public int getLengthMethod() {
+        return lengthMethod;
     }
 }

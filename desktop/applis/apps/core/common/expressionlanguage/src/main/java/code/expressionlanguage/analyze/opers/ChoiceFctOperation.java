@@ -27,6 +27,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
     private int anc;
 
     private int delta;
+    private int lengthMethod;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public ChoiceFctOperation(int _index, int _indexChild, MethodOperation _m,
@@ -43,7 +44,6 @@ public final class ChoiceFctOperation extends InvokingOperation {
         String trimMeth_;
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
-        LgNames stds_ = _conf.getStandards();
         boolean import_ = false;
         if (!isIntermediateDottedOperation()) {
             import_ = true;
@@ -60,9 +60,13 @@ public final class ChoiceFctOperation extends InvokingOperation {
         String varargParam_ = getVarargParam(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        lengthMethod = methodName.length();
+        int deltaEnd_ = lengthMethod-StringList.getLastPrintableCharIndex(methodName)-1;
         delta = methodName.lastIndexOf(PAR_RIGHT)+1;
         String mName_ = methodName.substring(delta);
         delta += StringList.getFirstPrintableCharIndex(mName_);
+        lengthMethod -= delta;
+        lengthMethod -= deltaEnd_;
         trimMeth_ = mName_.trim();
         ClassMethodIdAncestor feed_ = null;
         if (idMethod_ != null) {
@@ -91,8 +95,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
                     clMeth_.getRealClass(),
                     clMeth_.getRealId().getSignature(_conf));
             _conf.getAnalyzing().getLocalizer().addError(abs_);
-            setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
-            return;
+            getErrs().add(abs_.getBuiltError());
         }
         classMethodId = clMeth_.getId();
         realId = clMeth_.getRealId();
@@ -144,5 +147,9 @@ public final class ChoiceFctOperation extends InvokingOperation {
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public int getLengthMethod() {
+        return lengthMethod;
     }
 }
