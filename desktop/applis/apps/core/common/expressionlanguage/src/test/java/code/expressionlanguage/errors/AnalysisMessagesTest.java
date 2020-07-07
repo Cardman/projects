@@ -77,7 +77,14 @@ public final class AnalysisMessagesTest {
         def_.setEmptyPackage("");
         def_.setEmptyPartClassName("");
         def_.setBadPartClassName("");
+        def_.setKeyWordPartClassName("");
+        def_.setPrimPartClassName("");
+        def_.setDigitPartClassName("");
         def_.setBadPartVarClassName("");
+        def_.setKeyWordPartVarClassName("");
+        def_.setPrimPartVarClassName("");
+        def_.setDigitPartVarClassName("");
+        def_.setDuplicatedPartVarClassName("");
         def_.setCallCtorEnd("");
         def_.setCallCtor("");
         def_.setCallCtorBeforeBlock("");
@@ -92,6 +99,9 @@ public final class AnalysisMessagesTest {
         def_.setDupSuppliedAnnotField("");
         def_.setBadExpression("");
         def_.setBadFieldName("");
+        def_.setKeyWordFieldName("");
+        def_.setPrimFieldName("");
+        def_.setDigitFieldName("");
         def_.setNotRetrievedFields("");
         def_.setBadNbFormat("");
         def_.setBadCharFormat("");
@@ -126,6 +136,9 @@ public final class AnalysisMessagesTest {
         def_.setBadLabel("");
         def_.setDuplicatedLabel("");
         def_.setBadMethodName("");
+        def_.setKeyWordMethodName("");
+        def_.setPrimMethodName("");
+        def_.setDigitMethodName("");
         def_.setBadOperatorName("");
         def_.setBadAccess("");
         def_.setBadReturnType("");
@@ -150,6 +163,9 @@ public final class AnalysisMessagesTest {
         def_.setSplitDiff("");
         def_.setBadDotted("");
         def_.setBadParamName("");
+        def_.setKeyWordParamName("");
+        def_.setPrimParamName("");
+        def_.setDigitParamName("");
         def_.setReservedParamName("");
         def_.setDuplicatedParamName("");
         def_.setBadReturnTypeInherit("");
@@ -160,6 +176,10 @@ public final class AnalysisMessagesTest {
         def_.setTwoReturnTypes("");
         def_.setReturnTypes("");
         def_.setBadVariableName("");
+        def_.setKeyWordVariableName("");
+        def_.setPrimVariableName("");
+        def_.setDigitVariableName("");
+        def_.setDuplicatedVariableName("");
         def_.setCyclicCtorCall("");
         def_.setDeadCode("");
         def_.setDuplicatedCtor("");

@@ -1,6 +1,8 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -39,22 +41,14 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        if (_cont.getAnalyzing().containsCatchVar(variableName)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(_cont.getCurrentFileName());
-            d_.setIndexFile(variableNameOffset);
-            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableName);
-            _cont.addError(d_);
-            return;
-        }
-        if (!_cont.isValidSingleToken(variableName)) {
+        TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableName,false);
+        if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffset);
-            b_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableName);
+            b_.setBuiltError(res_.getMessage());
             _cont.addError(b_);
+            return;
         }
         page_.setGlobalOffset(classNameOffset);
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);

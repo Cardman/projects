@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -46,27 +47,19 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         if (ElUtil.isDeclaringLoopVariable(this, _conf)) {
             AnalyzedPageEl page_ = _conf.getAnalyzing();
-            if (_conf.getAnalyzing().containsMutableLoopVar(str_) || _conf.getAnalyzing().containsVar(str_)) {
-                FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                d_.setIndexFile(page_.getTraceIndex());
-                //variable name len
-                d_.buildError(_conf.getAnalysisMessages().getBadVariableName(),
-                        str_);
-                _conf.getAnalyzing().getLocalizer().addError(d_);
-                setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting()));
-                return;
-            }
-            if (!_conf.getAnalyzing().getTokenValidation().isValidSingleToken(str_)) {
+            TokenErrorMessage res_ = _conf.getAnalyzing().getTokenValidation().isValidSingleToken(str_);
+            variableName = str_;
+            if (res_.isError()) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
                 b_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                b_.setIndexFile(page_.getTraceIndex());
+                b_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //variable name len
-                b_.buildError(_conf.getAnalysisMessages().getBadVariableName(),
-                        str_);
+                b_.setBuiltError(res_.getMessage());
                 _conf.getAnalyzing().getLocalizer().addError(b_);
                 nameErrors.add(b_.getBuiltError());
+                return;
             }
+            ref = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
             String c_ = _conf.getAnalyzing().getCurrentVarSetting();
             KeyWords keyWords_ = _conf.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -81,13 +74,11 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             } else {
                 lv_.setClassName(c_);
             }
-            ref = page_.getTraceIndex();
-            lv_.setRef(page_.getTraceIndex());
+            lv_.setRef(ref);
             lv_.setIndexClassName(indexClassName_);
             lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
             page_.putMutableLoopVar(str_, lv_);
             page_.getVariablesNames().add(str_);
-            variableName = str_;
             setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting()));
             return;
         }

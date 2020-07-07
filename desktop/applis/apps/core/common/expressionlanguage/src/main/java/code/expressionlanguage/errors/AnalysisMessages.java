@@ -65,7 +65,14 @@ public final class AnalysisMessages {
     public static final String EMPTY_PACKAGE="EmptyPackage";
     public static final String EMPTY_PART_CLASS_NAME="EmptyPartClassName";
     public static final String BAD_PART_CLASS_NAME="BadPartClassName";
+    public static final String KEY_WORD_PART_CLASS_NAME="KeyWordPartClassName";
+    public static final String PRIM_PART_CLASS_NAME="PrimPartClassName";
+    public static final String DIGIT_PART_CLASS_NAME="DigitPartClassName";
     public static final String BAD_PART_VAR_CLASS_NAME="BadPartVarClassName";
+    public static final String KEY_WORD_PART_VAR_CLASS_NAME="KeyWordPartVarClassName";
+    public static final String PRIM_PART_VAR_CLASS_NAME="PrimPartVarClassName";
+    public static final String DIGIT_PART_VAR_CLASS_NAME="DigitPartVarClassName";
+    public static final String DUPLICATED_PART_VAR_CLASS_NAME="DuplicatedPartVarClassName";
     public static final String CALL_CTOR_END="CallCtorEnd";
     public static final String CALL_CTOR="CallCtor";
     public static final String CALL_CTOR_BEFORE_BLOCK="CallCtorBeforeBlock";
@@ -80,6 +87,10 @@ public final class AnalysisMessages {
     public static final String DUP_SUPPLIED_ANNOT_FIELD="DupSuppliedAnnotField";
     public static final String BAD_EXPRESSION="BadExpression";
     public static final String BAD_FIELD_NAME="BadFieldName";
+    public static final String KEY_WORD_FIELD_NAME="KeyWordFieldName";
+    public static final String PRIM_FIELD_NAME="PrimFieldName";
+    public static final String DIGIT_FIELD_NAME="DigitFieldName";
+
     public static final String NOT_RETRIEVED_FIELDS="NotRetrievedFields";
     public static final String BAD_NB_FORMAT="BadNbFormat";
     public static final String BAD_CHAR_FORMAT="BadCharFormat";
@@ -114,6 +125,9 @@ public final class AnalysisMessages {
     public static final String BAD_LABEL="BadLabel";
     public static final String DUPLICATED_LABEL="DuplicatedLabel";
     public static final String BAD_METHOD_NAME="BadMethodName";
+    public static final String KEY_WORD_METHOD_NAME="KeyWordMethodName";
+    public static final String PRIM_METHOD_NAME="PrimMethodName";
+    public static final String DIGIT_METHOD_NAME="DigitMethodName";
     public static final String BAD_OPERATOR_NAME="BadOperatorName";
     public static final String BAD_ACCESS="BadAccess";
     public static final String BAD_RETURN_TYPE="BadReturnType";
@@ -138,6 +152,9 @@ public final class AnalysisMessages {
     public static final String SPLIT_DIFF="SplitDiff";
     public static final String BAD_DOTTED="BadDotted";
     public static final String BAD_PARAM_NAME="BadParamName";
+    public static final String KEY_WORD_PARAM_NAME="KeyWordParamName";
+    public static final String PRIM_PARAM_NAME="PrimParamName";
+    public static final String DIGIT_PARAM_NAME="DigitParamName";
     public static final String RESERVED_PARAM_NAME="ReservedParamName";
     public static final String DUPLICATED_PARAM_NAME="DuplicatedParamName";
     public static final String BAD_RETURN_TYPE_INHERIT="BadReturnTypeInherit";
@@ -148,6 +165,10 @@ public final class AnalysisMessages {
     public static final String TWO_RETURN_TYPES="TwoReturnTypes";
     public static final String RETURN_TYPES="ReturnTypes";
     public static final String BAD_VARIABLE_NAME="BadVariableName";
+    public static final String KEY_WORD_VARIABLE_NAME="KeyWordVariableName";
+    public static final String PRIM_VARIABLE_NAME="PrimVariableName";
+    public static final String DIGIT_VARIABLE_NAME="DigitVariableName";
+    public static final String DUPLICATED_VARIABLE_NAME="DuplicatedVariableName";
     public static final String CYCLIC_CTOR_CALL="CyclicCtorCall";
     public static final String DEAD_CODE="DeadCode";
     public static final String DUPLICATED_CTOR="DuplicatedCtor";
@@ -273,8 +294,15 @@ public final class AnalysisMessages {
     private String methodsAccesses="The method {1} from the type {0} is strictly more accessible than the method {3} from the type {2}.";
     private String emptyPackage="A type must have an non empty package.";
     private String emptyPartClassName="The part must not be empty.";
-    private String badPartClassName="The part {0} in a type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.";
-    private String badPartVarClassName="The part {0} in a variable type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.";
+    private String badPartClassName="The part {0} in a type is not valid. It must be a word.";
+    private String keyWordPartClassName="The part {0} in a type is not valid. It must not be a key word.";
+    private String primPartClassName="The part {0} in a type is not valid. It must not a primitive type.";
+    private String digitPartClassName="The part {0} in a type is not valid. It must not start with a digit.";
+    private String badPartVarClassName="The part {0} in a variable type is not valid. It must be a word.";
+    private String keyWordPartVarClassName="The part {0} in a variable type is not valid. It must not be a key word.";
+    private String primPartVarClassName="The part {0} in a type variable is not valid. It must not a primitive type.";
+    private String digitPartVarClassName="The part {0} in a type variable is not valid. It must not start with a digit.";
+    private String duplicatedPartVarClassName="The part {0} in a type variable is duplicated.";
     private String callCtorEnd="The call of a constructor using implicitly the instance must be applied at the end of the instruction.";
     private String callCtor="The call of a constructor using implicitly the instance must be applied in a constructor.";
     private String callCtorBeforeBlock="The call of a constructor using implicitly the instance must be applied before a block of instructions.";
@@ -288,7 +316,10 @@ public final class AnalysisMessages {
     private String annotFieldMust="The field {0} of the annotatation is compulsory.";
     private String dupSuppliedAnnotField="The field {0} of the annotatation is supplied by duplicate.";
     private String badExpression="Unexpected character {0} at the position {1} in the expression {2}";
-    private String badFieldName="The field name {0} is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.";
+    private String badFieldName="The field name {0} is not valid. It must be a word.";
+    private String keyWordFieldName="The field name {0} is not valid. It must not be a key word.";
+    private String primFieldName="The field name {0} is not valid. It must not a primitive type.";
+    private String digitFieldName="The field name {0} is not valid. It must not start with a digit.";
     private String notRetrievedFields="No field could be retrieved.";
     private String badNbFormat="Bad number {0}";
     private String badCharFormat="Bad character format {0}";
@@ -322,7 +353,10 @@ public final class AnalysisMessages {
     private String mustCallIntCtorNotNeed="A constructor of the type {0} must not be called in the constructor.";
     private String badLabel="A label must be a word (included characters dollars).";
     private String duplicatedLabel="The label is duplicated.";
-    private String badMethodName="The method name {0} is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.";
+    private String badMethodName="The method name {0} is not valid. It must be a word.";
+    private String keyWordMethodName="The method name {0} is not valid. It must not be a key word.";
+    private String primMethodName="The method name {0} is not valid. It must not a primitive type.";
+    private String digitMethodName="The method name {0} is not valid. It must not start with a digit.";
     private String badOperatorName="The operator symbol {0} is not valid.";
     private String badAccess="The method {0} must be public.";
     private String badReturnType="The method {0} must have {1} as return type.";
@@ -346,9 +380,12 @@ public final class AnalysisMessages {
     private String splitComaLow="The number of required splitted parts by comas {0} is lower than the number of supplied splitted parts by comas {1}.";
     private String splitDiff="The number of required operands {0} is different from the number of supplied arguments {1}.";
     private String badDotted="The code part following the dot operator cannot be used.";
-    private String badParamName="The parameter method name {0} is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.";
+    private String badParamName="The parameter method name {0} is not valid. It must be a word.";
     private String reservedParamName="The parameter method name {0} is reserved for indexer set.";
     private String duplicatedParamName="The parameter function name {0} is duplicated.";
+    private String keyWordParamName="The parameter function name {0} is not valid. It must not be a key word.";
+    private String primParamName="The parameter function name {0} is not valid. It must not a primitive type.";
+    private String digitParamName="The parameter function name {0} is not valid. It must not start with a digit.";
     private String badReturnTypeInherit="The return type {0} of the method {1} of the type {2} is not sub type of the return type {3} of the method {4} of the type {5}";
     private String badReturnTypeIndexer="The return type {0} of the indexer {1} of the type {2} is not the return type {3} of the indexer {4} of the type {5}";
     private String duplicatedOverriding="The type {0} inherits a function {1} that is duplicated.";
@@ -356,7 +393,11 @@ public final class AnalysisMessages {
     private String finalNotSubReturnType="The return type {0} of the final method {1} of the type {2} is not sub type of the return type {3} of the method {4} of the type {5}";
     private String returnTypes="The indexers with key {0} of the types {1} have the types {2} as return types.";
     private String twoReturnTypes="The merged methods with key {0} of the types {1} have the sub types {2} as return types.";
-    private String badVariableName="The variable name {0} is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope.";
+    private String badVariableName="The variable name {0} is not valid. It must be a word.";
+    private String keyWordVariableName="The variable name {0} is not valid. It must not be a key word.";
+    private String primVariableName="The variable name {0} is not valid. It must not a primitive type.";
+    private String digitVariableName="The variable name {0} is not valid. It must not start with a digit.";
+    private String duplicatedVariableName="The variable name {0} is not valid. It must not be the name of an other variable of the scope.";
     private String cyclicCtorCall="The constructors {0} of the type {1} belong to cyclic calls.";
     private String deadCode="The code is unreachable in the function {0}";
     private String duplicatedCtor="The constructor {0} is duplicated.";
@@ -487,7 +528,14 @@ public final class AnalysisMessages {
         mess_.addEntry(EMPTY_PACKAGE,getEmptyPackage());
         mess_.addEntry(EMPTY_PART_CLASS_NAME,getEmptyPartClassName());
         mess_.addEntry(BAD_PART_CLASS_NAME,getBadPartClassName());
+        mess_.addEntry(KEY_WORD_PART_CLASS_NAME,getKeyWordPartClassName());
+        mess_.addEntry(PRIM_PART_CLASS_NAME,getPrimPartClassName());
+        mess_.addEntry(DIGIT_PART_CLASS_NAME,getDigitPartClassName());
         mess_.addEntry(BAD_PART_VAR_CLASS_NAME,getBadPartVarClassName());
+        mess_.addEntry(KEY_WORD_PART_VAR_CLASS_NAME,getKeyWordPartVarClassName());
+        mess_.addEntry(PRIM_PART_VAR_CLASS_NAME,getPrimPartVarClassName());
+        mess_.addEntry(DIGIT_PART_VAR_CLASS_NAME,getDigitPartVarClassName());
+        mess_.addEntry(DUPLICATED_PART_VAR_CLASS_NAME,getDuplicatedPartVarClassName());
         mess_.addEntry(CALL_CTOR_END,getCallCtorEnd());
         mess_.addEntry(CALL_CTOR,getCallCtor());
         mess_.addEntry(CALL_CTOR_BEFORE_BLOCK,getCallCtorBeforeBlock());
@@ -502,6 +550,9 @@ public final class AnalysisMessages {
         mess_.addEntry(DUP_SUPPLIED_ANNOT_FIELD,getDupSuppliedAnnotField());
         mess_.addEntry(BAD_EXPRESSION,getBadExpression());
         mess_.addEntry(BAD_FIELD_NAME,getBadFieldName());
+        mess_.addEntry(KEY_WORD_FIELD_NAME,getKeyWordFieldName());
+        mess_.addEntry(PRIM_FIELD_NAME,getPrimFieldName());
+        mess_.addEntry(DIGIT_FIELD_NAME,getDigitFieldName());
         mess_.addEntry(NOT_RETRIEVED_FIELDS,getNotRetrievedFields());
         mess_.addEntry(BAD_NB_FORMAT,getBadNbFormat());
         mess_.addEntry(BAD_CHAR_FORMAT,getBadCharFormat());
@@ -536,6 +587,9 @@ public final class AnalysisMessages {
         mess_.addEntry(BAD_LABEL,getBadLabel());
         mess_.addEntry(DUPLICATED_LABEL,getDuplicatedLabel());
         mess_.addEntry(BAD_METHOD_NAME,getBadMethodName());
+        mess_.addEntry(KEY_WORD_METHOD_NAME,getKeyWordMethodName());
+        mess_.addEntry(PRIM_METHOD_NAME,getPrimMethodName());
+        mess_.addEntry(DIGIT_METHOD_NAME,getDigitMethodName());
         mess_.addEntry(BAD_OPERATOR_NAME,getBadOperatorName());
         mess_.addEntry(BAD_ACCESS,getBadAccess());
         mess_.addEntry(BAD_RETURN_TYPE,getBadReturnType());
@@ -560,6 +614,9 @@ public final class AnalysisMessages {
         mess_.addEntry(SPLIT_DIFF,getSplitDiff());
         mess_.addEntry(BAD_DOTTED,getBadDotted());
         mess_.addEntry(BAD_PARAM_NAME,getBadParamName());
+        mess_.addEntry(KEY_WORD_PARAM_NAME,getKeyWordParamName());
+        mess_.addEntry(PRIM_PARAM_NAME,getPrimParamName());
+        mess_.addEntry(DIGIT_PARAM_NAME,getDigitParamName());
         mess_.addEntry(RESERVED_PARAM_NAME,getReservedParamName());
         mess_.addEntry(DUPLICATED_PARAM_NAME,getDuplicatedParamName());
         mess_.addEntry(BAD_RETURN_TYPE_INHERIT,getBadReturnTypeInherit());
@@ -570,6 +627,10 @@ public final class AnalysisMessages {
         mess_.addEntry(TWO_RETURN_TYPES,getTwoReturnTypes());
         mess_.addEntry(RETURN_TYPES,getReturnTypes());
         mess_.addEntry(BAD_VARIABLE_NAME,getBadVariableName());
+        mess_.addEntry(KEY_WORD_VARIABLE_NAME,getKeyWordVariableName());
+        mess_.addEntry(PRIM_VARIABLE_NAME,getPrimVariableName());
+        mess_.addEntry(DIGIT_VARIABLE_NAME,getDigitVariableName());
+        mess_.addEntry(DUPLICATED_VARIABLE_NAME,getDuplicatedVariableName());
         mess_.addEntry(CYCLIC_CTOR_CALL,getCyclicCtorCall());
         mess_.addEntry(DEAD_CODE,getDeadCode());
         mess_.addEntry(DUPLICATED_CTOR,getDuplicatedCtor());
@@ -2237,5 +2298,165 @@ public final class AnalysisMessages {
 
     public void setEmptyPart(String _emptyPart) {
         emptyPart = _emptyPart;
+    }
+
+    public String getKeyWordPartClassName() {
+        return keyWordPartClassName;
+    }
+
+    public void setKeyWordPartClassName(String keyWordPartClassName) {
+        this.keyWordPartClassName = keyWordPartClassName;
+    }
+
+    public String getPrimPartClassName() {
+        return primPartClassName;
+    }
+
+    public void setPrimPartClassName(String primPartClassName) {
+        this.primPartClassName = primPartClassName;
+    }
+
+    public String getDigitPartClassName() {
+        return digitPartClassName;
+    }
+
+    public void setDigitPartClassName(String digitPartClassName) {
+        this.digitPartClassName = digitPartClassName;
+    }
+
+    public String getKeyWordPartVarClassName() {
+        return keyWordPartVarClassName;
+    }
+
+    public void setKeyWordPartVarClassName(String keyWordPartVarClassName) {
+        this.keyWordPartVarClassName = keyWordPartVarClassName;
+    }
+
+    public String getPrimPartVarClassName() {
+        return primPartVarClassName;
+    }
+
+    public void setPrimPartVarClassName(String primPartVarClassName) {
+        this.primPartVarClassName = primPartVarClassName;
+    }
+
+    public String getDigitPartVarClassName() {
+        return digitPartVarClassName;
+    }
+
+    public void setDigitPartVarClassName(String digitPartVarClassName) {
+        this.digitPartVarClassName = digitPartVarClassName;
+    }
+
+    public String getDuplicatedPartVarClassName() {
+        return duplicatedPartVarClassName;
+    }
+
+    public void setDuplicatedPartVarClassName(String duplicatedPartVarClassName) {
+        this.duplicatedPartVarClassName = duplicatedPartVarClassName;
+    }
+
+    public String getKeyWordFieldName() {
+        return keyWordFieldName;
+    }
+
+    public void setKeyWordFieldName(String keyWordFieldName) {
+        this.keyWordFieldName = keyWordFieldName;
+    }
+
+    public String getPrimFieldName() {
+        return primFieldName;
+    }
+
+    public void setPrimFieldName(String primFieldName) {
+        this.primFieldName = primFieldName;
+    }
+
+    public String getDigitFieldName() {
+        return digitFieldName;
+    }
+
+    public void setDigitFieldName(String digitFieldName) {
+        this.digitFieldName = digitFieldName;
+    }
+
+    public String getKeyWordMethodName() {
+        return keyWordMethodName;
+    }
+
+    public void setKeyWordMethodName(String keyWordMethodName) {
+        this.keyWordMethodName = keyWordMethodName;
+    }
+
+    public String getPrimMethodName() {
+        return primMethodName;
+    }
+
+    public void setPrimMethodName(String primMethodName) {
+        this.primMethodName = primMethodName;
+    }
+
+    public String getDigitMethodName() {
+        return digitMethodName;
+    }
+
+    public void setDigitMethodName(String digitMethodName) {
+        this.digitMethodName = digitMethodName;
+    }
+
+    public String getKeyWordParamName() {
+        return keyWordParamName;
+    }
+
+    public void setKeyWordParamName(String keyWordParamName) {
+        this.keyWordParamName = keyWordParamName;
+    }
+
+    public String getPrimParamName() {
+        return primParamName;
+    }
+
+    public void setPrimParamName(String primParamName) {
+        this.primParamName = primParamName;
+    }
+
+    public String getDigitParamName() {
+        return digitParamName;
+    }
+
+    public void setDigitParamName(String digitParamName) {
+        this.digitParamName = digitParamName;
+    }
+
+    public String getKeyWordVariableName() {
+        return keyWordVariableName;
+    }
+
+    public void setKeyWordVariableName(String keyWordVariableName) {
+        this.keyWordVariableName = keyWordVariableName;
+    }
+
+    public String getPrimVariableName() {
+        return primVariableName;
+    }
+
+    public void setPrimVariableName(String primVariableName) {
+        this.primVariableName = primVariableName;
+    }
+
+    public String getDigitVariableName() {
+        return digitVariableName;
+    }
+
+    public void setDigitVariableName(String digitVariableName) {
+        this.digitVariableName = digitVariableName;
+    }
+
+    public String getDuplicatedVariableName() {
+        return duplicatedVariableName;
+    }
+
+    public void setDuplicatedVariableName(String duplicatedVariableName) {
+        this.duplicatedVariableName = duplicatedVariableName;
     }
 }

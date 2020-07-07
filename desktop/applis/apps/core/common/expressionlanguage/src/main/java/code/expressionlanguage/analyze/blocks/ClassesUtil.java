@@ -3,6 +3,8 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ClassFieldBlock;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.accessing.OperatorAccessor;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -86,14 +88,13 @@ public final class ClassesUtil {
             StringList elements_ = StringList.splitChars(packageName_, DOT);
             for (String e: elements_) {
                 String tr_ = e.trim();
-                if (!ContextUtil.isValidToken(_context,tr_)) {
+                TokenErrorMessage res_ = ManageTokens.partClass(_context).checkStdToken(_context, tr_);
+                if (res_.isError()) {
                     FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                     badCl_.setFileName(_root.getFile().getFileName());
                     badCl_.setIndexFile(_root.getIdRowCol());
                     //pkg part or dot
-                    badCl_.buildError(_context.getAnalysisMessages().getBadPartClassName(),
-                            tr_
-                    );
+                    badCl_.setBuiltError(res_.getMessage());
                     _context.addError(badCl_);
                     _root.addNameErrors(badCl_);
                 }
@@ -101,14 +102,13 @@ public final class ClassesUtil {
         }
         String className_;
         className_ = _root.getName().trim();
-        if (!ContextUtil.isValidToken(_context,className_)) {
+        TokenErrorMessage resClName_ = ManageTokens.partClass(_context).checkStdToken(_context, className_);
+        if (resClName_.isError()) {
             FoundErrorInterpret badCl_ = new FoundErrorInterpret();
             badCl_.setFileName(_root.getFile().getFileName());
             badCl_.setIndexFile(_root.getIdRowCol());
             //name part if possible or original type
-            badCl_.buildError(_context.getAnalysisMessages().getBadPartClassName(),
-                    className_
-            );
+            badCl_.setBuiltError(resClName_.getMessage());
             _context.addError(badCl_);
             _root.addNameErrors(badCl_);
         }
@@ -165,14 +165,13 @@ public final class ClassesUtil {
                 tempOff_ += p.length() + 1;
                 continue;
             }
-            if (!ContextUtil.isValidToken(_context,id_)) {
+            TokenErrorMessage res_ = ManageTokens.partVarClass(_context).checkStdToken(_context,id_);
+            if (res_.isError()) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(offId_);
                 //id_ len
-                badCl_.buildError(_context.getAnalysisMessages().getBadPartVarClassName(),
-                        id_
-                );
+                badCl_.setBuiltError(res_.getMessage());
                 _context.addError(badCl_);
                 type_.getErrors().add(badCl_.getBuiltError());
             }
@@ -181,7 +180,7 @@ public final class ClassesUtil {
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(offId_);
                 //id_ len
-                badCl_.buildError(_context.getAnalysisMessages().getBadPartVarClassName(),
+                badCl_.buildError(_context.getAnalysisMessages().getDuplicatedPartVarClassName(),
                         id_
                 );
                 _context.addError(badCl_);
@@ -192,7 +191,7 @@ public final class ClassesUtil {
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(offId_);
                 //id_ len
-                badCl_.buildError(_context.getAnalysisMessages().getBadPartVarClassName(),
+                badCl_.buildError(_context.getAnalysisMessages().getDuplicatedPartVarClassName(),
                         id_
                 );
                 _context.addError(badCl_);
@@ -1153,14 +1152,14 @@ public final class ClassesUtil {
             int i_ = 0;
             for (String v: l_) {
                 e.getKey().addParamErrors();
-                if (!ContextUtil.isValidToken(_context,v)) {
+                TokenErrorMessage res_ = ManageTokens.partParam(_context).checkStdToken(_context, v);
+                if (res_.isError()) {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
                     b_.setFileName(_context.getCurrentFileName());
                     b_.setIndexFile(e.getKey().getOffset().getOffsetTrim());
                     //param name len
-                    b_.buildError(_context.getAnalysisMessages().getBadParamName(),
-                            v);
+                    b_.setBuiltError(res_.getMessage());
                     _context.addError(b_);
                     e.getKey().addParamErrors(i_,b_);
                 }
@@ -1365,7 +1364,7 @@ public final class ClassesUtil {
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
-                        prepareParams(page_, method_.getParametersNamesOffset(),params_, types_, method_.isVarargs());
+                        prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllCtors().getVal(method_));
                         page_.getParameters().clear();
                         page_.clearAllLocalVarsReadOnly();
@@ -1391,7 +1390,7 @@ public final class ClassesUtil {
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
-                        prepareParams(page_, method_.getParametersNamesOffset(),params_, types_, method_.isVarargs());
+                        prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
                         page_.getParameters().clear();
                         page_.clearAllLocalVarsReadOnly();
@@ -1400,7 +1399,7 @@ public final class ClassesUtil {
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
-                        prepareParams(page_, method_.getParametersNamesOffset(),params_, types_, method_.isVarargs());
+                        prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                         processValueParam(_context, page_, type_, method_);
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
                         page_.getParameters().clear();
@@ -1417,7 +1416,7 @@ public final class ClassesUtil {
                 _context.getCoverage().putCalls(_context,"",e.getKey());
                 StringList params_ = e.getKey().getParametersNames();
                 StringList types_ = e.getKey().getImportedParametersTypes();
-                prepareParams(page_, e.getKey().getParametersNamesOffset(),params_, types_, e.getKey().isVarargs());
+                prepareParams(page_, e.getKey().getParametersNamesOffset(),e.getKey().getParamErrors(),params_, types_, e.getKey().isVarargs());
                 e.getKey().buildFctInstructionsReadOnly(_context,e.getValue());
                 page_.getParameters().clear();
                 page_.clearAllLocalVarsReadOnly();
@@ -1703,7 +1702,7 @@ public final class ClassesUtil {
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_, method_.getParametersNamesOffset(),params_, types_, method_.isVarargs());
+                    prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                     AssMemberCallingsBlock met_ = AssBlockUtil.buildFctInstructions(method_,mem_.getAllCtors().getVal(method_), _context,null, assVars_);
                     IdMap<AssBlock, AssignedVariables> id_ = assVars_.getFinalVariables();
                     AssignedVariables assTar_ = id_.getVal(met_);
@@ -1755,7 +1754,7 @@ public final class ClassesUtil {
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_,method_.getParametersNamesOffset(), params_, types_, method_.isVarargs());
+                    prepareParams(page_,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, types_, method_.isVarargs());
                     AssBlockUtil.buildFctInstructions(method_,mem_.getAllMethods().getVal(method_),_context,null,assVars_);
                     page_.getParameters().clear();
                     page_.clearAllLocalVars(assVars_);
@@ -1764,7 +1763,7 @@ public final class ClassesUtil {
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_, method_.getParametersNamesOffset(),params_, types_, method_.isVarargs());
+                    prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                     processValueParam(_context, page_, type_, method_);
                     AssBlockUtil.buildFctInstructions(method_,mem_.getAllMethods().getVal(method_),_context,null,assVars_);
                     page_.getParameters().clear();
@@ -1781,7 +1780,7 @@ public final class ClassesUtil {
             _context.getCoverage().putCalls(_context,"",e.getKey());
             StringList params_ = e.getKey().getParametersNames();
             StringList types_ = e.getKey().getImportedParametersTypes();
-            prepareParams(page_,e.getKey().getParametersNamesOffset(), params_, types_, e.getKey().isVarargs());
+            prepareParams(page_,e.getKey().getParametersNamesOffset(),e.getKey().getParamErrors(), params_, types_, e.getKey().isVarargs());
             AssBlockUtil.buildFctInstructions(e.getKey(),e.getValue(),_context,null,assVars_);
             page_.getParameters().clear();
             page_.clearAllLocalVars(assVars_);
@@ -1789,7 +1788,7 @@ public final class ClassesUtil {
     }
 
     private static boolean isStdOrExplicit(OverridableBlock method_) {
-        return method_.getKind() == MethodKind.STD_METHOD || method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST;
+        return method_.getKind() == MethodKind.STD_METHOD || method_.getKind() == MethodKind.TO_STRING || method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST;
     }
 
     private static void processValueParam(ContextEl _context, AnalyzedPageEl _page, ExecRootBlock _cl, OverridableBlock _method) {
@@ -1875,10 +1874,13 @@ public final class ClassesUtil {
         }
     }
 
-    private static void prepareParams(AnalyzedPageEl _page, Ints _offs, StringList _params, StringList _types, boolean _varargs) {
+    private static void prepareParams(AnalyzedPageEl _page, Ints _offs, CustList<StringList> _paramErrors,StringList _params, StringList _types, boolean _varargs) {
         int len_ = _params.size();
         if (!_varargs) {
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                if (!_paramErrors.get(i).isEmpty()) {
+                    continue;
+                }
                 String p_ = _params.get(i);
                 String c_ = _types.get(i);
                 AnaLocalVariable lv_ = new AnaLocalVariable();
@@ -1888,6 +1890,9 @@ public final class ClassesUtil {
             }
         } else {
             for (int i = CustList.FIRST_INDEX; i < len_ - 1; i++) {
+                if (!_paramErrors.get(i).isEmpty()) {
+                    continue;
+                }
                 String p_ = _params.get(i);
                 String c_ = _types.get(i);
                 AnaLocalVariable lv_ = new AnaLocalVariable();
@@ -1895,12 +1900,14 @@ public final class ClassesUtil {
                 lv_.setRef(_offs.get(i));
                 _page.getParameters().put(p_, lv_);
             }
-            String p_ = _params.last();
-            String c_ = _types.last();
-            AnaLocalVariable lv_ = new AnaLocalVariable();
-            lv_.setClassName(StringExpUtil.getPrettyArrayType(c_));
-            lv_.setRef(_offs.last());
-            _page.getParameters().put(p_, lv_);
+            if (_paramErrors.last().isEmpty()) {
+                String p_ = _params.last();
+                String c_ = _types.last();
+                AnaLocalVariable lv_ = new AnaLocalVariable();
+                lv_.setClassName(StringExpUtil.getPrettyArrayType(c_));
+                lv_.setRef(_offs.last());
+                _page.getParameters().put(p_, lv_);
+            }
         }
     }
 

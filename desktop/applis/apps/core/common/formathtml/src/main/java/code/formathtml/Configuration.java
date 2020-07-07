@@ -2,9 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.blocks.AccessedBlock;
@@ -28,8 +26,6 @@ import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.RendDynOperationNode;
@@ -514,17 +510,6 @@ public final class Configuration {
         AnalyzedPageEl analyzing_ = context.getAnalyzing();
         int offset_ = analyzing_.getOffset();
         return analyzingDoc.getSum(offset_)+analyzing_.getTraceIndex()-offset_;
-    }
-
-    public boolean isValidSingleToken(String _id) {
-        if (!isValidToken(_id)) {
-            return false;
-        }
-        return ContextUtil.idDisjointToken(context,_id);
-    }
-
-    public boolean isValidToken(String _id) {
-        return ContextUtil.isValidToken(context,_id,false);
     }
 
     public void processInternKeyWord(String _string, int _fr,

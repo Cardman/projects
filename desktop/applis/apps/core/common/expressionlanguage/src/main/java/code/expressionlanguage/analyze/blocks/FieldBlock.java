@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
@@ -189,14 +191,14 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         for (PartOffsetAffect n: _names) {
             PartOffset p_ = n.getPartOffset();
             String trName_ = p_.getPart();
-            if (!ContextUtil.isValidToken(_cont,trName_)) {
+            TokenErrorMessage mess_ = ManageTokens.partField(_cont).checkStdToken(_cont,trName_);
+            if (mess_.isError()) {
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
                 b_.setFileName(_bl.getFile().getFileName());
                 b_.setIndexFile(_bl.getOffset().getOffsetTrim());
                 //trName_ len
-                b_.buildError(_cont.getAnalysisMessages().getBadFieldName(),
-                        trName_);
+                b_.setBuiltError(mess_.getMessage());
                 _cont.addError(b_);
                 found_.add(b_);
             }

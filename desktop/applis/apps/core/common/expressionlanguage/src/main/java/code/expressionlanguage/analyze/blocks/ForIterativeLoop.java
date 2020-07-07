@@ -1,6 +1,8 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -155,7 +157,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
 
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
-        processVariableNames(_cont);
+        boolean res_ = processVariableNames(_cont);
         MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         String cl_ = importedClassName;
@@ -179,11 +181,13 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         rootStep = page_.getCurrentRoot();
         ExecOperationNode stepEl_ = step_.last();
         checkType(_cont, elementClass_, stepEl_, stepOffset);
-        AnaLoopVariable lv_ = new AnaLoopVariable();
-        lv_.setClassName(cl_);
-        lv_.setRef(variableNameOffset);
-        lv_.setIndexClassName(importedClassIndexName);
-        _cont.getAnalyzing().putVar(variableName, lv_);
+        if (res_) {
+            AnaLoopVariable lv_ = new AnaLoopVariable();
+            lv_.setClassName(cl_);
+            lv_.setRef(variableNameOffset);
+            lv_.setIndexClassName(importedClassIndexName);
+            _cont.getAnalyzing().putVar(variableName, lv_);
+        }
         _cont.getCoverage().putBlockOperationsLoops(_cont,this);
         ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label, importedClassName,
                 importedClassIndexName,variableName,variableNameOffset, initOffset,
@@ -212,7 +216,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         }
     }
 
-    private void processVariableNames(ContextEl _cont) {
+    private boolean processVariableNames(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
@@ -246,34 +250,18 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         }
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        if (_cont.getAnalyzing().containsVar(variableName)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(getFile().getFileName());
-            d_.setIndexFile(variableNameOffset);
-            //variable name len
-            d_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
-                    variableName);
-            _cont.addError(d_);
-        }
-        if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(getFile().getFileName());
-            d_.setIndexFile(variableNameOffset);
-            //variable name len
-            d_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
-                    variableName);
-            _cont.addError(d_);
-        }
-        if (!ContextUtil.isValidSingleToken(_cont,variableName)) {
+        TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkStdTokenVar(_cont,variableName);
+        if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffset);
             //variable name len
-            b_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
-                    variableName);
+            b_.setBuiltError(res_.getMessage());
             _cont.addError(b_);
             nameErrors.add(b_.getBuiltError());
+            return false;
         }
+        return true;
     }
 
 

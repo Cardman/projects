@@ -2,6 +2,8 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ConditionReturn;
@@ -63,6 +65,8 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     private int expressionOffset;
 
     private CustList<RendDynOperationNode> opList;
+    private boolean okVarFirst = true;
+    private boolean okVarSecond = true;
 
     RendForEachTable(Configuration _importingPage,
                      OffsetStringInfo _className, OffsetStringInfo _variable,
@@ -138,53 +142,23 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                     importedClassIndexName);
             _cont.addError(cast_);
         }
-        if (_cont.getAnalyzing().containsVar(variableNameFirst)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(_cont.getCurrentFileName());
-            d_.setIndexFile(variableNameOffsetFirst);
-            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableNameFirst);
-            _cont.addError(d_);
-        }
-        if (_cont.getAnalyzing().containsMutableLoopVar(variableNameFirst)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(_cont.getCurrentFileName());
-            d_.setIndexFile(variableNameOffsetFirst);
-            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableNameFirst);
-            _cont.addError(d_);
-        }
-        if (!_cont.isValidSingleToken(variableNameFirst)) {
+        TokenErrorMessage resOne_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableNameFirst,false);
+        if (resOne_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffsetFirst);
-            b_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableNameFirst);
+            b_.setBuiltError(resOne_.getMessage());
             _cont.addError(b_);
+            okVarFirst = false;
         }
-        if (_cont.getAnalyzing().containsVar(variableNameSecond)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(_cont.getCurrentFileName());
-            d_.setIndexFile(variableNameOffsetSecond);
-            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableNameSecond);
-            _cont.addError(d_);
-        }
-        if (_cont.getAnalyzing().containsMutableLoopVar(variableNameSecond)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(_cont.getCurrentFileName());
-            d_.setIndexFile(variableNameOffsetSecond);
-            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableNameSecond);
-            _cont.addError(d_);
-        }
-        if (!_cont.isValidSingleToken(variableNameSecond)) {
+        TokenErrorMessage resTwo_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableNameSecond,false);
+        if (resTwo_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffsetSecond);
-            b_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableNameSecond);
+            b_.setBuiltError(resTwo_.getMessage());
             _cont.addError(b_);
+            okVarSecond = false;
         }
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffsetFirst);
@@ -277,30 +251,37 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     }
 
     public void putVariable(Configuration _cont) {
-        if (StringList.quickEq(variableNameFirst, variableNameSecond)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(_cont.getCurrentFileName());
-            d_.setIndexFile(variableNameOffsetSecond);
-            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableNameFirst);
-            _cont.addError(d_);
+        if (okVarFirst && okVarSecond) {
+            if (StringList.quickEq(variableNameFirst, variableNameSecond)) {
+                FoundErrorInterpret d_ = new FoundErrorInterpret();
+                d_.setFileName(_cont.getCurrentFileName());
+                d_.setIndexFile(variableNameOffsetSecond);
+                d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
+                        variableNameFirst);
+                _cont.addError(d_);
+                return;
+            }
         }
-        AnaLoopVariable lv_ = new AnaLoopVariable();
-        if (!importedClassNameFirst.isEmpty()) {
-            lv_.setClassName(importedClassNameFirst);
-        } else {
-            lv_.setClassName(_cont.getStandards().getAliasObject());
+        if (okVarFirst) {
+            AnaLoopVariable lv_ = new AnaLoopVariable();
+            if (!importedClassNameFirst.isEmpty()) {
+                lv_.setClassName(importedClassNameFirst);
+            } else {
+                lv_.setClassName(_cont.getStandards().getAliasObject());
+            }
+            lv_.setIndexClassName(importedClassIndexName);
+            _cont.getAnalyzing().putVar(variableNameFirst, lv_);
         }
-        lv_.setIndexClassName(importedClassIndexName);
-        _cont.getAnalyzing().putVar(variableNameFirst, lv_);
-        lv_ = new AnaLoopVariable();
-        if (!importedClassNameSecond.isEmpty()) {
-            lv_.setClassName(importedClassNameSecond);
-        } else {
-            lv_.setClassName(_cont.getStandards().getAliasObject());
+        if (okVarSecond) {
+            AnaLoopVariable lv_ = new AnaLoopVariable();
+            if (!importedClassNameSecond.isEmpty()) {
+                lv_.setClassName(importedClassNameSecond);
+            } else {
+                lv_.setClassName(_cont.getStandards().getAliasObject());
+            }
+            lv_.setIndexClassName(importedClassIndexName);
+            _cont.getAnalyzing().putVar(variableNameSecond, lv_);
         }
-        lv_.setIndexClassName(importedClassIndexName);
-        _cont.getAnalyzing().putVar(variableNameSecond, lv_);
     }
 
     private boolean toInferFirst(Configuration _cont) {

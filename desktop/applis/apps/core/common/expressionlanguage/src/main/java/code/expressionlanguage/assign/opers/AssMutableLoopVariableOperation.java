@@ -35,10 +35,6 @@ public final class AssMutableLoopVariableOperation extends AssLeafOperation impl
         CustList<StringMap<Assignment>> assAfM_ = new CustList<StringMap<Assignment>>();
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
         if (_ass instanceof AssForMutableIterativeLoop &&AssUtil.isDeclaringLoopVariable(this,_conf)) {
-            if (variableName.isEmpty()) {
-                analyzeNotBoolAssignmentAfter(_ass,_a);
-                return;
-            }
             boolean isBool_;
             isBool_ = getResultClass().isBoolType(_conf);
             ass_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assB_));

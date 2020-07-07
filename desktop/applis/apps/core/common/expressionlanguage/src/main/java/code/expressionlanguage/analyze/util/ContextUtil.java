@@ -150,13 +150,6 @@ public final class ContextUtil {
         ||((OverridableBlock) _fct).getKind() == MethodKind.IMPLICIT_CAST);
     }
 
-    public static boolean isValidSingleToken(ContextEl _cont,String _id) {
-        if (!isValidToken(_cont,_id)) {
-            return false;
-        }
-        return idDisjointToken(_cont,_id);
-    }
-
     public static boolean idDisjointToken(ContextEl _cont, String _id) {
         return isNotVar(_cont,_id);
     }
@@ -175,34 +168,6 @@ public final class ContextUtil {
             return false;
         }
         return !_cont.getAnalyzing().getParameters().contains(_id);
-    }
-
-    public static boolean isValidToken(ContextEl _cont, String _id) {
-        Block b_ = _cont.getAnalyzing().getCurrentBlock();
-        boolean pred_ = b_.getFile().isPredefined();
-        return isValidToken(_cont,_id, pred_);
-    }
-
-    public static boolean isValidToken(ContextEl _cont, String _id, boolean _pred) {
-        if (_pred) {
-            if (!StringList.isDollarWord(_id)) {
-                return false;
-            }
-        } else {
-            if (!StringList.isWord(_id)) {
-                return false;
-            }
-        }
-        if (PrimitiveTypeUtil.isPrimitive(_id, _cont)) {
-            return false;
-        }
-        if (_cont.getKeyWords().isKeyWordNotVar(_id)) {
-            return false;
-        }
-        if (StringList.quickEq(_id, _cont.getStandards().getAliasVoid())) {
-            return false;
-        }
-        return !StringExpUtil.isDigit(_id.charAt(0));
     }
 
     public static StringMap<StringList> getCurrentConstraints(ContextEl _cont) {

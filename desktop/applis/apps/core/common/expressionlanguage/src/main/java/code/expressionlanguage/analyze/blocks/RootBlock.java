@@ -2,7 +2,9 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.MethodHeaderInfo;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -626,42 +628,44 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                             }
                         }
                     }
-                } else if (m_.getKind() == MethodKind.STD_METHOD) {
-                    if (!StringList.quickEq(name_, keyWords_.getKeyWordToString())&&!ContextUtil.isValidToken(_context,name_)) {
+                } else if (m_.getKind() == MethodKind.TO_STRING) {
+                    if (!StringList.quickEq(m_.getImportedReturnType(),stds_.getAliasString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
                         badMeth_.setIndexFile(r_);
                         //method name len
-                        badMeth_.buildError(_context.getAnalysisMessages().getBadMethodName(),
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
+                                name_,
+                                stds_.getAliasString());
+                        _context.addError(badMeth_);
+                        m_.addNameErrors(badMeth_);
+                    } else if (m_.getAccess() != AccessEnum.PUBLIC) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadAccess(),
                                 name_);
                         _context.addError(badMeth_);
                         m_.addNameErrors(badMeth_);
-                    } else if (StringList.quickEq(name_, keyWords_.getKeyWordToString()) && !m_.hiddenInstance() && m_.getParametersTypes().isEmpty()) {
-                        if (!StringList.quickEq(m_.getImportedReturnType(),stds_.getAliasString())) {
+                    } else {
+                        ToStringMethodHeader t_ = new ToStringMethodHeader(m_.getName(), m_.getImportedReturnType(), m_.isFinalMethod(),m_.isAbstractMethod());
+                        _context.getClasses().getToStringMethods().addEntry(getFullName(), t_);
+                    }
+                } else if (m_.getKind() == MethodKind.STD_METHOD) {
+                    if (!StringList.quickEq(name_, keyWords_.getKeyWordToString())) {
+                        TokenErrorMessage mess_ = ManageTokens.partMethod(_context).checkStdToken(_context,name_);
+                        if (mess_.isError()) {
                             int r_ = m_.getNameOffset();
                             FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                             badMeth_.setFileName(getFile().getFileName());
                             badMeth_.setIndexFile(r_);
                             //method name len
-                            badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
-                                    name_,
-                                    stds_.getAliasString());
+                            badMeth_.setBuiltError(mess_.getMessage());
                             _context.addError(badMeth_);
                             m_.addNameErrors(badMeth_);
-                        } else if (m_.getAccess() != AccessEnum.PUBLIC) {
-                            int r_ = m_.getNameOffset();
-                            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                            badMeth_.setFileName(getFile().getFileName());
-                            badMeth_.setIndexFile(r_);
-                            //method name len
-                            badMeth_.buildError(_context.getAnalysisMessages().getBadAccess(),
-                                    name_);
-                            _context.addError(badMeth_);
-                            m_.addNameErrors(badMeth_);
-                        } else {
-                            ToStringMethodHeader t_ = new ToStringMethodHeader(m_.getName(), m_.getImportedReturnType(), m_.isFinalMethod(),m_.isAbstractMethod());
-                            _context.getClasses().getToStringMethods().addEntry(getFullName(), t_);
                         }
                     }
                 } else {
@@ -707,21 +711,21 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
                     _context.addError(b_);
                     m_.addNameErrors(b_);
                 }
-                if (!ContextUtil.isValidToken(_context,name_)) {
+                TokenErrorMessage mess_ = ManageTokens.partMethod(_context).checkStdToken(_context,name_);
+                if (mess_.isError()) {
                     int r_ = m_.getNameOffset();
                     FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                     badMeth_.setFileName(getFile().getFileName());
                     badMeth_.setIndexFile(r_);
                     //method name len
-                    badMeth_.buildError(_context.getAnalysisMessages().getBadMethodName(),
-                            name_);
+                    badMeth_.setBuiltError(mess_.getMessage());
                     _context.addError(badMeth_);
                     m_.addNameErrors(badMeth_);
                 }
             }
             if (method_ instanceof OverridableBlock) {
                 OverridableBlock m_ = (OverridableBlock) method_;
-                if (m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.OPERATOR || m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST) {
+                if (m_.getKind() == MethodKind.TO_STRING || m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.OPERATOR || m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST) {
                     MethodId id_ = m_.getId();
                     if (ContextUtil.isEnumType(_exec)) {
                         String valueOf_ = stds_.getAliasEnumPredValueOf();
@@ -829,14 +833,14 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
             int j_ = 0;
             for (String v: l_) {
                 method_.addParamErrors();
-                if (!ContextUtil.isValidToken(_context,v)) {
+                TokenErrorMessage res_ = ManageTokens.partParam(_context).checkStdToken(_context,v);
+                if (res_.isError()) {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
                     b_.setFileName(getFile().getFileName());
                     b_.setIndexFile(method_.getOffset().getOffsetTrim());
                     //param name len
-                    b_.buildError(_context.getAnalysisMessages().getBadParamName(),
-                            v);
+                    b_.setBuiltError(res_.getMessage());
                     _context.addError(b_);
                     method_.addParamErrors(j_,b_);
                 }

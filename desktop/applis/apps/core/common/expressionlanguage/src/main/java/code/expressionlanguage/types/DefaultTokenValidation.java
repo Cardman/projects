@@ -1,6 +1,8 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
@@ -36,8 +38,8 @@ public final class DefaultTokenValidation implements AbstractTokenValidation {
         return fct_.getStaticContext() == MethodAccessKind.STATIC;
     }
     @Override
-    public boolean isValidSingleToken(String _id) {
-        return ContextUtil.isValidSingleToken(context,_id);
+    public TokenErrorMessage isValidSingleToken(String _id) {
+        return ManageTokens.partVar(context).checkStdTokenVar(context,_id);
     }
 
 }

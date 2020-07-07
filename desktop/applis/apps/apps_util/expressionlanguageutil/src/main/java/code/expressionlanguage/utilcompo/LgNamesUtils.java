@@ -3473,7 +3473,14 @@ public class LgNamesUtils extends LgNames {
         _mess.setEmptyPackage(get(_util,_cust,AnalysisMessages.EMPTY_PACKAGE));
         _mess.setEmptyPartClassName(get(_util,_cust,AnalysisMessages.EMPTY_PART_CLASS_NAME));
         _mess.setBadPartClassName(get(_util,_cust,AnalysisMessages.BAD_PART_CLASS_NAME));
+        _mess.setKeyWordPartClassName(get(_util,_cust,AnalysisMessages.KEY_WORD_PART_CLASS_NAME));
+        _mess.setPrimPartClassName(get(_util,_cust,AnalysisMessages.PRIM_PART_CLASS_NAME));
+        _mess.setDigitPartClassName(get(_util,_cust,AnalysisMessages.DIGIT_PART_CLASS_NAME));
         _mess.setBadPartVarClassName(get(_util,_cust,AnalysisMessages.BAD_PART_VAR_CLASS_NAME));
+        _mess.setKeyWordPartVarClassName(get(_util,_cust,AnalysisMessages.KEY_WORD_PART_VAR_CLASS_NAME));
+        _mess.setPrimPartVarClassName(get(_util,_cust,AnalysisMessages.PRIM_PART_VAR_CLASS_NAME));
+        _mess.setDigitPartVarClassName(get(_util,_cust,AnalysisMessages.DIGIT_PART_VAR_CLASS_NAME));
+        _mess.setDuplicatedPartVarClassName(get(_util,_cust,AnalysisMessages.DUPLICATED_PART_VAR_CLASS_NAME));
         _mess.setCallCtorEnd(get(_util,_cust,AnalysisMessages.CALL_CTOR_END));
         _mess.setCallCtor(get(_util,_cust,AnalysisMessages.CALL_CTOR));
         _mess.setCallCtorBeforeBlock(get(_util,_cust,AnalysisMessages.CALL_CTOR_BEFORE_BLOCK));
@@ -3488,6 +3495,9 @@ public class LgNamesUtils extends LgNames {
         _mess.setDupSuppliedAnnotField(get(_util,_cust,AnalysisMessages.DUP_SUPPLIED_ANNOT_FIELD));
         _mess.setBadExpression(get(_util,_cust,AnalysisMessages.BAD_EXPRESSION));
         _mess.setBadFieldName(get(_util,_cust,AnalysisMessages.BAD_FIELD_NAME));
+        _mess.setKeyWordFieldName(get(_util,_cust,AnalysisMessages.KEY_WORD_FIELD_NAME));
+        _mess.setPrimFieldName(get(_util,_cust,AnalysisMessages.PRIM_FIELD_NAME));
+        _mess.setDigitFieldName(get(_util,_cust,AnalysisMessages.DIGIT_FIELD_NAME));
         _mess.setNotRetrievedFields(get(_util,_cust,AnalysisMessages.NOT_RETRIEVED_FIELDS));
         _mess.setBadNbFormat(get(_util,_cust,AnalysisMessages.BAD_NB_FORMAT));
         _mess.setBadCharFormat(get(_util,_cust,AnalysisMessages.BAD_CHAR_FORMAT));
@@ -3522,6 +3532,9 @@ public class LgNamesUtils extends LgNames {
         _mess.setBadLabel(get(_util,_cust,AnalysisMessages.BAD_LABEL));
         _mess.setDuplicatedLabel(get(_util,_cust,AnalysisMessages.DUPLICATED_LABEL));
         _mess.setBadMethodName(get(_util,_cust,AnalysisMessages.BAD_METHOD_NAME));
+        _mess.setKeyWordMethodName(get(_util,_cust,AnalysisMessages.KEY_WORD_METHOD_NAME));
+        _mess.setPrimMethodName(get(_util,_cust,AnalysisMessages.PRIM_METHOD_NAME));
+        _mess.setDigitMethodName(get(_util,_cust,AnalysisMessages.DIGIT_METHOD_NAME));
         _mess.setBadOperatorName(get(_util,_cust,AnalysisMessages.BAD_OPERATOR_NAME));
         _mess.setBadAccess(get(_util,_cust,AnalysisMessages.BAD_ACCESS));
         _mess.setBadReturnType(get(_util,_cust,AnalysisMessages.BAD_RETURN_TYPE));
@@ -3546,6 +3559,9 @@ public class LgNamesUtils extends LgNames {
         _mess.setSplitDiff(get(_util,_cust,AnalysisMessages.SPLIT_DIFF));
         _mess.setBadDotted(get(_util,_cust,AnalysisMessages.BAD_DOTTED));
         _mess.setBadParamName(get(_util,_cust,AnalysisMessages.BAD_PARAM_NAME));
+        _mess.setKeyWordParamName(get(_util,_cust,AnalysisMessages.KEY_WORD_PARAM_NAME));
+        _mess.setPrimParamName(get(_util,_cust,AnalysisMessages.PRIM_PARAM_NAME));
+        _mess.setDigitParamName(get(_util,_cust,AnalysisMessages.DIGIT_PARAM_NAME));
         _mess.setReservedParamName(get(_util,_cust,AnalysisMessages.RESERVED_PARAM_NAME));
         _mess.setDuplicatedParamName(get(_util,_cust,AnalysisMessages.DUPLICATED_PARAM_NAME));
         _mess.setBadReturnTypeInherit(get(_util,_cust,AnalysisMessages.BAD_RETURN_TYPE_INHERIT));
@@ -3556,6 +3572,10 @@ public class LgNamesUtils extends LgNames {
         _mess.setTwoReturnTypes(get(_util,_cust,AnalysisMessages.TWO_RETURN_TYPES));
         _mess.setReturnTypes(get(_util,_cust,AnalysisMessages.RETURN_TYPES));
         _mess.setBadVariableName(get(_util,_cust,AnalysisMessages.BAD_VARIABLE_NAME));
+        _mess.setKeyWordVariableName(get(_util,_cust,AnalysisMessages.KEY_WORD_VARIABLE_NAME));
+        _mess.setPrimVariableName(get(_util,_cust,AnalysisMessages.PRIM_VARIABLE_NAME));
+        _mess.setDigitVariableName(get(_util,_cust,AnalysisMessages.DIGIT_VARIABLE_NAME));
+        _mess.setDuplicatedVariableName(get(_util,_cust,AnalysisMessages.DUPLICATED_VARIABLE_NAME));
         _mess.setCyclicCtorCall(get(_util,_cust,AnalysisMessages.CYCLIC_CTOR_CALL));
         _mess.setDeadCode(get(_util,_cust,AnalysisMessages.DEAD_CODE));
         _mess.setDuplicatedCtor(get(_util,_cust,AnalysisMessages.DUPLICATED_CTOR));

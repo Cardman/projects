@@ -2177,7 +2177,14 @@ public final class FileResolver {
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_),
                             new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                 } else {
-                    kind_ = MethodKind.STD_METHOD;
+                    if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordToString())
+                            &&!StringList.quickEq(modifier_,keyWordStatic_)
+                            &&!StringList.quickEq(modifier_,keyWordStaticCall_)
+                            &&parametersType_.isEmpty()) {
+                        kind_ = MethodKind.TO_STRING;
+                    } else {
+                        kind_ = MethodKind.STD_METHOD;
+                    }
                     ov_ = new OverridableBlock(_context, new OffsetAccessInfo(accessOffest_, accessFct_),
                             new OffsetStringInfo(typeOffset_, retType_),
                             new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_,

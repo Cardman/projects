@@ -43,6 +43,10 @@ public final class FoundErrorInterpret {
         return builtError;
     }
 
+    public void setBuiltError(String _builtError) {
+        builtError = _builtError;
+    }
+
     public String getFileName() {
         return fileName;
     }

@@ -2,6 +2,8 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -135,28 +137,12 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         }
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        if (_cont.getAnalyzing().containsVar(variableName)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(_cont.getCurrentFileName());
-            d_.setIndexFile(variableNameOffset);
-            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableName);
-            _cont.addError(d_);
-        }
-        if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(_cont.getCurrentFileName());
-            d_.setIndexFile(variableNameOffset);
-            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableName);
-            _cont.addError(d_);
-        }
-        if (!_cont.isValidSingleToken(variableName)) {
+        TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableName,false);
+        if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffset);
-            b_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableName);
+            b_.setBuiltError(res_.getMessage());
             _cont.addError(b_);
         }
         page_.setGlobalOffset(initOffset);
@@ -217,10 +203,12 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
                     StringList.join(stepEl_.getResultClass().getNames(),AND_ERR));
             _cont.addError(cast_);
         }
-        AnaLoopVariable lv_ = new AnaLoopVariable();
-        lv_.setClassName(cl_);
-        lv_.setIndexClassName(importedClassIndexName);
-        _cont.getAnalyzing().putVar(variableName, lv_);
+        if (!res_.isError()) {
+            AnaLoopVariable lv_ = new AnaLoopVariable();
+            lv_.setClassName(cl_);
+            lv_.setIndexClassName(importedClassIndexName);
+            _cont.getAnalyzing().putVar(variableName, lv_);
+        }
     }
 
     @Override

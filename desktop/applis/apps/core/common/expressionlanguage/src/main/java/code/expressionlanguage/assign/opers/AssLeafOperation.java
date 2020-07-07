@@ -14,9 +14,7 @@ public abstract class AssLeafOperation extends AssOperationNode {
     AssLeafOperation(ExecOperationNode _ex) {
         super(_ex);
     }
-    public void analyzeNotBoolAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a) {
-        analyzeAssignmentAfter(_ass,_a, false);
-    }
+
     @Override
     public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
         boolean isBool_;

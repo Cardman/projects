@@ -138,7 +138,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The part #ExTwo in a type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">a.#ExTwo</a>{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The part #ExTwo in a type is not valid. It must be a word.\" class=\"e\">a.#ExTwo</a>{\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
 
@@ -152,7 +152,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The part #a in a type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">#a.ExTwo</a>{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The part #a in a type is not valid. It must be a word.\" class=\"e\">#a.ExTwo</a>{\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
 
@@ -166,7 +166,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public <a title=\"A type must have an non empty package.\" class=\"e\">$class</a> <a name=\"m15\" title=\"The part . in a type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">.</a>{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public <a title=\"A type must have an non empty package.\" class=\"e\">$class</a> <a name=\"m15\" title=\"The part . in a type is not valid. It must be a word.\" class=\"e\">.</a>{\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
 
@@ -180,7 +180,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public <a title=\"A type must have an non empty package.\" class=\"e\">$class</a> <a name=\"m15\" title=\"The part .ExTwo in a type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">.ExTwo</a>{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public <a title=\"A type must have an non empty package.\" class=\"e\">$class</a> <a name=\"m15\" title=\"The part .ExTwo in a type is not valid. It must be a word.\" class=\"e\">.ExTwo</a>{\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
 
@@ -254,7 +254,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Outer</a>&lt;<a name=\"m25\" title=\"The part T# in a variable type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">T#</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Outer</a>&lt;<a name=\"m25\" title=\"The part T# in a variable type is not valid. It must be a word.\" class=\"e\">T#</a>&gt; {\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -269,7 +269,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Outer</a>&lt;<a name=\"m25\">S</a>,<a name=\"m27\" title=\"The part T# in a variable type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">T#</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Outer</a>&lt;<a name=\"m25\">S</a>,<a name=\"m27\" title=\"The part T# in a variable type is not valid. It must be a word.\" class=\"e\">T#</a>&gt; {\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -284,7 +284,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Outer</a>&lt;<a name=\"m25\">T</a>,<a name=\"m27\" title=\"The part T in a variable type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Outer</a>&lt;<a name=\"m25\">T</a>,<a name=\"m27\" title=\"The part T in a type variable is duplicated.\" class=\"e\">T</a>&gt; {\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -301,7 +301,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum </a>{\n" +
-                " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">#ONE</a>{}\n" +
+                " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word.\" class=\"e\">#ONE</a>{}\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -318,7 +318,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum </a>{\n" +
-                " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\n" +
+                " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word.\n" +
                 "\n" +
                 "pkg.MyEnum-#ONE.pkg.MyEnum-#ONE()\" href=\"#m33\" class=\"e\">#ONE</a>{<a name=\"m33\">(</a>){}}\n" +
                 "}\n" +
@@ -337,7 +337,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum </a>{\n" +
-                " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\n" +
+                " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word.\n" +
                 "\n" +
                 "pkg.MyEnum-#ONE.pkg.MyEnum-#ONE($int)\" href=\"#m36\" class=\"e\">#ONE</a>(1){<a name=\"m36\">(</a>$int <a name=\"m42\">i</a>){}}\n" +
                 "}\n" +
@@ -356,7 +356,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum </a>{\n" +
-                " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\n" +
+                " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word.\n" +
                 "\n" +
                 "pkg.MyEnum-#ONE.pkg.MyEnum-#ONE($int)\" href=\"#m38\" class=\"e\">#ONE</a>(1+2){<a name=\"m38\">(</a>$int <a name=\"m44\">i</a>){}}\n" +
                 "}\n" +
@@ -869,7 +869,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $public $void <a name=\"m42\" title=\"The method name #method is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">#method</a>(){\n" +
+                " $public $void <a name=\"m42\" title=\"The method name #method is not valid. It must be a word.\" class=\"e\">#method</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -887,7 +887,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $public $void <a name=\"m42\">method</a>($int <a name=\"m54\" title=\"The parameter method name #t is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">#t</a>){\n" +
+                " $public $void <a name=\"m42\">method</a>($int <a title=\"The parameter method name #t is not valid. It must be a word.\" class=\"e\">#t</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -993,7 +993,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $public $void <a name=\"m42\">method</a>($int <a name=\"m54\">t</a>,$int <a name=\"m61\" title=\"The parameter function name t is duplicated.\" class=\"e\">t</a>){\n" +
+                " $public $void <a name=\"m42\">method</a>($int <a name=\"m54\">t</a>,$int <a title=\"The parameter function name t is duplicated.\" class=\"e\">t</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -1033,7 +1033,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " <a name=\"m28\">$public MySub(</a>$int <a name=\"m47\" title=\"The parameter method name #t is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">#t</a>){\n" +
+                " <a name=\"m28\">$public MySub(</a>$int <a name=\"m47\" title=\"The parameter method name #t is not valid. It must be a word.\" class=\"e\">#t</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -1125,9 +1125,9 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $public $void <a name=\"m42\">$this</a>($int <a name=\"m53\">i</a>,$int <a name=\"m60\" title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
+                " $public $void <a name=\"m42\">$this</a>($int <a name=\"m53\">i</a>,$int <a title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
                 " }\n" +
-                " $public $int <a name=\"m81\">$this</a>($int <a name=\"m92\">i</a>,$int <a name=\"m99\" title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
+                " $public $int <a name=\"m81\">$this</a>($int <a name=\"m92\">i</a>,$int <a title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -1174,7 +1174,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MySub </a>{\n" +
-                " $int <a name=\"m38\" title=\"The method name #annot is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">#annot</a>();\n" +
+                " $int <a name=\"m38\" title=\"The method name #annot is not valid. It must be a word.\" class=\"e\">#annot</a>();\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -1190,7 +1190,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MySub </a>{\n" +
-                " <a name=\"m27\" title=\"The field name #ONE is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\">#ONE</a>\n" +
+                " <a name=\"m27\" title=\"The field name #ONE is not valid. It must be a word.\">#ONE</a>\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -1207,7 +1207,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MySub </a>{\n" +
-                " <a name=\"m27\" title=\"The field name #ONE is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\n" +
+                " <a name=\"m27\" title=\"The field name #ONE is not valid. It must be a word.\n" +
                 "\n" +
                 "pkg.MySub.pkg.MySub()\" href=\"#m34\">#ONE</a>;\n" +
                 " <a name=\"m34\">$public MySub(</a>){}\n" +
@@ -1248,7 +1248,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $int <a name=\"m33\" title=\"The field name #e is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">#e</a>;\n" +
+                " $int <a name=\"m33\" title=\"The field name #e is not valid. It must be a word.\" class=\"e\">#e</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -2048,7 +2048,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> $int($int <a name=\"m21\" title=\"The parameter method name #i is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">#i</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> $int($int <a name=\"m21\" title=\"The parameter method name #i is not valid. It must be a word.\" class=\"e\">#i</a>){\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -2163,7 +2163,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $try{}\n" +
-                "  $catch($int <a name=\"m76\" title=\"The variable name #i is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope. class=\"e\"\">#i</a>){}\n" +
+                "  $catch($int <a name=\"m76\" title=\"The variable name #i is not valid. It must be a word.\" class=\"e\"\">#i</a>){}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2183,7 +2183,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
-                "  $for($int <a name=\"m65\" title=\"The variable name #v is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope.\" class=\"e\">#v</a>:$new $int[]{}){}\n" +
+                "  $for($int <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a>:$new $int[]{}){}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2203,7 +2203,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
-                "  $for($int <a name=\"m65\">v</a>:$new $int[]{}){$int <a name=\"m87\" title=\"The variable name #v is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope.\" class=\"e\">#v</a>;}\n" +
+                "  $for($int <a name=\"m65\">v</a>:$new $int[]{}){$int <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a>;}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2225,7 +2225,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
-                "  $for($int <a name=\"m105\" title=\"The variable name #v is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope. class=\"e\"\">#v</a>, $int <a name=\"m114\">k</a>:<a href=\"#m81\">it</a>){}\n" +
+                "  $for($int <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\"\">#v</a>, $int <a name=\"m114\">k</a>:<a href=\"#m81\">it</a>){}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2247,7 +2247,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
-                "  $for($int <a name=\"m105\">v</a>, $int <a name=\"m113\" title=\"The variable name #k is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope. class=\"e\"\">#k</a>:<a href=\"#m81\">it</a>){}\n" +
+                "  $for($int <a name=\"m105\">v</a>, $int <a title=\"The variable name #k is not valid. It must be a word.\" class=\"e\"\">#k</a>:<a href=\"#m81\">it</a>){}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2269,7 +2269,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
-                "  $for($int <a name=\"m105\">v</a>, $int <a name=\"m113\">k</a>:<a href=\"#m81\">it</a>){$int <a name=\"m124\" title=\"The variable name #v is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope.\" class=\"e\">#v</a>=1;}\n" +
+                "  $for($int <a name=\"m105\">v</a>, $int <a name=\"m113\">k</a>:<a href=\"#m81\">it</a>){$int <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a>=1;}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2289,7 +2289,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
-                "  $for($int <a name=\"m65\">v</a>:$new $int[]{}){$int <a name=\"m87\" title=\"The variable name #v is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope.\" class=\"e\">#v</a>,<a name=\"m90\">w</a>;}\n" +
+                "  $for($int <a name=\"m65\">v</a>:$new $int[]{}){$int <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a>,<a name=\"m90\">w</a>;}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2311,7 +2311,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
-                "  $for($int <a name=\"m105\">v</a>, $int <a name=\"m113\">k</a>:<a href=\"#m81\">it</a>){$int <a name=\"m124\" title=\"The variable name #v is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope.\" class=\"e\">#v</a>=1,<a name=\"m129\">w</a>;}\n" +
+                "  $for($int <a name=\"m105\">v</a>, $int <a name=\"m113\">k</a>:<a href=\"#m81\">it</a>){$int <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a>=1,<a name=\"m129\">w</a>;}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2373,7 +2373,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
-                "  $for($int <a name=\"m65\" title=\"The variable name #i is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope.\" class=\"e\">#i</a>;;){}\n" +
+                "  $for($int <a title=\"The variable name #i is not valid. It must be a word.\" class=\"e\">#i</a>;;){}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2393,7 +2393,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
-                "  $for($int <a name=\"m65\" title=\"The variable name #i is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope.\" class=\"e\">#i</a>=0;$true;){}\n" +
+                "  $for($int <a title=\"The variable name #i is not valid. It must be a word.\" class=\"e\">#i</a>=0;$true;){}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2413,7 +2413,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
-                "  $for($int <a name=\"m65\" title=\"The variable name #i is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope.\" class=\"e\">#i</a>,<a name=\"m68\">j</a>;;$true){}\n" +
+                "  $for($int <a title=\"The variable name #i is not valid. It must be a word.\" class=\"e\">#i</a>,<a name=\"m68\">j</a>;;$true){}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2433,7 +2433,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
-                "  $for($int <a name=\"m65\" title=\"The variable name #i is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope.\" class=\"e\">#i</a>=0,<a name=\"m70\">j</a>;;$true){}\n" +
+                "  $for($int <a title=\"The variable name #i is not valid. It must be a word.\" class=\"e\">#i</a>=0,<a name=\"m70\">j</a>;;$true){}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2473,7 +2473,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
-                "  $iter($int <a name=\"m66\" title=\"The variable name #i is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit. It must not be the name of an other variable of the scope.\" class=\"e\">#i</a>=0;1;1){}\n" +
+                "  $iter($int <a title=\"The variable name #i is not valid. It must be a word.\" class=\"e\">#i</a>=0;1;1){}\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -2975,7 +2975,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
-                " $public $static $void<a name=\"m46\" title=\"The method name  is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">(</a>){\n" +
+                " $public $static $void<a name=\"m46\" title=\"The method name  is not valid. It must be a word.\" class=\"e\">(</a>){\n" +
                 " }\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
@@ -5433,7 +5433,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot </a>{\n" +
-                " $int <a name=\"m40\" title=\"The method name  is not valid. It must be a word that is not a key word, not a primitive type. Besides, it must not start with a digit.\" class=\"e\">(</a>);\n" +
+                " $int <a name=\"m40\" title=\"The method name  is not valid. It must be a word.\" class=\"e\">(</a>);\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -8842,6 +8842,142 @@ public class ErrorsTest extends ProcessMethodCommon {
                 " }\n" +
                 "}\n" +
                 "$public $class <a name=\"m56\">pkg.MyOther </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report423Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyCl {\n");
+        xml_.append(" ONE(1){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyCl </a>{\n" +
+                " <a name=\"m26\" title=\"The constructor pkg.MyCl-ONE($int) is undefined.\" class=\"e\">ONE</a>(1){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report424Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyCl {\n");
+        xml_.append(" ONE(1)\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyCl </a>{\n" +
+                " <a name=\"m26\" title=\"The constructor pkg.MyCl($int) is undefined.\">ONE</a>(1)\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report425Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $void method($int #i,$int... j) {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $void <a name=\"m42\">method</a>($int <a title=\"The parameter method name #i is not valid. It must be a word.\" class=\"e\">#i</a>,$int... <a name=\"m65\">j</a>) {\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report426Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $void method($int i,$int... #j) {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $void <a name=\"m42\">method</a>($int <a name=\"m54\">i</a>,$int... <a title=\"The parameter method name #j is not valid. It must be a word.\" class=\"e\">#j</a>) {\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report427Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $void method() {\n");
+        xml_.append("  $iterableTable<$int,$int> it = $null;\n");
+        xml_.append("  $for($int a, $int a:it){}\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $void <a name=\"m42\">method</a>() {\n" +
+                "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
+                "  $for($int <a name=\"m105\">a</a>, $int <a title=\"The variable name a is not valid. It must not be the name of an other variable of the scope.\" class=\"e\"\">a</a>:<a href=\"#m81\">it</a>){}\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report428Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $void method() {\n");
+        xml_.append("  $iterableTable<$int,$int> it = $null;\n");
+        xml_.append("  $for($int a, $int #b:it){$int j=a;}\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $void <a name=\"m42\">method</a>() {\n" +
+                "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
+                "  $for($int <a name=\"m105\">a</a>, $int <a title=\"The variable name #b is not valid. It must be a word.\" class=\"e\"\">#b</a>:<a href=\"#m81\">it</a>){$int <a name=\"m125\">j</a>=<a href=\"#m105\">a</a>;}\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report429Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $void method() {\n");
+        xml_.append("  $iterableTable<$int,$int> it = $null;\n");
+        xml_.append("  $for($int #a, $int b:it){$int j=b;}\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $void <a name=\"m42\">method</a>() {\n" +
+                "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
+                "  $for($int <a title=\"The variable name #a is not valid. It must be a word.\" class=\"e\"\">#a</a>, $int <a name=\"m114\">b</a>:<a href=\"#m81\">it</a>){$int <a name=\"m125\">j</a>=<a href=\"#m114\">b</a>;}\n" +
+                " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }

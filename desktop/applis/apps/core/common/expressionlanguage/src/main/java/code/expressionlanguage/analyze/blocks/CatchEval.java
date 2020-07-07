@@ -1,6 +1,8 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.exec.blocks.ExecCatchEval;
@@ -66,25 +68,16 @@ public final class CatchEval extends AbstractCatchEval {
         _cont.getCoverage().putCatches(_cont,this);
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        if (_cont.getAnalyzing().containsCatchVar(variableName)) {
+        TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkStdTokenVar(_cont,variableName);
+        if (res_.isError()) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffset);
             //variable name
-            d_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
-                    variableName);
+            d_.setBuiltError(res_.getMessage());
             _cont.addError(d_);
+            nameErrors.add(d_.getBuiltError());
             return;
-        }
-        if (!ContextUtil.isValidSingleToken(_cont,variableName)) {
-            FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(getFile().getFileName());
-            b_.setIndexFile(variableNameOffset);
-            //variable name
-            b_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
-                    variableName);
-            _cont.addError(b_);
-            nameErrors.add(b_.getBuiltError());
         }
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);

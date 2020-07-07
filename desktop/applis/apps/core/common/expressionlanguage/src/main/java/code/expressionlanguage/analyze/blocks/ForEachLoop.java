@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -56,6 +58,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
 
     private final StringList nameErrors = new StringList();
     private final StringList sepErrors = new StringList();
+    private boolean okVar = true;
 
     public ForEachLoop(ContextEl _importingPage,
                        OffsetStringInfo _className, OffsetStringInfo _variable,
@@ -151,33 +154,16 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             setReachableError(true);
             getErrorsBlock().add(cast_.getBuiltError());
         }
-        if (_cont.getAnalyzing().containsVar(variableName)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(getFile().getFileName());
-            d_.setIndexFile(variableNameOffset);
-            //variable name len
-            d_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
-                    variableName);
-            _cont.addError(d_);
-        }
-        if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(getFile().getFileName());
-            d_.setIndexFile(variableNameOffset);
-            //variable name len
-            d_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
-                    variableName);
-            _cont.addError(d_);
-        }
-        if (!ContextUtil.isValidSingleToken(_cont,variableName)) {
+        TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkStdTokenVar(_cont,variableName);
+        if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffset);
             //variable name len
-            b_.buildError(_cont.getAnalysisMessages().getBadVariableName(),
-                    variableName);
+            b_.setBuiltError(res_.getMessage());
             _cont.addError(b_);
             nameErrors.add(b_.getBuiltError());
+            okVar = false;
         }
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
@@ -245,7 +231,9 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         ExecOperationNode l_ = op_.last();
         argument = l_.getArgument();
         checkMatchs(_cont, l_.getResultClass());
-        processVariable(_cont);
+        if (okVar) {
+            processVariable(_cont);
+        }
         ExecForEachLoop exec_ = new ExecForEachLoop(getOffset(),label, importedClassName,
                 importedClassIndexName,variableName,variableNameOffset, expressionOffset,op_);
         page_.getBlockToWrite().appendChild(exec_);

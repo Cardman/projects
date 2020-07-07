@@ -2,6 +2,8 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ConditionReturn;
@@ -51,6 +53,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     private int expressionOffset;
 
     private CustList<RendDynOperationNode> opList;
+    private boolean okVar = true;
 
     RendForEachLoop(Configuration _importingPage,
                     OffsetStringInfo _className, OffsetStringInfo _variable,
@@ -103,28 +106,13 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                     importedClassIndexName);
             _cont.addError(cast_);
         }
-        if (_cont.getAnalyzing().containsVar(variableName)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(_cont.getCurrentFileName());
-            d_.setIndexFile(variableNameOffset);
-            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableName);
-            _cont.addError(d_);
-        }
-        if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(_cont.getCurrentFileName());
-            d_.setIndexFile(variableNameOffset);
-            d_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableName);
-            _cont.addError(d_);
-        }
-        if (!_cont.isValidSingleToken(variableName)) {
+        TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableName,false);
+        if (res_.isError()) {
+            okVar = false;
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_cont.getCurrentFileName());
             b_.setIndexFile(variableNameOffset);
-            b_.buildError(_cont.getContext().getAnalysisMessages().getBadVariableName(),
-                    variableName);
+            b_.setBuiltError(res_.getMessage());
             _cont.addError(b_);
         }
         AnalyzedPageEl page_ = _cont.getAnalyzing();
@@ -189,6 +177,9 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             StringList names_ = el_.getResultClass().getNames();
             StringList out_ = getInferredIterable(names_, _cont);
             checkIterableCandidates(out_, _cont);
+        }
+        if (!okVar) {
+            return;
         }
         putVariable(_cont);
     }
