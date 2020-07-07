@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -64,7 +65,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         }
         String clCurName_ = clArg_.getName();
         classFromName = clCurName_;
-        ExecRootBlock type_ = _conf.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(clCurName_));
+        RootBlock type_ = _conf.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(clCurName_));
         ConstrustorIdVarArg ctorRes_;
         ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, clArg_,type_, feed_, varargParam_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (ctorRes_.getRealId() == null) {

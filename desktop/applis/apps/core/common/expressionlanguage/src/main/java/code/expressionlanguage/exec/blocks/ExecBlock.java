@@ -148,20 +148,6 @@ public abstract class ExecBlock {
         }
         return methods_;
     }
-    public static CustList<GeneCustStaticMethod> getMethodBlocks(GeneType _element) {
-        CustList<GeneCustStaticMethod> methods_ = new CustList<GeneCustStaticMethod>();
-        if (_element instanceof ExecRootBlock) {
-            for (GeneCustModifierMethod m:getMethodExecBlocks((ExecRootBlock) _element)) {
-                methods_.add(m);
-            }
-        }
-        if (_element instanceof StandardType) {
-            for (StandardMethod m : ((StandardType) _element).getMethods().values()) {
-                methods_.add(m);
-            }
-        }
-        return methods_;
-    }
 
     public static CustList<GeneCustModifierMethod> getMethodExecBlocks(ExecRootBlock _element) {
         CustList<GeneCustModifierMethod> methods_ = new CustList<GeneCustModifierMethod>();

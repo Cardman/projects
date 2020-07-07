@@ -1,13 +1,15 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.AnaInheritedType;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.*;
 
-public abstract class StandardType implements GeneType {
+public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedType {
 
     private static final String PACKAGE_NAME = "";
 

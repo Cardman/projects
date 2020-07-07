@@ -3,7 +3,6 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.util.Members;
-import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.ExpressionLanguage;
@@ -15,7 +14,6 @@ import code.expressionlanguage.functionid.OverridingMethod;
 import code.util.*;
 
 public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,AccessedBlock, ExecAnnotableBlock {
-
     private String name;
 
     private String packageName;
@@ -42,6 +40,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
+    private final StringList allSuperTypes = new StringList();
 
     ExecRootBlock(RootBlock _offset) {
         super(_offset.getOffset());
@@ -51,16 +50,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         access = _offset.getAccess();
         idRowCol = _offset.getIdRowCol();
         paramTypes = _offset.getParamTypesAsStringList();
-    }
-
-    public ExecRootBlock getOuter() {
-        ExecRootBlock t = this;
-        ExecRootBlock o = this;
-        while (t != null) {
-            o = t;
-            t = t.getParentType();
-        }
-        return o;
     }
 
     @Override
@@ -191,13 +180,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     public StringList getStaticInitImportedInterfaces() {
         return staticInitImportedInterfaces;
     }
-    public final String getParentFullName() {
-        ExecRootBlock par_ = getParentType();
-        if (par_ == null) {
-            return "";
-        }
-        return par_.getFullName();
-    }
+
     public final ExecRootBlock getParentType() {
         ExecBracedBlock p_ = getParent();
         while (!(p_ instanceof ExecRootBlock)) {
@@ -365,10 +348,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         }
     }
 
-    public String getOuterFullName() {
-        return getOuter().getFullName();
-    }
-
     public int getIdRowCol() {
         return idRowCol;
     }
@@ -392,4 +371,8 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         this.importedDirectSuperClass = importedDirectSuperClass;
     }
 
+    @Override
+    public final StringList getAllSuperTypes() {
+        return allSuperTypes;
+    }
 }

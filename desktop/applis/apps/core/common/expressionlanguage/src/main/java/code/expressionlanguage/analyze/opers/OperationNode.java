@@ -5,10 +5,8 @@ import code.expressionlanguage.analyze.ImportedField;
 import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.accessing.Accessed;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.analyze.blocks.FunctionBlock;
-import code.expressionlanguage.analyze.blocks.MethodKind;
-import code.expressionlanguage.analyze.blocks.OverridableBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -470,7 +468,7 @@ public abstract class OperationNode {
 
     static void checkClassAccess(ContextEl _conf, String _glClass, String _classStr) {
         Classes classes_ = _conf.getClasses();
-        ExecRootBlock r_ = classes_.getClassBody(_classStr);
+        RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(_classStr);
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(_glClass);
         Accessed a_;
         if (r_ != null) {
@@ -709,7 +707,7 @@ public abstract class OperationNode {
         _ancestors.addEntry(_cl,_res);
     }
     static ConstrustorIdVarArg getDeclaredCustConstructor(OperationNode _oper,ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
-                                                          GeneType _type,
+                                                          AnaGeneType _type,
                                                           ConstructorId _uniqueId, String _param, ClassArgumentMatching... _args) {
         String clCurName_ = _class.getName();
         int varargOnly_ = _varargOnly;
@@ -781,7 +779,7 @@ public abstract class OperationNode {
         return out_;
     }
     static ConstrustorIdVarArg getDeclaredCustConstructorLambda(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
-            GeneType _type,
+                                                                AnaGeneType _type,
             ConstructorId _uniqueId, ClassArgumentMatching... _args) {
         String clCurName_ = _class.getName();
         int varargOnly_ = _varargOnly;
@@ -847,7 +845,7 @@ public abstract class OperationNode {
         return varargOnly_ > -1;
     }
 
-    private static boolean exclude(GeneType _g,ContextEl _conf, ConstructorId _uniqueId, int _varargOnly, GeneConstructor e) {
+    private static boolean exclude(AnaGeneType _g,ContextEl _conf, ConstructorId _uniqueId, int _varargOnly, GeneConstructor e) {
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
         ConstructorId ctor_ = e.getId();
         boolean varArg_ = ctor_.isVararg();
@@ -862,11 +860,11 @@ public abstract class OperationNode {
             }
         }
         String outer_ ="";
-        if (_g instanceof ExecRootBlock) {
-            outer_ = ((ExecRootBlock)_g).getOuterFullName();
+        if (_g instanceof RootBlock) {
+            outer_ = ((RootBlock)_g).getOuterFullName();
         }
-        if (e instanceof ExecConstructorBlock) {
-            ExecConstructorBlock c = (ExecConstructorBlock) e;
+        if (e instanceof ConstructorBlock) {
+            ConstructorBlock c = (ConstructorBlock) e;
             Accessed a_ = new Accessed(c.getAccess(), _g.getPackageName(), _g.getFullName(), outer_);
             return !ContextUtil.canAccess(glClass_, a_, _conf);
         }
@@ -1248,9 +1246,9 @@ public abstract class OperationNode {
         superTypesBaseAncBis_.addEntry(id_,id_);
         CustList<MethodHeaderInfo> casts_ = _conf.getAnalyzing().getExplicitCastMethods().getVal(id_);
         CustList<MethodHeaderInfo> castsId_ = _conf.getAnalyzing().getExplicitIdCastMethods().getVal(id_);
-        ExecRootBlock tId_ = _conf.getClasses().getClassBody(id_);
+        RootBlock tId_ = _conf.getAnalyzing().getAnaClassBody(id_);
         CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getExplicitFromCastMethods().getVal(idFrom_);
-        ExecRootBlock tDi_ = _conf.getClasses().getClassBody(idFrom_);
+        RootBlock tDi_ = _conf.getAnalyzing().getAnaClassBody(idFrom_);
         fetchCastMethods(tId_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, casts_, superTypesBaseAncBis_);
         fetchCastMethods(tId_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, castsId_, superTypesBaseAncBis_);
         fetchCastMethods(tDi_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_single, castsFrom_, superTypesBaseAnc_);
@@ -1269,9 +1267,9 @@ public abstract class OperationNode {
         superTypesBaseAncBis_.addEntry(id_,id_);
         CustList<MethodHeaderInfo> casts_ = _conf.getAnalyzing().getImplicitCastMethods().getVal(id_);
         CustList<MethodHeaderInfo> castsId_ = _conf.getAnalyzing().getImplicitIdCastMethods().getVal(id_);
-        ExecRootBlock tId_ = _conf.getClasses().getClassBody(id_);
+        RootBlock tId_ = _conf.getAnalyzing().getAnaClassBody(id_);
         CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getImplicitFromCastMethods().getVal(idFrom_);
-        ExecRootBlock tDi_ = _conf.getClasses().getClassBody(idFrom_);
+        RootBlock tDi_ = _conf.getAnalyzing().getAnaClassBody(idFrom_);
         fetchCastMethods(tId_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, casts_, superTypesBaseAncBis_);
         fetchCastMethods(tId_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, castsId_, superTypesBaseAncBis_);
         fetchCastMethods(tDi_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_single, castsFrom_, superTypesBaseAnc_);
@@ -1305,7 +1303,7 @@ public abstract class OperationNode {
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
             superTypesBaseAncBis_.addEntry(supId_,supId_);
             CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getImplicitFromCastMethods().getVal(supId_);
-            ExecRootBlock t_ = _conf.getClasses().getClassBody(di_);
+            RootBlock t_ = _conf.getAnalyzing().getAnaClassBody(di_);
             fetchCastMethods(t_,_conf,  null, glClass_, methods_, _returnType,formatted_, castsFrom_, superTypesBaseAncBis_);
         }
     }
@@ -1319,7 +1317,7 @@ public abstract class OperationNode {
         superTypesBaseAncBis_.addEntry(di_,di_);
         CustList<MethodHeaderInfo> casts_ = _conf.getAnalyzing().getImplicitCastMethods().getVal(di_);
         CustList<MethodHeaderInfo> castsId_ = _conf.getAnalyzing().getImplicitIdCastMethods().getVal(di_);
-        ExecRootBlock t_ = _conf.getClasses().getClassBody(di_);
+        RootBlock t_ = _conf.getAnalyzing().getAnaClassBody(di_);
         fetchCastMethods(t_,_conf,  null, glClass_, methods_, _returnType,_id, casts_, superTypesBaseAncBis_);
         fetchCastMethods(t_,_conf,  null, glClass_, methods_, _returnType,_id, castsId_, superTypesBaseAncBis_);
     }
@@ -1489,7 +1487,7 @@ public abstract class OperationNode {
         return t_;
     }
 
-    private static void fetchCastMethods(ExecRootBlock _type,ContextEl _conf, ClassMethodId _uniqueId, String _glClass, CustList<MethodInfo> _methods, String _returnType,String _cl, CustList<MethodHeaderInfo> _casts, StringMap<String> _superTypesBaseMap) {
+    private static void fetchCastMethods(RootBlock _type,ContextEl _conf, ClassMethodId _uniqueId, String _glClass, CustList<MethodInfo> _methods, String _returnType,String _cl, CustList<MethodHeaderInfo> _casts, StringMap<String> _superTypesBaseMap) {
         ClassMethodIdAncestor uniq_ = null;
         if (_uniqueId != null) {
             uniq_ = new ClassMethodIdAncestor(new ClassMethodId(StringExpUtil.getIdFromAllTypes(_uniqueId.getClassName()),_uniqueId.getConstraints()),0);
@@ -1509,8 +1507,9 @@ public abstract class OperationNode {
                                                ClassMethodIdAncestor _uniqueId, String _glClass, CustList<MethodInfo> _methods,
                                                String _cl, GeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap) {
         String fullName_ = _root.getFullName();
+        AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,fullName_);
         String genericString_ = _root.getGenericString();
-        for (GeneCustStaticMethod e: ExecBlock.getMethodBlocks(_root)) {
+        for (GeneCustStaticMethod e: ClassesUtil.getMethodBlocks(g_)) {
             MethodId id_ = e.getId();
             MethodAccessKind k_ = id_.getKind();
             if (_kind == MethodAccessKind.STATIC) {
@@ -1528,7 +1527,7 @@ public abstract class OperationNode {
             if (filterMember(_accessFromSuper,_superClass,_superTypesBase,fullName_)) {
                 continue;
             }
-            MethodInfo stMeth_ = fetchedParamMethod(_root,e,genericString_,k_ == MethodAccessKind.STATIC,_conf, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap);
+            MethodInfo stMeth_ = fetchedParamMethod(_root,g_,e,genericString_,k_ == MethodAccessKind.STATIC,_conf, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap);
             if (stMeth_ == null) {
                 continue;
             }
@@ -1554,7 +1553,7 @@ public abstract class OperationNode {
         return false;
     }
 
-    private static MethodInfo fetchedParamMethod(GeneType _type,GeneCustStaticMethod _m,String _s,boolean _keepParams,
+    private static MethodInfo fetchedParamMethod(GeneType _type, AnaGeneType _r,GeneCustStaticMethod _m,String _s,boolean _keepParams,
                                                  ContextEl _conf, ClassMethodIdAncestor _uniqueId,
                                                  String _glClass, int _anc, String _f, StringMap<String> _superTypesBaseMap) {
         String base_ = StringExpUtil.getIdFromAllTypes(_s);
@@ -1569,11 +1568,11 @@ public abstract class OperationNode {
             formattedClass_ = _f;
         }
         String outer_ = "";
-        if (_type instanceof ExecRootBlock) {
-            outer_ = ((ExecRootBlock)_type).getOuterFullName();
+        if (_r instanceof RootBlock) {
+            outer_ = ((RootBlock)_r).getOuterFullName();
         }
-        if (_m instanceof ExecOverridableBlock) {
-            ExecOverridableBlock c = (ExecOverridableBlock) _m;
+        if (_m instanceof OverridableBlock) {
+            OverridableBlock c = (OverridableBlock) _m;
             Accessed a_ = new Accessed(c.getAccess(), _type.getPackageName(), _type.getFullName(), outer_);
             if (cannotAccess(_conf,base_,a_,_glClass,_superTypesBaseMap)) {
                 return null;
@@ -1582,7 +1581,7 @@ public abstract class OperationNode {
         return buildMethodInfo(_m, _keepParams, _conf, _anc, formattedClass_);
     }
 
-    private static MethodInfo fetchedParamCastMethod(ExecRootBlock _type,MethodHeaderInfo _m, String _returnType, String _s,
+    private static MethodInfo fetchedParamCastMethod(RootBlock _type,MethodHeaderInfo _m, String _returnType, String _s,
                                                      ContextEl _conf, ClassMethodIdAncestor _uniqueId,
                                                      String _glClass, StringMap<String> _superTypesBaseMap) {
         String base_ = StringExpUtil.getIdFromAllTypes(_s);
@@ -1614,9 +1613,9 @@ public abstract class OperationNode {
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setClassName(_formattedClass);
         mloc_.setStaticMethod(id_.getKind());
-        if (_m instanceof GeneCustModifierMethod) {
-            mloc_.setAbstractMethod(((GeneCustModifierMethod)_m).isAbstractMethod());
-            mloc_.setFinalMethod(((GeneCustModifierMethod)_m).isFinalMethod());
+        if (_m instanceof OverridableBlock) {
+            mloc_.setAbstractMethod(((OverridableBlock)_m).isAbstractMethod());
+            mloc_.setFinalMethod(((OverridableBlock)_m).isFinalMethod());
         }
         mloc_.setConstraints(id_);
         mloc_.setParameters(p_);

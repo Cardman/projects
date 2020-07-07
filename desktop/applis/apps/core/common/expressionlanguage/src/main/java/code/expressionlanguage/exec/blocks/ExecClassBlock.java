@@ -5,8 +5,6 @@ import code.util.StringList;
 
 public final class ExecClassBlock extends ExecRootBlock implements ExecUniqueRootedBlock {
 
-    private final StringList allSuperTypes = new StringList();
-
     private final boolean finalType;
     private final boolean abstractType;
     private final boolean staticType;
@@ -26,11 +24,6 @@ public final class ExecClassBlock extends ExecRootBlock implements ExecUniqueRoo
     @Override
     public boolean isAbstractType() {
         return abstractType;
-    }
-
-    @Override
-    public StringList getAllSuperTypes() {
-        return allSuperTypes;
     }
 
     @Override

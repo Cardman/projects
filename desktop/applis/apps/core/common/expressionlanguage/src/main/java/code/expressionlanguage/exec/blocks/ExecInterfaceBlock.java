@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.util.StringList;
 
 public final class ExecInterfaceBlock extends ExecRootBlock implements GeneInterface,ExecInterfacable {
-    private final StringList allSuperTypes = new StringList();
 
     private final boolean staticType;
     public ExecInterfaceBlock(RootBlock _offset) {
@@ -21,11 +20,6 @@ public final class ExecInterfaceBlock extends ExecRootBlock implements GeneInter
     @Override
     public boolean isAbstractType() {
         return true;
-    }
-
-    @Override
-    public StringList getAllSuperTypes() {
-        return allSuperTypes;
     }
 
     @Override

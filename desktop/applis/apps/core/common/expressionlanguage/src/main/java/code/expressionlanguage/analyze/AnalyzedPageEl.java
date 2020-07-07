@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.InaccessibleType;
@@ -7,6 +8,9 @@ import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
+import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.AnaInheritedType;
+import code.expressionlanguage.common.InheritedType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.errors.stds.StdWordError;
@@ -425,6 +429,13 @@ public final class AnalyzedPageEl {
         return needInterfaces;
     }
 
+    public AnaGeneType getAnaGeneType(ContextEl _cont, String _type) {
+        RootBlock r_ = getAnaClassBody(_type);
+        if (r_ != null) {
+            return r_;
+        }
+        return _cont.getStandards().getStandards().getVal(_type);
+    }
     public RootBlock getAnaClassBody(String _type) {
         for (RootBlock r: allFoundTypes) {
             if (StringList.quickEq(r.getFullName(),_type)) {

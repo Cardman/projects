@@ -50,7 +50,7 @@ public final class AnaTypeUtil {
             for (ClassMethodId c: allMethods_) {
                 String templClass_ = c.getClassName();
                 String typeName_ = StringExpUtil.getIdFromAllTypes(templClass_);
-                ExecRootBlock sub_ = classesRef_.getClassBody(typeName_);
+                RootBlock sub_ = _context.getAnalyzing().getAnaClassBody(typeName_);
                 StringList allSuperTypes_ = sub_.getAllSuperTypes();
                 for (ClassMethodId s: allMethods_) {
                     String super_ = s.getClassName();
@@ -61,7 +61,7 @@ public final class AnaTypeUtil {
                         }
                     }
                     OverridingRelation ovRel_ = new OverridingRelation();
-                    ExecRootBlock sup_ = classesRef_.getClassBody(isSuper_);
+                    RootBlock sup_ = _context.getAnalyzing().getAnaClassBody(isSuper_);
                     ovRel_.setSubMethod(c);
                     ovRel_.setSub(sub_);
                     ovRel_.setSupMethod(s);
@@ -168,7 +168,7 @@ public final class AnaTypeUtil {
         val_.getAllOverridingMethods().addAllElts(_type.getAllOverridingMethods());
     }
 
-    private static Accessed newAccessed(ExecNamedFunctionBlock _named, ExecRootBlock _root) {
+    private static Accessed newAccessed(ExecNamedFunctionBlock _named, RootBlock _root) {
         if (_named instanceof ExecOverridableBlock) {
             ExecOverridableBlock c = (ExecOverridableBlock) _named;
             return new Accessed(c.getAccess(), _root.getPackageName(), _root.getFullName(), _root.getOuterFullName());
@@ -303,11 +303,11 @@ public final class AnaTypeUtil {
                 page_.setGlobalOffset(offsetSup_);
                 page_.setOffset(0);
                 sup_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sup_);
-                ExecRootBlock rs_ = classes_.getClassBody(sup_);
+                RootBlock rs_ = page_.getAnaClassBody(sup_);
                 if (rs_ == null) {
                     continue;
                 }
-                ExecRootBlock rsSup_ = rs_;
+                RootBlock rsSup_ = rs_;
                 for (int j = i + 1; j < len_; j++) {
                     String sub_ = StringExpUtil.removeDottedSpaces(ints_.get(j));
                     int offsetSub_ = c.getStaticInitInterfacesOffset().get(j);
@@ -317,7 +317,7 @@ public final class AnaTypeUtil {
                     page_.setGlobalOffset(offsetSub_);
                     page_.setOffset(0);
                     sub_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sub_);
-                    rs_ = classes_.getClassBody(sub_);
+                    rs_ = page_.getAnaClassBody(sub_);
                     if (rs_ == null) {
                         continue;
                     }

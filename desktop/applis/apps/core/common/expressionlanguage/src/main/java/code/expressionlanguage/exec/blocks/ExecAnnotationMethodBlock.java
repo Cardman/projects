@@ -49,11 +49,6 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
     }
 
     @Override
-    public boolean isStaticMethod() {
-        return false;
-    }
-
-    @Override
     public boolean isFinalMethod() {
         return false;
     }

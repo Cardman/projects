@@ -2,10 +2,7 @@ package code.expressionlanguage.analyze.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.DimComp;
-import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.InheritedType;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecTypeVar;
@@ -254,9 +251,9 @@ public final class AnaTemplates {
                 if (baseArrSup_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
                     continue;
                 }
-                PrimitiveType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArrSub_.getComponent());
-                GeneType g_ = _context.getClassBody(baseArrSub_.getComponent());
-                InheritedType in_;
+                AnaInheritedType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArrSub_.getComponent());
+                AnaInheritedType g_ = _context.getAnalyzing().getAnaGeneType(_context,baseArrSub_.getComponent());
+                AnaInheritedType in_;
                 if (pr_ != null) {
                     in_ = pr_;
                 } else {

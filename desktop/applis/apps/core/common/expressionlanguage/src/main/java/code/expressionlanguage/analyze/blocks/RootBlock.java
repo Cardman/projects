@@ -14,9 +14,7 @@ import code.expressionlanguage.analyze.types.ResolvingSuperTypes;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.Members;
-import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.GeneCustModifierMethod;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
@@ -36,7 +34,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 
-public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
+public abstract class RootBlock extends BracedBlock implements AnnotableBlock,AnaGeneType,AnaInheritedType {
 
     private final String name;
     private final StringList nameErrors = new StringList();
@@ -92,6 +90,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
     private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private int nbOperators;
+    private StringList allSuperTypes = new StringList();
 
     RootBlock(int _idRowCol, String _name,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
@@ -1581,20 +1580,20 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         }
         String superClass_ = getImportedDirectGenericSuperClass();
         String superClassId_ = StringExpUtil.getIdFromAllTypes(superClass_);
-        ExecRootBlock clMeta_ = _cont.getClasses().getClassBody(superClassId_);
+        RootBlock clMeta_ = _cont.getAnalyzing().getAnaClassBody(superClassId_);
         if (clMeta_ == null) {
             return true;
         }
-        CustList<ExecConstructorBlock> ctors_ = new CustList<ExecConstructorBlock>();
-        for (ExecBlock b: ExecBlock.getDirectChildren(clMeta_)) {
-            if (b instanceof ExecConstructorBlock) {
-                ctors_.add((ExecConstructorBlock) b);
+        CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
+        for (Block b: ClassesUtil.getDirectChildren(clMeta_)) {
+            if (b instanceof ConstructorBlock) {
+                ctors_.add((ConstructorBlock) b);
             }
         }
         if (ctors_.isEmpty()) {
             return true;
         }
-        for (ExecConstructorBlock c: ctors_) {
+        for (ConstructorBlock c: ctors_) {
             Accessed a_ = new Accessed(c.getAccess(), clMeta_.getPackageName(), clMeta_.getFullName(), clMeta_.getOuterFullName());
             if (!ContextUtil.canAccess(getFullName(), a_, _cont)) {
                 continue;
@@ -1663,11 +1662,81 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         getErrorsBlock().add(_error.getBuiltError());
     }
 
-    public String getOuterFullName() {
+    public final RootBlock getOuterParent() {
+        RootBlock t = this;
+        RootBlock o = this;
+        while (t != null) {
+            o = t;
+            t = t.getParentType();
+        }
+        return o;
+    }
+    public final String getParentFullName() {
         RootBlock par_ = getParentType();
         if (par_ == null) {
-            return getFullName();
+            return "";
         }
         return par_.getFullName();
+    }
+    public String getWildCardElement() {
+        StringList allElements_ = new StringList();
+        for (Block e: ClassesUtil.getDirectChildren(this)) {
+            if (e instanceof InnerTypeOrElement) {
+                String type_ = ((InnerTypeOrElement)e).getRealImportedClassName();
+                allElements_.add(type_);
+            }
+        }
+        String className_;
+        if (allElements_.onlyOneElt()) {
+            className_ = allElements_.first();
+        } else {
+            className_ = getWildCardString();
+        }
+        return className_;
+    }
+
+    public final String getWildCardString() {
+        String pkg_ = getPackageName();
+        StringBuilder generic_ = new StringBuilder();
+        RootBlock.addPkgIfNotEmpty(pkg_, generic_);
+        CustList<RootBlock> pars_ = getSelfAndParentTypes();
+        RootBlock previous_ = null;
+        for (RootBlock r: pars_.first().getAllParentTypesReverse()) {
+            appendParts(generic_, previous_, r, "-", "..");
+            generic_.append(r.getName());
+            previous_ = r;
+        }
+        for (RootBlock r: pars_) {
+            appendParts(generic_, previous_, r, "-", "..");
+            generic_.append(r.getName());
+            if (!r.paramTypes.isEmpty()) {
+                StringList vars_ = new StringList();
+                int count_ = r.paramTypes.size();
+                for (int i = 0; i < count_; i++) {
+                    vars_.add(Templates.SUB_TYPE);
+                }
+                generic_.append(Templates.TEMPLATE_BEGIN);
+                generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
+                generic_.append(Templates.TEMPLATE_END);
+            }
+            previous_ = r;
+        }
+        return generic_.toString();
+    }
+    public final CustList<RootBlock> getAllParentTypesReverse() {
+        return getAllParentTypes().getReverse();
+    }
+    public String getOuterFullName() {
+        return getOuterParent().getFullName();
+    }
+
+    public boolean isSubTypeOf(String parName_, ContextEl context) {
+        if (StringList.quickEq(parName_,getFullName())) {
+            return true;
+        }
+        return StringList.contains(getAllSuperTypes(),parName_);
+    }
+    public StringList getAllSuperTypes(){
+        return allSuperTypes;
     }
 }

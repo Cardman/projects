@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
+import code.expressionlanguage.analyze.blocks.EnumBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -51,8 +53,8 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         String clName_;
         clName_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,0,className);
         partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
-        ExecRootBlock r_ = classes_.getClassBody(clName_);
-        if (!(r_ instanceof ExecEnumBlock)) {
+        RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(clName_);
+        if (!(r_ instanceof EnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());

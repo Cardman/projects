@@ -5,8 +5,6 @@ import code.util.StringList;
 
 public final class ExecEnumBlock extends ExecRootBlock implements ExecUniqueRootedBlock {
 
-    private final StringList allSuperTypes = new StringList();
-
     public ExecEnumBlock(RootBlock _offset) {
         super(_offset);
     }
@@ -19,11 +17,6 @@ public final class ExecEnumBlock extends ExecRootBlock implements ExecUniqueRoot
     @Override
     public boolean isAbstractType() {
         return true;
-    }
-
-    @Override
-    public StringList getAllSuperTypes() {
-        return allSuperTypes;
     }
 
     @Override

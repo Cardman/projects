@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -869,6 +870,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         if (!isIntermediateDottedOperation()) {
             String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
+            AnaGeneType h_ = _conf.getAnalyzing().getAnaGeneType(_conf,id_);
             GeneType g_ = _conf.getClassBody(id_);
             if (ContextUtil.isAbstractType(g_)) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -904,7 +906,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
             }
             ConstrustorIdVarArg ctorRes_;
-            ctorRes_ = getDeclaredCustConstructorLambda(_conf, vararg_, new ClassArgumentMatching(clFrom_), g_,feed_, ClassArgumentMatching.toArgArray(_methodTypes));
+            ctorRes_ = getDeclaredCustConstructorLambda(_conf, vararg_, new ClassArgumentMatching(clFrom_), h_,feed_, ClassArgumentMatching.toArgArray(_methodTypes));
             realId = ctorRes_.getRealId();
             if (realId == null) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
@@ -1052,6 +1054,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
         }
         String id_ = StringExpUtil.getIdFromAllTypes(_cl);
+        AnaGeneType h_ = _conf.getAnalyzing().getAnaGeneType(_conf,id_);
         GeneType g_ = _conf.getClassBody(id_);
         if (ContextUtil.isAbstractType(g_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -1065,7 +1068,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructorLambda(_conf, _vararg, new ClassArgumentMatching(_cl),g_, _feed, ClassArgumentMatching.toArgArray(_methodTypes));
+        ctorRes_ = getDeclaredCustConstructorLambda(_conf, _vararg, new ClassArgumentMatching(_cl),h_, _feed, ClassArgumentMatching.toArgArray(_methodTypes));
         realId = ctorRes_.getRealId();
         if (realId == null) {
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));

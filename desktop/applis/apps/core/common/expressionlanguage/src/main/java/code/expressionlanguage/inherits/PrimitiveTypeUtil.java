@@ -1,7 +1,9 @@
 package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.AnaInheritedType;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.InheritedType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
@@ -140,8 +142,8 @@ public final class PrimitiveTypeUtil {
     }
 
     public static int cmpTypes(String _one, String _two, ContextEl _context) {
-        GeneType one_ = _context.getClassBody(_one);
-        GeneType two_ = _context.getClassBody(_two);
+        AnaInheritedType one_ = _context.getAnalyzing().getAnaGeneType(_context,_one);
+        AnaInheritedType two_ = _context.getAnalyzing().getAnaGeneType(_context,_two);
         if (two_.isSubTypeOf(_one,_context)) {
             return CustList.SWAP_SORT;
         }

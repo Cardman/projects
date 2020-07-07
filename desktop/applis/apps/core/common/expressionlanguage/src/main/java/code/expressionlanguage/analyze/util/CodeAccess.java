@@ -1,17 +1,17 @@
 package code.expressionlanguage.analyze.util;
 
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 
 final class CodeAccess {
     private final int code;
-    private final ExecRootBlock root;
+    private final RootBlock root;
 
-    CodeAccess(int code, ExecRootBlock root) {
+    CodeAccess(int code, RootBlock root) {
         this.code = code;
         this.root = root;
     }
 
-    ExecRootBlock getRoot() {
+    RootBlock getRoot() {
         return root;
     }
 

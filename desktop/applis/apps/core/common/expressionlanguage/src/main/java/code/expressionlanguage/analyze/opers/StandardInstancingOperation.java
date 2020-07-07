@@ -8,6 +8,8 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.AnaInheritedType;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -373,8 +375,8 @@ public final class StandardInstancingOperation extends
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         String base_ = StringExpUtil.getIdFromAllTypes(_realClassName);
-        GeneType g_ = _conf.getClassBody(base_);
-        if (g_ == null) {
+        GeneType h_ = _conf.getClassBody(base_);
+        if (h_ == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -386,11 +388,12 @@ public final class StandardInstancingOperation extends
             getErrs().add(call_.getBuiltError());
             return;
         }
+        AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,base_);
         OperationNode possibleInit_ = getFirstChild();
         if (possibleInit_ instanceof StaticInitOperation) {
             StaticInitOperation st_ = (StaticInitOperation) possibleInit_;
             if (!isIntermediateDottedOperation()) {
-                boolean staticType_ = g_.isStaticType();
+                boolean staticType_ = h_.isStaticType();
                 st_.setInit(_conf,base_,staticType_);
             }
         }
@@ -418,7 +421,7 @@ public final class StandardInstancingOperation extends
                 getErrs().add(call_.getBuiltError());
             }
         }
-        if (ContextUtil.isAbstractType(g_) && !ContextUtil.isEnumType(g_)) {
+        if (ContextUtil.isAbstractType(h_) && !ContextUtil.isEnumType(h_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -430,7 +433,7 @@ public final class StandardInstancingOperation extends
             setResultClass(new ClassArgumentMatching(_realClassName));
             return;
         }
-        blockIndex = ContextUtil.getCurrentChildTypeIndex(_conf,this, g_,fieldName,_realClassName);
+        blockIndex = ContextUtil.getCurrentChildTypeIndex(_conf,this, h_,fieldName,_realClassName);
         if (blockIndex < -1) {
             return;
         }

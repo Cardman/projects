@@ -21,10 +21,7 @@ import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.assign.blocks.*;
 import code.expressionlanguage.assign.util.*;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.GeneField;
-import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.exec.Classes;
@@ -38,6 +35,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
+import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
@@ -809,14 +807,18 @@ public final class ClassesUtil {
                     _context.addError(enum_);
                     r.addNameErrors(enum_);
                 }
+                r.getAllSuperTypes().addAllElts(foundNames_.getKeys());
                 exec_.getAllSuperTypes().addAllElts(foundNames_.getKeys());
                 for (String f: foundNames_.getKeys()) {
                     ExecRootBlock s_ = _context.getClasses().getClassBody(f);
                     if (s_ != null) {
                         exec_.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
+                        r.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
                     }
                 }
+                r.getAllSuperTypes().add(objectClassName_);
                 exec_.getAllSuperTypes().add(objectClassName_);
+                r.getAllSuperTypes().removeDuplicates();
                 exec_.getAllSuperTypes().removeDuplicates();
                 _context.getAnalyzing().getListTypesNames().add(r);
                 builtTypes_.set(c, true);
@@ -1211,7 +1213,34 @@ public final class ClassesUtil {
         }
         return inners_;
     }
+    public static CustList<GeneCustStaticMethod> getMethodBlocks(AnaGeneType _element) {
+        CustList<GeneCustStaticMethod> methods_ = new CustList<GeneCustStaticMethod>();
+        if (_element instanceof RootBlock) {
+            for (GeneCustStaticMethod m:getMethodAnaBlocks((RootBlock) _element)) {
+                methods_.add(m);
+            }
+        }
+        if (_element instanceof StandardType) {
+            for (StandardMethod m : ((StandardType) _element).getMethods().values()) {
+                methods_.add(m);
+            }
+        }
+        return methods_;
+    }
 
+
+    public static CustList<GeneCustStaticMethod> getMethodAnaBlocks(RootBlock _element) {
+        CustList<GeneCustStaticMethod> methods_ = new CustList<GeneCustStaticMethod>();
+        for (Block b: getDirectChildren(_element)) {
+            if (b instanceof OverridableBlock) {
+                methods_.add((GeneCustStaticMethod) b);
+            }
+            if (b instanceof AnnotationMethodBlock) {
+                methods_.add((GeneCustStaticMethod) b);
+            }
+        }
+        return methods_;
+    }
     public static CustList<ExecRootBlock> accessedInnerElements(ExecRootBlock _clOwner) {
         CustList<ExecRootBlock> inners_ = new CustList<ExecRootBlock>();
         for (ExecBlock b: ExecBlock.getDirectChildren(_clOwner)) {

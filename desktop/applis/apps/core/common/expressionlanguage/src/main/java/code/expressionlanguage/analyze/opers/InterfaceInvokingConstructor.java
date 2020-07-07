@@ -1,10 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.BracedBlock;
-import code.expressionlanguage.analyze.blocks.InterfaceBlock;
-import code.expressionlanguage.analyze.blocks.Line;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
@@ -134,7 +131,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
     private static void checkInherits(OperationNode _op,ContextEl _conf, StringList _previousInts, Block _n, String _cl) {
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
-            ExecRootBlock supType_ = _conf.getClasses().getClassBody(sup_);
+            RootBlock supType_ = _conf.getAnalyzing().getAnaClassBody(sup_);
             if (supType_.isSubTypeOf(_cl,_conf)) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();

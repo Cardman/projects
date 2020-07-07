@@ -23,8 +23,6 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
 
     private int trOffset;
 
-    private final StringList allSuperTypes = new StringList();
-
     public ExecInnerElementBlock(InnerElementBlock _offset) {
         super(_offset);
         fieldName = _offset.getUniqueFieldName();
@@ -93,11 +91,6 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     @Override
     public boolean isAbstractType() {
         return true;
-    }
-
-    @Override
-    public StringList getAllSuperTypes() {
-        return allSuperTypes;
     }
 
     @Override

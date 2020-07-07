@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
@@ -155,7 +156,7 @@ public final class IdOperation extends AbstractUnaryOperation {
     private static void checkInherits(ContextEl _conf, OperationNode _op, StringList _previousInts, String _cl) {
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
-            ExecRootBlock supType_ = _conf.getClasses().getClassBody(sup_);
+            RootBlock supType_ = _conf.getAnalyzing().getAnaClassBody(sup_);
             if (supType_.isSubTypeOf(_cl,_conf)) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();

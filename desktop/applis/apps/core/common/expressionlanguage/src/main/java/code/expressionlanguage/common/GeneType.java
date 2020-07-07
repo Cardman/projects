@@ -1,6 +1,5 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.util.*;
 

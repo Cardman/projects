@@ -12,8 +12,6 @@ import code.util.StringList;
 
 public final class ExecOverridableBlock extends ExecNamedFunctionBlock implements GeneCustModifierMethod,ReturnableWithSignature {
 
-    private final int modifierOffset;
-
     private final boolean staticMethod;
     private final boolean staticCallMethod;
 
@@ -23,7 +21,6 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
     private final MethodKind kind;
     public ExecOverridableBlock(OverridableBlock _offset) {
         super(_offset);
-        modifierOffset = _offset.getModifierOffset();
         staticMethod = _offset.isStaticMethod();
         staticCallMethod = _offset.isStaticCallMethod();
         finalMethod = _offset.isFinalMethod();
@@ -77,10 +74,6 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
             return MethodModifier.STATIC;
         }
         return MethodModifier.NORMAL;
-    }
-    @Override
-    public boolean isStaticMethod() {
-        return staticMethod;
     }
 
     @Override

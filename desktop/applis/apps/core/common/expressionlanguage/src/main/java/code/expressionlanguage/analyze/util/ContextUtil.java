@@ -22,7 +22,7 @@ public final class ContextUtil {
 
     public static boolean canAccess(String _className, AccessibleBlock _block, ContextEl _context) {
         CodeAccess code_ = processBegin(_className, _block, _context);
-        ExecRootBlock root_ = code_.getRoot();
+        RootBlock root_ = code_.getRoot();
         if (root_ == null) {
             return access(code_.getCode());
         }
@@ -34,7 +34,7 @@ public final class ContextUtil {
         return processPackagePrivate(_block, root_, belongPkg_, rootPkg_);
     }
 
-    private static boolean processNormalProtected(AccessibleBlock _block, ContextEl _context, ExecRootBlock root_, String belongPkg_, String rootPkg_) {
+    private static boolean processNormalProtected(AccessibleBlock _block, ContextEl _context, RootBlock root_, String belongPkg_, String rootPkg_) {
         if (root_.isSubTypeOf(_block.getFullName(),_context)) {
             return true;
         }
@@ -43,7 +43,7 @@ public final class ContextUtil {
 
     public static boolean canAccessType(String _className, AccessibleBlock _block, ContextEl _context) {
         CodeAccess code_ = processBegin(_className, _block, _context);
-        ExecRootBlock root_ = code_.getRoot();
+        RootBlock root_ = code_.getRoot();
         if (root_ == null) {
             return access(code_.getCode());
         }
@@ -65,7 +65,7 @@ public final class ContextUtil {
             return new CodeAccess(2,null);
         }
         String baseClass_ = StringExpUtil.getIdFromAllTypes(_className);
-        ExecRootBlock root_ = _context.getClasses().getClassBody(baseClass_);
+        RootBlock root_ = _context.getAnalyzing().getAnaClassBody(baseClass_);
         if (root_ == null) {
             return new CodeAccess(0,null);
         }
@@ -74,7 +74,7 @@ public final class ContextUtil {
     private static boolean access(int _code) {
         return _code == 2;
     }
-    private static boolean processPackagePrivate(AccessibleBlock _block, ExecRootBlock root_, String belongPkg_, String rootPkg_) {
+    private static boolean processPackagePrivate(AccessibleBlock _block, RootBlock root_, String belongPkg_, String rootPkg_) {
         if (_block.getAccess() == AccessEnum.PACKAGE) {
             return StringList.quickEq(belongPkg_, rootPkg_);
         }
@@ -91,19 +91,20 @@ public final class ContextUtil {
         return methods_;
     }
 
-    public static CustList<GeneConstructor> getConstructorBodies(GeneType _type) {
+    public static CustList<GeneConstructor> getConstructorBodies(AnaInheritedType _type) {
         CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
         if (_type instanceof StandardType) {
             for (StandardConstructor s: ((StandardType)_type).getConstructors()) {
                 methods_.add(s);
             }
-        } else {
-            CustList<ExecBlock> bl_ = ExecBlock.getDirectChildren((ExecBlock) _type);
-            for (ExecBlock b: bl_) {
-                if (!(b instanceof ExecConstructorBlock)) {
+        }
+        if (_type instanceof Block){
+            CustList<Block> bl_ = ClassesUtil.getDirectChildren((Block) _type);
+            for (Block b: bl_) {
+                if (!(b instanceof ConstructorBlock)) {
                     continue;
                 }
-                ExecConstructorBlock method_ = (ExecConstructorBlock) b;
+                ConstructorBlock method_ = (ConstructorBlock) b;
                 methods_.add(method_);
             }
         }

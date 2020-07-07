@@ -556,21 +556,21 @@ public final class ResolvingImportTypes {
 
     private static void fetchImportStaticMethods(ContextEl _analyzable, String _glClass, String _method, CustList<ImportedMethod> _methods, String _typeLoc, StringList _typesLoc) {
         for (String s: _typesLoc) {
-            GeneType super_ = _analyzable.getClassBody(s);
+            AnaGeneType super_ = _analyzable.getAnalyzing().getAnaGeneType(_analyzable,s);
             String pkg_ = super_.getPackageName();
             String outer_ = "";
-            if (super_ instanceof ExecRootBlock) {
-                outer_ = ((ExecRootBlock)super_).getOuterFullName();
+            if (super_ instanceof RootBlock) {
+                outer_ = ((RootBlock)super_).getOuterFullName();
             }
-            for (GeneCustStaticMethod e: ExecBlock.getMethodBlocks(super_)) {
+            for (GeneCustStaticMethod e: ClassesUtil.getMethodBlocks(super_)) {
                 if (!e.isStaticMethod()) {
                     continue;
                 }
                 if (!StringList.quickEq(_method.trim(), e.getId().getName())) {
                     continue;
                 }
-                if (e instanceof ExecOverridableBlock) {
-                    ExecOverridableBlock c = (ExecOverridableBlock) e;
+                if (e instanceof OverridableBlock) {
+                    OverridableBlock c = (OverridableBlock) e;
                     Accessed a_ = new Accessed(c.getAccess(), pkg_, s, outer_);
                     if (!ContextUtil.canAccess(_typeLoc, a_, _analyzable)) {
                         continue;

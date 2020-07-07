@@ -1,21 +1,22 @@
 package code.expressionlanguage.functionid;
 
 
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 
 public final class OverridingRelation {
 
-    private ExecRootBlock sub;
+    private RootBlock sub;
     private ClassMethodId subMethod;
 
-    private ExecRootBlock sup;
+    private RootBlock sup;
     private ClassMethodId supMethod;
 
-    public ExecRootBlock getSub() {
+    public RootBlock getSub() {
         return sub;
     }
 
-    public void setSub(ExecRootBlock sub) {
+    public void setSub(RootBlock sub) {
         this.sub = sub;
     }
 
@@ -27,11 +28,11 @@ public final class OverridingRelation {
         subMethod = _subMethod;
     }
 
-    public ExecRootBlock getSup() {
+    public RootBlock getSup() {
         return sup;
     }
 
-    public void setSup(ExecRootBlock sup) {
+    public void setSup(RootBlock sup) {
         this.sup = sup;
     }
 

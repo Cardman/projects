@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -294,7 +295,7 @@ final class AnaNamePartType extends AnaLeafPartType {
     private static CustList<InaccessibleType> checkAccessIntern(ContextEl _an, String _found, String _owner, int _indexInType) {
         String idOwner_ = StringExpUtil.getIdFromAllTypes(_owner);
         String idFound_ = StringExpUtil.getIdFromAllTypes(_found);
-        ExecRootBlock found_ = _an.getClasses().getClassBody(idFound_);
+        RootBlock found_ = _an.getAnalyzing().getAnaClassBody(idFound_);
         if (found_ == null) {
             return new CustList<InaccessibleType>();
         }

@@ -1,11 +1,12 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.AnaInheritedType;
 import code.expressionlanguage.common.InheritedType;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class PrimitiveType implements InheritedType {
+public final class PrimitiveType implements InheritedType,AnaInheritedType {
 
     private final String name;
 
