@@ -58,9 +58,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private OperationNode root;
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private final StringList nameRetErrors = new StringList();
-    private final StringList allNameErrors = new StringList();
     private final CustList<StringList> nameErrors = new CustList<StringList>();
-    private boolean nameError;
+
     public FieldBlock(OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
                       OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -172,13 +171,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             b_.buildError(_cont.getAnalysisMessages().getNotRetrievedFields());
             _cont.addError(b_);
             addNameRetErrors(b_);
-            nameError = true;
         }
         for (StringList e: checkFieldsNames(_cont, this, _fieldNames, names_)){
             addNameErrors(e);
-            if (!e.isEmpty()) {
-                nameError = true;
-            }
         }
         for (PartOffsetAffect n: names_) {
             PartOffset p_ = n.getPartOffset();
@@ -240,6 +235,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         processPutCoverage(_cont,_exec);
+        page_.setIndexBlock(0);
         _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(staticField)));
         root = page_.getCurrentRoot();
     }
@@ -247,6 +243,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
+        page_.setIndexBlock(0);
         return ElUtil.getAnalyzedOperationsQucikly(value, _cont, Calculation.staticCalculation(staticField));
     }
 
@@ -289,12 +286,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     public void addNameErrors(StringList _error) {
-        allNameErrors.addAllElts(_error);
         nameErrors.add(_error);
     }
 
-    public StringList getAllNameErrors() {
-        return allNameErrors;
+    public CustList<StringList> getNameErrors() {
+        return nameErrors;
     }
 
     public void addNameRetErrors(FoundErrorInterpret _error) {
@@ -302,10 +298,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
     public StringList getNameRetErrors() {
         return nameRetErrors;
-    }
-
-    public boolean isNameError() {
-        return nameError;
     }
 
 }

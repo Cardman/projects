@@ -2116,8 +2116,9 @@ public final class LinkageUtil {
     private static void processFields(ContextEl _cont, Block _block, int sum_, OperationNode val_, CustList<PartOffset> _parts, String _currentFileName) {
         if (val_ instanceof SettableAbstractFieldOperation) {
             int id_ = ((SettableAbstractFieldOperation)val_).getValueOffset();
+            int indexBlock_ = ((SettableAbstractFieldOperation) val_).getIndexBlock();
             if (_block instanceof FieldBlock && ElUtil.isDeclaringVariable(val_)) {
-                StringList errs_ = ((FieldBlock) _block).getAllNameErrors();
+                StringList errs_ = ((FieldBlock) _block).getNameErrors().get(indexBlock_);
                 int d_ = ((SettableAbstractFieldOperation)val_).getDelta();
                 if (errs_.isEmpty()) {
                     String tag_ = "<a name=\"m"+id_+"\">";

@@ -104,7 +104,7 @@ public final class AnalyzedPageEl {
     private final StringMap<ExecFileBlock> filesBodies;
     private int localInType = -1;
     private String refFileName = "";
-
+    private int indexBlock;
     public AnalyzedPageEl() {
         setCatchVars(new CustList<StringMap<AnaLocalVariable>>());
         setLocalVars(new CustList<StringMap<AnaLocalVariable>>());
@@ -794,5 +794,13 @@ public final class AnalyzedPageEl {
 
     public void setRefFileName(String _refFileName) {
         refFileName = _refFileName;
+    }
+
+    public int getIndexBlock() {
+        return indexBlock;
+    }
+
+    public void setIndexBlock(int _indexBlock) {
+        indexBlock = _indexBlock;
     }
 }

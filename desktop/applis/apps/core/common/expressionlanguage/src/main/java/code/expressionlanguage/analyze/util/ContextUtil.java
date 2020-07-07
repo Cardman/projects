@@ -270,9 +270,6 @@ public final class ContextUtil {
                 int valOffset_ = -1;
                 Ints valueOffset_ = new Ints();
                 if (i_ instanceof FieldBlock) {
-                    if (((FieldBlock)i_).isNameError()) {
-                        continue;
-                    }
                     valOffset_ = ((FieldBlock)i_).getValuesOffset().get(ind_);
                     valueOffset_ = ((FieldBlock)i_).getValuesOffset();
                 }

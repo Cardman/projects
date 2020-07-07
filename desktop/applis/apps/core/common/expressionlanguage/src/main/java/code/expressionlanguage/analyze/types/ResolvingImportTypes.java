@@ -711,9 +711,6 @@ public final class ResolvingImportTypes {
                     }
                     int v_ = -1;
                     if (e instanceof FieldBlock) {
-                        if (((FieldBlock)e).isNameError()) {
-                            continue;
-                        }
                         v_ = ((FieldBlock)e).getValuesOffset().get(ind_);
                     }
                     if (e instanceof InnerTypeOrElement) {

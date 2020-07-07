@@ -36,6 +36,7 @@ public abstract class SettableAbstractFieldOperation extends
     private boolean catString;
 
     private int anc;
+    private int indexBlock;
 
     public SettableAbstractFieldOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -62,10 +63,6 @@ public abstract class SettableAbstractFieldOperation extends
         boolean baseAccess_ = isBaseAccess();
         boolean superAccess_ = isSuperAccess();
         boolean affect_ = false;
-        int indexCh_ = 0;
-        if (getParent() instanceof DeclaringOperation) {
-            indexCh_ = getIndexChild();
-        }
         if (getParent() instanceof AbstractDotOperation && isIntermediateDottedOperation()) {
             if (getParent().getParent() instanceof AffectationOperation && getParent().getParent().getFirstChild() == getParent()) {
                 affect_ = true;
@@ -76,7 +73,6 @@ public abstract class SettableAbstractFieldOperation extends
             }
         } else if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this) {
             affect_ = true;
-            indexCh_ = getParent().getIndexChild();
         } else if (getParent() instanceof CompoundAffectationOperation && getParent().getFirstChild() == this) {
             affect_ = true;
         } else if (getParent() instanceof SemiAffectationOperation) {
@@ -92,7 +88,9 @@ public abstract class SettableAbstractFieldOperation extends
         }
         e_ = r_.getId();
         if (_conf.getAnalyzing().getCurrentBlock() instanceof FieldBlock &&ElUtil.isDeclaringVariable(this)) {
-            valueOffset = e_.getValueOffset().get(indexCh_);
+            indexBlock = _conf.getAnalyzing().getIndexBlock();
+            _conf.getAnalyzing().setIndexBlock(indexBlock+1);
+            valueOffset = e_.getValueOffset().get(indexBlock);
         } else {
             valueOffset = e_.getValOffset();
         }
@@ -239,4 +237,7 @@ public abstract class SettableAbstractFieldOperation extends
         return fieldNameLength;
     }
 
+    public int getIndexBlock() {
+        return indexBlock;
+    }
 }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.classes.CustLgNames;
@@ -38,6 +39,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq(0, new AssignedVariables().getLastFieldsOrEmpty().size());
         assertEq(0, new AssignedVariables().getLastVariablesOrEmpty().size());
         assertEq(0, new AssignedVariables().getLastMutableLoopOrEmpty().size());
+        cont_.setAnalyzing();
+        ContextUtil.isFinalField(cont_,new ClassField("",""));
     }
 
     @Test
