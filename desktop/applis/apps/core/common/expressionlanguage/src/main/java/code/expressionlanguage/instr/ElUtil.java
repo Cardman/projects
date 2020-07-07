@@ -290,9 +290,6 @@ public final class ElUtil {
     }
 
     public static void retrieveErrorsAnalyze(ContextEl _context, OperationNode _current) {
-        if (_current instanceof MethodOperation) {
-            ((MethodOperation) _current).retrieveErrs();
-        }
         _current.analyze(_context);
         if (_current instanceof AbstractDotOperation) {
             OperationNode last_ = ((AbstractDotOperation) _current).getChildrenNodes().last();

@@ -1837,35 +1837,45 @@ public final class LinkageUtil {
                                   int sum_,
                                   OperationNode val_,
                                   CustList<PartOffset> _parts, String _currentFileName) {
-        if (val_.getParent() instanceof AnnotationInstanceOperation) {
-            AnnotationInstanceOperation a_ = (AnnotationInstanceOperation) val_.getParent();
-            if (a_.isArray()) {
-                CustList<CustList<PartOffset>> partOffsetsChildren_ = a_.getPartOffsetsChildren();
+        MethodOperation par_ = val_.getParent();
+        if (par_ == null) {
+            StringList errEmpt_ = new StringList();
+            MethodOperation.processEmptyError(val_,errEmpt_);
+            if (!errEmpt_.isEmpty()) {
+                int off_ = val_.getOperations().getOffset();
+                int begin_ = sum_ + off_ + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+transform(StringList.join(errEmpt_,"\n\n"))+"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+val_.getOperations().getDelimiter().getLength()));
+            }
+        } else {
+            StringList l_ = new StringList();
+            if (MethodOperation.isEmptyError(val_)) {
+                l_ = val_.getErrs();
+            }
+            if (!(par_ instanceof AbstractUnaryOperation)
+                    && !(val_.getIndexChild() == 0 && par_ instanceof ArrOperation)
+                    && !(par_ instanceof AbstractDotOperation && par_.getOperations().getOperators().firstValue().isEmpty())
+                    && !l_.isEmpty()) {
+                int index_ = val_.getIndexChild();
+                IntTreeMap<String> operators_ =  par_.getOperations().getOperators();
+                IntTreeMap<String> values_ =  par_.getOperations().getValues();
+                int s_;
+                int len_;
+                if (operators_.firstKey() > values_.firstKey()) {
+                    s_ = sum_ + par_.getIndexInEl() + operators_.getKey(index_-1);
+                    len_ = operators_.getValue(index_-1).length();
+                } else {
+                    s_ = sum_ + par_.getIndexInEl() + operators_.getKey(index_);
+                    len_ = operators_.getValue(index_).length();
+                }
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(l_,"\n\n")) +"\" class=\"e\">",s_));
+                _parts.add(new PartOffset("</a>",s_+Math.max(len_,1)));
+            } else {
+                CustList<CustList<PartOffset>> partOffsetsChildren_ = par_.getPartOffsetsChildren();
                 if (partOffsetsChildren_.isValidIndex(val_.getIndexChild())) {
                     _parts.addAllElts(partOffsetsChildren_.get(val_.getIndexChild()));
                 }
             }
-        }
-        if (val_.getParent() instanceof CallDynMethodOperation
-                ||val_.getParent() instanceof InferArrayInstancing
-                ||val_.getParent() instanceof ElementArrayInstancing
-                ||val_.getParent() instanceof DimensionArrayInstancing
-                ||val_.getParent() instanceof IdOperation) {
-            MethodOperation c_ = val_.getParent();
-            CustList<CustList<PartOffset>> partOffsetsChildren_ = c_.getPartOffsetsChildren();
-            if (partOffsetsChildren_.isValidIndex(val_.getIndexChild())) {
-                _parts.addAllElts(partOffsetsChildren_.get(val_.getIndexChild()));
-            }
-        }
-        StringList errEmpt_ = new StringList();
-        if (val_.getParent() == null) {
-            MethodOperation.processEmptyError(val_,errEmpt_);
-        }
-        if (!errEmpt_.isEmpty()) {
-            int off_ = val_.getOperations().getOffset();
-            int begin_ = sum_ + off_ + val_.getIndexInEl();
-            _parts.add(new PartOffset("<a title=\""+transform(StringList.join(errEmpt_,"\n\n"))+"\" class=\"e\">",begin_));
-            _parts.add(new PartOffset("</a>",begin_+val_.getOperations().getDelimiter().getLength()));
         }
         if (val_ instanceof BadTernaryOperation) {
             BadTernaryOperation b_ = (BadTernaryOperation) val_;
@@ -2368,18 +2378,17 @@ public final class LinkageUtil {
             }
         }
         if (val_ instanceof CastOperation) {
+            int l_;
+            int i_ = sum_ + val_.getIndexInEl();
             if (((CastOperation)val_).isFound()) {
-                if (!val_.getErrs().isEmpty()) {
-                    int i_ = sum_ + val_.getIndexInEl() + ((CastOperation)val_).getOffset();
-                    _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
-                    _parts.add(new PartOffset("</a>",i_+1));
-                }
+                i_ += ((CastOperation)val_).getOffset();
+                l_ = 1;
             } else {
-                if (!val_.getErrs().isEmpty()) {
-                    int i_ = sum_ + val_.getIndexInEl();
-                    _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
-                    _parts.add(new PartOffset("</a>",i_+_cont.getKeyWords().getKeyWordCast().length()));
-                }
+                l_ = _cont.getKeyWords().getKeyWordCast().length();
+            }
+            if (!val_.getErrs().isEmpty()) {
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
+                _parts.add(new PartOffset("</a>",i_+l_));
             }
             _parts.addAllElts(((CastOperation)val_).getPartOffsets());
         }
@@ -2508,18 +2517,6 @@ public final class LinkageUtil {
         if (curOp_.getIndexChild() == 0 && parent_ instanceof AbstractTernaryOperation) {
             AbstractTernaryOperation ab_ = (AbstractTernaryOperation) parent_;
             _parts.addAllElts(ab_.getPartOffsetsEnd());
-        }
-        if (parent_ instanceof AbstractDotOperation&&!parent_.getOperations().getOperators().firstValue().isEmpty()) {
-            if (!parent_.getErrs().isEmpty()) {
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(parent_.getErrs(),"\n\n")) +"\" class=\"e\">",offsetEnd_));
-                _parts.add(new PartOffset("</a>",offsetEnd_+ parent_.getOperations().getOperators().firstValue().length()));
-            }
-        }
-        if (curOp_.getIndexChild() == 0 && parent_ instanceof ArrOperation) {
-            if (!((ArrOperation)parent_).getSepErr().isEmpty()) {
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(((ArrOperation)parent_).getSepErr()) +"\" class=\"e\">",offsetEnd_));
-                _parts.add(new PartOffset("</a>",offsetEnd_+ 1));
-            }
         }
         processCat(_cont, offsetEnd_, curOp_, nextSiblingOp_, parent_, _parts);
         processCustomOperator(_cont, currentFileName_, offsetEnd_, parent_, _parts);

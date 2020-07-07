@@ -7,9 +7,12 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
+import code.util.IntTreeMap;
 import code.util.StringList;
 
 public final class ArrOperation extends InvokingOperation implements SettableElResult {
@@ -27,7 +30,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     private int anc;
 
     private boolean staticChoiceMethod;
-    private String sepErr = "";
+
     private String nbErr = "";
 
     public ArrOperation(int _index,
@@ -37,6 +40,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     @Override
     public void analyze(ContextEl _conf) {
+        if (MethodOperation.isEmptyError(getFirstChild())){
+            getErrs().addAllElts(getFirstChild().getErrs());
+        }
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String varargParam_ = getVarargParam(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
@@ -116,7 +122,10 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             return;
         }
         if (chidren_.size() != 1) {
+            getPartOffsetsChildren().add(new CustList<PartOffset>());
+            IntTreeMap<String> operators_ =  getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + operators_.getKey(1);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             badNb_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -127,7 +136,10 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                     "[]"
             );
             _conf.getAnalyzing().getLocalizer().addError(badNb_);
-            sepErr = badNb_.getBuiltError();
+            CustList<PartOffset> list_ = new CustList<PartOffset>();
+            list_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badNb_.getBuiltError()) +"\" class=\"e\">",i_));
+            list_.add(new PartOffset("</a>",i_+ 1));
+            getPartOffsetsChildren().add(list_);
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }
@@ -235,10 +247,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     public int getAnc() {
         return anc;
-    }
-
-    public String getSepErr() {
-        return sepErr;
     }
 
     public String getNbErr() {

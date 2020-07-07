@@ -196,14 +196,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 }
                 getPartOffsetsChildren().add(parts_);
             }
-            IntTreeMap<String> operators_ = getOperations().getOperators();
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.lastKey(), _conf);
-            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
-            StringList deep_ = getErrs();
-            if (!deep_.isEmpty()) {
-                getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
-                getPartOffsetsEnd().add(new PartOffset("</a>",i_+1));
-            }
             setResultClass(new ClassArgumentMatching(className));
             return;
         }

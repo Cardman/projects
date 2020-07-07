@@ -17,6 +17,9 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
     @Override
     public final void analyze(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+        if (MethodOperation.isEmptyError(getFirstChild())){
+            getErrs().addAllElts(getFirstChild().getErrs());
+        }
         if (isFirstKo()) {
             CustList<OperationNode> children_ = getChildrenNodes();
             LgNames stds_ = _conf.getStandards();

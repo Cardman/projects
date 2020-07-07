@@ -75,12 +75,6 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
         return children;
     }
 
-    public void retrieveErrs() {
-        for (OperationNode o: getChildrenNodes()) {
-            processEmptyError(o, getErrs());
-        }
-    }
-
     public static void processEmptyError(OperationNode _o, StringList _errs) {
         if (isEmptyError(_o)) {
             addEmptyError(_o, _errs);
@@ -90,7 +84,7 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
     private static void addEmptyError(OperationNode _op, StringList _out) {
         _out.addAllElts(_op.getErrs());
     }
-    private static boolean isEmptyError(OperationNode _op) {
+    public static boolean isEmptyError(OperationNode _op) {
         if (_op instanceof ErrorPartOperation) {
             return true;
         }
