@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.instr.PartOffset;
 import code.util.CustList;
@@ -14,4 +15,8 @@ public interface InfoBlock extends GeneField, AnnotableBlock {
     void buildImportedType(ContextEl _cont);
     void retrieveNames(ContextEl _cont, StringList _fieldNames);
     CustList<PartOffset> getTypePartOffsets();
+
+    boolean isFinalField();
+
+    AccessEnum getAccess();
 }

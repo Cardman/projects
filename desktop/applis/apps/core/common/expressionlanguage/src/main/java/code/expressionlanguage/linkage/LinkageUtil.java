@@ -2115,29 +2115,25 @@ public final class LinkageUtil {
 
     private static void processFields(ContextEl _cont, Block _block, int sum_, OperationNode val_, CustList<PartOffset> _parts, String _currentFileName) {
         if (val_ instanceof SettableAbstractFieldOperation) {
+            int id_ = ((SettableAbstractFieldOperation)val_).getValueOffset();
             if (_block instanceof FieldBlock && ElUtil.isDeclaringVariable(val_)) {
-                ClassField c_ = ((SettableAbstractFieldOperation)val_).getFieldIdReadOnly();
-                int id_ = ((SettableAbstractFieldOperation)val_).getValueOffset();
-                StringList errs_ = ((FieldBlock) _block).getNameErrors();
+                StringList errs_ = ((FieldBlock) _block).getAllNameErrors();
+                int d_ = ((SettableAbstractFieldOperation)val_).getDelta();
                 if (errs_.isEmpty()) {
                     String tag_ = "<a name=\"m"+id_+"\">";
-                    int d_ = ((SettableAbstractFieldOperation)val_).getDelta();
                     _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_+c_.getFieldName().length()));
                 } else {
                     String err_ = StringList.join(errs_,"\n\n");
-                    String tag_ = "<a name=\"m"+id_+"\" title=\""+err_+"\" class=\"e\">";
-                    int d_ = ((SettableAbstractFieldOperation)val_).getDelta();
+                    String tag_ = "<a title=\""+err_+"\" class=\"e\">";
                     _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_));
-                    tag_ = "</a>";
-                    _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_+c_.getFieldName().length()));
                 }
+                String tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_+((SettableAbstractFieldOperation) val_).getFieldNameLength()));
             } else {
                 _parts.addAllElts(((SettableAbstractFieldOperation) val_).getPartOffsets());
                 ClassField c_ = ((SettableAbstractFieldOperation)val_).getFieldIdReadOnly();
                 int delta_ = ((SettableAbstractFieldOperation) val_).getOff();
-                updateFieldAnchor(_cont,val_.getErrs(),_parts,c_,sum_ +delta_+ val_.getIndexInEl() + ((SettableAbstractFieldOperation)val_).getDelta(),((SettableAbstractFieldOperation) val_).getFieldNameLength(), _currentFileName);
+                updateFieldAnchor(_cont,val_.getErrs(),_parts,c_,sum_ +delta_+ val_.getIndexInEl() + ((SettableAbstractFieldOperation)val_).getDelta(),((SettableAbstractFieldOperation) val_).getFieldNameLength(), _currentFileName,id_);
             }
         }
     }
@@ -2287,7 +2283,7 @@ public final class LinkageUtil {
                     off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),
                     val_.getErrs(),_parts);
         } else {
-            updateFieldAnchor(_cont,val_.getErrs(),_parts,fieldId_,off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(), _currentFileName);
+            updateFieldAnchor(_cont,val_.getErrs(),_parts,fieldId_,off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(), _currentFileName,((LambdaOperation) val_).getValueOffset());
         }
         _parts.addAllElts(((LambdaOperation)val_).getPartOffsets());
     }
@@ -2890,7 +2886,7 @@ public final class LinkageUtil {
         return res_;
     }
 
-    private static void updateFieldAnchor(ContextEl _cont, StringList _errs, CustList<PartOffset> _parts, ClassField _id, int _begin, int _length, String _currentFileName) {
+    private static void updateFieldAnchor(ContextEl _cont, StringList _errs, CustList<PartOffset> _parts, ClassField _id, int _begin, int _length, String _currentFileName, int _offset) {
         String className_ = _id.getClassName();
         className_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _cont.getClassBody(className_);
@@ -2902,50 +2898,12 @@ public final class LinkageUtil {
             }
             return;
         }
-        int delta_ = -1;
-        for (ExecBlock b: ExecBlock.getDirectChildren((ExecBlock) type_)) {
-            if (!(b instanceof ExecFieldBlock)) {
-                continue;
-            }
-            ExecFieldBlock f_ = (ExecFieldBlock) b;
-            int i_ = 0;
-            int index_ = -1;
-            for (String n: f_.getFieldName()) {
-                if (StringList.quickEq(n, _id.getFieldName())) {
-                    index_ = i_;
-                    break;
-                }
-                i_++;
-            }
-            if (index_ > -1) {
-                delta_ = f_.getValuesOffset().get(index_);
-            }
-        }
-        if (delta_ > -1) {
-            String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
-            String rel_ = relativize(_currentFileName,file_+"#m"+delta_);
-            String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_,_begin));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,_begin+_length));
-        } else {
-            for (ExecBlock b: ExecBlock.getDirectChildren((ExecBlock) type_)) {
-                if (!(b instanceof ExecInnerTypeOrElement)) {
-                    continue;
-                }
-                ExecInnerTypeOrElement f_ = (ExecInnerTypeOrElement)b;
-                if (!StringList.quickEq(f_.getUniqueFieldName(),_id.getFieldName())) {
-                    continue;
-                }
-                delta_ = f_.getFieldNameOffset();
-            }
-            String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
-            String rel_ = relativize(_currentFileName,file_+"#m"+delta_);
-            String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_,_begin));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,_begin+_length));
-        }
+        String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
+        String rel_ = relativize(_currentFileName,file_+"#m"+_offset);
+        String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
+        _parts.add(new PartOffset(tag_,_begin));
+        tag_ = "</a>";
+        _parts.add(new PartOffset(tag_,_begin+_length));
     }
     public static String relativize(String _currentFile,String _refFile) {
         int diffFirst_ = -1;

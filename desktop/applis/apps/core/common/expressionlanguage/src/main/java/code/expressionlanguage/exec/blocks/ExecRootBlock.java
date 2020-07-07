@@ -363,9 +363,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         for (EntryCust<InfoBlock,ExecInfoBlock> e: mem_.getAllFields().entryList()) {
             e.getValue().buildImportedTypes(e.getKey());
         }
-        for (EntryCust<FieldBlock,ExecFieldBlock> e: mem_.getAllExplicitFields().entryList()) {
-            e.getValue().setValuesOffset(e.getKey().getValuesOffset());
-        }
     }
 
     public String getOuterFullName() {

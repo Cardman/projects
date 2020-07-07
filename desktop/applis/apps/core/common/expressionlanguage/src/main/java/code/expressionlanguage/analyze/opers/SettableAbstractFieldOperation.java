@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
@@ -90,8 +91,10 @@ public abstract class SettableAbstractFieldOperation extends
             return;
         }
         e_ = r_.getId();
-        if (e_.getValueOffset().isValidIndex(indexCh_)) {
+        if (_conf.getAnalyzing().getCurrentBlock() instanceof FieldBlock &&ElUtil.isDeclaringVariable(this)) {
             valueOffset = e_.getValueOffset().get(indexCh_);
+        } else {
+            valueOffset = e_.getValOffset();
         }
         fieldType = e_.getType();
         fieldMetaInfo = e_;
@@ -235,4 +238,5 @@ public abstract class SettableAbstractFieldOperation extends
     public int getFieldNameLength() {
         return fieldNameLength;
     }
+
 }

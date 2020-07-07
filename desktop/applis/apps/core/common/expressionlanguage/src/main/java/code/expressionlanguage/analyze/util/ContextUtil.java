@@ -246,31 +246,49 @@ public final class ContextUtil {
         _parts.add(new PartOffset("</a>",rc_+_end));
     }
 
+    public static boolean isFinalField(ContextEl _cont, ClassField _classField) {
+        FieldInfo fieldInfo_ = getFieldInfo(_cont, _classField);
+        if (fieldInfo_ == null) {
+            return false;
+        }
+        return fieldInfo_.isFinalField();
+    }
     public static FieldInfo getFieldInfo(ContextEl _cont, ClassField _classField) {
         String fullName_ = _classField.getClassName();
-        GeneType g_ = _cont.getClassBody(fullName_);
         String search_ = _classField.getFieldName();
-        if (g_ instanceof ExecRootBlock) {
-            for (ExecBlock b: ExecBlock.getDirectChildren((ExecBlock) g_)) {
-                if (!(b instanceof ExecInfoBlock)) {
+        RootBlock cust_ = _cont.getAnalyzing().getAnaClassBody(fullName_);
+        if (cust_ != null) {
+            for (Block b: ClassesUtil.getDirectChildren(cust_)) {
+                if (!(b instanceof InfoBlock)) {
                     continue;
                 }
-                ExecInfoBlock i_ = (ExecInfoBlock) b;
-                if (!StringList.contains(i_.getFieldName(), search_)) {
+                InfoBlock i_ = (InfoBlock) b;
+                int ind_ = StringList.indexOf(i_.getFieldName(), search_);
+                if (ind_ < 0) {
                     continue;
                 }
+                int valOffset_ = -1;
                 Ints valueOffset_ = new Ints();
-                if (i_ instanceof ExecFieldBlock) {
-                    valueOffset_ = ((ExecFieldBlock)i_).getValuesOffset();
+                if (i_ instanceof FieldBlock) {
+                    if (((FieldBlock)i_).isNameError()) {
+                        continue;
+                    }
+                    valOffset_ = ((FieldBlock)i_).getValuesOffset().get(ind_);
+                    valueOffset_ = ((FieldBlock)i_).getValuesOffset();
+                }
+                if (i_ instanceof InnerTypeOrElement) {
+                    valOffset_ = i_.getFieldNameOffset();
+                    valueOffset_ = new Ints(i_.getFieldNameOffset());
                 }
                 String type_ = i_.getImportedClassName();
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
-                Accessed a_ = new Accessed(i_.getAccess(),g_.getPackageName(),fullName_,((ExecRootBlock) g_).getOuterFullName());
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, a_, valueOffset_);
+                Accessed a_ = new Accessed(i_.getAccess(),cust_.getPackageName(),fullName_, cust_.getOuterFullName());
+                return FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_, valOffset_,valueOffset_);
             }
             return null;
         }
+        GeneType g_ = _cont.getClassBody(fullName_);
         if (g_ instanceof StandardType) {
             for (EntryCust<String, StandardField> f: ((StandardType)g_).getFields().entryList()) {
                 StandardField f_ = f.getValue();
@@ -281,7 +299,7 @@ public final class ContextUtil {
                 boolean final_ = f_.isFinalField();
                 boolean static_ = f_.isStaticField();
                 Accessed a_ = new Accessed(AccessEnum.PUBLIC,"","","");
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, a_,new Ints());
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, a_,-1,new Ints());
             }
         }
         return null;

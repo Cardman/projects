@@ -52,6 +52,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private boolean staticField;
     private boolean finalField;
     private boolean affField;
+    private int valueOffset;
     private String returnFieldType;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
@@ -1141,6 +1142,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
+            valueOffset = r_.getId().getValOffset();
             affField = aff_;
             fieldId = r_.getId().getClassField();
             staticField = r_.getId().isStaticField();
@@ -1197,6 +1199,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
+            valueOffset = r_.getId().getValOffset();
             affField = aff_;
             fieldId = r_.getId().getClassField();
             staticField = r_.getId().isStaticField();
@@ -1294,6 +1297,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
+        valueOffset = r_.getId().getValOffset();
         affField = aff_;
         fieldId = r_.getId().getClassField();
         staticField = r_.getId().isStaticField();
@@ -1814,4 +1818,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return StringList.getFirstPrintableCharIndex(className);
     }
 
+    public int getValueOffset() {
+        return valueOffset;
+    }
 }

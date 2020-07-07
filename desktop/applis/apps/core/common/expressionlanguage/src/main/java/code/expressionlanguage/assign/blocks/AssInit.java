@@ -65,8 +65,7 @@ public final class AssInit extends AssMemberCallingsBlock {
         String cl_ = StringExpUtil.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
         String name_ = _pair.getKey();
         ClassField key_ = new ClassField(cl_, name_);
-        FieldInfo finfo_ = ContextUtil.getFieldInfo(_an,key_);
-        if (!finfo_.isFinalField()) {
+        if (!ContextUtil.isFinalField(_an,key_)) {
             return;
         }
         SimpleAssignment a_ = _pair.getValue();

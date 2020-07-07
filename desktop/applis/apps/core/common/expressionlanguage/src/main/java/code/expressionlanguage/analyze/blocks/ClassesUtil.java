@@ -1569,8 +1569,7 @@ public final class ClassesUtil {
             for (EntryCust<String, SimpleAssignment> a: assAfter_.entryList()) {
                 String key_ = a.getKey();
                 ClassField id_ = new ClassField(fullName_, key_);
-                FieldInfo finfo_ = ContextUtil.getFieldInfo(_context,id_);
-                if (!finfo_.isFinalField()) {
+                if (!ContextUtil.isFinalField(_context,id_)) {
                     continue;
                 }
                 if (!StringList.contains(page_.getInitFields(),key_)) {
@@ -1669,8 +1668,7 @@ public final class ClassesUtil {
                 for (EntryCust<String, SimpleAssignment> a : assAfter_.entryList()) {
                     String fieldName_ = a.getKey();
                     ClassField key_ = new ClassField(fullName_, fieldName_);
-                    FieldInfo finfo_ = ContextUtil.getFieldInfo(_context,key_);
-                    if (!finfo_.isFinalField()) {
+                    if (!ContextUtil.isFinalField(_context,key_)) {
                         continue;
                     }
                     if (StringList.contains(page_.getInitFields(), fieldName_)) {
@@ -1709,8 +1707,7 @@ public final class ClassesUtil {
                     for (EntryCust<String, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
                         String fieldName_ = f.getKey();
                         ClassField key_ = new ClassField(fullName_, fieldName_);
-                        FieldInfo finfo_ = ContextUtil.getFieldInfo(_context,key_);
-                        if (!finfo_.isFinalField()) {
+                        if (!ContextUtil.isFinalField(_context,key_)) {
                             continue;
                         }
                         if (StringList.contains(page_.getInitFieldsCtors(),fieldName_)) {
@@ -2012,6 +2009,17 @@ public final class ClassesUtil {
         }
         pkgs_.removeDuplicates();
         return pkgs_;
+    }
+
+
+    public static CustList<InfoBlock> getFieldBlocks(RootBlock _element){
+        CustList<InfoBlock> methods_ = new CustList<InfoBlock>();
+        for (Block b: getDirectChildren(_element)) {
+            if (b instanceof InfoBlock) {
+                methods_.add((InfoBlock) b);
+            }
+        }
+        return methods_;
     }
 
 }

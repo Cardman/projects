@@ -74,8 +74,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             String key_ = e.getKey();
             String cl_ = StringExpUtil.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
             ClassField id_ = new ClassField(cl_,key_);
-            FieldInfo meta_ = ContextUtil.getFieldInfo(_an,id_);
-            if (!meta_.isFinalField()) {
+            if (!ContextUtil.isFinalField(_an,id_)) {
                 continue;
             }
             processFinalFields(this, false, _an, _root, key_);

@@ -62,6 +62,8 @@ public final class ElUtil {
                 String afterName_ = trimmed_.substring(name_.length()).trim();
                 if (ElResolver.isPureAffectation(afterName_,afterName_.length())) {
                     addFieldName(names_, var_, offset_, true, name_);
+                } else {
+                    addFieldName(names_, var_, offset_, false, trimmed_);
                 }
             }
             return names_;
@@ -78,9 +80,7 @@ public final class ElUtil {
     }
 
     private static void addPart(CustList<PartOffsetAffect> names_, String var_, String trimmed_, String name_, int i, boolean b) {
-        if (StringExpUtil.isTypeLeafPart(trimmed_)) {
-            addFieldName(names_, var_, i, b, name_);
-        }
+        addFieldName(names_, var_, i, b, name_);
     }
 
     private static void addFieldName(CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff, String name_) {

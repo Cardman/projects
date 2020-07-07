@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
@@ -94,7 +95,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
         CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
         fields_.add(new PartOffsetAffect(new PartOffset(fieldName,valueOffest),true));
-        for (FoundErrorInterpret e: FieldBlock.checkFieldsNames(_cont,this,_fieldNames,fields_)){
+        for (StringList e: FieldBlock.checkFieldsNames(_cont,this,_fieldNames,fields_)){
             addNameErrors(e);
         }
     }
@@ -129,6 +130,16 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     @Override
     public CustList<PartOffset> getTypePartOffsets() {
         return partOffsets;
+    }
+
+    @Override
+    public boolean isFinalField() {
+        return true;
+    }
+
+    @Override
+    public AccessEnum getAccess() {
+        return AccessEnum.PUBLIC;
     }
 
     public void buildExpressionLanguageReadOnly(ContextEl _cont, ExecInnerTypeOrElement _exec) {
@@ -214,12 +225,11 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
 
-    public void addNameErrors(FoundErrorInterpret _error) {
-        nameErrors.add(_error.getBuiltError());
-    }
-
     public void addNameErrors(String _error) {
         nameErrors.add(_error);
+    }
+    public void addNameErrors(StringList _error) {
+        nameErrors.addAllElts(_error);
     }
     public StringList getNameErrors() {
         return nameErrors;

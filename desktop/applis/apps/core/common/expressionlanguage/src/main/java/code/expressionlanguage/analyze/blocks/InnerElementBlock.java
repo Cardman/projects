@@ -171,6 +171,12 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     public CustList<PartOffset> getTypePartOffsets() {
         return partOffsets;
     }
+
+    @Override
+    public boolean isFinalField() {
+        return true;
+    }
+
     @Override
     public boolean isStaticField() {
         return true;

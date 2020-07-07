@@ -124,8 +124,7 @@ public final class AssAffectationOperation extends AssMultMethodOperation {
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
             ClassField cl_ = cst_.getFieldId();
             if (AssUtil.checkFinalField(_conf, _ass,cst_, fieldsAfterLast_)) {
-                FieldInfo meta_ = ContextUtil.getFieldInfo(_conf,cl_);
-                if (meta_.isFinalField()) {
+                if (ContextUtil.isFinalField(_conf,cl_)) {
                     //error if final field
                     firstChild_.setRelativeOffsetPossibleAnalyzable(_conf);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();

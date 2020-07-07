@@ -1248,7 +1248,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $int <a name=\"m33\" title=\"The field name #e is not valid. It must be a word.\" class=\"e\">#e</a>;\n" +
+                " $int <a title=\"The field name #e is not valid. It must be a word.\" class=\"e\">#e</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -1264,7 +1264,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $int <a name=\"m33\" title=\"the field name e is duplicated.\" class=\"e\">e</a>,<a name=\"m35\" title=\"the field name e is duplicated.\" class=\"e\">e</a>;\n" +
+                " $int <a title=\"the field name e is duplicated.\" class=\"e\">e</a>,<a title=\"the field name e is duplicated.\" class=\"e\">e</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -9083,6 +9083,48 @@ public class ErrorsTest extends ProcessMethodCommon {
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">v</a>;\n" +
                 " {\n" +
                 "  <a title=\"pkg.MySub.v\" href=\"#m34\">v</a>[1<a title=\"The expression part is empty.\" class=\"e\">,</a><a title=\"The expression part is empty.\" class=\"e\">,</a>];\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report435Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $int i,,k;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $int <a title=\"The field name  is not valid. It must be a word.\" class=\"e\">i</a><a title=\"The expression part is empty.\" class=\"e\">,</a>,<a title=\"The field name  is not valid. It must be a word.\" class=\"e\">k</a>;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report436Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $public $static $final $int i,,k;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class [$static pkg.MySub.i;] pkg.MySub2 {\n");
+        xml_.append(" {\n");
+        xml_.append("  (i);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $public $static $final $int <a title=\"The field name  is not valid. It must be a word.\" class=\"e\">i</a><a title=\"The expression part is empty.\" class=\"e\">,</a>,<a title=\"The field name  is not valid. It must be a word.\" class=\"e\">k</a>;\n" +
+                "}\n" +
+                "$public $class [<span class=\"i\">$static pkg.MySub.i</span>;] <a name=\"m102\">pkg.MySub2 </a>{\n" +
+                " {\n" +
+                "  (<a title=\"There is no accessible field named i from the type pkg.MySub2 in this context.\" class=\"e\">i</a>);\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());

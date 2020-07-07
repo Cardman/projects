@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ImportedField;
 import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.analyze.accessing.Accessed;
-import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.*;
@@ -692,19 +692,32 @@ public final class ResolvingImportTypes {
             GeneType super_ = _analyzable.getClassBody(s);
             if (super_ instanceof StandardType) {
                 for (StandardField m: ((StandardType)super_).getFields().values()) {
-                    if (notMatch(_method, m)) {
+                    int ind_ = notMatch(_method, m);
+                    if (ind_ < 0) {
                         continue;
                     }
                     Accessed a_ = new Accessed(AccessEnum.PUBLIC,"","","");
-                    addImport(_methods,s, new ImportedField(_import,a_,m.getImportedClassName(),m.isFinalField()));
+                    addImport(_methods,s, new ImportedField(_import,a_,m.getImportedClassName(),m.isFinalField(),-1));
                 }
             }
-            if (super_ instanceof ExecRootBlock){
-                String pkg_ = super_.getPackageName();
-                String outerFullName_ = ((ExecRootBlock) super_).getOuterFullName();
-                for (ExecInfoBlock e: ContextUtil.getFieldBlocks((ExecRootBlock) super_)) {
-                    if (notMatch(_method, e)) {
+            RootBlock cust_ = _analyzable.getAnalyzing().getAnaClassBody(s);
+            if (cust_ != null){
+                String pkg_ = cust_.getPackageName();
+                String outerFullName_ = cust_.getOuterFullName();
+                for (InfoBlock e: ClassesUtil.getFieldBlocks(cust_)) {
+                    int ind_ = notMatch(_method, e);
+                    if (ind_ < 0) {
                         continue;
+                    }
+                    int v_ = -1;
+                    if (e instanceof FieldBlock) {
+                        if (((FieldBlock)e).isNameError()) {
+                            continue;
+                        }
+                        v_ = ((FieldBlock)e).getValuesOffset().get(ind_);
+                    }
+                    if (e instanceof InnerTypeOrElement) {
+                        v_ = e.getFieldNameOffset();
                     }
                     Accessed a_ = new Accessed(e.getAccess(),pkg_,s,outerFullName_);
                     if (!ContextUtil.canAccess(_typeLoc, a_, _analyzable)) {
@@ -713,7 +726,7 @@ public final class ResolvingImportTypes {
                     if (!ContextUtil.canAccess(_glClass, a_, _analyzable)) {
                         continue;
                     }
-                    addImport(_methods,s, new ImportedField(_import,a_,e.getImportedClassName(),e.isFinalField()));
+                    addImport(_methods,s, new ImportedField(_import,a_,e.getImportedClassName(),e.isFinalField(),v_));
                 }
             }
         }
@@ -726,11 +739,11 @@ public final class ResolvingImportTypes {
         }
         _methods.addEntry(_class,_value);
     }
-    private static boolean notMatch(String _method, GeneField _field) {
+    private static int notMatch(String _method, GeneField _field) {
         if (!_field.isStaticField()) {
-            return true;
+            return -1;
         }
-        return !StringList.contains(_field.getFieldName(), _method.trim());
+        return StringList.indexOf(_field.getFieldName(), _method.trim());
     }
     private static void fetchImports(AccessedBlock _rooted, CustList<StringList> _imports) {
         if (_rooted instanceof ExecRootBlock) {

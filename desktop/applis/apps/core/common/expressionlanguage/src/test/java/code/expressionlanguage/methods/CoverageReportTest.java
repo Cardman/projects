@@ -12508,6 +12508,168 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage324Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class [static pkg.ExTwo.CST;] pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return CST;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public static final int CST = 15;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class [<span class=\"i\">static pkg.ExTwo.CST</span>;] <a name=\"m37\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m65\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExTwo.CST\" href=\"#m144\">CST</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m107\">pkg.ExTwo </a>{\n" +
+                " public static final int <span class=\"g\"><span class=\"g\"><a name=\"m144\">CST</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage325Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class [static pkg.ExTwo.CST;] pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return CST;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public static final int CST = 15, CST2 = 30;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class [<span class=\"i\">static pkg.ExTwo.CST</span>;] <a name=\"m37\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m65\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExTwo.CST\" href=\"#m144\">CST</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m107\">pkg.ExTwo </a>{\n" +
+                " public static final int <span class=\"g\"><span class=\"g\"><span class=\"g\"><a name=\"m144\">CST</a> </span>=<span class=\"g\"> 15</span></span>,<span class=\"g\"><span class=\"g\"><a name=\"m154\"> CST</a>2 </span>=<span class=\"g\"> 30</span></span></span>;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage326Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class [static pkg.ExTwo.CST2;] pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return CST2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public static final int CST = 15, CST2 = 30;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class [<span class=\"i\">static pkg.ExTwo.CST2</span>;] <a name=\"m38\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m66\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExTwo.CST2\" href=\"#m156\">CST2</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m109\">pkg.ExTwo </a>{\n" +
+                " public static final int <span class=\"g\"><span class=\"g\"><span class=\"g\"><a name=\"m146\">CST</a> </span>=<span class=\"g\"> 15</span></span>,<span class=\"g\"><span class=\"g\"><a name=\"m156\"> CST</a>2 </span>=<span class=\"g\"> 30</span></span></span>;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage327Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class [static pkg.ExTwo.*;] pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return CST + CST2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public static final int CST = 15, CST2 = 30;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class [<span class=\"i\">static pkg.ExTwo.*</span>;] <a name=\"m35\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m63\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExTwo.CST\" href=\"#m149\">CST</a> </span>+<span class=\"f\"> <a title=\"pkg.ExTwo.CST2\" href=\"#m159\">CST2</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m112\">pkg.ExTwo </a>{\n" +
+                " public static final int <span class=\"g\"><span class=\"g\"><span class=\"g\"><a name=\"m149\">CST</a> </span>=<span class=\"g\"> 15</span></span>,<span class=\"g\"><span class=\"g\"><a name=\"m159\"> CST</a>2 </span>=<span class=\"g\"> 30</span></span></span>;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage328Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExEnum {\n");
+        xml_.append("ONE,TWO{}\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int o = 10;\n");
+        xml_.append("  ExEnum t;\n");
+        xml_.append("  t=ExEnum.ONE;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case ONE:\n");
+        xml_.append("   $case TWO:\n");
+        xml_.append("    o=12;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum </a>{\n" +
+                "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>{}\n" +
+                "}\n" +
+                "$public $class <a name=\"m54\">pkg.Ex </a>{\n" +
+                " $public $static $int <a name=\"m85\">exmeth</a>(){\n" +
+                "  $int <span class=\"f\"><span class=\"f\"><a name=\"m102\">o</a> </span>=<span class=\"f\"> 10</span></span>;\n" +
+                "  <a title=\"pkg.ExEnum\" href=\"#m14\">ExEnum</a> <span class=\"f\"><a name=\"m119\">t</a></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m119\">t</a></span>=<span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum\" href=\"#m14\">ExEnum</a></span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m27\">ONE</a></span></span></span>;\n" +
+                "  <span class=\"p\"><a title=\"1/3\">$switch</a></span>(<span class=\"f\"><a href=\"#m119\">t</a></span>){\n" +
+                "   $case <span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m27\">ONE</a></span>:\n" +
+                "   $case <span class=\"n\"><a title=\"pkg.ExEnum.TWO\" href=\"#m31\">TWO</a></span>:\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m102\">o</a></span>=<span class=\"f\">12</span></span>;\n" +
+                "  }\n" +
+                "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m102\">o</a></span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

@@ -77,8 +77,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         if (procField_) {
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                 if (StringList.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
-                    FieldInfo meta_ = ContextUtil.getFieldInfo(_conf,cl_);
-                    if (meta_.isFinalField() && !AssUtil.isDeclaringField(this, _ass)) {
+                    if (ContextUtil.isFinalField(_conf,cl_) && !AssUtil.isDeclaringField(this, _ass)) {
                         //error if final field
                         setRelativeOffsetPossibleAnalyzable(_conf);
                         FoundErrorInterpret un_ = new FoundErrorInterpret();

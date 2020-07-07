@@ -1663,4 +1663,11 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock {
         getErrorsBlock().add(_error.getBuiltError());
     }
 
+    public String getOuterFullName() {
+        RootBlock par_ = getParentType();
+        if (par_ == null) {
+            return getFullName();
+        }
+        return par_.getFullName();
+    }
 }

@@ -58,7 +58,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private OperationNode root;
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private final StringList nameRetErrors = new StringList();
-    private final StringList nameErrors = new StringList();
+    private final StringList allNameErrors = new StringList();
+    private final CustList<StringList> nameErrors = new CustList<StringList>();
+    private boolean nameError;
     public FieldBlock(OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
                       OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -170,9 +172,13 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             b_.buildError(_cont.getAnalysisMessages().getNotRetrievedFields());
             _cont.addError(b_);
             addNameRetErrors(b_);
+            nameError = true;
         }
-        for (FoundErrorInterpret e: checkFieldsNames(_cont, this, _fieldNames, names_)){
+        for (StringList e: checkFieldsNames(_cont, this, _fieldNames, names_)){
             addNameErrors(e);
+            if (!e.isEmpty()) {
+                nameError = true;
+            }
         }
         for (PartOffsetAffect n: names_) {
             PartOffset p_ = n.getPartOffset();
@@ -185,12 +191,13 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
     }
 
-    static CustList<FoundErrorInterpret> checkFieldsNames(ContextEl _cont, Block _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names) {
+    static CustList<StringList> checkFieldsNames(ContextEl _cont, Block _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names) {
         StringList idsField_ = new StringList(_fieldNames);
-        CustList<FoundErrorInterpret> found_ = new CustList<FoundErrorInterpret>();
+        CustList<StringList> found_ = new CustList<StringList>();
         for (PartOffsetAffect n: _names) {
             PartOffset p_ = n.getPartOffset();
             String trName_ = p_.getPart();
+            StringList err_ = new StringList();
             TokenErrorMessage mess_ = ManageTokens.partField(_cont).checkStdToken(_cont,trName_);
             if (mess_.isError()) {
                 FoundErrorInterpret b_;
@@ -200,7 +207,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 //trName_ len
                 b_.setBuiltError(mess_.getMessage());
                 _cont.addError(b_);
-                found_.add(b_);
+                err_.add(b_.getBuiltError());
             }
             for (String m: idsField_) {
                 if (StringList.quickEq(m, trName_)) {
@@ -213,9 +220,10 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                     duplicate_.buildError(_cont.getAnalysisMessages().getDuplicateField(),
                             trName_);
                     _cont.addError(duplicate_);
-                    found_.add(duplicate_);
+                    err_.add(duplicate_.getBuiltError());
                 }
             }
+            found_.add(err_);
             idsField_.add(trName_);
             _fieldNames.add(trName_);
         }
@@ -280,12 +288,13 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return roots;
     }
 
-
-    public void addNameErrors(FoundErrorInterpret _error) {
-        nameErrors.add(_error.getBuiltError());
+    public void addNameErrors(StringList _error) {
+        allNameErrors.addAllElts(_error);
+        nameErrors.add(_error);
     }
-    public StringList getNameErrors() {
-        return nameErrors;
+
+    public StringList getAllNameErrors() {
+        return allNameErrors;
     }
 
     public void addNameRetErrors(FoundErrorInterpret _error) {
@@ -293,6 +302,10 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
     public StringList getNameRetErrors() {
         return nameRetErrors;
+    }
+
+    public boolean isNameError() {
+        return nameError;
     }
 
 }

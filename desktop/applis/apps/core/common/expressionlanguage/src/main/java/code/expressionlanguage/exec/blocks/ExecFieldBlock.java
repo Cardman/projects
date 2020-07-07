@@ -16,7 +16,7 @@ import code.util.StringList;
 public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
 
     private final StringList fieldName = new StringList();
-    private Ints valuesOffset = new Ints();
+
     private String importedClassName;
 
     private int valueOffset;
@@ -76,14 +76,6 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
     public void buildImportedTypes(InfoBlock _key) {
         importedClassName = _key.getImportedClassName();
         fieldName.addAllElts(_key.getFieldName());
-    }
-
-    public Ints getValuesOffset() {
-        return valuesOffset;
-    }
-
-    public void setValuesOffset(Ints valuesOffset) {
-        this.valuesOffset = valuesOffset;
     }
 
     @Override
