@@ -10171,6 +10171,181 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report485Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $lambda($operator,MySub,+,$id,MySub...,MySub);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,+,$id,MySub<a title=\"The three dots are unexpected here.\" class=\"e\">...</a>,MySub);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report486Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $lambda($operator,MySub,+,MySub...,MySub);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,+,MySub<a title=\"The three dots are unexpected here.\" class=\"e\">...</a>,MySub);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report487Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $lambda(MySub,explicit,MySub,MySub,MySub);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  <a title=\"The number of required splitted parts by comas 2 is lower than the number of supplied splitted parts by comas 3.\" class=\"e\">$lambda</a>(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,explicit,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report488Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $lambda(MySub,method,MySub);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  <a title=\"The function method(pkg.MySub) is undefined.\" class=\"e\">$lambda</a>(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,method,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report489Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $lambda(MySub,$that,method,MySub);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $abstract $void method(MySub m);\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $abstract $class <a name=\"m25\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  <a title=\"The method method(pkg.MySub) from the type pkg.MySub must not be called directly because of abstract.\n" +
+                "\n" +
+                "pkg.MySub.method(pkg.MySub)\" href=\"#m105\" class=\"e\">$lambda</a>(<a title=\"pkg.MySub\" href=\"#m25\">MySub</a>,$that,method,<a title=\"pkg.MySub\" href=\"#m25\">MySub</a>);\n" +
+                " }\n" +
+                " $public $abstract $void <a name=\"m105\">method</a>(<a title=\"pkg.MySub\" href=\"#m25\">MySub</a> <a name=\"m118\">m</a>);\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report490Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $lambda(MySub,$new,MySub);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $abstract $class <a name=\"m25\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  <a title=\"The type pkg.MySub cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.MySub\" href=\"#m25\">MySub</a>,$new,<a title=\"pkg.MySub\" href=\"#m25\">MySub</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report491Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $lambda(MySub,$new,MySub);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  <a title=\"The constructor pkg.MySub(pkg.MySub) is undefined.\" class=\"e\">$lambda</a>(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,$new,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report492Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $final $int field;\n");
+        xml_.append(" {\n");
+        xml_.append("  $lambda(MySub,,field,$int);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $final $int <a name=\"m40\">field</a>;\n" +
+                " {\n" +
+                "  <a title=\"The field field is already assigned.\n" +
+                "\n" +
+                "pkg.MySub.field\" href=\"#m40\" class=\"e\">$lambda</a>(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,,field,$int);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
     private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
         validate(cont_,files_);
         assertTrue(!cont_.isEmptyErrors());

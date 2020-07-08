@@ -2939,7 +2939,7 @@ public final class LinkageUtil {
         }
         String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
         String rel_ = relativize(_currentFileName,file_+"#m"+_offset);
-        String tag_ = "<a title=\""+transform(className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\">";
+        String tag_ = "<a title=\""+merge(_errs,className_ +"."+ _id.getFieldName())+"\" href=\""+rel_+"\""+classErr(_errs)+">";
         _parts.add(new PartOffset(tag_,_begin));
         tag_ = "</a>";
         _parts.add(new PartOffset(tag_,_begin+_length));

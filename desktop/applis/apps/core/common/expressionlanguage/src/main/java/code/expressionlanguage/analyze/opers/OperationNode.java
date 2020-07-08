@@ -782,7 +782,7 @@ public abstract class OperationNode {
         out_.setConstId(cInfo_.getFormatted());
         return out_;
     }
-    static ConstrustorIdVarArg getDeclaredCustConstructorLambda(ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
+    static ConstrustorIdVarArg getDeclaredCustConstructorLambda(OperationNode _op,ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
                                                                 AnaGeneType _type,
             ConstructorId _uniqueId, ClassArgumentMatching... _args) {
         String clCurName_ = _class.getName();
@@ -833,6 +833,7 @@ public abstract class OperationNode {
             undefined_.buildError(_conf.getAnalysisMessages().getUndefinedCtor(),
                     new ConstructorId(clCurName_, classesNames_, false).getSignature(_conf));
             _conf.getAnalyzing().getLocalizer().addError(undefined_);
+            _op.getErrs().add(undefined_.getBuiltError());
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
             return out_;
@@ -913,10 +914,10 @@ public abstract class OperationNode {
         return_.setReturnType(_conf.getStandards().getAliasObject());
         return return_;
     }
-    static ClassMethodIdReturn getDeclaredCustMethodLambda(ContextEl _conf, int _varargOnly,
-    MethodAccessKind _staticContext, StringList _classes, String _name,
-    boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodIdAncestor _uniqueId, ClassArgumentMatching... _argsClass) {
-        ClassMethodIdReturn res_ = tryGetDeclaredCustMethodLambda(_conf, _varargOnly, _staticContext, _classes, _name, _superClass, _accessFromSuper, _import, _uniqueId, _argsClass);
+    static ClassMethodIdReturn getDeclaredCustMethodLambda(OperationNode _op,ContextEl _conf, int _varargOnly,
+                                                           MethodAccessKind _staticContext, StringList _classes, String _name,
+                                                           boolean _superClass, boolean _accessFromSuper, ClassMethodIdAncestor _uniqueId, ClassArgumentMatching... _argsClass) {
+        ClassMethodIdReturn res_ = tryGetDeclaredCustMethodLambda(_conf, _varargOnly, _staticContext, _classes, _name, _superClass, _accessFromSuper, false, _uniqueId, _argsClass);
         if (res_.isFoundMethod()) {
             return res_;
         }
@@ -932,6 +933,7 @@ public abstract class OperationNode {
         undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(_staticContext, _name, classesNames_).getSignature(_conf));
         _conf.getAnalyzing().getLocalizer().addError(undefined_);
+        _op.getErrs().add(undefined_.getBuiltError());
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
         return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
         return_.setRealClass(_classes.first());

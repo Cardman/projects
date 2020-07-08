@@ -159,6 +159,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                             type_);
                     _conf.getAnalyzing().getLocalizer().addError(un_);
+                    getErrs().add(un_.getBuiltError());
                     setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                     return;
                 }
@@ -209,6 +210,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         Integer.toString(argsRes_.getParametersTypes().size())
                 );
                 _conf.getAnalyzing().getLocalizer().addError(static_);
+                getErrs().add(static_.getBuiltError());
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
@@ -222,6 +224,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         Integer.toString(argsRes_.getParametersTypes().size())
                 );
                 _conf.getAnalyzing().getLocalizer().addError(static_);
+                getErrs().add(static_.getBuiltError());
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
@@ -355,6 +358,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         static_.buildError(_conf.getAnalysisMessages().getBadParameTypeForId(),
                                 s);
                         _conf.getAnalyzing().getLocalizer().addError(static_);
+                        getErrs().add(static_.getBuiltError());
                         setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                         return;
                     }
@@ -411,6 +415,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                                     StringList.join(p.getNames(),"&"));
                             _conf.getAnalyzing().getLocalizer().addError(un_);
+                            getErrs().add(un_.getBuiltError());
                         }
                         String cp_ = comp_;
                         comp_ = StringExpUtil.getQuickComponentType(comp_);
@@ -422,6 +427,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                                     cp_);
                             _conf.getAnalyzing().getLocalizer().addError(un_);
+                            getErrs().add(un_.getBuiltError());
                             err_ = true;
                             break;
                         }
@@ -461,9 +467,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new ClassArgumentMatching(fct_.toString()));
                 return;
             }
-            ClassMethodIdReturn id_ = getDeclaredCustMethodLambda(_conf, vararg_,
+            ClassMethodIdReturn id_ = getDeclaredCustMethodLambda(this,_conf, vararg_,
                     MethodAccessKind.INSTANCE, str_, name_,
-                    accessSuper_, accessFromSuper_, false,feed_,
+                    accessSuper_, accessFromSuper_, feed_,
                     ClassArgumentMatching.toArgArray(_methodTypes));
             if (!id_.isFoundMethod()) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
@@ -535,7 +541,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             for (String s: argsRes_.getParametersTypes()) {
                 _methodTypes.add(new ClassArgumentMatching(s));
             }
-            ClassMethodIdReturn id_ = getDeclaredCustMethodLambda(_conf, vararg_, kind_, str_, name_, true, false, false, feed_, ClassArgumentMatching.toArgArray(_methodTypes));
+            ClassMethodIdReturn id_ = getDeclaredCustMethodLambda(this,_conf, vararg_, kind_, str_, name_, true, false, feed_, ClassArgumentMatching.toArgArray(_methodTypes));
             if (!id_.isFoundMethod()) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
@@ -617,6 +623,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     static_.buildError(_conf.getAnalysisMessages().getBadParameTypeForId(),
                             s);
                     _conf.getAnalyzing().getLocalizer().addError(static_);
+                    getErrs().add(static_.getBuiltError());
                     setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                     return;
                 }
@@ -673,6 +680,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                                 StringList.join(p.getNames(),"&"));
                         _conf.getAnalyzing().getLocalizer().addError(un_);
+                        getErrs().add(un_.getBuiltError());
                     }
                     String cp_ = comp_;
                     comp_ = StringExpUtil.getQuickComponentType(comp_);
@@ -684,6 +692,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                                 cp_);
                         _conf.getAnalyzing().getLocalizer().addError(un_);
+                        getErrs().add(un_.getBuiltError());
                         err_ = true;
                         break;
                     }
@@ -735,12 +744,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     StringList.join(bounds_,"&"),
                     StringList.join(str_,"&"));
             _conf.getAnalyzing().getLocalizer().addError(cast_);
+            getErrs().add(cast_.getBuiltError());
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
-        ClassMethodIdReturn id_ = getDeclaredCustMethodLambda(_conf, vararg_, stCtx_, str_,
+        ClassMethodIdReturn id_ = getDeclaredCustMethodLambda(this,_conf, vararg_, stCtx_, str_,
                 name_, accessSuper_, accessFromSuper_,
-                false, feed_, ClassArgumentMatching.toArgArray(_methodTypes));
+                feed_, ClassArgumentMatching.toArgArray(_methodTypes));
         if (!id_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
@@ -782,6 +792,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     _stds.getAliasClone(),
                     StringList.join(_str,"&"));
             _conf.getAnalyzing().getLocalizer().addError(undefined_);
+            getErrs().add(undefined_.getBuiltError());
             return true;
         }
         return false;
@@ -808,6 +819,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         _id.getRealClass(),
                         _id.getRealId().getSignature(_conf));
                 _conf.getAnalyzing().getLocalizer().addError(abs_);
+                getErrs().add(abs_.getBuiltError());
             }
         }
     }
@@ -854,6 +866,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     static_.buildError(_conf.getAnalysisMessages().getBadParameTypeForId(),
                             s);
                     _conf.getAnalyzing().getLocalizer().addError(static_);
+                    getErrs().add(static_.getBuiltError());
                     setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                     return;
                 }
@@ -885,6 +898,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 call_.buildError(_conf.getAnalysisMessages().getIllegalCtorAbstract(),
                         id_);
                 _conf.getAnalyzing().getLocalizer().addError(call_);
+                getErrs().add(call_.getBuiltError());
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
@@ -898,6 +912,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             p,
                             clFrom_);
                     _conf.getAnalyzing().getLocalizer().addError(call_);
+                    getErrs().add(call_.getBuiltError());
                 }
                 if (p.startsWith(Templates.SUP_TYPE)) {
                     FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -908,10 +923,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             p,
                             clFrom_);
                     _conf.getAnalyzing().getLocalizer().addError(call_);
+                    getErrs().add(call_.getBuiltError());
                 }
             }
             ConstrustorIdVarArg ctorRes_;
-            ctorRes_ = getDeclaredCustConstructorLambda(_conf, vararg_, new ClassArgumentMatching(clFrom_), h_,feed_, ClassArgumentMatching.toArgArray(_methodTypes));
+            ctorRes_ = getDeclaredCustConstructorLambda(this,_conf, vararg_, new ClassArgumentMatching(clFrom_), h_,feed_, ClassArgumentMatching.toArgArray(_methodTypes));
             realId = ctorRes_.getRealId();
             if (realId == null) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
@@ -962,6 +978,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 call_.buildError(_conf.getAnalysisMessages().getIllegalCtorArray(),
                         o);
                 _conf.getAnalyzing().getLocalizer().addError(call_);
+                getErrs().add(call_.getBuiltError());
                 ok_ = false;
                 continue;
             }
@@ -975,6 +992,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             p,
                             o);
                     _conf.getAnalyzing().getLocalizer().addError(call_);
+                    getErrs().add(call_.getBuiltError());
                     ok_ = false;
                 }
                 if (p.startsWith(Templates.SUP_TYPE)) {
@@ -986,6 +1004,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             p,
                             o);
                     _conf.getAnalyzing().getLocalizer().addError(call_);
+                    getErrs().add(call_.getBuiltError());
                     ok_ = false;
                 }
             }
@@ -1009,6 +1028,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     idClass_
             );
             _conf.getAnalyzing().getLocalizer().addError(static_);
+            getErrs().add(static_.getBuiltError());
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
@@ -1046,6 +1066,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         p,
                         _cl);
                 _conf.getAnalyzing().getLocalizer().addError(call_);
+                getErrs().add(call_.getBuiltError());
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -1056,6 +1077,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         p,
                         _cl);
                 _conf.getAnalyzing().getLocalizer().addError(call_);
+                getErrs().add(call_.getBuiltError());
             }
         }
         String id_ = StringExpUtil.getIdFromAllTypes(_cl);
@@ -1070,10 +1092,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     id_);
             _conf.getAnalyzing().getLocalizer().addError(call_);
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
+            getErrs().add(call_.getBuiltError());
             return;
         }
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructorLambda(_conf, _vararg, new ClassArgumentMatching(_cl),h_, _feed, ClassArgumentMatching.toArgArray(_methodTypes));
+        ctorRes_ = getDeclaredCustConstructorLambda(this,_conf, _vararg, new ClassArgumentMatching(_cl),h_, _feed, ClassArgumentMatching.toArgArray(_methodTypes));
         realId = ctorRes_.getRealId();
         if (realId == null) {
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
@@ -1582,6 +1605,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                         StringList.join(clArg_.getNames(),"&"));
                 _conf.getAnalyzing().getLocalizer().addError(un_);
+                getErrs().add(un_.getBuiltError());
                 err_ = true;
             }
             _methodTypes.add(clArg_);
@@ -1596,6 +1620,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     Integer.toString(_len)
             );
             _conf.getAnalyzing().getLocalizer().addError(badCall_);
+            getErrs().add(badCall_.getBuiltError());
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
@@ -1637,11 +1662,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     //last type => error
                     FoundErrorInterpret varg_ = new FoundErrorInterpret();
                     varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    varg_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    int i_ = off_ + _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + full_.lastIndexOf("...");
+                    varg_.setIndexFile(i_);
                     //three dots
                     varg_.buildError(_conf.getAnalysisMessages().getUnexpectedVararg());
                     _conf.getAnalyzing().getLocalizer().addError(varg_);
                     setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                    partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
+                    partOffsets.add(new PartOffset("</a>",i_+3));
                     return null;
                 }
                 vararg_ = len_- _from;
@@ -1680,11 +1708,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     //last type => error
                     FoundErrorInterpret varg_ = new FoundErrorInterpret();
                     varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    varg_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    int i_ = offset_ + _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + param_.lastIndexOf("...");
+                    varg_.setIndexFile(i_);
                     //three dots
                     varg_.buildError(_conf.getAnalysisMessages().getUnexpectedVararg());
                     _conf.getAnalyzing().getLocalizer().addError(varg_);
                     setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                    partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
+                    partOffsets.add(new PartOffset("</a>",i_+3));
                     return null;
                 }
                 wrap_ = true;
