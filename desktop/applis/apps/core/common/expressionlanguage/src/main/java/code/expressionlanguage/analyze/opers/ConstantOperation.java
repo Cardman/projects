@@ -83,6 +83,7 @@ public final class ConstantOperation extends LeafOperation {
             badFormat_.buildError(_conf.getAnalysisMessages().getBadNbFormat(),
                     str_);
             _conf.getAnalyzing().getLocalizer().addError(badFormat_);
+            getErrs().add(badFormat_.getBuiltError());
             argClassName_ = stds_.getAliasPrimDouble();
         }
         Argument arg_ = Argument.createVoid();
@@ -101,5 +102,13 @@ public final class ConstantOperation extends LeafOperation {
         int offset_ = getIndexInEl();
         int begin_ = d_.getDelStringsChars().indexOfObj(firstPrintChar_+offset_);
         return d_.getDelStringsChars().get(begin_+1)-offset_+1-firstPrintChar_;
+    }
+
+    public int getNbLength() {
+        Delimiters d_ = getOperations().getDelimiter();
+        int firstPrintChar_ = getOperations().getOffset();
+        int offset_ = getIndexInEl();
+        int begin_ = d_.getDelNumbers().indexOfObj(firstPrintChar_+offset_);
+        return d_.getDelNumbers().get(begin_+1)-offset_-firstPrintChar_;
     }
 }

@@ -85,7 +85,14 @@ public final class ElUtil {
 
     private static void addFieldName(CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff, String name_) {
         int delta_ = StringList.getFirstPrintableCharIndex(_name);
-        _list.add(new PartOffsetAffect(new PartOffset(name_,delta_+_offset),_aff));
+        String trim_ = name_.trim();
+        boolean add_ = true;
+        if (trim_.isEmpty()) {
+            add_ = false;
+        } else if (StringExpUtil.isDigit(trim_.charAt(0))) {
+            add_ = false;
+        }
+        _list.add(new PartOffsetAffect(new PartOffset(name_,delta_+_offset),_aff, add_, new StringList()));
     }
 
     private static String getFieldName(String _v) {
@@ -291,18 +298,24 @@ public final class ElUtil {
 
     public static void retrieveErrorsAnalyze(ContextEl _context, OperationNode _current) {
         _current.analyze(_context);
-        if (_context.getAnalyzing().getCurrentBlock() instanceof FieldBlock) {
+        Block currentBlock_ = _context.getAnalyzing().getCurrentBlock();
+        if (currentBlock_ instanceof FieldBlock) {
             MethodOperation parent_ = _current.getParent();
             if (parent_ instanceof DeclaringOperation) {
                 if (!(_current instanceof StandardFieldOperation)
                         &&!(_current instanceof AffectationOperation)) {
+                    int indexChild_ = _current.getIndexChild();
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
                     b_.setFileName(_context.getCurrentFileName());
                     b_.setIndexFile(_context.getCurrentLocationIndex());
                     b_.buildError(_context.getAnalysisMessages().getNotRetrievedFields());
                     _context.addError(b_);
-                    _current.getErrs().add(b_.getBuiltError());
+                    if (_current instanceof ConstantOperation) {
+                        _current.getErrs().addAllElts(((FieldBlock)currentBlock_).getNameErrors().get(indexChild_));
+                    } else {
+                        _current.getErrs().add(b_.getBuiltError());
+                    }
                 }
             } else {
                 if (parent_ instanceof AffectationOperation && parent_.getFirstChild() == _current && (parent_.getParent() == null ||parent_.getParent() instanceof DeclaringOperation)) {
@@ -313,7 +326,12 @@ public final class ElUtil {
                         b_.setIndexFile(_context.getCurrentLocationIndex());
                         b_.buildError(_context.getAnalysisMessages().getNotRetrievedFields());
                         _context.addError(b_);
-                        _current.getErrs().add(b_.getBuiltError());
+                        int indexChild_ = parent_.getIndexChild();
+                        if (_current instanceof ConstantOperation) {
+                            _current.getErrs().addAllElts(((FieldBlock)currentBlock_).getNameErrors().get(indexChild_));
+                        } else {
+                            _current.getErrs().add(b_.getBuiltError());
+                        }
                     }
                 }
             }

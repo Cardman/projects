@@ -24,6 +24,7 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -56,6 +57,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private int valueOffset;
     private String returnFieldType;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private CustList<PartOffset> partOffsetsEnd = new CustList<PartOffset>();
 
     public LambdaOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -82,6 +84,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     Integer.toString(len_)
             );
             _conf.getAnalyzing().getLocalizer().addError(badCall_);
+            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
+            partOffsetsEnd.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
+            partOffsetsEnd.add(new PartOffset("</a>",i_+1));
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -1369,6 +1374,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(previousResultClass.getNames(),"&"));
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            partOffsetsEnd.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
+            partOffsetsEnd.add(new PartOffset("</a>",i_+_conf.getKeyWords().getKeyWordLambda().length()));
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
@@ -1823,5 +1831,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public int getValueOffset() {
         return valueOffset;
+    }
+
+    public CustList<PartOffset> getPartOffsetsEnd() {
+        return partOffsetsEnd;
     }
 }

@@ -59,6 +59,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private final StringList nameRetErrors = new StringList();
     private final CustList<StringList> nameErrors = new CustList<StringList>();
+    private final CustList<StringList> nameErrorsFields = new CustList<StringList>();
 
     public FieldBlock(OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
@@ -181,8 +182,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             if (n.isAffect()) {
                 assignedDeclaredFields.add(name_);
             }
-            fieldName.add(name_);
-            valuesOffset.add(p_.getOffset());
+            if (n.isAdd()) {
+                fieldName.add(name_);
+                valuesOffset.add(p_.getOffset());
+                addNameErrorsFields(n.getErrs());
+            }
         }
     }
 
@@ -218,6 +222,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                     err_.add(duplicate_.getBuiltError());
                 }
             }
+            n.getErrs().addAllElts(err_);
             found_.add(err_);
             idsField_.add(trName_);
             _fieldNames.add(trName_);
@@ -289,8 +294,15 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         nameErrors.add(_error);
     }
 
+    public void addNameErrorsFields(StringList _error) {
+        nameErrorsFields.add(_error);
+    }
     public CustList<StringList> getNameErrors() {
         return nameErrors;
+    }
+
+    public CustList<StringList> getNameErrorsFields() {
+        return nameErrorsFields;
     }
 
     public void addNameRetErrors(FoundErrorInterpret _error) {

@@ -84,7 +84,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     @Override
     public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
         CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
-        fields_.add(new PartOffsetAffect(new PartOffset(fieldName,valueOffest),true));
+        fields_.add(new PartOffsetAffect(new PartOffset(fieldName,valueOffest),true, true, new StringList()));
         FieldBlock.checkFieldsNames(_cont,this,_fieldNames,fields_);
     }
 

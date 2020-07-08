@@ -1949,6 +1949,16 @@ public final class LinkageUtil {
                 tag_ = "</span>";
                 _parts.add(new PartOffset(tag_,begin_+ ((ConstantOperation)val_).getLength()));
             }
+            if (val_.getOperations().getConstType() == ConstType.NUMBER) {
+                if (!val_.getErrs().isEmpty()) {
+                    String tag_ = "<a title=\""+transform(StringList.join(val_.getErrs(),"\n\n"))+"\" class=\"e\">";
+                    int off_ = val_.getOperations().getOffset();
+                    int begin_ = sum_ + off_ + val_.getIndexInEl();
+                    _parts.add(new PartOffset(tag_,begin_));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,begin_+((ConstantOperation)val_).getNbLength()));
+                }
+            }
         }
     }
 
@@ -2116,7 +2126,7 @@ public final class LinkageUtil {
         if (val_ instanceof SettableAbstractFieldOperation) {
             int indexBlock_ = ((SettableAbstractFieldOperation) val_).getIndexBlock();
             if (_block instanceof FieldBlock && ElUtil.isDeclaringField(val_)) {
-                StringList errs_ = ((FieldBlock) _block).getNameErrors().get(indexBlock_);
+                StringList errs_ = ((FieldBlock) _block).getNameErrorsFields().get(indexBlock_);
                 int id_ = ((FieldBlock) _block).getValuesOffset().get(indexBlock_);
                 int d_ = ((SettableAbstractFieldOperation)val_).getDelta();
                 if (errs_.isEmpty()) {
@@ -2287,6 +2297,7 @@ public final class LinkageUtil {
             updateFieldAnchor(_cont,val_.getErrs(),_parts,fieldId_,off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(), _currentFileName,((LambdaOperation) val_).getValueOffset());
         }
         _parts.addAllElts(((LambdaOperation)val_).getPartOffsets());
+        _parts.addAllElts(((LambdaOperation)val_).getPartOffsetsEnd());
     }
 
     private static void processRichHeader(ContextEl _cont, String currentFileName_, int sum_, OperationNode val_, CustList<PartOffset> _parts) {
@@ -2909,6 +2920,9 @@ public final class LinkageUtil {
     }
 
     private static void updateFieldAnchor(ContextEl _cont, StringList _errs, CustList<PartOffset> _parts, ClassField _id, int _begin, int _length, String _currentFileName, int _offset) {
+        if (_id == null) {
+            return;
+        }
         String className_ = _id.getClassName();
         className_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _cont.getClassBody(className_);
