@@ -138,10 +138,11 @@ public abstract class SettableAbstractFieldOperation extends
         return fieldMetaInfo.getClassField();
     }
     public final ClassField getFieldIdReadOnly() {
-        if (fieldMetaInfo == null) {
+        ClassField fieldId_ = getFieldId();
+        if (fieldId_ == null) {
             return new ClassField(EMPTY_STRING,EMPTY_STRING);
         }
-        return fieldMetaInfo.getClassField();
+        return fieldId_;
     }
 
     public final boolean isFromCurrentClassReadOnly(ContextEl _an) {

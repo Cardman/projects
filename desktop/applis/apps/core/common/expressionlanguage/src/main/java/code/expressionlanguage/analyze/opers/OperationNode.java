@@ -25,6 +25,8 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
@@ -527,7 +529,7 @@ public abstract class OperationNode {
         return res_;
     }
 
-    static FieldResult getDeclaredCustFieldLambda(ContextEl _cont, ClassArgumentMatching _class,
+    static FieldResult getDeclaredCustFieldLambda(int _offset,CustList<PartOffset> _parts, ContextEl _cont, ClassArgumentMatching _class,
                                                   boolean _baseClass, boolean _superClass, String _name, boolean _aff) {
         FieldResult fr_ = resolveDeclaredCustField(_cont, false,
                 _class, _baseClass, _superClass, _name, false, _aff);
@@ -536,12 +538,15 @@ public abstract class OperationNode {
         }
         FoundErrorInterpret access_ = new FoundErrorInterpret();
         access_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
-        access_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+        int i_ = _cont.getAnalyzing().getLocalizer().getCurrentLocationIndex()+_offset;
+        access_.setIndexFile(i_);
         //_name len
         access_.buildError(_cont.getAnalysisMessages().getUndefinedAccessibleField(),
                 _name,
                 StringList.join(_class.getNames(),"&"));
         _cont.getAnalyzing().getLocalizer().addError(access_);
+        _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(access_.getBuiltError()) +"\" class=\"e\">",i_));
+        _parts.add(new PartOffset("</a>",i_+Math.max(1, _name.length())));
         FieldResult res_ = new FieldResult();
         res_.setStatus(SearchingMemberStatus.ZERO);
         return res_;

@@ -932,4 +932,8 @@ public final class StringExpUtil {
         }
         return className_;
     }
+
+    public static int getOffset(String _str) {
+        return Math.max(0,StringList.getFirstPrintableCharIndex(_str));
+    }
 }

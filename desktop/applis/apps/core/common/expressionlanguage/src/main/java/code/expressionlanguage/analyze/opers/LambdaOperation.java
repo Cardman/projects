@@ -1114,10 +1114,16 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     Integer.toString(_len)
             );
             _conf.getAnalyzing().getLocalizer().addError(badCall_);
+            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            partOffsetsEnd.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
+            partOffsetsEnd.add(new PartOffset("</a>",i_+_conf.getKeyWords().getKeyWordLambda().length()));
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
         String fieldName_ = _args.get(2).trim();
+        int sum_ = className.indexOf('(')+1;
+        sum_ += _args.first().length() + 1;
+        sum_ += _args.get(1).length() + 1;
         if (!isIntermediateDottedOperation()) {
             str_ = resolveCorrectTypesExact(_conf, _fromType,_args);
             int i_ = 3;
@@ -1130,22 +1136,32 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
             if (i_ < _len && StringList.quickEq(fieldName_, keyWordSuper_)) {
                 fieldName_ = _args.get(i_).trim();
+                sum_ += _args.get(i_-1).length() + 1;
+                sum_ += StringExpUtil.getOffset(_args.get(i_));
                 i_++;
                 accessFromSuper_ = true;
             } else if (i_ < _len && StringList.quickEq(fieldName_, keyWordThat_)) {
                 fieldName_ = _args.get(i_).trim();
+                sum_ += _args.get(i_-1).length() + 1;
+                sum_ += StringExpUtil.getOffset(_args.get(i_));
                 i_++;
             } else if (i_ < _len && StringList.quickEq(fieldName_, keyWordClasschoice_)) {
                 fieldName_ = _args.get(i_).trim();
+                sum_ += _args.get(i_-1).length() + 1;
+                sum_ += StringExpUtil.getOffset(_args.get(i_));
                 i_++;
                 accessSuper_ = false;
             } else if (i_ < _len && StringList.quickEq(fieldName_, keyWordSuperaccess_)) {
                 fieldName_ = _args.get(i_).trim();
+                sum_ += _args.get(i_-1).length() + 1;
+                sum_ += StringExpUtil.getOffset(_args.get(i_));
                 i_++;
+            } else {
+                sum_ += StringExpUtil.getOffset(_args.get(2));
             }
             boolean aff_ = i_ < _len;
             ClassArgumentMatching fromCl_ = new ClassArgumentMatching(str_);
-            FieldResult r_ = getDeclaredCustFieldLambda(_conf, fromCl_, !accessFromSuper_, accessSuper_, fieldName_, aff_);
+            FieldResult r_ = getDeclaredCustFieldLambda(sum_,partOffsets,_conf, fromCl_, !accessFromSuper_, accessSuper_, fieldName_, aff_);
             if (r_.getStatus() == SearchingMemberStatus.ZERO) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
@@ -1169,7 +1185,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     offset_ += _args.get(i).length();
                     offset_ ++;
                 }
-                offset_ += StringList.getFirstPrintableCharIndex(_args.get(i_));
+                offset_ += StringExpUtil.getOffset(_args.get(i_));
                 String type_ = _args.get(i_).trim();
                 String arg_ = ResolvingImportTypes.resolveCorrectType(_conf,offset_,type_);
                 partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
@@ -1188,6 +1204,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             arg_,
                             out_);
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    getErrs().add(cast_.getBuiltError());
                 }
                 params_.add(arg_);
                 //setter
@@ -1202,7 +1219,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int i_ = 3;
             boolean aff_ = i_ < _len;
             ClassArgumentMatching fromCl_ = new ClassArgumentMatching(str_);
-            FieldResult r_ = getDeclaredCustFieldLambda(_conf, fromCl_, true, true, fieldName_, aff_);
+            sum_ += StringExpUtil.getOffset(_args.get(2));
+            FieldResult r_ = getDeclaredCustFieldLambda(sum_,partOffsets,_conf, fromCl_, true, true, fieldName_, aff_);
             if (r_.getStatus() == SearchingMemberStatus.ZERO) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
@@ -1224,7 +1242,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     offset_ += _args.get(i).length();
                     offset_ ++;
                 }
-                offset_ += StringList.getFirstPrintableCharIndex(_args.get(i_));
+                offset_ += StringExpUtil.getOffset(_args.get(i_));
                 String type_ = _args.get(i_).trim();
                 String arg_ = ResolvingImportTypes.resolveCorrectType(_conf,offset_,type_);
                 partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
@@ -1243,6 +1261,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             arg_,
                             out_);
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    getErrs().add(cast_.getBuiltError());
                 }
                 params_.add(arg_);
                 //setter
@@ -1262,18 +1281,28 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
         if (i_ < _len && StringList.quickEq(fieldName_, keyWordSuper_)) {
             fieldName_ = _args.get(i_).trim();
+            sum_ += _args.get(i_-1).length() + 1;
+            sum_ += StringExpUtil.getOffset(_args.get(i_));
             i_++;
             accessFromSuper_ = true;
         } else if (i_ < _len && StringList.quickEq(fieldName_, keyWordThat_)) {
             fieldName_ = _args.get(i_).trim();
+            sum_ += _args.get(i_-1).length() + 1;
+            sum_ += StringExpUtil.getOffset(_args.get(i_));
             i_++;
         } else if (i_ < _len && StringList.quickEq(fieldName_, keyWordClasschoice_)) {
             fieldName_ = _args.get(i_).trim();
+            sum_ += _args.get(i_-1).length() + 1;
+            sum_ += StringExpUtil.getOffset(_args.get(i_));
             i_++;
             accessSuper_ = false;
         } else if (i_ < _len && StringList.quickEq(fieldName_, keyWordSuperaccess_)) {
             fieldName_ = _args.get(i_).trim();
+            sum_ += _args.get(i_-1).length() + 1;
+            sum_ += StringExpUtil.getOffset(_args.get(i_));
             i_++;
+        } else {
+            sum_ += StringExpUtil.getOffset(_args.get(2));
         }
         StringList l_ = previousResultClass.getNames();
         StringList bounds_ = new StringList();
@@ -1295,12 +1324,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     StringList.join(bounds_,"&"),
                     StringList.join(str_,"&"));
             _conf.getAnalyzing().getLocalizer().addError(cast_);
+            getErrs().add(cast_.getBuiltError());
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
         boolean aff_ = i_ < _len;
         ClassArgumentMatching fromCl_ = new ClassArgumentMatching(str_);
-        FieldResult r_ = getDeclaredCustFieldLambda(_conf, fromCl_, !accessFromSuper_, accessSuper_, fieldName_, aff_);
+        FieldResult r_ = getDeclaredCustFieldLambda(sum_,partOffsets,_conf, fromCl_, !accessFromSuper_, accessSuper_, fieldName_, aff_);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
@@ -1323,7 +1353,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 offset_ += _args.get(i).length();
                 offset_ ++;
             }
-            offset_ += StringList.getFirstPrintableCharIndex(_args.get(i_));
+            offset_ += StringExpUtil.getOffset(_args.get(i_));
             String type_ = _args.get(i_).trim();
             String arg_ = ResolvingImportTypes.resolveCorrectType(_conf,offset_,type_);
             partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
@@ -1340,6 +1370,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         arg_,
                         out_);
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
+                getErrs().add(cast_.getBuiltError());
             }
             params_.add(arg_);
             //setter
@@ -1357,6 +1388,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                     _id.getClassField().getFieldName());
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            getErrs().add(un_.getBuiltError());
         }
     }
 
@@ -1380,10 +1412,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
+        int sum_ = className.indexOf('(')+1;
+        sum_ += _args.first().length();
         String operator_ = _args.get(1).trim();
         int i_ = 2;
         String from_ = "";
         if (!StringExpUtil.isOper(operator_)) {
+            sum_ += 1+_args.get(1).length();
             int offset_ = className.indexOf(',')+1;
             offset_ += StringList.getFirstPrintableCharIndex(operator_);
             String type_ = ResolvingImportTypes.resolveCorrectType(_conf, offset_, operator_, false);
@@ -1393,6 +1428,21 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 operator_ = _args.get(i_).trim();
             }
             i_++;
+        }
+        int count_ = partOffsets.size();
+        if (!StringExpUtil.isOper(operator_)) {
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFileName(_conf.getCurrentFileName());
+            badMeth_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            //key word len
+            badMeth_.buildError(_conf.getAnalysisMessages().getBadOperatorName(),
+                    operator_);
+            _conf.addError(badMeth_);
+            int j_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex()+sum_;
+            partOffsetsEnd.add(new PartOffset("<a title=\""+LinkageUtil.transform(badMeth_.getBuiltError()) +"\" class=\"e\">",j_));
+            partOffsetsEnd.add(new PartOffset("</a>",j_+Math.max(1,operator_.length())));
+            setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
+            return;
         }
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordId_ = keyWords_.getKeyWordId();
@@ -1454,6 +1504,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
                         new MethodId(MethodAccessKind.STATIC, "", classesNames_).getSignature(_conf));
                 _conf.getAnalyzing().getLocalizer().addError(undefined_);
+                int k_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex()+sum_+1;
+                partOffsets.add(count_,new PartOffset("</a>",k_+Math.max(1,operator_.length())));
+                partOffsets.add(count_,new PartOffset("<a title=\""+LinkageUtil.transform(undefined_.getBuiltError()) +"\" class=\"e\">",k_));
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
@@ -1481,6 +1534,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
                     new MethodId(MethodAccessKind.STATIC, "", classesNames_).getSignature(_conf));
             _conf.getAnalyzing().getLocalizer().addError(undefined_);
+            int k_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex()+sum_+1;
+            partOffsets.add(count_,new PartOffset("</a>",k_+Math.max(1,operator_.length())));
+            partOffsets.add(count_,new PartOffset("<a title=\""+LinkageUtil.transform(undefined_.getBuiltError()) +"\" class=\"e\">",k_));
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }

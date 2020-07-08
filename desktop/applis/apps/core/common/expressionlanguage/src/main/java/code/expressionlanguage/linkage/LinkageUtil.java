@@ -2294,7 +2294,13 @@ public final class LinkageUtil {
                     off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),
                     val_.getErrs(),_parts);
         } else {
-            updateFieldAnchor(_cont,val_.getErrs(),_parts,fieldId_,off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(), _currentFileName,((LambdaOperation) val_).getValueOffset());
+            if (fieldId_ != null) {
+                updateFieldAnchor(_cont,val_.getErrs(),_parts,fieldId_,off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(), _currentFileName,((LambdaOperation) val_).getValueOffset());
+            } else if (!val_.getErrs().isEmpty()) {
+                int begin_ = off_+sum_ + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ _cont.getKeyWords().getKeyWordLambda().length()));
+            }
         }
         _parts.addAllElts(((LambdaOperation)val_).getPartOffsets());
         _parts.addAllElts(((LambdaOperation)val_).getPartOffsetsEnd());
@@ -2920,9 +2926,6 @@ public final class LinkageUtil {
     }
 
     private static void updateFieldAnchor(ContextEl _cont, StringList _errs, CustList<PartOffset> _parts, ClassField _id, int _begin, int _length, String _currentFileName, int _offset) {
-        if (_id == null) {
-            return;
-        }
         String className_ = _id.getClassName();
         className_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _cont.getClassBody(className_);
