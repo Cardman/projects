@@ -9101,7 +9101,9 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $int <a name=\"m33\">i</a><a title=\"The expression part is empty.\n" +
                 "\n" +
-                "No field could be retrieved.\" class=\"e\">,</a>,<a name=\"m36\">k</a>;\n" +
+                "No field could be retrieved.\" class=\"e\">,</a><a title=\"The expression part is empty.\n" +
+                "\n" +
+                "No field could be retrieved.\" class=\"e\">,</a><a name=\"m36\">k</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -9124,7 +9126,9 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $public $static $final $int <a name=\"m56\">i</a><a title=\"The expression part is empty.\n" +
                 "\n" +
-                "No field could be retrieved.\" class=\"e\">,</a>,<a name=\"m59\">k</a>;\n" +
+                "No field could be retrieved.\" class=\"e\">,</a><a title=\"The expression part is empty.\n" +
+                "\n" +
+                "No field could be retrieved.\" class=\"e\">,</a><a name=\"m59\">k</a>;\n" +
                 "}\n" +
                 "$public $class [<span class=\"i\">$static pkg.MySub.i</span>;] <a name=\"m102\">pkg.MySub2 </a>{\n" +
                 " {\n" +
@@ -9184,6 +9188,428 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $int[] <a name=\"m35\">a</a>;\n" +
                 " $int <a title=\"No field could be retrieved.\" class=\"e\">a[0]=1</a>;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report440Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  (*);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  (<a title=\"The expression part is empty.\n" +
+                "\n" +
+                "The expression part is empty.\" class=\"e\">*</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report441Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MySub v;\n");
+        xml_.append(" {\n");
+        xml_.append("  (v*v);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">v</a>;\n" +
+                " {\n" +
+                "  (<a title=\"pkg.MySub.v\" href=\"#m34\">v</a><a title=\"The operands types pkg.MySub;pkg.MySub for the operator * are unexpected.\" class=\"e\">*</a><a title=\"pkg.MySub.v\" href=\"#m34\">v</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report442Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  (.e);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  (<a title=\"The expression part is empty.\" class=\"e\">.</a><a title=\"There is no accessible field named e from the type java.lang.Object in this context.\" class=\"e\">e</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report443Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $int i;\n");
+        xml_.append(" $int i;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $int <a name=\"m33\">i</a>;\n" +
+                " $int <a name=\"m42\" title=\"the field name i is duplicated.\" class=\"e\">i</a>;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report444Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $int i;\n");
+        xml_.append(" $int i;\n");
+        xml_.append(" {\n");
+        xml_.append("  i++;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $int <a name=\"m33\">i</a>;\n" +
+                " $int <a name=\"m42\" title=\"the field name i is duplicated.\" class=\"e\">i</a>;\n" +
+                " {\n" +
+                "  <a title=\"pkg.MySub.i\" href=\"#m33\">i</a>++;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report445Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $int i,i;\n");
+        xml_.append(" {\n");
+        xml_.append("  i++;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $int <a name=\"m33\">i</a>,<a name=\"m35\" title=\"the field name i is duplicated.\" class=\"e\">i</a>;\n" +
+                " {\n" +
+                "  <a title=\"pkg.MySub.i\" href=\"#m33\">i</a>++;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report446Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $int i,i,j;\n");
+        xml_.append(" {\n");
+        xml_.append("  j++;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $int <a name=\"m33\">i</a>,<a name=\"m35\" title=\"the field name i is duplicated.\" class=\"e\">i</a>,<a name=\"m37\">j</a>;\n" +
+                " {\n" +
+                "  <a title=\"pkg.MySub.j\" href=\"#m37\">j</a>++;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report447Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MySub i;\n");
+        xml_.append(" {\n");
+        xml_.append("  i[1,];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this(Object o, Object p){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int $this(Object o, Object p){\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
+                " {\n" +
+                "  <a title=\"pkg.MySub.i\" href=\"#m34\">i</a><a title=\"pkg.MySub.[](java.lang.Object,java.lang.Object)\" href=\"#m111\">[</a>1<a title=\"The expression part is empty.\" class=\"e\">,</a><a title=\"pkg.MySub.[](java.lang.Object,java.lang.Object)\" href=\"#m111\">]</a>;\n" +
+                " }\n" +
+                " $public $void <a name=\"m67\">$this</a>(Object <a name=\"m80\">o</a>, Object <a name=\"m90\">p</a>){\n" +
+                " }\n" +
+                " $public $int <a name=\"m111\">$this</a>(Object <a name=\"m124\">o</a>, Object <a name=\"m134\">p</a>){\n" +
+                "  $return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report448Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MySub i;\n");
+        xml_.append(" {\n");
+        xml_.append("  (i<i);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
+                " {\n" +
+                "  (<a title=\"pkg.MySub.i\" href=\"#m34\">i</a><a title=\"The operands types pkg.MySub;pkg.MySub for the operator &lt; are unexpected.\" class=\"e\">&lt;</a><a title=\"pkg.MySub.i\" href=\"#m34\">i</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report449Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MySub i;\n");
+        xml_.append(" {\n");
+        xml_.append("  (i<=i);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
+                " {\n" +
+                "  (<a title=\"pkg.MySub.i\" href=\"#m34\">i</a><a title=\"The operands types pkg.MySub;pkg.MySub for the operator &lt;= are unexpected.\" class=\"e\">&lt;=</a><a title=\"pkg.MySub.i\" href=\"#m34\">i</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report450Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MySub i;\n");
+        xml_.append(" {\n");
+        xml_.append("  (i-=i);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
+                " {\n" +
+                "  (<a title=\"pkg.MySub.i\" href=\"#m34\">i</a><a title=\"The type pkg.MySub cannot be implicitly cast to pkg.MySub\" class=\"e\">-=</a><a title=\"pkg.MySub.i\" href=\"#m34\">i</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report451Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MySub i;\n");
+        xml_.append(" {\n");
+        xml_.append("  ($true&&i);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
+                " {\n" +
+                "  ($true&amp;<a title=\"The type pkg.MySub is unexpected.\" class=\"e\">&amp;</a><a title=\"pkg.MySub.i\" href=\"#m34\">i</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report452Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MySub i;\n");
+        xml_.append(" {\n");
+        xml_.append("  (i&&$true);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
+                " {\n" +
+                "  (<a title=\"pkg.MySub.i\" href=\"#m34\">i</a><a title=\"The type pkg.MySub is unexpected.\" class=\"e\">&amp;</a>&amp;$true);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report453Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MySub i;\n");
+        xml_.append(" MySub2 j;\n");
+        xml_.append(" {\n");
+        xml_.append("  (i&&j);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySub2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
+                " <a title=\"pkg.MySub2\" href=\"#m81\">MySub2</a> <a name=\"m45\">j</a>;\n" +
+                " {\n" +
+                "  (<a title=\"pkg.MySub.i\" href=\"#m34\">i</a><a title=\"The type pkg.MySub is unexpected.\" class=\"e\">&amp;</a><a title=\"The type pkg.MySub2 is unexpected.\" class=\"e\">&amp;</a><a title=\"pkg.MySub.j\" href=\"#m45\">j</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m81\">pkg.MySub2 </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report454Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  (??);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  (<a title=\"The expression part is empty.\n" +
+                "\n" +
+                "The expression part is empty.\" class=\"e\">??</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report455Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MySub i;\n");
+        xml_.append(" {\n");
+        xml_.append("  (i||);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySub2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
+                " {\n" +
+                "  (<a title=\"pkg.MySub.i\" href=\"#m34\">i</a><a title=\"The expression part is empty.\" class=\"e\">||</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m69\">pkg.MySub2 </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report456Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MySub i;\n");
+        xml_.append(" {\n");
+        xml_.append("  (||i);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySub2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
+                " {\n" +
+                "  (<a title=\"The expression part is empty.\" class=\"e\">||</a><a title=\"pkg.MySub.i\" href=\"#m34\">i</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m69\">pkg.MySub2 </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report457Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" MySub i;\n");
+        xml_.append(" {\n");
+        xml_.append("  (||);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MySub2 {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
+                " {\n" +
+                "  (<a title=\"The expression part is empty.\n" +
+                "\n" +
+                "The expression part is empty.\" class=\"e\">||</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m68\">pkg.MySub2 </a>{\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }

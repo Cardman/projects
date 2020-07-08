@@ -1838,6 +1838,7 @@ public final class LinkageUtil {
                                   OperationNode val_,
                                   CustList<PartOffset> _parts, String _currentFileName) {
         MethodOperation par_ = val_.getParent();
+        int indexChild_ = val_.getIndexChild();
         if (par_ == null) {
             StringList errEmpt_ = new StringList();
             MethodOperation.processEmptyError(val_,errEmpt_);
@@ -1852,29 +1853,20 @@ public final class LinkageUtil {
             if (MethodOperation.isEmptyError(val_)) {
                 l_ = val_.getErrs();
             }
-            if (!(par_ instanceof AbstractUnaryOperation)
-                    && !(val_.getIndexChild() == 0 && par_ instanceof ArrOperation)
-                    && !(par_ instanceof AbstractDotOperation && par_.getOperations().getOperators().firstValue().isEmpty())
-                    && !l_.isEmpty()) {
-                int index_ = val_.getIndexChild();
-                IntTreeMap<String> operators_ =  par_.getOperations().getOperators();
-                IntTreeMap<String> values_ =  par_.getOperations().getValues();
+            IntTreeMap<String> operators_ =  par_.getOperations().getOperators();
+            if (leftOperNotUnary(par_)&& !(indexChild_ == 0 && par_ instanceof ArrOperation)) {
                 int s_;
                 int len_;
-                if (operators_.firstKey() > values_.firstKey()) {
-                    s_ = sum_ + par_.getIndexInEl() + operators_.getKey(index_-1);
-                    len_ = operators_.getValue(index_-1).length();
+                if (!l_.isEmpty()) {
+                    s_ = sum_ + par_.getIndexInEl() + operators_.getKey(indexChild_);
+                    len_ = operators_.getValue(indexChild_).length();
+                    _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(l_,"\n\n")) +"\" class=\"e\">",s_));
+                    _parts.add(new PartOffset("</a>",s_+Math.max(len_,1)));
                 } else {
-                    s_ = sum_ + par_.getIndexInEl() + operators_.getKey(index_);
-                    len_ = operators_.getValue(index_).length();
+                    appendPossibleParts(_parts, par_, indexChild_);
                 }
-                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(l_,"\n\n")) +"\" class=\"e\">",s_));
-                _parts.add(new PartOffset("</a>",s_+Math.max(len_,1)));
-            } else {
-                CustList<CustList<PartOffset>> partOffsetsChildren_ = par_.getPartOffsetsChildren();
-                if (partOffsetsChildren_.isValidIndex(val_.getIndexChild())) {
-                    _parts.addAllElts(partOffsetsChildren_.get(val_.getIndexChild()));
-                }
+            } else if (par_ instanceof IdOperation||par_ instanceof ArrOperation) {
+                appendPossibleParts(_parts, par_, indexChild_);
             }
         }
         if (val_ instanceof BadTernaryOperation) {
@@ -1904,13 +1896,20 @@ public final class LinkageUtil {
         processArrLength(sum_, val_, _parts);
         if (val_.getParent() instanceof CallDynMethodOperation) {
             CallDynMethodOperation c_ = (CallDynMethodOperation) val_.getParent();
-            if (!c_.getSepErr().isEmpty()&&c_.getIndexCh() == val_.getIndexChild()) {
+            if (!c_.getSepErr().isEmpty()&&c_.getIndexCh() == indexChild_) {
                 String tag_ = "<a title=\""+transform(c_.getSepErr())+"\" class=\"e\">";
                 int rightPar_ = c_.getOperations().getOperators().getKey(c_.getIndexCh()+1);
                 _parts.add(new PartOffset(tag_,sum_ + c_.getIndexInEl()+rightPar_));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_,sum_ + c_.getIndexInEl()+rightPar_+1));
             }
+        }
+    }
+
+    private static void appendPossibleParts(CustList<PartOffset> _parts, MethodOperation _par, int _indexChild) {
+        CustList<CustList<PartOffset>> partOffsetsChildren_ = _par.getPartOffsetsChildren();
+        if (partOffsetsChildren_.isValidIndex(_indexChild)) {
+            _parts.addAllElts(partOffsetsChildren_.get(_indexChild));
         }
     }
 
@@ -2512,9 +2511,30 @@ public final class LinkageUtil {
                                     OperationNode nextSiblingOp_,
                                     MethodOperation parent_,
                                     CustList<PartOffset> _parts) {
-        if (curOp_.getIndexChild() == 0 && parent_ instanceof AbstractTernaryOperation) {
-            AbstractTernaryOperation ab_ = (AbstractTernaryOperation) parent_;
-            _parts.addAllElts(ab_.getPartOffsetsEnd());
+        StringList l_ = new StringList();
+        if (MethodOperation.isEmptyError(curOp_)) {
+            l_.addAllElts(curOp_.getErrs());
+        }
+        if (MethodOperation.isEmptyError(nextSiblingOp_)) {
+            l_.addAllElts(nextSiblingOp_.getErrs());
+        }
+        if (middleOper(parent_)) {
+            int index_ = curOp_.getIndexChild();
+            IntTreeMap<String> operators_ =  parent_.getOperations().getOperators();
+            int s_;
+            int len_;
+            if (!l_.isEmpty()) {
+                s_ = offsetEnd_;
+                len_ = operators_.getValue(index_).length();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(l_,"\n\n")) +"\" class=\"e\">",s_));
+                _parts.add(new PartOffset("</a>",s_+Math.max(len_,1)));
+            } else {
+                appendPossibleParts(_parts, parent_, index_);
+            }
+        }
+        if (l_.isEmpty()&&curOp_.getIndexChild() == 0 &&parent_ instanceof QuickOperation) {
+            _parts.addAllElts(((QuickOperation)parent_).getErrFirst());
+            _parts.addAllElts(((QuickOperation)parent_).getErrSecond());
         }
         processCat(_cont, offsetEnd_, curOp_, nextSiblingOp_, parent_, _parts);
         processCustomOperator(_cont, currentFileName_, offsetEnd_, parent_, _parts);
@@ -3006,5 +3026,46 @@ public final class LinkageUtil {
             _parts.add(new PartOffset("<a name=\"m"+_offset+"\">",_offset));
             _parts.add(new PartOffset("</a>",_offset+_label.length()));
         }
+    }
+    private static boolean leftOperNotUnary(OperationNode _op) {
+        if (_op instanceof TernaryOperation) {
+            return true;
+        }
+        if (_op instanceof BadTernaryOperation) {
+            return true;
+        }
+        return _op instanceof InvokingOperation;
+    }
+    private static boolean middleOper(OperationNode _op) {
+        if (_op instanceof NumericOperation) {
+            return true;
+        }
+        if (_op instanceof ShortTernaryOperation) {
+            return true;
+        }
+        if (_op instanceof AbstractDotOperation) {
+            if (!_op.getOperations().getOperators().firstValue().isEmpty()) {
+                return true;
+            }
+        }
+        if (_op instanceof AffectationOperation) {
+            return true;
+        }
+        if (_op instanceof CmpOperation) {
+            return true;
+        }
+        if (_op instanceof EqOperation) {
+            return true;
+        }
+        if (_op instanceof CompoundAffectationOperation) {
+            return true;
+        }
+        if (_op instanceof DeclaringOperation) {
+            return true;
+        }
+        if (_op instanceof NullSafeOperation) {
+            return true;
+        }
+        return _op instanceof QuickOperation;
     }
 }

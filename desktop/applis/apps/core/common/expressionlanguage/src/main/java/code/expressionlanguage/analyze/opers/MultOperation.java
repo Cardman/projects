@@ -6,7 +6,10 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.AliasNumber;
+import code.util.CustList;
 import code.util.StringList;
 
 
@@ -51,7 +54,8 @@ public final class MultOperation extends NumericOperation {
         }
         String exp_ = _cont.getStandards().getAliasNumber();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+        int index_ = _cont.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+        un_.setIndexFile(index_);
         un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
         //oper
         un_.buildError(_cont.getAnalysisMessages().getUnexpectedOperandTypes(),
@@ -64,17 +68,11 @@ public final class MultOperation extends NumericOperation {
         _cont.getAnalyzing().setOkNumOp(false);
         ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
         res_.setResult(arg_);
+        CustList<PartOffset> err_ = new CustList<PartOffset>();
+        err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
+        err_.add(new PartOffset("</a>",index_+1));
+        getPartOffsetsChildren().add(err_);
         return res_;
-//        int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
-//        int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
-//        if (oa_ <= 0 || ob_ <= 0) {
-//
-//        }
-//        ClassArgumentMatching out_ = getResultClass(_a, _cont, _b);
-//        _a.setUnwrapObject(out_);
-//        _b.setUnwrapObject(out_);
-//        res_.setResult(out_);
-//        return res_;
     }
 
     @Override

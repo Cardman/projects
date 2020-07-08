@@ -7,6 +7,8 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.AliasNumber;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -71,25 +73,6 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             second_.setCheckOnlyNullPe(true);
             return;
         }
-        if (first_.matchClass(stringType_) || second_.matchClass(stringType_)) {
-            okNum = false;
-            _conf.getAnalyzing().setOkNumOp(false);
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
-            String res_ = stds_.getAliasPrimBoolean();
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            //oper
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
-                    StringList.join(new StringList(
-                            StringList.join(first_.getNames(),"&"),
-                            StringList.join(second_.getNames(),"&")
-                    ),";"),
-                    getOp());
-            _conf.getAnalyzing().getLocalizer().addError(un_);
-            setResultClass(new ClassArgumentMatching(res_));
-            return;
-        }
         if (PrimitiveTypeUtil.isFloatOrderClass(first_,second_, _conf)) {
             ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_,  _conf);
             ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_,  _conf);
@@ -118,7 +101,8 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         expectedTypes_.add(stds_.getAliasString());
         String res_ = _conf.getStandards().getAliasPrimBoolean();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+        int index_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+        un_.setIndexFile(index_);
         un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
         //oper
         un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
@@ -128,6 +112,10 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
                 ),";"),
                 getOp());
         _conf.getAnalyzing().getLocalizer().addError(un_);
+        CustList<PartOffset> err_ = new CustList<PartOffset>();
+        err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
+        err_.add(new PartOffset("</a>",index_+op.length()));
+        getPartOffsetsChildren().add(err_);
         setResultClass(new ClassArgumentMatching(res_));
     }
     @Override

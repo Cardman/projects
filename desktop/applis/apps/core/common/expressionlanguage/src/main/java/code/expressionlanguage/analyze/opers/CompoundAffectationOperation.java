@@ -11,6 +11,8 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 
@@ -73,6 +75,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         }
         IntTreeMap< String> ops_ = getOperations().getOperators();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
+        int opLocat_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
         String op_ = ops_.firstValue();
         op_ = op_.substring(0, op_.length() - 1);
         ClassArgumentMatching first_ = root_.getResultClass();
@@ -241,6 +244,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     StringList.join(clMatchRight_.getNames(),"&"),
                     StringList.join(clMatchLeft_.getNames(),"&"));
             _conf.getAnalyzing().getLocalizer().addError(cast_);
+            CustList<PartOffset> err_ = new CustList<PartOffset>();
+            err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
+            err_.add(new PartOffset("</a>",opLocat_+oper.length()));
+            getPartOffsetsChildren().add(err_);
         }
     }
 

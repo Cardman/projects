@@ -86,8 +86,10 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         StringList deep_ = getErrs();
         if (!deep_.isEmpty()) {
             int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
-            getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
-            getPartOffsetsEnd().add(new PartOffset("</a>",i_+1));
+            CustList<PartOffset> list_ = new CustList<PartOffset>();
+            list_.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
+            list_.add(new PartOffset("</a>",i_+1));
+            getPartOffsetsChildren().add(list_);
         }
         opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
         opOne_.cancelArgument();

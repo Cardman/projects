@@ -4,6 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
@@ -15,6 +17,8 @@ import code.util.StringList;
 public abstract class QuickOperation extends MethodOperation {
 
     private boolean okNum;
+    private CustList<PartOffset> errFirst = new CustList<PartOffset>();
+    private CustList<PartOffset> errSecond = new CustList<PartOffset>();
 
     public QuickOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -64,6 +68,7 @@ public abstract class QuickOperation extends MethodOperation {
         chidren_.first().cancelArgument();
         chidren_.last().cancelArgument();
         okNum = true;
+        int i_ = 0;
         for (OperationNode o: chidren_) {
             ClassArgumentMatching clMatch_;
             clMatch_ = o.getResultClass();
@@ -76,9 +81,19 @@ public abstract class QuickOperation extends MethodOperation {
                 un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                         StringList.join(clMatch_.getNames(),"&"));
                 _conf.getAnalyzing().getLocalizer().addError(un_);
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _conf);
+                int index_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex()+i_;
+                if (i_ == 0) {
+                    errFirst.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
+                    errFirst.add(new PartOffset("</a>",index_+1));
+                } else {
+                    errSecond.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
+                    errSecond.add(new PartOffset("</a>",index_+1));
+                }
                 _conf.getAnalyzing().setOkNumOp(false);
                 okNum = false;
             }
+            i_++;
         }
         setResultClass(new ClassArgumentMatching(chidren_.last().getResultClass()));
     }
@@ -87,4 +102,11 @@ public abstract class QuickOperation extends MethodOperation {
         return okNum;
     }
 
+    public CustList<PartOffset> getErrFirst() {
+        return errFirst;
+    }
+
+    public CustList<PartOffset> getErrSecond() {
+        return errSecond;
+    }
 }
