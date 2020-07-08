@@ -291,6 +291,33 @@ public final class ElUtil {
 
     public static void retrieveErrorsAnalyze(ContextEl _context, OperationNode _current) {
         _current.analyze(_context);
+        if (_context.getAnalyzing().getCurrentBlock() instanceof FieldBlock) {
+            MethodOperation parent_ = _current.getParent();
+            if (parent_ instanceof DeclaringOperation) {
+                if (!(_current instanceof StandardFieldOperation)
+                        &&!(_current instanceof AffectationOperation)) {
+                    FoundErrorInterpret b_;
+                    b_ = new FoundErrorInterpret();
+                    b_.setFileName(_context.getCurrentFileName());
+                    b_.setIndexFile(_context.getCurrentLocationIndex());
+                    b_.buildError(_context.getAnalysisMessages().getNotRetrievedFields());
+                    _context.addError(b_);
+                    _current.getErrs().add(b_.getBuiltError());
+                }
+            } else {
+                if (parent_ instanceof AffectationOperation && parent_.getFirstChild() == _current && (parent_.getParent() == null ||parent_.getParent() instanceof DeclaringOperation)) {
+                    if (!(_current instanceof StandardFieldOperation)) {
+                        FoundErrorInterpret b_;
+                        b_ = new FoundErrorInterpret();
+                        b_.setFileName(_context.getCurrentFileName());
+                        b_.setIndexFile(_context.getCurrentLocationIndex());
+                        b_.buildError(_context.getAnalysisMessages().getNotRetrievedFields());
+                        _context.addError(b_);
+                        _current.getErrs().add(b_.getBuiltError());
+                    }
+                }
+            }
+        }
         if (_current instanceof AbstractDotOperation) {
             OperationNode last_ = ((AbstractDotOperation) _current).getChildrenNodes().last();
             if (last_ instanceof ArrOperation) {
@@ -400,6 +427,10 @@ public final class ElUtil {
         if (!(bl_ instanceof FieldBlock)) {
             return false;
         }
+        return isDeclaringField(_var);
+    }
+
+    public static boolean isDeclaringField(OperationNode _var) {
         if (!(_var instanceof StandardFieldOperation)) {
             return false;
         }

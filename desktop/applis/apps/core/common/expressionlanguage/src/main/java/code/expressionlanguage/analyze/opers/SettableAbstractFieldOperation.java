@@ -47,6 +47,10 @@ public abstract class SettableAbstractFieldOperation extends
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
+        if (ElUtil.isDeclaringField(this,_conf)) {
+            indexBlock = _conf.getAnalyzing().getIndexBlock();
+            _conf.getAnalyzing().setIndexBlock(indexBlock+1);
+        }
         boolean import_ = false;
         if (!isIntermediateDottedOperation()) {
             import_ = true;
@@ -87,13 +91,7 @@ public abstract class SettableAbstractFieldOperation extends
             return;
         }
         e_ = r_.getId();
-        if (_conf.getAnalyzing().getCurrentBlock() instanceof FieldBlock &&ElUtil.isDeclaringVariable(this)) {
-            indexBlock = _conf.getAnalyzing().getIndexBlock();
-            _conf.getAnalyzing().setIndexBlock(indexBlock+1);
-            valueOffset = e_.getValueOffset().get(indexBlock);
-        } else {
-            valueOffset = e_.getValOffset();
-        }
+        valueOffset = e_.getValOffset();
         fieldType = e_.getType();
         fieldMetaInfo = e_;
         String c_ = fieldMetaInfo.getType();

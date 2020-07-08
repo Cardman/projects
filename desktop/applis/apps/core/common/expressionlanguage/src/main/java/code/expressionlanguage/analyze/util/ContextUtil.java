@@ -10,7 +10,6 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.*;
@@ -269,20 +268,17 @@ public final class ContextUtil {
                     continue;
                 }
                 int valOffset_ = -1;
-                Ints valueOffset_ = new Ints();
                 if (i_ instanceof FieldBlock) {
                     valOffset_ = ((FieldBlock)i_).getValuesOffset().get(ind_);
-                    valueOffset_ = ((FieldBlock)i_).getValuesOffset();
                 }
                 if (i_ instanceof InnerTypeOrElement) {
                     valOffset_ = i_.getFieldNameOffset();
-                    valueOffset_ = new Ints(i_.getFieldNameOffset());
                 }
                 String type_ = i_.getImportedClassName();
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
                 Accessed a_ = new Accessed(i_.getAccess(),cust_.getPackageName(),fullName_, cust_.getOuterFullName());
-                return FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_, valOffset_,valueOffset_);
+                return FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_, valOffset_);
             }
             return null;
         }
@@ -297,7 +293,7 @@ public final class ContextUtil {
                 boolean final_ = f_.isFinalField();
                 boolean static_ = f_.isStaticField();
                 Accessed a_ = new Accessed(AccessEnum.PUBLIC,"","","");
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, a_,-1,new Ints());
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, a_,-1);
             }
         }
         return null;

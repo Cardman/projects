@@ -1248,7 +1248,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $int <a title=\"The field name #e is not valid. It must be a word.\" class=\"e\">#e</a>;\n" +
+                " $int <a name=\"m33\" title=\"The field name #e is not valid. It must be a word.\" class=\"e\">#e</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -1264,7 +1264,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $int <a name=\"m33\">e</a>,<a title=\"the field name e is duplicated.\" class=\"e\">e</a>;\n" +
+                " $int <a name=\"m33\">e</a>,<a name=\"m35\" title=\"the field name e is duplicated.\" class=\"e\">e</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -9099,7 +9099,9 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $int <a name=\"m33\">i</a><a title=\"The expression part is empty.\" class=\"e\">,</a>,<a name=\"m36\">k</a>;\n" +
+                " $int <a name=\"m33\">i</a><a title=\"The expression part is empty.\n" +
+                "\n" +
+                "No field could be retrieved.\" class=\"e\">,</a>,<a name=\"m36\">k</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -9120,12 +9122,68 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $public $static $final $int <a name=\"m56\">i</a><a title=\"The expression part is empty.\" class=\"e\">,</a>,<a name=\"m59\">k</a>;\n" +
+                " $public $static $final $int <a name=\"m56\">i</a><a title=\"The expression part is empty.\n" +
+                "\n" +
+                "No field could be retrieved.\" class=\"e\">,</a>,<a name=\"m59\">k</a>;\n" +
                 "}\n" +
                 "$public $class [<span class=\"i\">$static pkg.MySub.i</span>;] <a name=\"m102\">pkg.MySub2 </a>{\n" +
                 " {\n" +
                 "  (<a title=\"pkg.MySub.i\" href=\"#m56\">i</a>);\n" +
                 " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report437Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $int[] a;\n");
+        xml_.append(" $int i,a[0],k;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $int[] <a name=\"m35\">a</a>;\n" +
+                " $int <a name=\"m44\">i</a>,<a title=\"pkg.MySub.a\" href=\"#m35\">a</a><a title=\"No field could be retrieved.\" class=\"e\">[</a>0],<a name=\"m51\">k</a>;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report438Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $int[] a;\n");
+        xml_.append(" $int i,a[0]=1,k;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $int[] <a name=\"m35\">a</a>;\n" +
+                " $int <a name=\"m44\">i</a>,<a title=\"pkg.MySub.a\" href=\"#m35\">a</a><a title=\"No field could be retrieved.\" class=\"e\">[</a>0]=1,<a name=\"m53\">k</a>;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report439Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" $int[] a;\n");
+        xml_.append(" $int a[0]=1;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " $int[] <a name=\"m35\">a</a>;\n" +
+                " $int <a title=\"No field could be retrieved.\" class=\"e\">a[0]=1</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }

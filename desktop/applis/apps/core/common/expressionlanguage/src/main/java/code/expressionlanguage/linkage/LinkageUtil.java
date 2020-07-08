@@ -2115,22 +2115,23 @@ public final class LinkageUtil {
 
     private static void processFields(ContextEl _cont, Block _block, int sum_, OperationNode val_, CustList<PartOffset> _parts, String _currentFileName) {
         if (val_ instanceof SettableAbstractFieldOperation) {
-            int id_ = ((SettableAbstractFieldOperation)val_).getValueOffset();
             int indexBlock_ = ((SettableAbstractFieldOperation) val_).getIndexBlock();
-            if (_block instanceof FieldBlock && ElUtil.isDeclaringVariable(val_)) {
+            if (_block instanceof FieldBlock && ElUtil.isDeclaringField(val_)) {
                 StringList errs_ = ((FieldBlock) _block).getNameErrors().get(indexBlock_);
+                int id_ = ((FieldBlock) _block).getValuesOffset().get(indexBlock_);
                 int d_ = ((SettableAbstractFieldOperation)val_).getDelta();
                 if (errs_.isEmpty()) {
                     String tag_ = "<a name=\"m"+id_+"\">";
                     _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_));
                 } else {
                     String err_ = StringList.join(errs_,"\n\n");
-                    String tag_ = "<a title=\""+err_+"\" class=\"e\">";
+                    String tag_ = "<a name=\"m"+id_+"\" title=\""+err_+"\" class=\"e\">";
                     _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_));
                 }
                 String tag_ = "</a>";
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_+((SettableAbstractFieldOperation) val_).getFieldNameLength()));
             } else {
+                int id_ = ((SettableAbstractFieldOperation)val_).getValueOffset();
                 _parts.addAllElts(((SettableAbstractFieldOperation) val_).getPartOffsets());
                 ClassField c_ = ((SettableAbstractFieldOperation)val_).getFieldIdReadOnly();
                 int delta_ = ((SettableAbstractFieldOperation) val_).getOff();

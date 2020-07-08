@@ -605,7 +605,7 @@ public abstract class OperationNode {
                 String realType_ = v_.getType();
                 boolean finalField_ = v_.isFinalField();
                 String formatted_ = e.getKey();
-                FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff,v_.getReturnType(),v_.getValueOffset(),new Ints(v_.getValueOffset()));
+                FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, _cont, _aff,v_.getReturnType(),v_.getValueOffset());
                 res_.setId(if_);
                 res_.setAnc(v_.getImported() +maxAnc_);
                 res_.setStatus(SearchingMemberStatus.UNIQ);
@@ -680,9 +680,8 @@ public abstract class OperationNode {
         }
         String realType_ = fi_.getType();
         boolean finalField_ = fi_.isFinalField();
-        Ints valueOffset_ = fi_.getValueOffset();
         int valOffset_ = fi_.getValOffset();
-        FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, staticField_, finalField_, _conf, _aff, null,valOffset_,valueOffset_);
+        FieldInfo if_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, staticField_, finalField_, _conf, _aff, null,valOffset_);
         if (if_ == null) {
             return;
         }
