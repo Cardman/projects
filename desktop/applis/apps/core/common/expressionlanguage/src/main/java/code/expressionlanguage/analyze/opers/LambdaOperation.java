@@ -1463,7 +1463,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             //key word len
             badMeth_.buildError(_conf.getAnalysisMessages().getBadOperatorName(),
                     operator_);
-            _conf.addError(badMeth_);
+            _conf.getAnalyzing().getLocalizer().addError(badMeth_);
             int j_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex()+sum_;
             partOffsetsEnd.add(new PartOffset("<a title=\""+LinkageUtil.transform(badMeth_.getBuiltError()) +"\" class=\"e\">",j_));
             partOffsetsEnd.add(new PartOffset("</a>",j_+Math.max(1,operator_.length())));

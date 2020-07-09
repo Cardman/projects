@@ -1306,8 +1306,11 @@ public final class ClassesUtil {
                     if (f_ instanceof InnerTypeOrElement) {
                         page_.getAssignedDeclaredFields().add(((InnerTypeOrElement)f_).getUniqueFieldName());
                     }
+                    int v_ = 0;
                     for (String f: f_.getFieldName()) {
-                        checkConstField(_context, c, fullName_, f);
+                        StringList err_ = getErFields(f_, v_);
+                        checkConstField(_context, err_,c, fullName_, f);
+                        v_++;
                     }
                 }
                 for (Block b: bl_) {
@@ -1383,7 +1386,7 @@ public final class ClassesUtil {
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllInits().getVal(method_));
                     }
                 }
-                processInterfaceCtor(_context, type_, fullName_, bl_);
+                processInterfaceCtor(_context, c, fullName_, bl_);
                 for (Block b: bl_) {
                     if (b instanceof ConstructorBlock) {
                         page_.getInitFieldsCtors().clear();
@@ -1536,11 +1539,14 @@ public final class ClassesUtil {
                 if (!f_.isStaticField()) {
                     continue;
                 }
+                int v_ = 0;
                 for (String f: f_.getFieldName()) {
                     AssignmentBefore as_ = new AssignmentBefore();
-                    checkConstField(_context, c, fullName_, f);
+                    StringList err_ = getErFields(f_, v_);
+                    checkConstField(_context, err_,c, fullName_, f);
                     as_.setUnassignedBefore(true);
                     ass_.put(f, as_);
+                    v_++;
                 }
             }
             StringMap<AssignmentBefore> b_ = assVars_.getFinalVariablesGlobal().getFieldsRootBefore();
@@ -1719,7 +1725,7 @@ public final class ClassesUtil {
                 }
             }
             b_.putAllMap(AssignmentsUtil.assignSimpleBefore(assAfter_));
-            processInterfaceCtor(_context, type_, fullName_, bl_);
+            processInterfaceCtor(_context, c, fullName_, bl_);
             for (Block b: bl_) {
                 if (b instanceof ConstructorBlock) {
                     page_.getInitFieldsCtors().clear();
@@ -1813,6 +1819,14 @@ public final class ClassesUtil {
         }
     }
 
+    private static StringList getErFields(InfoBlock f_, int v_) {
+        StringList errs_ = new StringList();
+        if (f_ instanceof FieldBlock) {
+            errs_ = ((FieldBlock)f_).getNameErrorsFields().get(v_);
+        }
+        return errs_;
+    }
+
     private static boolean isStdOrExplicit(OverridableBlock method_) {
         return method_.getKind() == MethodKind.STD_METHOD || method_.getKind() == MethodKind.TO_STRING || method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST;
     }
@@ -1844,7 +1858,7 @@ public final class ClassesUtil {
         }
     }
 
-    private static void processInterfaceCtor(ContextEl _context, ExecRootBlock _cl, String _name, CustList<Block> _blocks) {
+    private static void processInterfaceCtor(ContextEl _context, RootBlock _cl, String _name, CustList<Block> _blocks) {
         boolean hasCtor_ = false;
         for (Block b: _blocks) {
             if (b instanceof ConstructorBlock) {
@@ -1853,25 +1867,24 @@ public final class ClassesUtil {
             }
         }
         StringList filteredCtor_ = new StringList();
-        if (_cl instanceof ExecUniqueRootedBlock) {
-            Classes classes_ = _context.getClasses();
-            ExecUniqueRootedBlock un_ = (ExecUniqueRootedBlock) _cl;
+        if (_cl instanceof UniqueRootedBlock) {
+            UniqueRootedBlock un_ = (UniqueRootedBlock) _cl;
             StringList all_ = _cl.getAllSuperTypes();
             StringList allCopy_ = new StringList(all_);
             StringList.removeAllElements(allCopy_, _context.getStandards().getPredefinedInterfacesInitOrder());
             String superClass_ = un_.getImportedDirectGenericSuperClass();
             String superClassId_ = StringExpUtil.getIdFromAllTypes(superClass_);
-            ExecRootBlock superType_ = classes_.getClassBody(superClassId_);
-            if (superType_ instanceof ExecUniqueRootedBlock) {
+            RootBlock superType_ = _context.getAnalyzing().getAnaClassBody(superClassId_);
+            if (superType_ instanceof UniqueRootedBlock) {
                 StringList.removeAllElements(allCopy_, superType_.getAllSuperTypes());
             }
             for (String i: allCopy_) {
-                ExecRootBlock int_ = classes_.getClassBody(i);
-                if (!(int_ instanceof ExecInterfaceBlock)) {
+                RootBlock int_ = _context.getAnalyzing().getAnaClassBody(i);
+                if (!(int_ instanceof InterfaceBlock)) {
                     continue;
                 }
-                for (ExecBlock b: ExecBlock.getDirectChildren(int_)) {
-                    if (b instanceof ExecNamedFunctionBlock) {
+                for (Block b: getDirectChildren(int_)) {
+                    if (b instanceof NamedFunctionBlock) {
                         continue;
                     }
                     if (b instanceof GeneField) {
@@ -1880,7 +1893,7 @@ public final class ClassesUtil {
                             filteredCtor_.add(i);
                         }
                     }
-                    if (b instanceof ExecInstanceBlock) {
+                    if (b instanceof InstanceBlock) {
                         filteredCtor_.add(i);
                     }
                 }
@@ -1897,6 +1910,7 @@ public final class ClassesUtil {
             undef_.buildError(_context.getAnalysisMessages().getMustCallIntCtor(),
                     _cl.getFullName());
             _context.addError(undef_);
+            _cl.addNameErrors(undef_);
         }
     }
 
@@ -1937,7 +1951,7 @@ public final class ClassesUtil {
         }
     }
 
-    private static void checkConstField(ContextEl _context, RootBlock _cl, String _clName, String _field) {
+    private static void checkConstField(ContextEl _context, StringList _err, RootBlock _cl, String _clName, String _field) {
         if (_context.getClasses().getStaticFieldMap(_clName).getVal(_field) == null) {
             if (!_cl.isStaticType()) {
                 //ERROR
@@ -1948,6 +1962,7 @@ public final class ClassesUtil {
                 un_.buildError(_context.getAnalysisMessages().getUnassignedFinalField(),
                         _field,_clName);
                 _context.addError(un_);
+                _err.add(un_.getBuiltError());
             }
         }
     }

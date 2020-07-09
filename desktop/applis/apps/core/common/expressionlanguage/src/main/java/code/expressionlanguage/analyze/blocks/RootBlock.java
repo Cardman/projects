@@ -80,6 +80,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
 
 
     private String importedDirectSuperClass = "";
+    private StringList staticInitImportedInterfaces = new StringList();
     private StringList importedDirectSuperInterfaces = new StringList();
 
     private StringList annotations = new StringList();
@@ -1644,6 +1645,9 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
 
     public String getImportedDirectGenericSuperClass(){
         return importedDirectSuperClass;
+    }
+    public StringList getStaticInitImportedInterfaces() {
+        return staticInitImportedInterfaces;
     }
 
     public void addNameErrors(FoundErrorInterpret _error) {

@@ -1,6 +1,8 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.blocks.UniqueRootedBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -19,11 +21,10 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
 
     @Override
     ClassArgumentMatching getFrom(ContextEl _conf) {
-        Classes classes_ = _conf.getClasses();
         String clCurName_ = _conf.getAnalyzing().getGlobalClass();
         String base_ = StringExpUtil.getIdFromAllTypes(clCurName_);
-        ExecRootBlock clBody_ = classes_.getClassBody(base_);
-        if (!(clBody_ instanceof ExecUniqueRootedBlock)) {
+        RootBlock clBody_ = _conf.getAnalyzing().getAnaClassBody(base_);
+        if (!(clBody_ instanceof UniqueRootedBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -33,7 +34,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
             getErrs().add(call_.getBuiltError());
             return null;
         }
-        ExecUniqueRootedBlock unique_ =(ExecUniqueRootedBlock) clBody_;
+        UniqueRootedBlock unique_ =(UniqueRootedBlock) clBody_;
         String superClass_ = Templates.quickFormat(clCurName_, unique_.getImportedDirectGenericSuperClass(), _conf);
         return new ClassArgumentMatching(superClass_);
     }

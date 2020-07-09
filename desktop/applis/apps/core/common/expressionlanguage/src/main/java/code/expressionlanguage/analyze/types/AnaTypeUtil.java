@@ -280,8 +280,8 @@ public final class AnaTypeUtil {
                 page_.setOffset(0);
                 base_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,base_);
                 c.getPartsStaticInitInterfacesOffset().addAllElts(page_.getCurrentParts());
-                ExecRootBlock r_ = classes_.getClassBody(base_);
-                if (!(r_ instanceof ExecInterfaceBlock)) {
+                RootBlock r_ = page_.getAnaClassBody(base_);
+                if (!(r_ instanceof InterfaceBlock)) {
                     FoundErrorInterpret enum_;
                     enum_ = new FoundErrorInterpret();
                     enum_.setFileName(d_);
@@ -292,6 +292,7 @@ public final class AnaTypeUtil {
                     _context.addError(enum_);
                 } else {
                     type_.getStaticInitImportedInterfaces().add(base_);
+                    c.getStaticInitImportedInterfaces().add(base_);
                 }
             }
             for (int i = 0; i < len_; i++) {
@@ -337,33 +338,32 @@ public final class AnaTypeUtil {
             }
         }
         for (RootBlock c: page_.getFoundTypes()) {
-            ExecRootBlock exec_ = _context.getAnalyzing().getMapTypes().getVal(c);
-            if (!(exec_ instanceof ExecUniqueRootedBlock)) {
+            if (!(c instanceof UniqueRootedBlock)) {
                 continue;
             }
-            ExecUniqueRootedBlock un_ = (ExecUniqueRootedBlock)exec_;
+            UniqueRootedBlock un_ = (UniqueRootedBlock)c;
             StringList ints_ = un_.getStaticInitImportedInterfaces();
             StringList trimmedInt_ = new StringList();
             for (String i: ints_) {
                 trimmedInt_.add(i);
             }
-            StringList all_ = exec_.getAllSuperTypes();
+            StringList all_ = c.getAllSuperTypes();
             StringList allCopy_ = new StringList(all_);
             StringList.removeAllElements(allCopy_, _context.getStandards().getPredefinedInterfacesInitOrder());
             String clName_ = un_.getImportedDirectGenericSuperClass();
             String id_ = StringExpUtil.getIdFromAllTypes(clName_);
-            ExecRootBlock superType_ = classes_.getClassBody(id_);
-            if (superType_ instanceof ExecUniqueRootedBlock) {
+            RootBlock superType_ = page_.getAnaClassBody(id_);
+            if (superType_ instanceof UniqueRootedBlock) {
                 StringList.removeAllElements(allCopy_, superType_.getAllSuperTypes());
             }
             StringList filteredStatic_ = new StringList();
             for (String i: allCopy_) {
-                ExecRootBlock int_ = classes_.getClassBody(i);
-                if (!(int_ instanceof ExecInterfaceBlock)) {
+                RootBlock int_ = page_.getAnaClassBody(i);
+                if (!(int_ instanceof InterfaceBlock)) {
                     continue;
                 }
-                for (ExecBlock b: ExecBlock.getDirectChildren(int_)) {
-                    if (b instanceof ExecNamedFunctionBlock) {
+                for (Block b: ClassesUtil.getDirectChildren(int_)) {
+                    if (b instanceof NamedFunctionBlock) {
                         continue;
                     }
                     if (b instanceof GeneField) {
@@ -382,7 +382,7 @@ public final class AnaTypeUtil {
                             filteredStatic_.add(i);
                         }
                     }
-                    if (b instanceof ExecStaticBlock) {
+                    if (b instanceof StaticBlock) {
                         filteredStatic_.add(i);
                     }
                 }

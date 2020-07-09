@@ -156,6 +156,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                         _an.getKeyWords().getKeyWordReturn(),
                         getPseudoSignature(_an));
                 _an.addError(miss_);
+                addNameErrors(miss_);
             }
         }
     }

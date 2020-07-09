@@ -137,6 +137,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                         undef_.buildError(_an.getAnalysisMessages().getMustCallIntCtorNeed(),
                                 n);
                         _an.addError(undef_);
+                        addNameErrors(undef_);
                     }
                 }
                 for (String n:ints_) {
@@ -149,6 +150,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                         undef_.buildError(_an.getAnalysisMessages().getMustCallIntCtorNotNeed(),
                                 n);
                         _an.addError(undef_);
+                        addNameErrors(undef_);
                     }
                 }
             }
@@ -161,6 +163,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                 //first constructor ref header len
                 undef_.buildError(_an.getAnalysisMessages().getMustNotCallIntCtorAfterThis());
                 _an.addError(undef_);
+                addNameErrors(undef_);
             }
         }
     }

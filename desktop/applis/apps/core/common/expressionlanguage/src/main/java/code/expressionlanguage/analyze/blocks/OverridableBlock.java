@@ -143,6 +143,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                         _an.getKeyWords().getKeyWordReturn(),
                         getPseudoSignature(_an));
                 _an.addError(miss_);
+                addNameErrors(miss_);
             }
         }
     }
