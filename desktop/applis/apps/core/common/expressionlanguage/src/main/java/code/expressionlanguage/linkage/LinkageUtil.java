@@ -1850,9 +1850,7 @@ public final class LinkageUtil {
             }
         } else {
             StringList l_ = new StringList();
-            if (MethodOperation.isEmptyError(val_)) {
-                l_ = val_.getErrs();
-            }
+            MethodOperation.processEmptyError(val_,l_);
             IntTreeMap<String> operators_ =  par_.getOperations().getOperators();
             if (leftOperNotUnary(par_)&& !(indexChild_ == 0 && par_ instanceof ArrOperation)) {
                 int s_;
@@ -1946,6 +1944,12 @@ public final class LinkageUtil {
                 String tag_ = "<span class=\"s\">";
                 int begin_ = sum_ + off_ + val_.getIndexInEl();
                 _parts.add(new PartOffset(tag_,begin_));
+                if (!val_.getErrs().isEmpty()) {
+                    tag_ = "<a title=\""+transform(StringList.join(val_.getErrs(),"\n\n"))+"\" class=\"e\">";
+                    _parts.add(new PartOffset(tag_,begin_));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,begin_+ ((ConstantOperation)val_).getLength()));
+                }
                 tag_ = "</span>";
                 _parts.add(new PartOffset(tag_,begin_+ ((ConstantOperation)val_).getLength()));
             }
@@ -2533,12 +2537,8 @@ public final class LinkageUtil {
                                     MethodOperation parent_,
                                     CustList<PartOffset> _parts) {
         StringList l_ = new StringList();
-        if (MethodOperation.isEmptyError(curOp_)) {
-            l_.addAllElts(curOp_.getErrs());
-        }
-        if (MethodOperation.isEmptyError(nextSiblingOp_)) {
-            l_.addAllElts(nextSiblingOp_.getErrs());
-        }
+        MethodOperation.processEmptyError(curOp_,l_);
+        MethodOperation.processEmptyError(nextSiblingOp_,l_);
         if (middleOper(parent_)) {
             int index_ = curOp_.getIndexChild();
             IntTreeMap<String> operators_ =  parent_.getOperations().getOperators();

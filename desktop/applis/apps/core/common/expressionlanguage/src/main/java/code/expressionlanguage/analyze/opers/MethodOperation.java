@@ -82,6 +82,9 @@ public abstract class MethodOperation extends OperationNode implements Reductibl
     }
 
     private static void addEmptyError(OperationNode _op, StringList _out) {
+        if (!_out.isEmpty()) {
+            return;
+        }
         _out.addAllElts(_op.getErrs());
     }
     public static boolean isEmptyError(OperationNode _op) {

@@ -38,10 +38,11 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         if (chidren_.size() != 2) {
             okNum = false;
             _conf.getAnalyzing().setOkNumOp(false);
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(1), _conf);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            badNb_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            int index_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            badNb_.setIndexFile(index_);
             //first oper
             badNb_.buildError(_conf.getAnalysisMessages().getOperatorNbDiff(),
                     Integer.toString(2),
@@ -49,6 +50,10 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
                     op
             );
             _conf.getAnalyzing().getLocalizer().addError(badNb_);
+            CustList<PartOffset> err_ = new CustList<PartOffset>();
+            err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badNb_.getBuiltError()) +"\" class=\"e\">",index_));
+            err_.add(new PartOffset("</a>",index_+getOperations().getOperators().getValue(1).length()));
+            getPartOffsetsChildren().add(err_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             return;
         }

@@ -40,9 +40,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     @Override
     public void analyze(ContextEl _conf) {
-        if (MethodOperation.isEmptyError(getFirstChild())){
-            getErrs().addAllElts(getFirstChild().getErrs());
-        }
+        MethodOperation.processEmptyError(getFirstChild(),getErrs());
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String varargParam_ = getVarargParam(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);

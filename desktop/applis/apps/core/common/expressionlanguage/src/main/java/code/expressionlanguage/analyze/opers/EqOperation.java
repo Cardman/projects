@@ -5,6 +5,8 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
@@ -29,14 +31,20 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
 
     @Override
     public void analyze(ContextEl _conf) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _conf);
         if (StringList.quickEq(oper.trim(), NEG_BOOL)) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            badEl_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            int index_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            badEl_.setIndexFile(index_);
             //oper len
             badEl_.buildError(_conf.getAnalysisMessages().getBadOperatorRef(),
                     oper.trim());
             _conf.getAnalyzing().getLocalizer().addError(badEl_);
+            CustList<PartOffset> err_ = new CustList<PartOffset>();
+            err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badEl_.getBuiltError()) +"\" class=\"e\">",index_));
+            err_.add(new PartOffset("</a>",index_+1));
+            getPartOffsetsChildren().add(err_);
         }
         String custOp_ = oper.trim();
         CustList<OperationNode> chidren_ = getChildrenNodes();

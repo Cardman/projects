@@ -46,6 +46,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
                     Integer.toString(types_.size())
             );
             _conf.getAnalyzing().getLocalizer().addError(badCall_);
+            getErrs().add(badCall_.getBuiltError());
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }
@@ -84,6 +85,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
                 un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                         className);
                 _conf.getAnalyzing().getLocalizer().addError(un_);
+                getErrs().add(un_.getBuiltError());
                 return;
             }
             String gene_ = geneType_.getGenericString();
@@ -109,6 +111,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     className);
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            getErrs().add(un_.getBuiltError());
             return;
         }
         String arg_ = types_.get(1);
@@ -146,6 +149,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(MethodAccessKind.STATIC, exp_, classesNames_).getSignature(_conf));
         _conf.getAnalyzing().getLocalizer().addError(undefined_);
+        getErrs().add(undefined_.getBuiltError());
 
     }
 

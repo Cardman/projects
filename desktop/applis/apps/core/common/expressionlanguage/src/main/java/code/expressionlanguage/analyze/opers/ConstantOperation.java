@@ -66,8 +66,9 @@ public final class ConstantOperation extends LeafOperation {
                 badFormat_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 badFormat_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //constant len
-                badFormat_.buildError(_conf.getAnalysisMessages().getBadCharFormat());
+                badFormat_.buildError(_conf.getAnalysisMessages().getBadCharFormat(),originalStr_);
                 _conf.getAnalyzing().getLocalizer().addError(badFormat_);
+                getErrs().add(badFormat_.getBuiltError());
             }
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
