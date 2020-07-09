@@ -49,6 +49,9 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
                     StringList.join(clMatch_.getNames(),"&"),
                     oper_);
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            if (!MethodOperation.isEmptyError(getFirstChild())){
+                getErrs().add(un_.getBuiltError());
+            }
             ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
             setResultClass(arg_);
             return;

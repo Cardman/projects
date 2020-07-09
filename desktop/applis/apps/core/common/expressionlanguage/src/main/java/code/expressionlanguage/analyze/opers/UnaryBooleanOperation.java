@@ -43,8 +43,12 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
             un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //operator
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
-                    StringList.join(clMatch_.getNames(),"&"));
+            un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
+                    StringList.join(clMatch_.getNames(),"&"),
+                    oper_);
+            if (!MethodOperation.isEmptyError(getFirstChild())){
+                getErrs().add(un_.getBuiltError());
+            }
             _conf.getAnalyzing().getLocalizer().addError(un_);
         }
         clMatch_.setUnwrapObject(booleanPrimType_);

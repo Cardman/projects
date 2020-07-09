@@ -17,6 +17,8 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
@@ -63,6 +65,13 @@ public final class AffectationOperation extends MethodOperation {
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedAffect(),
                     "=");
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            IntTreeMap< String> ops_ = getOperations().getOperators();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
+            int opLocat_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            CustList<PartOffset> err_ = new CustList<PartOffset>();
+            err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
+            err_.add(new PartOffset("</a>",opLocat_+1));
+            getPartOffsetsChildren().add(err_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -115,6 +124,16 @@ public final class AffectationOperation extends MethodOperation {
                 un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
                 _conf.getAnalyzing().getLocalizer().addError(un_);
+                IntTreeMap< String> ops_ = getOperations().getOperators();
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
+                int opLocat_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                CustList<PartOffset> err_ = new CustList<PartOffset>();
+                err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
+                err_.add(new PartOffset("</a>",opLocat_+1));
+                getPartOffsetsChildren().add(err_);
+                setResultClass(new ClassArgumentMatching(elt_.getResultClass()));
+                elt_.setVariable(true);
+                return;
             }
         }
         setResultClass(new ClassArgumentMatching(elt_.getResultClass()));
@@ -135,6 +154,13 @@ public final class AffectationOperation extends MethodOperation {
                     StringList.join(clMatchRight_.getNames(),"&"),
                     StringList.join(clMatchLeft_.getNames(),"&"));
             _conf.getAnalyzing().getLocalizer().addError(cast_);
+            IntTreeMap< String> ops_ = getOperations().getOperators();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
+            int opLocat_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            CustList<PartOffset> err_ = new CustList<PartOffset>();
+            err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
+            err_.add(new PartOffset("</a>",opLocat_+1));
+            getPartOffsetsChildren().add(err_);
             return;
         }
         StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
@@ -187,6 +213,13 @@ public final class AffectationOperation extends MethodOperation {
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
+                IntTreeMap< String> ops_ = getOperations().getOperators();
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
+                int opLocat_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                CustList<PartOffset> err_ = new CustList<PartOffset>();
+                err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
+                err_.add(new PartOffset("</a>",opLocat_+1));
+                getPartOffsetsChildren().add(err_);
             }
         }
         if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_, _conf)) {

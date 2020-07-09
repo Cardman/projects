@@ -2389,6 +2389,10 @@ public final class LinkageUtil {
                 addParts(_cont, currentFileName_, classMethodId_.getClassName(), id_,
                         sum_ + val_.getIndexInEl() + par_.getOpOffset(), id_.getName().length(),
                         val_.getErrs(),_parts);
+            } else if (!val_.getErrs().isEmpty()){
+                int i_ = sum_ + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
+                _parts.add(new PartOffset("</a>",i_+1));
             }
         }
         if (val_ instanceof CastOperation) {
@@ -2662,6 +2666,8 @@ public final class LinkageUtil {
             MethodId methodId_ = classMethodIdArr_.getConstraints();
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
             addParts(_cont,currentFileName_,className_,id_,opDelta_+offsetEnd_,1,parentOp_.getErrs(),_parts);
+        } else {
+            addParts(_cont,currentFileName_,"",null,opDelta_+offsetEnd_,1,parentOp_.getErrs(),_parts);
         }
     }
     private static void processLogicAndOrOperation(ContextEl _cont, Block _block, int offsetEnd_, OperationNode curOp_, OperationNode nextSiblingOp_, MethodOperation parentOp_, CustList<PartOffset> _parts) {

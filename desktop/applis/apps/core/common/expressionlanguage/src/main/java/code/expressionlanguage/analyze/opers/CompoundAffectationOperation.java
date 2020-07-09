@@ -55,6 +55,13 @@ public final class CompoundAffectationOperation extends MethodOperation {
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedAffect(),
                     oper);
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            IntTreeMap< String> ops_ = getOperations().getOperators();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
+            int opLocat_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            CustList<PartOffset> err_ = new CustList<PartOffset>();
+            err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
+            err_.add(new PartOffset("</a>",opLocat_+oper.length()));
+            getPartOffsetsChildren().add(err_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -71,6 +78,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
                 _conf.getAnalyzing().getLocalizer().addError(un_);
+                getErrs().add(un_.getBuiltError());
             }
         }
         IntTreeMap< String> ops_ = getOperations().getOperators();
@@ -99,6 +107,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                             StringList.join(getResultClass().getNames(),"&"),
                             StringList.join(elt_.getResultClass().getNames(),"&"));
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    getErrs().add(cast_.getBuiltError());
                 }
                 ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.toPrimitive(clMatchLeft_,_conf)));
@@ -127,6 +136,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
                             StringList.join(clMatchRight_.getNames(),"&"),
                             StringList.join(clMatchLeft_.getNames(),"&"));
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    CustList<PartOffset> err_ = new CustList<PartOffset>();
+                    err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
+                    err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
+                    getPartOffsetsChildren().add(err_);
                     return;
                 }
                 clMatchRight_.setConvertToString(true);
@@ -142,6 +155,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
+                CustList<PartOffset> err_ = new CustList<PartOffset>();
+                err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
+                err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
+                getPartOffsetsChildren().add(err_);
                 return;
             }
             ClassArgumentMatching unwrapped_ = PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf);
@@ -155,6 +172,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
+                CustList<PartOffset> err_ = new CustList<PartOffset>();
+                err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
+                err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
+                getPartOffsetsChildren().add(err_);
                 return;
             }
             elt_.getResultClass().setUnwrapObject(unwrapped_);
@@ -181,6 +202,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
+                CustList<PartOffset> err_ = new CustList<PartOffset>();
+                err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
+                err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
+                getPartOffsetsChildren().add(err_);
                 return;
             }
             ClassArgumentMatching unwrapped_ = PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf);
@@ -200,6 +225,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
+                CustList<PartOffset> err_ = new CustList<PartOffset>();
+                err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
+                err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
+                getPartOffsetsChildren().add(err_);
                 return;
             }
             ClassArgumentMatching unwrapped_ = PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf);
@@ -229,6 +258,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
                             StringList.join(clMatchRight_.getNames(),"&"),
                             StringList.join(clMatchLeft_.getNames(),"&"));
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    CustList<PartOffset> err_ = new CustList<PartOffset>();
+                    err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
+                    err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
+                    getPartOffsetsChildren().add(err_);
                 }
             }
             setResultClass(new ClassArgumentMatching(clMatchLeft_));
@@ -246,7 +279,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             _conf.getAnalyzing().getLocalizer().addError(cast_);
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
-            err_.add(new PartOffset("</a>",opLocat_+oper.length()));
+            err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
             getPartOffsetsChildren().add(err_);
         }
     }
