@@ -2211,20 +2211,20 @@ public final class LinkageUtil {
         if (val_ instanceof FinalVariableOperation) {
             String varName_ = ((FinalVariableOperation) val_).getVariableName();
             int delta_ = ((FinalVariableOperation) val_).getOff();
-            ConstType type_ = ((FinalVariableOperation) val_).getType();
-            if (type_ == ConstType.LOOP_INDEX) {
+            if (!val_.getErrs().isEmpty()) {
+                int deltaLoc_ = ((FinalVariableOperation)val_).getDelta();
+                String err_ = transform(StringList.join(val_.getErrs(),"\n\n"));
+                String tag_ = "<a title=\""+err_+"\" class=\"e\">";
+                _parts.add(new PartOffset(tag_,deltaLoc_+delta_+sum_ + val_.getIndexInEl()));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,deltaLoc_+delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+            } else {
                 int deltaLoc_ = ((FinalVariableOperation)val_).getDelta();
                 int id_ = ((FinalVariableOperation) val_).getRef();
                 String tag_ = "<a href=\"#m"+id_+"\">";
                 _parts.add(new PartOffset(tag_,deltaLoc_+delta_+sum_ + val_.getIndexInEl()));
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_,deltaLoc_+delta_+sum_ + val_.getIndexInEl()+varName_.length()));
-            } else {
-                int id_ = ((FinalVariableOperation) val_).getRef();
-                String tag_ = "<a href=\"#m"+id_+"\">";
-                _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+varName_.length()));
             }
         }
     }

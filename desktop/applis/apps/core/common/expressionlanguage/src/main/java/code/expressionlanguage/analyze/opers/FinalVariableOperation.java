@@ -72,6 +72,7 @@ public final class FinalVariableOperation extends LeafOperation {
         und_.buildError(_conf.getAnalysisMessages().getUndefinedVariable(),
                 variableName);
         _conf.getAnalyzing().getLocalizer().addError(und_);
+        getErrs().add(und_.getBuiltError());
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
 
