@@ -139,7 +139,7 @@ public final class ExecutingUtil {
     public static MethodPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, MethodId _method, CustList<Argument> _args, Argument _right) {
         _context.setCallingState(null);
         ExecNamedFunctionBlock methodLoc_;
-        CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(_context, _class, _method);
+        CustList<ExecOverridableBlock> methods_ = ExecBlock.getDeepMethodBodiesById(_context, _class, _method);
         if (!methods_.isEmpty()) {
             methodLoc_ = methods_.first();
             String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
@@ -164,7 +164,7 @@ public final class ExecutingUtil {
     public static CastPageEl createCallingCast(ContextEl _context, String _class, MethodId _method, CustList<Argument> _args) {
         _context.setCallingState(null);
         ExecNamedFunctionBlock methodLoc_;
-        methodLoc_ = ExecBlock.getMethodBodiesById(_context, _class, _method).first();
+        methodLoc_ = ExecBlock.getDeepMethodBodiesById(_context, _class, _method).first();
         String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
         _context.getCoverage().passCalls(_context,idCl_,methodLoc_);
         String ret_ = methodLoc_.getImportedReturnType();

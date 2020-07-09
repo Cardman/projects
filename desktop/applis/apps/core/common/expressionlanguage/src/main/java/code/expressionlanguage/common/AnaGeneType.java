@@ -7,4 +7,5 @@ public interface AnaGeneType extends AnaInheritedType {
 
     String getFullName();
 
+    String getGenericString();
 }

@@ -468,6 +468,12 @@ public abstract class OperationNode {
         return new StandardFieldOperation(_index, _indexChild, _m, _op);
     }
 
+    static String emptyToObject(String _str, ContextEl _conf) {
+        if (_str.isEmpty()) {
+            return _conf.getStandards().getAliasObject();
+        }
+        return _str;
+    }
     static void checkClassAccess(OperationNode _op,ContextEl _conf, String _glClass, String _classStr) {
         Classes classes_ = _conf.getClasses();
         RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(_classStr);
@@ -1391,8 +1397,8 @@ public abstract class OperationNode {
             for (TypeInfo t: g) {
                 String f_ = t.getType();
                 String cl_ = StringExpUtil.getIdFromAllTypes(f_);
-                GeneType root_ = _conf.getClassBody(cl_);
-                fetchParamClassMethods(_conf,_accessFromSuper,_superClass,t.getAncestor(),t.getScope(),_uniqueId,glClass_,methods_,f_,root_,baseTypes_,superTypesBaseAncBis_);
+                AnaGeneType root_ = _conf.getAnalyzing().getAnaGeneType(_conf, cl_);
+                fetchParamClassMethods(_conf,_accessFromSuper,_superClass,t.getAncestor(),t.getScope(),_uniqueId,glClass_,methods_,f_, baseTypes_,superTypesBaseAncBis_, cl_, root_);
             }
             _methods.add(methods_);
         }
@@ -1512,11 +1518,9 @@ public abstract class OperationNode {
 
     private static void fetchParamClassMethods(ContextEl _conf, boolean _accessFromSuper, boolean _superClass, int _anc, MethodAccessKind _kind,
                                                ClassMethodIdAncestor _uniqueId, String _glClass, CustList<MethodInfo> _methods,
-                                               String _cl, GeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap) {
-        String fullName_ = _root.getFullName();
-        AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,fullName_);
-        String genericString_ = _root.getGenericString();
-        for (GeneCustStaticMethod e: ClassesUtil.getMethodBlocks(g_)) {
+                                               String _cl, StringList _superTypesBase, StringMap<String> _superTypesBaseMap, String _fullName, AnaGeneType _g) {
+        String genericString_ = _g.getGenericString();
+        for (GeneCustStaticMethod e: ClassesUtil.getMethodBlocks(_g)) {
             MethodId id_ = e.getId();
             MethodAccessKind k_ = id_.getKind();
             if (_kind == MethodAccessKind.STATIC) {
@@ -1531,10 +1535,10 @@ public abstract class OperationNode {
                     }
                 }
             }
-            if (filterMember(_accessFromSuper,_superClass,_superTypesBase,fullName_)) {
+            if (filterMember(_accessFromSuper,_superClass,_superTypesBase, _fullName)) {
                 continue;
             }
-            MethodInfo stMeth_ = fetchedParamMethod(_root,g_,e,genericString_,k_ == MethodAccessKind.STATIC,_conf, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap);
+            MethodInfo stMeth_ = fetchedParamMethod(_g,e,genericString_,k_ == MethodAccessKind.STATIC,_conf, _uniqueId,_glClass,_anc, _cl,_superTypesBaseMap);
             if (stMeth_ == null) {
                 continue;
             }
@@ -1542,7 +1546,7 @@ public abstract class OperationNode {
         }
         for (MethodInfo e: getPredefineStaticEnumMethods(_conf,genericString_,_anc)) {
             MethodId id_ = e.getConstraints();
-            if (isCandidateMethod(_uniqueId,_anc, fullName_, id_)) {
+            if (isCandidateMethod(_uniqueId,_anc, _fullName, id_)) {
                 continue;
             }
             _methods.add(e);
@@ -1560,7 +1564,7 @@ public abstract class OperationNode {
         return false;
     }
 
-    private static MethodInfo fetchedParamMethod(GeneType _type, AnaGeneType _r,GeneCustStaticMethod _m,String _s,boolean _keepParams,
+    private static MethodInfo fetchedParamMethod(AnaGeneType _r, GeneCustStaticMethod _m, String _s, boolean _keepParams,
                                                  ContextEl _conf, ClassMethodIdAncestor _uniqueId,
                                                  String _glClass, int _anc, String _f, StringMap<String> _superTypesBaseMap) {
         String base_ = StringExpUtil.getIdFromAllTypes(_s);
@@ -1580,7 +1584,7 @@ public abstract class OperationNode {
         }
         if (_m instanceof OverridableBlock) {
             OverridableBlock c = (OverridableBlock) _m;
-            Accessed a_ = new Accessed(c.getAccess(), _type.getPackageName(), _type.getFullName(), outer_);
+            Accessed a_ = new Accessed(c.getAccess(), _r.getPackageName(), _r.getFullName(), outer_);
             if (cannotAccess(_conf,base_,a_,_glClass,_superTypesBaseMap)) {
                 return null;
             }

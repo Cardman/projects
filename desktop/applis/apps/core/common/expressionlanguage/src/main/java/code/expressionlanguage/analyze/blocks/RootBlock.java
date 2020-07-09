@@ -9,9 +9,7 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.types.ResolvingSuperTypes;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.common.*;
@@ -52,7 +50,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
 
     private Ints importsOffset = new Ints();
 
-    private CustList<OverridingMethod> allOverridingMethods;
+    private CustList<OverridingMethodDto> allOverridingMethods;
 
     private CustList<TypeVar> paramTypes = new CustList<TypeVar>();
 
@@ -98,7 +96,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
               String _packageName, OffsetAccessInfo _access, String _templateDef,
               IntMap<String> _directSuperTypes, OffsetsBlock _offset) {
         super(_offset);
-        allOverridingMethods = new CustList<OverridingMethod>();
+        allOverridingMethods = new CustList<OverridingMethodDto>();
         name = _name.trim();
         packageName = StringExpUtil.removeDottedSpaces(_packageName);
         access = _access.getInfo();
@@ -225,27 +223,26 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
         String gene_ = _exec.getGenericString();
         StringList classes_ = new StringList(gene_);
         classes_.addAllElts(allGenericSuperClasses_);
-        for (OverridingMethod e: allOverridingMethods) {
-            CustList<ClassMethodId> locGeneInt_ = new CustList<ClassMethodId>();
-            CustList<ClassMethodId> locGeneCl_ = new CustList<ClassMethodId>();
-            for (ClassMethodId c: e.getMethodIds()) {
-                String base_ = StringExpUtil.getIdFromAllTypes(c.getClassName());
-                ExecRootBlock r_ = classesRef_.getClassBody(base_);
-                if (r_ instanceof ExecInterfaceBlock) {
+        for (OverridingMethodDto e: allOverridingMethods) {
+            CustList<GeneStringOverridable> locGeneInt_ = new CustList<GeneStringOverridable>();
+            CustList<GeneStringOverridable> locGeneCl_ = new CustList<GeneStringOverridable>();
+            for (GeneStringOverridable c: e.getMethodIds()) {
+                RootBlock r_ = c.getType();
+                if (r_ instanceof InterfaceBlock) {
                     locGeneInt_.add(c);
                 }
-                if (r_ instanceof ExecClassBlock) {
+                if (r_ instanceof ClassBlock) {
                     locGeneCl_.add(c);
                 }
             }
-            for (ClassMethodId i: locGeneInt_) {
-                String name_ = i.getClassName();
-                MethodId id_ = i.getConstraints();
-                ExecNamedFunctionBlock supInt_ = ExecBlock.getMethodBodiesById(_context,name_, id_).first();
-                for (ClassMethodId c: locGeneCl_) {
-                    String nameCl_ = c.getClassName();
-                    MethodId idCl_ = c.getConstraints();
-                    ExecNamedFunctionBlock supCl_ = ExecBlock.getMethodBodiesById(_context,nameCl_, idCl_).first();
+            for (GeneStringOverridable i: locGeneInt_) {
+                OverridableBlock supInt_ = i.getBlock();
+                String name_ = i.getGeneString();
+                MethodId id_ = supInt_.getId();
+                for (GeneStringOverridable c: locGeneCl_) {
+                    String nameCl_ = c.getGeneString();
+                    OverridableBlock supCl_ = c.getBlock();
+                    MethodId idCl_ = supCl_.getId();
                     if (supInt_.getAccess().isStrictMoreAccessibleThan(supCl_.getAccess())) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
@@ -258,12 +255,13 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
                                 nameCl_,
                                 idCl_.getSignature(_context));
                         _context.addError(err_);
+                        supCl_.addNameErrors(err_);
                     }
                     String retInt_ = supInt_.getImportedReturnType();
                     String retBase_ = supCl_.getImportedReturnType();
                     String formattedRetDer_ = Templates.quickFormat(nameCl_, retBase_, _context);
                     String formattedRetBase_ = Templates.quickFormat(name_, retInt_, _context);
-                    if (((ExecOverridableBlock)supCl_).getKind() != MethodKind.STD_METHOD) {
+                    if (supCl_.getKind() != MethodKind.STD_METHOD) {
                         if (!StringList.quickEq(formattedRetBase_, formattedRetDer_)) {
                             FoundErrorInterpret err_;
                             err_ = new FoundErrorInterpret();
@@ -278,6 +276,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
                                     idCl_.getSignature(_context),
                                     nameCl_);
                             _context.addError(err_);
+                            supCl_.addNameErrors(err_);
                         }
                         continue;
                     }
@@ -295,6 +294,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
                                 id_.getSignature(_context),
                                 name_);
                         _context.addError(err_);
+                        supCl_.addNameErrors(err_);
                     }
                 }
             }
@@ -455,7 +455,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
      @return a map with formatted id from super types as key
      and a list of (formatted super types and id) as value
      */
-    public CustList<OverridingMethod> getAllOverridingMethods() {
+    public CustList<OverridingMethodDto> getAllOverridingMethods() {
         return allOverridingMethods;
     }
 
@@ -1118,6 +1118,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
                     StringList.join(types_,"&"),
                     StringList.join(retClasses_,"&"));
             _context.addError(err_);
+            addNameErrors(err_);
         }
         er_ = RootBlock.areCompatibleFinalReturn(_fullName, _vars, sub_, _context);
         for (MethodIdAncestors e: er_) {
@@ -1144,6 +1145,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
                             s.getConstraints().getSignature(_context),
                             s.getClassName());
                     _context.addError(err_);
+                    addNameErrors(err_);
                 }
             }
         }
@@ -1166,6 +1168,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
                     StringList.join(types_,"&"),
                     StringList.join(retClasses_,"&"));
             _context.addError(err_);
+            addNameErrors(err_);
         }
         er_ = RootBlock.areModifierCompatible(sub_);
         for (MethodIdAncestors e: er_) {
@@ -1177,6 +1180,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
                     _virtualType,
                     e.getClassMethodId().getClassMethodId().getSignature(_context));
             _context.addError(err_);
+            addNameErrors(err_);
         }
     }
 
@@ -1229,30 +1233,32 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
                             getFullName(),
                             mDer_.getSignature(_context));
                     _context.addError(err_);
+                    mDer_.addNameErrors(err_);
                 }
             }
         }
         if (concreteClass_) {
-            for (GeneCustModifierMethod b: ExecBlock.getMethodExecBlocks(_exec)) {
+            for (OverridableBlock b: ClassesUtil.getMethodExecBlocks(this)) {
                 MethodId idFor_ = b.getId();
                 if (b.isAbstractMethod()) {
                     FoundErrorInterpret err_;
                     err_ = new FoundErrorInterpret();
                     err_.setFileName(getFile().getFileName());
-                    err_.setIndexFile(((ExecOverridableBlock) b).getNameOffset());
+                    err_.setIndexFile(b.getNameOffset());
                     //abstract key word
                     err_.buildError(
                             _context.getAnalysisMessages().getAbstractMethodConc(),
                             getFullName(),
                             idFor_.getSignature(_context));
                     _context.addError(err_);
+                    b.addNameErrors(err_);
                 }
             }
             StringList allSuperClass_ = getAllGenericSuperTypes();
             for (String s: allSuperClass_) {
                 String base_ = StringExpUtil.getIdFromAllTypes(s);
-                ExecRootBlock superBl_ = classesRef_.getClassBody(base_);
-                for (GeneCustModifierMethod m: ExecBlock.getMethodExecBlocks(superBl_)) {
+                RootBlock superBl_ = _context.getAnalyzing().getAnaClassBody(base_);
+                for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                     if (m.isAbstractMethod()) {
                         abstractMethods_.add(new ClassMethodId(s, m.getId()));
                     }
@@ -1275,6 +1281,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
                             m.getConstraints().getSignature(_context),
                             getFullName());
                     _context.addError(err_);
+                    addNameErrors(err_);
                 }
             }
         } else {
@@ -1282,8 +1289,8 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
             allSuperClass_.addAllElts(getAllGenericSuperTypes());
             for (String s: allSuperClass_) {
                 String base_ = StringExpUtil.getIdFromAllTypes(s);
-                ExecRootBlock superBl_ = classesRef_.getClassBody(base_);
-                for (GeneCustModifierMethod m: ExecBlock.getMethodExecBlocks(superBl_)) {
+                RootBlock superBl_ = _context.getAnalyzing().getAnaClassBody(base_);
+                for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                     if (m.isAbstractMethod()) {
                         abstractMethods_.add(new ClassMethodId(s, m.getId()));
                     }
@@ -1519,6 +1526,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
             un_.buildError(_cont.getAnalysisMessages().getUndefinedSuperCtor(),
                     getFullName());
             _cont.addError(un_);
+            addNameErrors(un_);
         }
         for (ConstructorBlock c: ctors_) {
             c.setupInstancingStep(_cont,_cont.getAnalyzing().getMapMembers().getVal(this).getAllCtors().getVal(c));
@@ -1532,6 +1540,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
                 un_.buildError(_cont.getAnalysisMessages().getUndefinedSuperCtorCall(),
                         c.getSignature(_cont));
                 _cont.addError(un_);
+                c.addNameErrors(un_);
             }
         }
         for (EntryCust<ConstructorId, ConstructorBlock> e: ctorsId_.entryList()) {
@@ -1563,6 +1572,7 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
                             StringList.join(c_,"&"),
                             getFullName());
                     _cont.addError(cyclic_);
+                    found_.addNameErrors(cyclic_);
                     break;
                 }
                 co_ = convert(found_.getConstIdSameClass());

@@ -10,7 +10,6 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.types.OverridingMethod;
 import code.expressionlanguage.functionid.*;
@@ -51,8 +50,7 @@ public final class AnaTypeUtil {
             for (GeneStringOverridable c: allMethods_) {
                 String templClass_ = c.getGeneString();
                 String typeName_ = StringExpUtil.getIdFromAllTypes(templClass_);
-                RootBlock sub_ = _context.getAnalyzing().getAnaClassBody(typeName_);
-                StringList allSuperTypes_ = sub_.getAllSuperTypes();
+                StringList allSuperTypes_ = c.getType().getAllSuperTypes();
                 for (GeneStringOverridable s: allMethods_) {
                     String super_ = s.getGeneString();
                     String isSuper_ = StringExpUtil.getIdFromAllTypes(super_);
@@ -62,11 +60,10 @@ public final class AnaTypeUtil {
                         }
                     }
                     OverridingRelation ovRel_ = new OverridingRelation();
-                    RootBlock sup_ = _context.getAnalyzing().getAnaClassBody(isSuper_);
                     ovRel_.setSubMethod(c);
-                    ovRel_.setSub(sub_);
+                    ovRel_.setSub(c.getType());
                     ovRel_.setSupMethod(s);
-                    ovRel_.setSup(sup_);
+                    ovRel_.setSup(s.getType());
                     pairs_.add(ovRel_);
                 }
             }
@@ -122,6 +119,7 @@ public final class AnaTypeUtil {
                                 supId_.getBlock().getId().getSignature(_context),
                                 subId_.getGeneString(),
                                 subId_.getBlock().getId().getSignature(_context));
+                        subId_.getBlock().addNameErrors(err_);
                         _context.addError(err_);
                         continue;
                     }
@@ -139,6 +137,7 @@ public final class AnaTypeUtil {
                                     formattedRetDer_,
                                     subId_.getBlock().getId().getSignature(_context),
                                     subId_.getGeneString());
+                            subId_.getBlock().addNameErrors(err_);
                             _context.addError(err_);
                             continue;
                         }
@@ -159,6 +158,7 @@ public final class AnaTypeUtil {
                                 formattedRetBase_,
                                 supId_.getBlock().getId().getSignature(_context),
                                 supId_.getGeneString());
+                        subId_.getBlock().addNameErrors(err_);
                         _context.addError(err_);
                         continue;
                     }
@@ -167,7 +167,13 @@ public final class AnaTypeUtil {
                 }
             }
         }
-        val_.getAllOverridingMethods().addAllElts(_type.getAllOverridingMethods());
+        for (OverridingMethodDto o: _type.getAllOverridingMethods()) {
+            OverridingMethod elt_ = new OverridingMethod(o.getFormattedMethodId());
+            for (GeneStringOverridable g:o.getMethodIds()) {
+                elt_.getMethodIds().add(new ClassMethodId(g.getGeneString(),g.getBlock().getId()));
+            }
+            val_.getAllOverridingMethods().add(elt_);
+        }
     }
 
     private static CustList<ClassMethodId> getAllDuplicates(RootBlock _type, ContextEl _classes) {
@@ -209,7 +215,7 @@ public final class AnaTypeUtil {
             }
             MethodId m_ = b.getId();
             OverridingMethodDto o_ = new OverridingMethodDto(MethodId.to(m_));
-            o_.getMethodIds().add(new GeneStringOverridable(_r.getGenericString(),b));
+            o_.getMethodIds().add(new GeneStringOverridable(_r.getGenericString(),_r,b));
             map_.add(o_);
         }
         for (String s: _r.getAllGenericSuperTypes()) {
@@ -219,49 +225,46 @@ public final class AnaTypeUtil {
                 if (b.hiddenInstance()) {
                     continue;
                 }
-                MethodId m_ = b.getId();
-                addDtoClass(map_, b.getId().quickOverrideFormat(s, _classes), b,s,new ClassMethodId(s, m_));
-//                addDtoClass(map_, b.getId().quickOverrideFormat(s, _classes), b,b_.getGenericString(),new ClassMethodId(s, m_));
+                addDtoClass(map_, b.getId().quickOverrideFormat(s, _classes),b_, b,s);
             }
         }
         return map_;
     }
 
-    private static void addClass(CustList<OverridingMethod> _map, FormattedMethodId _key, GeneStringOverridable _class) {
-        boolean found_ = false;
-        for (OverridingMethod o: _map) {
-            if (o.getFormattedMethodId().eq(_key)) {
-                o.getMethodIds().add(new ClassMethodId(_class.getGeneString(),_class.getBlock().getId()));
-                found_ = true;
-                break;
-            }
-        }
-        if (!found_) {
-            OverridingMethod o_ = new OverridingMethod(_key);
-            o_.getMethodIds().add(new ClassMethodId(_class.getGeneString(),_class.getBlock().getId()));
-            _map.add(o_);
-        }
-    }
-
-
-    private static void addDtoClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, OverridableBlock _ov, String _str,ClassMethodId _class) {
+    private static void addClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, GeneStringOverridable _class) {
         boolean found_ = false;
         for (OverridingMethodDto o: _map) {
             if (o.getFormattedMethodId().eq(_key)) {
-                o.getMethodIds().add(new GeneStringOverridable(_str,_ov));
+                o.getMethodIds().add(_class);
                 found_ = true;
                 break;
             }
         }
         if (!found_) {
             OverridingMethodDto o_ = new OverridingMethodDto(_key);
-            o_.getMethodIds().add(new GeneStringOverridable(_str,_ov));
+            o_.getMethodIds().add(_class);
+            _map.add(o_);
+        }
+    }
+
+
+    private static void addDtoClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, RootBlock _r,OverridableBlock _ov, String _str) {
+        boolean found_ = false;
+        for (OverridingMethodDto o: _map) {
+            if (o.getFormattedMethodId().eq(_key)) {
+                o.getMethodIds().add(new GeneStringOverridable(_str,_r,_ov));
+                found_ = true;
+                break;
+            }
+        }
+        if (!found_) {
+            OverridingMethodDto o_ = new OverridingMethodDto(_key);
+            o_.getMethodIds().add(new GeneStringOverridable(_str,_r,_ov));
             _map.add(o_);
         }
     }
 
     public static void checkInterfaces(ContextEl _context) {
-        Classes classes_ = _context.getClasses();
         AnalyzedPageEl page_ = _context.getAnalyzing();
         for (RootBlock c: page_.getFoundTypes()) {
             ExecRootBlock type_ = _context.getAnalyzing().getMapTypes().getVal(c);
@@ -283,6 +286,7 @@ public final class AnaTypeUtil {
                 enum_.buildError(_context.getAnalysisMessages().getCallIntNoNeed(),
                         c.getFullName());
                 _context.addError(enum_);
+                c.addNameErrors(enum_);
             }
             for (int i = 0; i < len_; i++) {
                 int offset_ = c.getStaticInitInterfacesOffset().get(i);
@@ -303,6 +307,9 @@ public final class AnaTypeUtil {
                     enum_.buildError(_context.getAnalysisMessages().getCallIntOnly(),
                             base_);
                     _context.addError(enum_);
+                    if (!base_.isEmpty()) {
+                        c.addNameErrors(enum_);
+                    }
                 } else {
                     type_.getStaticInitImportedInterfaces().add(base_);
                     c.getStaticInitImportedInterfaces().add(base_);
@@ -346,6 +353,7 @@ public final class AnaTypeUtil {
                                 sup_,
                                 sub_);
                         _context.addError(undef_);
+                        c.addNameErrors(undef_);
                     }
                 }
             }
@@ -411,6 +419,7 @@ public final class AnaTypeUtil {
                         undef_.buildError(_context.getAnalysisMessages().getCallIntNeedType(),
                                 s);
                         _context.addError(undef_);
+                        c.addNameErrors(undef_);
                     }
                 }
                 for (String s: trimmedInt_) {
@@ -423,6 +432,7 @@ public final class AnaTypeUtil {
                         undef_.buildError(_context.getAnalysisMessages().getCallIntNoNeedType(),
                                 s);
                         _context.addError(undef_);
+                        c.addNameErrors(undef_);
                     }
                 }
             }

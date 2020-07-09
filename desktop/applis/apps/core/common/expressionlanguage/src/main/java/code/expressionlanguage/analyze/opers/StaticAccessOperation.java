@@ -42,6 +42,7 @@ public final class StaticAccessOperation extends LeafOperation {
             classStr_ = glClass_;
             partOffsets = new CustList<PartOffset>();
         }
+        classStr_ = emptyToObject(classStr_,_conf);
         checkClassAccess(this,_conf, glClass_, classStr_);
         Argument a_ = new Argument();
         setSimpleArgument(a_);

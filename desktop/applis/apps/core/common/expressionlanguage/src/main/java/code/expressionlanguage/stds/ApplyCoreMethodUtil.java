@@ -8,6 +8,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -115,7 +116,7 @@ public final class ApplyCoreMethodUtil {
         LgNames lgNames_ = _cont.getStandards();
         Struct seed_ = _cont.getSeed();
         Argument argSeed_ = new Argument(seed_);
-        CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
+        CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
         if (seed_ != NullStruct.NULL_VALUE
@@ -128,11 +129,11 @@ public final class ApplyCoreMethodUtil {
             className_ = Templates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
             MethodId ct_ = polymorph_.getConstraints();
-            methods_ = ExecBlock.getMethodBodiesById(_cont, className_, ct_);
+            methods_ = ExecBlock.getDeepMethodBodiesById(_cont, className_, ct_);
         }
         if (!methods_.isEmpty()) {
-            ExecNamedFunctionBlock meth_ = methods_.first();
-            if (seed_ instanceof AbstractFunctionalInstance &&((GeneCustModifierMethod)meth_).isAbstractMethod()) {
+            ExecOverridableBlock meth_ = methods_.first();
+            if (seed_ instanceof AbstractFunctionalInstance && meth_.isAbstractMethod()) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;
@@ -149,7 +150,7 @@ public final class ApplyCoreMethodUtil {
         LgNames lgNames_ = _cont.getStandards();
         Struct seed_ = _cont.getSeed();
         Argument argSeed_ = new Argument(seed_);
-        CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
+        CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
         if (seed_ != NullStruct.NULL_VALUE
@@ -162,12 +163,12 @@ public final class ApplyCoreMethodUtil {
             className_ = Templates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
             MethodId ct_ = polymorph_.getConstraints();
-            methods_ = ExecBlock.getMethodBodiesById(_cont, className_, ct_);
+            methods_ = ExecBlock.getDeepMethodBodiesById(_cont, className_, ct_);
             argsToPass_.add(new Argument(_args[0]));
         }
         if (!methods_.isEmpty()) {
-            ExecNamedFunctionBlock meth_ = methods_.first();
-            if (seed_ instanceof AbstractFunctionalInstance &&((GeneCustModifierMethod)meth_).isAbstractMethod()) {
+            ExecOverridableBlock meth_ = methods_.first();
+            if (seed_ instanceof AbstractFunctionalInstance && meth_.isAbstractMethod()) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;

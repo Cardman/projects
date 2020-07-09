@@ -113,6 +113,9 @@ public abstract class ExecBlock {
     public static CustList<ExecNamedFunctionBlock> getMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {
         return filter(getMethodBodies(_context,_genericClassName),_id);
     }
+    public static CustList<ExecOverridableBlock> getDeepMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {
+        return filterDeep(getDeepMethodBodies(_context,_genericClassName),_id);
+    }
     private static CustList<ExecNamedFunctionBlock> getMethodBodies(ContextEl _context,String _genericClassName) {
         CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
         String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
@@ -120,6 +123,16 @@ public abstract class ExecBlock {
         ExecRootBlock r_ = classes_.getClassBody(base_);
         for (GeneCustModifierMethod m: getMethodExecBlocks(r_)) {
             methods_.add((ExecNamedFunctionBlock)m);
+        }
+        return methods_;
+    }
+    private static CustList<ExecOverridableBlock> getDeepMethodBodies(ContextEl _context,String _genericClassName) {
+        CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
+        String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
+        Classes classes_ = _context.getClasses();
+        ExecRootBlock r_ = classes_.getClassBody(base_);
+        for (ExecOverridableBlock m: getDeepMethodExecBlocks(r_)) {
+            methods_.add(m);
         }
         return methods_;
     }
@@ -161,6 +174,16 @@ public abstract class ExecBlock {
         }
         return methods_;
     }
+
+    public static CustList<ExecOverridableBlock> getDeepMethodExecBlocks(ExecRootBlock _element) {
+        CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
+        for (ExecBlock b: getDirectChildren(_element)) {
+            if (b instanceof ExecOverridableBlock) {
+                methods_.add((ExecOverridableBlock) b);
+            }
+        }
+        return methods_;
+    }
     public static CustList<ExecNamedFunctionBlock> getOperatorsBodiesById(ContextEl _context,MethodId _id) {
         return filter(getOperatorsBodies(_context),_id);
     }
@@ -176,6 +199,17 @@ public abstract class ExecBlock {
     private static CustList<ExecNamedFunctionBlock> filter(CustList<ExecNamedFunctionBlock> _methods,MethodId _id) {
         CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
         for (ExecNamedFunctionBlock m: _methods) {
+            if (((GeneMethod)m).getId().eq(_id)) {
+                methods_.add(m);
+                break;
+            }
+        }
+        return methods_;
+    }
+
+    private static CustList<ExecOverridableBlock> filterDeep(CustList<ExecOverridableBlock> _methods,MethodId _id) {
+        CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
+        for (ExecOverridableBlock m: _methods) {
             if (((GeneMethod)m).getId().eq(_id)) {
                 methods_.add(m);
                 break;

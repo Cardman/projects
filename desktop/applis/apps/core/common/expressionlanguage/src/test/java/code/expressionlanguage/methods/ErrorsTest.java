@@ -5081,7 +5081,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id<a title=\"There must be a type.\" class=\"e\">(</a>));\n" +
+                " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id<a title=\"There must be a type.\" class=\"e\">(</a>));\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -12136,6 +12136,132 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "$public $class <a name=\"m72\">pkg.MyCl2 </a>{\n" +
                 " $public $final $void <a name=\"m106\">m</a>(){\n" +
                 " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report575Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MyCl2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $class pkg.MyCl2 {\n");
+        xml_.append(" $public $abstract $void m();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The method m() from the type pkg.MyCl2 must be overriden in the concrete type pkg.MyCl.\" class=\"e\">pkg.MyCl</a>:<a title=\"pkg.MyCl2\" href=\"#m59\">MyCl2</a> {\n" +
+                "}\n" +
+                "$public $abstract $class <a name=\"m59\">pkg.MyCl2 </a>{\n" +
+                " $public $abstract $void <a name=\"m96\">m</a>();\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report576Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl {\n");
+        xml_.append(" $public MyCl() {\n");
+        xml_.append("  $this();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl </a>{\n" +
+                " <a name=\"m27\" title=\"The constructors pkg.MyCl()&amp;pkg.MyCl() of the type pkg.MyCl belong to cyclic calls.\" class=\"e\">$public MyCl(</a>) {\n" +
+                "  <a title=\"pkg.MyCl.pkg.MyCl()\" href=\"#m27\">$this</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report577Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MyCl2 {\n");
+        xml_.append(" $public MyCl() {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl2 {\n");
+        xml_.append(" $public MyCl2($int i) {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyCl2\" href=\"#m70\">MyCl2</a> {\n" +
+                " <a name=\"m33\" title=\"No super constructor with implicit call is defined and accessible. The explicit call of a super constructor is required for the constructor pkg.MyCl().\" class=\"e\">$public MyCl(</a>) {\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m70\">pkg.MyCl2 </a>{\n" +
+                " <a name=\"m83\">$public MyCl2(</a>$int <a name=\"m102\">i</a>) {\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report578Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MyCl2 {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl2 {\n");
+        xml_.append(" $public MyCl2($int i) {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"No super constructor with implicit call is defined and accessible. There must be at least one constructor for the type pkg.MyCl\" class=\"e\">pkg.MyCl</a>:<a title=\"pkg.MyCl2\" href=\"#m49\">MyCl2</a> {\n" +
+                "}\n" +
+                "$public $class <a name=\"m49\">pkg.MyCl2 </a>{\n" +
+                " <a name=\"m62\">$public MyCl2(</a>$int <a name=\"m81\">i</a>) {\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report579Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class $interfaces(MyOther) pkg.MySub {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyOther {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class $interfaces(<a title=\"pkg.MyOther\" href=\"#m65\">MyOther</a>) <a name=\"m36\" title=\"The type pkg.MyOther is not an interface.\" class=\"e\">pkg.MySub </a>{\n" +
+                "}\n" +
+                "$public $class <a name=\"m65\">pkg.MyOther </a>{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report580Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append("{\n");
+        xml_.append(" $static($void).m();\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                "{\n" +
+                " $static(<a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>).<a title=\"The function $static m() is undefined.\" class=\"e\">m</a>();\n" +
+                "}\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }

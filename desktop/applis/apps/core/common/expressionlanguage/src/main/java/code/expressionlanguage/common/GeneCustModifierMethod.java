@@ -5,6 +5,5 @@ public interface GeneCustModifierMethod extends GeneCustMethod {
 
     boolean isFinalMethod();
 
-    boolean isAbstractMethod();
     String getImportedReturnType();
 }

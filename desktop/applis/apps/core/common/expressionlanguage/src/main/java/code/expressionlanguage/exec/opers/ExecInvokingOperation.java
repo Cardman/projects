@@ -523,7 +523,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             argRes_.setStruct(res_.getResult());
             return argRes_;
         }
-        CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(_cont, idClassNameFound_, _methodId);
+        CustList<ExecOverridableBlock> methods_ = ExecBlock.getDeepMethodBodiesById(_cont, idClassNameFound_, _methodId);
         if (methods_.isEmpty()) {
             //static enum methods
             String values_ = _cont.getStandards().getAliasEnumValues();
@@ -535,7 +535,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return getEnumValue(_exit,idClassNameFound_, arg_, _cont);
         }
         if (prev_ instanceof AbstractFunctionalInstance) {
-            GeneCustModifierMethod gene_ = (GeneCustModifierMethod) methods_.first();
+            ExecOverridableBlock gene_ = methods_.first();
             if (gene_.isAbstractMethod()) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)prev_).getFunctional());
                 return prepareCallDyn(fct_, _firstArgs, _cont);

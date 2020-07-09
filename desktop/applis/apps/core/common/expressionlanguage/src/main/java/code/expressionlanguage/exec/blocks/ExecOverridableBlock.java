@@ -33,7 +33,6 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
         return finalMethod;
     }
 
-    @Override
     public boolean isAbstractMethod() {
         return abstractMethod;
     }

@@ -1,6 +1,8 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.GeneStringOverridable;
+import code.expressionlanguage.analyze.types.OverridingMethodDto;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -172,7 +174,15 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
     private static CustList<OverridingMethod> getAllOverridingMethods(ContextEl cont_, String _className) {
-        return getClassBody(cont_, _className).getAllOverridingMethods();
+        CustList<OverridingMethod> out_ = new CustList<OverridingMethod>();
+        for (OverridingMethodDto o: getClassBody(cont_, _className).getAllOverridingMethods()) {
+            OverridingMethod elt_ = new OverridingMethod(o.getFormattedMethodId());
+            for (GeneStringOverridable g:o.getMethodIds()) {
+                elt_.getMethodIds().add(new ClassMethodId(g.getGeneString(),g.getBlock().getId()));
+            }
+            out_.add(elt_);
+        }
+        return out_;
     }
 
     @Test

@@ -6,6 +6,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.IndexesComparator;
 import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
@@ -409,7 +410,7 @@ public final class ExecTemplates {
             String name_ = _id.getName();
             if (StringList.quickEq("[]=", name_)) {
                 String id_ = StringExpUtil.getIdFromAllTypes(_classNameFound);
-                for (GeneCustModifierMethod g: ExecBlock.getMethodExecBlocks(_conf.getClasses().getClassBody(id_))) {
+                for (ExecOverridableBlock g: ExecBlock.getDeepMethodExecBlocks(_conf.getClasses().getClassBody(id_))) {
                     if (!StringList.quickEq("[]",g.getId().getName())) {
                         continue;
                     }

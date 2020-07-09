@@ -26,8 +26,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private final AccessEnum access;
 
-    private int accessOffset;
-
     private final boolean varargs;
 
     private CustList<CustList<CustList<ExecOperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
@@ -39,7 +37,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         nameOffset = _offset.getNameOffset();
         varargs = _offset.isVarargs();
         access = _offset.getAccess();
-        accessOffset = _offset.getAccessOffset();
         returnTypeOffset = _offset.getReturnTypeOffset();
         parametersNames = _offset.getParametersNames();
     }
@@ -78,10 +75,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     public int getNameOffset() {
         return nameOffset;
-    }
-
-    public int getAccessOffset() {
-        return accessOffset;
     }
 
     public int getReturnTypeOffset() {

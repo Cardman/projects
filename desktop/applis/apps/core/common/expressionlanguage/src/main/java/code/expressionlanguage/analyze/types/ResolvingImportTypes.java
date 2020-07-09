@@ -313,7 +313,7 @@ public final class ResolvingImportTypes {
                 String pref_ = "<a title=\""+err_+"\" class=\"e\">";
                 partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
                 partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc+1));
-                return _analyzable.getStandards().getAliasObject();
+                return "";
             }
             String id_ = lookupImportType(_analyzable,base_,r_, new AlwaysReadyTypes());
             if (id_.isEmpty()) {

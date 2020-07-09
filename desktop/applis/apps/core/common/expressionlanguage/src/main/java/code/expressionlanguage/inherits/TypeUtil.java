@@ -107,7 +107,7 @@ public final class TypeUtil {
         for (ClassMethodId t: foundSuperClasses_) {
             String t_ = t.getClassName();
             String baseSuperType_ = StringExpUtil.getIdFromAllTypes(t_);
-            GeneCustModifierMethod method_ = (GeneCustModifierMethod) ExecBlock.getMethodBodiesById(_conf,baseSuperType_, t.getConstraints()).first();
+            ExecOverridableBlock method_ = ExecBlock.getDeepMethodBodiesById(_conf,baseSuperType_, t.getConstraints()).first();
             if (method_.isAbstractMethod()) {
                 continue;
             }
@@ -146,7 +146,7 @@ public final class TypeUtil {
     private static ClassMethodId tryGetUniqueId(String _subTypeName, ExecRootBlock _type, MethodId _realId, ContextEl _conf) {
         if (ContextUtil.isEnumType(_type)) {
             String en_ = _conf.getStandards().getAliasEnumType();
-            if (!ExecBlock.getMethodBodiesById(_conf,en_, _realId).isEmpty()) {
+            if (!ExecBlock.getDeepMethodBodiesById(_conf,en_, _realId).isEmpty()) {
                 return new ClassMethodId(en_, _realId);
             }
         }
@@ -186,7 +186,7 @@ public final class TypeUtil {
             }
             classNameFound_ = tree_.firstKey();
             realId_ = tree_.firstValue();
-            if (((GeneCustModifierMethod) ExecBlock.getMethodBodiesById(_conf,classNameFound_, realId_).first()).isAbstractMethod()) {
+            if (ExecBlock.getDeepMethodBodiesById(_conf,classNameFound_, realId_).first().isAbstractMethod()) {
                 continue;
             }
             return new ClassMethodId(classNameFound_, realId_);
