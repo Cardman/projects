@@ -1936,6 +1936,12 @@ public final class LinkageUtil {
                 String tag_ = "<span class=\"s\">";
                 int begin_ = sum_ + off_ + val_.getIndexInEl();
                 _parts.add(new PartOffset(tag_, begin_));
+                if (!val_.getErrs().isEmpty()) {
+                    tag_ = "<a title=\""+transform(StringList.join(val_.getErrs(),"\n\n"))+"\" class=\"e\">";
+                    _parts.add(new PartOffset(tag_,begin_));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,begin_+ ((ConstantOperation)val_).getLength()));
+                }
                 tag_ = "</span>";
                 _parts.add(new PartOffset(tag_,begin_+ ((ConstantOperation)val_).getLength()));
             }

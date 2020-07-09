@@ -163,12 +163,8 @@ public final class ElResolver {
                 unic_.setPart(true);
                 unic_.setUnicode(unicode_);
                 unic_.setStringInfo(si_);
-                IndexUnicodeEscape res_ = processStrings(keyWords_,_string, len_, unic_, DELIMITER_CHAR);
+                IndexUnicodeEscape res_ = processStrings(keyWords_,_string, len_, si_,unic_, DELIMITER_CHAR);
                 int index_ = res_.getIndex();
-                if (index_ < 0) {
-                    _d.setBadOffset(-index_);
-                    return _d;
-                }
                 if (!res_.isPart()) {
                     _d.getStringInfo().add(si_);
                     _d.getDelStringsChars().add(i_);
@@ -191,12 +187,8 @@ public final class ElResolver {
                 unic_.setNbChars(nbChars_);
                 unic_.setPart(true);
                 unic_.setUnicode(unicode_);
-                IndexUnicodeEscape res_ = processStrings(keyWords_, _string, len_, unic_, DELIMITER_STRING);
+                IndexUnicodeEscape res_ = processStrings(keyWords_, _string, len_, si_, unic_, DELIMITER_STRING);
                 int index_ = res_.getIndex();
-                if (index_ < 0) {
-                    _d.setBadOffset(-index_);
-                    return _d;
-                }
                 if (!res_.isPart()) {
                     _d.getStringInfo().add(si_);
                     _d.getDelStringsChars().add(i_);
@@ -219,7 +211,7 @@ public final class ElResolver {
                 unic_.setNbChars(nbChars_);
                 unic_.setPart(true);
                 unic_.setUnicode(unicode_);
-                IndexUnicodeEscape res_ = processStrings(keyWords_, _string, len_, unic_, DELIMITER_TEXT);
+                IndexUnicodeEscape res_ = processStrings(keyWords_, _string, len_, si_, unic_, DELIMITER_TEXT);
                 int index_ = res_.getIndex();
                 if (!res_.isPart()) {
                     _d.getStringInfo().add(si_);
@@ -1622,7 +1614,7 @@ public final class ElResolver {
         return _n > -1 && (StringExpUtil.isDigit(_string.charAt(_n)) || _string.charAt(_n) == DOT_VAR);
     }
 
-    private static IndexUnicodeEscape processStrings(KeyWords _key, String _string, int _max, IndexUnicodeEscape _infos, char _delimiter) {
+    private static IndexUnicodeEscape processStrings(KeyWords _key, String _string, int _max, StringInfo _si, IndexUnicodeEscape _infos, char _delimiter) {
         int i_ = _infos.getIndex();
         int nbChars_ = _infos.getNbChars();
         int unicode_ = _infos.getUnicode();
@@ -1653,13 +1645,14 @@ public final class ElResolver {
             return infos_;
         }
         if (nbChars_ > 1 && _delimiter == DELIMITER_CHAR) {
-            infos_.setIndex(-i_);
-            return infos_;
+            _si.setKo();
         }
         if (!escapedMeta_) {
             if (curChar_ == ESCAPE_META_CHAR) {
                 if (i_ + 1 >= _max) {
-                    infos_.setIndex(-i_);
+                    _si.setKo();
+                    i_++;
+                    infos_.setIndex(i_);
                     return infos_;
                 }
                 infos_.setEscape(true);
@@ -1692,8 +1685,7 @@ public final class ElResolver {
                 ok_ = true;
             }
             if (!ok_) {
-                infos_.setIndex(-i_);
-                return infos_;
+                _si.setKo();
             }
             infos_.getStringInfo().getBuiltUnicode()[unicode_-1] = curChar_;
             if (unicode_ < UNICODE_SIZE) {
@@ -1762,7 +1754,13 @@ public final class ElResolver {
         }
         String unicodeStr_ = _key.getKeyWordEscUnicode();
         if (!_string.startsWith(unicodeStr_,i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
-            infos_.setIndex(-i_);
+            _si.setKo();
+            infos_.getStringInfo().getChars().add(curChar_);
+            nbChars_++;
+            infos_.setNbChars(nbChars_);
+            infos_.setEscape(false);
+            i_++;
+            infos_.setIndex(i_);
             return infos_;
         }
         unicode_ = 1;
@@ -2447,6 +2445,8 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.CHARACTER);
                 op_.setOperators(new IntTreeMap< String>());
+                op_.setStrInfo(info_);
+                info_.setFound(_string);
                 op_.setValue(new String(str_), firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
@@ -2455,6 +2455,8 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.STRING);
                 op_.setOperators(new IntTreeMap< String>());
+                op_.setStrInfo(info_);
+                info_.setFound(_string);
                 op_.setValue(new String(str_), firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
@@ -2462,6 +2464,8 @@ public final class ElResolver {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.STRING);
             op_.setOperators(new IntTreeMap< String>());
+            op_.setStrInfo(info_);
+            info_.setFound(_string);
             op_.setValue(new String(str_), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;

@@ -4996,7 +4996,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "{6*('\\u9gcb'+8)}";
-        assertEq(8, checkSyntaxDelimiters(conf_, el_, 1).getBadOffset());
+        assertEq(-1, checkSyntaxDelimiters(conf_, el_, 1).getBadOffset());
     }
 
     @Test
@@ -5004,7 +5004,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('\\u9gcb'+8)";
-        assertEq(7, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(-1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5012,7 +5012,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('\\g'+8)";
-        assertEq(5, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(-1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5020,7 +5020,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*('ab'+8)";
-        assertEq(6, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(-1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5044,7 +5044,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*(\"t\\u98\"+[8])";
-        assertEq(9, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(15, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5052,7 +5052,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "6*(\"t\\u98 \"+[8])";
-        assertEq(9, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(16, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5132,7 +5132,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\\";
-        assertEq(1, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5140,7 +5140,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "\"\\";
-        assertEq(1, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5148,7 +5148,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "\"\\u9fc";
-        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(6, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5156,7 +5156,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\\u9fc";
-        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(6, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5164,7 +5164,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "\"\\g9fc";
-        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(6, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5172,7 +5172,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\\g9fc";
-        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(6, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5285,7 +5285,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\\u9";
-        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(4, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test
@@ -5293,7 +5293,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_);
         String el_ = "'\\u9'";
-        assertEq(2, checkSyntax(conf_, el_).getBadOffset());
+        assertEq(-1, checkSyntax(conf_, el_).getBadOffset());
     }
 
     @Test

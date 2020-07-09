@@ -55,18 +55,35 @@ public final class ConstantOperation extends LeafOperation {
             a_.setStruct(new StringStruct(originalStr_));
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(stringType_));
+            if (op_.getStrInfo().isKo()) {
+                FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
+                badFormat_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                badFormat_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                //constant len
+                badFormat_.buildError(_conf.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
+                _conf.getAnalyzing().getLocalizer().addError(badFormat_);
+                getErrs().add(badFormat_.getBuiltError());
+            }
             return;
         }
         if (op_.getConstType() == ConstType.CHARACTER) {
             argClName_ = stds_.getAliasPrimChar();
-            if (!originalStr_.isEmpty()) {
+            if (op_.getStrInfo().isKo()) {
+                FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
+                badFormat_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                badFormat_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                //constant len
+                badFormat_.buildError(_conf.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
+                _conf.getAnalyzing().getLocalizer().addError(badFormat_);
+                getErrs().add(badFormat_.getBuiltError());
+            } else if (!originalStr_.isEmpty()) {
                 a_.setStruct(new CharStruct(originalStr_.charAt(0)));
             } else {
                 FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
                 badFormat_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 badFormat_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //constant len
-                badFormat_.buildError(_conf.getAnalysisMessages().getBadCharFormat(),originalStr_);
+                badFormat_.buildError(_conf.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
                 _conf.getAnalyzing().getLocalizer().addError(badFormat_);
                 getErrs().add(badFormat_.getBuiltError());
             }

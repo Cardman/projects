@@ -2,6 +2,7 @@ package code.expressionlanguage.instr;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.NumberInfos;
+import code.expressionlanguage.common.StringInfo;
 import code.util.CustList;
 import code.util.*;
 import code.util.Ints;
@@ -14,6 +15,7 @@ public final class OperationsSequence {
     private ConstType constType = ConstType.NOTHING;
 
     private NumberInfos nbInfos;
+    private StringInfo strInfo;
 
     private String fctName = "";
 
@@ -331,6 +333,14 @@ public final class OperationsSequence {
 
     public void setNbInfos(NumberInfos _nbInfos) {
         nbInfos = _nbInfos;
+    }
+
+    public StringInfo getStrInfo() {
+        return strInfo;
+    }
+
+    public void setStrInfo(StringInfo _strInfo) {
+        strInfo = _strInfo;
     }
 
     public String getExtractType() {

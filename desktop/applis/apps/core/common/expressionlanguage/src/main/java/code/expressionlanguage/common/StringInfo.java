@@ -5,6 +5,8 @@ import code.util.CharList;
 public final class StringInfo {
 
     private CharList chars = new CharList();
+    private String found;
+    private boolean ko;
     private char[] builtUnicode = new char[4];
 
 
@@ -12,8 +14,23 @@ public final class StringInfo {
         return chars;
     }
 
+    public String getFound() {
+        return found;
+    }
+
+    public void setFound(String _found) {
+        found = _found;
+    }
+
     public char[] getBuiltUnicode() {
         return builtUnicode;
     }
 
+    public boolean isKo() {
+        return ko;
+    }
+
+    public void setKo() {
+        ko = true;
+    }
 }
