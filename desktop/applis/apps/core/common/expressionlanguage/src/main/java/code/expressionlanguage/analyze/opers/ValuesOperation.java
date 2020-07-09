@@ -50,6 +50,7 @@ public final class ValuesOperation extends LeafOperation {
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     clName_);
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            getErrs().add(un_.getBuiltError());
             String argClName_ = _conf.getStandards().getAliasObject();
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
@@ -65,6 +66,7 @@ public final class ValuesOperation extends LeafOperation {
                     clName_,
                     curClassBase_);
             _conf.getAnalyzing().getLocalizer().addError(badAccess_);
+            getErrs().add(badAccess_.getBuiltError());
         }
         className = r_.getWildCardElement();
         String ret_ = StringExpUtil.getPrettyArrayType(className);

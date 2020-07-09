@@ -468,7 +468,7 @@ public abstract class OperationNode {
         return new StandardFieldOperation(_index, _indexChild, _m, _op);
     }
 
-    static void checkClassAccess(ContextEl _conf, String _glClass, String _classStr) {
+    static void checkClassAccess(OperationNode _op,ContextEl _conf, String _glClass, String _classStr) {
         Classes classes_ = _conf.getClasses();
         RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(_classStr);
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(_glClass);
@@ -487,6 +487,7 @@ public abstract class OperationNode {
                     _classStr,
                     curClassBase_);
             _conf.getAnalyzing().getLocalizer().addError(badAccess_);
+            _op.getErrs().add(badAccess_.getBuiltError());
         }
     }
 

@@ -26,6 +26,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
     private boolean accessFromSuper;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private int length;
     ForwardOperation(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
     }
@@ -50,13 +51,16 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
         String trimMeth_ = originalStr_.trim();
         String kw_;
         if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
+            length = keyWordSuper_.length();
             kw_ = keyWordSuper_;
             staticChoiceMethod = true;
             accessFromSuper = true;
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThat_)) {
+            length = keyWordThat_.length();
             kw_ = keyWordThat_;
             staticChoiceMethod = true;
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
+            length = keyWordThisaccess_.length();
             kw_ = keyWordThisaccess_;
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
@@ -78,9 +82,11 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                         StringList.join(getResultClass().getNames(),"&"),
                         classType);
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
+                getErrs().add(cast_.getBuiltError());
             }
             accessSuperTypes = false;
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordClasschoice_)) {
+            length = keyWordClasschoice_.length();
             kw_ = keyWordClasschoice_;
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
@@ -92,6 +98,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             accessSuperTypes = false;
             staticChoiceMethod = true;
         } else {
+            length = keyWords_.getKeyWordSuperaccess().length();
             kw_ = keyWords_.getKeyWordSuperaccess();
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
@@ -114,6 +121,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                         StringList.join(getResultClass().getNames(),"&"),
                         classType);
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
+                getErrs().add(cast_.getBuiltError());
             }
             staticChoiceMethod = true;
         }
@@ -126,6 +134,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                 static_.buildError(_conf.getAnalysisMessages().getStaticAccess(),
                         kw_);
                 _conf.getAnalyzing().getLocalizer().addError(static_);
+                getErrs().add(static_.getBuiltError());
             }
         }
     }
@@ -172,5 +181,9 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public int getLength() {
+        return length;
     }
 }

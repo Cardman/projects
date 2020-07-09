@@ -11457,6 +11457,346 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report543Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" {\n");
+        xml_.append("  $valueOf(MyEnum,\"\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum </a>{\n" +
+                " {\n" +
+                "  <a title=\"The type pkg.MyEnum is unexpected.\" class=\"e\">$valueOf</a>(<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>,<span class=\"s\">\"\"</span>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report544Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {;\n");
+        xml_.append(" {\n");
+        xml_.append("  $valueOf(MyEnum,0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum </a>{;\n" +
+                " {\n" +
+                "  <a title=\"The type $int is unexpected.\" class=\"e\">$valueOf</a>(<a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a>,0);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report545Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" {\n");
+        xml_.append("  $values(MyEnum);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum </a>{\n" +
+                " {\n" +
+                "  <a title=\"The type pkg.MyEnum is unexpected.\" class=\"e\">$values</a>(<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report546Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {;\n");
+        xml_.append(" {\n");
+        xml_.append("  $firstopt(0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum </a>{;\n" +
+                " {\n" +
+                "  <a title=\"The key word $firstopt is unexpected here.\" class=\"e\">$firstopt</a>(0);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report547Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum<T> {\n");
+        xml_.append(" {\n");
+        xml_.append("  $staticCall(MyEnum<?>).m();\n");
+        xml_.append(" }\n");
+        xml_.append(" $staticCall $void m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum</a>&lt;<a name=\"m26\">T</a>&gt; {\n" +
+                " {\n" +
+                "  <a title=\"The type pkg.MyEnum&lt;?&gt; is unexpected.\" class=\"e\">$staticCall</a>(<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>&lt;?&gt;).<a title=\"pkg.MyEnum.$staticCall m()\" href=\"#m86\">m</a>();\n" +
+                " }\n" +
+                " $staticCall $void <a name=\"m86\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report548Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum<T> {\n");
+        xml_.append(" {\n");
+        xml_.append("  $static(pkgtwo.MyOther).m();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$class pkgtwo.MyOther {\n");
+        xml_.append(" $static $void m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum</a>&lt;<a name=\"m26\">T</a>&gt; {\n" +
+                " {\n" +
+                "  <a title=\"The type pkgtwo.MyOther is not accessible from the type pkg.MyEnum.\" class=\"e\">$static</a>(<a title=\"pkgtwo.MyOther\" href=\"#m77\">pkgtwo.MyOther</a>).<a title=\"The function $static m() is undefined.\" class=\"e\">m</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "$class <a name=\"m77\">pkgtwo.MyOther </a>{\n" +
+                " $static $void <a name=\"m109\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report549Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" {\n");
+        xml_.append("  $vararg(MyEnum);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum </a>{\n" +
+                " {\n" +
+                "  <a title=\"The key word $vararg is unexpected here.\" class=\"e\">$vararg</a>(MyEnum);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report550Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  $super[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum </a>{\n" +
+                " $static {\n" +
+                "  <a title=\"The context is static. The key word $super cannot be used in this context.\" class=\"e\">$super</a><a title=\"The type pkg.MyEnum is unexpected.\" class=\"e\">[</a>0];\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report551Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" {\n");
+        xml_.append("  m($id(MyEnum,$int...,$int));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum </a>{\n" +
+                " {\n" +
+                "  <a title=\"The function m() is undefined.\" class=\"e\">m</a>($id(<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>,$int<a title=\"The three dots are unexpected here.\" class=\"e\">...</a>,$int));\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report552Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" {\n");
+        xml_.append("  $id(MyEnum,$int);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum </a>{\n" +
+                " {\n" +
+                "  <a title=\"The key word $id is unexpected here.\" class=\"e\">$id</a>(MyEnum,$int);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report553Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" {\n");
+        xml_.append("  m($id(Inexist));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum </a>{\n" +
+                " {\n" +
+                "  <a title=\"The function m() is undefined.\" class=\"e\">m</a>($id(<a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>));\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report554Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" {\n");
+        xml_.append("  $operator(+,MyEnum)(1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum </a>{\n" +
+                " {\n" +
+                "  <a title=\"The function $static +,MyEnum($int) is undefined.\" class=\"e\">$operator</a>(+,<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>)(1);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report555Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" {\n");
+        xml_.append("  $operator(+,MyEnum,MyEnum)();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum </a>{\n" +
+                " {\n" +
+                "  <a title=\"The number of required splitted parts by comas 2 is lower than the number of supplied splitted parts by comas 3.\" class=\"e\">$operator</a>(+,<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>,MyEnum)();\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report556Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  $this.m();\n");
+        xml_.append(" }\n");
+        xml_.append(" $void m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum </a>{\n" +
+                " $static {\n" +
+                "  <a title=\"The context is static. The key word $this cannot be used in this context.\" class=\"e\">$this</a>.<a title=\"pkg.MyEnum.m()\" href=\"#m62\">m</a>();\n" +
+                " }\n" +
+                " $void <a name=\"m62\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report557Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  MyEnum.$this.m();\n");
+        xml_.append(" }\n");
+        xml_.append(" $void m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum </a>{\n" +
+                " $static {\n" +
+                "  <a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>.<a title=\"The context is static. The key word $this cannot be used in this context.\" class=\"e\">$this</a>.<a title=\"pkg.MyEnum.m()\" href=\"#m69\">m</a>();\n" +
+                " }\n" +
+                " $void <a name=\"m69\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report558Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" {\n");
+        xml_.append("  $this[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum </a>{\n" +
+                " {\n" +
+                "  $this<a title=\"The type pkg.MyEnum is unexpected.\" class=\"e\">[</a>0];\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
         validate(cont_,files_);
         assertTrue(!cont_.isEmptyErrors());

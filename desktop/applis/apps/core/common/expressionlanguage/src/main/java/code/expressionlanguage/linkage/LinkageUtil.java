@@ -1820,7 +1820,7 @@ public final class LinkageUtil {
         processFields(_cont, _block, sum_, val_, _parts, _currentFileName);
         processInstances(_cont, currentFileName_, sum_, val_, _parts);
         processLamba(_cont, currentFileName_, sum_, val_, _parts, _currentFileName);
-        processLeafType(val_, _parts);
+        processLeafType(_cont,sum_,val_, _parts);
         processDynamicCall(_cont, sum_, val_, _parts);
         processRichHeader(_cont, currentFileName_, sum_, val_, _parts);
         processUnaryLeftOperationsCovers(_cont, sum_, val_, result_, _parts);
@@ -1883,7 +1883,7 @@ public final class LinkageUtil {
         processFields(_cont, _block, sum_, val_, _parts, _currentFileName);
         processInstances(_cont, currentFileName_, sum_, val_, _parts);
         processLamba(_cont, currentFileName_, sum_, val_, _parts, _currentFileName);
-        processLeafType(val_, _parts);
+        processLeafType(_cont,sum_,val_, _parts);
         processDynamicCall(_cont, sum_, val_, _parts);
         processRichHeader(_cont, currentFileName_, sum_, val_, _parts);
         processUnaryLeftOperationsLinks(_cont, currentFileName_, sum_, val_, _parts);
@@ -2252,7 +2252,7 @@ public final class LinkageUtil {
         }
     }
 
-    private static void processLeafType(OperationNode val_, CustList<PartOffset> _parts) {
+    private static void processLeafType(ContextEl _cont,int sum_,OperationNode val_, CustList<PartOffset> _parts) {
         if (val_ instanceof IdFctOperation) {
             _parts.addAllElts(((IdFctOperation)val_).getPartOffsets());
         }
@@ -2260,6 +2260,12 @@ public final class LinkageUtil {
             _parts.addAllElts(((VarargOperation)val_).getPartOffsets());
         }
         if (val_ instanceof ForwardOperation) {
+            ForwardOperation f_ = (ForwardOperation) val_;
+            if (!val_.getErrs().isEmpty()) {
+                int begin_ = sum_ + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ f_.getLength()));
+            }
             _parts.addAllElts(((ForwardOperation)val_).getPartOffsets());
         }
         if (val_ instanceof DefaultValueOperation) {
@@ -2269,10 +2275,27 @@ public final class LinkageUtil {
             _parts.addAllElts(((StaticInfoOperation)val_).getPartOffsets());
         }
         if (val_ instanceof StaticAccessOperation) {
+            if (!val_.getErrs().isEmpty()) {
+                int begin_ = sum_ + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ _cont.getKeyWords().getKeyWordStatic().length()));
+            }
             _parts.addAllElts(((StaticAccessOperation)val_).getPartOffsets());
         }
         if (val_ instanceof StaticCallAccessOperation) {
+            if (!val_.getErrs().isEmpty()) {
+                int begin_ = sum_ + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ _cont.getKeyWords().getKeyWordStaticCall().length()));
+            }
             _parts.addAllElts(((StaticCallAccessOperation)val_).getPartOffsets());
+        }
+        if (val_ instanceof ThisOperation) {
+            if (!val_.getErrs().isEmpty()) {
+                int begin_ = sum_ + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ _cont.getKeyWords().getKeyWordThis().length()));
+            }
         }
     }
 
@@ -2320,6 +2343,11 @@ public final class LinkageUtil {
             _parts.addAllElts(((EnumValueOfOperation)val_).getPartOffsets());
         }
         if (val_ instanceof ValuesOperation) {
+            if (!val_.getErrs().isEmpty()) {
+                int begin_ = sum_ + val_.getIndexInEl();
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ _cont.getKeyWords().getKeyWordValues().length()));
+            }
             _parts.addAllElts(((ValuesOperation)val_).getPartOffsets());
         }
         if (val_ instanceof AbstractInvokingConstructor) {
@@ -2369,10 +2397,16 @@ public final class LinkageUtil {
         if (val_ instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation par_ = (ExplicitOperatorOperation) val_;
             ClassMethodId classMethodId_ = par_.getClassMethodId();
-            MethodId id_ = classMethodId_.getConstraints();
-            addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,
-                    sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordOperator().length(),
-                    val_.getErrs(),_parts);
+            if (classMethodId_ == null) {
+                addParts(_cont,currentFileName_,"",null,
+                        sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordOperator().length(),
+                        val_.getErrs(),_parts);
+            } else {
+                MethodId id_ = classMethodId_.getConstraints();
+                addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,
+                        sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordOperator().length(),
+                        val_.getErrs(),_parts);
+            }
             _parts.addAllElts(par_.getPartOffsets());
         }
     }

@@ -44,6 +44,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             badAccess_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     classStr_);
             _conf.getAnalyzing().getLocalizer().addError(badAccess_);
+            getErrs().add(badAccess_.getBuiltError());
         }
         if (classStr_.startsWith(Templates.ARR_BEG_STRING)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
@@ -53,6 +54,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             badAccess_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     classStr_);
             _conf.getAnalyzing().getLocalizer().addError(badAccess_);
+            getErrs().add(badAccess_.getBuiltError());
         }
         boolean ok_ = true;
         for (String p: StringExpUtil.getAllTypes(classStr_).mid(1)) {
@@ -71,8 +73,9 @@ public final class StaticCallAccessOperation extends LeafOperation {
             badAccess_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     classStr_);
             _conf.getAnalyzing().getLocalizer().addError(badAccess_);
+            getErrs().add(badAccess_.getBuiltError());
         }
-        checkClassAccess(_conf, glClass_, classStr_);
+        checkClassAccess(this,_conf, glClass_, classStr_);
         Argument a_ = new Argument();
         setSimpleArgument(a_);
         setStaticResultClass(new ClassArgumentMatching(classStr_));

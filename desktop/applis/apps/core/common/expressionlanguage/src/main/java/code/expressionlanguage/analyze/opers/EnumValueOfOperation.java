@@ -49,7 +49,6 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
         firstArgs_.add(getFirstChild().getResultClass());
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
-        Classes classes_ = _conf.getClasses();
         String clName_;
         clName_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,0,className);
         partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
@@ -62,6 +61,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     clName_);
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            getErrs().add(un_.getBuiltError());
             String argClName_ = _conf.getStandards().getAliasObject();
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
@@ -77,6 +77,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
                     clName_,
                     curClassBase_);
             _conf.getAnalyzing().getLocalizer().addError(badAccess_);
+            getErrs().add(badAccess_.getBuiltError());
         }
         ClassArgumentMatching argCl_ = firstArgs_.first();
         String stringType_ = _conf.getStandards().getAliasString();
@@ -88,6 +89,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(argCl_.getNames(),"&"));
             _conf.getAnalyzing().getLocalizer().addError(un_);
+            getErrs().add(un_.getBuiltError());
         }
         className = r_.getWildCardElement();
         setResultClass(new ClassArgumentMatching(className));

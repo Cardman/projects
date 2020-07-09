@@ -47,17 +47,16 @@ public final class ExplicitOperatorOperation extends InvokingOperation {
         String varargParam_ = getVarargParam(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         if (args_.size() > 2) {
-            FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-            undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            //_name len
-            StringList classesNames_ = new StringList();
-            for (ClassArgumentMatching c: firstArgs_) {
-                classesNames_.add(StringList.join(c.getNames(), "&"));
-            }
-            undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
-                    new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(_conf));
-            _conf.getAnalyzing().getLocalizer().addError(undefined_);
+            FoundErrorInterpret badCall_ = new FoundErrorInterpret();
+            badCall_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            badCall_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            //key word len
+            badCall_.buildError(_conf.getAnalysisMessages().getSplitComaLow(),
+                    Integer.toString(2),
+                    Integer.toString(args_.size())
+            );
+            _conf.getAnalyzing().getLocalizer().addError(badCall_);
+            getErrs().add(badCall_.getBuiltError());
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }
@@ -87,6 +86,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation {
             undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
                     new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(_conf));
             _conf.getAnalyzing().getLocalizer().addError(undefined_);
+            getErrs().add(undefined_.getBuiltError());
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }

@@ -38,6 +38,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
                     _conf.getKeyWords().getKeyWordFirstopt());
             _conf.getAnalyzing().getLocalizer().addError(varg_);
+            getErrs().add(varg_.getBuiltError());
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -49,6 +50,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
                     _conf.getKeyWords().getKeyWordFirstopt());
             _conf.getAnalyzing().getLocalizer().addError(varg_);
+            getErrs().add(varg_.getBuiltError());
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }

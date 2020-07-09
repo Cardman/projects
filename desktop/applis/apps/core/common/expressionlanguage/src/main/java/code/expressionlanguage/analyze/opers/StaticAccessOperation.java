@@ -42,7 +42,7 @@ public final class StaticAccessOperation extends LeafOperation {
             classStr_ = glClass_;
             partOffsets = new CustList<PartOffset>();
         }
-        checkClassAccess(_conf, glClass_, classStr_);
+        checkClassAccess(this,_conf, glClass_, classStr_);
         Argument a_ = new Argument();
         setSimpleArgument(a_);
         setStaticResultClass(new ClassArgumentMatching(classStr_));
