@@ -474,6 +474,9 @@ public final class ClassesUtil {
 
     public static CustList<Block> getDirectChildren(Block _element) {
         CustList<Block> list_ = new CustList<Block>();
+        if (_element == null) {
+            return list_;
+        }
         Block elt_ = _element.getFirstChild();
         while (elt_ != null) {
             list_.add(elt_);
@@ -2066,4 +2069,14 @@ public final class ClassesUtil {
         return methods_;
     }
 
+
+    public static CustList<OverridableBlock> getMethodExecBlocks(RootBlock _element) {
+        CustList<OverridableBlock> methods_ = new CustList<OverridableBlock>();
+        for (Block b: getDirectChildren(_element)) {
+            if (b instanceof OverridableBlock) {
+                methods_.add((OverridableBlock) b);
+            }
+        }
+        return methods_;
+    }
 }

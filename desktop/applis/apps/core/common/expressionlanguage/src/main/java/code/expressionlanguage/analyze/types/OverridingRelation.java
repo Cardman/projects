@@ -1,16 +1,18 @@
-package code.expressionlanguage.functionid;
+package code.expressionlanguage.analyze.types;
 
 
+import code.expressionlanguage.analyze.blocks.OverridableBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.functionid.ClassMethodId;
 
 public final class OverridingRelation {
 
     private RootBlock sub;
-    private ClassMethodId subMethod;
+    private GeneStringOverridable subMethod;
 
     private RootBlock sup;
-    private ClassMethodId supMethod;
+    private GeneStringOverridable supMethod;
 
     public RootBlock getSub() {
         return sub;
@@ -20,11 +22,11 @@ public final class OverridingRelation {
         this.sub = sub;
     }
 
-    public ClassMethodId getSubMethod() {
+    public GeneStringOverridable getSubMethod() {
         return subMethod;
     }
 
-    public void setSubMethod(ClassMethodId _subMethod) {
+    public void setSubMethod(GeneStringOverridable _subMethod) {
         subMethod = _subMethod;
     }
 
@@ -36,11 +38,11 @@ public final class OverridingRelation {
         this.sup = sup;
     }
 
-    public ClassMethodId getSupMethod() {
+    public GeneStringOverridable getSupMethod() {
         return supMethod;
     }
 
-    public void setSupMethod(ClassMethodId _supMethod) {
+    public void setSupMethod(GeneStringOverridable _supMethod) {
         supMethod = _supMethod;
     }
 

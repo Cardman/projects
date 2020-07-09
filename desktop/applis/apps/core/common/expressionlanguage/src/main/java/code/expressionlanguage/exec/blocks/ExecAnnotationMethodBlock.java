@@ -44,11 +44,6 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
     }
 
     @Override
-    public boolean hiddenInstance() {
-        return false;
-    }
-
-    @Override
     public boolean isFinalMethod() {
         return false;
     }

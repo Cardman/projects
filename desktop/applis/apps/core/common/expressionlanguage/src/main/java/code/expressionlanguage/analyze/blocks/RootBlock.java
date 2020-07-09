@@ -18,6 +18,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.types.OverridingMethod;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -1742,5 +1743,33 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
     }
     public StringList getAllSuperTypes(){
         return allSuperTypes;
+    }
+
+    public String getGenericString() {
+        String pkg_ = getPackageName();
+        StringBuilder generic_ = new StringBuilder();
+        RootBlock.addPkgIfNotEmpty(pkg_, generic_);
+        CustList<RootBlock> pars_ = getSelfAndParentTypes();
+        RootBlock previous_ = null;
+        for (RootBlock r: pars_.first().getAllParentTypesReverse()) {
+            appendParts(generic_, previous_, r, "-", "..");
+            generic_.append(r.getName());
+            previous_ = r;
+        }
+        for (RootBlock r: pars_) {
+            appendParts(generic_, previous_, r, "-", "..");
+            generic_.append(r.getName());
+            if (!r.paramTypes.isEmpty()) {
+                StringList vars_ = new StringList();
+                for (TypeVar t:r.paramTypes) {
+                    vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
+                }
+                generic_.append(Templates.TEMPLATE_BEGIN);
+                generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
+                generic_.append(Templates.TEMPLATE_END);
+            }
+            previous_ = r;
+        }
+        return generic_.toString();
     }
 }

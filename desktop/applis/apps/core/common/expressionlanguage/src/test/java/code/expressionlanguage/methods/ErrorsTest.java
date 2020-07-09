@@ -12113,6 +12113,32 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report574Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyCl:MyCl2 {\n");
+        xml_.append(" $public $void m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyCl2 {\n");
+        xml_.append(" $public $final $void m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.errors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyCl2\" href=\"#m72\">MyCl2</a> {\n" +
+                " $public $void <a name=\"m47\" title=\"The function m() of the type pkg.MyCl2 is final. So overriding it is forbidden.\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m72\">pkg.MyCl2 </a>{\n" +
+                " $public $final $void <a name=\"m106\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
         validate(cont_,files_);
         assertTrue(!cont_.isEmptyErrors());

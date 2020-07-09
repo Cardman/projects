@@ -10,7 +10,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.OverridingMethod;
+import code.expressionlanguage.exec.types.OverridingMethod;
 import code.util.*;
 
 public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,AccessedBlock, ExecAnnotableBlock {

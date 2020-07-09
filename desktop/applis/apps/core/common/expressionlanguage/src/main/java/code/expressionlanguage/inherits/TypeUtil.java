@@ -7,7 +7,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.FormattedMethodId;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.functionid.OverridingMethod;
+import code.expressionlanguage.exec.types.OverridingMethod;
 import code.util.*;
 
 public final class TypeUtil {

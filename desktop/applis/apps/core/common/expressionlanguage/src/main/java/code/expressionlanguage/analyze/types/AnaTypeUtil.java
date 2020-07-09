@@ -12,6 +12,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.types.OverridingMethod;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -25,7 +26,6 @@ public final class AnaTypeUtil {
 
     public static void buildOverrides(RootBlock _type, ContextEl _context) {
         ExecRootBlock val_ = _context.getAnalyzing().getMapTypes().getVal(_type);
-        Classes classesRef_ = _context.getClasses();
         String fileName_ = _type.getFile().getFileName();
         for (ClassMethodId c: getAllDuplicates(_type, _context)) {
             FoundErrorInterpret err_;
@@ -38,22 +38,23 @@ public final class AnaTypeUtil {
                     _type.getFullName(),
                     StringList.concat(c.getClassName(),".",c.getConstraints().getSignature(_context)));
             _context.addError(err_);
+            _type.addNameErrors(err_);
         }
         StringMap<StringList> vars_ = new StringMap<StringList>();
         for (TypeVar t: _type.getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        for (OverridingMethod e: getAllInstanceSignatures(val_, _context)) {
+        for (OverridingMethodDto e: getAllInstanceSignatures(_type, _context)) {
             FormattedMethodId key_ = e.getFormattedMethodId();
             CustList<OverridingRelation> pairs_ = new CustList<OverridingRelation>();
-            CustList<ClassMethodId> allMethods_ = e.getMethodIds();
-            for (ClassMethodId c: allMethods_) {
-                String templClass_ = c.getClassName();
+            CustList<GeneStringOverridable> allMethods_ = e.getMethodIds();
+            for (GeneStringOverridable c: allMethods_) {
+                String templClass_ = c.getGeneString();
                 String typeName_ = StringExpUtil.getIdFromAllTypes(templClass_);
                 RootBlock sub_ = _context.getAnalyzing().getAnaClassBody(typeName_);
                 StringList allSuperTypes_ = sub_.getAllSuperTypes();
-                for (ClassMethodId s: allMethods_) {
-                    String super_ = s.getClassName();
+                for (GeneStringOverridable s: allMethods_) {
+                    String super_ = s.getGeneString();
                     String isSuper_ = StringExpUtil.getIdFromAllTypes(super_);
                     if (!StringList.quickEq(typeName_,isSuper_)) {
                         if (!StringList.contains(allSuperTypes_,isSuper_)) {
@@ -71,72 +72,73 @@ public final class AnaTypeUtil {
             }
             CustList<OverridingRelation> relations_ = new CustList<OverridingRelation>();
             for (OverridingRelation l: pairs_) {
-                ClassMethodId subId_ = l.getSubMethod();
-                ClassMethodId supId_ = l.getSupMethod();
-                ExecNamedFunctionBlock sub_ = ExecBlock.getMethodBodiesById(_context,subId_.getClassName(), subId_.getConstraints()).first();
-                ExecNamedFunctionBlock sup_ = ExecBlock.getMethodBodiesById(_context,supId_.getClassName(), supId_.getConstraints()).first();
-                Accessed subAcc_ = newAccessed(sub_,l.getSub());
-                Accessed supAcc_ = newAccessed(sup_,l.getSup());
-                if (subId_.eq(supId_)) {
+                GeneStringOverridable subId_ = l.getSubMethod();
+                GeneStringOverridable supId_ = l.getSupMethod();
+                Accessed subAcc_ = new Accessed(subId_.getBlock().getAccess(), l.getSub().getPackageName(), l.getSub().getFullName(), l.getSub().getOuterFullName());
+                Accessed supAcc_ = new Accessed(supId_.getBlock().getAccess(), l.getSup().getPackageName(), l.getSup().getFullName(), l.getSup().getOuterFullName());
+                ClassMethodId cSup_ = new ClassMethodId(supId_.getGeneString(),supId_.getBlock().getId());
+                ClassMethodId cSub_ = new ClassMethodId(subId_.getGeneString(),subId_.getBlock().getId());
+                if (cSup_.eq(cSub_)) {
                     if (ContextUtil.canAccess(_type.getFullName(), subAcc_, _context)) {
                         relations_.add(l);
                     }
-                } else if (ContextUtil.canAccess(subId_.getClassName(), supAcc_, _context)) {
+                } else if (ContextUtil.canAccess(subId_.getGeneString(), supAcc_, _context)) {
                     relations_.add(l);
                 }
             }
             for (OverridingRelation l: relations_) {
-                ClassMethodId subId_ = l.getSubMethod();
-                ClassMethodId supId_ = l.getSupMethod();
-                ExecNamedFunctionBlock sub_ = ExecBlock.getMethodBodiesById(_context,subId_.getClassName(), subId_.getConstraints()).first();
-                ExecNamedFunctionBlock sup_ = ExecBlock.getMethodBodiesById(_context,supId_.getClassName(), supId_.getConstraints()).first();
-                if (subId_.eq(supId_)) {
+                GeneStringOverridable subId_ = l.getSubMethod();
+                GeneStringOverridable supId_ = l.getSupMethod();
+                ClassMethodId cSup_ = new ClassMethodId(supId_.getGeneString(),supId_.getBlock().getId());
+                ClassMethodId cSub_ = new ClassMethodId(subId_.getGeneString(),subId_.getBlock().getId());
+                if (cSup_.eq(cSub_)) {
                     addClass(_type.getAllOverridingMethods(), key_, subId_);
                 } else {
-                    String retBase_ = sup_.getImportedReturnType();
-                    String retDerive_ = sub_.getImportedReturnType();
-                    String formattedRetDer_ = Templates.quickFormat(subId_.getClassName(), retDerive_, _context);
-                    String formattedRetBase_ = Templates.quickFormat(supId_.getClassName(), retBase_, _context);
-                    if (((ExecOverridableBlock)sup_).isFinalMethod()) {
+                    String retBase_ = supId_.getBlock().getImportedReturnType();
+                    String retDerive_ = subId_.getBlock().getImportedReturnType();
+                    String formattedRetDer_ = Templates.quickFormat(subId_.getGeneString(), retDerive_, _context);
+                    String formattedRetBase_ = Templates.quickFormat(supId_.getGeneString(), retBase_, _context);
+                    if (supId_.getBlock().isFinalMethod()) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
                         err_.setFileName(fileName_);
-                        err_.setIndexFile(sub_.getNameOffset());
+                        err_.setIndexFile(supId_.getBlock().getNameOffset());
                         //sub method name len
                         err_.buildError(_context.getAnalysisMessages().getDuplicatedFinal(),
-                                supId_.getConstraints().getSignature(_context),
-                                supId_.getClassName());
+                                supId_.getBlock().getId().getSignature(_context),
+                                supId_.getGeneString());
+                        subId_.getBlock().addNameErrors(err_);
                         _context.addError(err_);
                         continue;
                     }
-                    if (sup_.getAccess().isStrictMoreAccessibleThan(sub_.getAccess())) {
+                    if (supId_.getBlock().getAccess().isStrictMoreAccessibleThan(subId_.getBlock().getAccess())) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
                         err_.setFileName(fileName_);
-                        err_.setIndexFile(sub_.getAccessOffset());
+                        err_.setIndexFile(supId_.getBlock().getAccessOffset());
                         //key word access or method name
                         err_.buildError(_context.getAnalysisMessages().getMethodsAccesses(),
-                                supId_.getClassName(),
-                                supId_.getConstraints().getSignature(_context),
-                                subId_.getClassName(),
-                                subId_.getConstraints().getSignature(_context));
+                                supId_.getGeneString(),
+                                supId_.getBlock().getId().getSignature(_context),
+                                subId_.getGeneString(),
+                                subId_.getBlock().getId().getSignature(_context));
                         _context.addError(err_);
                         continue;
                     }
-                    if (((ExecOverridableBlock)sub_).getKind() != MethodKind.STD_METHOD) {
+                    if (supId_.getBlock().getKind() != MethodKind.STD_METHOD) {
                         if (!StringList.quickEq(formattedRetBase_, formattedRetDer_)) {
                             FoundErrorInterpret err_;
                             err_ = new FoundErrorInterpret();
                             err_.setFileName(fileName_);
-                            err_.setIndexFile(sub_.getReturnTypeOffset());
+                            err_.setIndexFile(supId_.getBlock().getReturnTypeOffset());
                             //sub return type len
                             err_.buildError(_context.getAnalysisMessages().getBadReturnTypeIndexer(),
                                     formattedRetBase_,
-                                    supId_.getConstraints().getSignature(_context),
-                                    supId_.getClassName(),
+                                    supId_.getBlock().getId().getSignature(_context),
+                                    supId_.getGeneString(),
                                     formattedRetDer_,
-                                    subId_.getConstraints().getSignature(_context),
-                                    subId_.getClassName());
+                                    subId_.getBlock().getId().getSignature(_context),
+                                    subId_.getGeneString());
                             _context.addError(err_);
                             continue;
                         }
@@ -148,15 +150,15 @@ public final class AnaTypeUtil {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
                         err_.setFileName(fileName_);
-                        err_.setIndexFile(sub_.getReturnTypeOffset());
+                        err_.setIndexFile(supId_.getBlock().getReturnTypeOffset());
                         //sub return type len
                         err_.buildError(_context.getAnalysisMessages().getBadReturnTypeInherit(),
                                 formattedRetDer_,
-                                subId_.getConstraints().getSignature(_context),
-                                subId_.getClassName(),
+                                subId_.getBlock().getId().getSignature(_context),
+                                subId_.getGeneString(),
                                 formattedRetBase_,
-                                supId_.getConstraints().getSignature(_context),
-                                supId_.getClassName());
+                                supId_.getBlock().getId().getSignature(_context),
+                                supId_.getGeneString());
                         _context.addError(err_);
                         continue;
                     }
@@ -168,13 +170,6 @@ public final class AnaTypeUtil {
         val_.getAllOverridingMethods().addAllElts(_type.getAllOverridingMethods());
     }
 
-    private static Accessed newAccessed(ExecNamedFunctionBlock _named, RootBlock _root) {
-        if (_named instanceof ExecOverridableBlock) {
-            ExecOverridableBlock c = (ExecOverridableBlock) _named;
-            return new Accessed(c.getAccess(), _root.getPackageName(), _root.getFullName(), _root.getOuterFullName());
-        }
-        return new Accessed(AccessEnum.PUBLIC, "", "", "");
-    }
     private static CustList<ClassMethodId> getAllDuplicates(RootBlock _type, ContextEl _classes) {
         CustList<ClassMethodId> list_;
         list_ = new CustList<ClassMethodId>();
@@ -182,8 +177,8 @@ public final class AnaTypeUtil {
             CustList<MethodId> all_;
             all_ = new CustList<MethodId>();
             String base_ = StringExpUtil.getIdFromAllTypes(s);
-            ExecRootBlock b_ = _classes.getClasses().getClassBody(base_);
-            for (GeneCustModifierMethod b: ExecBlock.getMethodExecBlocks(b_)) {
+            RootBlock b_ = _classes.getAnalyzing().getAnaClassBody(base_);
+            for (OverridableBlock b: ClassesUtil.getMethodExecBlocks(b_)) {
                 if (b.hiddenInstance()) {
                     continue;
                 }
@@ -205,44 +200,62 @@ public final class AnaTypeUtil {
         return list_;
     }
 
-    private static CustList<OverridingMethod> getAllInstanceSignatures(ExecRootBlock _type, ContextEl _classes) {
-        CustList<OverridingMethod> map_;
-        map_ = new CustList<OverridingMethod>();
-        for (GeneCustModifierMethod b: ExecBlock.getMethodExecBlocks(_type)) {
+    private static CustList<OverridingMethodDto> getAllInstanceSignatures(RootBlock _r, ContextEl _classes) {
+        CustList<OverridingMethodDto> map_;
+        map_ = new CustList<OverridingMethodDto>();
+        for (OverridableBlock b: ClassesUtil.getMethodExecBlocks(_r)) {
             if (b.hiddenInstance()) {
                 continue;
             }
             MethodId m_ = b.getId();
-            OverridingMethod o_ = new OverridingMethod(MethodId.to(m_));
-            o_.getMethodIds().add(new ClassMethodId(_type.getGenericString(), m_));
+            OverridingMethodDto o_ = new OverridingMethodDto(MethodId.to(m_));
+            o_.getMethodIds().add(new GeneStringOverridable(_r.getGenericString(),b));
             map_.add(o_);
         }
-        for (String s: _type.getAllGenericSuperTypes()) {
+        for (String s: _r.getAllGenericSuperTypes()) {
             String base_ = StringExpUtil.getIdFromAllTypes(s);
-            ExecRootBlock b_ = _classes.getClasses().getClassBody(base_);
-            for (GeneCustModifierMethod b: ExecBlock.getMethodExecBlocks(b_)) {
+            RootBlock b_ = _classes.getAnalyzing().getAnaClassBody(base_);
+            for (OverridableBlock b: ClassesUtil.getMethodExecBlocks(b_)) {
                 if (b.hiddenInstance()) {
                     continue;
                 }
                 MethodId m_ = b.getId();
-                addClass(map_, b.getId().quickOverrideFormat(s, _classes), new ClassMethodId(s, m_));
+                addDtoClass(map_, b.getId().quickOverrideFormat(s, _classes), b,s,new ClassMethodId(s, m_));
+//                addDtoClass(map_, b.getId().quickOverrideFormat(s, _classes), b,b_.getGenericString(),new ClassMethodId(s, m_));
             }
         }
         return map_;
     }
 
-    private static void addClass(CustList<OverridingMethod> _map, FormattedMethodId _key, ClassMethodId _class) {
+    private static void addClass(CustList<OverridingMethod> _map, FormattedMethodId _key, GeneStringOverridable _class) {
         boolean found_ = false;
         for (OverridingMethod o: _map) {
             if (o.getFormattedMethodId().eq(_key)) {
-                o.getMethodIds().add(_class);
+                o.getMethodIds().add(new ClassMethodId(_class.getGeneString(),_class.getBlock().getId()));
                 found_ = true;
                 break;
             }
         }
         if (!found_) {
             OverridingMethod o_ = new OverridingMethod(_key);
-            o_.getMethodIds().add(_class);
+            o_.getMethodIds().add(new ClassMethodId(_class.getGeneString(),_class.getBlock().getId()));
+            _map.add(o_);
+        }
+    }
+
+
+    private static void addDtoClass(CustList<OverridingMethodDto> _map, FormattedMethodId _key, OverridableBlock _ov, String _str,ClassMethodId _class) {
+        boolean found_ = false;
+        for (OverridingMethodDto o: _map) {
+            if (o.getFormattedMethodId().eq(_key)) {
+                o.getMethodIds().add(new GeneStringOverridable(_str,_ov));
+                found_ = true;
+                break;
+            }
+        }
+        if (!found_) {
+            OverridingMethodDto o_ = new OverridingMethodDto(_key);
+            o_.getMethodIds().add(new GeneStringOverridable(_str,_ov));
             _map.add(o_);
         }
     }

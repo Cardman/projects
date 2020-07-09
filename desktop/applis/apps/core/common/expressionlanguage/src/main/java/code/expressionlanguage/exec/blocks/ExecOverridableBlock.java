@@ -34,11 +34,6 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
     }
 
     @Override
-    public boolean hiddenInstance() {
-        return staticCallMethod || staticMethod;
-    }
-
-    @Override
     public boolean isAbstractMethod() {
         return abstractMethod;
     }

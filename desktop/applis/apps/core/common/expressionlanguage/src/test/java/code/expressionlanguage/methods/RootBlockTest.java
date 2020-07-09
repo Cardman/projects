@@ -9,7 +9,7 @@ import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.functionid.OverridingMethod;
+import code.expressionlanguage.exec.types.OverridingMethod;
 import code.util.*;
 import org.junit.Test;
 

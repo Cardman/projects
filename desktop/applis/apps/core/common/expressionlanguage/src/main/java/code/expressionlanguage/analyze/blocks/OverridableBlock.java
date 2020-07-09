@@ -75,7 +75,9 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         return MethodModifier.NORMAL;
     }
 
-
+    public boolean hiddenInstance() {
+        return staticCallMethod || staticMethod;
+    }
     @Override
     public MethodId getId() {
         String name_ = getName();
