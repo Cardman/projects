@@ -13,14 +13,12 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.exec.types.OverridingMethod;
 import code.util.*;
 
-public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,AccessedBlock, ExecAnnotableBlock {
+public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType, ExecAnnotableBlock {
     private String name;
 
     private String packageName;
 
     private AccessEnum access;
-
-    private StringList imports;
 
     private CustList<OverridingMethod> allOverridingMethods = new CustList<OverridingMethod>();
 
@@ -44,7 +42,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     ExecRootBlock(RootBlock _offset) {
         super(_offset.getOffset());
-        imports = _offset.getImports();
         packageName = _offset.getPackageName();
         name = _offset.getName();
         access = _offset.getAccess();
@@ -231,16 +228,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     @Override
     public CustList<CustList<ExecOperationNode>> getAnnotationsOps() {
         return annotationsOps;
-    }
-
-    @Override
-    public StringList getImports() {
-        return imports;
-    }
-
-    @Override
-    public StringList getFileImports() {
-        return getFile().getImports();
     }
 
     @Override

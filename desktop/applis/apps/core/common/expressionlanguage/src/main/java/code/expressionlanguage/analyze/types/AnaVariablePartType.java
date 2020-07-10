@@ -2,9 +2,9 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.AccessedBlock;
-import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
@@ -71,7 +71,7 @@ final class AnaVariablePartType extends AnaLeafPartType {
         if (!_an.isGettingParts()) {
             return;
         }
-        String curr_ = ((ExecBlock)_rooted).getFile().getRenderFileName();
+        String curr_ = ((Block)_rooted).getFile().getRenderFileName();
         String imported_ = getAnalyzedType();
         AnalyzedPageEl ana_ = _an.getAnalyzing();
         Integer id_ = ana_.getAvailableVariables().getVal(imported_.substring(1));

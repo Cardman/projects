@@ -12,7 +12,7 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 
-public final class OperatorBlock extends NamedFunctionBlock implements GeneMethod,ReturnableWithSignature {
+public final class OperatorBlock extends NamedFunctionBlock implements AccessedBlock,GeneMethod,ReturnableWithSignature {
 
     private StringList imports = new StringList();
 
@@ -63,6 +63,11 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
 
     public StringList getImports() {
         return imports;
+    }
+
+    @Override
+    public StringList getFileImports() {
+        return getFile().getImports();
     }
 
     public Ints getImportsOffset() {

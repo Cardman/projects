@@ -1,6 +1,6 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.exec.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.types.AbstractCurrentGlobalBlock;
 import code.formathtml.Configuration;

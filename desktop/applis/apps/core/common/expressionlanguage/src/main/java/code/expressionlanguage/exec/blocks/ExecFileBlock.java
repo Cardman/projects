@@ -7,12 +7,10 @@ import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.ImportingBlock;
 import code.util.*;
 
-public final class ExecFileBlock extends ExecBracedBlock implements ImportingBlock {
+public final class ExecFileBlock extends ExecBracedBlock {
 
     private Ints lineReturns;
     private Ints tabulations;
-
-    private StringList imports;
 
     private final String fileName;
 
@@ -25,7 +23,6 @@ public final class ExecFileBlock extends ExecBracedBlock implements ImportingBlo
         tabWidth = _tabWidth;
         lineReturns=_file.getLineReturns();
         tabulations=_file.getTabulations();
-        imports = _file.getImports();
         fileName = _file.getFileName();
     }
 
@@ -35,11 +32,6 @@ public final class ExecFileBlock extends ExecBracedBlock implements ImportingBlo
 
     public boolean isPredefined() {
         return predefined;
-    }
-
-    @Override
-    public StringList getImports() {
-        return imports;
     }
 
     public String getFileName() {

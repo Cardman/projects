@@ -1,7 +1,7 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 
 public final class DefaultCurrentGlobalBlock implements AbstractCurrentGlobalBlock {

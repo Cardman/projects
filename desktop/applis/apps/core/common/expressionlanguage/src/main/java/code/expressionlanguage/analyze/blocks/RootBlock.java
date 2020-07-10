@@ -16,7 +16,6 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.types.OverridingMethod;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -33,7 +32,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 
-public abstract class RootBlock extends BracedBlock implements AnnotableBlock,AnaGeneType,AnaInheritedType {
+public abstract class RootBlock extends BracedBlock implements AccessedBlock,AnnotableBlock,AnaGeneType,AnaInheritedType {
 
     private final String name;
     private final StringList nameErrors = new StringList();
@@ -181,6 +180,11 @@ public abstract class RootBlock extends BracedBlock implements AnnotableBlock,An
         return imports;
     }
 
+
+    @Override
+    public StringList getFileImports() {
+        return getFile().getImports();
+    }
 
     public Ints getImportsOffset() {
         return importsOffset;

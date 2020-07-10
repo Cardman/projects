@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.IntTreeMap;

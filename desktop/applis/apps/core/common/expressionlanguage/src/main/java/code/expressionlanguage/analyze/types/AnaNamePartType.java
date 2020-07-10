@@ -3,13 +3,15 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
+import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -168,17 +170,17 @@ final class AnaNamePartType extends AnaLeafPartType {
     private void tryAnalyzeInnerParts(ContextEl _an,
                                       AccessedBlock _local,
                                       AccessedBlock _rooted) {
-        if (_local instanceof ExecRootBlock) {
-            if (skipGenericImports(_an, (ExecRootBlock)_local)) {
+        if (_local instanceof RootBlock) {
+            if (skipGenericImports(_an, (RootBlock)_local)) {
                 return;
             }
         }
         lookupImports(_an, _rooted, false, new AlwaysReadyTypes());
     }
     private boolean skipGenericImports(ContextEl _an,
-                                       ExecRootBlock _local) {
+                                       RootBlock _local) {
         String type_ = getTypeName().trim();
-        ExecRootBlock p_ = _local;
+        RootBlock p_ = _local;
         Classes classes_ = _an.getClasses();
         StringList allAncestors_ = new StringList();
         while (p_ != null) {
@@ -214,8 +216,8 @@ final class AnaNamePartType extends AnaLeafPartType {
                                           ReadyTypes _ready,
                                           AccessedBlock _local,
                                           AccessedBlock _rooted) {
-        if (_local instanceof ExecRootBlock) {
-            if (skipImports(_an,_ready,(ExecRootBlock)_local)) {
+        if (_local instanceof RootBlock) {
+            if (skipImports(_an,_ready,(RootBlock)_local)) {
                 return;
             }
         }
@@ -224,9 +226,9 @@ final class AnaNamePartType extends AnaLeafPartType {
 
     private boolean skipImports(ContextEl _an,
                                 ReadyTypes _ready,
-                                ExecRootBlock _local) {
+                                RootBlock _local) {
         String type_ = getTypeName().trim();
-        ExecRootBlock p_ = _local;
+        RootBlock p_ = _local;
         StringList allAncestors_ = new StringList();
         while (p_ != null) {
             allAncestors_.add(p_.getFullName());
@@ -376,14 +378,14 @@ final class AnaNamePartType extends AnaLeafPartType {
         if (!_an.isGettingParts()) {
             return;
         }
-        String curr_ = ((ExecBlock)_rooted).getFile().getRenderFileName();
+        String curr_ = ((Block)_rooted).getFile().getRenderFileName();
         String imported_ = getAnalyzedType();
         String idCl_ = StringExpUtil.getIdFromAllTypes(imported_);
-        GeneType g_ = _an.getClassBody(idCl_);
-        if (LinkageUtil.isFromCustFile(g_)) {
-            String ref_ = ((ExecRootBlock) g_).getFile().getRenderFileName();
+        AnaGeneType g_ = _an.getAnalyzing().getAnaGeneType(_an,idCl_);
+        if (ContextUtil.isFromCustFile(g_)) {
+            String ref_ = ((RootBlock) g_).getFile().getRenderFileName();
             String rel_ = LinkageUtil.relativize(curr_,ref_);
-            int id_ = ((ExecRootBlock) g_).getIdRowCol();
+            int id_ = ((RootBlock) g_).getIdRowCol();
             setTitleRef(g_.getFullName());
             setHref(rel_+"#m"+id_);
         }

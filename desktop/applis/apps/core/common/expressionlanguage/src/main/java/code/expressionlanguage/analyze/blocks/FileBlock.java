@@ -7,7 +7,7 @@ import code.expressionlanguage.errors.custom.GraphicErrorList;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.*;
 
-public final class FileBlock extends BracedBlock {
+public final class FileBlock extends BracedBlock implements ImportingBlock {
     private static final char LINE_RETURN = '\n';
     private static final char CARR_RETURN = '\r';
     private static final char TAB = '\t';
@@ -132,5 +132,8 @@ public final class FileBlock extends BracedBlock {
         fileName = _fileName;
     }
 
+    public String getRenderFileName() {
+        return fileName+".html";
+    }
 
 }

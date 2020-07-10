@@ -11,13 +11,10 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements GeneCustMethod,AccessedBlock,ReturnableWithSignature {
-
-    private StringList imports;
+public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements GeneCustMethod,ReturnableWithSignature {
 
     public ExecOperatorBlock(OperatorBlock _offset) {
         super(_offset);
-        imports = _offset.getImports();
     }
 
     public void buildImportedTypes(OperatorBlock _key) {
@@ -46,17 +43,8 @@ public final class ExecOperatorBlock extends ExecNamedFunctionBlock implements G
     }
 
     @Override
-    public StringList getFileImports() {
-        return getFile().getImports();
-    }
-
-    @Override
     public String getSignature(ContextEl _ana) {
         return getId().getSignature(_ana);
     }
 
-    @Override
-    public StringList getImports() {
-        return imports;
-    }
 }

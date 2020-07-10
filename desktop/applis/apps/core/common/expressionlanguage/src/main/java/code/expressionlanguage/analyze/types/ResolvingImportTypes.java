@@ -71,15 +71,14 @@ public final class ResolvingImportTypes {
         AccessedBlock r_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         String idFromType_ = StringExpUtil.getIdFromAllTypes(_fromType);
-        GeneType from_ = _analyzable.getClassBody(idFromType_);
+        AnaGeneType from_ = _analyzable.getAnalyzing().getAnaGeneType(_analyzable,idFromType_);
         String ref_ = "";
-        if (LinkageUtil.isFromCustFile(from_)) {
-            ref_ = ((ExecBlock)from_).getFile().getRenderFileName();
+        if (ContextUtil.isFromCustFile(from_)) {
+            ref_ = ((Block)from_).getFile().getRenderFileName();
         }
         _analyzable.getAnalyzing().getAvailableVariables().clear();
-        RootBlock fr_ = _analyzable.getAnalyzing().getAnaClassBody(idFromType_);
-        if (fr_ != null) {
-            for (TypeVar t: fr_.getParamTypesMapValues()) {
+        if (from_ instanceof RootBlock) {
+            for (TypeVar t: ((RootBlock)from_).getParamTypesMapValues()) {
                 _analyzable.getAnalyzing().getAvailableVariables().addEntry(t.getName(),t.getOffset());
                 vars_.addEntry(t.getName(), t.getConstraints());
             }
@@ -411,8 +410,8 @@ public final class ResolvingImportTypes {
         if (!types_.isEmpty()) {
             return "";
         }
-        if (_rooted instanceof ExecRootBlock) {
-            ExecRootBlock r_ = (ExecRootBlock) _rooted;
+        if (_rooted instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) _rooted;
             String type_ = StringExpUtil.removeDottedSpaces(StringList.concat(r_.getPackageName(),".",_type));
             if (_an.getClasses().getClassBody(type_) != null) {
                 return type_;
@@ -743,10 +742,10 @@ public final class ResolvingImportTypes {
         return StringList.indexOf(_field.getFieldName(), _method.trim());
     }
     private static void fetchImports(AccessedBlock _rooted, CustList<StringList> _imports) {
-        if (_rooted instanceof ExecRootBlock) {
-            ExecRootBlock r_ = (ExecRootBlock) _rooted;
+        if (_rooted instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) _rooted;
             _imports.add(r_.getImports());
-            for (ExecRootBlock r: r_.getAllParentTypes()) {
+            for (RootBlock r: r_.getAllParentTypes()) {
                 addImports(r,_imports);
             }
         } else {

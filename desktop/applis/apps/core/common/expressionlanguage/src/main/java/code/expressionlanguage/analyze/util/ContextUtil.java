@@ -208,8 +208,8 @@ public final class ContextUtil {
             }
         }
         RootBlock root_ = null;
-        if (r_ instanceof ExecRootBlock) {
-            root_ = _cont.getAnalyzing().getAnaClassBody(((ExecRootBlock) r_).getFullName());
+        if (r_ instanceof RootBlock) {
+            root_ = (RootBlock) r_;
         }
         if (root_ != null && !static_) {
             for (TypeVar t: root_.getParamTypesMapValues()) {
@@ -223,16 +223,16 @@ public final class ContextUtil {
         if (!_cont.isGettingParts()) {
             return;
         }
-        GeneType g_ = _cont.getClassBody(_in);
-        if (!LinkageUtil.isFromCustFile(g_)) {
+        AnaGeneType g_ = _cont.getAnalyzing().getAnaGeneType(_cont,_in);
+        if (!isFromCustFile(g_)) {
             return;
         }
         AccessedBlock r_ = _cont.getCurrentGlobalBlock();
         int rc_ = _cont.getCurrentLocationIndex();
-        String curr_ = ((ExecBlock)r_).getFile().getRenderFileName();
-        String ref_ = ((ExecRootBlock) g_).getFile().getRenderFileName();
+        String curr_ = ((Block)r_).getFile().getRenderFileName();
+        String ref_ = ((RootBlock) g_).getFile().getRenderFileName();
         String rel_ = LinkageUtil.relativize(curr_,ref_);
-        int id_ = ((ExecRootBlock) g_).getIdRowCol();
+        int id_ = ((RootBlock) g_).getIdRowCol();
         _parts.add(new PartOffset("<a title=\""+g_.getFullName()+"\" href=\""+rel_+"#m"+id_+"\">",rc_+_begin));
         _parts.add(new PartOffset("</a>",rc_+_end));
     }
@@ -246,6 +246,12 @@ public final class ContextUtil {
         _parts.add(new PartOffset("</a>",rc_+_end));
     }
 
+    public static boolean isFromCustFile(AnaGeneType _g) {
+        if (!(_g instanceof RootBlock)) {
+            return false;
+        }
+        return !((RootBlock)_g).getFile().isPredefined();
+    }
     public static boolean isFinalField(ContextEl _cont, ClassField _classField) {
         FieldInfo fieldInfo_ = getFieldInfo(_cont, _classField);
         if (fieldInfo_ == null) {

@@ -57,8 +57,8 @@ public final class ResolvingSuperTypes {
         CustList<PartOffset> partOffsets_ = _context.getAnalyzing().getCurrentParts();
         _context.getAnalyzing().getCurrentBadIndexes().clear();
         _context.getAnalyzing().setImportingAcces(new TypeAccessor(_currentBlock.getFullName()));
-        _context.getAnalyzing().setImportingTypes(_currentBlock);
-        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in, false,gl_, _context, _currentBlock,_currentBlock, _location,partOffsets_);
+        _context.getAnalyzing().setImportingTypes(_ana);
+        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in, false,gl_, _context, _ana,_ana, _location,partOffsets_);
         for (InaccessibleType i: _context.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
@@ -116,11 +116,11 @@ public final class ResolvingSuperTypes {
         _context.getAnalyzing().getAvailableVariables().clear();
         _context.getAnalyzing().getAvailableVariables().putAllMap(variables_);
         String gl_ = _currentBlock.getGenericString();
-        ExecRootBlock scope_ = _currentBlock.getParentType();
+        RootBlock scope_ = _ana.getParentType();
         _context.getAnalyzing().getCurrentBadIndexes().clear();
-        _context.getAnalyzing().setImportingAcces(new TypeAccessor(_currentBlock.getFullName()));
-        _context.getAnalyzing().setImportingTypes(_currentBlock);
-        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in,true,gl_,_context,scope_,_currentBlock, _location, _partOffsets);
+        _context.getAnalyzing().setImportingAcces(new TypeAccessor(_ana.getFullName()));
+        _context.getAnalyzing().setImportingTypes(_ana);
+        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in,true,gl_,_context,scope_,_ana, _location, _partOffsets);
         for (InaccessibleType i: _context.getAnalyzing().getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_currentBlock.getFile().getFileName());
@@ -167,12 +167,12 @@ public final class ResolvingSuperTypes {
         return resType_;
     }
 
-    public static String resolveBaseInherits(ContextEl _context, String _idSup, ExecRootBlock _root, StringList _readyTypes) {
+    public static String resolveBaseInherits(ContextEl _context, String _idSup, RootBlock _ana, StringList _readyTypes) {
         String id_ = StringExpUtil.getIdFromAllTypes(_idSup);
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-        ExecRootBlock scope_ = _root.getParentType();
+        RootBlock scope_ = _ana.getParentType();
         InheritReadyTypes inh_ = new InheritReadyTypes(_readyTypes);
-        _context.getAnalyzing().setImportingTypes(_root);
-        return AnaPartTypeUtil.processAnalyzeLineInherits(id_, inh_,true, _context,scope_,_root, -1,partOffsets_);
+        _context.getAnalyzing().setImportingTypes(_ana);
+        return AnaPartTypeUtil.processAnalyzeLineInherits(id_, inh_,true, _context,scope_,_ana, -1,partOffsets_);
     }
 }

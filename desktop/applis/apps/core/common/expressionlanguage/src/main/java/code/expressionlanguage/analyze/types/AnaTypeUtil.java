@@ -268,9 +268,9 @@ public final class AnaTypeUtil {
         AnalyzedPageEl page_ = _context.getAnalyzing();
         for (RootBlock c: page_.getFoundTypes()) {
             ExecRootBlock type_ = _context.getAnalyzing().getMapTypes().getVal(c);
-            page_.setImporting(type_);
+            page_.setImporting(c);
             page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
-            page_.setImportingTypes(type_);
+            page_.setImportingTypes(c);
             page_.setCurrentBlock(c);
             page_.setCurrentAnaBlock(c);
             page_.setGlobalClass(type_.getGenericString());

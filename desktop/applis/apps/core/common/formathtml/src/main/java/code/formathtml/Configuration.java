@@ -1,11 +1,12 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.InitClassState;
-import code.expressionlanguage.exec.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.structs.BeanInfo;
@@ -479,7 +480,7 @@ public final class Configuration {
         return analyzingDoc.getInternGlobalClass();
     }
 
-    private static AccessedBlock getAccessingImportingBlock(AccessedBlock _r, ExecRootBlock _root) {
+    private static AccessedBlock getAccessingImportingBlock(AccessedBlock _r, RootBlock _root) {
         AccessedBlock a_;
         if (_root != null) {
             a_ = _root;
@@ -696,7 +697,7 @@ public final class Configuration {
 
     public AccessedBlock getCurrentGlobalBlock(AccessedBlock _bl) {
         String gl_ = getGlobalClass();
-        ExecRootBlock root_ = getContext().getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(gl_));
+        RootBlock root_ = getContext().getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_));
         return getAccessingImportingBlock(_bl, root_);
     }
 
