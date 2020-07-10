@@ -73,6 +73,7 @@ public final class RunningTest implements Runnable {
         opt_.getComments().addAllElts(exec_.getComments());
         opt_.setReadOnly(true);
         opt_.setCovering(exec_.isCovering());
+        opt_.setGettingErrors(exec_.isErrors());
         opt_.setFailIfNotAllInit(true);
         CustContextFactory.executeDefKw(lg_,opt_,exec_,zipFiles_,_progressingTests,_infos);
     }
@@ -108,6 +109,7 @@ public final class RunningTest implements Runnable {
             }
             if (l.startsWith("src=")) {
                 _exec.setCovering(true);
+                _exec.setErrors(true);
                 String output_ = l.substring("src=".length());
                 if (!output_.isEmpty()) {
                     if (output_.endsWith("/")) {
