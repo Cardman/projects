@@ -150,6 +150,12 @@ public abstract class ProcessMethodCommon {
         opt_.setGettingErrors(true);
         return InitializationLgNames.buildStdOne(opt_);
     }
+    protected static ContextEl contextElErrorStdReadOnlyDef() {
+        Options opt_ = new Options();
+        opt_.setReadOnly(true);
+        opt_.setGettingErrors(true);
+        return InitializationLgNames.buildStdOne("en",opt_);
+    }
     protected static ContextEl contextElCoverageReadOnlyDef() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);

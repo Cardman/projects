@@ -12266,6 +12266,38 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void report581Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.MySub {\n");
+        xml_.append(" int i,this,k;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.MySub </a>{\n" +
+                " int <a name=\"m30\">i</a>,<a title=\"The field name this is not valid. It must not be a key word.\" class=\"e\">this</a>,<a name=\"m37\">k</a>;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report582Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.MySub {\n");
+        xml_.append(" MySub i,this=null,k;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MySub\" href=\"#m13\">MySub</a> <a name=\"m32\">i</a>,<a title=\"The field name this is not valid. It must not be a key word.\" class=\"e\">this</a><a title=\"The assignment operator = is unexpected.\" class=\"e\">=</a>null,<a name=\"m44\">k</a>;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void reportWithoutErrorTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");
