@@ -1471,7 +1471,6 @@ public final class NativeTest extends CommonRender {
         BeanLgNames lgNames_ = new CustBeanLgNames();
         basicStandards(lgNames_);
         ContextEl c_ = InitializationLgNames.build(CustList.INDEX_NOT_FOUND_ELT, lgNames_, _opt);
-        lgNames_.setHeaders(c_.getAnalyzing().getHeaders());
         return c_;
     }
     private static ContextEl buildStdTwo(Options _opt) {
@@ -1479,7 +1478,6 @@ public final class NativeTest extends CommonRender {
         basicStandards(lgNames_);
         lgNames_.setAliasMath("java.lang.$math");
         ContextEl c_ = InitializationLgNames.build(CustList.INDEX_NOT_FOUND_ELT, lgNames_, _opt);
-        lgNames_.setHeaders(c_.getAnalyzing().getHeaders());
         return c_;
     }
 

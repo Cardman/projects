@@ -417,7 +417,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public boolean setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
         _nav.initInstancesPattern();
         _nav.setupRenders();
-        _conf.getAdvStandards().setHeaders(null);
         _conf.getAdvStandards().setReportedMessages(null);
         _conf.getAnalyzing().setHeaders(null);
         _conf.getContext().setNullAnalyzing();
@@ -481,7 +480,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), a_,kw_, this,4);
-        setHeaders(context_.getAnalyzing().getHeaders());
         _conf.setContext(context_);
     }
     public void setDataBase(Object _dataBase){

@@ -2493,7 +2493,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
         Classes.validateWithoutInit(_files, cont_);
-        standards_.setHeaders(cont_.getAnalyzing().getHeaders());
         assertTrue(cont_.isEmptyErrors());
         Classes.tryInitStaticlyTypes(cont_);
         ((BeanCustLgNames)standards_).buildIterables(conf_);

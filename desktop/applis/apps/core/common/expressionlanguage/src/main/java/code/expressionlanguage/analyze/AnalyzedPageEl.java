@@ -29,16 +29,16 @@ public final class AnalyzedPageEl {
 
     private String globalClass = "";
 
-    private CustList<StringMap<AnaLoopVariable>> vars;
-    private CustList<StringMap<AnaLoopVariable>> mutableVars = new CustList<StringMap<AnaLoopVariable>>();
+    private final CustList<StringMap<AnaLoopVariable>> vars = new CustList<StringMap<AnaLoopVariable>>();
+    private final CustList<StringMap<AnaLoopVariable>> mutableVars = new CustList<StringMap<AnaLoopVariable>>();
 
-    private CustList<StringMap<AnaLocalVariable>> catchVars;
+    private final CustList<StringMap<AnaLocalVariable>> catchVars = new CustList<StringMap<AnaLocalVariable>>();
 
-    private CustList<StringMap<AnaLocalVariable>> localVars;
-    private CustList<StringList> localVarsInfers = new CustList<StringList>();
-    private CustList<StringList> mutableLocalVarsInfers = new CustList<StringList>();
+    private final CustList<StringMap<AnaLocalVariable>> localVars = new CustList<StringMap<AnaLocalVariable>>();
+    private final CustList<StringList> localVarsInfers = new CustList<StringList>();
+    private final CustList<StringList> mutableLocalVarsInfers = new CustList<StringList>();
 
-    private StringMap<AnaLocalVariable> parameters = new StringMap<AnaLocalVariable>();
+    private final StringMap<AnaLocalVariable> parameters = new StringMap<AnaLocalVariable>();
 
     private MemberCallingsBlock currentFct;
     private AccessedBlock importing;
@@ -68,12 +68,12 @@ public final class AnalyzedPageEl {
     private boolean merged;
     private boolean acceptCommaInstr;
     private boolean finalVariable;
-    private String currentVarSetting;
-    private StringList needInterfaces = new StringList();
-    private StringMap<Integer> availableVariables = new StringMap<Integer>();
-    private StringList variablesNames = new StringList();
-    private StringList variablesNamesToInfer = new StringList();
-    private StringList variablesNamesLoopToInfer = new StringList();
+    private String currentVarSetting = "";
+    private final StringList needInterfaces = new StringList();
+    private final StringMap<Integer> availableVariables = new StringMap<Integer>();
+    private final StringList variablesNames = new StringList();
+    private final StringList variablesNamesToInfer = new StringList();
+    private final StringList variablesNamesLoopToInfer = new StringList();
     private boolean assignedStaticFields;
     private boolean assignedFields;
     private ForLoopPart forLoopPart;
@@ -82,19 +82,19 @@ public final class AnalyzedPageEl {
     private boolean annotAnalysis;
     private String lookLocalClass = "";
     private boolean okNumOp;
-    private CustList<InaccessibleType> currentBadIndexes = new CustList<InaccessibleType>();
-    private StringList initFields = new StringList();
-    private StringList initFieldsCtors = new StringList();
-    private StringList assignedDeclaredFields = new StringList();
-    private StringList allDeclaredFields = new StringList();
+    private final CustList<InaccessibleType> currentBadIndexes = new CustList<InaccessibleType>();
+    private final StringList initFields = new StringList();
+    private final StringList initFieldsCtors = new StringList();
+    private final StringList assignedDeclaredFields = new StringList();
+    private final StringList allDeclaredFields = new StringList();
     private ExecDeclareVariable execDeclareVariable;
 
-    private CustList<PartOffset> currentParts = new CustList<PartOffset>();
+    private final CustList<PartOffset> currentParts = new CustList<PartOffset>();
     private OperationNode currentRoot;
     private String currentEmptyPartErr = "";
     private final Errors errors = new Errors();
     private MethodHeaders headers = new MethodHeaders();
-    private ReportedMessages messages = new ReportedMessages();
+    private final ReportedMessages messages = new ReportedMessages();
 
     private AbstractProcessKeyWord processKeyWord;
     private AbstractHiddenTypes hiddenTypes;
@@ -106,16 +106,10 @@ public final class AnalyzedPageEl {
     private AbstractBuildingConstraints buildingConstraints;
     private AbstractLocalizer localizer;
     private AbstractTokenValidation tokenValidation;
-    private final StringMap<ExecFileBlock> filesBodies;
+    private final StringMap<ExecFileBlock> filesBodies = new StringMap<ExecFileBlock>();
     private int localInType = -1;
     private String refFileName = "";
     private int indexBlock;
-    public AnalyzedPageEl() {
-        setCatchVars(new CustList<StringMap<AnaLocalVariable>>());
-        setLocalVars(new CustList<StringMap<AnaLocalVariable>>());
-        setVars(new CustList<StringMap<AnaLoopVariable>>());
-        filesBodies = new StringMap<ExecFileBlock>();
-    }
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -172,10 +166,6 @@ public final class AnalyzedPageEl {
             }
         }
         return null;
-    }
-
-    public void setVars(CustList<StringMap<AnaLoopVariable>> _localVars) {
-        vars = _localVars;
     }
 
     public void initMutableLoopVars() {
@@ -286,13 +276,6 @@ public final class AnalyzedPageEl {
         return localVars.get(_index).getVal(_key).isFinalVariable();
     }
 
-    public void setLocalVars(CustList<StringMap<AnaLocalVariable>> _localVars) {
-        localVars = _localVars;
-    }
-
-    public void setCatchVars(CustList<StringMap<AnaLocalVariable>> _localVars) {
-        catchVars = _localVars;
-    }
     public void initCatchVars() {
         catchVars.add(new StringMap<AnaLocalVariable>());
     }

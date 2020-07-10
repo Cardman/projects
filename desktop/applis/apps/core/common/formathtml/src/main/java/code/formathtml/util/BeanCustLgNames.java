@@ -862,7 +862,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (!_conf.isEmptyErrors()) {
             return false;
         }
-        _conf.getAdvStandards().setHeaders(null);
         _conf.getAdvStandards().setReportedMessages(null);
         _conf.getAnalyzing().setHeaders(null);
         _conf.getContext().setNullAnalyzing();
@@ -892,9 +891,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
         //!classFiles_.isEmpty()
         Classes.validateWithoutInit(classFiles_, _conf.getContext());
-        MethodHeaders headers_ = _conf.getContext().getAnalyzing().getHeaders();
         setReportedMessages(_conf.getContext().getAnalyzing().getMessages());
-        setHeaders(headers_);
         buildIterables(_conf);
     }
     @Override

@@ -148,8 +148,7 @@ public final class RenderInitNavTest extends CommonRender {
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
-        n_.setupRendClassesInit();
-        assertTrue(!n_.getSession().isEmptyErrors());
+        assertTrue(!n_.setupRendClassesInit());
     }
     @Test
     public void process4Test() {
@@ -191,8 +190,7 @@ public final class RenderInitNavTest extends CommonRender {
         n_.setDataBaseStruct(NullStruct.NULL_VALUE);
         n_.setSession(conf_);
         n_.setFiles(files_);
-        n_.setupRendClassesInit();
-        assertTrue(!n_.getSession().isEmptyErrors());
+        assertTrue(!n_.setupRendClassesInit());
     }
     @Test
     public void process5Test() {
@@ -268,7 +266,7 @@ public final class RenderInitNavTest extends CommonRender {
         Navigation n_ = new Navigation();
         n_.loadConfiguration(xmlConf_,"",lgNames_);
         n_.setFiles(files_);
-        n_.setupRendClassesInit();
+        assertTrue(n_.setupRendClassesInit());
         n_.initializeRendSession();
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
         assertEq(2,n_.getSession().getAddedFiles().size());
@@ -355,7 +353,7 @@ public final class RenderInitNavTest extends CommonRender {
         Navigation n_ = new Navigation();
         n_.loadConfiguration(xmlConf_,"",lgNames_);
         n_.setFiles(files_);
-        n_.setupRendClassesInit();
+        assertTrue(n_.setupRendClassesInit());
         n_.initializeRendSession();
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
@@ -447,7 +445,7 @@ public final class RenderInitNavTest extends CommonRender {
         Navigation n_ = new Navigation();
         n_.loadConfiguration(xmlConf_,"",lgNames_);
         n_.setFiles(files_);
-        n_.setupRendClassesInit();
+        assertTrue(n_.setupRendClassesInit());
         n_.initializeRendSession();
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }

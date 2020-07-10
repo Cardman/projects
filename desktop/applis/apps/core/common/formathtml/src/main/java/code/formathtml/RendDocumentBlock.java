@@ -41,7 +41,8 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
             page_.setAccessStaticContext(MethodAccessKind.INSTANCE);
             String clName_ = _cont.getBeansInfos().getVal(beanName).getResolvedClassName();
             page_.setGlobalClass(clName_);
-            _cont.getContext().setGlobalClass(clName_);
+        } else {
+            page_.setGlobalClass("");
         }
         RendBlock root_ = this;
         RendBlock en_ = this;

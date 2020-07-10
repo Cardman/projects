@@ -532,9 +532,11 @@ public final class Configuration {
     }
 
     public void setupInts() {
-        context.setAnalyzing();
-        context.getAnalyzing().getAllFoundTypes().addAllElts(standards.getHeaders().getAllFound());
-        context.getAnalyzing().setHeaders(standards.getHeaders());
+//        context.setAnalyzing();
+//        context.getAnalyzing().getAllFoundTypes().addAllElts(standards.getHeaders().getAllFound());
+//        context.getAnalyzing().setHeaders(standards.getHeaders());
+        context.getAnalyzing().setCurrentRoot(null);
+        context.getAnalyzing().setCurrentAnaBlock(null);
         context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));
         context.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(this));
         context.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(this));

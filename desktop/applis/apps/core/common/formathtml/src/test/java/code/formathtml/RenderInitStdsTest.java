@@ -54,7 +54,7 @@ public final class RenderInitStdsTest {
         cont_.setFullStack(new DefaultFullStack(cont_));
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        conf_.getAdvStandards().setHeaders(CommonRender.getHeaders(_files, cont_));
+        CommonRender.getHeaders(_files, cont_);
         assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         cont_.setFullStack(new AdvancedFullStack(conf_));

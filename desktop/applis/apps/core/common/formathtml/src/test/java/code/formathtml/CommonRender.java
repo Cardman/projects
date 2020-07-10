@@ -63,62 +63,38 @@ public abstract class CommonRender {
             accept_ = _configuration.getAnalyzing().isAcceptCommaInstr();
             currentVarSetting_ = _configuration.getContext().getAnalyzing().getCurrentVarSetting();
             globalClass_ = _configuration.getGlobalClass();
+        } else {
+            _configuration.getContext().setAnalyzing();
         }
         _configuration.setupInts();
         _configuration.getContext().getAnalyzing().setGlobalClass(globalClass_);
         _configuration.getContext().getAnalyzing().initLocalVars();
+        _configuration.getContext().getAnalyzing().initVars();
+        _configuration.getContext().getAnalyzing().initCatchVars();
         _configuration.getContext().getAnalyzing().initMutableLoopVars();
-        CustList<StringMap<AnaLocalVariable>> l_ = new CustList<StringMap<AnaLocalVariable>>();
-        l_.add(getLocalVars(_configuration));
-        _configuration.getContext().getAnalyzing().setLocalVars(l_);
-        CustList<StringMap<AnaLoopVariable>> lv_ = new CustList<StringMap<AnaLoopVariable>>();
-        lv_.add(getVars(_configuration));
-        _configuration.getContext().getAnalyzing().setVars(lv_);
-        CustList<StringMap<AnaLocalVariable>> lc_ = new CustList<StringMap<AnaLocalVariable>>();
-        lc_.add(getCatchVars(_configuration));
-        _configuration.getContext().getAnalyzing().setCatchVars(lc_);
+        for (EntryCust<String,LocalVariable> e: _configuration.getLastPage().getPageEl().getLocalVars().entryList()) {
+            AnaLocalVariable a_ = new AnaLocalVariable();
+            a_.setClassName(e.getValue().getClassName());
+            _configuration.getContext().getAnalyzing().putLocalVar(e.getKey(), a_);
+        }
+        for (EntryCust<String,LoopVariable> e: _configuration.getLastPage().getVars().entryList()) {
+            AnaLoopVariable a_ = new AnaLoopVariable();
+            a_.setClassName(e.getValue().getClassName());
+            a_.setIndexClassName(e.getValue().getIndexClassName());
+            _configuration.getContext().getAnalyzing().putVar(e.getKey(), a_);
+        }
+        for (EntryCust<String,LocalVariable> e: _configuration.getLastPage().getCatchVars().entryList()) {
+            AnaLocalVariable a_ = new AnaLocalVariable();
+            a_.setClassName(e.getValue().getClassName());
+            _configuration.getContext().getAnalyzing().putCatchVar(e.getKey(), a_);
+        }
         _configuration.getContext().getAnalyzing().setMerged(merged_);
         _configuration.getContext().getAnalyzing().setAcceptCommaInstr(accept_);
         _configuration.getContext().getAnalyzing().setCurrentVarSetting(currentVarSetting_);
     }
 
-    public static StringMap<AnaLoopVariable> getVars(Configuration _configuration) {
-        StringMap<AnaLoopVariable> m_ = new StringMap<AnaLoopVariable>();
-        for (EntryCust<String,LoopVariable> e: _configuration.getLastPage().getVars().entryList()) {
-            AnaLoopVariable a_ = new AnaLoopVariable();
-            a_.setClassName(e.getValue().getClassName());
-            a_.setIndexClassName(e.getValue().getIndexClassName());
-            m_.addEntry(e.getKey(), a_);
-        }
-        return m_;
-    }
-
-    public static StringMap<AnaLocalVariable> getLocalVars(Configuration _configuration) {
-        StringMap<AnaLocalVariable> m_ = new StringMap<AnaLocalVariable>();
-        for (EntryCust<String,LocalVariable> e: getLocalVars(_configuration.getLastPage()).entryList()) {
-            AnaLocalVariable a_ = new AnaLocalVariable();
-            a_.setClassName(e.getValue().getClassName());
-            m_.addEntry(e.getKey(), a_);
-        }
-        return m_;
-    }
-
-    public static StringMap<AnaLocalVariable> getCatchVars(Configuration _configuration) {
-        StringMap<AnaLocalVariable> m_ = new StringMap<AnaLocalVariable>();
-        for (EntryCust<String,LocalVariable> e: _configuration.getLastPage().getCatchVars().entryList()) {
-            AnaLocalVariable a_ = new AnaLocalVariable();
-            a_.setClassName(e.getValue().getClassName());
-            m_.addEntry(e.getKey(), a_);
-        }
-        return m_;
-    }
-
     public static void setVars(ImportingPage _importingPage, StringMap<LoopVariable> _vars) {
         _importingPage.getPageEl().setVars(_vars);
-    }
-
-    public static StringMap<LocalVariable> getLocalVars(ImportingPage _importingPage) {
-        return _importingPage.getPageEl().getLocalVars();
     }
 
     public static void setLocalVars(ImportingPage _importingPage, StringMap<LocalVariable> _localVars) {
@@ -138,7 +114,7 @@ public abstract class CommonRender {
         cont_.setFullStack(new AdvancedFullStack(conf_));
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        standards_.setHeaders(getHeaders(_files, cont_));
+        getHeaders(_files, cont_);
         assertTrue(cont_.isEmptyErrors());
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;

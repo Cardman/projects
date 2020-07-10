@@ -6094,7 +6094,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
         Struct arg_;
-        processElNormal("$classchoice(pkg.Ex)inst=2i", cont_);
         processElNormal("$classchoice(pkg.Ex)inst=v", cont_);
         arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         assertSame(NullStruct.NULL_VALUE,arg_);
@@ -6802,7 +6801,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         cont_.setFullStack(new AdvancedFullStack(conf_));
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        standards_.setHeaders(getHeaders(_files, cont_));
+        getHeaders(_files, cont_);
         assertTrue(cont_.isEmptyErrors());
         Classes.tryInitStaticlyTypes(cont_);
         ((BeanCustLgNames)standards_).buildIterables(conf_);
