@@ -99,6 +99,13 @@ public final class RunningTest implements Runnable {
                     _exec.setCoverFolder(output_);
                 }
             }
+            if (l.startsWith("err=")) {
+                _exec.setErrors(true);
+                String output_ = l.substring("err=".length());
+                if (!output_.isEmpty()) {
+                    _exec.setErrorsFolder(output_);
+                }
+            }
             if (l.startsWith("src=")) {
                 _exec.setCovering(true);
                 String output_ = l.substring("src=".length());

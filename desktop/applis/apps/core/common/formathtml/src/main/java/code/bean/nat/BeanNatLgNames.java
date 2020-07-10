@@ -418,6 +418,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         _nav.initInstancesPattern();
         _nav.setupRenders();
         _conf.getAdvStandards().setHeaders(null);
+        _conf.getAdvStandards().setReportedMessages(null);
         _conf.getAnalyzing().setHeaders(null);
         _conf.getContext().setNullAnalyzing();
         return true;

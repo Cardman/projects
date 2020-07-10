@@ -19,6 +19,15 @@ public final class DefaultReporter implements AbstractReporter {
 
     @Override
     public void coverFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont) {
+        saveFile(_folder, _fileName, _content);
+    }
+
+    @Override
+    public void errorFile(String _folder, String _fileName, String _content, RunnableContextEl _rCont) {
+        saveFile(_folder, _fileName, _content);
+    }
+
+    private void saveFile(String _folder, String _fileName, String _content) {
         String full_ = _folder + _fileName;
         int end_ = full_.lastIndexOf('/');
         if (end_ > -1) {

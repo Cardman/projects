@@ -1,6 +1,7 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.analyze.MethodHeaders;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.DoubleInfo;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
@@ -27,6 +28,7 @@ public abstract class BeanLgNames extends LgNames {
     public static final String ON = "on";
 
     private MethodHeaders headers = new MethodHeaders();
+    private ReportedMessages reportedMessages = new ReportedMessages();
     public BeanLgNames(AbstractGenerator _gene) {
         super(_gene);
     }
@@ -233,4 +235,11 @@ public abstract class BeanLgNames extends LgNames {
         headers = _headers;
     }
 
+    public ReportedMessages getReportedMessages() {
+        return reportedMessages;
+    }
+
+    public void setReportedMessages(ReportedMessages _reportedMessages) {
+        reportedMessages = _reportedMessages;
+    }
 }

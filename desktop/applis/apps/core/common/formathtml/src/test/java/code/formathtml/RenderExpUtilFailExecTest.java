@@ -2492,7 +2492,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         cont_.setFullStack(new AdvancedFullStack(conf_));
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        standards_.setHeaders(Classes.validateWithoutInit(_files, cont_));
+        Classes.validateWithoutInit(_files, cont_);
+        standards_.setHeaders(cont_.getAnalyzing().getHeaders());
         assertTrue(cont_.isEmptyErrors());
         Classes.tryInitStaticlyTypes(cont_);
         ((BeanCustLgNames)standards_).buildIterables(conf_);

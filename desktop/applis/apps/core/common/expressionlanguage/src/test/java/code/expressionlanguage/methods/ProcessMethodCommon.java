@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.MethodHeaders;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -337,7 +338,8 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        MethodHeaders headers_ = Classes.validateWithoutInit(_files, cont_);
+        Classes.validateWithoutInit(_files, cont_);
+        ReportedMessages headers_ = cont_.getAnalyzing().getMessages();
         assertTrue(headers_.displayErrors(), !cont_.isEmptyErrors());
     }
     protected static ContextEl contextElSingleDotDefault(int... _m) {

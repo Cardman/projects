@@ -1,6 +1,7 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
+import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.util.CallingState;
@@ -862,6 +863,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             return false;
         }
         _conf.getAdvStandards().setHeaders(null);
+        _conf.getAdvStandards().setReportedMessages(null);
         _conf.getAnalyzing().setHeaders(null);
         _conf.getContext().setNullAnalyzing();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
@@ -889,7 +891,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             }
         }
         //!classFiles_.isEmpty()
-        setHeaders(Classes.validateWithoutInit(classFiles_, _conf.getContext()));
+        Classes.validateWithoutInit(classFiles_, _conf.getContext());
+        MethodHeaders headers_ = _conf.getContext().getAnalyzing().getHeaders();
+        setReportedMessages(_conf.getContext().getAnalyzing().getMessages());
+        setHeaders(headers_);
         buildIterables(_conf);
     }
     @Override

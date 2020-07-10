@@ -960,10 +960,10 @@ public final class TemplatesTest extends ProcessMethodCommon {
         _cont.getAnalyzing().setHeaders(headers_);
         _cont.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         ClassesUtil.tryBuildBracedClassesBodies(_files, _cont, false);
-        assertTrue(headers_.displayErrors(), _cont.isEmptyErrors());
-        assertTrue(headers_.displayErrors(), _cont.isEmptyErrors());
+        assertTrue(_cont.getAnalyzing().getMessages().displayErrors(), _cont.isEmptyErrors());
+        assertTrue(_cont.getAnalyzing().getMessages().displayErrors(), _cont.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(_cont);
-        assertTrue(headers_.displayErrors(), _cont.isEmptyErrors());
+        assertTrue(_cont.getAnalyzing().getMessages().displayErrors(), _cont.isEmptyErrors());
         return _cont;
     }
 

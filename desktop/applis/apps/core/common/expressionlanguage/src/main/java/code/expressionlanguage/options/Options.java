@@ -5,6 +5,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class Options {
 
@@ -15,6 +16,7 @@ public final class Options {
     private boolean failIfNotAllInit;
     private final CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
 
+    private StringMap<String> errors = new StringMap<String>();
     private final ErrorList errorsDet = new ErrorList();
 
     public StringList getTypesInit() {
@@ -67,4 +69,11 @@ public final class Options {
         errorsDet.add(_error);
     }
 
+    public StringMap<String> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(StringMap<String> _errors) {
+        errors = _errors;
+    }
 }

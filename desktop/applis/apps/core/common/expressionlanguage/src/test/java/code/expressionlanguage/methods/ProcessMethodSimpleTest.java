@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.MethodHeaders;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.MethodId;
@@ -1665,7 +1666,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
-        MethodHeaders methodHeaders_ = Classes.validateAll(files_, cont_);
+        ReportedMessages methodHeaders_ = Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         assertTrue(methodHeaders_.displayMessageErrors()+methodHeaders_.displayErrors()+methodHeaders_.displayStdErrors()+methodHeaders_.displayWarnings(),!methodHeaders_.isEmptyWarnings());
         CustList<Argument> args_ = new CustList<Argument>();

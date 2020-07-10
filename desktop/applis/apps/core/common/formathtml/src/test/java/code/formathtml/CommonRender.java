@@ -144,7 +144,8 @@ public abstract class CommonRender {
         return conf_;
     }
     protected static MethodHeaders getHeaders(StringMap<String> _files,ContextEl _cont) {
-        return Classes.validateWithoutInit(_files,_cont);
+        Classes.validateWithoutInit(_files,_cont);
+        return _cont.getAnalyzing().getHeaders();
     }
     protected static RendDocumentBlock buildRendWithoutBean(String html_, Configuration conf_) {
         setLocale("en", conf_);

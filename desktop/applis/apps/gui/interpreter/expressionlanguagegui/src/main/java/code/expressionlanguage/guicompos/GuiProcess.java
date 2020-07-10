@@ -82,6 +82,7 @@ public final class GuiProcess implements Runnable {
         opt_.getTypesInit().addAllElts(exec_.getTypesInit());
         opt_.setReadOnly(true);
         opt_.setCovering(exec_.isCovering());
+        opt_.setGettingErrors(exec_.isErrors());
         opt_.setFailIfNotAllInit(true);
         opt_.getComments().addAllElts(exec_.getComments());
         LgNamesGui stds_ = new LgNamesGui(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(), new DefaultFileSystem(), new DefaultReporter(), _window.getGenerator()));
@@ -89,6 +90,7 @@ public final class GuiProcess implements Runnable {
         if (cont_ == null) {
             return null;
         }
+        CustContextFactory.reportErrors(cont_,stds_,opt_,exec_);
         if (!opt_.isEmptyErrors()) {
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";

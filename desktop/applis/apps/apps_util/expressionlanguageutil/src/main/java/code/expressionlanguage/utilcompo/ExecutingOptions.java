@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.analyze.MethodHeaders;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.util.CustList;
 import code.util.StringList;
@@ -16,7 +17,9 @@ public final class ExecutingOptions {
     private int tabWidth = 4;
     private AtomicBoolean interrupt = new AtomicBoolean();
     private boolean covering;
+    private boolean errors;
     private String coverFolder = "coverage";
+    private String errorsFolder = "errors";
     private boolean invokeDirect;
     private boolean hasArg;
     private StringList args = new StringList();
@@ -25,7 +28,7 @@ public final class ExecutingOptions {
     private StringMap<String> keyWords = new StringMap<String>();
     private StringMap<String> aliases = new StringMap<String>();
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
-    private MethodHeaders methodHeaders = new MethodHeaders();
+    private ReportedMessages methodHeaders = new ReportedMessages();
 
     public String getSrcFolder() {
         return srcFolder;
@@ -63,12 +66,28 @@ public final class ExecutingOptions {
         covering = _covering;
     }
 
+    public boolean isErrors() {
+        return errors;
+    }
+
+    public void setErrors(boolean _errors) {
+        errors = _errors;
+    }
+
     public String getCoverFolder() {
         return coverFolder;
     }
 
     public void setCoverFolder(String _coverFolder) {
         coverFolder = _coverFolder;
+    }
+
+    public String getErrorsFolder() {
+        return errorsFolder;
+    }
+
+    public void setErrorsFolder(String _errorsFolder) {
+        errorsFolder = _errorsFolder;
     }
 
     public int getTabWidth() {
@@ -143,11 +162,11 @@ public final class ExecutingOptions {
         this.comments = comments;
     }
 
-    public MethodHeaders getMethodHeaders() {
+    public ReportedMessages getMethodHeaders() {
         return methodHeaders;
     }
 
-    public void setMethodHeaders(MethodHeaders methodHeaders) {
+    public void setMethodHeaders(ReportedMessages methodHeaders) {
         this.methodHeaders = methodHeaders;
     }
 }

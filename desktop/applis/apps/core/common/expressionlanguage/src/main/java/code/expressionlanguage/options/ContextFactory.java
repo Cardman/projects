@@ -2,6 +2,7 @@ package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.MethodHeaders;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.SingleContextEl;
@@ -19,8 +20,8 @@ public final class ContextFactory {
 
     private ContextFactory(){}
 
-    public static MethodHeaders validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
-                                         CustList<CommentDelimiters> _comments) {
+    public static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
+                                            CustList<CommentDelimiters> _comments) {
         validateStds(_contextEl, _mess, _definedKw, _definedLgNames,_comments);
         StringMap<String> srcFiles_ = new StringMap<String>();
         String pref_ = StringList.concat(_folder,"/");

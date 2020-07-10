@@ -94,6 +94,7 @@ public final class AnalyzedPageEl {
     private String currentEmptyPartErr = "";
     private final Errors errors = new Errors();
     private MethodHeaders headers = new MethodHeaders();
+    private ReportedMessages messages = new ReportedMessages();
 
     private AbstractProcessKeyWord processKeyWord;
     private AbstractHiddenTypes hiddenTypes;
@@ -723,6 +724,10 @@ public final class AnalyzedPageEl {
         headers = _headers;
     }
 
+    public ReportedMessages getMessages() {
+        return messages;
+    }
+
     public StringMap<CustList<MethodHeaderInfo>> getExplicitCastMethods() {
         return headers.getExplicitCastMethods();
     }
@@ -756,29 +761,29 @@ public final class AnalyzedPageEl {
     }
 
     public boolean isEmptyErrors() {
-        return headers.isEmptyErrors();
+        return messages.isEmptyErrors();
     }
 
     public void addError(FoundErrorInterpret _error) {
-        headers.addError(_error);
+        messages.addError(_error);
     }
 
     public boolean isEmptyMessageError() {
-        return headers.isEmptyMessageError();
+        return messages.isEmptyMessageError();
     }
     public void addMessageError(String _std) {
-        headers.addMessageError(_std);
+        messages.addMessageError(_std);
     }
 
     public boolean isEmptyStdError() {
-        return headers.isEmptyStdError();
+        return messages.isEmptyStdError();
     }
     public void addStdError(StdWordError _std) {
-        headers.addStdError(_std);
+        messages.addStdError(_std);
     }
 
     public void addWarning(FoundWarningInterpret _warning) {
-        headers.addWarning(_warning);
+        messages.addWarning(_warning);
     }
 
     public void putFileBlock(String _fileName, ExecFileBlock _fileBlock) {

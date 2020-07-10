@@ -404,7 +404,7 @@ public final class Configuration {
     }
 
     public boolean isEmptyErrors() {
-        return standards.getHeaders().isEmptyErrors() && getErrorsDet().isEmpty();
+        return standards.getReportedMessages().isEmptyErrors() && getErrorsDet().isEmpty();
     }
 
     public ErrorList getErrorsDet() {

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.MethodHeaders;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -59,19 +60,21 @@ public final class Classes {
     	}
     }
     /**Resources are possibly added before analyzing file types*/
-    public static MethodHeaders validateAll(StringMap<String> _files, ContextEl _context) {
-        MethodHeaders headers_ = validateWithoutInit(_files, _context);
+    public static ReportedMessages validateAll(StringMap<String> _files, ContextEl _context) {
+        validateWithoutInit(_files, _context);
+        ReportedMessages messages_ = _context.getAnalyzing().getMessages();
         if (!_context.isEmptyErrors()) {
             //all errors are logged here
-            return headers_;
+            return messages_;
         }
+        _context.setNullAnalyzing();
         tryInitStaticlyTypes(_context);
-        return headers_;
+        return messages_;
     }
-    public static MethodHeaders validateWithoutInit(StringMap<String> _files, ContextEl _context) {
+    public static void validateWithoutInit(StringMap<String> _files, ContextEl _context) {
         if (!_context.isEmptyStdError() || !_context.isEmptyMessageError()) {
             //all standards errors are logged here
-            return new MethodHeaders();
+            return;
         }
         MethodHeaders headers_ = _context.getAnalyzing().getHeaders();
         _context.setAnalyzing();
@@ -86,12 +89,9 @@ public final class Classes {
         _context.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         _context.getAnalyzing().getAllFoundTypes().addAllElts(allFoundTypes_);
         ClassesUtil.tryValidateCustom(_files, _context);
-        if (!_context.isEmptyErrors()) {
-            //all errors are logged here
-            return headers_;
+        if (_context.isGettingErrors()) {
+            _context.getOptions().setErrors(ExecFileBlock.errors(_context));
         }
-        _context.setNullAnalyzing();
-        return headers_;
     }
 
     public static void tryInitStaticlyTypes(ContextEl _context) {

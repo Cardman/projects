@@ -64,6 +64,7 @@ public final class CustContextFactory {
                                ProgressingTests _progressingTests) {
         RunnableContextEl rCont_ = build(_stack, _options, _exec, _mess,_definedKw,
                 _definedLgNames, _files, _exec.getTabWidth());
+        CustContextFactory.reportErrors(rCont_,_definedLgNames,_options,_exec);
         if (!_options.isEmptyErrors()||!rCont_.isEmptyErrors()) {
             _progressingTests.showErrors(rCont_,_options,_exec);
             return;
@@ -89,6 +90,14 @@ public final class CustContextFactory {
             }
         }
         _progressingTests.setResults(rCont_,arg_);
+    }
+    public static void reportErrors(RunnableContextEl _ctx, LgNamesUtils _definedLgNames, Options _opts, ExecutingOptions _exec) {
+        if (_exec.isErrors()) {
+            String exp_ = _exec.getErrorsFolder();
+            for (EntryCust<String,String> f:_opts.getErrors().entryList()) {
+                _definedLgNames.errorFile(exp_,f.getKey(),f.getValue(),_ctx);
+            }
+        }
     }
     public static RunnableContextEl build(int _stack,
             Options _options, ExecutingOptions _exec,AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, int _tabWidth) {

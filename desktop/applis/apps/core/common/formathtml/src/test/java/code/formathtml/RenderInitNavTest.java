@@ -54,7 +54,7 @@ public final class RenderInitNavTest extends CommonRender {
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
-        n_.setupRendClassesInit();
+        assertTrue(n_.setupRendClassesInit());
         n_.initializeRendSession();
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
@@ -99,8 +99,7 @@ public final class RenderInitNavTest extends CommonRender {
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
-        n_.setupRendClassesInit();
-        assertTrue(!n_.getSession().isEmptyErrors());
+        assertTrue(!n_.setupRendClassesInit());
     }
 
     private static ContextEl buildStdThree() {

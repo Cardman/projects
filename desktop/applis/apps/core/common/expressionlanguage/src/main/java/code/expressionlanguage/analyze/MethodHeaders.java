@@ -1,12 +1,6 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.errors.custom.ErrorList;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.errors.custom.FoundWarningInterpret;
-import code.expressionlanguage.errors.custom.WarningList;
-import code.expressionlanguage.errors.stds.StdErrorList;
-import code.expressionlanguage.errors.stds.StdWordError;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -21,10 +15,6 @@ public final class MethodHeaders {
     private final StringList typesWithInnerOperators = new StringList();
     private StringList packagesFound = new StringList();
 
-    private final ErrorList errorsDet = new ErrorList();
-    private final WarningList warningsDet = new WarningList();
-    private final StdErrorList stdErrorDet = new StdErrorList();
-    private final StringList messagesErrorDet = new StringList();
     private final CustList<RootBlock> allFound = new CustList<RootBlock>();
 
     public StringMap<CustList<MethodHeaderInfo>> getExplicitCastMethods() {
@@ -56,46 +46,6 @@ public final class MethodHeaders {
     }
     public StringList getPackagesFound() {
         return packagesFound;
-    }
-
-    public boolean isEmptyErrors() {
-        return errorsDet.isEmpty();
-    }
-    public String displayErrors() {
-        return errorsDet.display();
-    }
-    public void addError(FoundErrorInterpret _error) {
-        errorsDet.add(_error);
-    }
-
-    public String displayMessageErrors() {
-        return messagesErrorDet.display();
-    }
-    public boolean isEmptyMessageError() {
-        return messagesErrorDet.isEmpty();
-    }
-    public void addMessageError(String _std) {
-        messagesErrorDet.add(_std);
-    }
-
-    public String displayStdErrors() {
-        return stdErrorDet.display();
-    }
-    public boolean isEmptyStdError() {
-        return stdErrorDet.isEmpty();
-    }
-    public void addStdError(StdWordError _std) {
-        stdErrorDet.add(_std);
-    }
-
-    public boolean isEmptyWarnings() {
-        return warningsDet.isEmpty();
-    }
-    public void addWarning(FoundWarningInterpret _warning) {
-        warningsDet.add(_warning);
-    }
-    public String displayWarnings() {
-        return warningsDet.display();
     }
 
     public CustList<RootBlock> getAllFound() {
