@@ -612,7 +612,14 @@ public abstract class ExecOperationNode {
         }
         if (par_ instanceof ExecSafeDotOperation) {
             if (_value == NullStruct.NULL_VALUE) {
-                return par_.getOrder();
+                ExecOperationNode last_ = par_.getChildrenNodes().last();
+                boolean skip_ = true;
+                if (last_ instanceof ExecLambdaOperation) {
+                    skip_ = false;
+                }
+                if (skip_) {
+                    return par_.getOrder();
+                }
             }
         }
         if (par_ instanceof ExecNullSafeOperation) {
@@ -627,36 +634,6 @@ public abstract class ExecOperationNode {
             }
         }
         if (par_ instanceof ExecTernaryOperation) {
-            if (index_ == 1) {
-                return par_.getOrder();
-            }
-            if (index_ == 0) {
-                if (BooleanStruct.isFalse(_value)) {
-                    return _operation.getNextSibling().getOrder() + 1;
-                }
-            }
-        }
-        return _operation.getOrder() + 1;
-    }
-    public static int getNextIndex(OperationNode _operation, Struct _value) {
-        int index_ = _operation.getIndexChild();
-        MethodOperation par_ = _operation.getParent();
-        if (par_ instanceof NullSafeOperation) {
-            if (_value != NullStruct.NULL_VALUE) {
-                return par_.getOrder();
-            }
-        }
-        if (par_ instanceof AndOperation) {
-            if (BooleanStruct.isFalse(_value)) {
-                return par_.getOrder();
-            }
-        }
-        if (par_ instanceof OrOperation) {
-            if (BooleanStruct.isTrue(_value)) {
-                return par_.getOrder();
-            }
-        }
-        if (par_ instanceof AbstractTernaryOperation) {
             if (index_ == 1) {
                 return par_.getOrder();
             }

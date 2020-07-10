@@ -23,6 +23,7 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
     private boolean polymorph;
     private boolean abstractMethod;
     private boolean directCast;
+    private boolean safeInstance;
     private boolean expCast;
     private ConstructorId realId;
     private ClassField fieldId;
@@ -33,6 +34,7 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
 
     public ExecLambdaOperation(LambdaOperation _l) {
         super(_l);
+        safeInstance = _l.isSafeInstance();
         intermediate = _l.isIntermediate();
         previousArgument = _l.getPreviousArgument();
         method = _l.getMethod();
@@ -75,11 +77,13 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
             l_.setInstanceCall(_previous);
             l_.setStaticField(staticField);
             l_.setFinalField(finalField);
+            l_.setSafeInstance(safeInstance);
             return l_;
         }
         if (method == null) {
             LambdaConstructorStruct l_ = new LambdaConstructorStruct(clArg_, ownerType_, realId, shiftArgument);
             l_.setInstanceCall(_previous);
+            l_.setSafeInstance(safeInstance);
             return l_;
         }
         MethodId id_ = method.getConstraints();
@@ -87,6 +91,7 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
         l_.setInstanceCall(_previous);
         l_.setDirectCast(directCast);
         l_.setExpCast(expCast);
+        l_.setSafeInstance(safeInstance);
         return l_;
     }
 

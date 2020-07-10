@@ -23,6 +23,9 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.*;
 
 public final class ElUtil {
@@ -612,7 +615,7 @@ public final class ElUtil {
             OperationNode curr_ = sub_.get(ind_);
             Argument a_ = curr_.getArgument();
             if (a_ != null) {
-                ind_ = ExecOperationNode.getNextIndex(curr_, a_.getStruct());
+                ind_ = getNextIndex(curr_, a_.getStruct());
                 continue;
             }
             if (curr_ instanceof ReductibleOperable) {
@@ -622,7 +625,7 @@ public final class ElUtil {
             if (a_ == null) {
                 return;
             }
-            ind_ = ExecOperationNode.getNextIndex(curr_, a_.getStruct());
+            ind_ = getNextIndex(curr_, a_.getStruct());
         }
     }
     private static CustList<ExecOperationNode> getExecutableNodes(ContextEl _an,CustList<OperationNode> _list) {
@@ -692,5 +695,36 @@ public final class ElUtil {
             }
         }
         return out_;
+    }
+
+    public static int getNextIndex(OperationNode _operation, Struct _value) {
+        int index_ = _operation.getIndexChild();
+        MethodOperation par_ = _operation.getParent();
+        if (par_ instanceof NullSafeOperation) {
+            if (_value != NullStruct.NULL_VALUE) {
+                return par_.getOrder();
+            }
+        }
+        if (par_ instanceof AndOperation) {
+            if (BooleanStruct.isFalse(_value)) {
+                return par_.getOrder();
+            }
+        }
+        if (par_ instanceof OrOperation) {
+            if (BooleanStruct.isTrue(_value)) {
+                return par_.getOrder();
+            }
+        }
+        if (par_ instanceof AbstractTernaryOperation) {
+            if (index_ == 1) {
+                return par_.getOrder();
+            }
+            if (index_ == 0) {
+                if (BooleanStruct.isFalse(_value)) {
+                    return _operation.getNextSibling().getOrder() + 1;
+                }
+            }
+        }
+        return _operation.getOrder() + 1;
     }
 }

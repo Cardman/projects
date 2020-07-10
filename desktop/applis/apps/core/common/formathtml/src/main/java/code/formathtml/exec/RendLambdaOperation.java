@@ -14,6 +14,7 @@ import code.util.IdMap;
 public final class RendLambdaOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
 
     private boolean intermediate;
+    private boolean safeInstance;
     private Argument previousArgument;
 
     private ClassMethodId method;
@@ -34,6 +35,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     public RendLambdaOperation(LambdaOperation _l) {
         super(_l);
         intermediate = _l.isIntermediate();
+        safeInstance = _l.isSafeInstance();
         previousArgument = _l.getPreviousArgument();
         method = _l.getMethod();
         foundClass = _l.getFoundClass();
@@ -74,11 +76,13 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
             l_.setInstanceCall(_previous);
             l_.setStaticField(staticField);
             l_.setFinalField(finalField);
+            l_.setSafeInstance(safeInstance);
             return l_;
         }
         if (method == null) {
             LambdaConstructorStruct l_ = new LambdaConstructorStruct(clArg_, ownerType_, realId, shiftArgument);
             l_.setInstanceCall(_previous);
+            l_.setSafeInstance(safeInstance);
             return l_;
         }
         MethodId id_ = method.getConstraints();
@@ -86,6 +90,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         l_.setInstanceCall(_previous);
         l_.setDirectCast(directCast);
         l_.setExpCast(expCast);
+        l_.setSafeInstance(safeInstance);
         return l_;
     }
 

@@ -501,7 +501,14 @@ public abstract class RendDynOperationNode {
         }
         if (par_ instanceof RendSafeDotOperation) {
             if (_value == NullStruct.NULL_VALUE) {
-                return par_.getOrder();
+                RendDynOperationNode last_ = par_.getChildrenNodes().last();
+                boolean skip_ = true;
+                if (last_ instanceof RendLambdaOperation) {
+                    skip_ = false;
+                }
+                if (skip_) {
+                    return par_.getOrder();
+                }
             }
         }
         if (par_ instanceof RendNullSafeOperation) {

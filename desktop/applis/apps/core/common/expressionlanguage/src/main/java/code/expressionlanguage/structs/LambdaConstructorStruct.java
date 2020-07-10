@@ -14,6 +14,7 @@ public final class LambdaConstructorStruct extends WithoutParentIdStruct impleme
     private final ConstructorId fid;
 
     private final boolean shiftInstance;
+    private boolean safeInstance;
 
     public LambdaConstructorStruct(String _className, String _formClassName, ConstructorId _fid,
             boolean _shiftInstance) {
@@ -40,6 +41,14 @@ public final class LambdaConstructorStruct extends WithoutParentIdStruct impleme
 
     public boolean isShiftInstance() {
         return shiftInstance;
+    }
+
+    public boolean isSafeInstance() {
+        return safeInstance;
+    }
+
+    public void setSafeInstance(boolean _safeInstance) {
+        safeInstance = _safeInstance;
     }
 
     @Override

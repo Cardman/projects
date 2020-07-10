@@ -4676,6 +4676,22 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertEq(0,getNumber(argument_));
     }
     @Test
+    public void processEl_424___Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processElNormal("($(java.lang.String)$null)?.$lambda(java.lang.String,length).call()", conf_);
+        assertEq(0,getNumber(argument_));
+    }
+    @Test
+    public void processEl_425___Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processElNormal("($(java.lang.String)(($(java.lang.String)$null)?.$lambda(java.lang.String,length).call()==0?$null:$null))?.$lambda(java.lang.String,length).call()", conf_);
+        assertEq(0,getNumber(argument_));
+    }
+    @Test
     public void processEl425___Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Cl {\n");

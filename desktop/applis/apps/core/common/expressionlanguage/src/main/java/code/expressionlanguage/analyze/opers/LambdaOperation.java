@@ -54,6 +54,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private boolean staticField;
     private boolean finalField;
     private boolean affField;
+    private boolean safeInstance;
     private int valueOffset;
     private String returnFieldType;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
@@ -94,6 +95,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
 
     private void generalProcess(ContextEl _conf, StringList _args) {
+        if (isIntermediateDottedOperation()&&getParent() instanceof SafeDotOperation) {
+            safeInstance = true;
+        }
         LgNames stds_ = _conf.getStandards();
         int len_ = _args.size();
         MethodOperation m_ = getParent();
@@ -1931,5 +1935,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public CustList<PartOffset> getPartOffsetsEnd() {
         return partOffsetsEnd;
+    }
+
+    public boolean isSafeInstance() {
+        return safeInstance;
     }
 }

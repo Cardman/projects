@@ -23,6 +23,7 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
     private final boolean abstractMethod;
 
     private boolean directCast;
+    private boolean safeInstance;
     private boolean expCast;
     public LambdaMethodStruct(String _className,String _formClassName, MethodId _fid,
             boolean _polymorph, boolean _shiftInstance, int _ancestor, boolean _abstractMethod) {
@@ -57,6 +58,14 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
 
     public boolean isShiftInstance() {
         return shiftInstance;
+    }
+
+    public boolean isSafeInstance() {
+        return safeInstance;
+    }
+
+    public void setSafeInstance(boolean _safeInstance) {
+        safeInstance = _safeInstance;
     }
 
     public int getAncestor() {

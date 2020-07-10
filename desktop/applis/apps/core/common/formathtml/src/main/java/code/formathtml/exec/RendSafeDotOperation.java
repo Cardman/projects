@@ -17,8 +17,9 @@ public final class RendSafeDotOperation extends RendAbstractDotOperation {
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         RendDynOperationNode o_ = chidren_.first();
+        RendDynOperationNode l_ = chidren_.last();
         Argument a_ = getArgument(_nodes,o_);
-        if (a_.isNull()) {
+        if (a_.isNull()&&!(l_ instanceof RendLambdaOperation)) {
             a_ = new Argument(ClassArgumentMatching.convert(_conf.getPageEl(),getResultClass(),NullStruct.NULL_VALUE,_conf.getContext()));
             setQuickConvertSimpleArgument(a_, _conf, _nodes);
             return;

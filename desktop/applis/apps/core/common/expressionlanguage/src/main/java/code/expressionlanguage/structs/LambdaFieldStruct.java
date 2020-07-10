@@ -18,6 +18,7 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
     private final boolean affect;
     private boolean staticField;
     private boolean finalField;
+    private boolean safeInstance;
     private final String returnFieldType;
 
     public LambdaFieldStruct(String _className, ClassField _fid,
@@ -48,6 +49,14 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
 
     public void setFinalField(boolean finalField) {
         this.finalField = finalField;
+    }
+
+    public boolean isSafeInstance() {
+        return safeInstance;
+    }
+
+    public void setSafeInstance(boolean _safeInstance) {
+        safeInstance = _safeInstance;
     }
 
     public void setInstanceCall(Argument _instanceCall) {

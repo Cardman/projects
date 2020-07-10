@@ -654,6 +654,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Argument pr_ = new Argument();
             pr_.setStruct(c_);
             Argument instance_ = l_.getInstanceCall();
+            if (l_.isSafeInstance()&&instance_.isNull()) {
+                String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
+                return new Argument(PrimitiveTypeUtil.defaultValue(last_,_conf));
+            }
             String obj_ = _conf.getStandards().getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
             if (!l_.isShiftInstance()) {
@@ -700,6 +704,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 type_ = ReflectingType.GET_FIELD;
             }
             Argument instance_ = l_.getInstanceCall();
+            if (l_.isSafeInstance()&&instance_.isNull()) {
+                String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
+                return new Argument(PrimitiveTypeUtil.defaultValue(last_,_conf));
+            }
             CustList<Argument> nList_ = new CustList<Argument>();
             Argument realInstance_;
             if (static_) {
@@ -751,6 +759,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Argument pr_ = new Argument();
             pr_.setStruct(m_);
             Argument instance_ = l_.getInstanceCall();
+            if (l_.isSafeInstance()&&instance_.isNull()) {
+                String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
+                return new Argument(PrimitiveTypeUtil.defaultValue(last_,_conf));
+            }
             String obj_ = _conf.getStandards().getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
             if (!l_.isShiftInstance()) {
