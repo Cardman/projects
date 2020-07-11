@@ -9,8 +9,12 @@ public class ArgumentsPair {
     private Argument previousArgument;
     private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
     private CustList<ClassMethodId> implicitsCompound = new CustList<ClassMethodId>();
+    private CustList<ClassMethodId> implicitsSemiFrom = new CustList<ClassMethodId>();
+    private CustList<ClassMethodId> implicitsSemiTo = new CustList<ClassMethodId>();
     private int indexImplicit;
     private int indexImplicitCompound;
+    private int indexImplicitSemiFrom;
+    private int indexImplicitSemiTo;
     private boolean endCalculate;
     public Argument getArgument() {
         return argument;
@@ -50,6 +54,22 @@ public class ArgumentsPair {
         this.implicitsCompound = implicitsCompound;
     }
 
+    public CustList<ClassMethodId> getImplicitsSemiFrom() {
+        return implicitsSemiFrom;
+    }
+
+    public void setImplicitsSemiFrom(CustList<ClassMethodId> implicitsSemiFrom) {
+        this.implicitsSemiFrom = implicitsSemiFrom;
+    }
+
+    public CustList<ClassMethodId> getImplicitsSemiTo() {
+        return implicitsSemiTo;
+    }
+
+    public void setImplicitsSemiTo(CustList<ClassMethodId> implicitsSemiTo) {
+        this.implicitsSemiTo = implicitsSemiTo;
+    }
+
     public int getIndexImplicit() {
         return indexImplicit;
     }
@@ -64,5 +84,21 @@ public class ArgumentsPair {
 
     public void setIndexImplicitCompound(int indexImplicitCompound) {
         this.indexImplicitCompound = indexImplicitCompound;
+    }
+
+    public int getIndexImplicitSemiFrom() {
+        return indexImplicitSemiFrom;
+    }
+
+    public void setIndexImplicitSemiFrom(int indexImplicitSemiFrom) {
+        this.indexImplicitSemiFrom = indexImplicitSemiFrom;
+    }
+
+    public int getIndexImplicitSemiTo() {
+        return indexImplicitSemiTo;
+    }
+
+    public void setIndexImplicitSemiTo(int indexImplicitSemiTo) {
+        this.indexImplicitSemiTo = indexImplicitSemiTo;
     }
 }

@@ -146,6 +146,16 @@ public final class ExpressionLanguage {
                     a_.setImplicitsCompound(new CustList<ClassMethodId>(conv_));
                 }
             }
+            if (o instanceof ExecSemiAffectationOperation) {
+                ClassMethodId conv_ = ((ExecSemiAffectationOperation) o).getConverterFrom();
+                if (conv_ != null) {
+                    a_.setImplicitsSemiFrom(new CustList<ClassMethodId>(conv_));
+                }
+                conv_ = ((ExecSemiAffectationOperation) o).getConverterTo();
+                if (conv_ != null) {
+                    a_.setImplicitsSemiTo(new CustList<ClassMethodId>(conv_));
+                }
+            }
             a_.setArgument(o.getArgument());
             if (o instanceof ExecPossibleIntermediateDotted) {
                 a_.setPreviousArgument(((ExecPossibleIntermediateDotted)o).getPreviousArgument());

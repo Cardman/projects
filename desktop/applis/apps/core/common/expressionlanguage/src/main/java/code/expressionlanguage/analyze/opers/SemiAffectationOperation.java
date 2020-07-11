@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.ReversibleConversion;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -17,6 +18,8 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private boolean post;
     private String oper;
     private ClassMethodId classMethodId;
+    private ClassMethodId converterFrom;
+    private ClassMethodId converterTo;
 
     private int opOffset;
 
@@ -73,17 +76,23 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         ClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(clMatchLeft_);
-            mapping_.setParam(_conf.getStandards().getAliasLong());
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            //operator
-            cast_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
-                    StringList.join(clMatchLeft_.getNames(),"&"));
-            _conf.getAnalyzing().getLocalizer().addError(cast_);
-            getErrs().add(cast_.getBuiltError());
+            ReversibleConversion reversibleConversion_ = tryGetPair(_conf, clMatchLeft_);
+            if (reversibleConversion_ != null) {
+                converterFrom = reversibleConversion_.getFrom();
+                converterTo = reversibleConversion_.getTo();
+            } else {
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(clMatchLeft_);
+                mapping_.setParam(_conf.getStandards().getAliasLong());
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                //operator
+                cast_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                        StringList.join(clMatchLeft_.getNames(),"&"));
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
+                getErrs().add(cast_.getBuiltError());
+            }
             return;
         }
         clMatchLeft_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf));
@@ -100,6 +109,14 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
 
     public ClassMethodId getClassMethodId() {
         return classMethodId;
+    }
+
+    public ClassMethodId getConverterFrom() {
+        return converterFrom;
+    }
+
+    public ClassMethodId getConverterTo() {
+        return converterTo;
     }
 
     public int getOpOffset() {

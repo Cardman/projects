@@ -70,7 +70,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     @Override
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = getArgument(_nodes,this);
+        Argument a_ = new Argument();
         RendDynOperationNode lastElement_ = chidren_.last();
         Argument last_ = getArgument(_nodes,lastElement_);
         Struct array_;

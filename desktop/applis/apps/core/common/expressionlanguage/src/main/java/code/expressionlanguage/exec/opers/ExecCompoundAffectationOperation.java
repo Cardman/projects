@@ -74,16 +74,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         CustList<ClassMethodId> implicits_ = pair_.getImplicitsCompound();
         int indexImplicit_ = pair_.getIndexImplicitCompound();
         if (implicits_.isValidIndex(indexImplicit_)) {
-            ClassMethodId c = implicits_.get(indexImplicit_);
-            DefaultExiting ex_ = new DefaultExiting(_conf);
-            CustList<Argument> args_ = new CustList<Argument>(_right);
-            AbstractPageEl last_ = _conf.getLastPage();
-            String cl_ = c.getClassName();
-            MethodId id_ = c.getConstraints();
-            if (ExecExplicitOperation.checkCustomOper(ex_, id_, args_, cl_, last_,_conf)) {
-                return;
-            }
-            pair_.setIndexImplicitCompound(indexImplicit_ +1);
+            pair_.setIndexImplicitCompound(processConverter(_conf, _right, implicits_, indexImplicit_));
             return;
         }
         if (!pair_.isEndCalculate()) {
@@ -93,6 +84,19 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             return;
         }
         setSimpleArgument(_right,_conf,_nodes);
+    }
+
+    static int processConverter(ContextEl _conf, Argument _right, CustList<ClassMethodId> implicits_, int indexImplicit_) {
+        ClassMethodId c = implicits_.get(indexImplicit_);
+        DefaultExiting ex_ = new DefaultExiting(_conf);
+        CustList<Argument> args_ = new CustList<Argument>(_right);
+        AbstractPageEl last_ = _conf.getLastPage();
+        String cl_ = c.getClassName();
+        MethodId id_ = c.getConstraints();
+        if (ExecExplicitOperation.checkCustomOper(ex_, id_, args_, cl_, last_,_conf)) {
+            return indexImplicit_;
+        }
+        return indexImplicit_ +1;
     }
 
     @Override

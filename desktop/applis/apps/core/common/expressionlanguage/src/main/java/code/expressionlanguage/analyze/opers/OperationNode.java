@@ -978,6 +978,29 @@ public abstract class OperationNode {
         methods_ = getDeclaredCustMethodByType(_conf, MethodAccessKind.STATIC, false, false, _classes, _name, false, null);
         return getCustIncrDecrResult(_conf, methods_, _name, _argsClass);
     }
+    protected static ReversibleConversion tryGetPair(ContextEl _conf,ClassArgumentMatching _argsClass) {
+        StringList conv_ = new StringList();
+        conv_.add(_conf.getStandards().getAliasPrimInteger());
+        conv_.add(_conf.getStandards().getAliasPrimLong());
+        conv_.add(_conf.getStandards().getAliasPrimFloat());
+        conv_.add(_conf.getStandards().getAliasPrimDouble());
+        for (String p: conv_) {
+            ClassArgumentMatching r_ = new ClassArgumentMatching(p);
+            ClassMethodIdReturn from_ = tryGetDeclaredImplicitCast(_conf, p, _argsClass);
+            if (!from_.isFoundMethod()) {
+                continue;
+            }
+            String param_ = from_.getRealId().getParametersType(1);
+            ClassMethodIdReturn to_ = tryGetDeclaredImplicitCast(_conf, param_, r_);
+            if (!to_.isFoundMethod()) {
+                continue;
+            }
+            ClassMethodId clFrom_ = new ClassMethodId(from_.getId().getClassName(),from_.getRealId());
+            ClassMethodId clTo_ = new ClassMethodId(to_.getId().getClassName(),to_.getRealId());
+            return new ReversibleConversion(clFrom_,clTo_);
+        }
+        return null;
+    }
     protected static ClassMethodIdReturn tryGetDeclaredCustMethodLambda(ContextEl _conf, int _varargOnly,
                                                                         MethodAccessKind _staticContext,
                                                                         StringList _classes, String _name,

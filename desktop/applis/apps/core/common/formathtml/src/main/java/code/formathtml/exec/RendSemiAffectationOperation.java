@@ -1,6 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SemiAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -17,12 +18,16 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     private boolean post;
     private String oper;
     private ClassMethodId classMethodId;
+    private ClassMethodId converterFrom;
+    private ClassMethodId converterTo;
 
     public RendSemiAffectationOperation(SemiAffectationOperation _s) {
         super(_s);
         post = _s.isPost();
         oper = _s.getOper();
         classMethodId = _s.getClassMethodId();
+        converterFrom = _s.getConverterFrom();
+        converterTo = _s.getConverterTo();
     }
 
     public void setup() {
@@ -54,6 +59,28 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             return;
         }
         Argument stored_ = getArgument(_nodes,(RendDynOperationNode) settable);
+        Argument before_ = stored_;
+        if (converterFrom != null) {
+            Argument conv_ = tryConvert(converterFrom, stored_, _conf);
+            if (conv_ == null) {
+                return;
+            }
+            stored_ = conv_;
+        }
+        if (converterTo != null) {
+            String tres_ = converterTo.getConstraints().getParametersType(1);
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(tres_);
+            Argument res_;
+            res_ = ExecNumericOperation.calculateIncrDecr(stored_, _conf.getContext(), oper, cl_);
+            Argument conv_ = tryConvert(converterTo, res_, _conf);
+            if (conv_ == null) {
+                return;
+            }
+            conv_ = settable.calculateSetting(_nodes,_conf,conv_);
+            stored_ =  RendSemiAffectationOperation.getPrePost(post,before_,conv_);
+            setSimpleArgument(stored_, _conf,_nodes);
+            return;
+        }
         Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post,stored_);
         setSimpleArgument(arg_, _conf,_nodes);
     }

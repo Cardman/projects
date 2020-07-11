@@ -3,12 +3,15 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.TwoStepsArgumentsPair;
 import code.expressionlanguage.analyze.opers.SemiAffectationOperation;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -17,6 +20,8 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
     private boolean post;
     private String oper;
     private ClassMethodId classMethodId;
+    private ClassMethodId converterFrom;
+    private ClassMethodId converterTo;
 
     private int opOffset;
     public ExecSemiAffectationOperation(SemiAffectationOperation _s) {
@@ -24,6 +29,8 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         post = _s.isPost();
         oper = _s.getOper();
         classMethodId = _s.getClassMethodId();
+        converterFrom = _s.getConverterFrom();
+        converterTo = _s.getConverterTo();
         opOffset = _s.getOpOffset();
     }
 
@@ -52,6 +59,18 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, Argument.createVoid(), firstArgs_);
             return;
         }
+        ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);
+        CustList<ClassMethodId> implicits_ = pairBefore_.getImplicitsSemiFrom();
+        int indexImplicit_ = pairBefore_.getIndexImplicitSemiFrom();
+        if (implicits_.isValidIndex(indexImplicit_)) {
+            Argument a_ = getArgument(_nodes,(ExecOperationNode)settable);
+            Struct store_;
+            store_ = a_.getStruct();
+            Argument left_ = new Argument();
+            left_.setStruct(store_);
+            pairBefore_.setIndexImplicitSemiFrom(ExecCompoundAffectationOperation.processConverter(_conf,left_, implicits_,indexImplicit_));
+            return;
+        }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
         Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post);
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
@@ -65,6 +84,16 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         Argument stored_ = getArgument(_nodes,(ExecOperationNode) settable);
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
+        CustList<ClassMethodId> implicits_ = pair_.getImplicitsSemiTo();
+        int indexImplicit_ = pair_.getIndexImplicitSemiTo();
+        if (implicits_.isValidIndex(indexImplicit_)) {
+            String tres_ = converterFrom.getConstraints().getParametersType(0);
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(tres_);
+            Argument res_;
+            res_ = ExecNumericOperation.calculateIncrDecr(_right, _conf, oper, cl_);
+            pair_.setIndexImplicitSemiTo(ExecCompoundAffectationOperation.processConverter(_conf,res_, implicits_,indexImplicit_));
+            return;
+        }
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
             Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
@@ -99,4 +128,11 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         return settable;
     }
 
+    public ClassMethodId getConverterFrom() {
+        return converterFrom;
+    }
+
+    public ClassMethodId getConverterTo() {
+        return converterTo;
+    }
 }
