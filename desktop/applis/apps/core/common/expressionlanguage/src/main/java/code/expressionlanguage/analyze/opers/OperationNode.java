@@ -971,7 +971,13 @@ public abstract class OperationNode {
         }
         return getCustResult(_conf,uniq_,_excVararg, varargOnly_, methods_, _name, _param,_argsClass);
     }
-
+    protected static ClassMethodIdReturn tryGetDeclaredCustIncrDecrMethod(ContextEl _conf,
+                                                                          StringList _classes, String _name,
+                                                                          ClassArgumentMatching _argsClass) {
+        CustList<CustList<MethodInfo>> methods_;
+        methods_ = getDeclaredCustMethodByType(_conf, MethodAccessKind.STATIC, false, false, _classes, _name, false, null);
+        return getCustIncrDecrResult(_conf, methods_, _name, _argsClass);
+    }
     protected static ClassMethodIdReturn tryGetDeclaredCustMethodLambda(ContextEl _conf, int _varargOnly,
                                                                         MethodAccessKind _staticContext,
                                                                         StringList _classes, String _name,
@@ -1036,6 +1042,15 @@ public abstract class OperationNode {
         }
         return getCustomOperatorOrMethod(_node,_op,_cont);
     }
+
+    static ClassMethodId getIncrDecrOperatorOrMethod(MethodOperation _node,
+                                                  ClassArgumentMatching _operand,
+                                                  String _op, ContextEl _cont) {
+        if (isNativeUnaryOperator(_operand,_op,_cont)) {
+            return null;
+        }
+        return getCustomIncrDecrOperatorOrMethod(_node,_operand,_op,_cont);
+    }
     static ClassMethodId getBinaryOperatorOrMethod(MethodOperation _node,
                                                    ClassArgumentMatching _left, ClassArgumentMatching _right,
                                                    String _op, ContextEl _cont) {
@@ -1070,6 +1085,32 @@ public abstract class OperationNode {
             MethodId id_ = cust_.getRealId();
             MethodId realId_ = cust_.getRealId();
             InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
+            return new ClassMethodId(foundClass_, id_);
+        }
+        return null;
+    }
+    private static ClassMethodId getCustomIncrDecrOperatorOrMethod(MethodOperation _node, ClassArgumentMatching _arg, String _op, ContextEl _cont) {
+        StringList bounds_ = _cont.getAnalyzing().getTypesWithInnerOperators();
+        CustList<OperationNode> chidren_ = _node.getChildrenNodes();
+        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustIncrDecrMethod(_cont,
+                bounds_, _op,
+                _arg);
+        if (clMeth_.isFoundMethod()) {
+            _node.setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()), _cont));
+            String foundClass_ = clMeth_.getRealClass();
+            MethodId id_ = clMeth_.getRealId();
+            MethodId realId_ = clMeth_.getRealId();
+            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, new CustList<ClassArgumentMatching>(_arg), _cont);
+            return new ClassMethodId(foundClass_, id_);
+        }
+        ClassMethodIdReturn cust_ = getIncrDecrOperator(_cont, _op, _arg);
+        if (cust_.isFoundMethod()) {
+            _node.setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()), _cont));
+            String foundClass_ = cust_.getRealClass();
+            foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
+            MethodId id_ = cust_.getRealId();
+            MethodId realId_ = cust_.getRealId();
+            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, new CustList<ClassArgumentMatching>(_arg), _cont);
             return new ClassMethodId(foundClass_, id_);
         }
         return null;
@@ -1179,6 +1220,14 @@ public abstract class OperationNode {
         //implicit use of operator key word
         return getOperator(_cont,null,-1,true,_op,"",_argsClass);
     }
+
+    private static ClassMethodIdReturn getIncrDecrOperator(ContextEl _cont, String _op, ClassArgumentMatching _argsClass) {
+        //implicit use of operator key word
+        CustList<MethodInfo> ops_ = getOperators(_cont, null);
+        CustList<CustList<MethodInfo>> o_ = new CustList<CustList<MethodInfo>>();
+        o_.add(ops_);
+        return getCustIncrDecrResult(_cont, o_, _op, _argsClass);
+    }
     static ClassMethodIdReturn getOperator(ContextEl _cont, ClassMethodId _cl, int _varargOnly,
                                            boolean _excVararg,
                                            String _op, String _param,ClassArgumentMatching... _argsClass) {
@@ -1192,6 +1241,7 @@ public abstract class OperationNode {
         o_.add(ops_);
         return getCustResult(_cont,uniq_, _excVararg,varargOnly_, o_, _op, _param,_argsClass);
     }
+
     static ClassMethodIdReturn getOperatorLambda(ContextEl _cont, ClassMethodId _cl, int _varargOnly,
                                                  String _op, ClassArgumentMatching... _argsClass) {
         CustList<MethodInfo> ops_ = getOperators(_cont, _cl);
@@ -1802,7 +1852,52 @@ public abstract class OperationNode {
         res_.setStaticMethod(m_.isStatic());
         return res_;
     }
-
+    private static ClassMethodIdReturn getCustIncrDecrResult(ContextEl _conf,
+                                                             CustList<CustList<MethodInfo>> _methods,
+                                                             String _name, ClassArgumentMatching _argsClass) {
+        CustList<CustList<MethodInfo>> signatures_ = new CustList<CustList<MethodInfo>>();
+        for (CustList<MethodInfo> l: _methods) {
+            CustList<MethodInfo> m_ = new CustList<MethodInfo>();
+            for (MethodInfo e: l) {
+                MethodId id_ = e.getConstraints();
+                boolean varArg_ = id_.isVararg();
+                if (varArg_) {
+                    continue;
+                }
+                if (!StringList.quickEq(id_.getName(), _name)) {
+                    continue;
+                }
+                if (e.getGeneFormatted().getParametersTypesLength() != 1) {
+                    continue;
+                }
+                if (!isPossibleIncrDecrMethod(_conf, e, _argsClass)) {
+                    continue;
+                }
+                m_.add(e);
+            }
+            signatures_.add(m_);
+        }
+        StringMap<StringList> map_;
+        map_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_);
+        Parametrable found_ = sortFct(signatures_, gr_);
+        if (!(found_ instanceof MethodInfo)) {
+            return new ClassMethodIdReturn(false);
+        }
+        MethodInfo m_ = (MethodInfo) found_;
+        MethodId constraints_ = m_.getConstraints();
+        String baseClassName_ = m_.getClassName();
+        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
+        MethodId id_ = m_.getFoundFormatted();
+        res_.setId(new ClassMethodId(baseClassName_, id_));
+        res_.setRealId(constraints_);
+        res_.setRealClass(baseClassName_);
+        res_.setReturnType(m_.getReturnType());
+        res_.setAncestor(m_.getAncestor());
+        res_.setAbstractMethod(m_.isAbstractMethod());
+        res_.setStaticMethod(m_.isStatic());
+        return res_;
+    }
     private static boolean isPossibleMethodLambda(ContextEl _context, Parametrable _id,
                                                   ClassArgumentMatching... _argsClass) {
         int startOpt_ = _argsClass.length;
@@ -2028,7 +2123,25 @@ public abstract class OperationNode {
         _id.setVarArgWrap(true);
         return true;
     }
+    private static boolean isPossibleIncrDecrMethod(ContextEl _context, Parametrable _id,
+                                                    ClassArgumentMatching _argsClass) {
+        StringMap<StringList> mapCtr_ = _context.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        String wc_ = _id.getGeneFormatted().getParametersType(0);
+        Mapping map_ = new Mapping();
+        map_.setArg(_argsClass);
+        map_.getMapping().putAllMap(mapCtr_);
+        map_.setParam(wc_);
+        if (!AnaTemplates.isCorrectOrNumbers(map_, _context)) {
+            return false;
+        }
+        map_.setArg(_id.getReturnType());
+        if (!AnaTemplates.isCorrectOrNumbers(map_, _context)) {
+            return false;
+        }
+        _id.setInvocation(InvocationMethod.STRICT);
+        return true;
 
+    }
     private static boolean match(Parametrable _id,
                                  String _param) {
         int all_ = _id.getGeneFormatted().getParametersTypesLength();

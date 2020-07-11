@@ -65,23 +65,9 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         settable.setVariable(false);
         IntTreeMap< String> ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();
-        ClassMethodId cl_ = getUnaryOperatorOrMethod(this,leftEl_.getResultClass(), op_, _conf);
+        ClassMethodId cl_ = getIncrDecrOperatorOrMethod(this,leftEl_.getResultClass(), op_, _conf);
         if (cl_ != null) {
             classMethodId = cl_;
-            Mapping map_ = new Mapping();
-            map_.setArg(getResultClass());
-            map_.setParam(settable.getResultClass());
-            if (!AnaTemplates.isCorrectOrNumbers(map_, _conf)) {
-                FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                //oper len
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(getResultClass().getNames(),"&"),
-                        StringList.join(settable.getResultClass().getNames(),"&"));
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
-                getErrs().add(cast_.getBuiltError());
-            }
             return;
         }
         ClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
