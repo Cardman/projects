@@ -93,7 +93,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         AbstractPageEl last_ = _conf.getLastPage();
         String cl_ = c.getClassName();
         MethodId id_ = c.getConstraints();
-        if (ExecExplicitOperation.checkCustomOper(ex_, id_, args_, cl_, last_,_conf)) {
+        if (ExecExplicitOperation.checkCustomOper(ex_, id_, args_, cl_, last_,_conf,_right)) {
             return indexImplicit_;
         }
         return indexImplicit_ +1;

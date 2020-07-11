@@ -93,6 +93,12 @@ public final class ExecutingUtil {
             }
             if (p_ instanceof ForwardPageEl) {
                 ((ForwardPageEl)p_).forwardTo(_context.getLastPage(), _context);
+            } else if (p_ instanceof StaticInitPageEl) {
+                StaticInitPageEl s_ = (StaticInitPageEl) p_;
+                Argument fwd_ = s_.getFwd();
+                if (fwd_ != null) {
+                    _context.getLastPage().receive(fwd_, _context);
+                }
             }
             if (_context.callsOrException()) {
                 return EndCallValue.NEXT;
@@ -103,9 +109,9 @@ public final class ExecutingUtil {
     }
 
     private static AbstractPageEl createInstancingClass(ContextEl _context,NotInitializedClass _e) {
-        return createInstancingClass(_context,_e.getClassName());
+        return createInstancingClass(_context,_e.getClassName(),_e.getArgument());
     }
-    public static AbstractPageEl createInstancingClass(ContextEl _context,String _class) {
+    public static AbstractPageEl createInstancingClass(ContextEl _context,String _class,Argument _fwd) {
         _context.setCallingState(null);
         String baseClass_ = StringExpUtil.getIdFromAllTypes(_class);
         ExecRootBlock class_ = _context.getClasses().getClassBody(baseClass_);
@@ -113,6 +119,7 @@ public final class ExecutingUtil {
         StaticInitPageEl page_ = new StaticInitPageEl();
         Argument argGl_ = new Argument();
         page_.setGlobalClass(_class);
+        page_.setFwd(_fwd);
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
         rw_.setBlock(firstChild_);
@@ -671,6 +678,9 @@ public final class ExecutingUtil {
     }
 
     public static boolean hasToExit(ContextEl _cont,String _className) {
+        return hasToExit(_cont,_className,null);
+    }
+    public static boolean hasToExit(ContextEl _cont,String _className,Argument _arg) {
         Classes classes_ = _cont.getClasses();
         String idClass_ = StringExpUtil.getIdFromAllTypes(_className);
         String curClass_ = _cont.getLastPage().getGlobalClass();
@@ -691,7 +701,7 @@ public final class ExecutingUtil {
             }
             InitClassState res_ = locks_.getState(_cont, idClass_);
             if (res_ == InitClassState.NOT_YET) {
-                _cont.setCallingState(new NotInitializedClass(idClass_));
+                _cont.setCallingState(new NotInitializedClass(idClass_, _arg));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {

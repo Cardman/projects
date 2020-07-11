@@ -84,8 +84,19 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         Argument stored_ = getArgument(_nodes,(ExecOperationNode) settable);
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
-        CustList<ClassMethodId> implicits_ = pair_.getImplicitsSemiTo();
-        int indexImplicit_ = pair_.getIndexImplicitSemiTo();
+        CustList<ClassMethodId> implicits_ = pair_.getImplicitsSemiFrom();
+        int indexImplicit_ = pair_.getIndexImplicitSemiFrom();
+        if (implicits_.isValidIndex(indexImplicit_)) {
+            Argument a_ = getArgument(_nodes,(ExecOperationNode)settable);
+            Struct store_;
+            store_ = a_.getStruct();
+            Argument left_ = new Argument();
+            left_.setStruct(store_);
+            pair_.setIndexImplicitSemiFrom(ExecCompoundAffectationOperation.processConverter(_conf,left_, implicits_,indexImplicit_));
+            return;
+        }
+        implicits_ = pair_.getImplicitsSemiTo();
+        indexImplicit_ = pair_.getIndexImplicitSemiTo();
         if (implicits_.isValidIndex(indexImplicit_)) {
             String tres_ = converterFrom.getConstraints().getParametersType(0);
             ClassArgumentMatching cl_ = new ClassArgumentMatching(tres_);

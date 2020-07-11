@@ -22,11 +22,11 @@ public final class ProcessMethod {
             return;
         }
         _cont.getClasses().getLocks().initClass(_class);
-        ExecutingUtil.addPage(_cont,ExecutingUtil.createInstancingClass(_cont,_class));
+        ExecutingUtil.addPage(_cont,ExecutingUtil.createInstancingClass(_cont,_class,null));
         _cont.getInit().loopCalling(_cont);
     }
     public static void initializeClassPre(String _class, ContextEl _cont) {
-        ExecutingUtil.addPage(_cont,ExecutingUtil.createInstancingClass(_cont,_class));
+        ExecutingUtil.addPage(_cont,ExecutingUtil.createInstancingClass(_cont,_class,null));
         _cont.getInit().loopCalling(_cont);
     }
     public static Argument instanceArgument(String _class, ExecRootBlock _root, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {

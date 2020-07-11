@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.calls;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.StringExpUtil;
@@ -12,6 +13,7 @@ import code.util.IdMap;
 
 public final class StaticInitPageEl extends AbstractPageEl {
 
+    private Argument fwd;
     private IdMap<ExecInitBlock, Boolean> processedBlocks = new IdMap<ExecInitBlock, Boolean>();
 
     @Override
@@ -82,5 +84,13 @@ public final class StaticInitPageEl extends AbstractPageEl {
         String curClass_ = getGlobalClass();
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(curClass_);
         _context.getClasses().getLocks().successClass(curClassBase_);
+    }
+
+    public Argument getFwd() {
+        return fwd;
+    }
+
+    public void setFwd(Argument fwd) {
+        this.fwd = fwd;
     }
 }

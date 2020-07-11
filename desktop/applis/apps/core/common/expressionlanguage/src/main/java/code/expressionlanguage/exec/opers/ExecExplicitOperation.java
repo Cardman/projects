@@ -50,13 +50,13 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         if (_castOpId == null) {
             return getArgument(_arguments,_className, _page,_conf);
         }
-        checkCustomOper(_exit, _castOpId, _arguments, _classNameOwner, _page, _conf);
+        checkCustomOper(_exit, _castOpId, _arguments, _classNameOwner, _page, _conf,null);
         return Argument.createVoid();
     }
 
-    public static boolean checkCustomOper(AbstractExiting _exit, MethodId _castOpId, CustList<Argument> _arguments, String _classNameOwner, PageEl _page, ContextEl _conf) {
+    public static boolean checkCustomOper(AbstractExiting _exit, MethodId _castOpId, CustList<Argument> _arguments, String _classNameOwner, PageEl _page, ContextEl _conf, Argument _fwd) {
         String paramNameOwner_ = _page.formatVarType(_classNameOwner, _conf);
-        if (_exit.hasToExit(paramNameOwner_)) {
+        if (_exit.hasToExit(paramNameOwner_,_fwd)) {
             return true;
         }
         MethodId check_ = new MethodId(_castOpId.getKind(),_castOpId.getName(),_castOpId.shiftFirst(),_castOpId.isVararg());

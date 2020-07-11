@@ -559,13 +559,16 @@ public final class Configuration {
     }
 
     public boolean hasToExit(String _className) {
+        return hasToExit(_className,null);
+    }
+    public boolean hasToExit(String _className, Argument _arg) {
         Classes classes_ = getClasses();
         String idCl_ = StringExpUtil.getIdFromAllTypes(_className);
         ExecRootBlock c_ = classes_.getClassBody(idCl_);
         if (c_ != null) {
             InitClassState res_ = classes_.getLocks().getState(getContext(), idCl_);
             if (res_ == InitClassState.NOT_YET) {
-                getContext().setCallingState(new NotInitializedClass(idCl_));
+                getContext().setCallingState(new NotInitializedClass(idCl_, _arg));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {
