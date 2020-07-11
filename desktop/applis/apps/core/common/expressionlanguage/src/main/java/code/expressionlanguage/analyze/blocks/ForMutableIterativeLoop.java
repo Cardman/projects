@@ -7,6 +7,8 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -274,15 +276,21 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private void checkBoolCondition(ContextEl _cont, ClassArgumentMatching _exp) {
         LgNames stds_ = _cont.getStandards();
         if (!_exp.isBoolType(_cont)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(expressionOffset);
-            //second ; char
-            un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
-                    StringList.join(_exp.getNames(),"&"));
-            _cont.addError(un_);
-            setReachableError(true);
-            getErrorsBlock().add(un_.getBuiltError());
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _cont.getStandards().getAliasPrimBoolean(), _exp);
+            if (res_.isFoundMethod()) {
+                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                _exp.getImplicits().add(cl_);
+            } else {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFileName(getFile().getFileName());
+                un_.setIndexFile(expressionOffset);
+                //second ; char
+                un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
+                        StringList.join(_exp.getNames(),"&"));
+                _cont.addError(un_);
+                setReachableError(true);
+                getErrorsBlock().add(un_.getBuiltError());
+            }
         }
         _exp.setUnwrapObject(stds_.getAliasPrimBoolean());
     }

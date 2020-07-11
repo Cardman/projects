@@ -6,6 +6,9 @@ import code.expressionlanguage.exec.blocks.ExecCondition;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodIdReturn;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -61,18 +64,25 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
 
     private void processBoolean(ContextEl _cont, ExecOperationNode _elCondition) {
         LgNames stds_ = _cont.getStandards();
-        if (!_elCondition.getResultClass().isBoolType(_cont)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
-            un_.setIndexFile(conditionOffset);
-            //key word len
-            un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
-                    StringList.join(_elCondition.getResultClass().getNames(),"&"));
-            _cont.addError(un_);
-            setReachableError(true);
-            getErrorsBlock().add(un_.getBuiltError());
+        ClassArgumentMatching resultClass_ = _elCondition.getResultClass();
+        if (!resultClass_.isBoolType(_cont)) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _cont.getStandards().getAliasPrimBoolean(), resultClass_);
+            if (res_.isFoundMethod()) {
+                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                resultClass_.getImplicits().add(cl_);
+            } else {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFileName(getFile().getFileName());
+                un_.setIndexFile(conditionOffset);
+                //key word len
+                un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
+                        StringList.join(resultClass_.getNames(),"&"));
+                _cont.addError(un_);
+                setReachableError(true);
+                getErrorsBlock().add(un_.getBuiltError());
+            }
         }
-        _elCondition.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
+        resultClass_.setUnwrapObject(stds_.getAliasPrimBoolean());
     }
 
 

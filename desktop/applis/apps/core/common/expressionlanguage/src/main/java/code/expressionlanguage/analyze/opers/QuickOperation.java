@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.PartOffset;
@@ -74,24 +76,30 @@ public abstract class QuickOperation extends MethodOperation {
             clMatch_ = o.getResultClass();
             setRelativeOffsetPossibleAnalyzable(o.getIndexInEl(), _conf);
             if (!clMatch_.isBoolType(_conf)) {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                //first operator char or second operator char
-                un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
-                        StringList.join(clMatch_.getNames(),"&"));
-                _conf.getAnalyzing().getLocalizer().addError(un_);
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _conf);
-                int index_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex()+i_;
-                if (i_ == 0) {
-                    errFirst.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
-                    errFirst.add(new PartOffset("</a>",index_+1));
+                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, _conf.getStandards().getAliasPrimBoolean(), clMatch_);
+                if (res_.isFoundMethod()) {
+                    ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                    clMatch_.getImplicits().add(cl_);
                 } else {
-                    errSecond.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
-                    errSecond.add(new PartOffset("</a>",index_+1));
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    //first operator char or second operator char
+                    un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                            StringList.join(clMatch_.getNames(),"&"));
+                    _conf.getAnalyzing().getLocalizer().addError(un_);
+                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _conf);
+                    int index_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex()+i_;
+                    if (i_ == 0) {
+                        errFirst.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
+                        errFirst.add(new PartOffset("</a>",index_+1));
+                    } else {
+                        errSecond.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
+                        errSecond.add(new PartOffset("</a>",index_+1));
+                    }
+                    _conf.getAnalyzing().setOkNumOp(false);
+                    okNum = false;
                 }
-                _conf.getAnalyzing().setOkNumOp(false);
-                okNum = false;
             }
             i_++;
         }

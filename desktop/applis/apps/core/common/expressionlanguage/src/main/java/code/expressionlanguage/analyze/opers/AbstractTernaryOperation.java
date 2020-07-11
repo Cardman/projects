@@ -5,6 +5,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.errors.custom.DeadCodeTernary;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.analyze.inherits.ResultTernary;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -73,15 +75,21 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         OperationNode opOne_ = chidren_.first();
         ClassArgumentMatching clMatch_ = opOne_.getResultClass();
         if (!clMatch_.isBoolType(_conf)) {
-            setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            //after first arg separator len
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
-                    StringList.join(clMatch_.getNames(),"&"));
-            _conf.getAnalyzing().getLocalizer().addError(un_);
-            getErrs().add(un_.getBuiltError());
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, _conf.getStandards().getAliasPrimBoolean(), clMatch_);
+            if (res_.isFoundMethod()) {
+                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                clMatch_.getImplicits().add(cl_);
+            } else {
+                setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                //after first arg separator len
+                un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                        StringList.join(clMatch_.getNames(),"&"));
+                _conf.getAnalyzing().getLocalizer().addError(un_);
+                getErrs().add(un_.getBuiltError());
+            }
         }
         StringList deep_ = getErrs();
         if (!deep_.isEmpty()) {

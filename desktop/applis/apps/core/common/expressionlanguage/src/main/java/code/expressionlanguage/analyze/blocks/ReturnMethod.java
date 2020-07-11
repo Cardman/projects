@@ -116,8 +116,7 @@ public final class ReturnMethod extends AbruptBlock {
         }
         if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont)) {
             //look for implicit casts
-            ClassArgumentMatching reClass_ = _ret;
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _retType, reClass_);
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _retType, _ret);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 _ret.getImplicits().add(cl_);
@@ -127,7 +126,7 @@ public final class ReturnMethod extends AbruptBlock {
                 cast_.setIndexFile(expressionOffset);
                 //original type
                 cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(reClass_.getNames(), "&"),
+                        StringList.join(_ret.getNames(), "&"),
                         _retType);
                 _cont.addError(cast_);
                 setReachableError(true);

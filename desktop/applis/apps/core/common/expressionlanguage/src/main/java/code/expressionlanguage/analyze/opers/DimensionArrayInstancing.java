@@ -5,6 +5,8 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.analyze.blocks.Block;
@@ -147,19 +149,26 @@ public final class DimensionArrayInstancing extends
             IntTreeMap<String> operators_ = getOperations().getOperators();
             CustList<PartOffset> parts_ = new CustList<PartOffset>();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(2*index_), _conf);
-            if (!o.getResultClass().isNumericInt(_conf)) {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
-                un_.setIndexFile(i_);
-                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                //first part child bracket
-                un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
-                        StringList.join(o.getResultClass().getNames(),"&"));
-                _conf.getAnalyzing().getLocalizer().addError(un_);
-                parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
-                parts_.add(new PartOffset("</a>",i_+1));
+            ClassArgumentMatching resCh_ = o.getResultClass();
+            if (!resCh_.isNumericInt(_conf)) {
+                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, _conf.getStandards().getAliasPrimInteger(), resCh_);
+                if (res_.isFoundMethod()) {
+                    ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                    resCh_.getImplicits().add(cl_);
+                } else {
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                    un_.setIndexFile(i_);
+                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    //first part child bracket
+                    un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                            StringList.join(resCh_.getNames(),"&"));
+                    _conf.getAnalyzing().getLocalizer().addError(un_);
+                    parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
+                    parts_.add(new PartOffset("</a>",i_+1));
+                }
             }
-            o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
+            resCh_.setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
             o.cancelArgument();
             getPartOffsetsChildren().add(parts_);
         }

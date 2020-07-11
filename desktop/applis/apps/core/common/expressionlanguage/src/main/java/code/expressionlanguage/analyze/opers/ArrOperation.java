@@ -156,14 +156,20 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             }
         }
         if (!convertNumber_ && !indexClass_.isNumericInt(_conf)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            //first separator char
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
-                    StringList.join(indexClass_.getNames(),"&"));
-            _conf.getAnalyzing().getLocalizer().addError(un_);
-            nbErr = un_.getBuiltError();
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, _conf.getStandards().getAliasPrimInteger(), indexClass_);
+            if (res_.isFoundMethod()) {
+                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                indexClass_.getImplicits().add(cl_);
+            } else {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                //first separator char
+                un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                        StringList.join(indexClass_.getNames(),"&"));
+                _conf.getAnalyzing().getLocalizer().addError(un_);
+                nbErr = un_.getBuiltError();
+            }
         }
         setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _conf);
         if (!class_.isArray()) {

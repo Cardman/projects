@@ -12,6 +12,8 @@ import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -161,26 +163,25 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         String cl_ = importedClassName;
-        ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
         CustList<ExecOperationNode> init_ = ElUtil.getAnalyzedOperationsReadOnly(init, _cont, Calculation.staticCalculation(static_));
         rootInit = page_.getCurrentRoot();
         ExecOperationNode initEl_ = init_.last();
-        checkType(_cont, elementClass_, initEl_, initOffset);
+        checkType(_cont, cl_, initEl_, initOffset);
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         CustList<ExecOperationNode> exp_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
         rootExp = page_.getCurrentRoot();
         ExecOperationNode expressionEl_ = exp_.last();
-        checkType(_cont, elementClass_, expressionEl_, expressionOffset);
+        checkType(_cont, cl_, expressionEl_, expressionOffset);
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         CustList<ExecOperationNode> step_ = ElUtil.getAnalyzedOperationsReadOnly(step, _cont, Calculation.staticCalculation(static_));
         rootStep = page_.getCurrentRoot();
         ExecOperationNode stepEl_ = step_.last();
-        checkType(_cont, elementClass_, stepEl_, stepOffset);
+        checkType(_cont, cl_, stepEl_, stepOffset);
         if (res_) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setClassName(cl_);
@@ -198,21 +199,28 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
-    private void checkType(ContextEl _cont, ClassArgumentMatching _elementClass, ExecOperationNode _stepEl, int _offset) {
+    private void checkType(ContextEl _cont, String _elementClass, ExecOperationNode _stepEl, int _offset) {
         Mapping m_ = new Mapping();
-        m_.setArg(_stepEl.getResultClass());
+        ClassArgumentMatching arg_ = _stepEl.getResultClass();
+        m_.setArg(arg_);
         m_.setParam(_elementClass);
         if (!AnaTemplates.isCorrectOrNumbers(m_,_cont)) {
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(getFile().getFileName());
-            cast_.setIndexFile(_offset);
-            //char before expression
-            cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
-                    StringList.join(_stepEl.getResultClass().getNames(),"&"),
-                    StringList.join(_elementClass.getNames(),"&"));
-            _cont.addError(cast_);
-            setReachableError(true);
-            getErrorsBlock().add(cast_.getBuiltError());
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _elementClass, arg_);
+            if (res_.isFoundMethod()) {
+                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                arg_.getImplicits().add(cl_);
+            } else {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFileName(getFile().getFileName());
+                cast_.setIndexFile(_offset);
+                //char before expression
+                cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
+                        StringList.join(arg_.getNames(),"&"),
+                        _elementClass);
+                _cont.addError(cast_);
+                setReachableError(true);
+                getErrorsBlock().add(cast_.getBuiltError());
+            }
         }
     }
 

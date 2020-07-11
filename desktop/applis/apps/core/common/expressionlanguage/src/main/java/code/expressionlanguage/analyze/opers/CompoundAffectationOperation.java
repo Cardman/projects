@@ -86,9 +86,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
         int opLocat_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
         String op_ = ops_.firstValue();
         op_ = op_.substring(0, op_.length() - 1);
-        ClassArgumentMatching first_ = root_.getResultClass();
+        ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
         ClassArgumentMatching second_ = right_.getResultClass();
-        ClassMethodId cl_ = getBinaryOperatorOrMethod(this,first_,second_, op_, _conf);
+        ClassMethodId cl_ = getBinaryOperatorOrMethod(this,clMatchLeft_,second_, op_, _conf);
         if (cl_ != null) {
             classMethodId = cl_;
             Mapping map_ = new Mapping();
@@ -109,12 +109,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
                     getErrs().add(cast_.getBuiltError());
                 }
-                ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.toPrimitive(clMatchLeft_,_conf)));
             }
             return;
         }
-        ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
         setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.toPrimitive(clMatchLeft_,_conf)));
         elt_.setVariable(false);
         String stringType_ = stds_.getAliasString();

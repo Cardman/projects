@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.stds.LgNames;
@@ -39,17 +40,23 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (!clMatch_.isBoolType(_conf)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            //operator
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
-                    StringList.join(clMatch_.getNames(),"&"),
-                    oper_);
-            if (!MethodOperation.isEmptyError(getFirstChild())){
-                getErrs().add(un_.getBuiltError());
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, _conf.getStandards().getAliasPrimBoolean(), clMatch_);
+            if (res_.isFoundMethod()) {
+                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                clMatch_.getImplicits().add(cl_);
+            } else {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                //operator
+                un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
+                        StringList.join(clMatch_.getNames(),"&"),
+                        oper_);
+                if (!MethodOperation.isEmptyError(getFirstChild())){
+                    getErrs().add(un_.getBuiltError());
+                }
+                _conf.getAnalyzing().getLocalizer().addError(un_);
             }
-            _conf.getAnalyzing().getLocalizer().addError(un_);
         }
         clMatch_.setUnwrapObject(booleanPrimType_);
         child_.cancelArgument();
