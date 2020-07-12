@@ -46,10 +46,12 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             }
         }
         if (classMethodId != null) {
+            CustList<RendDynOperationNode> list_ = getChildrenNodes();
+            RendDynOperationNode left_ = list_.first();
             CustList<RendDynOperationNode> chidren_ = new CustList<RendDynOperationNode>();
-            chidren_.add((RendDynOperationNode) settable);
+            chidren_.add(left_);
             CustList<Argument> arguments_ = new CustList<Argument>();
-            Argument stored_ = getArgument(_nodes,(RendDynOperationNode) settable);
+            Argument stored_ = getArgument(_nodes,left_);
             arguments_.add(stored_);
             CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
             Argument res_;

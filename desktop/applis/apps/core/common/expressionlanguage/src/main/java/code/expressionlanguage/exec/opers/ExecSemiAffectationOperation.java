@@ -51,10 +51,13 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             }
         }
         if (classMethodId != null) {
+            CustList<ExecOperationNode> list_ = getChildrenNodes();
+            ExecOperationNode left_ = list_.first();
             CustList<ExecOperationNode> chidren_ = new CustList<ExecOperationNode>();
-            chidren_.add((ExecOperationNode) settable);
+            chidren_.add(left_);
             CustList<Argument> arguments_ = new CustList<Argument>();
-            arguments_.add(getArgument(_nodes,(ExecOperationNode) settable));
+            Argument leftArg_ = getArgument(_nodes,left_);
+            arguments_.add(leftArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
             ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, Argument.createVoid(), firstArgs_);
             return;

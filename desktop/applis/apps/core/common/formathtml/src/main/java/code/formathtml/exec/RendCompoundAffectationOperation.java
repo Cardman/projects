@@ -41,15 +41,18 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
                 return;
             }
         }
-        RendDynOperationNode right_ = getChildrenNodes().last();
+        CustList<RendDynOperationNode> list_ = getChildrenNodes();
+        RendDynOperationNode left_ = list_.first();
+        RendDynOperationNode right_ = list_.last();
+        Argument leftArg_ = getArgument(_nodes,left_);
         Argument rightArg_ = getArgument(_nodes,right_);
         if (classMethodId != null) {
             CustList<RendDynOperationNode> chidren_ = new CustList<RendDynOperationNode>();
-            chidren_.add((RendDynOperationNode) settable);
+            chidren_.add(left_);
             chidren_.add(right_);
             CustList<Argument> arguments_ = new CustList<Argument>();
-            arguments_.add(getArgument(_nodes,(RendDynOperationNode) settable));
-            arguments_.add(getArgument(_nodes,right_));
+            arguments_.add(leftArg_);
+            arguments_.add(rightArg_);
             CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
             Argument res_;
             res_ =  processCall(this,this, Argument.createVoid(),firstArgs_,_conf, null);

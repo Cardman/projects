@@ -47,14 +47,16 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             }
         }
         CustList<ExecOperationNode> list_ = getChildrenNodes();
+        ExecOperationNode left_ = list_.first();
         ExecOperationNode right_ = list_.last();
+        Argument leftArg_ = getArgument(_nodes,left_);
         Argument rightArg_ = getArgument(_nodes,right_);
         if (classMethodId != null) {
             CustList<ExecOperationNode> chidren_ = new CustList<ExecOperationNode>();
-            chidren_.add((ExecOperationNode) settable);
+            chidren_.add(left_);
             chidren_.add(right_);
             CustList<Argument> arguments_ = new CustList<Argument>();
-            arguments_.add(getArgument(_nodes,(ExecOperationNode) settable));
+            arguments_.add(leftArg_);
             arguments_.add(rightArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
             ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, Argument.createVoid(), firstArgs_);
