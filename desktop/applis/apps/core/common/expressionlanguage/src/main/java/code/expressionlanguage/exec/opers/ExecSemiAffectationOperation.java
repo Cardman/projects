@@ -66,12 +66,14 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         CustList<ClassMethodId> implicits_ = pairBefore_.getImplicitsSemiFrom();
         int indexImplicit_ = pairBefore_.getIndexImplicitSemiFrom();
         if (implicits_.isValidIndex(indexImplicit_)) {
-            Argument a_ = getArgument(_nodes,(ExecOperationNode)settable);
+            CustList<ExecOperationNode> list_ = getChildrenNodes();
+            ExecOperationNode left_ = list_.first();
+            Argument leftArg_ = getArgument(_nodes,left_);
             Struct store_;
-            store_ = a_.getStruct();
-            Argument left_ = new Argument();
-            left_.setStruct(store_);
-            pairBefore_.setIndexImplicitSemiFrom(ExecCompoundAffectationOperation.processConverter(_conf,left_, implicits_,indexImplicit_));
+            store_ = leftArg_.getStruct();
+            Argument l_ = new Argument();
+            l_.setStruct(store_);
+            pairBefore_.setIndexImplicitSemiFrom(ExecCompoundAffectationOperation.processConverter(_conf,l_, implicits_,indexImplicit_));
             return;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
@@ -84,18 +86,19 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
     @Override
     public void endCalculate(ContextEl _conf,
                              IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
-        Argument stored_ = getArgument(_nodes,(ExecOperationNode) settable);
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
         CustList<ClassMethodId> implicits_ = pair_.getImplicitsSemiFrom();
         int indexImplicit_ = pair_.getIndexImplicitSemiFrom();
         if (implicits_.isValidIndex(indexImplicit_)) {
-            Argument a_ = getArgument(_nodes,(ExecOperationNode)settable);
+            CustList<ExecOperationNode> list_ = getChildrenNodes();
+            ExecOperationNode left_ = list_.first();
+            Argument leftArg_ = getArgument(_nodes,left_);
             Struct store_;
-            store_ = a_.getStruct();
-            Argument left_ = new Argument();
-            left_.setStruct(store_);
-            pair_.setIndexImplicitSemiFrom(ExecCompoundAffectationOperation.processConverter(_conf,left_, implicits_,indexImplicit_));
+            store_ = leftArg_.getStruct();
+            Argument l_ = new Argument();
+            l_.setStruct(store_);
+            pair_.setIndexImplicitSemiFrom(ExecCompoundAffectationOperation.processConverter(_conf,l_, implicits_,indexImplicit_));
             return;
         }
         implicits_ = pair_.getImplicitsSemiTo();
@@ -108,6 +111,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             pair_.setIndexImplicitSemiTo(ExecCompoundAffectationOperation.processConverter(_conf,res_, implicits_,indexImplicit_));
             return;
         }
+        Argument stored_ = getArgument(_nodes,(ExecOperationNode) settable);
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
             Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
