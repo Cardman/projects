@@ -33,7 +33,9 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         String oper_ = getOperations().getOperators().firstValue();
         ClassMethodId clId_ = getUnaryOperatorOrMethod(this,child_.getResultClass(), oper_, _conf);
         if (clId_ != null) {
-            classMethodId = clId_;
+            if (!PrimitiveTypeUtil.isPrimitive(clId_.getClassName(),_conf)) {
+                classMethodId = clId_;
+            }
             return;
         }
         int order_ = PrimitiveTypeUtil.getIntOrderClass(clMatch_, _conf);

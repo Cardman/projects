@@ -64,7 +64,9 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         String op_ = getOperations().getOperators().firstValue().trim();
         ClassMethodId cl_ = getBinaryOperatorOrMethod(this,first_,second_, op_, _conf);
         if (cl_ != null) {
-            classMethodId = cl_;
+            if (!PrimitiveTypeUtil.isPrimitive(cl_.getClassName(),_conf)) {
+                classMethodId = cl_;
+            }
             return;
         }
         String stringType_ = stds_.getAliasString();

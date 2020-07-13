@@ -62,6 +62,16 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, Argument.createVoid(), firstArgs_);
             return;
         }
+        ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);
+        CustList<ClassMethodId> implicits_ = pairBefore_.getImplicitsCompound();
+        int indexImplicit_ = pairBefore_.getIndexImplicitCompound();
+        if (implicits_.isValidIndex(indexImplicit_)) {
+            String tres_ = converter.getConstraints().getParametersType(1);
+            Argument res_;
+            res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, oper, false, new ClassArgumentMatching(tres_));
+            pairBefore_.setIndexImplicitCompound(processConverter(_conf,res_,implicits_,indexImplicit_));
+            return;
+        }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
         Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_);
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);

@@ -90,7 +90,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
         ClassArgumentMatching second_ = right_.getResultClass();
         ClassMethodId cl_ = getBinaryOperatorOrMethod(this,clMatchLeft_,second_, op_, _conf);
         if (cl_ != null) {
-            classMethodId = cl_;
+            if (!PrimitiveTypeUtil.isPrimitive(cl_.getClassName(),_conf)) {
+                classMethodId = cl_;
+            }
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
             map_.setParam(elt_.getResultClass());

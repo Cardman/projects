@@ -67,6 +67,19 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             setSimpleArgument(arg_, _conf,_nodes);
             return;
         }
+        if (converter != null) {
+            String tres_ = converter.getConstraints().getParametersType(1);
+            Argument res_;
+            res_ = RendNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, oper, false, new ClassArgumentMatching(tres_));
+            Argument conv_ = tryConvert(converter, res_, _conf);
+            if (conv_ == null) {
+                return;
+            }
+            res_ = conv_;
+            Argument arg_ = settable.endCalculate(_nodes, _conf, res_);
+            setSimpleArgument(arg_, _conf,_nodes);
+            return;
+        }
         Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_);
         setSimpleArgument(arg_, _conf,_nodes);
     }

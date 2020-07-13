@@ -62,7 +62,9 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         okNum = true;
         ClassMethodId cl_ = getBinaryOperatorOrMethod(this,a_,c_, ops_.firstValue(), _conf);
         if (cl_ != null) {
-            classMethodId = cl_;
+            if (!PrimitiveTypeUtil.isPrimitive(cl_.getClassName(),_conf)) {
+                classMethodId = cl_;
+            }
             return;
         }
         r_ = analyzeOper(a_, ops_.firstValue(), c_, _conf);

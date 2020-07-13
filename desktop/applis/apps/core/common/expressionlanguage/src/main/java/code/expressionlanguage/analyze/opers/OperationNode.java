@@ -1063,7 +1063,60 @@ public abstract class OperationNode {
         if (isNativeUnaryOperator(_operand,_op,_cont)) {
             return null;
         }
-        return getCustomOperatorOrMethod(_node,_op,_cont);
+        ClassMethodId clId_ = getCustomOperatorOrMethod(_node, _op, _cont);
+        if (clId_ != null) {
+            return clId_;
+        }
+        CustList<StringList> groups_ = new CustList<StringList>();
+        if (StringList.quickEq(_op,"+")
+                ||StringList.quickEq(_op,"-")) {
+            StringList group_ = new StringList();
+            group_.add(_cont.getStandards().getAliasPrimInteger());
+            group_.add(_cont.getStandards().getAliasPrimLong());
+            groups_.add(group_);
+            group_ = new StringList();
+            group_.add(_cont.getStandards().getAliasPrimFloat());
+            group_.add(_cont.getStandards().getAliasPrimDouble());
+            groups_.add(group_);
+        } else if (StringList.quickEq(_op,"~")) {
+            StringList group_ = new StringList();
+            group_.add(_cont.getStandards().getAliasPrimBoolean());
+            group_.add(_cont.getStandards().getAliasPrimInteger());
+            group_.add(_cont.getStandards().getAliasPrimLong());
+            groups_.add(group_);
+        }
+        for (StringList g: groups_) {
+            CustList<CustList<MethodInfo>> lists_ = new CustList<CustList<MethodInfo>>();
+            CustList<MethodInfo> list_ = new CustList<MethodInfo>();
+            for (String p:g) {
+                ParametersGroup p_ = new ParametersGroup();
+                MethodInfo mloc_ = new MethodInfo();
+                MethodId id_ = new MethodId(MethodAccessKind.STATIC,_op,new StringList(p));
+                mloc_.setClassName(p);
+                mloc_.setStatic(true);
+                mloc_.setConstraints(id_);
+                mloc_.setParameters(p_);
+                mloc_.setReturnType(p);
+                mloc_.format(true,_cont);
+                list_.add(mloc_);
+            }
+            lists_.add(list_);
+            ClassMethodIdReturn clMeth_ = getCustResult(_cont, false, true, -1, lists_, _op, "", _operand);
+            if (clMeth_.isFoundMethod()) {
+                CustList<OperationNode> chidren_ = _node.getChildrenNodes();
+                CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
+                for (OperationNode o: chidren_) {
+                    firstArgs_.add(o.getResultClass());
+                }
+                _node.setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()), _cont));
+                String foundClass_ = clMeth_.getRealClass();
+                MethodId id_ = clMeth_.getRealId();
+                MethodId realId_ = clMeth_.getRealId();
+                InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
+                return new ClassMethodId(foundClass_, id_);
+            }
+        }
+        return null;
     }
 
     static ClassMethodId getIncrDecrOperatorOrMethod(MethodOperation _node,
@@ -1080,7 +1133,88 @@ public abstract class OperationNode {
         if (isNativeBinaryOperator(_left,_right,_op,_cont)) {
             return null;
         }
-        return getCustomOperatorOrMethod(_node,_op,_cont);
+        ClassMethodId clId_ = getCustomOperatorOrMethod(_node, _op, _cont);
+        if (clId_ != null) {
+            return clId_;
+        }
+        CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
+        if (StringList.quickEq(_op,"+")
+            ||StringList.quickEq(_op,"-")
+            ||StringList.quickEq(_op,"*")
+            ||StringList.quickEq(_op,"/")
+            ||StringList.quickEq(_op,"%")) {
+            CustList<ParamReturn> group_ = new CustList<ParamReturn>();
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimInteger(),_cont.getStandards().getAliasPrimInteger()));
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimLong(),_cont.getStandards().getAliasPrimLong()));
+            groups_.add(group_);
+            group_ = new CustList<ParamReturn>();
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimFloat(),_cont.getStandards().getAliasPrimFloat()));
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimDouble(),_cont.getStandards().getAliasPrimDouble()));
+            groups_.add(group_);
+        } else if (StringList.quickEq(_op,"<")
+                ||StringList.quickEq(_op,"<=")
+                ||StringList.quickEq(_op,">")
+                ||StringList.quickEq(_op,">=")) {
+            CustList<ParamReturn> group_ = new CustList<ParamReturn>();
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimInteger(),_cont.getStandards().getAliasPrimBoolean()));
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimLong(),_cont.getStandards().getAliasPrimBoolean()));
+            groups_.add(group_);
+            group_ = new CustList<ParamReturn>();
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimFloat(),_cont.getStandards().getAliasPrimBoolean()));
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimDouble(),_cont.getStandards().getAliasPrimBoolean()));
+            groups_.add(group_);
+        } else if (StringList.quickEq(_op,"&")
+                ||StringList.quickEq(_op,"|")
+                ||StringList.quickEq(_op,"^")) {
+            CustList<ParamReturn> group_ = new CustList<ParamReturn>();
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimBoolean(),_cont.getStandards().getAliasPrimBoolean()));
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimInteger(),_cont.getStandards().getAliasPrimInteger()));
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimLong(),_cont.getStandards().getAliasPrimLong()));
+            groups_.add(group_);
+        } else if (StringList.quickEq(_op,"<<")
+                ||StringList.quickEq(_op,">>")
+                ||StringList.quickEq(_op,"<<<")
+                ||StringList.quickEq(_op,">>>")
+                ||StringList.quickEq(_op,"<<<<")
+                ||StringList.quickEq(_op,">>>>")) {
+            CustList<ParamReturn> group_ = new CustList<ParamReturn>();
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimInteger(),_cont.getStandards().getAliasPrimInteger()));
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimLong(),_cont.getStandards().getAliasPrimLong()));
+            groups_.add(group_);
+        }
+        for (CustList<ParamReturn> g: groups_) {
+            CustList<CustList<MethodInfo>> lists_ = new CustList<CustList<MethodInfo>>();
+            CustList<MethodInfo> list_ = new CustList<MethodInfo>();
+            for (ParamReturn p:g) {
+                ParametersGroup p_ = new ParametersGroup();
+                MethodInfo mloc_ = new MethodInfo();
+                String paramType_ = p.getParamType();
+                MethodId id_ = new MethodId(MethodAccessKind.STATIC,_op,new StringList(paramType_,paramType_));
+                mloc_.setClassName(paramType_);
+                mloc_.setStatic(true);
+                mloc_.setConstraints(id_);
+                mloc_.setParameters(p_);
+                mloc_.setReturnType(p.getReturnType());
+                mloc_.format(true,_cont);
+                list_.add(mloc_);
+            }
+            lists_.add(list_);
+            ClassMethodIdReturn clMeth_ = getCustResult(_cont, false, true, -1, lists_, _op, "", _left, _right);
+            if (clMeth_.isFoundMethod()) {
+                CustList<OperationNode> chidren_ = _node.getChildrenNodes();
+                CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
+                for (OperationNode o: chidren_) {
+                    firstArgs_.add(o.getResultClass());
+                }
+                _node.setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()), _cont));
+                String foundClass_ = clMeth_.getRealClass();
+                MethodId id_ = clMeth_.getRealId();
+                MethodId realId_ = clMeth_.getRealId();
+                InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
+                return new ClassMethodId(foundClass_, id_);
+            }
+        }
+        return null;
     }
     private static ClassMethodId getCustomOperatorOrMethod(MethodOperation _node, String _op, ContextEl _cont) {
         StringList bounds_ = _cont.getAnalyzing().getTypesWithInnerOperators();
@@ -1100,7 +1234,8 @@ public abstract class OperationNode {
             InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
             return new ClassMethodId(foundClass_, id_);
         }
-        ClassMethodIdReturn cust_ = getOperator(_cont, _op, ClassArgumentMatching.toArgArray(firstArgs_));
+        //implicit use of operator key word
+        ClassMethodIdReturn cust_ = getOperator(_cont, null, -1, true, _op, "", ClassArgumentMatching.toArgArray(firstArgs_));
         if (cust_.isFoundMethod()) {
             _node.setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()), _cont));
             String foundClass_ = cust_.getRealClass();
@@ -1237,11 +1372,6 @@ public abstract class OperationNode {
         }
         return _left.matchClass(_cont.getStandards().getAliasObject())
                 && _right.matchClass(_cont.getStandards().getAliasObject());
-    }
-
-    private static ClassMethodIdReturn getOperator(ContextEl _cont, String _op, ClassArgumentMatching... _argsClass) {
-        //implicit use of operator key word
-        return getOperator(_cont,null,-1,true,_op,"",_argsClass);
     }
 
     private static ClassMethodIdReturn getIncrDecrOperator(ContextEl _cont, String _op, ClassArgumentMatching _argsClass) {
