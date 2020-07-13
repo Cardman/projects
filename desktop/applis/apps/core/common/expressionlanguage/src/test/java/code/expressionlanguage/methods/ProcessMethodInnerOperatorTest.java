@@ -2481,6 +2481,68 @@ public final class ProcessMethodInnerOperatorTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(28, getNumber(ret_));
     }
+
+    @Test
+    public void calculateArgument77Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public $int a;\n");
+        xml_.append(" $operator+ $staticCall $int (pkg.Ex<T> a, pkg.Ex<T> b){\n");
+        xml_.append("  $return ($int)(T)(a.a+b.a);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<$int>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<$int>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($class(Ex<$int>).getDeclaredMethods(\"+\",$true,$false,$class(Ex<$int>),$class(Ex<$int>))[0].invoke($null,one,two) != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument78Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public $int a;\n");
+        xml_.append(" $operator+ $staticCall $int (pkg.Ex<T> a, pkg.Ex<T> b){\n");
+        xml_.append("  $return ($int)(T)(a.a+b.a);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<$int>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<$int>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($class(Ex<$int>).getDeclaredMethods()[0].invoke($null,one,two) != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+
     @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
