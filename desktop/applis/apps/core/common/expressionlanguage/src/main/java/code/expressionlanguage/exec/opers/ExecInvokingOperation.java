@@ -582,7 +582,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _conf.setCallingState(new CustomFoundConstructor(_classNameFound, execSuperClass_, EMPTY_STRING, -1, (ConstructorId) _methodId, _previous, _firstArgs, _kindCall));
             return "";
         }
-        _conf.setCallingState(new CustomFoundMethod(Argument.createVoid(), _classNameFound, (MethodId) _methodId, _firstArgs, _right));
+        if (StringList.quickEq(_classNameFound,_conf.getStandards().getAliasObject())) {
+            _conf.setCallingState(new CustomFoundMethod(Argument.createVoid(), _classNameFound, (MethodId) _methodId, _firstArgs, _right));
+            return "";
+        }
+        _conf.setCallingState(new CustomFoundCast(_classNameFound, (MethodId) _methodId, _firstArgs));
         return "";
     }
 

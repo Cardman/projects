@@ -12730,6 +12730,51 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverage331Test() {
+        StringBuilder xml_ = new StringBuilder();
+
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T field;\n");
+        xml_.append(" $operator+ $staticCall Ex<T>(Ex<T> a,Ex<T> b) {\n");
+        xml_.append("  $var o = $new Ex<T>();\n");
+        xml_.append("  o.field = (T)(($int)a.field + ($int)b.field);\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<$int>();\n");
+        xml_.append("  Ex<$int> two = $new Ex<$int>();\n");
+        xml_.append("  one.field = 15;\n");
+        xml_.append("  two.field = 14;\n");
+        xml_.append("  $return $lambda($operator,Ex<$int>,+,$id,$staticCall,Ex<T>,Ex<T>).call(one,two);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a>&lt;<a name=\"m22\">T</a>&gt; {\n" +
+                " $public <a href=\"#m22\">T</a> <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
+                " $operator<a name=\"m55\">+</a> $staticCall <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;<a href=\"#m22\">T</a>&gt;(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;<a href=\"#m22\">T</a>&gt; <a name=\"m81\">a</a>,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;<a href=\"#m22\">T</a>&gt; <a name=\"m89\">b</a>) {\n" +
+                "  <b title=\"pkg.Ex&lt;#T&gt;\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m101\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;<a href=\"#m22\">T</a>&gt;()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m101\">o</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>=<span class=\"f\"> (<a href=\"#m22\">T</a>)<span class=\"f\">(<span class=\"f\"><span class=\"f\">($int)<span class=\"f\"><span class=\"f\"><a href=\"#m81\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span></span>+<span class=\"f\"> ($int)<span class=\"f\"><span class=\"f\"><a href=\"#m89\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a></span></span></span></span>)</span></span></span>;\n" +
+                "  $return <span class=\"f\"><a href=\"#m101\">o</a></span>;\n" +
+                " }\n" +
+                " $public $static Object <a name=\"m207\">exmeth</a>(){\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;$int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m228\">one</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;$int&gt;()</span></span>;\n" +
+                "  <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;$int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m262\">two</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;$int&gt;()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m228\">one</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>=<span class=\"f\"> 15</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m262\">two</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span></span>=<span class=\"f\"> 14</span></span>;\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><a title=\"$staticCall +(pkg.Ex&lt;#T&gt;,pkg.Ex&lt;#T&gt;)\" href=\"#m55\">$lambda</a>($operator,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;$int&gt;,+,$id,$staticCall,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;<a href=\"#m22\">T</a>&gt;,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;<a href=\"#m22\">T</a>&gt;)</span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m228\">one</a></span>,<span class=\"f\"><a href=\"#m262\">two</a></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();

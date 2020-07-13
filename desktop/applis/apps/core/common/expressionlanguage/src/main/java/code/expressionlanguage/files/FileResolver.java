@@ -2062,6 +2062,13 @@ public final class FileResolver {
                 typeOffset_ = methodNameOffest_ + methodName_.length();
                 typeOffset_ += StringList.getFirstPrintableCharIndex(afterModifier_);
                 info_ = afterModifier_.trim();
+                if (StringExpUtil.startsWithKeyWord(info_,keyWordStaticCall_)) {
+                    modifier_ = keyWordStaticCall_;
+                    typeOffset_ += keyWordStaticCall_.length();
+                    String after_ = info_.substring(keyWordStaticCall_.length());
+                    typeOffset_ += StringList.getFirstPrintableCharIndex(after_);
+                    info_ = after_.trim();
+                }
                 declaringType_ = getFoundType(info_);
                 String afterType_ = info_.substring(declaringType_.length());
                 int leftParIndex_ = afterType_.indexOf('(');

@@ -6,6 +6,10 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class MethodHeaders {
+    private final StringMap<CustList<MethodHeaderInfo>> unary = new StringMap<CustList<MethodHeaderInfo>>();
+    private final StringMap<CustList<MethodHeaderInfo>> binaryAll = new StringMap<CustList<MethodHeaderInfo>>();
+    private final StringMap<CustList<MethodHeaderInfo>> binaryFirst = new StringMap<CustList<MethodHeaderInfo>>();
+    private final StringMap<CustList<MethodHeaderInfo>> binarySecond = new StringMap<CustList<MethodHeaderInfo>>();
     private final StringMap<CustList<MethodHeaderInfo>> explicitCastMethods = new StringMap<CustList<MethodHeaderInfo>>();
     private final StringMap<CustList<MethodHeaderInfo>> explicitIdCastMethods = new StringMap<CustList<MethodHeaderInfo>>();
     private final StringMap<CustList<MethodHeaderInfo>> explicitFromCastMethods = new StringMap<CustList<MethodHeaderInfo>>();
@@ -16,6 +20,22 @@ public final class MethodHeaders {
     private StringList packagesFound = new StringList();
 
     private final CustList<RootBlock> allFound = new CustList<RootBlock>();
+
+    public StringMap<CustList<MethodHeaderInfo>> getUnary() {
+        return unary;
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getBinaryAll() {
+        return binaryAll;
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getBinaryFirst() {
+        return binaryFirst;
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getBinarySecond() {
+        return binarySecond;
+    }
 
     public StringMap<CustList<MethodHeaderInfo>> getExplicitCastMethods() {
         return explicitCastMethods;

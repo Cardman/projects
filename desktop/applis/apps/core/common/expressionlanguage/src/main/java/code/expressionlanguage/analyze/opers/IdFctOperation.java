@@ -90,6 +90,17 @@ public final class IdFctOperation extends LeafOperation {
             static_ = idUpdate_.getKind();
             i_ = idUpdate_.getIndex();
             anc_ = idUpdate_.getAncestor();
+        } else {
+            cl_ = ((ExplicitOperatorOperation)m_).getFrom();
+            if (!cl_.isEmpty()) {
+                String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
+                String keyWordStaticCall_ = _conf.getKeyWords().getKeyWordStaticCall();
+                MethodAccessId idUpdate_ = new MethodAccessId(0);
+                idUpdate_.setupInfos(0,args_,keyWordStatic_,keyWordStaticCall_);
+                static_ = idUpdate_.getKind();
+                i_ = idUpdate_.getIndex();
+                anc_ = idUpdate_.getAncestor();
+            }
         }
         MethodId argsRes_ = resolveArguments(i_, _conf, cl_, EMPTY_STRING, static_, args_);
         if (argsRes_ == null) {

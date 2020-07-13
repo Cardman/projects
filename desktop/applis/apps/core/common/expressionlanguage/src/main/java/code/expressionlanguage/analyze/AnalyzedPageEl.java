@@ -709,6 +709,22 @@ public final class AnalyzedPageEl {
         return messages;
     }
 
+    public StringMap<CustList<MethodHeaderInfo>> getUnary() {
+        return headers.getUnary();
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getBinaryAll() {
+        return headers.getBinaryAll();
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getBinaryFirst() {
+        return headers.getBinaryFirst();
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getBinarySecond() {
+        return headers.getBinarySecond();
+    }
+
     public StringMap<CustList<MethodHeaderInfo>> getExplicitCastMethods() {
         return headers.getExplicitCastMethods();
     }

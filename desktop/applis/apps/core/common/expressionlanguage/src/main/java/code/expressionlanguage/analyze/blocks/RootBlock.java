@@ -544,6 +544,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
             }
         }
+        CustList<MethodHeaderInfo> unary_ = new CustList<MethodHeaderInfo>();
+        CustList<MethodHeaderInfo> binaryFirst_ = new CustList<MethodHeaderInfo>();
+        CustList<MethodHeaderInfo> binarySecond_ = new CustList<MethodHeaderInfo>();
+        CustList<MethodHeaderInfo> binaryAll_ = new CustList<MethodHeaderInfo>();
         CustList<MethodHeaderInfo> explicit_ = new CustList<MethodHeaderInfo>();
         CustList<MethodHeaderInfo> explicitId_ = new CustList<MethodHeaderInfo>();
         CustList<MethodHeaderInfo> explicitFrom_ = new CustList<MethodHeaderInfo>();
@@ -570,6 +574,52 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                                 name_);
                         _context.addError(badMeth_);
                         m_.addNameErrors(badMeth_);
+                    }
+                    if (m_.getId().getKind() == MethodAccessKind.STATIC_CALL) {
+                        if (m_.getParametersTypes().size() == 2) {
+                            if (StringList.quickEq(m_.getName(),"+")
+                              ||StringList.quickEq(m_.getName(),"-")
+                              ||StringList.quickEq(m_.getName(),"*")
+                              ||StringList.quickEq(m_.getName(),"/")
+                              ||StringList.quickEq(m_.getName(),"%")
+                              ||StringList.quickEq(m_.getName(),"<")
+                              ||StringList.quickEq(m_.getName(),">")
+                              ||StringList.quickEq(m_.getName(),"<=")
+                              ||StringList.quickEq(m_.getName(),">=")
+                              ||StringList.quickEq(m_.getName(),"&")
+                              ||StringList.quickEq(m_.getName(),"|")
+                              ||StringList.quickEq(m_.getName(),"^")
+                              ||StringList.quickEq(m_.getName(),"<<")
+                              ||StringList.quickEq(m_.getName(),">>")
+                              ||StringList.quickEq(m_.getName(),"<<<")
+                              ||StringList.quickEq(m_.getName(),">>>")
+                              ||StringList.quickEq(m_.getName(),"<<<<")
+                              ||StringList.quickEq(m_.getName(),">>>>")
+                              ||StringList.quickEq(m_.getName(),"==")
+                              ||StringList.quickEq(m_.getName(),"!=")) {
+                                if (StringList.quickEq(m_.getImportedParametersTypes().first(),_exec.getGenericString())) {
+                                    if (StringList.quickEq(m_.getImportedParametersTypes().last(),_exec.getGenericString())) {
+                                        binaryAll_.add(new MethodHeaderInfo(m_.getId(),m_.getImportedReturnType(), m_.getAccess()));
+                                    } else {
+                                        binaryFirst_.add(new MethodHeaderInfo(m_.getId(),m_.getImportedReturnType(), m_.getAccess()));
+                                    }
+                                } else if (StringList.quickEq(m_.getImportedParametersTypes().last(),_exec.getGenericString())) {
+                                    binarySecond_.add(new MethodHeaderInfo(m_.getId(),m_.getImportedReturnType(), m_.getAccess()));
+                                }
+                            }
+                        }
+                        if (m_.getParametersTypes().size() == 1) {
+                            if (StringList.quickEq(m_.getName(),"+")
+                              ||StringList.quickEq(m_.getName(),"-")
+                              ||StringList.quickEq(m_.getName(),"!")
+                              ||StringList.quickEq(m_.getName(),"++")
+                              ||StringList.quickEq(m_.getName(),"--")
+                              ||StringList.quickEq(m_.getName(),"~")) {
+                                if (StringList.quickEq(m_.getImportedParametersTypes().first(),_exec.getGenericString())) {
+                                    unary_.add(new MethodHeaderInfo(m_.getId(),m_.getImportedReturnType(), m_.getAccess()));
+                                }
+                            }
+                        }
                     }
                     nbOperators++;
                 } else if (m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST) {
@@ -882,6 +932,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
         }
         buildFieldInfos(_context, bl_);
+        _context.getAnalyzing().getUnary().addEntry(getFullName(),unary_);
+        _context.getAnalyzing().getBinaryAll().addEntry(getFullName(),binaryAll_);
+        _context.getAnalyzing().getBinaryFirst().addEntry(getFullName(),binaryFirst_);
+        _context.getAnalyzing().getBinarySecond().addEntry(getFullName(),binarySecond_);
         _context.getAnalyzing().getExplicitCastMethods().addEntry(getFullName(),explicit_);
         _context.getAnalyzing().getExplicitIdCastMethods().addEntry(getFullName(),explicitId_);
         _context.getAnalyzing().getExplicitFromCastMethods().addEntry(getFullName(),explicitFrom_);

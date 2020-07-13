@@ -1530,7 +1530,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (operator_.isEmpty()) {
                 offset_--;
             }
-            String type_ = ResolvingImportTypes.resolveCorrectType(_conf, offset_, operator_, false);
+            String type_ = ResolvingImportTypes.resolveCorrectType(_conf, offset_, operator_, true);
             partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             from_ = type_;
             if (_len > i_) {
@@ -1559,9 +1559,20 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         MethodId argsRes_;
         ClassMethodId feed_ = null;
         int j_ = i_;
+        MethodAccessKind staticFlag_ = MethodAccessKind.STATIC;
         if (_len > j_ &&StringList.quickEq(_args.get(j_).trim(), keyWordId_)) {
             i_++;
-            argsRes_ = resolveArguments(i_, _conf,"",MethodAccessKind.STATIC, _args);
+            MethodAccessId idUpdate_ = new MethodAccessId(i_);
+            String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
+            String keyWordStaticCall_ = _conf.getKeyWords().getKeyWordStaticCall();
+            idUpdate_.setupInfos(i_,_args,keyWordStatic_,keyWordStaticCall_);
+            staticFlag_ = idUpdate_.getKind();
+            int k_ = idUpdate_.getIndex();
+            if (k_ == i_) {
+                staticFlag_ = MethodAccessKind.STATIC;
+            }
+            i_ = idUpdate_.getIndex();
+            argsRes_ = resolveArguments(i_, _conf,from_,staticFlag_, _args);
         } else {
             argsRes_ = resolveArguments(i_, _conf, _args);
         }
@@ -1576,13 +1587,26 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 params_ = new StringList();
                 params_.add(previousResultClass.getName());
                 params_.addAllElts(argsRes_.getParametersTypes());
-                feed_ = new ClassMethodId(from_, new MethodId(MethodAccessKind.STATIC, operator_, params_, varargFct_));
+                feed_ = new ClassMethodId(from_, new MethodId(staticFlag_, operator_, params_, varargFct_));
             } else {
                 params_ = argsRes_.getParametersTypes();
-                feed_ = new ClassMethodId(from_, new MethodId(MethodAccessKind.STATIC, operator_, params_, varargFct_));
+                feed_ = new ClassMethodId(from_, new MethodId(staticFlag_, operator_, params_, varargFct_));
             }
             for (String s: argsRes_.getParametersTypes()) {
-                _methodTypes.add(new ClassArgumentMatching(s));
+                String format_ = AnaTemplates.wildCardFormatParam(from_, s, _conf);
+                if (format_.isEmpty()) {
+                    FoundErrorInterpret static_ = new FoundErrorInterpret();
+                    static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    //key word id len
+                    static_.buildError(_conf.getAnalysisMessages().getBadParameTypeForId(),
+                            s);
+                    _conf.getAnalyzing().getLocalizer().addError(static_);
+                    getErrs().add(static_.getBuiltError());
+                    setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
+                    return;
+                }
+                _methodTypes.add(new ClassArgumentMatching(format_));
             }
         } else {
             if (isIntermediateDottedOperation()) {
@@ -1663,8 +1687,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private ClassMethodIdReturn getOperator(ContextEl _cont,String _from, CustList<ClassArgumentMatching> _methodTypes, String _operator, int _vararg, ClassMethodId _feed) {
         if (!_from.isEmpty()) {
-            return tryGetDeclaredCustMethodLambda(_cont, -1, MethodAccessKind.STATIC,
-                    new StringList(_from), _operator, false, false, false, null,
+            if (_feed == null) {
+                return tryGetDeclaredCustMethodLambda(_cont, -1, MethodAccessKind.STATIC_CALL,
+                        new StringList(_from), _operator, false, false, false, null,
+                        ClassArgumentMatching.toArgArray(_methodTypes));
+            }
+            return tryGetDeclaredCustMethodLambda(_cont, -1, MethodAccessKind.STATIC_CALL,
+                    new StringList(_from), _operator, false, false, false, new ClassMethodIdAncestor(_feed,0),
                     ClassArgumentMatching.toArgArray(_methodTypes));
         }
         return getOperatorLambda(_cont, _feed, _vararg, _operator, ClassArgumentMatching.toArgArray(_methodTypes));
