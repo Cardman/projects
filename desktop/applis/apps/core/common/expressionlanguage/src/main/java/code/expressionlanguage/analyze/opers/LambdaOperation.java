@@ -1164,6 +1164,16 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
             String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
             String keyWordParent_ = keyWords_.getKeyWordParent();
+            String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
+            if (StringList.quickEq(fieldName_, keyWordInstanceof_)) {
+                finalField = true;
+                returnFieldType = _stds.getAliasPrimBoolean();
+                foundClass = resolved_;
+                shiftArgument = true;
+                String fct_ = StringList.concat(_stds.getAliasFct(),"<",_stds.getAliasObject(),",",returnFieldType,">");
+                setResultClass(new ClassArgumentMatching(fct_));
+                return;
+            }
             if (StringList.quickEq(fieldName_, keyWordParent_)) {
                 String res_ = getParentType(_conf,resolved_);
                 finalField = true;
@@ -1322,7 +1332,40 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
         String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
         String keyWordParent_ = keyWords_.getKeyWordParent();
+        String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
+        StringList l_ = previousResultClass.getNames();
+        StringList bounds_ = new StringList();
+        for (String c: l_) {
+            bounds_.addAllElts(InvokingOperation.getBounds(c, _conf));
+        }
+        if (StringList.quickEq(fieldName_, keyWordInstanceof_)) {
+            finalField = true;
+            returnFieldType = _stds.getAliasPrimBoolean();
+            foundClass = resolved_;
+            String fct_ = StringList.concat(_stds.getAliasFct(),"<",returnFieldType,">");
+            setResultClass(new ClassArgumentMatching(fct_));
+            return;
+        }
         if (StringList.quickEq(fieldName_, keyWordParent_)) {
+            Mapping map_ = new Mapping();
+            map_.setArg(new ClassArgumentMatching(bounds_));
+            map_.setParam(new ClassArgumentMatching(str_));
+            StringMap<StringList> maps_ = new StringMap<StringList>();
+            getRefConstraints(_conf, maps_);
+            map_.setMapping(maps_);
+            if (!AnaTemplates.isCorrectOrNumbers(map_, _conf)) {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                //key word len
+                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                        StringList.join(bounds_,"&"),
+                        StringList.join(str_,"&"));
+                _conf.getAnalyzing().getLocalizer().addError(cast_);
+                getErrs().add(cast_.getBuiltError());
+                setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
+                return;
+            }
             String res_ = getParentType(_conf,resolved_);
             finalField = true;
             returnFieldType = res_;
@@ -1356,11 +1399,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             i_++;
         } else {
             sum_ += StringExpUtil.getOffset(_args.get(2));
-        }
-        StringList l_ = previousResultClass.getNames();
-        StringList bounds_ = new StringList();
-        for (String c: l_) {
-            bounds_.addAllElts(InvokingOperation.getBounds(c, _conf));
         }
         Mapping map_ = new Mapping();
         map_.setArg(new ClassArgumentMatching(bounds_));

@@ -72,7 +72,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         clArg_ = _conf.getPageEl().formatVarType(clArg_, _conf.getContext());
         if (realId == null && method == null) {
             String formatType_ = _conf.getPageEl().formatVarType(returnFieldType, _conf.getContext());
-            LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_, fieldId, shiftArgument, ancestor,affField, formatType_);
+            LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_,ownerType_, fieldId, shiftArgument, ancestor,affField, formatType_);
             l_.setInstanceCall(_previous);
             l_.setStaticField(staticField);
             l_.setFinalField(finalField);

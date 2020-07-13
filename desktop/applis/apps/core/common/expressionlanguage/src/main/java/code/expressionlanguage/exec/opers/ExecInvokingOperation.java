@@ -696,6 +696,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 } else {
                     realInstance_ = _values.first();
                 }
+                if (StringList.quickEq(l_.getReturnFieldType(),lgNames_.getAliasPrimBoolean())) {
+                    String ownerType_ = l_.getOwnerType();
+                    boolean res_ = ExecTemplates.safeObject(ownerType_,realInstance_,_conf) == ErrorType.NOTHING;
+                    Argument arg_ = new Argument();
+                    arg_.setStruct(BooleanStruct.of(res_));
+                    return arg_;
+                }
                 return new Argument(realInstance_.getStruct().getParent());
             }
             boolean static_ = l_.isStaticField();

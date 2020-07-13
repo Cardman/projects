@@ -73,7 +73,7 @@ public final class ExecLambdaOperation extends ExecLeafOperation implements Atom
         clArg_ = _conf.getLastPage().formatVarType(clArg_, _conf);
         if (realId == null && method == null) {
             String formatType_ = _conf.getLastPage().formatVarType(returnFieldType, _conf);
-            LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_, fieldId, shiftArgument, ancestor,affField, formatType_);
+            LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_,ownerType_, fieldId, shiftArgument, ancestor,affField, formatType_);
             l_.setInstanceCall(_previous);
             l_.setStaticField(staticField);
             l_.setFinalField(finalField);

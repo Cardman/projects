@@ -9,6 +9,7 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
     private Argument instanceCall;
 
     private final String className;
+    private final String ownerType;
 
     private final ClassField fid;
 
@@ -21,9 +22,10 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
     private boolean safeInstance;
     private final String returnFieldType;
 
-    public LambdaFieldStruct(String _className, ClassField _fid,
+    public LambdaFieldStruct(String _className, String _ownerType,ClassField _fid,
                              boolean _shiftInstance, int _ancestor, boolean _affect, String _returnFieldType) {
         className = _className;
+        ownerType = _ownerType;
         fid = _fid;
         shiftInstance = _shiftInstance;
         ancestor = _ancestor;
@@ -86,5 +88,7 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
         return className;
     }
 
-
+    public String getOwnerType() {
+        return ownerType;
+    }
 }
