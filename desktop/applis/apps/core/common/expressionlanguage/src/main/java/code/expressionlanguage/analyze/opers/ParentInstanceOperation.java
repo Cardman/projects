@@ -33,8 +33,21 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
         } else {
             converted_.add(_conf.getAnalyzing().getGlobalClass());
         }
+        StringList rs_ = getParentTypeList(_conf,converted_);
+        setResultClass(new ClassArgumentMatching(rs_));
+    }
+
+    static StringList getParentTypeList(ContextEl _conf, StringList _converted) {
+        StringList rs_ = getParentType(_converted);
+        if (rs_.isEmpty()) {
+            return new StringList(_conf.getStandards().getAliasObject());
+        }
+        return rs_;
+    }
+
+    private static StringList getParentType(StringList _converted) {
         StringList pars_ = new StringList();
-        for (String p:converted_) {
+        for (String p: _converted) {
             StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(p);
             String outer_ = StringList.join(innerParts_.mid(0, innerParts_.size() - 2), "");
             if (StringList.contains(pars_,outer_)) {
@@ -49,11 +62,7 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
             }
             rs_.add(p);
         }
-        if (rs_.isEmpty()) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-        } else {
-            setResultClass(new ClassArgumentMatching(rs_));
-        }
+        return rs_;
     }
 
 

@@ -6,6 +6,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CastOperation;
@@ -14,6 +15,7 @@ import code.expressionlanguage.analyze.opers.LambdaOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.Struct;
@@ -90,7 +92,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         parmMe_.setRealId(realId_);
                         parmMe_.setReturnType(ret_);
                         parmMe_.setRealClass(gene_);
-                        String fctParam_ = LambdaOperation.formatReturn(EMPTY_STRING,_conf, parmMe_, false);
+                        String fctParam_ = formatReturn(EMPTY_STRING,_conf, parmMe_, false);
                         fctParam_ = Templates.quickFormat(geneFor_,fctParam_,_conf);
                         String argCl_ = objArg_.getObjectClassName(_conf);
                         if (ExecTemplates.isCorrectExecute(argCl_,fctParam_,_conf)) {
@@ -106,5 +108,15 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                 }
             }
         }
+    }
+    public static String formatReturn(String _foundClass, ContextEl _an, ClassMethodIdReturn _id, boolean _demand) {
+        LgNames stds_ = _an.getStandards();
+        String fctBase_ = stds_.getAliasFct();
+        String returnType_ = _id.getReturnType();
+        StringList paramsReturn_ = new StringList();
+        MethodId id_ = _id.getId().getConstraints();
+        IdentifiableUtil.appendLeftPart(_foundClass, _demand, paramsReturn_, id_, _id.getRealId().isStaticMethod());
+        paramsReturn_.add(returnType_);
+        return StringList.concat(fctBase_, Templates.TEMPLATE_BEGIN, StringList.join(paramsReturn_, Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
     }
 }

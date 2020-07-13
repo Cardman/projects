@@ -1153,7 +1153,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         sum_ += _args.first().length() + 1;
         sum_ += _args.get(1).length() + 1;
         if (!isIntermediateDottedOperation()) {
-            str_ = resolveCorrectTypesExact(_conf, _fromType,_args);
+            String resolved_ = resolveSingleTypeExact(_conf, _args, _fromType);
+            str_ = InvokingOperation.getBounds(resolved_, _conf);
             int i_ = 3;
             boolean accessFromSuper_ = false;
             boolean accessSuper_ = true;
@@ -1162,6 +1163,18 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String keyWordThat_ = keyWords_.getKeyWordThat();
             String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
             String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
+            String keyWordParent_ = keyWords_.getKeyWordParent();
+            if (StringList.quickEq(fieldName_, keyWordParent_)) {
+                String res_ = getParentType(_conf,resolved_);
+                finalField = true;
+                returnFieldType = res_;
+                foundClass = resolved_;
+                shiftArgument = true;
+                StringList params_ = new StringList();
+                String fct_ = formatFieldReturn(_conf, false, params_, res_, shiftArgument);
+                setResultClass(new ClassArgumentMatching(fct_));
+                return;
+            }
             if (i_ < _len && StringList.quickEq(fieldName_, keyWordSuper_)) {
                 fieldName_ = _args.get(i_).trim();
                 sum_ += _args.get(i_-1).length() + 1;
@@ -1298,7 +1311,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new ClassArgumentMatching(fct_));
             return;
         }
-        str_ = resolveCorrectTypesExact(_conf, _fromType,_args);
+        String resolved_ = resolveSingleTypeExact(_conf, _args, _fromType);
+        str_ = InvokingOperation.getBounds(resolved_, _conf);
         int i_ = 3;
         boolean accessFromSuper_ = false;
         boolean accessSuper_ = true;
@@ -1307,6 +1321,17 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
         String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
+        String keyWordParent_ = keyWords_.getKeyWordParent();
+        if (StringList.quickEq(fieldName_, keyWordParent_)) {
+            String res_ = getParentType(_conf,resolved_);
+            finalField = true;
+            returnFieldType = res_;
+            foundClass = resolved_;
+            StringList params_ = new StringList();
+            String fct_ = formatFieldReturn(_conf, false, params_, res_, false);
+            setResultClass(new ClassArgumentMatching(fct_));
+            return;
+        }
         if (i_ < _len && StringList.quickEq(fieldName_, keyWordSuper_)) {
             fieldName_ = _args.get(i_).trim();
             sum_ += _args.get(i_-1).length() + 1;
@@ -1405,6 +1430,21 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         String fct_ = formatFieldReturn(_conf, static_, params_, out_, false);
         setResultClass(new ClassArgumentMatching(fct_));
+    }
+
+    private static String getParentType(ContextEl _conf, String _converted) {
+        if (_converted.startsWith(Templates.ARR_BEG_STRING)) {
+            return _conf.getStandards().getAliasObject();
+        }
+        StringList rs_ = ParentInstanceOperation.getParentTypeList(_conf,new StringList(_converted));
+        return rs_.first();
+    }
+    private String resolveSingleTypeExact(ContextEl _conf, StringList _args, String _fromType) {
+        int offset_ = className.indexOf('(')+1;
+        offset_ += StringExpUtil.getOffset(_args.first());
+        String type_ = ResolvingImportTypes.resolveCorrectType(_conf, offset_, _fromType);
+        partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+        return type_;
     }
 
     private void checkFinal(FieldInfo _id, ContextEl _conf) {
@@ -1748,36 +1788,25 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return InvokingOperation.getBounds(type_, _an);
     }
     private StringList resolveCorrectTypesExact(ContextEl _an, String _type, StringList _args) {
-        int offset_ = className.indexOf('(')+1;
-        offset_ += StringExpUtil.getOffset(_args.first());
-        String type_ = ResolvingImportTypes.resolveCorrectType(_an,offset_,_type);
-        partOffsets.addAllElts(_an.getAnalyzing().getCurrentParts());
+        String type_ = resolveSingleTypeExact(_an, _args, _type);
         return InvokingOperation.getBounds(type_, _an);
     }
-    public static String formatReturn(String _foundClass, ContextEl _an, ClassMethodIdReturn _id, boolean _demand) {
+    private static String formatReturn(String _foundClass, ContextEl _an, ClassMethodIdReturn _id, boolean _demand) {
         LgNames stds_ = _an.getStandards();
         String fctBase_ = stds_.getAliasFct();
         String returnType_ = _id.getReturnType();
         StringList paramsReturn_ = new StringList();
         MethodId id_ = _id.getId().getConstraints();
-        StringList params_ = id_.getParametersTypes();
-        if (!_id.getRealId().isStaticMethod() && _demand) {
-            paramsReturn_.add(_foundClass);
-        }
-        if (id_.isVararg()) {
-            for (String p: params_.mid(0, params_.size() - 1)) {
-                paramsReturn_.add(p);
-            }
-            String p_ = params_.last();
-            paramsReturn_.add(StringExpUtil.getPrettyArrayType(p_));
-        } else {
-            for (String p: params_) {
-                paramsReturn_.add(p);
-            }
-        }
-        if (StringList.quickEq(id_.getName(),"[]=")) {
+        IdentifiableUtil.appendLeftPart(_foundClass, _demand, paramsReturn_, id_, _id.getRealId().isStaticMethod());
+        appendRightPart(_an, _id, paramsReturn_, id_);
+        paramsReturn_.add(returnType_);
+        return StringList.concat(fctBase_, Templates.TEMPLATE_BEGIN, StringList.join(paramsReturn_, Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
+    }
+
+    private static void appendRightPart(ContextEl _an, ClassMethodIdReturn _out, StringList _paramsReturn, MethodId _id) {
+        if (StringList.quickEq(_id.getName(),"[]=")) {
             CustList<ExecOverridableBlock> getIndexers_ = new CustList<ExecOverridableBlock>();
-            String idCl_ = StringExpUtil.getIdFromAllTypes(_id.getRealClass());
+            String idCl_ = StringExpUtil.getIdFromAllTypes(_out.getRealClass());
             for (ExecBlock b: ExecBlock.getDirectChildren(_an.getClasses().getClassBody(idCl_))) {
                 if (!(b instanceof ExecOverridableBlock)) {
                     continue;
@@ -1786,7 +1815,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 if (i_.getKind() != MethodKind.GET_INDEX) {
                     continue;
                 }
-                if (!i_.getId().eqPartial(_id.getRealId())) {
+                if (!i_.getId().eqPartial(_out.getRealId())) {
                     continue;
                 }
                 getIndexers_.add(i_);
@@ -1794,14 +1823,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (getIndexers_.size() == 1) {
                 ExecOverridableBlock matching_ = getIndexers_.first();
                 String importedReturnType_ = matching_.getImportedReturnType();
-                String real_ = _id.getRealClass();
+                String real_ = _out.getRealClass();
                 importedReturnType_ = AnaTemplates.wildCardFormatReturn(real_, importedReturnType_, _an);
-                paramsReturn_.add(importedReturnType_);
+                _paramsReturn.add(importedReturnType_);
             }
         }
-        paramsReturn_.add(returnType_);
-        return StringList.concat(fctBase_, Templates.TEMPLATE_BEGIN, StringList.join(paramsReturn_, Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
     }
+
     private static String formatReturnOperator(ContextEl _an, boolean _op, ClassMethodIdReturn _id) {
         LgNames stds_ = _an.getStandards();
         String fctBase_ = stds_.getAliasFct();

@@ -688,6 +688,16 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             LambdaFieldStruct l_ =  (LambdaFieldStruct) ls_;
             boolean aff_ = l_.isAffect();
             ClassField idField_ = l_.getFid();
+            if (idField_ == null) {
+                Argument instance_ = l_.getInstanceCall();
+                Argument realInstance_;
+                if (!l_.isShiftInstance()) {
+                    realInstance_ = instance_;
+                } else {
+                    realInstance_ = _values.first();
+                }
+                return new Argument(realInstance_.getStruct().getParent());
+            }
             boolean static_ = l_.isStaticField();
             int nbAncestors_ = l_.getAncestor();
             boolean final_ = l_.isFinalField();
