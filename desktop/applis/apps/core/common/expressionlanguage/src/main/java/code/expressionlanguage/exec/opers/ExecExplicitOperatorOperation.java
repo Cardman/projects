@@ -32,7 +32,10 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         CustList<Argument> arguments_ = getArguments(_nodes, this);
-        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, arguments_);
+        String classNameFound_ = classMethodId.getClassName();
+        classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
+        String lastType_ = classMethodId.formatType(classNameFound_,lastType,_conf);
+        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, arguments_);
         Argument prev_ = new Argument();
         checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, prev_,firstArgs_);
     }

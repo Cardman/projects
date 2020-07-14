@@ -2544,6 +2544,67 @@ public final class ProcessMethodInnerOperatorTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void calculateArgument79Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $operator+ $staticCall $int (pkg.Ex<T>... a){\n");
+        xml_.append("  $return ($int)(T)(($int)a[0].a+($int)a[1].a);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<$int>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<$int>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(+,Ex<$int>)($id($staticCall,Ex<T>...),one, two) != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+
+    @Test
+    public void calculateArgument80Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $operator+ $staticCall $int (pkg.Ex<T>... a){\n");
+        xml_.append("  $return ($int)(T)(($int)a[0].a+($int)a[1].a);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<$int>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<$int>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($operator(+,Ex<$int>)(one, two) != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
 
