@@ -1135,7 +1135,7 @@ public final class LinkageUtil {
         }
         String uniqueFieldName_ = _cond.getUniqueFieldName();
         if (uniqueFieldName_.trim().isEmpty()) {
-            String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\"\">";
+            String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\">";
             _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()+1));
@@ -1431,7 +1431,7 @@ public final class LinkageUtil {
         }
         String uniqueFieldName_ = _cond.getUniqueFieldName();
         if (uniqueFieldName_.trim().isEmpty()) {
-            String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\"\">";
+            String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\">";
             _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()+1));

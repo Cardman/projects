@@ -12348,7 +12348,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\n" +
                 "\n" +
-                "A constructor of a enum cannot be called explicitly.\"\">(</a>)\n" +
+                "A constructor of a enum cannot be called explicitly.\">(</a>)\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
 
@@ -12364,7 +12364,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
-                " <a name=\"m27\" title=\"The part  in a type is not valid. It must be a word.\"\">(</a>){}\n" +
+                " <a name=\"m27\" title=\"The part  in a type is not valid. It must be a word.\">(</a>){}\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
 
@@ -12382,7 +12382,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\n" +
                 "\n" +
-                "A constructor of a enum cannot be called explicitly.\"\">(</a>);\n" +
+                "A constructor of a enum cannot be called explicitly.\">(</a>);\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
 
@@ -12418,6 +12418,82 @@ public class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The constructor pkg.MyEnum() is undefined.\">ONE</a>();\n" +
                 " <a name=\"m35\">MyEnum(</a>$int <a name=\"m47\">i</a>){ }}</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report590Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum{\n");
+        xml_.append(" <>;\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
+                " <a name=\"m27\" title=\"The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\n" +
+                "\n" +
+                "The field name  is not valid. It must be a word.\">&lt;</a>&gt;;\n" +
+                "}</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report591Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum{\n");
+        xml_.append(" <>{};\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
+                " <a name=\"m27\" title=\"The part  in a type is not valid. It must be a word.\n" +
+                "\n" +
+                "The type java.lang.Object is not parameterized correctly.\n" +
+                "\n" +
+                "The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\">&lt;</a>&gt;{};\n" +
+                "}</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report592Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum{\n");
+        xml_.append(" <>\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
+                " <a name=\"m27\" title=\"The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\n" +
+                "\n" +
+                "The field name  is not valid. It must be a word.\">&lt;</a>&gt;\n" +
+                "}</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report593Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum{\n");
+        xml_.append(" <>{}\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
+                " <a name=\"m27\" title=\"The part  in a type is not valid. It must be a word.\n" +
+                "\n" +
+                "The type java.lang.Object is not parameterized correctly.\n" +
+                "\n" +
+                "The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\">&lt;</a>&gt;{}\n" +
+                "}</pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void reportWithoutErrorTest() {
