@@ -124,7 +124,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public <a title=\"A type must have an non empty package.\" class=\"e\">$class</a> <a name=\"m15\">ExTwo</a>{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"A type must have an non empty package.\" class=\"e\">ExTwo</a>{\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
 
@@ -166,7 +166,9 @@ public class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public <a title=\"A type must have an non empty package.\" class=\"e\">$class</a> <a name=\"m15\" title=\"The part . in a type is not valid. It must be a word.\" class=\"e\">.</a>{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"A type must have an non empty package.\n" +
+                "\n" +
+                "The part . in a type is not valid. It must be a word.\" class=\"e\">.</a>{\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
 
@@ -180,7 +182,9 @@ public class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public <a title=\"A type must have an non empty package.\" class=\"e\">$class</a> <a name=\"m15\" title=\"The part .ExTwo in a type is not valid. It must be a word.\" class=\"e\">.ExTwo</a>{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"A type must have an non empty package.\n" +
+                "\n" +
+                "The part .ExTwo in a type is not valid. It must be a word.\" class=\"e\">.ExTwo</a>{\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
 
@@ -12296,6 +12300,124 @@ public class ErrorsTest extends ProcessMethodCommon {
                 " <a title=\"pkg.MySub\" href=\"#m13\">MySub</a> <a name=\"m32\">i</a>,<a title=\"The field name this is not valid. It must not be a key word.\" class=\"e\">this</a><a title=\"The assignment operator = is unexpected.\" class=\"e\">=</a>null,<a name=\"m44\">k</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report583Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class {\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public <a title=\"A type must have an non empty package.\n" +
+                "\n" +
+                "The part  in a type is not valid. It must be a word.\" class=\"e\">$class</a> {\n" +
+                "}</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report584Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class <>{\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public <a title=\"A type must have an non empty package.\n" +
+                "\n" +
+                "The part  in a type is not valid. It must be a word.\" class=\"e\">$class</a> &lt;&gt;{\n" +
+                "}</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report585Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum{\n");
+        xml_.append(" ()\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
+                " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\n" +
+                "\n" +
+                "A constructor of a enum cannot be called explicitly.\"\">(</a>)\n" +
+                "}</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report586Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum{\n");
+        xml_.append(" (){}\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
+                " <a name=\"m27\" title=\"The part  in a type is not valid. It must be a word.\"\">(</a>){}\n" +
+                "}</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report587Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum{\n");
+        xml_.append(" ();\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
+                " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\n" +
+                "\n" +
+                "A constructor of a enum cannot be called explicitly.\"\">(</a>);\n" +
+                "}</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report588Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum{\n");
+        xml_.append(" {}\n");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum pkg.MyEnum{<a title=\"Bad index by parsing.\" class=\"e\">\n" +
+                "</a> {}\n" +
+                "<a title=\"Bad index by parsing.\" class=\"e\">}</a></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report589Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum{\n");
+        xml_.append(" ONE();\n");
+        xml_.append(" MyEnum($int i){");
+        xml_.append(" }");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
+                " <a name=\"m27\" title=\"The constructor pkg.MyEnum() is undefined.\">ONE</a>();\n" +
+                " <a name=\"m35\">MyEnum(</a>$int <a name=\"m47\">i</a>){ }}</pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void reportWithoutErrorTest() {

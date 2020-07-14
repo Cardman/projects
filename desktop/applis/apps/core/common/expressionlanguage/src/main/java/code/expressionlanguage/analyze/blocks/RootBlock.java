@@ -1720,19 +1720,19 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     public void addNameErrors(FoundErrorInterpret _error) {
-        nameErrors.add(_error.getBuiltError());
+        addNameErrors(_error.getBuiltError());
     }
 
     public void addNameErrors(String _error) {
-        nameErrors.add(_error);
+        if (nameLength == 0){
+            setReachableError(true);
+            getErrorsBlock().add(_error);
+        } else {
+            nameErrors.add(_error);
+        }
     }
     public StringList getNameErrors() {
         return nameErrors;
-    }
-
-    public void addCategoryErrors(FoundErrorInterpret _error) {
-        setReachableError(true);
-        getErrorsBlock().add(_error.getBuiltError());
     }
 
     public final RootBlock getOuterParent() {

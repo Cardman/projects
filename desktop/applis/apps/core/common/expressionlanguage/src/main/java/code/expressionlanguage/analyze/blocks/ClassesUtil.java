@@ -80,7 +80,7 @@ public final class ClassesUtil {
             //key word category len
             badCl_.buildError(_context.getAnalysisMessages().getEmptyPackage());
             _context.addError(badCl_);
-            _root.addCategoryErrors(badCl_);
+            _root.addNameErrors(badCl_);
         } else {
             StringList elements_ = StringList.splitChars(packageName_, DOT);
             for (String e: elements_) {
@@ -273,6 +273,9 @@ public final class ClassesUtil {
                     fullName_);
             _context.addError(d_);
             _root.addNameErrors(d_);
+        }
+        if (_root.getNameLength() == 0) {
+            return;
         }
         page_.getFoundTypes().add(_root);
         page_.getAllFoundTypes().add(_root);
