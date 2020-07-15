@@ -492,6 +492,7 @@ public final class ElResolver {
             int j_ = i_+keyWordNew_.length();
 
             int count_ = 0;
+            boolean foundLeftPar_ = false;
             boolean foundLeft_ = false;
             while (j_ < len_) {
                 char curLoc_ = _string.charAt(j_);
@@ -499,10 +500,18 @@ public final class ElResolver {
                     if (curLoc_ == ANN_ARR_LEFT) {
                         foundLeft_ = true;
                     }
+                    if (curLoc_ == PAR_LEFT || curLoc_ == ARR_LEFT) {
+                        foundLeftPar_ = true;
+                    }
                     j_++;
                     break;
                 }
                 j_++;
+            }
+            if (foundLeftPar_) {
+                i_ = j_-1;
+                _out.setNextIndex(i_);
+                return;
             }
             boolean found_ = false;
             while (j_ < len_) {

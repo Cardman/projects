@@ -1128,19 +1128,17 @@ public final class LinkageUtil {
         GeneType type_ = _cont.getClassBody(cl_);
         String fileName_ = _vars.getCurrentFileName();
         StringList list_ = new StringList(_cond.getNameErrors());
-        list_.addAllElts(inst_.getErrs());
-        String err_="";
-        if (!list_.isEmpty()) {
-            err_ = LinkageUtil.transform(StringList.join(list_,"\n\n"));
-        }
         String uniqueFieldName_ = _cond.getUniqueFieldName();
         if (uniqueFieldName_.trim().isEmpty()) {
+            String err_ = getLineErr(list_);
             String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\">";
             _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()+1));
             return;
         }
+        list_.addAllElts(inst_.getErrs());
+        String err_ = getLineErr(list_);
         CustList<ExecConstructorBlock> ctors_ = ExecBlock.getConstructorBodiesById(_cont, cl_, c_);
         if (!ctors_.isEmpty()) {
             String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
@@ -1424,19 +1422,17 @@ public final class LinkageUtil {
         GeneType type_ = _cont.getClassBody(cl_);
         String fileName_ = _vars.getCurrentFileName();
         StringList list_ = new StringList(_cond.getNameErrors());
-        list_.addAllElts(inst_.getErrs());
-        String err_="";
-        if (!list_.isEmpty()) {
-            err_ = LinkageUtil.transform(StringList.join(list_,"\n\n"));
-        }
         String uniqueFieldName_ = _cond.getUniqueFieldName();
         if (uniqueFieldName_.trim().isEmpty()) {
+            String err_ = getLineErr(list_);
             String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\">";
             _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()+1));
             return;
         }
+        list_.addAllElts(inst_.getErrs());
+        String err_ = getLineErr(list_);
         CustList<ExecConstructorBlock> ctors_ = ExecBlock.getConstructorBodiesById(_cont, cl_, c_);
         if (!ctors_.isEmpty()) {
             String file_ = ((ExecRootBlock) type_).getFile().getFileName();
@@ -1465,6 +1461,14 @@ public final class LinkageUtil {
         _parts.addAllElts(_cond.getTypePartOffsets());
         int blOffset_ = _cond.getValueOffest();
         buildErrorReport(_cont,_vars,blOffset_,_cond,_cond.getRoot(),_parts,_cond.getTrOffset() -1,_cond.getUniqueFieldName(),true);
+    }
+
+    private static String getLineErr(StringList _list) {
+        String err_="";
+        if (!_list.isEmpty()) {
+            err_ = LinkageUtil.transform(StringList.join(_list,"\n\n"));
+        }
+        return err_;
     }
 
     private static void processRootBlockReport(VariablesOffsets _vars,RootBlock _cond, ContextEl _cont, CustList<PartOffset> _parts) {
@@ -2259,13 +2263,13 @@ public final class LinkageUtil {
             cl_ = StringExpUtil.getIdFromAllTypes(cl_);
             ConstructorId c_ = ((StandardInstancingOperation)val_).getConstId();
             StandardInstancingOperation inst_ = (StandardInstancingOperation) val_;
-            if (inst_.getFieldName().isEmpty()) {
+            if (!inst_.isHasFieldName()) {
                 int offsetNew_ =StringList.getFirstPrintableCharIndex(inst_.getMethodName());
                 addParts(_cont,currentFileName_,cl_,c_,
                         offsetNew_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordNew().length(),
                         val_.getErrs(),_parts);
+                _parts.addAllElts(inst_.getPartOffsets());
             }
-            _parts.addAllElts(inst_.getPartOffsets());
         }
         if (val_ instanceof DimensionArrayInstancing) {
             _parts.addAllElts(((DimensionArrayInstancing)val_).getPartOffsets());

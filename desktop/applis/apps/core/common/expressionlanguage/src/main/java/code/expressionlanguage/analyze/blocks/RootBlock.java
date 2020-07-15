@@ -590,6 +590,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                               ||StringList.quickEq(m_.getName(),">=")
                               ||StringList.quickEq(m_.getName(),"&")
                               ||StringList.quickEq(m_.getName(),"|")
+                              ||StringList.quickEq(m_.getName(),"&&")
+                              ||StringList.quickEq(m_.getName(),"||")
                               ||StringList.quickEq(m_.getName(),"^")
                               ||StringList.quickEq(m_.getName(),"<<")
                               ||StringList.quickEq(m_.getName(),">>")

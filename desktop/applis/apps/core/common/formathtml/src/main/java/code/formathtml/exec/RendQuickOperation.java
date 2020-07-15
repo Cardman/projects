@@ -28,7 +28,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
         RendDynOperationNode first_ = chidren_.first();
         if (classMethodId != null) {
             ArgumentsPair argumentPair_ = getArgumentPair(_nodes, first_);
-            if (argumentPair_.getArgumentTest()){
+            if (argumentPair_.isArgumentTest()){
                 Argument f_ = getArgument(_nodes, first_);
                 setQuickConvertSimpleArgument(f_, _conf,_nodes);
                 return;

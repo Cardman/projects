@@ -778,6 +778,271 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         assertEq(11, getNumber(ret_));
     }
     @Test
+    public void calculateArgument22Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo arr = $new();\n");
+        xml_.append("  $if (arr.field != 0i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument23Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo arr = $new(10);\n");
+        xml_.append("  $if (arr.field != 10){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument24Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo arr = catching2();\n");
+        xml_.append("  $if (arr.field != 10){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static ExTwo catching2(){\n");
+        xml_.append("  $return $new(10);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument25Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $var arr = $(ExTwo)$new(10);\n");
+        xml_.append("  $if (arr.field != 10){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument26Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo arr = $new{}();\n");
+        xml_.append("  $if (arr.field != 0i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument27Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo[] arr = {$new(10)};\n");
+        xml_.append("  $if (arr[0].field != 10){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument28Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo[] arr = $new[1];\n");
+        xml_.append("  arr[0]=$new(10);\n");
+        xml_.append("  $if (arr[0].field != 10){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument29Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo[][] arr = $new[1][];\n");
+        xml_.append("  arr[0]=$new[1];\n");
+        xml_.append("  arr[0][0]=$new(10);\n");
+        xml_.append("  $if (arr[0][0].field != 10){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument30Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo[] arr = catching2();\n");
+        xml_.append("  arr[0]=$new(10);\n");
+        xml_.append("  $if (arr[0].field != 10){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static ExTwo[] catching2(){\n");
+        xml_.append("  $return $new[1];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -916,6 +1181,207 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         xml_.append("   $break;\n");
         xml_.append("  }\n");
         xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument7FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo arr = $new(10);\n");
+        xml_.append("  $if (arr.field != 10){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument8FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo arr = $new(\"10\");\n");
+        xml_.append("  $if (arr.field != 10){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument9FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo[] arr = $new(10);\n");
+        xml_.append("  $if (arr[0].field != 10){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument10FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo arr = {$new(10)};\n");
+        xml_.append("  $if (arr[0].field != 10){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument11FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo[][] arr = $new[1];\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument12FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ExTwo[] arr = $new[1][];\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument13FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $var arr = $new(10);\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument14FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $var arr = $new[10];\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument15FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex[] arr = $new ExTwo<>[1];\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<T> {\n");
+        xml_.append(" $public $int field;\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  field = p;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();

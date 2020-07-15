@@ -12346,9 +12346,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
-                " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\n" +
-                "\n" +
-                "A constructor of a enum cannot be called explicitly.\">(</a>)\n" +
+                " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\">(</a>)\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
 
@@ -12380,9 +12378,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
-                " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\n" +
-                "\n" +
-                "A constructor of a enum cannot be called explicitly.\">(</a>);\n" +
+                " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\">(</a>);\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
 

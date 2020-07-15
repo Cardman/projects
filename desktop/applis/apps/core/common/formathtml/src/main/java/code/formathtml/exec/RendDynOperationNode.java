@@ -570,6 +570,18 @@ public abstract class RendDynOperationNode {
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         CustList<ClassMethodId> implicits_ = pair_.getImplicits();
         Argument out_ = _argument;
+        CustList<ClassMethodId> implicitsTest_ = pair_.getImplicitsTest();
+        if (!implicitsTest_.isEmpty()) {
+            Argument res_ = tryConvert(implicitsTest_.first(), out_, _conf);
+            if (res_ == null) {
+                return;
+            }
+            pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(res_.getStruct())));
+        }
+        if (pair_.isArgumentTest()) {
+            calcArg(_nodes,out_);
+            return;
+        }
         int s_ = implicits_.size();
         for (int i = 0; i < s_; i++) {
             ClassMethodId c = implicits_.get(i);
@@ -579,15 +591,6 @@ public abstract class RendDynOperationNode {
             }
             out_ = res_;
         }
-        CustList<ClassMethodId> implicitsTest_ = pair_.getImplicitsTest();
-        if (!implicitsTest_.isEmpty()) {
-            pair_.setArgumentBeforeTest(out_);
-            Argument res_ = tryConvert(implicitsTest_.first(), out_, _conf);
-            if (res_ == null) {
-                return;
-            }
-            pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(res_.getStruct())));
-        }
         if (resultClass.isConvertToString()){
             out_ = processString(_argument,_conf);
             ContextEl ctx_ = _conf.getContext();
@@ -595,6 +598,10 @@ public abstract class RendDynOperationNode {
                 return;
             }
         }
+        calcArg(_nodes, out_);
+    }
+
+    private void calcArg(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument out_) {
         RendPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
             _nodes.getValue(n_.getOrder()).setPreviousArgument(out_);

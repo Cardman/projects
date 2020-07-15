@@ -202,7 +202,7 @@ public final class ExpressionLanguage {
         ArgumentsPair value_ = arguments.getValue(currentOper.getOrder());
         Argument res_ = value_.getArgument();
         Struct v_ = res_.getStruct();
-        if (currentOper.getNextSibling() != null&&value_.getArgumentTest()){
+        if (currentOper.getNextSibling() != null&&value_.isArgumentTest()){
             if (currentOper.getParent() instanceof ExecAndOperation){
                 v_ = BooleanStruct.of(false);
             }

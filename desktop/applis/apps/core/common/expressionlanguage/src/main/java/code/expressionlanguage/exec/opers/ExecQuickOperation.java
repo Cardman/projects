@@ -26,7 +26,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
         ExecOperationNode first_ = chidren_.first();
         if (classMethodId != null) {
             ArgumentsPair argumentPair_ = getArgumentPair(_nodes, first_);
-            if (argumentPair_.getArgumentTest()){
+            if (argumentPair_.isArgumentTest()){
                 Argument f_ = getArgument(_nodes,first_);
                 setQuickConvertSimpleArgument(f_, _conf, _nodes);
                 return;
@@ -54,7 +54,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode first_ = chidren_.first();
         ArgumentsPair argumentPair_ = getArgumentPair(_nodes, first_);
-        if (argumentPair_.getArgumentTest()){
+        if (argumentPair_.isArgumentTest()){
             setSimpleArgument(_right,_conf,_nodes);
             return;
         }

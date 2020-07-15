@@ -696,12 +696,6 @@ public abstract class ExecOperationNode {
             return;
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
-        CustList<ClassMethodId> implicits_ = pair_.getImplicits();
-        int indexImplicit_ = pair_.getIndexImplicit();
-        if (implicits_.isValidIndex(indexImplicit_)) {
-            pair_.setIndexImplicit(processConverter(_conf,_argument,implicits_,indexImplicit_));
-            return;
-        }
         CustList<ClassMethodId> implicitsTest_ = pair_.getImplicitsTest();
         int indexImplicitTest_ = pair_.getIndexImplicitTest();
         if (implicitsTest_.isValidIndex(indexImplicitTest_)) {
@@ -711,10 +705,25 @@ public abstract class ExecOperationNode {
         }
         Argument before_;
         if (pair_.getArgumentBeforeTest() != null) {
-            before_ = pair_.getArgumentBeforeTest();
-            pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+            if (!pair_.isCalcArgumentTest()) {
+                pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+                pair_.setCalcArgumentTest(true);
+                before_ = pair_.getArgumentBeforeTest();
+            } else {
+                before_ = _argument;
+            }
         } else {
             before_ = _argument;
+        }
+        if (pair_.isArgumentTest()) {
+            calcArg(_possiblePartial, _conf, _nodes, before_);
+            return;
+        }
+        CustList<ClassMethodId> implicits_ = pair_.getImplicits();
+        int indexImplicit_ = pair_.getIndexImplicit();
+        if (implicits_.isValidIndex(indexImplicit_)) {
+            pair_.setIndexImplicit(processConverter(_conf,before_,implicits_,indexImplicit_));
+            return;
         }
         Argument arg_ = before_;
         if (resultClass.isConvertToString()){
@@ -723,6 +732,10 @@ public abstract class ExecOperationNode {
                 return;
             }
         }
+        calcArg(_possiblePartial, _conf, _nodes, arg_);
+    }
+
+    private void calcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument arg_) {
         ExecPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ instanceof ExecOperationNode) {
             _nodes.getValue(((ExecOperationNode)n_).getOrder()).setPreviousArgument(arg_);

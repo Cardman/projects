@@ -103,9 +103,8 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         page_.setOffset(0);
         KeyWords keyWords_ = _cont.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String idType_ = getFullName();
-        String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_," ",idType_, PAR_LEFT, value, PAR_RIGHT);
-        int trOffset_ = valueOffest  -1 -fieldName.length()- fieldNameOffest - 2 - newKeyWord_.length() - idType_.length();
+        String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_, PAR_LEFT, value, PAR_RIGHT);
+        int trOffset_ = valueOffest  -1 -fieldName.length()- fieldNameOffest - 1 - newKeyWord_.length();
         trOffset = trOffset_;
         _exec.setTrOffset(trOffset_);
         page_.setTranslatedOffset(trOffset_);

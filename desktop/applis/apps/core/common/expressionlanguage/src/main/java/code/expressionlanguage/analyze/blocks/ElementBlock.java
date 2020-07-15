@@ -147,8 +147,8 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         page_.setOffset(0);
         KeyWords keyWords_ = _cont.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_," ",importedClassName, PAR_LEFT, value, PAR_RIGHT);
-        int tr_ = valueOffest -1 -fieldName.length() - fieldNameOffest - 2 - newKeyWord_.length() - importedClassName.length();
+        String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_, PAR_LEFT, value, PAR_RIGHT);
+        int tr_ = valueOffest -1 -fieldName.length() - fieldNameOffest - 1 - newKeyWord_.length();
         trOffset = tr_;
         _exec.setTrOffset(tr_);
         page_.setTranslatedOffset(tr_);

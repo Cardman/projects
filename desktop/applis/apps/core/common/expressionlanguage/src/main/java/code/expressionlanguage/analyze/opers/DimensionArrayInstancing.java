@@ -43,24 +43,9 @@ public final class DimensionArrayInstancing extends
         int local_ = StringList.getFirstPrintableCharIndex(className_);
         className_ = className_.trim();
         StringMap<String> vars_ = new StringMap<String>();
-
-        String inferForm_ = AnaTemplates.getInferForm(className_);
-        if (inferForm_ == null) {
-            return;
-        }
-        String type_;
-        int nbParentsInfer_ = 0;
         OperationNode current_;
-        String mName_ = getMethodName();
-        int off_ = StringList.getFirstPrintableCharIndex(mName_);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
-        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
         MethodOperation m_;
-        type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(_an,newKeyWord_.length()+local_,inferForm_);
-        partOffsets_.addAllElts(_an.getAnalyzing().getCurrentParts());
-        if (type_.isEmpty()) {
-            return;
-        }
+        int nbParentsInfer_ = 0;
         current_ = this;
         m_ = getParent();
         while (m_ != null) {
@@ -107,13 +92,41 @@ public final class DimensionArrayInstancing extends
                 typeAff_ = c_.getSingleNameOrEmpty();
             }
         }
+        if (className_.trim().isEmpty()) {
+            String keyWordVar_ = keyWords_.getKeyWordVar();
+            if (isUndefined(typeAff_, keyWordVar_)) {
+                return;
+            }
+            int chCount_ = getOperations().getValues().size();
+            String cp_ = StringExpUtil.getQuickComponentType(typeAff_, chCount_+countArrayDims+nbParentsInfer_);
+            if (isNotCorrectDim(cp_)) {
+                return;
+            }
+            typeInfer = cp_;
+            return;
+        }
+        String inferForm_ = AnaTemplates.getInferForm(className_);
+        if (inferForm_ == null) {
+            return;
+        }
+        String type_;
+        String mName_ = getMethodName();
+        int off_ = StringList.getFirstPrintableCharIndex(mName_);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
+        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+        type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(_an,newKeyWord_.length()+local_,inferForm_);
+        partOffsets_.addAllElts(_an.getAnalyzing().getCurrentParts());
+        if (type_.isEmpty()) {
+            return;
+        }
+
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (typeAff_.isEmpty() || StringList.quickEq(typeAff_, keyWordVar_)) {
+        if (isUndefined(typeAff_, keyWordVar_)) {
             return;
         }
         int chCount_ = getOperations().getValues().size();
         String cp_ = StringExpUtil.getQuickComponentType(typeAff_, chCount_+countArrayDims+nbParentsInfer_);
-        if (cp_ == null) {
+        if (isNotCorrectDim(cp_)) {
             return;
         }
         String infer_ = AnaTemplates.tryInfer(type_,vars_, cp_, _an);
@@ -125,6 +138,14 @@ public final class DimensionArrayInstancing extends
         int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
         ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
         typeInfer = infer_;
+    }
+
+    private static boolean isNotCorrectDim(String cp_) {
+        return cp_ == null||cp_.startsWith("[");
+    }
+
+    private static boolean isUndefined(String typeAff_, String keyWordVar_) {
+        return typeAff_.isEmpty() || StringList.quickEq(typeAff_, keyWordVar_);
     }
 
     @Override

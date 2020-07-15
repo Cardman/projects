@@ -420,7 +420,7 @@ public final class RenderExpUtil {
             }
             Argument res_ = pair_.getArgument();
             Struct st_ = res_.getStruct();
-            if (o.getNextSibling() != null&&pair_.getArgumentTest()){
+            if (o.getNextSibling() != null&&pair_.isArgumentTest()){
                 if (o.getParent() instanceof RendAndOperation){
                     st_ = BooleanStruct.of(false);
                 }

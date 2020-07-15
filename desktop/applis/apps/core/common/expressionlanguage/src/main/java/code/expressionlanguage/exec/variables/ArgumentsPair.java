@@ -8,6 +8,7 @@ public class ArgumentsPair {
     private Argument argument;
     private Argument argumentBeforeTest;
     private boolean argumentTest;
+    private boolean calcArgumentTest;
     private Argument previousArgument;
     private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
     private CustList<ClassMethodId> implicitsTest = new CustList<ClassMethodId>();
@@ -35,12 +36,20 @@ public class ArgumentsPair {
         argumentBeforeTest = _argumentBeforeTest;
     }
 
-    public boolean getArgumentTest() {
+    public boolean isArgumentTest() {
         return argumentTest;
     }
 
     public void setArgumentTest(boolean argumentTest) {
         this.argumentTest = argumentTest;
+    }
+
+    public boolean isCalcArgumentTest() {
+        return calcArgumentTest;
+    }
+
+    public void setCalcArgumentTest(boolean calcArgumentTest) {
+        this.calcArgumentTest = calcArgumentTest;
     }
 
     public Argument getPreviousArgument() {
