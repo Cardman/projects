@@ -33,8 +33,6 @@ public final class NullSafeOperation extends MethodOperation {
         OperationNode opThree_ = chidren_.last();
         ClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
         ClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
-        Argument firstArg_ = opTwo_.getArgument();
-        Argument secondArg_ = opThree_.getArgument();
         StringList one_ = clMatchTwo_.getNames();
         StringList two_ = clMatchThree_.getNames();
         StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
@@ -64,7 +62,7 @@ public final class NullSafeOperation extends MethodOperation {
             setResultClass(new ClassArgumentMatching(type_));
             return;
         }
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, firstArg_, two_, secondArg_, vars_, _conf);
+        ResultTernary res_ = AnaTemplates.getResultTernary(one_, null, two_, null, vars_, _conf);
         setResultClass(new ClassArgumentMatching(res_.getTypes()));
     }
 

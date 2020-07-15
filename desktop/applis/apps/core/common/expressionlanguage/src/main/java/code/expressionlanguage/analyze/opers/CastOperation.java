@@ -94,10 +94,12 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         if (_className.contains("#")) {
             return;
         }
-        if (ExecTemplates.safeObject(_className,objArg_,_conf) != ErrorType.NOTHING) {
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(_className);
+        Argument after_ = new Argument(PrimitiveTypeUtil.convertObject(cl_, objArg_.getStruct(), _conf.getStandards()));
+        if (ExecTemplates.safeObject(_className,after_,_conf) != ErrorType.NOTHING) {
             return;
         }
-        _current.setSimpleArgumentAna(objArg_, _conf);
+        _current.setSimpleArgumentAna(after_, _conf);
     }
 
     public String getClassName() {

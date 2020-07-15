@@ -168,37 +168,6 @@ public final class AffectationOperation extends MethodOperation {
         mapping_.setMapping(vars_);
         mapping_.setArg(clMatchRight_);
         mapping_.setParam(clMatchLeft_);
-        if (clMatchLeft_.isNumericInt(_conf)) {
-            String primInt_ = stds_.getAliasPrimInteger();
-            String primShort_ = stds_.getAliasPrimShort();
-            String primChar_ = stds_.getAliasPrimChar();
-            String primByte_ = stds_.getAliasPrimByte();
-            String int_ = stds_.getAliasInteger();
-            String short_ = stds_.getAliasShort();
-            String char_ = stds_.getAliasCharacter();
-            String byte_ = stds_.getAliasByte();
-            Argument rightArg_ = right_.getArgument();
-            if (rightArg_ != null && rightArg_.getStruct() instanceof NumberStruct) {
-                StringList first_ = clMatchLeft_.getNames();
-                long valueUnwrapped_ = ClassArgumentMatching.convertToNumber(rightArg_.getStruct()).longStruct();
-                if ((StringList.contains(first_, primByte_) || StringList.contains(first_, byte_)) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
-                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    return;
-                }
-                if ((StringList.contains(first_, primChar_) || StringList.contains(first_, char_)) && valueUnwrapped_ >= Character.MIN_VALUE && valueUnwrapped_ <= Character.MAX_VALUE) {
-                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    return;
-                }
-                if ((StringList.contains(first_, primShort_) || StringList.contains(first_, short_))&& valueUnwrapped_ >= Short.MIN_VALUE && valueUnwrapped_ <= Short.MAX_VALUE) {
-                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    return;
-                }
-                if ((StringList.contains(first_, primInt_) || StringList.contains(first_, int_)) && valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
-                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
-                    return;
-                }
-            }
-        }
         if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
             ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_conf, clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_);
             if (res_.isFoundMethod()) {

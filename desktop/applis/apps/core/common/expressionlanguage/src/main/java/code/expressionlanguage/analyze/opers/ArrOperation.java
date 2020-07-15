@@ -155,7 +155,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 convertNumber_ = true;
             }
         }
-        if (!convertNumber_ && !indexClass_.isNumericInt(_conf)) {
+        if (!indexClass_.isNumericInt(_conf)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, _conf.getStandards().getAliasPrimInteger(), indexClass_);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());

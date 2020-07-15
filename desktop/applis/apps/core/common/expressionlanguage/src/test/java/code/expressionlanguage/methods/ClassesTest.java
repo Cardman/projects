@@ -3016,7 +3016,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $byte myf=2i,mys=myf+3i;\n");
+        xml_.append(" $public $static $final $int myf=2i,mys=myf+3i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
@@ -4650,7 +4650,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $final $char a1=012l;\n");
+        xml_.append(" $public $static $final $char a1=($char)012l;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = validateStaticFields(files_);
