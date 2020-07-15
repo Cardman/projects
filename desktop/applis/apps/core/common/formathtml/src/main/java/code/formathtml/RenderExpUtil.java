@@ -421,11 +421,21 @@ public final class RenderExpUtil {
             Argument res_ = pair_.getArgument();
             Struct st_ = res_.getStruct();
             if (o.getNextSibling() != null&&pair_.isArgumentTest()){
-                if (o.getParent() instanceof RendAndOperation){
+                RendMethodOperation par_ = o.getParent();
+                if (par_ instanceof RendAndOperation){
                     st_ = BooleanStruct.of(false);
                 }
-                if (o.getParent() instanceof RendOrOperation){
+                if (par_ instanceof RendOrOperation){
                     st_ = BooleanStruct.of(true);
+                }
+                if (par_ instanceof RendCompoundAffectationOperation){
+                    RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation) par_;
+                    if (StringList.quickEq(p_.getOper(),"&&=")) {
+                        st_ = BooleanStruct.of(false);
+                    }
+                    if (StringList.quickEq(p_.getOper(),"||=")) {
+                        st_ = BooleanStruct.of(true);
+                    }
                 }
             }
             fr_ = RendDynOperationNode.getNextIndex(o, st_);

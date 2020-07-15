@@ -10,6 +10,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class ExpressionLanguage {
 
@@ -203,11 +204,21 @@ public final class ExpressionLanguage {
         Argument res_ = value_.getArgument();
         Struct v_ = res_.getStruct();
         if (currentOper.getNextSibling() != null&&value_.isArgumentTest()){
-            if (currentOper.getParent() instanceof ExecAndOperation){
+            ExecMethodOperation par_ = currentOper.getParent();
+            if (par_ instanceof ExecAndOperation){
                 v_ = BooleanStruct.of(false);
             }
-            if (currentOper.getParent() instanceof ExecOrOperation){
+            if (par_ instanceof ExecOrOperation){
                 v_ = BooleanStruct.of(true);
+            }
+            if (par_ instanceof ExecCompoundAffectationOperation){
+                ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
+                if (StringList.quickEq(p_.getOper(),"&&=")) {
+                    v_ = BooleanStruct.of(false);
+                }
+                if (StringList.quickEq(p_.getOper(),"||=")) {
+                    v_ = BooleanStruct.of(true);
+                }
             }
         }
         index = ExecOperationNode.getNextIndex(currentOper, v_);

@@ -49,6 +49,14 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         ExecOperationNode right_ = list_.last();
         Argument leftArg_ = getArgument(_nodes,left_);
         Argument rightArg_ = getArgument(_nodes,right_);
+        ArgumentsPair pair_ = getArgumentPair(_nodes,this);
+        ArgumentsPair argumentPair_ = getArgumentPair(_nodes, left_);
+        if (argumentPair_.isArgumentTest()){
+            pair_.setEndCalculate(true);
+            pair_.setIndexImplicitCompound(-1);
+            setSimpleArgument(leftArg_, _conf, _nodes);
+            return;
+        }
         if (classMethodId != null) {
             CustList<ExecOperationNode> chidren_ = new CustList<ExecOperationNode>();
             chidren_.add(left_);
@@ -72,7 +80,6 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
         Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_);
-        ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes);
     }

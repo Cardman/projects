@@ -46,6 +46,11 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         RendDynOperationNode right_ = list_.last();
         Argument leftArg_ = getArgument(_nodes,left_);
         Argument rightArg_ = getArgument(_nodes,right_);
+        ArgumentsPair argumentPair_ = getArgumentPair(_nodes, left_);
+        if (argumentPair_.isArgumentTest()){
+            setSimpleArgument(leftArg_, _conf,_nodes);
+            return;
+        }
         if (classMethodId != null) {
             CustList<RendDynOperationNode> chidren_ = new CustList<RendDynOperationNode>();
             chidren_.add(left_);
