@@ -6,12 +6,16 @@ import code.util.CustList;
 public class ArgumentsPair {
 
     private Argument argument;
+    private Argument argumentBeforeTest;
+    private boolean argumentTest;
     private Argument previousArgument;
     private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
+    private CustList<ClassMethodId> implicitsTest = new CustList<ClassMethodId>();
     private CustList<ClassMethodId> implicitsCompound = new CustList<ClassMethodId>();
     private CustList<ClassMethodId> implicitsSemiFrom = new CustList<ClassMethodId>();
     private CustList<ClassMethodId> implicitsSemiTo = new CustList<ClassMethodId>();
     private int indexImplicit;
+    private int indexImplicitTest;
     private int indexImplicitCompound;
     private int indexImplicitSemiFrom;
     private int indexImplicitSemiTo;
@@ -21,6 +25,22 @@ public class ArgumentsPair {
     }
     public void setArgument(Argument _argument) {
         argument = _argument;
+    }
+
+    public Argument getArgumentBeforeTest() {
+        return argumentBeforeTest;
+    }
+
+    public void setArgumentBeforeTest(Argument _argumentBeforeTest) {
+        argumentBeforeTest = _argumentBeforeTest;
+    }
+
+    public boolean getArgumentTest() {
+        return argumentTest;
+    }
+
+    public void setArgumentTest(boolean argumentTest) {
+        this.argumentTest = argumentTest;
     }
 
     public Argument getPreviousArgument() {
@@ -44,6 +64,14 @@ public class ArgumentsPair {
 
     public void setImplicits(CustList<ClassMethodId> implicits) {
         this.implicits = implicits;
+    }
+
+    public CustList<ClassMethodId> getImplicitsTest() {
+        return implicitsTest;
+    }
+
+    public void setImplicitsTest(CustList<ClassMethodId> implicitsTest) {
+        this.implicitsTest = implicitsTest;
     }
 
     public CustList<ClassMethodId> getImplicitsCompound() {
@@ -76,6 +104,14 @@ public class ArgumentsPair {
 
     public void setIndexImplicit(int indexImplicit) {
         this.indexImplicit = indexImplicit;
+    }
+
+    public int getIndexImplicitTest() {
+        return indexImplicitTest;
+    }
+
+    public void setIndexImplicitTest(int indexImplicitTest) {
+        this.indexImplicitTest = indexImplicitTest;
     }
 
     public int getIndexImplicitCompound() {

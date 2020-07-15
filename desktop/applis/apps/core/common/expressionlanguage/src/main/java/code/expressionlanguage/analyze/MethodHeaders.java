@@ -16,6 +16,8 @@ public final class MethodHeaders {
     private final StringMap<CustList<MethodHeaderInfo>> implicitCastMethods = new StringMap<CustList<MethodHeaderInfo>>();
     private final StringMap<CustList<MethodHeaderInfo>> implicitIdCastMethods = new StringMap<CustList<MethodHeaderInfo>>();
     private final StringMap<CustList<MethodHeaderInfo>> implicitFromCastMethods = new StringMap<CustList<MethodHeaderInfo>>();
+    private final StringMap<CustList<MethodHeaderInfo>> trues = new StringMap<CustList<MethodHeaderInfo>>();
+    private final StringMap<CustList<MethodHeaderInfo>> falses = new StringMap<CustList<MethodHeaderInfo>>();
     private final StringList typesWithInnerOperators = new StringList();
     private StringList packagesFound = new StringList();
 
@@ -59,6 +61,14 @@ public final class MethodHeaders {
 
     public StringMap<CustList<MethodHeaderInfo>> getImplicitFromCastMethods() {
         return implicitFromCastMethods;
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getTrues() {
+        return trues;
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getFalses() {
+        return falses;
     }
 
     public StringList getTypesWithInnerOperators() {

@@ -18,6 +18,7 @@ public final class ClassArgumentMatching {
     private boolean checkOnlyNullPe;
     private boolean convertToString;
     private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
+    private CustList<ClassMethodId> implicitsTest = new CustList<ClassMethodId>();
 
     public ClassArgumentMatching(String _className) {
         className.add(_className);
@@ -232,5 +233,9 @@ public final class ClassArgumentMatching {
 
     public CustList<ClassMethodId> getImplicits() {
         return implicits;
+    }
+
+    public CustList<ClassMethodId> getImplicitsTest() {
+        return implicitsTest;
     }
 }

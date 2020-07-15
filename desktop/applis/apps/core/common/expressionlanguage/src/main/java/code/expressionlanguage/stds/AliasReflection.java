@@ -38,6 +38,8 @@ public final class AliasReflection {
     private String aliasGetDeclaredClasses;
     private String aliasGetDeclaredExplicits;
     private String aliasGetDeclaredImplicits;
+    private String aliasGetDeclaredTrueOperators;
+    private String aliasGetDeclaredFalseOperators;
     private String aliasGetDeclaredMethods;
     private String aliasGetDeclaredStaticMethods;
     private String aliasGetDeclaredConstructors;
@@ -270,6 +272,12 @@ public final class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredImplicits, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredTrueOperators, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredFalseOperators, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetSuperClass, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
@@ -1140,6 +1148,36 @@ public final class AliasReflection {
                 result_.setResult(str_);
                 return result_;
             }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredTrueOperators)) {
+                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+                String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+                ObjectMap<MethodId, MethodMetaInfo> methods_;
+                methods_ = cl_.getTruesInfos();
+                Struct[] methodsArr_ = new Struct[methods_.size()];
+                int index_ = 0;
+                for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                    methodsArr_[index_] = e.getValue();
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredFalseOperators)) {
+                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+                String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+                ObjectMap<MethodId, MethodMetaInfo> methods_;
+                methods_ = cl_.getFalsesInfos();
+                Struct[] methodsArr_ = new Struct[methods_.size()];
+                int index_ = 0;
+                for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                    methodsArr_[index_] = e.getValue();
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredMethods)) {
                 ClassMetaInfo cl_ = NumParsers.getClass(_struct);
                 ObjectMap<MethodId, MethodMetaInfo> methods_;
@@ -1916,6 +1954,22 @@ public final class AliasReflection {
 
     public void setAliasGetDeclaredImplicits(String aliasGetDeclaredExplicits) {
         this.aliasGetDeclaredImplicits = aliasGetDeclaredExplicits;
+    }
+
+    public String getAliasGetDeclaredTrueOperators() {
+        return aliasGetDeclaredTrueOperators;
+    }
+
+    public void setAliasGetDeclaredTrueOperators(String aliasGetDeclaredTrueOperators) {
+        this.aliasGetDeclaredTrueOperators = aliasGetDeclaredTrueOperators;
+    }
+
+    public String getAliasGetDeclaredFalseOperators() {
+        return aliasGetDeclaredFalseOperators;
+    }
+
+    public void setAliasGetDeclaredFalseOperators(String aliasGetDeclaredFalseOperators) {
+        this.aliasGetDeclaredFalseOperators = aliasGetDeclaredFalseOperators;
     }
 
     public String getAliasGetDeclaredMethods() {

@@ -3,12 +3,10 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -98,20 +96,6 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         setSimpleArgument(_right,_conf,_nodes);
     }
 
-    static int processConverter(ContextEl _conf, Argument _right, CustList<ClassMethodId> implicits_, int indexImplicit_) {
-        ClassMethodId c = implicits_.get(indexImplicit_);
-        DefaultExiting ex_ = new DefaultExiting(_conf);
-        CustList<Argument> args_ = new CustList<Argument>(_right);
-        AbstractPageEl last_ = _conf.getLastPage();
-        String cl_ = c.getClassName();
-        MethodId id_ = c.getConstraints();
-        if (ExecExplicitOperation.checkCustomOper(ex_, id_, args_, cl_, last_,_conf,_right)) {
-            return indexImplicit_;
-        }
-        return indexImplicit_ +1;
-    }
-
-    @Override
     public ExecSettableElResult getSettable() {
         return settable;
     }

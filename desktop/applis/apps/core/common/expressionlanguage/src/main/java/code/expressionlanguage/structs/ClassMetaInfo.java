@@ -34,6 +34,8 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     private final StringMap<FieldMetaInfo> fieldsInfos;
     private final ObjectMap<MethodId, MethodMetaInfo> explicitsInfos;
     private final ObjectMap<MethodId, MethodMetaInfo> implicitsInfos;
+    private final ObjectMap<MethodId, MethodMetaInfo> truesInfos;
+    private final ObjectMap<MethodId, MethodMetaInfo> falsesInfos;
     private final ObjectMap<MethodId, MethodMetaInfo> methodsInfos;
 
     private final ObjectMap<ConstructorId, ConstructorMetaInfo> constructorsInfos;
@@ -78,6 +80,8 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         fieldsInfos = new StringMap<FieldMetaInfo>();
         explicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         implicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        truesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        falsesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
         category = _cat;
@@ -94,6 +98,8 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         fieldsInfos = new StringMap<FieldMetaInfo>();
         explicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         implicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        truesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        falsesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
         category = ClassCategory.VOID;
@@ -111,6 +117,8 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         fieldsInfos = new StringMap<FieldMetaInfo>();
         explicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         implicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        truesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        falsesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
         constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
         category = _cat;
@@ -125,6 +133,8 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
             StringMap<FieldMetaInfo> _fields,
                          ObjectMap<MethodId, MethodMetaInfo> _exlicits,
                          ObjectMap<MethodId, MethodMetaInfo> _imlicits,
+                         ObjectMap<MethodId, MethodMetaInfo> _trues,
+                         ObjectMap<MethodId, MethodMetaInfo> _falses,
                          ObjectMap<MethodId, MethodMetaInfo> _methods,
                          ObjectMap<ConstructorId, ConstructorMetaInfo> _constructors,
             ClassCategory _category,
@@ -140,6 +150,8 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         fieldsInfos = _fields;
         explicitsInfos = _exlicits;
         implicitsInfos = _imlicits;
+        truesInfos = _trues;
+        falsesInfos = _falses;
         methodsInfos = _methods;
         constructorsInfos = _constructors;
         category = _category;
@@ -154,6 +166,8 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
             StringList _memberTypes,StringMap<FieldMetaInfo> _fields,
                          ObjectMap<MethodId, MethodMetaInfo> _exlicits,
                          ObjectMap<MethodId, MethodMetaInfo> _imlicits,
+                         ObjectMap<MethodId, MethodMetaInfo> _trues,
+                         ObjectMap<MethodId, MethodMetaInfo> _falses,
                          ObjectMap<MethodId, MethodMetaInfo> _methods,
                          ObjectMap<ConstructorId, ConstructorMetaInfo> _constructors,
             ClassCategory _category, boolean _staticType, AccessEnum _access) {
@@ -166,6 +180,8 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         fieldsInfos = _fields;
         explicitsInfos = _exlicits;
         implicitsInfos = _imlicits;
+        truesInfos = _trues;
+        falsesInfos = _falses;
         methodsInfos = _methods;
         constructorsInfos = _constructors;
         category = _category;
@@ -305,6 +321,14 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
 
     public ObjectMap<MethodId, MethodMetaInfo> getImplicitsInfos() {
         return implicitsInfos;
+    }
+
+    public ObjectMap<MethodId, MethodMetaInfo> getTruesInfos() {
+        return truesInfos;
+    }
+
+    public ObjectMap<MethodId, MethodMetaInfo> getFalsesInfos() {
+        return falsesInfos;
     }
 
     public ObjectMap<MethodId, MethodMetaInfo> getMethodsInfos() {

@@ -363,8 +363,12 @@ public final class ExecutingUtil {
         infos_ = new ObjectMap<MethodId, MethodMetaInfo>();
         ObjectMap<MethodId, MethodMetaInfo> infosExplicits_;
         ObjectMap<MethodId, MethodMetaInfo> infosImplicits_;
+        ObjectMap<MethodId, MethodMetaInfo> infosTrues_;
+        ObjectMap<MethodId, MethodMetaInfo> infosFalses_;
         infosExplicits_ = new ObjectMap<MethodId, MethodMetaInfo>();
         infosImplicits_ = new ObjectMap<MethodId, MethodMetaInfo>();
+        infosTrues_ = new ObjectMap<MethodId, MethodMetaInfo>();
+        infosFalses_ = new ObjectMap<MethodId, MethodMetaInfo>();
         StringMap<FieldMetaInfo> infosFields_;
         infosFields_ = new StringMap<FieldMetaInfo>();
         ObjectMap<ConstructorId, ConstructorMetaInfo> infosConst_;
@@ -395,7 +399,8 @@ public final class ExecutingUtil {
                 String ret_ = method_.getImportedReturnType();
                 MethodId fid_;
                 String formCl_ = _type.getFullName();
-                boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL || method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST;
+                boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL || method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST
+                        || method_.getKind() == MethodKind.TRUE_OPERATOR  || method_.getKind() == MethodKind.FALSE_OPERATOR;
                 if (Templates.correctNbParameters(_name, _context)) {
                     fid_ = id_.reflectFormat(_name, _context);
                     formCl_ = _name;
@@ -408,7 +413,8 @@ public final class ExecutingUtil {
                 }
                 MethodMetaInfo met_ = new MethodMetaInfo(method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
                 met_.setFileName(fileName_);
-                met_.setExpCast(method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST);
+                met_.setExpCast(method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST
+                        || method_.getKind() == MethodKind.TRUE_OPERATOR  || method_.getKind() == MethodKind.FALSE_OPERATOR);
                 infos_.put(id_, met_);
                 if (method_.getKind() == MethodKind.EXPLICIT_CAST) {
                     met_ = new MethodMetaInfo(method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
@@ -421,6 +427,18 @@ public final class ExecutingUtil {
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
                     infosImplicits_.put(id_, met_);
+                }
+                if (method_.getKind() == MethodKind.TRUE_OPERATOR) {
+                    met_ = new MethodMetaInfo(method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
+                    met_.setFileName(fileName_);
+                    met_.setExpCast(true);
+                    infosTrues_.put(id_, met_);
+                }
+                if (method_.getKind() == MethodKind.FALSE_OPERATOR) {
+                    met_ = new MethodMetaInfo(method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
+                    met_.setFileName(fileName_);
+                    met_.setExpCast(true);
+                    infosFalses_.put(id_, met_);
                 }
             }
             if (b instanceof ExecAnnotationMethodBlock) {
@@ -496,13 +514,13 @@ public final class ExecutingUtil {
         boolean st_ = _type.isStaticType();
         if (_type instanceof ExecInterfaceBlock) {
             ClassMetaInfo cl_ = new ClassMetaInfo(_name, _type.getImportedDirectGenericSuperInterfaces(), format_, inners_,
-                    infosFields_, infosExplicits_,infosImplicits_,infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
+                    infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
             cl_.setFileName(fileName_);
             return cl_;
         }
         if (_type instanceof ExecAnnotationBlock) {
             ClassMetaInfo cl_ = new ClassMetaInfo(_name, new StringList(), format_, inners_,
-                    infosFields_, infosExplicits_,infosImplicits_,infos_, infosConst_, ClassCategory.ANNOTATION, st_, acc_);
+                    infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.ANNOTATION, st_, acc_);
             cl_.setFileName(fileName_);
             return cl_;
         }
@@ -515,7 +533,7 @@ public final class ExecutingUtil {
         String superClass_ = _type.getImportedDirectGenericSuperClass();
         StringList superInterfaces_ = _type.getImportedDirectGenericSuperInterfaces();
         ClassMetaInfo cl_ = new ClassMetaInfo(_name, superClass_, superInterfaces_, format_, inners_,
-                infosFields_, infosExplicits_,infosImplicits_,infos_, infosConst_, cat_, abs_, st_, final_, acc_);
+                infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, cat_, abs_, st_, final_, acc_);
         cl_.setFileName(fileName_);
         return cl_;
     }
@@ -578,6 +596,10 @@ public final class ExecutingUtil {
         infosExplicits_ = new ObjectMap<MethodId, MethodMetaInfo>();
         ObjectMap<MethodId, MethodMetaInfo> infosImplicits_;
         infosImplicits_ = new ObjectMap<MethodId, MethodMetaInfo>();
+        ObjectMap<MethodId, MethodMetaInfo> infosTrues_;
+        infosTrues_ = new ObjectMap<MethodId, MethodMetaInfo>();
+        ObjectMap<MethodId, MethodMetaInfo> infosFalses_;
+        infosFalses_ = new ObjectMap<MethodId, MethodMetaInfo>();
         for (StandardField f: _type.getFields().values()) {
             String ret_ = f.getImportedClassName();
             boolean staticElement_ = f.isStaticField();
@@ -612,14 +634,14 @@ public final class ExecutingUtil {
         }
         boolean st_ = _type.isStaticType();
         if (_type instanceof StandardInterface) {
-            return new ClassMetaInfo(_name, ((StandardInterface)_type).getDirectInterfaces(), "",inners_,infosFields_,infosExplicits_,infosImplicits_,infos_, infosConst_, ClassCategory.INTERFACE,st_,AccessEnum.PUBLIC);
+            return new ClassMetaInfo(_name, ((StandardInterface)_type).getDirectInterfaces(), "",inners_,infosFields_,infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.INTERFACE,st_,AccessEnum.PUBLIC);
         }
         ClassCategory cat_ = ClassCategory.CLASS;
         boolean abs_ = ((StandardClass) _type).isAbstractStdType();
         boolean final_ = ((StandardClass) _type).isFinalStdType();
         String superClass_ = ((StandardClass) _type).getSuperClass();
         StringList superInterfaces_ = _type.getDirectInterfaces();
-        return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infosExplicits_,infosImplicits_,infos_, infosConst_, cat_, abs_, st_, final_,AccessEnum.PUBLIC);
+        return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, cat_, abs_, st_, final_,AccessEnum.PUBLIC);
     }
 
     public static ArrayStruct newStackTraceElementArrayFull(ContextEl _cont) {

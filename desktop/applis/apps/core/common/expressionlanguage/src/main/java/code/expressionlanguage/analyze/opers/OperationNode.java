@@ -1015,6 +1015,72 @@ public abstract class OperationNode {
         }
         return getCustResultLambda(_conf, varargOnly_, methods_, _name, _argsClass);
     }
+
+    protected static ClassMethodIdReturn tryGetDeclaredTrue(ContextEl _conf, String _classes) {
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
+        fetchTrue(_conf,methods_,_classes);
+        CustList<MethodInfo> candidates_ = new CustList<MethodInfo>();
+        for (MethodInfo m: methods_) {
+            if (StringList.quickEq(
+                    StringExpUtil.getIdFromAllTypes(m.getClassName()),
+                    StringExpUtil.getIdFromAllTypes(_classes))){
+                candidates_.add(m);
+            }
+        }
+        if (candidates_.size() == 1) {
+            MethodInfo m_ = candidates_.first();
+            MethodId constraints_ = m_.getConstraints();
+            String baseClassName_ = m_.getClassName();
+            ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
+            MethodId id_ = m_.getFoundFormatted();
+            ClassMethodId idForm_ = new ClassMethodId(baseClassName_, id_);
+            res_.setId(idForm_);
+            res_.setRealId(constraints_);
+            res_.setRealClass(baseClassName_);
+            res_.setReturnType(m_.getReturnType());
+            res_.setAncestor(m_.getAncestor());
+            res_.setAbstractMethod(m_.isAbstractMethod());
+            res_.setStaticMethod(m_.isStatic());
+            MethodId cts_ = idForm_.getConstraints();
+            res_.setId(new ClassMethodId(idForm_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),cts_.shiftFirst(),cts_.isVararg())));
+            return res_;
+        }
+        return new ClassMethodIdReturn(false);
+    }
+
+    protected static ClassMethodIdReturn tryGetDeclaredFalse(ContextEl _conf, String _classes) {
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
+        fetchFalse(_conf,methods_,_classes);
+        CustList<MethodInfo> candidates_ = new CustList<MethodInfo>();
+        for (MethodInfo m: methods_) {
+            if (StringList.quickEq(
+                    StringExpUtil.getIdFromAllTypes(m.getClassName()),
+                    StringExpUtil.getIdFromAllTypes(_classes))){
+                candidates_.add(m);
+            }
+        }
+        if (candidates_.size() == 1) {
+            MethodInfo m_ = candidates_.first();
+            MethodId constraints_ = m_.getConstraints();
+            String baseClassName_ = m_.getClassName();
+            ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
+            MethodId id_ = m_.getFoundFormatted();
+            ClassMethodId idForm_ = new ClassMethodId(baseClassName_, id_);
+            res_.setId(idForm_);
+            res_.setRealId(constraints_);
+            res_.setRealClass(baseClassName_);
+            res_.setReturnType(m_.getReturnType());
+            res_.setAncestor(m_.getAncestor());
+            res_.setAbstractMethod(m_.isAbstractMethod());
+            res_.setStaticMethod(m_.isStatic());
+            MethodId cts_ = idForm_.getConstraints();
+            res_.setId(new ClassMethodId(idForm_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),cts_.shiftFirst(),cts_.isVararg())));
+            return res_;
+        }
+        return new ClassMethodIdReturn(false);
+    }
     protected static ClassMethodIdReturn tryGetDeclaredCast(ContextEl _conf, String _classes, ClassMethodId _uniqueId, ClassArgumentMatching[] _argsClass) {
         CustList<MethodInfo> methods_;
         ClassArgumentMatching cl_;
@@ -1167,20 +1233,53 @@ public abstract class OperationNode {
         }
         return getCustomIncrDecrOperatorOrMethod(_node,_operand,_op,_cont);
     }
-    static ClassMethodId getBinaryOperatorOrMethod(MethodOperation _node,
+    static OperatorConverter getBinaryOperatorOrMethod(MethodOperation _node,
                                                    ClassArgumentMatching _left, ClassArgumentMatching _right,
                                                    String _op, ContextEl _cont) {
         if (isNativeBinaryOperator(_left,_right,_op,_cont)) {
-            return null;
+            return new OperatorConverter();
         }
         CustList<CustList<MethodInfo>> listsBinary_ = new CustList<CustList<MethodInfo>>();
         CustList<MethodInfo> listBinary_ = new CustList<MethodInfo>();
-        for (String n:_left.getNames()) {
-            for (String o:_right.getNames()) {
-                fetchBinary(_cont, listBinary_,n,o);
+        ClassMethodId convert_ = null;
+        if (StringList.quickEq(_op,"&&")) {
+            CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
+            for (String n:_left.getNames()) {
+                fetchFalse(_cont,listTrue_,n);
             }
+            ClassMethodIdReturn clMethImp_ = getCustCastResult(_cont, listTrue_,  _left);
+            if (clMethImp_.isFoundMethod()) {
+                convert_ = new ClassMethodId(clMethImp_.getId().getClassName(),clMethImp_.getRealId());
+                for (String n:_left.getNames()) {
+                    for (String o:_right.getNames()) {
+                        fetchBinary(_cont, listBinary_,n,o);
+                    }
+                }
+                listsBinary_.add(listBinary_);
+            }
+        } else if (StringList.quickEq(_op,"||")) {
+            CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
+            for (String n:_left.getNames()) {
+                fetchTrue(_cont,listTrue_,n);
+            }
+            ClassMethodIdReturn clMethImp_ = getCustCastResult(_cont, listTrue_,  _left);
+            if (clMethImp_.isFoundMethod()) {
+                convert_ = new ClassMethodId(clMethImp_.getId().getClassName(),clMethImp_.getRealId());
+                for (String n:_left.getNames()) {
+                    for (String o:_right.getNames()) {
+                        fetchBinary(_cont, listBinary_,n,o);
+                    }
+                }
+                listsBinary_.add(listBinary_);
+            }
+        } else {
+            for (String n:_left.getNames()) {
+                for (String o:_right.getNames()) {
+                    fetchBinary(_cont, listBinary_,n,o);
+                }
+            }
+            listsBinary_.add(listBinary_);
         }
-        listsBinary_.add(listBinary_);
         ClassMethodIdReturn clMethImp_ = getCustResult(_cont, false, true, -1, listsBinary_, _op, "", _left,_right);
         if (clMethImp_.isFoundMethod()) {
             CustList<OperationNode> chidren_ = _node.getChildrenNodes();
@@ -1193,11 +1292,19 @@ public abstract class OperationNode {
             MethodId id_ = clMethImp_.getRealId();
             MethodId realId_ = clMethImp_.getRealId();
             InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
-            return new ClassMethodId(foundClass_, id_);
+            OperatorConverter op_ = new OperatorConverter();
+            op_.setSymbol(new ClassMethodId(foundClass_, id_));
+            op_.setTest(convert_);
+            return op_;
         }
-        ClassMethodId clId_ = getCustomOperatorOrMethod(_node, _op, _cont);
-        if (clId_ != null) {
-            return clId_;
+        if (!listsBinary_.isEmpty()) {
+            ClassMethodId clId_ = getCustomOperatorOrMethod(_node, _op, _cont);
+            if (clId_ != null) {
+                OperatorConverter op_ = new OperatorConverter();
+                op_.setSymbol(clId_);
+                op_.setTest(convert_);
+                return op_;
+            }
         }
         CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
         if (StringList.quickEq(_op,"+")
@@ -1232,6 +1339,11 @@ public abstract class OperationNode {
             group_.add(new ParamReturn(_cont.getStandards().getAliasPrimBoolean(),_cont.getStandards().getAliasPrimBoolean()));
             group_.add(new ParamReturn(_cont.getStandards().getAliasPrimInteger(),_cont.getStandards().getAliasPrimInteger()));
             group_.add(new ParamReturn(_cont.getStandards().getAliasPrimLong(),_cont.getStandards().getAliasPrimLong()));
+            groups_.add(group_);
+        } else if (StringList.quickEq(_op,"&&")
+                ||StringList.quickEq(_op,"||")) {
+            CustList<ParamReturn> group_ = new CustList<ParamReturn>();
+            group_.add(new ParamReturn(_cont.getStandards().getAliasPrimBoolean(),_cont.getStandards().getAliasPrimBoolean()));
             groups_.add(group_);
         } else if (StringList.quickEq(_op,"<<")
                 ||StringList.quickEq(_op,">>")
@@ -1273,10 +1385,12 @@ public abstract class OperationNode {
                 MethodId id_ = clMeth_.getRealId();
                 MethodId realId_ = clMeth_.getRealId();
                 InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
-                return new ClassMethodId(foundClass_, id_);
+                OperatorConverter op_ = new OperatorConverter();
+                op_.setSymbol(new ClassMethodId(foundClass_, id_));
+                return op_;
             }
         }
-        return null;
+        return new OperatorConverter();
     }
     private static ClassMethodId getCustomOperatorOrMethod(MethodOperation _node, String _op, ContextEl _cont) {
         StringList bounds_ = _cont.getAnalyzing().getTypesWithInnerOperators();
@@ -1408,6 +1522,9 @@ public abstract class OperationNode {
             if (PrimitiveTypeUtil.isIntOrderClass(_left,_right,_cont)) {
                 return true;
             }
+            return _left.isBoolType(_cont)&&_right.isBoolType(_cont);
+        }
+        if (StringList.quickEq(_op,"&&") || StringList.quickEq(_op,"||")) {
             return _left.isBoolType(_cont)&&_right.isBoolType(_cont);
         }
         if (StringList.quickEq(_op,"<<") || StringList.quickEq(_op,">>")
@@ -1650,6 +1767,50 @@ public abstract class OperationNode {
             String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
             CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getUnary().getVal(supId_);
             fetchImproveOperators(_conf, methods_,formatted_, castsFrom_);
+        }
+    }
+    private static void fetchTrue(ContextEl _conf, CustList<MethodInfo> methods_, String _id) {
+        if (!ExplicitOperation.customCast(_id)) {
+            return;
+        }
+        String di_ = StringExpUtil.getIdFromAllTypes(_id);
+        ExecRootBlock r_ = _conf.getClasses().getClassBody(di_);
+        if (r_ == null) {
+            return;
+        }
+        StringList allClasses_ = new StringList(r_.getGenericString());
+        allClasses_.addAllElts(r_.getAllGenericSuperTypes());
+        String glClass_ = _conf.getAnalyzing().getGlobalClass();
+        for (String s: allClasses_) {
+            String formatted_ = Templates.quickFormat(_id,s,_conf);
+            String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
+            StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
+            superTypesBaseAncBis_.addEntry(supId_,supId_);
+            CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getTrues().getVal(supId_);
+            RootBlock t_ = _conf.getAnalyzing().getAnaClassBody(di_);
+            fetchCastMethods(t_,_conf,  null, glClass_, methods_, _conf.getStandards().getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_);
+        }
+    }
+    private static void fetchFalse(ContextEl _conf, CustList<MethodInfo> methods_, String _id) {
+        if (!ExplicitOperation.customCast(_id)) {
+            return;
+        }
+        String di_ = StringExpUtil.getIdFromAllTypes(_id);
+        ExecRootBlock r_ = _conf.getClasses().getClassBody(di_);
+        if (r_ == null) {
+            return;
+        }
+        StringList allClasses_ = new StringList(r_.getGenericString());
+        allClasses_.addAllElts(r_.getAllGenericSuperTypes());
+        String glClass_ = _conf.getAnalyzing().getGlobalClass();
+        for (String s: allClasses_) {
+            String formatted_ = Templates.quickFormat(_id,s,_conf);
+            String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
+            StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
+            superTypesBaseAncBis_.addEntry(supId_,supId_);
+            CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getFalses().getVal(supId_);
+            RootBlock t_ = _conf.getAnalyzing().getAnaClassBody(di_);
+            fetchCastMethods(t_,_conf,  null, glClass_, methods_, _conf.getStandards().getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_);
         }
     }
     private static CustList<CustList<MethodInfo>>

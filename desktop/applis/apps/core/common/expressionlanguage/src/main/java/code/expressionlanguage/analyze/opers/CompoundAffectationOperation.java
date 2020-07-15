@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -88,10 +89,14 @@ public final class CompoundAffectationOperation extends MethodOperation {
         op_ = op_.substring(0, op_.length() - 1);
         ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
         ClassArgumentMatching second_ = right_.getResultClass();
-        ClassMethodId cl_ = getBinaryOperatorOrMethod(this,clMatchLeft_,second_, op_, _conf);
-        if (cl_ != null) {
-            if (!PrimitiveTypeUtil.isPrimitive(cl_.getClassName(),_conf)) {
-                classMethodId = cl_;
+        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,clMatchLeft_,second_, op_, _conf);
+        if (cl_.getSymbol() != null) {
+            ClassMethodId test_ = cl_.getTest();
+            if (test_ != null) {
+                clMatchLeft_.getImplicitsTest().add(test_);
+            }
+            if (!PrimitiveTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),_conf)) {
+                classMethodId = cl_.getSymbol();
             }
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());

@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -62,10 +63,10 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         ClassArgumentMatching first_ = chidren_.first().getResultClass();
         ClassArgumentMatching second_ = chidren_.last().getResultClass();
         String op_ = getOperations().getOperators().firstValue().trim();
-        ClassMethodId cl_ = getBinaryOperatorOrMethod(this,first_,second_, op_, _conf);
-        if (cl_ != null) {
-            if (!PrimitiveTypeUtil.isPrimitive(cl_.getClassName(),_conf)) {
-                classMethodId = cl_;
+        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,first_,second_, op_, _conf);
+        if (cl_.getSymbol() != null) {
+            if (!PrimitiveTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),_conf)) {
+                classMethodId = cl_.getSymbol();
             }
             return;
         }

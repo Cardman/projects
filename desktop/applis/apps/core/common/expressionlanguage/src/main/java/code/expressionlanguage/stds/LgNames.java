@@ -197,6 +197,8 @@ public abstract class LgNames {
     public static final String GET_OPERATORS = "GetOperators";
     public static final String GET_DECLARED_EXPLICITS = "GetDeclaredExplicits";
     public static final String GET_DECLARED_IMPLICITS = "GetDeclaredImplicits";
+    public static final String GET_DECLARED_TRUE_OPERATORS = "GetDeclaredTrueOperators";
+    public static final String GET_DECLARED_FALSE_OPERATORS = "GetDeclaredFalseOperators";
     public static final String GET_DECLARED_METHODS = "GetDeclaredMethods";
     public static final String GET_DECLARED_STATIC_METHODS = "GetDeclaredStaticMethods";
     public static final String GET_DECLARED_CONSTRUCTORS = "GetDeclaredConstructors";
@@ -463,6 +465,8 @@ public abstract class LgNames {
                 new KeyValueMemberName(GET_DECLARED_FIELDS,getAliasGetDeclaredFields()),
                 new KeyValueMemberName(GET_DECLARED_EXPLICITS,getAliasGetDeclaredExplicits()),
                 new KeyValueMemberName(GET_DECLARED_IMPLICITS,getAliasGetDeclaredImplicits()),
+                new KeyValueMemberName(GET_DECLARED_TRUE_OPERATORS,getAliasGetDeclaredTrueOperators()),
+                new KeyValueMemberName(GET_DECLARED_FALSE_OPERATORS,getAliasGetDeclaredFalseOperators()),
                 new KeyValueMemberName(GET_DECLARED_METHODS,getAliasGetDeclaredMethods()),
                 new KeyValueMemberName(GET_DECLARED_STATIC_METHODS,getAliasGetDeclaredStaticMethods()),
                 new KeyValueMemberName(GET_ENCLOSING_TYPE,getAliasGetEnclosingType()),
@@ -2132,6 +2136,22 @@ public abstract class LgNames {
 
     public void setAliasGetDeclaredImplicits(String aliasGetDeclaredImplicits) {
         reflect.setAliasGetDeclaredImplicits(aliasGetDeclaredImplicits);
+    }
+
+    public String getAliasGetDeclaredTrueOperators() {
+        return reflect.getAliasGetDeclaredTrueOperators();
+    }
+
+    public void setAliasGetDeclaredTrueOperators(String aliasGetDeclaredTrueOperators) {
+        reflect.setAliasGetDeclaredTrueOperators(aliasGetDeclaredTrueOperators);
+    }
+
+    public String getAliasGetDeclaredFalseOperators() {
+        return reflect.getAliasGetDeclaredFalseOperators();
+    }
+
+    public void setAliasGetDeclaredFalseOperators(String aliasGetDeclaredFalseOperators) {
+        reflect.setAliasGetDeclaredFalseOperators(aliasGetDeclaredFalseOperators);
     }
 
     public String getAliasGetDeclaredMethods() {

@@ -554,6 +554,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         CustList<MethodHeaderInfo> implicit_ = new CustList<MethodHeaderInfo>();
         CustList<MethodHeaderInfo> implicitId_ = new CustList<MethodHeaderInfo>();
         CustList<MethodHeaderInfo> implicitFrom_ = new CustList<MethodHeaderInfo>();
+        CustList<MethodHeaderInfo> true_ = new CustList<MethodHeaderInfo>();
+        CustList<MethodHeaderInfo> false_ = new CustList<MethodHeaderInfo>();
         for (Block b: bl_) {
             if (!(b instanceof NamedFunctionBlock)) {
                 continue;
@@ -622,6 +624,66 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         }
                     }
                     nbOperators++;
+                } else if (m_.getKind() == MethodKind.TRUE_OPERATOR || m_.getKind() == MethodKind.FALSE_OPERATOR) {
+                    if (m_.getParametersTypes().size() != 1) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadParams(),
+                                m_.getSignature(_context));
+                        _context.addError(badMeth_);
+                        m_.addNameErrors(badMeth_);
+                    } else if (!StringList.quickEq(m_.getImportedReturnType(),stds_.getAliasPrimBoolean())) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
+                                m_.getSignature(_context),
+                                _exec.getGenericString());
+                        _context.addError(badMeth_);
+                        m_.addNameErrors(badMeth_);
+                    } else if (!StringList.quickEq(m_.getImportedParametersTypes().first(),_exec.getGenericString())) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
+                                m_.getSignature(_context),
+                                _exec.getGenericString());
+                        _context.addError(badMeth_);
+                        m_.addNameErrors(badMeth_);
+                    } else if (!m_.isStaticMethod()) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadMethodModifier(),
+                                m_.getSignature(_context));
+                        _context.addError(badMeth_);
+                        m_.addNameErrors(badMeth_);
+                    } else if (m_.isVarargs()) {
+                        int r_ = m_.getNameOffset();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        badMeth_.buildError(_context.getAnalysisMessages().getBadMethodVararg(),
+                                m_.getSignature(_context));
+                        _context.addError(badMeth_);
+                        m_.addNameErrors(badMeth_);
+                    } else {
+                        if (m_.getKind() == MethodKind.TRUE_OPERATOR) {
+                            true_.add(new MethodHeaderInfo(m_.getId(),m_.getImportedReturnType(), m_.getAccess()));
+                        } else {
+                            false_.add(new MethodHeaderInfo(m_.getId(),m_.getImportedReturnType(), m_.getAccess()));
+                        }
+                    }
                 } else if (m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST) {
                     if (m_.getParametersTypes().size() != 1) {
                         int r_ = m_.getNameOffset();
@@ -780,7 +842,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
             if (method_ instanceof OverridableBlock) {
                 OverridableBlock m_ = (OverridableBlock) method_;
-                if (m_.getKind() == MethodKind.TO_STRING || m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.OPERATOR || m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST) {
+                if (m_.getKind() == MethodKind.TO_STRING || m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.OPERATOR || m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST
+                        || m_.getKind() == MethodKind.TRUE_OPERATOR || m_.getKind() == MethodKind.FALSE_OPERATOR) {
                     MethodId id_ = m_.getId();
                     if (ContextUtil.isEnumType(_exec)) {
                         String valueOf_ = stds_.getAliasEnumPredValueOf();
@@ -942,6 +1005,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         _context.getAnalyzing().getImplicitCastMethods().addEntry(getFullName(),implicit_);
         _context.getAnalyzing().getImplicitIdCastMethods().addEntry(getFullName(),implicitId_);
         _context.getAnalyzing().getImplicitFromCastMethods().addEntry(getFullName(),implicitFrom_);
+        _context.getAnalyzing().getTrues().addEntry(getFullName(),true_);
+        _context.getAnalyzing().getFalses().addEntry(getFullName(),false_);
         validateIndexers(_context, indexersGet_, indexersSet_);
     }
 

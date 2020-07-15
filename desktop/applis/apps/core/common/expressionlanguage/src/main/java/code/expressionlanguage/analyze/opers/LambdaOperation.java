@@ -130,12 +130,18 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         StringList str_;
         String name_ = _name;
         if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordExplicit())
-                || StringList.quickEq(name_,_conf.getKeyWords().getKeyWordCast())) {
+                || StringList.quickEq(name_,_conf.getKeyWords().getKeyWordCast())
+                || StringList.quickEq(name_,_conf.getKeyWords().getKeyWordTrue())
+                || StringList.quickEq(name_,_conf.getKeyWords().getKeyWordFalse())) {
             String exp_;
             if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordExplicit())){
                 exp_ = _conf.getKeyWords().getKeyWordExplicit();
-            } else {
+            } else if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordCast())) {
                 exp_ = _conf.getKeyWords().getKeyWordCast();
+            } else if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordTrue())){
+                exp_ = _conf.getKeyWords().getKeyWordTrue();
+            } else {
+                exp_ = _conf.getKeyWords().getKeyWordFalse();
             }
             int i_ = 2;
             ClassMethodId feed_ = null;
@@ -143,6 +149,42 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String keyWordId_ = keyWords_.getKeyWordId();
             int offset_ = className.indexOf('(')+1;
             offset_ += StringExpUtil.getOffset(_args.first());
+            if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordTrue())
+                || StringList.quickEq(name_,_conf.getKeyWords().getKeyWordFalse())) {
+                String type_ = ResolvingImportTypes.resolveCorrectTypeAccessible(_conf,offset_,_fromType);
+                partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+                ClassMethodIdReturn resMethod_;
+                if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordTrue())){
+                    resMethod_ = tryGetDeclaredTrue(_conf, type_);
+                } else {
+                    resMethod_ = tryGetDeclaredFalse(_conf, type_);
+                }
+                if (!resMethod_.isFoundMethod()) {
+                    int rc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + offset_;
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    un_.setIndexFile(rc_);
+                    //_in len
+                    un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                            type_);
+                    _conf.getAnalyzing().getLocalizer().addError(un_);
+                    getErrs().add(un_.getBuiltError());
+                    setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
+                    return;
+                }
+                expCast = true;
+                String foundClass_ = resMethod_.getRealClass();
+                foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
+                foundClass = resMethod_.getId().getClassName();
+                MethodId idCt_ = resMethod_.getRealId();
+                method = new ClassMethodId(foundClass_, idCt_);
+                ancestor = resMethod_.getAncestor();
+                abstractMethod = resMethod_.isAbstractMethod();
+                shiftArgument = false;
+                String fct_ = formatReturn(foundClass, _conf, resMethod_, false);
+                setResultClass(new ClassArgumentMatching(fct_));
+                return;
+            }
             String type_ = ResolvingImportTypes.resolveCorrectType(_conf,offset_,_fromType);
             partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             MethodId argsRes_;

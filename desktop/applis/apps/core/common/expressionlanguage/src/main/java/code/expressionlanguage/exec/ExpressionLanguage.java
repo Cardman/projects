@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.TwoStepsArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -128,8 +129,13 @@ public final class ExpressionLanguage {
         arguments_ = new IdMap<ExecOperationNode,ArgumentsPair>();
         for (ExecOperationNode o: operations) {
             boolean std_ = true;
-            if (o instanceof CallExecSimpleOperation) {
-                if (((CallExecSimpleOperation) o).getSettable() instanceof ExecCustArrOperation) {
+            if (o instanceof ExecCompoundAffectationOperation) {
+                if (((ExecCompoundAffectationOperation) o).getSettable() instanceof ExecCustArrOperation) {
+                    std_ = false;
+                }
+            }
+            if (o instanceof ExecSemiAffectationOperation) {
+                if (((ExecSemiAffectationOperation) o).getSettable() instanceof ExecCustArrOperation) {
                     std_ = false;
                 }
             }
@@ -140,8 +146,15 @@ public final class ExpressionLanguage {
                 a_ = new TwoStepsArgumentsPair();
             }
             a_.setImplicits(o.getResultClass().getImplicits());
+            a_.setImplicitsTest(o.getResultClass().getImplicitsTest());
             if (o instanceof ExecCompoundAffectationOperation) {
                 ClassMethodId conv_ = ((ExecCompoundAffectationOperation) o).getConverter();
+                if (conv_ != null) {
+                    a_.setImplicitsCompound(new CustList<ClassMethodId>(conv_));
+                }
+            }
+            if (o instanceof ExecQuickOperation) {
+                ClassMethodId conv_ = ((ExecQuickOperation) o).getConverter();
                 if (conv_ != null) {
                     a_.setImplicitsCompound(new CustList<ClassMethodId>(conv_));
                 }
@@ -175,14 +188,29 @@ public final class ExpressionLanguage {
             if (_cont.callsOrException()) {
                 return;
             }
-            index = ExecOperationNode.getNextIndex(currentOper, _arg.getStruct());
+            getNextIndex();
             return;
         }
         currentOper.setSimpleArgument(_arg, _cont, arguments);
         if (_cont.callsOrException()) {
             return;
         }
-        index = ExecOperationNode.getNextIndex(currentOper, _arg.getStruct());
+        getNextIndex();
+    }
+
+    private void getNextIndex() {
+        ArgumentsPair value_ = arguments.getValue(currentOper.getOrder());
+        Argument res_ = value_.getArgument();
+        Struct v_ = res_.getStruct();
+        if (currentOper.getNextSibling() != null&&value_.getArgumentTest()){
+            if (currentOper.getParent() instanceof ExecAndOperation){
+                v_ = BooleanStruct.of(false);
+            }
+            if (currentOper.getParent() instanceof ExecOrOperation){
+                v_ = BooleanStruct.of(true);
+            }
+        }
+        index = ExecOperationNode.getNextIndex(currentOper, v_);
     }
 
     public boolean isFinished() {

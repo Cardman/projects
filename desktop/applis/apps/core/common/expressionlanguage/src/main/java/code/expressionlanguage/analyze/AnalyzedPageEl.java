@@ -749,6 +749,14 @@ public final class AnalyzedPageEl {
         return headers.getImplicitFromCastMethods();
     }
 
+    public StringMap<CustList<MethodHeaderInfo>> getTrues() {
+        return headers.getTrues();
+    }
+
+    public StringMap<CustList<MethodHeaderInfo>> getFalses() {
+        return headers.getFalses();
+    }
+
     public StringList getTypesWithInnerOperators() {
         return headers.getTypesWithInnerOperators();
     }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -50,9 +51,9 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         CustList<OperationNode> chidren_ = getChildrenNodes();
         ClassArgumentMatching first_ = chidren_.first().getResultClass();
         ClassArgumentMatching second_ = chidren_.last().getResultClass();
-        ClassMethodId cl_ = getBinaryOperatorOrMethod(this,first_,second_, custOp_, _conf);
-        if (cl_ != null) {
-            classMethodId = cl_;
+        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,first_,second_, custOp_, _conf);
+        if (cl_.getSymbol() != null) {
+            classMethodId = cl_.getSymbol();
             return;
         }
         LgNames stds_ = _conf.getStandards();

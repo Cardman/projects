@@ -186,6 +186,19 @@ public abstract class ExecOperationNode {
         return mloc_;
     }
 
+    static int processConverter(ContextEl _conf, Argument _right, CustList<ClassMethodId> implicits_, int indexImplicit_) {
+        ClassMethodId c = implicits_.get(indexImplicit_);
+        DefaultExiting ex_ = new DefaultExiting(_conf);
+        CustList<Argument> args_ = new CustList<Argument>(_right);
+        AbstractPageEl last_ = _conf.getLastPage();
+        String cl_ = c.getClassName();
+        MethodId id_ = c.getConstraints();
+        if (ExecExplicitOperation.checkCustomOper(ex_, id_, args_, cl_, last_,_conf,_right)) {
+            return indexImplicit_;
+        }
+        return indexImplicit_ +1;
+    }
+
     public void setParent(ExecMethodOperation _parent) {
         parent = _parent;
     }
@@ -628,6 +641,7 @@ public abstract class ExecOperationNode {
             }
         }
         if (par_ instanceof ExecQuickOperation) {
+
             ExecQuickOperation q_ = (ExecQuickOperation) par_;
             if (q_.match(_value)) {
                 return par_.getOrder();
@@ -685,21 +699,26 @@ public abstract class ExecOperationNode {
         CustList<ClassMethodId> implicits_ = pair_.getImplicits();
         int indexImplicit_ = pair_.getIndexImplicit();
         if (implicits_.isValidIndex(indexImplicit_)) {
-            ClassMethodId c = implicits_.get(indexImplicit_);
-            DefaultExiting ex_ = new DefaultExiting(_conf);
-            CustList<Argument> args_ = new CustList<Argument>(_argument);
-            AbstractPageEl last_ = _conf.getLastPage();
-            String cl_ = c.getClassName();
-            MethodId id_ = c.getConstraints();
-            if (ExecExplicitOperation.checkCustomOper(ex_, id_, args_, cl_, last_,_conf,_argument)) {
-                return;
-            }
-            pair_.setIndexImplicit(indexImplicit_ +1);
+            pair_.setIndexImplicit(processConverter(_conf,_argument,implicits_,indexImplicit_));
             return;
         }
-        Argument arg_ = _argument;
+        CustList<ClassMethodId> implicitsTest_ = pair_.getImplicitsTest();
+        int indexImplicitTest_ = pair_.getIndexImplicitTest();
+        if (implicitsTest_.isValidIndex(indexImplicitTest_)) {
+            pair_.setArgumentBeforeTest(_argument);
+            pair_.setIndexImplicitTest(processConverter(_conf,_argument,implicitsTest_,indexImplicitTest_));
+            return;
+        }
+        Argument before_;
+        if (pair_.getArgumentBeforeTest() != null) {
+            before_ = pair_.getArgumentBeforeTest();
+            pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+        } else {
+            before_ = _argument;
+        }
+        Argument arg_ = before_;
         if (resultClass.isConvertToString()){
-            arg_ = processString(_argument,_conf);
+            arg_ = processString(before_,_conf);
             if (_conf.getCallingState() != null) {
                 return;
             }

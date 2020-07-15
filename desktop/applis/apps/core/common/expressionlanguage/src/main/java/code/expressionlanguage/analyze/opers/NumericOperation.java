@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -60,10 +61,10 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         ClassArgumentMatching c_ = chidren_.last().getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
         okNum = true;
-        ClassMethodId cl_ = getBinaryOperatorOrMethod(this,a_,c_, ops_.firstValue(), _conf);
-        if (cl_ != null) {
-            if (!PrimitiveTypeUtil.isPrimitive(cl_.getClassName(),_conf)) {
-                classMethodId = cl_;
+        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,a_,c_, ops_.firstValue(), _conf);
+        if (cl_.getSymbol() != null) {
+            if (!PrimitiveTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),_conf)) {
+                classMethodId = cl_.getSymbol();
             }
             return;
         }

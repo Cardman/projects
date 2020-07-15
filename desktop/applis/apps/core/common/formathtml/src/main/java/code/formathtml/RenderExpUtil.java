@@ -15,15 +15,9 @@ import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.exec.RendCalculableOperation;
-import code.formathtml.exec.RendAffectationOperation;
-import code.formathtml.exec.RendCompoundAffectationOperation;
-import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.exec.RendMethodOperation;
-import code.formathtml.exec.RendPossibleIntermediateDotted;
-import code.formathtml.exec.RendSemiAffectationOperation;
-import code.formathtml.exec.InternGlobalOperation;
+import code.formathtml.exec.*;
 import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
@@ -393,6 +387,7 @@ public final class RenderExpUtil {
             ArgumentsPair a_ = new ArgumentsPair();
             a_.setArgument(o.getArgument());
             a_.setImplicits(o.getResultClass().getImplicits());
+            a_.setImplicitsTest(o.getResultClass().getImplicitsTest());
             if (o instanceof RendPossibleIntermediateDotted) {
                 a_.setPreviousArgument(((RendPossibleIntermediateDotted)o).getPreviousArgument());
             }
@@ -425,6 +420,14 @@ public final class RenderExpUtil {
             }
             Argument res_ = pair_.getArgument();
             Struct st_ = res_.getStruct();
+            if (o.getNextSibling() != null&&pair_.getArgumentTest()){
+                if (o.getParent() instanceof RendAndOperation){
+                    st_ = BooleanStruct.of(false);
+                }
+                if (o.getParent() instanceof RendOrOperation){
+                    st_ = BooleanStruct.of(true);
+                }
+            }
             fr_ = RendDynOperationNode.getNextIndex(o, st_);
         }
         return arguments_;

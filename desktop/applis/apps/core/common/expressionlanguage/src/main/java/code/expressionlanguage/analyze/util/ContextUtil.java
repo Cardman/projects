@@ -147,7 +147,9 @@ public final class ContextUtil {
     public static boolean isExplicitFct(FunctionBlock _fct) {
         return _fct instanceof OverridableBlock
                 && (((OverridableBlock) _fct).getKind() == MethodKind.EXPLICIT_CAST
-        ||((OverridableBlock) _fct).getKind() == MethodKind.IMPLICIT_CAST);
+        ||((OverridableBlock) _fct).getKind() == MethodKind.IMPLICIT_CAST
+        ||((OverridableBlock) _fct).getKind() == MethodKind.TRUE_OPERATOR
+                ||((OverridableBlock) _fct).getKind() == MethodKind.FALSE_OPERATOR);
     }
 
     public static boolean idDisjointToken(ContextEl _cont, String _id) {

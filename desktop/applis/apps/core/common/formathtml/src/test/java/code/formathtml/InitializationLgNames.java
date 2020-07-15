@@ -247,6 +247,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetDeclaredMethods("getDeclaredMethods");
         _lgNames.setAliasGetDeclaredExplicits("getDeclaredExplicits");
         _lgNames.setAliasGetDeclaredImplicits("getDeclaredImplicits");
+        _lgNames.setAliasGetDeclaredTrueOperators("getDeclaredTrueOperators");
+        _lgNames.setAliasGetDeclaredFalseOperators("getDeclaredFalseOperators");
         _lgNames.setAliasGetDeclaredStaticMethods("getDeclaredStaticMethods");
         _lgNames.setAliasMakeGeneric("makeGeneric");
         _lgNames.setAliasGetAllClasses("getAllClasses");

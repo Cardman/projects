@@ -579,6 +579,15 @@ public abstract class RendDynOperationNode {
             }
             out_ = res_;
         }
+        CustList<ClassMethodId> implicitsTest_ = pair_.getImplicitsTest();
+        if (!implicitsTest_.isEmpty()) {
+            pair_.setArgumentBeforeTest(out_);
+            Argument res_ = tryConvert(implicitsTest_.first(), out_, _conf);
+            if (res_ == null) {
+                return;
+            }
+            pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(res_.getStruct())));
+        }
         if (resultClass.isConvertToString()){
             out_ = processString(_argument,_conf);
             ContextEl ctx_ = _conf.getContext();

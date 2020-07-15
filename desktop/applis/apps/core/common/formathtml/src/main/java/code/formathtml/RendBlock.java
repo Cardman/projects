@@ -227,7 +227,7 @@ public abstract class RendBlock implements AnalyzedBlock {
             if (_html.charAt(i_) == ENCODED) {
                 int beginEscaped_ = i_;
                 i_++;
-                while (_html.charAt(i_) != END_ESCAPED) {
+                while (i_ < _html.length()&&_html.charAt(i_) != END_ESCAPED) {
                     i_++;
                 }
                 indexes_.put(beginEscaped_ - _beginNode - delta_, i_ - beginEscaped_);

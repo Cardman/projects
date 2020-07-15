@@ -84,7 +84,8 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
-        if (kind == MethodKind.EXPLICIT_CAST || kind == MethodKind.IMPLICIT_CAST) {
+        if (kind == MethodKind.EXPLICIT_CAST || kind == MethodKind.IMPLICIT_CAST
+                ||kind == MethodKind.TRUE_OPERATOR || kind == MethodKind.FALSE_OPERATOR) {
             pTypes_.add(getImportedReturnType());
         }
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {

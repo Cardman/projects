@@ -1833,7 +1833,8 @@ public final class ClassesUtil {
     }
 
     private static boolean isStdOrExplicit(OverridableBlock method_) {
-        return method_.getKind() == MethodKind.STD_METHOD || method_.getKind() == MethodKind.TO_STRING || method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST;
+        return method_.getKind() == MethodKind.STD_METHOD || method_.getKind() == MethodKind.TO_STRING || method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST
+                || method_.getKind() == MethodKind.TRUE_OPERATOR || method_.getKind() == MethodKind.FALSE_OPERATOR;
     }
 
     private static void processValueParam(ContextEl _context, AnalyzedPageEl _page, ExecRootBlock _cl, OverridableBlock _method) {
