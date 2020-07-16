@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.util.ToStringMethodHeader;
 import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.StringExpUtil;
@@ -765,10 +766,34 @@ public abstract class ExecOperationNode {
         if (n_ instanceof ExecOperationNode) {
             _nodes.getValue(((ExecOperationNode)n_).getOrder()).setPreviousArgument(arg_);
         }
-        _nodes.getValue(getOrder()).setArgument(arg_);
-        _conf.getCoverage().passBlockOperation(_conf, this,arg_,!_possiblePartial);
+        ArgumentsPair pair_ = _nodes.getValue(getOrder());
+        pair_.setArgument(arg_);
+        Struct valueStruct_ = getValueStruct(this, pair_);
+        _conf.getCoverage().passBlockOperation(_conf, this,new Argument(valueStruct_),!_possiblePartial);
     }
-
+    private static Struct getValueStruct(ExecOperationNode _oper, ArgumentsPair _v) {
+        Argument res_ = _v.getArgument();
+        Struct v_ = res_.getStruct();
+        if (_oper.getNextSibling() != null&&!_oper.getResultClass().getImplicitsTest().isEmpty()){
+            ExecMethodOperation par_ = _oper.getParent();
+            if (par_ instanceof ExecAndOperation){
+                v_ = BooleanStruct.of(!_v.isArgumentTest());
+            }
+            if (par_ instanceof ExecOrOperation){
+                v_ = BooleanStruct.of(_v.isArgumentTest());
+            }
+            if (par_ instanceof ExecCompoundAffectationOperation){
+                ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
+                if (StringList.quickEq(p_.getOper(),"&&=")) {
+                    v_ = BooleanStruct.of(!_v.isArgumentTest());
+                }
+                if (StringList.quickEq(p_.getOper(),"||=")) {
+                    v_ = BooleanStruct.of(_v.isArgumentTest());
+                }
+            }
+        }
+        return v_;
+    }
     public static Argument processString(Argument _argument, ContextEl _conf) {
         Argument out_ = new Argument();
         out_.setStruct(_argument.getStruct());

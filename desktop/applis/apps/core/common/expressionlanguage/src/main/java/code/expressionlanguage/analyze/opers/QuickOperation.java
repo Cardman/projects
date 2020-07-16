@@ -24,6 +24,7 @@ public abstract class QuickOperation extends MethodOperation {
 
     private boolean okNum;
     private ClassMethodId classMethodId;
+    private ClassMethodId test;
     private ClassMethodId converter;
     private CustList<PartOffset> errFirst = new CustList<PartOffset>();
     private CustList<PartOffset> errSecond = new CustList<PartOffset>();
@@ -86,6 +87,7 @@ public abstract class QuickOperation extends MethodOperation {
             if (test_ == null) {
                 return;
             }
+            test = test_;
             leftRes_.getImplicitsTest().add(test_);
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
@@ -163,6 +165,10 @@ public abstract class QuickOperation extends MethodOperation {
 
     public ClassMethodId getClassMethodId() {
         return classMethodId;
+    }
+
+    public ClassMethodId getTest() {
+        return test;
     }
 
     public ClassMethodId getConverter() {

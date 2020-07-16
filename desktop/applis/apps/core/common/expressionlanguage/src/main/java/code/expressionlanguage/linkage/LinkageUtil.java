@@ -2040,7 +2040,7 @@ public final class LinkageUtil {
                     id_ = new MethodId(MethodAccessKind.INSTANCE,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
                 }
                 int offsetEnd_ = sum_ + val_.getIndexInEl();
-                addParts(_cont,currentFileName_,className_,id_,offsetEnd_,1,val_.getErrs(),_parts);
+                addParts(_cont,currentFileName_,className_,id_,offsetEnd_,1,val_.getErrs(),val_.getErrs(),_parts);
             } else if (!val_.getErrs().isEmpty()) {
                 int i_ = sum_ + val_.getIndexInEl();
                 _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
@@ -2061,7 +2061,7 @@ public final class LinkageUtil {
             className_ = StringExpUtil.getIdFromAllTypes(className_);
             addParts(_cont, _currentFileName,className_,
                     new MethodId(MethodAccessKind.INSTANCE,c_.getFieldName(),new StringList()),
-                    sum_ +delta_+ val_.getIndexInEl(),fieldName_.length(),val_.getErrs(),_parts
+                    sum_ +delta_+ val_.getIndexInEl(),fieldName_.length(),val_.getErrs(),val_.getErrs(),_parts
             );
             if (!a_.getErrAff().isEmpty()) {
                 int begin_ = sum_ + a_.getOffEq() + val_.getIndexInEl();
@@ -2091,7 +2091,7 @@ public final class LinkageUtil {
                 if (classMethodId_ == null) {
                     addParts(_cont,currentFileName_,"",null,
                             sum_ +delta_+ val_.getIndexInEl(),l_,
-                            val_.getErrs(),_parts);
+                            val_.getErrs(),val_.getErrs(),_parts);
                     return;
                 }
                 if (((FctOperation)val_).isClonedMethod()&&val_.getErrs().isEmpty()) {
@@ -2107,7 +2107,7 @@ public final class LinkageUtil {
                     MethodId id_ = classMethodId_.getConstraints();
                     addParts(_cont, currentFileName_, className_, id_,
                             sum_ + delta_ + val_.getIndexInEl(), l_,
-                            val_.getErrs(), _parts);
+                            val_.getErrs(),val_.getErrs(), _parts);
                 }
             }
             if (val_ instanceof ChoiceFctOperation) {
@@ -2118,7 +2118,7 @@ public final class LinkageUtil {
                 if (classMethodId_ == null) {
                     addParts(_cont,currentFileName_,"",null,
                             sum_ +delta_+ val_.getIndexInEl(),l_,
-                            val_.getErrs(),_parts);
+                            val_.getErrs(),val_.getErrs(),_parts);
                     return;
                 }
                 String className_ = classMethodId_.getClassName();
@@ -2126,7 +2126,7 @@ public final class LinkageUtil {
                 MethodId id_ = classMethodId_.getConstraints();
                 addParts(_cont,currentFileName_,className_,id_,
                         sum_ +delta_+ val_.getIndexInEl(),l_,
-                        val_.getErrs(),_parts);
+                        val_.getErrs(),val_.getErrs(),_parts);
             }
             if (val_ instanceof SuperFctOperation) {
                 _parts.addAllElts(((SuperFctOperation)val_).getPartOffsets());
@@ -2136,7 +2136,7 @@ public final class LinkageUtil {
                 if (classMethodId_ == null) {
                     addParts(_cont,currentFileName_,"",null,
                             sum_ +delta_+ val_.getIndexInEl(),l_,
-                            val_.getErrs(),_parts);
+                            val_.getErrs(),val_.getErrs(),_parts);
                     return;
                 }
                 String className_ = classMethodId_.getClassName();
@@ -2144,7 +2144,7 @@ public final class LinkageUtil {
                 MethodId id_ = classMethodId_.getConstraints();
                 addParts(_cont,currentFileName_,className_,id_,
                         sum_ +delta_+ val_.getIndexInEl(),l_,
-                        val_.getErrs(),_parts);
+                        val_.getErrs(),val_.getErrs(),_parts);
             }
         }
         if (val_ instanceof AnnotationInstanceOperation) {
@@ -2267,7 +2267,7 @@ public final class LinkageUtil {
                 int offsetNew_ =StringList.getFirstPrintableCharIndex(inst_.getMethodName());
                 addParts(_cont,currentFileName_,cl_,c_,
                         offsetNew_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordNew().length(),
-                        val_.getErrs(),_parts);
+                        val_.getErrs(),val_.getErrs(),_parts);
                 _parts.addAllElts(inst_.getPartOffsets());
             }
         }
@@ -2341,13 +2341,13 @@ public final class LinkageUtil {
             MethodId id_ = classMethodId_.getConstraints();
             addParts(_cont,currentFileName_,className_,id_,
                     off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),
-                    val_.getErrs(),_parts);
+                    val_.getErrs(),val_.getErrs(),_parts);
         } else if (realId_ != null) {
             String cl_ = ((LambdaOperation) val_).getFoundClass();
             cl_ = StringExpUtil.getIdFromAllTypes(cl_);
             addParts(_cont,currentFileName_,cl_,realId_,
                     off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(),
-                    val_.getErrs(),_parts);
+                    val_.getErrs(),val_.getErrs(),_parts);
         } else {
             if (fieldId_ != null) {
                 updateFieldAnchor(_cont,val_.getErrs(),_parts,fieldId_,off_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordLambda().length(), _currentFileName,((LambdaOperation) val_).getValueOffset());
@@ -2384,13 +2384,13 @@ public final class LinkageUtil {
                 if (c_ == null) {
                     addParts(_cont,currentFileName_,"",null,
                             sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
-                            val_.getErrs(),_parts);
+                            val_.getErrs(),val_.getErrs(),_parts);
                 } else {
                     String cl_ = c_.getName();
                     cl_ = StringExpUtil.getIdFromAllTypes(cl_);
                     addParts(_cont,currentFileName_,cl_,c_,
                             sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
-                            val_.getErrs(),_parts);
+                            val_.getErrs(),val_.getErrs(),_parts);
                 }
                 _parts.addAllElts(((InterfaceInvokingConstructor)val_).getPartOffsets());
             } else if (val_ instanceof InterfaceFctConstructor) {
@@ -2398,13 +2398,13 @@ public final class LinkageUtil {
                 if (c_ == null) {
                     addParts(_cont,currentFileName_,"",null,
                             sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
-                            val_.getErrs(),_parts);
+                            val_.getErrs(),val_.getErrs(),_parts);
                 } else {
                     String cl_ = c_.getName();
                     cl_ = StringExpUtil.getIdFromAllTypes(cl_);
                     addParts(_cont,currentFileName_,cl_,c_,
                             sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordInterfaces().length(),
-                            val_.getErrs(),_parts);
+                            val_.getErrs(),val_.getErrs(),_parts);
                 }
                 _parts.addAllElts(((InterfaceFctConstructor)val_).getPartOffsets());
             } else{
@@ -2412,13 +2412,13 @@ public final class LinkageUtil {
                 if (c_ == null) {
                     addParts(_cont, currentFileName_, "", null,
                             sum_ + val_.getIndexInEl(), ((AbstractInvokingConstructor) val_).getOffsetOper(),
-                            val_.getErrs(),_parts);
+                            val_.getErrs(),val_.getErrs(),_parts);
                 } else {
                     String cl_ = c_.getName();
                     cl_ = StringExpUtil.getIdFromAllTypes(cl_);
                     addParts(_cont, currentFileName_, cl_, c_,
                             sum_ + val_.getIndexInEl(), ((AbstractInvokingConstructor) val_).getOffsetOper(),
-                            val_.getErrs(),_parts);
+                            val_.getErrs(),val_.getErrs(),_parts);
                 }
             }
         }
@@ -2428,12 +2428,12 @@ public final class LinkageUtil {
             if (classMethodId_ == null) {
                 addParts(_cont,currentFileName_,"",null,
                         sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordOperator().length(),
-                        val_.getErrs(),_parts);
+                        val_.getErrs(),val_.getErrs(),_parts);
             } else {
                 MethodId id_ = classMethodId_.getConstraints();
                 addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,
                         sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordOperator().length(),
-                        val_.getErrs(),_parts);
+                        val_.getErrs(),val_.getErrs(),_parts);
             }
             _parts.addAllElts(par_.getPartOffsets());
         }
@@ -2454,7 +2454,7 @@ public final class LinkageUtil {
                 MethodId id_ = classMethodId_.getConstraints();
                 addParts(_cont, currentFileName_, classMethodId_.getClassName(), id_,
                         sum_ + val_.getIndexInEl() + par_.getOpOffset(), id_.getName().length(),
-                        val_.getErrs(),_parts);
+                        val_.getErrs(),val_.getErrs(),_parts);
             } else if (!val_.getErrs().isEmpty()){
                 int i_ = sum_ + val_.getIndexInEl();
                 _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",i_));
@@ -2482,7 +2482,7 @@ public final class LinkageUtil {
             MethodId castId_ = ((ExplicitOperation) val_).getCastOpId();
             addParts(_cont,currentFileName_,StringExpUtil.getIdFromAllTypes(className_),castId_,
                     offsetOp_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordExplicit().length(),
-                    val_.getErrs(),
+                    val_.getErrs(),val_.getErrs(),
                     _parts);
             _parts.addAllElts(((ExplicitOperation)val_).getPartOffsets());
         }
@@ -2492,7 +2492,7 @@ public final class LinkageUtil {
             MethodId castId_ = ((ImplicitOperation) val_).getCastOpId();
             addParts(_cont,currentFileName_,StringExpUtil.getIdFromAllTypes(className_),castId_,
                     offsetOp_+sum_ + val_.getIndexInEl(),_cont.getKeyWords().getKeyWordCast().length(),
-                    val_.getErrs(),
+                    val_.getErrs(),val_.getErrs(),
                     _parts);
             _parts.addAllElts(((ImplicitOperation)val_).getPartOffsets());
         }
@@ -2506,7 +2506,7 @@ public final class LinkageUtil {
                     MethodId id_ = classMethodId_.getConstraints();
                     addParts(_cont,currentFileName_,"",id_,
                             sum_ + val_.getIndexInEl()+offsetOp_,1,
-                            val_.getErrs(),_parts);
+                            val_.getErrs(),val_.getErrs(),_parts);
                     err_ = false;
                 }
                 SettableElResult settable_ = par_.getSettable();
@@ -2519,7 +2519,7 @@ public final class LinkageUtil {
                     MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
                     addParts(_cont,currentFileName_,className_,id_,
                             sum_ + val_.getIndexInEl()+offsetOp_+1,1,
-                            val_.getErrs(),_parts);
+                            val_.getErrs(),val_.getErrs(),_parts);
                     err_ = false;
                 }
                 if (err_) {
@@ -2588,7 +2588,7 @@ public final class LinkageUtil {
         processCompare(_cont, _block, offsetEnd_, parent_, _parts);
         processDotSafe(_cont, _block, offsetEnd_, curOp_, nextSiblingOp_, parent_, _parts);
         processNullSafe(_cont, _block, offsetEnd_, curOp_, nextSiblingOp_, parent_, _parts);
-        processLogicAndOrOperation(_cont, _block, offsetEnd_, curOp_, nextSiblingOp_, parent_, _parts);
+        processLogicAndOrOperation(_cont, currentFileName_,_block, offsetEnd_, curOp_, nextSiblingOp_, parent_, _parts);
     }
 
     private static void middleError(ContextEl _cont,
@@ -2630,7 +2630,7 @@ public final class LinkageUtil {
             ClassMethodId classMethodId_ = par_.getClassMethodId();
             if (classMethodId_ != null) {
                 MethodId id_ = classMethodId_.getConstraints();
-                addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,offsetEnd_,id_.getName().length(),parentOp_.getErrs(),_parts);
+                addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,offsetEnd_,id_.getName().length(),parentOp_.getErrs(),parentOp_.getErrs(),_parts);
             }
         }
     }
@@ -2679,14 +2679,25 @@ public final class LinkageUtil {
         CompoundAffectationOperation par_ = (CompoundAffectationOperation) parentOp_;
         ClassMethodId classMethodId_ = par_.getClassMethodId();
         int opDelta_ = par_.getOper().length() - 1;
+        ClassMethodId test_ = par_.getTest();
+        int begin_ = offsetEnd_;
+        int len_ = opDelta_;
+        if (test_ != null) {
+            String className_ = test_.getClassName();
+            className_ = StringExpUtil.getIdFromAllTypes(className_);
+            MethodId id_ = test_.getConstraints();
+            addParts(_cont,currentFileName_,className_,id_,begin_,1, parentOp_.getErrs(),parentOp_.getErrs(),_parts);
+            begin_++;
+            len_--;
+        }
         if (classMethodId_ != null) {
             MethodId id_ = classMethodId_.getConstraints();
-            addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,offsetEnd_,opDelta_,parentOp_.getErrs(),_parts);
+            addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,begin_,len_,parentOp_.getErrs(),parentOp_.getErrs(),_parts);
         } else if (nextSiblingOp_.getResultClass().isConvertToString() && canCallToString(nextSiblingOp_.getResultClass(),_cont)){
             String tag_ = "<i>";
-            _parts.add(new PartOffset(tag_, offsetEnd_));
+            _parts.add(new PartOffset(tag_, begin_));
             tag_ = "</i>";
-            _parts.add(new PartOffset(tag_,offsetEnd_+opDelta_));
+            _parts.add(new PartOffset(tag_,begin_+len_));
         }
     }
     private static void processCompoundAffCover(ContextEl _cont, Block _block, int offsetEnd_, OperationNode nextSiblingOp_, MethodOperation parentOp_, CustList<PartOffset> _parts) {
@@ -2694,6 +2705,9 @@ public final class LinkageUtil {
             return;
         }
         CompoundAffectationOperation par_ = (CompoundAffectationOperation) parentOp_;
+        if (par_.getTest() != null) {
+            return;
+        }
         ClassMethodId classMethodId_ = par_.getClassMethodId();
         if (classMethodId_ != null) {
             return;
@@ -2727,19 +2741,41 @@ public final class LinkageUtil {
             className_ = StringExpUtil.getIdFromAllTypes(className_);
             MethodId methodId_ = classMethodIdArr_.getConstraints();
             MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
-            addParts(_cont,currentFileName_,className_,id_,opDelta_+offsetEnd_,1,parentOp_.getErrs(),_parts);
+            addParts(_cont,currentFileName_,className_,id_,opDelta_+offsetEnd_,1,parentOp_.getErrs(),parentOp_.getErrs(),_parts);
         } else {
-            addParts(_cont,currentFileName_,"",null,opDelta_+offsetEnd_,1,parentOp_.getErrs(),_parts);
+            addParts(_cont,currentFileName_,"",null,opDelta_+offsetEnd_,1,parentOp_.getErrs(),parentOp_.getErrs(),_parts);
         }
     }
-    private static void processLogicAndOrOperation(ContextEl _cont, Block _block, int offsetEnd_, OperationNode curOp_, OperationNode nextSiblingOp_, MethodOperation parentOp_, CustList<PartOffset> _parts) {
+    private static void processLogicAndOrOperation(ContextEl _cont, String currentFileName_,Block _block, int offsetEnd_, OperationNode curOp_, OperationNode nextSiblingOp_, MethodOperation parentOp_, CustList<PartOffset> _parts) {
         if (!(parentOp_ instanceof QuickOperation)) {
             return;
         }
+        QuickOperation q_ = (QuickOperation) parentOp_;
+        ClassMethodId test_ = q_.getTest();
         AbstractCoverageResult resultFirst_ = getCovers(_cont, _block, curOp_);
         AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_);
-        safe(resultFirst_,_cont,offsetEnd_,_parts,1);
-        safe(resultLast_,_cont,offsetEnd_+1,_parts,1);
+        StringList errs_ = q_.getErrs();
+        if (test_ != null) {
+            String className_ = test_.getClassName();
+            className_ = StringExpUtil.getIdFromAllTypes(className_);
+            MethodId id_ = test_.getConstraints();
+            StringList title_ = new StringList();
+            title_.addAllElts(getCoversFound(resultFirst_,_cont));
+            addParts(_cont,currentFileName_,className_,id_,offsetEnd_,1, errs_,title_,_parts);
+        } else {
+            safe(resultFirst_,_cont,offsetEnd_,_parts,1);
+        }
+        ClassMethodId operator_ = q_.getClassMethodId();
+        if (operator_ != null) {
+            String className_ = operator_.getClassName();
+            className_ = StringExpUtil.getIdFromAllTypes(className_);
+            MethodId id_ = operator_.getConstraints();
+            StringList title_ = new StringList();
+            title_.addAllElts(getCoversFound(resultLast_,_cont));
+            addParts(_cont,currentFileName_,className_,id_,offsetEnd_+1,1, errs_,title_,_parts);
+        } else {
+            safe(resultLast_,_cont,offsetEnd_+1,_parts,1);
+        }
     }
 
     private static void right(ContextEl _cont,
@@ -2768,11 +2804,11 @@ public final class LinkageUtil {
                 } else {
                     id_ = new MethodId(MethodAccessKind.INSTANCE,"[]",methodId_.getParametersTypes(),methodId_.isVararg());
                 }
-                addParts(_cont,currentFileName_,className_,id_,offsetEnd_,1,new StringList(),_parts);
+                addParts(_cont,currentFileName_,className_,id_,offsetEnd_,1,new StringList(),new StringList(),_parts);
             } else {
                 String er_ = par_.getNbErr();
                 if (!er_.isEmpty()) {
-                    addParts(_cont,currentFileName_,"",null,offsetEnd_,1,new StringList(er_),_parts);
+                    addParts(_cont,currentFileName_,"",null,offsetEnd_,1,new StringList(er_),new StringList(er_),_parts);
                 }
             }
         }
@@ -2798,7 +2834,7 @@ public final class LinkageUtil {
                 ClassMethodId classMethodId_ = par_.getClassMethodId();
                 if (classMethodId_ != null) {
                     MethodId id_ = classMethodId_.getConstraints();
-                    addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,offsetEnd_,1,parent_.getErrs(),_parts);
+                    addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,offsetEnd_,1,parent_.getErrs(),parent_.getErrs(),_parts);
                     err_ = false;
                 }
                 SettableElResult settable_ = par_.getSettable();
@@ -2809,7 +2845,7 @@ public final class LinkageUtil {
                     className_ = StringExpUtil.getIdFromAllTypes(className_);
                     MethodId methodId_ = classMethodIdArr_.getConstraints();
                     MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
-                    addParts(_cont,currentFileName_,className_,id_,offsetEnd_+1,1,parent_.getErrs(),_parts);
+                    addParts(_cont,currentFileName_,className_,id_,offsetEnd_+1,1,parent_.getErrs(),parent_.getErrs(),_parts);
                     err_ = false;
                 }
                 if (err_) {
@@ -2824,22 +2860,30 @@ public final class LinkageUtil {
     }
 
     private static void safe(AbstractCoverageResult _res, ContextEl _cont, int offsetEnd_, CustList<PartOffset> _parts, int _delta) {
-        if (!_res.isStrictPartialCovered()) {
+        StringList founds_ = getCoversFound(_res, _cont);
+        if (founds_.isEmpty()) {
             return;
         }
-        if (_res instanceof BooleanCoverageResult) {
-            logicalAndOr((BooleanCoverageResult) _res,_cont,offsetEnd_,_parts,_delta);
-        }
-        if (_res instanceof NullCoverageResult) {
-            nullSafe((NullCoverageResult)_res,_cont,offsetEnd_,_parts, _delta);
-        }
-        if (_res instanceof NullBooleanCoverageResult){
-            nullBooleanSafe((NullBooleanCoverageResult)_res,_cont,offsetEnd_,_parts, _delta);
-        }
+        basicValue(offsetEnd_, _parts, _delta, founds_);
     }
 
-    private static void logicalAndOr(BooleanCoverageResult _res, ContextEl _cont,
-                                     int offsetEnd_, CustList<PartOffset> _parts, int _delta) {
+    private static StringList getCoversFound(AbstractCoverageResult _res, ContextEl _cont) {
+        StringList founds_ = new StringList();
+        if (_res.isStrictPartialCovered()) {
+            if (_res instanceof BooleanCoverageResult) {
+                founds_ = getCoversLogicalAndOr((BooleanCoverageResult)_res, _cont);
+            }
+            if (_res instanceof NullCoverageResult) {
+                founds_ = getCoversNullSafe((NullCoverageResult)_res, _cont);
+            }
+            if (_res instanceof NullBooleanCoverageResult){
+                founds_ = getCoversNullBooleanSafe((NullBooleanCoverageResult)_res, _cont);
+            }
+        }
+        return founds_;
+    }
+
+    private static StringList getCoversLogicalAndOr(BooleanCoverageResult _res, ContextEl _cont) {
         StringList founds_ = new StringList();
         if (_res.isCoverTrue()) {
             founds_.add(_cont.getStandards().getDisplayedStrings().getTrueString());
@@ -2847,13 +2891,10 @@ public final class LinkageUtil {
         if (_res.isCoverFalse()) {
             founds_.add(_cont.getStandards().getDisplayedStrings().getFalseString());
         }
-        String tag_ = "<a title=\""+ transform(StringList.join(founds_, ","))+"\">";
-        _parts.add(new PartOffset(tag_, offsetEnd_));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_,offsetEnd_+_delta));
+        return founds_;
     }
 
-    private static void nullBooleanSafe(NullBooleanCoverageResult _res, ContextEl _cont, int offsetEnd_, CustList<PartOffset> _parts, int _delta) {
+    private static StringList getCoversNullBooleanSafe(NullBooleanCoverageResult _res, ContextEl _cont) {
         StringList founds_ = new StringList();
         if (_res.isCoverNull()) {
             founds_.add(_cont.getStandards().getDisplayedStrings().getNullCoverString());
@@ -2864,12 +2905,10 @@ public final class LinkageUtil {
         if (_res.isCoverFalse()) {
             founds_.add(_cont.getStandards().getDisplayedStrings().getFalseString());
         }
-        String tag_ = "<a title=\"" + transform(StringList.join(founds_, ",")) + "\">";
-        _parts.add(new PartOffset(tag_, offsetEnd_));
-        tag_ = "</a>";
-        _parts.add(new PartOffset(tag_, offsetEnd_ + _delta));
+        return founds_;
     }
-    private static void nullSafe(NullCoverageResult _res, ContextEl _cont, int offsetEnd_, CustList<PartOffset> _parts, int _delta) {
+
+    private static StringList getCoversNullSafe(NullCoverageResult _res, ContextEl _cont) {
         StringList founds_ = new StringList();
         if (_res.isCoverNull()) {
             founds_.add(_cont.getStandards().getDisplayedStrings().getNullCoverString());
@@ -2877,11 +2916,16 @@ public final class LinkageUtil {
         if (_res.isCoverNotNull()) {
             founds_.add(_cont.getStandards().getDisplayedStrings().getNotNullCoverString());
         }
+        return founds_;
+    }
+
+    private static void basicValue(int offsetEnd_, CustList<PartOffset> _parts, int _delta, StringList founds_) {
         String tag_ = "<a title=\""+ transform(StringList.join(founds_,","))+"\">";
         _parts.add(new PartOffset(tag_, offsetEnd_));
         tag_ = "</a>";
         _parts.add(new PartOffset(tag_,offsetEnd_+ _delta));
     }
+
     private static String getFullInit(AbstractCoverageResult _resultPar) {
         String tag_;
         if (_resultPar.isInit()) {
@@ -2895,6 +2939,7 @@ public final class LinkageUtil {
     private static void addParts(ContextEl _cont, String _currentFileName, String _className,
                                  Identifiable _id, int _begin, int _length,
                                  StringList _errors,
+                                 StringList _title,
                                  CustList<PartOffset> _parts) {
         if (_id == null) {
             if (!_errors.isEmpty()) {
@@ -2921,12 +2966,12 @@ public final class LinkageUtil {
         String tag_;
         if (_id instanceof MethodId) {
             if (!StringList.isDollarWord(_id.getName()) && !_id.getName().startsWith("[]")) {
-                tag_ = "<a title=\""+ merge(_errors,_id.getSignature(_cont))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
+                tag_ = "<a title=\""+ merge(_title,_id.getSignature(_cont))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
             } else {
-                tag_ = "<a title=\""+ merge(_errors,cl_ +"."+ _id.getSignature(_cont))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
+                tag_ = "<a title=\""+ merge(_title,cl_ +"."+ _id.getSignature(_cont))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
             }
         } else {
-            tag_ = "<a title=\""+ merge(_errors,cl_ +"."+ _id.getSignature(_cont))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
+            tag_ = "<a title=\""+ merge(_title,cl_ +"."+ _id.getSignature(_cont))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
         }
         _parts.add(new PartOffset(tag_,_begin));
         tag_ = "</a>";

@@ -23,6 +23,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
     private String oper;
     private ClassMethodId classMethodId;
     private ClassMethodId converter;
+    private ClassMethodId test;
 
     private int opOffset;
 
@@ -94,6 +95,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             ClassMethodId test_ = cl_.getTest();
             if (test_ != null) {
                 clMatchLeft_.getImplicitsTest().add(test_);
+                test = test_;
             }
             if (!PrimitiveTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),_conf)) {
                 classMethodId = cl_.getSymbol();
@@ -304,6 +306,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     public ClassMethodId getConverter() {
         return converter;
+    }
+
+    public ClassMethodId getTest() {
+        return test;
     }
 
     public SettableElResult getSettable() {
