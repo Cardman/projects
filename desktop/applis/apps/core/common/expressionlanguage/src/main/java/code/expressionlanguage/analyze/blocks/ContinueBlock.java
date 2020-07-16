@@ -34,7 +34,7 @@ public final class ContinueBlock extends AbruptBlock {
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         checkLoop(_cont);
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        ExecContinueBlock exec_ = new ExecContinueBlock(getOffset(),label,labelOffset,labelOffsetRef);
+        ExecContinueBlock exec_ = new ExecContinueBlock(getOffset(),label);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);

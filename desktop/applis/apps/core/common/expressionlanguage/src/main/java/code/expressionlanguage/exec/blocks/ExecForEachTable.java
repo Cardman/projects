@@ -51,12 +51,11 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
     }
 
     @Override
-    public void processLastElementLoop(ContextEl _conf) {
+    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
         AbstractPageEl ip_ = _conf.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
-        LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
-        l_.setEvaluatingKeepLoop(true);
-        ConditionReturn has_ = iteratorHasNext(_conf);
+        _l.setEvaluatingKeepLoop(true);
+        ConditionReturn has_ = iteratorHasNext(_conf,_l);
         if (has_ == ConditionReturn.CALL_EX) {
             return;
         }
@@ -64,12 +63,12 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
 
         if (hasNext_) {
             _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(true)));
-            incrementLoop(_conf, l_, vars_);
+            incrementLoop(_conf, _l, vars_);
         } else {
             _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(false)));
             _conf.getLastPage().clearCurrentEls();
-            l_.setFinished(true);
-            l_.setEvaluatingKeepLoop(false);
+            _l.setFinished(true);
+            _l.setEvaluatingKeepLoop(false);
         }
     }
 
@@ -129,6 +128,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         l_.setIndex(-1);
         l_.setFinished(false);
         l_.setExecBlock(this);
+        l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
         l_.setStructIterator(iterStr_);
         l_.setMaxIteration(length_);
@@ -149,7 +149,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         lv_.setIndexClassName(importedClassIndexName);
         lv_.setContainer(its_);
         varsLoop_.put(variableNameSecond, lv_);
-        iteratorHasNext(_cont);
+        iteratorHasNext(_cont,l_);
     }
     private Struct processLoop(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
@@ -167,10 +167,6 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         }
         return ito_;
 
-    }
-    @Override
-    public void exitStack(ContextEl _context) {
-        processLastElementLoop(_context);
     }
 
     @Override
@@ -237,10 +233,8 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         call_.getReadWrite().setBlock(getFirstChild());
         _l.setEvaluatingKeepLoop(false);
     }
-    private ConditionReturn iteratorHasNext(ContextEl _conf) {
-        AbstractPageEl ip_ = _conf.getLastPage();
-        LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
-        Struct strIter_ = l_.getStructIterator();
+    private ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l) {
+        Struct strIter_ = _l.getStructIterator();
         Classes cls_ = _conf.getClasses();
         String locName_ = cls_.getHasNextPairVarCust();
         LocalVariable locVar_ = LocalVariable.newLocalVariable(strIter_,_conf);

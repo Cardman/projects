@@ -6,8 +6,9 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.stacks.AbstractStask;
+import code.expressionlanguage.exec.stacks.IfBlockStack;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
-import code.expressionlanguage.exec.stacks.RemovableVars;
 import code.expressionlanguage.exec.stacks.TryBlockStack;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -21,7 +22,7 @@ public abstract class AbstractPageEl extends PageEl {
     private ReadWrite readWrite;
     private ExecBlock blockRoot;
 
-    private CustList<RemovableVars> blockStacks = new CustList<RemovableVars>();
+    private CustList<AbstractStask> blockStacks = new CustList<AbstractStask>();
 
     private CustList<ExpressionLanguage> currentEls = new CustList<ExpressionLanguage>();
 
@@ -37,6 +38,10 @@ public abstract class AbstractPageEl extends PageEl {
 
     private Argument rightArgument;
 
+    private LoopBlockStack lastLoop;
+    private IfBlockStack lastIf;
+    private TryBlockStack lastTry;
+
     public void receive(Argument _argument, ContextEl _context) {
         basicReceive(_argument,_context);
     }
@@ -50,7 +55,7 @@ public abstract class AbstractPageEl extends PageEl {
 
     public void processVisitedLoop(LoopBlockStack _l, ExecLoop _bl, ExecBlock _next, ContextEl _context) {
         if (_l.isEvaluatingKeepLoop()) {
-            _bl.processLastElementLoop(_context);
+            _bl.processLastElementLoop(_context,_l);
             return;
         }
         if (_l.isFinished()) {
@@ -111,8 +116,11 @@ public abstract class AbstractPageEl extends PageEl {
 
     public LoopBlockStack getLastLoopIfPossible(ExecBlock _bl) {
         LoopBlockStack c_ = null;
-        if (hasBlock() && getLastStack() instanceof LoopBlockStack) {
-            c_ = (LoopBlockStack) getLastStack();
+        if (hasBlock()) {
+            AbstractStask lastStack_ = getLastStack();
+            if (lastStack_ instanceof LoopBlockStack) {
+                c_ = (LoopBlockStack) lastStack_;
+            }
         }
         if (c_ != null && c_.getBlock() == _bl) {
             return c_;
@@ -126,21 +134,21 @@ public abstract class AbstractPageEl extends PageEl {
         return _bl == getLastStack().getBlock();
     }
 
-    public RemovableVars getLastStack() {
+    public AbstractStask getLastStack() {
         return blockStacks.last();
     }
 
-    public void addBlock(RemovableVars _b) {
+    public void addBlock(AbstractStask _b) {
         blockStacks.add(_b);
     }
 
     public void removeLastBlock() {
-        RemovableVars last_ = blockStacks.last();
+        AbstractStask last_ = blockStacks.last();
         last_.getCurrentVisitedBlock().removeAllVars(this);
         blockStacks.removeLast();
     }
 
-    public static boolean setRemovedCallingFinallyToProcess(AbstractPageEl _ip,RemovableVars _vars, CallingFinally _call, Struct _ex) {
+    public static boolean setRemovedCallingFinallyToProcess(AbstractPageEl _ip,AbstractStask _vars, CallingFinally _call, Struct _ex) {
         if (!(_vars instanceof TryBlockStack)) {
             _ip.removeLastBlock();
             return false;
@@ -152,7 +160,9 @@ public abstract class AbstractPageEl extends PageEl {
         }
         ExecBracedBlock br_ = try_.getLastBlock();
         if (br_ instanceof ExecFinallyEval) {
+            _ip.setLastTry(try_);
             _ip.getReadWrite().setBlock(br_);
+            try_.setException(_ex);
             try_.setCalling(_call.newAbruptCallingFinally(_ex));
             return true;
         }
@@ -228,5 +238,27 @@ public abstract class AbstractPageEl extends PageEl {
         rightArgument = _rightArgument;
     }
 
+    public LoopBlockStack getLastLoop() {
+        return lastLoop;
+    }
 
+    public void setLastLoop(LoopBlockStack lastLoop) {
+        this.lastLoop = lastLoop;
+    }
+
+    public IfBlockStack getLastIf() {
+        return lastIf;
+    }
+
+    public void setLastIf(IfBlockStack lastIf) {
+        this.lastIf = lastIf;
+    }
+
+    public TryBlockStack getLastTry() {
+        return lastTry;
+    }
+
+    public void setLastTry(TryBlockStack lastTry) {
+        this.lastTry = lastTry;
+    }
 }

@@ -77,7 +77,7 @@ public final class DoBlock extends BracedBlock implements Loop {
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        ExecDoBlock exec_ = new ExecDoBlock(getOffset(),label,labelOffset);
+        ExecDoBlock exec_ = new ExecDoBlock(getOffset(),label);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);

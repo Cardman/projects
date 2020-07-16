@@ -30,8 +30,15 @@ public final class ExecutingUtil {
     }
 
     static void processException(ContextEl _context) {
-        if (!_context.getInitializingTypeInfos().isFailInit() && _context.getCallingState() instanceof Struct) {
-            _context.getThrowing().removeBlockFinally(_context);
+        if (!_context.getInitializingTypeInfos().isFailInit()) {
+            processGeneException(_context);
+        }
+    }
+
+    public static void processGeneException(ContextEl _context) {
+        CallingState callingState_ = _context.getCallingState();
+        if (callingState_ instanceof Struct) {
+            _context.getThrowing().removeBlockFinally(_context, (Struct) callingState_);
         }
     }
 

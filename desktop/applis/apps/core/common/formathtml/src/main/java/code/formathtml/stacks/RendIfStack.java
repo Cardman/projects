@@ -1,12 +1,21 @@
 package code.formathtml.stacks;
-import code.expressionlanguage.exec.stacks.IfStack;
 import code.formathtml.*;
 
-public final class RendIfStack extends IfStack implements RendRemovableVars {
+public final class RendIfStack implements RendRemovableVars {
 
     private RendParentBlock block;
     private RendParentBlock lastBlock;
     private RendParentBlock curentVisitedBlock;
+
+    private boolean entered;
+
+    public boolean isEntered() {
+        return entered;
+    }
+
+    public void setEntered(boolean _entered) {
+        entered = _entered;
+    }
 
     @Override
     public RendParentBlock getBlock() {

@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.exec.stacks.LoopStack;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.stacks.*;
 import code.util.StringList;
@@ -115,8 +114,8 @@ public final class RendBreakBlock extends RendLeaf implements RendBuildableElMet
         }
         RendBlock forLoopLoc_ = stack_.getLastBlock();
         rw_.setRead(forLoopLoc_);
-        if (stack_ instanceof LoopStack) {
-            ((LoopStack)stack_).setFinished(true);
+        if (stack_ instanceof RendLoopBlockStack) {
+            ((RendLoopBlockStack)stack_).setFinished(true);
         }
     }
 

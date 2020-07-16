@@ -1,14 +1,13 @@
 package code.expressionlanguage.exec.stacks;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 
-public final class SwitchBlockStack implements RemovableVars {
+public final class SwitchBlockStack extends AbstractStask {
 
     private ExecBracedBlock execBlock;
 
     private ExecBracedBlock execLastVisitedBlock;
 
     private ExecBracedBlock execCurrentVisitedBlock;
-    private String label;
 
     @Override
     public ExecBracedBlock getBlock() {
@@ -42,11 +41,4 @@ public final class SwitchBlockStack implements RemovableVars {
         execLastVisitedBlock = _execLastVisitedBlock;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String _label) {
-        label = _label;
-    }
 }

@@ -59,16 +59,15 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
     }
 
     @Override
-    public void processLastElementLoop(ContextEl _conf) {
+    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
         AbstractPageEl ip_ = _conf.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
-        LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
-        if (l_.hasNext()) {
-            incrementLoop(_conf, l_, vars_);
+        if (_l.hasNext()) {
+            incrementLoop(_conf, _l, vars_);
             _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(true)));
             return;
         }
-        l_.setFinished(true);
+        _l.setFinished(true);
         _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(false)));
 
     }
@@ -114,11 +113,11 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
             ip_.processVisitedLoop(c_,this,this,_cont);
             return;
         }
-        processLoop(_cont);
-        if (_cont.callsOrException()) {
+        LoopBlockStack l_ = processLoop(_cont);
+        if (l_ == null) {
             return;
         }
-        c_ = (LoopBlockStack) ip_.getLastStack();
+        c_ = l_;
         if (c_.isFinished()) {
             _cont.getCoverage().passLoop(_cont, new Argument(BooleanStruct.of(false)));
             processBlockAndRemove(_cont);
@@ -127,7 +126,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         _cont.getCoverage().passLoop(_cont, new Argument(BooleanStruct.of(true)));
         ip_.getReadWrite().setBlock(getFirstChild());
     }
-    void processLoop(ContextEl _conf) {
+    private LoopBlockStack processLoop(ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         String null_ = stds_.getAliasNullPe();
         AbstractPageEl ip_ = _conf.getLastPage();
@@ -143,33 +142,33 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
         Argument argFrom_ = ExpressionLanguage.tryToCalculate(_conf,from_,0);
         if (_conf.callsOrException()) {
-            return;
+            return null;
         }
         if (argFrom_.isNull()) {
             _conf.setException(new ErrorStruct(_conf,null_));
-            return;
+            return null;
         }
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage to_ = ip_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, CustList.SECOND_INDEX);
         Argument argTo_ = ExpressionLanguage.tryToCalculate(_conf,to_,0);
         if (_conf.callsOrException()) {
-            return;
+            return null;
         }
         if (argTo_.isNull()) {
             _conf.setException(new ErrorStruct(_conf,null_));
-            return;
+            return null;
         }
         ip_.setGlobalOffset(stepOffset);
         ip_.setOffset(0);
         ExpressionLanguage step_ = ip_.getCurrentEl(_conf,this, CustList.SECOND_INDEX + 1, CustList.SECOND_INDEX + 1);
         Argument argStep_ = ExpressionLanguage.tryToCalculate(_conf,step_,0);
         if (_conf.callsOrException()) {
-            return;
+            return null;
         }
         if (argStep_.isNull()) {
             _conf.setException(new ErrorStruct(_conf,null_));
-            return;
+            return null;
         }
         ip_.clearCurrentEls();
         String prLong_ = stds_.getAliasPrimLong();
@@ -220,21 +219,18 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         l_.setLabel(label);
         l_.setFinished(finished_);
         l_.setExecBlock(this);
+        l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
         l_.setMaxIteration(length_);
         ip_.addBlock(l_);
         if (finished_) {
-            return;
+            return l_;
         }
         LoopVariable lv_ = LoopVariable.newLoopVariable(PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(fromValue_), stds_),importedClassName);
         lv_.setIndexClassName(importedClassIndexName);
         lv_.setStep(stepValue_);
         varsLoop_.put(var_, lv_);
-    }
-
-    @Override
-    public void exitStack(ContextEl _context) {
-        processLastElementLoop(_context);
+        return l_;
     }
 
     @Override

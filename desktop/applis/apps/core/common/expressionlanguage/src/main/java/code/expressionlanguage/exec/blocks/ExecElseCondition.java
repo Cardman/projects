@@ -14,7 +14,7 @@ public final class ExecElseCondition extends ExecBracedBlock implements Stackabl
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
+        IfBlockStack if_ = ip_.getLastIf();
         if_.setCurrentVisitedBlock(this);
         if (!if_.isEntered()) {
             if_.setEntered(true);

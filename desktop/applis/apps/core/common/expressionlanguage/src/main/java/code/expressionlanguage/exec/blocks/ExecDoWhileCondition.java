@@ -10,7 +10,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.util.CustList;
 
 public final class ExecDoWhileCondition extends ExecCondition {
-    public ExecDoWhileCondition(OffsetsBlock _offset, String _condition, int _conditionOffset, CustList<ExecOperationNode> _opCondition) {
+    public ExecDoWhileCondition(OffsetsBlock _offset, int _conditionOffset, CustList<ExecOperationNode> _opCondition) {
         super(_offset, _conditionOffset, _opCondition);
     }
 
@@ -18,10 +18,8 @@ public final class ExecDoWhileCondition extends ExecCondition {
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
+        LoopBlockStack l_ = ip_.getLastLoop();
         l_.setEvaluatingKeepLoop(true);
-        _cont.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
-        _cont.getLastPage().setOffset(0);
         ConditionReturn keep_ = evaluateCondition(_cont);
         if (keep_ == ConditionReturn.CALL_EX) {
             return;

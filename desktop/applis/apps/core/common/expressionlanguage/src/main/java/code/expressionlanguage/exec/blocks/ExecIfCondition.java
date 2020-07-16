@@ -12,12 +12,10 @@ import code.util.CustList;
 public final class ExecIfCondition extends ExecCondition implements StackableBlock {
 
     private String label;
-    private int labelOffset;
 
-    public ExecIfCondition(OffsetsBlock _offset, String _condition, int _conditionOffset, String _label, int _labelOffset, CustList<ExecOperationNode> _opCondition) {
+    public ExecIfCondition(OffsetsBlock _offset, int _conditionOffset, String _label, CustList<ExecOperationNode> _opCondition) {
         super(_offset, _conditionOffset, _opCondition);
         label = _label;
-        labelOffset = _labelOffset;
     }
 
     @Override
@@ -48,17 +46,11 @@ public final class ExecIfCondition extends ExecCondition implements StackableBlo
             rw_.setBlock(getFirstChild());
         } else {
             ip_.addBlock(if_);
-            exitStack(_cont);
+            if (if_.getLastBlock() != this) {
+                rw_.setBlock(getNextSibling());
+                ip_.setLastIf(if_);
+            }
         }
     }
 
-    @Override
-    public void exitStack(ContextEl _context) {
-        AbstractPageEl ip_ = _context.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
-        if (if_.getLastBlock() != this) {
-            rw_.setBlock(getNextSibling());
-        }
-    }
 }

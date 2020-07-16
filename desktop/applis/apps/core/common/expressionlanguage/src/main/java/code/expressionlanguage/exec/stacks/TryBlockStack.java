@@ -1,15 +1,27 @@
 package code.expressionlanguage.exec.stacks;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
+import code.expressionlanguage.structs.Struct;
 
-public final class TryBlockStack extends TryStack implements RemovableVars {
+public final class TryBlockStack extends AbstractStask {
 
     private AbruptCallingFinally calling;
+    private Struct exception;
 
     private ExecBracedBlock execBlock;
 
     private ExecBracedBlock execLastBlock;
 
     private ExecBracedBlock execCurrentBlock;
+
+    private boolean visitedFinally;
+
+    public boolean isVisitedFinally() {
+        return visitedFinally;
+    }
+
+    public void setVisitedFinally(boolean _visitedFinally) {
+        visitedFinally = _visitedFinally;
+    }
 
     @Override
     public ExecBracedBlock getBlock() {
@@ -48,5 +60,11 @@ public final class TryBlockStack extends TryStack implements RemovableVars {
         calling = _calling;
     }
 
+    public Struct getException() {
+        return exception;
+    }
 
+    public void setException(Struct exception) {
+        this.exception = exception;
+    }
 }

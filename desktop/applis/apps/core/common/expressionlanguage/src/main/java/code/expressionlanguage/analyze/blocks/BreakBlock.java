@@ -34,7 +34,7 @@ public final class BreakBlock extends AbruptBlock {
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         checkBreakable(_cont);
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        ExecBreakBlock exec_ = new ExecBreakBlock(getOffset(),label,labelOffset,labelOffsetRef);
+        ExecBreakBlock exec_ = new ExecBreakBlock(getOffset(),label);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);

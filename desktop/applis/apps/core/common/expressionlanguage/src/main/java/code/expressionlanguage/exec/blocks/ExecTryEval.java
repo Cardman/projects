@@ -32,10 +32,4 @@ public final class ExecTryEval extends ExecBracedBlock implements StackableBlock
         ip_.getReadWrite().setBlock(getFirstChild());
     }
 
-    @Override
-    public void exitStack(ContextEl _context) {
-        AbstractPageEl ip_ = _context.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        rw_.setBlock(getNextSibling());
-    }
 }

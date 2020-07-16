@@ -18,7 +18,7 @@ public final class DoWhileCondition extends Condition {
 
     @Override
     protected ExecCondition newCondition(String _condition, int _conditionOffset, CustList<ExecOperationNode> _ops) {
-        return new ExecDoWhileCondition(getOffset(),_condition,_conditionOffset,_ops);
+        return new ExecDoWhileCondition(getOffset(), _conditionOffset,_ops);
     }
 
     @Override

@@ -11,18 +11,15 @@ import code.util.CustList;
 
 public final class ExecElseIfCondition extends ExecCondition implements StackableBlock {
 
-    private int delta;
-
-    public ExecElseIfCondition(OffsetsBlock _offset, String _condition, int _conditionOffset, CustList<ExecOperationNode> _opCondition, int _delta) {
+    public ExecElseIfCondition(OffsetsBlock _offset, int _conditionOffset, CustList<ExecOperationNode> _opCondition) {
         super(_offset, _conditionOffset, _opCondition);
-        delta = _delta;
     }
 
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
+        IfBlockStack if_ = ip_.getLastIf();
         if_.setCurrentVisitedBlock(this);
         if (!if_.isEntered()) {
             ConditionReturn assert_ = evaluateCondition(_cont);
@@ -40,15 +37,5 @@ public final class ExecElseIfCondition extends ExecCondition implements Stackabl
             return;
         }
         rw_.setBlock(getNextSibling());
-    }
-
-    @Override
-    public void exitStack(ContextEl _context) {
-        AbstractPageEl ip_ = _context.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
-        if (if_.getLastBlock() != this) {
-            rw_.setBlock(getNextSibling());
-        }
     }
 }

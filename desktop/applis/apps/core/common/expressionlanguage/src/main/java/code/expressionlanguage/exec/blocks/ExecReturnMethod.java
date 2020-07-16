@@ -6,13 +6,13 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
-import code.expressionlanguage.exec.stacks.RemovableVars;
+import code.expressionlanguage.exec.stacks.AbstractStask;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
-public final class ExecReturnMethod extends ExecLeaf implements CallingFinally,WithNotEmptyEl {
+public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFinally,WithNotEmptyEl {
 
     private boolean empty;
 
@@ -32,7 +32,7 @@ public final class ExecReturnMethod extends ExecLeaf implements CallingFinally,W
     public void removeBlockFinally(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
         while (ip_.hasBlock()) {
-            RemovableVars bl_ = ip_.getLastStack();
+            AbstractStask bl_ = ip_.getLastStack();
             if (AbstractPageEl.setRemovedCallingFinallyToProcess(ip_,bl_,this,null)) {
                 return;
             }

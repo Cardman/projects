@@ -3,40 +3,42 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
+import code.expressionlanguage.exec.stacks.AbstractStask;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
-import code.expressionlanguage.exec.stacks.RemovableVars;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 
-public final class ExecContinueBlock extends ExecLeaf implements CallingFinally {
+public final class ExecContinueBlock extends ExecLeaf implements MethodCallingFinally {
 
     private String label;
-    private int labelOffset;
-    private int labelOffsetRef;
-    public ExecContinueBlock(OffsetsBlock _offset, String _label, int _labelOffset, int _labelOffsetRef) {
+    public ExecContinueBlock(OffsetsBlock _offset, String _label) {
         super(_offset);
         label = _label;
-        labelOffset = _labelOffset;
-        labelOffsetRef = _labelOffsetRef;
     }
 
     @Override
     public void removeBlockFinally(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
+        ExecBlock loopBlock_;
         ExecLoop loop_;
+        LoopBlockStack lSt_;
         while (true) {
-            RemovableVars bl_ = ip_.getLastStack();
+            AbstractStask bl_ = ip_.getLastStack();
             if (bl_ instanceof LoopBlockStack) {
                 ExecBracedBlock br_ = bl_.getBlock();
                 if (label.isEmpty()) {
+                    lSt_ = (LoopBlockStack) bl_;
                     br_.removeLocalVars(ip_);
-                    loop_ = (ExecLoop) br_;
+                    loop_ = ((LoopBlockStack) bl_).getExecLoop();
+                    loopBlock_ = br_;
                     break;
                 }
                 if (StringList.quickEq(label, bl_.getLabel())){
+                    lSt_ = (LoopBlockStack) bl_;
                     br_.removeLocalVars(ip_);
-                    loop_ = (ExecLoop) br_;
+                    loop_ = ((LoopBlockStack) bl_).getExecLoop();
+                    loopBlock_ = br_;
                     break;
                 }
             }
@@ -44,8 +46,8 @@ public final class ExecContinueBlock extends ExecLeaf implements CallingFinally 
                 return;
             }
         }
-        ip_.getReadWrite().setBlock((ExecBlock) loop_);
-        loop_.processLastElementLoop(_conf);
+        ip_.getReadWrite().setBlock(loopBlock_);
+        loop_.processLastElementLoop(_conf,lSt_);
     }
 
     @Override

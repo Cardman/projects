@@ -9,23 +9,17 @@ import code.expressionlanguage.files.OffsetsBlock;
 public final class ExecDoBlock extends ExecBracedBlock implements ExecLoop {
 
     private String label;
-    private int labelOffset;
-    public ExecDoBlock(OffsetsBlock _offset, String _label, int _labelOffset) {
+    public ExecDoBlock(OffsetsBlock _offset, String _label) {
         super(_offset);
         label = _label;
-        labelOffset = _labelOffset;
     }
 
     @Override
-    public void processLastElementLoop(ContextEl _conf) {
+    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
         AbstractPageEl ip_ = _conf.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         rw_.setBlock(getNextSibling());
-    }
-
-    @Override
-    public void exitStack(ContextEl _context) {
-        processLastElementLoop(_context);
+        ip_.setLastLoop(_l);
     }
 
     @Override
@@ -40,6 +34,7 @@ public final class ExecDoBlock extends ExecBracedBlock implements ExecLoop {
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setLabel(label);
         l_.setExecBlock(this);
+        l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
         ip_.addBlock(l_);
         rw_.setBlock(getFirstChild());

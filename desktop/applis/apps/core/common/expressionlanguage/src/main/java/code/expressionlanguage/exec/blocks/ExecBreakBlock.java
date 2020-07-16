@@ -8,16 +8,12 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 
-public final class ExecBreakBlock extends ExecLeaf implements CallingFinally {
+public final class ExecBreakBlock extends ExecLeaf implements MethodCallingFinally {
 
     private String label;
-    private int labelOffset;
-    private int labelOffsetRef;
-    public ExecBreakBlock(OffsetsBlock _offset, String _label, int _labelOffset, int _labelOffsetRef) {
+    public ExecBreakBlock(OffsetsBlock _offset, String _label) {
         super(_offset);
         label = _label;
-        labelOffset = _labelOffset;
-        labelOffsetRef = _labelOffsetRef;
     }
 
     @Override
@@ -27,9 +23,9 @@ public final class ExecBreakBlock extends ExecLeaf implements CallingFinally {
         //when labelled this loop does not remove if
         //the last statement is a "try" with "finally" clause
         //and the current block is a "try" or a "catch"
-        RemovableVars stack_;
+        AbstractStask stack_;
         while (true) {
-            RemovableVars bl_ = ip_.getLastStack();
+            AbstractStask bl_ = ip_.getLastStack();
             stack_ = bl_;
             if (label.isEmpty()) {
                 if (bl_ instanceof LoopBlockStack || bl_ instanceof SwitchBlockStack) {
@@ -46,8 +42,17 @@ public final class ExecBreakBlock extends ExecLeaf implements CallingFinally {
         }
         ExecBlock forLoopLoc_ = stack_.getLastBlock();
         rw_.setBlock(forLoopLoc_);
-        if (stack_ instanceof LoopStack) {
-            ((LoopStack)stack_).setFinished(true);
+        if (stack_ instanceof LoopBlockStack) {
+            ip_.setLastLoop((LoopBlockStack) stack_);
+        }
+        if (stack_ instanceof IfBlockStack) {
+            ip_.setLastIf((IfBlockStack) stack_);
+        }
+        if (stack_ instanceof TryBlockStack) {
+            ip_.setLastTry((TryBlockStack) stack_);
+        }
+        if (stack_ instanceof LoopBlockStack) {
+            ((LoopBlockStack)stack_).setFinished(true);
         }
     }
 

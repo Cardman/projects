@@ -53,10 +53,9 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
     }
 
     @Override
-    public void processLastElementLoop(ContextEl _conf) {
+    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
-        l_.setEvaluatingKeepLoop(true);
+        _l.setEvaluatingKeepLoop(true);
         int index_ = 0;
         ip_.setOffset(0);
         ip_.setGlobalOffset(stepOffset);
@@ -79,9 +78,9 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
             return;
         }
         if (keep_ == ConditionReturn.NO) {
-            l_.setFinished(true);
+            _l.setFinished(true);
         }
-        l_.setEvaluatingKeepLoop(false);
+        _l.setEvaluatingKeepLoop(false);
     }
 
     @Override
@@ -147,6 +146,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setLabel(label);
         l_.setExecBlock(this);
+        l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
         boolean finished_ = res_ == ConditionReturn.NO;
         l_.setFinished(finished_);
@@ -185,10 +185,6 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;
-    }
-    @Override
-    public void exitStack(ContextEl _context) {
-        processLastElementLoop(_context);
     }
 
     private ExpressionLanguage getInitEl() {

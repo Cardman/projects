@@ -1,10 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.instr.PartOffset;
-import code.util.CustList;
 
 public abstract class ExecBracedBlock extends ExecBlock {
 
@@ -30,9 +27,6 @@ public abstract class ExecBracedBlock extends ExecBlock {
             }
             child_ = sibling_;
         }
-    }
-
-    public void exitStack(ContextEl _context){
     }
 
     public final void removeLocalVars(AbstractPageEl _ip) {

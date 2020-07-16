@@ -21,7 +21,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
 
     @Override
     protected ExecCondition newCondition(String _condition, int _conditionOffset,CustList<ExecOperationNode> _ops) {
-        return new ExecElseIfCondition(getOffset(),_condition,_conditionOffset,_ops,delta);
+        return new ExecElseIfCondition(getOffset(), _conditionOffset,_ops);
     }
 
     @Override

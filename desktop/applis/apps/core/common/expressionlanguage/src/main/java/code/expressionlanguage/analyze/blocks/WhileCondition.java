@@ -37,7 +37,7 @@ public final class WhileCondition extends Condition implements Loop {
 
     @Override
     protected ExecCondition newCondition(String _condition, int _conditionOffset,CustList<ExecOperationNode> _ops) {
-        return new ExecWhileCondition(getOffset(),_condition,_conditionOffset,label,labelOffset,_ops);
+        return new ExecWhileCondition(getOffset(), _conditionOffset,label, _ops);
     }
 
 

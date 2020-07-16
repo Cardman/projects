@@ -42,7 +42,7 @@ public final class IfCondition extends Condition implements BlockCondition {
 
     @Override
     protected ExecCondition newCondition(String _condition, int _conditionOffset,CustList<ExecOperationNode> _ops) {
-        return new ExecIfCondition(getOffset(),_condition,_conditionOffset,label,labelOffset,_ops);
+        return new ExecIfCondition(getOffset(), _conditionOffset,label, _ops);
     }
 
     @Override

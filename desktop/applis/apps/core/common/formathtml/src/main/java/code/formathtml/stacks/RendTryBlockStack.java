@@ -1,10 +1,7 @@
 package code.formathtml.stacks;
-import code.expressionlanguage.exec.stacks.TryStack;
-import code.formathtml.RendCallingFinally;
-import code.formathtml.RendEval;
 import code.formathtml.RendParentBlock;
 
-public final class RendTryBlockStack extends TryStack implements RendRemovableVars {
+public final class RendTryBlockStack implements RendRemovableVars {
 
     private RendAbruptCallingFinally calling;
 
@@ -13,6 +10,16 @@ public final class RendTryBlockStack extends TryStack implements RendRemovableVa
     private RendParentBlock lastBlock;
 
     private RendParentBlock currentBlock;
+
+    private boolean visitedFinally;
+
+    public boolean isVisitedFinally() {
+        return visitedFinally;
+    }
+
+    public void setVisitedFinally(boolean _visitedFinally) {
+        visitedFinally = _visitedFinally;
+    }
 
     @Override
     public RendParentBlock getBlock() {

@@ -6,24 +6,22 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
-import code.expressionlanguage.exec.stacks.ExceptionCallingFinally;
-import code.expressionlanguage.exec.stacks.RemovableVars;
+import code.expressionlanguage.exec.stacks.AbstractStask;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 
 public final class LocalThrowing implements CallingFinally {
 
-    @Override
-    public void removeBlockFinally(ContextEl _conf) {
-        Struct custCause_ = (Struct) _conf.getCallingState();
+    public void removeBlockFinally(ContextEl _conf, Struct _str) {
+        Struct custCause_ = _str;
         ExecAbstractCatchEval catchElt_ = null;
         while (_conf.hasPages()) {
             AbstractPageEl bkIp_ = _conf.getLastPage();
             bkIp_.clearCurrentEls();
             _conf.setException(null);
             while (bkIp_.hasBlock()) {
-                RemovableVars bl_ = bkIp_.getLastStack();
+                AbstractStask bl_ = bkIp_.getLastStack();
                 ExecBlock currentBlock_ = bl_.getCurrentVisitedBlock();
                 if (currentBlock_ instanceof ExecTryEval) {
                     ExecBlock n_ = currentBlock_.getNextSibling();
@@ -79,6 +77,6 @@ public final class LocalThrowing implements CallingFinally {
 
     @Override
     public AbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
-        return new ExceptionCallingFinally(this,_struct);
+        return new AbruptCallingFinally(this);
     }
 }

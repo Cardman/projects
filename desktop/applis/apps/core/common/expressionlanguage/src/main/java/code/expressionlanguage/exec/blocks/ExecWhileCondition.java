@@ -12,33 +12,24 @@ import code.util.CustList;
 public final class ExecWhileCondition extends ExecCondition implements ExecLoop {
 
     private String label;
-    private int labelOffset;
-    public ExecWhileCondition(OffsetsBlock _offset, String _condition, int _conditionOffset, String _label, int _labelOffset, CustList<ExecOperationNode> _opCondition) {
+    public ExecWhileCondition(OffsetsBlock _offset, int _conditionOffset, String _label, CustList<ExecOperationNode> _opCondition) {
         super(_offset, _conditionOffset, _opCondition);
         label = _label;
-        labelOffset = _labelOffset;
     }
 
     @Override
-    public void processLastElementLoop(ContextEl _conf) {
-        AbstractPageEl ip_ = _conf.getLastPage();
-        LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
-        l_.setEvaluatingKeepLoop(true);
-        ConditionReturn keep_ = keepLoop(_conf);
+    public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
+        _l.setEvaluatingKeepLoop(true);
+        ConditionReturn keep_ = evaluateCondition(_conf);
         if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
         if (keep_ == ConditionReturn.NO) {
-            l_.setFinished(true);
+            _l.setFinished(true);
         }
-        l_.setEvaluatingKeepLoop(false);
+        _l.setEvaluatingKeepLoop(false);
     }
 
-    private ConditionReturn keepLoop(ContextEl _conf) {
-        _conf.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
-        _conf.getLastPage().setOffset(0);
-        return evaluateCondition(_conf);
-    }
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
@@ -55,6 +46,7 @@ public final class ExecWhileCondition extends ExecCondition implements ExecLoop 
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setLabel(label);
         l_.setExecBlock(this);
+        l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
         boolean finished_ = res_ == ConditionReturn.NO;
         l_.setFinished(finished_);
@@ -64,11 +56,6 @@ public final class ExecWhileCondition extends ExecCondition implements ExecLoop 
             return;
         }
         rw_.setBlock(getFirstChild());
-    }
-
-    @Override
-    public void exitStack(ContextEl _context) {
-        processLastElementLoop(_context);
     }
 
 
