@@ -577,6 +577,23 @@ public abstract class RendDynOperationNode {
                 return;
             }
             pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(res_.getStruct())));
+        } else {
+            if (getNextSibling() != null) {
+                RendMethodOperation parent_ = getParent();
+                if (parent_ instanceof RendCompoundAffectationOperation) {
+                    RendCompoundAffectationOperation par_ = (RendCompoundAffectationOperation) parent_;
+                    if (StringList.quickEq(par_.getOper(), "&&=")){
+                        pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
+                    }
+                    if (StringList.quickEq(par_.getOper(), "||=")){
+                        pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+                    }
+                } else if (parent_ instanceof RendAndOperation) {
+                    pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
+                } else if (parent_ instanceof RendOrOperation) {
+                    pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+                }
+            }
         }
         if (pair_.isArgumentTest()) {
             calcArg(_nodes,out_);

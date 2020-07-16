@@ -67,7 +67,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             Argument _right) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = getArgument(_nodes,this);
+        Argument a_ = new Argument();
         ExecOperationNode lastElement_ = chidren_.last();
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();

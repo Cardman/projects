@@ -698,22 +698,47 @@ public abstract class ExecOperationNode {
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         CustList<ClassMethodId> implicitsTest_ = pair_.getImplicitsTest();
         int indexImplicitTest_ = pair_.getIndexImplicitTest();
-        if (implicitsTest_.isValidIndex(indexImplicitTest_)) {
-            pair_.setArgumentBeforeTest(_argument);
-            pair_.setIndexImplicitTest(processConverter(_conf,_argument,implicitsTest_,indexImplicitTest_));
-            return;
-        }
-        Argument before_;
-        if (pair_.getArgumentBeforeTest() != null) {
+        Argument before_ = _argument;
+        if (!implicitsTest_.isEmpty()) {
+            if (implicitsTest_.isValidIndex(indexImplicitTest_)) {
+                pair_.setArgumentBeforeTest(_argument);
+                pair_.setIndexImplicitTest(processConverter(_conf,_argument,implicitsTest_,indexImplicitTest_));
+                return;
+            }
             if (!pair_.isCalcArgumentTest()) {
                 pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
                 pair_.setCalcArgumentTest(true);
-                before_ = pair_.getArgumentBeforeTest();
-            } else {
-                before_ = _argument;
+                before_ = Argument.getNullableValue(pair_.getArgumentBeforeTest());
             }
         } else {
-            before_ = _argument;
+            if (getNextSibling() != null) {
+                ExecMethodOperation parent_ = getParent();
+                if (parent_ instanceof ExecCompoundAffectationOperation) {
+                    ExecCompoundAffectationOperation par_ = (ExecCompoundAffectationOperation) parent_;
+                    if (StringList.quickEq(par_.getOper(), "&&=")){
+                        if (!pair_.isCalcArgumentTest()) {
+                            pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
+                            pair_.setCalcArgumentTest(true);
+                        }
+                    }
+                    if (StringList.quickEq(par_.getOper(), "||=")){
+                        if (!pair_.isCalcArgumentTest()) {
+                            pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+                            pair_.setCalcArgumentTest(true);
+                        }
+                    }
+                } else if (parent_ instanceof ExecAndOperation) {
+                    if (!pair_.isCalcArgumentTest()) {
+                        pair_.setArgumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
+                        pair_.setCalcArgumentTest(true);
+                    }
+                } else if (parent_ instanceof ExecOrOperation) {
+                    if (!pair_.isCalcArgumentTest()) {
+                        pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+                        pair_.setCalcArgumentTest(true);
+                    }
+                }
+            }
         }
         if (pair_.isArgumentTest()) {
             calcArg(_possiblePartial, _conf, _nodes, before_);

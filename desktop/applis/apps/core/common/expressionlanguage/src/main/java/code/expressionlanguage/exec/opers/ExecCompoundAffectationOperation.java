@@ -52,9 +52,11 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         ArgumentsPair argumentPair_ = getArgumentPair(_nodes, left_);
         if (argumentPair_.isArgumentTest()){
-            pair_.setEndCalculate(true);
             pair_.setIndexImplicitCompound(-1);
-            setSimpleArgument(leftArg_, _conf, _nodes);
+            setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
+            Argument arg_ = settable.calculateSetting(_nodes, _conf, leftArg_);
+            pair_.setEndCalculate(true);
+            setSimpleArgument(arg_, _conf, _nodes);
             return;
         }
         if (classMethodId != null) {

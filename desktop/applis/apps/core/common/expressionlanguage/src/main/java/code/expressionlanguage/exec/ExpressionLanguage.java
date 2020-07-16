@@ -77,9 +77,7 @@ public final class ExpressionLanguage {
                 processCalling(_el, _context, pageEl_, o);
                 return;
             }
-            Argument res_ = pair_.getArgument();
-            Struct st_ = res_.getStruct();
-            fr_ = ExecOperationNode.getNextIndex(o, st_);
+            fr_ = getNextIndex(_nodes,o);
         }
         pageEl_.setTranslatedOffset(0);
     }
@@ -200,11 +198,15 @@ public final class ExpressionLanguage {
     }
 
     private void getNextIndex() {
-        ArgumentsPair value_ = arguments.getValue(currentOper.getOrder());
+        index = getNextIndex(arguments,currentOper);
+    }
+
+    private static int getNextIndex(IdMap<ExecOperationNode,ArgumentsPair> _args,ExecOperationNode _oper) {
+        ArgumentsPair value_ = _args.getValue(_oper.getOrder());
         Argument res_ = value_.getArgument();
         Struct v_ = res_.getStruct();
-        if (currentOper.getNextSibling() != null&&value_.isArgumentTest()){
-            ExecMethodOperation par_ = currentOper.getParent();
+        if (_oper.getNextSibling() != null&&value_.isArgumentTest()){
+            ExecMethodOperation par_ = _oper.getParent();
             if (par_ instanceof ExecAndOperation){
                 v_ = BooleanStruct.of(false);
             }
@@ -221,9 +223,8 @@ public final class ExpressionLanguage {
                 }
             }
         }
-        index = ExecOperationNode.getNextIndex(currentOper, v_);
+        return ExecOperationNode.getNextIndex(_oper, v_);
     }
-
     public boolean isFinished() {
         return argument != null;
     }
