@@ -11312,7 +11312,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " {\n" +
-                "  <a title=\"The expression part is empty.\" class=\"e\">(</a>&lt; &lt;)<a title=\"The operands types java.lang.Object;$int for the operator &gt;= are unexpected.\" class=\"e\">&gt;=</a>1;\n" +
+                "  (<a title=\"The expression part is empty.\" class=\"e\">&lt;</a> <a title=\"The expression part is empty.\" class=\"e\">&lt;</a>)<a title=\"The operands types $boolean;$int for the operator &gt;= are unexpected.\" class=\"e\">&gt;=</a>1;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -11332,7 +11332,7 @@ public class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " {\n" +
-                "  <a title=\"The expression part is empty.\" class=\"e\">(</a>&lt; &lt; )<a title=\"The operands types java.lang.Object;$int for the operator &gt;= are unexpected.\" class=\"e\">&gt;=</a>1;\n" +
+                "  (<a title=\"The expression part is empty.\" class=\"e\">&lt;</a> <a title=\"The expression part is empty.\" class=\"e\">&lt;</a> )<a title=\"The operands types $boolean;$int for the operator &gt;= are unexpected.\" class=\"e\">&gt;=</a>1;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -12490,6 +12490,26 @@ public class ErrorsTest extends ProcessMethodCommon {
                 "\n" +
                 "The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\">&lt;</a>&gt;{}\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report594Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  (< <);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  (<a title=\"The expression part is empty.\" class=\"e\">&lt;</a> <a title=\"The expression part is empty.\" class=\"e\">&lt;</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void reportWithoutErrorTest() {
