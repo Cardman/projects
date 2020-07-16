@@ -77,14 +77,12 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         return ConditionReturn.NO;
     }
 
-    private void incrementLoop(ContextEl _conf, LoopBlockStack _l,
-                               StringMap<LoopVariable> _vars) {
+    private void incrementLoop(ContextEl _conf, LoopBlockStack _l) {
         _l.setIndex(_l.getIndex() + 1);
         AbstractPageEl abs_ = _conf.getLastPage();
 
         abs_.setGlobalOffset(variableNameOffset);
         abs_.setOffset(0);
-        LoopVariable lv_ = _vars.getVal(variableName);
         Struct iterator_ = _l.getStructIterator();
         Struct element_ = NullStruct.NULL_VALUE;
         Argument arg_ = Argument.createVoid();
@@ -96,7 +94,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
             ExpressionLanguage dyn_ = abs_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 3);
             arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0);
         } else {
-            Struct container_ = lv_.getContainer();
+            Struct container_ = _l.getContainer();
             LongStruct lg_ = new LongStruct(_l.getIndex());
             element_ = ExecInvokingOperation.getElement(container_, lg_, _conf);
         }
@@ -104,17 +102,14 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
             return;
         }
         abs_.clearCurrentEls();
-        if (!el_.getResultClass().isArray()) {
-            element_ = arg_.getStruct();
-        } else {
+        if (el_.getResultClass().isArray()) {
             arg_ = new Argument(element_);
         }
-        String className_ = abs_.formatVarType(importedClassName, _conf);
-        if (!ExecTemplates.checkQuick(className_, arg_, _conf)) {
+        ExecTemplates.setValue(_conf, variableName,abs_,arg_);
+        ExecTemplates.incrIndexLoop(_conf, variableName, abs_);
+        if (_conf.callsOrException()) {
             return;
         }
-        lv_.setStruct(element_);
-        lv_.setIndex(lv_.getIndex() + 1);
         _l.setEvaluatingKeepLoop(false);
         abs_.getReadWrite().setBlock(getFirstChild());
     }
@@ -137,6 +132,8 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         super.removeAllVars(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
         v_.removeKey(variableName);
+        StringMap<LocalVariable> vInfo_ = _ip.getValueVars();
+        vInfo_.removeKey(variableName);
     }
 
     @Override
@@ -235,16 +232,18 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         l_.setCurrentVisitedBlock(this);
         l_.setStructIterator(iterStr_);
         l_.setMaxIteration(length_);
+        l_.setContainer(its_);
         ip_.addBlock(l_);
         ip_.clearCurrentEls();
         l_.setEvaluatingKeepLoop(true);
         String className_ = ip_.formatVarType(importedClassName, _cont);
-        LoopVariable lv_ = LoopVariable.newLoopVariable(PrimitiveTypeUtil.defaultValue(className_,_cont),className_);
+        Struct struct_ = PrimitiveTypeUtil.defaultValue(className_, _cont);
+        LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
         lv_.setIndexClassName(importedClassIndexName);
-        lv_.setContainer(its_);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         varsLoop_.put(variableName, lv_);
+        ip_.putValueVar(variableName, LocalVariable.newLocalVariable(struct_,className_));
         if (iterStr_ != null) {
             iteratorHasNext(_cont,l_);
             return;
@@ -270,8 +269,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
             return;
         }
         _cont.getCoverage().passLoop(_cont, new Argument(BooleanStruct.of(true)));
-        StringMap<LoopVariable> vars_ = ip_.getVars();
-        incrementLoop(_cont, _l, vars_);
+        incrementLoop(_cont, _l);
     }
 
     public CustList<ExecOperationNode> getOpList() {

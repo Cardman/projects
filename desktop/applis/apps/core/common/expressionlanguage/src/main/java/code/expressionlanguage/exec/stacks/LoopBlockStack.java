@@ -19,6 +19,10 @@ public final class LoopBlockStack extends AbstractStask {
 
     private long maxIteration;
 
+    private long step;
+
+    private Struct container;
+
     public boolean hasNext() {
         return index + 1 < maxIteration;
     }
@@ -89,5 +93,21 @@ public final class LoopBlockStack extends AbstractStask {
     @Override
     public void setCurrentVisitedBlock(ExecBracedBlock _bl) {
         execBlock = _bl;
+    }
+
+    public long getStep() {
+        return step;
+    }
+
+    public void setStep(long step) {
+        this.step = step;
+    }
+
+    public Struct getContainer() {
+        return container;
+    }
+
+    public void setContainer(Struct container) {
+        this.container = container;
     }
 }

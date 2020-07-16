@@ -3,7 +3,9 @@ package code.expressionlanguage.exec.inherits;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -505,6 +507,62 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         instance_[0] = NullStruct.NULL_VALUE;
         ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
         assertSame(ErrorType.CAST, ExecTemplates.getErrorWhenIndex(arr_, new StringStruct("")));
+    }
+    @Test
+    public void getIndexLoop() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,"pkg.Ex",null));
+        ExecTemplates.getIndexLoop(cont_,"", cont_.getLastPage());
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void getValue() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,"pkg.Ex",null));
+        ExecTemplates.getValue(cont_,"", cont_.getLastPage());
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void setValue() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,"pkg.Ex",null));
+        ExecTemplates.setValue(cont_,"", cont_.getLastPage(),null);
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void incrValue() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,"pkg.Ex",null));
+        ExecTemplates.incrIndexLoop(cont_,"", cont_.getLastPage());
+        assertNotNull(getException(cont_));
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = getSimpleContextEl();

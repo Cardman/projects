@@ -95,7 +95,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
     public void removeAllVars(ImportingPage _ip) {
         super.removeAllVars(_ip);
         String var_ = getVariableName();
-        _ip.getCatchVars().removeKey(var_);
+        _ip.getValueVars().removeKey(var_);
     }
 
 }

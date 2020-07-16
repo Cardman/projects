@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -335,20 +336,21 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         l_.setCurrentVisitedBlock(this);
         l_.setStructIterator(iterStr_);
         l_.setMaxIteration(length_);
+        l_.setContainer(its_);
         ip_.addBlock(l_);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
-        lv_.setClassName(importedClassNameFirst);
+        Struct defFirst_ = PrimitiveTypeUtil.defaultValue(importedClassNameFirst, _cont.getContext());
         lv_.setIndexClassName(importedClassIndexName);
-        lv_.setContainer(its_);
         varsLoop_.put(variableNameFirst, lv_);
+        ip_.putValueVar(variableNameFirst, LocalVariable.newLocalVariable(defFirst_,importedClassNameFirst));
         lv_ = new LoopVariable();
         lv_.setIndex(-1);
-        lv_.setClassName(importedClassNameSecond);
+        Struct defSecond_ = PrimitiveTypeUtil.defaultValue(importedClassNameSecond, _cont.getContext());
         lv_.setIndexClassName(importedClassIndexName);
-        lv_.setContainer(its_);
         varsLoop_.put(variableNameSecond, lv_);
+        ip_.putValueVar(variableNameSecond, LocalVariable.newLocalVariable(defSecond_,importedClassNameSecond));
         processLastElementLoop(_cont);
     }
 
@@ -380,12 +382,16 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         StringMap<LoopVariable> v_ = _ip.getVars();
         v_.removeKey(variableNameFirst);
         v_.removeKey(variableNameSecond);
+        StringMap<LocalVariable> vInfo_ = _ip.getValueVars();
+        vInfo_.removeKey(variableNameFirst);
+        vInfo_.removeKey(variableNameSecond);
     }
 
     @Override
     public void processLastElementLoop(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
+        StringMap<LocalVariable> varsInfos_ = ip_.getValueVars();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         ConditionReturn has_ = iteratorHasNext(_conf);
         if (has_ == ConditionReturn.CALL_EX) {
@@ -393,13 +399,13 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         }
         boolean hasNext_ = has_ == ConditionReturn.YES;
         if (hasNext_) {
-            incrementLoop(_conf, l_, vars_);
+            incrementLoop(_conf, l_, vars_,varsInfos_);
         } else {
             l_.setFinished(true);
         }
     }
     public void incrementLoop(Configuration _conf, RendLoopBlockStack _l,
-                              StringMap<LoopVariable> _vars) {
+                              StringMap<LoopVariable> _vars, StringMap<LocalVariable> _varsInfos) {
         _l.setIndex(_l.getIndex() + 1);
         Struct iterator_ = _l.getStructIterator();
         ImportingPage call_ = _conf.getLastPage();
@@ -416,7 +422,8 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             return;
         }
         LoopVariable lv_ = _vars.getVal(variableNameFirst);
-        lv_.setStruct(arg_.getStruct());
+        LocalVariable lInfo_ = _varsInfos.getVal(variableNameFirst);
+        lInfo_.setStruct(arg_.getStruct());
         lv_.setIndex(lv_.getIndex() + 1);
         arg_ = second(value_,_conf);
         if (_conf.getContext().hasException()) {
@@ -426,7 +433,8 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             return;
         }
         lv_ = _vars.getVal(variableNameSecond);
-        lv_.setStruct(arg_.getStruct());
+        lInfo_ = _varsInfos.getVal(variableNameSecond);
+        lInfo_.setStruct(arg_.getStruct());
         lv_.setIndex(lv_.getIndex() + 1);
         call_.getRendReadWrite().setRead(getFirstChild());
     }

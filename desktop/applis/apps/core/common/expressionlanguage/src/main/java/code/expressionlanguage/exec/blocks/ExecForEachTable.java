@@ -53,7 +53,6 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
     @Override
     public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        StringMap<LoopVariable> vars_ = ip_.getVars();
         _l.setEvaluatingKeepLoop(true);
         ConditionReturn has_ = iteratorHasNext(_conf,_l);
         if (has_ == ConditionReturn.CALL_EX) {
@@ -63,7 +62,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
 
         if (hasNext_) {
             _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(true)));
-            incrementLoop(_conf, _l, vars_);
+            incrementLoop(_conf, _l);
         } else {
             _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(false)));
             _conf.getLastPage().clearCurrentEls();
@@ -135,20 +134,23 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         ip_.addBlock(l_);
         ip_.clearCurrentEls();
         l_.setEvaluatingKeepLoop(true);
+        l_.setContainer(its_);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String className_;
         className_ = ip_.formatVarType(importedClassNameFirst, _cont);
-        LoopVariable lv_ = LoopVariable.newLoopVariable(PrimitiveTypeUtil.defaultValue(className_,_cont),className_);
+        Struct defFirst_ = PrimitiveTypeUtil.defaultValue(className_, _cont);
+        LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
         lv_.setIndexClassName(importedClassIndexName);
-        lv_.setContainer(its_);
         varsLoop_.put(variableNameFirst, lv_);
+        ip_.putValueVar(variableNameFirst, LocalVariable.newLocalVariable(defFirst_,className_));
         className_ = ip_.formatVarType(importedClassNameSecond, _cont);
-        lv_ = LoopVariable.newLoopVariable(PrimitiveTypeUtil.defaultValue(className_,_cont),className_);
+        Struct defSecond_ = PrimitiveTypeUtil.defaultValue(className_, _cont);
+        lv_ = new LoopVariable();
         lv_.setIndex(-1);
         lv_.setIndexClassName(importedClassIndexName);
-        lv_.setContainer(its_);
         varsLoop_.put(variableNameSecond, lv_);
+        ip_.putValueVar(variableNameSecond, LocalVariable.newLocalVariable(defSecond_,className_));
         iteratorHasNext(_cont,l_);
     }
     private Struct processLoop(ContextEl _conf) {
@@ -175,10 +177,12 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         StringMap<LoopVariable> v_ = _ip.getVars();
         v_.removeKey(variableNameFirst);
         v_.removeKey(variableNameSecond);
+        StringMap<LocalVariable> vInfo_ = _ip.getValueVars();
+        vInfo_.removeKey(variableNameFirst);
+        vInfo_.removeKey(variableNameSecond);
     }
 
-    private void incrementLoop(ContextEl _conf, LoopBlockStack _l,
-                               StringMap<LoopVariable> _vars) {
+    private void incrementLoop(ContextEl _conf, LoopBlockStack _l) {
         _l.setIndex(_l.getIndex() + 1);
         Classes cls_ = _conf.getClasses();
         Struct iterator_ = _l.getStructIterator();
@@ -193,7 +197,6 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         if (_conf.callsOrException()) {
             return;
         }
-        String classNameFirst_ = _conf.getLastPage().formatVarType(importedClassNameFirst, _conf);
         if (call_.sizeEl() < 3) {
             String locName_ = cls_.getFirstVarCust();
             Struct value_ = call_.getValue(1).getStruct();
@@ -205,14 +208,12 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         if (_conf.callsOrException()) {
             return;
         }
-        if (!ExecTemplates.checkQuick(classNameFirst_, arg_, _conf)) {
-            return;
-        }
-        String classNameSecond_ = _conf.getLastPage().formatVarType(importedClassNameSecond, _conf);
         if (call_.sizeEl() < 4) {
-            LoopVariable lv_ = _vars.getVal(variableNameFirst);
-            lv_.setStruct(arg_.getStruct());
-            lv_.setIndex(lv_.getIndex() + 1);
+            ExecTemplates.setValue(_conf,variableNameFirst,_conf.getLastPage(),arg_);
+            ExecTemplates.incrIndexLoop(_conf, variableNameFirst, _conf.getLastPage());
+            if (_conf.callsOrException()) {
+                return;
+            }
             String locName_ = cls_.getSecondVarCust();
             Struct value_ = call_.getValue(1).getStruct();
             LocalVariable locVar_ = LocalVariable.newLocalVariable(value_,_conf);
@@ -223,12 +224,11 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         if (_conf.callsOrException()) {
             return;
         }
-        if (!ExecTemplates.checkQuick(classNameSecond_, arg_, _conf)) {
+        ExecTemplates.setValue(_conf,variableNameSecond,_conf.getLastPage(),arg_);
+        ExecTemplates.incrIndexLoop(_conf, variableNameSecond, _conf.getLastPage());
+        if (_conf.callsOrException()) {
             return;
         }
-        LoopVariable lv_ = _vars.getVal(variableNameSecond);
-        lv_.setStruct(arg_.getStruct());
-        lv_.setIndex(lv_.getIndex() + 1);
         call_.clearCurrentEls();
         call_.getReadWrite().setBlock(getFirstChild());
         _l.setEvaluatingKeepLoop(false);

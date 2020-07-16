@@ -8,7 +8,7 @@ import org.junit.Test;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-public class ErrorsTest extends ProcessMethodCommon {
+public final class ErrorsTest extends ProcessMethodCommon {
     @Test
     public void report0Test() {
         StringMap<String> files_ = new StringMap<String>();

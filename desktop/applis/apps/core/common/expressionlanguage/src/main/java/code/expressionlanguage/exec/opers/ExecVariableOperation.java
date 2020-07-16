@@ -51,10 +51,7 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
         if (resultCanBeSet()) {
             return Argument.createVoid();
         }
-        LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        Argument a_ = new Argument();
-        a_.setStruct(locVar_.getStruct());
-        return a_;
+        return ExecTemplates.getValue(_conf,variableName,ip_);
     }
 
     @Override
@@ -86,50 +83,36 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
 
     private Argument getCommonSetting(ContextEl _conf, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        return checkSet(_conf,locVar_,_right);
+        return ExecTemplates.setValue(_conf,variableName,ip_,_right);
     }
-    public static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right) {
-        String formattedClassVar_ = _loc.getClassName();
-        if (!ExecTemplates.checkQuick(formattedClassVar_, _right, _conf)) {
-            return Argument.createVoid();
-        }
-        _loc.setStruct(_right.getStruct());
-        return _right;
-    }
+
     private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ClassArgumentMatching _arg) {
         PageEl ip_ = _conf.getLastPage();
-        LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
         left_.setStruct(_store);
         Argument res_;
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
-        setVar(_conf, locVar_, res_);
+        setVar(_conf,variableName, ip_, res_);
         return res_;
     }
     private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post) {
         PageEl ip_ = _conf.getLastPage();
-        LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
         left_.setStruct(_store);
         ClassArgumentMatching cl_ = getResultClass();
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        setVar(_conf, locVar_, res_);
+        setVar(_conf, variableName,ip_, res_);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
-    public static void setVar(ContextEl _conf, LocalVariable _var,Argument _value) {
-        if (_conf.callsOrException()) {
-            return;
-        }
-        checkSet(_conf,_var,_value);
+    public static void setVar(ContextEl _conf, String _variableName,PageEl _var,Argument _value) {
+        ExecTemplates.setValue(_conf,_variableName,_var,_value);
     }
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        checkSet(_conf,locVar_, _right);
+        ExecTemplates.setValue(_conf,variableName,ip_,_right);
         return _right;
     }
 
@@ -138,8 +121,7 @@ public final class ExecVariableOperation extends ExecLeafOperation implements
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
             Argument _stored, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        checkSet(_conf,locVar_,_right);
+        ExecTemplates.setValue(_conf,variableName,ip_,_right);
         return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 

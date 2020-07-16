@@ -5977,6 +5977,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         lv_.setStruct(fresh_);
         lv_.setClassName(_className);
         cont_.getLastPage().putLocalVar(_var, lv_);
+        cont_.getLastPage().putValueVar(_var, lv_);
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
         cont_.setGlobalClass(_className);
         ExpressionLanguage el_ = new ExpressionLanguage(list_);
@@ -5997,15 +5998,14 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         cont_.getAnalyzing().initVars();
         cont_.getAnalyzing().putVar(_var, lva_);
         cont_.getAnalyzing().setGlobalClass(_className);
-        Calculation calc_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
         ExecFieldBlock f_ = (ExecFieldBlock)cont_.getClasses().getClassBody(_className).getFirstChild();
         CustList<ExecOperationNode> list_ = f_.getOpValue();
 //        CustList<ExecOperationNode> list_ = ElUtil.getAnalyzedOperationsReadOnly(_el, cont_, calc_);
         addImportingPage(cont_);
-        LoopVariable lv_ = new LoopVariable();
+        LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(fresh_);
         lv_.setClassName(_className);
-        cont_.getLastPage().getVars().put(_var, lv_);
+        cont_.getLastPage().getValueVars().put(_var, lv_);
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
         cont_.setGlobalClass(_className);
         ExpressionLanguage el_ = new ExpressionLanguage(list_);
@@ -6034,6 +6034,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         lv_.setStruct(fresh_);
         lv_.setClassName(_className);
         cont_.getLastPage().putLocalVar(var_, lv_);
+        cont_.getLastPage().putValueVar(var_, lv_);
         cont_.getLastPage().setGlobalArgumentStruct(fresh_);
         cont_.setGlobalClass(_className);
         ExpressionLanguage el_ = new ExpressionLanguage(list_);

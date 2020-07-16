@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.MutableLoopVariableOperation;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -49,10 +50,7 @@ public final class ExecMutableLoopVariableOperation extends ExecLeafOperation im
         if (resultCanBeSet()) {
             return Argument.createVoid();
         }
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        Argument a_ = new Argument();
-        a_.setStruct(locVar_.getStruct());
-        return a_;
+        return ExecTemplates.getValue(_conf,variableName,ip_);
     }
 
     @Override
@@ -84,50 +82,36 @@ public final class ExecMutableLoopVariableOperation extends ExecLeafOperation im
 
     private Argument getCommonSetting(ContextEl _conf, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        return checkSet(_conf,locVar_,_right);
+        return ExecTemplates.setValue(_conf,variableName,ip_,_right);
     }
-    public static Argument checkSet(ContextEl _conf, LoopVariable _loc, Argument _right) {
-        String formattedClassVar_ = _loc.getClassName();
-        if (!ExecTemplates.checkQuick(formattedClassVar_, _right, _conf)) {
-            return Argument.createVoid();
-        }
-        _loc.setStruct(_right.getStruct());
-        return _right;
-    }
+
     private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ClassArgumentMatching _arg) {
         PageEl ip_ = _conf.getLastPage();
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
         Argument left_ = new Argument();
         left_.setStruct(_store);
         Argument res_;
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
-        setVar(_conf, locVar_, res_);
+        setVar(_conf, variableName,ip_, res_);
         return res_;
     }
     private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post) {
         PageEl ip_ = _conf.getLastPage();
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
         Argument left_ = new Argument();
         left_.setStruct(_store);
         ClassArgumentMatching cl_ = getResultClass();
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        setVar(_conf, locVar_, res_);
+        setVar(_conf, variableName,ip_, res_);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
-    public static void setVar(ContextEl _conf, LoopVariable _var,Argument _value) {
-        if (_conf.callsOrException()) {
-            return;
-        }
-        checkSet(_conf,_var,_value);
+    public static void setVar(ContextEl _conf, String _variableName,PageEl _var,Argument _value) {
+        ExecTemplates.setValue(_conf,_variableName,_var,_value);
     }
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        checkSet(_conf,locVar_, _right);
+        ExecTemplates.setValue(_conf,variableName,ip_, _right);
         return _right;
     }
 
@@ -136,8 +120,7 @@ public final class ExecMutableLoopVariableOperation extends ExecLeafOperation im
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
             Argument _stored, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        LoopVariable locVar_ = ip_.getVars().getVal(variableName);
-        checkSet(_conf,locVar_,_right);
+        ExecTemplates.setValue(_conf,variableName,ip_,_right);
         return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 

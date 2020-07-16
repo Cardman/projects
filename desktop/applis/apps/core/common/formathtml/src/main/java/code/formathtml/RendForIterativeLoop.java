@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -18,6 +19,7 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
@@ -331,16 +333,16 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
         l_.setMaxIteration(length_);
+        l_.setStep(stepValue_);
         ip_.addBlock(l_);
         if (finished_) {
             return;
         }
         LoopVariable lv_ = new LoopVariable();
-        lv_.setClassName(importedClassName);
         lv_.setIndexClassName(importedClassIndexName);
-        lv_.setStruct(PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(fromValue_), stds_));
-        lv_.setStep(stepValue_);
+        Struct struct_ = PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(fromValue_), stds_);
         varsLoop_.put(var_, lv_);
+        ip_.putValueVar(var_, LocalVariable.newLocalVariable(struct_,importedClassName));
     }
 
     @Override
@@ -354,6 +356,8 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         StringMap<LoopVariable> v_ = _ip.getVars();
         String var_ = getVariableName();
         v_.removeKey(var_);
+        StringMap<LocalVariable> vInfo_ = _ip.getValueVars();
+        vInfo_.removeKey(var_);
     }
 
     @Override
@@ -361,10 +365,11 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         ImportingPage ip_ = _conf.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         StringMap<LoopVariable> vars_ = ip_.getVars();
+        StringMap<LocalVariable> varsInfos_ = ip_.getValueVars();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         RendBlock forLoopLoc_ = l_.getBlock();
         if (l_.hasNext()) {
-            incrementLoop(_conf, l_, vars_);
+            incrementLoop(_conf, l_, vars_,varsInfos_);
             rw_.setRead(forLoopLoc_.getFirstChild());
             return;
         }
@@ -372,12 +377,13 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
     }
 
     public void incrementLoop(Configuration _conf, RendLoopBlockStack _l,
-                              StringMap<LoopVariable> _vars) {
+                              StringMap<LoopVariable> _vars, StringMap<LocalVariable> _varsInfos) {
         _l.setIndex(_l.getIndex() + 1);
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
-        long o_ = ClassArgumentMatching.convertToNumber(lv_.getStruct()).longStruct()+lv_.getStep();
-        lv_.setStruct(PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(o_), _conf.getStandards()));
+        LocalVariable lInfo_ = _varsInfos.getVal(var_);
+        long o_ = ClassArgumentMatching.convertToNumber(lInfo_.getStruct()).longStruct()+_l.getStep();
+        lInfo_.setStruct(PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(o_), _conf.getStandards()));
         lv_.setIndex(lv_.getIndex() + 1);
     }
 }

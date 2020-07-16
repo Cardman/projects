@@ -39,6 +39,7 @@ public final class ExecDeclareVariable extends ExecLeaf implements StackableBloc
         for (String v: variableNames) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,formatted_);
             ip_.putLocalVar(v, lv_);
+            ip_.putValueVar(v, lv_);
         }
         processBlock(_cont);
     }

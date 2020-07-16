@@ -3,8 +3,10 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -14,6 +16,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -60,10 +63,8 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
 
     @Override
     public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
-        AbstractPageEl ip_ = _conf.getLastPage();
-        StringMap<LoopVariable> vars_ = ip_.getVars();
         if (_l.hasNext()) {
-            incrementLoop(_conf, _l, vars_);
+            incrementLoop(_conf, _l);
             _conf.getCoverage().passLoop(_conf, new Argument(BooleanStruct.of(true)));
             return;
         }
@@ -222,14 +223,16 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         l_.setExecLoop(this);
         l_.setCurrentVisitedBlock(this);
         l_.setMaxIteration(length_);
+        l_.setStep(stepValue_);
         ip_.addBlock(l_);
         if (finished_) {
             return l_;
         }
-        LoopVariable lv_ = LoopVariable.newLoopVariable(PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(fromValue_), stds_),importedClassName);
+        Struct struct_ = PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(fromValue_), stds_);
+        LoopVariable lv_ = new LoopVariable();
         lv_.setIndexClassName(importedClassIndexName);
-        lv_.setStep(stepValue_);
         varsLoop_.put(var_, lv_);
+        ip_.putValueVar(var_, LocalVariable.newLocalVariable(struct_,importedClassName));
         return l_;
     }
 
@@ -237,20 +240,22 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
     public void removeAllVars(AbstractPageEl _ip) {
         super.removeAllVars(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
+        StringMap<LocalVariable> vInfo_ = _ip.getValueVars();
         String var_ = getVariableName();
         v_.removeKey(var_);
+        vInfo_.removeKey(var_);
     }
 
-    private void incrementLoop(ContextEl _conf, LoopBlockStack _l,
-                               StringMap<LoopVariable> _vars) {
+    private void incrementLoop(ContextEl _conf, LoopBlockStack _l) {
         _l.setIndex(_l.getIndex() + 1);
         _conf.getLastPage().setGlobalOffset(variableNameOffset);
         _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
-        LoopVariable lv_ = _vars.getVal(var_);
-        long o_ = ClassArgumentMatching.convertToNumber(lv_.getStruct()).longStruct()+lv_.getStep();
-        lv_.setStruct(PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(o_), _conf.getStandards()));
-        lv_.setIndex(lv_.getIndex() + 1);
+        Argument struct_ = ExecTemplates.getValue(_conf,var_,_conf.getLastPage());
+        long o_ = ClassArgumentMatching.convertToNumber(struct_.getStruct()).longStruct()+_l.getStep();
+        Struct element_ = PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(o_), _conf.getStandards());
+        ExecTemplates.setValue(_conf,var_,_conf.getLastPage(),new Argument(element_));
+        ExecTemplates.incrIndexLoop(_conf,var_,_conf.getLastPage());
     }
 
     public String getVariableName() {

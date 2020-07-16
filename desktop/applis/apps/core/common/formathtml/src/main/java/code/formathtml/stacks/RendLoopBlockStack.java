@@ -15,6 +15,10 @@ public final class RendLoopBlockStack implements RendRemovableVars {
 
     private long maxIteration;
 
+    private long step;
+
+    private Struct container;
+
     public boolean hasNext() {
         return index + 1 < maxIteration;
     }
@@ -69,5 +73,21 @@ public final class RendLoopBlockStack implements RendRemovableVars {
     @Override
     public void setCurrentVisitedBlock(RendParentBlock _bl) {
         block = _bl;
+    }
+
+    public long getStep() {
+        return step;
+    }
+
+    public void setStep(long step) {
+        this.step = step;
+    }
+
+    public Struct getContainer() {
+        return container;
+    }
+
+    public void setContainer(Struct container) {
+        this.container = container;
     }
 }

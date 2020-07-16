@@ -58,7 +58,7 @@ public final class LocalThrowing implements CallingFinally {
                             ExecCatchEval c_ = (ExecCatchEval) catchElt_;
                             String var_ = c_.getVariableName();
                             LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,_conf);
-                            bkIp_.getCatchVars().put(var_, lv_);
+                            bkIp_.getValueVars().put(var_, lv_);
                         }
                         bkIp_.getReadWrite().setBlock(childCatch_);
                         return;

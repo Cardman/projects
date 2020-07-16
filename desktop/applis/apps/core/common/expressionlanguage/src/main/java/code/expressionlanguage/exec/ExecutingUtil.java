@@ -192,7 +192,7 @@ public final class ExecutingUtil {
         for (int i = CustList.FIRST_INDEX; i < lenLoc_; i++) {
             String p_ = paramsLoc_.get(i);
             LocalVariable lv_ = LocalVariable.newLocalVariable(_args.get(i).getStruct(),_context);
-            _page.getParameters().put(p_, lv_);
+            _page.getValueVars().put(p_, lv_);
         }
         ReadWrite rwLoc_ = new ReadWrite();
         rwLoc_.setBlock(_block.getFirstChild());
@@ -270,7 +270,7 @@ public final class ExecutingUtil {
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                 String p_ = params_.get(i);
                 LocalVariable lv_ = LocalVariable.newLocalVariable(_args.get(i).getStruct(),_context);
-                _page.getParameters().put(p_, lv_);
+                _page.getValueVars().put(p_, lv_);
             }
             ExecBlock firstChild_ = method_.getFirstChild();
             rw_.setBlock(firstChild_);

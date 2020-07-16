@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -288,14 +289,15 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         l_.setCurrentVisitedBlock(this);
         l_.setStructIterator(iterStr_);
         l_.setMaxIteration(length_);
+        l_.setContainer(its_);
         ip_.addBlock(l_);
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
-        lv_.setClassName(importedClassName);
+        Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont.getContext());
         lv_.setIndexClassName(importedClassIndexName);
-        lv_.setContainer(its_);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         varsLoop_.put(variableName, lv_);
+        ip_.putValueVar(variableName, LocalVariable.newLocalVariable(struct_,importedClassName));
         processLastElementLoop(_cont);
     }
 
@@ -329,6 +331,8 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         super.removeAllVars(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
         v_.removeKey(variableName);
+        StringMap<LocalVariable> vInfo_ = _ip.getValueVars();
+        vInfo_.removeKey(variableName);
     }
 
 
@@ -336,6 +340,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     public void processLastElementLoop(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
+        StringMap<LocalVariable> varsInfos_ = ip_.getValueVars();
         RendLoopBlockStack l_ = (RendLoopBlockStack) ip_.getRendLastStack();
         boolean hasNext_;
         if (l_.getStructIterator() != null) {
@@ -349,7 +354,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         }
 
         if (hasNext_) {
-            incrementLoop(_conf, l_, vars_);
+            incrementLoop(_conf, l_, vars_,varsInfos_);
         } else {
             l_.setFinished(true);
         }
@@ -370,12 +375,14 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     }
 
     public void incrementLoop(Configuration _conf, RendLoopBlockStack _l,
-                              StringMap<LoopVariable> _vars) {
+                              StringMap<LoopVariable> _vars,
+                              StringMap<LocalVariable> _varsInfos) {
         _l.setIndex(_l.getIndex() + 1);
         ImportingPage abs_ = _conf.getLastPage();
 
 //        abs_.setGlobalOffset(variableNameOffset);
         LoopVariable lv_ = _vars.getVal(variableName);
+        LocalVariable lInfo_ = _varsInfos.getVal(variableName);
         Struct iterator_ = _l.getStructIterator();
         Struct element_ = NullStruct.NULL_VALUE;
         Argument arg_ = Argument.createVoid();
@@ -383,7 +390,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         if (!el_.getResultClass().isArray()) {
             arg_ = next(iterator_,_conf);
         } else {
-            Struct container_ = lv_.getContainer();
+            Struct container_ = _l.getContainer();
             LongStruct lg_ = new LongStruct(_l.getIndex());
             element_ = ExecInvokingOperation.getElement(container_, lg_, _conf.getContext());
         }
@@ -398,7 +405,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         if (!ExecTemplates.checkQuick(importedClassName, arg_, _conf.getContext())) {
             return;
         }
-        lv_.setStruct(element_);
+        lInfo_.setStruct(element_);
         lv_.setIndex(lv_.getIndex() + 1);
         abs_.getRendReadWrite().setRead(getFirstChild());
     }

@@ -5,8 +5,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -69,8 +71,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         }
         if (ip_.sizeEl() <= index_) {
             for (String v : variableNames) {
-                LoopVariable lv_ = ip_.getVars().getVal(v);
-                lv_.setIndex(lv_.getIndex() + 1);
+                ExecTemplates.incrIndexLoop(_conf,v,ip_);
             }
         }
         ConditionReturn keep_ = evaluateCondition(_conf, index_);
@@ -126,17 +127,15 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
             String formatted_ = ip_.formatVarType(importedClassName, _cont);
             Struct struct_ = PrimitiveTypeUtil.defaultValue(formatted_, _cont);
             for (String v: variableNames) {
-                LoopVariable lv_ = LoopVariable.newLoopVariable(struct_,formatted_);
+                LoopVariable lv_ = new LoopVariable();
                 lv_.setIndexClassName(importedClassIndexName);
                 ip_.getVars().put(v, lv_);
+                ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_,formatted_));
             }
         }
         if (!opInit.isEmpty()) {
             ExpressionLanguage from_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
             ExpressionLanguage.tryToCalculate(_cont,from_,0);
-            if (_cont.callsOrException()) {
-                return;
-            }
             index_++;
         }
         ConditionReturn res_ = evaluateCondition(_cont, index_);
@@ -163,10 +162,14 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         super.removeAllVars(_ip);
         for (String v: variableNames) {
             _ip.getVars().removeKey(v);
+            _ip.getValueVars().removeKey(v);
         }
     }
 
     private ConditionReturn evaluateCondition(ContextEl _context, int _index) {
+        if (_context.callsOrException()) {
+            return ConditionReturn.CALL_EX;
+        }
         AbstractPageEl last_ = _context.getLastPage();
         if (opExp.isEmpty()) {
             last_.clearCurrentEls();

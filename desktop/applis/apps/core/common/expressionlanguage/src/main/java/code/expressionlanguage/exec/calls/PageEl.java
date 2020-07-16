@@ -14,17 +14,9 @@ public abstract class PageEl {
     private Argument globalArgument = Argument.createVoid();
 
     private StringMap<LoopVariable> vars;
-
-    private StringMap<LocalVariable> catchVars;
-
-    private StringMap<LocalVariable> localVars;
-
-    private final StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
-
+    private StringMap<LocalVariable> valueVars = new StringMap<LocalVariable>();
     protected PageEl() {
         setVars(new StringMap<LoopVariable>());
-        setCatchVars(new StringMap<LocalVariable>());
-        setLocalVars(new StringMap<LocalVariable>());
     }
 
     public String getGlobalClass() {
@@ -54,6 +46,13 @@ public abstract class PageEl {
         globalArgument = _globalArgument;
     }
 
+    public StringMap<LocalVariable> getValueVars() {
+        return valueVars;
+    }
+
+    public void putValueVar(String _key, LocalVariable _var) {
+        valueVars.put(_key, _var);
+    }
     public StringMap<LoopVariable> getVars() {
         return vars;
     }
@@ -63,35 +62,11 @@ public abstract class PageEl {
     }
 
     public void putLocalVar(String _key, LocalVariable _var) {
-        localVars.put(_key, _var);
+        valueVars.put(_key, _var);
     }
 
     public void removeLocalVar(String _key) {
-        localVars.removeKey(_key);
-    }
-
-    public LocalVariable getLocalVar(String _key) {
-        return getLocalVars().getVal(_key);
-    }
-
-    public StringMap<LocalVariable> getLocalVars() {
-        return localVars;
-    }
-
-    public void setLocalVars(StringMap<LocalVariable> _localVars) {
-        localVars = _localVars;
-    }
-
-    public StringMap<LocalVariable> getCatchVars() {
-        return catchVars;
-    }
-
-    public void setCatchVars(StringMap<LocalVariable> _catchVars) {
-        catchVars = _catchVars;
-    }
-
-    public StringMap<LocalVariable> getParameters() {
-        return parameters;
+        getValueVars().removeKey(_key);
     }
 
 }

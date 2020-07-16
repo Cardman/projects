@@ -59,7 +59,7 @@ public final class RendLocalThrowing implements RendCallingFinally {
                             RendCatchEval c_ = (RendCatchEval) catchElt_;
                             String var_ = c_.getVariableName();
                             LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,_conf.getContext());
-                            bkIp_.getCatchVars().put(var_, lv_);
+                            bkIp_.getValueVars().put(var_, lv_);
                         }
                         bkIp_.getRendReadWrite().setRead(childCatch_);
                         return;

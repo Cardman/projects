@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -223,9 +224,10 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrInit());
         Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont.getContext());
         for (String v: variableNames) {
-            LoopVariable lv_ = LoopVariable.newLoopVariable(struct_,importedClassName);
+            LoopVariable lv_ = new LoopVariable();
             lv_.setIndexClassName(importedClassIndexName);
             ip_.getVars().put(v, lv_);
+            ip_.putValueVar(v, LocalVariable.newLocalVariable(struct_,importedClassName));
         }
         if (!opInit.isEmpty()) {
             RenderExpUtil.calculateReuse(opInit,_cont);
@@ -255,6 +257,9 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         super.removeAllVars(_ip);
         for (String v: variableNames) {
             _ip.getVars().removeKey(v);
+        }
+        for (String v: variableNames) {
+            _ip.getValueVars().removeKey(v);
         }
     }
 

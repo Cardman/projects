@@ -160,14 +160,9 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         Configuration context_ = getConfiguration4(files_);
         addImportingPage(context_);
-        StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
-        LoopVariable lv_ = new LoopVariable();
         Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
         setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
-        lv_.setStruct(str_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        context_.getLastPage().getVars().putAllMap(localVars_);
+        context_.getLastPage().getValueVars().put("v",LocalVariable.newLocalVariable(str_,"pkg.Ex"));
         Argument arg_ = processElNormal("v.inst", context_);
         assertEq(2, getNumber(arg_));
     }
@@ -762,7 +757,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(str_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
-        context_.getLastPage().getPageEl().getCatchVars().putAllMap(localVars_);
+        context_.getLastPage().getPageEl().getValueVars().putAllMap(localVars_);
         Argument arg_ = processElNormal("v.inst", context_);
         assertEq(2, getNumber(arg_));
     }
@@ -3746,9 +3741,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
         LoopVariable lv_ = new LoopVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
         lv_.setIndexClassName(context_.getStandards().getAliasPrimLong());
-        lv_.setStruct(BooleanStruct.of(true));
         lv_.setIndex(5);
         localVars_.put("arg", lv_);
         addImportingPage(context_);

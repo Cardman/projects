@@ -196,8 +196,8 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         lv_.setStruct(new IntStruct(1));
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
-        context_.getLastPage().getPageEl().getParameters().putAllMap(localVars_);
-        processEl("v=12i", context_);
+        context_.getLastPage().getPageEl().getValueVars().putAllMap(localVars_);
+        processEl("v=12i 1", context_);
         assertTrue(!context_.isEmptyErrors());
     }
     @Test

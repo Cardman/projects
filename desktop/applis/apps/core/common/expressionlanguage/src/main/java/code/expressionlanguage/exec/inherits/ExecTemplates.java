@@ -7,11 +7,14 @@ import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.IndexesComparator;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
+import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.types.ExecResultPartType;
 import code.expressionlanguage.exec.util.ExecTypeVar;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.*;
@@ -784,5 +787,71 @@ public final class ExecTemplates {
             return false;
         }
         return _instance == NullStruct.NULL_VALUE;
+    }
+
+    public static Argument getIndexLoop(ContextEl _context, String _val, PageEl _lastPage) {
+        LoopVariable locVar_ = _lastPage.getVars().getVal(_val);
+        LgNames stds_ = _context.getStandards();
+        if (locVar_ == null) {
+            String npe_ = stds_.getAliasNullPe();
+            _context.setException(new ErrorStruct(_context,npe_));
+            return new Argument(new IntStruct(0));
+        }
+        Argument a_ = new Argument();
+        ClassArgumentMatching clArg_ = new ClassArgumentMatching(locVar_.getIndexClassName());
+        LongStruct str_ = new LongStruct(locVar_.getIndex());
+        Struct value_ = PrimitiveTypeUtil.convertStrictObject(clArg_, str_, stds_);
+        a_.setStruct(value_);
+        return a_;
+    }
+
+    public static void incrIndexLoop(ContextEl _context, String _val, PageEl _lastPage) {
+        if (_context.callsOrException()) {
+            return;
+        }
+        LoopVariable locVar_ = _lastPage.getVars().getVal(_val);
+        LgNames stds_ = _context.getStandards();
+        if (locVar_ == null) {
+            String npe_ = stds_.getAliasNullPe();
+            _context.setException(new ErrorStruct(_context,npe_));
+            return;
+        }
+        locVar_.setIndex(locVar_.getIndex() + 1);
+    }
+
+    public static Argument getValue(ContextEl _context, String _val, PageEl _lastPage) {
+        LocalVariable locVar_ = _lastPage.getValueVars().getVal(_val);
+        LgNames stds_ = _context.getStandards();
+        if (locVar_ == null) {
+            String npe_ = stds_.getAliasNullPe();
+            _context.setException(new ErrorStruct(_context,npe_));
+            return new Argument();
+        }
+        Argument a_ = new Argument();
+        a_.setStruct(locVar_.getStruct());
+        return a_;
+    }
+
+    public static Argument setValue(ContextEl _context, String _val, PageEl _lastPage, Argument _value) {
+        if (_context.callsOrException()) {
+            return new Argument();
+        }
+        LocalVariable locVar_ = _lastPage.getValueVars().getVal(_val);
+        LgNames stds_ = _context.getStandards();
+        if (locVar_ == null) {
+            String npe_ = stds_.getAliasNullPe();
+            _context.setException(new ErrorStruct(_context,npe_));
+            return new Argument();
+        }
+        return checkSet(_context,locVar_,_value);
+    }
+
+    public static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right) {
+        String formattedClassVar_ = _loc.getClassName();
+        if (!checkQuick(formattedClassVar_, _right, _conf)) {
+            return Argument.createVoid();
+        }
+        _loc.setStruct(_right.getStruct());
+        return _right;
     }
 }
