@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
@@ -11,52 +10,16 @@ import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.CustList;
 
-public abstract class ExecEnumValueSwitchBlock extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
-    private String label;
-
-    private int valueOffset;
-
-    private CustList<ExecOperationNode> opValue;
+public abstract class ExecEnumValueSwitchBlock extends ExecAbstractSwitchBlock {
 
     ExecEnumValueSwitchBlock(OffsetsBlock _offset, String _label, int _valueOffset, CustList<ExecOperationNode> _opValue) {
-        super(_offset);
-        label = _label;
-        valueOffset = _valueOffset;
-        opValue = _opValue;
+        super(_offset,_label,_valueOffset,_opValue);
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return getEl();
-    }
-
-    public ExpressionLanguage getEl() {
-        return new ExpressionLanguage(opValue);
-    }
-
-    @Override
-    public void reduce(ContextEl _context) {
-        ExecOperationNode r_ = opValue.last();
-        opValue = ExpressionLanguage.getReducedNodes(r_);
-    }
-    @Override
-    public void processEl(ContextEl _cont) {
+    protected void processCase(ContextEl _cont,SwitchBlockStack if_, Argument arg_) {
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        if (ip_.matchStatement(this)) {
-            processBlockAndRemove(_cont);
-            return;
-        }
-        ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
-        ip_.setGlobalOffset(valueOffset);
-        ip_.setOffset(0);
-        Argument arg_ =  ExpressionLanguage.tryToCalculate(_cont,el_,0);
-        if (_cont.callsOrException()) {
-            return;
-        }
-        ip_.clearCurrentEls();
-        SwitchBlockStack if_ = new SwitchBlockStack();
-        if_.setLabel(label);
         ExecBlock n_ = getFirstChild();
         CustList<ExecBracedBlock> children_;
         children_ = new CustList<ExecBracedBlock>();
@@ -93,8 +56,4 @@ public abstract class ExecEnumValueSwitchBlock extends ExecBracedBlock implement
     }
 
     protected abstract ExecBracedBlock process(CustList<ExecBracedBlock> children_, Argument arg_);
-
-    public CustList<ExecOperationNode> getOpValue() {
-        return opValue;
-    }
 }

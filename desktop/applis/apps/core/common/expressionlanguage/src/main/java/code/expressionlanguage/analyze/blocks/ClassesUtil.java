@@ -967,11 +967,10 @@ public final class ClassesUtil {
                             if (!(type_ instanceof StandardClass)) {
                                 continue;
                             }
-                            StandardClass class_ = (StandardClass) type_;
-                            if (class_.isFinalStdType()) {
+                            if (ContextUtil.isFinalType(type_)) {
                                 nbFinal_++;
                             }
-                            if (class_.isAbstractStdType()) {
+                            if (ContextUtil.isAbstractType(type_)) {
                                 nbAbs_++;
                             }
                         }
@@ -983,15 +982,11 @@ public final class ClassesUtil {
                             if (!(r_ instanceof ExecUniqueRootedBlock)) {
                                 continue;
                             }
-                            if (r_ instanceof ExecEnumBlock) {
+                            if (ContextUtil.isFinalType(r_)) {
                                 nbFinal_++;
-                                continue;
                             }
-                            if (r_.isAbstractType()) {
+                            if (ContextUtil.isAbstractType(r_)) {
                                 nbAbs_++;
-                            }
-                            if (r_.isFinalType()) {
-                                nbFinal_++;
                             }
                         }
                     }

@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -13,6 +15,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.stds.StandardType;
 import code.util.*;
 
 public final class SwitchBlock extends BracedBlock implements BreakableBlock,BuildableElMethod {
@@ -26,6 +29,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
     private ClassArgumentMatching result;
 
     private boolean enumTest;
+    private String instanceTest = "";
 
     private OperationNode root;
 
@@ -76,7 +80,9 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         processAfterEl(_cont);
         ExecBracedBlock exec_;
         root = page_.getCurrentRoot();
-        if (enumTest) {
+        if (!instanceTest.isEmpty()) {
+            exec_ = new ExecInstanceSwitchBlock(getOffset(), label, valueOffset, op_);
+        } else if (enumTest) {
             exec_ = new ExecEnumSwitchBlock(getOffset(), label, valueOffset, op_);
         } else {
             exec_ = new ExecStdSwitchBlock(getOffset(), label, valueOffset, op_);
@@ -102,18 +108,29 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             getErrorsBlock().add(un_.getBuiltError());
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
+            GeneType classBody_ = _cont.getClassBody(id_);
+            boolean final_ = true;
+            if (classBody_ != null) {
+                final_ = ContextUtil.isFinalType(classBody_);
+            } else if (type_.startsWith("#")||type_.startsWith("[")) {
+                final_ = false;
+            }
             if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
-                    if (!(_cont.getClassBody(id_) instanceof ExecEnumBlock)) {
-                        FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(getFile().getFileName());
-                        un_.setIndexFile(valueOffset);
-                        //one char => change to first left par
-                        un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
-                                id_);
-                        _cont.addError(un_);
-                        setReachableError(true);
-                        getErrorsBlock().add(un_.getBuiltError());
+                    if (!(classBody_ instanceof ExecEnumBlock)) {
+                        if (!final_) {
+                            instanceTest = type_;
+                        } else {
+                            FoundErrorInterpret un_ = new FoundErrorInterpret();
+                            un_.setFileName(getFile().getFileName());
+                            un_.setIndexFile(valueOffset);
+                            //one char => change to first left par
+                            un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
+                                    id_);
+                            _cont.addError(un_);
+                            setReachableError(true);
+                            getErrorsBlock().add(un_.getBuiltError());
+                        }
                     } else {
                         enumTest = true;
                     }
@@ -163,13 +180,30 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         }
         boolean abrupt_ = true;
         boolean def_ = hasDefaultCase();
-        while (ch_.getNextSibling() != null) {
-            ch_ = ch_.getNextSibling();
-        }
-        if (_anEl.canCompleteNormally(ch_)) {
+        if (!def_) {
             abrupt_ = false;
-        } else if (!def_) {
-            abrupt_ = false;
+        } else if (!instanceTest.isEmpty()) {
+            CustList<Block> group_ = new CustList<Block>();
+            for (Block b: ClassesUtil.getDirectChildren(this)) {
+                group_.add(b);
+            }
+            boolean canCmpNormally_ = false;
+            for (Block b: group_) {
+                if (_anEl.canCompleteNormally(b)) {
+                    canCmpNormally_ = true;
+                    break;
+                }
+            }
+            if (canCmpNormally_) {
+                abrupt_ = false;
+            }
+        } else {
+            while (ch_.getNextSibling() != null) {
+                ch_ = ch_.getNextSibling();
+            }
+            if (_anEl.canCompleteNormally(ch_)) {
+                abrupt_ = false;
+            }
         }
         IdMap<BreakBlock, BreakableBlock> breakables_;
         breakables_ = _anEl.getBreakables();
@@ -209,5 +243,9 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
 
     public String getErr() {
         return err;
+    }
+
+    public String getInstanceTest() {
+        return instanceTest;
     }
 }

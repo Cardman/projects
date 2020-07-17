@@ -275,7 +275,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             } else {
                 lInfo_.setClassName(_cont.getStandards().getAliasObject());
             }
-            lInfo_.setConstType(ConstType.LOOP_VAR);
+            lInfo_.setConstType(ConstType.FIX_VAR);
             _cont.getAnalyzing().getInfosVars().put(variableNameFirst, lInfo_);
         }
         if (okVarSecond) {
@@ -287,7 +287,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             } else {
                 lInfo_.setClassName(_cont.getStandards().getAliasObject());
             }
-            lInfo_.setConstType(ConstType.LOOP_VAR);
+            lInfo_.setConstType(ConstType.FIX_VAR);
             _cont.getAnalyzing().getInfosVars().put(variableNameSecond, lInfo_);
         }
     }

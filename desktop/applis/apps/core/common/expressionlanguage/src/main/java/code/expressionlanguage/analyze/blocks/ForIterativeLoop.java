@@ -192,7 +192,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             lInfo_.setClassName(cl_);
             lInfo_.setRef(variableNameOffset);
-            lInfo_.setConstType(ConstType.LOOP_VAR);
+            lInfo_.setConstType(ConstType.FIX_VAR);
             _cont.getAnalyzing().getInfosVars().put(variableName, lInfo_);
         }
         _cont.getCoverage().putBlockOperationsLoops(_cont,this);

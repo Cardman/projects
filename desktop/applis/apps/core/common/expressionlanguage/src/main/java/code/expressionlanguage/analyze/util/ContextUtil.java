@@ -130,6 +130,16 @@ public final class ContextUtil {
         return -1;
     }
 
+    public static boolean isFinalType(GeneType _type) {
+        if (_type instanceof StandardInterface) {
+            return false;
+        }
+        if (_type instanceof ExecRootBlock) {
+            return ((ExecRootBlock)_type).isFinalType();
+        }
+        return ((StandardClass)_type).isFinalStdType();
+    }
+
     public static boolean isAbstractType(GeneType _type) {
         if (_type instanceof StandardInterface) {
             return true;

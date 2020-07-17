@@ -5,7 +5,8 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.files.OffsetsBlock;
 
-public final class ExecDefaultCondition extends ExecSwitchPartBlock {
+public final class ExecDefaultCondition extends ExecBracedBlock implements
+        StackableBlock {
     public ExecDefaultCondition(OffsetsBlock _offset) {
         super(_offset);
     }

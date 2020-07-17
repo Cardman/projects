@@ -55,7 +55,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);
-        lv_.setConstType(ConstType.CATCH_VAR);
+        lv_.setConstType(ConstType.FIX_VAR);
         _cont.getAnalyzing().getInfosVars().put(variableName, lv_);
         RendBlock pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof RendAbstractCatchEval)) {

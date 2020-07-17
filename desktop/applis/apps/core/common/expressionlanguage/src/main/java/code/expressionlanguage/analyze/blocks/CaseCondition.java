@@ -2,17 +2,19 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.analyze.util.ContextUtil;
-import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.common.GeneField;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.files.ParsedType;
 import code.expressionlanguage.instr.*;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -30,6 +32,16 @@ public final class CaseCondition extends SwitchPartBlock {
     private OperationNode root;
 
     private boolean builtEnum;
+    private boolean emptyType;
+
+    private String importedType = EMPTY_STRING;
+
+    private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+
+    private final StringList nameErrors = new StringList();
+
+    private String variableName = EMPTY_STRING;
+    private int variableOffset;
 
     private String typeEnum = EMPTY_STRING;
 
@@ -88,6 +100,44 @@ public final class CaseCondition extends SwitchPartBlock {
         SwitchBlock sw_ = (SwitchBlock) par_;
         ClassArgumentMatching resSwitch_ = sw_.getResult();
         String type_ = resSwitch_.getSingleNameOrEmpty();
+        if (!sw_.getInstanceTest().isEmpty()) {
+            page_.setGlobalOffset(variableOffset);
+            page_.setOffset(0);
+            if (importedType.isEmpty()) {
+                ExecNullInstanceCaseCondition exec_ = new ExecNullInstanceCaseCondition(getOffset(),valueOffset);
+                page_.getBlockToWrite().appendChild(exec_);
+                page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+                page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+                _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+                return;
+            }
+            ExecInstanceCaseCondition exec_ = new ExecInstanceCaseCondition(getOffset(),variableName, importedType,valueOffset);
+            page_.getBlockToWrite().appendChild(exec_);
+            page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+            page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+            _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+            TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkStdTokenVar(_cont,variableName);
+            if (res_.isError()) {
+                FoundErrorInterpret d_ = new FoundErrorInterpret();
+                d_.setFileName(getFile().getFileName());
+                d_.setIndexFile(variableOffset);
+                //variable name
+                d_.setBuiltError(res_.getMessage());
+                _cont.addError(d_);
+                nameErrors.add(d_.getBuiltError());
+                if (!emptyType&&variableName.trim().isEmpty()) {
+                    setReachableError(true);
+                    getErrorsBlock().add(d_.getBuiltError());
+                }
+                return;
+            }
+            AnaLocalVariable lv_ = new AnaLocalVariable();
+            lv_.setClassName(importedType);
+            lv_.setRef(variableOffset);
+            lv_.setConstType(ConstType.FIX_VAR);
+            _cont.getAnalyzing().getInfosVars().put(variableName, lv_);
+            return;
+        }
         ExecEnumBlock e_ = getEnumType(_cont, type_);
         if (e_ != null) {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
@@ -288,6 +338,81 @@ public final class CaseCondition extends SwitchPartBlock {
         }
     }
 
+    @Override
+    public void reach(ContextEl _an, AnalyzingEl _anEl) {
+        BracedBlock par_ = getParent();
+        if (!(par_ instanceof SwitchBlock)) {
+            super.reach(_an, _anEl);
+            return;
+        }
+        SwitchBlock s_ = (SwitchBlock) par_;
+        if (s_.getInstanceTest().isEmpty()) {
+            super.reach(_an, _anEl);
+            return;
+        }
+        ParsedType p_ = new ParsedType();
+        p_.parse(value);
+        String declaringType_ = p_.getInstruction().toString();
+        if (StringList.quickEq(declaringType_, _an.getKeyWords().getKeyWordNull())) {
+            StringList classes_ = new StringList();
+            Block b_ = getPreviousSibling();
+            while (b_ != null) {
+                if (b_ instanceof CaseCondition) {
+                    classes_.add(((CaseCondition)b_).importedType);
+                }
+                b_ = b_.getPreviousSibling();
+            }
+            if (!StringList.contains(classes_,"")) {
+                _anEl.reach(this);
+            } else {
+                _anEl.unreach(this);
+            }
+            return;
+        }
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        page_.setGlobalOffset(valueOffset);
+        page_.setOffset(0);
+        if (declaringType_.trim().isEmpty()) {
+            emptyType = true;
+        }
+        importedType = ResolvingImportTypes.resolveCorrectType(_an,declaringType_);
+        partOffsets.addAllElts(_an.getAnalyzing().getCurrentParts());
+        variableOffset = valueOffset + declaringType_.length();
+        String info_ = value.substring(declaringType_.length());
+        variableOffset += StringList.getFirstPrintableCharIndex(info_);
+        variableName = info_.trim();
+        StringList classes_ = new StringList();
+        Block b_ = getPreviousSibling();
+        while (b_ != null) {
+            if (b_ instanceof CaseCondition) {
+                classes_.add(((CaseCondition)b_).importedType);
+            }
+            b_ = b_.getPreviousSibling();
+        }
+        _anEl.setArgMapping(importedType);
+        boolean reachCatch_ = true;
+        for (String c: classes_) {
+            _anEl.setParamMapping(c);
+            if (_anEl.isCorrectMapping(_an)) {
+                reachCatch_ = false;
+                break;
+            }
+        }
+        if (reachCatch_) {
+            _anEl.reach(this);
+        } else {
+            _anEl.unreach(this);
+        }
+    }
+
+    @Override
+    public void removeAllVars(AnalyzedPageEl _ip) {
+        super.removeAllVars(_ip);
+        if (!variableName.isEmpty()) {
+            _ip.getInfosVars().removeKey(variableName);
+        }
+    }
+
     public Argument getArgument() {
         return argument;
     }
@@ -306,5 +431,25 @@ public final class CaseCondition extends SwitchPartBlock {
 
     public StringList getEmptErrs() {
         return emptErrs;
+    }
+
+    public CustList<PartOffset> getPartOffsets() {
+        return partOffsets;
+    }
+
+    public String getVariableName() {
+        return variableName;
+    }
+
+    public int getVariableOffset() {
+        return variableOffset;
+    }
+
+    public String getImportedType() {
+        return importedType;
+    }
+
+    public StringList getNameErrors() {
+        return nameErrors;
     }
 }

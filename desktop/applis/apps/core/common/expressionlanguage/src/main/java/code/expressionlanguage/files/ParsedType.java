@@ -142,7 +142,7 @@ public final class ParsedType {
         return ok;
     }
 
-    StringBuilder getInstruction() {
+    public StringBuilder getInstruction() {
         return instruction;
     }
 

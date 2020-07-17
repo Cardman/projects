@@ -213,7 +213,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             _cont.getAnalyzing().getLoopsVars().put(variableName, lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             lInfo_.setClassName(cl_);
-            lInfo_.setConstType(ConstType.LOOP_VAR);
+            lInfo_.setConstType(ConstType.FIX_VAR);
             _cont.getAnalyzing().getInfosVars().put(variableName, lInfo_);
         }
     }

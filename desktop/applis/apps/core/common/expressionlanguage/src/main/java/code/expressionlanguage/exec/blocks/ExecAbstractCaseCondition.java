@@ -5,7 +5,8 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.files.OffsetsBlock;
 
-public abstract class ExecAbstractCaseCondition extends ExecSwitchPartBlock {
+public abstract class ExecAbstractCaseCondition extends ExecBracedBlock implements
+        StackableBlock {
 
     private int valueOffset;
 

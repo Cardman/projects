@@ -85,11 +85,14 @@ public final class AssBlockUtil {
         if (_anaNode instanceof ExecFinallyEval) {
             return new AssFinallyEval(get(_normal,_anaNode), get(_group,_anaNode),get(_lab,_anaNode));
         }
-        if (_anaNode instanceof ExecSwitchPartBlock) {
-            return new AssSwitchPartBlock(get(_normal,_anaNode), get(_group,_anaNode), _anaNode instanceof ExecDefaultCondition);
+        if (_anaNode instanceof ExecDefaultCondition) {
+            return new AssSwitchPartBlock(get(_normal,_anaNode), get(_group,_anaNode), true);
         }
-        if (_anaNode instanceof ExecEnumValueSwitchBlock) {
-            return new AssSwitchBlock(get(_normal,_anaNode), get(_group,_anaNode),get(_lab,_anaNode), (ExecEnumValueSwitchBlock) _anaNode);
+        if (_anaNode instanceof ExecAbstractCaseCondition) {
+            return new AssSwitchPartBlock(get(_normal,_anaNode), get(_group,_anaNode), false);
+        }
+        if (_anaNode instanceof ExecAbstractSwitchBlock) {
+            return new AssSwitchBlock(get(_normal,_anaNode), get(_group,_anaNode),get(_lab,_anaNode), (ExecAbstractSwitchBlock) _anaNode);
         }
         if (_anaNode instanceof ExecReturnMethod) {
             return new AssReturnMethod(get(_normal,_anaNode), get(_group,_anaNode), (ExecReturnMethod) _anaNode);

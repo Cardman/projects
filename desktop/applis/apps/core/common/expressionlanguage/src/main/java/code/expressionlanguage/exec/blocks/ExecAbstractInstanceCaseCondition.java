@@ -3,26 +3,21 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.files.OffsetsBlock;
 
-public final class ExecCatchEval extends ExecAbstractCatchEval {
-
-    private String importedClassName;
+public abstract class ExecAbstractInstanceCaseCondition extends ExecAbstractCaseCondition {
 
     private final String variableName;
 
-    public ExecCatchEval(OffsetsBlock _offset, String _variableName, String _importedClassName) {
-        super(_offset);
+    public ExecAbstractInstanceCaseCondition(OffsetsBlock _offset, String _variableName, int _valueOffset) {
+        super(_offset, _valueOffset);
         variableName = _variableName;
-        importedClassName = _importedClassName;
-    }
-
-    public String getImportedClassName() {
-        return importedClassName;
     }
 
     @Override
     public void removeAllVars(AbstractPageEl _ip) {
         super.removeAllVars(_ip);
-        _ip.getValueVars().removeKey(variableName);
+        if (!variableName.isEmpty()) {
+            _ip.getValueVars().removeKey(variableName);
+        }
     }
 
     public String getVariableName() {

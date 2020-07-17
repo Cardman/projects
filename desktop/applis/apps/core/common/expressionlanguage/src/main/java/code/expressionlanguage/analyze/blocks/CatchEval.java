@@ -3,7 +3,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.blocks.ExecCatchEval;
@@ -57,7 +56,7 @@ public final class CatchEval extends AbstractCatchEval {
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         processVariable(_cont);
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        ExecCatchEval exec_ = new ExecCatchEval(getOffset(),variableName,variableNameOffset,importedClassName,partOffsets);
+        ExecCatchEval exec_ = new ExecCatchEval(getOffset(),variableName, importedClassName);
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
@@ -83,7 +82,7 @@ public final class CatchEval extends AbstractCatchEval {
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);
         lv_.setRef(variableNameOffset);
-        lv_.setConstType(ConstType.CATCH_VAR);
+        lv_.setConstType(ConstType.FIX_VAR);
         _cont.getAnalyzing().getInfosVars().put(variableName, lv_);
     }
 

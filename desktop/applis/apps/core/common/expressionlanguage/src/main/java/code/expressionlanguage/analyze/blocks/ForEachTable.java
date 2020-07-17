@@ -335,7 +335,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
                 lInfo_.setClassName(_cont.getStandards().getAliasObject());
             }
             lInfo_.setRef(variableNameOffsetFirst);
-            lInfo_.setConstType(ConstType.LOOP_VAR);
+            lInfo_.setConstType(ConstType.FIX_VAR);
             _cont.getAnalyzing().getInfosVars().put(variableNameFirst, lInfo_);
         }
         if (okVarSecond) {
@@ -350,7 +350,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
                 lInfo_.setClassName(_cont.getStandards().getAliasObject());
             }
             lInfo_.setRef(variableNameOffsetSecond);
-            lInfo_.setConstType(ConstType.LOOP_VAR);
+            lInfo_.setConstType(ConstType.FIX_VAR);
             _cont.getAnalyzing().getInfosVars().put(variableNameSecond, lInfo_);
         }
     }

@@ -203,6 +203,9 @@ public final class LinkageUtil {
                     if (child_ instanceof CaseCondition) {
                         processCaseConditionError(vars_,(CaseCondition)child_,_cont,list_);
                     }
+                    if (child_ instanceof DefaultCondition) {
+                        processDefaultConditionError((DefaultCondition)child_,_cont,list_);
+                    }
                     if (child_ instanceof TryEval) {
                         processTryEvalError((TryEval)child_,list_);
                     }
@@ -585,7 +588,15 @@ public final class LinkageUtil {
         }
         int off_ = _cond.getValueOffset();
         _parts.add(new PartOffset(tag_,off_));
-        if (_cond.isBuiltEnum()) {
+        if (!_cond.getImportedType().isEmpty()) {
+            _parts.addAllElts(_cond.getPartOffsets());
+            String variableName_ = _cond.getVariableName();
+            int variableOffset_ = _cond.getVariableOffset();
+            tag_ = "<a name=\"m"+variableOffset_+"\">";
+            _parts.add(new PartOffset(tag_,variableOffset_));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,variableOffset_+ variableName_.trim().length()));
+        } else if (_cond.isBuiltEnum()) {
             GeneType type_ = _cont.getClassBody(_cond.getTypeEnum());
             int delta_ = getDelta(_cond, (ExecBlock) type_);
             String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
@@ -604,7 +615,26 @@ public final class LinkageUtil {
     }
     private static void processCaseConditionError(VariablesOffsets _vars,CaseCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         int off_;
-        if (_cond.isBuiltEnum()) {
+        if (!_cond.getImportedType().isEmpty()) {
+            _parts.addAllElts(_cond.getPartOffsets());
+            String variableName_ = _cond.getVariableName();
+            int variableOffset_ = _cond.getVariableOffset();
+            if (!variableName_.isEmpty()) {
+                StringList errs_ = _cond.getNameErrors();
+                if (!errs_.isEmpty()) {
+                    String err_ = transform(StringList.join(errs_,"\n\n"));
+                    String tag_ = "<a name=\"m"+variableOffset_ +"\" title=\""+err_+"\" class=\"e\"\">";
+                    _parts.add(new PartOffset(tag_, variableOffset_));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_, variableOffset_ + variableName_.trim().length()));
+                } else {
+                    String tag_ = "<a name=\"m"+variableOffset_+"\">";
+                    _parts.add(new PartOffset(tag_,variableOffset_));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_,variableOffset_+ variableName_.trim().length()));
+                }
+            }
+        } else if (_cond.isBuiltEnum()) {
             off_ = _cond.getValueOffset();
             GeneType type_ = _cont.getClassBody(_cond.getTypeEnum());
             int delta_ = getDelta(_cond, (ExecBlock) type_);
@@ -656,6 +686,33 @@ public final class LinkageUtil {
         _parts.add(new PartOffset(tag_,off_));
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordDefault().length()));
+        if (!_cond.getVariableName().trim().isEmpty()) {
+            off_ = _cond.getVariableOffset();
+            tag_ = "<a title=\""+transform(_cond.getInstanceTest())+"\" name=\"m"+off_+"\">";
+            _parts.add(new PartOffset(tag_,off_));
+            tag_ = "</a>";
+            _parts.add(new PartOffset(tag_,off_+_cond.getVariableName().length()));
+        }
+    }
+
+    private static void processDefaultConditionError(DefaultCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
+        if (!_cond.getVariableName().trim().isEmpty()) {
+            StringList errs_ = _cond.getNameErrors();
+            if (!errs_.isEmpty()) {
+                String err_ = transform(StringList.join(errs_,"\n\n"));
+                int off_ = _cond.getVariableOffset();
+                String tag_ = "<a name=\"m"+off_ +"\" title=\""+err_+"\" class=\"e\"\">";
+                _parts.add(new PartOffset(tag_, off_));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_, off_ + _cond.getVariableName().trim().length()));
+            } else {
+                int off_ = _cond.getVariableOffset();
+                String tag_ = "<a title=\""+transform(_cond.getInstanceTest())+"\" name=\"m"+off_+"\">";
+                _parts.add(new PartOffset(tag_,off_));
+                tag_ = "</a>";
+                _parts.add(new PartOffset(tag_,off_+_cond.getVariableName().length()));
+            }
+        }
     }
 
     private static void processDoBlockReport(DoBlock _cond, CustList<PartOffset> _parts) {

@@ -258,5 +258,9 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
     public void getAllPartInnerTypes21Test(){
         assertEq(new StringList("Map<Rate<Int>>","..","Inner<Boolean-Number>"), StringExpUtil.getAllPartInnerTypes("Map<Rate<Int>>..Inner<Boolean-Number>"));
     }
+    @Test
+    public void nextCharIsTest(){
+        assertTrue(!StringExpUtil.nextCharIs("",-1,0,' '));
+    }
 
 }
