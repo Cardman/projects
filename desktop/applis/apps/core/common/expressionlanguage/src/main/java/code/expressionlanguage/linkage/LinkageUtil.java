@@ -2581,8 +2581,7 @@ public final class LinkageUtil {
                                CustList<PartOffset> _parts) {
         processCat(_cont, offsetEnd_, curOp_, nextSiblingOp_, parent_, _parts);
         processCustomOperator(_cont, currentFileName_, offsetEnd_, parent_, _parts);
-        processCompoundAffLeftOp(_cont, currentFileName_, offsetEnd_, nextSiblingOp_, parent_, _parts);
-        processCompoundAffCover(_cont, _block, offsetEnd_, nextSiblingOp_, parent_, _parts);
+        processCompoundAffLeftOp(_cont, _block, currentFileName_, offsetEnd_, curOp_,nextSiblingOp_, parent_, _parts);
         processCompoundAffRightOp(_cont, currentFileName_, offsetEnd_, parent_, _parts);
 
         processCompare(_cont, _block, offsetEnd_, parent_, _parts);
@@ -2621,7 +2620,7 @@ public final class LinkageUtil {
         }
         processCat(_cont, offsetEnd_, curOp_, nextSiblingOp_, parent_, _parts);
         processCustomOperator(_cont, currentFileName_, offsetEnd_, parent_, _parts);
-        processCompoundAffLeftOp(_cont, currentFileName_, offsetEnd_, nextSiblingOp_, parent_, _parts);
+        processCompoundAffLeftOpError(_cont, currentFileName_, offsetEnd_, nextSiblingOp_, parent_, _parts);
         processCompoundAffRightOp(_cont, currentFileName_, offsetEnd_, parent_, _parts);
     }
     private static void processCustomOperator(ContextEl _cont, String currentFileName_, int offsetEnd_, MethodOperation parentOp_, CustList<PartOffset> _parts) {
@@ -2672,7 +2671,7 @@ public final class LinkageUtil {
         }
     }
 
-    private static void processCompoundAffLeftOp(ContextEl _cont, String currentFileName_, int offsetEnd_, OperationNode nextSiblingOp_, MethodOperation parentOp_, CustList<PartOffset> _parts) {
+    private static void processCompoundAffLeftOpError(ContextEl _cont, String currentFileName_, int offsetEnd_, OperationNode nextSiblingOp_, MethodOperation parentOp_, CustList<PartOffset> _parts) {
         if (!(parentOp_ instanceof CompoundAffectationOperation)) {
             return;
         }
@@ -2693,37 +2692,61 @@ public final class LinkageUtil {
         if (classMethodId_ != null) {
             MethodId id_ = classMethodId_.getConstraints();
             addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,begin_,len_,parentOp_.getErrs(),parentOp_.getErrs(),_parts);
-        } else if (nextSiblingOp_.getResultClass().isConvertToString() && canCallToString(nextSiblingOp_.getResultClass(),_cont)){
+        } else if (hasToCallStringConver(_cont, nextSiblingOp_)){
             String tag_ = "<i>";
             _parts.add(new PartOffset(tag_, begin_));
             tag_ = "</i>";
             _parts.add(new PartOffset(tag_,begin_+len_));
         }
     }
-    private static void processCompoundAffCover(ContextEl _cont, Block _block, int offsetEnd_, OperationNode nextSiblingOp_, MethodOperation parentOp_, CustList<PartOffset> _parts) {
+
+    private static boolean hasToCallStringConver(ContextEl _cont, OperationNode nextSiblingOp_) {
+        return nextSiblingOp_.getResultClass().isConvertToString() && canCallToString(nextSiblingOp_.getResultClass(),_cont);
+    }
+
+    private static void processCompoundAffLeftOp(ContextEl _cont, Block _block, String currentFileName_, int offsetEnd_,  OperationNode curOp_,OperationNode nextSiblingOp_, MethodOperation parentOp_, CustList<PartOffset> _parts) {
         if (!(parentOp_ instanceof CompoundAffectationOperation)) {
             return;
         }
         CompoundAffectationOperation par_ = (CompoundAffectationOperation) parentOp_;
-        if (par_.getTest() != null) {
-            return;
-        }
         ClassMethodId classMethodId_ = par_.getClassMethodId();
-        if (classMethodId_ != null) {
-            return;
-        }
-        if (nextSiblingOp_.getResultClass().isConvertToString() && canCallToString(nextSiblingOp_.getResultClass(),_cont)){
-            return;
-        }
         int opDelta_ = par_.getOper().length() - 1;
-        if (StringList.quickEq(par_.getOper(),"??=")){
+        ClassMethodId test_ = par_.getTest();
+        int begin_ = offsetEnd_;
+        int len_ = opDelta_;
+        if (test_ != null) {
+            String className_ = test_.getClassName();
+            className_ = StringExpUtil.getIdFromAllTypes(className_);
+            MethodId id_ = test_.getConstraints();
+            StringList title_ = new StringList();
+            AbstractCoverageResult resultFirst_ = getCovers(_cont, _block, curOp_);
+            title_.addAllElts(getCoversFound(resultFirst_,_cont));
+            addParts(_cont,currentFileName_,className_,id_,begin_,1, parentOp_.getErrs(),title_,_parts);
+            begin_++;
+            len_--;
+        } else if (StringList.quickEq(par_.getOper(),"&&=")
+                ||StringList.quickEq(par_.getOper(),"||=")){
+            AbstractCoverageResult resultFirst_ = getCovers(_cont, _block, curOp_);
+            safe(resultFirst_,_cont,begin_,_parts,1);
+            begin_++;
+            len_--;
+        }
+        if (classMethodId_ != null) {
+            MethodId id_ = classMethodId_.getConstraints();
+            addParts(_cont,currentFileName_,classMethodId_.getClassName(),id_,begin_,len_,parentOp_.getErrs(),parentOp_.getErrs(),_parts);
+        } else if (hasToCallStringConver(_cont, nextSiblingOp_)){
+            String tag_ = "<i>";
+            _parts.add(new PartOffset(tag_, begin_));
+            tag_ = "</i>";
+            _parts.add(new PartOffset(tag_,begin_+len_));
+        } else if (StringList.quickEq(par_.getOper(),"??=")){
             AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_);
             safe(resultLast_,_cont,offsetEnd_,_parts, opDelta_);
         } else {
             String b_ = _cont.getStandards().getAliasPrimBoolean();
             if (nextSiblingOp_.getResultClass().matchClass(b_)) {
                 AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_);
-                safe(resultLast_,_cont,offsetEnd_,_parts,opDelta_);
+                safe(resultLast_,_cont,begin_,_parts,1);
             }
         }
     }

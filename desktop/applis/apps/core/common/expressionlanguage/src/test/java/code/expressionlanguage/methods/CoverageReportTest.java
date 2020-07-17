@@ -8632,7 +8632,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m81\">c</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
-                "  <span class=\"p\"><span class=\"p\"><a href=\"#m63\">b</a> </span><a title=\"true\">&amp;&amp;</a>=<span class=\"p\"> <a href=\"#m81\">c</a></span></span>;\n" +
+                "  <span class=\"p\"><span class=\"p\"><a href=\"#m63\">b</a> </span><a title=\"true\">&amp;</a><a title=\"true\">&amp;</a>=<span class=\"p\"> <a href=\"#m81\">c</a></span></span>;\n" +
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -8661,7 +8661,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $false</span></span>;\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m82\">c</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
-                "  <span class=\"p\"><span class=\"p\"><a href=\"#m63\">b</a> </span>&amp;&amp;=<span class=\"n\"> <a href=\"#m82\">c</a></span></span>;\n" +
+                "  <span class=\"p\"><span class=\"p\"><a href=\"#m63\">b</a> </span><a title=\"false\">&amp;</a>&amp;=<span class=\"n\"> <a href=\"#m82\">c</a></span></span>;\n" +
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -8690,7 +8690,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $false</span></span>;\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m82\">c</a> </span>=<span class=\"f\"> $false</span></span>;\n" +
-                "  <span class=\"p\"><span class=\"p\"><a href=\"#m63\">b</a> </span><a title=\"false\">||</a>=<span class=\"p\"> <a href=\"#m82\">c</a></span></span>;\n" +
+                "  <span class=\"p\"><span class=\"p\"><a href=\"#m63\">b</a> </span><a title=\"false\">|</a><a title=\"false\">|</a>=<span class=\"p\"> <a href=\"#m82\">c</a></span></span>;\n" +
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -8719,7 +8719,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m81\">c</a> </span>=<span class=\"f\"> $false</span></span>;\n" +
-                "  <span class=\"p\"><span class=\"p\"><a href=\"#m63\">b</a> </span>||=<span class=\"n\"> <a href=\"#m81\">c</a></span></span>;\n" +
+                "  <span class=\"p\"><span class=\"p\"><a href=\"#m63\">b</a> </span><a title=\"true\">|</a>|=<span class=\"n\"> <a href=\"#m81\">c</a></span></span>;\n" +
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -13317,7 +13317,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m217\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m191\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m109\">f</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m191\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m109\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m217\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
-                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m313\">&amp;</a><a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m364\">&amp;</a>=<span class=\"f\"><a href=\"#m109\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"true\n" +
+                "\n" +
+                "pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m313\">&amp;</a><a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m364\">&amp;</a>=<span class=\"f\"><a href=\"#m109\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m191\">pkg.ExClass </a>{\n" +
@@ -13395,7 +13397,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\">10</span></span>;\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m110\">f</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m110\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
-                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m314\">&amp;</a><a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m365\">&amp;</a>=<span class=\"n\"><a href=\"#m110\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"false\n" +
+                "\n" +
+                "pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m314\">&amp;</a><a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m365\">&amp;</a>=<span class=\"n\"><a href=\"#m110\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m192\">pkg.ExClass </a>{\n" +
@@ -13473,7 +13477,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m217\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m191\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m109\">f</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m191\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m109\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m217\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
-                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m249\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m444\">|</a>=<span class=\"n\"><a href=\"#m109\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"true\n" +
+                "\n" +
+                "pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m249\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m444\">|</a>=<span class=\"n\"><a href=\"#m109\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m191\">pkg.ExClass </a>{\n" +
@@ -13551,7 +13557,9 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\">10</span></span>;\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m110\">f</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m110\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
-                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m250\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m445\">|</a>=<span class=\"f\"><a href=\"#m110\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"false\n" +
+                "\n" +
+                "pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m250\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m445\">|</a>=<span class=\"f\"><a href=\"#m110\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m192\">pkg.ExClass </a>{\n" +

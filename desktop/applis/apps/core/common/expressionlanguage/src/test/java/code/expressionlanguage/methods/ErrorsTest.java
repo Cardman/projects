@@ -1,7 +1,10 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.functionid.MethodId;
+import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -12511,6 +12514,66 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void report595Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String method(){\n");
+        xml_.append("  ExClass e = $new ExClass();\n");
+        xml_.append("  e.field=10;\n");
+        xml_.append("  ExClass f = $new ExClass();\n");
+        xml_.append("  f.field=1;\n");
+        xml_.append("  e||=f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExClass {\n");
+        xml_.append(" $public int field=2;\n");
+        xml_.append(" $public $static $boolean $true(ExClass i){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $false(ExClass i){\n");
+        xml_.append(" }\n");
+        xml_.append(" $operator&& $boolean (ExClass i, ExClass j){\n");
+        xml_.append(" }\n");
+        xml_.append(" $operator|| $boolean (ExClass i, ExClass j){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $(ExClass i){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static ExClass $($boolean i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Apply </a>{\n" +
+                " $public $static String <a name=\"m51\" title=\"A $throw block or a $return block is missing for the method $static method().\" class=\"e\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a> <a name=\"m71\">e</a> = $new <a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a>();\n" +
+                "  <a href=\"#m71\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m204\">field</a>=10;\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a> <a name=\"m115\">f</a> = $new <a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a>();\n" +
+                "  <a href=\"#m115\">f</a>.<a title=\"pkg.ExClass.field\" href=\"#m204\">field</a>=1;\n" +
+                "  <a href=\"#m71\">e</a><a title=\"pkg.ExClass.$static $true($boolean,pkg.ExClass)\" href=\"#m239\">|</a><a title=\"$static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m367\">|</a>=<a href=\"#m115\">f</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m177\">pkg.ExClass </a>{\n" +
+                " $public <a title=\"The type int is unknown.\" class=\"e\">int</a> <a name=\"m204\">field</a>=2;\n" +
+                " $public $static $boolean <a name=\"m239\" title=\"A $throw block or a $return block is missing for the method $static $true($boolean,pkg.ExClass).\" class=\"e\">$true</a>(<a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a> <a name=\"m253\">i</a>){\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m286\" title=\"A $throw block or a $return block is missing for the method $static $false($boolean,pkg.ExClass).\" class=\"e\">$false</a>(<a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a> <a name=\"m301\">i</a>){\n" +
+                " }\n" +
+                " $operator<a name=\"m318\" title=\"A $throw block or a $return block is missing for the method $static &amp;&amp;(pkg.ExClass,pkg.ExClass).\" class=\"e\">&amp;&amp;</a> $boolean (<a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a> <a name=\"m339\">i</a>, <a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a> <a name=\"m350\">j</a>){\n" +
+                " }\n" +
+                " $operator<a name=\"m367\" title=\"A $throw block or a $return block is missing for the method $static ||(pkg.ExClass,pkg.ExClass).\" class=\"e\">||</a> $boolean (<a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a> <a name=\"m388\">i</a>, <a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a> <a name=\"m399\">j</a>){\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m432\" title=\"A $throw block or a $return block is missing for the method $static $($boolean,pkg.ExClass).\" class=\"e\">$</a>(<a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a> <a name=\"m442\">i</a>){\n" +
+                " }\n" +
+                " $public $static <a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a> <a name=\"m474\" title=\"A $throw block or a $return block is missing for the method $static $(pkg.ExClass,$boolean).\" class=\"e\">$</a>($boolean <a name=\"m485\">i</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
     @Test
     public void reportWithoutErrorTest() {
         StringBuilder xml_ = new StringBuilder();
