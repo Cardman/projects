@@ -2609,6 +2609,17 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset("</a>",begin_+ _cont.getKeyWords().getKeyWordDefault().length()));
             }
         }
+        if (val_ instanceof TernaryOperation) {
+            TernaryOperation t_ = (TernaryOperation) val_;
+            ClassMethodId test_ = t_.getTest();
+            if (test_ != null) {
+                String className_ = test_.getClassName();
+                className_ = StringExpUtil.getIdFromAllTypes(className_);
+                StringList l_ = new StringList();
+                int begin_ = sum_ + val_.getIndexInEl();
+                addParts(_cont,currentFileName_,className_,test_.getConstraints(),begin_,_cont.getKeyWords().getKeyWordBool().length(),l_,l_,_parts);
+            }
+        }
     }
 
     private static int getOffsetEnd(int sum_, OperationNode val_, MethodOperation parent_) {
@@ -2636,6 +2647,20 @@ public final class LinkageUtil {
                                OperationNode nextSiblingOp_,
                                MethodOperation parent_,
                                CustList<PartOffset> _parts) {
+        if (parent_ instanceof ShortTernaryOperation) {
+            ShortTernaryOperation sh_ = (ShortTernaryOperation) parent_;
+            int index_ = curOp_.getIndexChild();
+            ClassMethodId test_ = null;
+            if (index_ == 1) {
+                test_ = sh_.getTest();
+            }
+            if (test_ != null) {
+                String className_ = test_.getClassName();
+                className_ = StringExpUtil.getIdFromAllTypes(className_);
+                StringList l_ = new StringList();
+                addParts(_cont,currentFileName_,className_,test_.getConstraints(),offsetEnd_,1,l_,l_,_parts);
+            }
+        }
         processCat(_cont, offsetEnd_, curOp_, nextSiblingOp_, parent_, _parts);
         processCustomOperator(_cont, currentFileName_, offsetEnd_, parent_, _parts);
         processCompoundAffLeftOp(_cont, _block, currentFileName_, offsetEnd_, curOp_,nextSiblingOp_, parent_, _parts);
@@ -2660,9 +2685,18 @@ public final class LinkageUtil {
         if (middleOper(parent_)) {
             int index_ = curOp_.getIndexChild();
             IntTreeMap<String> operators_ =  parent_.getOperations().getOperators();
+            ClassMethodId test_ = null;
             int s_;
             int len_;
-            if (!l_.isEmpty()) {
+            if (parent_ instanceof ShortTernaryOperation && index_ == 1) {
+                ShortTernaryOperation sh_ = (ShortTernaryOperation) parent_;
+                test_ = sh_.getTest();
+            }
+            if (test_ != null) {
+                String className_ = test_.getClassName();
+                className_ = StringExpUtil.getIdFromAllTypes(className_);
+                addParts(_cont,currentFileName_,className_,test_.getConstraints(),offsetEnd_,1,l_,l_,_parts);
+            } else if (!l_.isEmpty()) {
                 s_ = offsetEnd_;
                 len_ = operators_.getValue(index_).length();
                 _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(l_,"\n\n")) +"\" class=\"e\">",s_));

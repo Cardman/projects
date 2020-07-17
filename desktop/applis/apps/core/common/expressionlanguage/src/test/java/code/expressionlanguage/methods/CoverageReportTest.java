@@ -14021,6 +14021,190 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverage350Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  return e?\"Vrai\":\"Faux\"+1/0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElCoverageEnDefault();
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
+                " public static String <a name=\"m47\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m173\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m205\">:</a><span class=\"n\"><span class=\"n\"><span class=\"s\">\"Faux\"</span></span>+<span class=\"n\"><span class=\"n\">1</span>/<span class=\"n\">0</span></span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m147\">pkg.ExClass </a>{\n" +
+                " public int <span class=\"f\"><span class=\"f\"><a name=\"m173\">field</a></span>=<span class=\"f\">2</span></span>;\n" +
+                " public static boolean <a name=\"m205\">true</a>(<a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <a name=\"m218\">i</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m218\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m173\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m269\">false</a>(<a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <a name=\"m283\">i</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m283\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m173\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage351Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=2;\n");
+        xml_.append("  return e?\"Vrai\"+1/0:\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElCoverageEnDefault();
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
+                " public static String <a name=\"m47\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m173\">field</a></span></span>=<span class=\"f\">2</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span>?<span class=\"n\"><span class=\"n\"><span class=\"s\">\"Vrai\"</span></span>+<span class=\"n\"><span class=\"n\">1</span>/<span class=\"n\">0</span></span></span><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m205\">:</a><span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m147\">pkg.ExClass </a>{\n" +
+                " public int <span class=\"f\"><span class=\"f\"><a name=\"m173\">field</a></span>=<span class=\"f\">2</span></span>;\n" +
+                " public static boolean <a name=\"m205\">true</a>(<a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <a name=\"m218\">i</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m218\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m173\">field</a></span></span><a title=\"false\">==</a><span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m269\">false</a>(<a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <a name=\"m283\">i</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m283\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m173\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage352Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  return bool(e,\"Vrai\",\"Faux\"+1/0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElCoverageEnDefault();
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
+                " public static String <a name=\"m47\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m153\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m153\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m179\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m211\">bool</a>(<span class=\"p\"><a href=\"#m67\">e</a></span>,<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>,<span class=\"n\"><span class=\"n\"><span class=\"s\">\"Faux\"</span></span>+<span class=\"n\"><span class=\"n\">1</span>/<span class=\"n\">0</span></span></span>)</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m153\">pkg.ExClass </a>{\n" +
+                " public int <span class=\"f\"><span class=\"f\"><a name=\"m179\">field</a></span>=<span class=\"f\">2</span></span>;\n" +
+                " public static boolean <a name=\"m211\">true</a>(<a title=\"pkg.ExClass\" href=\"#m153\">ExClass</a> <a name=\"m224\">i</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m224\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m179\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m275\">false</a>(<a title=\"pkg.ExClass\" href=\"#m153\">ExClass</a> <a name=\"m289\">i</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m289\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m179\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage353Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=2;\n");
+        xml_.append("  return bool(e,\"Vrai\"+1/0,\"Faux\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElCoverageEnDefault();
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        calculateNormal("pkg.Apply", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply </a>{\n" +
+                " public static String <a name=\"m47\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m153\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m153\">ExClass</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m179\">field</a></span></span>=<span class=\"f\">2</span></span>;\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m211\">bool</a>(<span class=\"p\"><a href=\"#m67\">e</a></span>,<span class=\"n\"><span class=\"n\"><span class=\"s\">\"Vrai\"</span></span>+<span class=\"n\"><span class=\"n\">1</span>/<span class=\"n\">0</span></span></span>,<span class=\"f\"><span class=\"s\">\"Faux\"</span></span>)</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m153\">pkg.ExClass </a>{\n" +
+                " public int <span class=\"f\"><span class=\"f\"><a name=\"m179\">field</a></span>=<span class=\"f\">2</span></span>;\n" +
+                " public static boolean <a name=\"m211\">true</a>(<a title=\"pkg.ExClass\" href=\"#m153\">ExClass</a> <a name=\"m224\">i</a>){\n" +
+                "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m224\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m179\">field</a></span></span><a title=\"false\">==</a><span class=\"f\">1</span></span>;\n" +
+                " }\n" +
+                " public static boolean <a name=\"m275\">false</a>(<a title=\"pkg.ExClass\" href=\"#m153\">ExClass</a> <a name=\"m289\">i</a>){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m289\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m179\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();

@@ -23,6 +23,7 @@ import code.util.StringMap;
 public abstract class AbstractTernaryOperation extends MethodOperation {
 
     private int offsetLocal;
+    private ClassMethodId test;
 
     public AbstractTernaryOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -80,15 +81,22 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 clMatch_.getImplicits().add(cl_);
             } else {
-                setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                //after first arg separator len
-                un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
-                        StringList.join(clMatch_.getNames(),"&"));
-                _conf.getAnalyzing().getLocalizer().addError(un_);
-                getErrs().add(un_.getBuiltError());
+                ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(_conf, clMatch_);
+                if (trueOp_.isFoundMethod()) {
+                    ClassMethodId test_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
+                    clMatch_.getImplicitsTest().add(test_);
+                    test = test_;
+                } else {
+                    setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    //after first arg separator len
+                    un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                            StringList.join(clMatch_.getNames(),"&"));
+                    _conf.getAnalyzing().getLocalizer().addError(un_);
+                    getErrs().add(un_.getBuiltError());
+                }
             }
         }
         StringList deep_ = getErrs();
@@ -163,5 +171,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         }
     }
 
-
+    public ClassMethodId getTest() {
+        return test;
+    }
 }

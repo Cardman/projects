@@ -1761,6 +1761,13 @@ public abstract class OperationNode {
             fetchImproveOperators(_conf, methods_,formatted_, castsFrom_);
         }
     }
+    public static ClassMethodIdReturn fetchTrueOperator(ContextEl _conf, ClassArgumentMatching _arg) {
+        CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
+        for (String n:_arg.getNames()) {
+            fetchTrue(_conf,listTrue_,n);
+        }
+        return getCustCastResult(_conf, listTrue_,  _arg);
+    }
     private static void fetchTrue(ContextEl _conf, CustList<MethodInfo> methods_, String _id) {
         if (!ExplicitOperation.customCast(_id)) {
             return;

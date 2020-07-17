@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.opers.ExecTernaryOperation;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -576,7 +577,13 @@ public abstract class RendDynOperationNode {
             if (res_ == null) {
                 return;
             }
-            pair_.setArgumentTest(BooleanStruct.isTrue(Argument.getNull(res_.getStruct())));
+            Struct nRes_ = Argument.getNull(res_.getStruct());
+            pair_.setArgumentTest(BooleanStruct.isTrue(nRes_));
+            RendMethodOperation parent_ = getParent();
+            if (parent_ instanceof RendTernaryOperation) {
+                calcArg(_nodes,new Argument(nRes_));
+                return;
+            }
         } else {
             if (getNextSibling() != null) {
                 RendMethodOperation parent_ = getParent();

@@ -56,7 +56,7 @@ public final class ExpressionLanguage {
                     return;
                 }
                 _context.getCoverage().passBlockOperation(_context,o,a_,true);
-                fr_++;
+                fr_ = getNextIndex(_nodes,o);
                 continue;
             }
             if (pair_.getArgument() != null) {
@@ -68,7 +68,7 @@ public final class ExpressionLanguage {
                     return;
                 }
                 _context.getCoverage().passBlockOperation(_context,o,pair_.getArgument(),true);
-                fr_++;
+                fr_ = getNextIndex(_nodes,o);
                 continue;
             }
             AtomicExecCalculableOperation a_ = (AtomicExecCalculableOperation)o;
@@ -204,6 +204,9 @@ public final class ExpressionLanguage {
     private static int getNextIndex(IdMap<ExecOperationNode,ArgumentsPair> _args,ExecOperationNode _oper) {
         ArgumentsPair value_ = _args.getValue(_oper.getOrder());
         Argument res_ = value_.getArgument();
+        if (res_ == null) {
+            return _oper.getOrder()+1;
+        }
         Struct v_ = res_.getStruct();
         if (_oper.getNextSibling() != null&&value_.isArgumentTest()){
             ExecMethodOperation par_ = _oper.getParent();

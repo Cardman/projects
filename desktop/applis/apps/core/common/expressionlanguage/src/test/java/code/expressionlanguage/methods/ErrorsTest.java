@@ -12938,6 +12938,30 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void report610Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass {\n");
+        xml_.append(" {\n");
+        xml_.append("  $new MyClass()?1:1;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $true(MyClass m){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass </a>{\n" +
+                " {\n" +
+                "  $new <a title=\"pkg.MyClass\" href=\"#m15\">MyClass</a>()?1<a title=\"pkg.MyClass.$static $true($boolean,pkg.MyClass)\" href=\"#m83\">:</a>1;\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m83\" title=\"A $throw block or a $return block is missing for the method $static $true($boolean,pkg.MyClass).\" class=\"e\">$true</a>(<a title=\"pkg.MyClass\" href=\"#m15\">MyClass</a> <a name=\"m97\">m</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void reportWithoutErrorTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");

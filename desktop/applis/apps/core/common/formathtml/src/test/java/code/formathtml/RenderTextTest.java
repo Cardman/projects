@@ -1743,6 +1743,82 @@ public final class RenderTextTest extends CommonRender {
         assertNull(getException(conf_));
     }
     @Test
+    public void process45Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanOne.Inner' value='i=$new pkg.BeanOne.Inner()'/>{i?1:0}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Inner{");
+        file_.append("  $public $int count=10;");
+        file_.append("  $public $static $boolean $true(Inner v){");
+        file_.append("   $return v.count==10;");
+        file_.append("  }");
+        file_.append("  $public $static $boolean $false(Inner v){");
+        file_.append("   $return v.count!=10;");
+        file_.append("  }");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration conf_ = contextElFive(filesSec_);
+
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getAnalyzingDoc().setFiles(files_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
+    public void process46Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanOne.Inner' value='i=$new pkg.BeanOne.Inner()'/>{i?1:0}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Inner{");
+        file_.append("  $public $int count=1;");
+        file_.append("  $public $static $boolean $true(Inner v){");
+        file_.append("   $return v.count==10;");
+        file_.append("  }");
+        file_.append("  $public $static $boolean $false(Inner v){");
+        file_.append("   $return v.count!=10;");
+        file_.append("  }");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        Configuration conf_ = contextElFive(filesSec_);
+
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getAnalyzingDoc().setFiles(files_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>0</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
     public void process0FailTest() {
         String locale_ = "en";
         String folder_ = "messages";

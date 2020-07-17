@@ -403,14 +403,17 @@ public final class RenderExpUtil {
                 if (!pair_.getImplicits().isEmpty()) {
                     o.setSimpleArgument(a_,_context,arguments_);
                 }
-                fr_++;
+                Struct st_ = a_.getStruct();
+                fr_ = RendDynOperationNode.getNextIndex(o, st_);
                 continue;
             }
             if (pair_.getArgument() != null) {
                 if (!pair_.getImplicits().isEmpty()) {
                     o.setSimpleArgument(pair_.getArgument(),_context,arguments_);
                 }
-                fr_++;
+                Argument res_ = pair_.getArgument();
+                Struct st_ = res_.getStruct();
+                fr_ = RendDynOperationNode.getNextIndex(o, st_);
                 continue;
             }
             RendCalculableOperation a_ = (RendCalculableOperation)o;
