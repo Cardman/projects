@@ -435,35 +435,27 @@ public abstract class OperationNode {
         if (ct_ == ConstType.LOOP_INDEX) {
             return new FinalVariableOperation(_index, _indexChild, _m, _op);
         }
-        AnaLocalVariable locParam_ = _an.getAnalyzing().getParameters().getVal(str_);
-        if (locParam_ != null) {
-            FunctionBlock fct_ = _an.getAnalyzing().getCurrentFct();
-            if (fct_ instanceof OverridableBlock) {
-                OverridableBlock indexer_ = (OverridableBlock) fct_;
-                if (indexer_.getKind() == MethodKind.SET_INDEX) {
-                    String keyWordValue_ = keyWords_.getKeyWordValue();
-                    if (StringList.quickEq(keyWordValue_, str_)) {
-                        return new ValueOperation(_index, _indexChild, _m, _op,locParam_.getClassName());
+        AnaLocalVariable val_ = _an.getAnalyzing().getInfosVars().getVal(str_);
+        if (val_ != null) {
+            if (val_.getConstType() == ConstType.LOC_VAR) {
+                return new VariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef());
+            }
+            if (val_.getConstType() == ConstType.MUTABLE_LOOP_VAR) {
+                return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef());
+            }
+            if (val_.getConstType() == ConstType.PARAM) {
+                FunctionBlock fct_ = _an.getAnalyzing().getCurrentFct();
+                if (fct_ instanceof OverridableBlock) {
+                    OverridableBlock indexer_ = (OverridableBlock) fct_;
+                    if (indexer_.getKind() == MethodKind.SET_INDEX) {
+                        String keyWordValue_ = keyWords_.getKeyWordValue();
+                        if (StringList.quickEq(keyWordValue_, str_)) {
+                            return new ValueOperation(_index, _indexChild, _m, _op,val_.getClassName());
+                        }
                     }
                 }
             }
-            return new FinalVariableOperation(_index, _indexChild, _m, _op,locParam_.getClassName(),locParam_.getRef());
-        }
-        AnaLocalVariable catchVar_ = _an.getAnalyzing().getCatchVar(str_);
-        if (catchVar_ != null) {
-            return new FinalVariableOperation(_index, _indexChild, _m, _op,catchVar_.getClassName(),catchVar_.getRef());
-        }
-        AnaLoopVariable mutVar_ = _an.getAnalyzing().getMutableLoopVar(str_);
-        if (mutVar_ != null) {
-            return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, mutVar_.getClassName(), mutVar_.getRef());
-        }
-        AnaLocalVariable locVar_ = _an.getAnalyzing().getLocalVar(str_);
-        if (locVar_ != null) {
-            return new VariableOperation(_index, _indexChild, _m, _op, locVar_.getClassName(), locVar_.getRef());
-        }
-        AnaLoopVariable lVar_ = _an.getAnalyzing().getVar(str_);
-        if (lVar_ != null) {
-            return new FinalVariableOperation(_index, _indexChild, _m, _op,lVar_.getClassName(), lVar_.getRef());
+            return new FinalVariableOperation(_index, _indexChild, _m, _op,val_.getClassName(),val_.getRef());
         }
         return new StandardFieldOperation(_index, _indexChild, _m, _op);
     }

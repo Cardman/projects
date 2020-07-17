@@ -494,8 +494,8 @@ public final class Configuration {
         return context.getAnalyzing();
     }
 
-    public CustList<StringMap<AnaLocalVariable>> getLocalVarsAna() {
-        return context.getAnalyzing().getLocalVars();
+    public StringMap<AnaLocalVariable> getLocalVars() {
+        return context.getAnalyzing().getInfosVars();
     }
 
     public String getIndexClassName() {

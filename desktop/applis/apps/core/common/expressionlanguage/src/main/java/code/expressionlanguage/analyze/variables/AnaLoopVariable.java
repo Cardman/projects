@@ -2,8 +2,6 @@ package code.expressionlanguage.analyze.variables;
 
 public class AnaLoopVariable {
 
-    private String className;
-
     private String indexClassName;
 
     private boolean finalVariable;
@@ -16,14 +14,6 @@ public class AnaLoopVariable {
 
     public void setFinalVariable(boolean _finalVariable) {
         finalVariable = _finalVariable;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String _className) {
-        className = _className;
     }
 
     public String getIndexClassName() {

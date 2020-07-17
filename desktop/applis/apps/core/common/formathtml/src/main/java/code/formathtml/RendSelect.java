@@ -95,12 +95,12 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             AnaLocalVariable lv_ = new AnaLocalVariable();
             arrayConverter = true;
             lv_.setClassName(StringExpUtil.getPrettyArrayType(string_));
-            _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+            _cont.getLocalVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertValue());
             opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont);
             for (String v:varNames_) {
-                _cont.getLocalVarsAna().last().removeKey(v);
+                _cont.getLocalVars().removeKey(v);
             }
             StringList names_ = opsValue.last().getResultClass().getNames();
             if (!opsValue.last().getResultClass().isVariable()) {
@@ -147,12 +147,12 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 varNameConverter = varLoc_;
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(string_);
-                _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+                _cont.getLocalVars().addEntry(varLoc_,lv_);
                 int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertValue());
                 String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
                 opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont);
                 for (String v:varNames_) {
-                    _cont.getLocalVarsAna().last().removeKey(v);
+                    _cont.getLocalVars().removeKey(v);
                 }
                 m_.setArg(opsConverter.last().getResultClass());
                 m_.setParam(opsRead.last().getResultClass());
@@ -173,12 +173,12 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
                 varNameConverter = varLoc_;
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(string_);
-                _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+                _cont.getLocalVars().addEntry(varLoc_,lv_);
                 String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
                 int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertValue());
                 opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont);
                 for (String v:varNames_) {
-                    _cont.getLocalVarsAna().last().removeKey(v);
+                    _cont.getLocalVars().removeKey(v);
                 }
                 m_.setArg(opsConverter.last().getResultClass());
                 m_.setParam(opsRead.last().getResultClass());
@@ -202,12 +202,12 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             varNameConverterField = varLoc_;
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(object_);
-            _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+            _cont.getLocalVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterField_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertField());
             opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont);
             for (String v:varNames_) {
-                _cont.getLocalVarsAna().last().removeKey(v);
+                _cont.getLocalVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
             m_.setArg(opsConverterField.last().getResultClass());
@@ -231,12 +231,12 @@ public final class RendSelect extends RendParentBlock implements RendWithEl, Ren
             varNameConverterFieldValue = varLoc_;
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(object_);
-            _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+            _cont.getLocalVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterFieldValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int offConvValue_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrConvertFieldValue());
             opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_,offConvValue_,0,_cont);
             for (String v:varNames_) {
-                _cont.getLocalVarsAna().last().removeKey(v);
+                _cont.getLocalVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
             m_.setArg(opsConverterFieldValue.last().getResultClass());

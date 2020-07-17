@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
@@ -36,53 +37,10 @@ public final class FullFieldRetriever implements FieldRetriever {
     @Override
     public int processFieldsStaticAccess(boolean _ctorCall, int _begin, String _word, int _to) {
         AnalyzedPageEl ana_ = context.getAnalyzing();
-        if (ana_.getParameters().contains(_word)) {
+        AnaLocalVariable val_ = ana_.getInfosVars().getVal(_word);
+        if (val_ != null) {
             ConstType type_;
-            type_ = ConstType.PARAM;
-            VariableInfo info_ = new VariableInfo();
-            info_.setKind(type_);
-            info_.setFirstChar(_begin);
-            info_.setLastChar(_to);
-            info_.setName(_word);
-            delimiters.getVariables().add(info_);
-            return _to;
-        }
-        if (ana_.containsCatchVar(_word)) {
-            ConstType type_;
-            type_ = ConstType.CATCH_VAR;
-            VariableInfo info_ = new VariableInfo();
-            info_.setKind(type_);
-            info_.setFirstChar(_begin);
-            info_.setLastChar(_to);
-            info_.setName(_word);
-            delimiters.getVariables().add(info_);
-            return _to;
-        }
-        if (ana_.containsMutableLoopVar(_word)) {
-            ConstType type_;
-            type_ = ConstType.LOOP_VAR;
-            VariableInfo info_ = new VariableInfo();
-            info_.setKind(type_);
-            info_.setFirstChar(_begin);
-            info_.setLastChar(_to);
-            info_.setName(_word);
-            delimiters.getVariables().add(info_);
-            return _to;
-        }
-        if (ana_.containsVar(_word)) {
-            ConstType type_;
-            type_ = ConstType.LOOP_VAR;
-            VariableInfo info_ = new VariableInfo();
-            info_.setKind(type_);
-            info_.setFirstChar(_begin);
-            info_.setLastChar(_to);
-            info_.setName(_word);
-            delimiters.getVariables().add(info_);
-            return _to;
-        }
-        if (ana_.containsLocalVar(_word)) {
-            ConstType type_;
-            type_ = ConstType.LOC_VAR;
+            type_ = val_.getConstType();
             VariableInfo info_ = new VariableInfo();
             info_.setKind(type_);
             info_.setFirstChar(_begin);

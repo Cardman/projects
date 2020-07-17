@@ -129,10 +129,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 par_.abruptGroup(anEl_);
                 if (par_ == this) {
                     setAssignmentAfterCallReadOnly(_cont, anEl_);
-                    page_.removeLocalVars();
-                    page_.removeVars();
-                    page_.removeMutableLoopVars();
-                    page_.removeCatchVars();
+                    par_.removeAllVars(page_);
+                    page_.getInfosVars().clear();
                     return;
                 }
                 par_.checkTree(_cont, anEl_);
@@ -140,10 +138,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 removeBreakablePar(parentsBreakables_, par_);
                 removeContinuablePar(parentsContinuable_, par_);
                 removeReturnablePar(parentsReturnable_, par_);
-                page_.removeLocalVars();
-                page_.removeVars();
-                page_.removeMutableLoopVars();
-                page_.removeCatchVars();
+                par_.removeAllVars(page_);
                 removeLabel(par_, labels_);
                 page_.setBlockToWrite(page_.getBlockToWrite().getParent());
                 en_ = par_;
@@ -171,10 +166,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             if (_en instanceof BreakableBlock) {
                 _anEl.putLabel(_en,((BreakableBlock)_en).getRealLabel());
             }
-            _cont.getAnalyzing().initLocalVars();
-            _cont.getAnalyzing().initVars();
-            _cont.getAnalyzing().initMutableLoopVars();
-            _cont.getAnalyzing().initCatchVars();
             addBreakablePar(_en, _parentsBreakables);
             addContinuablePar(_en, _parentsContinuable);
             addReturnablePar(_en, _parentsReturnable);

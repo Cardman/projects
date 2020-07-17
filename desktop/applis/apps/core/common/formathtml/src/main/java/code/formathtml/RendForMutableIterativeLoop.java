@@ -130,7 +130,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             page_.setMerged(false);
         }
         page_.getVariablesNames().clear();
-        page_.getVariablesNamesLoopToInfer().clear();
+        page_.getVariablesNamesToInfer().clear();
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrInit());
@@ -185,7 +185,6 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         page_.setForLoopPartState(ForLoopPart.STEP);
         page_.setMerged(true);
         page_.setAcceptCommaInstr(true);
-        page_.getLocalVars().last().clear();
         _an.getAnalyzingDoc().setAttribute(_an.getRendKeyWords().getAttrStep());
         if (step.trim().isEmpty()) {
             opStep = new CustList<RendDynOperationNode>();
@@ -260,6 +259,15 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
         for (String v: variableNames) {
             _ip.getValueVars().removeKey(v);
+        }
+    }
+
+    @Override
+    public void removeAllVars(AnalyzedPageEl _ip) {
+        super.removeAllVars(_ip);
+        for (String v: variableNames) {
+            _ip.getLoopsVars().removeKey(v);
+            _ip.getInfosVars().removeKey(v);
         }
     }
 

@@ -166,7 +166,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         page_.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
         page_.getVariablesNames().clear();
-        page_.getVariablesNamesLoopToInfer().clear();
+        page_.getVariablesNamesToInfer().clear();
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         page_.setAcceptCommaInstr(true);
@@ -202,7 +202,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         page_.setForLoopPartState(ForLoopPart.STEP);
         page_.setMerged(true);
         page_.setAcceptCommaInstr(true);
-        page_.getLocalVars().last().clear();
         MethodAccessKind static_1 = f_1.getStaticContext();
         CustList<ExecOperationNode> step_;
         if (step.trim().isEmpty()) {
@@ -334,6 +333,15 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         }
         if (abr_) {
             _anEl.completeAbruptGroup(this);
+        }
+    }
+
+    @Override
+    public void removeAllVars(AnalyzedPageEl _ip) {
+        super.removeAllVars(_ip);
+        for (String v: variableNames) {
+            _ip.getLoopsVars().removeKey(v);
+            _ip.getInfosVars().removeKey(v);
         }
     }
 

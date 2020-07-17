@@ -70,10 +70,6 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
                     RendEmptyInstruction empty_ = new RendEmptyInstruction(off_);
                     ((RendParentBlock)en_).appendChild(empty_);
                 }
-                _cont.getAnalyzing().initLocalVars();
-                _cont.getAnalyzing().initVars();
-                _cont.getAnalyzing().initMutableLoopVars();
-                _cont.getAnalyzing().initCatchVars();
                 if (en_ instanceof RendBreakableBlock) {
                     parentsBreakables_.add((RendBreakableBlock) en_);
                 }
@@ -116,10 +112,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
                 RendParentBlock par_;
                 par_ = en_.getParent();
                 if (par_ == this) {
-                    page_.removeLocalVars();
-                    page_.removeVars();
-                    page_.removeMutableLoopVars();
-                    page_.removeCatchVars();
+                    par_.removeAllVars(page_);
                     return;
                 }
                 if (par_ instanceof RendForMutableIterativeLoop) {
@@ -147,10 +140,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
                         parentsReturnable_.removeLast();
                     }
                 }
-                page_.removeLocalVars();
-                page_.removeVars();
-                page_.removeMutableLoopVars();
-                page_.removeCatchVars();
+                par_.removeAllVars(page_);
                 if (par_ instanceof RendBreakableBlock && !((RendBreakableBlock)par_).getRealLabel().isEmpty()) {
                     labels_.removeLast();
                 }

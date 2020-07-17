@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.blocks.ExecCatchEval;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -82,7 +83,8 @@ public final class CatchEval extends AbstractCatchEval {
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);
         lv_.setRef(variableNameOffset);
-        _cont.getAnalyzing().putCatchVar(variableName, lv_);
+        lv_.setConstType(ConstType.CATCH_VAR);
+        _cont.getAnalyzing().getInfosVars().put(variableName, lv_);
     }
 
     @Override
@@ -117,6 +119,12 @@ public final class CatchEval extends AbstractCatchEval {
         } else {
             _anEl.unreach(this);
         }
+    }
+
+    @Override
+    public void removeAllVars(AnalyzedPageEl _ip) {
+        super.removeAllVars(_ip);
+        _ip.getInfosVars().removeKey(variableName);
     }
 
     public CustList<PartOffset> getPartOffsets() {

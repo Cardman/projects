@@ -79,12 +79,12 @@ public final class AffectationOperation extends MethodOperation {
             VariableOperation v_ = (VariableOperation)elt_;
             settableOp = v_;
             String inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringVariable(v_, _conf) && StringList.contains(_conf.getAnalyzing().getLastLocalVarsInfers(), inf_)) {
+            if (ElUtil.isDeclaringVariable(v_, _conf) && StringList.contains(_conf.getAnalyzing().getVariablesNamesToInfer(), inf_)) {
                 ClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
                     ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
-                    AnaLocalVariable lv_ = _conf.getAnalyzing().getLocalVar(inf_);
+                    AnaLocalVariable lv_ = _conf.getAnalyzing().getInfosVars().getVal(inf_);
                     lv_.setClassName(type_);
                     _conf.getAnalyzing().getVariablesNamesToInfer().removeString(inf_);
                     _conf.getAnalyzing().getLocalDeclaring().setupDeclaratorClass(type_);
@@ -97,14 +97,14 @@ public final class AffectationOperation extends MethodOperation {
             MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)elt_;
             settableOp = v_;
             String inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringLoopVariable(v_, _conf) && StringList.contains(_conf.getAnalyzing().getLastMutableLoopVarsInfers(), inf_)) {
+            if (ElUtil.isDeclaringLoopVariable(v_, _conf) && StringList.contains(_conf.getAnalyzing().getVariablesNamesToInfer(), inf_)) {
                 ClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
                     ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
-                    AnaLoopVariable lv_ = _conf.getAnalyzing().getMutableLoopVar(inf_);
+                    AnaLocalVariable lv_ = _conf.getAnalyzing().getInfosVars().getVal(inf_);
                     lv_.setClassName(type_);
-                    _conf.getAnalyzing().getVariablesNamesLoopToInfer().removeString(inf_);
+                    _conf.getAnalyzing().getVariablesNamesToInfer().removeString(inf_);
                     _conf.getAnalyzing().getLoopDeclaring().setupLoopDeclaratorClass(type_);
                     _conf.getAnalyzing().setCurrentVarSetting(type_);
                     v_.setResultClass(n_);
@@ -211,7 +211,7 @@ public final class AffectationOperation extends MethodOperation {
             return un_.getBuiltError();
         }
         for (String v: _cont.getAnalyzing().getVariablesNamesToInfer()) {
-            AnaLocalVariable lv_ = _cont.getAnalyzing().getLocalVar(v);
+            AnaLocalVariable lv_ = _cont.getAnalyzing().getInfosVars().getVal(v);
             lv_.setClassName(_import);
         }
         return "";
@@ -230,8 +230,8 @@ public final class AffectationOperation extends MethodOperation {
             _cont.getAnalyzing().getLocalizer().addError(un_);
             return un_.getBuiltError();
         }
-        for (String v: _cont.getAnalyzing().getVariablesNamesLoopToInfer()) {
-            AnaLoopVariable lv_ = _cont.getAnalyzing().getMutableLoopVar(v);
+        for (String v: _cont.getAnalyzing().getVariablesNamesToInfer()) {
+            AnaLocalVariable lv_ = _cont.getAnalyzing().getInfosVars().getVal(v);
             lv_.setClassName(_import);
         }
         return "";

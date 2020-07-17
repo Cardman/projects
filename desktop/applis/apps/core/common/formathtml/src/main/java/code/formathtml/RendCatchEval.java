@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -54,7 +55,8 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);
-        _cont.getAnalyzing().putCatchVar(variableName, lv_);
+        lv_.setConstType(ConstType.CATCH_VAR);
+        _cont.getAnalyzing().getInfosVars().put(variableName, lv_);
         RendBlock pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof RendAbstractCatchEval)) {
             if (!(pBlock_ instanceof RendTryEval)) {
@@ -98,4 +100,10 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         _ip.getValueVars().removeKey(var_);
     }
 
+    @Override
+    public void removeAllVars(AnalyzedPageEl _ip) {
+        super.removeAllVars(_ip);
+        String var_ = getVariableName();
+        _ip.getInfosVars().removeKey(var_);
+    }
 }

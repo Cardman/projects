@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.GraphicErrorList;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.CustList;
@@ -120,6 +121,19 @@ public abstract class BracedBlock extends Block {
         }
     }
 
+    public void removeAllVars(AnalyzedPageEl _ip) {
+        removeLocalVars(_ip);
+    }
+
+    public final void removeLocalVars(AnalyzedPageEl _ip) {
+        for (Block s: ClassesUtil.getDirectChildren(this)) {
+            if (s instanceof DeclareVariable) {
+                for (String v: ((DeclareVariable)s).getVariableNames()) {
+                    _ip.getInfosVars().removeKey(v);
+                }
+            }
+        }
+    }
 
     public GraphicErrorList getGlobalErrorsPars() {
         return globalErrorsPars;

@@ -5,7 +5,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetBooleanInfo;
@@ -207,9 +209,12 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         }
         if (!res_.isError()) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
-            lv_.setClassName(cl_);
             lv_.setIndexClassName(importedClassIndexName);
-            _cont.getAnalyzing().putVar(variableName, lv_);
+            _cont.getAnalyzing().getLoopsVars().put(variableName, lv_);
+            AnaLocalVariable lInfo_ = new AnaLocalVariable();
+            lInfo_.setClassName(cl_);
+            lInfo_.setConstType(ConstType.LOOP_VAR);
+            _cont.getAnalyzing().getInfosVars().put(variableName, lInfo_);
         }
     }
 
@@ -360,6 +365,13 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         vInfo_.removeKey(var_);
     }
 
+    @Override
+    public void removeAllVars(AnalyzedPageEl _ip) {
+        super.removeAllVars(_ip);
+        String var_ = getVariableName();
+        _ip.getLoopsVars().removeKey(var_);
+        _ip.getInfosVars().removeKey(var_);
+    }
     @Override
     public void processLastElementLoop(Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();

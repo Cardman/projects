@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
@@ -82,7 +83,6 @@ public final class VariableOperation extends LeafOperation implements
             KeyWords keyWords_ = _conf.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringList.quickEq(c_, keyWordVar_)) {
-                _conf.getAnalyzing().putLocalVar(str_);
                 _conf.getAnalyzing().getVariablesNamesToInfer().add(str_);
             }
             AnaLocalVariable lv_ = new AnaLocalVariable();
@@ -92,8 +92,9 @@ public final class VariableOperation extends LeafOperation implements
                 lv_.setClassName(c_);
             }
             lv_.setRef(ref);
+            lv_.setConstType(ConstType.LOC_VAR);
             lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
-            page_.putLocalVar(str_, lv_);
+            page_.getInfosVars().put(str_, lv_);
             page_.getVariablesNames().add(str_);
             setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting()));
             return;

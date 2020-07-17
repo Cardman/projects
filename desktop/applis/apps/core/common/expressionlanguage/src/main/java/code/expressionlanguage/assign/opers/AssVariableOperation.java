@@ -45,6 +45,7 @@ public final class AssVariableOperation extends AssLeafOperation implements AssS
             lv_.setClassName(_conf.getStandards().getAliasObject());
             lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
             _conf.getAnalyzing().putLocalVar(variableName, lv_);
+            _conf.getAnalyzing().getInfosVars().put(variableName, lv_);
             ass_.last().put(variableName, asBe_.assignAfter(isBool_));
             assAfM_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assM_));
             assA_.putAllMap(AssignmentsUtil.assignAfter(isBool_,assF_));

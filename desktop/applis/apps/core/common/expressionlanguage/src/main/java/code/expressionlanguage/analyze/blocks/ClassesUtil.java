@@ -1403,7 +1403,6 @@ public final class ClassesUtil {
                         StringList types_ = method_.getImportedParametersTypes();
                         prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllCtors().getVal(method_));
-                        page_.getParameters().clear();
                         page_.clearAllLocalVarsReadOnly();
                     }
                 }
@@ -1429,7 +1428,6 @@ public final class ClassesUtil {
                         StringList types_ = method_.getImportedParametersTypes();
                         prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
-                        page_.getParameters().clear();
                         page_.clearAllLocalVarsReadOnly();
                     } else {
                         page_.setGlobalClass(type_.getGenericString());
@@ -1439,7 +1437,6 @@ public final class ClassesUtil {
                         prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                         processValueParam(_context, page_, type_, method_);
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
-                        page_.getParameters().clear();
                         page_.clearAllLocalVarsReadOnly();
                     }
                 }
@@ -1455,7 +1452,6 @@ public final class ClassesUtil {
                 StringList types_ = e.getKey().getImportedParametersTypes();
                 prepareParams(page_, e.getKey().getParametersNamesOffset(),e.getKey().getParamErrors(),params_, types_, e.getKey().isVarargs());
                 e.getKey().buildFctInstructionsReadOnly(_context,e.getValue());
-                page_.getParameters().clear();
                 page_.clearAllLocalVarsReadOnly();
             }
         }
@@ -1760,7 +1756,6 @@ public final class ClassesUtil {
                                 fieldName_,fullName_);
                         _context.addError(un_);
                     }
-                    page_.getParameters().clear();
                     page_.clearAllLocalVars(assVars_);
                 }
             }
@@ -1793,7 +1788,6 @@ public final class ClassesUtil {
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(page_,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, types_, method_.isVarargs());
                     AssBlockUtil.buildFctInstructions(method_,mem_.getAllMethods().getVal(method_),_context,null,assVars_);
-                    page_.getParameters().clear();
                     page_.clearAllLocalVars(assVars_);
                 } else {
                     page_.setGlobalClass(type_.getGenericString());
@@ -1803,7 +1797,6 @@ public final class ClassesUtil {
                     prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                     processValueParam(_context, page_, type_, method_);
                     AssBlockUtil.buildFctInstructions(method_,mem_.getAllMethods().getVal(method_),_context,null,assVars_);
-                    page_.getParameters().clear();
                     page_.clearAllLocalVars(assVars_);
                 }
             }
@@ -1819,7 +1812,6 @@ public final class ClassesUtil {
             StringList types_ = e.getKey().getImportedParametersTypes();
             prepareParams(page_,e.getKey().getParametersNamesOffset(),e.getKey().getParamErrors(), params_, types_, e.getKey().isVarargs());
             AssBlockUtil.buildFctInstructions(e.getKey(),e.getValue(),_context,null,assVars_);
-            page_.getParameters().clear();
             page_.clearAllLocalVars(assVars_);
         }
     }
@@ -1859,7 +1851,8 @@ public final class ClassesUtil {
                 String c_ = matching_.getImportedReturnType();
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(c_);
-                _page.getParameters().put(p_, lv_);
+                lv_.setConstType(ConstType.PARAM);
+                _page.getInfosVars().put(p_, lv_);
             }
         }
     }
@@ -1932,7 +1925,8 @@ public final class ClassesUtil {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(c_);
                 lv_.setRef(_offs.get(i));
-                _page.getParameters().put(p_, lv_);
+                lv_.setConstType(ConstType.PARAM);
+                _page.getInfosVars().put(p_, lv_);
             }
         } else {
             for (int i = CustList.FIRST_INDEX; i < len_ - 1; i++) {
@@ -1944,7 +1938,8 @@ public final class ClassesUtil {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(c_);
                 lv_.setRef(_offs.get(i));
-                _page.getParameters().put(p_, lv_);
+                lv_.setConstType(ConstType.PARAM);
+                _page.getInfosVars().put(p_, lv_);
             }
             if (_paramErrors.last().isEmpty()) {
                 String p_ = _params.last();
@@ -1952,7 +1947,8 @@ public final class ClassesUtil {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(StringExpUtil.getPrettyArrayType(c_));
                 lv_.setRef(_offs.last());
-                _page.getParameters().put(p_, lv_);
+                lv_.setConstType(ConstType.PARAM);
+                _page.getInfosVars().put(p_, lv_);
             }
         }
     }

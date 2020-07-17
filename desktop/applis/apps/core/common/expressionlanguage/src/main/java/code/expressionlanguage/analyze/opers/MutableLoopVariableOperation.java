@@ -3,7 +3,9 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
@@ -64,20 +66,24 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             KeyWords keyWords_ = _conf.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringList.quickEq(c_, keyWordVar_)) {
-                _conf.getAnalyzing().putMutableLoopVar(str_);
-                _conf.getAnalyzing().getVariablesNamesLoopToInfer().add(str_);
+                _conf.getAnalyzing().getVariablesNamesToInfer().add(str_);
             }
             AnaLoopVariable lv_ = new AnaLoopVariable();
             String indexClassName_ = _conf.getAnalyzing().getLoopDeclaring().getIndexClassName();
-            if (StringList.quickEq(c_, keyWordVar_)) {
-                lv_.setClassName(_conf.getStandards().getAliasObject());
-            } else {
-                lv_.setClassName(c_);
-            }
             lv_.setRef(ref);
             lv_.setIndexClassName(indexClassName_);
             lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
-            page_.putMutableLoopVar(str_, lv_);
+            page_.getLoopsVars().put(str_, lv_);
+            AnaLocalVariable lInfo_ = new AnaLocalVariable();
+            if (StringList.quickEq(c_, keyWordVar_)) {
+                lInfo_.setClassName(_conf.getStandards().getAliasObject());
+            } else {
+                lInfo_.setClassName(c_);
+            }
+            lInfo_.setRef(ref);
+            lInfo_.setConstType(ConstType.MUTABLE_LOOP_VAR);
+            lInfo_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
+            page_.getInfosVars().put(str_,lInfo_);
             page_.getVariablesNames().add(str_);
             setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting()));
             return;

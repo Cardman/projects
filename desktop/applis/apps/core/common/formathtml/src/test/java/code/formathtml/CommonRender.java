@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -68,26 +69,17 @@ public abstract class CommonRender {
         }
         _configuration.setupInts();
         _configuration.getContext().getAnalyzing().setGlobalClass(globalClass_);
-        _configuration.getContext().getAnalyzing().initLocalVars();
-        _configuration.getContext().getAnalyzing().initVars();
-        _configuration.getContext().getAnalyzing().initCatchVars();
-        _configuration.getContext().getAnalyzing().initMutableLoopVars();
-        for (EntryCust<String,LocalVariable> e: _configuration.getLastPage().getPageEl().getValueVars().entryList()) {
+        for (EntryCust<String,LocalVariable> e: _configuration.getLastPage().getValueVars().entryList()) {
             AnaLocalVariable a_ = new AnaLocalVariable();
             a_.setClassName(e.getValue().getClassName());
-            _configuration.getContext().getAnalyzing().putLocalVar(e.getKey(), a_);
+            a_.setConstType(ConstType.LOC_VAR);
+            _configuration.getContext().getAnalyzing().getInfosVars().put(e.getKey(), a_);
         }
         for (EntryCust<String,LoopVariable> e: _configuration.getLastPage().getVars().entryList()) {
             AnaLoopVariable a_ = new AnaLoopVariable();
-//            a_.setClassName(e.getValue().getClassName());
             a_.setIndexClassName(e.getValue().getIndexClassName());
-            _configuration.getContext().getAnalyzing().putVar(e.getKey(), a_);
+            _configuration.getContext().getAnalyzing().getLoopsVars().put(e.getKey(), a_);
         }
-//        for (EntryCust<String,LocalVariable> e: _configuration.getLastPage().getValueVars().entryList()) {
-//            AnaLocalVariable a_ = new AnaLocalVariable();
-//            a_.setClassName(e.getValue().getClassName());
-//            _configuration.getContext().getAnalyzing().putCatchVar(e.getKey(), a_);
-//        }
         _configuration.getContext().getAnalyzing().setMerged(merged_);
         _configuration.getContext().getAnalyzing().setAcceptCommaInstr(accept_);
         _configuration.getContext().getAnalyzing().setCurrentVarSetting(currentVarSetting_);

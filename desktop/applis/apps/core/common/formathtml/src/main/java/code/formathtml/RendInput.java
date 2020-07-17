@@ -53,12 +53,12 @@ public abstract class RendInput extends RendElement {
                 varNameConverter = varLoc_;
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(string_);
-                _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+                _cont.getLocalVars().addEntry(varLoc_,lv_);
                 String preRend_ = StringList.concat(converterValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
                 int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertValue()));
                 opsConverter = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont);
                 for (String v:varNames_) {
-                    _cont.getLocalVarsAna().last().removeKey(v);
+                    _cont.getLocalVars().removeKey(v);
                 }
                 m_.setArg(opsConverter.last().getResultClass());
                 m_.setParam(opsRead.last().getResultClass());
@@ -107,12 +107,12 @@ public abstract class RendInput extends RendElement {
             varNameConverterField = varLoc_;
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(object_);
-            _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+            _cont.getLocalVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterField_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertField()));
             opsConverterField = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont);
             for (String v:varNames_) {
-                _cont.getLocalVarsAna().last().removeKey(v);
+                _cont.getLocalVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
             m_.setArg(opsConverterField.last().getResultClass());

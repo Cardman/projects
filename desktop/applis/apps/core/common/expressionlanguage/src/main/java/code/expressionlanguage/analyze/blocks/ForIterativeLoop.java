@@ -5,7 +5,9 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.blocks.ExecForIterativeLoop;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetBooleanInfo;
@@ -184,10 +186,14 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         checkType(_cont, cl_, stepEl_, stepOffset);
         if (res_) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
-            lv_.setClassName(cl_);
             lv_.setRef(variableNameOffset);
             lv_.setIndexClassName(importedClassIndexName);
-            _cont.getAnalyzing().putVar(variableName, lv_);
+            _cont.getAnalyzing().getLoopsVars().put(variableName, lv_);
+            AnaLocalVariable lInfo_ = new AnaLocalVariable();
+            lInfo_.setClassName(cl_);
+            lInfo_.setRef(variableNameOffset);
+            lInfo_.setConstType(ConstType.LOOP_VAR);
+            _cont.getAnalyzing().getInfosVars().put(variableName, lInfo_);
         }
         _cont.getCoverage().putBlockOperationsLoops(_cont,this);
         ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label, importedClassName,
@@ -278,6 +284,13 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         if (!_anEl.isReachable(this)) {
             _anEl.completeAbruptGroup(this);
         }
+    }
+
+    @Override
+    public void removeAllVars(AnalyzedPageEl _ip) {
+        super.removeAllVars(_ip);
+        _ip.getLoopsVars().removeKey(variableName);
+        _ip.getInfosVars().removeKey(variableName);
     }
 
     public OperationNode getRootInit() {

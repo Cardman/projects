@@ -63,7 +63,7 @@ public final class RendForm extends RendElement {
             for (String v:varNames_) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(opExp.get(i_).last().getResultClass().getSingleNameOrEmpty());
-                _cont.getLocalVarsAna().last().addEntry(v,lv_);
+                _cont.getLocalVars().addEntry(v,lv_);
                 formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
                 i_++;
             }
@@ -73,7 +73,7 @@ public final class RendForm extends RendElement {
             }
             opForm = RenderExpUtil.getAnalyzedOperations(pref_,rowsGrId_,0,_cont);
             for (String v:varNames_) {
-                _cont.getLocalVarsAna().last().removeKey(v);
+                _cont.getLocalVars().removeKey(v);
             }
         }
     }

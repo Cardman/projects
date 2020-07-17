@@ -1,11 +1,13 @@
 package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.blocks.AssForMutableIterativeLoop;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.opers.ExecMutableLoopVariableOperation;
 import code.expressionlanguage.assign.util.Assignment;
@@ -42,10 +44,14 @@ public final class AssMutableLoopVariableOperation extends AssLeafOperation impl
             AssignmentBefore asBe_ = new AssignmentBefore();
             asBe_.setUnassignedBefore(true);
             AnaLoopVariable lv_ = new AnaLoopVariable();
-            lv_.setClassName(_conf.getStandards().getAliasObject());
             lv_.setIndexClassName("");
             lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
             _conf.getAnalyzing().putMutableLoopVar(variableName, lv_);
+            AnaLocalVariable lInfo_ = new AnaLocalVariable();
+            lInfo_.setClassName(_conf.getStandards().getAliasObject());
+            lInfo_.setConstType(ConstType.MUTABLE_LOOP_VAR);
+            lInfo_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
+            _conf.getAnalyzing().getInfosVars().put(variableName,lInfo_);
             assAfM_.last().put(variableName, asBe_.assignAfter(isBool_));
             assA_.putAllMap(AssignmentsUtil.assignAfter(isBool_,assF_));
             vars_.getVariables().put(this, ass_);

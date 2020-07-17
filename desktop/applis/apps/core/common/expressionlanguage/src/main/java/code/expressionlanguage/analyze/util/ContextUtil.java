@@ -157,19 +157,7 @@ public final class ContextUtil {
     }
 
     public static boolean isNotVar(ContextEl _cont, String _id) {
-        if (_cont.getAnalyzing().containsLocalVar(_id)) {
-            return false;
-        }
-        if (_cont.getAnalyzing().containsCatchVar(_id)) {
-            return false;
-        }
-        if (_cont.getAnalyzing().containsMutableLoopVar(_id)) {
-            return false;
-        }
-        if (_cont.getAnalyzing().containsVar(_id)) {
-            return false;
-        }
-        return !_cont.getAnalyzing().getParameters().contains(_id);
+        return !_cont.getAnalyzing().getInfosVars().contains(_id);
     }
 
     public static StringMap<StringList> getCurrentConstraints(ContextEl _cont) {

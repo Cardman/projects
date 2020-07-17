@@ -6,7 +6,9 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecForEachTable;
 import code.expressionlanguage.errors.custom.*;
@@ -323,25 +325,33 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         }
         if (okVarFirst) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
-            if (!importedClassNameFirst.isEmpty()) {
-                lv_.setClassName(importedClassNameFirst);
-            } else {
-                lv_.setClassName(_cont.getStandards().getAliasObject());
-            }
             lv_.setRef(variableNameOffsetFirst);
             lv_.setIndexClassName(importedClassIndexName);
-            _cont.getAnalyzing().putVar(variableNameFirst, lv_);
+            _cont.getAnalyzing().getLoopsVars().put(variableNameFirst, lv_);
+            AnaLocalVariable lInfo_ = new AnaLocalVariable();
+            if (!importedClassNameFirst.isEmpty()) {
+                lInfo_.setClassName(importedClassNameFirst);
+            } else {
+                lInfo_.setClassName(_cont.getStandards().getAliasObject());
+            }
+            lInfo_.setRef(variableNameOffsetFirst);
+            lInfo_.setConstType(ConstType.LOOP_VAR);
+            _cont.getAnalyzing().getInfosVars().put(variableNameFirst, lInfo_);
         }
         if (okVarSecond) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
-            if (!importedClassNameSecond.isEmpty()) {
-                lv_.setClassName(importedClassNameSecond);
-            } else {
-                lv_.setClassName(_cont.getStandards().getAliasObject());
-            }
             lv_.setRef(variableNameOffsetSecond);
             lv_.setIndexClassName(importedClassIndexName);
-            _cont.getAnalyzing().putVar(variableNameSecond, lv_);
+            _cont.getAnalyzing().getLoopsVars().put(variableNameSecond, lv_);
+            AnaLocalVariable lInfo_ = new AnaLocalVariable();
+            if (!importedClassNameSecond.isEmpty()) {
+                lInfo_.setClassName(importedClassNameSecond);
+            } else {
+                lInfo_.setClassName(_cont.getStandards().getAliasObject());
+            }
+            lInfo_.setRef(variableNameOffsetSecond);
+            lInfo_.setConstType(ConstType.LOOP_VAR);
+            _cont.getAnalyzing().getInfosVars().put(variableNameSecond, lInfo_);
         }
     }
 
@@ -403,6 +413,14 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         }
     }
 
+    @Override
+    public void removeAllVars(AnalyzedPageEl _ip) {
+        super.removeAllVars(_ip);
+        _ip.getLoopsVars().removeKey(variableNameFirst);
+        _ip.getLoopsVars().removeKey(variableNameSecond);
+        _ip.getInfosVars().removeKey(variableNameFirst);
+        _ip.getInfosVars().removeKey(variableNameSecond);
+    }
     public OperationNode getRoot() {
         return root;
     }

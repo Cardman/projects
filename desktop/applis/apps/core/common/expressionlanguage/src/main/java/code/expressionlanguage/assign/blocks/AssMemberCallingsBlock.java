@@ -42,10 +42,9 @@ public abstract class AssMemberCallingsBlock extends AssBracedBlock {
                 par_ = en_.getParent();
                 if (par_ == this) {
                     setAssignmentAfterCall(_cont, _a);
+                    _cont.getAnalyzing().getInfosVars().clear();
                     _cont.getAnalyzing().removeLocalVars();
-                    _cont.getAnalyzing().removeVars();
                     _cont.getAnalyzing().removeMutableLoopVars();
-                    _cont.getAnalyzing().removeCatchVars();
                     return;
                 }
                 if (par_ instanceof AssForMutableIterativeLoop) {
@@ -53,9 +52,7 @@ public abstract class AssMemberCallingsBlock extends AssBracedBlock {
                 }
                 par_.setAssignmentAfter(_cont, _a);
                 _cont.getAnalyzing().removeLocalVars();
-                _cont.getAnalyzing().removeVars();
                 _cont.getAnalyzing().removeMutableLoopVars();
-                _cont.getAnalyzing().removeCatchVars();
                 en_ = par_;
             }
         }
@@ -64,9 +61,7 @@ public abstract class AssMemberCallingsBlock extends AssBracedBlock {
     private static void addParent(ContextEl _cont, AssBlock _en, AssBlock _n) {
         if (_en instanceof AssBracedBlock && _n != null) {
             _cont.getAnalyzing().initLocalVars();
-            _cont.getAnalyzing().initVars();
             _cont.getAnalyzing().initMutableLoopVars();
-            _cont.getAnalyzing().initCatchVars();
         }
     }
     private boolean tryBuildExpressionLanguage(AssBlock en_, ContextEl cont, AssignedVariablesBlock a) {

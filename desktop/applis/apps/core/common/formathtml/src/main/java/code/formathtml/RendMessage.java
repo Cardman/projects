@@ -76,7 +76,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             for (String v:varNames_) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(_cont.getStandards().getAliasPrimInteger());
-                _cont.getLocalVarsAna().last().addEntry(v,lv_);
+                _cont.getLocalVars().addEntry(v,lv_);
                 formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
             }
             for (EntryCust<String,String> e: preformatted.entryList()) {
@@ -114,7 +114,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 locDoc.addEntry(e.getKey(),docLoc_);
             }
             for (String v:varNames_) {
-                _cont.getLocalVarsAna().last().removeKey(v);
+                _cont.getLocalVars().removeKey(v);
             }
 
         }

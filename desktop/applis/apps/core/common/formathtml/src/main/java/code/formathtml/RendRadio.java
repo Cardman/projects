@@ -45,12 +45,12 @@ public final class RendRadio extends RendInput {
             varNameConverterFieldValue = varLoc_;
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(object_);
-            _cont.getLocalVarsAna().last().addEntry(varLoc_,lv_);
+            _cont.getLocalVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterFieldValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertFieldValue()));
             opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont);
             for (String v:varNames_) {
-                _cont.getLocalVarsAna().last().removeKey(v);
+                _cont.getLocalVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
             m_.setArg(opsConverterFieldValue.last().getResultClass());
