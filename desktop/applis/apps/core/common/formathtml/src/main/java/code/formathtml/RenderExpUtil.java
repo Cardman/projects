@@ -400,17 +400,13 @@ public final class RenderExpUtil {
             ArgumentsPair pair_ = arguments_.getValue(fr_);
             if (!(o instanceof RendCalculableOperation)) {
                 Argument a_ = Argument.getNullableValue(o.getArgument());
-                if (!pair_.getImplicits().isEmpty()) {
-                    o.setSimpleArgument(a_,_context,arguments_);
-                }
+                o.setSimpleArgument(a_,_context,arguments_);
                 Struct st_ = a_.getStruct();
                 fr_ = RendDynOperationNode.getNextIndex(o, st_);
                 continue;
             }
             if (pair_.getArgument() != null) {
-                if (!pair_.getImplicits().isEmpty()) {
-                    o.setSimpleArgument(pair_.getArgument(),_context,arguments_);
-                }
+                o.setSimpleArgument(pair_.getArgument(),_context,arguments_);
                 Argument res_ = pair_.getArgument();
                 Struct st_ = res_.getStruct();
                 fr_ = RendDynOperationNode.getNextIndex(o, st_);

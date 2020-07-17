@@ -6169,7 +6169,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
 
         Struct choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
-        assertEq(4, ((IntStruct) choice_).intStruct());
+        assertEq(4, ((NumberStruct) choice_).intStruct());
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();

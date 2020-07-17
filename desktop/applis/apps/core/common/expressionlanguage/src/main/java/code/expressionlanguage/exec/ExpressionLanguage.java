@@ -48,9 +48,7 @@ public final class ExpressionLanguage {
             ArgumentsPair pair_ = _nodes.getValue(fr_);
             if (!(o instanceof AtomicExecCalculableOperation)) {
                 Argument a_ = Argument.getNullableValue(o.getArgument());
-                if (!pair_.getImplicits().isEmpty()) {
-                    o.setSimpleArgument(a_,_context,_nodes);
-                }
+                o.setSimpleArgument(a_,_context,_nodes);
                 if (_context.callsOrException()) {
                     processCalling(_el, _context, pageEl_, o);
                     return;
@@ -60,9 +58,7 @@ public final class ExpressionLanguage {
                 continue;
             }
             if (pair_.getArgument() != null) {
-                if (!pair_.getImplicits().isEmpty()) {
-                    o.setSimpleArgument(pair_.getArgument(),_context,_nodes);
-                }
+                o.setSimpleArgument(pair_.getArgument(),_context,_nodes);
                 if (_context.callsOrException()) {
                     processCalling(_el, _context, pageEl_, o);
                     return;
@@ -203,10 +199,7 @@ public final class ExpressionLanguage {
 
     private static int getNextIndex(IdMap<ExecOperationNode,ArgumentsPair> _args,ExecOperationNode _oper) {
         ArgumentsPair value_ = _args.getValue(_oper.getOrder());
-        Argument res_ = value_.getArgument();
-        if (res_ == null) {
-            return _oper.getOrder()+1;
-        }
+        Argument res_ = Argument.getNullableValue(value_.getArgument());
         Struct v_ = res_.getStruct();
         if (_oper.getNextSibling() != null&&value_.isArgumentTest()){
             ExecMethodOperation par_ = _oper.getParent();

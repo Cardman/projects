@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.analyze.opers.*;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.util.ToStringMethodHeader;
 import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.StringExpUtil;
@@ -576,13 +575,14 @@ public abstract class ExecOperationNode {
         return out_;
     }
 
-    private void setNextSiblingsArg(Argument _arg, ContextEl _cont) {
+    private void setNextSiblingsArg(ContextEl _cont, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         if (_cont.callsOrException()) {
             return;
         }
         String un_ = resultClass.getUnwrapObject();
+        Argument last_ = Argument.getNullableValue(_nodes.getValue(getOrder()).getArgument());
         if (resultClass.isCheckOnlyNullPe() || !un_.isEmpty()) {
-            if (_arg.isNull()) {
+            if (last_.isNull()) {
                 LgNames stds_ = _cont.getStandards();
                 String null_;
                 null_ = stds_.getAliasNullPe();
@@ -592,7 +592,8 @@ public abstract class ExecOperationNode {
             }
         }
         if (!un_.isEmpty()) {
-            _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
+            Argument arg_ = new Argument(PrimitiveTypeUtil.unwrapObject(un_, last_.getStruct(), _cont.getStandards()));
+            _nodes.getValue(getOrder()).setArgument(arg_);
         }
     }
 
@@ -683,7 +684,7 @@ public abstract class ExecOperationNode {
 
     public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         setQuickConvertSimpleArgument(_argument, _conf, _nodes);
-        setNextSiblingsArg(_argument, _conf);
+        setNextSiblingsArg(_conf, _nodes);
     }
 
     protected final void setQuickNoConvertSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
