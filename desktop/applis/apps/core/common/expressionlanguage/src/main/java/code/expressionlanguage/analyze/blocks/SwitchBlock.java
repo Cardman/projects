@@ -3,8 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecEnumBlock;
-import code.expressionlanguage.exec.blocks.ExecSwitchBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -75,8 +74,13 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         err = page_.getCurrentEmptyPartErr();
         result = op_.last().getResultClass();
         processAfterEl(_cont);
-        ExecSwitchBlock exec_ = new ExecSwitchBlock(getOffset(), label, valueOffset, enumTest, op_);
+        ExecBracedBlock exec_;
         root = page_.getCurrentRoot();
+        if (enumTest) {
+            exec_ = new ExecEnumSwitchBlock(getOffset(), label, valueOffset, op_);
+        } else {
+            exec_ = new ExecStdSwitchBlock(getOffset(), label, valueOffset, op_);
+        }
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);

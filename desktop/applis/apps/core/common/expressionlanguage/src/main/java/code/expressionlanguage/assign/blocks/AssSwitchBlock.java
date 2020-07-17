@@ -5,7 +5,7 @@ import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.exec.blocks.ExecSwitchBlock;
+import code.expressionlanguage.exec.blocks.ExecEnumValueSwitchBlock;
 import code.expressionlanguage.assign.util.AssignmentBefore;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
 import code.expressionlanguage.assign.util.SimpleAssignment;
@@ -16,7 +16,7 @@ import code.util.StringMap;
 public final class AssSwitchBlock extends AssBracedStack  implements AssBreakableBlock, AssBuildableElMethod{
     private String label;
     private CustList<AssOperationNode> opList;
-    AssSwitchBlock(boolean _completeNormally, boolean _completeNormallyGroup, String _label, ExecSwitchBlock _s) {
+    AssSwitchBlock(boolean _completeNormally, boolean _completeNormallyGroup, String _label, ExecEnumValueSwitchBlock _s) {
         super(_completeNormally,_completeNormallyGroup);
         label = _label;
         opList = AssUtil.getExecutableNodes(_s.getOpValue());

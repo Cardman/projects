@@ -74,6 +74,7 @@ public abstract class ExecBlock {
         }
         ExecBracedBlock par_ = getParent();
         if (par_ != ip_.getBlockRoot()) {
+            rw_.setBlock(par_);
             AbstractStask lastStack_ = ip_.getLastStack();
             if (lastStack_ instanceof LoopBlockStack) {
                 if (par_ instanceof ExecDoBlock) {
@@ -170,7 +171,7 @@ public abstract class ExecBlock {
                         rw_.setBlock(par_.getNextSibling());
                     }
                 }
-                if (par_ instanceof ExecCaseCondition) {
+                if (par_ instanceof ExecAbstractCaseCondition) {
                     par_.removeAllVars(ip_);
                     SwitchBlockStack if_ = (SwitchBlockStack) lastStack_;
                     if (if_.getExecLastVisitedBlock() == par_) {

@@ -6,9 +6,7 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecCaseCondition;
-import code.expressionlanguage.exec.blocks.ExecEnumBlock;
-import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -79,7 +77,7 @@ public final class CaseCondition extends SwitchPartBlock {
             ExecOperationNode last_ = op_.last();
             root = page_.getCurrentRoot();
             argument = last_.getArgument();
-            ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset, op_);
+            ExecNullCaseCondition exec_ = new ExecNullCaseCondition(getOffset(),valueOffset);
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
@@ -111,7 +109,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 CustList<ExecOperationNode> ops_ = new CustList<ExecOperationNode>();
                 ops_.add(ExecOperationNode.createExecOperationNode(op_));
                 checkDuplicateEnumCase(_cont);
-                ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset, ops_);
+                ExecEnumCaseCondition exec_ = new ExecEnumCaseCondition(getOffset(),value,valueOffset);
                 page_.getBlockToWrite().appendChild(exec_);
                 page_.getAnalysisAss().getMappingMembers().put(exec_,this);
                 page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
@@ -131,7 +129,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 builtEnum = true;
             }
             processNullValue(_cont);
-            ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset, op_);
+            ExecNullCaseCondition exec_ = new ExecNullCaseCondition(getOffset(),valueOffset);
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
@@ -148,7 +146,20 @@ public final class CaseCondition extends SwitchPartBlock {
         root = page_.getCurrentRoot();
         argument = last_.getArgument();
         processNumValues(_cont, resSwitch_, last_.getResultClass());
-        ExecCaseCondition exec_ = new ExecCaseCondition(getOffset(),value,valueOffset, op_);
+        if (argument == null) {
+            ExecBracedBlock exec_ = new ExecUnclassedBracedBlock(getOffset());
+            page_.getBlockToWrite().appendChild(exec_);
+            page_.getAnalysisAss().getMappingMembers().put(exec_,this);
+            page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
+            _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+            return;
+        }
+        ExecBracedBlock exec_;
+        if (!argument.isNull()) {
+            exec_ = new ExecStdCaseCondition(getOffset(),valueOffset, argument);
+        } else {
+            exec_ = new ExecNullCaseCondition(getOffset(),valueOffset);
+        }
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
