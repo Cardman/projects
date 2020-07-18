@@ -48,22 +48,20 @@ public final class ExpressionLanguage {
             ArgumentsPair pair_ = _nodes.getValue(fr_);
             if (!(o instanceof AtomicExecCalculableOperation)) {
                 Argument a_ = Argument.getNullableValue(o.getArgument());
-                o.setSimpleArgument(a_,_context,_nodes);
+                o.setConstantSimpleArgument(a_,_context,_nodes);
                 if (_context.callsOrException()) {
                     processCalling(_el, _context, pageEl_, o);
                     return;
                 }
-                _context.getCoverage().passBlockOperation(_context,o,a_,true);
                 fr_ = getNextIndex(_nodes,o);
                 continue;
             }
             if (pair_.getArgument() != null) {
-                o.setSimpleArgument(pair_.getArgument(),_context,_nodes);
+                o.setConstantSimpleArgument(pair_.getArgument(),_context,_nodes);
                 if (_context.callsOrException()) {
                     processCalling(_el, _context, pageEl_, o);
                     return;
                 }
-                _context.getCoverage().passBlockOperation(_context,o,pair_.getArgument(),true);
                 fr_ = getNextIndex(_nodes,o);
                 continue;
             }

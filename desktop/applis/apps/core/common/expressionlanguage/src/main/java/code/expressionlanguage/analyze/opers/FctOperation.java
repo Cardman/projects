@@ -40,6 +40,7 @@ public final class FctOperation extends InvokingOperation {
     private int lengthMethod;
     private int delta;
     private boolean clonedMethod;
+    private boolean trueFalse;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public FctOperation(int _index,
@@ -113,6 +114,7 @@ public final class FctOperation extends InvokingOperation {
             l_ = getBounds(className_, _conf);
             accessSuperTypes_ = false;
         }
+        ClassMethodId feedBase_ = null;
         ClassMethodIdAncestor feed_ = null;
         if (idMethod_ != null) {
             ClassMethodId id_ = idMethod_.getClassMethodId();
@@ -121,7 +123,9 @@ public final class FctOperation extends InvokingOperation {
             boolean vararg_ = mid_.isVararg();
             StringList params_ = mid_.getParametersTypes();
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
-            feed_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_)),idMethod_.getAncestor());
+            ClassMethodId classMethodId_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
+            feedBase_ = classMethodId_;
+            feed_ = new ClassMethodIdAncestor(classMethodId_,idMethod_.getAncestor());
         }
         StringList bounds_ = new StringList();
         for (String c: l_) {
@@ -148,6 +152,35 @@ public final class FctOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(arrayBounds_));
             Argument arg_ = getPreviousArgument();
             checkNull(arg_,_conf);
+            return;
+        }
+        if (StringList.quickEq(trimMeth_,_conf.getKeyWords().getKeyWordTrue())
+                ||StringList.quickEq(trimMeth_,_conf.getKeyWords().getKeyWordFalse())) {
+            if (feedBase_ != null) {
+                MethodId constraints_ = feedBase_.getConstraints();
+                String name_ = constraints_.getName();
+                String className_ = feedBase_.getClassName();
+                StringList parametersTypes_ = constraints_.getParametersTypes();
+                parametersTypes_.add(0,_conf.getStandards().getAliasPrimBoolean());
+                feedBase_ = new ClassMethodId(className_,new MethodId(MethodAccessKind.STATIC,name_,parametersTypes_));
+            }
+            ClassMethodIdReturn clMeth_;
+            MethodAccessKind staticAccess_ = isStaticAccess();
+            ClassArgumentMatching[] argsClass_ = ClassArgumentMatching.toArgArray(firstArgs_);
+            clMeth_ = getDeclaredCustTrueFalse(this,_conf, staticAccess_,bounds_,trimMeth_,feedBase_, argsClass_);
+            if (!clMeth_.isFoundMethod()) {
+                setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
+                return;
+            }
+            trueFalse = true;
+            String foundClass_ = clMeth_.getRealClass();
+            MethodId id_ = clMeth_.getRealId();
+            classMethodId = new ClassMethodId(foundClass_, id_);
+            MethodId realId_ = clMeth_.getRealId();
+            staticChoiceMethod = staticChoiceMethod_;
+            staticMethod = true;
+            unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, firstArgs_, _conf);
+            setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
             return;
         }
         ClassMethodIdReturn clMeth_;
@@ -315,5 +348,9 @@ public final class FctOperation extends InvokingOperation {
 
     public boolean isClonedMethod() {
         return clonedMethod;
+    }
+
+    public boolean isTrueFalse() {
+        return trueFalse;
     }
 }

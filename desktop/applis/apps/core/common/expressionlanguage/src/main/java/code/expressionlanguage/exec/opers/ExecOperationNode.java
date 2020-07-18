@@ -299,6 +299,9 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
+            if (f_.isTrueFalse()) {
+                return new ExecExplicitOperation(f_);
+            }
             return new ExecFctOperation(f_);
         }
         if (_anaNode instanceof FirstOptOperation) {
@@ -684,6 +687,11 @@ public abstract class ExecOperationNode {
 
     public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
         setQuickConvertSimpleArgument(_argument, _conf, _nodes);
+        setNextSiblingsArg(_conf, _nodes);
+    }
+
+    public final void setConstantSimpleArgument(Argument _argument, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+        setQuickSimpleArgument(false,_argument, _conf, _nodes);
         setNextSiblingsArg(_conf, _nodes);
     }
 

@@ -4,6 +4,7 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.analyze.opers.FctOperation;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -12,6 +13,7 @@ import code.expressionlanguage.analyze.opers.ExplicitOperation;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     private String className;
@@ -25,11 +27,24 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         offset = _a.getOffset();
         castOpId = _a.getCastOpId();
     }
+    public ExecExplicitOperation(FctOperation _a) {
+        super(_a);
+        className = _a.getClassMethodId().getClassName();
+        classNameOwner = _a.getClassMethodId().getClassName();
+        offset = StringList.getFirstPrintableCharIndex(_a.getMethodName());
+        castOpId = _a.getClassMethodId().getConstraints();
+    }
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
+        CustList<Argument> arguments_ = new CustList<Argument>();
+        for (ExecOperationNode o: getChildrenNodes()) {
+            if (o instanceof ExecIdFctOperation) {
+                continue;
+            }
+            arguments_.add(getArgument(_nodes, o));
+        }
         Argument argres_ =  prepare(new DefaultExiting(_conf),false,castOpId,arguments_,className,classNameOwner,_conf.getLastPage(),_conf);
         setSimpleArgument(argres_, _conf, _nodes);
     }

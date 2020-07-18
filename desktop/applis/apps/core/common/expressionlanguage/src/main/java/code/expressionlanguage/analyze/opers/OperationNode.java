@@ -12,7 +12,6 @@ import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeInfo;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.blocks.*;
@@ -913,6 +912,32 @@ public abstract class OperationNode {
         return_.setReturnType(_conf.getStandards().getAliasObject());
         return return_;
     }
+    static ClassMethodIdReturn getDeclaredCustTrueFalse(OperationNode _op, ContextEl _conf,
+                                                        MethodAccessKind _staticContext, StringList _classes, String _name,
+                                                        ClassMethodId _uniqueId, ClassArgumentMatching... _argsClass) {
+        ClassMethodIdReturn res_ = tryGetDeclaredCustTrueFalse(_conf, _staticContext, _classes, _name, _uniqueId,_argsClass);
+        if (res_.isFoundMethod()) {
+            return res_;
+        }
+        ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
+        StringList classesNames_ = new StringList();
+        for (ClassArgumentMatching c: _argsClass) {
+            classesNames_.add(StringList.join(c.getNames(), "&"));
+        }
+        FoundErrorInterpret undefined_ = new FoundErrorInterpret();
+        undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+        undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+        //_name len
+        undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
+                new MethodId(_staticContext, _name, classesNames_).getSignature(_conf));
+        _conf.getAnalyzing().getLocalizer().addError(undefined_);
+        _op.getErrs().add(undefined_.getBuiltError());
+        return_.setId(new ClassMethodId(_classes.first(), new MethodId(_staticContext, _name, classesNames_)));
+        return_.setRealId(new MethodId(_staticContext, _name, classesNames_));
+        return_.setRealClass(_classes.first());
+        return_.setReturnType(_conf.getStandards().getAliasObject());
+        return return_;
+    }
     static ClassMethodIdReturn getDeclaredCustMethodLambda(OperationNode _op,ContextEl _conf, int _varargOnly,
                                                            MethodAccessKind _staticContext, StringList _classes, String _name,
                                                            boolean _superClass, boolean _accessFromSuper, ClassMethodIdAncestor _uniqueId, ClassArgumentMatching... _argsClass) {
@@ -963,6 +988,28 @@ public abstract class OperationNode {
         }
         return getCustResult(_conf,uniq_,_excVararg, varargOnly_, methods_, _name, _param,_argsClass);
     }
+
+    protected static ClassMethodIdReturn tryGetDeclaredCustTrueFalse(ContextEl _conf,
+                                                                     MethodAccessKind _staticContext,
+                                                                     StringList _classes, String _name,
+                                                                     ClassMethodId _uniqueId,
+                                                                     ClassArgumentMatching[] _argsClass) {
+        if (_argsClass.length != 1) {
+            return new ClassMethodIdReturn(false);
+        }
+        ClassMethodIdReturn res_;
+        if (StringList.quickEq(_name,_conf.getKeyWords().getKeyWordTrue())) {
+            res_ = fetchTrueOperator(_conf,_classes,_argsClass[0],_uniqueId);
+        } else {
+            res_ = fetchFalseOperator(_conf,_classes,_argsClass[0],_uniqueId);
+        }
+        if (res_.isFoundMethod()) {
+            ClassMethodId id_ = res_.getId();
+            MethodId cts_ = id_.getConstraints();
+            res_.setId(new ClassMethodId(id_.getClassName(),new MethodId(cts_.getKind(),cts_.getName(),cts_.shiftFirst(),cts_.isVararg())));
+        }
+        return res_;
+    }
     protected static ClassMethodIdReturn tryGetDeclaredCustIncrDecrMethod(ContextEl _conf,
                                                                           StringList _classes, String _name,
                                                                           ClassArgumentMatching _argsClass) {
@@ -1011,7 +1058,7 @@ public abstract class OperationNode {
     protected static ClassMethodIdReturn tryGetDeclaredTrue(ContextEl _conf, String _classes) {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
-        fetchTrue(_conf,methods_,_classes);
+        fetchTrue(_conf,methods_,_classes, null);
         CustList<MethodInfo> candidates_ = new CustList<MethodInfo>();
         for (MethodInfo m: methods_) {
             if (StringList.quickEq(
@@ -1044,7 +1091,7 @@ public abstract class OperationNode {
     protected static ClassMethodIdReturn tryGetDeclaredFalse(ContextEl _conf, String _classes) {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
-        fetchFalse(_conf,methods_,_classes);
+        fetchFalse(_conf,methods_,_classes, null);
         CustList<MethodInfo> candidates_ = new CustList<MethodInfo>();
         for (MethodInfo m: methods_) {
             if (StringList.quickEq(
@@ -1237,7 +1284,7 @@ public abstract class OperationNode {
         if (StringList.quickEq(_op,"&&")) {
             CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
             for (String n:_left.getNames()) {
-                fetchFalse(_cont,listTrue_,n);
+                fetchFalse(_cont,listTrue_,n, null);
             }
             ClassMethodIdReturn clMethImp_ = getCustCastResult(_cont, listTrue_,  _left);
             if (clMethImp_.isFoundMethod()) {
@@ -1252,7 +1299,7 @@ public abstract class OperationNode {
         } else if (StringList.quickEq(_op,"||")) {
             CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
             for (String n:_left.getNames()) {
-                fetchTrue(_cont,listTrue_,n);
+                fetchTrue(_cont,listTrue_,n, null);
             }
             ClassMethodIdReturn clMethImp_ = getCustCastResult(_cont, listTrue_,  _left);
             if (clMethImp_.isFoundMethod()) {
@@ -1762,13 +1809,24 @@ public abstract class OperationNode {
         }
     }
     public static ClassMethodIdReturn fetchTrueOperator(ContextEl _conf, ClassArgumentMatching _arg) {
+        StringList names_ = _arg.getNames();
+        return fetchTrueOperator(_conf, names_, _arg, null);
+    }
+    private static ClassMethodIdReturn fetchFalseOperator(ContextEl _conf, StringList _names, ClassArgumentMatching _arg, ClassMethodId _uniqueId) {
         CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
-        for (String n:_arg.getNames()) {
-            fetchTrue(_conf,listTrue_,n);
+        for (String n: _names) {
+            fetchFalse(_conf,listTrue_,n, _uniqueId);
         }
         return getCustCastResult(_conf, listTrue_,  _arg);
     }
-    private static void fetchTrue(ContextEl _conf, CustList<MethodInfo> methods_, String _id) {
+    private static ClassMethodIdReturn fetchTrueOperator(ContextEl _conf, StringList _names, ClassArgumentMatching _arg, ClassMethodId _uniqueId) {
+        CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
+        for (String n: _names) {
+            fetchTrue(_conf,listTrue_,n, _uniqueId);
+        }
+        return getCustCastResult(_conf, listTrue_,  _arg);
+    }
+    private static void fetchTrue(ContextEl _conf, CustList<MethodInfo> methods_, String _id, ClassMethodId _uniqueId) {
         if (!ExplicitOperation.customCast(_id)) {
             return;
         }
@@ -1787,10 +1845,10 @@ public abstract class OperationNode {
             superTypesBaseAncBis_.addEntry(supId_,supId_);
             CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getTrues().getVal(supId_);
             RootBlock t_ = _conf.getAnalyzing().getAnaClassBody(di_);
-            fetchCastMethods(t_,_conf,  null, glClass_, methods_, _conf.getStandards().getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_);
+            fetchCastMethods(t_,_conf, _uniqueId, glClass_, methods_, _conf.getStandards().getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_);
         }
     }
-    private static void fetchFalse(ContextEl _conf, CustList<MethodInfo> methods_, String _id) {
+    private static void fetchFalse(ContextEl _conf, CustList<MethodInfo> methods_, String _id, ClassMethodId _uniqueId) {
         if (!ExplicitOperation.customCast(_id)) {
             return;
         }
@@ -1809,7 +1867,7 @@ public abstract class OperationNode {
             superTypesBaseAncBis_.addEntry(supId_,supId_);
             CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getFalses().getVal(supId_);
             RootBlock t_ = _conf.getAnalyzing().getAnaClassBody(di_);
-            fetchCastMethods(t_,_conf,  null, glClass_, methods_, _conf.getStandards().getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_);
+            fetchCastMethods(t_,_conf, _uniqueId, glClass_, methods_, _conf.getStandards().getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_);
         }
     }
     private static CustList<CustList<MethodInfo>>
@@ -1854,7 +1912,8 @@ public abstract class OperationNode {
             if (!StringList.quickEq(StringExpUtil.getIdFromAllTypes(className_), StringExpUtil.getIdFromAllTypes(_clName))) {
                 return true;
             }
-            return !_uniqueId.getClassMethodId().getConstraints().eq(_id);
+            MethodId constraints_ = _uniqueId.getClassMethodId().getConstraints();
+            return !constraints_.eq(_id);
         }
         return false;
     }

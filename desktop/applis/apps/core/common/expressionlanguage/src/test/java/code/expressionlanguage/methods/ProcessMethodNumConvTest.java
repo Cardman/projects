@@ -3930,6 +3930,470 @@ public final class ProcessMethodNumConvTest extends ProcessMethodCommon {
         assertEq("Faux", getString(ret_));
     }
     @Test
+    public void calculate110Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=2;\n");
+        xml_.append("  return ExClass.true(e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Faux", getString(ret_));
+    }
+    @Test
+    public void calculate111Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  return ExClass.true(e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Vrai", getString(ret_));
+    }
+    @Test
+    public void calculate112Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=2;\n");
+        xml_.append("  return ExClass.false(e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Vrai", getString(ret_));
+    }
+    @Test
+    public void calculate113Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  return ExClass.false(e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Faux", getString(ret_));
+    }
+    @Test
+    public void calculate114Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass<int> e = new ExClass<>();\n");
+        xml_.append("  e.field=2;\n");
+        xml_.append("  return staticCall(ExClass<int>).true(e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field=(T)2;\n");
+        xml_.append(" public static boolean true(ExClass<T> i){\n");
+        xml_.append("  return i.field==(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass<T> i){\n");
+        xml_.append("  return i.field!=(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Faux", getString(ret_));
+    }
+    @Test
+    public void calculate115Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass<int> e = new ExClass<>();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  return staticCall(ExClass<int>).true(e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field=(T)2;\n");
+        xml_.append(" public static boolean true(ExClass<T> i){\n");
+        xml_.append("  return i.field==(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass<T> i){\n");
+        xml_.append("  return i.field!=(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Vrai", getString(ret_));
+    }
+    @Test
+    public void calculate116Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass<int> e = new ExClass<>();\n");
+        xml_.append("  e.field=2;\n");
+        xml_.append("  return staticCall(ExClass<int>).false(e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field=(T)2;\n");
+        xml_.append(" public static boolean true(ExClass<T> i){\n");
+        xml_.append("  return i.field==(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass<T> i){\n");
+        xml_.append("  return i.field!=(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Vrai", getString(ret_));
+    }
+    @Test
+    public void calculate117Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass<int> e = new ExClass<>();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  return staticCall(ExClass<int>).false(e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field=(T)2;\n");
+        xml_.append(" public static boolean true(ExClass<T> i){\n");
+        xml_.append("  return i.field==(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass<T> i){\n");
+        xml_.append("  return i.field!=(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Faux", getString(ret_));
+    }
+    @Test
+    public void calculate118Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=2;\n");
+        xml_.append("  return ExClass.true($id(ExClass,ExClass),e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Faux", getString(ret_));
+    }
+    @Test
+    public void calculate119Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  return ExClass.true($id(ExClass,ExClass),e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Vrai", getString(ret_));
+    }
+    @Test
+    public void calculate120Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=2;\n");
+        xml_.append("  return ExClass.false($id(ExClass,ExClass),e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Vrai", getString(ret_));
+    }
+    @Test
+    public void calculate121Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass e = new ExClass();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  return ExClass.false($id(ExClass,ExClass),e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass {\n");
+        xml_.append(" public int field=2;\n");
+        xml_.append(" public static boolean true(ExClass i){\n");
+        xml_.append("  return i.field==1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass i){\n");
+        xml_.append("  return i.field!=1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Faux", getString(ret_));
+    }
+    @Test
+    public void calculate122Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass<int> e = new ExClass<>();\n");
+        xml_.append("  e.field=2;\n");
+        xml_.append("  return staticCall(ExClass<int>).true($id(ExClass,staticCall,ExClass<T>),e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field=(T)2;\n");
+        xml_.append(" public static boolean true(ExClass<T> i){\n");
+        xml_.append("  return i.field==(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass<T> i){\n");
+        xml_.append("  return i.field!=(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Faux", getString(ret_));
+    }
+    @Test
+    public void calculate123Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass<int> e = new ExClass<>();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  return staticCall(ExClass<int>).true($id(ExClass,staticCall,ExClass<T>),e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field=(T)2;\n");
+        xml_.append(" public static boolean true(ExClass<T> i){\n");
+        xml_.append("  return i.field==(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass<T> i){\n");
+        xml_.append("  return i.field!=(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Vrai", getString(ret_));
+    }
+    @Test
+    public void calculate124Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass<int> e = new ExClass<>();\n");
+        xml_.append("  e.field=2;\n");
+        xml_.append("  return staticCall(ExClass<int>).false($id(ExClass,staticCall,ExClass<T>),e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field=(T)2;\n");
+        xml_.append(" public static boolean true(ExClass<T> i){\n");
+        xml_.append("  return i.field==(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass<T> i){\n");
+        xml_.append("  return i.field!=(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Vrai", getString(ret_));
+    }
+    @Test
+    public void calculate125Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Apply {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  ExClass<int> e = new ExClass<>();\n");
+        xml_.append("  e.field=1;\n");
+        xml_.append("  return staticCall(ExClass<int>).false($id(ExClass,staticCall,ExClass<T>),e)?\"Vrai\":\"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExClass<T> {\n");
+        xml_.append(" public T field=(T)2;\n");
+        xml_.append(" public static boolean true(ExClass<T> i){\n");
+        xml_.append("  return i.field==(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static boolean false(ExClass<T> i){\n");
+        xml_.append("  return i.field!=(T)1;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("Faux", getString(ret_));
+    }
+    @Test
     public void calculateFailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

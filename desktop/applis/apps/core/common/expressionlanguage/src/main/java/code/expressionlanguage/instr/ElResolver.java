@@ -1098,7 +1098,11 @@ public final class ElResolver {
             if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
                 int afterSuper_ = i_ + s.length();
                 while (afterSuper_ < len_) {
-                    if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
+                    char ch_ = _string.charAt(afterSuper_);
+                    if (!Character.isWhitespace(ch_)) {
+                        if (ch_ == PAR_LEFT) {
+                            _d.getCallings().add(afterSuper_);
+                        }
                         break;
                     }
                     afterSuper_++;

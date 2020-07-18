@@ -2821,6 +2821,11 @@ public final class LinkageUtil {
             safe(resultFirst_,_cont,begin_,_parts,1);
             begin_++;
             len_--;
+        } else if (StringList.quickEq(par_.getOper(),"??=")){
+            AbstractCoverageResult resultFirst_ = getCovers(_cont, _block, curOp_);
+            safe(resultFirst_,_cont,begin_,_parts,1);
+            begin_++;
+            len_--;
         }
         if (classMethodId_ != null) {
             MethodId id_ = classMethodId_.getConstraints();
@@ -2832,7 +2837,7 @@ public final class LinkageUtil {
             _parts.add(new PartOffset(tag_,begin_+len_));
         } else if (StringList.quickEq(par_.getOper(),"??=")){
             AbstractCoverageResult resultLast_ = getCovers(_cont, _block, nextSiblingOp_);
-            safe(resultLast_,_cont,offsetEnd_,_parts, opDelta_);
+            safe(resultLast_,_cont,begin_,_parts, 1);
         } else {
             String b_ = _cont.getStandards().getAliasPrimBoolean();
             if (nextSiblingOp_.getResultClass().matchClass(b_)) {
