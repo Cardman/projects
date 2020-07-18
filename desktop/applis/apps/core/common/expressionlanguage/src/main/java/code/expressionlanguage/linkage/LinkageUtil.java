@@ -1,5 +1,6 @@
 package code.expressionlanguage.linkage;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.*;
@@ -17,6 +18,7 @@ import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.util.*;
 
 public final class LinkageUtil {
@@ -1842,12 +1844,78 @@ public final class LinkageUtil {
             return tag_;
         }
         if (val_.getArgument() != null) {
-            OperationNode par_ = curOp_;
+            OperationNode par_ = val_;
+            OperationNode before_ = val_;
             while (par_ != root_) {
                 if (par_.getArgument() == null) {
                     break;
                 }
+                before_ = par_;
                 par_ = par_.getParent();
+            }
+            MethodOperation parentBefore_ = before_.getParent();
+            if (parentBefore_ == null || before_.getIndexChild() > 0) {
+                Argument firstArg_;
+                if (parentBefore_ == null) {
+                    firstArg_ = before_.getArgument();
+                } else {
+                    firstArg_ = parentBefore_.getFirstChild().getArgument();
+                }
+                if (firstArg_ == null) {
+                    if (parentBefore_ instanceof QuickOperation) {
+                        par_ = before_;
+                    } else if (parentBefore_ instanceof AbstractTernaryOperation) {
+                        par_ = before_;
+                    } else if (parentBefore_ instanceof NullSafeOperation) {
+                        par_ = before_;
+                    } else if (parentBefore_ instanceof CompoundAffectationOperation) {
+                        CompoundAffectationOperation p_ = (CompoundAffectationOperation) parentBefore_;
+                        if (StringList.quickEq(p_.getOper(),"&&=")
+                                ||StringList.quickEq(p_.getOper(),"||=")
+                                ||StringList.quickEq(p_.getOper(),"??=")) {
+                            par_ = before_;
+                        }
+                    }
+                    AbstractCoverageResult resultPar_ = getCovers(_cont, _block, par_);
+                    if (resultPar_.isPartialCovered()) {
+                        tag_ = getFullInit(resultPar_);
+                        return tag_;
+                    }
+                    tag_ = "<span class=\"n\">";
+                    return tag_;
+                }
+                if (parentBefore_ instanceof OrOperation) {
+                    if (BooleanStruct.isTrue(Argument.getNullableValue(firstArg_).getStruct())) {
+                        tag_ = "<span class=\"n\">";
+                        return tag_;
+                    }
+                }
+                if (parentBefore_ instanceof AndOperation) {
+                    if (BooleanStruct.isFalse(Argument.getNullableValue(firstArg_).getStruct())) {
+                        tag_ = "<span class=\"n\">";
+                        return tag_;
+                    }
+                }
+                if (parentBefore_ instanceof NullSafeOperation) {
+                    if (!Argument.getNullableValue(firstArg_).isNull()) {
+                        tag_ = "<span class=\"n\">";
+                        return tag_;
+                    }
+                }
+                if (parentBefore_ instanceof AbstractTernaryOperation) {
+                    if (BooleanStruct.isTrue(Argument.getNullableValue(firstArg_).getStruct())) {
+                        if (before_.getIndexChild() == 2) {
+                            tag_ = "<span class=\"n\">";
+                            return tag_;
+                        }
+                    }
+                    if (BooleanStruct.isFalse(Argument.getNullableValue(firstArg_).getStruct())) {
+                        if (before_.getIndexChild() == 1) {
+                            tag_ = "<span class=\"n\">";
+                            return tag_;
+                        }
+                    }
+                }
             }
             AbstractCoverageResult resultPar_ = getCovers(_cont, _block, par_);
             if (resultPar_.isPartialCovered()) {

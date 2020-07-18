@@ -9272,7 +9272,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  return <span class=\"f\"><span class=\"f\">1 </span>??<span class=\"f\"> 2</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">1 </span>??<span class=\"n\"> 2</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -9318,7 +9318,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  return <span class=\"f\"><span class=\"f\">1 </span>??<span class=\"f\"> null</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">1 </span>??<span class=\"n\"> null</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -9804,7 +9804,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
-                "  return <span class=\"f\"><span class=\"f\">true </span>??<span class=\"f\"><span class=\"f\"> false </span>??<span class=\"f\"> null</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">true </span>??<span class=\"n\"><span class=\"n\"> false </span>??<span class=\"n\"> null</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -9829,7 +9829,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> true</span></span>;\n" +
-                "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">?</a>?<span class=\"f\"><span class=\"f\"> false </span>??<span class=\"f\"> null</span></span></span>)</span></span>;\n" +
+                "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">?</a>?<span class=\"n\"><span class=\"n\"> false </span>??<span class=\"n\"> null</span></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -10180,7 +10180,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> false</span></span>;\n" +
-                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>?=<span class=\"f\"> false</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>?=<span class=\"n\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -10231,7 +10231,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
                 " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
-                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"not null\">?</a>?=<span class=\"f\"> 1</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"not null\">?</a>?=<span class=\"n\"> 1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -12827,7 +12827,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m109\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m214\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"true\n" +
                 "\n" +
-                "pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m310\">&amp;</a><a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m361\">&amp;</a><span class=\"f\"><a href=\"#m109\">f</a></span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m310\">&amp;</a><a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m361\">&amp;</a><span class=\"f\"><a href=\"#m109\">f</a></span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m188\">pkg.ExClass </a>{\n" +
@@ -12849,7 +12849,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " }\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m188\">ExClass</a> <a name=\"m596\">$</a>(boolean <a name=\"m606\">i</a>){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m188\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m620\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m188\">ExClass</a>()</span></span>;\n" +
-                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m620\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m214\">field</a></span></span>=<span class=\"f\"><span class=\"p\"><a href=\"#m606\">i</a></span>?<span class=\"f\">1</span>:<span class=\"f\">2</span></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m620\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m214\">field</a></span></span>=<span class=\"f\"><span class=\"p\"><a href=\"#m606\">i</a></span>?<span class=\"f\">1</span>:<span class=\"n\">2</span></span></span>;\n" +
                 "  return <span class=\"f\"><a href=\"#m620\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -12907,7 +12907,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m110\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m215\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"false\n" +
                 "\n" +
-                "pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m311\">&amp;</a><a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m362\">&amp;</a><span class=\"n\"><a href=\"#m110\">f</a></span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m311\">&amp;</a><a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m362\">&amp;</a><span class=\"n\"><a href=\"#m110\">f</a></span></span>?<span class=\"n\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m189\">pkg.ExClass </a>{\n" +
@@ -13015,7 +13015,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m638\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m267\">field</a></span></span>==<span class=\"f\">1</span></span>;\n" +
                 " }\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a> <a name=\"m689\">$</a>(boolean <a name=\"m699\">i</a>){\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m713\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m277\">new</a> <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a>(<span class=\"f\"><span class=\"p\"><a href=\"#m699\">i</a></span>?<span class=\"f\">1</span>:<span class=\"f\">2</span></span>)</span></span>;\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m713\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m277\">new</a> <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a>(<span class=\"f\"><span class=\"p\"><a href=\"#m699\">i</a></span>?<span class=\"f\">1</span>:<span class=\"n\">2</span></span>)</span></span>;\n" +
                 "  return <span class=\"f\"><a href=\"#m713\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -13073,7 +13073,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m109\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m214\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"true\n" +
                 "\n" +
-                "pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m246\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m441\">|</a><span class=\"n\"><a href=\"#m109\">f</a></span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m246\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m441\">|</a><span class=\"n\"><a href=\"#m109\">f</a></span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m188\">pkg.ExClass </a>{\n" +
@@ -13153,7 +13153,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m110\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m215\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"false\n" +
                 "\n" +
-                "pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m247\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m442\">|</a><span class=\"f\"><a href=\"#m110\">f</a></span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m247\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m442\">|</a><span class=\"f\"><a href=\"#m110\">f</a></span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m189\">pkg.ExClass </a>{\n" +
@@ -13175,7 +13175,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " }\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m189\">ExClass</a> <a name=\"m597\">$</a>(boolean <a name=\"m607\">i</a>){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m189\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m621\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m189\">ExClass</a>()</span></span>;\n" +
-                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m621\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m215\">field</a></span></span>=<span class=\"f\"><span class=\"p\"><a href=\"#m607\">i</a></span>?<span class=\"f\">1</span>:<span class=\"f\">2</span></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m621\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m215\">field</a></span></span>=<span class=\"f\"><span class=\"p\"><a href=\"#m607\">i</a></span>?<span class=\"f\">1</span>:<span class=\"n\">2</span></span></span>;\n" +
                 "  return <span class=\"f\"><a href=\"#m621\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -13235,7 +13235,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\">for (<a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a> <a name=\"m91\">e</a></span>:<span class=\"f\">{<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m277\">new</a> <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a>(<span class=\"f\">10</span>)</span>,<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m277\">new</a> <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a>(<span class=\"f\">1</span>)</span>}</span>){\n" +
                 "   <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m141\">f</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m277\">new</a> <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a>(<span class=\"f\">1</span>)</span></span>;\n" +
                 "   <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m141\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m267\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
-                "   <span class=\"f\"><span class=\"f\"><a href=\"#m66\">out</a> </span>+=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m91\">e</a></span><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m339\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m534\">|</a><span class=\"f\"><a href=\"#m141\">f</a></span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span></span>;\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m66\">out</a> </span>+=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m91\">e</a></span><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m339\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m534\">|</a><span class=\"f\"><a href=\"#m141\">f</a></span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span></span>;\n" +
                 "  }\n" +
                 "  return <span class=\"f\"><a href=\"#m66\">out</a></span>;\n" +
                 " }\n" +
@@ -13261,7 +13261,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m638\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m267\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span>;\n" +
                 " }\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a> <a name=\"m689\">$</a>(boolean <a name=\"m699\">i</a>){\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m713\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m277\">new</a> <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a>(<span class=\"f\"><span class=\"p\"><a href=\"#m699\">i</a></span>?<span class=\"f\">1</span>:<span class=\"f\">2</span></span>)</span></span>;\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m713\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m277\">new</a> <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a>(<span class=\"f\"><span class=\"p\"><a href=\"#m699\">i</a></span>?<span class=\"f\">1</span>:<span class=\"n\">2</span></span>)</span></span>;\n" +
                 "  return <span class=\"f\"><a href=\"#m713\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -13319,7 +13319,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m109\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m217\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"true\n" +
                 "\n" +
-                "pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m313\">&amp;</a><a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m364\">&amp;</a>=<span class=\"f\"><a href=\"#m109\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m313\">&amp;</a><a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m364\">&amp;</a>=<span class=\"f\"><a href=\"#m109\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m191\">pkg.ExClass </a>{\n" +
@@ -13341,7 +13341,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " }\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m191\">ExClass</a> <a name=\"m599\">$</a>(boolean <a name=\"m609\">i</a>){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m191\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m623\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m191\">ExClass</a>()</span></span>;\n" +
-                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m623\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m217\">field</a></span></span>=<span class=\"f\"><span class=\"p\"><a href=\"#m609\">i</a></span>?<span class=\"f\">1</span>:<span class=\"f\">2</span></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m623\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m217\">field</a></span></span>=<span class=\"f\"><span class=\"p\"><a href=\"#m609\">i</a></span>?<span class=\"f\">1</span>:<span class=\"n\">2</span></span></span>;\n" +
                 "  return <span class=\"f\"><a href=\"#m623\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -13399,7 +13399,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m110\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"false\n" +
                 "\n" +
-                "pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m314\">&amp;</a><a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m365\">&amp;</a>=<span class=\"n\"><a href=\"#m110\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m314\">&amp;</a><a title=\"static &amp;&amp;(pkg.ExClass,pkg.ExClass)\" href=\"#m365\">&amp;</a>=<span class=\"n\"><a href=\"#m110\">f</a></span></span>)</span>?<span class=\"n\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m192\">pkg.ExClass </a>{\n" +
@@ -13479,7 +13479,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m109\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m217\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"true\n" +
                 "\n" +
-                "pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m249\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m444\">|</a>=<span class=\"n\"><a href=\"#m109\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m249\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m444\">|</a>=<span class=\"n\"><a href=\"#m109\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m191\">pkg.ExClass </a>{\n" +
@@ -13559,7 +13559,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m110\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\">(<span class=\"f\"><span class=\"p\"><a href=\"#m67\">e</a></span><a title=\"false\n" +
                 "\n" +
-                "pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m250\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m445\">|</a>=<span class=\"f\"><a href=\"#m110\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m250\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m445\">|</a>=<span class=\"f\"><a href=\"#m110\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m192\">pkg.ExClass </a>{\n" +
@@ -13581,7 +13581,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " }\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <a name=\"m600\">$</a>(boolean <a name=\"m610\">i</a>){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m624\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a>()</span></span>;\n" +
-                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m624\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\"><span class=\"p\"><a href=\"#m610\">i</a></span>?<span class=\"f\">1</span>:<span class=\"f\">2</span></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m624\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\"><span class=\"p\"><a href=\"#m610\">i</a></span>?<span class=\"f\">1</span>:<span class=\"n\">2</span></span></span>;\n" +
                 "  return <span class=\"f\"><a href=\"#m624\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -13669,7 +13669,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m659\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m288\">field</a></span></span>==<span class=\"f\">1</span></span>;\n" +
                 " }\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a> <a name=\"m710\">$</a>(boolean <a name=\"m720\">i</a>){\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m734\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m298\">new</a> <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a>(<span class=\"f\"><span class=\"p\"><a href=\"#m720\">i</a></span>?<span class=\"f\">1</span>:<span class=\"f\">2</span></span>)</span></span>;\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m734\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m298\">new</a> <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a>(<span class=\"f\"><span class=\"p\"><a href=\"#m720\">i</a></span>?<span class=\"f\">1</span>:<span class=\"n\">2</span></span>)</span></span>;\n" +
                 "  return <span class=\"f\"><a href=\"#m734\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -13731,7 +13731,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "   <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m141\">g</a> </span>=<span class=\"f\"> <a href=\"#m91\">e</a></span></span>;\n" +
                 "   <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m159\">f</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m298\">new</a> <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a>(<span class=\"f\">1</span>)</span></span>;\n" +
                 "   <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m159\">f</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m288\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
-                "   <span class=\"f\"><span class=\"f\"><a href=\"#m66\">out</a> </span>+=<span class=\"f\"><span class=\"f\"> (<span class=\"f\"><span class=\"f\"><a href=\"#m141\">g</a></span><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m360\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m555\">|</a>=<span class=\"f\"><a href=\"#m159\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span></span>;\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m66\">out</a> </span>+=<span class=\"f\"><span class=\"f\"> (<span class=\"f\"><span class=\"f\"><a href=\"#m141\">g</a></span><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m360\">|</a><a title=\"static ||(pkg.ExClass,pkg.ExClass)\" href=\"#m555\">|</a>=<span class=\"f\"><a href=\"#m159\">f</a></span></span>)</span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span></span>;\n" +
                 "  }\n" +
                 "  return <span class=\"f\"><a href=\"#m66\">out</a></span>;\n" +
                 " }\n" +
@@ -13757,7 +13757,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m659\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m288\">field</a></span></span><a title=\"true\">==</a><span class=\"f\">1</span></span>;\n" +
                 " }\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a> <a name=\"m710\">$</a>(boolean <a name=\"m720\">i</a>){\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m734\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m298\">new</a> <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a>(<span class=\"f\"><span class=\"p\"><a href=\"#m720\">i</a></span>?<span class=\"f\">1</span>:<span class=\"f\">2</span></span>)</span></span>;\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m734\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m298\">new</a> <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a>(<span class=\"f\"><span class=\"p\"><a href=\"#m720\">i</a></span>?<span class=\"f\">1</span>:<span class=\"n\">2</span></span>)</span></span>;\n" +
                 "  return <span class=\"f\"><a href=\"#m734\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -14237,7 +14237,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m183\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
-                "  return <span class=\"f\"><span class=\"p\"><span class=\"f\"><a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a></span>.<span class=\"p\"><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m215\">true</a>(<span class=\"f\"><a href=\"#m67\">e</a></span>)</span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><span class=\"f\"><a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a></span>.<span class=\"p\"><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m215\">true</a>(<span class=\"f\"><a href=\"#m67\">e</a></span>)</span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m157\">pkg.ExClass </a>{\n" +
@@ -14283,7 +14283,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m183\">field</a></span></span>=<span class=\"f\">2</span></span>;\n" +
-                "  return <span class=\"f\"><span class=\"p\"><span class=\"f\"><a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a></span>.<span class=\"p\"><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m215\">true</a>(<span class=\"f\"><a href=\"#m67\">e</a></span>)</span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><span class=\"f\"><a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a></span>.<span class=\"p\"><a title=\"pkg.ExClass.static true(boolean,pkg.ExClass)\" href=\"#m215\">true</a>(<span class=\"f\"><a href=\"#m67\">e</a></span>)</span></span>?<span class=\"n\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m157\">pkg.ExClass </a>{\n" +
@@ -14329,7 +14329,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m184\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
-                "  return <span class=\"f\"><span class=\"p\"><span class=\"f\"><a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a></span>.<span class=\"p\"><a title=\"pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m280\">false</a>(<span class=\"f\"><a href=\"#m67\">e</a></span>)</span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><span class=\"f\"><a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a></span>.<span class=\"p\"><a title=\"pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m280\">false</a>(<span class=\"f\"><a href=\"#m67\">e</a></span>)</span></span>?<span class=\"n\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m158\">pkg.ExClass </a>{\n" +
@@ -14375,7 +14375,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m184\">field</a></span></span>=<span class=\"f\">2</span></span>;\n" +
-                "  return <span class=\"f\"><span class=\"p\"><span class=\"f\"><a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a></span>.<span class=\"p\"><a title=\"pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m280\">false</a>(<span class=\"f\"><a href=\"#m67\">e</a></span>)</span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"f\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"p\"><span class=\"f\"><a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a></span>.<span class=\"p\"><a title=\"pkg.ExClass.static false(boolean,pkg.ExClass)\" href=\"#m280\">false</a>(<span class=\"f\"><a href=\"#m67\">e</a></span>)</span></span>?<span class=\"f\"><span class=\"s\">\"Vrai\"</span></span>:<span class=\"n\"><span class=\"s\">\"Faux\"</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "public class <a name=\"m158\">pkg.ExClass </a>{\n" +
@@ -14389,6 +14389,345 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void coverage358Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return true ? 1 : 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">true </span>?<span class=\"f\"> 1 </span>:<span class=\"n\"> 0</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage359Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return false ? 1 : 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static int <a name=\"m41\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">false </span>?<span class=\"n\"> 1 </span>:<span class=\"f\"> 0</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage360Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  boolean v = true;\n");
+        xml_.append("  return v && false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> true</span></span>;\n" +
+                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">&amp;</a>&amp;<span class=\"f\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage361Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  boolean v = false;\n");
+        xml_.append("  return v && false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> false</span></span>;\n" +
+                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"false\">&amp;</a>&amp;<span class=\"n\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage362Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  boolean v = true;\n");
+        xml_.append("  return v || false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> true</span></span>;\n" +
+                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">|</a>|<span class=\"n\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage363Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  boolean v = false;\n");
+        xml_.append("  return v || false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> false</span></span>;\n" +
+                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"false\">|</a>|<span class=\"f\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage364Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  boolean v = true;\n");
+        xml_.append("  return v &&= false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> true</span></span>;\n" +
+                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">&amp;</a>&amp;=<span class=\"f\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage365Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  boolean v = false;\n");
+        xml_.append("  return v &&= false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> false</span></span>;\n" +
+                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"false\">&amp;</a>&amp;=<span class=\"n\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage366Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  boolean v = true;\n");
+        xml_.append("  return v ||= false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> true</span></span>;\n" +
+                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">|</a>|=<span class=\"n\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage367Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  boolean v = false;\n");
+        xml_.append("  return v ||= false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> false</span></span>;\n" +
+                "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"false\">|</a>|=<span class=\"f\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage368Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  return true && false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">true </span>&amp;&amp;<span class=\"f\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage369Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  return false && false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">false </span>&amp;&amp;<span class=\"n\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage370Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  return true || false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">true </span>||<span class=\"n\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage371Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static boolean exmeth(){\n");
+        xml_.append("  return false || false;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>{\n" +
+                " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">false </span>||<span class=\"f\"> false</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
     @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
