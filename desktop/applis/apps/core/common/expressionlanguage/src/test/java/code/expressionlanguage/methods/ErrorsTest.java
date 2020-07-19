@@ -13038,6 +13038,80 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void report613Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String method(){\n");
+        xml_.append("  ExClass.$true($null);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExClass {\n");
+        xml_.append(" $public $int field=2;\n");
+        xml_.append(" $public $static $boolean $true(ExClass i){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $false(ExClass i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Apply </a>{\n" +
+                " $public $static String <a name=\"m51\" title=\"A $throw block or a $return block is missing for the method $static method().\" class=\"e\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m105\">ExClass</a>.<a title=\"The function $static $true() is undefined.\" class=\"e\">$true</a>($null);\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m105\">pkg.ExClass </a>{\n" +
+                " $public $int <a name=\"m133\">field</a>=2;\n" +
+                " $public $static $boolean <a name=\"m168\" title=\"A $throw block or a $return block is missing for the method $static $true($boolean,pkg.ExClass).\" class=\"e\">$true</a>(<a title=\"pkg.ExClass\" href=\"#m105\">ExClass</a> <a name=\"m182\">i</a>){\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m215\" title=\"A $throw block or a $return block is missing for the method $static $false($boolean,pkg.ExClass).\" class=\"e\">$false</a>(<a title=\"pkg.ExClass\" href=\"#m105\">ExClass</a> <a name=\"m230\">i</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report614Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String method(){\n");
+        xml_.append("  $return \"\";\n");
+        xml_.append("  $if ($new ExClass()){\n");
+        xml_.append("   $return \"Vrai\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return \"Faux\";\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExClass {\n");
+        xml_.append(" $public $static $boolean $true(ExClass i){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $false(ExClass i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Apply </a>{\n" +
+                " $public $static String <a name=\"m51\">method</a>(){\n" +
+                "  $return <span class=\"s\">\"\"</span>;\n" +
+                "  <a title=\"The code is unreachable in the function $static method()\" class=\"e\">$if</a> ($new <a title=\"pkg.ExClass\" href=\"#m160\">ExClass</a>())<a title=\"pkg.ExClass.$static $true($boolean,pkg.ExClass)\" href=\"#m200\">{</a>\n" +
+                "   <a title=\"The code is unreachable in the function $static method()\" class=\"e\">$return</a> <span class=\"s\">\"Vrai\"</span>;\n" +
+                "  }\n" +
+                "  <a title=\"The code is unreachable in the function $static method()\" class=\"e\">$return</a> <span class=\"s\">\"Faux\"</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m160\">pkg.ExClass </a>{\n" +
+                " $public $static $boolean <a name=\"m200\" title=\"A $throw block or a $return block is missing for the method $static $true($boolean,pkg.ExClass).\" class=\"e\">$true</a>(<a title=\"pkg.ExClass\" href=\"#m160\">ExClass</a> <a name=\"m214\">i</a>){\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m247\" title=\"A $throw block or a $return block is missing for the method $static $false($boolean,pkg.ExClass).\" class=\"e\">$false</a>(<a title=\"pkg.ExClass\" href=\"#m160\">ExClass</a> <a name=\"m262\">i</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void reportWithoutErrorTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");

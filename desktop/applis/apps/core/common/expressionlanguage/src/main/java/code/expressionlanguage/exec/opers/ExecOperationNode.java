@@ -721,7 +721,7 @@ public abstract class ExecOperationNode {
                 before_ = Argument.getNullableValue(pair_.getArgumentBeforeTest());
             }
             ExecMethodOperation parent_ = getParent();
-            if (parent_ instanceof ExecTernaryOperation) {
+            if (parent_ == null||parent_ instanceof ExecTernaryOperation) {
                 calcArg(_possiblePartial, _conf, _nodes, _argument);
                 return;
             }

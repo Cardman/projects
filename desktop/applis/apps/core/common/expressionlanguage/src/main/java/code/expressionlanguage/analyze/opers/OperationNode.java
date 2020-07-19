@@ -994,7 +994,7 @@ public abstract class OperationNode {
                                                                      StringList _classes, String _name,
                                                                      ClassMethodId _uniqueId,
                                                                      ClassArgumentMatching[] _argsClass) {
-        if (_argsClass.length != 1) {
+        if (_argsClass.length != 1 || _staticContext == MethodAccessKind.STATIC) {
             return new ClassMethodIdReturn(false);
         }
         ClassMethodIdReturn res_;

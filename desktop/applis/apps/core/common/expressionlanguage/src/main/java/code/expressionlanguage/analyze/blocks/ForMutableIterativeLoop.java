@@ -59,6 +59,8 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     private OperationNode rootExp;
     private OperationNode rootStep;
 
+    private ClassMethodId test;
+    private int testOffset;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private String errInf = EMPTY_STRING;
 
@@ -280,15 +282,22 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 _exp.getImplicits().add(cl_);
             } else {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(getFile().getFileName());
-                un_.setIndexFile(expressionOffset);
-                //second ; char
-                un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
-                        StringList.join(_exp.getNames(),"&"));
-                _cont.addError(un_);
-                setReachableError(true);
-                getErrorsBlock().add(un_.getBuiltError());
+                ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(_cont, _exp);
+                if (trueOp_.isFoundMethod()) {
+                    ClassMethodId cl_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
+                    _exp.getImplicitsTest().add(cl_);
+                    test = cl_;
+                } else {
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setFileName(getFile().getFileName());
+                    un_.setIndexFile(expressionOffset);
+                    //second ; char
+                    un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
+                            StringList.join(_exp.getNames(),"&"));
+                    _cont.addError(un_);
+                    setReachableError(true);
+                    getErrorsBlock().add(un_.getBuiltError());
+                }
             }
         }
         _exp.setUnwrapObject(stds_.getAliasPrimBoolean());
@@ -367,5 +376,17 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public int getTestOffset() {
+        return testOffset;
+    }
+
+    public void setTestOffset(int _testOffset) {
+        testOffset = _testOffset;
+    }
+
+    public ClassMethodId getTest() {
+        return test;
     }
 }

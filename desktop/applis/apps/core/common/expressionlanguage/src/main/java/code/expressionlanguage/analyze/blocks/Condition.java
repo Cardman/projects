@@ -22,12 +22,15 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
     private String condition;
 
     private int conditionOffset;
+    private int testOffset;
 
     private Argument argument;
 
     private OperationNode root;
 
     private String err = "";
+
+    private ClassMethodId test;
 
     public Condition(OffsetStringInfo _condition, OffsetsBlock _offset) {
         super(_offset);
@@ -71,15 +74,22 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 resultClass_.getImplicits().add(cl_);
             } else {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(getFile().getFileName());
-                un_.setIndexFile(conditionOffset);
-                //key word len
-                un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
-                        StringList.join(resultClass_.getNames(),"&"));
-                _cont.addError(un_);
-                setReachableError(true);
-                getErrorsBlock().add(un_.getBuiltError());
+                ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(_cont, resultClass_);
+                if (trueOp_.isFoundMethod()) {
+                    ClassMethodId cl_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
+                    resultClass_.getImplicitsTest().add(cl_);
+                    test = cl_;
+                } else {
+                    FoundErrorInterpret un_ = new FoundErrorInterpret();
+                    un_.setFileName(getFile().getFileName());
+                    un_.setIndexFile(conditionOffset);
+                    //key word len
+                    un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
+                            StringList.join(resultClass_.getNames(),"&"));
+                    _cont.addError(un_);
+                    setReachableError(true);
+                    getErrorsBlock().add(un_.getBuiltError());
+                }
             }
         }
         resultClass_.setUnwrapObject(stds_.getAliasPrimBoolean());
@@ -101,5 +111,17 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
 
     public String getErr() {
         return err;
+    }
+
+    public ClassMethodId getTest() {
+        return test;
+    }
+
+    public int getTestOffset() {
+        return testOffset;
+    }
+
+    public void setTestOffset(int _testOffset) {
+        testOffset = _testOffset;
     }
 }

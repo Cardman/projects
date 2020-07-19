@@ -192,12 +192,14 @@ public final class LinkageUtil {
                     }
                     if (child_ instanceof ElseIfCondition) {
                         processConditionError((ElseIfCondition)child_, vars_,_cont,list_);
+                        processTestCondition(vars_, (ElseIfCondition)child_, _cont, list_);
                     }
                     if (child_ instanceof DoBlock) {
                         processDoBlockError((DoBlock)child_,list_);
                     }
                     if (child_ instanceof DoWhileCondition) {
                         processConditionError((DoWhileCondition)child_, vars_,_cont,list_);
+                        processTestCondition(vars_, (DoWhileCondition)child_, _cont, list_);
                     }
                     if (child_ instanceof SwitchBlock) {
                         processSwitchBlockError(vars_,(SwitchBlock)child_,_cont,list_);
@@ -433,14 +435,18 @@ public final class LinkageUtil {
         _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordIf().length()));
         processConditionReport(_cond,_vars,_cont,_parts);
         refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        processTestCondition(_vars, _cond, _cont, _parts);
     }
     private static void processIfConditionError(VariablesOffsets _vars,IfCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         processConditionError(_cond, _vars, _cont, _parts);
         refLabelError(_cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
+        processTestCondition(_vars, _cond, _cont, _parts);
     }
+
     private static void processWhileConditionError(VariablesOffsets _vars,WhileCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         processConditionError(_cond, _vars, _cont, _parts);
         refLabelError(_cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
+        processTestCondition(_vars, _cond, _cont, _parts);
     }
     private static void processElseIfConditionReport(VariablesOffsets _vars,ElseIfCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         AbstractCoverageResult result_ = _cont.getCoverage().getCoversConditions(_cond);
@@ -457,6 +463,7 @@ public final class LinkageUtil {
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,off_+ _cond.getDelta()));
         processConditionReport(_cond,_vars,_cont,_parts);
+        processTestCondition(_vars, _cond, _cont, _parts);
     }
     private static void processWhileConditionReport(VariablesOffsets _vars,WhileCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         AbstractCoverageResult result_ = _cont.getCoverage().getCoversConditions(_cond);
@@ -474,6 +481,18 @@ public final class LinkageUtil {
         _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordWhile().length()));
         processConditionReport(_cond,_vars,_cont,_parts);
         refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        processTestCondition(_vars, _cond, _cont, _parts);
+    }
+
+    private static void processTestCondition(VariablesOffsets _vars, Condition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
+        ClassMethodId test_ = _cond.getTest();
+        if (test_ != null) {
+            String cl_ = test_.getClassName();
+            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
+            MethodId id_ = test_.getConstraints();
+            StringList list_ = new StringList();
+            addParts(_cont,_vars.getCurrentFileName(),cl_,id_,_cond.getTestOffset(),1, list_,list_,_parts);
+        }
     }
     private static void processForMutableIterativeLoopReport(VariablesOffsets _vars,ForMutableIterativeLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         if (_cond.getRootExp() != null) {
@@ -510,6 +529,7 @@ public final class LinkageUtil {
             buildCoverageReport(_cont,_vars,off_,_cond,_cond.getRootStep(),offsetEndBlock_,_parts);
         }
         refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());
+        processTestCondition(_vars,_cond,_cont,_parts);
     }
     private static void processForMutableIterativeLoopError(VariablesOffsets _vars,ForMutableIterativeLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         appendVars(_cond, _cont, _parts);
@@ -528,8 +548,19 @@ public final class LinkageUtil {
             buildErrorReport(_cont,_vars,off_,_cond,_cond.getRootStep(),_parts);
         }
         refLabelError(_cond,_parts, _cond.getLabel(), _cond.getLabelOffset());
+        processTestCondition(_vars,_cond,_cont,_parts);
     }
 
+    private static void processTestCondition(VariablesOffsets _vars, ForMutableIterativeLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
+        ClassMethodId test_ = _cond.getTest();
+        if (test_ != null) {
+            String cl_ = test_.getClassName();
+            cl_ = StringExpUtil.getIdFromAllTypes(cl_);
+            MethodId id_ = test_.getConstraints();
+            StringList list_ = new StringList();
+            addParts(_cont,_vars.getCurrentFileName(),cl_,id_,_cond.getTestOffset(),1, list_,list_,_parts);
+        }
+    }
     private static void appendVars(ForMutableIterativeLoop _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         KeyWords keyWords_ = _cont.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -707,6 +738,7 @@ public final class LinkageUtil {
         tag_ = "</span>";
         _parts.add(new PartOffset(tag_,off_+ _cont.getKeyWords().getKeyWordWhile().length()));
         processConditionReport(_cond,_vars,_cont,_parts);
+        processTestCondition(_vars, _cond, _cont, _parts);
     }
     private static void processTryEvalReport(TryEval _cond, CustList<PartOffset> _parts) {
         refLabel(_parts, _cond.getLabel(), _cond.getLabelOffset());

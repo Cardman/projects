@@ -2447,6 +2447,7 @@ public final class FileResolver {
             if (!ok_) {
                 br_.getBadIndexes().add(_i);
             }
+            ((Condition)br_).setTestOffset(_i);
             _currentParent.appendChild(br_);
             return br_;
         }
@@ -2506,6 +2507,7 @@ public final class FileResolver {
             if (!ok_) {
                 br_.getBadIndexes().add(_i);
             }
+            ((Condition)br_).setTestOffset(_i);
             br_.setBegin(_instructionLocation);
             br_.setLengthHeader(keyWordIf_.length());
             _currentParent.appendChild(br_);
@@ -2527,6 +2529,7 @@ public final class FileResolver {
             if (!ok_) {
                 br_.getBadIndexes().add(_i);
             }
+            ((Condition)br_).setTestOffset(_i);
             br_.setBegin(_instructionLocation);
             br_.setLengthHeader(keyWordElseif_.length());
             _currentParent.appendChild(br_);
@@ -2558,6 +2561,7 @@ public final class FileResolver {
                 if (!ok_) {
                     br_.getBadIndexes().add(_i);
                 }
+                ((Condition)br_).setTestOffset(_i);
                 br_.setBegin(_instructionLocation+deltaFirst_-keyWordIf_.length());
                 br_.setLengthHeader(keyWordIf_.length());
                 _currentParent.appendChild(br_);
@@ -2856,6 +2860,7 @@ public final class FileResolver {
                             new OffsetStringInfo(stepOff_,step_.trim()), new OffsetStringInfo(indexClassOffest_,indexClassName_.trim()),
                             new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(_instructionRealLocation, _instructionLocation));
                     _currentParent.appendChild(br_);
+                    ((ForMutableIterativeLoop) br_).setTestOffset(_i);
                     ok_ = true;
                 }
             }
