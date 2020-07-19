@@ -80,11 +80,11 @@ public final class ContextUtil {
         return StringList.quickEq(_block.getOuterFullName(), root_.getOuterFullName());
     }
 
-    public static CustList<ExecInfoBlock> getFieldBlocks(ExecRootBlock _element){
-        CustList<ExecInfoBlock> methods_ = new CustList<ExecInfoBlock>();
-        for (ExecBlock b: ExecBlock.getDirectChildren(_element)) {
-            if (b instanceof ExecInfoBlock) {
-                methods_.add((ExecInfoBlock) b);
+    public static CustList<InfoBlock> getFieldBlocks(RootBlock _element){
+        CustList<InfoBlock> methods_ = new CustList<InfoBlock>();
+        for (Block b: ClassesUtil.getDirectChildren(_element)) {
+            if (b instanceof InfoBlock) {
+                methods_.add((InfoBlock) b);
             }
         }
         return methods_;

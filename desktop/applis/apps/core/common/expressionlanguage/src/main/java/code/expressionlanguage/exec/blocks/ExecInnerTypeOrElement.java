@@ -5,7 +5,7 @@ import code.util.CustList;
 
 public interface ExecInnerTypeOrElement extends ExecInfoBlock {
     String getUniqueFieldName();
-    int getFieldNameOffset();
+
     CustList<ExecOperationNode> getOpValue();
     void setOpValue(CustList<ExecOperationNode> _op);
     void setTrOffset(int _off);

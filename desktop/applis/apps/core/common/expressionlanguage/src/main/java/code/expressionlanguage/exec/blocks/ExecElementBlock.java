@@ -63,11 +63,6 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
     }
 
     @Override
-    public int getFieldNameOffset() {
-        return fieldNameOffest;
-    }
-
-    @Override
     public String getImportedClassName() {
         return getRealImportedClassName();
     }

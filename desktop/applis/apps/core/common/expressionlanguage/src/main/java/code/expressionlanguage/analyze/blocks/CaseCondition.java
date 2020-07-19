@@ -46,6 +46,7 @@ public final class CaseCondition extends SwitchPartBlock {
     private String typeEnum = EMPTY_STRING;
 
     private int valueOffset;
+    private int fieldNameOffset=-1;
 
     private StringList emptErrs = new StringList();
 
@@ -138,10 +139,10 @@ public final class CaseCondition extends SwitchPartBlock {
             _cont.getAnalyzing().getInfosVars().put(variableName, lv_);
             return;
         }
-        ExecEnumBlock e_ = getEnumType(_cont, type_);
+        EnumBlock e_ = getEnumType(_cont, type_);
         if (e_ != null) {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            for (GeneField f: ContextUtil.getFieldBlocks(e_)) {
+            for (InfoBlock f: ContextUtil.getFieldBlocks(e_)) {
                 if (!match(f)) {
                     continue;
                 }
@@ -155,6 +156,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 op_.setOrder(0);
                 root = op_;
                 builtEnum = true;
+                fieldNameOffset = f.getFieldNameOffset();
                 typeEnum = id_;
                 CustList<ExecOperationNode> ops_ = new CustList<ExecOperationNode>();
                 ops_.add(ExecOperationNode.createExecOperationNode(op_));
@@ -216,23 +218,23 @@ public final class CaseCondition extends SwitchPartBlock {
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
-    private ExecEnumBlock getEnumType(ContextEl _cont,String _type) {
+    private EnumBlock getEnumType(ContextEl _cont,String _type) {
         if (_type.isEmpty()) {
             return null;
         }
         String id_ = StringExpUtil.getIdFromAllTypes(_type);
-        GeneType g_ = _cont.getClassBody(id_);
-        if (g_ instanceof ExecEnumBlock) {
-            return (ExecEnumBlock) g_;
+        AnaGeneType g_ = _cont.getAnalyzing().getAnaGeneType(_cont,id_);
+        if (g_ instanceof EnumBlock) {
+            return (EnumBlock) g_;
         }
         return null;
 
     }
-    private boolean match(GeneField _f) {
-        if (!(_f instanceof ExecInnerTypeOrElement)) {
+    private boolean match(InfoBlock _f) {
+        if (!(_f instanceof InnerTypeOrElement)) {
             return false;
         }
-        ExecInnerTypeOrElement e_ = (ExecInnerTypeOrElement) _f;
+        InnerTypeOrElement e_ = (InnerTypeOrElement) _f;
         return StringList.quickEq(e_.getUniqueFieldName(), value.trim());
     }
     private void processNullValue(ContextEl _cont) {
@@ -451,5 +453,9 @@ public final class CaseCondition extends SwitchPartBlock {
 
     public StringList getNameErrors() {
         return nameErrors;
+    }
+
+    public int getFieldNameOffset() {
+        return fieldNameOffset;
     }
 }

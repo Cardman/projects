@@ -599,15 +599,10 @@ public final class LinkageUtil {
             tag_ = "</a>";
             _parts.add(new PartOffset(tag_,variableOffset_+ variableName_.trim().length()));
         } else if (_cond.isBuiltEnum()) {
-            GeneType type_ = _cont.getClassBody(_cond.getTypeEnum());
-            int delta_ = getDelta(_cond, (ExecBlock) type_);
-            String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
+            int delta_ = _cond.getFieldNameOffset();
+            String typeEnum_ = _cond.getTypeEnum();
             String currentFileName_ = _vars.getCurrentFileName();
-            String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
-            tag_ = "<a title=\""+transform(_cond.getTypeEnum() +"."+ _cond.getValue())+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_,off_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,off_+ _cond.getValue().length()));
+            updateFieldAnchor(_cont,_cond.getEmptErrs(),_parts,new ClassField(typeEnum_,_cond.getValue().trim()),off_,Math.max(1, _cond.getValue().length()),currentFileName_,delta_);
         } else {
             int offsetEndBlock_ = off_ + _cond.getValue().length();
             buildCoverageReport(_cont,_vars,off_,_cond,_cond.getRoot(),offsetEndBlock_,_parts);
@@ -638,41 +633,14 @@ public final class LinkageUtil {
             }
         } else if (_cond.isBuiltEnum()) {
             off_ = _cond.getValueOffset();
-            GeneType type_ = _cont.getClassBody(_cond.getTypeEnum());
-            int delta_ = getDelta(_cond, (ExecBlock) type_);
-            if (delta_ < 0) {
-                String tag_ = "<a title=\""+transform(StringList.join(_cond.getEmptErrs(),"\n\n"))+"\" class=\"e\">";
-                _parts.add(new PartOffset(tag_,off_));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,off_+Math.max(1, _cond.getValue().length())));
-                return;
-            }
-            String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
+            String typeEnum_ = _cond.getTypeEnum();
+            int delta_ = _cond.getFieldNameOffset();
             String currentFileName_ = _vars.getCurrentFileName();
-            String rel_ = relativize(currentFileName_,file_+"#m"+delta_);
-            String tag_ = "<a title=\""+transform(_cond.getTypeEnum() +"."+ _cond.getValue())+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_,off_));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_,off_+ _cond.getValue().length()));
+            updateFieldAnchor(_cont,_cond.getEmptErrs(),_parts,new ClassField(typeEnum_,_cond.getValue().trim()),off_,Math.max(1, _cond.getValue().length()),currentFileName_,delta_);
         } else {
             off_ = _cond.getValueOffset();
             buildErrorReport(_cont,_vars,off_,_cond,_cond.getRoot(),_parts);
         }
-    }
-
-    private static int getDelta(CaseCondition _cond, ExecBlock type_) {
-        int delta_ = -1;
-        for (ExecBlock b: ExecBlock.getDirectChildren(type_)) {
-            if (!(b instanceof ExecInnerTypeOrElement)) {
-                continue;
-            }
-            ExecInnerTypeOrElement f_ = (ExecInnerTypeOrElement)b;
-            if (!StringList.quickEq(f_.getUniqueFieldName(), _cond.getValue())) {
-                continue;
-            }
-            delta_ = f_.getFieldNameOffset();
-        }
-        return delta_;
     }
 
     private static void processDefaultConditionReport(DefaultCondition _cond, ContextEl _cont, CustList<PartOffset> _parts) {
@@ -1150,17 +1118,12 @@ public final class LinkageUtil {
         String cl_ = inst_.getClassName();
         cl_ = StringExpUtil.getIdFromAllTypes(cl_);
         ConstructorId c_ = inst_.getConstId();
-        GeneType type_ = _cont.getClassBody(cl_);
-        String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
         String fileName_ = _vars.getCurrentFileName();
         CustList<ExecConstructorBlock> ctors_ = ExecBlock.getConstructorBodiesById(_cont, cl_, c_);
         if (!ctors_.isEmpty()) {
-            ExecConstructorBlock ctor_ = ctors_.first();
-            String rel_ = relativize(fileName_,file_+"#m"+ctor_.getNameOffset());
-            String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-             tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() +_cond.getUniqueFieldName().length()));
+            StringList list_ = new StringList();
+            int fieldNameOffest_ = _cond.getFieldNameOffest();
+            addParts(_cont,fileName_,cl_,c_, fieldNameOffest_, _cond.getUniqueFieldName().length(),list_,list_,_parts,fieldNameOffest_);
         } else {
             String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\">";
             _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
@@ -1184,7 +1147,6 @@ public final class LinkageUtil {
         String cl_ = inst_.getClassName();
         cl_ = StringExpUtil.getIdFromAllTypes(cl_);
         ConstructorId c_ = inst_.getConstId();
-        GeneType type_ = _cont.getClassBody(cl_);
         String fileName_ = _vars.getCurrentFileName();
         StringList list_ = new StringList(_cond.getNameErrors());
         String uniqueFieldName_ = _cond.getUniqueFieldName();
@@ -1200,18 +1162,8 @@ public final class LinkageUtil {
         String err_ = getLineErr(list_);
         CustList<ExecConstructorBlock> ctors_ = ExecBlock.getConstructorBodiesById(_cont, cl_, c_);
         if (!ctors_.isEmpty()) {
-            String file_ = ((ExecRootBlock) type_).getFile().getRenderFileName();
-            ExecConstructorBlock ctor_ = ctors_.first();
-            String rel_ = relativize(fileName_,file_+"#m"+ctor_.getNameOffset());
-            if (!list_.isEmpty()) {
-                String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\n\n"+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-            } else {
-                String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-            }
-            String tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() + uniqueFieldName_.length()));
+            int fieldNameOffest_ = _cond.getFieldNameOffest();
+            addParts(_cont,fileName_,cl_,c_, fieldNameOffest_, uniqueFieldName_.length(),list_,list_,_parts,fieldNameOffest_);
         } else {
             if (!list_.isEmpty()) {
                 String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\">";
@@ -1448,18 +1400,13 @@ public final class LinkageUtil {
         String cl_ = inst_.getClassName();
         cl_ = StringExpUtil.getIdFromAllTypes(cl_);
         ConstructorId c_ = inst_.getConstId();
-        GeneType type_ = _cont.getClassBody(cl_);
-        String file_ = ((ExecRootBlock) type_).getFile().getFileName();
         String fileName_ = _vars.getCurrentFileName();
         CustList<ExecConstructorBlock> ctors_ = ExecBlock.getConstructorBodiesById(_cont, cl_, c_);
 
         if (!ctors_.isEmpty()) {
-            ExecConstructorBlock ctor_ = ctors_.first();
-            String rel_ = relativize(fileName_,file_+".html#m"+ctor_.getNameOffset());
-            String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-            _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-            tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() +_cond.getUniqueFieldName().length()));
+            StringList list_ = new StringList();
+            int fieldNameOffest_ = _cond.getFieldNameOffest();
+            addParts(_cont,fileName_,cl_,c_, fieldNameOffest_, _cond.getUniqueFieldName().length(),list_,list_,_parts,fieldNameOffest_);
         } else {
             String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\">";
             _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
@@ -1478,7 +1425,6 @@ public final class LinkageUtil {
         String cl_ = inst_.getClassName();
         cl_ = StringExpUtil.getIdFromAllTypes(cl_);
         ConstructorId c_ = inst_.getConstId();
-        GeneType type_ = _cont.getClassBody(cl_);
         String fileName_ = _vars.getCurrentFileName();
         StringList list_ = new StringList(_cond.getNameErrors());
         String uniqueFieldName_ = _cond.getUniqueFieldName();
@@ -1494,18 +1440,8 @@ public final class LinkageUtil {
         String err_ = getLineErr(list_);
         CustList<ExecConstructorBlock> ctors_ = ExecBlock.getConstructorBodiesById(_cont, cl_, c_);
         if (!ctors_.isEmpty()) {
-            String file_ = ((ExecRootBlock) type_).getFile().getFileName();
-            ExecConstructorBlock ctor_ = ctors_.first();
-            String rel_ = relativize(fileName_,file_+".html#m"+ctor_.getNameOffset());
-            if (!list_.isEmpty()) {
-                String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\n\n"+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\" class=\"e\">";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-            } else {
-                String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+ transform(cl_ +"."+ c_.getSignature(_cont))+"\" href=\""+rel_+"\">";
-                _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest()));
-            }
-            String tag_ = "</a>";
-            _parts.add(new PartOffset(tag_, _cond.getFieldNameOffest() +_cond.getUniqueFieldName().length()));
+            int fieldNameOffest_ = _cond.getFieldNameOffest();
+            addParts(_cont,fileName_,cl_,c_, fieldNameOffest_, uniqueFieldName_.length(),list_,list_,_parts,fieldNameOffest_);
         } else {
             if (!list_.isEmpty()) {
                 String tag_ = "<a name=\"m"+ _cond.getFieldNameOffest() +"\" title=\""+err_+"\" class=\"e\">";
@@ -1854,13 +1790,17 @@ public final class LinkageUtil {
                 par_ = par_.getParent();
             }
             MethodOperation parentBefore_ = before_.getParent();
-            if (parentBefore_ == null || before_.getIndexChild() > 0) {
-                Argument firstArg_;
-                if (parentBefore_ == null) {
-                    firstArg_ = before_.getArgument();
-                } else {
-                    firstArg_ = parentBefore_.getFirstChild().getArgument();
+            if (parentBefore_ == null){
+                AbstractCoverageResult resultPar_ = getCovers(_cont, _block, par_);
+                if (resultPar_.isPartialCovered()) {
+                    tag_ = getFullInit(resultPar_);
+                    return tag_;
                 }
+                tag_ = "<span class=\"n\">";
+                return tag_;
+            }
+            if (before_.getIndexChild() > 0) {
+                Argument firstArg_ = parentBefore_.getFirstChild().getArgument();
                 if (firstArg_ == null) {
                     if (parentBefore_ instanceof QuickOperation) {
                         par_ = before_;
@@ -3128,6 +3068,17 @@ public final class LinkageUtil {
                                  StringList _errors,
                                  StringList _title,
                                  CustList<PartOffset> _parts) {
+        addParts(_cont, _currentFileName, _className,
+                _id, _begin, _length,
+        _errors,
+        _title,
+        _parts,-1);
+    }
+    private static void addParts(ContextEl _cont, String _currentFileName, String _className,
+                                 Identifiable _id, int _begin, int _length,
+                                 StringList _errors,
+                                 StringList _title,
+                                 CustList<PartOffset> _parts, int _name) {
         if (_id == null) {
             if (!_errors.isEmpty()) {
                 String tag_;
@@ -3153,12 +3104,12 @@ public final class LinkageUtil {
         String tag_;
         if (_id instanceof MethodId) {
             if (!StringList.isDollarWord(_id.getName()) && !_id.getName().startsWith("[]")) {
-                tag_ = "<a title=\""+ merge(_title,_id.getSignature(_cont))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
+                tag_ = "<a"+name(_name)+"title=\""+ merge(_title,_id.getSignature(_cont))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
             } else {
-                tag_ = "<a title=\""+ merge(_title,cl_ +"."+ _id.getSignature(_cont))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
+                tag_ = "<a"+name(_name)+"title=\""+ merge(_title,cl_ +"."+ _id.getSignature(_cont))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
             }
         } else {
-            tag_ = "<a title=\""+ merge(_title,cl_ +"."+ _id.getSignature(_cont))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
+            tag_ = "<a"+name(_name)+"title=\""+ merge(_title,cl_ +"."+ _id.getSignature(_cont))+"\" href=\""+rel_+"\""+classErr(_errors)+">";
         }
         _parts.add(new PartOffset(tag_,_begin));
         tag_ = "</a>";
@@ -3171,6 +3122,12 @@ public final class LinkageUtil {
         return transform(StringList.join(list_,"\n\n"));
     }
 
+    private static String name(int _name) {
+        if (_name < 0) {
+            return " ";
+        }
+        return " name=\"m"+_name+"\" ";
+    }
     private static String classErr(StringList _errors) {
         if (_errors.isEmpty()) {
             return "";

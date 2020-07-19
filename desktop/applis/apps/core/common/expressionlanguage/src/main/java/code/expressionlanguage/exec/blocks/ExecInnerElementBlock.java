@@ -54,11 +54,6 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     }
 
     @Override
-    public int getFieldNameOffset() {
-        return fieldNameOffest;
-    }
-
-    @Override
     public String getImportedClassName() {
         return importedClassName;
     }

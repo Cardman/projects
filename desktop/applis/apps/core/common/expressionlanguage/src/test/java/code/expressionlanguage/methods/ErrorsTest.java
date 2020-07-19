@@ -1222,7 +1222,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MySub </a>{\n" +
                 " <a name=\"m27\" title=\"The field name #ONE is not valid. It must be a word.\n" +
                 "\n" +
-                "pkg.MySub.pkg.MySub()\" href=\"#m34\">#ONE</a>;\n" +
+                "pkg.MySub.pkg.MySub()\" href=\"#m34\" class=\"e\">#ONE</a>;\n" +
                 " <a name=\"m34\">$public MySub(</a>){}\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
