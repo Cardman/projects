@@ -4,28 +4,21 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.analyze.opers.*;
-import code.expressionlanguage.exec.util.ToStringMethodHeader;
-import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.opers.util.ParametersGroup;
-import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public abstract class ExecOperationNode {
 
@@ -73,117 +66,6 @@ public abstract class ExecOperationNode {
         indexChild = _indexChild;
         resultClass = _res;
         order = _order;
-    }
-
-    public static ClassMethodIdReturn tryGetDeclaredToString(ContextEl _conf, String _class) {
-        CustList<MethodInfo> methods_;
-        methods_ = new CustList<MethodInfo>();
-        String baseCurName_ = StringExpUtil.getIdFromAllTypes(_class);
-        ExecRootBlock root_ = _conf.getClasses().getClassBody(baseCurName_);
-        if (root_ != null) {
-            fetchToStringMethods(_conf,root_,baseCurName_,methods_);
-        }
-        return getCustResultExec(_conf, methods_);
-    }
-
-    private static ClassMethodIdReturn getCustResultExec(ContextEl _conf,
-                                                         CustList<MethodInfo> _methods) {
-        Parametrable found_ = getFoundMethodExec(_methods, _conf);
-        if (!(found_ instanceof MethodInfo)) {
-            return new ClassMethodIdReturn(false);
-        }
-        MethodInfo m_ = (MethodInfo) found_;
-        MethodId constraints_ = m_.getConstraints();
-        String baseClassName_ = m_.getClassName();
-        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
-        MethodId id_ = m_.getFoundFormatted();
-        res_.setId(new ClassMethodId(baseClassName_, id_));
-        res_.setRealId(constraints_);
-        res_.setRealClass(baseClassName_);
-        res_.setReturnType(m_.getReturnType());
-        res_.setAncestor(m_.getAncestor());
-        res_.setAbstractMethod(m_.isAbstractMethod());
-        res_.setStaticMethod(m_.isStatic());
-        return res_;
-    }
-
-    private static Parametrable getFoundMethodExec(CustList<MethodInfo> _fct, ContextEl _context) {
-        CustList<MethodInfo> nonAbs_ = new CustList<MethodInfo>();
-        CustList<MethodInfo> finals_ = new CustList<MethodInfo>();
-        for (MethodInfo p: _fct) {
-            if (!p.isFinalMethod()) {
-                continue;
-            }
-            finals_.add(p);
-        }
-        if (finals_.size() == 1) {
-            return finals_.first();
-        }
-        for (MethodInfo p: _fct) {
-            if (p.isAbstractMethod()) {
-                continue;
-            }
-            String type_ = p.getClassName();
-            if (_context.getClassBody(type_) instanceof GeneInterface) {
-                continue;
-            }
-            nonAbs_.add(p);
-        }
-        if (nonAbs_.size() == 1) {
-            return nonAbs_.first();
-        }
-        nonAbs_.clear();
-        for (MethodInfo p: _fct) {
-            if (p.isAbstractMethod()) {
-                continue;
-            }
-            nonAbs_.add(p);
-        }
-        if (nonAbs_.size() == 1) {
-            return nonAbs_.first();
-        }
-        StringList sub_ = new StringList();
-        StringMap<MethodInfo> meths_ = new StringMap<MethodInfo>();
-        for (MethodInfo p: _fct) {
-            String cl_ = p.getClassName();
-            meths_.addEntry(cl_,p);
-            sub_.add(cl_);
-        }
-        sub_ = PrimitiveTypeUtil.getSubclasses(sub_,_context);
-        if (!sub_.onlyOneElt()) {
-            return null;
-        }
-        return meths_.getVal(sub_.first());
-    }
-
-    private static void fetchToStringMethods(ContextEl _conf, ExecRootBlock _root, String _cl, CustList<MethodInfo> _methods) {
-        StringList geneSuperTypes_ = new StringList();
-        geneSuperTypes_.add(_cl);
-        geneSuperTypes_.addAllElts(_root.getAllSuperTypes());
-        for (String t: geneSuperTypes_) {
-            ToStringMethodHeader toString_ = _conf.getClasses().getToStringMethods().getVal(t);
-            if (toString_ == null) {
-                continue;
-            }
-            _methods.add(buildMethodToStringInfo(toString_, t));
-        }
-    }
-
-    private static MethodInfo buildMethodToStringInfo(ToStringMethodHeader _m, String _formattedClass) {
-        String ret_ = _m.getImportedReturnType();
-        ParametersGroup p_ = new ParametersGroup();
-        MethodId id_ = _m.getId();
-        MethodInfo mloc_ = new MethodInfo();
-        mloc_.setClassName(_formattedClass);
-        mloc_.setStaticMethod(id_.getKind());
-        mloc_.setAbstractMethod(_m.isAbstractMethod());
-        mloc_.setFinalMethod(_m.isFinalMethod());
-        mloc_.setConstraints(id_);
-        mloc_.setParameters(p_);
-        mloc_.setReturnType(ret_);
-        mloc_.setAncestor(0);
-        mloc_.formatWithoutParams();
-        return mloc_;
     }
 
     static int processConverter(ContextEl _conf, Argument _right, CustList<ClassMethodId> implicits_, int indexImplicit_) {
@@ -810,26 +692,30 @@ public abstract class ExecOperationNode {
     }
     public static Argument processString(Argument _argument, ContextEl _conf) {
         Argument out_ = new Argument();
-        out_.setStruct(_argument.getStruct());
-        Struct struct_ = _argument.getStruct();
+        Struct struct_ = Argument.getNullableValue(_argument).getStruct();
+        out_.setStruct(struct_);
         if (struct_ instanceof DisplayableStruct) {
             out_.setStruct(((DisplayableStruct)struct_).getDisplayedString(_conf));
             return out_;
         }
         String argClassName_ = _conf.getStandards().getStructClassName(struct_, _conf);
-        ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(_conf, argClassName_);
-        if (resDyn_.isFoundMethod()) {
-            String foundClass_ = resDyn_.getRealClass();
-            MethodId id_ = resDyn_.getRealId();
-            ClassMethodId methodId_ = new ClassMethodId(foundClass_, id_);
-            ClassMethodId polymorph_ = ExecInvokingOperation.polymorph(_conf, struct_, methodId_);
-            String className_ = polymorph_.getClassName();
-            className_ = Templates.getOverridingFullTypeByBases(argClassName_,className_,_conf);
-            MethodId ct_ = polymorph_.getConstraints();
-            _conf.setCallingState(new CustomFoundMethod(out_,className_,ct_,new CustList<Argument>(),null));
+        String idCl_ = StringExpUtil.getIdFromAllTypes(argClassName_);
+        ClassMethodId val_ = _conf.getClasses().getToStringMethodsToCall().getVal(idCl_);
+        String clCall_ = "";
+        MethodId methodCall_ = new MethodId(MethodAccessKind.STATIC,"", new StringList());
+        if (val_ != null) {
+            ClassMethodId polymorph_ = ExecInvokingOperation.polymorph(_conf, struct_, val_);
+            clCall_ = polymorph_.getClassName();
+            methodCall_ = polymorph_.getConstraints();
+        } else {
+            argClassName_ = " ";
+        }
+        clCall_ = Templates.getOverridingFullTypeByBases(argClassName_,clCall_,_conf);
+        if (clCall_.isEmpty()) {
+            out_.setStruct(_conf.getStandards().getStringOfObject(_conf,struct_));
             return out_;
         }
-        out_.setStruct(_conf.getStandards().getStringOfObject(_conf,struct_));
+        _conf.setCallingState(new CustomFoundMethod(out_,clCall_,methodCall_,new CustList<Argument>(),null));
         return out_;
     }
 

@@ -11,7 +11,6 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CastOperation;
 import code.expressionlanguage.analyze.opers.ExplicitOperation;
-import code.expressionlanguage.analyze.opers.LambdaOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodId;
@@ -44,16 +43,16 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
 
     Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
-        Argument objArg_ = _arguments.first();
+        Argument objArg_ = new Argument();
+        objArg_.setStruct(_arguments.first().getStruct());
         String paramName_ = _conf.getLastPage().formatVarType(className, _conf);
-        wrapFct(paramName_,false,_arguments,_conf);
+        wrapFct(paramName_,false, _conf, objArg_);
         ExecTemplates.checkObject(paramName_, objArg_, _conf);
         return objArg_;
     }
-    public static void wrapFct(String _className, boolean _full,CustList<Argument> _arguments, ContextEl _conf) {
-        Argument objArg_ = _arguments.first();
+    public static void wrapFct(String _className, boolean _full, ContextEl _conf, Argument _objArg) {
         if (ExplicitOperation.customCast(_className)) {
-            Struct str_ = objArg_.getStruct();
+            Struct str_ = _objArg.getStruct();
             if (str_ instanceof LambdaStruct) {
                 String id_ = StringExpUtil.getIdFromAllTypes(_className);
                 GeneType r_ = _conf.getClassBody(id_);
@@ -94,14 +93,14 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         parmMe_.setRealClass(gene_);
                         String fctParam_ = formatReturn(EMPTY_STRING,_conf, parmMe_, false);
                         fctParam_ = Templates.quickFormat(geneFor_,fctParam_,_conf);
-                        String argCl_ = objArg_.getObjectClassName(_conf);
+                        String argCl_ = _objArg.getObjectClassName(_conf);
                         if (ExecTemplates.isCorrectExecute(argCl_,fctParam_,_conf)) {
                             if (_full) {
                                 AbstractFunctionalInstance struct_ = _conf.getStandards().newFullFunctionalInstance(_className,(LambdaStruct) str_,_conf);
-                                objArg_.setStruct(struct_);
+                                _objArg.setStruct(struct_);
                             } else {
                                 AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,(LambdaStruct) str_,_conf);
-                                objArg_.setStruct(struct_);
+                                _objArg.setStruct(struct_);
                             }
                         }
                     }

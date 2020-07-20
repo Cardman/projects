@@ -3297,7 +3297,8 @@ public final class LinkageUtil {
             if (cl_ instanceof ExecAnnotationBlock) {
                 continue;
             }
-            if (ExecOperationNode.tryGetDeclaredToString(_cont,s).isFoundMethod()) {
+            ClassMethodId val_ = _cont.getClasses().getToStringMethodsToCall().getVal(id_);
+            if (val_ != null) {
                 return true;
             }
         }

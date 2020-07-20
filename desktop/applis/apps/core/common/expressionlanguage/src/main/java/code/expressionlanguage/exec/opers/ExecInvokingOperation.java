@@ -13,7 +13,6 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.analyze.opers.InvokingOperation;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
@@ -168,13 +167,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         MethodId id_ = _classMethodId.getConstraints();
         ExecRootBlock info_ = _conf.getClasses().getClassBody(classNameFound_);
         MethodId methodId_;
-        if (info_ == null
-                || ((GeneCustModifierMethod) ExecBlock.getMethodBodiesById(_conf, classNameFound_, id_).first()).isFinalMethod()) {
+        if (info_ == null) {
             classNameFound_ = _classMethodId.getClassName();
             methodId_ = id_;
         } else {
-            StringMap<ClassMethodId> overriding_ = TypeUtil.getConcreteMethodsToCall(info_,id_, _conf);
-            ClassMethodId res_ = overriding_.getVal(base_);
+            ClassMethodId res_ = info_.getRedirections().getVal(_classMethodId,base_);
             if (res_ != null) {
                 classNameFound_ = res_.getClassName();
                 methodId_ = res_.getConstraints();
@@ -193,11 +190,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_cont.callsOrException()) {
             return Argument.createVoid();
         }
-        if (_right != null) {
-            _cont.setCallingState(new CustomFoundMethod(_previous, classFound_, _methodId, _firstArgs,_right));
-            return Argument.createVoid();
-        }
-        if (!StringList.isDollarWord(_methodId.getName())) {
+        if (FunctionIdUtil.isOperatorName(_methodId)) {
             _cont.setCallingState(new CustomFoundMethod(_previous, classFound_, _methodId, _firstArgs,null));
             return Argument.createVoid();
         }
@@ -545,7 +538,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _cont.setCallingState(new CustomFoundCast(classFound_, _methodId, _firstArgs));
             return Argument.createVoid();
         }
-        _cont.setCallingState(new CustomFoundMethod(_previous, classFound_, _methodId, _firstArgs, null));
+        _cont.setCallingState(new CustomFoundMethod(_previous, classFound_, _methodId, _firstArgs, _right));
         return Argument.createVoid();
     }
 
@@ -734,9 +727,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (static_) {
                 realInstance_ = new Argument();
             } else if (!l_.isShiftInstance()) {
-                realInstance_ = instance_;
+                realInstance_ = new Argument();
+                realInstance_.setStruct(instance_.getStruct());
             } else {
-                realInstance_ = _values.first();
+                realInstance_ = new Argument();
+                realInstance_.setStruct(_values.first().getStruct());
             }
             if (!static_) {
                 Struct value_ = realInstance_.getStruct();
@@ -779,7 +774,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             m_.setExpCast(l_.isExpCast());
             Argument pr_ = new Argument();
             pr_.setStruct(m_);
-            Argument instance_ = l_.getInstanceCall();
+            Argument instance_ = new Argument();
+            instance_.setStruct(l_.getInstanceCall().getStruct());
             if (l_.isSafeInstance()&&instance_.isNull()) {
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
                 return new Argument(PrimitiveTypeUtil.defaultValue(last_,_conf));
@@ -825,7 +821,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 i_++;
             }
             CustList<Argument> nList_ = new CustList<Argument>();
-            Argument firstValue_ = _values.first();
+            Argument firstValue_ = new Argument();
+            firstValue_.setStruct(_values.first().getStruct());
             Struct value_ = firstValue_.getStruct();
             firstValue_.setStruct(ExecTemplates.getParent(nbAncestors_, id_, value_, _conf));
             if (_conf.callsOrException()) {

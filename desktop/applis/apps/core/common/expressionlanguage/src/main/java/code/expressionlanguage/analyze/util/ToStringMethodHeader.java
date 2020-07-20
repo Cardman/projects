@@ -1,4 +1,4 @@
-package code.expressionlanguage.exec.util;
+package code.expressionlanguage.analyze.util;
 
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;

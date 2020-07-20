@@ -28,11 +28,6 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
         kind = _offset.getKind();
     }
 
-    @Override
-    public boolean isFinalMethod() {
-        return finalMethod;
-    }
-
     public boolean isAbstractMethod() {
         return abstractMethod;
     }

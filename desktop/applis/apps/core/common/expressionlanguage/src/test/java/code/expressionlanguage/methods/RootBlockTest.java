@@ -7,11 +7,10 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.inherits.TypeUtil;
+import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.exec.types.OverridingMethod;
 import code.util.*;
 import org.junit.Test;
 
@@ -144,7 +143,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("#T")));
         assertEq(2, superTypes_.size());
@@ -173,14 +172,10 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq(resId_, res_.getConstraints());
     }
 
-    private static CustList<OverridingMethod> getAllOverridingMethods(ContextEl cont_, String _className) {
-        CustList<OverridingMethod> out_ = new CustList<OverridingMethod>();
+    private static CustList<OverridingMethodDto> getAllOverridingMethods(ContextEl cont_, String _className) {
+        CustList<OverridingMethodDto> out_ = new CustList<OverridingMethodDto>();
         for (OverridingMethodDto o: getClassBody(cont_, _className).getAllOverridingMethods()) {
-            OverridingMethod elt_ = new OverridingMethod(o.getFormattedMethodId());
-            for (GeneStringOverridable g:o.getMethodIds()) {
-                elt_.getMethodIds().add(new ClassMethodId(g.getGeneString(),g.getBlock().getId()));
-            }
-            out_.add(elt_);
+            out_.add(o);
         }
         return out_;
     }
@@ -202,7 +197,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(0, map_.size());
         StringList superTypes_;
         map_ = getAllOverridingMethods(cont_, "pkg.Ex");
@@ -246,7 +241,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("java.lang.String")));
         assertEq(2, superTypes_.size());
@@ -278,7 +273,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList()));
         assertEq(2, superTypes_.size());
@@ -309,7 +304,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList()));
         assertEq(2, superTypes_.size());
@@ -340,7 +335,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList()));
         assertEq(2, superTypes_.size());
@@ -377,7 +372,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("#T")));
         assertEq(3, superTypes_.size());
@@ -434,7 +429,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("#T")));
         assertEq(2, superTypes_.size());
@@ -493,7 +488,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("#T")));
         assertEq(2, superTypes_.size());
@@ -524,7 +519,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("#T")));
         assertEq(2, superTypes_.size());
@@ -559,7 +554,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#F")));
         assertEq(2, superTypes_.size());
@@ -669,7 +664,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList()));
         assertEq(2, superTypes_.size());
@@ -725,7 +720,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkgtwo.ExThree");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkgtwo.ExThree");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList()));
         assertEq(3, superTypes_.size());
@@ -763,7 +758,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         StringList superTypes_;
         assertEq(1, map_.size());
         superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList()));
@@ -820,7 +815,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("#T")));
         assertEq(1, superTypes_.size());
@@ -870,7 +865,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("#T")));
         assertEq(1, superTypes_.size());
@@ -903,7 +898,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(0, map_.size());
         StringList superTypes_;
         map_ = getAllOverridingMethods(cont_, "pkg.Ex");
@@ -949,7 +944,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_;
         superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("#T")));
@@ -1013,7 +1008,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_;
         superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("#T")));
@@ -1081,7 +1076,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_;
         superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("#T")));
@@ -1145,7 +1140,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
         StringList superTypes_;
         superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("#T")));
@@ -1190,7 +1185,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
     private static StringMap<ClassMethodId> getConcreteMethodsToCall(ContextEl cont_, MethodId id_, RootBlock r_) {
-        StringMap<ClassMethodId> conc_ = TypeUtil.getConcreteMethodsToCall(cont_.getClassBody(r_.getFullName()), id_, cont_);
+        StringMap<ClassMethodId> conc_ = OverridesTypeUtil.getConcreteMethodsToCall(cont_.getAnalyzing().getAnaClassBody(r_.getFullName()), id_, cont_);
         StringMap<ClassMethodId> tr_ = new StringMap<ClassMethodId>();
         for (EntryCust<String,ClassMethodId> e: conc_.entryList()) {
             ClassMethodId value_ = e.getValue();
@@ -1252,7 +1247,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         checkOverrides(cont_);
-        CustList<OverridingMethod> map_ = getAllOverridingMethods(cont_, "pkg.ExFour");
+        CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExFour");
         assertEq(1, map_.size());
         StringList superTypes_ = listOfTypes(map_, new MethodId(MethodAccessKind.INSTANCE, "instancemethod", new StringList("#U")));
         assertEq(4, superTypes_.size());
@@ -1807,15 +1802,15 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
 
-    private static StringList listOfTypes(CustList<OverridingMethod> map_, MethodId _id) {
+    private static StringList listOfTypes(CustList<OverridingMethodDto> map_, MethodId _id) {
         StringList l_ = new StringList();
-        for (OverridingMethod o: map_) {
+        for (OverridingMethodDto o: map_) {
             if (o.getFormattedMethodId().eq(MethodId.to(_id))) {
-                for (ClassMethodId i : o.getMethodIds()) {
-                    if (StringList.contains(l_,i.getClassName())) {
+                for (GeneStringOverridable i : o.getMethodIds()) {
+                    if (StringList.contains(l_,i.getGeneString())) {
                         continue;
                     }
-                    l_.add(i.getClassName());
+                    l_.add(i.getGeneString());
                 }
             }
         }

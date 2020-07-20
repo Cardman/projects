@@ -83,7 +83,7 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
     }
 
     static Argument getArgument(CustList<Argument> _arguments, String _className, PageEl _page, ContextEl _conf) {
-        Argument objArg_ = _arguments.first();
+        Argument objArg_ = new Argument(_arguments.first().getStruct());
         String paramName_ = _page.formatVarType(_className, _conf);
         ExecTemplates.checkObject(paramName_, objArg_, _conf);
         return objArg_;

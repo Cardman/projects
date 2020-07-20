@@ -89,8 +89,9 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Argument last_ = getArgument(_nodes,lastElement_);
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
-        a_.setStruct(compoundAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _right, _conf));
-        return a_;
+        Argument o_ = new Argument();
+        o_.setStruct(compoundAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _right, _conf));
+        return o_;
     }
 
     @Override

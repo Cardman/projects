@@ -9,6 +9,9 @@ import code.expressionlanguage.analyze.accessing.OperatorAccessor;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.opers.util.ParametersGroup;
+import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingSuperTypes;
@@ -25,11 +28,12 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.files.FileResolver;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
@@ -49,6 +53,147 @@ public final class ClassesUtil {
         builtTypes(_files, _context, false);
     }
 
+    public static void postValidation(ContextEl _context) {
+        StringMap<ClassMethodId> toStringMethodsToCall_ = _context.getClasses().getToStringMethodsToCall();
+        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getAllMapTypes().entryList()) {
+            ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(_context, e.getKey());
+            if (resDyn_.isFoundMethod()) {
+                String foundClass_ = resDyn_.getRealClass();
+                MethodId id_ = resDyn_.getRealId();
+                ClassMethodId methodId_ = new ClassMethodId(foundClass_, id_);
+                toStringMethodsToCall_.addEntry(e.getKey().getFullName(),methodId_);
+            }
+        }
+        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getAllMapTypes().entryList()) {
+            IdMap<OverridableBlock, ExecOverridableBlock> allMethods_ = _context.getAnalyzing().getAllMapMembers().getValue(e.getKey().getNumberAll()).getAllMethods();
+            ClassMethodIdOverrides redirections_ = e.getValue().getRedirections();
+            String fullName_ = e.getKey().getFullName();
+            for (EntryCust<OverridableBlock,ExecOverridableBlock> f: allMethods_.entryList()) {
+                OverridableBlock key_ = f.getKey();
+                if (key_.hiddenInstance()) {
+                    continue;
+                }
+                if (key_.isFinalMethod()) {
+                    continue;
+                }
+                MethodId id_ = key_.getId();
+                ClassMethodIdOverride override_ = new ClassMethodIdOverride(new ClassMethodId(fullName_, id_));
+                StringMap<ClassMethodId> map_ = OverridesTypeUtil.getConcreteMethodsToCall(e.getKey(), id_, _context);
+                for (EntryCust<String,ClassMethodId> g: map_.entryList()) {
+                    override_.put(g.getKey(),g.getValue());
+                }
+                redirections_.add(override_);
+            }
+        }
+    }
+
+    private static ClassMethodIdReturn tryGetDeclaredToString(ContextEl _conf, RootBlock _class) {
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
+        String baseCurName_ = _class.getFullName();
+        fetchToStringMethods(_conf,_class,baseCurName_,methods_);
+        return getCustResultExec(_conf, methods_);
+    }
+
+    private static ClassMethodIdReturn getCustResultExec(ContextEl _conf,
+                                                         CustList<MethodInfo> _methods) {
+        Parametrable found_ = getFoundMethodExec(_methods, _conf);
+        if (!(found_ instanceof MethodInfo)) {
+            return new ClassMethodIdReturn(false);
+        }
+        MethodInfo m_ = (MethodInfo) found_;
+        MethodId constraints_ = m_.getConstraints();
+        String baseClassName_ = m_.getClassName();
+        ClassMethodIdReturn res_ = new ClassMethodIdReturn(true);
+        MethodId id_ = m_.getFoundFormatted();
+        res_.setId(new ClassMethodId(baseClassName_, id_));
+        res_.setRealId(constraints_);
+        res_.setRealClass(baseClassName_);
+        res_.setReturnType(m_.getReturnType());
+        res_.setAncestor(m_.getAncestor());
+        res_.setAbstractMethod(m_.isAbstractMethod());
+        res_.setStaticMethod(m_.isStatic());
+        return res_;
+    }
+
+    private static Parametrable getFoundMethodExec(CustList<MethodInfo> _fct, ContextEl _context) {
+        CustList<MethodInfo> nonAbs_ = new CustList<MethodInfo>();
+        CustList<MethodInfo> finals_ = new CustList<MethodInfo>();
+        for (MethodInfo p: _fct) {
+            if (!p.isFinalMethod()) {
+                continue;
+            }
+            finals_.add(p);
+        }
+        if (finals_.size() == 1) {
+            return finals_.first();
+        }
+        for (MethodInfo p: _fct) {
+            if (p.isAbstractMethod()) {
+                continue;
+            }
+            String type_ = p.getClassName();
+            if (_context.getAnalyzing().getAnaClassBody(type_) instanceof InterfaceBlock) {
+                continue;
+            }
+            nonAbs_.add(p);
+        }
+        if (nonAbs_.size() == 1) {
+            return nonAbs_.first();
+        }
+        nonAbs_.clear();
+        for (MethodInfo p: _fct) {
+            if (p.isAbstractMethod()) {
+                continue;
+            }
+            nonAbs_.add(p);
+        }
+        if (nonAbs_.size() == 1) {
+            return nonAbs_.first();
+        }
+        StringList sub_ = new StringList();
+        StringMap<MethodInfo> meths_ = new StringMap<MethodInfo>();
+        for (MethodInfo p: _fct) {
+            String cl_ = p.getClassName();
+            meths_.addEntry(cl_,p);
+            sub_.add(cl_);
+        }
+        sub_ = PrimitiveTypeUtil.getSubclasses(sub_,_context);
+        if (!sub_.onlyOneElt()) {
+            return null;
+        }
+        return meths_.getVal(sub_.first());
+    }
+
+    private static void fetchToStringMethods(ContextEl _conf, RootBlock _root, String _cl, CustList<MethodInfo> _methods) {
+        StringList geneSuperTypes_ = new StringList();
+        geneSuperTypes_.add(_cl);
+        geneSuperTypes_.addAllElts(_root.getAllSuperTypes());
+        for (String t: geneSuperTypes_) {
+            ToStringMethodHeader toString_ = _conf.getAnalyzing().getToStringMethods().getVal(t);
+            if (toString_ == null) {
+                continue;
+            }
+            _methods.add(buildMethodToStringInfo(toString_, t));
+        }
+    }
+
+    private static MethodInfo buildMethodToStringInfo(ToStringMethodHeader _m, String _formattedClass) {
+        String ret_ = _m.getImportedReturnType();
+        ParametersGroup p_ = new ParametersGroup();
+        MethodId id_ = _m.getId();
+        MethodInfo mloc_ = new MethodInfo();
+        mloc_.setClassName(_formattedClass);
+        mloc_.setStaticMethod(id_.getKind());
+        mloc_.setAbstractMethod(_m.isAbstractMethod());
+        mloc_.setFinalMethod(_m.isFinalMethod());
+        mloc_.setConstraints(id_);
+        mloc_.setParameters(p_);
+        mloc_.setReturnType(ret_);
+        mloc_.setAncestor(0);
+        mloc_.formatWithoutParams();
+        return mloc_;
+    }
     public static void buildPredefinedBracesBodies(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         StringMap<String> files_ = stds_.buildFiles(_context);
@@ -282,35 +427,45 @@ public final class ClassesUtil {
         page_.getHeaders().getAllFound().add(_root);
         if (_root instanceof ClassBlock) {
             ExecClassBlock e_ = new ExecClassBlock((ClassBlock) _root);
+            _root.setNumberAll(page_.getAllMapTypes().size());
             page_.getMapTypes().put(_root, e_);
+            page_.getAllMapTypes().put(_root, e_);
             page_.getMapTypesUniqType().put((ClassBlock) _root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
         if (_root instanceof EnumBlock) {
             ExecEnumBlock e_ = new ExecEnumBlock(_root);
+            _root.setNumberAll(page_.getAllMapTypes().size());
             page_.getMapTypes().put(_root, e_);
+            page_.getAllMapTypes().put(_root, e_);
             page_.getMapTypesUniqType().put((EnumBlock) _root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
         if (_root instanceof InterfaceBlock) {
             ExecInterfaceBlock e_ = new ExecInterfaceBlock(_root);
+            _root.setNumberAll(page_.getAllMapTypes().size());
             page_.getMapTypes().put(_root, e_);
+            page_.getAllMapTypes().put(_root, e_);
             page_.getMapInterfaces().put(_root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
         if (_root instanceof AnnotationBlock) {
             ExecAnnotationBlock e_ = new ExecAnnotationBlock(_root);
+            _root.setNumberAll(page_.getAllMapTypes().size());
             page_.getMapTypes().put(_root, e_);
+            page_.getAllMapTypes().put(_root, e_);
             page_.getMapInterfaces().put(_root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
         if (_root instanceof InnerElementBlock) {
             ExecInnerElementBlock e_ = new ExecInnerElementBlock((InnerElementBlock) _root);
+            _root.setNumberAll(page_.getAllMapTypes().size());
             page_.getMapTypes().put(_root, e_);
+            page_.getAllMapTypes().put(_root, e_);
             page_.getMapTypesUniqType().put((InnerElementBlock) _root, e_);
             page_.getMapInnerEltTypes().put((InnerElementBlock) _root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
@@ -400,6 +555,7 @@ public final class ClassesUtil {
                 }
             }
             page_.getMapMembers().addEntry(k_, mem_);
+            page_.getAllMapMembers().addEntry(k_, mem_);
         }
         StringList pkgFound_ = _context.getAnalyzing().getPackagesFound();
         pkgFound_.addAllElts(getPackages(_context));

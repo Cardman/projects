@@ -941,6 +941,20 @@ public final class TemplatesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<#E>", superTypes_.get(0));
     }
 
+    @Test
+    public void getOverridingFullTypeByBasesTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        assertEq("", Templates.getOverridingFullTypeByBases("Inex","",cont_));
+    }
+
+    @Test
+    public void getSuperInterfaceNamesTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        assertEq(0, Templates.getSuperInterfaceNames("",cont_).size());
+    }
+
     private static ContextEl unfullValidateOverridingMethodsStd(StringMap<String> _files) {
         ContextEl cont_ = contextEnElDefault();
         return getContextEl(_files, cont_);

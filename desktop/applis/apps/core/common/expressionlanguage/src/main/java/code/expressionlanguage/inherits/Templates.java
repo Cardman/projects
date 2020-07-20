@@ -1,6 +1,7 @@
 package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -164,9 +165,28 @@ public final class Templates {
         if (StringList.quickEq(idArg_,idSuperType_)) {
             return _subType;
         }
-        String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
+        GeneType classBody_ = _context.getClassBody(idArg_);
+        if (classBody_ == null) {
+            return "";
+        }
+        String geneSubType_ = classBody_.getGenericString();
         String generic_ = getSuperGeneric(_context, 0, idSuperType_, geneSubType_);
         return quickFormat(_subType, generic_, _context);
+    }
+
+    public static String getOverridingFullTypeByBases(AnaGeneType _subType, String _superType, ContextEl _context) {
+        String geneSubType_ = _subType.getGenericString();
+        return getInternOverriding(_superType, _context, geneSubType_);
+    }
+
+    private static String getInternOverriding(String _superType, ContextEl _context, String _geneSubType) {
+        String idArg_ = StringExpUtil.getIdFromAllTypes(_geneSubType);
+        String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
+        if (StringList.quickEq(idArg_,idSuperType_)) {
+            return _geneSubType;
+        }
+        String generic_ = getSuperGeneric(_context, 0, idSuperType_, _geneSubType);
+        return quickFormat(_geneSubType, generic_, _context);
     }
 
 
@@ -286,7 +306,10 @@ public final class Templates {
         if (r_ instanceof ExecRootBlock) {
             return ((ExecRootBlock)r_).getImportedDirectSuperTypes();
         }
-        return ((StandardType)r_).getDirectSuperTypes();
+        if (r_ instanceof StandardType) {
+            return ((StandardType)r_).getDirectSuperTypes();
+        }
+        return new StringList();
     }
 
     /**Checks nb parameters of the most wrapping type<br/>

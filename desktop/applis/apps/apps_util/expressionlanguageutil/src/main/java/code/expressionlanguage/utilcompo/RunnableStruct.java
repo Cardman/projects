@@ -6,10 +6,10 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.inherits.TypeUtil;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.stds.LgNames;
@@ -97,9 +97,15 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     }
     public static void invoke(Struct _instance,RunnableContextEl _r, String _typeName, String _methName, StringList _argTypes, CustList<Argument> _args) {
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, _methName, _argTypes);
-        GeneType type_ = _r.getClassBody(StringExpUtil.getIdFromAllTypes(_typeName));
+        String idType_ = StringExpUtil.getIdFromAllTypes(_typeName);
+        GeneType type_ = _r.getClassBody(idType_);
+        if (!(type_ instanceof ExecRootBlock)) {
+            _r.getCustInit().removeThreadFromList(_r);
+            return;
+        }
         String base_ = StringExpUtil.getIdFromAllTypes(_instance.getClassName(_r));
-        ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, _r).getVal(base_);
+        ExecRootBlock ex_ = (ExecRootBlock) type_;
+        ClassMethodId mId_ = ex_.getRedirections().getVal(new ClassMethodId(idType_,id_),base_);
         if (mId_ == null) {
             _r.getCustInit().removeThreadFromList(_r);
             return;

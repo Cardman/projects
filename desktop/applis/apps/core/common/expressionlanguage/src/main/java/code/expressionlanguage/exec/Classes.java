@@ -6,10 +6,12 @@ import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.util.Members;
+import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.util.ToStringMethodHeader;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.structs.*;
@@ -21,7 +23,7 @@ public final class Classes {
     private final StringMap<String> resources;
 
     private StringMap<StringMap<Struct>> staticFields;
-    private final StringMap<ToStringMethodHeader> toStringMethods = new StringMap<ToStringMethodHeader>();
+    private final StringMap<ClassMethodId> toStringMethodsToCall = new StringMap<ClassMethodId>();
 
     private DefaultLockingClass locks;
     private String iteratorVarCust;
@@ -83,12 +85,21 @@ public final class Classes {
         CustList<RootBlock> foundTypes_ = _context.getAnalyzing().getFoundTypes();
         CustList<RootBlock> allFoundTypes_ = _context.getAnalyzing().getAllFoundTypes();
         CustList<FileBlock> fs_ = _context.getAnalyzing().getErrors().getFiles();
+        IdMap<RootBlock, ExecRootBlock> old_ = _context.getAnalyzing().getAllMapTypes();
+        IdMap<RootBlock, Members> oldMembers_ = _context.getAnalyzing().getMapMembers();
+        StringMap<ToStringMethodHeader> oldToString_ = _context.getAnalyzing().getToStringMethods();
         _context.setAnalyzing();
+        _context.getAnalyzing().getAllMapMembers().putAllMap(oldMembers_);
+        _context.getAnalyzing().getToStringMethods().putAllMap(oldToString_);
+        _context.getAnalyzing().getAllMapTypes().putAllMap(old_);
         _context.getAnalyzing().setHeaders(headers_);
         _context.getAnalyzing().getErrors().getFiles().addAllElts(fs_);
         _context.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         _context.getAnalyzing().getAllFoundTypes().addAllElts(allFoundTypes_);
         ClassesUtil.tryValidateCustom(_files, _context);
+        oldMembers_ = _context.getAnalyzing().getMapMembers();
+        _context.getAnalyzing().getAllMapMembers().putAllMap(oldMembers_);
+        ClassesUtil.postValidation(_context);
         if (_context.isGettingErrors()) {
             _context.getOptions().setErrors(ExecFileBlock.errors(_context));
         }
@@ -340,8 +351,8 @@ public final class Classes {
         expsSecondCust = _expsSecondCust;
     }
 
-    public StringMap<ToStringMethodHeader> getToStringMethods() {
-        return toStringMethods;
+    public StringMap<ClassMethodId> getToStringMethodsToCall() {
+        return toStringMethodsToCall;
     }
 
     public StringMap<ExecRootBlock> getClassesBodies() {

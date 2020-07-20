@@ -11,7 +11,6 @@ import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.types.OverridingMethod;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -166,13 +165,6 @@ public final class AnaTypeUtil {
                     addClass(_type.getAllOverridingMethods(), key_, supId_);
                 }
             }
-        }
-        for (OverridingMethodDto o: _type.getAllOverridingMethods()) {
-            OverridingMethod elt_ = new OverridingMethod(o.getFormattedMethodId());
-            for (GeneStringOverridable g:o.getMethodIds()) {
-                elt_.getMethodIds().add(new ClassMethodId(g.getGeneString(),g.getBlock().getId()));
-            }
-            val_.getAllOverridingMethods().add(elt_);
         }
     }
 

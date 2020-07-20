@@ -44,11 +44,6 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
     }
 
     @Override
-    public boolean isFinalMethod() {
-        return false;
-    }
-
-    @Override
     public MethodId getId() {
         return new MethodId(MethodAccessKind.INSTANCE, getName(), new StringList(), false);
     }

@@ -5596,7 +5596,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int outer(){$public $static $class Inn{}$return 0;}\n");
+        xml_.append(" $public $static $int outer(){$return 0;$return 0;$public $static $class Inn{}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();

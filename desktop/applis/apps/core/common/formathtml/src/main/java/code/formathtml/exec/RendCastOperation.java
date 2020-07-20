@@ -29,9 +29,9 @@ public final class RendCastOperation extends RendAbstractUnaryOperation {
 
     Argument getArgument(CustList<Argument> _arguments, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
-        Argument objArg_ = _arguments.first();
+        Argument objArg_ = new Argument(_arguments.first().getStruct());
         String paramName_ = _conf.getPageEl().formatVarType(className, _conf.getContext());
-        ExecCastOperation.wrapFct(paramName_,false,_arguments,_conf.getContext());
+        ExecCastOperation.wrapFct(paramName_,false, _conf.getContext(), objArg_);
         ExecTemplates.checkObject(paramName_, objArg_, _conf.getContext());
         return objArg_;
     }

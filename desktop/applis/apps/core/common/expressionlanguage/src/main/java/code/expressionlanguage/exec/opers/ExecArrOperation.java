@@ -88,8 +88,9 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Struct array_;
         array_ = getPreviousArgument(_nodes, this).getStruct();
         Argument lastArg_ = getArgument(_nodes, lastElement_);
-        a_.setStruct(compoundAffectArray(array_, store_, lastArg_, lastElement_.getIndexInEl(), _op,_right, _conf,getResultClass()));
-        return a_;
+        Argument o_ = new Argument();
+        o_.setStruct(compoundAffectArray(array_, store_, lastArg_, lastElement_.getIndexInEl(), _op,_right, _conf,getResultClass()));
+        return o_;
     }
 
     @Override
@@ -104,8 +105,9 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
         Argument lastArg_ = getArgument(_nodes, lastElement_);
-        a_.setStruct(semiAffectArray(array_, store_, lastArg_, _op, _post, _conf));
-        return a_;
+        Argument o_ = new Argument();
+        o_.setStruct(semiAffectArray(array_, store_, lastArg_, _op, _post, _conf));
+        return o_;
     }
 
     Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ContextEl _conf) {

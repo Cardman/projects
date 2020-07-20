@@ -8,9 +8,9 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecTypeVar;
+import code.expressionlanguage.functionid.ClassMethodIdOverrides;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.exec.types.OverridingMethod;
 import code.util.*;
 
 public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType, ExecAnnotableBlock {
@@ -20,7 +20,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     private AccessEnum access;
 
-    private CustList<OverridingMethod> allOverridingMethods = new CustList<OverridingMethod>();
+    private final ClassMethodIdOverrides redirections = new ClassMethodIdOverrides();
 
     private StringList paramTypes;
 
@@ -276,13 +276,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     public AccessEnum getAccess() {
         return access;
     }
-    /**
-     @return a map with formatted id from super types as key
-     and a list of (formatted super types and id) as value
-     */
-    public CustList<OverridingMethod> getAllOverridingMethods() {
-        return allOverridingMethods;
-    }
 
     @Override
     public String getFullName() {
@@ -361,5 +354,9 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     @Override
     public final StringList getAllSuperTypes() {
         return allSuperTypes;
+    }
+
+    public ClassMethodIdOverrides getRedirections() {
+        return redirections;
     }
 }

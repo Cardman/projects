@@ -13,6 +13,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.instr.PartOffset;
@@ -40,10 +41,12 @@ public final class AnalyzedPageEl {
     private AccessedBlock importingTypes;
     private final CustList<RootBlock> listTypesNames = new CustList<RootBlock>();
     private final IdMap<RootBlock,ExecRootBlock> mapTypes = new IdMap<RootBlock,ExecRootBlock>();
+    private final IdMap<RootBlock,ExecRootBlock> allMapTypes = new IdMap<RootBlock,ExecRootBlock>();
     private final IdMap<InnerElementBlock,ExecInnerElementBlock> mapInnerEltTypes = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
     private final IdMap<UniqueRootedBlock,ExecUniqueRootedBlock> mapTypesUniqType = new IdMap<UniqueRootedBlock,ExecUniqueRootedBlock>();
     private final IdMap<RootBlock,ExecInterfacable> mapInterfaces = new IdMap<RootBlock,ExecInterfacable>();
     private final IdMap<RootBlock,Members> mapMembers = new IdMap<RootBlock,Members>();
+    private final IdMap<RootBlock,Members> allMapMembers = new IdMap<RootBlock,Members>();
     private final IdMap<OperatorBlock,ExecOperatorBlock> mapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
     private final CustList<RootBlock> allFoundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
@@ -103,6 +106,8 @@ public final class AnalyzedPageEl {
     private int localInType = -1;
     private String refFileName = "";
     private int indexBlock;
+    private final StringMap<ToStringMethodHeader> toStringMethods = new StringMap<ToStringMethodHeader>();
+
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -413,6 +418,10 @@ public final class AnalyzedPageEl {
         return allFoundTypes;
     }
 
+    public IdMap<RootBlock, ExecRootBlock> getAllMapTypes() {
+        return allMapTypes;
+    }
+
     public IdMap<RootBlock, ExecRootBlock> getMapTypes() {
         return mapTypes;
     }
@@ -431,6 +440,10 @@ public final class AnalyzedPageEl {
 
     public IdMap<RootBlock, Members> getMapMembers() {
         return mapMembers;
+    }
+
+    public IdMap<RootBlock, Members> getAllMapMembers() {
+        return allMapMembers;
     }
 
     public IdMap<OperatorBlock, ExecOperatorBlock> getMapOperators() {
@@ -695,5 +708,9 @@ public final class AnalyzedPageEl {
 
     public void setIndexBlock(int _indexBlock) {
         indexBlock = _indexBlock;
+    }
+
+    public StringMap<ToStringMethodHeader> getToStringMethods() {
+        return toStringMethods;
     }
 }

@@ -38,14 +38,14 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         if (getParent().getFirstChild().getNextSibling() == this) {
             //init and test
             int order_ = getParent().getFirstChild().getOrder();
-            Argument lda_ = _nodes.getValue(order_).getArgument();
+            Argument lda_ = new Argument(_nodes.getValue(order_).getArgument().getStruct());
             if (!ExecTemplates.checkObject(_conf.getStandards().getAliasFct(), lda_, _conf.getContext())) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;
             }
             String form_ = _conf.getPageEl().formatVarType(className, _conf.getContext());
             Argument ref_ = new Argument(lda_.getStruct());
-            ExecCastOperation.wrapFct(form_,true,new CustList<Argument>(ref_),_conf.getContext());
+            ExecCastOperation.wrapFct(form_,true, _conf.getContext(), ref_);
             if (!ExecTemplates.checkObject(form_, ref_, _conf.getContext())) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;

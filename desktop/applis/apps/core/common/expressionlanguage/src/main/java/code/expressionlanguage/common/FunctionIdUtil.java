@@ -7,6 +7,6 @@ public final class FunctionIdUtil {
     private FunctionIdUtil() {
     }
     public static boolean isOperatorName(Identifiable _id) {
-        return !StringList.isDollarWord(_id.getName()) && !_id.getName().startsWith("[]");
+        return StringExpUtil.isOper(_id.getName());
     }
 }

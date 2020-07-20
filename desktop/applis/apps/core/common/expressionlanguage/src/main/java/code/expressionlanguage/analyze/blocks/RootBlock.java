@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -23,7 +24,7 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.exec.util.ToStringMethodHeader;
+import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -89,6 +90,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private int nbOperators;
+    private int numberAll;
     private StringList allSuperTypes = new StringList();
 
     RootBlock(int _idRowCol, String _name,
@@ -771,7 +773,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         m_.addNameErrors(badMeth_);
                     } else {
                         ToStringMethodHeader t_ = new ToStringMethodHeader(m_.getName(), m_.getImportedReturnType(), m_.isFinalMethod(),m_.isAbstractMethod());
-                        _context.getClasses().getToStringMethods().addEntry(getFullName(), t_);
+                        _context.getAnalyzing().getToStringMethods().addEntry(getFullName(), t_);
                     }
                 } else if (m_.getKind() == MethodKind.STD_METHOD) {
                     if (!StringList.quickEq(name_, keyWords_.getKeyWordToString())) {
@@ -1331,8 +1333,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         lookForErrors(_context, vars_, ov_, fullName_,fullName_);
     }
     public final void checkImplements(ContextEl _context,ExecRootBlock _exec) {
-        Classes classesRef_ = _context.getClasses();
-        CustList<ClassMethodId> abstractMethods_ = new CustList<ClassMethodId>();
         boolean concreteClass_ = false;
         if (mustImplement()) {
             concreteClass_ = true;
@@ -1362,6 +1362,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
             }
         }
+        CustList<GeneStringOverridable> abstractMethods_ = new CustList<GeneStringOverridable>();
         if (concreteClass_) {
             for (OverridableBlock b: ClassesUtil.getMethodExecBlocks(this)) {
                 MethodId idFor_ = b.getId();
@@ -1385,15 +1386,15 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 RootBlock superBl_ = _context.getAnalyzing().getAnaClassBody(base_);
                 for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                     if (m.isAbstractMethod()) {
-                        abstractMethods_.add(new ClassMethodId(s, m.getId()));
+                        abstractMethods_.add(new GeneStringOverridable(s,superBl_,m));
                     }
                 }
             }
-            for (ClassMethodId m: abstractMethods_) {
-                String baseClass_ = m.getClassName();
+            for (GeneStringOverridable m: abstractMethods_) {
+                String baseClass_ = m.getGeneString();
                 baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
-                ExecRootBlock info_ = classesRef_.getClassBody(baseClass_);
-                StringMap<ClassMethodId> map_ = TypeUtil.getConcreteMethodsToCall(info_, m.getConstraints(), _context);
+                RootBlock info_ = m.getType();
+                StringMap<ClassMethodId> map_ = OverridesTypeUtil.getConcreteMethodsToCall(info_, m.getBlock().getId(), _context);
                 if (!map_.contains(getFullName())) {
                     FoundErrorInterpret err_;
                     err_ = new FoundErrorInterpret();
@@ -1403,7 +1404,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     err_.buildError(
                             _context.getAnalysisMessages().getAbstractMethodImpl(),
                             baseClass_,
-                            m.getConstraints().getSignature(_context),
+                            m.getBlock().getSignature(_context),
                             getFullName());
                     _context.addError(err_);
                     addNameErrors(err_);
@@ -1417,17 +1418,15 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 RootBlock superBl_ = _context.getAnalyzing().getAnaClassBody(base_);
                 for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                     if (m.isAbstractMethod()) {
-                        abstractMethods_.add(new ClassMethodId(s, m.getId()));
+                        abstractMethods_.add(new GeneStringOverridable(s,superBl_,m));
                     }
                 }
             }
-            for (ClassMethodId m: abstractMethods_) {
-                String baseClass_ = m.getClassName();
-                baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
-                ExecRootBlock info_ = classesRef_.getClassBody(baseClass_);
-                StringMap<ClassMethodId> map_ = TypeUtil.getConcreteMethodsToCall(info_, m.getConstraints(), _context);
+            for (GeneStringOverridable m: abstractMethods_) {
+                RootBlock info_ = m.getType();
+                StringMap<ClassMethodId> map_ = OverridesTypeUtil.getConcreteMethodsToCall(info_, m.getBlock().getId(), _context);
                 if (!map_.contains(getFullName())) {
-                    functional.add(m);
+                    functional.add(new ClassMethodId(m.getGeneString(),m.getBlock().getId()));
                 }
             }
         }
@@ -1906,5 +1905,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             previous_ = r;
         }
         return generic_.toString();
+    }
+
+    public int getNumberAll() {
+        return numberAll;
+    }
+
+    public void setNumberAll(int _number) {
+        numberAll = _number;
     }
 }
