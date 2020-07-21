@@ -29,7 +29,7 @@ public final class FormattedMethodId {
         return eqPartial(_obj);
     }
 
-    private boolean eqPartial(FormattedMethodId _other) {
+    public boolean eqPartial(FormattedMethodId _other) {
         int len_ = classNames.size();
         if (len_ != _other.classNames.size()) {
             return false;
@@ -47,5 +47,7 @@ public final class FormattedMethodId {
         return true;
     }
 
-
+    public String getName() {
+        return name;
+    }
 }

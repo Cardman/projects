@@ -262,5 +262,28 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
     public void nextCharIsTest(){
         assertTrue(!StringExpUtil.nextCharIs("",-1,0,' '));
     }
-
+    @Test
+    public void tryToExtract1Test(){
+        assertEq("",StringExpUtil.tryToExtract("",'(',')').getSecond());
+    }
+    @Test
+    public void tryToExtract2Test(){
+        assertEq("hello",StringExpUtil.tryToExtract("(hello)",'(',')').getSecond());
+    }
+    @Test
+    public void tryToExtract3Test(){
+        assertEq("",StringExpUtil.tryToExtract(")hello(",'(',')').getSecond());
+    }
+    @Test
+    public void tryToExtract4Test(){
+        assertEq("",StringExpUtil.tryToExtract("(hello",'(',')').getSecond());
+    }
+    @Test
+    public void tryToExtract5Test(){
+        assertEq("",StringExpUtil.tryToExtract("hello",'(',')').getSecond());
+    }
+    @Test
+    public void tryToExtract6Test(){
+        assertEq("hello",StringExpUtil.tryToExtract("hello()",'(',')').getFirst());
+    }
 }

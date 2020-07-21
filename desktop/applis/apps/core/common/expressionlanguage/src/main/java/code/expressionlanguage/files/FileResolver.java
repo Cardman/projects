@@ -1003,10 +1003,13 @@ public final class FileResolver {
         if (tr_.isEmpty()) {
             return EndInstruction.NO_DECLARE_TYPE;
         }
+        KeyWords keyWords_ = _context.getKeyWords();
+        if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordIntern())) {
+            return EndInstruction.NONE;
+        }
         if (_enableByEndLine) {
             return EndInstruction.NO_DECLARE_TYPE;
         }
-        KeyWords keyWords_ = _context.getKeyWords();
         String trTmp_ = tr_;
         if (tr_.charAt(0) == ANNOT) {
             ParsedAnnotations par_ = new ParsedAnnotations(tr_, 0);
@@ -1251,7 +1254,26 @@ public final class FileResolver {
             instructionLocation_ += StringList.getFirstPrintableCharIndex(found_);
         }
         boolean enableByEndLine_ = _enabledEnum;
-        if (currentParent_ instanceof AnnotationBlock) {
+        if (StringExpUtil.startsWithKeyWord(trimmedInstruction_,keyWords_.getKeyWordIntern())) {
+            String exp_ = trimmedInstruction_.substring(keyWords_.getKeyWordIntern().length());
+            int internOffest_ = instructionLocation_ + keyWords_.getKeyWordIntern().length();
+            int lastPar_ = exp_.lastIndexOf('}');
+            int beg_ = exp_.indexOf('{');
+            boolean ok_ = false;
+            if (beg_ >= 0 && lastPar_ >= beg_ + 1) {
+                internOffest_ += beg_ +1;
+                exp_ = exp_.substring(beg_ +1,lastPar_);
+                internOffest_ += StringList.getFirstPrintableCharIndex(exp_);
+                ok_ = true;
+            }
+            InternOverrideBlock int_ = new InternOverrideBlock(new OffsetsBlock(instructionRealLocation_, instructionLocation_),exp_, internOffest_);
+            if (!ok_) {
+                int_.getBadIndexes().add(_instructionLocation + 1);
+            }
+            int_.setBegin(instructionLocation_);
+            int_.setLengthHeader(keyWords_.getKeyWordIntern().length());
+            currentParent_.appendChild(int_);
+        } else if (currentParent_ instanceof AnnotationBlock) {
             if (!trimmedInstruction_.isEmpty()) {
                 String fieldName_;
                 int typeOffset_ = instructionLocation_;
@@ -2099,8 +2121,12 @@ public final class FileResolver {
             CustList<Ints> annotationsIndexesParams_ = new CustList<Ints>();
             CustList<StringList> annotationsParams_ = new CustList<StringList>();
             boolean ok_ = true;
+            int offsetLast_ = paramOffest_;
             while (true) {
                 if (info_.indexOf(END_CALLING) == 0) {
+                    info_ = info_.substring(1);
+                    offsetLast_++;
+                    offsetLast_ +=  StringList.getFirstPrintableCharIndex(info_);
                     break;
                 }
                 Ints annotationsIndexesParam_ = new Ints();
@@ -2124,18 +2150,29 @@ public final class FileResolver {
                 int call_ = info_.indexOf(SEP_CALLING);
                 if (call_ < 0) {
                     call_ = info_.indexOf(END_CALLING);
+                } else {
+                    call_ = Math.min(call_,info_.indexOf(END_CALLING));
                 }
                 int off_ = StringList.getFirstPrintableCharIndex(afterParamType_);
                 offestsParams_.add(paramOffest_ + paramType_.length() + off_);
+                offsetLast_ = paramOffest_ + paramType_.length() + off_;
                 if (call_ >= 0) {
                     String paramName_ = info_.substring(0, call_);
+                    offsetLast_ += call_+1;
                     parametersName_.add(paramName_.trim());
                 } else {
                     ok_ = false;
                     parametersName_.add(info_.trim());
                 }
                 String afterParamName_ = info_.substring(call_ + 1);
+                boolean exist_ = info_.startsWith(")",call_);
                 info_ = afterParamName_.trim();
+                if (exist_) {
+                    if (StringExpUtil.startsWithKeyWord(info_,keyWords_.getKeyWordIntern())) {
+                        offsetLast_ +=  StringList.getFirstPrintableCharIndex(afterParamName_);
+                        break;
+                    }
+                }
                 if (info_.isEmpty()) {
                     break;
                 }
@@ -2218,6 +2255,8 @@ public final class FileResolver {
                             new OffsetStringInfo(methodNameOffest_, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_),
                             new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                    ov_.setDefinition(info_);
+                    ov_.setDefinitionOffset(offsetLast_);
                 }
                 ov_.setKind(kind_);
                 br_ = ov_;

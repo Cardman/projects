@@ -15255,6 +15255,350 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverage382Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<S> :pkg.ExTwo<S>{\n");
+        xml_.append(" $intern{getter(S):getter(Ex,S)|getter(ExTwo,T)};\n");
+        xml_.append(" public S inst=(S)2i;\n");
+        xml_.append(" public (S i){\n");
+        xml_.append("  super((S)16i);\n");
+        xml_.append("  inst=i;\n");
+        xml_.append("  inst=(S)((int)inst+(int)getter((S)((int)i+10)));\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int getter(){\n");
+        xml_.append("  return new Ex<int>(9).inst;\n");
+        xml_.append(" }\n");
+        xml_.append(" public S getter(S t){\n");
+        xml_.append("  return inst;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo<T> {\n");
+        xml_.append(" public T sec;\n");
+        xml_.append(" package (T i){\n");
+        xml_.append("  sec=i;\n");
+        xml_.append(" }\n");
+        xml_.append(" public T getter(T t){\n");
+        xml_.append("  return sec;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElCoverageEnDefault();
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("getter");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">S</a>&gt; :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>&lt;<a href=\"#m20\">S</a>&gt;{\n" +
+                " $intern{getter(<a href=\"#m20\">S</a>):<a title=\"pkg.Ex.getter(#S)\" href=\"#m278\">getter</a>(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>,<a href=\"#m20\">S</a>)|<a title=\"pkg.ExTwo.getter(#T)\" href=\"ExTwo.html#m81\">getter</a>(<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">ExTwo</a>,<a href=\"ExTwo.html#m23\">T</a>)};\n" +
+                " public <a href=\"#m20\">S</a> <span class=\"f\"><span class=\"f\"><a name=\"m98\">inst</a></span>=<span class=\"f\">(<a href=\"#m20\">S</a>)<span class=\"f\">2i</span></span></span>;\n" +
+                " <a name=\"m111\">public (</a><a href=\"#m20\">S</a> <a name=\"m121\">i</a>){\n" +
+                "  <span class=\"f\"><a title=\"pkg.ExTwo.pkg.ExTwo(#T)\" href=\"ExTwo.html#m44\">super</a>(<span class=\"f\">(<a href=\"#m20\">S</a>)<span class=\"f\">16i</span></span>)</span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m98\">inst</a></span>=<span class=\"f\"><a href=\"#m121\">i</a></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m98\">inst</a></span>=<span class=\"f\">(<a href=\"#m20\">S</a>)<span class=\"f\">(<span class=\"f\"><span class=\"f\">(int)<span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m98\">inst</a></span></span>+<span class=\"f\">(int)<span class=\"f\"><a title=\"pkg.Ex.getter(#S)\" href=\"#m278\">getter</a>(<span class=\"f\">(<a href=\"#m20\">S</a>)<span class=\"f\">(<span class=\"f\"><span class=\"f\">(int)<span class=\"f\"><a href=\"#m121\">i</a></span></span>+<span class=\"f\">10</span></span>)</span></span>)</span></span></span>)</span></span></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m225\">getter</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.pkg.Ex(#S)\" href=\"#m111\">new</a> <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt;(<span class=\"f\">9</span>)</span>.<span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m98\">inst</a></span></span>;\n" +
+                " }\n" +
+                " public <a href=\"#m20\">S</a> <a name=\"m278\">getter</a>(<a href=\"#m20\">S</a> <a name=\"m287\">t</a>){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m98\">inst</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage383Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex :pkg.ExTwo{\n");
+        xml_.append(" $intern{getter():getter(Ex)|getter(ExTwo);getter2():getter2(Ex)};\n");
+        xml_.append(" public int inst=2i;\n");
+        xml_.append(" public (int i){\n");
+        xml_.append("  super(20i);\n");
+        xml_.append("  inst=i;\n");
+        xml_.append("  inst+=getter();\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int getter(){\n");
+        xml_.append("  ExTwo ex = new Ex(9);\n");
+        xml_.append("  return ex.getter2();\n");
+        xml_.append(" }\n");
+        xml_.append(" public int getter(){\n");
+        xml_.append("  return inst;\n");
+        xml_.append(" }\n");
+        xml_.append(" public int getter2(){\n");
+        xml_.append("  return inst*2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public int sec;\n");
+        xml_.append(" package (int i){\n");
+        xml_.append("  sec=i;\n");
+        xml_.append(" }\n");
+        xml_.append(" public int getter(){\n");
+        xml_.append("  return sec;\n");
+        xml_.append(" }\n");
+        xml_.append(" public int getter2(){\n");
+        xml_.append("  return sec+2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElCoverageEnDefault();
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("getter");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>:<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>{\n" +
+                " $intern{getter():<a title=\"pkg.Ex.getter()\" href=\"#m273\">getter</a>(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)|<a title=\"pkg.ExTwo.getter()\" href=\"ExTwo.html#m84\">getter</a>(<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">ExTwo</a>);getter2():<a title=\"pkg.Ex.getter2()\" href=\"#m313\">getter2</a>(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)};\n" +
+                " public int <span class=\"f\"><span class=\"f\"><a name=\"m111\">inst</a></span>=<span class=\"f\">2i</span></span>;\n" +
+                " <a name=\"m121\">public (</a>int <a name=\"m133\">i</a>){\n" +
+                "  <span class=\"f\"><a title=\"pkg.ExTwo.pkg.ExTwo(int)\" href=\"ExTwo.html#m43\">super</a>(<span class=\"f\">20i</span>)</span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m111\">inst</a></span>=<span class=\"f\"><a href=\"#m133\">i</a></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m111\">inst</a></span>+=<span class=\"f\"><a title=\"pkg.Ex.getter()\" href=\"#m273\">getter</a>()</span></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m201\">getter</a>(){\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">ExTwo</a> <span class=\"f\"><span class=\"f\"><a name=\"m219\">ex</a> </span>=<span class=\"f\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m121\">new</a> <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>(<span class=\"f\">9</span>)</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m219\">ex</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.getter2()\" href=\"ExTwo.html#m123\">getter2</a>()</span></span>;\n" +
+                " }\n" +
+                " public int <a name=\"m273\">getter</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m111\">inst</a></span>;\n" +
+                " }\n" +
+                " public int <a name=\"m313\">getter2</a>(){\n" +
+                "  return <span class=\"n\"><span class=\"n\"><a title=\"pkg.Ex.inst\" href=\"#m111\">inst</a></span>*<span class=\"n\">2</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage384Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<V> :pkg.ExTwo<V,V>{\n");
+        xml_.append(" public V inst=(V)2i;\n");
+        xml_.append(" public (V i){\n");
+        xml_.append("  super((V)16i,(V)20i);\n");
+        xml_.append("  inst=i;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int getter(){\n");
+        xml_.append("  ExTwo<int,int> e = new Ex<int>(9);\n");
+        xml_.append("  return e.getter($id(ExTwo,T),25);\n");
+        xml_.append(" }\n");
+        xml_.append(" public V getter2(V v){\n");
+        xml_.append("  return (V)((int)inst+(int)v);\n");
+        xml_.append(" }\n");
+        xml_.append(" public V getter3(V v){\n");
+        xml_.append("  return (V)((int)inst*(int)v);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo<T,U> {\n");
+        xml_.append(" public T sec;\n");
+        xml_.append(" public U th;\n");
+        xml_.append(" package (T i,U j){\n");
+        xml_.append("  sec=i;\n");
+        xml_.append("  th=j;\n");
+        xml_.append(" }\n");
+        xml_.append(" public T getter(T t)$intern(Ex:getter2(Ex,V);ExTwo:getter(ExTwo,T)){\n");
+        xml_.append("  return sec;\n");
+        xml_.append(" }\n");
+        xml_.append(" public U getter(U u)$intern(Ex:getter3(Ex,V);ExTwo:getter(ExTwo,U)){\n");
+        xml_.append("  return th;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElCoverageEnDefault();
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("getter");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">V</a>&gt; :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>&lt;<a href=\"#m20\">V</a>,<a href=\"#m20\">V</a>&gt;{\n" +
+                " public <a href=\"#m20\">V</a> <span class=\"f\"><span class=\"f\"><a name=\"m50\">inst</a></span>=<span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">2i</span></span></span>;\n" +
+                " <a name=\"m63\">public (</a><a href=\"#m20\">V</a> <a name=\"m73\">i</a>){\n" +
+                "  <span class=\"f\"><a title=\"pkg.ExTwo.pkg.ExTwo(#T,#U)\" href=\"ExTwo.html#m60\">super</a>(<span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">16i</span></span>,<span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">20i</span></span>)</span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m50\">inst</a></span>=<span class=\"f\"><a href=\"#m73\">i</a></span></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m133\">getter</a>(){\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">ExTwo</a>&lt;int,int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m160\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.Ex.pkg.Ex(#V)\" href=\"#m63\">new</a> <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt;(<span class=\"f\">9</span>)</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m160\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.getter(#T)\" href=\"ExTwo.html#m109\">getter</a>(<span class=\"f\">$id(<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">ExTwo</a>,<a href=\"ExTwo.html#m23\">T</a>)</span>,<span class=\"f\">25</span>)</span></span>;\n" +
+                " }\n" +
+                " public <a href=\"#m20\">V</a> <a name=\"m229\">getter2</a>(<a href=\"#m20\">V</a> <a name=\"m239\">v</a>){\n" +
+                "  return <span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">(<span class=\"f\"><span class=\"f\">(int)<span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m50\">inst</a></span></span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m239\">v</a></span></span></span>)</span></span>;\n" +
+                " }\n" +
+                " public <a href=\"#m20\">V</a> <a name=\"m288\">getter3</a>(<a href=\"#m20\">V</a> <a name=\"m298\">v</a>){\n" +
+                "  return <span class=\"n\">(<a href=\"#m20\">V</a>)<span class=\"n\">(<span class=\"n\"><span class=\"n\">(int)<span class=\"n\"><a title=\"pkg.Ex.inst\" href=\"#m50\">inst</a></span></span>*<span class=\"n\">(int)<span class=\"n\"><a href=\"#m298\">v</a></span></span></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.ExTwo</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">U</a>&gt; {\n" +
+                " public <a href=\"#m23\">T</a> <span class=\"f\"><a name=\"m40\">sec</a></span>;\n" +
+                " public <a href=\"#m25\">U</a> <span class=\"f\"><a name=\"m55\">th</a></span>;\n" +
+                " <a name=\"m60\">package (</a><a href=\"#m23\">T</a> <a name=\"m71\">i</a>,<a href=\"#m25\">U</a> <a name=\"m75\">j</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExTwo.sec\" href=\"#m40\">sec</a></span>=<span class=\"f\"><a href=\"#m71\">i</a></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExTwo.th\" href=\"#m55\">th</a></span>=<span class=\"f\"><a href=\"#m75\">j</a></span></span>;\n" +
+                " }\n" +
+                " public <a href=\"#m23\">T</a> <a name=\"m109\">getter</a>(<a href=\"#m23\">T</a> <a name=\"m118\">t</a>)$intern(<a title=\"pkg.Ex\" href=\"Ex.html#m13\">Ex</a>:<a title=\"pkg.Ex.getter2(#V)\" href=\"Ex.html#m229\">getter2</a>(<a title=\"pkg.Ex\" href=\"Ex.html#m13\">Ex</a>,<a href=\"Ex.html#m20\">V</a>);<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>:<a title=\"pkg.ExTwo.getter(#T)\" href=\"#m109\">getter</a>(<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>,<a href=\"#m23\">T</a>)){\n" +
+                "  return <span class=\"n\"><a title=\"pkg.ExTwo.sec\" href=\"#m40\">sec</a></span>;\n" +
+                " }\n" +
+                " public <a href=\"#m25\">U</a> <a name=\"m196\">getter</a>(<a href=\"#m25\">U</a> <a name=\"m205\">u</a>)$intern(<a title=\"pkg.Ex\" href=\"Ex.html#m13\">Ex</a>:<a title=\"pkg.Ex.getter3(#V)\" href=\"Ex.html#m288\">getter3</a>(<a title=\"pkg.Ex\" href=\"Ex.html#m13\">Ex</a>,<a href=\"Ex.html#m20\">V</a>);<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>:<a title=\"pkg.ExTwo.getter(#U)\" href=\"#m196\">getter</a>(<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>,<a href=\"#m25\">U</a>)){\n" +
+                "  return <span class=\"n\"><a title=\"pkg.ExTwo.th\" href=\"#m55\">th</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.getValue(1));
+    }
+
+    @Test
+    public void coverage385Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<V> :pkg.ExTwo<V,V>{\n");
+        xml_.append(" public V inst=(V)2i;\n");
+        xml_.append(" public (V i){\n");
+        xml_.append("  super((V)16i,(V)20i);\n");
+        xml_.append("  inst=i;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int getter(){\n");
+        xml_.append("  ExTwo<int,int> e = new Ex<int>(9);\n");
+        xml_.append("  return e.getter($id(ExTwo,T,int),25,14);\n");
+        xml_.append(" }\n");
+        xml_.append(" public V getter2(V v,int w){\n");
+        xml_.append("  return (V)((int)inst+(int)v);\n");
+        xml_.append(" }\n");
+        xml_.append(" public V getter3(V v,int w){\n");
+        xml_.append("  return (V)((int)inst*(int)v);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo<T,U> {\n");
+        xml_.append(" public T sec;\n");
+        xml_.append(" public U th;\n");
+        xml_.append(" package (T i,U j){\n");
+        xml_.append("  sec=i;\n");
+        xml_.append("  th=j;\n");
+        xml_.append(" }\n");
+        xml_.append(" public T getter(T t,int w)$intern(Ex:getter2(Ex,V,int);ExTwo:getter(ExTwo,T,int)){\n");
+        xml_.append("  return sec;\n");
+        xml_.append(" }\n");
+        xml_.append(" public U getter(U u,int w)$intern(Ex:getter3(Ex,V,int);ExTwo:getter(ExTwo,U,int)){\n");
+        xml_.append("  return th;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElCoverageEnDefault();
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("getter");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">V</a>&gt; :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>&lt;<a href=\"#m20\">V</a>,<a href=\"#m20\">V</a>&gt;{\n" +
+                " public <a href=\"#m20\">V</a> <span class=\"f\"><span class=\"f\"><a name=\"m50\">inst</a></span>=<span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">2i</span></span></span>;\n" +
+                " <a name=\"m63\">public (</a><a href=\"#m20\">V</a> <a name=\"m73\">i</a>){\n" +
+                "  <span class=\"f\"><a title=\"pkg.ExTwo.pkg.ExTwo(#T,#U)\" href=\"ExTwo.html#m60\">super</a>(<span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">16i</span></span>,<span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">20i</span></span>)</span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m50\">inst</a></span>=<span class=\"f\"><a href=\"#m73\">i</a></span></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m133\">getter</a>(){\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">ExTwo</a>&lt;int,int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m160\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.Ex.pkg.Ex(#V)\" href=\"#m63\">new</a> <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt;(<span class=\"f\">9</span>)</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m160\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.getter(#T,int)\" href=\"ExTwo.html#m109\">getter</a>(<span class=\"f\">$id(<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">ExTwo</a>,<a href=\"ExTwo.html#m23\">T</a>,int)</span>,<span class=\"f\">25</span>,<span class=\"f\">14</span>)</span></span>;\n" +
+                " }\n" +
+                " public <a href=\"#m20\">V</a> <a name=\"m236\">getter2</a>(<a href=\"#m20\">V</a> <a name=\"m246\">v</a>,int <a name=\"m252\">w</a>){\n" +
+                "  return <span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">(<span class=\"f\"><span class=\"f\">(int)<span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m50\">inst</a></span></span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m246\">v</a></span></span></span>)</span></span>;\n" +
+                " }\n" +
+                " public <a href=\"#m20\">V</a> <a name=\"m301\">getter3</a>(<a href=\"#m20\">V</a> <a name=\"m311\">v</a>,int <a name=\"m317\">w</a>){\n" +
+                "  return <span class=\"n\">(<a href=\"#m20\">V</a>)<span class=\"n\">(<span class=\"n\"><span class=\"n\">(int)<span class=\"n\"><a title=\"pkg.Ex.inst\" href=\"#m50\">inst</a></span></span>*<span class=\"n\">(int)<span class=\"n\"><a href=\"#m311\">v</a></span></span></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.ExTwo</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">U</a>&gt; {\n" +
+                " public <a href=\"#m23\">T</a> <span class=\"f\"><a name=\"m40\">sec</a></span>;\n" +
+                " public <a href=\"#m25\">U</a> <span class=\"f\"><a name=\"m55\">th</a></span>;\n" +
+                " <a name=\"m60\">package (</a><a href=\"#m23\">T</a> <a name=\"m71\">i</a>,<a href=\"#m25\">U</a> <a name=\"m75\">j</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExTwo.sec\" href=\"#m40\">sec</a></span>=<span class=\"f\"><a href=\"#m71\">i</a></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExTwo.th\" href=\"#m55\">th</a></span>=<span class=\"f\"><a href=\"#m75\">j</a></span></span>;\n" +
+                " }\n" +
+                " public <a href=\"#m23\">T</a> <a name=\"m109\">getter</a>(<a href=\"#m23\">T</a> <a name=\"m118\">t</a>,int <a name=\"m124\">w</a>)$intern(<a title=\"pkg.Ex\" href=\"Ex.html#m13\">Ex</a>:<a title=\"pkg.Ex.getter2(#V,int)\" href=\"Ex.html#m236\">getter2</a>(<a title=\"pkg.Ex\" href=\"Ex.html#m13\">Ex</a>,<a href=\"Ex.html#m20\">V</a>,int);<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>:<a title=\"pkg.ExTwo.getter(#T,int)\" href=\"#m109\">getter</a>(<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>,<a href=\"#m23\">T</a>,int)){\n" +
+                "  return <span class=\"n\"><a title=\"pkg.ExTwo.sec\" href=\"#m40\">sec</a></span>;\n" +
+                " }\n" +
+                " public <a href=\"#m25\">U</a> <a name=\"m210\">getter</a>(<a href=\"#m25\">U</a> <a name=\"m219\">u</a>,int <a name=\"m225\">w</a>)$intern(<a title=\"pkg.Ex\" href=\"Ex.html#m13\">Ex</a>:<a title=\"pkg.Ex.getter3(#V,int)\" href=\"Ex.html#m301\">getter3</a>(<a title=\"pkg.Ex\" href=\"Ex.html#m13\">Ex</a>,<a href=\"Ex.html#m20\">V</a>,int);<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>:<a title=\"pkg.ExTwo.getter(#U,int)\" href=\"#m210\">getter</a>(<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>,<a href=\"#m25\">U</a>,int)){\n" +
+                "  return <span class=\"n\"><a title=\"pkg.ExTwo.th\" href=\"#m55\">th</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.getValue(1));
+    }
+
+    @Test
+    public void coverage386Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex :pkg.ExTwo{\n");
+        xml_.append(" public int inst=2i;\n");
+        xml_.append(" public (int i){\n");
+        xml_.append("  super(16i);\n");
+        xml_.append("  inst=i;\n");
+        xml_.append("  inst+=getter();\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int getter(){\n");
+        xml_.append("  ExTwo e = new Ex(9);\n");
+        xml_.append("  return e.getter();\n");
+        xml_.append(" }\n");
+        xml_.append(" public int getter(){\n");
+        xml_.append("  return inst;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public int sec;\n");
+        xml_.append(" package (int i){\n");
+        xml_.append("  sec=i;\n");
+        xml_.append(" }\n");
+        xml_.append(" public int getter()$intern(Ex:getter(ExTwo);ExTwo:getter(ExTwo)){\n");
+        xml_.append("  return sec;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElCoverageEnDefault();
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("getter");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex </a>:<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>{\n" +
+                " public int <span class=\"f\"><span class=\"f\"><a name=\"m44\">inst</a></span>=<span class=\"f\">2i</span></span>;\n" +
+                " <a name=\"m54\">public (</a>int <a name=\"m66\">i</a>){\n" +
+                "  <span class=\"f\"><a title=\"pkg.ExTwo.pkg.ExTwo(int)\" href=\"ExTwo.html#m43\">super</a>(<span class=\"f\">16i</span>)</span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m44\">inst</a></span>=<span class=\"f\"><a href=\"#m66\">i</a></span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m44\">inst</a></span>+=<span class=\"f\"><a title=\"pkg.Ex.getter()\" href=\"#m203\">getter</a>()</span></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m134\">getter</a>(){\n" +
+                "  <a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">ExTwo</a> <span class=\"f\"><span class=\"f\"><a name=\"m152\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m54\">new</a> <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>(<span class=\"f\">9</span>)</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m152\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.getter()\" href=\"ExTwo.html#m84\">getter</a>()</span></span>;\n" +
+                " }\n" +
+                " public int <a name=\"m203\">getter</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m44\">inst</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.ExTwo </a>{\n" +
+                " public int <span class=\"f\"><a name=\"m37\">sec</a></span>;\n" +
+                " <a name=\"m43\">package (</a>int <a name=\"m56\">i</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExTwo.sec\" href=\"#m37\">sec</a></span>=<span class=\"f\"><a href=\"#m56\">i</a></span></span>;\n" +
+                " }\n" +
+                " public int <a name=\"m84\">getter</a>()$intern(<a title=\"pkg.Ex\" href=\"Ex.html#m13\">Ex</a>:<a title=\"pkg.ExTwo.getter()\" href=\"#m84\">getter</a>(<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>);<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>:<a title=\"pkg.ExTwo.getter()\" href=\"#m84\">getter</a>(<a title=\"pkg.ExTwo\" href=\"#m13\">ExTwo</a>)){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExTwo.sec\" href=\"#m37\">sec</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.getValue(1));
+    }
     @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();

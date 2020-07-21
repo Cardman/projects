@@ -154,10 +154,6 @@ public final class ContextUtil {
         return _type instanceof ExecEnumBlock || _type instanceof ExecInnerElementBlock;
     }
 
-    public static boolean isEnumType(AnaGeneType _type) {
-        return _type instanceof EnumBlock || _type instanceof InnerElementBlock;
-    }
-
     public static boolean isExplicitFct(FunctionBlock _fct) {
         return _fct instanceof OverridableBlock
                 && (((OverridableBlock) _fct).getKind() == MethodKind.EXPLICIT_CAST

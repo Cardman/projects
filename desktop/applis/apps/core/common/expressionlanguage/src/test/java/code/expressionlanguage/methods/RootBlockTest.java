@@ -1205,6 +1205,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" $public $normal $int get(#U i){\n");
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
+        xml_.append(" $public $abstract $int get2(#U i);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
@@ -1789,6 +1790,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ClassesUtil.validateIds(_cont);
         assertTrue( _cont.isEmptyErrors());
         ClassesUtil.validateOverridingInherit(_cont);
+        ClassesUtil.postValidation(_cont);
         assertTrue(!_cont.isEmptyErrors());
     }
 
@@ -1798,6 +1800,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         ClassesUtil.validateInheritingClasses(cont_);
         ClassesUtil.validateIds(cont_);
         ClassesUtil.validateOverridingInherit(cont_);
+        ClassesUtil.postValidation(cont_);
         return cont_;
     }
 

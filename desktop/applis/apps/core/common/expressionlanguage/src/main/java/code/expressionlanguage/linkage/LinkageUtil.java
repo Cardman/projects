@@ -166,6 +166,9 @@ public final class LinkageUtil {
                             processRootBlockError(vars_, (RootBlock) child_, _cont, list_);
                         }
                     }
+                    if (child_ instanceof InternOverrideBlock) {
+                        list_.addAllElts(((InternOverrideBlock)child_).getAllParts());
+                    }
                     if (child_ instanceof OperatorBlock) {
                         processOperatorBlockError(vars_,(OperatorBlock)child_,_cont,list_);
                     }
@@ -377,6 +380,9 @@ public final class LinkageUtil {
             }
             if (child_ instanceof OverridableBlock) {
                 processOverridableBlockReport(vars_,(OverridableBlock)child_,_cont,list_);
+            }
+            if (child_ instanceof InternOverrideBlock) {
+                list_.addAllElts(((InternOverrideBlock)child_).getAllParts());
             }
             if (child_ instanceof AnnotationMethodBlock) {
                 processAnnotationMethodBlockReport(vars_,(AnnotationMethodBlock)child_,_cont,list_);
@@ -1311,6 +1317,7 @@ public final class LinkageUtil {
         }
         addNameParts(_cond,_parts, begName_, _cond.getName().length());
         refParams(_vars,_cond,_cont, _parts);
+        _parts.addAllElts(_cond.getAllInternParts());
     }
 
 
@@ -1336,6 +1343,7 @@ public final class LinkageUtil {
         }
         addNameParts(_cond,_parts, begName_, _cond.getName().length());
         refParamsError(_vars,_cond,_cont, _parts);
+        _parts.addAllElts(_cond.getAllInternParts());
     }
 
     private static void processAnnotationMethodBlockReport(VariablesOffsets _vars,AnnotationMethodBlock _cond, ContextEl _cont, CustList<PartOffset> _parts) {
@@ -3105,6 +3113,16 @@ public final class LinkageUtil {
         _errors,
         _title,
         _parts,-1);
+    }
+    public static void addParts(ContextEl _cont, String _currentFileName, ClassMethodId _id,
+                                 int _begin, int _length,
+                                 StringList _errors,
+                                 StringList _title,
+                                 CustList<PartOffset> _parts, int _name) {
+        MethodId id_ = _id.getConstraints();
+        String cl_ = _id.getClassName();
+        cl_ = StringExpUtil.getIdFromAllTypes(cl_);
+        addParts(_cont,_currentFileName,cl_,id_,_begin,_length,_errors,_title,_parts,_name);
     }
     private static void addParts(ContextEl _cont, String _currentFileName, String _className,
                                  Identifiable _id, int _begin, int _length,

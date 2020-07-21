@@ -939,6 +939,23 @@ public final class StringExpUtil {
         return className_;
     }
 
+    public static boolean isIndexerOrInexist(String _nameLoc) {
+        return _nameLoc.trim().isEmpty() || _nameLoc.startsWith("[]");
+    }
+    public static ExtractedParts tryToExtract(String _string, char _first, char _last) {
+        int index_ = _string.indexOf(_first);
+        if (index_ < 0) {
+            return new ExtractedParts();
+        }
+        ExtractedParts e_ = new ExtractedParts();
+        e_.setFirst(_string.substring(0,index_));
+        int last_ = _string.lastIndexOf(_last);
+        if (last_ <= index_) {
+            return e_;
+        }
+        e_.setSecond(_string.substring(index_+1,last_));
+        return e_;
+    }
     public static int getOffset(String _str) {
         return Math.max(0,StringList.getFirstPrintableCharIndex(_str));
     }

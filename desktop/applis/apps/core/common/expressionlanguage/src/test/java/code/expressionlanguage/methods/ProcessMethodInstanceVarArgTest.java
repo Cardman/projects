@@ -372,7 +372,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         Struct field_;
         field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
         assertEq(STRING, field_.getClassName(cont_));
-        assertEq("TWO",((StringStruct)field_).getInstance());
+        assertEq("OTHER_TWO",((StringStruct)field_).getInstance());
     }
     @Test
     public void instanceArgument1022Test() {

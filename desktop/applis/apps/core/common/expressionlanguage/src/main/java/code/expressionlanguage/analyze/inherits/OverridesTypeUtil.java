@@ -149,12 +149,6 @@ public final class OverridesTypeUtil {
     }
 
     private static ClassMethodId tryGetUniqueId(String _subTypeName, RootBlock _type, MethodId _realId, ContextEl _conf) {
-        if (ContextUtil.isEnumType(_type)) {
-            String en_ = _conf.getStandards().getAliasEnumType();
-            if (!ExecBlock.getDeepMethodBodiesById(_conf,en_, _realId).isEmpty()) {
-                return new ClassMethodId(en_, _realId);
-            }
-        }
         //c is a concrete sub type of type input
         for (String s: _type.getAllGenericClasses()) {
             RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(s));

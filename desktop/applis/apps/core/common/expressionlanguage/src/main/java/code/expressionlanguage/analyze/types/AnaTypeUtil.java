@@ -23,27 +23,27 @@ public final class AnaTypeUtil {
     }
 
     public static void buildOverrides(RootBlock _type, ContextEl _context) {
-        ExecRootBlock val_ = _context.getAnalyzing().getMapTypes().getVal(_type);
         String fileName_ = _type.getFile().getFileName();
-        for (ClassMethodId c: getAllDuplicates(_type, _context)) {
-            FoundErrorInterpret err_;
-            err_ = new FoundErrorInterpret();
-            err_.setFileName(fileName_);
-            ExecNamedFunctionBlock sub_ = ExecBlock.getMethodBodiesById(_context,c.getClassName(),c.getConstraints()).first();
-            err_.setIndexFile(sub_.getReturnTypeOffset());
-            //type id len
-            err_.buildError(_context.getAnalysisMessages().getDuplicatedOverriding(),
-                    _type.getFullName(),
-                    StringList.concat(c.getClassName(),".",c.getConstraints().getSignature(_context)));
-            _context.addError(err_);
-            _type.addNameErrors(err_);
-        }
         StringMap<StringList> vars_ = new StringMap<StringList>();
         for (TypeVar t: _type.getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
         for (OverridingMethodDto e: getAllInstanceSignatures(_type, _context)) {
             FormattedMethodId key_ = e.getFormattedMethodId();
+            if (!StringList.quickEq(key_.getName(),"[]")
+                    &&!StringList.quickEq(key_.getName(),"[]=")) {
+                for (Block b: ClassesUtil.getDirectChildren(_type)) {
+                    if (b instanceof InternOverrideBlock) {
+                        CustList<OverridingMethodDto> overrides_ = ((InternOverrideBlock) b).getOverrides();
+                        for (OverridingMethodDto o: overrides_) {
+                            if (o.getFormattedMethodId().eq(key_)) {
+                                e.getMethodIds().clear();
+                                e.getMethodIds().addAllElts(o.getMethodIds());
+                            }
+                        }
+                    }
+                }
+            }
             CustList<OverridingRelation> pairs_ = new CustList<OverridingRelation>();
             CustList<GeneStringOverridable> allMethods_ = e.getMethodIds();
             for (GeneStringOverridable c: allMethods_) {
@@ -166,36 +166,6 @@ public final class AnaTypeUtil {
                 }
             }
         }
-    }
-
-    private static CustList<ClassMethodId> getAllDuplicates(RootBlock _type, ContextEl _classes) {
-        CustList<ClassMethodId> list_;
-        list_ = new CustList<ClassMethodId>();
-        for (String s: _type.getAllGenericSuperTypes()) {
-            CustList<MethodId> all_;
-            all_ = new CustList<MethodId>();
-            String base_ = StringExpUtil.getIdFromAllTypes(s);
-            RootBlock b_ = _classes.getAnalyzing().getAnaClassBody(base_);
-            for (OverridableBlock b: ClassesUtil.getMethodExecBlocks(b_)) {
-                if (b.hiddenInstance()) {
-                    continue;
-                }
-                MethodId id_ = b.getId().quickFormat(s, _classes);
-                ClassMethodId formatted_ = new ClassMethodId(s, b.getId());
-                boolean found_ = false;
-                for (MethodId m: all_) {
-                    if (id_.eq(m)) {
-                        found_ = true;
-                        break;
-                    }
-                }
-                if (found_) {
-                    list_.add(formatted_);
-                }
-                all_.add(id_);
-            }
-        }
-        return list_;
     }
 
     private static CustList<OverridingMethodDto> getAllInstanceSignatures(RootBlock _r, ContextEl _classes) {

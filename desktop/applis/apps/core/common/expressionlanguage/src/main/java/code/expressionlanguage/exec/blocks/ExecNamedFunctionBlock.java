@@ -20,8 +20,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private StringList importedParametersTypes;
 
-    private int returnTypeOffset;
-
     private final StringList parametersNames;
 
     private final AccessEnum access;
@@ -37,7 +35,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         nameOffset = _offset.getNameOffset();
         varargs = _offset.isVarargs();
         access = _offset.getAccess();
-        returnTypeOffset = _offset.getReturnTypeOffset();
         parametersNames = _offset.getParametersNames();
     }
 
@@ -75,10 +72,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     public int getNameOffset() {
         return nameOffset;
-    }
-
-    public int getReturnTypeOffset() {
-        return returnTypeOffset;
     }
 
     public String getName() {

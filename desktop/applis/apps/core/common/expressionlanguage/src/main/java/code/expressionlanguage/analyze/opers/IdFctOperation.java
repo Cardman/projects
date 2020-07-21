@@ -102,20 +102,20 @@ public final class IdFctOperation extends LeafOperation {
                 anc_ = idUpdate_.getAncestor();
             }
         }
-        MethodId argsRes_ = resolveArguments(i_, _conf, cl_, EMPTY_STRING, static_, args_);
+        MethodId argsRes_ = resolveArguments(i_, _conf, cl_, EMPTY_STRING, static_, args_, className, partOffsets);
         if (argsRes_ == null) {
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         method = new ClassMethodIdAncestor(new ClassMethodId(cl_, argsRes_),anc_);
         setSimpleArgument(new Argument());
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
-    private MethodId resolveArguments(int _from, ContextEl _conf, String _fromType, String _name, MethodAccessKind _static, StringList _params){
+    public static MethodId resolveArguments(int _from, ContextEl _conf, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, CustList<PartOffset> _partOffsets){
         StringList out_ = new StringList();
-        LgNames stds_ = _conf.getStandards();
         int len_ = _params.size();
         int vararg_ = -1;
-        int off_ = className.indexOf('(')+1;
+        int off_ = _className.indexOf('(')+1;
         for (int i = 0; i < _from; i++) {
             off_ += _params.get(i).length() + 1;
         }
@@ -134,9 +134,8 @@ public final class IdFctOperation extends LeafOperation {
                     //three dots
                     varg_.buildError(_conf.getAnalysisMessages().getUnexpectedVararg());
                     _conf.getAnalyzing().getLocalizer().addError(varg_);
-                    partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-                    partOffsets.add(new PartOffset("</a>",i_+3));
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                    _partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
+                    _partOffsets.add(new PartOffset("</a>",i_+3));
                     return null;
                 }
                 vararg_ = len_- _from;
@@ -145,7 +144,7 @@ public final class IdFctOperation extends LeafOperation {
                 type_ = arg_;
             }
             arg_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,off_ + loc_,type_, _fromType);
-            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+            _partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
             off_ += _params.get(i).length() + 1;
             out_.add(arg_);
         }

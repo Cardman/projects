@@ -1,19 +1,29 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.IdFctOperation;
+import code.expressionlanguage.analyze.types.GeneStringOverridable;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.common.ExtractedParts;
 import code.expressionlanguage.common.GeneCustStaticMethod;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class OverridableBlock extends NamedFunctionBlock implements GeneCustStaticMethod,ReturnableWithSignature {
 
@@ -27,6 +37,10 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
 
     private final boolean normalMethod;
     private MethodKind kind;
+    private CustList<PartOffset> allInternParts = new CustList<PartOffset>();
+    private String definition  = "";
+    private int definitionOffset;
+    private StringMap<ClassMethodId> overrides = new StringMap<ClassMethodId>();
 
     public OverridableBlock(ContextEl _importingPage,
                             OffsetAccessInfo _access,
@@ -48,6 +62,14 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         finalMethod = StringList.quickEq(modifier_, keyWordFinal_);
         abstractMethod = StringList.quickEq(modifier_, keyWordAbstract_);
         normalMethod = StringList.quickEq(modifier_, keyWordNormal_);
+    }
+
+    public void setDefinition(String definition) {
+        this.definition = definition;
+    }
+
+    public void setDefinitionOffset(int definitionOffset) {
+        this.definitionOffset = definitionOffset;
     }
 
     @Override
@@ -149,6 +171,97 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 addNameErrors(miss_);
             }
         }
+    }
+    public void buildTypes(RootBlock _root, ContextEl _context) {
+        int indexDefOv_ = definition.indexOf('(');
+        _context.getAnalyzing().setGlobalOffset(definitionOffset+indexDefOv_+1);
+        ExtractedParts extractedParts_ = StringExpUtil.tryToExtract(definition, '(', ')');
+        StringList overrideList_ = StringList.splitChar(extractedParts_.getSecond(), ';');
+        int sum_ = 0;
+        for (String o: overrideList_) {
+            _context.getAnalyzing().setOffset(sum_);
+            int indexDef_ = o.indexOf(Templates.EXTENDS_DEF);
+            StringList parts_ = StringList.splitInTwo(o, indexDef_);
+            if (parts_.size() <= 1) {
+                sum_ += o.length()+1;
+                continue;
+            }
+            String key_ = parts_.first();
+            int off_ = StringList.getFirstPrintableCharIndex(key_);
+            String clKey_ = ResolvingImportTypes.resolveAccessibleIdType(_context,off_,key_);
+            allInternParts.addAllElts(_context.getAnalyzing().getCurrentParts());
+            RootBlock root_ = _context.getAnalyzing().getAnaClassBody(clKey_);
+            if (root_ == null) {
+                sum_ += o.length()+1;
+                continue;
+            }
+            if (!root_.isSubTypeOf(_root.getFullName(),_context)) {
+                sum_ += o.length()+1;
+                continue;
+            }
+            String sgn_ = parts_.last().substring(1);
+            ExtractedParts extr_ = StringExpUtil.tryToExtract(sgn_,'(',')');
+            String nameLoc_ = extr_.getFirst().trim();
+            if (StringExpUtil.isIndexerOrInexist(nameLoc_)) {
+                sum_ += o.length() + 1;
+                continue;
+            }
+            _context.getAnalyzing().setOffset(sum_+indexDef_+1);
+            StringList args_ = StringExpUtil.getAllSepCommaTypes(extr_.getSecond());
+            String firstFull_ = args_.first();
+            off_ = StringList.getFirstPrintableCharIndex(firstFull_);
+            String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
+            int firstPar_ = extr_.getFirst().length();
+            String clDest_ = ResolvingImportTypes.resolveAccessibleIdType(_context,off_+firstPar_+1,fromType_);
+            CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
+            superPartOffsets_.addAllElts(_context.getAnalyzing().getCurrentParts());
+            String formattedDest_ = Templates.getOverridingFullTypeByBases(root_, clDest_, _context);
+            if (formattedDest_.isEmpty()) {
+                allInternParts.addAllElts(superPartOffsets_);
+                sum_ += o.length()+1;
+                continue;
+            }
+            MethodId methodIdDest_ = IdFctOperation.resolveArguments(1,_context,clDest_,nameLoc_,MethodAccessKind.INSTANCE,args_,sgn_, superPartOffsets_);
+            if (methodIdDest_ == null) {
+                allInternParts.addAllElts(superPartOffsets_);
+                sum_ += o.length()+1;
+                continue;
+            }
+            CustList<PartOffset> partMethods_ = new CustList<PartOffset>();
+            RootBlock rootSuper_ = _context.getAnalyzing().getAnaClassBody(clDest_);
+            CustList<OverridableBlock> methods_ = ClassesUtil.getMethodExecBlocks(rootSuper_);
+            String formattedDeclaring_ = Templates.getOverridingFullTypeByBases(root_, _root.getFullName(), _context);
+            if (!getId().quickOverrideFormat(formattedDeclaring_,_context).eqPartial(MethodId.to(methodIdDest_.quickFormat(formattedDest_,_context)))) {
+                allInternParts.addAllElts(superPartOffsets_);
+                sum_ += o.length()+1;
+                continue;
+            }
+            int rc_ = _context.getCurrentLocationIndex()+off_;
+            for (OverridableBlock m: methods_) {
+                if (m.isAbstractMethod()) {
+                    continue;
+                }
+                if (m.getId().eq(methodIdDest_)) {
+                    ClassMethodId ref_ = new ClassMethodId(clDest_,m.getId());
+                    CustList<PartOffset> partMethod_ = new CustList<PartOffset>();
+                    StringList l_ = new StringList();
+                    LinkageUtil.addParts(_context,_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
+                    partMethods_.addAllElts(partMethod_);
+                    overrides.put(clKey_,new ClassMethodId(formattedDest_,methodIdDest_));
+                }
+            }
+            allInternParts.addAllElts(partMethods_);
+            allInternParts.addAllElts(superPartOffsets_);
+            sum_ += o.length()+1;
+        }
+    }
+
+    public StringMap<ClassMethodId> getOverrides() {
+        return overrides;
+    }
+
+    public CustList<PartOffset> getAllInternParts() {
+        return allInternParts;
     }
 
     public MethodKind getKind() {

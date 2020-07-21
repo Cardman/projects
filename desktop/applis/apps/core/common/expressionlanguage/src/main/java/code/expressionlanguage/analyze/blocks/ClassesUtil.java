@@ -12,10 +12,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.ParametersGroup;
 import code.expressionlanguage.analyze.opers.util.Parametrable;
-import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.types.ResolvingSuperTypes;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.util.TypeInfo;
@@ -65,9 +62,10 @@ public final class ClassesUtil {
             }
         }
         for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getAllMapTypes().entryList()) {
-            IdMap<OverridableBlock, ExecOverridableBlock> allMethods_ = _context.getAnalyzing().getAllMapMembers().getValue(e.getKey().getNumberAll()).getAllMethods();
+            RootBlock root_ = e.getKey();
+            IdMap<OverridableBlock, ExecOverridableBlock> allMethods_ = _context.getAnalyzing().getAllMapMembers().getValue(root_.getNumberAll()).getAllMethods();
             ClassMethodIdOverrides redirections_ = e.getValue().getRedirections();
-            String fullName_ = e.getKey().getFullName();
+            String fullName_ = root_.getFullName();
             for (EntryCust<OverridableBlock,ExecOverridableBlock> f: allMethods_.entryList()) {
                 OverridableBlock key_ = f.getKey();
                 if (key_.hiddenInstance()) {
@@ -78,11 +76,59 @@ public final class ClassesUtil {
                 }
                 MethodId id_ = key_.getId();
                 ClassMethodIdOverride override_ = new ClassMethodIdOverride(new ClassMethodId(fullName_, id_));
-                StringMap<ClassMethodId> map_ = OverridesTypeUtil.getConcreteMethodsToCall(e.getKey(), id_, _context);
+                StringMap<ClassMethodId> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, id_, _context);
+                map_.putAllMap(key_.getOverrides());
                 for (EntryCust<String,ClassMethodId> g: map_.entryList()) {
                     override_.put(g.getKey(),g.getValue());
                 }
                 redirections_.add(override_);
+            }
+        }
+        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getAllMapTypes().entryList()) {
+            RootBlock root_ = e.getKey();
+            if (root_.mustImplement()) {
+                StringList allSuperClass_ = root_.getAllGenericSuperTypes();
+                for (String s: allSuperClass_) {
+                    String base_ = StringExpUtil.getIdFromAllTypes(s);
+                    RootBlock superBl_ = _context.getAnalyzing().getAnaClassBody(base_);
+                    for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
+                        if (m.isAbstractMethod()) {
+                            ExecRootBlock ex_ = _context.getAnalyzing().getAllMapTypes().getValue(superBl_.getNumberAll());
+                            ClassMethodId val_ = ex_.getRedirections().getVal(new ClassMethodId(base_, m.getId()), root_.getFullName());
+                            if (val_ == null) {
+                                FoundErrorInterpret err_;
+                                err_ = new FoundErrorInterpret();
+                                err_.setFileName(root_.getFile().getFileName());
+                                err_.setIndexFile(root_.getIdRowCol());
+                                //type id
+                                err_.buildError(
+                                        _context.getAnalysisMessages().getAbstractMethodImpl(),
+                                        base_,
+                                        m.getSignature(_context),
+                                        root_.getFullName());
+                                _context.addError(err_);
+                                root_.addNameErrors(err_);
+                            }
+                        }
+                    }
+                }
+            } else {
+                StringList allSuperClass_ = new StringList(root_.getGenericString());
+                allSuperClass_.addAllElts(root_.getAllGenericSuperTypes());
+                for (String s: allSuperClass_) {
+                    String base_ = StringExpUtil.getIdFromAllTypes(s);
+                    RootBlock superBl_ = _context.getAnalyzing().getAnaClassBody(base_);
+                    for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
+                        if (m.isAbstractMethod()) {
+                            ExecRootBlock ex_ = _context.getAnalyzing().getAllMapTypes().getValue(superBl_.getNumberAll());
+                            ClassMethodId val_ = ex_.getRedirections().getVal(new ClassMethodId(base_, m.getId()), root_.getFullName());
+                            if (val_ == null) {
+                                root_.getFunctional().add(new ClassMethodId(s,m.getId()));
+                            }
+                        }
+                    }
+                }
+                e.getValue().getFunctional().addAllElts(root_.getFunctional());
             }
         }
     }
@@ -1270,6 +1316,21 @@ public final class ClassesUtil {
         }
         for (EntryCust<RootBlock,ExecRootBlock> e: mapTypes_.entryList()) {
             e.getValue().validateIds(e.getKey(),page_.getMapMembers());
+        }
+        for (RootBlock c: page_.getFoundTypes()) {
+            ExecRootBlock type_ = mapTypes_.getVal(c);
+            page_.setGlobalClass(type_.getGenericString());
+            page_.setImporting(c);
+            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingTypes(c);
+            for (Block b: getDirectChildren(c)) {
+                if (b instanceof InternOverrideBlock) {
+                    ((InternOverrideBlock)b).buildTypes(c,_context);
+                }
+                if (b instanceof OverridableBlock) {
+                    ((OverridableBlock)b).buildTypes(c,_context);
+                }
+            }
         }
         CustList<MethodId> idMethods_ = new CustList<MethodId>();
         page_.setGlobalClass("");
