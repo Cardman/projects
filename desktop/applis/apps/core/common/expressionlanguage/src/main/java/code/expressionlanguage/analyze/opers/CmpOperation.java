@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -82,7 +83,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             second_.setCheckOnlyNullPe(true);
             return;
         }
-        if (PrimitiveTypeUtil.isFloatOrderClass(first_,second_, _conf)) {
+        if (AnaTypeUtil.isFloatOrderClass(first_,second_, _conf)) {
             ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_,  _conf);
             ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_,  _conf);
             chidren_.first().getResultClass().setUnwrapObject(classFirst_);
@@ -92,7 +93,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             return;
         }
-        if (PrimitiveTypeUtil.isIntOrderClass(first_,second_, _conf)) {
+        if (AnaTypeUtil.isIntOrderClass(first_,second_, _conf)) {
             ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_,  _conf);
             ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_,  _conf);
             chidren_.first().getResultClass().setUnwrapObject(classFirst_);

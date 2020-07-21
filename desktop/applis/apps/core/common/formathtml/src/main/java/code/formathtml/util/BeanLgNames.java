@@ -1,6 +1,7 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.DoubleInfo;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
@@ -127,14 +128,14 @@ public abstract class BeanLgNames extends LgNames {
             res_.setResult(new CharStruct(_values.first().trim().charAt(0)));
             return res_;
         }
-        int order_ = PrimitiveTypeUtil.getIntOrderClass(cl_, _context.getContext());
+        int order_ = AnaTypeUtil.getIntOrderClass(cl_, _context.getContext());
         if (order_ == 0) {
             DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
             if (!doubleInfo_.isValid()) {
                 res_.setError(getAliasCastType());
                 return res_;
             }
-            res_.setResult(PrimitiveTypeUtil.convertStrictObject(cl_,new DoubleStruct(doubleInfo_.getValue()),this));
+            res_.setResult(PrimitiveTypeUtil.convertToFloat(cl_,new DoubleStruct(doubleInfo_.getValue()),this));
             return res_;
         }
         LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
@@ -142,7 +143,7 @@ public abstract class BeanLgNames extends LgNames {
             res_.setError(getAliasCastType());
             return res_;
         }
-        res_.setResult(PrimitiveTypeUtil.convertStrictObject(cl_,new LongStruct(val_.getValue()),this));
+        res_.setResult(PrimitiveTypeUtil.convertToInt(cl_,new LongStruct(val_.getValue()),this));
         return res_;
     }
     public boolean isConveritble(String _className) {
@@ -150,7 +151,7 @@ public abstract class BeanLgNames extends LgNames {
             return true;
         }
 
-        return PrimitiveTypeUtil.isPrimitiveOrWrapper(_className, this);
+        return AnaTypeUtil.isPrimitiveOrWrapper(_className, this);
     }
     public abstract boolean setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files);
     protected static Struct wrapStd(String _element) {

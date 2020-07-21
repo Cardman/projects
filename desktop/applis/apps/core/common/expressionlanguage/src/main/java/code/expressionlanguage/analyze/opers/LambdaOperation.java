@@ -2,7 +2,10 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.MethodKind;
+import code.expressionlanguage.analyze.blocks.OverridableBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
@@ -16,8 +19,6 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
-import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -299,9 +300,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             ClassMethodIdReturn id_;
             if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordExplicit())){
-                id_ = tryGetDeclaredCast(_conf,type_, feed_,ClassArgumentMatching.toArgArray(_methodTypes));
+                id_ = tryGetDeclaredCast(_conf,type_, feed_, OperationNode.toArgArray(_methodTypes));
             } else {
-                id_ = tryGetDeclaredImplicitCast(_conf,type_, feed_,ClassArgumentMatching.toArgArray(_methodTypes));
+                id_ = tryGetDeclaredImplicitCast(_conf,type_, feed_, OperationNode.toArgArray(_methodTypes));
             }
             if (!id_.isFoundMethod()) {
                 ClassMethodIdReturn idDef_ = new ClassMethodIdReturn(true);
@@ -517,7 +518,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             ClassMethodIdReturn id_ = getDeclaredCustMethodLambda(this,_conf, vararg_,
                     MethodAccessKind.INSTANCE, str_, name_,
                     accessSuper_, accessFromSuper_, feed_,
-                    ClassArgumentMatching.toArgArray(_methodTypes));
+                    OperationNode.toArgArray(_methodTypes));
             if (!id_.isFoundMethod()) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
@@ -588,7 +589,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             for (String s: argsRes_.getParametersTypes()) {
                 _methodTypes.add(new ClassArgumentMatching(s));
             }
-            ClassMethodIdReturn id_ = getDeclaredCustMethodLambda(this,_conf, vararg_, kind_, str_, name_, true, false, feed_, ClassArgumentMatching.toArgArray(_methodTypes));
+            ClassMethodIdReturn id_ = getDeclaredCustMethodLambda(this,_conf, vararg_, kind_, str_, name_, true, false, feed_, OperationNode.toArgArray(_methodTypes));
             if (!id_.isFoundMethod()) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
@@ -797,7 +798,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         ClassMethodIdReturn id_ = getDeclaredCustMethodLambda(this,_conf, vararg_, stCtx_, str_,
                 name_, accessSuper_, accessFromSuper_,
-                feed_, ClassArgumentMatching.toArgArray(_methodTypes));
+                feed_, OperationNode.toArgArray(_methodTypes));
         if (!id_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
@@ -974,7 +975,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
             }
             ConstrustorIdVarArg ctorRes_;
-            ctorRes_ = getDeclaredCustConstructorLambda(this,_conf, vararg_, new ClassArgumentMatching(clFrom_), h_,feed_, ClassArgumentMatching.toArgArray(_methodTypes));
+            ctorRes_ = getDeclaredCustConstructorLambda(this,_conf, vararg_, new ClassArgumentMatching(clFrom_), h_,feed_, OperationNode.toArgArray(_methodTypes));
             realId = ctorRes_.getRealId();
             if (realId == null) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
@@ -1143,7 +1144,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructorLambda(this,_conf, _vararg, new ClassArgumentMatching(_cl),h_, _feed, ClassArgumentMatching.toArgArray(_methodTypes));
+        ctorRes_ = getDeclaredCustConstructorLambda(this,_conf, _vararg, new ClassArgumentMatching(_cl),h_, _feed, OperationNode.toArgArray(_methodTypes));
         realId = ctorRes_.getRealId();
         if (realId == null) {
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
@@ -1732,13 +1733,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (_feed == null) {
                 return tryGetDeclaredCustMethodLambda(_cont, -1, MethodAccessKind.STATIC_CALL,
                         new StringList(_from), _operator, false, false, false, null,
-                        ClassArgumentMatching.toArgArray(_methodTypes));
+                        OperationNode.toArgArray(_methodTypes));
             }
             return tryGetDeclaredCustMethodLambda(_cont, -1, MethodAccessKind.STATIC_CALL,
                     new StringList(_from), _operator, false, false, false, new ClassMethodIdAncestor(_feed,0),
-                    ClassArgumentMatching.toArgArray(_methodTypes));
+                    OperationNode.toArgArray(_methodTypes));
         }
-        return getOperatorLambda(_cont, _feed, _vararg, _operator, ClassArgumentMatching.toArgArray(_methodTypes));
+        return getOperatorLambda(_cont, _feed, _vararg, _operator, OperationNode.toArgArray(_methodTypes));
     }
 
     private void processArray(ContextEl _conf, LgNames _stds,
@@ -1914,13 +1915,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private static void appendRightPart(ContextEl _an, ClassMethodIdReturn _out, StringList _paramsReturn, MethodId _id) {
         if (StringList.quickEq(_id.getName(),"[]=")) {
-            CustList<ExecOverridableBlock> getIndexers_ = new CustList<ExecOverridableBlock>();
+            CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
             String idCl_ = StringExpUtil.getIdFromAllTypes(_out.getRealClass());
-            for (ExecBlock b: ExecBlock.getDirectChildren(_an.getClasses().getClassBody(idCl_))) {
-                if (!(b instanceof ExecOverridableBlock)) {
+            for (Block b: ClassesUtil.getDirectChildren(_an.getAnalyzing().getAnaClassBody(idCl_))) {
+                if (!(b instanceof OverridableBlock)) {
                     continue;
                 }
-                ExecOverridableBlock i_ = (ExecOverridableBlock) b;
+                OverridableBlock i_ = (OverridableBlock) b;
                 if (i_.getKind() != MethodKind.GET_INDEX) {
                     continue;
                 }
@@ -1930,7 +1931,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 getIndexers_.add(i_);
             }
             if (getIndexers_.size() == 1) {
-                ExecOverridableBlock matching_ = getIndexers_.first();
+                OverridableBlock matching_ = getIndexers_.first();
                 String importedReturnType_ = matching_.getImportedReturnType();
                 String real_ = _out.getRealClass();
                 importedReturnType_ = AnaTemplates.wildCardFormatReturn(real_, importedReturnType_, _an);

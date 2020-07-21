@@ -2,6 +2,10 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
+import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
@@ -51,15 +55,14 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         MethodOperation mOp_ = getParent();
         AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
         String annotationClass_ = par_.getClassName();
-        GeneType type_ = _conf.getClassBody(annotationClass_);
-        if (type_ instanceof ExecBlock) {
-            ExecBlock ann_ = (ExecBlock) type_;
+        RootBlock type_ = _conf.getAnalyzing().getAnaClassBody(annotationClass_);
+        if (type_ != null) {
             boolean ok_ = false;
-            for (ExecBlock b: ExecBlock.getDirectChildren(ann_)) {
-                if (!(b instanceof ExecAnnotationMethodBlock)) {
+            for (Block b: ClassesUtil.getDirectChildren(type_)) {
+                if (!(b instanceof AnnotationMethodBlock)) {
                     continue;
                 }
-                ExecAnnotationMethodBlock a_ = (ExecAnnotationMethodBlock) b;
+                AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
                 if (StringList.quickEq(a_.getName(), fieldName)) {
                     ok_ = true;
                     break;

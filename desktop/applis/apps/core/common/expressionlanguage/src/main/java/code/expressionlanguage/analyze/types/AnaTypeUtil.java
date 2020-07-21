@@ -12,13 +12,25 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveType;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class AnaTypeUtil {
+    private static final byte DOUBLE_CASTING = 7;
+    private static final byte FLOAT_CASTING = 6;
+    private static final byte LONG_CASTING = 5;
+    private static final byte INT_CASTING = 4;
+    private static final byte CHAR_CASTING = 3;
+    private static final byte SHORT_CASTING = 2;
+    private static final byte BYTE_CASTING = 1;
+
     private AnaTypeUtil() {
     }
 
@@ -431,13 +443,12 @@ public final class AnaTypeUtil {
         while (true) {
             StringList new_ = new StringList();
             for (String s: ids_) {
-                GeneType g_ = _an.getClassBody(s);
-                if (!(g_ instanceof ExecRootBlock)) {
+                RootBlock g_ = _an.getAnalyzing().getAnaClassBody(s);
+                if (g_ == null) {
                     continue;
                 }
-                ExecRootBlock sub_ = (ExecRootBlock)g_;
-                added(_innerName, _staticOnly, owners_, s, sub_);
-                for (String t: sub_.getImportedDirectBaseSuperTypes()) {
+                added(_innerName, _staticOnly, owners_, s, g_);
+                for (String t: g_.getImportedDirectBaseSuperTypes().values()) {
                     addIfNotFound(visited_, new_, t);
                 }
             }
@@ -446,7 +457,7 @@ public final class AnaTypeUtil {
             }
             ids_ = new_;
         }
-        return PrimitiveTypeUtil.getSubclasses(owners_,_an);
+        return getSubclasses(owners_,_an);
     }
     public static StringList getGenericOwners(String _root, String _innerName, ContextEl _an) {
         StringList ids_ = new StringList(_root);
@@ -456,14 +467,13 @@ public final class AnaTypeUtil {
             StringList new_ = new StringList();
             for (String s: ids_) {
                 String id_ = StringExpUtil.getIdFromAllTypes(s);
-                GeneType g_ = _an.getClassBody(id_);
-                if (!(g_ instanceof ExecRootBlock)) {
+                RootBlock g_ = _an.getAnalyzing().getAnaClassBody(id_);
+                if (g_ == null) {
                     continue;
                 }
-                ExecRootBlock sub_ = (ExecRootBlock)g_;
-                added(_innerName, false, owners_, s, sub_);
+                added(_innerName, false, owners_, s, g_);
                 if (!Templates.correctNbParameters(s,_an)) {
-                    for (String t: sub_.getImportedDirectSuperTypes()) {
+                    for (String t: g_.getImportedDirectSuperTypes()) {
                         String format_ = StringExpUtil.getIdFromAllTypes(t);
                         GeneType sup_ = _an.getClassBody(format_);
                         if (!sup_.isStaticType()) {
@@ -473,7 +483,7 @@ public final class AnaTypeUtil {
                     }
                     continue;
                 }
-                for (String t: sub_.getImportedDirectSuperTypes()) {
+                for (String t: g_.getImportedDirectSuperTypes()) {
                     String format_ = Templates.quickFormat(s, t, _an);
                     addIfNotFound(visited_, new_, format_);
                 }
@@ -483,7 +493,7 @@ public final class AnaTypeUtil {
             }
             ids_ = new_;
         }
-        return PrimitiveTypeUtil.getSubclasses(owners_,_an);
+        return getSubclasses(owners_,_an);
     }
 
     private static void addIfNotFound(StringList _visited, StringList _new, String _format) {
@@ -494,8 +504,8 @@ public final class AnaTypeUtil {
         _new.add(_format);
     }
 
-    private static void added(String _innerName, boolean _staticOnly, StringList owners_, String s, ExecRootBlock sub_) {
-        for (ExecRootBlock b: ClassesUtil.accessedClassMembers(sub_)) {
+    private static void added(String _innerName, boolean _staticOnly, StringList owners_, String s, RootBlock sub_) {
+        for (RootBlock b: ClassesUtil.accessedClassMembers(sub_)) {
             if (_staticOnly) {
                 if (!b.isStaticType()) {
                     continue;
@@ -510,19 +520,165 @@ public final class AnaTypeUtil {
     public static StringList getEnumOwners(String _root, String _innerName, ContextEl _an) {
         StringList owners_ = new StringList();
         String id_ = StringExpUtil.getIdFromAllTypes(_root);
-        GeneType g_ = _an.getClassBody(id_);
-        if (g_ instanceof ExecRootBlock) {
-            ExecRootBlock sub_ = (ExecRootBlock)g_;
-            addedInnerElement(_innerName, owners_, _root, sub_);
+        RootBlock g_ = _an.getAnalyzing().getAnaClassBody(id_);
+        if (g_ != null) {
+            addedInnerElement(_innerName, owners_, _root, g_);
         }
         return owners_;
     }
-    private static void addedInnerElement(String _innerName, StringList owners_, String s, ExecRootBlock sub_) {
-        for (ExecRootBlock b: ClassesUtil.accessedInnerElements(sub_)) {
+    private static void addedInnerElement(String _innerName, StringList owners_, String s, RootBlock sub_) {
+        for (RootBlock b: ClassesUtil.accessedInnerElements(sub_)) {
             String name_ = b.getName();
             if (StringList.quickEq(name_, _innerName)) {
                 owners_.add(s);
             }
         }
+    }
+
+    /** Only "object" classes are used as arguments */
+    public static StringList getSubclasses(StringList _classNames, ContextEl _context) {
+        StringList types_ = new StringList();
+        for (String i: _classNames) {
+            boolean sub_ = true;
+            for (String j: _classNames) {
+                String baseSup_ = StringExpUtil.getIdFromAllTypes(i);
+                String baseSub_ = StringExpUtil.getIdFromAllTypes(j);
+                if (StringList.quickEq(baseSup_, baseSub_)) {
+                    continue;
+                }
+                AnaGeneType subType_ = _context.getAnalyzing().getAnaGeneType(_context,baseSub_);
+                if (subType_.isSubTypeOf(baseSup_,_context)) {
+                    sub_ = false;
+                    break;
+                }
+            }
+            if (!sub_) {
+                continue;
+            }
+            types_.add(i);
+        }
+        return types_;
+    }
+
+    public static int cmpTypes(String _one, String _two, ContextEl _context) {
+        AnaInheritedType one_ = _context.getAnalyzing().getAnaGeneType(_context,_one);
+        AnaInheritedType two_ = _context.getAnalyzing().getAnaGeneType(_context,_two);
+        if (two_.isSubTypeOf(_one,_context)) {
+            return CustList.SWAP_SORT;
+        }
+        if (one_.isSubTypeOf(_two,_context)) {
+            return CustList.NO_SWAP_SORT;
+        }
+        return CustList.EQ_CMP;
+    }
+
+    public static boolean isFloatOrderClass(ClassArgumentMatching _class, ClassArgumentMatching _classTwo, ContextEl _context) {
+        return isFloatOrderClass(_class, _context) && isFloatOrderClass(_classTwo, _context);
+    }
+
+    private static boolean isFloatOrderClass(ClassArgumentMatching _class, ContextEl _context) {
+        return isFloatOrderClass(_class,_context.getStandards());
+    }
+
+    private static boolean isFloatOrderClass(ClassArgumentMatching _class, LgNames _context) {
+        return getFloatOrderClass(_class,_context) > 0;
+    }
+
+    public static int getFloatOrderClass(ClassArgumentMatching _class, ContextEl _context) {
+        return getFloatOrderClass(_class, _context.getStandards());
+    }
+
+    private static int getFloatOrderClass(ClassArgumentMatching _class, LgNames _stds) {
+        ClassArgumentMatching class_ = PrimitiveTypeUtil.toPrimitive(_class, _stds);
+        if (class_.matchClass(_stds.getAliasPrimDouble())) {
+            return DOUBLE_CASTING;
+        }
+        if (class_.matchClass(_stds.getAliasPrimFloat())) {
+            return FLOAT_CASTING;
+        }
+        return 0;
+    }
+
+    public static int getIntOrderClass(String _class, ContextEl _context) {
+        return getIntOrderClass(_class, _context.getStandards());
+    }
+
+    private static int getIntOrderClass(String _class, LgNames _stds) {
+        return getIntOrderClass(new ClassArgumentMatching(_class), _stds);
+    }
+
+    public static boolean isIntOrderClass(ClassArgumentMatching _class, ClassArgumentMatching _classTwo, ContextEl _context) {
+        return isIntOrderClass(_class, _context) && isIntOrderClass(_classTwo, _context);
+    }
+
+    public static boolean isIntOrderClass(ClassArgumentMatching _class, ContextEl _context) {
+        return getIntOrderClass(_class,_context) > 0;
+    }
+
+    public static int getIntOrderClass(ClassArgumentMatching _class, ContextEl _context) {
+        return getIntOrderClass(_class, _context.getStandards());
+    }
+
+    private static int getIntOrderClass(ClassArgumentMatching _class, LgNames _stds) {
+        ClassArgumentMatching class_ = PrimitiveTypeUtil.toPrimitive(_class, _stds);
+        if (class_.matchClass(_stds.getAliasPrimLong())) {
+            return LONG_CASTING;
+        }
+        if (class_.matchClass(_stds.getAliasPrimInteger())) {
+            return INT_CASTING;
+        }
+        if (class_.matchClass(_stds.getAliasPrimChar())) {
+            return CHAR_CASTING;
+        }
+        if (class_.matchClass(_stds.getAliasPrimShort())) {
+            return SHORT_CASTING;
+        }
+        if (class_.matchClass(_stds.getAliasPrimByte())) {
+            return BYTE_CASTING;
+        }
+        return 0;
+    }
+
+    public static String toPrimitive(String _class, LgNames _stds) {
+        for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
+            if (StringList.quickEq(e.getValue().getWrapper(), _class)) {
+                return e.getKey();
+            }
+        }
+        return _class;
+    }
+
+    public static boolean isPrimitiveOrWrapper(String _className, ContextEl _context) {
+        return isPrimitiveOrWrapper(_className, _context.getStandards());
+    }
+
+    public static boolean isPrimitiveOrWrapper(String _className, LgNames _stds) {
+        if (PrimitiveTypeUtil.isPrimitive(_className, _stds)) {
+            return true;
+        }
+        return isWrapper(_className, _stds);
+    }
+
+    public static boolean isPrimitiveOrWrapper(ClassArgumentMatching _className, ContextEl _context) {
+        for (String c: _className.getNames()) {
+            if (isPrimitiveOrWrapper(c, _context.getStandards())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isWrapper(String _className, ContextEl _context) {
+        return isWrapper(_className, _context.getStandards());
+    }
+
+    public static boolean isWrapper(String _className, LgNames _stds) {
+        for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
+            String wrap_ = e.getValue().getWrapper();
+            if (StringList.quickEq(wrap_, _className)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -204,7 +204,7 @@ public final class ClassesUtil {
             meths_.addEntry(cl_,p);
             sub_.add(cl_);
         }
-        sub_ = PrimitiveTypeUtil.getSubclasses(sub_,_context);
+        sub_ = AnaTypeUtil.getSubclasses(sub_,_context);
         if (!sub_.onlyOneElt()) {
             return null;
         }
@@ -276,7 +276,7 @@ public final class ClassesUtil {
             StringList elements_ = StringList.splitChars(packageName_, DOT);
             for (String e: elements_) {
                 String tr_ = e.trim();
-                TokenErrorMessage res_ = ManageTokens.partClass(_context).checkStdToken(_context, tr_);
+                TokenErrorMessage res_ = ManageTokens.partClass(_context).checkToken(_context, tr_);
                 if (res_.isError()) {
                     FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                     badCl_.setFileName(_root.getFile().getFileName());
@@ -290,7 +290,7 @@ public final class ClassesUtil {
         }
         String className_;
         className_ = _root.getName().trim();
-        TokenErrorMessage resClName_ = ManageTokens.partClass(_context).checkStdToken(_context, className_);
+        TokenErrorMessage resClName_ = ManageTokens.partClass(_context).checkToken(_context, className_);
         if (resClName_.isError()) {
             FoundErrorInterpret badCl_ = new FoundErrorInterpret();
             badCl_.setFileName(_root.getFile().getFileName());
@@ -353,7 +353,7 @@ public final class ClassesUtil {
                 tempOff_ += p.length() + 1;
                 continue;
             }
-            TokenErrorMessage res_ = ManageTokens.partVarClass(_context).checkStdToken(_context,id_);
+            TokenErrorMessage res_ = ManageTokens.partVarClass(_context).checkToken(_context, id_);
             if (res_.isError()) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                 badCl_.setFileName(_root.getFile().getFileName());
@@ -715,15 +715,15 @@ public final class ClassesUtil {
             }
             StringList allPossibleDirectSuperTypes_ = new StringList();
             StringList allDirectSuperTypes_ = new StringList();
-            StringList allAncestors_ = new StringList();
+            CustList<RootBlock> allAncestors_ = new CustList<RootBlock>();
             RootBlock p_ = c.getParentType();
             while (p_ != null) {
-                allAncestors_.add(p_.getFullName());
+                allAncestors_.add(p_);
                 p_ = p_.getParentType();
             }
             for (AnaResultPartType s: c.getResults()) {
-                GeneType s_ = _context.getClassBody(StringExpUtil.getIdFromAllTypes(s.getResult()));
-                if (!(s_ instanceof ExecRootBlock)) {
+                RootBlock s_ = _context.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(s.getResult()));
+                if (s_ == null) {
                     continue;
                 }
                 if (s_.isStaticType()) {
@@ -731,26 +731,24 @@ public final class ClassesUtil {
                 }
                 allDirectSuperTypes_.add(s_.getFullName());
             }
-            for (String a: allAncestors_) {
-                ExecRootBlock a_ = classes_.getClassBody(a);
-                for (ExecBlock m: ExecBlock.getDirectChildren(a_)) {
-                    if (!(m instanceof ExecRootBlock)) {
+            for (RootBlock a: allAncestors_) {
+                for (Block m: getDirectChildren(a)) {
+                    if (!(m instanceof RootBlock)) {
                         continue;
                     }
-                    ExecRootBlock m_ = (ExecRootBlock) m;
+                    RootBlock m_ = (RootBlock) m;
                     allPossibleDirectSuperTypes_.add(m_.getFullName());
                 }
-                for (String s: a_.getAllSuperTypes()) {
-                    GeneType g_ = _context.getClassBody(s);
-                    if (!(g_ instanceof ExecRootBlock)) {
+                for (String s: a.getAllSuperTypes()) {
+                    RootBlock g_ = _context.getAnalyzing().getAnaClassBody(s);
+                    if (g_ == null) {
                         continue;
                     }
-                    ExecRootBlock s_ = (ExecRootBlock) g_;
-                    for (ExecBlock m: ExecBlock.getDirectChildren(s_)) {
-                        if (!(m instanceof ExecRootBlock)) {
+                    for (Block m: getDirectChildren(g_)) {
+                        if (!(m instanceof RootBlock)) {
                             continue;
                         }
-                        ExecRootBlock m_ = (ExecRootBlock) m;
+                        RootBlock m_ = (RootBlock) m;
                         allPossibleDirectSuperTypes_.add(m_.getFullName());
                     }
                 }
@@ -1371,7 +1369,7 @@ public final class ClassesUtil {
             int i_ = 0;
             for (String v: l_) {
                 e.getKey().addParamErrors();
-                TokenErrorMessage res_ = ManageTokens.partParam(_context).checkStdToken(_context, v);
+                TokenErrorMessage res_ = ManageTokens.partParam(_context).checkToken(_context, v);
                 if (res_.isError()) {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
@@ -1416,16 +1414,16 @@ public final class ClassesUtil {
         }
     }
 
-    public static CustList<ExecRootBlock> accessedClassMembers(ExecRootBlock _clOwner) {
-        CustList<ExecRootBlock> inners_ = new CustList<ExecRootBlock>();
-        for (ExecBlock b: ExecBlock.getDirectChildren(_clOwner)) {
-            if (!(b instanceof ExecRootBlock)) {
+    public static CustList<RootBlock> accessedClassMembers(RootBlock _clOwner) {
+        CustList<RootBlock> inners_ = new CustList<RootBlock>();
+        for (Block b: getDirectChildren(_clOwner)) {
+            if (!(b instanceof RootBlock)) {
                 continue;
             }
-            if (b instanceof ExecInnerElementBlock) {
+            if (b instanceof InnerElementBlock) {
                 continue;
             }
-            ExecRootBlock r_ = (ExecRootBlock) b;
+            RootBlock r_ = (RootBlock) b;
             inners_.add(r_);
         }
         return inners_;
@@ -1458,13 +1456,13 @@ public final class ClassesUtil {
         }
         return methods_;
     }
-    public static CustList<ExecRootBlock> accessedInnerElements(ExecRootBlock _clOwner) {
-        CustList<ExecRootBlock> inners_ = new CustList<ExecRootBlock>();
-        for (ExecBlock b: ExecBlock.getDirectChildren(_clOwner)) {
-            if (!(b instanceof ExecInnerElementBlock)) {
+    public static CustList<RootBlock> accessedInnerElements(RootBlock _clOwner) {
+        CustList<RootBlock> inners_ = new CustList<RootBlock>();
+        for (Block b: getDirectChildren(_clOwner)) {
+            if (!(b instanceof InnerElementBlock)) {
                 continue;
             }
-            ExecRootBlock r_ = (ExecRootBlock) b;
+            RootBlock r_ = (RootBlock) b;
             inners_.add(r_);
         }
         return inners_;
@@ -1647,7 +1645,7 @@ public final class ClassesUtil {
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
                         prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
-                        processValueParam(_context, page_, type_, method_);
+                        processValueParam(_context, page_, c, method_);
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
                         page_.clearAllLocalVarsReadOnly();
                     }
@@ -2007,7 +2005,7 @@ public final class ClassesUtil {
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
-                    processValueParam(_context, page_, type_, method_);
+                    processValueParam(_context, page_, c, method_);
                     AssBlockUtil.buildFctInstructions(method_,mem_.getAllMethods().getVal(method_),_context,null,assVars_);
                     page_.clearAllLocalVars(assVars_);
                 }
@@ -2041,15 +2039,15 @@ public final class ClassesUtil {
                 || method_.getKind() == MethodKind.TRUE_OPERATOR || method_.getKind() == MethodKind.FALSE_OPERATOR;
     }
 
-    private static void processValueParam(ContextEl _context, AnalyzedPageEl _page, ExecRootBlock _cl, OverridableBlock _method) {
+    private static void processValueParam(ContextEl _context, AnalyzedPageEl _page, RootBlock _cl, OverridableBlock _method) {
         if (_method.getKind() == MethodKind.SET_INDEX) {
             String p_ = _context.getKeyWords().getKeyWordValue();
-            CustList<ExecOverridableBlock> getIndexers_ = new CustList<ExecOverridableBlock>();
-            for (ExecBlock d: ExecBlock.getDirectChildren(_cl)) {
-                if (!(d instanceof ExecOverridableBlock)) {
+            CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
+            for (Block d: getDirectChildren(_cl)) {
+                if (!(d instanceof OverridableBlock)) {
                     continue;
                 }
-                ExecOverridableBlock i_ = (ExecOverridableBlock) d;
+                OverridableBlock i_ = (OverridableBlock) d;
                 if (i_.getKind() != MethodKind.GET_INDEX) {
                     continue;
                 }
@@ -2059,7 +2057,7 @@ public final class ClassesUtil {
                 getIndexers_.add(i_);
             }
             if (getIndexers_.size() == 1) {
-                ExecOverridableBlock matching_ = getIndexers_.first();
+                OverridableBlock matching_ = getIndexers_.first();
                 String c_ = matching_.getImportedReturnType();
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(c_);

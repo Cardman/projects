@@ -42,7 +42,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableName,false);
+        TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableName);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_cont.getCurrentFileName());

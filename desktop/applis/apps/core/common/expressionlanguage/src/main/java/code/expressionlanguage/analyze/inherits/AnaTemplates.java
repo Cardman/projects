@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -72,7 +73,7 @@ public final class AnaTemplates {
             String w_ = PrimitiveTypeUtil.toWrapper(first_.getSingleNameOrEmpty(), stds_);
             return new ResultTernary(new StringList(w_), false, false);
         }
-        if (PrimitiveTypeUtil.isPrimitiveOrWrapper(first_, _conf) && PrimitiveTypeUtil.isPrimitiveOrWrapper(second_, _conf)) {
+        if (AnaTypeUtil.isPrimitiveOrWrapper(first_, _conf) && AnaTypeUtil.isPrimitiveOrWrapper(second_, _conf)) {
             String primShort_ = stds_.getAliasPrimShort();
             String primChar_ = stds_.getAliasPrimChar();
             String primByte_ = stds_.getAliasPrimByte();
@@ -134,10 +135,10 @@ public final class AnaTemplates {
             StringList prOne_ = new StringList();
             StringList prTwo_ = new StringList();
             for (String c: _first) {
-                prOne_.add(PrimitiveTypeUtil.toPrimitive(c, stds_));
+                prOne_.add(AnaTypeUtil.toPrimitive(c, stds_));
             }
             for (String c: _second) {
-                prTwo_.add(PrimitiveTypeUtil.toPrimitive(c, stds_));
+                prTwo_.add(AnaTypeUtil.toPrimitive(c, stds_));
             }
             StringList superTypesFirst_ = getSuperTypesSet(prOne_, _vars, _conf);
             StringList superTypesSecond_ = getSuperTypesSet(prTwo_, _vars, _conf);

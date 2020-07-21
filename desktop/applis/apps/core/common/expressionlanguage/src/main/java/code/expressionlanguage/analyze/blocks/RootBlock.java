@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -780,7 +779,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                 } else if (m_.getKind() == MethodKind.STD_METHOD) {
                     if (!StringList.quickEq(name_, keyWords_.getKeyWordToString())) {
-                        TokenErrorMessage mess_ = ManageTokens.partMethod(_context).checkStdToken(_context,name_);
+                        TokenErrorMessage mess_ = ManageTokens.partMethod(_context).checkToken(_context, name_);
                         if (mess_.isError()) {
                             int r_ = m_.getNameOffset();
                             FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
@@ -835,7 +834,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     _context.addError(b_);
                     m_.addNameErrors(b_);
                 }
-                TokenErrorMessage mess_ = ManageTokens.partMethod(_context).checkStdToken(_context,name_);
+                TokenErrorMessage mess_ = ManageTokens.partMethod(_context).checkToken(_context, name_);
                 if (mess_.isError()) {
                     int r_ = m_.getNameOffset();
                     FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
@@ -958,7 +957,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             int j_ = 0;
             for (String v: l_) {
                 method_.addParamErrors();
-                TokenErrorMessage res_ = ManageTokens.partParam(_context).checkStdToken(_context,v);
+                TokenErrorMessage res_ = ManageTokens.partParam(_context).checkToken(_context, v);
                 if (res_.isError()) {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
@@ -1134,7 +1133,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     public final StringList getAllGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec) {
-        Classes classes_ = _classes.getClasses();
         StringList current_ = new StringList(_exec.getGenericString());
         StringList all_ = new StringList();
         String obj_ = _classes.getStandards().getAliasObject();
@@ -1142,7 +1140,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             StringList next_ = new StringList();
             for (String c: current_) {
                 String baseType_ = StringExpUtil.getIdFromAllTypes(c);
-                ExecRootBlock curType_ = classes_.getClassBody(baseType_);
+                RootBlock curType_ = _classes.getAnalyzing().getAnaClassBody(baseType_);
                 if (curType_ == null) {
                     continue;
                 }
@@ -1166,15 +1164,14 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     public final StringList getAllGenericClasses(ContextEl _classes,ExecRootBlock _exec) {
-        Classes classes_ = _classes.getClasses();
         StringList current_ = new StringList(_exec.getGenericString());
         StringList all_ = new StringList();
         while (true) {
             StringList next_ = new StringList();
             for (String c: current_) {
                 String baseType_ = StringExpUtil.getIdFromAllTypes(c);
-                ExecRootBlock curType_ = classes_.getClassBody(baseType_);
-                if (!(curType_ instanceof ExecUniqueRootedBlock)) {
+                RootBlock curType_ = _classes.getAnalyzing().getAnaClassBody(baseType_);
+                if (!(curType_ instanceof UniqueRootedBlock)) {
                     continue;
                 }
                 all_.add(c);
@@ -1449,7 +1446,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 defs_.put(v.getClassName(), v);
                 list_.add(v.getClassName());
             }
-            list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
+            list_ = AnaTypeUtil.getSubclasses(list_, _conf);
             list_.removeDuplicates();
             CustList<MethodInfo> out_ = new CustList<MethodInfo>(new CollCapacity(list_.size()));
             for (String v: list_) {
@@ -1920,5 +1917,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<ClassMethodId> getFunctional() {
         return functional;
+    }
+
+    public StringList getImportedDirectSuperTypes() {
+        StringList l_ = new StringList(importedDirectSuperClass);
+        l_.addAllElts(importedDirectSuperInterfaces);
+        return l_;
     }
 }

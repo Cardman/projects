@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -98,7 +99,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     }
     public void buildEl(Configuration _cont,RendDocumentBlock _doc) {
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
-        if (!PrimitiveTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
+        if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
@@ -109,7 +110,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                     importedClassIndexName);
             _cont.addError(cast_);
         }
-        TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableName,false);
+        TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableName);
         if (res_.isError()) {
             okVar = false;
             FoundErrorInterpret b_ = new FoundErrorInterpret();

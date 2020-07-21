@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -134,7 +135,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
 
     public void buildEl(Configuration _cont,RendDocumentBlock _doc) {
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
-        if (!PrimitiveTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
+        if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
@@ -145,7 +146,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                     importedClassIndexName);
             _cont.addError(cast_);
         }
-        TokenErrorMessage resOne_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableNameFirst,false);
+        TokenErrorMessage resOne_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableNameFirst);
         if (resOne_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_cont.getCurrentFileName());
@@ -154,7 +155,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             _cont.addError(b_);
             okVarFirst = false;
         }
-        TokenErrorMessage resTwo_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableNameSecond,false);
+        TokenErrorMessage resTwo_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableNameSecond);
         if (resTwo_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_cont.getCurrentFileName());

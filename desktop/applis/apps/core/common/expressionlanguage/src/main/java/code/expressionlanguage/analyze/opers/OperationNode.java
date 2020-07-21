@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
@@ -97,6 +98,16 @@ public abstract class OperationNode {
         operations = _op;
         indexChild = _indexChild;
         resultClass = new ClassArgumentMatching(EMPTY_STRING);
+    }
+
+    public static ClassArgumentMatching[] toArgArray(CustList<ClassArgumentMatching> _args) {
+        int len_ = _args.size();
+        ClassArgumentMatching[] args_;
+        args_ = new ClassArgumentMatching[len_];
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            args_[i] = _args.get(i);
+        }
+        return args_;
     }
 
     public abstract void analyze(ContextEl _conf);
@@ -593,7 +604,7 @@ public abstract class OperationNode {
                 }
                 subClasses_.add(e.getKey());
             }
-            StringList subs_ = PrimitiveTypeUtil.getSubclasses(subClasses_, _cont);
+            StringList subs_ = AnaTypeUtil.getSubclasses(subClasses_, _cont);
             FieldResult res_ = getRes(ancestors_, subs_);
             if (res_ != null) {
                 return res_;
@@ -622,7 +633,7 @@ public abstract class OperationNode {
                     }
                     subClasses_.add(e.getKey());
                 }
-                StringList subs_ = PrimitiveTypeUtil.getSubclasses(subClasses_, _cont);
+                StringList subs_ = AnaTypeUtil.getSubclasses(subClasses_, _cont);
                 FieldResult res_ = getRes(ancestors_, subs_);
                 if (res_ != null) {
                     return res_;
@@ -1440,7 +1451,7 @@ public abstract class OperationNode {
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_cont, -1, MethodAccessKind.STATIC,
                 true, bounds_, _op, false, false, false, null,
-                "",ClassArgumentMatching.toArgArray(firstArgs_));
+                "",toArgArray(firstArgs_));
         if (clMeth_.isFoundMethod()) {
             _node.setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()), _cont));
             String foundClass_ = clMeth_.getRealClass();
@@ -1450,7 +1461,7 @@ public abstract class OperationNode {
             return new ClassMethodId(foundClass_, id_);
         }
         //implicit use of operator key word
-        ClassMethodIdReturn cust_ = getOperator(_cont, null, -1, true, _op, "", ClassArgumentMatching.toArgArray(firstArgs_));
+        ClassMethodIdReturn cust_ = getOperator(_cont, null, -1, true, _op, "", toArgArray(firstArgs_));
         if (cust_.isFoundMethod()) {
             _node.setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()), _cont));
             String foundClass_ = cust_.getRealClass();
@@ -1493,17 +1504,17 @@ public abstract class OperationNode {
             return _operand.isBoolType(_cont);
         }
         if (StringList.quickEq(_op,"~")) {
-            int order_ = PrimitiveTypeUtil.getIntOrderClass(_operand, _cont);
+            int order_ = AnaTypeUtil.getIntOrderClass(_operand, _cont);
             return order_ != 0;
         }
         return PrimitiveTypeUtil.isPureNumberClass(_operand,_cont);
     }
     private static boolean isNativeBinaryOperator(ClassArgumentMatching _left, ClassArgumentMatching _right,String _op, ContextEl _cont) {
         if (StringList.quickEq(_op,"+")) {
-            if (PrimitiveTypeUtil.isIntOrderClass(_left,_right,_cont)) {
+            if (AnaTypeUtil.isIntOrderClass(_left,_right,_cont)) {
                 return true;
             }
-            if (PrimitiveTypeUtil.isFloatOrderClass(_left,_right,_cont)) {
+            if (AnaTypeUtil.isFloatOrderClass(_left,_right,_cont)) {
                 return true;
             }
             if (_left.matchClass(_cont.getStandards().getAliasString())) {
@@ -1540,17 +1551,17 @@ public abstract class OperationNode {
         }
         if (StringList.quickEq(_op,"-") || StringList.quickEq(_op,"*")
                 ||StringList.quickEq(_op,"/") || StringList.quickEq(_op,"%")) {
-            if (PrimitiveTypeUtil.isIntOrderClass(_left,_right,_cont)) {
+            if (AnaTypeUtil.isIntOrderClass(_left,_right,_cont)) {
                 return true;
             }
-            return PrimitiveTypeUtil.isFloatOrderClass(_left, _right, _cont);
+            return AnaTypeUtil.isFloatOrderClass(_left, _right, _cont);
         }
         if (StringList.quickEq(_op,"<") || StringList.quickEq(_op,">")
                 ||StringList.quickEq(_op,"<=") || StringList.quickEq(_op,">=")) {
-            if (PrimitiveTypeUtil.isIntOrderClass(_left,_right,_cont)) {
+            if (AnaTypeUtil.isIntOrderClass(_left,_right,_cont)) {
                 return true;
             }
-            if (PrimitiveTypeUtil.isFloatOrderClass(_left,_right,_cont)) {
+            if (AnaTypeUtil.isFloatOrderClass(_left,_right,_cont)) {
                 return true;
             }
             return _left.matchClass(_cont.getStandards().getAliasString())
@@ -1558,7 +1569,7 @@ public abstract class OperationNode {
         }
         if (StringList.quickEq(_op,"&") || StringList.quickEq(_op,"|")
                 ||StringList.quickEq(_op,"^")) {
-            if (PrimitiveTypeUtil.isIntOrderClass(_left,_right,_cont)) {
+            if (AnaTypeUtil.isIntOrderClass(_left,_right,_cont)) {
                 return true;
             }
             return _left.isBoolType(_cont)&&_right.isBoolType(_cont);
@@ -1569,12 +1580,12 @@ public abstract class OperationNode {
         if (StringList.quickEq(_op,"<<") || StringList.quickEq(_op,">>")
                 ||StringList.quickEq(_op,"<<<") || StringList.quickEq(_op,">>>")
                 ||StringList.quickEq(_op,"<<<<") || StringList.quickEq(_op,">>>>")) {
-            return PrimitiveTypeUtil.isIntOrderClass(_left,_right,_cont);
+            return AnaTypeUtil.isIntOrderClass(_left,_right,_cont);
         }
-        if (PrimitiveTypeUtil.isIntOrderClass(_left,_right,_cont)) {
+        if (AnaTypeUtil.isIntOrderClass(_left,_right,_cont)) {
             return true;
         }
-        if (PrimitiveTypeUtil.isFloatOrderClass(_left,_right,_cont)) {
+        if (AnaTypeUtil.isFloatOrderClass(_left,_right,_cont)) {
             return true;
         }
         if (_left.matchClass(_cont.getStandards().getAliasNumber())
@@ -3216,7 +3227,7 @@ public abstract class OperationNode {
             _o2.getParameters().setError(true);
             return CustList.NO_SWAP_SORT;
         }
-        int res_ = PrimitiveTypeUtil.cmpTypes(baseTypeOne_, baseTypeTwo_, context_);
+        int res_ = AnaTypeUtil.cmpTypes(baseTypeOne_, baseTypeTwo_, context_);
         if (res_ != 0) {
             return res_;
         }

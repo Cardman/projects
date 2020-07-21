@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.blocks.ExecDefaultCondition;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecInstanceCaseCondition;
 import code.expressionlanguage.exec.blocks.ExecInstanceDefaultCondition;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.StringList;
@@ -96,7 +95,7 @@ public final class DefaultCondition extends SwitchPartBlock {
                 getErrorsBlock().add(un_.getBuiltError());
             }
             AnalyzedPageEl page_ = _cont.getAnalyzing();
-            TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkStdTokenVar(_cont,variableName);
+            TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableName);
             if (res_.isError()) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
                 d_.setFileName(getFile().getFileName());

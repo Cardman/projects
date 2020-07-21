@@ -111,7 +111,7 @@ public abstract class QuickOperation extends MethodOperation {
                     errFirst.add(new PartOffset("</a>",index_+1));
                     okNum = false;
                 }
-                setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.toPrimitive(leftRes_,_conf)));
+                setResultClass(ClassArgumentMatching.copy(PrimitiveTypeUtil.toPrimitive(leftRes_,_conf)));
             }
             return;
         }
@@ -148,7 +148,7 @@ public abstract class QuickOperation extends MethodOperation {
         rightRes_.setUnwrapObject(booleanPrimType_);
         left_.cancelArgument();
         right_.cancelArgument();
-        setResultClass(new ClassArgumentMatching(leftRes_));
+        setResultClass(ClassArgumentMatching.copy(leftRes_));
     }
 
     public boolean isOkNum() {

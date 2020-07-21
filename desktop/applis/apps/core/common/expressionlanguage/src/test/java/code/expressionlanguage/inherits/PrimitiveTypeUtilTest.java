@@ -1,6 +1,7 @@
 package code.expressionlanguage.inherits;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.CustList;
 import code.util.StringList;
@@ -40,14 +41,14 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
         ContextEl context_ = simpleContextEl();
         String int_ = context_.getStandards().getAliasInteger();
         String nb_ = context_.getStandards().getAliasNumber();
-        assertEq(CustList.SWAP_SORT, PrimitiveTypeUtil.cmpTypes(nb_,int_,context_));
+        assertEq(CustList.SWAP_SORT, AnaTypeUtil.cmpTypes(nb_,int_,context_));
     }
 
     @Test
     public void getSubclasses1Test() {
         ContextEl context_ = simpleContextEl();
         StringList classes_ = new StringList(context_.getStandards().getAliasInteger(), context_.getStandards().getAliasNumber());
-        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, context_);
+        StringList sub_ = AnaTypeUtil.getSubclasses(classes_, context_);
         assertEq(1, sub_.size());
         assertEq(context_.getStandards().getAliasInteger(), sub_.get(0));
     }
@@ -56,7 +57,7 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
     public void getSubclasses2Test() {
         ContextEl context_ = simpleContextEl();
         StringList classes_ = new StringList(context_.getStandards().getAliasString(), context_.getStandards().getAliasNumber());
-        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, context_);
+        StringList sub_ = AnaTypeUtil.getSubclasses(classes_, context_);
         assertEq(2, sub_.size());
         assertEq(context_.getStandards().getAliasString(), sub_.get(0));
         assertEq(context_.getStandards().getAliasNumber(), sub_.get(1));
@@ -66,7 +67,7 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
     public void getSubclasses3Test() {
         ContextEl context_ = simpleContextEl();
         StringList classes_ = new StringList(context_.getStandards().getAliasVoid(), context_.getStandards().getAliasVoid());
-        StringList sub_ = PrimitiveTypeUtil.getSubclasses(classes_, context_);
+        StringList sub_ = AnaTypeUtil.getSubclasses(classes_, context_);
         assertTrue(sub_.onlyOneElt());
         assertEq(context_.getStandards().getAliasVoid(), sub_.get(0));
     }

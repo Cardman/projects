@@ -9,7 +9,6 @@ import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.AnaInheritedType;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -472,7 +471,7 @@ public final class StandardInstancingOperation extends
             StringList params_ = id_.getConstraints().getParametersTypes();
             feed_ = new ConstructorId(idClass_, params_, vararg_);
         }
-        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, new ClassArgumentMatching(_realClassName),g_, feed_, _paramVargArg, ClassArgumentMatching.toArgArray(_firstArgs));
+        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, new ClassArgumentMatching(_realClassName),g_, feed_, _paramVargArg, OperationNode.toArgArray(_firstArgs));
         if (ctorRes_.getRealId() == null) {
             setResultClass(new ClassArgumentMatching(_realClassName));
             return;

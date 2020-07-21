@@ -1,8 +1,8 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
@@ -38,14 +38,14 @@ public final class MultOperation extends NumericOperation {
     @Override
     ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont) {
         ResultOperand res_ = new ResultOperand();
-        if (PrimitiveTypeUtil.isIntOrderClass(_a,_b,_cont)) {
+        if (AnaTypeUtil.isIntOrderClass(_a,_b,_cont)) {
             ClassArgumentMatching out_ = getIntResultClass(_a, _cont, _b);
             _a.setUnwrapObject(out_);
             _b.setUnwrapObject(out_);
             res_.setResult(out_);
             return res_;
         }
-        if (PrimitiveTypeUtil.isFloatOrderClass(_a,_b,_cont)) {
+        if (AnaTypeUtil.isFloatOrderClass(_a,_b,_cont)) {
             ClassArgumentMatching out_ = getFloatResultClass(_a, _cont, _b);
             _a.setUnwrapObject(out_);
             _b.setUnwrapObject(out_);

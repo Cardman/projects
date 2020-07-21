@@ -150,7 +150,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        setResultClass(new ClassArgumentMatching(children_.first().getResultClass()));
+        setResultClass(ClassArgumentMatching.copy(children_.first().getResultClass()));
     }
 
     private static void checkInherits(ContextEl _conf, OperationNode _op, StringList _previousInts, String _cl) {

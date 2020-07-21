@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
@@ -112,7 +113,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
-        if (!PrimitiveTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
+        if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
@@ -128,7 +129,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
         String cl_ = importedClassName;
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
-        if (!PrimitiveTypeUtil.isIntOrderClass(elementClass_, _cont.getContext())) {
+        if (!AnaTypeUtil.isIntOrderClass(elementClass_, _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(elementClass_);
             mapping_.setParam(_cont.getStandards().getAliasLong());
@@ -141,7 +142,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         }
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableName,false);
+        TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableName);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(_cont.getCurrentFileName());
@@ -290,9 +291,9 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             return;
         }
         String prLong_ = stds_.getAliasPrimLong();
-        fromValue_ = ClassArgumentMatching.convertToNumber(PrimitiveTypeUtil.unwrapObject(prLong_, argFrom_.getStruct(), stds_)).longStruct();
-        long toValue_ = ClassArgumentMatching.convertToNumber(PrimitiveTypeUtil.unwrapObject(prLong_, argTo_.getStruct(), stds_)).longStruct();
-        stepValue_ = ClassArgumentMatching.convertToNumber(PrimitiveTypeUtil.unwrapObject(prLong_, argStep_.getStruct(), stds_)).longStruct();
+        fromValue_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(prLong_), ClassArgumentMatching.convertToNumber(argFrom_.getStruct()), stds_).longStruct();
+        long toValue_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(prLong_), ClassArgumentMatching.convertToNumber(argTo_.getStruct()), stds_).longStruct();
+        stepValue_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(prLong_), ClassArgumentMatching.convertToNumber(argStep_.getStruct()), stds_).longStruct();
         if (stepValue_ > 0) {
             if (fromValue_ > toValue_) {
                 stepValue_ = -stepValue_;
@@ -345,7 +346,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         }
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndexClassName(importedClassIndexName);
-        Struct struct_ = PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(fromValue_), stds_);
+        Struct struct_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(importedClassName), new LongStruct(fromValue_), stds_);
         varsLoop_.put(var_, lv_);
         ip_.putValueVar(var_, LocalVariable.newLocalVariable(struct_,importedClassName));
     }
@@ -395,7 +396,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         LoopVariable lv_ = _vars.getVal(var_);
         LocalVariable lInfo_ = _varsInfos.getVal(var_);
         long o_ = ClassArgumentMatching.convertToNumber(lInfo_.getStruct()).longStruct()+_l.getStep();
-        lInfo_.setStruct(PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(o_), _conf.getStandards()));
+        lInfo_.setStruct(PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(importedClassName), new LongStruct(o_), _conf.getStandards()));
         lv_.setIndex(lv_.getIndex() + 1);
     }
 }

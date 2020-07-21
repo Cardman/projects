@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -27,13 +28,13 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     }
 
     static ClassArgumentMatching getIntResultClass(ClassArgumentMatching _a, ContextEl _cont, ClassArgumentMatching _b) {
-        int oa_ = PrimitiveTypeUtil.getIntOrderClass(_a, _cont);
-        int ob_ = PrimitiveTypeUtil.getIntOrderClass(_b, _cont);
+        int oa_ = AnaTypeUtil.getIntOrderClass(_a, _cont);
+        int ob_ = AnaTypeUtil.getIntOrderClass(_b, _cont);
         return getQuickResultClass(_a, oa_, _cont, _b, ob_);
     }
     static ClassArgumentMatching getFloatResultClass(ClassArgumentMatching _a, ContextEl _cont, ClassArgumentMatching _b) {
-        int oa_ = PrimitiveTypeUtil.getFloatOrderClass(_a, _cont);
-        int ob_ = PrimitiveTypeUtil.getFloatOrderClass(_b, _cont);
+        int oa_ = AnaTypeUtil.getFloatOrderClass(_a, _cont);
+        int ob_ = AnaTypeUtil.getFloatOrderClass(_b, _cont);
         return getQuickResultClass(_a, oa_, _cont, _b, ob_);
     }
     static ClassArgumentMatching getQuickResultClass(ClassArgumentMatching _a, int _oa, ContextEl _cont, ClassArgumentMatching _b, int _ob) {
@@ -45,7 +46,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             arg_ = _b;
         }
         LgNames stds_ = _cont.getStandards();
-        int intOrder_ = PrimitiveTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _cont);
+        int intOrder_ = AnaTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _cont);
         if (max_ < intOrder_) {
             arg_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
@@ -79,7 +80,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         setCatenize(r_);
         okNum = _conf.getAnalyzing().isOkNumOp();
         a_ = r_.getResult();
-        setResultClass(new ClassArgumentMatching(a_));
+        setResultClass(ClassArgumentMatching.copy(a_));
     }
 
     abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont);

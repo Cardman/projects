@@ -131,12 +131,12 @@ public final class AffectationOperation extends MethodOperation {
                 err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
                 err_.add(new PartOffset("</a>",opLocat_+1));
                 getPartOffsetsChildren().add(err_);
-                setResultClass(new ClassArgumentMatching(elt_.getResultClass()));
+                setResultClass(ClassArgumentMatching.copy(elt_.getResultClass()));
                 elt_.setVariable(true);
                 return;
             }
         }
-        setResultClass(new ClassArgumentMatching(elt_.getResultClass()));
+        setResultClass(ClassArgumentMatching.copy(elt_.getResultClass()));
         elt_.setVariable(true);
         ClassArgumentMatching clMatchRight_ = right_.getResultClass();
         ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
@@ -274,9 +274,6 @@ public final class AffectationOperation extends MethodOperation {
         Argument value_ = lastChild_.getArgument();
         ClassField id_ = fieldRef_.getFieldIdReadOnly();
         Struct str_ = value_.getStruct();
-        LgNames stds_ = _conf.getStandards();
-        String to_ = fieldRef_.getFieldType();
-        str_ = PrimitiveTypeUtil.unwrapObject(to_, str_, stds_);
         _conf.getClasses().initializeStaticField(id_, str_);
         _current.setSimpleArgument(value_);
     }

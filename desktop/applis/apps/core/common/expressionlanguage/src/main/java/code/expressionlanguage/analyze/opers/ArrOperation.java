@@ -82,7 +82,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(),false,
                 bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, false, feed_,
-                varargParam_,ClassArgumentMatching.toArgArray(firstArgs_));
+                varargParam_, OperationNode.toArgArray(firstArgs_));
         Argument arg_ = getPreviousArgument();
         checkNull(arg_,_conf);
         if (clMeth_.isFoundMethod()) {

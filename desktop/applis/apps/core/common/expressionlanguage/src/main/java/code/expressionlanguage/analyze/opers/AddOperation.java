@@ -2,9 +2,9 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 
@@ -47,18 +47,18 @@ public final class AddOperation extends NumericOperation {
         ResultOperand res_ = new ResultOperand();
         String stringType_ = _cont.getStandards().getAliasString();
         if (StringList.quickEq(_op.trim(), PLUS)) {
-            if (PrimitiveTypeUtil.isIntOrderClass(_a,_b,_cont)) {
-                int oa_ = PrimitiveTypeUtil.getIntOrderClass(_a, _cont);
-                int ob_ = PrimitiveTypeUtil.getIntOrderClass(_b, _cont);
+            if (AnaTypeUtil.isIntOrderClass(_a,_b,_cont)) {
+                int oa_ = AnaTypeUtil.getIntOrderClass(_a, _cont);
+                int ob_ = AnaTypeUtil.getIntOrderClass(_b, _cont);
                 ClassArgumentMatching out_ = getQuickResultClass(_a, oa_, _cont, _b, ob_);
                 _a.setUnwrapObject(out_);
                 _b.setUnwrapObject(out_);
                 res_.setResult(out_);
                 return res_;
             }
-            if (PrimitiveTypeUtil.isFloatOrderClass(_a,_b,_cont)) {
-                int oa_ = PrimitiveTypeUtil.getFloatOrderClass(_a, _cont);
-                int ob_ = PrimitiveTypeUtil.getFloatOrderClass(_b, _cont);
+            if (AnaTypeUtil.isFloatOrderClass(_a,_b,_cont)) {
+                int oa_ = AnaTypeUtil.getFloatOrderClass(_a, _cont);
+                int ob_ = AnaTypeUtil.getFloatOrderClass(_b, _cont);
                 ClassArgumentMatching out_ = getQuickResultClass(_a, oa_, _cont, _b, ob_);
                 _a.setUnwrapObject(out_);
                 _b.setUnwrapObject(out_);
@@ -101,14 +101,14 @@ public final class AddOperation extends NumericOperation {
             res_.setResult(arg_);
             return res_;
         }
-        if (PrimitiveTypeUtil.isIntOrderClass(_a,_b,_cont)) {
+        if (AnaTypeUtil.isIntOrderClass(_a,_b,_cont)) {
             ClassArgumentMatching out_ = getIntResultClass(_a, _cont, _b);
             _a.setUnwrapObject(out_);
             _b.setUnwrapObject(out_);
             res_.setResult(out_);
             return res_;
         }
-        if (PrimitiveTypeUtil.isFloatOrderClass(_a,_b,_cont)) {
+        if (AnaTypeUtil.isFloatOrderClass(_a,_b,_cont)) {
             ClassArgumentMatching out_ = getFloatResultClass(_a, _cont, _b);
             _a.setUnwrapObject(out_);
             _b.setUnwrapObject(out_);

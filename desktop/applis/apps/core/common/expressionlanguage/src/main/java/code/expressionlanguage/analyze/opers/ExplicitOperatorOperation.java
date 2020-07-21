@@ -78,11 +78,11 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         }
         ClassMethodIdReturn cust_;
         if (from.isEmpty()) {
-            cust_ = getOperator(_conf, id_,varargOnly_,false,op_, varargParam_,ClassArgumentMatching.toArgArray(firstArgs_));
+            cust_ = getOperator(_conf, id_,varargOnly_,false,op_, varargParam_, OperationNode.toArgArray(firstArgs_));
         } else {
             cust_ = tryGetDeclaredCustMethod(_conf, -1, MethodAccessKind.STATIC_CALL,
                     false, new StringList(from), op_, false, false, false, null,
-                    varargParam_,ClassArgumentMatching.toArgArray(firstArgs_));
+                    varargParam_, OperationNode.toArgArray(firstArgs_));
         }
         if (!cust_.isFoundMethod()) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();

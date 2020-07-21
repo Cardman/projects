@@ -173,9 +173,9 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         }
         ip_.clearCurrentEls();
         String prLong_ = stds_.getAliasPrimLong();
-        fromValue_ = ClassArgumentMatching.convertToNumber(PrimitiveTypeUtil.unwrapObject(prLong_, argFrom_.getStruct(), stds_)).longStruct();
-        long toValue_ = ClassArgumentMatching.convertToNumber(PrimitiveTypeUtil.unwrapObject(prLong_, argTo_.getStruct(), stds_)).longStruct();
-        stepValue_ = ClassArgumentMatching.convertToNumber(PrimitiveTypeUtil.unwrapObject(prLong_, argStep_.getStruct(), stds_)).longStruct();
+        fromValue_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(prLong_), ClassArgumentMatching.convertToNumber(argFrom_.getStruct()), stds_).longStruct();
+        long toValue_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(prLong_), ClassArgumentMatching.convertToNumber(argTo_.getStruct()), stds_).longStruct();
+        stepValue_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(prLong_), ClassArgumentMatching.convertToNumber(argStep_.getStruct()), stds_).longStruct();
         if (stepValue_ > 0) {
             if (fromValue_ > toValue_) {
                 stepValue_ = -stepValue_;
@@ -228,7 +228,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         if (finished_) {
             return l_;
         }
-        Struct struct_ = PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(fromValue_), stds_);
+        Struct struct_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(importedClassName), new LongStruct(fromValue_), stds_);
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndexClassName(importedClassIndexName);
         varsLoop_.put(var_, lv_);
@@ -253,7 +253,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         String var_ = getVariableName();
         Argument struct_ = ExecTemplates.getValue(_conf,var_,_conf.getLastPage());
         long o_ = ClassArgumentMatching.convertToNumber(struct_.getStruct()).longStruct()+_l.getStep();
-        Struct element_ = PrimitiveTypeUtil.unwrapObject(importedClassName, new LongStruct(o_), _conf.getStandards());
+        Struct element_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(importedClassName), new LongStruct(o_), _conf.getStandards());
         ExecTemplates.setValue(_conf,var_,_conf.getLastPage(),new Argument(element_));
         ExecTemplates.incrIndexLoop(_conf,var_,_conf.getLastPage());
     }

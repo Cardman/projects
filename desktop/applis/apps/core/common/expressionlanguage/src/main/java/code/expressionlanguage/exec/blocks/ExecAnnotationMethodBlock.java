@@ -18,13 +18,12 @@ import code.util.StringList;
 
 public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock implements
         GeneCustModifierMethod, WithNotEmptyEl {
-    private String defaultValue;
+
     private int defaultValueOffset;
 
     private CustList<ExecOperationNode> opValue;
     public ExecAnnotationMethodBlock(AnnotationMethodBlock _offset) {
         super(_offset);
-        defaultValue = _offset.getDefaultValue();
         defaultValueOffset = _offset.getDefaultValueOffset();
     }
 
@@ -113,7 +112,4 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         getImportedParametersTypes().addAllElts(_key.getImportedParametersTypes());
     }
 
-    public String getDefaultValue() {
-        return defaultValue;
-    }
 }

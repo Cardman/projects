@@ -21,7 +21,7 @@ public final class AdvancedTokenValidation implements AbstractTokenValidation {
     @Override
     public TokenErrorMessage isValidSingleToken(String _id) {
         ContextEl ctx_ = this.context.getContext();
-        return ManageTokens.partVar(ctx_).checkTokenVar(ctx_,_id,false);
+        return ManageTokens.partVar(ctx_).checkTokenVar(ctx_,_id);
     }
 
 }

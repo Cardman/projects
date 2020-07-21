@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
@@ -69,7 +70,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         if (ctype_ != null) {
             type_ = ctype_;
         }
-        if (PrimitiveTypeUtil.isPrimitiveOrWrapper(type_, _stds)) {
+        if (AnaTypeUtil.isPrimitiveOrWrapper(type_, _stds)) {
             return;
         }
         GeneType r_ = _stds.getClassBody(type_);

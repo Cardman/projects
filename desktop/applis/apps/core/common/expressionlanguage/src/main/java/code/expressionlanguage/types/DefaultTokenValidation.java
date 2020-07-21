@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 
 public final class DefaultTokenValidation implements AbstractTokenValidation {
@@ -39,7 +38,7 @@ public final class DefaultTokenValidation implements AbstractTokenValidation {
     }
     @Override
     public TokenErrorMessage isValidSingleToken(String _id) {
-        return ManageTokens.partVar(context).checkStdTokenVar(context,_id);
+        return ManageTokens.partVar(context).checkTokenVar(context, _id);
     }
 
 }

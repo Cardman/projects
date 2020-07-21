@@ -4,17 +4,15 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.OverridableBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.FormattedMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ComparingByTypeList;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.util.*;
 
@@ -129,7 +127,7 @@ public final class OverridesTypeUtil {
             defs_.put(v.getGeneString(), v.getBlock().getId());
             list_.add(v.getGeneString());
         }
-        list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
+        list_ = AnaTypeUtil.getSubclasses(list_, _conf);
         if (list_.onlyOneElt()) {
             String class_ = list_.first();
             return new ClassMethodId(class_, defs_.getVal(class_));
@@ -140,7 +138,7 @@ public final class OverridesTypeUtil {
             defs_.put(v.getGeneString(), v.getBlock().getId());
             list_.add(v.getGeneString());
         }
-        list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
+        list_ = AnaTypeUtil.getSubclasses(list_, _conf);
         if (list_.onlyOneElt()) {
             String class_ = list_.first();
             return new ClassMethodId(class_, defs_.getVal(class_));

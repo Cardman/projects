@@ -117,7 +117,7 @@ public final class CaseCondition extends SwitchPartBlock {
             page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
             _cont.getCoverage().putBlockOperations(_cont, exec_,this);
-            TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkStdTokenVar(_cont,variableName);
+            TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableName);
             if (res_.isError()) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
                 d_.setFileName(getFile().getFileName());

@@ -166,7 +166,7 @@ public final class FctOperation extends InvokingOperation {
             }
             ClassMethodIdReturn clMeth_;
             MethodAccessKind staticAccess_ = isStaticAccess();
-            ClassArgumentMatching[] argsClass_ = ClassArgumentMatching.toArgArray(firstArgs_);
+            ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(firstArgs_);
             clMeth_ = getDeclaredCustTrueFalse(this,_conf, staticAccess_,bounds_,trimMeth_,feedBase_, argsClass_);
             if (!clMeth_.isFoundMethod()) {
                 setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
@@ -184,7 +184,7 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         ClassMethodIdReturn clMeth_;
-        clMeth_ = getDeclaredCustMethod(this,_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, import_, feed_, varargParam_,ClassArgumentMatching.toArgArray(firstArgs_));
+        clMeth_ = getDeclaredCustMethod(this,_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, import_, feed_, varargParam_, OperationNode.toArgArray(firstArgs_));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));

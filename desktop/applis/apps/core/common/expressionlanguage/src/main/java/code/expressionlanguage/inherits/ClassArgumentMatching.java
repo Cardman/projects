@@ -1,5 +1,6 @@
 package code.expressionlanguage.inherits;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -28,11 +29,8 @@ public final class ClassArgumentMatching {
         className.addAllElts(_className);
     }
 
-    public ClassArgumentMatching(ClassArgumentMatching _copy) {
-        className.addAllElts(_copy.className);
-        unwrapObject = _copy.unwrapObject;
-        checkOnlyNullPe = _copy.checkOnlyNullPe;
-        convertToString = _copy.convertToString;
+    public static ClassArgumentMatching copy(ClassArgumentMatching _copy) {
+        return new ClassArgumentMatching(_copy.className);
     }
 
     public static Struct convert(PageEl _page,ClassArgumentMatching _dest,Struct _arg,
@@ -101,16 +99,6 @@ public final class ClassArgumentMatching {
         return new ClassArgumentMatching(className_);
     }
 
-    public static ClassArgumentMatching[] toArgArray(CustList<ClassArgumentMatching> _args) {
-        int len_ = _args.size();
-        ClassArgumentMatching[] args_;
-        args_ = new ClassArgumentMatching[len_];
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            args_[i] = _args.get(i);
-        }
-        return args_;
-    }
-
     public boolean isNumericInt(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         String intPr_ = stds_.getAliasPrimInteger();
@@ -164,7 +152,7 @@ public final class ClassArgumentMatching {
 
     public boolean isWrapper(ContextEl _context) {
         for (String b: className) {
-            if (PrimitiveTypeUtil.isWrapper(b, _context)) {
+            if (AnaTypeUtil.isWrapper(b, _context)) {
                 return true;
             }
         }

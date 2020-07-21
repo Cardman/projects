@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -10,12 +11,10 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.stds.StandardType;
 import code.util.*;
 
 public final class SwitchBlock extends BracedBlock implements BreakableBlock,BuildableElMethod {
@@ -115,7 +114,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             } else if (type_.startsWith("#")||type_.startsWith("[")) {
                 final_ = false;
             }
-            if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
+            if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
                     if (!(classBody_ instanceof ExecEnumBlock)) {
                         if (!final_) {

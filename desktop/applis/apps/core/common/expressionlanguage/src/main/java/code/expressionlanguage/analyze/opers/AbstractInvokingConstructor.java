@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ClassMethodIdAncestor;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -67,7 +66,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         classFromName = clCurName_;
         RootBlock type_ = _conf.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(clCurName_));
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, clArg_,type_, feed_, varargParam_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, clArg_,type_, feed_, varargParam_, OperationNode.toArgArray(firstArgs_));
         if (ctorRes_.getRealId() == null) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             checkPositionBasis(_conf);

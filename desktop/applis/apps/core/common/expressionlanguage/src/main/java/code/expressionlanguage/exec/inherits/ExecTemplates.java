@@ -469,13 +469,11 @@ public final class ExecTemplates {
             int index_ = ClassArgumentMatching.convertToNumber(_index).intStruct();
             String arrType_ = arr_.getClassName();
             String param_ = StringExpUtil.getQuickComponentType(arrType_);
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
-            Struct conv_ = PrimitiveTypeUtil.convertStrictObject(cl_, _value, stds_);
             if (_context.getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
                 _context.getInitializingTypeInfos().failInitEnums();
                 return;
             }
-            inst_[index_] = conv_;
+            inst_[index_] = _value;
             return;
         }
         if (err_ == ErrorType.NPE) {
@@ -543,9 +541,7 @@ public final class ExecTemplates {
             return ErrorType.NPE;
         }
         if (_value != NullStruct.NULL_VALUE) {
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(param_);
-            Struct conv_ = PrimitiveTypeUtil.convertStrictObject(cl_, _value, stds_);
-            String arg_ = stds_.getStructClassName(conv_, _context);
+            String arg_ = stds_.getStructClassName(_value, _context);
             param_ = PrimitiveTypeUtil.toWrapper(param_, stds_);
             if (!isCorrectExecute(arg_, param_, _context)) {
                 return ErrorType.STORE;
@@ -800,7 +796,7 @@ public final class ExecTemplates {
         Argument a_ = new Argument();
         ClassArgumentMatching clArg_ = new ClassArgumentMatching(locVar_.getIndexClassName());
         LongStruct str_ = new LongStruct(locVar_.getIndex());
-        Struct value_ = PrimitiveTypeUtil.convertStrictObject(clArg_, str_, stds_);
+        Struct value_ = PrimitiveTypeUtil.convertToInt(clArg_, str_, stds_);
         a_.setStruct(value_);
         return a_;
     }

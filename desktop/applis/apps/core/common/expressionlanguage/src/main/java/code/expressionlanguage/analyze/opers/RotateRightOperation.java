@@ -2,8 +2,8 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
@@ -24,8 +24,8 @@ public final class RotateRightOperation extends NumericOperation {
     ResultOperand analyzeOper(ClassArgumentMatching _a, String _op,
             ClassArgumentMatching _b, ContextEl _cont) {
         ResultOperand res_ = new ResultOperand();
-        int oa_ = PrimitiveTypeUtil.getIntOrderClass(_a, _cont);
-        int ob_ = PrimitiveTypeUtil.getIntOrderClass(_b, _cont);
+        int oa_ = AnaTypeUtil.getIntOrderClass(_a, _cont);
+        int ob_ = AnaTypeUtil.getIntOrderClass(_b, _cont);
         if (oa_ > 0 && ob_ > 0) {
             ClassArgumentMatching out_ = getQuickResultClass(_a, oa_, _cont, _b, ob_);
             _a.setUnwrapObject(out_);

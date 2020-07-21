@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
@@ -58,18 +57,12 @@ public final class ManageTokens {
                 ana_.getPrimVariableName(),ana_.getDigitVariableName());
     }
 
-    public TokenErrorMessage checkStdTokenVar(ContextEl _cont, String _id) {
-        Block b_ = _cont.getAnalyzing().getCurrentBlock();
-        boolean pred_ = b_.getFile().isPredefined();
-        return checkTokenVar(_cont,_id, pred_);
+    public TokenErrorMessage checkTokenVar(ContextEl _cont, String _id) {
+        return checkToken(_cont,_id, _cont.getAnalysisMessages().getDuplicatedVariableName());
     }
 
-    public TokenErrorMessage checkTokenVar(ContextEl _cont, String _id, boolean _pred) {
-        return checkToken(_cont,_id,_pred,_cont.getAnalysisMessages().getDuplicatedVariableName());
-    }
-
-    private TokenErrorMessage checkToken(ContextEl _cont, String _id, boolean _pred, String _duplicateMessage) {
-        TokenErrorMessage err_ = checkToken(_cont, _id, _pred);
+    private TokenErrorMessage checkToken(ContextEl _cont, String _id, String _duplicateMessage) {
+        TokenErrorMessage err_ = checkToken(_cont, _id);
         if (err_.isError()) {
             return err_;
         }
@@ -78,20 +71,10 @@ public final class ManageTokens {
         }
         return new TokenErrorMessage("",false);
     }
-    public TokenErrorMessage checkStdToken(ContextEl _cont, String _id) {
-        Block b_ = _cont.getAnalyzing().getCurrentBlock();
-        boolean pred_ = b_.getFile().isPredefined();
-        return checkToken(_cont,_id,pred_);
-    }
-    public TokenErrorMessage checkToken(ContextEl _cont, String _id, boolean _pred) {
-        if (_pred) {
-            if (!StringList.isDollarWord(_id)) {
-                return new TokenErrorMessage(FoundErrorInterpret.buildARError(badCharactersMessage,_id),true);
-            }
-        } else {
-            if (!StringList.isWord(_id)) {
-                return new TokenErrorMessage(FoundErrorInterpret.buildARError(badCharactersMessage,_id),true);
-            }
+
+    public TokenErrorMessage checkToken(ContextEl _cont, String _id) {
+        if (!StringList.isDollarWord(_id)) {
+            return new TokenErrorMessage(FoundErrorInterpret.buildARError(badCharactersMessage,_id),true);
         }
         if (PrimitiveTypeUtil.isPrimitive(_id, _cont)) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(primMessage,_id),true);
@@ -105,6 +88,6 @@ public final class ManageTokens {
         if (StringExpUtil.isDigit(_id.charAt(0))) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(digitMessage,_id),true);
         }
-        return  new TokenErrorMessage("",false);
+        return new TokenErrorMessage("",false);
     }
 }

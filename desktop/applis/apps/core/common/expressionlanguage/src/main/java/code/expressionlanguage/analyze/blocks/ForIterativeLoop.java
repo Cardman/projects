@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
@@ -18,7 +18,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -235,7 +234,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
-        if (!PrimitiveTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
+        if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
@@ -251,7 +250,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
         String cl_ = importedClassName;
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
-        if (!PrimitiveTypeUtil.isIntOrderClass(elementClass_, _cont)) {
+        if (!AnaTypeUtil.isIntOrderClass(elementClass_, _cont)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classNameOffset);
@@ -264,7 +263,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         }
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkStdTokenVar(_cont,variableName);
+        TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableName);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());

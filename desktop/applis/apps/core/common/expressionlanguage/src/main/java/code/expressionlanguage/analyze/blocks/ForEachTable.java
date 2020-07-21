@@ -5,7 +5,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
@@ -17,7 +17,6 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
@@ -170,7 +169,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
     private MethodAccessKind processVarTypes(ContextEl _cont) {
         MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
-        if (!PrimitiveTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
+        if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
@@ -184,7 +183,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
             setReachableError(true);
             getErrorsBlock().add(cast_.getBuiltError());
         }
-        TokenErrorMessage resOne_ = ManageTokens.partVar(_cont).checkStdTokenVar(_cont,variableNameFirst);
+        TokenErrorMessage resOne_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableNameFirst);
         if (resOne_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
@@ -195,7 +194,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
             nameErrorsFirst.add(b_.getBuiltError());
             okVarFirst = false;
         }
-        TokenErrorMessage resTwo_ = ManageTokens.partVar(_cont).checkStdTokenVar(_cont,variableNameSecond);
+        TokenErrorMessage resTwo_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableNameSecond);
         if (resTwo_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());

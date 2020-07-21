@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
@@ -29,7 +28,6 @@ public abstract class SettableAbstractFieldOperation extends
     private boolean variable;
     private FieldInfo fieldMetaInfo;
     private MethodAccessKind staticAccess;
-    private String fieldType = EMPTY_STRING;
     private int valueOffset;
     private int fieldNameLength;
 
@@ -92,7 +90,6 @@ public abstract class SettableAbstractFieldOperation extends
         }
         e_ = r_.getId();
         valueOffset = e_.getValOffset();
-        fieldType = e_.getType();
         fieldMetaInfo = e_;
         String c_ = fieldMetaInfo.getType();
         setResultClass(new ClassArgumentMatching(c_));
@@ -182,7 +179,7 @@ public abstract class SettableAbstractFieldOperation extends
     public final void tryCalculateNode(ContextEl _conf) {
         trySet(_conf, this, fieldMetaInfo);
     }
-    public static void trySet(ContextEl _conf, OperationNode _oper, FieldInfo _info) {
+    private static void trySet(ContextEl _conf, OperationNode _oper, FieldInfo _info) {
         if (_info == null) {
             return;
         }
@@ -222,10 +219,6 @@ public abstract class SettableAbstractFieldOperation extends
     }
     public int getAnc() {
         return anc;
-    }
-
-    public String getFieldType() {
-        return fieldType;
     }
 
     public int getValueOffset() {

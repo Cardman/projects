@@ -14,7 +14,7 @@ public abstract class AbstractDotOperation extends MethodOperation {
     @Override
     public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setResultClass(new ClassArgumentMatching(chidren_.last().getResultClass()));
+        setResultClass(ClassArgumentMatching.copy(chidren_.last().getResultClass()));
     }
     @Override
     void calculateChildren() {

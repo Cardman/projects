@@ -68,7 +68,7 @@ public final class CatchEval extends AbstractCatchEval {
         _cont.getCoverage().putCatches(_cont,this);
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkStdTokenVar(_cont,variableName);
+        TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableName);
         if (res_.isError()) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(getFile().getFileName());

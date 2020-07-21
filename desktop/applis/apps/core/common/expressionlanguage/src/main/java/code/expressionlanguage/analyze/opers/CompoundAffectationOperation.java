@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -118,11 +119,11 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
                     getErrs().add(cast_.getBuiltError());
                 }
-                setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.toPrimitive(clMatchLeft_,_conf)));
+                setResultClass(ClassArgumentMatching.copy(PrimitiveTypeUtil.toPrimitive(clMatchLeft_,_conf)));
             }
             return;
         }
-        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.toPrimitive(clMatchLeft_,_conf)));
+        setResultClass(ClassArgumentMatching.copy(PrimitiveTypeUtil.toPrimitive(clMatchLeft_,_conf)));
         elt_.setVariable(false);
         String stringType_ = stds_.getAliasString();
         boolean isString_ = clMatchLeft_.matchClass(stringType_);
@@ -169,8 +170,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 return;
             }
             ClassArgumentMatching unwrapped_ = PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf);
-            if (!PrimitiveTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_,_conf)
-                    && !PrimitiveTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_,_conf)) {
+            if (!AnaTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_,_conf)
+                    && !AnaTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_,_conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -196,7 +197,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             if (clMatchLeft_.isBoolType(_conf) && clMatchRight_.isBoolType(_conf)) {
                 okRes_ = true;
             } else {
-                if (PrimitiveTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_,_conf)) {
+                if (AnaTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_,_conf)) {
                     okRes_ = true;
                 }
             }
@@ -271,11 +272,11 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     getPartOffsetsChildren().add(err_);
                 }
             }
-            setResultClass(new ClassArgumentMatching(clMatchLeft_));
+            setResultClass(ClassArgumentMatching.copy(clMatchLeft_));
             return;
         }
-        if (!PrimitiveTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_,_conf)
-                && !PrimitiveTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_,_conf)) {
+        if (!AnaTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_,_conf)
+                && !AnaTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_,_conf)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());

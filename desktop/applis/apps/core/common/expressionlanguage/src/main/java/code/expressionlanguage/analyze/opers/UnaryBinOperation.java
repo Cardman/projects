@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -38,7 +39,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             }
             return;
         }
-        int order_ = PrimitiveTypeUtil.getIntOrderClass(clMatch_, _conf);
+        int order_ = AnaTypeUtil.getIntOrderClass(clMatch_, _conf);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (order_ == 0) {
             _conf.getAnalyzing().setOkNumOp(false);
@@ -58,14 +59,14 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             setResultClass(arg_);
             return;
         }
-        int intOrder_ = PrimitiveTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _conf);
+        int intOrder_ = AnaTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _conf);
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, _conf);
-        if (PrimitiveTypeUtil.getIntOrderClass(cl_, _conf) < intOrder_) {
+        if (AnaTypeUtil.getIntOrderClass(cl_, _conf) < intOrder_) {
             cl_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
         clMatch_.setUnwrapObject(cl_);
         child_.cancelArgument();
-        setResultClass(new ClassArgumentMatching(cl_));
+        setResultClass(ClassArgumentMatching.copy(cl_));
     }
 
     @Override

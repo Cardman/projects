@@ -2,12 +2,12 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecEnumBlock;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.formathtml.exec.RendDynOperationNode;
@@ -64,7 +64,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             _cont.addError(un_);
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont.getContext())) {
+            if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _cont.getContext())) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
                     if (!(_cont.getContext().getClassBody(id_) instanceof ExecEnumBlock)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();

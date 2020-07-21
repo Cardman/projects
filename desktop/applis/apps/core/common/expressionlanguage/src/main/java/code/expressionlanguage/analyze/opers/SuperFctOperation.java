@@ -10,7 +10,6 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
@@ -101,7 +100,7 @@ public final class SuperFctOperation extends InvokingOperation {
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
             feed_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_)),idMethod_.getAncestor());
         }
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this,_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, feed_, varargParam_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this,_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, feed_, varargParam_, OperationNode.toArgArray(firstArgs_));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));

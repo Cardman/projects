@@ -93,7 +93,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             ClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
             CustList<ClassArgumentMatching> args_ = new CustList<ClassArgumentMatching>(new ClassArgumentMatching(className));
             args_.add(resultClass_);
-            ClassArgumentMatching[] argsClass_ = ClassArgumentMatching.toArgArray(args_);
+            ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
             ClassMethodIdReturn resMethod_ = tryGetDeclaredImplicitCast(_conf,  className, uniq_, argsClass_);
             if (resMethod_.isFoundMethod()) {
                 classNameOwner = resMethod_.getRealClass();
@@ -126,7 +126,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         ClassArgumentMatching virtual_ = new ClassArgumentMatching(Templates.quickFormat(className, midType_, _conf));
         CustList<ClassArgumentMatching> args_ = new CustList<ClassArgumentMatching>(virtual_);
         args_.add(resultClass_);
-        ClassArgumentMatching[] argsClass_ = ClassArgumentMatching.toArgArray(args_);
+        ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
         ClassMethodIdReturn resMethod_ = tryGetDeclaredImplicitCast(_conf,  className, uniq_, argsClass_);
         if (resMethod_.isFoundMethod()) {
             classNameOwner = resMethod_.getRealClass();
