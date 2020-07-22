@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
@@ -55,7 +56,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
             Struct str_ = _objArg.getStruct();
             if (str_ instanceof LambdaStruct) {
                 String id_ = StringExpUtil.getIdFromAllTypes(_className);
-                GeneType r_ = _conf.getClassBody(id_);
+                ExecRootBlock r_ = _conf.getClasses().getClassBody(id_);
                 if (r_ instanceof ExecInterfaceBlock && r_.isStaticType()) {
                     int instEltCount_ = 0;
                     StringList superType_ = new StringList(id_);
@@ -76,7 +77,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                             }
                         }
                     }
-                    CustList<ClassMethodId> functional_ = ((ExecRootBlock) r_).getFunctional();
+                    CustList<ClassMethodId> functional_ = r_.getFunctional();
                     if ((instEltCount_ == 0 || _full)&& functional_.size() == 1) {
                         ClassMethodId clRealId_ = functional_.first();
                         MethodId realId_ = clRealId_.getConstraints();

@@ -37,6 +37,7 @@ public final class NullCatchEval extends AbstractCatchEval {
         _cont.getCoverage().putCatches(_cont,this);
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         ExecNullCatchEval exec_ = new ExecNullCatchEval(getOffset());
+        exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);

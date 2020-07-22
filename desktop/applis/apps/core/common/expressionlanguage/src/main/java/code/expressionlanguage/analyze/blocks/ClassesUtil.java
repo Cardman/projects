@@ -13,10 +13,7 @@ import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.ParametersGroup;
 import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.analyze.types.*;
-import code.expressionlanguage.analyze.util.ContextUtil;
-import code.expressionlanguage.analyze.util.Members;
-import code.expressionlanguage.analyze.util.TypeInfo;
-import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.assign.blocks.*;
 import code.expressionlanguage.assign.util.*;
@@ -25,7 +22,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.analyze.util.ToStringMethodHeader;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.files.FileResolver;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -87,10 +84,10 @@ public final class ClassesUtil {
         for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getAllMapTypes().entryList()) {
             RootBlock root_ = e.getKey();
             if (root_.mustImplement()) {
-                StringList allSuperClass_ = root_.getAllGenericSuperTypes();
-                for (String s: allSuperClass_) {
-                    String base_ = StringExpUtil.getIdFromAllTypes(s);
-                    RootBlock superBl_ = _context.getAnalyzing().getAnaClassBody(base_);
+                CustList<AnaFormattedRootBlock> allSuperClass_ = root_.getAllGenericSuperTypesInfo();
+                for (AnaFormattedRootBlock s: allSuperClass_) {
+                    String base_ = StringExpUtil.getIdFromAllTypes(s.getFormatted());
+                    RootBlock superBl_ = s.getRootBlock();
                     for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                         if (m.isAbstractMethod()) {
                             ExecRootBlock ex_ = _context.getAnalyzing().getAllMapTypes().getValue(superBl_.getNumberAll());
@@ -113,17 +110,17 @@ public final class ClassesUtil {
                     }
                 }
             } else {
-                StringList allSuperClass_ = new StringList(root_.getGenericString());
-                allSuperClass_.addAllElts(root_.getAllGenericSuperTypes());
-                for (String s: allSuperClass_) {
-                    String base_ = StringExpUtil.getIdFromAllTypes(s);
-                    RootBlock superBl_ = _context.getAnalyzing().getAnaClassBody(base_);
+                CustList<AnaFormattedRootBlock> allSuperClass_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(root_,root_.getGenericString()));
+                allSuperClass_.addAllElts(root_.getAllGenericSuperTypesInfo());
+                for (AnaFormattedRootBlock s: allSuperClass_) {
+                    String base_ = StringExpUtil.getIdFromAllTypes(s.getFormatted());
+                    RootBlock superBl_ = s.getRootBlock();
                     for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                         if (m.isAbstractMethod()) {
                             ExecRootBlock ex_ = _context.getAnalyzing().getAllMapTypes().getValue(superBl_.getNumberAll());
                             ClassMethodId val_ = ex_.getRedirections().getVal(new ClassMethodId(base_, m.getId()), root_.getFullName());
                             if (val_ == null) {
-                                root_.getFunctional().add(new ClassMethodId(s,m.getId()));
+                                root_.getFunctional().add(new ClassMethodId(s.getFormatted(),m.getId()));
                             }
                         }
                     }
@@ -471,8 +468,19 @@ public final class ClassesUtil {
         page_.getFoundTypes().add(_root);
         page_.getAllFoundTypes().add(_root);
         page_.getHeaders().getAllFound().add(_root);
+        RootBlock parentType_ = _root.getParentType();
+        int index_ = -1;
+        if (parentType_ != null) {
+            index_ = parentType_.getNumberAll();
+        }
+        ExecRootBlock execParentType_ = null;
+        if (page_.getAllMapTypes().getKeys().isValidIndex(index_)) {
+            execParentType_ = page_.getAllMapTypes().getValue(index_);
+        }
         if (_root instanceof ClassBlock) {
             ExecClassBlock e_ = new ExecClassBlock((ClassBlock) _root);
+            e_.setParentType(execParentType_);
+            e_.setFile(_exFile);
             _root.setNumberAll(page_.getAllMapTypes().size());
             page_.getMapTypes().put(_root, e_);
             page_.getAllMapTypes().put(_root, e_);
@@ -482,6 +490,8 @@ public final class ClassesUtil {
         }
         if (_root instanceof EnumBlock) {
             ExecEnumBlock e_ = new ExecEnumBlock(_root);
+            e_.setParentType(execParentType_);
+            e_.setFile(_exFile);
             _root.setNumberAll(page_.getAllMapTypes().size());
             page_.getMapTypes().put(_root, e_);
             page_.getAllMapTypes().put(_root, e_);
@@ -491,6 +501,8 @@ public final class ClassesUtil {
         }
         if (_root instanceof InterfaceBlock) {
             ExecInterfaceBlock e_ = new ExecInterfaceBlock(_root);
+            e_.setParentType(execParentType_);
+            e_.setFile(_exFile);
             _root.setNumberAll(page_.getAllMapTypes().size());
             page_.getMapTypes().put(_root, e_);
             page_.getAllMapTypes().put(_root, e_);
@@ -500,6 +512,8 @@ public final class ClassesUtil {
         }
         if (_root instanceof AnnotationBlock) {
             ExecAnnotationBlock e_ = new ExecAnnotationBlock(_root);
+            e_.setParentType(execParentType_);
+            e_.setFile(_exFile);
             _root.setNumberAll(page_.getAllMapTypes().size());
             page_.getMapTypes().put(_root, e_);
             page_.getAllMapTypes().put(_root, e_);
@@ -509,6 +523,8 @@ public final class ClassesUtil {
         }
         if (_root instanceof InnerElementBlock) {
             ExecInnerElementBlock e_ = new ExecInnerElementBlock((InnerElementBlock) _root);
+            e_.setParentType(execParentType_);
+            e_.setFile(_exFile);
             _root.setNumberAll(page_.getAllMapTypes().size());
             page_.getMapTypes().put(_root, e_);
             page_.getAllMapTypes().put(_root, e_);
@@ -546,11 +562,13 @@ public final class ClassesUtil {
             for (Block b: getDirectChildren(k_)) {
                 if (b instanceof RootBlock) {
                     ExecRootBlock val_ = mapTypes_.getVal((RootBlock) b);
-                    current_.appendChild(val_);
+                    current_.getChildrenTypes().add(val_);
                     mem_.getAllAnnotables().addEntry((RootBlock) b,val_);
                 }
                 if (b instanceof InnerElementBlock) {
                     ExecInnerElementBlock val_ = page_.getMapInnerEltTypes().getVal((InnerElementBlock) b);
+                    current_.appendChild(val_);
+                    current_.getEnumElements().add(val_);
                     ((InfoBlock) b).setFieldNumber(mem_.getAllFields().size());
                     mem_.getAllFields().addEntry((InfoBlock) b,val_);
                     mem_.getAllElementFields().addEntry((InnerElementBlock) b,val_);
@@ -558,6 +576,8 @@ public final class ClassesUtil {
                 if (b instanceof ElementBlock) {
                     ExecElementBlock val_ = new ExecElementBlock((ElementBlock) b);
                     current_.appendChild(val_);
+                    current_.getEnumElements().add(val_);
+                    val_.setFile(current_.getFile());
                     ((InfoBlock) b).setFieldNumber(mem_.getAllFields().size());
                     mem_.getAllFields().addEntry((InfoBlock) b,val_);
                     mem_.getAllElementFields().addEntry((ElementBlock) b,val_);
@@ -566,6 +586,10 @@ public final class ClassesUtil {
                 if (b instanceof FieldBlock) {
                     ExecFieldBlock val_ = new ExecFieldBlock((FieldBlock) b);
                     current_.appendChild(val_);
+                    if (!((FieldBlock)b).isStaticField()) {
+                        current_.getInstanceFields().add(val_);
+                    }
+                    val_.setFile(current_.getFile());
                     ((InfoBlock) b).setFieldNumber(mem_.getAllFields().size());
                     mem_.getAllFields().addEntry((InfoBlock) b,val_);
                     mem_.getAllExplicitFields().addEntry((FieldBlock) b,val_);
@@ -574,6 +598,7 @@ public final class ClassesUtil {
                 if (b instanceof ConstructorBlock) {
                     ExecConstructorBlock val_ = new ExecConstructorBlock((ConstructorBlock)b);
                     current_.appendChild(val_);
+                    val_.setFile(current_.getFile());
                     mem_.getAllCtors().addEntry((ConstructorBlock) b,val_);
                     mem_.getAllAnnotables().addEntry((ConstructorBlock) b,val_);
                     ((ConstructorBlock) b).setNameNumber(mem_.getAllNamed().size());
@@ -582,6 +607,7 @@ public final class ClassesUtil {
                 if (b instanceof OverridableBlock) {
                     ExecOverridableBlock val_ = new ExecOverridableBlock((OverridableBlock)b);
                     current_.appendChild(val_);
+                    val_.setFile(current_.getFile());
                     mem_.getAllMethods().addEntry((OverridableBlock) b,val_);
                     mem_.getAllAnnotables().addEntry((OverridableBlock) b,val_);
                     ((OverridableBlock) b).setNameNumber(mem_.getAllNamed().size());
@@ -590,6 +616,8 @@ public final class ClassesUtil {
                 if (b instanceof AnnotationMethodBlock) {
                     ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock((AnnotationMethodBlock)b);
                     current_.appendChild(val_);
+                    current_.getAnnotationsFields().add(val_);
+                    val_.setFile(current_.getFile());
                     mem_.getAllAnnotMethods().addEntry((AnnotationMethodBlock) b,val_);
                     mem_.getAllAnnotables().addEntry((AnnotationMethodBlock) b,val_);
                     ((AnnotationMethodBlock) b).setNameNumber(mem_.getAllNamed().size());
@@ -598,11 +626,13 @@ public final class ClassesUtil {
                 if (b instanceof InstanceBlock) {
                     ExecInstanceBlock val_ = new ExecInstanceBlock(b.getOffset());
                     current_.appendChild(val_);
+                    val_.setFile(current_.getFile());
                     mem_.getAllInits().put((InitBlock) b,val_);
                 }
                 if (b instanceof StaticBlock) {
                     ExecStaticBlock val_ = new ExecStaticBlock(b.getOffset());
                     current_.appendChild(val_);
+                    val_.setFile(current_.getFile());
                     mem_.getAllInits().put((InitBlock) b,val_);
                 }
             }
@@ -1266,8 +1296,11 @@ public final class ClassesUtil {
     private static void validateSingleParameterizedClasses(ContextEl _context) {
         for (RootBlock i: _context.getAnalyzing().getFoundTypes()) {
             ExecRootBlock val_ = _context.getAnalyzing().getMapTypes().getVal(i);
-            StringList genericSuperTypes_ = i.getAllGenericSuperTypes(_context,val_);
-            StringMap<StringList> baseParams_ = getBaseParams(genericSuperTypes_);
+            CustList<AnaFormattedRootBlock> genericSuperTypes_ = i.getAllGenericSuperTypes(_context,val_);
+            for (AnaFormattedRootBlock a: genericSuperTypes_) {
+                i.getAllGenericSuperTypes().add(a.getFormatted());
+            }
+            StringMap<StringList> baseParams_ = getBaseParams(i.getAllGenericSuperTypes());
             for (EntryCust<String, StringList> e: baseParams_.entryList()) {
                 if (!e.getValue().onlyOneElt()) {
                     FoundErrorInterpret duplicate_;
@@ -1281,13 +1314,20 @@ public final class ClassesUtil {
                     i.addNameErrors(duplicate_);
                 }
             }
-            i.getAllGenericSuperTypes().addAllElts(genericSuperTypes_);
-            StringList genericClasses_ = i.getAllGenericClasses(_context,val_);
-            i.getAllGenericClasses().addAllElts(genericClasses_);
+            i.getAllGenericSuperTypesInfo().addAllElts(genericSuperTypes_);
+            CustList<AnaFormattedRootBlock> genericClasses_ = i.getAllGenericClasses(_context,val_);
+            for (AnaFormattedRootBlock a: genericClasses_) {
+                i.getAllGenericClasses().add(a.getFormatted());
+            }
+            i.getAllGenericClassesInfo().addAllElts(genericClasses_);
         }
         for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getMapTypes().entryList()) {
-            e.getValue().getAllGenericSuperTypes().addAllElts(e.getKey().getAllGenericSuperTypes());
-            e.getValue().getAllGenericClasses().addAllElts(e.getKey().getAllGenericClasses());
+            CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = e.getKey().getAllGenericSuperTypesInfo();
+            CustList<ExecFormattedRootBlock> l_ = new CustList<ExecFormattedRootBlock>();
+            for (AnaFormattedRootBlock s: allGenericSuperTypes_) {
+                l_.add(new ExecFormattedRootBlock(_context.getAnalyzing().getAllMapTypes().getValue(s.getRootBlock().getNumberAll()),s.getFormatted()));
+            }
+            e.getValue().getAllGenericSuperTypes().addAllElts(l_);
         }
     }
 

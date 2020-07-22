@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -32,7 +33,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = getClassBody(cont_, "pkg.ExTwo").getAllGenericSuperTypes(cont_,cont_.getClasses().getClassBody("pkg.ExTwo"));
+        StringList superTypes_ = getAllGenericSuperTypes(cont_, "pkg.ExTwo");
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#T>", superTypes_.first());
     }
@@ -52,7 +53,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = getClassBody(cont_, "pkg.ExThree").getAllGenericSuperTypes(cont_,cont_.getClasses().getClassBody("pkg.ExThree"));
+        StringList superTypes_ = getAllGenericSuperTypes(cont_, "pkg.ExThree");
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<#S>", superTypes_.first());
         assertEq("pkg.Ex<#S>", superTypes_.get(1));
@@ -73,7 +74,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = getClassBody(cont_, "pkg.ExThree").getAllGenericSuperTypes(cont_,cont_.getClasses().getClassBody("pkg.ExThree"));
+        StringList superTypes_ = getAllGenericSuperTypes(cont_, "pkg.ExThree");
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<java.lang.String>", superTypes_.first());
         assertEq("pkg.Ex<java.lang.String>", superTypes_.get(1));
@@ -97,11 +98,20 @@ public final class RootBlockTest extends ProcessMethodCommon {
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
-        StringList superTypes_ = getClassBody(cont_, "pkg.ExFour").getAllGenericSuperTypes(cont_,cont_.getClasses().getClassBody("pkg.ExFour"));
+        StringList superTypes_ = getAllGenericSuperTypes(cont_, "pkg.ExFour");
         assertEq(3, superTypes_.size());
         assertEq("pkg.ExTwo<java.lang.String>", superTypes_.first());
         assertEq("pkg.ExThree<java.lang.String>", superTypes_.get(1));
         assertEq("pkg.Ex<java.lang.String>", superTypes_.last());
+    }
+
+    public StringList getAllGenericSuperTypes(ContextEl cont_, String className) {
+        CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = getClassBody(cont_, className).getAllGenericSuperTypes(cont_, cont_.getClasses().getClassBody(className));
+        StringList l_ = new StringList();
+        for (AnaFormattedRootBlock a: allGenericSuperTypes_) {
+            l_.add(a.getFormatted());
+        }
+        return l_;
     }
 
     @Test

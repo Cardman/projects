@@ -53,6 +53,7 @@ public final class ReturnMethod extends AbruptBlock {
         if (retType_.isEmpty()) {
             AnalyzedPageEl page_ = _cont.getAnalyzing();
             ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), true,expressionOffset,null, retType_);
+            exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             _cont.getCoverage().putBlockOperations(_cont, exec_,this);
@@ -70,6 +71,7 @@ public final class ReturnMethod extends AbruptBlock {
         checkTypes(_cont, retType_, op_.last().getResultClass());
         ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), false,expressionOffset,op_, retType_);
         root = page_.getCurrentRoot();
+        exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);

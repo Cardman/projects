@@ -247,22 +247,23 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (StringList.quickEq(aliasClass_, idClassNameFound_)) {
             if (StringList.quickEq(aliasValueOf_, _methodId.getName())) {
                 ClassMetaInfo cl_ = NumParsers.getClass(_previous.getStruct());
-                if (!cl_.isTypeEnum()) {
+                String enumName_ = cl_.getName();
+                ExecRootBlock r_ = classes_.getClassBody(enumName_);
+                if (isNotEnumType(cl_, r_)) {
                     return new Argument();
                 }
                 Argument clArg_ = _firstArgs.first();
-                String enumName_ = cl_.getName();
-                return getEnumValue(_exit,enumName_, clArg_, _cont);
+                return getEnumValue(_exit,enumName_,r_, clArg_, _cont);
             }
             if (StringList.quickEq(aliasEnumsValues_, _methodId.getName())) {
                 ClassMetaInfo cl_ = NumParsers.getClass(_previous.getStruct());
                 String enumName_ = cl_.getName();
                 ExecRootBlock r_ = classes_.getClassBody(enumName_);
-                if (r_ == null || !cl_.isTypeEnum()) {
+                if (isNotEnumType(cl_, r_)) {
                     return new Argument();
                 }
                 String className_ = r_.getWildCardElement();
-                return getEnumValues(_exit,className_, _cont);
+                return getEnumValues(_exit,className_,r_, _cont);
             }
             if (StringList.quickEq(aliasForName_, _methodId.getName())) {
                 Argument clArg_ = _firstArgs.first();
@@ -528,10 +529,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             String values_ = _cont.getStandards().getAliasEnumValues();
             if (StringList.quickEq(_methodId.getName(), values_)) {
                 String className_ = e_.getWildCardElement();
-                return getEnumValues(_exit,className_, _cont);
+                return getEnumValues(_exit,className_,e_, _cont);
             }
             Argument arg_ = _firstArgs.first();
-            return getEnumValue(_exit,idClassNameFound_, arg_, _cont);
+            return getEnumValue(_exit,idClassNameFound_,e_, arg_, _cont);
         }
         if (prev_ instanceof AbstractFunctionalInstance) {
             ExecOverridableBlock gene_ = methods_.first();
@@ -546,6 +547,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         _cont.setCallingState(new CustomFoundMethod(_previous, classFound_, _methodId, _firstArgs, _right));
         return Argument.createVoid();
+    }
+
+    public static boolean isNotEnumType(ClassMetaInfo cl_, ExecRootBlock r_) {
+        return r_ == null || !cl_.isTypeEnum();
     }
 
     public static void checkParametersOperators(AbstractExiting _exit,ContextEl _conf, ClassMethodId _clMeth,
@@ -899,20 +904,16 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
     public static void setElement(Struct _struct, Struct _index, Struct _value, ContextEl _conf) {
         ExecTemplates.gearErrorWhenContain(_struct, _index, _value, _conf);
     }
-    public static Argument getEnumValues(AbstractExiting _exit,String _class, ContextEl _conf) {
+    public static Argument getEnumValues(AbstractExiting _exit,String _class,ExecRootBlock _root, ContextEl _conf) {
         String id_ = StringExpUtil.getIdFromAllTypes(_class);
         if (_exit.hasToExit(id_)) {
             return Argument.createVoid();
         }
         Classes classes_ = _conf.getClasses();
         CustList<Struct> enums_ = new CustList<Struct>();
-        for (ExecBlock b: ExecBlock.getDirectChildren(classes_.getClassBody(id_))) {
-            if (!(b instanceof ExecInnerTypeOrElement)) {
-                continue;
-            }
-            ExecInnerTypeOrElement b_ = (ExecInnerTypeOrElement)b;
-            String fieldName_ = b_.getUniqueFieldName();
-            Struct str_ = classes_.getStaticField(new ClassField(id_, fieldName_),b_.getImportedClassName(),_conf);
+        for (ExecInnerTypeOrElement b: _root.getEnumElements()) {
+            String fieldName_ = b.getUniqueFieldName();
+            Struct str_ = classes_.getStaticField(new ClassField(id_, fieldName_),b.getImportedClassName(),_conf);
             _conf.getInitializingTypeInfos().addSensibleField(_conf,id_, str_);
             enums_.add(str_);
         }
@@ -928,7 +929,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         argres_.setStruct(new ArrayStruct(o_,clArr_));
         return argres_;
     }
-    public static Argument getEnumValue(AbstractExiting _exit,String _class, Argument _name, ContextEl _conf) {
+    public static Argument getEnumValue(AbstractExiting _exit,String _class, ExecRootBlock _root,Argument _name, ContextEl _conf) {
         String enumName_ = StringExpUtil.getIdFromAllTypes(_class);
         if (_exit.hasToExit(enumName_)) {
             return Argument.createVoid();
@@ -938,15 +939,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return new Argument();
         }
         Classes classes_ = _conf.getClasses();
-        for (ExecBlock b: ExecBlock.getDirectChildren(classes_.getClassBody(enumName_))) {
-            if (!(b instanceof ExecInnerTypeOrElement)) {
-                continue;
-            }
-            ExecInnerTypeOrElement b_ = (ExecInnerTypeOrElement)b;
-            String fieldName_ = b_.getUniqueFieldName();
+        for (ExecInnerTypeOrElement b: _root.getEnumElements()) {
+            String fieldName_ = b.getUniqueFieldName();
             if (StringList.quickEq(fieldName_, ((StringStruct) name_).getInstance())) {
                 Argument argres_ = new Argument();
-                Struct str_ = classes_.getStaticField(new ClassField(enumName_, fieldName_),b_.getImportedClassName(),_conf);
+                Struct str_ = classes_.getStaticField(new ClassField(enumName_, fieldName_),b.getImportedClassName(),_conf);
                 _conf.getInitializingTypeInfos().addSensibleField(_conf,enumName_, str_);
                 argres_.setStruct(str_);
                 return argres_;

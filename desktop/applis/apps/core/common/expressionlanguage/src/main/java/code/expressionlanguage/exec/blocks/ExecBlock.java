@@ -32,6 +32,8 @@ public abstract class ExecBlock {
 
     private ExecBlock previousSibling;
 
+    private ExecFileBlock file;
+
     private OffsetsBlock offset;
 
 
@@ -195,14 +197,14 @@ public abstract class ExecBlock {
         return null;
     }
     public final ExecFileBlock getFile() {
-        ExecBlock b_ = this;
-        while (!(b_ instanceof ExecFileBlock)) {
-            b_ = b_.getParent();
-        }
-        return (ExecFileBlock) b_;
+        return file;
     }
 
-    public static CustList<ExecNamedFunctionBlock> getMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {
+    public void setFile(ExecFileBlock _file) {
+        file = _file;
+    }
+
+    public static CustList<ExecNamedFunctionBlock> getMethodBodiesById(ContextEl _context, String _genericClassName, MethodId _id) {
         return filter(getMethodBodies(_context,_genericClassName),_id);
     }
     public static CustList<ExecOverridableBlock> getDeepMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {

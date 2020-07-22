@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -51,8 +52,8 @@ public final class IdOperation extends AbstractUnaryOperation {
             }
             String base_ = ((CastOperation) par_).getClassName();
             String id_ = StringExpUtil.getIdFromAllTypes(base_);
-            ExecRootBlock rBase_ = _conf.getClasses().getClassBody(id_);
-            if (!(rBase_ instanceof ExecInterfaceBlock)) {
+            RootBlock rBase_ = _conf.getAnalyzing().getAnaClassBody(id_);
+            if (!(rBase_ instanceof InterfaceBlock)) {
                 CustList<PartOffset> parts_ = new CustList<PartOffset>();
                 IntTreeMap<String> operators_ = getOperations().getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _conf);

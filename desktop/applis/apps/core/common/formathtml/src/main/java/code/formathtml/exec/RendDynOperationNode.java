@@ -186,11 +186,11 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof EnumValueOfOperation) {
             EnumValueOfOperation d_ = (EnumValueOfOperation) _anaNode;
-            return new RendEnumValueOfOperation(d_);
+            return new RendEnumValueOfOperation(d_,_cont);
         }
         if (_anaNode instanceof ValuesOperation) {
             ValuesOperation d_ = (ValuesOperation) _anaNode;
-            return new RendValuesOperation(d_);
+            return new RendValuesOperation(d_,_cont);
         }
         if (_anaNode instanceof AbstractTernaryOperation) {
             AbstractTernaryOperation t_ = (AbstractTernaryOperation) _anaNode;

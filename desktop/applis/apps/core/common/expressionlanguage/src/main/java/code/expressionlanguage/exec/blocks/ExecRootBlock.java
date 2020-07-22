@@ -7,6 +7,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.functionid.ClassMethodIdOverrides;
 import code.expressionlanguage.inherits.Templates;
@@ -33,12 +34,16 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private StringList staticInitImportedInterfaces = new StringList();
 
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
-    private final StringList allGenericSuperTypes = new StringList();
-    private final StringList allGenericClasses = new StringList();
+    private final CustList<ExecFormattedRootBlock> allGenericSuperTypes = new CustList<ExecFormattedRootBlock>();
     private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
     private final StringList allSuperTypes = new StringList();
+    private ExecRootBlock parentType;
+    private final CustList<ExecRootBlock> childrenTypes = new CustList<ExecRootBlock>();
+    private final CustList<ExecFieldBlock> instanceFields = new CustList<ExecFieldBlock>();
+    private final CustList<ExecAnnotationMethodBlock> annotationsFields = new CustList<ExecAnnotationMethodBlock>();
+    private final CustList<ExecInnerTypeOrElement> enumElements = new CustList<ExecInnerTypeOrElement>();
 
     ExecRootBlock(RootBlock _offset) {
         super(_offset.getOffset());
@@ -101,11 +106,9 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     }
     public String getWildCardElement() {
         StringList allElements_ = new StringList();
-        for (ExecBlock e: getDirectChildren(this)) {
-            if (e instanceof ExecInnerTypeOrElement) {
-                String type_ = ((ExecInnerTypeOrElement)e).getRealImportedClassName();
-                allElements_.add(type_);
-            }
+        for (ExecInnerTypeOrElement e: enumElements) {
+            String type_ = e.getRealImportedClassName();
+            allElements_.add(type_);
         }
         String className_;
         if (allElements_.onlyOneElt()) {
@@ -166,12 +169,8 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     @Override
     public abstract boolean isStaticType();
 
-    public final StringList getAllGenericSuperTypes() {
+    public final CustList<ExecFormattedRootBlock> getAllGenericSuperTypes() {
         return allGenericSuperTypes;
-    }
-
-    public StringList getAllGenericClasses() {
-        return allGenericClasses;
     }
 
     public StringList getStaticInitImportedInterfaces() {
@@ -179,15 +178,13 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     }
 
     public final ExecRootBlock getParentType() {
-        ExecBracedBlock p_ = getParent();
-        while (!(p_ instanceof ExecRootBlock)) {
-            if (p_ == null) {
-                return null;
-            }
-            p_ = p_.getParent();
-        }
-        return (ExecRootBlock) p_;
+        return parentType;
     }
+
+    public final void setParentType(ExecRootBlock _parentType) {
+        parentType = _parentType;
+    }
+
     public final CustList<ExecRootBlock> getAllParentTypesReverse() {
         return getAllParentTypes().getReverse();
     }
@@ -351,12 +348,27 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         this.importedDirectSuperClass = importedDirectSuperClass;
     }
 
-    @Override
     public final StringList getAllSuperTypes() {
         return allSuperTypes;
     }
 
     public ClassMethodIdOverrides getRedirections() {
         return redirections;
+    }
+
+    public CustList<ExecRootBlock> getChildrenTypes() {
+        return childrenTypes;
+    }
+
+    public CustList<ExecFieldBlock> getInstanceFields() {
+        return instanceFields;
+    }
+
+    public CustList<ExecAnnotationMethodBlock> getAnnotationsFields() {
+        return annotationsFields;
+    }
+
+    public CustList<ExecInnerTypeOrElement> getEnumElements() {
+        return enumElements;
     }
 }

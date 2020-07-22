@@ -217,6 +217,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         ExecForMutableIterativeLoop exec_ = new ExecForMutableIterativeLoop(getOffset(),label, importedClassName, importedClassIndexName,
                 variableNames, initOffset, expressionOffset, stepOffset,
                 init_,exp_,step_);
+        exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);

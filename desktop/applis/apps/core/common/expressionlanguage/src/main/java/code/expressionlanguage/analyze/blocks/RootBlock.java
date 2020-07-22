@@ -10,8 +10,7 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.types.*;
-import code.expressionlanguage.analyze.util.ContextUtil;
-import code.expressionlanguage.analyze.util.Members;
+import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.Classes;
@@ -23,8 +22,6 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.analyze.util.ToStringMethodHeader;
-import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -80,16 +77,19 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private String importedDirectSuperClass = "";
     private StringList staticInitImportedInterfaces = new StringList();
     private StringList importedDirectSuperInterfaces = new StringList();
+    private CustList<AnaFormattedRootBlock> importedDirectSuperTypes = new CustList<AnaFormattedRootBlock>();
 
     private StringList annotations = new StringList();
 
     private Ints annotationsIndexes = new Ints();
     private final StringList allGenericSuperTypes = new StringList();
+    private final CustList<AnaFormattedRootBlock> allGenericSuperTypesInfo = new CustList<AnaFormattedRootBlock>();
     private final StringList allGenericClasses = new StringList();
+    private final CustList<AnaFormattedRootBlock> allGenericClassesInfo = new CustList<AnaFormattedRootBlock>();
     private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private int nbOperators;
-    private int numberAll;
+    private int numberAll = -1;
     private StringList allSuperTypes = new StringList();
 
     RootBlock(int _idRowCol, String _name,
@@ -135,8 +135,16 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return allGenericSuperTypes;
     }
 
+    public CustList<AnaFormattedRootBlock> getAllGenericSuperTypesInfo() {
+        return allGenericSuperTypesInfo;
+    }
+
     public StringList getAllGenericClasses() {
         return allGenericClasses;
+    }
+
+    public CustList<AnaFormattedRootBlock> getAllGenericClassesInfo() {
+        return allGenericClassesInfo;
     }
 
     public IntMap< Boolean> getExplicitDirectSuperTypes() {
@@ -1116,13 +1124,16 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             results.add(s_);
             i_++;
             String base_ = StringExpUtil.getIdFromAllTypes(s_.getResult());
-            ExecRootBlock r_ = _classes.getClasses().getClassBody(base_);
-            if (_exec instanceof ExecAnnotationBlock||r_ instanceof ExecInterfaceBlock) {
+            RootBlock r_ = _classes.getAnalyzing().getAnaClassBody(base_);
+            if (_exec instanceof ExecAnnotationBlock||r_ instanceof InterfaceBlock) {
                 _exec.getImportedDirectGenericSuperInterfaces().add(s_.getResult());
                 importedDirectSuperInterfaces.add(s_.getResult());
             } else {
                 _exec.setImportedDirectSuperClass(s_.getResult());
                 importedDirectSuperClass = s_.getResult();
+            }
+            if (r_ != null) {
+                importedDirectSuperTypes.add(new AnaFormattedRootBlock(r_, s_.getResult()));
             }
         }
         if (_exec.getImportedDirectGenericSuperClass().isEmpty()) {
@@ -1132,27 +1143,22 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
     }
 
-    public final StringList getAllGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec) {
-        StringList current_ = new StringList(_exec.getGenericString());
-        StringList all_ = new StringList();
-        String obj_ = _classes.getStandards().getAliasObject();
+    public final CustList<AnaFormattedRootBlock> getAllGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec) {
+        CustList<AnaFormattedRootBlock> current_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(this,_exec.getGenericString()));
+        StringList allSeen_ = new StringList();
+        CustList<AnaFormattedRootBlock> all_ = new CustList<AnaFormattedRootBlock>();
         while (true) {
-            StringList next_ = new StringList();
-            for (String c: current_) {
-                String baseType_ = StringExpUtil.getIdFromAllTypes(c);
-                RootBlock curType_ = _classes.getAnalyzing().getAnaClassBody(baseType_);
-                if (curType_ == null) {
-                    continue;
-                }
-                StringList superTypes_ = curType_.getImportedDirectSuperTypes();
-                for (String t: superTypes_) {
-                    String format_ = Templates.quickFormat(c, t, _classes);
-                    if (!added(format_,all_,next_)) {
+            CustList<AnaFormattedRootBlock> next_ = new CustList<AnaFormattedRootBlock>();
+            for (AnaFormattedRootBlock c: current_) {
+                CustList<AnaFormattedRootBlock> superTypes_ = c.getRootBlock().getImportedDirectSuperTypesInfo();
+                for (AnaFormattedRootBlock t: superTypes_) {
+                    String format_ = Templates.quickFormat(c.getFormatted(), t.getFormatted(), _classes);
+                    AnaFormattedRootBlock a_ = new AnaFormattedRootBlock(t.getRootBlock(), format_);
+                    if (!added(format_,allSeen_,a_,next_)) {
                         continue;
                     }
-                    if (!StringList.quickEq(format_,obj_)) {
-                        all_.add(format_);
-                    }
+                    all_.add(a_);
+                    allSeen_.add(format_);
                 }
             }
             if (next_.isEmpty()) {
@@ -1163,22 +1169,24 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return all_;
     }
 
-    public final StringList getAllGenericClasses(ContextEl _classes,ExecRootBlock _exec) {
-        StringList current_ = new StringList(_exec.getGenericString());
-        StringList all_ = new StringList();
+    public final CustList<AnaFormattedRootBlock> getAllGenericClasses(ContextEl _classes,ExecRootBlock _exec) {
+        CustList<AnaFormattedRootBlock> current_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(this,_exec.getGenericString()));
+        StringList allSeen_ = new StringList();
+        CustList<AnaFormattedRootBlock> all_ = new CustList<AnaFormattedRootBlock>();
         while (true) {
-            StringList next_ = new StringList();
-            for (String c: current_) {
-                String baseType_ = StringExpUtil.getIdFromAllTypes(c);
-                RootBlock curType_ = _classes.getAnalyzing().getAnaClassBody(baseType_);
+            CustList<AnaFormattedRootBlock> next_ = new CustList<AnaFormattedRootBlock>();
+            for (AnaFormattedRootBlock c: current_) {
+                RootBlock curType_ = c.getRootBlock();
                 if (!(curType_ instanceof UniqueRootedBlock)) {
                     continue;
                 }
                 all_.add(c);
-                StringList superTypes_ = curType_.getImportedDirectSuperTypes();
-                for (String t: superTypes_) {
-                    String format_ = Templates.quickFormat(c, t, _classes);
-                    added(format_, all_, next_);
+                allSeen_.add(c.getFormatted());
+                CustList<AnaFormattedRootBlock> superTypes_ = curType_.getImportedDirectSuperTypesInfo();
+                for (AnaFormattedRootBlock t: superTypes_) {
+                    String format_ = Templates.quickFormat(c.getFormatted(), t.getFormatted(), _classes);
+                    AnaFormattedRootBlock a_ = new AnaFormattedRootBlock(t.getRootBlock(), format_);
+                    added(format_,allSeen_, a_, next_);
                 }
             }
             if (next_.isEmpty()) {
@@ -1188,11 +1196,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         return all_;
     }
-    private static boolean added(String _type, StringList _all, StringList _next) {
-        if (StringList.contains(_all, _type)) {
+    private static boolean added(String _type, StringList _list,AnaFormattedRootBlock _n, CustList<AnaFormattedRootBlock> _next) {
+        if (StringList.contains(_list, _type)) {
             return false;
         }
-        _next.add(_type);
+        _next.add(_n);
         return true;
     }
     public final void checkCompatibilityBounds(ContextEl _context) {
@@ -1362,7 +1370,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
             }
         }
-//        CustList<GeneStringOverridable> abstractMethods_ = new CustList<GeneStringOverridable>();
         if (concreteClass_) {
             for (OverridableBlock b: ClassesUtil.getMethodExecBlocks(this)) {
                 MethodId idFor_ = b.getId();
@@ -1919,6 +1926,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return functional;
     }
 
+    public CustList<AnaFormattedRootBlock> getImportedDirectSuperTypesInfo() {
+        return importedDirectSuperTypes;
+    }
     public StringList getImportedDirectSuperTypes() {
         StringList l_ = new StringList(importedDirectSuperClass);
         l_.addAllElts(importedDirectSuperInterfaces);

@@ -294,7 +294,7 @@ public final class AnaTemplates {
                     String i_ = dci_.getComponent();
                     int dLoc_ = dci_.getDim();
                     i_ = StringExpUtil.getIdFromAllTypes(i_);
-                    GeneType j_ = _conf.getClassBody(i_);
+                    AnaGeneType j_ = _conf.getAnalyzing().getAnaGeneType(_conf,i_);
                     for (String u: j_.getAllGenericSuperTypes()) {
                         superTypes_.add(StringExpUtil.getPrettyArrayType(u, d_ + dLoc_));
                     }
@@ -306,7 +306,7 @@ public final class AnaTemplates {
             }
             if (StringList.quickEq(base_, bool_)) {
                 String w_ = PrimitiveTypeUtil.toWrapper(base_, stds_);
-                GeneType g_ = _conf.getClassBody(w_);
+                AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,w_);
                 superTypes_.add(StringExpUtil.getPrettyArrayType(w_, d_));
                 for (String t: g_.getAllGenericSuperTypes()) {
                     superTypes_.add(StringExpUtil.getPrettyArrayType(t, d_));
@@ -322,7 +322,7 @@ public final class AnaTemplates {
                     for (String p: s.getNames()) {
                         superTypes_.add(StringExpUtil.getPrettyArrayType(p, d_));
                         String w_ = PrimitiveTypeUtil.toWrapper(p, stds_);
-                        GeneType g_ = _conf.getClassBody(w_);
+                        AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,w_);
                         superTypes_.add(StringExpUtil.getPrettyArrayType(w_, d_));
                         for (String t: g_.getAllGenericSuperTypes()) {
                             superTypes_.add(StringExpUtil.getPrettyArrayType(t, d_));
@@ -335,7 +335,7 @@ public final class AnaTemplates {
                 continue;
             }
             String id_ = StringExpUtil.getIdFromAllTypes(base_);
-            GeneType g_ = _conf.getClassBody(id_);
+            AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,id_);
             for (String t: g_.getAllGenericSuperTypes()) {
                 String f_ = Templates.format(base_, t, _conf);
                 if (f_.isEmpty()) {
@@ -581,7 +581,7 @@ public final class AnaTemplates {
     }
 
     public static String tryInfer(String _erased, StringMap<String> _vars, String _declaring, ContextEl _context) {
-        GeneType g_ = _context.getClassBody(_erased);
+        AnaGeneType g_ = _context.getAnalyzing().getAnaGeneType(_context,_erased);
         String idParam_ = StringExpUtil.getIdFromAllTypes(_declaring);
         String gene_ = g_.getGenericString();
         String type_ = "";

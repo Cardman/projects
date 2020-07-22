@@ -53,6 +53,7 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
         err = page_.getCurrentEmptyPartErr();
         root = page_.getCurrentRoot();
         ExecCondition exec_ = newCondition(condition, conditionOffset, opCondition_);
+        exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);

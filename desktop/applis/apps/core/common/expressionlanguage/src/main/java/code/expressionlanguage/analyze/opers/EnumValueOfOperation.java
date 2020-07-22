@@ -21,6 +21,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
 
     private String className;
     private int argOffset;
+    private int numberEnum=-1;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
@@ -66,6 +67,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
+        numberEnum = r_.getNumberAll();
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
         Accessed a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_.getParentFullName(), clName_, r_.getOuterFullName());
         if (!ContextUtil.canAccessType(curClassBase_,a_, _conf)) {
@@ -105,5 +107,9 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
 
     public int getArgOffset() {
         return argOffset;
+    }
+
+    public int getNumberEnum() {
+        return numberEnum;
     }
 }

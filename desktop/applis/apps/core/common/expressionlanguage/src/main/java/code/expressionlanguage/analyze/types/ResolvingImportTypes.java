@@ -507,7 +507,7 @@ public final class ResolvingImportTypes {
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 String foundCandidate_ = resolveCandidate(_analyzable,typeLoc_);
-                GeneType root_ = _analyzable.getClassBody(foundCandidate_);
+                AnaGeneType root_ = _analyzable.getAnalyzing().getAnaGeneType(_analyzable,foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
@@ -539,7 +539,7 @@ public final class ResolvingImportTypes {
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 String foundCandidate_ = resolveCandidate(_analyzable,typeLoc_);
-                GeneType root_ = _analyzable.getClassBody(foundCandidate_);
+                AnaGeneType root_ = _analyzable.getAnalyzing().getAnaGeneType(_analyzable,foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
@@ -622,7 +622,7 @@ public final class ResolvingImportTypes {
                 String st_ = tr_.substring(keyWordStatic_.length()).trim();
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 String foundCandidate_ = resolveCandidate(_analyzable,typeLoc_);
-                GeneType root_ = _analyzable.getClassBody(foundCandidate_);
+                AnaGeneType root_ = _analyzable.getAnalyzing().getAnaGeneType(_analyzable,foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }
@@ -652,7 +652,7 @@ public final class ResolvingImportTypes {
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
                 String foundCandidate_ = resolveCandidate(_analyzable,typeLoc_);
-                GeneType root_ = _analyzable.getClassBody(foundCandidate_);
+                AnaGeneType root_ = _analyzable.getAnalyzing().getAnaGeneType(_analyzable,foundCandidate_);
                 if (root_ == null) {
                     continue;
                 }

@@ -39,24 +39,6 @@ public abstract class ExecAbstractLambdaOperation extends ExecLeafOperation impl
         fileName = _l.getFileName();
     }
 
-    public static ExecInfoBlock fetchField(LambdaOperation _l, ContextEl _cont) {
-        if (_cont.getAnalyzing().getAllMapMembers().getKeys().isValidIndex(_l.getRootNumber())) {
-            if (_cont.getAnalyzing().getAllMapMembers().getValue(_l.getRootNumber()).getAllFields().getKeys().isValidIndex(_l.getMemberNumber())) {
-                return _cont.getAnalyzing().getAllMapMembers().getValue(_l.getRootNumber()).getAllFields().getValue(_l.getMemberNumber());
-            }
-        }
-        return null;
-    }
-    public static ExecNamedFunctionBlock fetchFunction(LambdaOperation _l, ContextEl _cont) {
-        if (_cont.getAnalyzing().getAllMapMembers().getKeys().isValidIndex(_l.getRootNumber())) {
-            if (_cont.getAnalyzing().getAllMapMembers().getValue(_l.getRootNumber()).getAllNamed().getKeys().isValidIndex(_l.getMemberNumber())) {
-                return _cont.getAnalyzing().getAllMapMembers().getValue(_l.getRootNumber()).getAllNamed().getValue(_l.getMemberNumber());
-            }
-        } else if (_cont.getAnalyzing().getAllMapOperators().getKeys().isValidIndex(_l.getMemberNumber())) {
-            return _cont.getAnalyzing().getAllMapOperators().getValue(_l.getMemberNumber());
-        }
-        return null;
-    }
     @Override
     public boolean isIntermediateDottedOperation() {
         return intermediate;

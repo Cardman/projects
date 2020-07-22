@@ -20,6 +20,7 @@ public final class ValuesOperation extends LeafOperation {
 
     private String className;
     private int argOffset;
+    private int numberEnum=-1;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
 
@@ -37,7 +38,6 @@ public final class ValuesOperation extends LeafOperation {
     public void analyze(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+argOffset, _conf);
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
-        Classes classes_ = _conf.getClasses();
         String clName_;
         clName_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,0,className);
         partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
@@ -55,6 +55,7 @@ public final class ValuesOperation extends LeafOperation {
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
+        numberEnum = r_.getNumberAll();
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
         Accessed a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_.getParentFullName(), clName_, r_.getOuterFullName());
         if (!ContextUtil.canAccessType(curClassBase_, a_, _conf)) {
@@ -82,5 +83,9 @@ public final class ValuesOperation extends LeafOperation {
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public int getNumberEnum() {
+        return numberEnum;
     }
 }

@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
@@ -192,14 +193,13 @@ public final class AnaTypeUtil {
             o_.getMethodIds().add(new GeneStringOverridable(_r.getGenericString(),_r,b));
             map_.add(o_);
         }
-        for (String s: _r.getAllGenericSuperTypes()) {
-            String base_ = StringExpUtil.getIdFromAllTypes(s);
-            RootBlock b_ = _classes.getAnalyzing().getAnaClassBody(base_);
+        for (AnaFormattedRootBlock s: _r.getAllGenericSuperTypesInfo()) {
+            RootBlock b_ = s.getRootBlock();
             for (OverridableBlock b: ClassesUtil.getMethodExecBlocks(b_)) {
                 if (b.hiddenInstance()) {
                     continue;
                 }
-                addDtoClass(map_, b.getId().quickOverrideFormat(s, _classes),b_, b,s);
+                addDtoClass(map_, b.getId().quickOverrideFormat(s.getFormatted(), _classes),b_, b,s.getFormatted());
             }
         }
         return map_;

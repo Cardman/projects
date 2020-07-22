@@ -128,6 +128,7 @@ public abstract class Block implements AnalyzedBlock {
         if (_block instanceof UnclassedBracedBlock) {
             AnalyzedPageEl page_ = _cont.getAnalyzing();
             ExecUnclassedBracedBlock exec_ = new ExecUnclassedBracedBlock(_block.getOffset());
+            exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingMembers().put(exec_,_block);
             page_.getAnalysisAss().getMappingBracedMembers().put((BracedBlock) _block,exec_);

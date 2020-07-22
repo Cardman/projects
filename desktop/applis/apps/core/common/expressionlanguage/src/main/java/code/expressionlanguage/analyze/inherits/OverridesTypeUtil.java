@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -148,8 +149,8 @@ public final class OverridesTypeUtil {
 
     private static ClassMethodId tryGetUniqueId(String _subTypeName, RootBlock _type, MethodId _realId, ContextEl _conf) {
         //c is a concrete sub type of type input
-        for (String s: _type.getAllGenericClasses()) {
-            RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(s));
+        for (AnaFormattedRootBlock s: _type.getAllGenericClassesInfo()) {
+            RootBlock r_ = s.getRootBlock();
             String v_ = Templates.getOverridingFullTypeByBases(r_, _subTypeName, _conf);
             if (v_.isEmpty()) {
                 continue;

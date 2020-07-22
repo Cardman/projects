@@ -29,10 +29,6 @@ public final class FieldInitPageEl extends AbstractPageEl {
             en_.processBlock(_context);
             return;
         }
-        if (en_ instanceof ExecRootBlock) {
-            en_.processBlock(_context);
-            return;
-        }
         if (en_ instanceof ExecStaticBlock) {
             en_.processBlock(_context);
             return;

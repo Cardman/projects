@@ -1,6 +1,9 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.EnumValueOfOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -13,11 +16,13 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation i
 
     private String className;
     private int argOffset;
+    private ExecRootBlock rootBlock;
 
-    public RendEnumValueOfOperation(EnumValueOfOperation _e) {
+    public RendEnumValueOfOperation(EnumValueOfOperation _e, ContextEl _cont) {
         super(_e);
         className = _e.getClassName();
         argOffset = _e.getArgOffset();
+        rootBlock = ExecOperationNode.fetchType(_e,_cont);
     }
 
 
@@ -30,7 +35,7 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation i
 
     Argument getCommonArgument(Argument _argument, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+argOffset, _conf);
-        return ExecInvokingOperation.getEnumValue(new AdvancedExiting(_conf),className, _argument, _conf.getContext());
+        return ExecInvokingOperation.getEnumValue(new AdvancedExiting(_conf),className,rootBlock, _argument, _conf.getContext());
     }
 
     @Override

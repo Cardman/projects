@@ -14,6 +14,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -4892,10 +4893,12 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ClassesUtil.buildPredefinedBracesBodies(_context);
         CustList<RootBlock> foundTypes_ = _context.getAnalyzing().getFoundTypes();
         CustList<RootBlock> allFoundTypes_ = _context.getAnalyzing().getAllFoundTypes();
+        IdMap<RootBlock, ExecRootBlock> allMapFoundTypes_ = _context.getAnalyzing().getAllMapTypes();
         _context.setAnalyzing();
         _context.getAnalyzing().setHeaders(headers_);
         _context.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         _context.getAnalyzing().getAllFoundTypes().addAllElts(allFoundTypes_);
+        _context.getAnalyzing().getAllMapTypes().putAllMap(allMapFoundTypes_);
         ClassesUtil.tryValidateCustom(_files, _context);
     }
 

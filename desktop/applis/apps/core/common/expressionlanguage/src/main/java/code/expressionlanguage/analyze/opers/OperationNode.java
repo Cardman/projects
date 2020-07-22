@@ -1801,7 +1801,7 @@ public abstract class OperationNode {
     private static void fetchBinary(ContextEl _conf, CustList<MethodInfo> methods_, String _first, String _second) {
         if (ExplicitOperation.customCast(_first)) {
             String di_ = StringExpUtil.getIdFromAllTypes(_first);
-            ExecRootBlock r_ = _conf.getClasses().getClassBody(di_);
+            RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(di_);
             if (r_ != null) {
                 StringList allClasses_ = new StringList(r_.getGenericString());
                 allClasses_.addAllElts(r_.getAllGenericSuperTypes());
@@ -1817,7 +1817,7 @@ public abstract class OperationNode {
         }
         if (ExplicitOperation.customCast(_second)) {
             String di_ = StringExpUtil.getIdFromAllTypes(_second);
-            ExecRootBlock r_ = _conf.getClasses().getClassBody(di_);
+            RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(di_);
             if (r_ != null) {
                 StringList allClasses_ = new StringList(r_.getGenericString());
                 allClasses_.addAllElts(r_.getAllGenericSuperTypes());
@@ -1837,7 +1837,7 @@ public abstract class OperationNode {
             return;
         }
         String di_ = StringExpUtil.getIdFromAllTypes(_id);
-        ExecRootBlock r_ = _conf.getClasses().getClassBody(di_);
+        RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(di_);
         if (r_ == null) {
             return;
         }
@@ -1992,7 +1992,7 @@ public abstract class OperationNode {
         IntTreeMap<CustList<TypeInfo>> typeInfosMap_ = new IntTreeMap<CustList<TypeInfo>>();
         for (String s: _fromClasses) {
             String baseCurName_ = StringExpUtil.getIdFromAllTypes(s);
-            GeneType root_ = _conf.getClassBody(baseCurName_);
+            AnaGeneType root_ = _conf.getAnalyzing().getAnaGeneType(_conf,baseCurName_);
             if (root_ == null) {
                 continue;
             }
@@ -2006,13 +2006,13 @@ public abstract class OperationNode {
         for (TypeInfo t: typeInfos_) {
             String f_ = t.getType();
             String cl_ = StringExpUtil.getIdFromAllTypes(f_);
-            GeneType root_ = _conf.getClassBody(cl_);
-            if (!(root_ instanceof ExecRootBlock)) {
+            AnaGeneType root_ = _conf.getAnalyzing().getAnaGeneType(_conf,cl_);
+            if (!(root_ instanceof RootBlock)) {
                 continue;
             }
-            ExecRootBlock r_ = (ExecRootBlock) root_;
+            RootBlock r_ = (RootBlock) root_;
             int anc_ = 1;
-            CustList<ExecRootBlock> pars_ = r_.getAllParentTypes();
+            CustList<RootBlock> pars_ = r_.getAllParentTypes();
             int len_ = pars_.size();
             for (int i = 0; i < len_; i++) {
                 typeInfosMap_.put(anc_,new CustList<TypeInfo>());
@@ -2022,15 +2022,15 @@ public abstract class OperationNode {
         for (TypeInfo t: typeInfos_) {
             String f_ = t.getType();
             String cl_ = StringExpUtil.getIdFromAllTypes(f_);
-            GeneType root_ = _conf.getClassBody(cl_);
-            if (!(root_ instanceof ExecRootBlock)) {
+            AnaGeneType root_ = _conf.getAnalyzing().getAnaGeneType(_conf,cl_);
+            if (!(root_ instanceof RootBlock)) {
                 continue;
             }
-            ExecRootBlock r_ = (ExecRootBlock) root_;
+            RootBlock r_ = (RootBlock) root_;
             boolean add_ = !root_.isStaticType();
             int anc_ = 1;
             MethodAccessKind scope_ = _staticContext;
-            for (ExecRootBlock p: r_.getAllParentTypes()) {
+            for (RootBlock p: r_.getAllParentTypes()) {
                 CustList<TypeInfo> typeInfosInt_ = typeInfosMap_.getVal(anc_);
                 if (!add_) {
                     scope_ = MethodAccessKind.STATIC;
@@ -2057,7 +2057,7 @@ public abstract class OperationNode {
                 return;
             }
         }
-        GeneType info_ = _conf.getClassBody(id_);
+        AnaGeneType info_ = _conf.getAnalyzing().getAnaGeneType(_conf,id_);
         t_.setBase(_base);
         t_.setSuperTypes(info_.getAllSuperTypes());
         _list.add(t_);
@@ -2088,24 +2088,26 @@ public abstract class OperationNode {
         if (_uniqueId != null) {
             uniq_ = new ClassMethodIdAncestor(new ClassMethodId(StringExpUtil.getIdFromAllTypes(_uniqueId.getClassName()),_uniqueId.getConstraints()),0);
         }
-        if (_casts != null) {
-            for (MethodHeaderInfo e: _casts) {
-                MethodInfo stMeth_ = fetchedParamCastMethod(_type,e,_returnType,_cl, _conf,uniq_,_glClass, _superTypesBaseMap);
-                if (stMeth_ == null) {
-                    continue;
-                }
-                _methods.add(stMeth_);
+        for (MethodHeaderInfo e: nullToEmpty(_casts)) {
+            MethodInfo stMeth_ = fetchedParamCastMethod(_type,e,_returnType,_cl, _conf,uniq_,_glClass, _superTypesBaseMap);
+            if (stMeth_ == null) {
+                continue;
             }
+            _methods.add(stMeth_);
         }
     }
 
     private static void fetchImproveOperators(ContextEl _conf, CustList<MethodInfo> _methods, String _cl, CustList<MethodHeaderInfo> _casts) {
-        if (_casts != null) {
-            for (MethodHeaderInfo e: _casts) {
-                MethodInfo stMeth_ = fetchedParamImproveOperator(e, _cl, _conf);
-                _methods.add(stMeth_);
-            }
+        for (MethodHeaderInfo e: nullToEmpty(_casts)) {
+            MethodInfo stMeth_ = fetchedParamImproveOperator(e, _cl, _conf);
+            _methods.add(stMeth_);
         }
+    }
+    private static CustList<MethodHeaderInfo> nullToEmpty(CustList<MethodHeaderInfo> _list) {
+        if (_list == null) {
+            return new CustList<MethodHeaderInfo>();
+        }
+        return _list;
     }
 
     private static void fetchParamClassMethods(ContextEl _conf, boolean _accessFromSuper, boolean _superClass, int _anc, MethodAccessKind _kind,
@@ -2304,6 +2306,7 @@ public abstract class OperationNode {
         MethodId realId_ = new MethodId(MethodAccessKind.STATIC, valueOf_, new StringList(string_));
         MethodInfo mloc_ = new MethodInfo();
         mloc_.setClassName(idClass_);
+        mloc_.setFileName(r_.getFile().getFileName());
         mloc_.setStatic(true);
         mloc_.setConstraints(realId_);
         mloc_.setParameters(p_);
@@ -2317,6 +2320,7 @@ public abstract class OperationNode {
         realId_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
         mloc_ = new MethodInfo();
         mloc_.setClassName(idClass_);
+        mloc_.setFileName(r_.getFile().getFileName());
         mloc_.setStatic(true);
         mloc_.setConstraints(realId_);
         mloc_.setParameters(p_);

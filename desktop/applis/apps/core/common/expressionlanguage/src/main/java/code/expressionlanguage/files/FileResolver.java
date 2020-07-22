@@ -258,6 +258,7 @@ public final class FileResolver {
                 fileBlock_.appendChild(r_);
                 ExecOperatorBlock e_ = new ExecOperatorBlock(r_);
                 exFile_.appendChild(e_);
+                e_.setFile(exFile_);
                 cls_.getOperators().add(e_);
                 _context.getAnalyzing().getMapOperators().put(r_,e_);
                 r_.setNameNumber(_context.getAnalyzing().getAllMapOperators().size());

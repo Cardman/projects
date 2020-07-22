@@ -920,7 +920,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String className_ = StringExpUtil.getIdFromAllTypes("pkg.Ex<#E>");
-        GeneType root_ = cont_.getClassBody(className_);
+        RootBlock root_ = cont_.getAnalyzing().getAnaClassBody(className_);
         StringList superTypes_ = root_.getAllGenericSuperTypes();
         assertEq(0, superTypes_.size());
     }
@@ -935,7 +935,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String className_ = StringExpUtil.getIdFromAllTypes("pkg.Ex");
-        GeneType root_ = cont_.getClassBody(className_);
+        RootBlock root_ = cont_.getAnalyzing().getAnaClassBody(className_);
         StringList superTypes_ = root_.getAllGenericSuperTypes();
         assertEq(1, superTypes_.size());
         assertEq("pkg.ExTwo<#E>", superTypes_.get(0));

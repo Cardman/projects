@@ -3,10 +3,10 @@ package code.expressionlanguage.exec;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 
@@ -14,7 +14,6 @@ import code.expressionlanguage.common.ClassField;
 
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
-import code.util.StringList;
 
 public class DefaultInitializer implements Initializer {
 
@@ -29,25 +28,19 @@ public class DefaultInitializer implements Initializer {
         Classes classes_ = _context.getClasses();
         String baseClass_ = StringExpUtil.getIdFromAllTypes(_className);
         ExecRootBlock class_ = classes_.getClassBody(baseClass_);
-        StringList allClasses_ = new StringList(class_.getGenericString());
+        ExecFormattedRootBlock base_ = new ExecFormattedRootBlock(class_,class_.getGenericString());
+        CustList<ExecFormattedRootBlock> allClasses_ = new CustList<ExecFormattedRootBlock>(base_);
         allClasses_.addAllElts(class_.getAllGenericSuperTypes());
         CustList<ClassFieldStruct> fields_;
         fields_ = new CustList<ClassFieldStruct>();
-        for (String c: allClasses_) {
-            String id_ = StringExpUtil.getIdFromAllTypes(c);
-            String formatted_ = Templates.quickFormat(_className,c,_context);
-            ExecRootBlock clMetaLoc_ = classes_.getClassBody(id_);
-            for (ExecBlock b: ExecBlock.getDirectChildren(clMetaLoc_)) {
-                if (!(b instanceof ExecFieldBlock)) {
-                    continue;
-                }
-                ExecFieldBlock f_ = (ExecFieldBlock) b;
-                if (f_.isStaticField()) {
-                    continue;
-                }
-                String fieldDeclClass_ = f_.getImportedClassName();
+        for (ExecFormattedRootBlock c: allClasses_) {
+            String preFormatted_ = c.getFormatted();
+            String id_ = StringExpUtil.getIdFromAllTypes(preFormatted_);
+            String formatted_ = Templates.quickFormat(_className, preFormatted_,_context);
+            for (ExecFieldBlock b: c.getRootBlock().getInstanceFields()) {
+                String fieldDeclClass_ = b.getImportedClassName();
                 fieldDeclClass_ = Templates.quickFormat(formatted_,fieldDeclClass_,_context);
-                for (String f: f_.getFieldName()) {
+                for (String f: b.getFieldName()) {
                     ClassField key_ = new ClassField(id_, f);
                     fields_.add(new ClassFieldStruct(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context)));
                 }
@@ -62,26 +55,17 @@ public class DefaultInitializer implements Initializer {
         Classes classes_ = _context.getClasses();
         String baseClass_ = StringExpUtil.getIdFromAllTypes(_className);
         ExecRootBlock class_ = classes_.getClassBody(baseClass_);
-        StringList allClasses_ = new StringList(baseClass_);
-        allClasses_.addAllElts(class_.getAllSuperTypes());
         CustList<ClassFieldStruct> fields_;
         fields_ = new CustList<ClassFieldStruct>();
-        for (String c: allClasses_) {
-            ExecRootBlock clMetaLoc_ = classes_.getClassBody(c);
-            for (ExecBlock b: ExecBlock.getDirectChildren(clMetaLoc_)) {
-                if (!(b instanceof ExecAnnotationMethodBlock)) {
-                    continue;
-                }
-                ExecAnnotationMethodBlock f_ = (ExecAnnotationMethodBlock) b;
-                Struct str_ = f_.getDefaultArgument();
-                String fieldName_ = f_.getName();
-                String fieldDeclClass_ = f_.getImportedReturnType();
-                ClassField key_ = new ClassField(c, fieldName_);
-                if (str_ != null) {
-                    fields_.add(new ClassFieldStruct(key_, str_));
-                } else {
-                    fields_.add(new ClassFieldStruct(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context)));
-                }
+        for (ExecAnnotationMethodBlock b: class_.getAnnotationsFields()) {
+            Struct str_ = b.getDefaultArgument();
+            String fieldName_ = b.getName();
+            String fieldDeclClass_ = b.getImportedReturnType();
+            ClassField key_ = new ClassField(baseClass_, fieldName_);
+            if (str_ != null) {
+                fields_.add(new ClassFieldStruct(key_, str_));
+            } else {
+                fields_.add(new ClassFieldStruct(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context)));
             }
         }
         return new AnnotationStruct(_className, fields_);

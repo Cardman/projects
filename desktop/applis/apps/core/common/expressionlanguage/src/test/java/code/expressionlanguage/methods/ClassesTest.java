@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.assign.util.*;
@@ -41,6 +42,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq(0, new AssignedVariables().getLastMutableLoopOrEmpty().size());
         cont_.setAnalyzing();
         ContextUtil.isFinalField(cont_,new ClassField("",""));
+        ClassesUtil.getDirectChildren(null);
     }
 
     @Test
@@ -129,7 +131,7 @@ public final class ClassesTest extends ProcessMethodCommon {
     }
 
     private static StringList getAllGenericClasses(ContextEl context_, String _className) {
-        return context_.getClasses().getClassBody(_className).getAllGenericClasses();
+        return context_.getAnalyzing().getAnaClassBody(_className).getAllGenericClasses();
     }
 
     @Test

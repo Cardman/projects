@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ValuesOperation;
 import code.util.IdMap;
@@ -12,11 +13,13 @@ public final class ExecValuesOperation extends ExecLeafOperation implements
 
     private String className;
     private int argOffset;
+    private ExecRootBlock rootBlock;
 
-    public ExecValuesOperation(ValuesOperation _v) {
+    public ExecValuesOperation(ValuesOperation _v, ContextEl _cont) {
         super(_v);
         className = _v.getClassName();
         argOffset = _v.getArgOffset();
+        rootBlock = fetchType(_v,_cont);
     }
 
 
@@ -28,7 +31,7 @@ public final class ExecValuesOperation extends ExecLeafOperation implements
     }
     Argument getCommonArgument(ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+argOffset, _conf);
-        return ExecInvokingOperation.getEnumValues(new DefaultExiting(_conf),className, _conf);
+        return ExecInvokingOperation.getEnumValues(new DefaultExiting(_conf),className,rootBlock, _conf);
     }
 
 }

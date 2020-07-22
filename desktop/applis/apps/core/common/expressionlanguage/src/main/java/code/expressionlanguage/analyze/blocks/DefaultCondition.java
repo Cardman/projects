@@ -32,6 +32,7 @@ public final class DefaultCondition extends SwitchPartBlock {
         if (checkDefault(_cont)){
             ExecDefaultCondition exec_ = new ExecDefaultCondition(getOffset());
             AnalyzedPageEl page_ = _cont.getAnalyzing();
+            exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
@@ -111,6 +112,7 @@ public final class DefaultCondition extends SwitchPartBlock {
                 return true;
             }
             ExecInstanceDefaultCondition exec_ = new ExecInstanceDefaultCondition(getOffset(),variableName, instanceTest_,variableOffset);
+            exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);

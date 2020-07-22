@@ -6,8 +6,6 @@ import code.util.*;
 public interface GeneType extends InheritedType {
 
 
-    StringList getAllSuperTypes();
-
 
     boolean isStaticType();
     boolean withoutInstance();
@@ -23,7 +21,5 @@ public interface GeneType extends InheritedType {
     String getPackageName();
 
     String getFullName();
-
-    StringList getAllGenericSuperTypes();
 
 }

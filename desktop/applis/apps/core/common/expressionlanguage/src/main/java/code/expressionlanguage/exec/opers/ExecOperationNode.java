@@ -5,6 +5,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecInfoBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -68,6 +71,37 @@ public abstract class ExecOperationNode {
         order = _order;
     }
 
+    public static ExecRootBlock fetchType(ValuesOperation _l, ContextEl _cont) {
+        if (_cont.getAnalyzing().getAllMapTypes().getKeys().isValidIndex(_l.getNumberEnum())) {
+            return _cont.getAnalyzing().getAllMapTypes().getValue(_l.getNumberEnum());
+        }
+        return null;
+    }
+
+    public static ExecRootBlock fetchType(EnumValueOfOperation _l, ContextEl _cont) {
+        if (_cont.getAnalyzing().getAllMapTypes().getKeys().isValidIndex(_l.getNumberEnum())) {
+            return _cont.getAnalyzing().getAllMapTypes().getValue(_l.getNumberEnum());
+        }
+        return null;
+    }
+    public static ExecInfoBlock fetchField(LambdaOperation _l, ContextEl _cont) {
+        if (_cont.getAnalyzing().getAllMapMembers().getKeys().isValidIndex(_l.getRootNumber())) {
+            if (_cont.getAnalyzing().getAllMapMembers().getValue(_l.getRootNumber()).getAllFields().getKeys().isValidIndex(_l.getMemberNumber())) {
+                return _cont.getAnalyzing().getAllMapMembers().getValue(_l.getRootNumber()).getAllFields().getValue(_l.getMemberNumber());
+            }
+        }
+        return null;
+    }
+    public static ExecNamedFunctionBlock fetchFunction(LambdaOperation _l, ContextEl _cont) {
+        if (_cont.getAnalyzing().getAllMapMembers().getKeys().isValidIndex(_l.getRootNumber())) {
+            if (_cont.getAnalyzing().getAllMapMembers().getValue(_l.getRootNumber()).getAllNamed().getKeys().isValidIndex(_l.getMemberNumber())) {
+                return _cont.getAnalyzing().getAllMapMembers().getValue(_l.getRootNumber()).getAllNamed().getValue(_l.getMemberNumber());
+            }
+        } else if (_cont.getAnalyzing().getAllMapOperators().getKeys().isValidIndex(_l.getMemberNumber())) {
+            return _cont.getAnalyzing().getAllMapOperators().getValue(_l.getMemberNumber());
+        }
+        return null;
+    }
     static int processConverter(ContextEl _conf, Argument _right, CustList<ClassMethodId> implicits_, int indexImplicit_) {
         ClassMethodId c = implicits_.get(indexImplicit_);
         DefaultExiting ex_ = new DefaultExiting(_conf);
@@ -161,11 +195,11 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof EnumValueOfOperation) {
             EnumValueOfOperation d_ = (EnumValueOfOperation) _anaNode;
-            return new ExecEnumValueOfOperation(d_);
+            return new ExecEnumValueOfOperation(d_,_cont);
         }
         if (_anaNode instanceof ValuesOperation) {
             ValuesOperation d_ = (ValuesOperation) _anaNode;
-            return new ExecValuesOperation(d_);
+            return new ExecValuesOperation(d_,_cont);
         }
         if (_anaNode instanceof AbstractTernaryOperation) {
             AbstractTernaryOperation t_ = (AbstractTernaryOperation) _anaNode;

@@ -86,6 +86,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         } else {
             exec_ = new ExecStdSwitchBlock(getOffset(), label, valueOffset, op_);
         }
+        exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);

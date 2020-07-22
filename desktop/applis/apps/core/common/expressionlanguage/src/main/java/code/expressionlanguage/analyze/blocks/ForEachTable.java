@@ -134,6 +134,7 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
                 importedClassNameSecond,
                 importedClassIndexName,variableNameFirst,
                 variableNameSecond, expressionOffset,op_);
+        exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);

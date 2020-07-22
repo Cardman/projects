@@ -384,10 +384,10 @@ public final class ExecutingUtil {
         String fileName_ = _type.getFile().getFileName();
         StringList inners_ = new StringList();
         boolean existCtor_ = false;
+        for (ExecRootBlock b: _type.getChildrenTypes()) {
+            inners_.add(b.getFullName());
+        }
         for (ExecBlock b: bl_) {
-            if (b instanceof ExecRootBlock) {
-                inners_.add(((ExecRootBlock) b).getFullName());
-            }
             if (b instanceof ExecInfoBlock) {
                 ExecInfoBlock method_ = (ExecInfoBlock) b;
                 String ret_ = method_.getImportedClassName();

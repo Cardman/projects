@@ -1,6 +1,9 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ValuesOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -13,11 +16,13 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
 
     private String className;
     private int argOffset;
+    private ExecRootBlock rootBlock;
 
-    public RendValuesOperation(ValuesOperation _v) {
+    public RendValuesOperation(ValuesOperation _v, ContextEl _cont) {
         super(_v);
         className = _v.getClassName();
         argOffset = _v.getArgOffset();
+        rootBlock = ExecOperationNode.fetchType(_v,_cont);
     }
 
     @Override
@@ -28,7 +33,7 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
 
     Argument getCommonArgument(Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+argOffset, _conf);
-        return ExecInvokingOperation.getEnumValues(new AdvancedExiting(_conf),className, _conf.getContext());
+        return ExecInvokingOperation.getEnumValues(new AdvancedExiting(_conf),className,rootBlock, _conf.getContext());
     }
 
     @Override

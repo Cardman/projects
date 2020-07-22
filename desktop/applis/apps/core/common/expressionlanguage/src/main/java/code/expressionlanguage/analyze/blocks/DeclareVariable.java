@@ -56,6 +56,7 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         ExecDeclareVariable exec_ = new ExecDeclareVariable(getOffset(),className,classNameOffset,importedClassName,variableNames,partOffsets);
         page_.setExecDeclareVariable(exec_);
+        exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
