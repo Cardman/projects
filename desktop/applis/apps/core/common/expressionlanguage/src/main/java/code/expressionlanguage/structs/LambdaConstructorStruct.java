@@ -11,16 +11,14 @@ public final class LambdaConstructorStruct extends WithoutParentIdStruct impleme
     private final String className;
     private final String formClassName;
 
-    private final ConstructorId fid;
-
     private final boolean shiftInstance;
     private boolean safeInstance;
+    private Struct metaInfo = NullStruct.NULL_VALUE;
 
-    public LambdaConstructorStruct(String _className, String _formClassName, ConstructorId _fid,
-            boolean _shiftInstance) {
+    public LambdaConstructorStruct(String _className, String _formClassName,
+                                   boolean _shiftInstance) {
         className = _className;
         formClassName = _formClassName;
-        fid = _fid;
         shiftInstance = _shiftInstance;
     }
 
@@ -35,8 +33,12 @@ public final class LambdaConstructorStruct extends WithoutParentIdStruct impleme
         instanceCall = _instanceCall;
     }
 
-    public ConstructorId getFid() {
-        return fid;
+    public Struct getMetaInfo() {
+        return metaInfo;
+    }
+
+    public void setMetaInfo(Struct metaInfo) {
+        this.metaInfo = metaInfo;
     }
 
     public boolean isShiftInstance() {

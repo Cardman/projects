@@ -11,8 +11,6 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.FunctionBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.stds.StandardMethod;
-import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -204,15 +202,6 @@ public abstract class ExecBlock {
         return (ExecFileBlock) b_;
     }
 
-    public static CustList<ExecAnnotationMethodBlock> getAnnotationMethods(GeneType _element) {
-        CustList<ExecAnnotationMethodBlock> methods_ = new CustList<ExecAnnotationMethodBlock>();
-        for (ExecBlock b: getDirectChildren((ExecRootBlock)_element)) {
-            if (b instanceof ExecAnnotationMethodBlock) {
-                methods_.add((ExecAnnotationMethodBlock) b);
-            }
-        }
-        return methods_;
-    }
     public static CustList<ExecNamedFunctionBlock> getMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {
         return filter(getMethodBodies(_context,_genericClassName),_id);
     }
@@ -220,14 +209,10 @@ public abstract class ExecBlock {
         return filterDeep(getDeepMethodBodies(_context,_genericClassName),_id);
     }
     private static CustList<ExecNamedFunctionBlock> getMethodBodies(ContextEl _context,String _genericClassName) {
-        CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
         String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
         ExecRootBlock r_ = classes_.getClassBody(base_);
-        for (GeneCustModifierMethod m: getMethodExecBlocks(r_)) {
-            methods_.add((ExecNamedFunctionBlock)m);
-        }
-        return methods_;
+        return getMethodExecBlocks(r_);
     }
     private static CustList<ExecOverridableBlock> getDeepMethodBodies(ContextEl _context,String _genericClassName) {
         CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
@@ -240,36 +225,12 @@ public abstract class ExecBlock {
         return methods_;
     }
 
-    public static CustList<ExecInfoBlock> getFieldBlocks(ExecRootBlock _element){
-        CustList<ExecInfoBlock> methods_ = new CustList<ExecInfoBlock>();
-        for (ExecBlock b: getDirectChildren(_element)) {
-            if (b instanceof ExecInfoBlock) {
-                methods_.add((ExecInfoBlock) b);
-            }
-        }
-        return methods_;
-    }
 
-
-    public static CustList<ExecAnnotationMethodBlock> getMethodAnnotationBodiesById(ExecBlock _r, String _id) {
-        CustList<ExecAnnotationMethodBlock> methods_ = new CustList<ExecAnnotationMethodBlock>();
-        for (ExecBlock b: getDirectChildren(_r)) {
-            if (!(b instanceof ExecAnnotationMethodBlock)) {
-                continue;
-            }
-            ExecAnnotationMethodBlock a_ = (ExecAnnotationMethodBlock) b;
-            if (StringList.quickEq(a_.getName(), _id)) {
-                methods_.add(a_);
-            }
-        }
-        return methods_;
-    }
-
-    public static CustList<GeneCustModifierMethod> getMethodExecBlocks(ExecRootBlock _element) {
-        CustList<GeneCustModifierMethod> methods_ = new CustList<GeneCustModifierMethod>();
+    private static CustList<ExecNamedFunctionBlock> getMethodExecBlocks(ExecRootBlock _element) {
+        CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
         for (ExecBlock b: getDirectChildren(_element)) {
             if (b instanceof ExecOverridableBlock) {
-                methods_.add((GeneCustModifierMethod) b);
+                methods_.add((ExecNamedFunctionBlock) b);
             }
             if (b instanceof ExecAnnotationMethodBlock) {
                 methods_.add((ExecAnnotationMethodBlock) b);

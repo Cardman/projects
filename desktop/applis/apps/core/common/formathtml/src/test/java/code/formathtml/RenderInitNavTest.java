@@ -873,6 +873,8 @@ public final class RenderInitNavTest extends CommonRender {
         _lgNames.setAliasCurrentFullStack("currentFull");
         _lgNames.setAliasFct("java.lang.$Fct");
         _lgNames.setAliasCall("call");
+        _lgNames.setAliasMetaInfo("metaInfo");
+        _lgNames.setAliasInstance("instance");
         _lgNames.setAliasAnnotationType("java.lang.$Annotation");
         _lgNames.setAliasAnnotated("java.lang.$Annotated");
         _lgNames.setAliasGetAnnotations("getAnnotations");

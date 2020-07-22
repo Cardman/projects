@@ -7,17 +7,30 @@ import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class RendCallDynMethodOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
 
+    private String fctName;
     public RendCallDynMethodOperation(CallDynMethodOperation _call) {
         super(_call);
+        fctName = _call.getFctName();
     }
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
+        if (StringList.quickEq(fctName,_conf.getStandards().getAliasMetaInfo())) {
+            Argument res_ = ExecInvokingOperation.getMetaInfo(previous_, _conf.getContext());
+            setSimpleArgument(res_, _conf, _nodes);
+            return;
+        }
+        if (StringList.quickEq(fctName,_conf.getStandards().getAliasInstance())) {
+            Argument res_ = ExecInvokingOperation.getInstanceCall(previous_, _conf.getContext());
+            setSimpleArgument(res_, _conf, _nodes);
+            return;
+        }
+        CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument argres_ = processCall(this, this, previous_, arguments_, _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }

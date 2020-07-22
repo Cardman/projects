@@ -15,6 +15,10 @@ public final class MethodInfo implements Parametrable {
     private String className;
 
     private String returnType;
+    private String originalReturnType = "";
+    private String fileName = "";
+    private int rootNumber = -1;
+    private int memberNumber = -1;
     private StringList formattedParams;
 
     private MethodAccessKind staticMethod;
@@ -43,6 +47,22 @@ public final class MethodInfo implements Parametrable {
 
     public void setReturnType(String _returnType) {
         returnType = _returnType;
+    }
+
+    public String getOriginalReturnType() {
+        return originalReturnType;
+    }
+
+    public void setOriginalReturnType(String originalReturnType) {
+        this.originalReturnType = originalReturnType;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     @Override
@@ -163,5 +183,21 @@ public final class MethodInfo implements Parametrable {
     @Override
     public CustList<CustList<ClassMethodId>> getImplicits() {
         return implicits;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
+    }
+
+    public void setMemberNumber(int memberNumber) {
+        this.memberNumber = memberNumber;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public void setRootNumber(int rootNumber) {
+        this.rootNumber = rootNumber;
     }
 }

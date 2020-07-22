@@ -118,6 +118,8 @@ public abstract class LgNames {
     public static final String CLONE = "Clone";
     public static final String NAME = "Name";
     public static final String CALL = "Call";
+    public static final String META_INFO = "MetaInfo";
+    public static final String INSTANCE = "Instance";
     public static final String SAME = "Same";
     public static final String MOD = "Mod";
     public static final String REVERSE = "Reverse";
@@ -528,7 +530,9 @@ public abstract class LgNames {
                 new KeyValueMemberName(IS_VARARGS,getAliasIsVarargs()),
                 new KeyValueMemberName(NEW_INSTANCE,getAliasNewInstance())));
         map_.addEntry(getAliasFct(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(CALL,getAliasCall())));
+                new KeyValueMemberName(CALL,getAliasCall()),
+                new KeyValueMemberName(META_INFO,getAliasMetaInfo()),
+                new KeyValueMemberName(INSTANCE,getAliasInstance())));
         map_.addEntry(getAliasField(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
@@ -2090,6 +2094,22 @@ public abstract class LgNames {
     }
     public void setAliasCall(String _aliasCall) {
         reflect.setAliasCall(_aliasCall);
+    }
+
+    public String getAliasInstance() {
+        return reflect.getAliasInstance();
+    }
+
+    public void setAliasInstance(String aliasInstance) {
+        this.reflect.setAliasInstance(aliasInstance);
+    }
+
+    public String getAliasMetaInfo() {
+        return reflect.getAliasMetaInfo();
+    }
+
+    public void setAliasMetaInfo(String aliasMetaInfo) {
+        this.reflect.setAliasMetaInfo(aliasMetaInfo);
     }
     public String getAliasAnnotationType() {
         return reflect.getAliasAnnotationType();

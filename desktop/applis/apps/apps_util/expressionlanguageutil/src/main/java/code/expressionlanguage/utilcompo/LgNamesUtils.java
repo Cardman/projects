@@ -3843,6 +3843,8 @@ public class LgNamesUtils extends LgNames {
         setAliasClone(get(_util,_cust, CLONE));
         setAliasName(get(_util,_cust, NAME));
         setAliasCall(get(_util,_cust, CALL));
+        setAliasMetaInfo(get(_util,_cust, META_INFO));
+        setAliasInstance(get(_util,_cust, INSTANCE));
         setAliasSame(get(_util,_cust, SAME));
         setAliasMod(get(_util,_cust, MOD));
         setAliasReverse(get(_util,_cust, REVERSE));

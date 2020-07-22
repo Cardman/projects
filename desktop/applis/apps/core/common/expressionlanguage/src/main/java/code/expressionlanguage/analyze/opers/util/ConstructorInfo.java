@@ -20,6 +20,7 @@ public final class ConstructorInfo implements Parametrable {
 
     private boolean varArgWrap;
     private InvocationMethod invocation;
+    private int memberNumber=-1;
     private CustList<CustList<ClassMethodId>> implicits = new CustList<CustList<ClassMethodId>>();
 
     public ConstructorId getConstraints() {
@@ -108,5 +109,13 @@ public final class ConstructorInfo implements Parametrable {
     @Override
     public CustList<CustList<ClassMethodId>> getImplicits() {
         return implicits;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
+    }
+
+    public void setMemberNumber(int memberNumber) {
+        this.memberNumber = memberNumber;
     }
 }

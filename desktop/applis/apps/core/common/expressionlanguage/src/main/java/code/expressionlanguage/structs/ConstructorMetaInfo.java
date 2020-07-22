@@ -2,10 +2,12 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
+import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.StringList;
 
-public final class ConstructorMetaInfo extends WithoutParentStruct implements AnnotatedStruct {
+public final class ConstructorMetaInfo extends WithoutParentStruct implements AnnotatedParamStruct {
 
     private static final String EMPTY_STRING = "";
 
@@ -17,6 +19,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
     private final String returnType;
     private final boolean invokable;
     private String fileName = EMPTY_STRING;
+    private ExecAnnotableParametersBlock annotableBlock;
     public ConstructorMetaInfo(){
         invokable = false;
         className = "";
@@ -37,6 +40,17 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
         formClassName = _formClassName;
     }
 
+    public ExecAnnotableBlock getAnnotableBlock() {
+        return getAnnotableBlockParam();
+    }
+
+    public ExecAnnotableParametersBlock getAnnotableBlockParam() {
+        return annotableBlock;
+    }
+
+    public void setAnnotableBlock(ExecAnnotableParametersBlock annotableBlock) {
+        this.annotableBlock = annotableBlock;
+    }
     @Override
     public String getFileName() {
         return fileName;

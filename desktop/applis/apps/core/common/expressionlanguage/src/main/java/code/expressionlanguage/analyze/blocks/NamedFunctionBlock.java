@@ -62,6 +62,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     private final StringList nameErrors = new StringList();
     private final CustList<StringList> paramErrors = new CustList<StringList>();
+    private int nameNumber;
 
     public NamedFunctionBlock(OffsetAccessInfo _access,
                               OffsetStringInfo _retType, OffsetStringInfo _fctName,
@@ -315,5 +316,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public CustList<StringList> getParamErrors() {
         return paramErrors;
+    }
+
+    public int getNameNumber() {
+        return nameNumber;
+    }
+
+    public void setNameNumber(int nameNumber) {
+        this.nameNumber = nameNumber;
     }
 }

@@ -23,6 +23,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
     private String sepErr = "";
     private boolean noNeed;
     private int indexCh=-1;
+    private String fctName;
     public CallDynMethodOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -32,6 +33,42 @@ public final class CallDynMethodOperation extends InvokingOperation {
     public void analyze(ContextEl _conf) {
         LgNames stds_ = _conf.getStandards();
         String fctName_ = getOperations().getFctName().trim();
+        fctName = fctName_;
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        if (StringList.quickEq(fctName_, _conf.getStandards().getAliasMetaInfo())) {
+            if (!chidren_.isEmpty()) {
+                noNeed = true;
+                FoundErrorInterpret undefined_ = new FoundErrorInterpret();
+                undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                //unexpected coma or right parenthese
+                undefined_.buildError(_conf.getAnalysisMessages().getFunctionalApplyNbDiff(),
+                        Integer.toString(0),
+                        Integer.toString(chidren_.size()),
+                        _conf.getStandards().getAliasFct());
+                _conf.getAnalyzing().getLocalizer().addError(undefined_);
+                sepErr = undefined_.getBuiltError();
+            }
+            setResultClass(new ClassArgumentMatching(stds_.getAliasAnnotated()));
+            return;
+        }
+        if (StringList.quickEq(fctName_, _conf.getStandards().getAliasInstance())) {
+            if (!chidren_.isEmpty()) {
+                noNeed = true;
+                FoundErrorInterpret undefined_ = new FoundErrorInterpret();
+                undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                //unexpected coma or right parenthese
+                undefined_.buildError(_conf.getAnalysisMessages().getFunctionalApplyNbDiff(),
+                        Integer.toString(0),
+                        Integer.toString(chidren_.size()),
+                        _conf.getStandards().getAliasFct());
+                _conf.getAnalyzing().getLocalizer().addError(undefined_);
+                sepErr = undefined_.getBuiltError();
+            }
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
+        }
         if (!StringList.quickEq(fctName_, _conf.getStandards().getAliasCall())) {
             FoundErrorInterpret und_ = new FoundErrorInterpret();
             und_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -48,7 +85,6 @@ public final class CallDynMethodOperation extends InvokingOperation {
         StringList all_ = StringExpUtil.getAllTypes(fct_);
         String ret_ = all_.last();
         CustList<String> param_ = all_.mid(1, all_.size() - 2);
-        CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
         for (OperationNode o: chidren_) {
             firstArgs_.add(o.getResultClass());
@@ -152,5 +188,9 @@ public final class CallDynMethodOperation extends InvokingOperation {
 
     public boolean isNoNeed() {
         return noNeed;
+    }
+
+    public String getFctName() {
+        return fctName;
     }
 }

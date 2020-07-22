@@ -333,6 +333,8 @@ public final class KeyWordsMap {
         _lgNames.setAliasCurrentFullStack("currentFull");
         _lgNames.setAliasFct("$core.Fct");
         _lgNames.setAliasCall("call");
+        _lgNames.setAliasMetaInfo("metaInfo");
+        _lgNames.setAliasInstance("instance");
         _lgNames.setAliasAnnotationType("$core.Annotation");
         _lgNames.setAliasAnnotated("$core.Annotated");
         _lgNames.setAliasGetDefaultValue("getDefaultValue");
@@ -632,6 +634,8 @@ public final class KeyWordsMap {
         _lgNames.setAliasCurrentFullStack("couranteComplete");
         _lgNames.setAliasFct("$coeur.Fct");
         _lgNames.setAliasCall("appeler");
+        _lgNames.setAliasMetaInfo("metaInfo");
+        _lgNames.setAliasInstance("instance");
         _lgNames.setAliasAnnotationType("$coeur.Annotation");
         _lgNames.setAliasAnnotated("$coeur.Annote");
         _lgNames.setAliasGetDefaultValue("valDefValeur");

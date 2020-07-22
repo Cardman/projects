@@ -457,7 +457,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         Struct prev_ =_previous.getStruct();
         String aliasFct_ = stds_.getAliasFct();
         if (StringList.quickEq(aliasFct_, idClassNameFound_)) {
-            CustList<Argument> ar_ = new CustList<Argument>();
+            if (_firstArgs.isEmpty()) {
+                if (StringList.quickEq(_methodId.getName(),_cont.getStandards().getAliasMetaInfo())) {
+                    return getMetaInfo(_previous, _cont);
+                }
+                return getInstanceCall(_previous, _cont);
+            }
             Argument instance_ = _firstArgs.first();
             Struct inst_ = instance_.getStruct();
             if (!(inst_ instanceof ArrayStruct)) {
@@ -466,6 +471,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             ArrayStruct arr_ = (ArrayStruct) inst_;
             Struct[] real_ = arr_.getInstance();
+            CustList<Argument> ar_ = new CustList<Argument>();
             for (Struct str_ : real_) {
                 ar_.add(new Argument(str_));
             }
@@ -603,6 +609,28 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return classFormat_;
     }
+    public static Argument getInstanceCall(Argument _previous, ContextEl _conf) {
+        Struct ls_ = _previous.getStruct();
+        if (ls_ instanceof LambdaStruct) {
+            return ((LambdaStruct) ls_).getInstanceCall();
+        }
+        LgNames lgNames_ = _conf.getStandards();
+        String null_;
+        null_ = lgNames_.getAliasNullPe();
+        _conf.setException(new ErrorStruct(_conf,null_));
+        return Argument.createVoid();
+    }
+    public static Argument getMetaInfo(Argument _previous, ContextEl _conf) {
+        Struct ls_ = _previous.getStruct();
+        if (ls_ instanceof LambdaStruct) {
+            return new Argument(((LambdaStruct) ls_).getMetaInfo());
+        }
+        LgNames lgNames_ = _conf.getStandards();
+        String null_;
+        null_ = lgNames_.getAliasNullPe();
+        _conf.setException(new ErrorStruct(_conf,null_));
+        return Argument.createVoid();
+    }
     public static Argument prepareCallDyn(Argument _previous, CustList<Argument> _values, ContextEl _conf) {
         Struct ls_ = _previous.getStruct();
         LgNames lgNames_ = _conf.getStandards();
@@ -646,10 +674,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 result_.setStruct(ExecTemplates.newCustomArray(c_, dims_, _conf));
                 return result_;
             }
-            ConstructorId cid_ = l_.getFid();
-            ConstructorMetaInfo c_ = new ConstructorMetaInfo(forId_, AccessEnum.PUBLIC, cid_, forId_, cid_, forId_);
             Argument pr_ = new Argument();
-            pr_.setStruct(c_);
+            pr_.setStruct(l_.getMetaInfo());
             Argument instance_ = l_.getInstanceCall();
             if (l_.isSafeInstance()&&instance_.isNull()) {
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
@@ -704,13 +730,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             boolean static_ = l_.isStaticField();
             int nbAncestors_ = l_.getAncestor();
-            boolean final_ = l_.isFinalField();
-            String name_ = idField_.getFieldName();
             String clName_ = idField_.getClassName();
-            String retField_ = l_.getReturnFieldType();
-            FieldMetaInfo f_ = new FieldMetaInfo(clName_, name_, retField_, static_, final_, AccessEnum.PUBLIC);
             Argument pr_ = new Argument();
-            pr_.setStruct(f_);
+            pr_.setStruct(l_.getMetaInfo());
             ReflectingType type_;
             if (aff_) {
                 type_ = ReflectingType.SET_FIELD;
@@ -757,23 +779,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             } else {
                 id_ = StringExpUtil.getIdFromAllTypes(l_.getFormClassName());
             }
-            MethodModifier met_;
             boolean static_ = fid_.isStaticMethod();
-            if (l_.isAbstractMethod()) {
-                met_ = MethodModifier.ABSTRACT;
-            } else if (static_) {
-                met_ = MethodModifier.STATIC;
-            } else {
-                met_ = MethodModifier.NORMAL;
-            }
-            String from_ = id_;
-            if (id_.startsWith("[")) {
-                from_ = StringExpUtil.getPrettyArrayType(_conf.getStandards().getAliasObject());
-            }
-            MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC, from_, fid_, met_, "", fid_, "");
-            m_.setExpCast(l_.isExpCast());
             Argument pr_ = new Argument();
-            pr_.setStruct(m_);
+            pr_.setStruct(l_.getMetaInfo());
             Argument instance_ = new Argument();
             instance_.setStruct(l_.getInstanceCall().getStruct());
             if (l_.isSafeInstance()&&instance_.isNull()) {

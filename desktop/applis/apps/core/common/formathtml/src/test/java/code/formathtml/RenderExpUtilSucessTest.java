@@ -5847,6 +5847,32 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     }
     @Test
+    public void processEl474Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processElNormal("($($Field)$lambda(pkg.Ex,,inst,$int).metaInfo()).getType().getName()", conf_);
+        assertEq("$int",getString(argument_));
+    }
+    @Test
+    public void processEl475Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int inst;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration conf_ = getConfiguration4(files_);
+        addImportingPage(conf_);
+        Argument argument_ = processElNormal("($Class.getClass($(pkg.Ex)$new pkg.Ex().$lambda(pkg.Ex,,inst,$int).instance())).getName()", conf_);
+        assertEq("pkg.Ex",getString(argument_));
+    }
+    @Test
     public void procesAffect00Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
@@ -6769,7 +6795,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = RenderExpUtil.getOperationsSequence(_minIndex, el_, _conf, d_);
         OperationNode op_ = RenderExpUtil.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, _conf);
-        CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(all_);
+        CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(all_,_conf.getContext());
         assertTrue(context_.isEmptyErrors());
         context_.setNullAnalyzing();
         out_ = RenderExpUtil.getReducedNodes(out_.last());
@@ -6784,7 +6810,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static Argument calculate(CustList<OperationNode> _ops, Configuration _an) {
-        CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(_ops);
+        CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(_ops,_an.getContext());
         out_ = RenderExpUtil.getReducedNodes(out_.last());
         Argument arg_ = RenderExpUtil.calculateReuse(out_, _an);
         assertNull(getException(_an));

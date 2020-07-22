@@ -2,13 +2,15 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
+import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.StringList;
 
 
-public final class MethodMetaInfo extends WithoutParentStruct implements AnnotatedStruct {
+public final class MethodMetaInfo extends WithoutParentStruct implements AnnotatedParamStruct {
 
     private static final String EMPTY_STRING = "";
 
@@ -25,7 +27,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     private String fileName = EMPTY_STRING;
     private boolean expCast;
     private final boolean invokable;
-    private boolean operator;
+    private ExecAnnotableParametersBlock annotableBlock;
     public MethodMetaInfo() {
         invokable = false;
         className = "";
@@ -48,12 +50,15 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         formClassName = _formClassName;
     }
 
-    public boolean isOperator() {
-        return operator;
+    public ExecAnnotableBlock getAnnotableBlock() {
+        return getAnnotableBlockParam();
     }
 
-    public void setOperator(boolean operator) {
-        this.operator = operator;
+    public ExecAnnotableParametersBlock getAnnotableBlockParam() {
+        return annotableBlock;
+    }
+    public void setAnnotableBlock(ExecAnnotableParametersBlock annotableBlock) {
+        this.annotableBlock = annotableBlock;
     }
 
     @Override

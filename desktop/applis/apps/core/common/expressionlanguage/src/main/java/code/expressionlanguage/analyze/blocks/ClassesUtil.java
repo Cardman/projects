@@ -551,12 +551,14 @@ public final class ClassesUtil {
                 }
                 if (b instanceof InnerElementBlock) {
                     ExecInnerElementBlock val_ = page_.getMapInnerEltTypes().getVal((InnerElementBlock) b);
+                    ((InfoBlock) b).setFieldNumber(mem_.getAllFields().size());
                     mem_.getAllFields().addEntry((InfoBlock) b,val_);
                     mem_.getAllElementFields().addEntry((InnerElementBlock) b,val_);
                 }
                 if (b instanceof ElementBlock) {
                     ExecElementBlock val_ = new ExecElementBlock((ElementBlock) b);
                     current_.appendChild(val_);
+                    ((InfoBlock) b).setFieldNumber(mem_.getAllFields().size());
                     mem_.getAllFields().addEntry((InfoBlock) b,val_);
                     mem_.getAllElementFields().addEntry((ElementBlock) b,val_);
                     mem_.getAllAnnotables().addEntry((ElementBlock) b,val_);
@@ -564,6 +566,7 @@ public final class ClassesUtil {
                 if (b instanceof FieldBlock) {
                     ExecFieldBlock val_ = new ExecFieldBlock((FieldBlock) b);
                     current_.appendChild(val_);
+                    ((InfoBlock) b).setFieldNumber(mem_.getAllFields().size());
                     mem_.getAllFields().addEntry((InfoBlock) b,val_);
                     mem_.getAllExplicitFields().addEntry((FieldBlock) b,val_);
                     mem_.getAllAnnotables().addEntry((FieldBlock) b,val_);
@@ -573,6 +576,7 @@ public final class ClassesUtil {
                     current_.appendChild(val_);
                     mem_.getAllCtors().addEntry((ConstructorBlock) b,val_);
                     mem_.getAllAnnotables().addEntry((ConstructorBlock) b,val_);
+                    ((ConstructorBlock) b).setNameNumber(mem_.getAllNamed().size());
                     mem_.getAllNamed().addEntry((ConstructorBlock) b,val_);
                 }
                 if (b instanceof OverridableBlock) {
@@ -580,6 +584,7 @@ public final class ClassesUtil {
                     current_.appendChild(val_);
                     mem_.getAllMethods().addEntry((OverridableBlock) b,val_);
                     mem_.getAllAnnotables().addEntry((OverridableBlock) b,val_);
+                    ((OverridableBlock) b).setNameNumber(mem_.getAllNamed().size());
                     mem_.getAllNamed().addEntry((OverridableBlock) b,val_);
                 }
                 if (b instanceof AnnotationMethodBlock) {
@@ -587,6 +592,7 @@ public final class ClassesUtil {
                     current_.appendChild(val_);
                     mem_.getAllAnnotMethods().addEntry((AnnotationMethodBlock) b,val_);
                     mem_.getAllAnnotables().addEntry((AnnotationMethodBlock) b,val_);
+                    ((AnnotationMethodBlock) b).setNameNumber(mem_.getAllNamed().size());
                     mem_.getAllNamed().addEntry((AnnotationMethodBlock) b,val_);
                 }
                 if (b instanceof InstanceBlock) {
@@ -2278,6 +2284,19 @@ public final class ClassesUtil {
         return methods_;
     }
 
+    public static CustList<AnnotationMethodBlock> getMethodAnnotationBodiesById(Block _r, String _id) {
+        CustList<AnnotationMethodBlock> methods_ = new CustList<AnnotationMethodBlock>();
+        for (Block b: getDirectChildren(_r)) {
+            if (!(b instanceof AnnotationMethodBlock)) {
+                continue;
+            }
+            AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
+            if (StringList.quickEq(a_.getName(), _id)) {
+                methods_.add(a_);
+            }
+        }
+        return methods_;
+    }
 
     public static CustList<OverridableBlock> getMethodExecBlocks(RootBlock _element) {
         CustList<OverridableBlock> methods_ = new CustList<OverridableBlock>();

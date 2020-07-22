@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
 import code.expressionlanguage.exec.blocks.ExecBlock;
@@ -24,29 +25,21 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
     @Override
     public boolean checkCondition(ContextEl _context) {
         MethodMetaInfo instance_ = NumParsers.getMethod(getGlobalArgument().getStruct());
-        String cl_ = instance_.getFormClassName();
-        String id_ = StringExpUtil.getIdFromAllTypes(cl_);
-        GeneType type_ = _context.getClassBody(id_);
-        if (!(type_ instanceof ExecAnnotationBlock)) {
+        ExecAnnotableBlock annotableBlock_ = instance_.getAnnotableBlock();
+        if (!(annotableBlock_ instanceof ExecAnnotationMethodBlock)) {
             setReturnedArgument(new Argument());
             return true;
         }
         if (!init) {
-            String name_ = instance_.getName();
-            ExecAnnotationBlock ann_ = (ExecAnnotationBlock) type_;
-            for (ExecAnnotationMethodBlock m: ExecBlock.getAnnotationMethods(ann_)) {
-                if (!StringList.quickEq(m.getName(), name_)) {
-                    continue;
-                }
-                ops = m.getOpValue();
-                if (ops.isEmpty()) {
-                    String clMethod_ = m.getImportedReturnType();
-                    Struct value_ = PrimitiveTypeUtil.defaultValue(clMethod_, _context);
-                    Argument out_ = new Argument();
-                    out_.setStruct(value_);
-                    setReturnedArgument(out_);
-                    return true;
-                }
+            ExecAnnotationMethodBlock ann_ = (ExecAnnotationMethodBlock) annotableBlock_;
+            ops = ann_.getOpValue();
+            if (ops.isEmpty()) {
+                String clMethod_ = ann_.getImportedReturnType();
+                Struct value_ = PrimitiveTypeUtil.defaultValue(clMethod_, _context);
+                Argument out_ = new Argument();
+                out_.setStruct(value_);
+                setReturnedArgument(out_);
+                return true;
             }
             init = true;
         }

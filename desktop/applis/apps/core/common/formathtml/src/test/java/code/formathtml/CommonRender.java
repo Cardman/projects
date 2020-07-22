@@ -339,6 +339,6 @@ public abstract class CommonRender {
         OperationsSequence opTwo_ = RenderExpUtil.getOperationsSequence(_index, el_, _conf, d_);
         OperationNode op_ = RenderExpUtil.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, _conf);
-        return RenderExpUtil.getExecutableNodes(all_);
+        return RenderExpUtil.getExecutableNodes(all_,_conf.getContext());
     }
 }

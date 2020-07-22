@@ -1,7 +1,9 @@
+
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.util.StringList;
 
 
@@ -19,6 +21,7 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
     private final boolean finalField;
     private final boolean invokable;
     private String fileName = EMPTY_STRING;
+    private ExecAnnotableBlock annotableBlock;
     public FieldMetaInfo() {
         invokable = false;
         declaringClass = "";
@@ -42,6 +45,13 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
         access = _access;
     }
 
+    public ExecAnnotableBlock getAnnotableBlock() {
+        return annotableBlock;
+    }
+
+    public void setAnnotableBlock(ExecAnnotableBlock annotableBlock) {
+        this.annotableBlock = annotableBlock;
+    }
     @Override
     public String getFileName() {
         return fileName;

@@ -2105,7 +2105,7 @@ public final class LinkageUtil {
                 String tag_ = "<b>";
                 _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()));
                 tag_ = "</b>";
-                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+_cont.getStandards().getAliasCall().length()));
+                _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+((CallDynMethodOperation) val_).getFctName().length()));
             } else {
                 String fctName_ = val_.getOperations().getFctName().trim();
                 String tag_ = "<a title=\""+transform(StringList.join(val_.getErrs(),"\n\n"))+"\" class=\"e\">";

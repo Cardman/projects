@@ -92,7 +92,7 @@ public abstract class ExecOperationNode {
     public final int getIndexBegin() {
         return indexBegin;
     }
-    public static ExecOperationNode createExecOperationNode(OperationNode _anaNode) {
+    public static ExecOperationNode createExecOperationNode(OperationNode _anaNode, ContextEl _cont) {
         if (_anaNode instanceof StaticInitOperation) {
             StaticInitOperation c_ = (StaticInitOperation) _anaNode;
             return new ExecStaticInitOperation(c_);
@@ -216,7 +216,13 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof LambdaOperation) {
             LambdaOperation f_ = (LambdaOperation) _anaNode;
-            return new ExecLambdaOperation(f_);
+            if (f_.getMethod() == null && f_.getRealId() == null) {
+                return new ExecFieldLambdaOperation(f_,_cont);
+            }
+            if (f_.getMethod() == null) {
+                return new ExecConstructorLambdaOperation(f_,_cont);
+            }
+            return new ExecMethodLambdaOperation(f_,_cont);
         }
         if (_anaNode instanceof StaticInfoOperation) {
             StaticInfoOperation f_ = (StaticInfoOperation) _anaNode;
@@ -514,7 +520,7 @@ public abstract class ExecOperationNode {
             if (_value == NullStruct.NULL_VALUE) {
                 ExecOperationNode last_ = par_.getChildrenNodes().last();
                 boolean skip_ = true;
-                if (last_ instanceof ExecLambdaOperation) {
+                if (last_ instanceof ExecAbstractLambdaOperation) {
                     skip_ = false;
                 }
                 if (skip_) {

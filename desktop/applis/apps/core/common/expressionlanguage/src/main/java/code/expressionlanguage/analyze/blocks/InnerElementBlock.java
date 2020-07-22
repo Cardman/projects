@@ -40,7 +40,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     private int trOffset;
     private OperationNode root;
     private String classNameRes;
-
+    private int fieldNumber;
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -205,4 +205,13 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         return root;
     }
 
+    @Override
+    public int getFieldNumber() {
+        return fieldNumber;
+    }
+
+    @Override
+    public void setFieldNumber(int fieldNumber) {
+        this.fieldNumber = fieldNumber;
+    }
 }

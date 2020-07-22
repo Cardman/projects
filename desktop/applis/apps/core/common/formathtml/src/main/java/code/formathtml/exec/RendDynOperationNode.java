@@ -121,7 +121,7 @@ public abstract class RendDynOperationNode {
         _cont.setOpOffset(indexBegin+_offset);
     }
 
-    public static RendDynOperationNode createExecOperationNode(OperationNode _anaNode) {
+    public static RendDynOperationNode createExecOperationNode(OperationNode _anaNode, ContextEl _cont) {
         if (_anaNode instanceof InternGlobalOperation) {
             InternGlobalOperation m_ = (InternGlobalOperation) _anaNode;
             return new RendInternGlobalOperation(m_);
@@ -230,7 +230,7 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof LambdaOperation) {
             LambdaOperation f_ = (LambdaOperation) _anaNode;
-            return new RendLambdaOperation(f_);
+            return new RendLambdaOperation(f_,_cont);
         }
         if (_anaNode instanceof StaticInfoOperation) {
             StaticInfoOperation f_ = (StaticInfoOperation) _anaNode;

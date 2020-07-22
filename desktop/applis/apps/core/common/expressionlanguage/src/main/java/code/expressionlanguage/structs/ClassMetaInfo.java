@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -50,6 +51,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     private final String variableOwner;
     private final AccessEnum access;
     private String fileName = EMPTY_STRING;
+    private ExecAnnotableBlock annotableBlock;
     public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat, String _variableOwner) {
         name = _name;
         variableOwner = _variableOwner;
@@ -189,6 +191,14 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         staticType = _staticType;
         finalType = false;
         access = _access;
+    }
+
+    public ExecAnnotableBlock getAnnotableBlock() {
+        return annotableBlock;
+    }
+
+    public void setAnnotableBlock(ExecAnnotableBlock annotableBlock) {
+        this.annotableBlock = annotableBlock;
     }
 
     @Override

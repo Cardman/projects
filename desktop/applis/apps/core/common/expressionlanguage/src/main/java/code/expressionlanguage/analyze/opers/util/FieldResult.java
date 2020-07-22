@@ -8,7 +8,9 @@ public class FieldResult {
     private SearchingMemberStatus status;
 
     private int anc;
-
+    private String fileName;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
     public FieldInfo getId() {
         return id;
     }
@@ -33,4 +35,27 @@ public class FieldResult {
         anc = _anc;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public void setRootNumber(int rootNumber) {
+        this.rootNumber = rootNumber;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
+    }
+
+    public void setMemberNumber(int memberNumber) {
+        this.memberNumber = memberNumber;
+    }
 }

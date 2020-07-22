@@ -159,7 +159,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 fieldNameOffset = f.getFieldNameOffset();
                 typeEnum = id_;
                 CustList<ExecOperationNode> ops_ = new CustList<ExecOperationNode>();
-                ops_.add(ExecOperationNode.createExecOperationNode(op_));
+                ops_.add(ExecOperationNode.createExecOperationNode(op_,_cont));
                 checkDuplicateEnumCase(_cont);
                 ExecEnumCaseCondition exec_ = new ExecEnumCaseCondition(getOffset(),value,valueOffset);
                 page_.getBlockToWrite().appendChild(exec_);

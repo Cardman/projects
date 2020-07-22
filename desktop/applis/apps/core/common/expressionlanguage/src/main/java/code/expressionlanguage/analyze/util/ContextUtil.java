@@ -284,7 +284,11 @@ public final class ContextUtil {
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
                 Accessed a_ = new Accessed(i_.getAccess(),cust_.getPackageName(),fullName_, cust_.getOuterFullName());
-                return FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_, valOffset_);
+                FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_, valOffset_);
+                fieldInfo_.setFileName(b.getFile().getFileName());
+                fieldInfo_.setMemberNumber(i_.getFieldNumber());
+                fieldInfo_.setRootNumber(cust_.getNumberAll());
+                return fieldInfo_;
             }
             return null;
         }

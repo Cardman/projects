@@ -9,7 +9,9 @@ import code.util.StringList;
 
 public interface InfoBlock extends GeneField, AnnotableBlock {
     int getFieldNameOffset();
-
+    int getFieldNumber();
+    void setFieldNumber(int _nb);
+    FileBlock getFile();
     String getImportedClassName();
     String getRealImportedClassName();
     void buildImportedType(ContextEl _cont);

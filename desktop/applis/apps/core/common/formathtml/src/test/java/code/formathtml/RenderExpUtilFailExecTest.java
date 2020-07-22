@@ -2467,7 +2467,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     }
 
     private static void calculate(CustList<OperationNode> _ops, Configuration _an) {
-        CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(_ops);
+        CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(_ops,_an.getContext());
         out_ = RenderExpUtil.getReducedNodes(out_.last());
         Argument arg_ = RenderExpUtil.calculateReuse(out_, _an);
         assertNotNull(getException(_an));

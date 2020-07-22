@@ -18,9 +18,9 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
     private final int ancestor;
     private final boolean affect;
     private boolean staticField;
-    private boolean finalField;
     private boolean safeInstance;
     private final String returnFieldType;
+    private Struct metaInfo = NullStruct.NULL_VALUE;
 
     public LambdaFieldStruct(String _className, String _ownerType,ClassField _fid,
                              boolean _shiftInstance, int _ancestor, boolean _affect, String _returnFieldType) {
@@ -45,14 +45,6 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
         this.staticField = staticField;
     }
 
-    public boolean isFinalField() {
-        return finalField;
-    }
-
-    public void setFinalField(boolean finalField) {
-        this.finalField = finalField;
-    }
-
     public boolean isSafeInstance() {
         return safeInstance;
     }
@@ -63,6 +55,14 @@ public final class LambdaFieldStruct extends WithoutParentIdStruct implements La
 
     public void setInstanceCall(Argument _instanceCall) {
         instanceCall = _instanceCall;
+    }
+
+    public Struct getMetaInfo() {
+        return metaInfo;
+    }
+
+    public void setMetaInfo(Struct metaInfo) {
+        this.metaInfo = metaInfo;
     }
 
     public ClassField getFid() {

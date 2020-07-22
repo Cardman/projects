@@ -59,14 +59,13 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 AnnotationInstanceOperation inst_;
                 inst_ = (AnnotationInstanceOperation)mOpAss_;
                 String className_ = inst_.getClassName();
-                GeneType typeInfo_ = _conf.getClassBody(className_);
-                if (!(typeInfo_ instanceof ExecBlock)) {
+                RootBlock typeInfo_ = _conf.getAnalyzing().getAnaClassBody(className_);
+                if (typeInfo_ == null) {
                     className = _conf.getStandards().getAliasObject();
                     return;
                 }
-                ExecBlock ann_ = (ExecBlock) typeInfo_;
                 String type_ = EMPTY_STRING;
-                CustList<ExecAnnotationMethodBlock> list_ = ExecBlock.getMethodAnnotationBodiesById(ann_, fieldName_);
+                CustList<AnnotationMethodBlock> list_ = ClassesUtil.getMethodAnnotationBodiesById(typeInfo_, fieldName_);
                 if (!list_.isEmpty()) {
                     type_ = list_.first().getImportedReturnType();
                 }

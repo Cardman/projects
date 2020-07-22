@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
@@ -46,7 +47,7 @@ public final class RenderExpUtil {
             e_.setOrder(0);
             int end_ = d_.getIndexEnd();
             _conf.setNextIndex(end_+2);
-            return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_));
+            return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_,_conf.getContext()));
         }
         int beg_ = d_.getIndexBegin();
         int end_ = d_.getIndexEnd();
@@ -55,7 +56,7 @@ public final class RenderExpUtil {
         OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, _conf, d_);
         OperationNode op_ = createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
         CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
-        return getExecutableNodes(all_);
+        return getExecutableNodes(all_,_conf.getContext());
     }
 
     public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _index, Configuration _conf) {
@@ -79,24 +80,24 @@ public final class RenderExpUtil {
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));
             e_.setOrder(0);
-            return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_));
+            return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_,_conf.getContext()));
         }
         String el_ = _el.substring(_index);
         OperationsSequence opTwo_ = getOperationsSequence(_index, el_, _conf, d_);
         OperationNode op_ = createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
         CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf);
-        return getExecutableNodes(all_);
+        return getExecutableNodes(all_,_conf.getContext());
     }
 
-    public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list) {
+    public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, ContextEl _cont) {
         CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
-        RendDynOperationNode exp_ = RendDynOperationNode.createExecOperationNode(current_);
+        RendDynOperationNode exp_ = RendDynOperationNode.createExecOperationNode(current_,_cont);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof RendMethodOperation&&op_ != null) {
-                RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_);
+                RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_,_cont);
                 ((RendMethodOperation) exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -115,7 +116,7 @@ public final class RenderExpUtil {
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
-                    RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_);
+                    RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_,_cont);
                     RendMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof AbstractDotOperation && loc_ instanceof RendPossibleIntermediateDotted) {

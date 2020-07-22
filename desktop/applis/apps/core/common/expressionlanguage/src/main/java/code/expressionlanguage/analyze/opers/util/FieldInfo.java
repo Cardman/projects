@@ -15,6 +15,9 @@ public final class FieldInfo {
     private final ClassField classField;
     private final Accessed accessed;
     private final int valOffset;
+    private String fileName;
+    private int rootNumber;
+    private int memberNumber;
 
     private FieldInfo(String _name, String _declaringClass, String _type, String _realType,
                       boolean _staticField, boolean _finalField, Accessed _accessed, int _valOffset) {
@@ -74,5 +77,29 @@ public final class FieldInfo {
 
     public int getValOffset() {
         return valOffset;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public void setRootNumber(int rootNumber) {
+        this.rootNumber = rootNumber;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
+    }
+
+    public void setMemberNumber(int memberNumber) {
+        this.memberNumber = memberNumber;
     }
 }

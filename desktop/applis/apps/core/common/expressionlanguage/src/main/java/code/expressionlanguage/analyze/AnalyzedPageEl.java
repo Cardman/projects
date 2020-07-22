@@ -48,6 +48,7 @@ public final class AnalyzedPageEl {
     private final IdMap<RootBlock,Members> mapMembers = new IdMap<RootBlock,Members>();
     private final IdMap<RootBlock,Members> allMapMembers = new IdMap<RootBlock,Members>();
     private final IdMap<OperatorBlock,ExecOperatorBlock> mapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
+    private final IdMap<OperatorBlock,ExecOperatorBlock> allMapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
     private final CustList<RootBlock> allFoundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> previousFoundTypes = new CustList<RootBlock>();
@@ -448,6 +449,10 @@ public final class AnalyzedPageEl {
 
     public IdMap<OperatorBlock, ExecOperatorBlock> getMapOperators() {
         return mapOperators;
+    }
+
+    public IdMap<OperatorBlock, ExecOperatorBlock> getAllMapOperators() {
+        return allMapOperators;
     }
 
     public CustList<RootBlock> getPreviousFoundTypes() {

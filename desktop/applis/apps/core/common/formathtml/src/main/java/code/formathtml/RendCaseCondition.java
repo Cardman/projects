@@ -2,7 +2,9 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -69,13 +71,13 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
         String type_ = resSwitch_.getSingleNameOrEmpty();
         if (!type_.isEmpty()) {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            GeneType g_ = _cont.getContext().getClassBody(id_);
-            if (g_ instanceof ExecEnumBlock) {
-                for (ExecInfoBlock f: ExecBlock.getFieldBlocks((ExecRootBlock) g_)) {
-                    if (!(f instanceof ExecInnerTypeOrElement)) {
+            AnaGeneType g_ = _cont.getContext().getAnalyzing().getAnaClassBody(id_);
+            if (g_ instanceof EnumBlock) {
+                for (InfoBlock f: ClassesUtil.getFieldBlocks((RootBlock) g_)) {
+                    if (!(f instanceof InnerTypeOrElement)) {
                         continue;
                     }
-                    ExecInnerTypeOrElement e_ = (ExecInnerTypeOrElement) f;
+                    InnerTypeOrElement e_ = (InnerTypeOrElement) f;
                     if (!StringList.quickEq(e_.getUniqueFieldName(), value.trim())) {
                         continue;
                     }
@@ -88,7 +90,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                     page_.setLookLocalClass(EMPTY_STRING);
                     op_.setOrder(0);
                     opValue = new CustList<RendDynOperationNode>();
-                    opValue.add(RendDynOperationNode.createExecOperationNode(op_));
+                    opValue.add(RendDynOperationNode.createExecOperationNode(op_,_cont.getContext()));
                     checkDuplicateEnumCase(_cont);
                     return;
                 }

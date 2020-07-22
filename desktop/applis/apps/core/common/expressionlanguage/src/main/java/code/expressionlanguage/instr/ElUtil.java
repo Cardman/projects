@@ -151,7 +151,7 @@ public final class ElUtil {
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));
             e_.setOrder(0);
-            return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_));
+            return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_,_conf));
         }
         OperationNode op_;
         if (badOffset_ >= 0) {
@@ -643,13 +643,13 @@ public final class ElUtil {
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
-        ExecOperationNode exp_ = ExecOperationNode.createExecOperationNode(current_);
+        ExecOperationNode exp_ = ExecOperationNode.createExecOperationNode(current_,_an);
         _an.getAnalyzing().setCurrentRoot(root_);
         _an.getCoverage().putBlockOperation(_an,bl_,root_,current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof ExecMethodOperation && op_ != null) {
-                ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_);
+                ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an);
                 _an.getCoverage().putBlockOperation(_an,bl_,root_,op_,loc_);
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
@@ -669,7 +669,7 @@ public final class ElUtil {
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
-                    ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_);
+                    ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an);
                     _an.getCoverage().putBlockOperation(_an,bl_,root_,op_,loc_);
                     ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);

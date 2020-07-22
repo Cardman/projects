@@ -12,7 +12,6 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private boolean retrievedAnnot;
@@ -29,61 +28,20 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         Struct structBlock_ = getGlobalArgument().getStruct();
         if (!retrievedAnnot) {
             if (onParameters) {
-                if (structBlock_ instanceof ConstructorMetaInfo){
-                    ConstructorMetaInfo ctor_ = NumParsers.getCtor(structBlock_);
-                    for (ExecConstructorBlock o: ExecBlock.getConstructorBodiesById(_context,ctor_.getClassName(),ctor_.getRealId())) {
-                        annotationsParams = o.getAnnotationsOpsParams();
-                    }
-                } else if (structBlock_ instanceof MethodMetaInfo) {
-                    MethodMetaInfo method_ = NumParsers.getMethod(structBlock_);
-                    if (method_.isOperator()) {
-                        for (ExecNamedFunctionBlock o: ExecBlock.getOperatorsBodiesById(_context,method_.getRealId())) {
-                            annotationsParams = o.getAnnotationsOpsParams();
-                        }
-                    } else {
-                        for (ExecNamedFunctionBlock o: ExecBlock.getMethodBodiesById(_context, method_.getClassName(),method_.getRealId())) {
-                            annotationsParams = o.getAnnotationsOpsParams();
-                        }
+                if (structBlock_ instanceof AnnotatedParamStruct){
+                    AnnotatedParamStruct a_ = (AnnotatedParamStruct) structBlock_;
+                    ExecAnnotableParametersBlock annotableBlockParam_ = a_.getAnnotableBlockParam();
+                    if (annotableBlockParam_ != null) {
+                        annotationsParams = annotableBlockParam_.getAnnotationsOpsParams();
                     }
                 } else {
                     annotationsParams = new CustList<CustList<CustList<ExecOperationNode>>>();
                 }
-            } else if (structBlock_ instanceof ClassMetaInfo) {
-                String cl_ = NumParsers.getClass(structBlock_).getName();
-                String id_ = StringExpUtil.getIdFromAllTypes(cl_);
-                ExecRootBlock type_ = _context.getClasses().getClassBody(id_);
-                if (type_ != null) {
-                    annotations= type_.getAnnotationsOps();
-                }
-            } else if (structBlock_ instanceof ConstructorMetaInfo){
-                ConstructorMetaInfo ctor_ = NumParsers.getCtor(structBlock_);
-                for (ExecConstructorBlock o: ExecBlock.getConstructorBodiesById(_context,ctor_.getClassName(),ctor_.getRealId())) {
-                    annotations = o.getAnnotationsOps();
-                }
-            } else if (structBlock_ instanceof MethodMetaInfo){
-                MethodMetaInfo method_ = NumParsers.getMethod(structBlock_);
-                if (method_.isOperator()) {
-                    for (ExecNamedFunctionBlock o: ExecBlock.getOperatorsBodiesById(_context,method_.getRealId())) {
-                        annotations = o.getAnnotationsOps();
-                    }
-                } else {
-                    for (ExecNamedFunctionBlock o: ExecBlock.getMethodBodiesById(_context, method_.getClassName(),method_.getRealId())) {
-                        annotations = o.getAnnotationsOps();
-                    }
-                }
             } else {
-                //Field
-                String fieldId_ = NumParsers.getField(structBlock_).getName();
-                String cl_ = NumParsers.getField(structBlock_).getDeclaringClass();
-                String idClass_ = StringExpUtil.getIdFromAllTypes(cl_);
-                ExecRootBlock type_ = _context.getClasses().getClassBody(idClass_);
-                if (type_ != null) {
-                    for (ExecInfoBlock f: ExecBlock.getFieldBlocks(type_)) {
-                        if (!StringList.contains(f.getFieldName(), fieldId_)) {
-                            continue;
-                        }
-                        annotations= f.getAnnotationsOps();
-                    }
+                AnnotatedStruct annotated_ = NumParsers.getAnnotated(structBlock_);
+                ExecAnnotableBlock annotableBlock_ = annotated_.getAnnotableBlock();
+                if (annotableBlock_ != null) {
+                    annotations = annotableBlock_.getAnnotationsOps();
                 }
             }
             CustList<Argument> args_ = getArguments();

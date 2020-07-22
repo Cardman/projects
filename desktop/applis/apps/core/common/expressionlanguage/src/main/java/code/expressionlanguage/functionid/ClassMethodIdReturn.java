@@ -9,13 +9,16 @@ public final class ClassMethodIdReturn {
     private String realClass;
 
     private String returnType;
-
+    private String originalReturnType = "";
     private boolean staticMethod;
 
     private boolean abstractMethod;
 
     private boolean varArgToCall;
     private int ancestor;
+    private String fileName;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
     public ClassMethodIdReturn(boolean _foundMethod) {
         foundMethod = _foundMethod;
     }
@@ -56,6 +59,22 @@ public final class ClassMethodIdReturn {
         returnType = _returnType;
     }
 
+    public String getOriginalReturnType() {
+        return originalReturnType;
+    }
+
+    public void setOriginalReturnType(String originalReturnType) {
+        this.originalReturnType = originalReturnType;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     public boolean isStaticMethod() {
         return staticMethod;
     }
@@ -88,4 +107,19 @@ public final class ClassMethodIdReturn {
         ancestor = _ancestor;
     }
 
+    public int getMemberNumber() {
+        return memberNumber;
+    }
+
+    public void setMemberNumber(int memberNumber) {
+        this.memberNumber = memberNumber;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public void setRootNumber(int rootNumber) {
+        this.rootNumber = rootNumber;
+    }
 }

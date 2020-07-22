@@ -9,6 +9,9 @@ public final class ImportedField {
     private String type;
     private boolean finalField;
     private int valueOffset;
+    private String fileName;
+    private int rootNumber;
+    private int memberNumber;
 
     public ImportedField(int imported, Accessed geneField, String type, boolean finalField, int _valueOffset) {
         this.imported = imported;
@@ -36,5 +39,29 @@ public final class ImportedField {
 
     public int getValueOffset() {
         return valueOffset;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
+    }
+
+    public void setMemberNumber(int memberNumber) {
+        this.memberNumber = memberNumber;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public void setRootNumber(int rootNumber) {
+        this.rootNumber = rootNumber;
     }
 }

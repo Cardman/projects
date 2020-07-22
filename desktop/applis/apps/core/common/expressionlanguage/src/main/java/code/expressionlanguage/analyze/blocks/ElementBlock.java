@@ -45,6 +45,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private String classNameRes;
     private int trOffset;
     private final StringList nameErrors = new StringList();
+    private int fieldNumber;
 
     public ElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                         OffsetStringInfo _type,
@@ -235,4 +236,13 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
 
+    @Override
+    public int getFieldNumber() {
+        return fieldNumber;
+    }
+
+    @Override
+    public void setFieldNumber(int fieldNumber) {
+        this.fieldNumber = fieldNumber;
+    }
 }

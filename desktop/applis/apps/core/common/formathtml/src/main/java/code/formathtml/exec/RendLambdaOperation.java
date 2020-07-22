@@ -1,13 +1,19 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
+import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
+import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.opers.ExecAbstractLambdaOperation;
+import code.expressionlanguage.exec.opers.ExecConstructorLambdaOperation;
+import code.expressionlanguage.exec.opers.ExecFieldLambdaOperation;
+import code.expressionlanguage.exec.opers.ExecMethodLambdaOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.LambdaOperation;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
@@ -31,8 +37,11 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     private boolean directCast;
     private boolean expCast;
     private String returnFieldType;
+    private String fileName;
+    private ExecAnnotableBlock annotableBlock;
+    private ExecAnnotableParametersBlock functionBlock;
 
-    public RendLambdaOperation(LambdaOperation _l) {
+    public RendLambdaOperation(LambdaOperation _l,ContextEl _cont) {
         super(_l);
         intermediate = _l.isIntermediate();
         safeInstance = _l.isSafeInstance();
@@ -51,6 +60,12 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         returnFieldType = _l.getReturnFieldType();
         directCast = _l.isDirectCast();
         expCast = _l.isExpCast();
+        fileName = _l.getFileName();
+        if (method == null && realId == null) {
+            annotableBlock = ExecAbstractLambdaOperation.fetchField(_l,_cont);
+        } else {
+            functionBlock = ExecAbstractLambdaOperation.fetchFunction(_l,_cont);
+        }
     }
 
     @Override
@@ -62,36 +77,22 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
 
     Argument getCommonArgument(Argument _previous, Configuration _conf) {
         Argument arg_ = new Argument();
-        arg_.setStruct(newLambda(_previous,_conf));
-        return arg_;
-    }
-    private Struct newLambda(Argument _previous, Configuration _conf) {
-        String clArg_ = getResultClass().getName();
-        String ownerType_ = foundClass;
-        ownerType_ = _conf.getPageEl().formatVarType(ownerType_, _conf.getContext());
-        clArg_ = _conf.getPageEl().formatVarType(clArg_, _conf.getContext());
-        if (realId == null && method == null) {
-            String formatType_ = _conf.getPageEl().formatVarType(returnFieldType, _conf.getContext());
-            LambdaFieldStruct l_ = new LambdaFieldStruct(clArg_,ownerType_, fieldId, shiftArgument, ancestor,affField, formatType_);
-            l_.setInstanceCall(_previous);
-            l_.setStaticField(staticField);
-            l_.setFinalField(finalField);
-            l_.setSafeInstance(safeInstance);
-            return l_;
+        String name_ = getResultClass().getName();
+        PageEl pageEl_ = _conf.getPageEl();
+        ContextEl context_ = _conf.getContext();
+        if (method == null && realId == null) {
+            arg_.setStruct(ExecFieldLambdaOperation.newLambda(_previous, context_,foundClass,returnFieldType,fieldId,ancestor,
+                    affField,staticField,finalField,shiftArgument,safeInstance, name_, pageEl_, fileName,annotableBlock));
+            return arg_;
         }
         if (method == null) {
-            LambdaConstructorStruct l_ = new LambdaConstructorStruct(clArg_, ownerType_, realId, shiftArgument);
-            l_.setInstanceCall(_previous);
-            l_.setSafeInstance(safeInstance);
-            return l_;
+            arg_.setStruct(ExecConstructorLambdaOperation.newLambda(_previous, context_,foundClass,realId,returnFieldType,
+                    shiftArgument,safeInstance, name_, pageEl_, fileName,functionBlock));
+            return arg_;
         }
-        MethodId id_ = method.getConstraints();
-        LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, id_, polymorph, shiftArgument, ancestor,abstractMethod);
-        l_.setInstanceCall(_previous);
-        l_.setDirectCast(directCast);
-        l_.setExpCast(expCast);
-        l_.setSafeInstance(safeInstance);
-        return l_;
+        arg_.setStruct(ExecMethodLambdaOperation.newLambda(_previous, context_,foundClass,method,returnFieldType,ancestor,
+                directCast,polymorph,abstractMethod,expCast,shiftArgument,safeInstance, name_, pageEl_, fileName,functionBlock));
+        return arg_;
     }
 
     @Override

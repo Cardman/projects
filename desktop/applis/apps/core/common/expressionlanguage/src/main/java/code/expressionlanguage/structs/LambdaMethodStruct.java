@@ -25,6 +25,7 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
     private boolean directCast;
     private boolean safeInstance;
     private boolean expCast;
+    private Struct metaInfo = NullStruct.NULL_VALUE;
     public LambdaMethodStruct(String _className,String _formClassName, MethodId _fid,
             boolean _polymorph, boolean _shiftInstance, int _ancestor, boolean _abstractMethod) {
         className = _className;
@@ -42,6 +43,14 @@ public final class LambdaMethodStruct extends WithoutParentIdStruct implements L
 
     public void setInstanceCall(Argument _instanceCall) {
         instanceCall = _instanceCall;
+    }
+
+    public Struct getMetaInfo() {
+        return metaInfo;
+    }
+
+    public void setMetaInfo(Struct metaInfo) {
+        this.metaInfo = metaInfo;
     }
 
     public String getFormClassName() {

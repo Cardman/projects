@@ -397,6 +397,7 @@ public final class ExecutingUtil {
                 for (String f: method_.getFieldName()) {
                     FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, method_.getAccess());
                     met_.setFileName(fileName_);
+                    met_.setAnnotableBlock(method_);
                     infosFields_.put(f, met_);
                 }
             }
@@ -404,45 +405,45 @@ public final class ExecutingUtil {
                 ExecOverridableBlock method_ = (ExecOverridableBlock) b;
                 MethodId id_ = method_.getId();
                 String ret_ = method_.getImportedReturnType();
-                MethodId fid_;
-                String formCl_ = _type.getFullName();
                 boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL || method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST
                         || method_.getKind() == MethodKind.TRUE_OPERATOR  || method_.getKind() == MethodKind.FALSE_OPERATOR;
-                if (Templates.correctNbParameters(_name, _context)) {
-                    fid_ = id_.reflectFormat(_name, _context);
-                    formCl_ = _name;
-                } else {
-                    fid_ = id_;
-                }
+                MethodId fid_ = tryFormatId(_name, _context, id_);
+                String idType_ = _type.getFullName();
+                String formCl_ = tryFormatType(idType_, _name, _context);
                 String idCl_ = _type.getFullName();
                 if (param_) {
                     idCl_ = _name;
                 }
                 MethodMetaInfo met_ = new MethodMetaInfo(method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
+                met_.setAnnotableBlock(method_);
                 met_.setFileName(fileName_);
                 met_.setExpCast(method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST
                         || method_.getKind() == MethodKind.TRUE_OPERATOR  || method_.getKind() == MethodKind.FALSE_OPERATOR);
                 infos_.put(id_, met_);
                 if (method_.getKind() == MethodKind.EXPLICIT_CAST) {
                     met_ = new MethodMetaInfo(method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
+                    met_.setAnnotableBlock(method_);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
                     infosExplicits_.put(id_, met_);
                 }
                 if (method_.getKind() == MethodKind.IMPLICIT_CAST) {
                     met_ = new MethodMetaInfo(method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
+                    met_.setAnnotableBlock(method_);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
                     infosImplicits_.put(id_, met_);
                 }
                 if (method_.getKind() == MethodKind.TRUE_OPERATOR) {
                     met_ = new MethodMetaInfo(method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
+                    met_.setAnnotableBlock(method_);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
                     infosTrues_.put(id_, met_);
                 }
                 if (method_.getKind() == MethodKind.FALSE_OPERATOR) {
                     met_ = new MethodMetaInfo(method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
+                    met_.setAnnotableBlock(method_);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
                     infosFalses_.put(id_, met_);
@@ -456,6 +457,7 @@ public final class ExecutingUtil {
                 String formCl_ = _type.getFullName();
                 fid_ = id_;
                 MethodMetaInfo met_ = new MethodMetaInfo(AccessEnum.PUBLIC,_type.getFullName(), id_, method_.getModifier(), ret_, fid_, formCl_);
+                met_.setAnnotableBlock(method_);
                 met_.setFileName(fileName_);
                 infos_.put(id_, met_);
             }
@@ -463,15 +465,11 @@ public final class ExecutingUtil {
                 existCtor_ = true;
                 ExecConstructorBlock method_ = (ExecConstructorBlock) b;
                 ConstructorId id_ = method_.getGenericId();
-                ConstructorId fid_;
                 String ret_ = method_.getImportedReturnType();
                 String formCl_ = method_.getDeclaringType();
-                if (Templates.correctNbParameters(_name, _context)) {
-                    fid_ = id_.reflectFormat(_name, _context);
-                } else {
-                    fid_ = id_;
-                }
+                ConstructorId fid_ = tryFormatId(_name, _context, id_);
                 ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, method_.getAccess(), id_, ret_, fid_, formCl_);
+                met_.setAnnotableBlock(method_);
                 met_.setFileName(fileName_);
                 infosConst_.put(id_, met_);
             }
@@ -523,12 +521,14 @@ public final class ExecutingUtil {
             ClassMetaInfo cl_ = new ClassMetaInfo(_name, _type.getImportedDirectGenericSuperInterfaces(), format_, inners_,
                     infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
             cl_.setFileName(fileName_);
+            cl_.setAnnotableBlock(_type);
             return cl_;
         }
         if (_type instanceof ExecAnnotationBlock) {
             ClassMetaInfo cl_ = new ClassMetaInfo(_name, new StringList(), format_, inners_,
                     infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.ANNOTATION, st_, acc_);
             cl_.setFileName(fileName_);
+            cl_.setAnnotableBlock(_type);
             return cl_;
         }
         ClassCategory cat_ = ClassCategory.CLASS;
@@ -542,8 +542,38 @@ public final class ExecutingUtil {
         ClassMetaInfo cl_ = new ClassMetaInfo(_name, superClass_, superInterfaces_, format_, inners_,
                 infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, cat_, abs_, st_, final_, acc_);
         cl_.setFileName(fileName_);
+        cl_.setAnnotableBlock(_type);
         return cl_;
     }
+
+    public static ConstructorId tryFormatId(String _name, ContextEl _context, ConstructorId _id) {
+        ConstructorId fid_;
+        if (Templates.correctNbParameters(_name, _context)) {
+            fid_ = _id.reflectFormat(_name, _context);
+        } else {
+            fid_ = _id;
+        }
+        return fid_;
+    }
+
+    public static String tryFormatType(String _idType, String _name, ContextEl _context) {
+        String formCl_ = _idType;
+        if (Templates.correctNbParameters(_name, _context)) {
+            formCl_ = _name;
+        }
+        return formCl_;
+    }
+
+    public static MethodId tryFormatId(String _name, ContextEl _context, MethodId _id) {
+        MethodId fid_;
+        if (Templates.correctNbParameters(_name, _context)) {
+            fid_ = _id.reflectFormat(_name, _context);
+        } else {
+            fid_ = _id;
+        }
+        return fid_;
+    }
+
     public static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context,String _name, String _variableOwner) {
         if (StringList.quickEq(_name, Templates.SUB_TYPE)) {
             StringList upperBounds_ = new StringList();

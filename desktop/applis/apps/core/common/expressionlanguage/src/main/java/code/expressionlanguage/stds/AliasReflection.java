@@ -32,6 +32,8 @@ public final class AliasReflection {
     private String aliasGetAnnotationsParameters;
     private String aliasFct;
     private String aliasCall;
+    private String aliasMetaInfo;
+    private String aliasInstance;
     private String aliasClassType;
     private String aliasGetClass;
     private String aliasGetEnclosingType;
@@ -138,6 +140,12 @@ public final class AliasReflection {
         stdcl_ = new StandardClass(aliasFct, fields_, constructors_, methods_, aliasObject_ , MethodModifier.ABSTRACT);
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasCall, params_, aliasObject_, true, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasMetaInfo, params_, aliasAnnotated, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasInstance, params_, aliasObject_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasFct, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -942,7 +950,7 @@ public final class AliasReflection {
                         String decl_ = o.getDeclaringType();
                         MethodMetaInfo met_ = new MethodMetaInfo(acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
                         met_.setFileName(o.getFile().getFileName());
-                        met_.setOperator(true);
+                        met_.setAnnotableBlock(o);
                         operators_.add(met_);
                     }
                     operators_.sortElts(new OperatorCmp());
@@ -968,7 +976,7 @@ public final class AliasReflection {
                         String decl_ = o.getDeclaringType();
                         MethodMetaInfo met_ = new MethodMetaInfo(acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
                         met_.setFileName(o.getFile().getFileName());
-                        met_.setOperator(true);
+                        met_.setAnnotableBlock(o);
                         candidates_.add(met_);
                     }
                 }
@@ -1891,6 +1899,23 @@ public final class AliasReflection {
     public void setAliasCall(String _aliasCall) {
         aliasCall = _aliasCall;
     }
+
+    public String getAliasInstance() {
+        return aliasInstance;
+    }
+
+    public void setAliasInstance(String aliasInstance) {
+        this.aliasInstance = aliasInstance;
+    }
+
+    public String getAliasMetaInfo() {
+        return aliasMetaInfo;
+    }
+
+    public void setAliasMetaInfo(String aliasMetaInfo) {
+        this.aliasMetaInfo = aliasMetaInfo;
+    }
+
     public String getAliasAnnotationType() {
         return aliasAnnotationType;
     }

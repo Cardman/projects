@@ -579,7 +579,17 @@ public final class ResolvingImportTypes {
                     }
                 }
                 ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                addImportMethod(_methods, new ImportedMethod(e.getImportedReturnType(), clMet_));
+                ImportedMethod value_ = new ImportedMethod(e.getImportedReturnType(), clMet_);
+                if (e instanceof Block) {
+                    value_.setFileName(((Block)e).getFile().getFileName());
+                }
+                if (e instanceof NamedFunctionBlock) {
+                    value_.setMemberNumber(((NamedFunctionBlock)e).getNameNumber());
+                }
+                if (super_ instanceof RootBlock) {
+                    value_.setRootNumber(((RootBlock)super_).getNumberAll());
+                }
+                addImportMethod(_methods, value_);
             }
         }
     }
@@ -722,7 +732,11 @@ public final class ResolvingImportTypes {
                     if (!ContextUtil.canAccess(_glClass, a_, _analyzable)) {
                         continue;
                     }
-                    addImport(_methods,s, new ImportedField(_import,a_,e.getImportedClassName(),e.isFinalField(),v_));
+                    ImportedField value_ = new ImportedField(_import, a_, e.getImportedClassName(), e.isFinalField(), v_);
+                    value_.setFileName(e.getFile().getFileName());
+                    value_.setMemberNumber(e.getFieldNumber());
+                    value_.setRootNumber(cust_.getNumberAll());
+                    addImport(_methods,s, value_);
                 }
             }
         }

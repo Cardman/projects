@@ -465,14 +465,12 @@ public final class ExecTemplates {
         LgNames stds_ = _context.getStandards();
         if (err_ == ErrorType.NOTHING) {
             ArrayStruct arr_ = (ArrayStruct) _array;
-            Struct[] inst_ = arr_.getInstance();
-            int index_ = ClassArgumentMatching.convertToNumber(_index).intStruct();
-            String arrType_ = arr_.getClassName();
-            String param_ = StringExpUtil.getQuickComponentType(arrType_);
             if (_context.getInitializingTypeInfos().isContainedSensibleFields(arr_)) {
                 _context.getInitializingTypeInfos().failInitEnums();
                 return;
             }
+            Struct[] inst_ = arr_.getInstance();
+            int index_ = ClassArgumentMatching.convertToNumber(_index).intStruct();
             inst_[index_] = _value;
             return;
         }
