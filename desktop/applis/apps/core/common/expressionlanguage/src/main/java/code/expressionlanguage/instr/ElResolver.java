@@ -2131,14 +2131,16 @@ public final class ElResolver {
         } else {
             if (!StringExpUtil.isDigit(_string.charAt(j_))) {
                 _output.getInfos().setError(true);
-                int n_ = StringExpUtil.nextPrintChar(j_+1, _max, _string);
-                if (n_ < 0) {
-                    _output.setNextIndex(j_);
-                    return;
-                }
-                if (!StringExpUtil.isTypeLeafChar(_string.charAt(n_))) {
-                    _output.setNextIndex(j_);
-                    return;
+                if (!StringExpUtil.isTypeLeafChar(_string.charAt(j_))) {
+                    int n_ = StringExpUtil.nextPrintChar(j_+1, _max, _string);
+                    if (n_ < 0) {
+                        _output.setNextIndex(j_);
+                        return;
+                    }
+                    if (!StringExpUtil.isTypeLeafChar(_string.charAt(n_))) {
+                        _output.setNextIndex(j_);
+                        return;
+                    }
                 }
             }
         }
