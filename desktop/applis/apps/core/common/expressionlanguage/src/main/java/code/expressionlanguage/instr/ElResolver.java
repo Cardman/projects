@@ -2059,7 +2059,7 @@ public final class ElResolver {
             char su_ = _key.getSuffixes().getVal(suff_);
             _nbInfos.setSuffix(su_);
         }
-        j_ = nextIndex(j_, _max, _string, _output, _nbInfos.getDecimalPart());
+        j_ = nextIndex(_key,j_, _max, _string, _output, _nbInfos.getDecimalPart());
         _output.setNextIndex(j_);
     }
 
@@ -2141,6 +2141,12 @@ public final class ElResolver {
                         _output.setNextIndex(j_);
                         return;
                     }
+                    if (Character.isWhitespace(_string.charAt(j_))) {
+                        while (j_ < n_) {
+                            exp_.append(_string.charAt(j_));
+                            j_++;
+                        }
+                    }
                 }
             }
         }
@@ -2164,24 +2170,43 @@ public final class ElResolver {
                 j_+=keyWord_.length();
             }
         }
-        j_ = nextIndex(j_, _max, _string, _output, exp_);
+        j_ = nextIndex(_key,j_, _max, _string, _output, exp_);
         _output.setNextIndex(j_);
     }
-    private static int nextIndex(int _j, int _max, String _string, NumberInfosOutput _output, StringBuilder _str) {
+    private static int nextIndex(KeyWords _key,int _j, int _max, String _string, NumberInfosOutput _output, StringBuilder _str) {
         int j_ = _j;
-        if (j_ < _max && isDotDollarWordChar(_string, j_)) {
-            _output.getInfos().setError(true);
-            _str.append(_string.charAt(j_));
-            j_++;
-            while (j_ < _max) {
-                if (!isDotDollarWordChar(_string,j_)) {
-                    break;
-                }
+        if (j_ < _max) {
+            if (unexpectedWordChars(_key, _max, _string, j_)) {
+                _output.getInfos().setError(true);
                 _str.append(_string.charAt(j_));
                 j_++;
+                while (j_ < _max) {
+                    if (!unexpectedWordChars(_key, _max, _string, j_)) {
+                        break;
+                    }
+                    _str.append(_string.charAt(j_));
+                    j_++;
+                }
             }
         }
         return j_;
+    }
+
+    private static boolean unexpectedWordChars(KeyWords _key, int _max, String _string, int _j) {
+        return hasSpaceByWordChar(_key,_max, _string, _j)||isDotDollarWordChar(_string, _j);
+    }
+
+    private static boolean hasSpaceByWordChar(KeyWords _key, int _max, String _string, int _j) {
+        boolean space_ = false;
+        if (Character.isWhitespace(_string.charAt(_j)) ) {
+            int n_ = StringExpUtil.nextPrintChar(_j, _max, _string);
+            if (n_ > -1 && StringList.isDollarWordChar(_string.charAt(n_))) {
+                if (!StringExpUtil.startsWithKeyWord(_string,n_,_key.getKeyWordInstanceof())) {
+                    space_ = true;
+                }
+            }
+        }
+        return space_;
     }
 
     private static boolean isDotDollarWordChar(String _string, int j_) {

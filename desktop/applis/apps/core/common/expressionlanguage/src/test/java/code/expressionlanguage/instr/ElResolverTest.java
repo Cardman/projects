@@ -5406,6 +5406,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         assertEq(0, d_.getDelNumbers().size());
     }
 
+    @Test
+    public void checkSyntax95FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "1e1 ";
+        assertEq(-1, checkSyntax(conf_, el_).getBadOffset());
+    }
     private static void addImportingPage(ContextEl _conf) {
 
     }
