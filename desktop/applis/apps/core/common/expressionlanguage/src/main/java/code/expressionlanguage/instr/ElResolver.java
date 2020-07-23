@@ -1244,7 +1244,16 @@ public final class ElResolver {
             doubleDotted_.setNextIndex(i_);
             return;
         }
-        if (curChar_ == DOT_VAR) {
+        boolean possibleDigit_ = false;
+        if (!_dout.getAllowedOperatorsIndexes().isEmpty()) {
+            int lastIndex_ = _dout.getAllowedOperatorsIndexes().last();
+            if (_string.charAt(lastIndex_) != DOT_VAR) {
+                possibleDigit_ = true;
+            }
+        } else {
+            possibleDigit_ = true;
+        }
+        if (possibleDigit_ && curChar_ == DOT_VAR) {
             int n_ = StringExpUtil.nextPrintChar(i_ + 1, len_, _string);
             if (isDigitOrDot(_string,n_)) {
                 NumberInfosOutput res_ = processNb(keyWords_, i_ + 1, len_, _string, true);
@@ -2141,11 +2150,13 @@ public final class ElResolver {
                         _output.setNextIndex(j_);
                         return;
                     }
-                    if (Character.isWhitespace(_string.charAt(j_))) {
-                        while (j_ < n_) {
-                            exp_.append(_string.charAt(j_));
-                            j_++;
-                        }
+                    if (!Character.isWhitespace(_string.charAt(j_))) {
+                        _output.setNextIndex(j_);
+                        return;
+                    }
+                    while (j_ < n_) {
+                        exp_.append(_string.charAt(j_));
+                        j_++;
                     }
                 }
             }
@@ -2160,7 +2171,8 @@ public final class ElResolver {
         int n_ = StringExpUtil.nextPrintChar(j_, _max, _string);
         if (n_ > -1 && _string.charAt(n_) == DOT_VAR) {
             _output.getInfos().setError(true);
-            j_ = n_;
+            _output.setNextIndex(n_);
+            return;
         }
         if (j_ < _max && Character.isLetter(_string.charAt(j_))) {
             String keyWord_ = _key.getNbKeyWord(_string, j_);
@@ -2193,7 +2205,7 @@ public final class ElResolver {
     }
 
     private static boolean unexpectedWordChars(KeyWords _key, int _max, String _string, int _j) {
-        return hasSpaceByWordChar(_key,_max, _string, _j)||isDotDollarWordChar(_string, _j);
+        return hasSpaceByWordChar(_key,_max, _string, _j)||StringList.isDollarWordChar(_string.charAt(_j));
     }
 
     private static boolean hasSpaceByWordChar(KeyWords _key, int _max, String _string, int _j) {
@@ -2207,10 +2219,6 @@ public final class ElResolver {
             }
         }
         return space_;
-    }
-
-    private static boolean isDotDollarWordChar(String _string, int j_) {
-        return _string.charAt(j_) == DOT_VAR || StringList.isDollarWordChar(_string.charAt(j_));
     }
 
     private static boolean processedCorrectOrContinue(String _string, int _j) {
