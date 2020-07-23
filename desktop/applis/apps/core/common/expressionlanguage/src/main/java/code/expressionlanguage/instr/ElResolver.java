@@ -2116,11 +2116,31 @@ public final class ElResolver {
         int j_ = _start;
         j_++;
         if (_string.charAt(j_) == MINUS_CHAR || _string.charAt(j_) == PLUS_CHAR) {
+            if (j_ + 1 >= _max) {
+                _output.getInfos().setError(true);
+                _output.setNextIndex(j_);
+                return;
+            }
+            if (!StringExpUtil.isDigit(_string.charAt(j_+1))) {
+                _output.getInfos().setError(true);
+                _output.setNextIndex(j_);
+                return;
+            }
             exp_.append(_string.charAt(j_));
             j_++;
-        }
-        if (!StringExpUtil.isDigit(_string.charAt(j_))) {
-            _output.getInfos().setError(true);
+        } else {
+            if (!StringExpUtil.isDigit(_string.charAt(j_))) {
+                _output.getInfos().setError(true);
+                int n_ = StringExpUtil.nextPrintChar(j_+1, _max, _string);
+                if (n_ < 0) {
+                    _output.setNextIndex(j_);
+                    return;
+                }
+                if (!StringExpUtil.isTypeLeafChar(_string.charAt(n_))) {
+                    _output.setNextIndex(j_);
+                    return;
+                }
+            }
         }
         while (j_ < _max) {
             if (isNonNbPart(_string.charAt(j_),10)) {
@@ -2150,6 +2170,7 @@ public final class ElResolver {
         if (j_ < _max && isDotDollarWordChar(_string, j_)) {
             _output.getInfos().setError(true);
             _str.append(_string.charAt(j_));
+            j_++;
             while (j_ < _max) {
                 if (!isDotDollarWordChar(_string,j_)) {
                     break;

@@ -131,23 +131,23 @@ public final class ContextUtil {
     }
 
     public static boolean isFinalType(GeneType _type) {
-        if (_type instanceof StandardInterface) {
-            return false;
+        if (_type instanceof StandardClass) {
+            return ((StandardClass)_type).isFinalStdType();
         }
         if (_type instanceof ExecRootBlock) {
             return ((ExecRootBlock)_type).isFinalType();
         }
-        return ((StandardClass)_type).isFinalStdType();
+        return false;
     }
 
     public static boolean isAbstractType(GeneType _type) {
-        if (_type instanceof StandardInterface) {
-            return true;
+        if (_type instanceof StandardClass) {
+            return ((StandardClass)_type).isAbstractStdType();
         }
         if (_type instanceof ExecRootBlock) {
             return ((ExecRootBlock)_type).isAbstractType();
         }
-        return ((StandardClass)_type).isAbstractStdType();
+        return true;
     }
 
     public static boolean isEnumType(GeneType _type) {
