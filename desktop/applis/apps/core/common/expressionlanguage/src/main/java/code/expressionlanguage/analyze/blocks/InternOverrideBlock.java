@@ -122,6 +122,7 @@ public final class InternOverrideBlock extends Leaf {
                         partMethods_.addAllElts(partMethod_);
                         GeneStringOverridable g_ = new GeneStringOverridable(formatted_,root_,m);
                         list_.add(g_);
+                        break;
                     }
                 }
                 allParts.addAllElts(partMethods_);

@@ -776,6 +776,130 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         assertEq(5,((NumberStruct)field_).intStruct());
     }
     @Test
+    public void calculate19Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex :pkg.Int{\n");
+        xml_.append(" $intern{doubleValue():doubleValue(Ex)|doubleValue(Int)},\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO;\n");
+        xml_.append(" $public $int first;\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first=i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first=5i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int doubleValue(){\n");
+        xml_.append("  $return first;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public Int pre=$static(pkg.Ex).TWO;\n");
+        xml_.append(" $public java.lang.String inst=pre.name();\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Int {\n");
+        xml_.append(" $public $abstract $int doubleValue();\n");
+        xml_.append(" $public $normal java.lang.String name()$intern(Ex:name($en)){$return \"OTHER_\"+$enums.name((Ex)$this);}\n");
+        xml_.append(" $public $normal $int ordinal(){$return -1;}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Int", xml_.toString());
+        ContextEl cont_ = contextElEnum();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExCont");
+
+        Argument ret_;
+        ret_ = instanceNormal("pkg.ExCont", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
+        Struct field_;
+        field_ = getField(str_, new ClassField("pkg.ExCont", "inst"));
+        assertEq(STRING, field_.getClassName(cont_));
+        assertEq("TWO",((StringStruct)field_).getInstance());
+    }
+    @Test
+    public void calculate20Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
+        xml_.append(" $intern{getter():getter(Ex)|gette(ExTwo)};\n");
+        xml_.append(" $public $int inst=2i;\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  $super(16i);\n");
+        xml_.append("  inst=i;\n");
+        xml_.append("  inst+=getter();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int getter(){\n");
+        xml_.append("  $return $new Ex(9).inst;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int getter(){\n");
+        xml_.append("  $return inst;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int sec;\n");
+        xml_.append(" $package ($int i){\n");
+        xml_.append("  sec=i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int getter(){\n");
+        xml_.append("  $return sec;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
+        assertEq(18, getNumber(ret_));
+    }
+    @Test
+    public void calculate21Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
+        xml_.append(" $public $int inst=2i;\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  $super(16i);\n");
+        xml_.append("  inst=i;\n");
+        xml_.append("  inst+=getter();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int getter(){\n");
+        xml_.append("  ExTwo e = $new Ex(9);\n");
+        xml_.append("  $return e.getter();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int getter(){\n");
+        xml_.append("  $return inst;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int sec;\n");
+        xml_.append(" $package ($int i){\n");
+        xml_.append("  sec=i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int getter()$intern(Ex:getter(ExTwo);ExTwo:gette(ExTwo)){\n");
+        xml_.append("  $return sec;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
+        assertEq(16, getNumber(ret_));
+    }
+    @Test
     public void calculate1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElDefault();

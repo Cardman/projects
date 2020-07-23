@@ -248,6 +248,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                     LinkageUtil.addParts(_context,_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
                     partMethods_.addAllElts(partMethod_);
                     overrides.put(clKey_,new ClassMethodId(formattedDest_,methodIdDest_));
+                    break;
                 }
             }
             allInternParts.addAllElts(partMethods_);
