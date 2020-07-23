@@ -43,6 +43,13 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             ExecOperationNode left_ = ((ExecOperationNode) settable).getParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
+                ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);
+                pairBefore_.setEndCalculate(true);
+                pairBefore_.setIndexImplicitSemiFrom(-1);
+                pairBefore_.setIndexImplicitSemiTo(-1);
+                if (pairBefore_ instanceof TwoStepsArgumentsPair) {
+                    ((TwoStepsArgumentsPair)pairBefore_).setCalledIndexer(true);
+                }
                 leftArg_ = new Argument(ClassArgumentMatching.convert(_conf.getLastPage(),getResultClass(),NullStruct.NULL_VALUE,_conf));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
                 return;

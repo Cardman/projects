@@ -39,6 +39,9 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             ExecOperationNode left_ = ((ExecOperationNode) settable).getParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
+                ArgumentsPair pair_ = getArgumentPair(_nodes,this);
+                pair_.setIndexImplicitCompound(-1);
+                pair_.setEndCalculate(true);
                 leftArg_ = new Argument(ClassArgumentMatching.convert(_conf.getLastPage(),getResultClass(),NullStruct.NULL_VALUE,_conf));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
                 return;

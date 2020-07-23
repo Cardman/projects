@@ -558,6 +558,20 @@ public abstract class ExecOperationNode {
                     skip_ = false;
                 }
                 if (skip_) {
+                    ExecMethodOperation p_ = par_;
+                    while (p_ != null) {
+                        ExecSettableElResult set_ = null;
+                        if (p_ instanceof ExecCompoundAffectationOperation) {
+                            set_ = ((ExecCompoundAffectationOperation)p_).getSettable();
+                        }
+                        if (p_ instanceof ExecAffectationOperation) {
+                            set_ = ((ExecAffectationOperation)p_).getSettable();
+                        }
+                        if (set_ == last_) {
+                            return p_.getOrder();
+                        }
+                        p_ = p_.getParent();
+                    }
                     return par_.getOrder();
                 }
             }

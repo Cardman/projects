@@ -99,4 +99,8 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,_previous,_arguments);
         return Argument.createVoid();
     }
+
+    public RendSettableElResult getSettable() {
+        return settable;
+    }
 }

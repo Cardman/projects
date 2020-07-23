@@ -508,6 +508,20 @@ public abstract class RendDynOperationNode {
                     skip_ = false;
                 }
                 if (skip_) {
+                    RendMethodOperation p_ = par_;
+                    while (p_ != null) {
+                        RendSettableElResult set_ = null;
+                        if (p_ instanceof RendCompoundAffectationOperation) {
+                            set_ = ((RendCompoundAffectationOperation)p_).getSettable();
+                        }
+                        if (p_ instanceof RendAffectationOperation) {
+                            set_ = ((RendAffectationOperation)p_).getSettable();
+                        }
+                        if (set_ == last_) {
+                            return p_.getOrder();
+                        }
+                        p_ = p_.getParent();
+                    }
                     return par_.getOrder();
                 }
             }
