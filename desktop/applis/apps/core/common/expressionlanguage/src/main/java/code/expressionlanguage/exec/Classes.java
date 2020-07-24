@@ -113,16 +113,22 @@ public final class Classes {
         DefaultLockingClass dl_ = cl_.getLocks();
         dl_.init(_context);
         for (ExecRootBlock c: cl_.getClassBodies()) {
-            for (ExecBlock b: ClassesUtil.getSortedDescNodes(c)) {
-                if (b instanceof ReducableOperations) {
-                    ((ReducableOperations)b).reduce(_context);
+            c.reduce(_context);
+            for (ExecBlock d:ExecBlock.getDirectChildrenNotType(c)) {
+                for (ExecBlock b: ClassesUtil.getSortedDescNodes(d)) {
+                    if (b instanceof ReducableOperations) {
+                        ((ReducableOperations)b).reduce(_context);
+                    }
                 }
             }
         }
         for (ExecOperatorBlock o: cl_.getOperators()) {
-            for (ExecBlock b: ClassesUtil.getSortedDescNodes(o)) {
-                if (b instanceof ReducableOperations) {
-                    ((ReducableOperations)b).reduce(_context);
+            o.reduce(_context);
+            for (ExecBlock d:ExecBlock.getDirectChildrenNotType(o)) {
+                for (ExecBlock b: ClassesUtil.getSortedDescNodes(d)) {
+                    if (b instanceof ReducableOperations) {
+                        ((ReducableOperations)b).reduce(_context);
+                    }
                 }
             }
         }

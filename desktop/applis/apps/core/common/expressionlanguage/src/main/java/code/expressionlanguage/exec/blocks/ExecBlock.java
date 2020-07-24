@@ -52,6 +52,16 @@ public abstract class ExecBlock {
         ip_.removeLastBlock();
         processBlock(_conf);
     }
+    public static CustList<ExecBlock> getDirectChildrenNotType(ExecBlock _element) {
+        CustList<ExecBlock> list_ = new CustList<ExecBlock>();
+        for (ExecBlock e: getDirectChildren(_element)) {
+            if (e instanceof ExecRootBlock) {
+                continue;
+            }
+            list_.add(e);
+        }
+        return list_;
+    }
     public static CustList<ExecBlock> getDirectChildren(ExecBlock _element) {
         CustList<ExecBlock> list_ = new CustList<ExecBlock>();
         if (_element == null) {

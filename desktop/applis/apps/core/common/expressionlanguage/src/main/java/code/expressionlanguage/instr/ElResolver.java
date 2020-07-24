@@ -1142,7 +1142,7 @@ public final class ElResolver {
         KeyWords keyWords_ = _an.getKeyWords();
         ResultAfterInstKeyWord resTmp_ = new ResultAfterInstKeyWord();
         resTmp_.setNextIndex(i_);
-        if (StringExpUtil.isDigit(_curChar)) {
+        if (isPossibleDigit(_string,_d) && StringExpUtil.isDigit(_curChar)) {
             NumberInfosOutput res_ = processNb(keyWords_, i_, len_, _string, false);
             int nextIndex_ = res_.getNextIndex();
             _d.getNbInfos().add(res_.getInfos());
@@ -1244,16 +1244,7 @@ public final class ElResolver {
             doubleDotted_.setNextIndex(i_);
             return;
         }
-        boolean possibleDigit_ = false;
-        if (!_dout.getAllowedOperatorsIndexes().isEmpty()) {
-            int lastIndex_ = _dout.getAllowedOperatorsIndexes().last();
-            if (_string.charAt(lastIndex_) != DOT_VAR) {
-                possibleDigit_ = true;
-            }
-        } else {
-            possibleDigit_ = true;
-        }
-        if (possibleDigit_ && curChar_ == DOT_VAR) {
+        if (isPossibleDigit(_string, _dout) && curChar_ == DOT_VAR) {
             int n_ = StringExpUtil.nextPrintChar(i_ + 1, len_, _string);
             if (isDigitOrDot(_string,n_)) {
                 NumberInfosOutput res_ = processNb(keyWords_, i_ + 1, len_, _string, true);
@@ -1625,6 +1616,19 @@ public final class ElResolver {
         }
         i_++;
         doubleDotted_.setNextIndex(i_);
+    }
+
+    private static boolean isPossibleDigit(String _string, Delimiters _dout) {
+        boolean possibleDigit_ = false;
+        if (!_dout.getAllowedOperatorsIndexes().isEmpty()) {
+            int lastIndex_ = _dout.getAllowedOperatorsIndexes().last();
+            if (_string.charAt(lastIndex_) != DOT_VAR) {
+                possibleDigit_ = true;
+            }
+        } else {
+            possibleDigit_ = true;
+        }
+        return possibleDigit_;
     }
 
     private static boolean isAcceptCommaInstr(ContextEl _conf) {
