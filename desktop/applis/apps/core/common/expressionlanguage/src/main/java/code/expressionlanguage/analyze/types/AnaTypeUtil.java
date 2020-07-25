@@ -473,18 +473,14 @@ public final class AnaTypeUtil {
                 }
                 added(_innerName, false, owners_, s, g_);
                 if (!Templates.correctNbParameters(s,_an)) {
-                    for (String t: g_.getImportedDirectSuperTypes()) {
-                        String format_ = StringExpUtil.getIdFromAllTypes(t);
-                        GeneType sup_ = _an.getClassBody(format_);
-                        if (!sup_.isStaticType()) {
-                            continue;
-                        }
+                    for (AnaFormattedRootBlock t: g_.getImportedDirectSuperTypesInfo()) {
+                        String format_ = StringExpUtil.getIdFromAllTypes(t.getFormatted());
                         addIfNotFound(visited_, new_, format_);
                     }
                     continue;
                 }
-                for (String t: g_.getImportedDirectSuperTypes()) {
-                    String format_ = Templates.quickFormat(s, t, _an);
+                for (AnaFormattedRootBlock t: g_.getImportedDirectSuperTypesInfo()) {
+                    String format_ = Templates.quickFormat(s, t.getFormatted(), _an);
                     addIfNotFound(visited_, new_, format_);
                 }
             }

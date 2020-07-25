@@ -4437,7 +4437,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " <a title=\"pkg.MyEnum\" href=\"#m71\">pkg.MyEnum</a>&lt;String&gt;..<a title=\"The type pkg.MyEnum&lt;String&gt;..ONE is unknown.\" class=\"e\">ONE</a> <a name=\"m52\">v</a>;\n" +
+                " <a title=\"pkg.MyEnum\" href=\"#m71\">pkg.MyEnum</a>&lt;String&gt;<a title=\"The type pkg.MyEnum&lt;java.lang.String&gt;-ONE is not parameterized correctly.\" class=\"e\">..</a><a title=\"pkg.MyEnum-ONE\" href=\"#m87\">ONE</a> <a name=\"m52\">v</a>;\n" +
                 "}\n" +
                 "$public $enum <a name=\"m71\">pkg.MyEnum</a>&lt;<a name=\"m82\">T</a>&gt;{\n" +
                 " <a name=\"m87\">ONE</a>&lt;String&gt;{}\n" +
@@ -4460,7 +4460,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " <a title=\"pkg.MyClass\" href=\"#m74\">pkg.MyClass</a>&lt;String&gt;.<a title=\"The type pkg.MyClass&lt;String&gt;.Inner is unknown.\" class=\"e\">Inner</a> <a name=\"m54\">v</a>;\n" +
+                " <a title=\"pkg.MyClass\" href=\"#m74\">pkg.MyClass</a>&lt;String&gt;<a title=\"The type pkg.MyClass&lt;java.lang.String&gt;..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyClass..Inner\" href=\"#m114\">Inner</a> <a name=\"m54\">v</a>;\n" +
                 "}\n" +
                 "$public $class <a name=\"m74\">pkg.MyClass</a>&lt;<a name=\"m86\">T</a>&gt;{\n" +
                 " $public $static $class <a name=\"m114\">Inner</a>{\n" +
@@ -13416,6 +13416,52 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $double <a name=\"m36\">i</a>=<a title=\"Bad number 1ee 1\" class=\"e\">1ee 1</a> ;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report634Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MySub {\n");
+        xml_.append(" pkg.MyClass.Inner v;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.MyClass<T>{\n");
+        xml_.append(" $public $class Inner{\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
+                " <a title=\"pkg.MyClass\" href=\"#m66\">pkg.MyClass</a><a title=\"The type pkg.MyClass..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyClass..Inner\" href=\"#m98\">Inner</a> <a name=\"m46\">v</a>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m66\">pkg.MyClass</a>&lt;<a name=\"m78\">T</a>&gt;{\n" +
+                " $public $class <a name=\"m98\">Inner</a>{\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report635Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass<T>{\n");
+        xml_.append(" $public $class Inner{\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerTwo:MyClass.Inner{\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass</a>&lt;<a name=\"m27\">T</a>&gt;{\n" +
+                " $public $class <a name=\"m47\">Inner</a>{\n" +
+                " }\n" +
+                " $public $class <a name=\"m73\" title=\"The type pkg.MyClass..Inner is not parameterized correctly.\" class=\"e\">InnerTwo</a>:<a title=\"pkg.MyClass\" href=\"#m15\">MyClass</a>.<a title=\"pkg.MyClass..Inner\" href=\"#m47\">Inner</a>{\n" +
+                " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }

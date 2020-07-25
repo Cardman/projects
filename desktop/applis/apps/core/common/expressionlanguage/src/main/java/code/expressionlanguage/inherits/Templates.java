@@ -286,7 +286,7 @@ public final class Templates {
         for (String t: root_.getParamTypesValues()) {
             i_++;
             if (!types_.isValidIndex(i_)) {
-                return new StringMap<String>();
+                return varTypes_;
             }
             String arg_ = types_.get(i_);
             varTypes_.put(t, arg_);

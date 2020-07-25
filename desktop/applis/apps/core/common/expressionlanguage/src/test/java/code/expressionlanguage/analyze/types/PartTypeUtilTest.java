@@ -1410,7 +1410,15 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     private static String processAnalyze(String _input, String _globalType, ContextEl _an, ExecRootBlock _rooted) {
         RootBlock r_ = _an.getAnalyzing().getAnaClassBody(_rooted.getFullName());
         _an.getAnalyzing().setImportingTypes(r_);
-        return AnaPartTypeUtil.processAnalyze(_input, false,_globalType,_an,r_,r_, 0,new CustList<PartOffset>()).getResult();
+        AnaResultPartType anaResultPartType_ = AnaPartTypeUtil.processAnalyze(_input, false, _globalType, _an, r_, r_, 0, new CustList<PartOffset>());
+        AnaPartType partType_ = anaResultPartType_.getPartType();
+        if (partType_ == null) {
+            return "";
+        }
+        if (!AnaPartTypeUtil.checkParametersCount(partType_,_an)){
+            return "";
+        }
+        return anaResultPartType_.getResult();
     }
 
     private static String processAnalyzeLine(String _input, ContextEl _an, ExecRootBlock _rooted) {

@@ -11,7 +11,6 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.StandardField;
@@ -31,7 +30,7 @@ public final class ResolvingImportTypes {
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex()+_loc;
         AccessedBlock a_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         CustList<PartOffset> offs_ = _analyzable.getAnalyzing().getCurrentParts();
-        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_in,false, _analyzable,a_,r_, rc_, offs_).getResult();
+        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_in, _analyzable,a_,r_, rc_, offs_).getResult();
     }
     public static String resolveCorrectAccessibleType(ContextEl _analyzable, int _loc,String _in, String _fromType) {
         int rc_ = _analyzable.getAnalyzing().getLocalizer().getCurrentLocationIndex()+_loc;

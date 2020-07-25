@@ -7,14 +7,12 @@ import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.CustList;
@@ -49,39 +47,21 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
     private void analyzeGenericOnwer(ContextEl _an, AnaPartType _part, String _type) {
         String owner_ = _part.getAnalyzedType();
-        Classes classes_ = _an.getClasses();
         if (StringList.quickEq("..",getPreviousSeparator())) {
             StringList foundOwners_ = AnaTypeUtil.getEnumOwners(owner_, _type, _an);
             if (!foundOwners_.onlyOneElt()) {
                 return;
             }
-            checkWithoutInstanceInner(_type, owner_, foundOwners_.first(), "-");
+            setAnalyzedType(StringList.concat(foundOwners_.first(), "-", _type));
+            owner = owner_;
             return;
         }
         StringList foundOwners_ = AnaTypeUtil.getGenericOwners(owner_, _type, _an);
         if (!foundOwners_.onlyOneElt()) {
             return;
         }
-        String idOwner_= StringExpUtil.getIdFromAllTypes(foundOwners_.first());
-        String in_ = StringList.concat(idOwner_,"..", _type);
-        ExecRootBlock inner_ = classes_.getClassBody(in_);
-        if (inner_.isStaticType()) {
-            checkWithoutInstanceInner(_type, owner_, foundOwners_.first(), "..");
-            return;
-        }
-        if (!Templates.correctNbParameters(owner_, _an)) {
-            return;
-        }
         setAnalyzedType(StringList.concat(foundOwners_.first(),"..", _type));
         owner = owner_;
-    }
-
-    private void checkWithoutInstanceInner(String _type, String _originalOwner, String _foundOwner, String _geneSep) {
-        if (_foundOwner.contains("<")) {
-            return;
-        }
-        setAnalyzedType(StringList.concat(_foundOwner, _geneSep, _type));
-        owner = _originalOwner;
     }
 
     private void analyzeFullType(String _type) {
@@ -335,13 +315,6 @@ final class AnaNamePartType extends AnaLeafPartType {
             Classes classes_ = _an.getClasses();
             ExecRootBlock inner_ = classes_.getClassBody(in_);
             if (inner_ == null) {
-                return;
-            }
-            if (inner_.isStaticType()) {
-                setAnalyzedType(StringList.concat(id_,sep_,type_));
-                return;
-            }
-            if (!Templates.correctNbParameters(owner_, _an)) {
                 return;
             }
             setAnalyzedType(StringList.concat(owner_,sep_,type_));

@@ -76,7 +76,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     private String importedDirectSuperClass = "";
     private StringList staticInitImportedInterfaces = new StringList();
-    private StringList importedDirectSuperInterfaces = new StringList();
     private CustList<AnaFormattedRootBlock> importedDirectSuperTypes = new CustList<AnaFormattedRootBlock>();
 
     private StringList annotations = new StringList();
@@ -1116,7 +1115,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         IntMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
-        importedDirectSuperInterfaces.clear();
         results.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
@@ -1127,7 +1125,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             RootBlock r_ = _classes.getAnalyzing().getAnaClassBody(base_);
             if (_exec instanceof ExecAnnotationBlock||r_ instanceof InterfaceBlock) {
                 _exec.getImportedDirectGenericSuperInterfaces().add(s_.getResult());
-                importedDirectSuperInterfaces.add(s_.getResult());
             } else {
                 _exec.setImportedDirectSuperClass(s_.getResult());
                 importedDirectSuperClass = s_.getResult();
@@ -1928,10 +1925,5 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<AnaFormattedRootBlock> getImportedDirectSuperTypesInfo() {
         return importedDirectSuperTypes;
-    }
-    public StringList getImportedDirectSuperTypes() {
-        StringList l_ = new StringList(importedDirectSuperClass);
-        l_.addAllElts(importedDirectSuperInterfaces);
-        return l_;
     }
 }

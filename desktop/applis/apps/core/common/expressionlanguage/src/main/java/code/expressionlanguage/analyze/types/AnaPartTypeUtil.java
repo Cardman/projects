@@ -250,13 +250,13 @@ public final class AnaPartTypeUtil {
             appendParts(root_,_parts,_context);
             return true;
         }
-        boolean res_ = checkParametersCount(root_, _context,_parts);
-        boolean out_ = checkConstrains(root_, _inherit, _context,_parts);
+        boolean res_ = checkParametersCount(root_, _context);
+        boolean out_ = checkConstrains(root_, _inherit, _context);
         appendParts(root_,_parts,_context);
         return res_&&out_;
     }
 
-    private static boolean checkParametersCount(AnaPartType _root, ContextEl _context, CustList<PartOffset> _parts) {
+    static boolean checkParametersCount(AnaPartType _root, ContextEl _context){
         AnaPartType current_ = _root;
         boolean ok_ = true;
         while (true) {
@@ -268,7 +268,7 @@ public final class AnaPartTypeUtil {
             boolean stop_ = false;
             while (true) {
                 if (isNotCorrectParam(_context, current_)) {
-                    processErrorParamCount(_context, _parts, current_);
+                    processErrorParamCount(_context, current_);
                     ok_ = false;
                 }
                 AnaPartType next_ = current_.getNextSibling();
@@ -279,7 +279,7 @@ public final class AnaPartTypeUtil {
                 }
                 if (par_ == _root) {
                     if (isNotCorrectParam(_context, par_)) {
-                        processErrorParamCount(_context, _parts, par_);
+                        processErrorParamCount(_context, par_);
                         ok_ = false;
                     }
                     stop_ = true;
@@ -298,7 +298,7 @@ public final class AnaPartTypeUtil {
         return ok_;
     }
 
-    private static void processErrorParamCount(ContextEl _context, CustList<PartOffset> _parts, AnaPartType current_) {
+    private static void processErrorParamCount(ContextEl _context, AnaPartType current_) {
         AnaPartType ch_ = current_.getFirstChild();
         if (ch_ != null&&current_ instanceof AnaTemplatePartType) {
             String err_ = FoundErrorInterpret.buildARError(_context.getAnalysisMessages().getBadParamerizedType(), ch_.getAnalyzedType());
@@ -347,7 +347,7 @@ public final class AnaPartTypeUtil {
         return _current instanceof AnaEmptyWildCardPart;
     }
 
-    private static boolean checkConstrains(AnaPartType _root, StringMap<StringList> _inherit, ContextEl _context, CustList<PartOffset> _parts) {
+    private static boolean checkConstrains(AnaPartType _root, StringMap<StringList> _inherit, ContextEl _context) {
         AnaPartType current_ = _root;
         boolean ok_ = true;
         while (true) {
@@ -415,20 +415,20 @@ public final class AnaPartTypeUtil {
         checkAccess(anaType_,_globalType,_an);
         return new AnaResultPartType(anaType_.getAnalyzedType(),anaType_);
     }
-    public static AnaResultPartType processAnalyzeLineWithoutErr(String _input, boolean _rootName, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
+    static AnaResultPartType processAnalyzeLineWithoutErr(String _input, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         CustList<AnaLeafPartType> ls_ = new CustList<AnaLeafPartType>();
         _an.getAnalyzing().setLocalInType(_loc);
         _an.getAnalyzing().setRefFileName("");
-        AnaPartType anaType_ = getAnalyzeLine(_input, new AlwaysReadyTypes(), _rootName, _an, _local, _rooted, _loc, ls_, _offs);
+        AnaPartType anaType_ = getAnalyzeLine(_input, new AlwaysReadyTypes(), false, _an, _local, _rooted, _loc, ls_, _offs);
         if (anaType_ == null) {
             return new AnaResultPartType("",null);
         }
         appendParts(anaType_,_offs,_an);
         return new AnaResultPartType(anaType_.getAnalyzedType(),anaType_);
     }
-    public static String processAnalyzeLineInherits(String _input, ReadyTypes _ready, boolean _rootName, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
+    static String processAnalyzeLineInherits(String _input, ReadyTypes _ready, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, CustList<PartOffset> _offs) {
         CustList<AnaLeafPartType> ls_ = new CustList<AnaLeafPartType>();
-        AnaPartType anaType_ = getAnalyzeLine(_input, _ready, _rootName, _an, _local, _rooted, _loc, ls_, _offs);
+        AnaPartType anaType_ = getAnalyzeLine(_input, _ready, true, _an, _local, _rooted, -1, ls_, _offs);
         if (anaType_ == null) {
             return "";
         }

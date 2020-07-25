@@ -173,6 +173,6 @@ public final class ResolvingSuperTypes {
         RootBlock scope_ = _ana.getParentType();
         InheritReadyTypes inh_ = new InheritReadyTypes(_readyTypes);
         _context.getAnalyzing().setImportingTypes(_ana);
-        return AnaPartTypeUtil.processAnalyzeLineInherits(id_, inh_,true, _context,scope_,_ana, -1,partOffsets_);
+        return AnaPartTypeUtil.processAnalyzeLineInherits(id_, inh_, _context,scope_,_ana, partOffsets_);
     }
 }
