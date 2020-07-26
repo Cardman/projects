@@ -227,30 +227,28 @@ public final class ElResolver {
                 unicode_ = res_.getUnicode();
                 continue;
             }
-            if (parsBrackets_.isEmpty()) {
-                if (StringExpUtil.isTypeLeafChar(curChar_)) {
-                    AnalyzedPageEl ana_ = _conf.getAnalyzing();
-                    if (ana_.getCurrentBlock() instanceof FieldBlock){
-                        int bk_ = getBackPrintChar(_string, i_);
-                        if (bk_ < 0 || StringExpUtil.nextCharIs(_string,bk_,len_,',')) {
-                            int beginWord_ = i_;
-                            int j_ = getWord(_string, len_, i_);
-                            int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
-                            if (StringExpUtil.nextCharIs(_string,n_,len_,'=')&&!StringExpUtil.nextCharIs(_string,n_+1,len_,'=')
-                                    || StringExpUtil.nextCharIs(_string,n_,len_,',')) {
-                                String word_ = _string.substring(beginWord_, j_);
-                                VariableInfo info_ = new VariableInfo();
-                                ConstType type_;
-                                type_ = ConstType.WORD;
-                                info_.setKind(type_);
-                                info_.setFirstChar(beginWord_);
-                                info_.setLastChar(j_);
-                                info_.setName(word_);
-                                _d.getVariables().add(info_);
-                                i_ = j_;
-                                continue;
-                            }
-                        }
+            AnalyzedPageEl ana_ = _conf.getAnalyzing();
+            if (ana_.getCurrentBlock() instanceof FieldBlock
+                    && parsBrackets_.isEmpty()
+                    && StringExpUtil.isTypeLeafChar(curChar_)) {
+                int bk_ = getBackPrintChar(_string, i_);
+                if (bk_ < 0 || StringExpUtil.nextCharIs(_string, bk_, len_, ',')) {
+                    int beginWord_ = i_;
+                    int j_ = getWord(_string, len_, i_);
+                    int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
+                    if (StringExpUtil.nextCharIs(_string, n_, len_, '=') && !StringExpUtil.nextCharIs(_string, n_ + 1, len_, '=')
+                            || StringExpUtil.nextCharIs(_string, n_, len_, ',')) {
+                        String word_ = _string.substring(beginWord_, j_);
+                        VariableInfo info_ = new VariableInfo();
+                        ConstType type_;
+                        type_ = ConstType.WORD;
+                        info_.setKind(type_);
+                        info_.setFirstChar(beginWord_);
+                        info_.setLastChar(j_);
+                        info_.setName(word_);
+                        _d.getVariables().add(info_);
+                        i_ = j_;
+                        continue;
                     }
                 }
             }
@@ -1212,12 +1210,9 @@ public final class ElResolver {
         }
         String prev_ = _string.substring(0, beginWord_).trim();
         String word_ = _string.substring(beginWord_, i_);
-        if (StringExpUtil.nextPrintCharIs(i_,len_,_string,PAR_LEFT) > -1) {
-            int j_ = i_;
-            while (_string.charAt(j_) != PAR_LEFT) {
-                j_++;
-            }
-            _d.getCallings().add(j_);
+        int nextPar_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, PAR_LEFT);
+        if (nextPar_ > -1) {
+            _d.getCallings().add(nextPar_);
             _out.setNextIndex(i_);
             return;
         }
