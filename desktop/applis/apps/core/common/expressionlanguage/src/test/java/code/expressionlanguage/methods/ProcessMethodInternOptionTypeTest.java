@@ -3717,20 +3717,33 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_ = new StringBuilder();
         xml_.append("pkg.ExOuter.Inner;\n");
         xml_.append("public class pkg.Ex<T> {\n");
+        xml_.append(" public static int meth(){\n");
+        xml_.append("  return exmeth().field;\n");
+        xml_.append(" }\n");
         xml_.append(" public static Inner<int> exmeth(){\n");
-        xml_.append("  return null;\n");
+        xml_.append("  return new ExOuter().new Inner<int>(10);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExOuter {\n");
         xml_.append(" public class Inner<S> {\n");
+        xml_.append("  public S field;\n");
+        xml_.append("  public Inner(S s){\n");
+        xml_.append("   field = s;\n");
+        xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour2", xml_.toString());
         ContextEl cont_ = contextEnElDefaultInternType();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("meth");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+
     }
     @Test
     public void calculateArgument22FailTest() {

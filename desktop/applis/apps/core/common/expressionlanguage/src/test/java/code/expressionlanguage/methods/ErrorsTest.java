@@ -13466,6 +13466,32 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void report636Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyClass<T>{\n");
+        xml_.append(" $public $class Inner{\n");
+        xml_.append(" }\n");
+        xml_.append(" $static{\n");
+        xml_.append("  $new Inner();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyClass</a>&lt;<a name=\"m27\">T</a>&gt;{\n" +
+                " $public $class <a name=\"m47\">Inner</a>{\n" +
+                " }\n" +
+                " $static{\n" +
+                "  $new <a title=\"The type pkg.MyClass..Inner is not parameterized correctly.\n" +
+                "\n" +
+                "pkg.MyClass..Inner\" href=\"#m47\" class=\"e\">Inner</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void reportWithoutErrorTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");

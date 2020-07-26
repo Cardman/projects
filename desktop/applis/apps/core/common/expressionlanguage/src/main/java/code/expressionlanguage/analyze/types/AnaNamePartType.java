@@ -155,7 +155,7 @@ final class AnaNamePartType extends AnaLeafPartType {
                 return;
             }
         }
-        lookupImports(_an, _rooted, false, new AlwaysReadyTypes());
+        lookupImports(_an, _rooted, new AlwaysReadyTypes());
     }
     private boolean skipGenericImports(ContextEl _an,
                                        RootBlock _local) {
@@ -183,6 +183,8 @@ final class AnaNamePartType extends AnaLeafPartType {
                     return true;
                 }
                 if (_an.getAnalyzing().getTokenValidation().isStaticAccess()) {
+                    setAnalyzedType(StringList.concat(id_,"..",type_));
+                    owner = a;
                     return true;
                 }
                 setAnalyzedType(StringList.concat(genStr_,"..",type_));
@@ -201,7 +203,7 @@ final class AnaNamePartType extends AnaLeafPartType {
                 return;
             }
         }
-        lookupImports(_an, _rooted, true,_ready);
+        lookupImports(_an, _rooted, _ready);
     }
 
     private boolean skipImports(ContextEl _an,
@@ -231,17 +233,10 @@ final class AnaNamePartType extends AnaLeafPartType {
         }
         return false;
     }
-    private void lookupImports(ContextEl _an, AccessedBlock _rooted, boolean _line, ReadyTypes _ready) {
+    private void lookupImports(ContextEl _an, AccessedBlock _rooted, ReadyTypes _ready) {
         String type_ = getTypeName().trim();
         String res_ = ResolvingImportTypes.lookupImportType(_an,type_, _rooted, _ready);
         if (!res_.isEmpty()) {
-            if (!_line) {
-                if (_an.getAnalyzing().getTokenValidation().isStaticAccess()) {
-                    if (!_an.getClassBody(res_).isStaticType()) {
-                        return;
-                    }
-                }
-            }
             setAnalyzedType(res_);
             checkAccessLoop = true;
         }
