@@ -2075,7 +2075,7 @@ public final class ClassesUtil {
     private static StringList getErFields(InfoBlock f_, int v_) {
         StringList errs_ = new StringList();
         if (f_ instanceof FieldBlock) {
-            errs_ = ((FieldBlock)f_).getNameErrorsFields().get(v_);
+            errs_ = ((FieldBlock)f_).getCstErrorsFields().get(v_);
         }
         return errs_;
     }

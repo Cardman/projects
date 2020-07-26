@@ -28,7 +28,7 @@ public abstract class SettableAbstractFieldOperation extends
     private boolean variable;
     private FieldInfo fieldMetaInfo;
     private MethodAccessKind staticAccess;
-    private int valueOffset;
+    private int valueOffset = -1;
     private int fieldNameLength;
 
     private boolean catString;
@@ -45,7 +45,7 @@ public abstract class SettableAbstractFieldOperation extends
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
-        if (ElUtil.isDeclaringField(this,_conf)) {
+        if (this instanceof StandardFieldOperation&&ElUtil.isDeclaringField(this,_conf)) {
             indexBlock = _conf.getAnalyzing().getIndexBlock();
             _conf.getAnalyzing().setIndexBlock(indexBlock+1);
         }

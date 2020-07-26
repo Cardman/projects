@@ -1261,7 +1261,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $int <a name=\"m33\" title=\"The field name #e is not valid. It must be a word.\" class=\"e\">#e</a>;\n" +
+                " $int <a title=\"The field name #e is not valid. It must be a word.\" class=\"e\">#e</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -1277,7 +1277,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $int <a name=\"m33\">e</a>,<a name=\"m35\" title=\"the field name e is duplicated.\" class=\"e\">e</a>;\n" +
+                " $int <a name=\"m33\">e</a>,<a title=\"the field name e is duplicated.\" class=\"e\">e</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -9286,7 +9286,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $int <a name=\"m33\">i</a>;\n" +
-                " $int <a name=\"m42\" title=\"the field name i is duplicated.\" class=\"e\">i</a>;\n" +
+                " $int <a title=\"the field name i is duplicated.\" class=\"e\">i</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -9307,7 +9307,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
                 " $int <a name=\"m33\">i</a>;\n" +
-                " $int <a name=\"m42\" title=\"the field name i is duplicated.\" class=\"e\">i</a>;\n" +
+                " $int <a title=\"the field name i is duplicated.\" class=\"e\">i</a>;\n" +
                 " {\n" +
                 "  <a title=\"pkg.MySub.i\" href=\"#m33\">i</a>++;\n" +
                 " }\n" +
@@ -9329,7 +9329,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $int <a name=\"m33\">i</a>,<a name=\"m35\" title=\"the field name i is duplicated.\" class=\"e\">i</a>;\n" +
+                " $int <a name=\"m33\">i</a>,<a title=\"the field name i is duplicated.\" class=\"e\">i</a>;\n" +
                 " {\n" +
                 "  <a title=\"pkg.MySub.i\" href=\"#m33\">i</a>++;\n" +
                 " }\n" +
@@ -9351,7 +9351,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $int <a name=\"m33\">i</a>,<a name=\"m35\" title=\"the field name i is duplicated.\" class=\"e\">i</a>,<a name=\"m37\">j</a>;\n" +
+                " $int <a name=\"m33\">i</a>,<a title=\"the field name i is duplicated.\" class=\"e\">i</a>,<a name=\"m37\">j</a>;\n" +
                 " {\n" +
                 "  <a title=\"pkg.MySub.j\" href=\"#m37\">j</a>++;\n" +
                 " }\n" +
@@ -9734,7 +9734,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MySub </a>{\n" +
-                " $int <a name=\"m33\">i</a>,<a title=\"The field name 1 is not valid. It must not start with a digit.\" class=\"e\">1</a><a title=\"The assignment operator = is unexpected.\" class=\"e\">=</a>1,<a name=\"m39\">k</a>;\n" +
+                " $int <a name=\"m33\">i</a>,<a title=\"The field name 1 is not valid. It must not start with a digit.\" class=\"e\">1</a>=1,<a name=\"m39\">k</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -12300,7 +12300,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.MySub </a>{\n" +
-                " <a title=\"pkg.MySub\" href=\"#m13\">MySub</a> <a name=\"m32\">i</a>,<a title=\"The field name this is not valid. It must not be a key word.\" class=\"e\">this</a><a title=\"The assignment operator = is unexpected.\" class=\"e\">=</a>null,<a name=\"m44\">k</a>;\n" +
+                " <a title=\"pkg.MySub\" href=\"#m13\">MySub</a> <a name=\"m32\">i</a>,<a title=\"The field name this is not valid. It must not be a key word.\" class=\"e\">this</a>=null,<a name=\"m44\">k</a>;\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }

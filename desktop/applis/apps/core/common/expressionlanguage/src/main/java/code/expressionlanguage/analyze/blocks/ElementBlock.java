@@ -94,7 +94,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     @Override
     public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
         CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
-        fields_.add(new PartOffsetAffect(new PartOffset(fieldName,valueOffest),true, true, new StringList()));
+        fields_.add(new PartOffsetAffect(new PartOffset(fieldName,valueOffest),true, new StringList()));
         for (StringList e: FieldBlock.checkFieldsNames(_cont,this,_fieldNames,fields_)){
             addNameErrors(e);
         }

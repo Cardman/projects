@@ -227,6 +227,40 @@ public final class ElResolver {
                 unicode_ = res_.getUnicode();
                 continue;
             }
+            if (parsBrackets_.isEmpty()) {
+                if (StringExpUtil.isTypeLeafChar(curChar_)) {
+                    AnalyzedPageEl ana_ = _conf.getAnalyzing();
+                    if (ana_.getCurrentBlock() instanceof FieldBlock){
+                        Ints operators_ = _d.getAllowedOperatorsIndexes();
+                        if (operators_.isEmpty() || _string.charAt(operators_.last()) == ',') {
+                            int j_ = i_;
+                            int beginWord_ = i_;
+                            while (j_ < len_) {
+                                char locChar_ = _string.charAt(j_);
+                                if (!StringExpUtil.isTypeLeafChar(locChar_)) {
+                                    break;
+                                }
+                                j_++;
+                            }
+                            int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
+                            if (StringExpUtil.nextCharIs(_string,n_,len_,'=')&&!StringExpUtil.nextCharIs(_string,n_+1,len_,'=')
+                                    || StringExpUtil.nextCharIs(_string,n_,len_,',')) {
+                                String word_ = _string.substring(beginWord_, j_);
+                                VariableInfo info_ = new VariableInfo();
+                                ConstType type_;
+                                type_ = ConstType.WORD;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(j_);
+                                info_.setName(word_);
+                                _d.getVariables().add(info_);
+                                i_ = j_;
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
             resKeyWords_.setNextIndex(i_);
             resKeyWords_.setCallCtor(ctorCall_);
             processAfterInstuctionKeyWord(beginIndex_,_string, _d, resKeyWords_, _conf);
@@ -2307,6 +2341,21 @@ public final class ElResolver {
         }
         int strLen_ = _string.length();
         len_ = lastPrintChar_+1;
+        for (VariableInfo v: _d.getVariables()) {
+            if (v.getFirstChar() != _offset + firstPrintChar_) {
+                continue;
+            }
+            int iVar_ = v.getLastChar();
+            if (iVar_ != _offset + lastPrintChar_ + 1) {
+                break;
+            }
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(v.getKind());
+            op_.setOperators(new IntTreeMap< String>());
+            op_.setValue(v.getName(), firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
         int begin_;
         int end_;
         begin_ = _d.getDelKeyWordStatic().indexOfObj(_offset + firstPrintChar_);
@@ -2540,21 +2589,6 @@ public final class ElResolver {
             op_.setStrInfo(info_);
             info_.setFound(_string);
             op_.setValue(new String(str_), firstPrintChar_);
-            op_.setDelimiter(_d);
-            return op_;
-        }
-        for (VariableInfo v: _d.getVariables()) {
-            if (v.getFirstChar() != _offset + firstPrintChar_) {
-                continue;
-            }
-            int iVar_ = v.getLastChar();
-            if (iVar_ != _offset + lastPrintChar_ + 1) {
-                break;
-            }
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(v.getKind());
-            op_.setOperators(new IntTreeMap< String>());
-            op_.setValue(v.getName(), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }

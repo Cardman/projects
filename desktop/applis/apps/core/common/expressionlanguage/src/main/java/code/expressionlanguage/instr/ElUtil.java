@@ -11,7 +11,6 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.common.VariableInfo;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.opers.ExecAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecCompoundAffectationOperation;
@@ -49,7 +48,7 @@ public final class ElUtil {
                 String trimmed_ = var_.trim();
                 String name_ = getFieldName(trimmed_);
                 int offset_ = _valueOffset + e.getKey();
-                addPart(d_,names_, var_, trimmed_, name_, offset_, false);
+                addPart(names_, var_, trimmed_, name_, offset_, false);
             }
             return names_;
         }
@@ -60,12 +59,12 @@ public final class ElUtil {
                 String name_ = getFieldName(trimmed_);
                 int offset_ = _valueOffset + e.getKey();
                 if (StringExpUtil.isTypeLeafPart(trimmed_)) {
-                    addFieldName(d_,names_, var_, offset_, false, name_);
+                    addFieldName(names_, var_, offset_, false, name_);
                     continue;
                 }
                 String afterName_ = trimmed_.substring(name_.length()).trim();
                 if (ElResolver.isPureAffectation(afterName_,afterName_.length())) {
-                    addFieldName(d_,names_, var_, offset_, true, name_);
+                    addFieldName(names_, var_, offset_, true, name_);
                 }
             }
             return names_;
@@ -76,32 +75,20 @@ public final class ElUtil {
             int off_ = opTwo_.getValues().firstKey();
             String trimmed_ = var_.trim();
             String name_ = getFieldName(trimmed_);
-            addPart(d_,names_, var_, trimmed_, name_, _valueOffset + off_, true);
+            addPart(names_, var_, trimmed_, name_, _valueOffset + off_, true);
         }
         return names_;
     }
 
-    private static void addPart(Delimiters _d,CustList<PartOffsetAffect> names_, String var_, String trimmed_, String name_, int i, boolean b) {
+    private static void addPart(CustList<PartOffsetAffect> names_, String var_, String trimmed_, String name_, int i, boolean b) {
         if (StringExpUtil.isTypeLeafPart(trimmed_)) {
-            addFieldName(_d,names_, var_, i, b, name_);
+            addFieldName(names_, var_, i, b, name_);
         }
     }
 
-    private static void addFieldName(Delimiters _d,CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff, String name_) {
+    private static void addFieldName(CustList<PartOffsetAffect> _list, String _name, int _offset, boolean _aff, String name_) {
         int delta_ = StringList.getFirstPrintableCharIndex(_name);
-        String trim_ = name_.trim();
-        boolean add_ = true;
-        boolean found_ = false;
-        for (VariableInfo v: _d.getVariables()) {
-            if (StringList.quickEq(v.getName(),trim_)) {
-                found_ = true;
-                break;
-            }
-        }
-        if (!found_) {
-            add_ = false;
-        }
-        _list.add(new PartOffsetAffect(new PartOffset(name_,delta_+_offset),_aff, add_, new StringList()));
+        _list.add(new PartOffsetAffect(new PartOffset(name_,delta_+_offset),_aff, new StringList()));
     }
 
     private static String getFieldName(String _v) {
@@ -315,36 +302,24 @@ public final class ElUtil {
             if (parent_ instanceof DeclaringOperation) {
                 if (!(_current instanceof StandardFieldOperation)
                         &&!(_current instanceof AffectationOperation)) {
-                    int indexChild_ = _current.getIndexChild();
-                    String orig_ = parent_.getOperations().getValues().getValue(indexChild_);
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
                     b_.setFileName(_context.getCurrentFileName());
                     b_.setIndexFile(_context.getCurrentLocationIndex());
                     b_.buildError(_context.getAnalysisMessages().getNotRetrievedFields());
                     _context.addError(b_);
-                    if (StringExpUtil.isTypeLeafPart(orig_)) {
-                        _current.getErrs().addAllElts(((FieldBlock)currentBlock_).getNameErrors().get(indexChild_));
-                    } else {
-                        _current.getErrs().add(b_.getBuiltError());
-                    }
+                    _current.getErrs().add(b_.getBuiltError());
                 }
             } else {
                 if (parent_ instanceof AffectationOperation && parent_.getFirstChild() == _current && (parent_.getParent() == null ||parent_.getParent() instanceof DeclaringOperation)) {
                     if (!(_current instanceof StandardFieldOperation)) {
-                        String orig_ = parent_.getOperations().getValues().firstValue();
                         FoundErrorInterpret b_;
                         b_ = new FoundErrorInterpret();
                         b_.setFileName(_context.getCurrentFileName());
                         b_.setIndexFile(_context.getCurrentLocationIndex());
                         b_.buildError(_context.getAnalysisMessages().getNotRetrievedFields());
                         _context.addError(b_);
-                        int indexChild_ = parent_.getIndexChild();
-                        if (StringExpUtil.isTypeLeafPart(orig_)) {
-                            _current.getErrs().addAllElts(((FieldBlock)currentBlock_).getNameErrors().get(indexChild_));
-                        } else {
-                            _current.getErrs().add(b_.getBuiltError());
-                        }
+                        _current.getErrs().add(b_.getBuiltError());
                     }
                 }
             }

@@ -2264,14 +2264,25 @@ public final class LinkageUtil {
             int indexBlock_ = ((SettableAbstractFieldOperation) val_).getIndexBlock();
             if (_block instanceof FieldBlock && ElUtil.isDeclaringField(val_)) {
                 StringList errs_ = ((FieldBlock) _block).getNameErrorsFields().get(indexBlock_);
-                int id_ = ((FieldBlock) _block).getValuesOffset().get(indexBlock_);
+                int idValueOffset_ = ((SettableAbstractFieldOperation)val_).getValueOffset();
+                int id_ = ((FieldBlock) _block).getValuesOffset().indexOf(idValueOffset_);
                 int d_ = ((SettableAbstractFieldOperation)val_).getDelta();
+                StringList errCst_ = new StringList();
+                if (id_ > -1) {
+                    errCst_.addAllElts(((FieldBlock) _block).getCstErrorsFields().get(id_));
+                }
                 if (errs_.isEmpty()) {
-                    String tag_ = "<a name=\"m"+id_+"\">";
-                    _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_));
+                    if (errCst_.isEmpty()) {
+                        String tag_ = "<a name=\"m"+idValueOffset_+"\">";
+                        _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_));
+                    } else {
+                        String err_ = StringList.join(errCst_,"\n\n");
+                        String tag_ = "<a name=\"m"+idValueOffset_+"\" title=\""+err_+"\" class=\"e\">";
+                        _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_));
+                    }
                 } else {
                     String err_ = StringList.join(errs_,"\n\n");
-                    String tag_ = "<a name=\"m"+id_+"\" title=\""+err_+"\" class=\"e\">";
+                    String tag_ = "<a title=\""+err_+"\" class=\"e\">";
                     _parts.add(new PartOffset(tag_,sum_ + val_.getIndexInEl()+d_));
                 }
                 String tag_ = "</a>";

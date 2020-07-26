@@ -57,8 +57,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private OperationNode root;
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private final StringList nameRetErrors = new StringList();
-    private final CustList<StringList> nameErrors = new CustList<StringList>();
     private final CustList<StringList> nameErrorsFields = new CustList<StringList>();
+    private final CustList<StringList> cstErrorsFields = new CustList<StringList>();
     private int fieldNumber;
     public FieldBlock(OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
@@ -172,19 +172,21 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             _cont.addError(b_);
             addNameRetErrors(b_);
         }
-        for (StringList e: checkFieldsNames(_cont, this, _fieldNames, names_)){
-            addNameErrors(e);
-        }
+        checkFieldsNames(_cont, this, _fieldNames, names_);
         for (PartOffsetAffect n: names_) {
             PartOffset p_ = n.getPartOffset();
             String name_ = p_.getPart();
             if (n.isAffect()) {
                 assignedDeclaredFields.add(name_);
             }
-            if (n.isAdd()) {
+            StringList errs_ = n.getErrs();
+            if (errs_.isEmpty()) {
                 fieldName.add(name_);
                 valuesOffset.add(p_.getOffset());
-                addNameErrorsFields(n.getErrs());
+                addCstErrorsFields(new StringList());
+            }
+            if (!name_.trim().isEmpty()) {
+                addNameErrorsFields(new StringList(errs_));
             }
         }
     }
@@ -289,19 +291,20 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return roots;
     }
 
-    public void addNameErrors(StringList _error) {
-        nameErrors.add(_error);
-    }
-
     public void addNameErrorsFields(StringList _error) {
         nameErrorsFields.add(_error);
     }
-    public CustList<StringList> getNameErrors() {
-        return nameErrors;
+
+    public void addCstErrorsFields(StringList _error) {
+        cstErrorsFields.add(_error);
     }
 
     public CustList<StringList> getNameErrorsFields() {
         return nameErrorsFields;
+    }
+
+    public CustList<StringList> getCstErrorsFields() {
+        return cstErrorsFields;
     }
 
     public void addNameRetErrors(FoundErrorInterpret _error) {
