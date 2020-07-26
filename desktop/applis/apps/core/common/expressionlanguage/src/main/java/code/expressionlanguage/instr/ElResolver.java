@@ -231,17 +231,10 @@ public final class ElResolver {
                 if (StringExpUtil.isTypeLeafChar(curChar_)) {
                     AnalyzedPageEl ana_ = _conf.getAnalyzing();
                     if (ana_.getCurrentBlock() instanceof FieldBlock){
-                        Ints operators_ = _d.getAllowedOperatorsIndexes();
-                        if (operators_.isEmpty() || _string.charAt(operators_.last()) == ',') {
-                            int j_ = i_;
+                        int bk_ = getBackPrintChar(_string, i_);
+                        if (bk_ < 0 || StringExpUtil.nextCharIs(_string,bk_,len_,',')) {
                             int beginWord_ = i_;
-                            while (j_ < len_) {
-                                char locChar_ = _string.charAt(j_);
-                                if (!StringExpUtil.isTypeLeafChar(locChar_)) {
-                                    break;
-                                }
-                                j_++;
-                            }
+                            int j_ = getWord(_string, len_, i_);
                             int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
                             if (StringExpUtil.nextCharIs(_string,n_,len_,'=')&&!StringExpUtil.nextCharIs(_string,n_+1,len_,'=')
                                     || StringExpUtil.nextCharIs(_string,n_,len_,',')) {
@@ -332,6 +325,30 @@ public final class ElResolver {
         _d.setBadOffset(i_);
         return _d;
     }
+
+    private static int getBackPrintChar(String _string, int _i) {
+        int bk_ = _i - 1;
+        while (bk_ > 0) {
+            if (!Character.isWhitespace(_string.charAt(bk_))) {
+                break;
+            }
+            bk_--;
+        }
+        return bk_;
+    }
+
+    private static int getWord(String _string, int _len, int _i) {
+        int j_ = _i;
+        while (j_ < _len) {
+            char locChar_ = _string.charAt(j_);
+            if (!StringExpUtil.isTypeLeafChar(locChar_)) {
+                break;
+            }
+            j_++;
+        }
+        return j_;
+    }
+
     private static void processAfterInstuctionKeyWord(int _beginIndex,String _string,Delimiters _d, ResultAfterInstKeyWord _out, ContextEl _conf) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
