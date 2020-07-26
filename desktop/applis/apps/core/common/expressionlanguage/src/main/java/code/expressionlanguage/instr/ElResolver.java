@@ -236,7 +236,8 @@ public final class ElResolver {
                     int beginWord_ = i_;
                     int j_ = getWord(_string, len_, i_);
                     int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
-                    if (StringExpUtil.nextCharIs(_string, n_, len_, '=') && !StringExpUtil.nextCharIs(_string, n_ + 1, len_, '=')
+                    if (n_ < 0
+                            || StringExpUtil.nextCharIs(_string, n_, len_, '=') && !StringExpUtil.nextCharIs(_string, n_ + 1, len_, '=')
                             || StringExpUtil.nextCharIs(_string, n_, len_, ',')) {
                         String word_ = _string.substring(beginWord_, j_);
                         VariableInfo info_ = new VariableInfo();
@@ -1208,7 +1209,6 @@ public final class ElResolver {
             }
             i_++;
         }
-        String prev_ = _string.substring(0, beginWord_).trim();
         String word_ = _string.substring(beginWord_, i_);
         int nextPar_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, PAR_LEFT);
         if (nextPar_ > -1) {
@@ -1216,7 +1216,8 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        if (prev_.endsWith(String.valueOf('.'))) {
+        int bk_ = getBackPrintChar(_string, beginWord_);
+        if (StringExpUtil.nextCharIs(_string,bk_,len_,'.')) {
             ConstType type_;
             type_ = ConstType.WORD;
             VariableInfo info_ = new VariableInfo();
