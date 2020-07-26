@@ -307,9 +307,6 @@ public final class AssUtil {
     public static CustList<AssOperationNode> filterInvoking(CustList<AssOperationNode> _list) {
         CustList<AssOperationNode> out_ = new CustList<AssOperationNode>();
         for (AssOperationNode o: _list) {
-            if (o instanceof AssStaticInitOperation) {
-                continue;
-            }
             out_.add(o);
         }
         return out_;

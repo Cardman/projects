@@ -20,14 +20,14 @@ public final class StaticInitOperation extends LeafOperation {
 
     @Override
     public void analyze(ContextEl _conf) {
-        setStaticResultClass(new ClassArgumentMatching(EMPTY_STRING));
+        setResultClass(new ClassArgumentMatching(EMPTY_STRING));
     }
 
     void setInit(ContextEl _conf, String _base, boolean _staticType) {
         if (!_staticType) {
             possibleInitClass = false;
             String argClName_ = _conf.getStandards().getAliasObject();
-            setStaticResultClass(new ClassArgumentMatching(argClName_));
+            setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
@@ -38,7 +38,7 @@ public final class StaticInitOperation extends LeafOperation {
         } else {
             setSimpleArgument(new Argument());
         }
-        setStaticResultClass(new ClassArgumentMatching(_base));
+        setResultClass(new ClassArgumentMatching(_base));
     }
 
     public boolean isPossibleInitClass() {

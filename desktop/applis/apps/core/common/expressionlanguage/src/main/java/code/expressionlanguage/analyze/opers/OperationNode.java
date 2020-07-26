@@ -3380,10 +3380,6 @@ public abstract class OperationNode {
         resultClass = _resultClass;
     }
 
-    public final void setStaticResultClass(ClassArgumentMatching _resultClass) {
-        resultClass = _resultClass;
-    }
-
     public PossibleIntermediateDotted getSiblingSet() {
         return siblingSet;
     }

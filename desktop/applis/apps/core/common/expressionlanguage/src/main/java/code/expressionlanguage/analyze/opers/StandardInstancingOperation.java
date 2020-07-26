@@ -418,10 +418,8 @@ public final class StandardInstancingOperation extends
         OperationNode possibleInit_ = getFirstChild();
         if (possibleInit_ instanceof StaticInitOperation) {
             StaticInitOperation st_ = (StaticInitOperation) possibleInit_;
-            if (!isIntermediateDottedOperation()) {
-                boolean staticType_ = h_.isStaticType();
-                st_.setInit(_conf,base_,staticType_);
-            }
+            boolean staticType_ = h_.isStaticType();
+            st_.setInit(_conf,base_,staticType_);
         }
         for (String p:StringExpUtil.getAllTypes(_realClassName).mid(1)){
             if (p.startsWith(Templates.SUB_TYPE)) {

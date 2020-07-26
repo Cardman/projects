@@ -78,7 +78,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         checkClassAccess(this,_conf, glClass_, classStr_);
         Argument a_ = new Argument();
         setSimpleArgument(a_);
-        setStaticResultClass(new ClassArgumentMatching(classStr_));
+        setResultClass(new ClassArgumentMatching(classStr_));
     }
 
     public boolean isImplicit() {

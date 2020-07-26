@@ -25,7 +25,7 @@ public final class StaticAccessOperation extends LeafOperation {
             partOffsets = op_.getPartOffsets();
             Argument a_ = new Argument();
             setSimpleArgument(a_);
-            setStaticResultClass(new ClassArgumentMatching(ext_));
+            setResultClass(new ClassArgumentMatching(ext_));
             return;
         }
         int relativeOff_ = op_.getOffset();
@@ -46,7 +46,7 @@ public final class StaticAccessOperation extends LeafOperation {
         checkClassAccess(this,_conf, glClass_, classStr_);
         Argument a_ = new Argument();
         setSimpleArgument(a_);
-        setStaticResultClass(new ClassArgumentMatching(classStr_));
+        setResultClass(new ClassArgumentMatching(classStr_));
     }
 
     public CustList<PartOffset> getPartOffsets() {

@@ -526,20 +526,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (b instanceof InfoBlock) {
                     continue;
                 }
-                if (b instanceof RootBlock) {
-                    if (((RootBlock)b).isStaticType()) {
-                        int where_ = b.getOffset().getOffsetTrim();
-                        FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                        unexp_.setFileName(getFile().getFileName());
-                        unexp_.setIndexFile(where_);
-                        //key word type len inner
-                        unexp_.buildError(_context.getAnalysisMessages().getUnexpectedMemberInst(),
-                                getFullName()
-                        );
-                        _context.addError(unexp_);
-                        ((RootBlock)b).addNameErrors(unexp_);
-                    }
-                }
                 if (b instanceof StaticBlock) {
                     int where_ = b.getOffset().getOffsetTrim();
                     FoundErrorInterpret unexp_ = new FoundErrorInterpret();

@@ -3168,6 +3168,7 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         xml_.append("   return static(Class).getClass(this).getName()+CST;\n");
         xml_.append("  }\n");
         xml_.append("  private static String CST = \"\";\n");
+        xml_.append("  private static String CST = \"\";\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());

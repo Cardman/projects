@@ -1109,6 +1109,31 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(BooleanStruct.isTrue(field_));
     }
     @Test
+    public void initializeClass4FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE{\n");
+        xml_.append(" (){$super(4);}\n");
+        xml_.append(" $public $static $class Sample{}\n");
+        xml_.append(" },TWO;\n");
+        xml_.append(" $public $int first;\n");
+        xml_.append(" $public Ex(){\n");
+        xml_.append("  first = 5;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  first = p;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Ex..ONE.Sample INSTANCE = $new Ex..ONE.Sample();\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "INSTANCE"));
+        assertEq("pkg.Ex-ONE..Sample", str_.getClassName(cont_));
+    }
+    @Test
     public void initializeClass1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.Ex {\n");
@@ -1218,28 +1243,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
-    @Test
-    public void initializeClass4FailTest() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $enum pkg.Ex {\n");
-        xml_.append(" ONE{\n");
-        xml_.append(" (){$super(4);}\n");
-        xml_.append(" $public $static $class Sample{}\n");
-        xml_.append(" },TWO;\n");
-        xml_.append(" $public $int first;\n");
-        xml_.append(" $public Ex(){\n");
-        xml_.append("  first = 5;\n");
-        xml_.append(" }\n");
-        xml_.append(" $public Ex($int p){\n");
-        xml_.append("  first = p;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
-        files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
-    }
+
     @Test
     public void initializeClass5FailTest() {
         StringBuilder xml_ = new StringBuilder();

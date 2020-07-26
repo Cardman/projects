@@ -30,10 +30,6 @@ public abstract class AssOperationNode {
         argument = _ex.getArgument();
     }
     public static AssOperationNode createAssOperationNode(ExecOperationNode _anaNode) {
-        if (_anaNode instanceof ExecStaticInitOperation) {
-            ExecStaticInitOperation c_ = (ExecStaticInitOperation) _anaNode;
-            return new AssStaticInitOperation(c_);
-        }
         if (_anaNode instanceof ExecConstantOperation) {
             ExecConstantOperation c_ = (ExecConstantOperation) _anaNode;
             return new AssConstantOperation(c_);
@@ -128,11 +124,7 @@ public abstract class AssOperationNode {
     }
 
     final boolean isFirstChildInParent() {
-        AssMethodOperation par_ = getParent();
         int ind_ = 0;
-        if (par_.getFirstChild() instanceof AssStaticInitOperation) {
-            ind_++;
-        }
         return getIndexChild() == ind_;
     }
 
