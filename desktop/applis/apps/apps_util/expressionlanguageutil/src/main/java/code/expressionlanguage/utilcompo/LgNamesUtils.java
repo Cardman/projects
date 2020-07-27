@@ -7,10 +7,12 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.blocks.ExecEnumBlock;
+import code.expressionlanguage.exec.blocks.ExecInnerElementBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.AnalysisMessages;
@@ -357,6 +359,11 @@ public class LgNamesUtils extends LgNames {
         super(_infos.getGenerator());
         infos = _infos;
     }
+
+    public static boolean isEnumType(GeneType _type) {
+        return _type instanceof ExecEnumBlock || _type instanceof ExecInnerElementBlock;
+    }
+
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> stds_ = super.buildFiles(_context);
@@ -1010,7 +1017,7 @@ public class LgNamesUtils extends LgNames {
             String className_ = _arg.getClassName(_cont);
             String id_ = StringExpUtil.getIdFromAllTypes(className_);
             ExecRootBlock clBody_ = _cont.getClasses().getClassBody(id_);
-            if (!ContextUtil.isEnumType(clBody_)) {
+            if (!isEnumType(clBody_)) {
                 return new StringStruct(_arg.getClassName(_cont));
             }
         }

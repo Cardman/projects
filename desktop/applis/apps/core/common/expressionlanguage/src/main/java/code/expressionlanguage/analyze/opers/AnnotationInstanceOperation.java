@@ -1,8 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
-import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -15,8 +14,6 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
-import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.common.AnnotationFieldInfo;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -109,8 +106,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             String realClassName_ = methodName.trim().substring(AROBASE.length());
             realClassName_ = ResolvingImportTypes.resolveCorrectType(_conf,1,realClassName_);
             partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
-            GeneType g_ = _conf.getClassBody(realClassName_);
-            if (!(g_ instanceof ExecAnnotationBlock)) {
+            RootBlock g_ = _conf.getAnalyzing().getAnaClassBody(realClassName_);
+            if (!(g_ instanceof AnnotationBlock)) {
                 className = _conf.getStandards().getAliasObject();
                 setResultClass(new ClassArgumentMatching(realClassName_));
                 return;

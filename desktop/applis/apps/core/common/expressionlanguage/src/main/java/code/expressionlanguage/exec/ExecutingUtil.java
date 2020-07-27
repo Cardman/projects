@@ -5,10 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.FunctionBlock;
 import code.expressionlanguage.analyze.blocks.MethodKind;
 import code.expressionlanguage.analyze.blocks.ReturnableWithSignature;
-import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.AnnotationTypeInfo;
-import code.expressionlanguage.common.FileMetrics;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
@@ -535,8 +532,12 @@ public final class ExecutingUtil {
         if (_type instanceof ExecEnumBlock) {
             cat_ = ClassCategory.ENUM;
         }
-        boolean abs_ = _type.isAbstractType();
-        boolean final_ = _type.isFinalType();
+        boolean abs_ = true;
+        boolean final_ = true;
+        if (_type instanceof ExecClassBlock) {
+            abs_ = ((ExecClassBlock)_type).isAbstractType();
+            final_ = ((ExecClassBlock)_type).isFinalType();
+        }
         String superClass_ = _type.getImportedDirectGenericSuperClass();
         StringList superInterfaces_ = _type.getImportedDirectGenericSuperInterfaces();
         ClassMetaInfo cl_ = new ClassMetaInfo(_name, superClass_, superInterfaces_, format_, inners_,
@@ -574,6 +575,15 @@ public final class ExecutingUtil {
         return fid_;
     }
 
+    public static boolean isAbstractType(GeneType _type) {
+        if (_type instanceof StandardClass) {
+            return ((StandardClass)_type).isAbstractStdType();
+        }
+        if (_type instanceof ExecClassBlock) {
+            return ((ExecClassBlock)_type).isAbstractType();
+        }
+        return true;
+    }
     public static ClassMetaInfo getExtendedClassMetaInfo(ContextEl _context,String _name, String _variableOwner) {
         if (StringList.quickEq(_name, Templates.SUB_TYPE)) {
             StringList upperBounds_ = new StringList();

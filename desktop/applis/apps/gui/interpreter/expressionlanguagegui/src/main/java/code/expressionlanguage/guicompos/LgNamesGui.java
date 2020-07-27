@@ -1,7 +1,6 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
@@ -2370,7 +2369,7 @@ public class LgNamesGui extends LgNamesUtils {
             String className_ = _arg.getClassName(_cont);
             String id_ = StringExpUtil.getIdFromAllTypes(className_);
             ExecRootBlock clBody_ = _cont.getClasses().getClassBody(id_);
-            if (!ContextUtil.isEnumType(clBody_)) {
+            if (!LgNamesUtils.isEnumType(clBody_)) {
                 return new StringStruct(_arg.getClassName(_cont));
             }
         }

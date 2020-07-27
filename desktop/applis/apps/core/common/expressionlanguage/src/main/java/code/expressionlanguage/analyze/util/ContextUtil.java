@@ -110,7 +110,7 @@ public final class ContextUtil {
         return methods_;
     }
 
-    public static int getCurrentChildTypeIndex(ContextEl _an, OperationNode _op, GeneType _type, String _fieldName, String _realClassName) {
+    public static int getCurrentChildTypeIndex(ContextEl _an, OperationNode _op, AnaGeneType _type, String _fieldName, String _realClassName) {
         if (isEnumType(_type)) {
             if (_fieldName.isEmpty()) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -129,29 +129,34 @@ public final class ContextUtil {
         }
         return -1;
     }
-
-    public static boolean isFinalType(GeneType _type) {
+    public static CustList<TypeVar> getParamTypesMapValues(AnaGeneType _type) {
+        if (_type instanceof RootBlock) {
+            return ((RootBlock)_type).getParamTypesMapValues();
+        }
+        return new CustList<TypeVar>();
+    }
+    public static boolean isFinalType(AnaGeneType _type) {
         if (_type instanceof StandardClass) {
             return ((StandardClass)_type).isFinalStdType();
         }
-        if (_type instanceof ExecRootBlock) {
-            return ((ExecRootBlock)_type).isFinalType();
+        if (_type instanceof ClassBlock) {
+            return ((ClassBlock)_type).isFinalType();
         }
-        return false;
+        return isEnumType(_type) || _type instanceof AnnotationBlock;
     }
 
-    public static boolean isAbstractType(GeneType _type) {
+    public static boolean isAbstractType(AnaGeneType _type) {
         if (_type instanceof StandardClass) {
             return ((StandardClass)_type).isAbstractStdType();
         }
-        if (_type instanceof ExecRootBlock) {
-            return ((ExecRootBlock)_type).isAbstractType();
+        if (_type instanceof ClassBlock) {
+            return ((ClassBlock)_type).isAbstractType();
         }
         return true;
     }
 
-    public static boolean isEnumType(GeneType _type) {
-        return _type instanceof ExecEnumBlock || _type instanceof ExecInnerElementBlock;
+    public static boolean isEnumType(AnaGeneType _type) {
+        return _type instanceof EnumBlock || _type instanceof InnerElementBlock;
     }
 
     public static boolean isExplicitFct(FunctionBlock _fct) {
@@ -262,9 +267,10 @@ public final class ContextUtil {
     public static FieldInfo getFieldInfo(ContextEl _cont, ClassField _classField) {
         String fullName_ = _classField.getClassName();
         String search_ = _classField.getFieldName();
-        RootBlock cust_ = _cont.getAnalyzing().getAnaClassBody(fullName_);
-        if (cust_ != null) {
-            for (Block b: ClassesUtil.getDirectChildren(cust_)) {
+        AnaGeneType cust_ = _cont.getAnalyzing().getAnaGeneType(_cont,fullName_);
+        if (cust_ instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) cust_;
+            for (Block b: ClassesUtil.getDirectChildren(r_)) {
                 if (!(b instanceof InfoBlock)) {
                     continue;
                 }
@@ -283,18 +289,17 @@ public final class ContextUtil {
                 String type_ = i_.getImportedClassName();
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
-                Accessed a_ = new Accessed(i_.getAccess(),cust_.getPackageName(),fullName_, cust_.getOuterFullName());
+                Accessed a_ = new Accessed(i_.getAccess(),cust_.getPackageName(),fullName_, r_.getOuterFullName());
                 FieldInfo fieldInfo_ = FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_, valOffset_);
                 fieldInfo_.setFileName(b.getFile().getFileName());
                 fieldInfo_.setMemberNumber(i_.getFieldNumber());
-                fieldInfo_.setRootNumber(cust_.getNumberAll());
+                fieldInfo_.setRootNumber(r_.getNumberAll());
                 return fieldInfo_;
             }
             return null;
         }
-        GeneType g_ = _cont.getClassBody(fullName_);
-        if (g_ instanceof StandardType) {
-            for (EntryCust<String, StandardField> f: ((StandardType)g_).getFields().entryList()) {
+        if (cust_ instanceof StandardType) {
+            for (EntryCust<String, StandardField> f: ((StandardType)cust_).getFields().entryList()) {
                 StandardField f_ = f.getValue();
                 if (!StringList.contains(f_.getFieldName(), search_)) {
                     continue;
@@ -303,7 +308,7 @@ public final class ContextUtil {
                 boolean final_ = f_.isFinalField();
                 boolean static_ = f_.isStaticField();
                 Accessed a_ = new Accessed(AccessEnum.PUBLIC,"","","");
-                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, a_,-1);
+                return FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_,-1);
             }
         }
         return null;

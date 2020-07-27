@@ -439,7 +439,7 @@ public final class ResolvingImportTypes {
         }
         String defPkg_ = _an.getStandards().getDefaultPkg();
         String type_ = StringExpUtil.removeDottedSpaces(StringList.concat(defPkg_,".",_type));
-        if (_an.getClassBody(type_) != null) {
+        if (_an.getAnalyzing().getAnaGeneType(_an,type_) != null) {
             return type_;
         }
         return "";
@@ -456,7 +456,7 @@ public final class ResolvingImportTypes {
         String typeInner_ = StringList.concat(beginImp_, _look);
         StringList allInnerTypes_ = AnaTemplates.getAllInnerTypes(typeInner_, _an);
         String owner_ = allInnerTypes_.first();
-        GeneType cl_ = _an.getClassBody(owner_);
+        AnaGeneType cl_ = _an.getAnalyzing().getAnaGeneType(_an,owner_);
         String res_ = owner_;
         boolean addImport_ = true;
         if (cl_ != null) {
@@ -667,7 +667,7 @@ public final class ResolvingImportTypes {
     public static String resolveCandidate(ContextEl _analyzable,String _c) {
         StringList allInnerTypes_ = getParts(_analyzable,_c);
         String owner_ = allInnerTypes_.first();
-        GeneType cl_ = _analyzable.getClassBody(owner_);
+        AnaGeneType cl_ = _analyzable.getAnalyzing().getAnaGeneType(_analyzable,owner_);
         String res_ = owner_;
         if (cl_ != null) {
             int size_ = allInnerTypes_.size();
@@ -697,7 +697,7 @@ public final class ResolvingImportTypes {
 
     public static void fetchImportStaticFields(ContextEl _analyzable,String _glClass, String _method, StringMap<ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc) {
         for (String s: _typesLoc) {
-            GeneType super_ = _analyzable.getClassBody(s);
+            AnaGeneType super_ = _analyzable.getAnalyzing().getAnaGeneType(_analyzable,s);
             if (super_ instanceof StandardType) {
                 for (StandardField m: ((StandardType)super_).getFields().values()) {
                     int ind_ = notMatch(_method, m);
@@ -708,8 +708,8 @@ public final class ResolvingImportTypes {
                     addImport(_methods,s, new ImportedField(_import,a_,m.getImportedClassName(),m.isFinalField(),-1));
                 }
             }
-            RootBlock cust_ = _analyzable.getAnalyzing().getAnaClassBody(s);
-            if (cust_ != null){
+            if (super_ instanceof RootBlock){
+                RootBlock cust_ = (RootBlock) super_;
                 String pkg_ = cust_.getPackageName();
                 String outerFullName_ = cust_.getOuterFullName();
                 for (InfoBlock e: ClassesUtil.getFieldBlocks(cust_)) {

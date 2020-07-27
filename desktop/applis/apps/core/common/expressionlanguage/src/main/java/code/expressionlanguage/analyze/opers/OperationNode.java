@@ -590,7 +590,7 @@ public abstract class OperationNode {
             for (TypeInfo t: g) {
                 String f_ = t.getType();
                 String cl_ = StringExpUtil.getIdFromAllTypes(f_);
-                GeneType root_ = _cont.getClassBody(cl_);
+                AnaGeneType root_ = _cont.getAnalyzing().getAnaGeneType(_cont,cl_);
                 fetchFieldsType(_cont,!_baseClass,_superClass,t.getAncestor(),t.getScope() == MethodAccessKind.STATIC,_aff,_name,glClass_,ancestors_,f_,root_,baseTypes_,superTypesBaseAncBis_);
                 maxAnc_ = Math.max(maxAnc_, t.getAncestor());
             }
@@ -664,7 +664,7 @@ public abstract class OperationNode {
     private static void fetchFieldsType(ContextEl _conf, boolean _accessFromSuper, boolean _superClass, int _anc, boolean _static,
                                         boolean _aff,
                                         String _name, String _glClass, StringMap<FieldResult> _ancestors,
-                                        String _cl, GeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap) {
+                                        String _cl, AnaGeneType _root, StringList _superTypesBase, StringMap<String> _superTypesBaseMap) {
         String fullName_ = _root.getFullName();
         String genericString_ = _root.getGenericString();
         String id_ = StringExpUtil.getIdFromAllTypes(fullName_);
@@ -2986,7 +2986,7 @@ public abstract class OperationNode {
                 }
                 String type_ = m_.getClassName();
                 type_ = StringExpUtil.getIdFromAllTypes(type_);
-                if (context_.getClassBody(type_) instanceof GeneInterface) {
+                if (context_.getAnalyzing().getAnaClassBody(type_) instanceof InterfaceBlock) {
                     continue;
                 }
                 nonAbs_.add(p);

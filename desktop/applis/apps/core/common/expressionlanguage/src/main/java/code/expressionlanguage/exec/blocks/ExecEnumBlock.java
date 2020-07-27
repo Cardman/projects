@@ -10,16 +10,6 @@ public final class ExecEnumBlock extends ExecRootBlock implements ExecUniqueRoot
     }
 
     @Override
-    public boolean isFinalType() {
-        return true;
-    }
-
-    @Override
-    public boolean isAbstractType() {
-        return true;
-    }
-
-    @Override
     public boolean isStaticType() {
         return true;
     }

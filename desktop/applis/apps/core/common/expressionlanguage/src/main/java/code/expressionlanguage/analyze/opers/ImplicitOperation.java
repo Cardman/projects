@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -75,7 +76,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             String arg_ = types_.last();
             String lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf, leftPar_ + types_.first().length() + 2, arg_, className);
             partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
-            GeneType geneType_ = _conf.getClassBody(StringExpUtil.getIdFromAllTypes(className));
+            AnaGeneType geneType_ = _conf.getAnalyzing().getAnaGeneType(_conf,StringExpUtil.getIdFromAllTypes(className));
             if (geneType_ == null) {
                 int rc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -101,7 +102,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             }
             return;
         }
-        GeneType geneType_ = _conf.getClassBody(StringExpUtil.getIdFromAllTypes(className));
+        AnaGeneType geneType_ = _conf.getAnalyzing().getAnaGeneType(_conf,StringExpUtil.getIdFromAllTypes(className));
         if (geneType_ == null) {
             int rc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
             FoundErrorInterpret un_ = new FoundErrorInterpret();

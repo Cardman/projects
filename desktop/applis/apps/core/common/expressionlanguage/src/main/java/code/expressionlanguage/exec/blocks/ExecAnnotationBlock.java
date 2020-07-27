@@ -10,16 +10,6 @@ public final class ExecAnnotationBlock extends ExecRootBlock implements ExecInte
     }
 
     @Override
-    public boolean isFinalType() {
-        return true;
-    }
-
-    @Override
-    public boolean isAbstractType() {
-        return true;
-    }
-
-    @Override
     public boolean isStaticType() {
         return true;
     }

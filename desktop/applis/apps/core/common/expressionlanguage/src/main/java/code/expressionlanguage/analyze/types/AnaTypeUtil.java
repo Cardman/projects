@@ -361,8 +361,8 @@ public final class AnaTypeUtil {
                     if (b instanceof NamedFunctionBlock) {
                         continue;
                     }
-                    if (b instanceof GeneField) {
-                        GeneField a_ = (GeneField) b;
+                    if (b instanceof InfoBlock) {
+                        InfoBlock a_ = (InfoBlock) b;
                         if (!a_.isStaticField()) {
                             continue;
                         }

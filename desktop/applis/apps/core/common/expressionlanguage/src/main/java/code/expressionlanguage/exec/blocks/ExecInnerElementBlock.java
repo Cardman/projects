@@ -79,16 +79,6 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     }
 
     @Override
-    public boolean isFinalType() {
-        return true;
-    }
-
-    @Override
-    public boolean isAbstractType() {
-        return true;
-    }
-
-    @Override
     public boolean isStaticType() {
         return false;
     }

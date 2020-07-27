@@ -307,15 +307,14 @@ final class AnaNamePartType extends AnaLeafPartType {
                 sep_ = "..";
             }
             String in_ = StringList.concat(id_,sep_,type_);
-            Classes classes_ = _an.getClasses();
-            ExecRootBlock inner_ = classes_.getClassBody(in_);
+            RootBlock inner_ = _an.getAnalyzing().getAnaClassBody(in_);
             if (inner_ == null) {
                 return;
             }
             setAnalyzedType(StringList.concat(owner_,sep_,type_));
             return;
         }
-        if (_an.getClassBody(type_) != null) {
+        if (_an.getAnalyzing().getAnaGeneType(_an,type_) != null) {
             setAnalyzedType(type_);
             return;
         }

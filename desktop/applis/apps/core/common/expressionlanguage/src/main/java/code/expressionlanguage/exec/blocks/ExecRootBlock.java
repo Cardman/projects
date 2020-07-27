@@ -163,9 +163,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         return isStaticType();
     }
 
-    public abstract boolean isFinalType();
-    public abstract boolean isAbstractType();
-
     @Override
     public abstract boolean isStaticType();
 

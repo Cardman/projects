@@ -43,6 +43,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         cont_.setAnalyzing();
         ContextUtil.isFinalField(cont_,new ClassField("",""));
         ClassesUtil.getDirectChildren(null);
+        ContextUtil.getParamTypesMapValues(null);
     }
 
     @Test
@@ -286,7 +287,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#T:ExThree<#T>> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        CustList<ExecTypeVar> types_ = context_.getClassBody("pkg.ExTwo").getParamTypesMapValues();
+        CustList<TypeVar> types_ = context_.getAnalyzing().getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
         assertEq(1, types_.size());
         assertEq("T", types_.first().getName());
         assertEq(1, types_.first().getConstraints().size());
@@ -311,7 +312,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#T:ExThree<#T>> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        CustList<ExecTypeVar> types_ = context_.getClassBody("pkg.ExTwo").getParamTypesMapValues();
+        CustList<TypeVar> types_ = context_.getAnalyzing().getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
         assertEq(1, types_.size());
         assertEq("T", types_.first().getName());
         assertEq(1, types_.first().getConstraints().size());
@@ -336,7 +337,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#T:ExThree<#T>> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
-        CustList<ExecTypeVar> types_ = context_.getClassBody("pkg.ExTwo").getParamTypesMapValues();
+        CustList<TypeVar> types_ = context_.getAnalyzing().getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
         assertEq(1, types_.size());
         assertEq("T", types_.first().getName());
         assertEq(1, types_.first().getConstraints().size());

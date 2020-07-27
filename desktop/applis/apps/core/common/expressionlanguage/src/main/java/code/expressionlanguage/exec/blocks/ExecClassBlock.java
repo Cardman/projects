@@ -16,12 +16,10 @@ public final class ExecClassBlock extends ExecRootBlock implements ExecUniqueRoo
         staticType = _offset.isStaticType();
     }
 
-    @Override
     public boolean isFinalType() {
         return finalType;
     }
 
-    @Override
     public boolean isAbstractType() {
         return abstractType;
     }

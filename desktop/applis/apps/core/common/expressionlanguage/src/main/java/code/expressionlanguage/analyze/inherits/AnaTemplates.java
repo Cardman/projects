@@ -3,6 +3,8 @@ package code.expressionlanguage.analyze.inherits;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -358,15 +360,15 @@ public final class AnaTemplates {
         DimComp dc_ = StringExpUtil.getQuickComponentBaseType(_second);
         StringList types_ = StringExpUtil.getAllTypes(_first);
         String className_ = StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        GeneType root_ = _classes.getClassBody(className_);
-        CustList<ExecTypeVar> typeVar_ = root_.getParamTypesMapValues();
+        AnaGeneType root_ = _classes.getAnalyzing().getAnaGeneType(_classes,className_);
+        CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(root_);
         String objType_ = _classes.getStandards().getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
             int arr_ = dc_.getDim();
             String name_ = _second.substring(PREFIX_VAR_TYPE.length()+arr_);
 
             int index_ = -1;
-            for (ExecTypeVar t: typeVar_) {
+            for (TypeVar t: typeVar_) {
                 index_++;
                 if (StringList.quickEq(t.getName(), name_)) {
                     String formatted_ = types_.get(index_+1);
@@ -390,7 +392,7 @@ public final class AnaTemplates {
         }
         StringMap<String> varTypes_ = new StringMap<String>();
         int i_ = CustList.FIRST_INDEX;
-        for (ExecTypeVar t: typeVar_) {
+        for (TypeVar t: typeVar_) {
             i_++;
             String arg_ = types_.get(i_);
             varTypes_.put(t.getName(), arg_);
@@ -404,15 +406,15 @@ public final class AnaTemplates {
         DimComp dc_ = StringExpUtil.getQuickComponentBaseType(_second);
         StringList types_ = StringExpUtil.getAllTypes(_first);
         String className_ = StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        GeneType root_ = _classes.getClassBody(className_);
-        CustList<ExecTypeVar> typeVar_ = root_.getParamTypesMapValues();
+        AnaGeneType root_ = _classes.getAnalyzing().getAnaGeneType(_classes,className_);
+        CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(root_);
         String objType_ = _classes.getStandards().getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
             int arr_ = dc_.getDim();
             String name_ = _second.substring(PREFIX_VAR_TYPE.length()+arr_);
 
             int index_ = -1;
-            for (ExecTypeVar t: typeVar_) {
+            for (TypeVar t: typeVar_) {
                 index_++;
                 if (StringList.quickEq(t.getName(), name_)) {
                     String formatted_ = types_.get(index_+1);
@@ -433,7 +435,7 @@ public final class AnaTemplates {
         }
         StringMap<String> varTypes_ = new StringMap<String>();
         int i_ = CustList.FIRST_INDEX;
-        for (ExecTypeVar t: typeVar_) {
+        for (TypeVar t: typeVar_) {
             i_++;
             String arg_ = types_.get(i_);
             varTypes_.put(t.getName(), arg_);

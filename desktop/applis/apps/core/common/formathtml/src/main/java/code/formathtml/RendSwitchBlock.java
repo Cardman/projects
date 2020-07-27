@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -66,7 +67,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
             if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _cont.getContext())) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
-                    if (!(_cont.getContext().getClassBody(id_) instanceof ExecEnumBlock)) {
+                    if (!(_cont.getContext().getAnalyzing().getAnaClassBody(id_) instanceof EnumBlock)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(_cont.getCurrentFileName());
                         un_.setIndexFile(valueOffset);

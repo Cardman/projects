@@ -309,7 +309,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     ||StringList.quickEq(id_,aliasClass_)) {
                     return new Argument(ApplyCoreMethodUtil.defaultMeta(_cont,id_,_firstArgs));
                 }
-                if (ContextUtil.isAbstractType(type_)) {
+                if (ExecutingUtil.isAbstractType(type_)) {
                     String null_;
                     null_ = stds_.getAliasNullPe();
                     _cont.setException(new ErrorStruct(_cont,null_));

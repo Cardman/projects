@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -121,9 +123,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (_cl.startsWith(Templates.PREFIX_VAR_TYPE)) {
             String glClass_ = _conf.getAnalyzing().getGlobalClass();
             String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
-            GeneType gl_ = _conf.getClassBody(curClassBase_);
+            AnaGeneType gl_ = _conf.getAnalyzing().getAnaGeneType(_conf,curClassBase_);
             StringMap<StringList> mapping_ = new StringMap<StringList>();
-            for (ExecTypeVar t: gl_.getParamTypesMapValues()) {
+            for (TypeVar t: ContextUtil.getParamTypesMapValues(gl_)) {
                 mapping_.put(t.getName(), t.getConstraints());
             }
             bounds_.addAllElts(Mapping.getAllUpperBounds(mapping_, _cl.substring(1), objectClassName_));

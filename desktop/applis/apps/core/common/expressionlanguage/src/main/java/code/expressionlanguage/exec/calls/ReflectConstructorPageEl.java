@@ -29,7 +29,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         String id_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
         boolean static_ = type_.isStaticType();
-        if (ContextUtil.isAbstractType(type_)) {
+        if (ExecutingUtil.isAbstractType(type_)) {
             String null_;
             null_ = stds_.getAliasIllegalArg();
             _context.setException(new ErrorStruct(_context,null_));

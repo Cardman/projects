@@ -229,7 +229,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
         }
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (ExecTypeVar t: _exec.getParamTypesMapValues()) {
+        for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
         String gene_ = _exec.getGenericString();
@@ -844,7 +844,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (m_.getKind() == MethodKind.TO_STRING || m_.getKind() == MethodKind.STD_METHOD || m_.getKind() == MethodKind.OPERATOR || m_.getKind() == MethodKind.EXPLICIT_CAST || m_.getKind() == MethodKind.IMPLICIT_CAST
                         || m_.getKind() == MethodKind.TRUE_OPERATOR || m_.getKind() == MethodKind.FALSE_OPERATOR) {
                     MethodId id_ = m_.getId();
-                    if (ContextUtil.isEnumType(_exec)) {
+                    if (ContextUtil.isEnumType(this)) {
                         String valueOf_ = stds_.getAliasEnumPredValueOf();
                         String values_ = stds_.getAliasEnumValues();
                         String string_ = stds_.getAliasString();
@@ -1584,7 +1584,28 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         return skip_;
     }
-
+    @Override
+    public CustList<StringList> getBoundAll() {
+        CustList<StringList> boundsAll_ = new CustList<StringList>();
+        for (TypeVar t: getParamTypesMapValues()) {
+            boolean contained_ = false;
+            for (TypeVar u: paramTypes) {
+                if (!StringList.quickEq(t.getName(),u.getName())) {
+                    continue;
+                }
+                contained_ = true;
+            }
+            if (!contained_) {
+                continue;
+            }
+            StringList localBound_ = new StringList();
+            for (String b: t.getConstraints()) {
+                localBound_.add(b);
+            }
+            boundsAll_.add(localBound_);
+        }
+        return boundsAll_;
+    }
     private static CustList<MethodIdAncestors> areModifierCompatible(
             CustList<MethodIdAncestors> _methodIds) {
         CustList<MethodIdAncestors> output_;

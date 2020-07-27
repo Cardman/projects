@@ -269,7 +269,7 @@ public final class StandardInstancingOperation extends
                 realClassName_ = realClassName_.trim();
             }
             String base_ = StringExpUtil.getIdFromAllTypes(realClassName_);
-            GeneType g_ = _conf.getClassBody(base_);
+            AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,base_);
             if (g_ != null && !g_.withoutInstance()) {
                 String glClass_ = _conf.getAnalyzing().getGlobalClass();
                 StringList parts_ = StringExpUtil.getAllPartInnerTypes(realClassName_);
@@ -401,8 +401,8 @@ public final class StandardInstancingOperation extends
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         String base_ = StringExpUtil.getIdFromAllTypes(_realClassName);
-        GeneType h_ = _conf.getClassBody(base_);
-        if (h_ == null) {
+        AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,base_);
+        if (g_ == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -414,11 +414,10 @@ public final class StandardInstancingOperation extends
             getErrs().add(call_.getBuiltError());
             return;
         }
-        AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,base_);
         OperationNode possibleInit_ = getFirstChild();
         if (possibleInit_ instanceof StaticInitOperation) {
             StaticInitOperation st_ = (StaticInitOperation) possibleInit_;
-            boolean staticType_ = h_.isStaticType();
+            boolean staticType_ = g_.isStaticType();
             st_.setInit(_conf,base_,staticType_);
         }
         for (String p:StringExpUtil.getAllTypes(_realClassName).mid(1)){
@@ -445,7 +444,7 @@ public final class StandardInstancingOperation extends
                 getErrs().add(call_.getBuiltError());
             }
         }
-        if (ContextUtil.isAbstractType(h_) && !ContextUtil.isEnumType(h_)) {
+        if (ContextUtil.isAbstractType(g_) && !ContextUtil.isEnumType(g_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -457,7 +456,7 @@ public final class StandardInstancingOperation extends
             setResultClass(new ClassArgumentMatching(_realClassName));
             return;
         }
-        blockIndex = ContextUtil.getCurrentChildTypeIndex(_conf,this, h_,fieldName,_realClassName);
+        blockIndex = ContextUtil.getCurrentChildTypeIndex(_conf,this, g_,fieldName,_realClassName);
         if (blockIndex < -1) {
             return;
         }

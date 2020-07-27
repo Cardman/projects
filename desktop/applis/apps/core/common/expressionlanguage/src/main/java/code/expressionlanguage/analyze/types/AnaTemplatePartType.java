@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -77,7 +78,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
         String tempCl_ = f_.getAnalyzedType();
         String tempClFull_ = fetchTemplate();
         tempCl_ = StringExpUtil.getIdFromAllTypes(tempCl_);
-        GeneType type_ = _an.getClassBody(tempCl_);
+        AnaGeneType type_ = _an.getAnalyzing().getAnaGeneType(_an,tempCl_);
         CustList<StringList> boundsAll_ = type_.getBoundAll();
         int i_ = 0;
         for (StringList t: boundsAll_) {

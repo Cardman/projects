@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -27,10 +28,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -446,9 +444,14 @@ public abstract class ProcessMethodCommon {
         _cont.getAnalyzing().setHeaders(headers_);
         ClassesUtil.buildPredefinedBracesBodies(_cont);
         CustList<RootBlock> foundTypes_ = _cont.getAnalyzing().getFoundTypes();
+        IdMap<RootBlock, ExecRootBlock> old_ = _cont.getAnalyzing().getAllMapTypes();
+        IdMap<RootBlock, Members> oldMem_ = _cont.getAnalyzing().getAllMapMembers();
         _cont.setAnalyzing();
         _cont.getAnalyzing().setHeaders(headers_);
         _cont.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
+        _cont.getAnalyzing().getAllFoundTypes().addAllElts(foundTypes_);
+        _cont.getAnalyzing().getAllMapTypes().putAllMap(old_);
+        _cont.getAnalyzing().getAllMapMembers().putAllMap(oldMem_);
         ClassesUtil.tryBuildBracedClassesBodies(_files, _cont, false);
     }
 

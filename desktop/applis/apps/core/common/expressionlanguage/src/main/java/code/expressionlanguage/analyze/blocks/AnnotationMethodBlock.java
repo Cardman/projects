@@ -73,11 +73,11 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         if (AnaTypeUtil.isPrimitiveOrWrapper(type_, _stds)) {
             return;
         }
-        GeneType r_ = _stds.getClassBody(type_);
-        if (r_ instanceof ExecAnnotationBlock) {
+        RootBlock r_ = _stds.getAnalyzing().getAnaClassBody(type_);
+        if (r_ instanceof AnnotationBlock) {
             return;
         }
-        if (r_ instanceof ExecEnumBlock) {
+        if (r_ instanceof EnumBlock) {
             return;
         }
         if (StringList.quickEq(type_, string_)) {

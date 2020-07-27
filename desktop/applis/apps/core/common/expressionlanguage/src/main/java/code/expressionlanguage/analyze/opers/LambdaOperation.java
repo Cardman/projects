@@ -202,7 +202,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
                 boolean varargFct_ = argsRes_.isVararg();
                 StringList params_ = argsRes_.getParametersTypes();
-                GeneType geneType_ = _conf.getClassBody(StringExpUtil.getIdFromAllTypes(type_));
+                AnaGeneType geneType_ = _conf.getAnalyzing().getAnaGeneType(_conf,StringExpUtil.getIdFromAllTypes(type_));
                 if (geneType_ == null) {
                     int rc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + offset_;
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -958,8 +958,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (!isIntermediateDottedOperation()) {
             String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
             AnaGeneType h_ = _conf.getAnalyzing().getAnaGeneType(_conf,id_);
-            GeneType g_ = _conf.getClassBody(id_);
-            if (ContextUtil.isAbstractType(g_)) {
+            if (ContextUtil.isAbstractType(h_)) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -1007,7 +1006,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             memberNumber = ctorRes_.getMemberNumber();
             ConstructorId fid_ = ctorRes_.getConstId();
             StringList parts_ = new StringList();
-            if (!g_.isStaticType()) {
+            if (!h_.isStaticType()) {
                 //From analyze
                 StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(clFrom_);
                 parts_.add(StringList.join(innerParts_.mid(0, innerParts_.size() - 2), ""));
@@ -1154,8 +1153,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         String id_ = StringExpUtil.getIdFromAllTypes(_cl);
         AnaGeneType h_ = _conf.getAnalyzing().getAnaGeneType(_conf,id_);
-        GeneType g_ = _conf.getClassBody(id_);
-        if (ContextUtil.isAbstractType(g_)) {
+        if (ContextUtil.isAbstractType(h_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());

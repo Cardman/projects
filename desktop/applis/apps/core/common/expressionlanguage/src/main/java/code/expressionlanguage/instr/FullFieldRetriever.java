@@ -158,7 +158,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         int nextOff_ = _from;
         int nb_ = 0;
         String start_;
-        if (_conf.getClassBody(trim_) != null) {
+        if (_conf.getAnalyzing().getAnaGeneType(_conf,trim_) != null) {
             for (char c: trim_.toCharArray()) {
                 if (c == '.') {
                     nb_++;
@@ -216,7 +216,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         } else {
             n_ = k_;
         }
-        if (_conf.getClassBody(start_) == null) {
+        if (_conf.getAnalyzing().getAnaGeneType(_conf,start_) == null) {
             ConstType type_ = ConstType.WORD;
             VariableInfo infoLoc_ = new VariableInfo();
             infoLoc_.setKind(type_);

@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
@@ -108,7 +109,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             getErrorsBlock().add(un_.getBuiltError());
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            GeneType classBody_ = _cont.getClassBody(id_);
+            AnaGeneType classBody_ = _cont.getAnalyzing().getAnaGeneType(_cont,id_);
             boolean final_ = true;
             if (classBody_ != null) {
                 final_ = ContextUtil.isFinalType(classBody_);
@@ -117,7 +118,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             }
             if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
-                    if (!(classBody_ instanceof ExecEnumBlock)) {
+                    if (!(classBody_ instanceof EnumBlock)) {
                         if (!final_) {
                             instanceTest = type_;
                         } else {

@@ -966,9 +966,9 @@ public final class ClassesUtil {
                         exec_.getImportedDirectBaseSuperTypes().add(k_);
                         continue;
                     }
-                    ExecRootBlock s_ =_context.getClasses().getClassBody(k_);
+                    RootBlock s_ =_context.getAnalyzing().getAnaClassBody(k_);
                     int offset_ = r.getRowColDirectSuperTypes().getKey(indexType_);
-                    if (s_ instanceof ExecUniqueRootedBlock) {
+                    if (s_ instanceof UniqueRootedBlock) {
                         nbDirectSuperClass_++;
                     }
                     if (r.isStaticType()) {
@@ -985,7 +985,7 @@ public final class ClassesUtil {
                             r.addNameErrors(enum_);
                         }
                     } else {
-                        int subSise_ = exec_.getSelfAndParentTypes().size();
+                        int subSise_ = r.getSelfAndParentTypes().size();
                         int supSise_ = s_.getSelfAndParentTypes().size();
                         if (supSise_ > subSise_) {
                             FoundErrorInterpret enum_;
@@ -1002,8 +1002,8 @@ public final class ClassesUtil {
                             r.addNameErrors(enum_);
                         }
                     }
-                    if (exec_ instanceof ExecInterfaceBlock) {
-                        if (!(s_ instanceof ExecInterfaceBlock)) {
+                    if (r instanceof InterfaceBlock) {
+                        if (!(s_ instanceof InterfaceBlock)) {
                             FoundErrorInterpret enum_;
                             enum_ = new FoundErrorInterpret();
                             enum_.setFileName(r.getFile().getFileName());
@@ -1023,7 +1023,7 @@ public final class ClassesUtil {
                         exec_.getImportedDirectBaseSuperTypes().add(k_);
                         continue;
                     }
-                    if (s_.isFinalType()) {
+                    if (ContextUtil.isFinalType(s_)) {
                         FoundErrorInterpret enum_;
                         enum_ = new FoundErrorInterpret();
                         enum_.setFileName(r.getFile().getFileName());
@@ -1214,8 +1214,8 @@ public final class ClassesUtil {
                         for (String b: upperNotObj_) {
                             String baseParamsUpp_ = StringExpUtil.getIdFromAllTypes(b);
                             String base_ = StringExpUtil.getQuickComponentBaseType(baseParamsUpp_).getComponent();
-                            ExecRootBlock r_ = _context.getClasses().getClassBody(base_);
-                            if (!(r_ instanceof ExecUniqueRootedBlock)) {
+                            RootBlock r_ = _context.getAnalyzing().getAnaClassBody(base_);
+                            if (!(r_ instanceof UniqueRootedBlock)) {
                                 continue;
                             }
                             if (ContextUtil.isFinalType(r_)) {
@@ -2142,8 +2142,8 @@ public final class ClassesUtil {
                     if (b instanceof NamedFunctionBlock) {
                         continue;
                     }
-                    if (b instanceof GeneField) {
-                        GeneField a_ = (GeneField) b;
+                    if (b instanceof InfoBlock) {
+                        InfoBlock a_ = (InfoBlock) b;
                         if (!a_.isStaticField()) {
                             filteredCtor_.add(i);
                         }
