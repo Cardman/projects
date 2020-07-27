@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.ParentInferring;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -35,62 +36,25 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         setClassName(_conf.getStandards().getAliasObject());
 
-        int nbParentsInfer_ = 0;
-        OperationNode current_ = this;
-        MethodOperation m_ = getParent();
-        while (m_ != null) {
-            if (!(m_ instanceof ElementArrayInstancing) && !(m_ instanceof InferArrayInstancing)) {
-                if (m_ instanceof IdOperation) {
-                    current_ = current_.getParent();
-                    m_ = m_.getParent();
-                    continue;
-                }
-                if (m_ instanceof AbstractTernaryOperation) {
-                    if (m_.getFirstChild() == current_) {
-                        break;
-                    }
-                    current_ = current_.getParent();
-                    m_ = m_.getParent();
-                    continue;
-                }
-                break;
-            }
-            nbParentsInfer_++;
-            current_ = current_.getParent();
-            m_ = m_.getParent();
-        }
-        String type_ = EMPTY_STRING;
+        ParentInferring par_ = ParentInferring.getParentInferring(this);
+        OperationNode m_ = par_.getOperation();
+        int nbParentsInfer_ = par_.getNbParentsInfer();
+        String type_;
         AnalyzedBlock cur_ = _conf.getAnalyzing().getCurrentAnaBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
-            FunctionBlock f_ = _conf.getAnalyzing().getCurrentFct();
-            if (f_ instanceof NamedFunctionBlock) {
-                NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
-                String ret_ = n_.getImportedReturnType();
-                String void_ = _conf.getStandards().getAliasVoid();
-                if (!StringList.quickEq(ret_, void_)) {
-                    type_ = ret_;
-                }
-            }
+            type_ = tryGetRetType(_conf);
         } else if (m_ == null && cur_ instanceof ImportForEachLoop) {
             ImportForEachLoop i_ = (ImportForEachLoop) cur_;
             type_ = i_.getImportedClassName();
             if (!type_.isEmpty()) {
                 type_ = StringExpUtil.getPrettyArrayType(type_);
             }
-        } else if (m_ instanceof CastOperation) {
-            CastOperation c_ = (CastOperation) m_;
-            type_ = c_.getClassName();
-        } else if (m_ instanceof AffectationOperation) {
-            AffectationOperation a_ = (AffectationOperation) m_;
-            SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
-            if (s_ != null) {
-                ClassArgumentMatching c_ = s_.getResultClass();
-                type_ = c_.getSingleNameOrEmpty();
-            }
+        } else {
+            type_ = tryGetTypeAff(m_);
         }
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (type_.isEmpty() || StringList.quickEq(type_, keyWordVar_)) {
+        if (isUndefined(type_,keyWordVar_)) {
             IntTreeMap<String> operators_ = getOperations().getOperators();
             int offFirstOp_ = operators_.firstKey();
             FoundErrorInterpret un_ = new FoundErrorInterpret();

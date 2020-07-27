@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.ParentInferring;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -43,54 +44,15 @@ public final class DimensionArrayInstancing extends
         int local_ = StringList.getFirstPrintableCharIndex(className_);
         className_ = className_.trim();
         StringMap<String> vars_ = new StringMap<String>();
-        OperationNode current_;
-        MethodOperation m_;
-        int nbParentsInfer_ = 0;
-        current_ = this;
-        m_ = getParent();
-        while (m_ != null) {
-            if (!(m_ instanceof ElementArrayInstancing) && !(m_ instanceof InferArrayInstancing)) {
-                if (m_ instanceof IdOperation) {
-                    current_ = current_.getParent();
-                    m_ = m_.getParent();
-                    continue;
-                }
-                if (m_ instanceof AbstractTernaryOperation) {
-                    if (m_.getFirstChild() == current_) {
-                        break;
-                    }
-                    current_ = current_.getParent();
-                    m_ = m_.getParent();
-                    continue;
-                }
-                break;
-            }
-            nbParentsInfer_++;
-            current_ = current_.getParent();
-            m_ = m_.getParent();
-        }
-        String typeAff_ = EMPTY_STRING;
+        ParentInferring par_ = ParentInferring.getParentInferring(this);
+        OperationNode m_ = par_.getOperation();
+        int nbParentsInfer_ = par_.getNbParentsInfer();
+        String typeAff_;
         Block cur_ = _an.getAnalyzing().getCurrentBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
-            FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
-            if (f_ instanceof NamedFunctionBlock) {
-                NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
-                String ret_ = n_.getImportedReturnType();
-                String void_ = _an.getStandards().getAliasVoid();
-                if (!StringList.quickEq(ret_, void_)) {
-                    typeAff_ = ret_;
-                }
-            }
-        } else if (m_ instanceof CastOperation) {
-            CastOperation c_ = (CastOperation) m_;
-            typeAff_ = c_.getClassName();
-        } else if (m_ instanceof AffectationOperation) {
-            AffectationOperation a_ = (AffectationOperation) m_;
-            SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
-            if (s_ != null) {
-                ClassArgumentMatching c_ = s_.getResultClass();
-                typeAff_ = c_.getSingleNameOrEmpty();
-            }
+            typeAff_ = tryGetRetType(_an);
+        } else {
+            typeAff_ = tryGetTypeAff(m_);
         }
         if (className_.trim().isEmpty()) {
             String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -138,14 +100,6 @@ public final class DimensionArrayInstancing extends
         int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
         ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
         typeInfer = infer_;
-    }
-
-    private static boolean isNotCorrectDim(String cp_) {
-        return cp_ == null||cp_.startsWith("[");
-    }
-
-    private static boolean isUndefined(String typeAff_, String keyWordVar_) {
-        return typeAff_.isEmpty() || StringList.quickEq(typeAff_, keyWordVar_);
     }
 
     @Override

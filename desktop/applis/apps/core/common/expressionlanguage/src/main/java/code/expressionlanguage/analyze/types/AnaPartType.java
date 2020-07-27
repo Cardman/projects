@@ -61,9 +61,9 @@ abstract class AnaPartType {
                 return new AnaNamePartType(_parent, _index, _indexInType, type_,str_);
             }
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
-                return new AnaEmptyWildCardPart(_parent, _index, _indexInType, _dels.getValue(_index),str_);
+                return new AnaEmptyWildCardPart(_parent, _index, _indexInType, _dels.getValue(_index).trim(),str_);
             }
-            return new AnaVariablePartType(_parent, _index, _indexInType, _dels.getValue(_index),str_);
+            return new AnaVariablePartType(_parent, _index, _indexInType, _dels.getValue(_index).trim(),str_);
         }
         if (_analyze.getPrio() == ParserType.TMP_PRIO) {
             return new AnaTemplatePartType(_parent, _index, _indexInType,operators_);
@@ -91,9 +91,9 @@ abstract class AnaPartType {
                 return new AnaNamePartType(_parent, _index, _indexInType, type_.trim(),str_);
             }
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
-                return new AnaEmptyWildCardPart(_parent, _index, _indexInType, _dels.getValue(_index),str_);
+                return new AnaEmptyWildCardPart(_parent, _index, _indexInType, _dels.getValue(_index).trim(),str_);
             }
-            return new AnaVariablePartType(_parent, _index, _indexInType, _dels.getValue(_index),str_);
+            return new AnaVariablePartType(_parent, _index, _indexInType, _dels.getValue(_index).trim(),str_);
         }
         if (_analyze.getPrio() == ParserType.TMP_PRIO) {
             return new AnaTemplatePartType(_parent, _index, _indexInType,operators_);

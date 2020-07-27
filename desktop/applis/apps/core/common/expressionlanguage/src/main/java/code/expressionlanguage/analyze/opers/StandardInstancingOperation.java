@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.analyze.opers.util.ParentInferring;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
@@ -113,49 +114,19 @@ public final class StandardInstancingOperation extends
             vars_ = Templates.getVarTypes(sup_,_an);
         }
         String type_;
-        int nbParentsInfer_ = 0;
         OperationNode current_;
-        MethodOperation m_;
         if (!isIntermediateDottedOperation()) {
             current_ = this;
-            m_ = getParent();
         } else {
             current_ = getParent();
-            m_ = current_.getParent();
         }
-        while (m_ != null) {
-            if (!(m_ instanceof ElementArrayInstancing) && !(m_ instanceof InferArrayInstancing)) {
-                if (m_ instanceof IdOperation) {
-                    current_ = current_.getParent();
-                    m_ = m_.getParent();
-                    continue;
-                }
-                if (m_ instanceof AbstractTernaryOperation) {
-                    if (m_.getFirstChild() == current_) {
-                        break;
-                    }
-                    current_ = current_.getParent();
-                    m_ = m_.getParent();
-                    continue;
-                }
-                break;
-            }
-            nbParentsInfer_++;
-            current_ = current_.getParent();
-            m_ = m_.getParent();
-        }
+        ParentInferring par_ = ParentInferring.getParentInferring(current_);
+        OperationNode m_ = par_.getOperation();
+        int nbParentsInfer_ = par_.getNbParentsInfer();
         String typeAff_ = EMPTY_STRING;
         AnalyzedBlock cur_ = _an.getAnalyzing().getCurrentAnaBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
-            FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
-            if (f_ instanceof NamedFunctionBlock) {
-                NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
-                String ret_ = n_.getImportedReturnType();
-                String void_ = _an.getStandards().getAliasVoid();
-                if (!StringList.quickEq(ret_, void_)) {
-                    typeAff_ = ret_;
-                }
-            }
+            typeAff_ = tryGetRetType(_an);
         } else if (m_ == null && cur_ instanceof ImportForEachLoop) {
             ImportForEachLoop i_ = (ImportForEachLoop) cur_;
             typeAff_ = i_.getImportedClassName();
@@ -171,16 +142,8 @@ public final class StandardInstancingOperation extends
                 String iter_ = _an.getStandards().getAliasIterableTable();
                 typeAff_ = StringList.concat(iter_,Templates.TEMPLATE_BEGIN,typeAffOne_,Templates.TEMPLATE_SEP,typeAffTwo_,Templates.TEMPLATE_END);
             }
-        } else if (m_ instanceof CastOperation) {
-            CastOperation c_ = (CastOperation) m_;
-            typeAff_ = c_.getClassName();
-        } else if (m_ instanceof AffectationOperation) {
-            AffectationOperation a_ = (AffectationOperation) m_;
-            SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
-            if (s_ != null) {
-                ClassArgumentMatching c_ = s_.getResultClass();
-                typeAff_ = c_.getSingleNameOrEmpty();
-            }
+        } else {
+            typeAff_ = tryGetTypeAff(m_);
         }
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (className_.trim().isEmpty()) {
@@ -261,13 +224,6 @@ public final class StandardInstancingOperation extends
         typeInfer = infer_;
     }
 
-    private static boolean isNotCorrectDim(String cp_) {
-        return cp_ == null||cp_.startsWith("[");
-    }
-
-    private static boolean isUndefined(String typeAff_, String keyWordVar_) {
-        return typeAff_.isEmpty() || StringList.quickEq(typeAff_, keyWordVar_);
-    }
 
     @Override
     public void analyze(ContextEl _conf) {

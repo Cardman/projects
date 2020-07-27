@@ -499,6 +499,46 @@ public final class AnaTemplates {
         return types_;
     }
 
+    public static DimComp getComponentForm(String _type) {
+        int j_ = _type.length()-1;
+        boolean arr_ = true;
+        int count_ = 0;
+        while (arr_) {
+            while (j_ >= 0) {
+                char locChar_ = _type.charAt(j_);
+                if (Character.isWhitespace(locChar_)) {
+                    j_--;
+                    continue;
+                }
+                if (locChar_ != ']') {
+                    arr_ = false;
+                }
+                break;
+            }
+            if (arr_) {
+                j_--;
+                while (j_ >= 0) {
+                    char locChar_ = _type.charAt(j_);
+                    if (Character.isWhitespace(locChar_)) {
+                        j_--;
+                        continue;
+                    }
+                    break;
+                }
+            }
+            if (j_ < 0) {
+                break;
+            }
+            if (arr_) {
+                j_--;
+                count_++;
+            }
+        }
+        if (j_ >= 0) {
+            return new DimComp(count_,_type.substring(0, j_+1));
+        }
+        return new DimComp(0,"");
+    }
     /** Return if possible the inferred form<br/>
      Sample 1: "int" => null<br/>
      Sample 2: "Pair&gt;" => null<br/>

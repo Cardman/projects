@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -73,6 +74,61 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
 
+    @Test
+    public void getComponentForm1Test() {
+        DimComp inferred_ = AnaTemplates.getComponentForm("pkg.ExTwo");
+        assertEq("pkg.ExTwo", inferred_.getComponent());
+        assertEq(0, inferred_.getDim());
+    }
+
+    @Test
+    public void getComponentForm2Test() {
+        DimComp inferred_ = AnaTemplates.getComponentForm("pkg.ExTwo[]");
+        assertEq("pkg.ExTwo", inferred_.getComponent());
+        assertEq(1, inferred_.getDim());
+    }
+
+    @Test
+    public void getComponentForm3Test() {
+        DimComp inferred_ = AnaTemplates.getComponentForm("pkg.ExTwo[] ");
+        assertEq("pkg.ExTwo", inferred_.getComponent());
+        assertEq(1, inferred_.getDim());
+    }
+
+    @Test
+    public void getComponentForm4Test() {
+        DimComp inferred_ = AnaTemplates.getComponentForm("pkg.ExTwo[ ]");
+        assertEq("pkg.ExTwo", inferred_.getComponent());
+        assertEq(1, inferred_.getDim());
+    }
+
+    @Test
+    public void getComponentForm5Test() {
+        DimComp inferred_ = AnaTemplates.getComponentForm("pkg.ExTwo[][]");
+        assertEq("pkg.ExTwo", inferred_.getComponent());
+        assertEq(2, inferred_.getDim());
+    }
+
+    @Test
+    public void getComponentForm6Test() {
+        DimComp inferred_ = AnaTemplates.getComponentForm("[]");
+        assertEq("", inferred_.getComponent());
+        assertEq(0, inferred_.getDim());
+    }
+
+    @Test
+    public void getComponentForm7Test() {
+        DimComp inferred_ = AnaTemplates.getComponentForm("]");
+        assertEq("", inferred_.getComponent());
+        assertEq(0, inferred_.getDim());
+    }
+
+    @Test
+    public void getComponentForm8Test() {
+        DimComp inferred_ = AnaTemplates.getComponentForm(" ]");
+        assertEq("", inferred_.getComponent());
+        assertEq(0, inferred_.getDim());
+    }
     @Test
     public void tryInfer1Test() {
         StringMap<String> files_ = new StringMap<String>();

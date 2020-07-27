@@ -1,7 +1,11 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.ParentInferring;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -19,13 +23,85 @@ import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ElementArrayInstancing extends AbstractArrayInstancingOperation {
+public final class ElementArrayInstancing extends AbstractArrayInstancingOperation implements PreAnalyzableOperation {
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
+    private String typeInfer = EMPTY_STRING;
     public ElementArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+    }
+
+    @Override
+    public void preAnalyze(ContextEl _an) {
+        String me_ = getMethodName();
+        int off_ = StringList.getFirstPrintableCharIndex(me_);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
+        setClassName(_an.getStandards().getAliasObject());
+        KeyWords keyWords_ = _an.getKeyWords();
+        String new_ = keyWords_.getKeyWordNew();
+        String className_ = me_.trim().substring(new_.length());
+        int local_ = StringList.getFirstPrintableCharIndex(className_);
+        String type_;
+        ParentInferring par_ = ParentInferring.getParentInferring(this);
+        OperationNode m_ = par_.getOperation();
+        int nbParentsInfer_ = par_.getNbParentsInfer();
+        String typeAff_;
+        AnalyzedBlock cur_ = _an.getAnalyzing().getCurrentAnaBlock();
+        if (m_ == null && cur_ instanceof ReturnMethod) {
+            typeAff_ = tryGetRetType(_an);
+        } else if (m_ == null && cur_ instanceof ImportForEachLoop) {
+            ImportForEachLoop i_ = (ImportForEachLoop) cur_;
+            typeAff_ = i_.getImportedClassName();
+            if (!typeAff_.isEmpty()) {
+                typeAff_ = StringExpUtil.getPrettyArrayType(typeAff_);
+            }
+        } else {
+            typeAff_ = tryGetTypeAff(m_);
+        }
+        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+        DimComp dim_ = AnaTemplates.getComponentForm(className_);
+        String inferForm_ = AnaTemplates.getInferForm(dim_.getComponent());
+        if (inferForm_ == null) {
+            int loc_ = StringList.getFirstPrintableCharIndex(className_);
+            String res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,new_.length()+loc_,className_,true,partOffsets_);
+            if (res_.startsWith(ARR)) {
+                partOffsets.addAllElts(partOffsets_);
+                typeInfer = res_;
+                setClassName(StringExpUtil.getQuickComponentType(res_));
+            }
+            return;
+        }
+        type_ = ResolvingImportTypes.resolveAccessibleIdTypeWithoutError(_an,new_.length()+local_,inferForm_);
+        partOffsets_.addAllElts(_an.getAnalyzing().getCurrentParts());
+        if (type_.isEmpty()) {
+            return;
+        }
+
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        if (isUndefined(typeAff_, keyWordVar_)) {
+            return;
+        }
+        if (dim_.getDim() == 0) {
+            return;
+        }
+        String cp_ = StringExpUtil.getQuickComponentType(typeAff_, nbParentsInfer_+dim_.getDim());
+        if (isNotCorrectDim(cp_)) {
+            return;
+        }
+        StringMap<String> vars_ = new StringMap<String>();
+        String infer_ = AnaTemplates.tryInfer(type_,vars_, cp_, _an);
+        if (infer_ == null) {
+            return;
+        }
+        String arr_ = StringExpUtil.getPrettyArrayType(infer_, dim_.getDim());
+        partOffsets.addAllElts(partOffsets_);
+        int begin_ = new_.length()+local_+className_.indexOf('<');
+        int end_ = new_.length()+local_+className_.indexOf('>')+1;
+        ContextUtil.appendTitleParts(_an,begin_,end_, arr_,partOffsets);
+        typeInfer = arr_;
+        setClassName(StringExpUtil.getQuickComponentType(arr_));
     }
 
     @Override
@@ -38,9 +114,13 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         KeyWords keyWords_ = _conf.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
-        int loc_ = StringList.getFirstPrintableCharIndex(className_);
-        className_ = ResolvingImportTypes.resolveCorrectType(_conf,new_.length()+loc_,className_);
-        partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+        if (typeInfer.isEmpty()) {
+            int loc_ = StringList.getFirstPrintableCharIndex(className_);
+            className_ = ResolvingImportTypes.resolveCorrectType(_conf,new_.length()+loc_,className_);
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+        } else {
+            className_ = typeInfer;
+        }
         if (!className_.startsWith(ARR)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());

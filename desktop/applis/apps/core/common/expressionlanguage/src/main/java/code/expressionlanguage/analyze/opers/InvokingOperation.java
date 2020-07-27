@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.blocks.FunctionBlock;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.GeneType;
@@ -63,6 +65,39 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return firstArgs_;
     }
 
+    protected static String tryGetRetType(ContextEl _an) {
+        FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
+        if (f_ instanceof NamedFunctionBlock) {
+            NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
+            String ret_ = n_.getImportedReturnType();
+            String void_ = _an.getStandards().getAliasVoid();
+            if (!StringList.quickEq(ret_, void_)) {
+                return ret_;
+            }
+        }
+        return EMPTY_STRING;
+    }
+    protected static String tryGetTypeAff(OperationNode _m) {
+        if (_m instanceof CastOperation) {
+            CastOperation c_ = (CastOperation) _m;
+            return c_.getClassName();
+        } else if (_m instanceof AffectationOperation) {
+            AffectationOperation a_ = (AffectationOperation) _m;
+            SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
+            if (s_ != null) {
+                ClassArgumentMatching c_ = s_.getResultClass();
+                return c_.getSingleNameOrEmpty();
+            }
+        }
+        return EMPTY_STRING;
+    }
+    protected static boolean isNotCorrectDim(String cp_) {
+        return cp_ == null||cp_.startsWith("[");
+    }
+
+    protected static boolean isUndefined(String typeAff_, String keyWordVar_) {
+        return typeAff_.isEmpty() || StringList.quickEq(typeAff_, keyWordVar_);
+    }
     private static CustList<OperationNode> filterOperands(CustList<OperationNode> _children) {
         CustList<OperationNode> firstArgs_ = new CustList<OperationNode>();
         for (OperationNode o: _children) {
