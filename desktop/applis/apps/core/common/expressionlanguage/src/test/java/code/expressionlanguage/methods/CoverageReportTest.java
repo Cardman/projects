@@ -15600,6 +15600,138 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.getValue(1));
     }
     @Test
+    public void coverage387Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append("  $public Inner(){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $new{} Ex().$new{} Inner();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageOtherIniDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $class <a name=\"m40\">Inner </a>{\n" +
+                "  <a name=\"m50\">$public Inner(</a>){\n" +
+                "  }\n" +
+                " }\n" +
+                " $public $static Object <a name=\"m98\">exmeth</a>(){\n" +
+                "  $return <span class=\"f\"><span class=\"f\">$new{} <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span>.<span class=\"f\"><a title=\"pkg.Ex..Inner.pkg.Ex..Inner()\" href=\"#m50\">$new</a>{} <a title=\"pkg.Ex..Inner\" href=\"#m40\">Inner</a>()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage388Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append("  $public Inner($int p){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $new{} Ex(0).$new{} Inner(1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageOtherIniDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $class <a name=\"m40\">Inner </a>{\n" +
+                "  <a name=\"m50\">$public Inner(</a>$int <a name=\"m69\">p</a>){\n" +
+                "  }\n" +
+                " }\n" +
+                " <a name=\"m81\">$public Ex(</a>$int <a name=\"m97\">p</a>){\n" +
+                " }\n" +
+                " $public $static Object <a name=\"m128\">exmeth</a>(){\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.pkg.Ex($int)\" href=\"#m81\">$new</a>{} <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>(<span class=\"f\">0</span>)</span>.<span class=\"f\"><a title=\"pkg.Ex..Inner.pkg.Ex..Inner($int)\" href=\"#m50\">$new</a>{} <a title=\"pkg.Ex..Inner\" href=\"#m40\">Inner</a>(<span class=\"f\">1</span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage389Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $class Inner<T> {\n");
+        xml_.append("  $public Inner(){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $new{} Ex().$new{} Inner<Ex>();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageOtherIniDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $class <a name=\"m40\">Inner</a>&lt;<a name=\"m46\">T</a>&gt; {\n" +
+                "  <a name=\"m53\">$public Inner(</a>){\n" +
+                "  }\n" +
+                " }\n" +
+                " $public $static Object <a name=\"m101\">exmeth</a>(){\n" +
+                "  $return <span class=\"f\"><span class=\"f\">$new{} <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span>.<span class=\"f\"><a title=\"pkg.Ex..Inner.pkg.Ex..Inner()\" href=\"#m53\">$new</a>{} <a title=\"pkg.Ex..Inner\" href=\"#m40\">Inner</a>&lt;<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&gt;()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage390Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $class Inner<T> {\n");
+        xml_.append("  $public Inner($int p){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $new{} Ex(0).$new{} Inner<Ex>(1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageOtherIniDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex </a>{\n" +
+                " $public $class <a name=\"m40\">Inner</a>&lt;<a name=\"m46\">T</a>&gt; {\n" +
+                "  <a name=\"m53\">$public Inner(</a>$int <a name=\"m72\">p</a>){\n" +
+                "  }\n" +
+                " }\n" +
+                " <a name=\"m84\">$public Ex(</a>$int <a name=\"m100\">p</a>){\n" +
+                " }\n" +
+                " $public $static Object <a name=\"m131\">exmeth</a>(){\n" +
+                "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.pkg.Ex($int)\" href=\"#m84\">$new</a>{} <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>(<span class=\"f\">0</span>)</span>.<span class=\"f\"><a title=\"pkg.Ex..Inner.pkg.Ex..Inner($int)\" href=\"#m53\">$new</a>{} <a title=\"pkg.Ex..Inner\" href=\"#m40\">Inner</a>&lt;<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&gt;(<span class=\"f\">1</span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

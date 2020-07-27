@@ -68,6 +68,8 @@ public final class StandardInstancingOperation extends
         String afterNew_ = methodName.trim().substring(newKeyWord_.length());
         int j_ = afterNew_.indexOf("}");
         int delta_ = 0;
+        int offDelta_ = StringList.getFirstPrintableCharIndex(methodName);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offDelta_, _an);
         if (j_ > -1) {
             afterNew_ = afterNew_.substring(j_+1);
             delta_ = j_+1;
@@ -78,6 +80,7 @@ public final class StandardInstancingOperation extends
         ClassArgumentMatching arg_ = getPreviousResultClass();
         StringMap<String> ownersMap_ = new StringMap<String>();
         StringMap<String> vars_ = new StringMap<String>();
+        String sup_ = "";
         if (isIntermediateDottedOperation()) {
             if (arg_.isArray()) {
                 return;
@@ -106,7 +109,7 @@ public final class StandardInstancingOperation extends
             if (ownersMap_.size() != 1) {
                 return;
             }
-            String sup_ = ownersMap_.values().first();
+            sup_ = ownersMap_.values().first();
             vars_ = Templates.getVarTypes(sup_,_an);
         }
         String type_;
@@ -193,6 +196,33 @@ public final class StandardInstancingOperation extends
         }
         String inferForm_ = AnaTemplates.getInferForm(className_);
         if (inferForm_ == null) {
+            CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+            if (!isIntermediateDottedOperation()) {
+                String res_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,newKeyWord_.length()+local_,className_,true,partOffsets_);
+                if (!res_.isEmpty()) {
+                    partOffsets.addAllElts(partOffsets_);
+                    typeInfer = res_;
+                }
+            } else {
+                int offset_ = newKeyWord_.length()+local_+StringList.getFirstPrintableCharIndex(className_);
+                int begin_ = offset_;
+                className_ = className_.trim();
+                String idClass_ = StringExpUtil.getIdFromAllTypes(className_);
+                ContextUtil.appendParts(_an,begin_,begin_ + idClass_.length(),StringList.concat(sup_, "..", idClass_),partOffsets_);
+                offset_ += idClass_.length() + 1;
+                StringList partsArgs_ = new StringList();
+                for (String a: StringExpUtil.getAllTypes(className_).mid(1)) {
+                    int loc_ = StringList.getFirstPrintableCharIndex(a);
+                    partsArgs_.add(ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,offset_+loc_,a,true,partOffsets_));
+                    offset_ += a.length() + 1;
+                }
+                StringMap<StringList> currVars_ = _an.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+                String res_ = AnaTemplates.tryGetAllInners(StringList.concat(sup_, "..", idClass_), partsArgs_, currVars_, _an);
+                if (!res_.isEmpty()) {
+                    partOffsets.addAllElts(partOffsets_);
+                    typeInfer = res_;
+                }
+            }
             return;
         }
         CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
@@ -208,7 +238,6 @@ public final class StandardInstancingOperation extends
             int off_ = StringList.getFirstPrintableCharIndex(methodName);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
             String idClass_ = StringExpUtil.getIdFromAllTypes(className_).trim();
-            String sup_ = ownersMap_.values().first();
             String id_ = StringExpUtil.getIdFromAllTypes(sup_);
             type_ = StringList.concat(id_,"..",idClass_);
             int begin_ = newKeyWord_.length()+local_;

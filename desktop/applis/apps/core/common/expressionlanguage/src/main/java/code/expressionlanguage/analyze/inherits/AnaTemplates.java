@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.inherits.InferenceConstraints;
 import code.expressionlanguage.inherits.MappingPairs;
 import code.expressionlanguage.inherits.Matching;
@@ -531,47 +530,52 @@ public final class AnaTemplates {
     }
 
     public static String check(StringList _errs,String _className, StringList _parts, StringMap<StringList> _inherit, ContextEl _context) {
-        String realClassName_;
-        if (_parts.isEmpty()) {
-            realClassName_ = _className;
-        } else {
-            realClassName_ = StringList.concat(_className,"<", StringList.join(_parts, ","),">");
-        }
-        String res_ = getCorrectTemplateAll(_className, _parts, _inherit,_context);
+        String res_ = tryGetAllInners(_className, _parts, _inherit, _context);
         if (res_.isEmpty()) {
             int rc_ = _context.getAnalyzing().getLocalizer().getCurrentLocationIndex();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_context.getAnalyzing().getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //original type len
+            String realClassName_ = getRealClassName(_className, _parts);
             un_.buildError(_context.getAnalysisMessages().getBadParamerizedType(),
                     realClassName_);
             _context.getAnalyzing().getLocalizer().addError(un_);
             _errs.add(un_.getBuiltError());
-            realClassName_ = _context.getStandards().getAliasObject();
+            res_ = _context.getStandards().getAliasObject();
         }
-        return realClassName_;
+        return res_;
     }
-    public static String getCorrectTemplateAll(String _className, StringList _parts, StringMap<StringList> _inherit, ContextEl _context) {
-        String id_ = StringExpUtil.getIdFromAllTypes(_className);
-        ExecRootBlock g_ = _context.getClasses().getClassBody(id_);
-        CustList<StringList> bounds_ = g_.getBoundAll();
-        int len_ = bounds_.size();
-        if (len_ != _parts.size()) {
-            return "";
-        }
+
+    public static String tryGetAllInners(String _className, StringList _parts, StringMap<StringList> _inherit, ContextEl _context) {
+        String realClassName_ = getRealClassName(_className, _parts);
+        return getCorrectTemplateAll(realClassName_, _parts, _inherit,_context);
+    }
+
+    private static String getRealClassName(String _className, StringList _parts) {
         String realClassName_;
         if (_parts.isEmpty()) {
             realClassName_ = _className;
         } else {
             realClassName_ = StringList.concat(_className,"<", StringList.join(_parts, ","),">");
         }
+        return realClassName_;
+    }
+
+    public static String getCorrectTemplateAll(String _realClassName, StringList _parts, StringMap<StringList> _inherit, ContextEl _context) {
+        String id_ = StringExpUtil.getIdFromAllTypes(_realClassName);
+        ExecRootBlock g_ = _context.getClasses().getClassBody(id_);
+        CustList<StringList> bounds_ = g_.getBoundAll();
+        int len_ = bounds_.size();
+        if (len_ != _parts.size()) {
+            return "";
+        }
         for (int i = 0; i < len_; i++) {
             StringList b_ = bounds_.get(i);
             for (String b:b_) {
                 Mapping mapp_ = new Mapping();
                 mapp_.setArg(_parts.get(i));
-                String param_ = Templates.format(realClassName_, b, _context);
+                String param_ = Templates.format(_realClassName, b, _context);
                 mapp_.setParam(param_);
                 mapp_.setMapping(_inherit);
                 if (!isCorrect(mapp_,_context)){
@@ -579,7 +583,7 @@ public final class AnaTemplates {
                 }
             }
         }
-        return realClassName_;
+        return _realClassName;
     }
 
     public static String tryInfer(String _erased, StringMap<String> _vars, String _declaring, ContextEl _context) {
