@@ -198,14 +198,23 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof ChoiceFctOperation) {
             ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
+            if (c_.isTrueFalse()) {
+                return new RendExplicitOperation(c_);
+            }
             return new RendChoiceFctOperation(c_);
         }
         if (_anaNode instanceof SuperFctOperation) {
             SuperFctOperation s_ = (SuperFctOperation) _anaNode;
+            if (s_.isTrueFalse()) {
+                return new RendExplicitOperation(s_);
+            }
             return new RendSuperFctOperation(s_);
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
+            if (f_.isTrueFalse()) {
+                return new RendExplicitOperation(f_);
+            }
             return new RendFctOperation(f_);
         }
         if (_anaNode instanceof FirstOptOperation) {

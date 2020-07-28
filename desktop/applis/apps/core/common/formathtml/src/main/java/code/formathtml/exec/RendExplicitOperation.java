@@ -1,6 +1,9 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
+import code.expressionlanguage.analyze.opers.FctOperation;
+import code.expressionlanguage.analyze.opers.SuperFctOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ExplicitOperation;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
@@ -9,6 +12,7 @@ import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class RendExplicitOperation extends RendAbstractUnaryOperation implements RendCallable {
     private String className;
@@ -22,7 +26,27 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation impl
         offset = _a.getOffset();
         castOpId = _a.getCastOpId();
     }
-
+    public RendExplicitOperation(FctOperation _a) {
+        super(_a);
+        className = _a.getClassMethodId().getClassName();
+        classNameOwner = _a.getClassMethodId().getClassName();
+        offset = StringList.getFirstPrintableCharIndex(_a.getMethodName());
+        castOpId = _a.getClassMethodId().getConstraints();
+    }
+    public RendExplicitOperation(SuperFctOperation _a) {
+        super(_a);
+        className = _a.getClassMethodId().getClassName();
+        classNameOwner = _a.getClassMethodId().getClassName();
+        offset = StringList.getFirstPrintableCharIndex(_a.getMethodName());
+        castOpId = _a.getClassMethodId().getConstraints();
+    }
+    public RendExplicitOperation(ChoiceFctOperation _a) {
+        super(_a);
+        className = _a.getClassMethodId().getClassName();
+        classNameOwner = _a.getClassMethodId().getClassName();
+        offset = StringList.getFirstPrintableCharIndex(_a.getMethodName());
+        castOpId = _a.getClassMethodId().getConstraints();
+    }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
