@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
@@ -35,7 +34,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             _context.setException(new ErrorStruct(_context,null_));
             return false;
         }
-        String res_ = ExecTemplates.correctClassPartsDynamic(className_, _context, true);
+        String res_ = ExecTemplates.correctClassPartsDynamicWildCard(className_,_context);
         if (res_.isEmpty()) {
             String null_;
             null_ = stds_.getAliasIllegalArg();

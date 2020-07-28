@@ -411,7 +411,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "?#W";
-        assertEq("",Templates.format(first_, second_, cont_));
+        assertEq("?java.lang.Number",Templates.format(first_, second_, cont_));
     }
 
 
@@ -424,7 +424,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "!#W";
-        assertEq("",Templates.format(first_, second_, cont_));
+        assertEq("!java.lang.Number",Templates.format(first_, second_, cont_));
     }
 
 
@@ -858,7 +858,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.ExTwo<?[#T>";
         String res_ = Templates.format(first_, second_, cont_);
-        assertEq("",res_);
+        assertEq("pkg.ExTwo<?[java.lang.Number>",res_);
     }
 
 

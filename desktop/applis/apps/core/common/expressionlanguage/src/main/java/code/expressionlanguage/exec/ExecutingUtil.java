@@ -2,7 +2,6 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.FunctionBlock;
 import code.expressionlanguage.analyze.blocks.MethodKind;
 import code.expressionlanguage.analyze.blocks.ReturnableWithSignature;
 import code.expressionlanguage.common.*;
@@ -725,12 +724,9 @@ public final class ExecutingUtil {
         }
         String currentClassName = call_.getGlobalClass();
         ExecBlock bl_ = call_.getBlockRoot();
-        if (bl_ != null) {
-            FunctionBlock fct_ = bl_.getFunction();
-            if (fct_ instanceof ReturnableWithSignature) {
-                String signature =((ReturnableWithSignature)fct_).getSignature(_cont);
-                return new StackTraceElementStruct(fileName,row,col,indexFileType,currentClassName,signature);
-            }
+        if (bl_ instanceof ReturnableWithSignature) {
+            String signature =((ReturnableWithSignature)bl_).getSignature(_cont);
+            return new StackTraceElementStruct(fileName,row,col,indexFileType,currentClassName,signature);
         }
         String signature = "";
         return new StackTraceElementStruct(fileName,row,col,indexFileType,currentClassName,signature);

@@ -340,9 +340,6 @@ public final class AnaTemplates {
             AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,id_);
             for (String t: g_.getAllGenericSuperTypes()) {
                 String f_ = Templates.format(base_, t, _conf);
-                if (f_.isEmpty()) {
-                    continue;
-                }
                 superTypes_.add(StringExpUtil.getPrettyArrayType(f_, d_));
             }
             for (int d = 1; d <= d_; d++) {

@@ -161,22 +161,11 @@ public final class ExecTemplates {
         return current_;
     }
     /**Calls Templates.isCorrect*/
-    public static String correctClassPartsDynamic(String _className, ContextEl _context, boolean _wildCard) {
+    public static String correctClassPartsDynamic(String _className, ContextEl _context) {
         ExecResultPartType className_ = ExecPartTypeUtil.processExec(_className, _context);
         String res_ = className_.getResult();
         if (res_.isEmpty()) {
             return "";
-        }
-        if (_wildCard) {
-            CustList<String> allArgTypes_ = StringExpUtil.getAllTypes(res_).mid(1);
-            for (String m: allArgTypes_) {
-                if (m.startsWith(SUB_TYPE)) {
-                    return "";
-                }
-                if (m.startsWith(SUP_TYPE)) {
-                    return "";
-                }
-            }
         }
         if (!ExecPartTypeUtil.checkParametersCount(className_, _context)){
             return "";
@@ -185,6 +174,30 @@ public final class ExecTemplates {
             return res_;
         }
         return "";
+    }
+    public static String correctClassPartsDynamicWildCard(String _className, ContextEl _context) {
+        CustList<String> allArgTypes_ = StringExpUtil.getAllTypes(_className).mid(1);
+        for (String m: allArgTypes_) {
+            if (m.startsWith(SUB_TYPE)) {
+                return "";
+            }
+            if (m.startsWith(SUP_TYPE)) {
+                return "";
+            }
+        }
+        return getMade(_className, _context, allArgTypes_);
+    }
+    public static String correctClassPartsDynamicNotWildCard(String _className, ContextEl _context) {
+        CustList<String> allArgTypes_ = StringExpUtil.getAllTypes(_className).mid(1);
+        return getMade(_className, _context, allArgTypes_);
+    }
+
+    private static String getMade(String _className, ContextEl _context, CustList<String> allArgTypes_) {
+        String madeVarTypes_ = getMadeVarTypes(_className, new StringList(allArgTypes_), _context);
+        if (madeVarTypes_ == null) {
+            return "";
+        }
+        return madeVarTypes_;
     }
 
     public static boolean isCorrectExecute(String _a, String _p, ContextEl _context) {
@@ -675,8 +688,15 @@ public final class ExecTemplates {
         for (int i = 0; i < len_; i++) {
             ExecTypeVar t = typeVar_.get(i);
             for (String b:t.getConstraints()) {
+                String arg_ = _classNames.get(i);
+                if (arg_.startsWith("?")) {
+                    continue;
+                }
+                if (arg_.startsWith("!")) {
+                    continue;
+                }
                 String param_ = Templates.format(formatted_, b, _context);
-                if (!isCorrectExecute(_classNames.get(i),param_,_context)) {
+                if (!isCorrectExecute(arg_,param_,_context)) {
                     return null;
                 }
             }

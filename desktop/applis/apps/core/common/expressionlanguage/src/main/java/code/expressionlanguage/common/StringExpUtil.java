@@ -324,9 +324,7 @@ public final class StringExpUtil {
             }
             String sub_ = _type.substring(diese_+1, i);
             if (_varTypes.contains(sub_)) {
-                if (!tryReplaceType(_varTypes, str_, sub_)) {
-                    return "";
-                }
+                tryReplaceType(_varTypes, str_, sub_);
             } else {
                 sub_ = _type.substring(diese_, i);
                 str_.append(sub_);
@@ -337,9 +335,7 @@ public final class StringExpUtil {
         if (var_) {
             String sub_ = _type.substring(diese_+1);
             if (_varTypes.contains(sub_)) {
-                if (!tryReplaceType(_varTypes, str_, sub_)) {
-                    return "";
-                }
+                tryReplaceType(_varTypes, str_, sub_);
             } else {
                 sub_ = _type.substring(diese_);
                 str_.append(sub_);
@@ -347,25 +343,26 @@ public final class StringExpUtil {
         }
         return str_.toString();
     }
-    private static boolean tryReplaceType(StringMap<String> _varTypes, StringBuilder _str, String _sub) {
+    private static void tryReplaceType(StringMap<String> _varTypes, StringBuilder _str, String _sub) {
         int j_ = getMaxIndex(_str, _str.length() - 1);
         String value_ = _varTypes.getVal(_sub);
         if (value_.startsWith(SUB_TYPE)) {
             if (isSubOrSubChar(_str,j_)) {
-                return false;
+                _str.append(value_.substring(SUB_TYPE.length()));
+            } else {
+                _str.insert(j_ +1, SUB_TYPE);
+                _str.append(value_.substring(SUB_TYPE.length()));
             }
-            _str.insert(j_ +1, SUB_TYPE);
-            _str.append(value_.substring(SUB_TYPE.length()));
         } else if (value_.startsWith(SUP_TYPE)) {
             if (isSubOrSubChar(_str,j_)) {
-                return false;
+                _str.append(value_.substring(SUP_TYPE.length()));
+            } else {
+                _str.insert(j_ + 1, SUP_TYPE);
+                _str.append(value_.substring(SUP_TYPE.length()));
             }
-            _str.insert(j_ +1, SUP_TYPE);
-            _str.append(value_.substring(SUP_TYPE.length()));
         } else {
             _str.append(value_);
         }
-        return true;
     }
     public static String getReflectFormattedType(String _type, StringMap<String> _varTypes) {
         if (_varTypes.isEmpty()) {

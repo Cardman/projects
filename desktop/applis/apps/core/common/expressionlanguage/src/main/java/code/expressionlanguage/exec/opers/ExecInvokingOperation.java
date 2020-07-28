@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
@@ -278,7 +277,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     a_.setStruct(ExecutingUtil.getClassMetaInfo(_cont,clDyn_));
                     return a_;
                 }
-                String res_ = ExecTemplates.correctClassPartsDynamic(clDyn_, _cont, false);
+                String res_ = ExecTemplates.correctClassPartsDynamic(clDyn_, _cont);
                 if (res_.isEmpty()) {
                     _cont.setException(new ErrorStruct(_cont,clDyn_,stds_.getAliasClassNotFoundError()));
                     return new Argument();
@@ -315,7 +314,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     _cont.setException(new ErrorStruct(_cont,null_));
                     return Argument.createVoid();
                 }
-                String res_ = ExecTemplates.correctClassPartsDynamic(className_, _cont, true);
+                String res_ = ExecTemplates.correctClassPartsDynamicWildCard(className_,_cont);
                 if (res_.isEmpty()) {
                     String null_;
                     null_ = stds_.getAliasNullPe();

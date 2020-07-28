@@ -11,8 +11,6 @@ import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.FunctionBlock;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.linkage.LinkageUtil;

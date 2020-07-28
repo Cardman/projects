@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.analyze.blocks.FunctionBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.Struct;
@@ -196,16 +195,6 @@ public abstract class ExecBlock {
         ip_.setNullReadWrite();
     }
 
-    public final FunctionBlock getFunction() {
-        ExecBlock b_ = this;
-        while (b_ != null) {
-            if (b_ instanceof FunctionBlock) {
-                return (FunctionBlock)b_;
-            }
-            b_ = b_.getParent();
-        }
-        return null;
-    }
     public final ExecFileBlock getFile() {
         return file;
     }

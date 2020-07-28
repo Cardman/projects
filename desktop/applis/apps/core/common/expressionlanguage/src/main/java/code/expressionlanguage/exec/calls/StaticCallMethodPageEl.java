@@ -29,7 +29,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
 
     @Override
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        String res_ = ExecTemplates.correctClassPartsDynamic(_className, _context, false);
+        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(_className, _context);
         if (res_.isEmpty()) {
             String null_;
             null_ = _context.getStandards().getAliasIllegalArg();

@@ -26,7 +26,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
         if (direct) {
             return false;
         }
-        String res_ = ExecTemplates.correctClassPartsDynamic(method_.getClassName(), _cont, false);
+        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(method_.getClassName(), _cont);
         if (res_.isEmpty()) {
             String null_;
             null_ = _cont.getStandards().getAliasIllegalArg();
@@ -52,7 +52,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     @Override
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        String res_ = ExecTemplates.correctClassPartsDynamic(_className, _context, false);
+        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(_className, _context);
         if (res_.isEmpty()) {
             String null_;
             null_ = _context.getStandards().getAliasIllegalArg();

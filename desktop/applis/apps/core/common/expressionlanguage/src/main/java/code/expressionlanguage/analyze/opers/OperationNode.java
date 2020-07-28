@@ -2067,12 +2067,7 @@ public abstract class OperationNode {
         MethodAccessKind k_ = _k;
         String type_ = _second;
         if (Templates.correctNbParameters(_first,_conf)) {
-            String f_ = Templates.format(_first, _second, _conf);
-            if (f_.isEmpty()) {
-                k_ = MethodAccessKind.STATIC;
-            } else {
-                type_ = f_;
-            }
+            type_ = Templates.format(_first, _second, _conf);
         } else {
             k_ = MethodAccessKind.STATIC;
         }

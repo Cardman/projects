@@ -9091,4 +9091,120 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Apply", getString(ret_));
     }
+    @Test
+    public void calculate222Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $class(ExParam).makeGeneric($class(Number).makeWildCard($true)).getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExParam<T:Number> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExParam<?java.lang.Number>",getString(out_));
+    }
+    @Test
+    public void calculate223Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $class(ExParam).makeGeneric($class(Number).makeWildCard($false)).getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExParam<T:Number> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExParam<!java.lang.Number>",getString(out_));
+    }
+    @Test
+    public void calculate224Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $class(ExParam.ExInner).makeGeneric($class(Long).makeWildCard($false),$class(Integer).makeWildCard($false)).getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExParam<T:Number> {\n");
+        xml_.append(" $public $class ExInner<S:Number> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExParam<!java.lang.Long>..ExInner<!java.lang.Integer>",getString(out_));
+    }
+    @Test
+    public void calculate225Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $class(ExParam.ExInner).makeGeneric($class(Long),$class(Integer)).getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExParam<T:Number> {\n");
+        xml_.append(" $public $class ExInner<S:Number> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExParam<java.lang.Long>..ExInner<java.lang.Integer>",getString(out_));
+    }
+    @Test
+    public void calculate226Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $Class.forName(\"pkg.ExParam<java.lang.Long>..ExInner<java.lang.Integer>\",$false).getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExParam<T:Number> {\n");
+        xml_.append(" $public $class ExInner<S:Number> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertEq("pkg.ExParam<java.lang.Long>..ExInner<java.lang.Integer>",getString(out_));
+    }
 }

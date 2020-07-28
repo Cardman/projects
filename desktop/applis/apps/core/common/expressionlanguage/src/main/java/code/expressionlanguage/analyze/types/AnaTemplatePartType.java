@@ -94,12 +94,15 @@ final class AnaTemplatePartType extends AnaBinaryType {
                 i_++;
                 continue;
             }
-            String comp_ = arg_;
-            if (comp_.startsWith(Templates.SUB_TYPE)) {
-                comp_ = comp_.substring(Templates.SUB_TYPE.length());
-            } else if (comp_.startsWith(Templates.SUP_TYPE)) {
-                comp_ = comp_.substring(Templates.SUP_TYPE.length());
+            if (arg_.startsWith(Templates.SUB_TYPE)) {
+                i_++;
+                continue;
             }
+            if (arg_.startsWith(Templates.SUP_TYPE)) {
+                i_++;
+                continue;
+            }
+            String comp_ = arg_;
             DimComp dimCompArg_ = StringExpUtil.getQuickComponentBaseType(comp_);
             comp_ = dimCompArg_.getComponent();
             boolean lookInInherit_ = comp_.startsWith(Templates.PREFIX_VAR_TYPE);
