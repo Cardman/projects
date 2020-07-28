@@ -878,7 +878,7 @@ public abstract class OperationNode {
         return varargOnly_ > -1;
     }
 
-    private static boolean exclude(AnaGeneType _g,ContextEl _conf, ConstructorId _uniqueId, int _varargOnly, GeneConstructor e) {
+    protected static boolean exclude(AnaGeneType _g,ContextEl _conf, ConstructorId _uniqueId, int _varargOnly, GeneConstructor e) {
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
         ConstructorId ctor_ = e.getId();
         boolean varArg_ = ctor_.isVararg();
@@ -1912,7 +1912,7 @@ public abstract class OperationNode {
             fetchCastMethods(t_,_conf, _uniqueId, glClass_, methods_, _conf.getStandards().getAliasPrimBoolean(),formatted_, castsFrom_, superTypesBaseAncBis_);
         }
     }
-    private static CustList<CustList<MethodInfo>>
+    protected static CustList<CustList<MethodInfo>>
     getDeclaredCustMethodByType(ContextEl _conf, MethodAccessKind _staticContext, boolean _accessFromSuper,
                                 boolean _superClass, StringList _fromClasses, String _name, boolean _import, ClassMethodIdAncestor _uniqueId) {
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
@@ -1949,7 +1949,7 @@ public abstract class OperationNode {
         return methods_;
     }
 
-    private static boolean isCandidateMethod(ClassMethodIdAncestor _uniqueId, int _ancestor,String _clName, MethodId _id) {
+    protected static boolean isCandidateMethod(ClassMethodIdAncestor _uniqueId, int _ancestor,String _clName, MethodId _id) {
         if (_uniqueId != null) {
             if (_uniqueId.getAncestor() != _ancestor) {
                 return true;
@@ -2294,8 +2294,8 @@ public abstract class OperationNode {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         String idClass_ = StringExpUtil.getIdFromAllTypes(_className);
-        ExecRootBlock r_ = _conf.getClasses().getClassBody(idClass_);
-        if (!(r_ instanceof ExecEnumBlock)) {
+        RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(idClass_);
+        if (!(r_ instanceof EnumBlock)) {
             return methods_;
         }
         String wildCardForm_ = r_.getWildCardString();

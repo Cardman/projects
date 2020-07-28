@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
@@ -604,7 +605,7 @@ public final class AnaTemplates {
 
     public static String getCorrectTemplateAll(String _realClassName, StringList _parts, StringMap<StringList> _inherit, ContextEl _context) {
         String id_ = StringExpUtil.getIdFromAllTypes(_realClassName);
-        ExecRootBlock g_ = _context.getClasses().getClassBody(id_);
+        RootBlock g_ = _context.getAnalyzing().getAnaClassBody(id_);
         CustList<StringList> bounds_ = g_.getBoundAll();
         int len_ = bounds_.size();
         if (len_ != _parts.size()) {

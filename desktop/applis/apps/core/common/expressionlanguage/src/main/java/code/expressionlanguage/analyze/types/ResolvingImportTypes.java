@@ -298,7 +298,7 @@ public final class ResolvingImportTypes {
             partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc+void_.length()));
             return "";
         }
-        ExecRootBlock b_ = _analyzable.getClasses().getClassBody(res_);
+        RootBlock b_ = _analyzable.getAnalyzing().getAnaClassBody(res_);
         if (b_ == null) {
             if (tr_.isEmpty()) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -347,7 +347,7 @@ public final class ResolvingImportTypes {
                 delta_ = 2;
                 resId_ = StringList.concat(res_,"-",i_.trim());
             }
-            ExecRootBlock inner_ = _analyzable.getClasses().getClassBody(resId_);
+            RootBlock inner_ = _analyzable.getAnalyzing().getAnaClassBody(resId_);
             if (inner_ == null) {
                 //ERROR
                 FoundErrorInterpret undef_;
@@ -412,7 +412,7 @@ public final class ResolvingImportTypes {
         if (_rooted instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _rooted;
             String type_ = StringExpUtil.removeDottedSpaces(StringList.concat(r_.getPackageName(),".",_type));
-            if (_an.getClasses().getClassBody(type_) != null) {
+            if (_an.getAnalyzing().getAnaClassBody(type_) != null) {
                 return type_;
             }
         }

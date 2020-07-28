@@ -4,21 +4,24 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.FunctionBlock;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.opers.util.ParametersGroup;
+import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.exec.util.ExecTypeVar;
-import code.expressionlanguage.functionid.ClassMethodIdAncestor;
-import code.expressionlanguage.functionid.Identifiable;
-import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
@@ -90,6 +93,123 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
         }
         return EMPTY_STRING;
+    }
+
+    protected static int getDeltaCount(OperationNode _firstChild) {
+        int deltaCount_ = 0;
+        OperationNode next_ = _firstChild;
+        if (_firstChild instanceof StaticInitOperation){
+            next_ = _firstChild.getNextSibling();
+            deltaCount_ = 1;
+        }
+        if (next_ instanceof IdFctOperation || next_ instanceof VarargOperation) {
+            deltaCount_++;
+        }
+        return deltaCount_;
+    }
+
+    protected static void tryGetCtors(ContextEl _an, String _typeInfer, CustList<ConstructorInfo> _ctors) {
+        String base_ = StringExpUtil.getIdFromAllTypes(_typeInfer);
+        AnaGeneType g_ = _an.getAnalyzing().getAnaGeneType(_an,base_);
+        CustList<GeneConstructor> constructors_ = ContextUtil.getConstructorBodies(g_);
+        for (GeneConstructor e: constructors_) {
+            ConstructorId ctor_ = e.getId();
+            if (exclude(g_,_an,null,-1, e)) {
+                continue;
+            }
+            ParametersGroup pg_ = new ParametersGroup();
+            ConstructorInfo mloc_ = new ConstructorInfo();
+            mloc_.setConstraints(ctor_);
+            mloc_.setParameters(pg_);
+            mloc_.setClassName(_typeInfer);
+            mloc_.format(_an);
+            _ctors.add(mloc_);
+        }
+    }
+    protected static String tryFormat(Parametrable _param, int indexChild_, int nbParentsInfer_, String type_, StringMap<String> vars_, ContextEl _an) {
+        String parametersType_ = tryGetParam(_param,indexChild_);
+        if (parametersType_ == null) {
+            return null;
+        }
+        boolean applyTwo_ = applyArrayOrElement(_param, indexChild_);
+        String cp_ = StringExpUtil.getQuickComponentType(parametersType_, nbParentsInfer_);
+        if (!applyTwo_) {
+            if (isNotCorrectDim(cp_)) {
+                return null;
+            }
+        } else {
+            if (isNotCorrectDim(cp_)) {
+                String cpTwo_ = StringExpUtil.getQuickComponentType(parametersType_, nbParentsInfer_-1);
+                if (isNotCorrectDim(cpTwo_)) {
+                    return null;
+                }
+                cp_ = cpTwo_;
+            }
+        }
+        return AnaTemplates.tryInfer(type_,vars_, cp_, _an);
+    }
+    protected static String tryGetParam(Parametrable _param, int indexChild_) {
+        String parametersType_;
+        Identifiable idMethod_ = _param.getGeneFormatted();
+        if (!idMethod_.isVararg()) {
+            if (idMethod_.getParametersTypesLength() <= indexChild_) {
+                return null;
+            }
+            parametersType_ = idMethod_.getParametersType(indexChild_);
+        } else {
+            if (idMethod_.getParametersTypesLength() <= indexChild_) {
+                parametersType_ = idMethod_.getParametersTypes().last();
+            } else {
+                parametersType_ = idMethod_.getParametersType(indexChild_);
+            }
+        }
+        return parametersType_;
+    }
+    protected static boolean applyArrayOrElement(Parametrable _param, int indexChild_) {
+        Identifiable idMethod_ = _param.getGeneFormatted();
+        if (!idMethod_.isVararg()) {
+            return false;
+        } else {
+            if (idMethod_.getParametersTypesLength() <= indexChild_) {
+                return false;
+            } else {
+                return indexChild_ + 1 == idMethod_.getParametersTypesLength();
+            }
+        }
+    }
+
+    protected static void filterByReturnType(ContextEl _an, String typeAff_, CustList<CustList<MethodInfo>> _methodInfos) {
+        KeyWords keyWords_ = _an.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        if (isUndefined(typeAff_, keyWordVar_)) {
+            return;
+        }
+        int len_ = _methodInfos.size();
+        Mapping mapping_ = new Mapping();
+        mapping_.setParam(typeAff_);
+        StringMap<StringList> currVars_ = _an.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        mapping_.setMapping(currVars_);
+        for (int i = 0; i < len_; i++) {
+            int gr_ = _methodInfos.get(i).size();
+            CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+            for (int j = 0; j < gr_; j++) {
+                MethodInfo methodInfo_ = _methodInfos.get(i).get(j);
+                String returnType_ = methodInfo_.getReturnType();
+                mapping_.setArg(returnType_);
+                if (!AnaTemplates.isCorrectOrNumbers(mapping_,_an)) {
+                    ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_an, typeAff_, new ClassArgumentMatching(returnType_));
+                    if (!res_.isFoundMethod()) {
+                        continue;
+                    }
+                }
+                newList_.add(methodInfo_);
+            }
+            _methodInfos.set(i, newList_);
+        }
+    }
+    public static boolean isTrueFalseKeyWord(ContextEl _an, String _trimMeth) {
+        return StringList.quickEq(_trimMeth,_an.getKeyWords().getKeyWordTrue())
+                ||StringList.quickEq(_trimMeth,_an.getKeyWords().getKeyWordFalse());
     }
     protected static boolean isNotCorrectDim(String cp_) {
         return cp_ == null||cp_.startsWith("[");

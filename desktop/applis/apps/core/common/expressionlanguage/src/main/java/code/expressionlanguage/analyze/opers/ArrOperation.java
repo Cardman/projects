@@ -1,6 +1,11 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
+import code.expressionlanguage.analyze.blocks.ReturnMethod;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
@@ -9,13 +14,15 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
+import code.util.StringMap;
 
-public final class ArrOperation extends InvokingOperation implements SettableElResult {
+public final class ArrOperation extends InvokingOperation implements SettableElResult,PreAnalyzableOperation,RetrieveMethod {
 
     private boolean variable;
 
@@ -32,10 +39,67 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     private boolean staticChoiceMethod;
 
     private String nbErr = "";
+    private String methodFound = EMPTY_STRING;
+    private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
 
     public ArrOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+    }
+
+    @Override
+    public void preAnalyze(ContextEl _an) {
+        ForwardOperation fwd_ = tryGetForward(this);
+        boolean accessSuperTypes_ = true;
+        boolean accessFromSuper_ = false;
+        if (fwd_ != null) {
+            accessSuperTypes_ = fwd_.isAccessSuperTypes();
+            accessFromSuper_ = fwd_.isAccessFromSuper();
+        }
+        String trimMeth_ = "[]";
+        ClassArgumentMatching class_ = getPreviousResultClass();
+        String classType_ = "";
+        if (fwd_ != null) {
+            classType_ = fwd_.getClassType();
+        }
+        StringList l_;
+        if (!classType_.isEmpty()) {
+            l_ = new StringList(classType_);
+        } else {
+            l_ = class_.getNames();
+        }
+        StringList bounds_ = new StringList();
+        for (String c: l_) {
+            bounds_.addAllElts(getBounds(c, _an));
+        }
+        methodFound = trimMeth_;
+        methodInfos = getDeclaredCustMethodByType(_an,isStaticAccess(), accessFromSuper_,accessSuperTypes_,bounds_, trimMeth_, false,null);
+        int len_ = methodInfos.size();
+        for (int i = 0; i < len_; i++) {
+            int gr_ = methodInfos.get(i).size();
+            CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+            for (int j = 0; j < gr_; j++) {
+                MethodInfo methodInfo_ = methodInfos.get(i).get(j);
+                if (!StringList.quickEq(methodInfo_.getConstraints().getName(),trimMeth_)) {
+                    continue;
+                }
+                newList_.add(methodInfo_);
+            }
+            methodInfos.set(i, newList_);
+        }
+        boolean apply_ = false;
+        OperationNode curPar_ = getParent();
+        if (curPar_ instanceof AbstractDotOperation) {
+            if (curPar_.getParent() == null) {
+                apply_ = true;
+            }
+        }
+        String typeAff_ = EMPTY_STRING;
+        AnalyzedBlock cur_ = _an.getAnalyzing().getCurrentAnaBlock();
+        if (apply_ && cur_ instanceof ReturnMethod) {
+            typeAff_ = tryGetRetType(_an);
+        }
+        filterByReturnType(_an,typeAff_,methodInfos);
     }
 
     @Override
@@ -255,5 +319,15 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     public String getNbErr() {
         return nbErr;
+    }
+
+    @Override
+    public String getMethodFound() {
+        return methodFound;
+    }
+
+    @Override
+    public CustList<CustList<MethodInfo>> getMethodInfos() {
+        return methodInfos;
     }
 }

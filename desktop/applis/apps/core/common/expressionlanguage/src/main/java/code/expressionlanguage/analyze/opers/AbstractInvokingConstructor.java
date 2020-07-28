@@ -2,7 +2,12 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.analyze.opers.util.ParametersGroup;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -17,7 +22,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 
-public abstract class AbstractInvokingConstructor extends InvokingOperation {
+public abstract class AbstractInvokingConstructor extends InvokingOperation implements PreAnalyzableOperation,RetrieveConstructor {
 
     private String methodName;
     private ConstructorId constId;
@@ -27,6 +32,8 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
 
     private int naturalVararg = -1;
     private int offsetOper;
+    private ClassArgumentMatching from;
+    private CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     public AbstractInvokingConstructor(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -39,6 +46,18 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
     }
 
     @Override
+    public void preAnalyze(ContextEl _an) {
+        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
+        from = getFrom(_an);
+        if (from == null) {
+            return;
+        }
+        String clCurName_ = from.getName();
+        tryGetCtors(_an,clCurName_,ctors);
+    }
+
+    @Override
     public final void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
@@ -48,8 +67,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         LgNames stds_ = _conf.getStandards();
         String varargParam_ = getVarargParam(chidren_);
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
-        ClassArgumentMatching clArg_ = getFrom(_conf);
-        if (clArg_ == null) {
+        if (from == null) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             checkPositionBasis(_conf);
             return;
@@ -62,11 +80,11 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             StringList params_ = id_.getConstraints().getParametersTypes();
             feed_ = new ConstructorId(idClass_, params_, vararg_);
         }
-        String clCurName_ = clArg_.getName();
+        String clCurName_ = from.getName();
         classFromName = clCurName_;
         RootBlock type_ = _conf.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(clCurName_));
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, clArg_,type_, feed_, varargParam_, OperationNode.toArgArray(firstArgs_));
+        ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, from,type_, feed_, varargParam_, OperationNode.toArgArray(firstArgs_));
         if (ctorRes_.getRealId() == null) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             checkPositionBasis(_conf);
@@ -154,5 +172,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
 
     public int getNaturalVararg() {
         return naturalVararg;
+    }
+
+    public CustList<ConstructorInfo> getCtors() {
+        return ctors;
     }
 }

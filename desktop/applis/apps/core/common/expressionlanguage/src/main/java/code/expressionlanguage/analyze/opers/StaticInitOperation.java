@@ -3,7 +3,6 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.StringList;
 
@@ -32,8 +31,7 @@ public final class StaticInitOperation extends LeafOperation {
         }
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        Classes classes_ = _conf.getClasses();
-        if (classes_.getClassBody(_base) != null) {
+        if (_conf.getAnalyzing().getAnaClassBody(_base) != null) {
             possibleInitClass = true;
         } else {
             setSimpleArgument(new Argument());

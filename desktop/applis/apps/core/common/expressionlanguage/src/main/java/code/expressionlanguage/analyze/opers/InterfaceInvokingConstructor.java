@@ -4,8 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -31,7 +29,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         cl_ = cl_.substring(leftPar_, cl_.lastIndexOf(PAR_RIGHT));
         cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf, leftPar_,cl_);
         partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
-        if (!(_conf.getClasses().getClassBody(cl_) instanceof ExecInterfaceBlock)) {
+        if (!(_conf.getAnalyzing().getAnaClassBody(cl_) instanceof InterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());

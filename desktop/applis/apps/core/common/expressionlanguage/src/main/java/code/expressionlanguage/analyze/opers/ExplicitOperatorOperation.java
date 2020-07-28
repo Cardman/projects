@@ -1,6 +1,11 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
+import code.expressionlanguage.analyze.blocks.ReturnMethod;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
@@ -8,10 +13,12 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 
-public final class ExplicitOperatorOperation extends InvokingOperation implements PreAnalyzableOperation {
+public final class ExplicitOperatorOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod {
     private ClassMethodId classMethodId;
     private String methodName;
     private String lastType = EMPTY_STRING;
@@ -22,6 +29,9 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     private String from;
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private String methodFound = EMPTY_STRING;
+    private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
+
     public ExplicitOperatorOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         methodName = getOperations().getFctName();
@@ -31,16 +41,50 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     @Override
     public void preAnalyze(ContextEl _conf) {
         String cl_ = methodName;
+        setStaticAccess(_conf.getAnalyzing().getStaticContext());
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
         StringList args_ = StringExpUtil.getAllSepCommaTypes(cl_);
         from = "";
+        String op_ = args_.first();
         if (args_.size() > 1) {
             int off_ = StringList.getFirstPrintableCharIndex(args_.get(1));
             String fromType_ = StringExpUtil.removeDottedSpaces(args_.get(1));
             from = ResolvingImportTypes.resolveCorrectTypeAccessible(_conf,off_+methodName.indexOf(',')+1,fromType_);
             partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         }
+        if (from.isEmpty()) {
+            methodFound = op_;
+            CustList<MethodInfo> ops_ = getOperators(_conf, null);
+            methodInfos.add(ops_);
+        } else {
+            methodFound = op_;
+            methodInfos = getDeclaredCustMethodByType(_conf,MethodAccessKind.STATIC_CALL, false,false,new StringList(from), op_, false,null);
+        }
+        int len_ = methodInfos.size();
+        for (int i = 0; i < len_; i++) {
+            int gr_ = methodInfos.get(i).size();
+            CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+            for (int j = 0; j < gr_; j++) {
+                MethodInfo methodInfo_ = methodInfos.get(i).get(j);
+                if (!StringList.quickEq(methodInfo_.getConstraints().getName(),op_)) {
+                    continue;
+                }
+                newList_.add(methodInfo_);
+            }
+            methodInfos.set(i, newList_);
+        }
+        boolean apply_ = false;
+        OperationNode curPar_ = getParent();
+        if (curPar_ == null){
+            apply_ = true;
+        }
+        String typeAff_ = EMPTY_STRING;
+        AnalyzedBlock cur_ = _conf.getAnalyzing().getCurrentAnaBlock();
+        if (apply_ && cur_ instanceof ReturnMethod) {
+            typeAff_ = tryGetRetType(_conf);
+        }
+        filterByReturnType(_conf,typeAff_,methodInfos);
     }
 
     @Override
@@ -137,5 +181,13 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public String getMethodFound() {
+        return methodFound;
+    }
+
+    public CustList<CustList<MethodInfo>> getMethodInfos() {
+        return methodInfos;
     }
 }

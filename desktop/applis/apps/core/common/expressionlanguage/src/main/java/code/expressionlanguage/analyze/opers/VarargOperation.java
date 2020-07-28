@@ -2,7 +2,11 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -69,7 +73,48 @@ public final class VarargOperation extends LeafOperation {
         partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         setResultClass(new ClassArgumentMatching(str_));
         className = str_;
+        if (m_ instanceof RetrieveMethod) {
+            RetrieveMethod f_ = (RetrieveMethod) m_;
+            CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
+            int len_ = methodInfos_.size();
+            for (int i = 0; i < len_; i++) {
+                int gr_ = methodInfos_.get(i).size();
+                CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+                for (int j = 0; j < gr_; j++) {
+                    MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                    if (exclude(methodInfo_)) {
+                        continue;
+                    }
+                    newList_.add(methodInfo_);
+                }
+                methodInfos_.set(i,newList_);
+            }
+        }
+        if (m_ instanceof RetrieveConstructor) {
+            RetrieveConstructor f_ = (RetrieveConstructor) m_;
+            CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
+            int len_ = methodInfos_.size();
+            CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
+            for (int i = 0; i < len_; i++) {
+                ConstructorInfo methodInfo_ = methodInfos_.get(i);
+                if (exclude(methodInfo_)) {
+                    continue;
+                }
+                newList_.add(methodInfo_);
+            }
+            methodInfos_.clear();
+            methodInfos_.addAllElts(newList_);
+        }
         setSimpleArgument(new Argument());
+    }
+
+    private boolean exclude(Parametrable methodInfo_) {
+        Identifiable geneFormatted = methodInfo_.getGeneFormatted();
+        if (!methodInfo_.isVararg()) {
+            return true;
+        }
+        String wc_ = geneFormatted.getParametersType(geneFormatted.getParametersTypesLength() - 1);
+        return !StringList.quickEq(wc_, className);
     }
 
     public String getClassName() {

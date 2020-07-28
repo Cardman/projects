@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.assign.util.*;
@@ -2815,10 +2816,6 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq("pkg.Outer..InnerTwo..InnerThree", getImportedDirectSuperTypes(ctx_, "pkg.Outer..Inner").first());
     }
 
-    private static StringList getImportedDirectSuperTypes(ContextEl ctx_, String _className) {
-        return ctx_.getClasses().getClassBody(_className).getImportedDirectSuperTypes();
-    }
-
     @Test
     public void resolve76_Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -2838,6 +2835,14 @@ public final class ClassesTest extends ProcessMethodCommon {
         ContextEl ctx_ = unfullValidateInheritingClassesSingle(files_);
         assertEq(1, getImportedDirectSuperTypes(ctx_, "pkg.Outer..Inner").size());
         assertEq("pkg.Outer..InnerTwo..InnerThree..InnerFour", getImportedDirectSuperTypes(ctx_, "pkg.Outer..Inner").first());
+    }
+
+    private static StringList getImportedDirectSuperTypes(ContextEl ctx_, String _className) {
+        StringList list_ = new StringList();
+        for (AnaFormattedRootBlock l:ctx_.getAnalyzing().getAnaClassBody(_className).getImportedDirectSuperTypesInfo()) {
+            list_.add(l.getFormatted());
+        }
+        return list_;
     }
     @Test
     public void resolve76FailTest() {

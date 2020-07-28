@@ -90,7 +90,7 @@ final class AnaNamePartType extends AnaLeafPartType {
 
     private boolean analyzeFull(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _type) {
         String id_ = StringExpUtil.getIdFromAllTypes(_type);
-        ExecRootBlock root_ = _an.getClasses().getClassBody(id_);
+        RootBlock root_ = _an.getAnalyzing().getAnaClassBody(id_);
         if (root_ != null) {
             analyzeFullType(_type);
             return true;
@@ -176,7 +176,7 @@ final class AnaNamePartType extends AnaLeafPartType {
                 String genStr_ = owners_.first();
                 String id_ = StringExpUtil.getIdFromAllTypes(genStr_);
                 String in_ = StringList.concat(id_,"..",type_);
-                ExecRootBlock inner_ = classes_.getClassBody(in_);
+                RootBlock inner_ = _an.getAnalyzing().getAnaClassBody(in_);
                 if (inner_.isStaticType()) {
                     setAnalyzedType(StringList.concat(id_,"..",type_));
                     owner = a;

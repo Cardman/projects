@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -52,7 +53,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         sub_ = ResolvingImportTypes.resolveCorrectType(_conf, begin_ + off_, sub_, exact_);
         partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         if (!exact_) {
-            ExecRootBlock r_ = _conf.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(sub_));
+            RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(sub_));
             if (r_ != null) {
                 sub_ = r_.getWildCardString();
             }

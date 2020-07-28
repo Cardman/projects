@@ -13492,6 +13492,26 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void report637Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.MySub {\n");
+        xml_.append(" {\n");
+        xml_.append("  $thisaccess(MyCl)m();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.MySub </a>{\n" +
+                " {\n" +
+                "  $thisaccess(<a title=\"The type MyCl is unknown.\" class=\"e\">MyCl</a>)<a title=\"The function m() is undefined.\" class=\"e\">m</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void reportWithoutErrorTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");

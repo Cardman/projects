@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.util.MethodAccessId;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -108,6 +110,53 @@ public final class IdFctOperation extends LeafOperation {
             return;
         }
         method = new ClassMethodIdAncestor(new ClassMethodId(cl_, argsRes_),anc_);
+        if (m_ instanceof RetrieveMethod) {
+            RetrieveMethod f_ = (RetrieveMethod) m_;
+            ClassMethodId id_ = new ClassMethodId(cl_, argsRes_);
+            String idClass_ = id_.getClassName();
+            MethodId mid_ = id_.getConstraints();
+            boolean vararg_ = mid_.isVararg();
+            StringList params_ = mid_.getParametersTypes();
+            MethodAccessKind staticKind_ = MethodId.getKind(f_.isStaticAccess(), mid_.getKind());
+            ClassMethodId classMethodId_ = new ClassMethodId(idClass_, new MethodId(staticKind_, f_.getMethodFound(), params_, vararg_));
+            ClassMethodIdAncestor feed_ = new ClassMethodIdAncestor(classMethodId_,anc_);
+            CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
+            int len_ = methodInfos_.size();
+            for (int i = 0; i < len_; i++) {
+                int gr_ = methodInfos_.get(i).size();
+                CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+                for (int j = 0; j < gr_; j++) {
+                    MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                    String className_ = methodInfo_.getClassName();
+                    className_ = StringExpUtil.getIdFromAllTypes(className_);
+                    if (isCandidateMethod(feed_,methodInfo_.getAncestor(), className_,methodInfo_.getConstraints())){
+                        continue;
+                    }
+                    newList_.add(methodInfo_);
+                }
+                methodInfos_.set(i,newList_);
+            }
+        }
+        if (m_ instanceof RetrieveConstructor) {
+            RetrieveConstructor f_ = (RetrieveConstructor) m_;
+            ClassMethodId id_ = new ClassMethodId(cl_, argsRes_);
+            String idClass_ = id_.getClassName();
+            boolean vararg_ = id_.getConstraints().isVararg();
+            StringList params_ = id_.getConstraints().getParametersTypes();
+            ConstructorId feed_ = new ConstructorId(idClass_, params_, vararg_);
+            CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
+            int len_ = methodInfos_.size();
+            CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
+            for (int i = 0; i < len_; i++) {
+                ConstructorInfo methodInfo_ = methodInfos_.get(i);
+                if (!methodInfo_.getConstraints().eq(feed_)) {
+                    continue;
+                }
+                newList_.add(methodInfo_);
+            }
+            methodInfos_.clear();
+            methodInfos_.addAllElts(newList_);
+        }
         setSimpleArgument(new Argument());
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }

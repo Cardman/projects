@@ -3,7 +3,10 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
+import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
+import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -21,7 +24,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class FctOperation extends InvokingOperation {
+public final class FctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod {
 
     private String methodName;
 
@@ -41,12 +44,102 @@ public final class FctOperation extends InvokingOperation {
     private int delta;
     private boolean clonedMethod;
     private boolean trueFalse;
+    private String typeInfer = EMPTY_STRING;
+    private String methodFound = EMPTY_STRING;
+    private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
 
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     public FctOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         methodName = getOperations().getFctName();
+    }
+
+    @Override
+    public void preAnalyze(ContextEl _an) {
+        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
+        boolean import_ = false;
+        ClassArgumentMatching clCur_;
+        if (isIntermediateDottedOperation()) {
+            clCur_ = getPreviousResultClass();
+        } else {
+            import_ = true;
+            clCur_ = new ClassArgumentMatching(_an.getAnalyzing().getGlobalClass());
+            setStaticAccess(_an.getAnalyzing().getStaticContext());
+        }
+        StringList l_ = clCur_.getNames();
+        setDelta(_an);
+        String trimMeth_ = methodName.trim();
+        boolean accessSuperTypes_ = true;
+        boolean accessFromSuper_ = false;
+        KeyWords keyWords_ = _an.getKeyWords();
+        String keyWordSuper_ = keyWords_.getKeyWordSuper();
+        String keyWordThat_ = keyWords_.getKeyWordThat();
+        String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
+        if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
+            trimMeth_ = trimMeth_.substring(trimMeth_.indexOf('.')+1).trim();
+            accessFromSuper_ = true;
+        } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThat_)) {
+            trimMeth_ = trimMeth_.substring(trimMeth_.indexOf('.')+1).trim();
+        } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
+            String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
+            int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
+            className_ = className_.substring(lenPref_);
+            int loc_ = StringList.getFirstPrintableCharIndex(className_);
+            CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+            className_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,lenPref_+loc_,className_,true,partOffsets_);
+            if (!className_.isEmpty()) {
+                partOffsets.addAllElts(partOffsets_);
+                typeInfer = className_;
+            }
+            trimMeth_ = trimMeth_.substring(trimMeth_.lastIndexOf(PAR_RIGHT) + 1).trim();
+            l_ = getBounds(className_, _an);
+            accessSuperTypes_ = false;
+        }
+        StringList bounds_ = new StringList();
+        for (String c: l_) {
+            bounds_.addAllElts(getBounds(c, _an));
+        }
+        StringList arrayBounds_ = getArrayBounds(bounds_);
+        if (!arrayBounds_.isEmpty()) {
+            return;
+        }
+        if (isTrueFalseKeyWord(_an, trimMeth_)) {
+            return;
+        }
+        methodFound = trimMeth_;
+        methodInfos = getDeclaredCustMethodByType(_an,isStaticAccess(), accessFromSuper_,accessSuperTypes_,bounds_, trimMeth_, import_,null);
+        int len_ = methodInfos.size();
+        for (int i = 0; i < len_; i++) {
+            int gr_ = methodInfos.get(i).size();
+            CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+            for (int j = 0; j < gr_; j++) {
+                MethodInfo methodInfo_ = methodInfos.get(i).get(j);
+                if (!StringList.quickEq(methodInfo_.getConstraints().getName(),trimMeth_)) {
+                    continue;
+                }
+                newList_.add(methodInfo_);
+            }
+            methodInfos.set(i, newList_);
+        }
+        boolean apply_ = false;
+        OperationNode curPar_ = getParent();
+        if (curPar_ instanceof AbstractDotOperation) {
+            if (getIndexChild() > 0) {
+                if (curPar_.getParent() == null) {
+                    apply_ = true;
+                }
+            }
+        } else if (curPar_ == null){
+            apply_ = true;
+        }
+        String typeAff_ = EMPTY_STRING;
+        AnalyzedBlock cur_ = _an.getAnalyzing().getCurrentAnaBlock();
+        if (apply_ && cur_ instanceof ReturnMethod) {
+            typeAff_ = tryGetRetType(_an);
+        }
+        filterByReturnType(_an, typeAff_, methodInfos);
     }
 
     @Override
@@ -91,9 +184,13 @@ public final class FctOperation extends InvokingOperation {
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
-            int loc_ = StringList.getFirstPrintableCharIndex(className_);
-            className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+            if (typeInfer.isEmpty()) {
+                int loc_ = StringList.getFirstPrintableCharIndex(className_);
+                className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
+                partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+            } else {
+                className_ = typeInfer;
+            }
             Mapping map_ = new Mapping();
             map_.setParam(className_);
             map_.setArg(clCur_);
@@ -154,8 +251,7 @@ public final class FctOperation extends InvokingOperation {
             checkNull(arg_,_conf);
             return;
         }
-        if (StringList.quickEq(trimMeth_,_conf.getKeyWords().getKeyWordTrue())
-                ||StringList.quickEq(trimMeth_,_conf.getKeyWords().getKeyWordFalse())) {
+        if (isTrueFalseKeyWord(_conf, trimMeth_)) {
             if (feedBase_ != null) {
                 MethodId constraints_ = feedBase_.getConstraints();
                 String name_ = constraints_.getName();
@@ -352,5 +448,13 @@ public final class FctOperation extends InvokingOperation {
 
     public boolean isTrueFalse() {
         return trueFalse;
+    }
+
+    public CustList<CustList<MethodInfo>> getMethodInfos() {
+        return methodInfos;
+    }
+
+    public String getMethodFound() {
+        return methodFound;
     }
 }

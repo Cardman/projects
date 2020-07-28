@@ -1051,7 +1051,7 @@ public final class ClassesUtil {
                 r.getAllSuperTypes().addAllElts(foundNames_.getKeys());
                 exec_.getAllSuperTypes().addAllElts(foundNames_.getKeys());
                 for (String f: foundNames_.getKeys()) {
-                    ExecRootBlock s_ = _context.getClasses().getClassBody(f);
+                    RootBlock s_ = _context.getAnalyzing().getAnaClassBody(f);
                     if (s_ != null) {
                         exec_.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
                         r.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
@@ -1296,7 +1296,7 @@ public final class ClassesUtil {
     private static void validateSingleParameterizedClasses(ContextEl _context) {
         for (RootBlock i: _context.getAnalyzing().getFoundTypes()) {
             ExecRootBlock val_ = _context.getAnalyzing().getMapTypes().getVal(i);
-            CustList<AnaFormattedRootBlock> genericSuperTypes_ = i.getAllGenericSuperTypes(_context,val_);
+            CustList<AnaFormattedRootBlock> genericSuperTypes_ = i.getAllGenericSuperTypes(_context);
             for (AnaFormattedRootBlock a: genericSuperTypes_) {
                 i.getAllGenericSuperTypes().add(a.getFormatted());
             }
@@ -1315,7 +1315,7 @@ public final class ClassesUtil {
                 }
             }
             i.getAllGenericSuperTypesInfo().addAllElts(genericSuperTypes_);
-            CustList<AnaFormattedRootBlock> genericClasses_ = i.getAllGenericClasses(_context,val_);
+            CustList<AnaFormattedRootBlock> genericClasses_ = i.getAllGenericClasses(_context);
             for (AnaFormattedRootBlock a: genericClasses_) {
                 i.getAllGenericClasses().add(a.getFormatted());
             }

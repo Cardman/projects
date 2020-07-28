@@ -2,7 +2,10 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
@@ -53,6 +56,44 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             getErrs().add(varg_.getBuiltError());
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
+        }
+        if (m_ instanceof RetrieveMethod) {
+            RetrieveMethod f_ = (RetrieveMethod) m_;
+            OperationNode firstChild_ = f_.getFirstChild();
+            int deltaCount_ = InvokingOperation.getDeltaCount(firstChild_);
+            int indexChild_ = getIndexChild()-deltaCount_;
+            CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
+            int len_ = methodInfos_.size();
+            for (int i = 0; i < len_; i++) {
+                int gr_ = methodInfos_.get(i).size();
+                CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+                for (int j = 0; j < gr_; j++) {
+                    MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                    if (methodInfo_.getGeneFormatted().getParametersTypesLength() != indexChild_+1) {
+                        continue;
+                    }
+                    newList_.add(methodInfo_);
+                }
+                methodInfos_.set(i,newList_);
+            }
+        }
+        if (m_ instanceof RetrieveConstructor) {
+            RetrieveConstructor f_ = (RetrieveConstructor) m_;
+            OperationNode firstChild_ = f_.getFirstChild();
+            int deltaCount_ = InvokingOperation.getDeltaCount(firstChild_);
+            int indexChild_ = getIndexChild()-deltaCount_;
+            CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
+            int len_ = methodInfos_.size();
+            CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
+            for (int i = 0; i < len_; i++) {
+                ConstructorInfo methodInfo_ = methodInfos_.get(i);
+                if (methodInfo_.getGeneFormatted().getParametersTypesLength() != indexChild_+1) {
+                    continue;
+                }
+                newList_.add(methodInfo_);
+            }
+            methodInfos_.clear();
+            methodInfos_.addAllElts(newList_);
         }
         OperationNode child_ = getFirstChild();
         setResultClass(ClassArgumentMatching.copy(child_.getResultClass()));

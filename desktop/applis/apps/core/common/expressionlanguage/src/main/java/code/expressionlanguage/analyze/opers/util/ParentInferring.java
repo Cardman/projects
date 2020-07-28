@@ -3,10 +3,12 @@ package code.expressionlanguage.analyze.opers.util;
 import code.expressionlanguage.analyze.opers.*;
 
 public final class ParentInferring {
+    private final OperationNode operationChild;
     private final OperationNode operation;
     private final int nbParentsInfer;
 
-    private ParentInferring(OperationNode operation, int nbParentsInfer) {
+    private ParentInferring(OperationNode operationChild, OperationNode operation, int nbParentsInfer) {
+        this.operationChild = operationChild;
         this.operation = operation;
         this.nbParentsInfer = nbParentsInfer;
     }
@@ -19,7 +21,7 @@ public final class ParentInferring {
         m_ = _from.getParent();
         while (m_ != null) {
             if (!(m_ instanceof ElementArrayInstancing) && !(m_ instanceof InferArrayInstancing)) {
-                if (m_ instanceof IdOperation) {
+                if (m_ instanceof IdOperation || m_ instanceof FirstOptOperation) {
                     current_ = current_.getParent();
                     m_ = m_.getParent();
                     continue;
@@ -38,8 +40,13 @@ public final class ParentInferring {
             current_ = current_.getParent();
             m_ = m_.getParent();
         }
-        return new ParentInferring(m_,nbParentsInfer_);
+        return new ParentInferring(current_, m_,nbParentsInfer_);
     }
+
+    public OperationNode getOperationChild() {
+        return operationChild;
+    }
+
     public OperationNode getOperation() {
         return operation;
     }

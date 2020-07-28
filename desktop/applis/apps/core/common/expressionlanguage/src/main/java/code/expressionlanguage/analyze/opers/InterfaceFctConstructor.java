@@ -1,10 +1,10 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.InterfaceBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -31,7 +31,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         cl_ = cl_.substring(leftPar_, cl_.lastIndexOf(PAR_RIGHT));
         cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf, leftPar_,cl_);
         partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
-        if (!(_conf.getClasses().getClassBody(cl_) instanceof ExecInterfaceBlock)) {
+        if (!(_conf.getAnalyzing().getAnaClassBody(cl_) instanceof InterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -58,8 +58,8 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             return null;
         }
         String idCl_ = StringExpUtil.getIdFromAllTypes(className_);
-        ExecRootBlock sub_ = _conf.getClasses().getClassBody(idCl_);
-        if (!(sub_ instanceof ExecInterfaceBlock)|| !sub_.isStaticType()) {
+        RootBlock sub_ = _conf.getAnalyzing().getAnaClassBody(idCl_);
+        if (!(sub_ instanceof InterfaceBlock)|| !sub_.isStaticType()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());

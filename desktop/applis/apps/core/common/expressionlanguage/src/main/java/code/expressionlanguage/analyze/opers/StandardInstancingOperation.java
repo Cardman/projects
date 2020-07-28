@@ -5,11 +5,11 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
-import code.expressionlanguage.analyze.opers.util.ParentInferring;
+import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -29,7 +29,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class StandardInstancingOperation extends
-        InvokingOperation implements PreAnalyzableOperation {
+        InvokingOperation implements PreAnalyzableOperation,RetrieveConstructor {
 
     private String methodName;
 
@@ -46,6 +46,7 @@ public final class StandardInstancingOperation extends
     private String lastType = EMPTY_STRING;
     private String typeInfer = EMPTY_STRING;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private boolean newBefore = true;
 
     public StandardInstancingOperation(int _index, int _indexChild,
@@ -64,6 +65,14 @@ public final class StandardInstancingOperation extends
 
     @Override
     public void preAnalyze(ContextEl _an) {
+        tryAnalyze(_an);
+        if (typeInfer.isEmpty()) {
+            return;
+        }
+        tryGetCtors(_an, typeInfer, ctors);
+    }
+
+    private void tryAnalyze(ContextEl _an) {
         KeyWords keyWords_ = _an.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String afterNew_ = methodName.trim().substring(newKeyWord_.length());
@@ -112,6 +121,8 @@ public final class StandardInstancingOperation extends
             }
             sup_ = ownersMap_.values().first();
             vars_ = Templates.getVarTypes(sup_,_an);
+        } else {
+            setStaticAccess(_an.getAnalyzing().getStaticContext());
         }
         String type_;
         OperationNode current_;
@@ -205,6 +216,68 @@ public final class StandardInstancingOperation extends
             type_ = StringList.concat(id_,"..",idClass_);
             int begin_ = newKeyWord_.length()+local_;
             ContextUtil.appendParts(_an,begin_,begin_+inferForm_.length(),type_,partOffsets_);
+        }
+        if (m_ instanceof RetrieveMethod){
+            RetrieveMethod f_ = (RetrieveMethod) m_;
+            OperationNode firstChild_ = f_.getFirstChild();
+            int deltaCount_ = getDeltaCount(firstChild_);
+            int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
+            CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
+            int len_ = methodInfos_.size();
+            StringList candidates_ = new StringList();
+            for (int i = 0; i < len_; i++) {
+                int gr_ = methodInfos_.get(i).size();
+                CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+                for (int j = 0; j < gr_; j++) {
+                    MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                    String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _an);
+                    if (format_ == null) {
+                        continue;
+                    }
+                    candidates_.add(format_);
+                    newList_.add(methodInfo_);
+                }
+                methodInfos_.set(i,newList_);
+            }
+            if (candidates_.onlyOneElt()) {
+                String infer_ = candidates_.first();
+                partOffsets.addAllElts(partOffsets_);
+                int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
+                int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
+                ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                typeInfer = infer_;
+            }
+            return;
+        }
+        if (m_ instanceof RetrieveConstructor){
+            RetrieveConstructor f_ = (RetrieveConstructor) m_;
+            OperationNode firstChild_ = f_.getFirstChild();
+            int deltaCount_ = getDeltaCount(firstChild_);
+            int indexChild_ = par_.getOperationChild().getIndexChild()-deltaCount_;
+            CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
+            int len_ = methodInfos_.size();
+            StringList candidates_ = new StringList();
+            CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
+            for (int i = 0; i < len_; i++) {
+                ConstructorInfo methodInfo_ = methodInfos_.get(i);
+                String format_ = tryFormat(methodInfo_, indexChild_, nbParentsInfer_, type_, vars_, _an);
+                if (format_ == null) {
+                    continue;
+                }
+                candidates_.add(format_);
+                newList_.add(methodInfo_);
+            }
+            methodInfos_.clear();
+            methodInfos_.addAllElts(newList_);
+            if (candidates_.onlyOneElt()) {
+                String infer_ = candidates_.first();
+                partOffsets.addAllElts(partOffsets_);
+                int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
+                int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
+                ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                typeInfer = infer_;
+            }
+            return;
         }
         if (isUndefined(typeAff_, keyWordVar_)) {
             return;
@@ -538,5 +611,9 @@ public final class StandardInstancingOperation extends
 
     public CustList<PartOffset> getPartOffsets() {
         return partOffsets;
+    }
+
+    public CustList<ConstructorInfo> getCtors() {
+        return ctors;
     }
 }

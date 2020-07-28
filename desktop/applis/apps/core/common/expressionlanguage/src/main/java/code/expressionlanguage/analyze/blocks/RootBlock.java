@@ -220,11 +220,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     protected void checkAccess(ContextEl _context,ExecRootBlock _exec) {
         useSuperTypesOverrides(_context);
-        Classes classesRef_ = _context.getClasses();
         StringList allGenericSuperClasses_ = new StringList();
         for (String s: allGenericSuperTypes) {
             String base_ = StringExpUtil.getIdFromAllTypes(s);
-            if (classesRef_.getClassBody(base_) instanceof ExecClassBlock) {
+            if (_context.getAnalyzing().getAnaClassBody(base_) instanceof ClassBlock) {
                 allGenericSuperClasses_.add(s);
             }
         }
@@ -1126,8 +1125,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
     }
 
-    public final CustList<AnaFormattedRootBlock> getAllGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec) {
-        CustList<AnaFormattedRootBlock> current_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(this,_exec.getGenericString()));
+    public final CustList<AnaFormattedRootBlock> getAllGenericSuperTypes(ContextEl _classes) {
+        CustList<AnaFormattedRootBlock> current_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(this,getGenericString()));
         StringList allSeen_ = new StringList();
         CustList<AnaFormattedRootBlock> all_ = new CustList<AnaFormattedRootBlock>();
         while (true) {
@@ -1152,8 +1151,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return all_;
     }
 
-    public final CustList<AnaFormattedRootBlock> getAllGenericClasses(ContextEl _classes,ExecRootBlock _exec) {
-        CustList<AnaFormattedRootBlock> current_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(this,_exec.getGenericString()));
+    public final CustList<AnaFormattedRootBlock> getAllGenericClasses(ContextEl _classes) {
+        CustList<AnaFormattedRootBlock> current_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(this,getGenericString()));
         StringList allSeen_ = new StringList();
         CustList<AnaFormattedRootBlock> all_ = new CustList<AnaFormattedRootBlock>();
         while (true) {
@@ -1370,57 +1369,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     b.addNameErrors(err_);
                 }
             }
-//            StringList allSuperClass_ = getAllGenericSuperTypes();
-//            for (String s: allSuperClass_) {
-//                String base_ = StringExpUtil.getIdFromAllTypes(s);
-//                RootBlock superBl_ = _context.getAnalyzing().getAnaClassBody(base_);
-//                for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
-//                    if (m.isAbstractMethod()) {
-//                        abstractMethods_.add(new GeneStringOverridable(s,superBl_,m));
-//                    }
-//                }
-//            }
-//            for (GeneStringOverridable m: abstractMethods_) {
-//                String baseClass_ = m.getGeneString();
-//                baseClass_ = StringExpUtil.getIdFromAllTypes(baseClass_);
-//                RootBlock info_ = m.getType();
-//                StringMap<ClassMethodId> map_ = OverridesTypeUtil.getConcreteMethodsToCall(info_, m.getBlock().getId(), _context);
-//                if (!map_.contains(getFullName())) {
-//                    FoundErrorInterpret err_;
-//                    err_ = new FoundErrorInterpret();
-//                    err_.setFileName(getFile().getFileName());
-//                    err_.setIndexFile(idRowCol);
-//                    //type id
-//                    err_.buildError(
-//                            _context.getAnalysisMessages().getAbstractMethodImpl(),
-//                            baseClass_,
-//                            m.getBlock().getSignature(_context),
-//                            getFullName());
-//                    _context.addError(err_);
-//                    addNameErrors(err_);
-//                }
-//            }
-//        } else {
-//            StringList allSuperClass_ = new StringList(_exec.getGenericString());
-//            allSuperClass_.addAllElts(getAllGenericSuperTypes());
-//            for (String s: allSuperClass_) {
-//                String base_ = StringExpUtil.getIdFromAllTypes(s);
-//                RootBlock superBl_ = _context.getAnalyzing().getAnaClassBody(base_);
-//                for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
-//                    if (m.isAbstractMethod()) {
-//                        abstractMethods_.add(new GeneStringOverridable(s,superBl_,m));
-//                    }
-//                }
-//            }
-//            for (GeneStringOverridable m: abstractMethods_) {
-//                RootBlock info_ = m.getType();
-//                StringMap<ClassMethodId> map_ = OverridesTypeUtil.getConcreteMethodsToCall(info_, m.getBlock().getId(), _context);
-//                if (!map_.contains(getFullName())) {
-//                    functional.add(new ClassMethodId(m.getGeneString(),m.getBlock().getId()));
-//                }
-//            }
         }
-//        _exec.getFunctional().addAllElts(functional);
     }
 
     public static CustList<MethodIdAncestors> getAllOverridingMethods(

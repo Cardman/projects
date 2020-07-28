@@ -106,7 +106,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
     public StringList getAllGenericSuperTypes(ContextEl cont_, String className) {
-        CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = getClassBody(cont_, className).getAllGenericSuperTypes(cont_, cont_.getClasses().getClassBody(className));
+        CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = getClassBody(cont_, className).getAllGenericSuperTypes(cont_);
         StringList l_ = new StringList();
         for (AnaFormattedRootBlock a: allGenericSuperTypes_) {
             l_.add(a.getFormatted());
