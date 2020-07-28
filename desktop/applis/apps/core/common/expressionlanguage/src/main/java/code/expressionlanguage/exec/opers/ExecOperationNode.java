@@ -72,33 +72,33 @@ public abstract class ExecOperationNode {
     }
 
     public static ExecRootBlock fetchType(ValuesOperation _l, ContextEl _cont) {
-        if (_cont.getAnalyzing().getAllMapTypes().getKeys().isValidIndex(_l.getNumberEnum())) {
-            return _cont.getAnalyzing().getAllMapTypes().getValue(_l.getNumberEnum());
+        if (_cont.getAnalyzing().getMapTypes().getKeys().isValidIndex(_l.getNumberEnum())) {
+            return _cont.getAnalyzing().getMapTypes().getValue(_l.getNumberEnum());
         }
         return null;
     }
 
     public static ExecRootBlock fetchType(EnumValueOfOperation _l, ContextEl _cont) {
-        if (_cont.getAnalyzing().getAllMapTypes().getKeys().isValidIndex(_l.getNumberEnum())) {
-            return _cont.getAnalyzing().getAllMapTypes().getValue(_l.getNumberEnum());
+        if (_cont.getAnalyzing().getMapTypes().getKeys().isValidIndex(_l.getNumberEnum())) {
+            return _cont.getAnalyzing().getMapTypes().getValue(_l.getNumberEnum());
         }
         return null;
     }
     public static ExecInfoBlock fetchField(LambdaOperation _l, ContextEl _cont) {
-        if (_cont.getAnalyzing().getAllMapMembers().getKeys().isValidIndex(_l.getRootNumber())) {
-            if (_cont.getAnalyzing().getAllMapMembers().getValue(_l.getRootNumber()).getAllFields().getKeys().isValidIndex(_l.getMemberNumber())) {
-                return _cont.getAnalyzing().getAllMapMembers().getValue(_l.getRootNumber()).getAllFields().getValue(_l.getMemberNumber());
+        if (_cont.getAnalyzing().getMapMembers().getKeys().isValidIndex(_l.getRootNumber())) {
+            if (_cont.getAnalyzing().getMapMembers().getValue(_l.getRootNumber()).getAllFields().getKeys().isValidIndex(_l.getMemberNumber())) {
+                return _cont.getAnalyzing().getMapMembers().getValue(_l.getRootNumber()).getAllFields().getValue(_l.getMemberNumber());
             }
         }
         return null;
     }
     public static ExecNamedFunctionBlock fetchFunction(LambdaOperation _l, ContextEl _cont) {
-        if (_cont.getAnalyzing().getAllMapMembers().getKeys().isValidIndex(_l.getRootNumber())) {
-            if (_cont.getAnalyzing().getAllMapMembers().getValue(_l.getRootNumber()).getAllNamed().getKeys().isValidIndex(_l.getMemberNumber())) {
-                return _cont.getAnalyzing().getAllMapMembers().getValue(_l.getRootNumber()).getAllNamed().getValue(_l.getMemberNumber());
+        if (_cont.getAnalyzing().getMapMembers().getKeys().isValidIndex(_l.getRootNumber())) {
+            if (_cont.getAnalyzing().getMapMembers().getValue(_l.getRootNumber()).getAllNamed().getKeys().isValidIndex(_l.getMemberNumber())) {
+                return _cont.getAnalyzing().getMapMembers().getValue(_l.getRootNumber()).getAllNamed().getValue(_l.getMemberNumber());
             }
-        } else if (_cont.getAnalyzing().getAllMapOperators().getKeys().isValidIndex(_l.getMemberNumber())) {
-            return _cont.getAnalyzing().getAllMapOperators().getValue(_l.getMemberNumber());
+        } else if (_cont.getAnalyzing().getMapOperators().getKeys().isValidIndex(_l.getMemberNumber())) {
+            return _cont.getAnalyzing().getMapOperators().getValue(_l.getMemberNumber());
         }
         return null;
     }

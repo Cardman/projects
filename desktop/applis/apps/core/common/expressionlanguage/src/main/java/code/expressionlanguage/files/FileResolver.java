@@ -261,8 +261,7 @@ public final class FileResolver {
                 e_.setFile(exFile_);
                 cls_.getOperators().add(e_);
                 _context.getAnalyzing().getMapOperators().put(r_,e_);
-                r_.setNameNumber(_context.getAnalyzing().getAllMapOperators().size());
-                _context.getAnalyzing().getAllMapOperators().put(r_,e_);
+                r_.setNameNumber(_context.getAnalyzing().getMapOperators().size());
             }
             i_ = res_.getNextIndex();
             boolean hasNext_ = false;

@@ -45,7 +45,7 @@ public final class ClassesUtil {
 
     public static void postValidation(ContextEl _context) {
         StringMap<ClassMethodId> toStringMethodsToCall_ = _context.getClasses().getToStringMethodsToCall();
-        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getAllMapTypes().entryList()) {
+        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getMapTypes().entryList()) {
             ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(_context, e.getKey());
             if (resDyn_.isFoundMethod()) {
                 String foundClass_ = resDyn_.getRealClass();
@@ -54,9 +54,9 @@ public final class ClassesUtil {
                 toStringMethodsToCall_.addEntry(e.getKey().getFullName(),methodId_);
             }
         }
-        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getAllMapTypes().entryList()) {
+        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getMapTypes().entryList()) {
             RootBlock root_ = e.getKey();
-            IdMap<OverridableBlock, ExecOverridableBlock> allMethods_ = _context.getAnalyzing().getAllMapMembers().getValue(root_.getNumberAll()).getAllMethods();
+            IdMap<OverridableBlock, ExecOverridableBlock> allMethods_ = _context.getAnalyzing().getMapMembers().getValue(root_.getNumberAll()).getAllMethods();
             ClassMethodIdOverrides redirections_ = e.getValue().getRedirections();
             String fullName_ = root_.getFullName();
             for (EntryCust<OverridableBlock,ExecOverridableBlock> f: allMethods_.entryList()) {
@@ -77,7 +77,7 @@ public final class ClassesUtil {
                 redirections_.add(override_);
             }
         }
-        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getAllMapTypes().entryList()) {
+        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getMapTypes().entryList()) {
             RootBlock root_ = e.getKey();
             if (root_.mustImplement()) {
                 CustList<AnaFormattedRootBlock> allSuperClass_ = root_.getAllGenericSuperTypesInfo();
@@ -86,7 +86,7 @@ public final class ClassesUtil {
                     RootBlock superBl_ = s.getRootBlock();
                     for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                         if (m.isAbstractMethod()) {
-                            ExecRootBlock ex_ = _context.getAnalyzing().getAllMapTypes().getValue(superBl_.getNumberAll());
+                            ExecRootBlock ex_ = _context.getAnalyzing().getMapTypes().getValue(superBl_.getNumberAll());
                             ClassMethodId val_ = ex_.getRedirections().getVal(new ClassMethodId(base_, m.getId()), root_.getFullName());
                             if (val_ == null) {
                                 FoundErrorInterpret err_;
@@ -113,7 +113,7 @@ public final class ClassesUtil {
                     RootBlock superBl_ = s.getRootBlock();
                     for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                         if (m.isAbstractMethod()) {
-                            ExecRootBlock ex_ = _context.getAnalyzing().getAllMapTypes().getValue(superBl_.getNumberAll());
+                            ExecRootBlock ex_ = _context.getAnalyzing().getMapTypes().getValue(superBl_.getNumberAll());
                             ClassMethodId val_ = ex_.getRedirections().getVal(new ClassMethodId(base_, m.getId()), root_.getFullName());
                             if (val_ == null) {
                                 root_.getFunctional().add(new ClassMethodId(s.getFormatted(),m.getId()));
@@ -261,6 +261,7 @@ public final class ClassesUtil {
     public static void processBracedClass(ExecFileBlock _exFile, RootBlock _outer, RootBlock _root, ContextEl _context) {
         String fullName_ = _root.getFullName();
         AnalyzedPageEl page_ = _context.getAnalyzing();
+        boolean ok_ = true;
         if (_context.getClasses().getClassBodiesMap().contains(fullName_)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_root.getFile().getFileName());
@@ -270,6 +271,7 @@ public final class ClassesUtil {
                     fullName_);
             _context.addError(d_);
             _root.addNameErrors(d_);
+            ok_ = false;
         }
         page_.setCurrentBlock(_root);
         page_.setCurrentAnaBlock(_root);
@@ -284,6 +286,7 @@ public final class ClassesUtil {
             badCl_.buildError(_context.getAnalysisMessages().getEmptyPackage());
             _context.addError(badCl_);
             _root.addNameErrors(badCl_);
+            ok_ = false;
         } else {
             StringList elements_ = StringList.splitChars(packageName_, DOT);
             for (String e: elements_) {
@@ -297,6 +300,7 @@ public final class ClassesUtil {
                     badCl_.setBuiltError(res_.getMessage());
                     _context.addError(badCl_);
                     _root.addNameErrors(badCl_);
+                    ok_ = false;
                 }
             }
         }
@@ -311,6 +315,7 @@ public final class ClassesUtil {
             badCl_.setBuiltError(resClName_.getMessage());
             _context.addError(badCl_);
             _root.addNameErrors(badCl_);
+            ok_ = false;
         }
         String fullDef_ = _root.getFullDefinition();
         StringList varTypes_ = new StringList();
@@ -445,7 +450,7 @@ public final class ClassesUtil {
         }
         if (_root instanceof InnerElementBlock) {
             InnerElementBlock i_ = (InnerElementBlock) _root;
-            EnumBlock par_ = (EnumBlock) _root.getParent();
+            EnumBlock par_ = i_.getParentEnum();
             String type_ = StringList.concat(par_.getOriginalName(),i_.getTempClass());
             _root.getDirectSuperTypes().add(type_);
             _root.getExplicitDirectSuperTypes().put(-1, false);
@@ -466,6 +471,7 @@ public final class ClassesUtil {
                     fullName_);
             _context.addError(d_);
             _root.addNameErrors(d_);
+            ok_ = false;
         }
         if (PrimitiveTypeUtil.isPrimitive(fullName_, _context)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
@@ -476,29 +482,27 @@ public final class ClassesUtil {
                     fullName_);
             _context.addError(d_);
             _root.addNameErrors(d_);
-        }
-        if (_root.getNameLength() == 0) {
-            return;
+            ok_ = false;
         }
         page_.getFoundTypes().add(_root);
-        page_.getAllFoundTypes().add(_root);
-        page_.getHeaders().getAllFound().add(_root);
+        if (ok_) {
+            page_.getRefFoundTypes().add(_root);
+        }
         RootBlock parentType_ = _root.getParentType();
         int index_ = -1;
         if (parentType_ != null) {
             index_ = parentType_.getNumberAll();
         }
         ExecRootBlock execParentType_ = null;
-        if (page_.getAllMapTypes().getKeys().isValidIndex(index_)) {
-            execParentType_ = page_.getAllMapTypes().getValue(index_);
+        if (page_.getMapTypes().getKeys().isValidIndex(index_)) {
+            execParentType_ = page_.getMapTypes().getValue(index_);
         }
         if (_root instanceof ClassBlock) {
             ExecClassBlock e_ = new ExecClassBlock((ClassBlock) _root);
             e_.setParentType(execParentType_);
             e_.setFile(_exFile);
-            _root.setNumberAll(page_.getAllMapTypes().size());
+            _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            page_.getAllMapTypes().put(_root, e_);
             page_.getMapTypesUniqType().put((ClassBlock) _root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
@@ -507,9 +511,8 @@ public final class ClassesUtil {
             ExecEnumBlock e_ = new ExecEnumBlock(_root);
             e_.setParentType(execParentType_);
             e_.setFile(_exFile);
-            _root.setNumberAll(page_.getAllMapTypes().size());
+            _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            page_.getAllMapTypes().put(_root, e_);
             page_.getMapTypesUniqType().put((EnumBlock) _root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
@@ -518,9 +521,8 @@ public final class ClassesUtil {
             ExecInterfaceBlock e_ = new ExecInterfaceBlock(_root);
             e_.setParentType(execParentType_);
             e_.setFile(_exFile);
-            _root.setNumberAll(page_.getAllMapTypes().size());
+            _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            page_.getAllMapTypes().put(_root, e_);
             page_.getMapInterfaces().put(_root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
@@ -529,9 +531,8 @@ public final class ClassesUtil {
             ExecAnnotationBlock e_ = new ExecAnnotationBlock(_root);
             e_.setParentType(execParentType_);
             e_.setFile(_exFile);
-            _root.setNumberAll(page_.getAllMapTypes().size());
+            _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            page_.getAllMapTypes().put(_root, e_);
             page_.getMapInterfaces().put(_root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
@@ -540,9 +541,8 @@ public final class ClassesUtil {
             ExecInnerElementBlock e_ = new ExecInnerElementBlock((InnerElementBlock) _root);
             e_.setParentType(execParentType_);
             e_.setFile(_exFile);
-            _root.setNumberAll(page_.getAllMapTypes().size());
+            _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            page_.getAllMapTypes().put(_root, e_);
             page_.getMapTypesUniqType().put((InnerElementBlock) _root, e_);
             page_.getMapInnerEltTypes().put((InnerElementBlock) _root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
@@ -656,7 +656,6 @@ public final class ClassesUtil {
                 }
             }
             page_.getMapMembers().addEntry(k_, mem_);
-            page_.getAllMapMembers().addEntry(k_, mem_);
         }
         StringList pkgFound_ = _context.getAnalyzing().getPackagesFound();
         pkgFound_.addAllElts(getPackages(_context));
@@ -675,6 +674,9 @@ public final class ClassesUtil {
         StringList pkgFound_ = _context.getAnalyzing().getPackagesFound();
         for (RootBlock r: _context.getAnalyzing().getFoundTypes()) {
             if (!(r.getParent() instanceof FileBlock)) {
+                continue;
+            }
+            if (r.getNameLength() == 0) {
                 continue;
             }
             String fullName_ = r.getFullName();
@@ -1340,7 +1342,7 @@ public final class ClassesUtil {
             CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = e.getKey().getAllGenericSuperTypesInfo();
             CustList<ExecFormattedRootBlock> l_ = new CustList<ExecFormattedRootBlock>();
             for (AnaFormattedRootBlock s: allGenericSuperTypes_) {
-                l_.add(new ExecFormattedRootBlock(_context.getAnalyzing().getAllMapTypes().getValue(s.getRootBlock().getNumberAll()),s.getFormatted()));
+                l_.add(new ExecFormattedRootBlock(_context.getAnalyzing().getMapTypes().getValue(s.getRootBlock().getNumberAll()),s.getFormatted()));
             }
             e.getValue().getAllGenericSuperTypes().addAllElts(l_);
         }
@@ -1580,7 +1582,7 @@ public final class ClassesUtil {
                         page_.getAssignedDeclaredFields().addAllElts(((FieldBlock)f_).getAssignedDeclaredFields());
                     }
                     if (f_ instanceof InnerTypeOrElement) {
-                        page_.getAssignedDeclaredFields().add(((InnerTypeOrElement)f_).getUniqueFieldName());
+                        page_.getAssignedDeclaredFields().addAllElts(f_.getFieldName());
                     }
                     int v_ = 0;
                     for (String f: f_.getFieldName()) {

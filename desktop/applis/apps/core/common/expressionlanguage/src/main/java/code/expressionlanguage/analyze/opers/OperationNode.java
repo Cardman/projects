@@ -1673,7 +1673,7 @@ public abstract class OperationNode {
         String objType_ = _cont.getStandards().getAliasObject();
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
-        for (EntryCust<OperatorBlock,ExecOperatorBlock> e: _cont.getAnalyzing().getAllMapOperators().entryList()) {
+        for (EntryCust<OperatorBlock,ExecOperatorBlock> e: _cont.getAnalyzing().getMapOperators().entryList()) {
             OperatorBlock o = e.getKey();
             String ret_ = o.getImportedReturnType();
             MethodId id_ = o.getId();

@@ -242,7 +242,7 @@ public final class CaseCondition extends SwitchPartBlock {
             return false;
         }
         InnerTypeOrElement e_ = (InnerTypeOrElement) _f;
-        return StringList.quickEq(e_.getUniqueFieldName(), value.trim());
+        return StringList.contains(e_.getFieldName(), value.trim());
     }
     private void processNullValue(ContextEl _cont) {
         if (Argument.isNullValue(argument)) {

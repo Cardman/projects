@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -20,8 +19,6 @@ public final class MethodHeaders {
     private final StringMap<CustList<MethodHeaderInfo>> falses = new StringMap<CustList<MethodHeaderInfo>>();
     private final StringList typesWithInnerOperators = new StringList();
     private StringList packagesFound = new StringList();
-
-    private final CustList<RootBlock> allFound = new CustList<RootBlock>();
 
     public StringMap<CustList<MethodHeaderInfo>> getUnary() {
         return unary;
@@ -78,7 +75,4 @@ public final class MethodHeaders {
         return packagesFound;
     }
 
-    public CustList<RootBlock> getAllFound() {
-        return allFound;
-    }
 }

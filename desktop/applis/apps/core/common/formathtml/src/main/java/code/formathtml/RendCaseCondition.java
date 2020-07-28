@@ -78,7 +78,7 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
                         continue;
                     }
                     InnerTypeOrElement e_ = (InnerTypeOrElement) f;
-                    if (!StringList.quickEq(e_.getUniqueFieldName(), value.trim())) {
+                    if (!StringList.contains(e_.getFieldName(), value.trim())) {
                         continue;
                     }
                     page_.setLookLocalClass(id_);

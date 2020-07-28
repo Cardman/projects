@@ -41,16 +41,13 @@ public final class AnalyzedPageEl {
     private AccessedBlock importingTypes;
     private final CustList<RootBlock> listTypesNames = new CustList<RootBlock>();
     private final IdMap<RootBlock,ExecRootBlock> mapTypes = new IdMap<RootBlock,ExecRootBlock>();
-    private final IdMap<RootBlock,ExecRootBlock> allMapTypes = new IdMap<RootBlock,ExecRootBlock>();
     private final IdMap<InnerElementBlock,ExecInnerElementBlock> mapInnerEltTypes = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
     private final IdMap<UniqueRootedBlock,ExecUniqueRootedBlock> mapTypesUniqType = new IdMap<UniqueRootedBlock,ExecUniqueRootedBlock>();
     private final IdMap<RootBlock,ExecInterfacable> mapInterfaces = new IdMap<RootBlock,ExecInterfacable>();
     private final IdMap<RootBlock,Members> mapMembers = new IdMap<RootBlock,Members>();
-    private final IdMap<RootBlock,Members> allMapMembers = new IdMap<RootBlock,Members>();
     private final IdMap<OperatorBlock,ExecOperatorBlock> mapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
-    private final IdMap<OperatorBlock,ExecOperatorBlock> allMapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
-    private final CustList<RootBlock> allFoundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
+    private final CustList<RootBlock> refFoundTypes = new CustList<RootBlock>();
     private ExecBracedBlock blockToWrite;
 
     private int offset;
@@ -306,7 +303,7 @@ public final class AnalyzedPageEl {
         return _cont.getStandards().getStandards().getVal(_type);
     }
     public RootBlock getAnaClassBody(String _type) {
-        for (RootBlock r: allFoundTypes) {
+        for (RootBlock r: refFoundTypes) {
             if (StringList.quickEq(r.getFullName(),_type)) {
                 return r;
             }
@@ -414,12 +411,8 @@ public final class AnalyzedPageEl {
         return foundTypes;
     }
 
-    public CustList<RootBlock> getAllFoundTypes() {
-        return allFoundTypes;
-    }
-
-    public IdMap<RootBlock, ExecRootBlock> getAllMapTypes() {
-        return allMapTypes;
+    public CustList<RootBlock> getRefFoundTypes() {
+        return refFoundTypes;
     }
 
     public IdMap<RootBlock, ExecRootBlock> getMapTypes() {
@@ -442,16 +435,8 @@ public final class AnalyzedPageEl {
         return mapMembers;
     }
 
-    public IdMap<RootBlock, Members> getAllMapMembers() {
-        return allMapMembers;
-    }
-
     public IdMap<OperatorBlock, ExecOperatorBlock> getMapOperators() {
         return mapOperators;
-    }
-
-    public IdMap<OperatorBlock, ExecOperatorBlock> getAllMapOperators() {
-        return allMapOperators;
     }
 
     public AbstractProcessKeyWord getProcessKeyWord() {

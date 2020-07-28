@@ -15,9 +15,9 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.util.*;
 
 public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType, ExecAnnotableBlock {
-    private String name;
+    private final String name;
 
-    private String packageName;
+    private final String packageName;
 
     private AccessEnum access;
 

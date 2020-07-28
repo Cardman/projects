@@ -25,7 +25,7 @@ public final class OverridesTypeUtil {
     public static StringMap<ClassMethodId> getConcreteMethodsToCall(AnaGeneType _type, MethodId _realId, ContextEl _conf) {
         StringMap<ClassMethodId> eq_ = new StringMap<ClassMethodId>();
         String baseClassFound_ = _type.getFullName();
-        for (EntryCust<RootBlock, Members> e: _conf.getAnalyzing().getAllMapMembers().entryList()) {
+        for (EntryCust<RootBlock, Members> e: _conf.getAnalyzing().getMapMembers().entryList()) {
             RootBlock c = e.getKey();
             String name_ = c.getFullName();
             String baseCond_ = Templates.getOverridingFullTypeByBases(c, baseClassFound_, _conf);

@@ -39,19 +39,24 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private int trOffset;
     private OperationNode root;
-    private String classNameRes;
     private int fieldNumber;
+    private EnumBlock parentEnum;
+    private StringList fieldList = new StringList();
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_fieldName.getOffset(), _fieldName.getInfo(), _pkgName, new OffsetAccessInfo(0,AccessEnum.PUBLIC), "", new IntMap< String>(), _offset);
-        classNameRes = _m.getFullName();
+        parentEnum = _m;
         fieldNameOffest = _fieldName.getOffset();
         valueOffest = _value.getOffset();
         fieldName = _fieldName.getInfo();
         value = _value.getInfo();
         tempClass = _type.getInfo();
         tempClassOffset = _type.getOffset();
+    }
+
+    public EnumBlock getParentEnum() {
+        return parentEnum;
     }
 
     @Override
@@ -86,6 +91,17 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
         fields_.add(new PartOffsetAffect(new PartOffset(fieldName,valueOffest),true, new StringList()));
         FieldBlock.checkFieldsNames(_cont,this,_fieldNames,fields_);
+        for (PartOffsetAffect n: fields_) {
+            getNameErrors().addAllElts(n.getErrs());
+        }
+        for (PartOffsetAffect n: fields_) {
+            StringList errs_ = n.getErrs();
+            PartOffset p_ = n.getPartOffset();
+            String name_ = p_.getPart();
+            if (errs_.isEmpty()) {
+                fieldList.add(name_);
+            }
+        }
     }
 
     @Override
@@ -152,7 +168,8 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         page_.setCurrentAnaBlock(this);
         int i_ = 1;
         StringList j_ = new StringList();
-        for (String p: StringExpUtil.getAllTypes(StringList.concat(classNameRes, tempClass)).mid(1)) {
+        String fullName_ = parentEnum.getFullName();
+        for (String p: StringExpUtil.getAllTypes(StringList.concat(fullName_, tempClass)).mid(1)) {
             int loc_ = StringList.getFirstPrintableCharIndex(p);
             j_.add(ResolvingImportTypes.resolveCorrectType(_cont,i_+loc_,p));
             partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts());
@@ -160,7 +177,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         }
         StringMap<StringList> varsCt_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         StringList errs_ = new StringList();
-        importedClassName = AnaTemplates.check(errs_,classNameRes,j_,varsCt_,_cont);
+        importedClassName = AnaTemplates.check(errs_,fullName_,j_,varsCt_,_cont);
         for (String e: errs_) {
             addNameErrors(e);
         }
@@ -184,7 +201,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     @Override
     public StringList getFieldName() {
-        return new StringList(fieldName);
+        return fieldList;
     }
 
     @Override

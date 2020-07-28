@@ -42,16 +42,17 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private Ints annotationsIndexes = new Ints();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
-    private String classNameRes;
     private int trOffset;
     private final StringList nameErrors = new StringList();
     private int fieldNumber;
+    private EnumBlock parentEnum;
+    private StringList fieldList = new StringList();
 
     public ElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                         OffsetStringInfo _type,
                         OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_offset);
-        classNameRes = _m.getFullName();
+        parentEnum = _m;
         fieldNameOffest = _fieldName.getOffset();
         valueOffest = _value.getOffset();
         fieldName = _fieldName.getInfo();
@@ -83,7 +84,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     @Override
     public StringList getFieldName() {
-        return new StringList(fieldName);
+        return fieldList;
     }
 
     @Override
@@ -95,8 +96,17 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     public void retrieveNames(ContextEl _cont, StringList _fieldNames) {
         CustList<PartOffsetAffect> fields_ = new CustList<PartOffsetAffect>();
         fields_.add(new PartOffsetAffect(new PartOffset(fieldName,valueOffest),true, new StringList()));
-        for (StringList e: FieldBlock.checkFieldsNames(_cont,this,_fieldNames,fields_)){
-            addNameErrors(e);
+        FieldBlock.checkFieldsNames(_cont,this,_fieldNames,fields_);
+        for (PartOffsetAffect n: fields_) {
+            addNameErrors(n.getErrs());
+        }
+        for (PartOffsetAffect n: fields_) {
+            StringList errs_ = n.getErrs();
+            PartOffset p_ = n.getPartOffset();
+            String name_ = p_.getPart();
+            if (errs_.isEmpty()) {
+                fieldList.add(name_);
+            }
         }
     }
 
@@ -113,7 +123,8 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         page_.setCurrentAnaBlock(this);
         int i_ = 1;
         StringList j_ = new StringList();
-        for (String p: StringExpUtil.getAllTypes(StringList.concat(classNameRes, tempClass)).mid(1)) {
+        String fullName_ = parentEnum.getFullName();
+        for (String p: StringExpUtil.getAllTypes(StringList.concat(fullName_, tempClass)).mid(1)) {
             int loc_ = StringList.getFirstPrintableCharIndex(p);
             j_.add(ResolvingImportTypes.resolveCorrectType(_cont,i_+loc_,p));
             partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts());
@@ -121,7 +132,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         }
         StringMap<StringList> varsCt_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         StringList errs_ = new StringList();
-        importedClassName = AnaTemplates.check(errs_,classNameRes,j_,varsCt_,_cont);
+        importedClassName = AnaTemplates.check(errs_,fullName_,j_,varsCt_,_cont);
         for (String e: errs_) {
             addNameErrors(e);
         }
