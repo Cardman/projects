@@ -4,7 +4,9 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
 import code.expressionlanguage.analyze.opers.FctOperation;
+import code.expressionlanguage.analyze.opers.SuperFctOperation;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -28,6 +30,20 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         castOpId = _a.getCastOpId();
     }
     public ExecExplicitOperation(FctOperation _a) {
+        super(_a);
+        className = _a.getClassMethodId().getClassName();
+        classNameOwner = _a.getClassMethodId().getClassName();
+        offset = StringList.getFirstPrintableCharIndex(_a.getMethodName());
+        castOpId = _a.getClassMethodId().getConstraints();
+    }
+    public ExecExplicitOperation(SuperFctOperation _a) {
+        super(_a);
+        className = _a.getClassMethodId().getClassName();
+        classNameOwner = _a.getClassMethodId().getClassName();
+        offset = StringList.getFirstPrintableCharIndex(_a.getMethodName());
+        castOpId = _a.getClassMethodId().getConstraints();
+    }
+    public ExecExplicitOperation(ChoiceFctOperation _a) {
         super(_a);
         className = _a.getClassMethodId().getClassName();
         classNameOwner = _a.getClassMethodId().getClassName();

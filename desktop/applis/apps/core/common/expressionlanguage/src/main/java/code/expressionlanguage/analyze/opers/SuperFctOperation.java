@@ -2,7 +2,10 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
+import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -15,7 +18,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class SuperFctOperation extends InvokingOperation {
+public final class SuperFctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod {
 
     private String methodName;
 
@@ -29,12 +32,51 @@ public final class SuperFctOperation extends InvokingOperation {
     private int anc;
     private int delta;
     private int lengthMethod;
+    private boolean trueFalse;
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
+    private String typeInfer = EMPTY_STRING;
+    private String methodFound = EMPTY_STRING;
+    private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
+
 
     public SuperFctOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         methodName = getOperations().getFctName();
+    }
+
+    @Override
+    public void preAnalyze(ContextEl _an) {
+        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
+        String trimMeth_;
+        boolean import_ = false;
+        if (!isIntermediateDottedOperation()) {
+            import_ = true;
+            setStaticAccess(_an.getAnalyzing().getStaticContext());
+        }
+        String className_ = methodName.substring(0, methodName.lastIndexOf(PAR_RIGHT));
+        int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
+        className_ = className_.substring(lenPref_);
+        int loc_ = StringList.getFirstPrintableCharIndex(className_)-off_;
+        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+        className_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_an,lenPref_+loc_,className_,true,partOffsets_);
+        if (!className_.isEmpty()) {
+            partOffsets.addAllElts(partOffsets_);
+            typeInfer = className_;
+        }
+        String clCurName_ = className_;
+        StringList bounds_ = getBounds(clCurName_, _an);
+        int delta_ = methodName.lastIndexOf(PAR_RIGHT)+1;
+        String mName_ = methodName.substring(delta_);
+        trimMeth_ = mName_.trim();
+        if (isTrueFalseKeyWord(_an, trimMeth_)) {
+            return;
+        }
+        methodFound = trimMeth_;
+        methodInfos = getDeclaredCustMethodByType(_an,isStaticAccess(), false,true,bounds_, trimMeth_, import_,null);
+        boolean apply_ = applyMatching();
+        filterByNameReturnType(_an, trimMeth_, apply_, methodInfos);
     }
 
     @Override
@@ -58,8 +100,12 @@ public final class SuperFctOperation extends InvokingOperation {
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
         int loc_ = StringList.getFirstPrintableCharIndex(className_)-off_;
-        className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-        partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+        if (typeInfer.isEmpty()) {
+            className_ = ResolvingImportTypes.resolveCorrectType(_conf, lenPref_ + loc_, className_);
+            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+        } else {
+            className_ = typeInfer;
+        }
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _conf);
         String varargParam_ = getVarargParam(chidren_);
@@ -91,6 +137,7 @@ public final class SuperFctOperation extends InvokingOperation {
         lengthMethod -= deltaEnd_;
         trimMeth_ = mName_.trim();
         ClassMethodIdAncestor feed_ = null;
+        ClassMethodId feedBase_ = null;
         if (idMethod_ != null) {
             ClassMethodId id_ = idMethod_.getClassMethodId();
             String idClass_ = id_.getClassName();
@@ -98,7 +145,28 @@ public final class SuperFctOperation extends InvokingOperation {
             boolean vararg_ = mid_.isVararg();
             StringList params_ = mid_.getParametersTypes();
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
-            feed_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_)),idMethod_.getAncestor());
+            feedBase_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
+            feed_ = new ClassMethodIdAncestor(feedBase_,idMethod_.getAncestor());
+        }
+        if (isTrueFalseKeyWord(_conf, trimMeth_)) {
+            ClassMethodId f_ = getTrueFalse(_conf, feedBase_);
+            ClassMethodIdReturn clMeth_;
+            MethodAccessKind staticAccess_ = isStaticAccess();
+            ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(firstArgs_);
+            clMeth_ = getDeclaredCustTrueFalse(this,_conf, staticAccess_,bounds_,trimMeth_,f_, argsClass_);
+            if (!clMeth_.isFoundMethod()) {
+                setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
+                return;
+            }
+            trueFalse = true;
+            String foundClass_ = clMeth_.getRealClass();
+            MethodId id_ = clMeth_.getRealId();
+            classMethodId = new ClassMethodId(foundClass_, id_);
+            MethodId realId_ = clMeth_.getRealId();
+            staticMethod = true;
+            unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, firstArgs_, _conf);
+            setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
+            return;
         }
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this,_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, feed_, varargParam_, OperationNode.toArgArray(firstArgs_));
         anc = clMeth_.getAncestor();
@@ -174,5 +242,19 @@ public final class SuperFctOperation extends InvokingOperation {
 
     public int getLengthMethod() {
         return lengthMethod;
+    }
+
+    @Override
+    public CustList<CustList<MethodInfo>> getMethodInfos() {
+        return methodInfos;
+    }
+
+    @Override
+    public String getMethodFound() {
+        return methodFound;
+    }
+
+    public boolean isTrueFalse() {
+        return trueFalse;
     }
 }

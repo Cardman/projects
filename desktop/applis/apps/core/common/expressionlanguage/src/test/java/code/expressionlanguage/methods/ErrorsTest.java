@@ -13512,6 +13512,84 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void report638Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String method(){\n");
+        xml_.append("  ExClass e = $new ExClass();\n");
+        xml_.append("  e.field=10;\n");
+        xml_.append("  $classchoice(ExClass)$true();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExClass {\n");
+        xml_.append(" $public $int field=2;\n");
+        xml_.append(" $public $static $boolean $true(ExClass i){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $false(ExClass i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Apply </a>{\n" +
+                " $public $static String <a name=\"m51\" title=\"A $throw block or a $return block is missing for the method $static method().\" class=\"e\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a> <a name=\"m71\">e</a> = $new <a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a>();\n" +
+                "  <a href=\"#m71\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m185\">field</a>=10;\n" +
+                "  $classchoice(<a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a>)<a title=\"The function $static $true() is undefined.\" class=\"e\">$true</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m157\">pkg.ExClass </a>{\n" +
+                " $public $int <a name=\"m185\">field</a>=2;\n" +
+                " $public $static $boolean <a name=\"m220\" title=\"A $throw block or a $return block is missing for the method $static $true($boolean,pkg.ExClass).\" class=\"e\">$true</a>(<a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a> <a name=\"m234\">i</a>){\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m267\" title=\"A $throw block or a $return block is missing for the method $static $false($boolean,pkg.ExClass).\" class=\"e\">$false</a>(<a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a> <a name=\"m282\">i</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report639Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String method(){\n");
+        xml_.append("  ExClass e = $new ExClass();\n");
+        xml_.append("  e.field=10;\n");
+        xml_.append("  $superaccess(ExClass)$true();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExClass {\n");
+        xml_.append(" $public $int field=2;\n");
+        xml_.append(" $public $static $boolean $true(ExClass i){\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean $false(ExClass i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Apply </a>{\n" +
+                " $public $static String <a name=\"m51\" title=\"A $throw block or a $return block is missing for the method $static method().\" class=\"e\">method</a>(){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a> <a name=\"m71\">e</a> = $new <a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a>();\n" +
+                "  <a href=\"#m71\">e</a>.<a title=\"pkg.ExClass.field\" href=\"#m185\">field</a>=10;\n" +
+                "  $superaccess(<a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a>)<a title=\"The type pkg.Apply cannot be implicitly cast to pkg.ExClass\n" +
+                "\n" +
+                "The function $static $true() is undefined.\" class=\"e\">$true</a>();\n" +
+                " }\n" +
+                "}\n" +
+                "$public $class <a name=\"m157\">pkg.ExClass </a>{\n" +
+                " $public $int <a name=\"m185\">field</a>=2;\n" +
+                " $public $static $boolean <a name=\"m220\" title=\"A $throw block or a $return block is missing for the method $static $true($boolean,pkg.ExClass).\" class=\"e\">$true</a>(<a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a> <a name=\"m234\">i</a>){\n" +
+                " }\n" +
+                " $public $static $boolean <a name=\"m267\" title=\"A $throw block or a $return block is missing for the method $static $false($boolean,pkg.ExClass).\" class=\"e\">$false</a>(<a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a> <a name=\"m282\">i</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void reportWithoutErrorTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");

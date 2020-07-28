@@ -2,8 +2,10 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.analyze.blocks.FunctionBlock;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -178,6 +180,43 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
     }
 
+    protected boolean applyMatching() {
+        boolean apply_ = false;
+        OperationNode curPar_ = getParent();
+        if (curPar_ instanceof AbstractDotOperation) {
+            if (getIndexChild() > 0) {
+                if (curPar_.getParent() == null) {
+                    apply_ = true;
+                }
+            }
+        } else if (curPar_ == null){
+            apply_ = true;
+        }
+        return apply_;
+    }
+
+    protected static void filterByNameReturnType(ContextEl _an, String trimMeth_, boolean apply_, CustList<CustList<MethodInfo>> _methodInfos) {
+        int len_ = _methodInfos.size();
+        for (int i = 0; i < len_; i++) {
+            int gr_ = _methodInfos.get(i).size();
+            CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+            for (int j = 0; j < gr_; j++) {
+                MethodInfo methodInfo_ = _methodInfos.get(i).get(j);
+                if (!StringList.quickEq(methodInfo_.getConstraints().getName(),trimMeth_)) {
+                    continue;
+                }
+                newList_.add(methodInfo_);
+            }
+            _methodInfos.set(i, newList_);
+        }
+        String typeAff_ = EMPTY_STRING;
+        AnalyzedBlock cur_ = _an.getAnalyzing().getCurrentAnaBlock();
+        if (apply_ && cur_ instanceof ReturnMethod) {
+            typeAff_ = tryGetRetType(_an);
+        }
+        filterByReturnType(_an, typeAff_, _methodInfos);
+    }
+
     protected static void filterByReturnType(ContextEl _an, String typeAff_, CustList<CustList<MethodInfo>> _methodInfos) {
         KeyWords keyWords_ = _an.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -206,6 +245,19 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             _methodInfos.set(i, newList_);
         }
+    }
+
+    protected static ClassMethodId getTrueFalse(ContextEl _conf, ClassMethodId _feedBase) {
+        ClassMethodId f_ = _feedBase;
+        if (f_ != null) {
+            MethodId constraints_ = f_.getConstraints();
+            String name_ = constraints_.getName();
+            String className_ = f_.getClassName();
+            StringList parametersTypes_ = constraints_.getParametersTypes();
+            parametersTypes_.add(0,_conf.getStandards().getAliasPrimBoolean());
+            f_ = new ClassMethodId(className_,new MethodId(MethodAccessKind.STATIC,name_,parametersTypes_));
+        }
+        return f_;
     }
     public static boolean isTrueFalseKeyWord(ContextEl _an, String _trimMeth) {
         return StringList.quickEq(_trimMeth,_an.getKeyWords().getKeyWordTrue())

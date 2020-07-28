@@ -110,36 +110,8 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         }
         methodFound = trimMeth_;
         methodInfos = getDeclaredCustMethodByType(_an,isStaticAccess(), accessFromSuper_,accessSuperTypes_,bounds_, trimMeth_, import_,null);
-        int len_ = methodInfos.size();
-        for (int i = 0; i < len_; i++) {
-            int gr_ = methodInfos.get(i).size();
-            CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
-            for (int j = 0; j < gr_; j++) {
-                MethodInfo methodInfo_ = methodInfos.get(i).get(j);
-                if (!StringList.quickEq(methodInfo_.getConstraints().getName(),trimMeth_)) {
-                    continue;
-                }
-                newList_.add(methodInfo_);
-            }
-            methodInfos.set(i, newList_);
-        }
-        boolean apply_ = false;
-        OperationNode curPar_ = getParent();
-        if (curPar_ instanceof AbstractDotOperation) {
-            if (getIndexChild() > 0) {
-                if (curPar_.getParent() == null) {
-                    apply_ = true;
-                }
-            }
-        } else if (curPar_ == null){
-            apply_ = true;
-        }
-        String typeAff_ = EMPTY_STRING;
-        AnalyzedBlock cur_ = _an.getAnalyzing().getCurrentAnaBlock();
-        if (apply_ && cur_ instanceof ReturnMethod) {
-            typeAff_ = tryGetRetType(_an);
-        }
-        filterByReturnType(_an, typeAff_, methodInfos);
+        boolean apply_ = applyMatching();
+        filterByNameReturnType(_an, trimMeth_, apply_, methodInfos);
     }
 
     @Override
@@ -252,18 +224,11 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             return;
         }
         if (isTrueFalseKeyWord(_conf, trimMeth_)) {
-            if (feedBase_ != null) {
-                MethodId constraints_ = feedBase_.getConstraints();
-                String name_ = constraints_.getName();
-                String className_ = feedBase_.getClassName();
-                StringList parametersTypes_ = constraints_.getParametersTypes();
-                parametersTypes_.add(0,_conf.getStandards().getAliasPrimBoolean());
-                feedBase_ = new ClassMethodId(className_,new MethodId(MethodAccessKind.STATIC,name_,parametersTypes_));
-            }
+            ClassMethodId f_ = getTrueFalse(_conf, feedBase_);
             ClassMethodIdReturn clMeth_;
             MethodAccessKind staticAccess_ = isStaticAccess();
             ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(firstArgs_);
-            clMeth_ = getDeclaredCustTrueFalse(this,_conf, staticAccess_,bounds_,trimMeth_,feedBase_, argsClass_);
+            clMeth_ = getDeclaredCustTrueFalse(this,_conf, staticAccess_,bounds_,trimMeth_,f_, argsClass_);
             if (!clMeth_.isFoundMethod()) {
                 setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
                 return;
@@ -322,6 +287,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             checkNull(arg_,_conf);
         }
     }
+
     private void setDelta(ContextEl _conf) {
         String trimMeth_ = methodName.trim();
         KeyWords keyWords_ = _conf.getKeyWords();

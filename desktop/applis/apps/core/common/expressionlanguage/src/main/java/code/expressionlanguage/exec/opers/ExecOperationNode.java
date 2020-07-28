@@ -207,10 +207,16 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof ChoiceFctOperation) {
             ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
+            if (c_.isTrueFalse()) {
+                return new ExecExplicitOperation(c_);
+            }
             return new ExecChoiceFctOperation(c_);
         }
         if (_anaNode instanceof SuperFctOperation) {
             SuperFctOperation s_ = (SuperFctOperation) _anaNode;
+            if (s_.isTrueFalse()) {
+                return new ExecExplicitOperation(s_);
+            }
             return new ExecSuperFctOperation(s_);
         }
         if (_anaNode instanceof FctOperation) {
