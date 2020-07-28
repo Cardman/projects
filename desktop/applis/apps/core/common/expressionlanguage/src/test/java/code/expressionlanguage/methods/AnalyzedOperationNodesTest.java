@@ -4890,16 +4890,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         MethodHeaders headers_ = _context.getAnalyzing().getHeaders();
         _context.setAnalyzing();
         _context.getAnalyzing().setHeaders(headers_);
-        ClassesUtil.buildPredefinedBracesBodies(_context);
-        CustList<RootBlock> foundTypes_ = _context.getAnalyzing().getFoundTypes();
-        CustList<RootBlock> allFoundTypes_ = _context.getAnalyzing().getAllFoundTypes();
-        IdMap<RootBlock, ExecRootBlock> allMapFoundTypes_ = _context.getAnalyzing().getAllMapTypes();
-        _context.setAnalyzing();
-        _context.getAnalyzing().setHeaders(headers_);
-        _context.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
-        _context.getAnalyzing().getAllFoundTypes().addAllElts(allFoundTypes_);
-        _context.getAnalyzing().getAllMapTypes().putAllMap(allMapFoundTypes_);
-        ClassesUtil.tryValidateCustom(_files, _context);
+        ClassesUtil.buildAllBracesBodies(_files,_context);
     }
 
     private static CustList<ExecOperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className, String _file, boolean _mustFail) {

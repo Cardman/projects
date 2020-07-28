@@ -2,9 +2,11 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.exec.coverage.BooleanCoverageResult;
+import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.StringMap;
@@ -121,9 +123,11 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
-        assertEq(10, cont_.getCoverage().getCovers().size());
-        assertEq(3, cont_.getCoverage().getCovers().getValue(4).size());
-        assertTrue(cont_.getCoverage().getCovers().getValue(4).firstValue().isFullCovered());
+        Coverage coverage_ = cont_.getCoverage();
+        Block firstChild_ = coverage_.getFiles().last().getFirstChild().getFirstChild();
+        assertEq(10, coverage_.getCovers().size());
+        assertEq(3, coverage_.getCovers().getVal(firstChild_).size());
+        assertTrue(coverage_.getCovers().getVal(firstChild_).firstValue().isFullCovered());
     }
     @Test
     public void coverage13Test() {

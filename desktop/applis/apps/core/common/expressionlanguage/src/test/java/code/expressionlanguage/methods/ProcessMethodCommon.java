@@ -442,17 +442,7 @@ public abstract class ProcessMethodCommon {
         MethodHeaders headers_ = _cont.getAnalyzing().getHeaders();
         _cont.setAnalyzing();
         _cont.getAnalyzing().setHeaders(headers_);
-        ClassesUtil.buildPredefinedBracesBodies(_cont);
-        CustList<RootBlock> foundTypes_ = _cont.getAnalyzing().getFoundTypes();
-        IdMap<RootBlock, ExecRootBlock> old_ = _cont.getAnalyzing().getAllMapTypes();
-        IdMap<RootBlock, Members> oldMem_ = _cont.getAnalyzing().getAllMapMembers();
-        _cont.setAnalyzing();
-        _cont.getAnalyzing().setHeaders(headers_);
-        _cont.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
-        _cont.getAnalyzing().getAllFoundTypes().addAllElts(foundTypes_);
-        _cont.getAnalyzing().getAllMapTypes().putAllMap(old_);
-        _cont.getAnalyzing().getAllMapMembers().putAllMap(oldMem_);
-        ClassesUtil.tryBuildBracedClassesBodies(_files, _cont, false);
+        ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont);
     }
 
     protected static ContextEl getRootContextEl() {

@@ -51,7 +51,6 @@ public final class AnalyzedPageEl {
     private final IdMap<OperatorBlock,ExecOperatorBlock> allMapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
     private final CustList<RootBlock> allFoundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
-    private final CustList<RootBlock> previousFoundTypes = new CustList<RootBlock>();
     private ExecBracedBlock blockToWrite;
 
     private int offset;
@@ -453,10 +452,6 @@ public final class AnalyzedPageEl {
 
     public IdMap<OperatorBlock, ExecOperatorBlock> getAllMapOperators() {
         return allMapOperators;
-    }
-
-    public CustList<RootBlock> getPreviousFoundTypes() {
-        return previousFoundTypes;
     }
 
     public AbstractProcessKeyWord getProcessKeyWord() {

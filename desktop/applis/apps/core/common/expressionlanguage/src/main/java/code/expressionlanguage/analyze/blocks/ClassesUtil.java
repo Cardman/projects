@@ -43,10 +43,6 @@ public final class ClassesUtil {
     private ClassesUtil(){
     }
 
-    public static void tryValidateCustom(StringMap<String> _files, ContextEl _context) {
-        builtTypes(_files, _context, false);
-    }
-
     public static void postValidation(ContextEl _context) {
         StringMap<ClassMethodId> toStringMethodsToCall_ = _context.getClasses().getToStringMethodsToCall();
         for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getAllMapTypes().entryList()) {
@@ -237,6 +233,25 @@ public final class ClassesUtil {
         mloc_.formatWithoutParams();
         return mloc_;
     }
+    public static void buildAllBracesBodies(StringMap<String> _files, ContextEl _context) {
+        tryBuildAllBracedClassesBodies(_files, _context);
+        validateInheritingClasses(_context);
+        validateIds(_context);
+        validateOverridingInherit(_context);
+        validateEl(_context);
+        AnaTypeUtil.checkInterfaces(_context);
+        ValidatorStandard.buildIterable(_context);
+
+    }
+
+    public static void tryBuildAllBracedClassesBodies(StringMap<String> _files, ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        StringMap<String> files_ = stds_.buildFiles(_context);
+        parseFiles(_context, files_, true);
+        parseFiles(_context, _files, false);
+        fetchExec(_context);
+    }
+
     public static void buildPredefinedBracesBodies(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         StringMap<String> files_ = stds_.buildFiles(_context);
@@ -552,6 +567,10 @@ public final class ClassesUtil {
 
     public static void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context, boolean _predefined) {
         parseFiles(_context, _files, _predefined);
+        fetchExec(_context);
+    }
+
+    protected static void fetchExec(ContextEl _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
         IdMap<RootBlock, ExecRootBlock> mapTypes_ = page_.getMapTypes();
         for (EntryCust<RootBlock,ExecRootBlock> e: mapTypes_.entryList()) {
@@ -727,7 +746,6 @@ public final class ClassesUtil {
 
     public static void validateInheritingClasses(ContextEl _context) {
         String objectClassName_ = _context.getStandards().getAliasObject();
-        Classes classes_ = _context.getClasses();
         validateInheritingClassesId(_context);
         AnalyzedPageEl page_ = _context.getAnalyzing();
         CustList<RootBlock> listTypes_ = page_.getListTypesNames();
@@ -815,11 +833,8 @@ public final class ClassesUtil {
         String annotName_ = _context.getStandards().getAliasAnnotationType();
         StringMap<Boolean> builtTypes_ = new StringMap<Boolean>();
         IdList<RootBlock> stClNames_ = new IdList<RootBlock>(_context.getAnalyzing().getFoundTypes());
-        for (RootBlock r: _context.getAnalyzing().getPreviousFoundTypes()) {
-            builtTypes_.put(r.getFullName(), true);
-        }
-        for (RootBlock r: _context.getAnalyzing().getFoundTypes()) {
-            builtTypes_.put(r.getFullName(), false);
+        for (RootBlock r: stClNames_) {
+            builtTypes_.addEntry(r.getFullName(), false);
         }
         while (true) {
             IdList<RootBlock> next_ = new IdList<RootBlock>();

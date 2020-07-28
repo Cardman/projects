@@ -968,13 +968,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         MethodHeaders headers_ = _cont.getAnalyzing().getHeaders();
         _cont.setAnalyzing();
         _cont.getAnalyzing().setHeaders(headers_);
-        ClassesUtil.buildPredefinedBracesBodies(_cont);
-        CustList<RootBlock> foundTypes_ = _cont.getAnalyzing().getFoundTypes();
-        _cont.setAnalyzing();
-        _cont.getAnalyzing().setHeaders(headers_);
-        _cont.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
-        ClassesUtil.tryBuildBracedClassesBodies(_files, _cont, false);
-        assertTrue(_cont.getAnalyzing().getMessages().displayErrors(), _cont.isEmptyErrors());
+        ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont);
         assertTrue(_cont.getAnalyzing().getMessages().displayErrors(), _cont.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(_cont);
         assertTrue(_cont.getAnalyzing().getMessages().displayErrors(), _cont.isEmptyErrors());
@@ -987,10 +981,6 @@ public final class TemplatesTest extends ProcessMethodCommon {
         cont_.setAnalyzing();
         cont_.getAnalyzing().setHeaders(headers_);
         ClassesUtil.buildPredefinedBracesBodies(cont_);
-        CustList<RootBlock> foundTypes_ = cont_.getAnalyzing().getFoundTypes();
-        cont_.setAnalyzing();
-        cont_.getAnalyzing().setHeaders(headers_);
-        cont_.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         return cont_;
     }
 }

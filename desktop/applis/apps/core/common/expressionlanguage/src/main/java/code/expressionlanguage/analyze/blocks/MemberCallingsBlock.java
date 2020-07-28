@@ -79,6 +79,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             anEl_.reach(this);
             abrupt(_cont, anEl_);
             setAssignmentAfterCallReadOnly(_cont, anEl_);
+            page_.getInfosVars().clear();
             return;
         }
         while (true) {

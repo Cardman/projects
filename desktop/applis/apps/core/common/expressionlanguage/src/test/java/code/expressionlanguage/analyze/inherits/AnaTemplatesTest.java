@@ -6330,20 +6330,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
     private static ContextEl getContextEl(StringMap<String> _files, ContextEl _cont) {
-        Classes classes_ = _cont.getClasses();
         MethodHeaders headers_ = _cont.getAnalyzing().getHeaders();
         _cont.setAnalyzing();
         _cont.getAnalyzing().setHeaders(headers_);
-        ClassesUtil.buildPredefinedBracesBodies(_cont);
-        CustList<RootBlock> foundTypes_ = _cont.getAnalyzing().getFoundTypes();
-        IdMap<RootBlock, ExecRootBlock> old_ = _cont.getAnalyzing().getAllMapTypes();
-        _cont.setAnalyzing();
-        _cont.getAnalyzing().setHeaders(headers_);
-        _cont.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
-        _cont.getAnalyzing().getAllFoundTypes().addAllElts(foundTypes_);
-        _cont.getAnalyzing().getAllMapTypes().putAllMap(old_);
-        ClassesUtil.tryBuildBracedClassesBodies(_files, _cont, false);
-        assertTrue( _cont.isEmptyErrors());
+        ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont);
         assertTrue( _cont.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(_cont);
         assertTrue( _cont.isEmptyErrors());
@@ -6356,10 +6346,6 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         cont_.setAnalyzing();
         cont_.getAnalyzing().setHeaders(headers_);
         ClassesUtil.buildPredefinedBracesBodies(cont_);
-        CustList<RootBlock> foundTypes_ = cont_.getAnalyzing().getFoundTypes();
-        cont_.setAnalyzing();
-        cont_.getAnalyzing().setHeaders(headers_);
-        cont_.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
         return cont_;
     }
 }

@@ -82,26 +82,7 @@ public final class Classes {
         MethodHeaders headers_ = _context.getAnalyzing().getHeaders();
         _context.setAnalyzing();
         _context.getAnalyzing().setHeaders(headers_);
-        ClassesUtil.buildPredefinedBracesBodies(_context);
-        CustList<RootBlock> foundTypes_ = _context.getAnalyzing().getFoundTypes();
-        CustList<RootBlock> allFoundTypes_ = _context.getAnalyzing().getAllFoundTypes();
-        CustList<FileBlock> fs_ = _context.getAnalyzing().getErrors().getFiles();
-        IdMap<RootBlock, ExecRootBlock> old_ = _context.getAnalyzing().getAllMapTypes();
-        IdMap<OperatorBlock, ExecOperatorBlock> oldOperatores_ = _context.getAnalyzing().getAllMapOperators();
-        IdMap<RootBlock, Members> oldMembers_ = _context.getAnalyzing().getMapMembers();
-        StringMap<ToStringMethodHeader> oldToString_ = _context.getAnalyzing().getToStringMethods();
-        _context.setAnalyzing();
-        _context.getAnalyzing().getAllMapMembers().putAllMap(oldMembers_);
-        _context.getAnalyzing().getToStringMethods().putAllMap(oldToString_);
-        _context.getAnalyzing().getAllMapTypes().putAllMap(old_);
-        _context.getAnalyzing().getAllMapOperators().putAllMap(oldOperatores_);
-        _context.getAnalyzing().setHeaders(headers_);
-        _context.getAnalyzing().getErrors().getFiles().addAllElts(fs_);
-        _context.getAnalyzing().getPreviousFoundTypes().addAllElts(foundTypes_);
-        _context.getAnalyzing().getAllFoundTypes().addAllElts(allFoundTypes_);
-        ClassesUtil.tryValidateCustom(_files, _context);
-        oldMembers_ = _context.getAnalyzing().getMapMembers();
-        _context.getAnalyzing().getAllMapMembers().putAllMap(oldMembers_);
+        ClassesUtil.buildAllBracesBodies(_files,_context);
         ClassesUtil.postValidation(_context);
         if (_context.isGettingErrors()) {
             _context.getOptions().setErrors(ExecFileBlock.errors(_context));
