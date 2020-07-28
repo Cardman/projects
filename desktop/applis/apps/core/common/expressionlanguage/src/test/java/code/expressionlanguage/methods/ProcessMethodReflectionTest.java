@@ -20,7 +20,28 @@ import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.*;
 
 public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
-
+    @Test
+    public void processEl0Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String exmeth(){\n");
+        xml_.append("  $return $static($Class).forName(\"pkg.Ex-ONE\").getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE{};\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("pkg.Ex-ONE", getString(ret_));
+    }
     @Test
     public void processEl1Test() {
         StringBuilder xml_ = new StringBuilder();
