@@ -42,6 +42,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     private int fieldNumber;
     private EnumBlock parentEnum;
     private StringList fieldList = new StringList();
+    private int numberInner = -1;
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -60,8 +61,8 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     @Override
-    public void setupBasicOverrides(ContextEl _context,ExecRootBlock _exec) {
-        checkAccess(_context,_exec);
+    public void setupBasicOverrides(ContextEl _context) {
+        checkAccess(_context);
     }
 
     public String getValue() {
@@ -230,5 +231,13 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     @Override
     public void setFieldNumber(int fieldNumber) {
         this.fieldNumber = fieldNumber;
+    }
+
+    public int getNumberInner() {
+        return numberInner;
+    }
+
+    public void setNumberInner(int numberInner) {
+        this.numberInner = numberInner;
     }
 }

@@ -27,8 +27,8 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         return staticType;
     }
     @Override
-    public void setupBasicOverrides(ContextEl _context,ExecRootBlock _exec) {
-        checkAccess(_context,_exec);
+    public void setupBasicOverrides(ContextEl _context) {
+        checkAccess(_context);
     }
 
     public boolean isFinalType() {

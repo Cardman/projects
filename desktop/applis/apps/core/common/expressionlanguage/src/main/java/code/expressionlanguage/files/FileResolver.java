@@ -669,7 +669,7 @@ public final class FileResolver {
             
             if (StringList.quickEq(type_, keyWordEnum_)) {
                 enableByEndLine_ = true;
-                typeBlock_ = new EnumBlock(beginDefinition_, categoryOffset_, baseName_, packageName_,
+                typeBlock_ = new EnumBlock(beginDefinition_, baseName_, packageName_,
                         new OffsetAccessInfo(accessOffsetType_, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_,beginType_));
             } else if (StringList.quickEq(type_, keyWordClass_)) {
                 typeBlock_ = new ClassBlock(beginDefinition_, categoryOffset_, baseName_, packageName_,
@@ -1837,7 +1837,7 @@ public final class FileResolver {
         String typeName_ = typeNamePref_.toString();
 
         if (StringList.quickEq(_type, _keyWordEnum)) {
-            typeBlock_ = new EnumBlock(beginDefinition_, _categoryOffset, typeName_, _pkgName,
+            typeBlock_ = new EnumBlock(beginDefinition_, typeName_, _pkgName,
                     new OffsetAccessInfo(_typeOffset - 1, _accessFct) , tempDef_, superTypes_,
                     new OffsetsBlock(_instructionRealLocation + _trFound, _instructionLocation + _trFound));
         } else if (StringList.quickEq(_type, _keyWordClass)) {

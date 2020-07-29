@@ -256,6 +256,8 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     public void buildMapParamType(RootBlock _root) {
         paramTypes = _root.getParamTypesAsStringList();
         paramTypesMap = _root.getParamTypesMapAsExec();
+        importedDirectSuperClass = _root.getImportedDirectGenericSuperClass();
+        importedDirectSuperInterfaces = _root.getImportedDirectSuperInterfaces();
     }
 
     public String getName() {
@@ -339,10 +341,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     public StringList getImportedDirectGenericSuperInterfaces() {
         return importedDirectSuperInterfaces;
-    }
-
-    public void setImportedDirectSuperClass(String importedDirectSuperClass) {
-        this.importedDirectSuperClass = importedDirectSuperClass;
     }
 
     public final StringList getAllSuperTypes() {

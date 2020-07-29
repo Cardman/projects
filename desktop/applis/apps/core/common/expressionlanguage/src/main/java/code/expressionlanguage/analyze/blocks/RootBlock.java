@@ -13,7 +13,6 @@ import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.files.OffsetAccessInfo;
@@ -75,6 +74,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
 
     private String importedDirectSuperClass = "";
+    private StringList importedDirectSuperInterfaces = new StringList();
     private StringList staticInitImportedInterfaces = new StringList();
     private CustList<AnaFormattedRootBlock> importedDirectSuperTypes = new CustList<AnaFormattedRootBlock>();
 
@@ -218,7 +218,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return importedDirectBaseSuperTypes;
     }
 
-    protected void checkAccess(ContextEl _context,ExecRootBlock _exec) {
+    protected void checkAccess(ContextEl _context) {
         useSuperTypesOverrides(_context);
         StringList allGenericSuperClasses_ = new StringList();
         for (String s: allGenericSuperTypes) {
@@ -231,7 +231,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        String gene_ = _exec.getGenericString();
+        String gene_ = getGenericString();
         StringList classes_ = new StringList(gene_);
         classes_.addAllElts(allGenericSuperClasses_);
         for (OverridingMethodDto e: allOverridingMethods) {
@@ -349,7 +349,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     public boolean withoutInstance() {
         return isStaticType();
     }
-    public final void buildMapParamType(ContextEl _analyze,ExecRootBlock _exec) {
+    public final void buildMapParamType(ContextEl _analyze) {
         paramTypesMap = new StringMap<TypeVar>();
         for (RootBlock r: getSelfAndParentTypes()) {
             if (r == this) {
@@ -370,7 +370,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     int i_ = 0;
                     for (String c: t.getConstraints()) {
                         int d_ = ints_.get(i_);
-                        AnaResultPartType res_ = ResolvingSuperTypes.resolveTypeMapping(_analyze, c, this, _exec, off_ + d_);
+                        AnaResultPartType res_ = ResolvingSuperTypes.resolveTypeMapping(_analyze, c, this, off_ + d_);
                         results_.add(res_);
                         const_.add(res_.getResult());
                         i_++;
@@ -597,13 +597,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                               ||StringList.quickEq(m_.getName(),">>>>")
                               ||StringList.quickEq(m_.getName(),"==")
                               ||StringList.quickEq(m_.getName(),"!=")) {
-                                if (StringList.quickEq(m_.getImportedParametersTypes().first(),_exec.getGenericString())) {
-                                    if (StringList.quickEq(m_.getImportedParametersTypes().last(),_exec.getGenericString())) {
+                                if (StringList.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
+                                    if (StringList.quickEq(m_.getImportedParametersTypes().last(),getGenericString())) {
                                         binaryAll_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                     } else {
                                         binaryFirst_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                     }
-                                } else if (StringList.quickEq(m_.getImportedParametersTypes().last(),_exec.getGenericString())) {
+                                } else if (StringList.quickEq(m_.getImportedParametersTypes().last(),getGenericString())) {
                                     binarySecond_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                 }
                             }
@@ -615,7 +615,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                               ||StringList.quickEq(m_.getName(),"++")
                               ||StringList.quickEq(m_.getName(),"--")
                               ||StringList.quickEq(m_.getName(),"~")) {
-                                if (StringList.quickEq(m_.getImportedParametersTypes().first(),_exec.getGenericString())) {
+                                if (StringList.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
                                     unary_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                 }
                             }
@@ -641,10 +641,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         //method name len
                         badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
                                 m_.getSignature(_context),
-                                _exec.getGenericString());
+                                getGenericString());
                         _context.addError(badMeth_);
                         m_.addNameErrors(badMeth_);
-                    } else if (!StringList.quickEq(m_.getImportedParametersTypes().first(),_exec.getGenericString())) {
+                    } else if (!StringList.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
@@ -652,7 +652,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         //method name len
                         badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
                                 m_.getSignature(_context),
-                                _exec.getGenericString());
+                                getGenericString());
                         _context.addError(badMeth_);
                         m_.addNameErrors(badMeth_);
                     } else if (!m_.isStaticMethod()) {
@@ -693,7 +693,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                                 m_.getSignature(_context));
                         _context.addError(badMeth_);
                         m_.addNameErrors(badMeth_);
-                    } else if (!StringList.quickEq(m_.getImportedReturnType(),_exec.getGenericString())&&!StringList.quickEq(m_.getImportedParametersTypes().first(),_exec.getGenericString())) {
+                    } else if (!StringList.quickEq(m_.getImportedReturnType(),getGenericString())&&!StringList.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
                         badMeth_.setFileName(getFile().getFileName());
@@ -701,7 +701,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         //method name len
                         badMeth_.buildError(_context.getAnalysisMessages().getBadReturnType(),
                                 m_.getSignature(_context),
-                                _exec.getGenericString());
+                                getGenericString());
                         _context.addError(badMeth_);
                         m_.addNameErrors(badMeth_);
                     } else if (!m_.isStaticMethod()) {
@@ -728,7 +728,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         if (m_.getKind() == MethodKind.EXPLICIT_CAST) {
                             if (StringList.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
                                 explicitId_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                            } else if (StringList.quickEq(m_.getImportedReturnType(),_exec.getGenericString())){
+                            } else if (StringList.quickEq(m_.getImportedReturnType(),getGenericString())){
                                 explicit_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             } else {
                                 explicitFrom_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
@@ -736,7 +736,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         } else {
                             if (StringList.quickEq(m_.getImportedParametersTypes().first(),m_.getImportedReturnType())) {
                                 implicitId_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
-                            } else if (StringList.quickEq(m_.getImportedReturnType(),_exec.getGenericString())){
+                            } else if (StringList.quickEq(m_.getImportedReturnType(),getGenericString())){
                                 implicit_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
                             } else {
                                 implicitFrom_.add(new MethodHeaderInfo(m_.getId(),method_.getNameNumber(),m_.getImportedReturnType(), m_.getAccess()));
@@ -1090,36 +1090,62 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
     }
 
-    public abstract void setupBasicOverrides(ContextEl _context,ExecRootBlock _exec);
+    public abstract void setupBasicOverrides(ContextEl _context);
 
     final void useSuperTypesOverrides(ContextEl _context) {
         AnaTypeUtil.buildOverrides(this, _context);
     }
 
-    public final void buildDirectGenericSuperTypes(ContextEl _classes,ExecRootBlock _exec){
+    public final void buildDirectGenericSuperTypes(ContextEl _classes){
         IntMap< String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
         results.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            AnaResultPartType s_ = ResolvingSuperTypes.resolveTypeInherits(_classes,s,this, _exec,index_, getSuperTypesParts());
-            results.add(s_);
+            AnaResultPartType s_;
+            if (this instanceof InnerElementBlock) {
+                int o_ = 1;
+                boolean ok_ = true;
+                StringList j_ = new StringList();
+                StringList allTypes_ = StringExpUtil.getAllTypes(s);
+                for (String p: allTypes_.mid(1)) {
+                    int loc_ = StringList.getFirstPrintableCharIndex(p);
+                    AnaResultPartType resType_ = ResolvingSuperTypes.typeArguments(_classes, p, this, o_ + loc_, new CustList<PartOffset>());
+                    if (resType_ != null) {
+                        j_.add(resType_.getResult());
+                    } else {
+                        ok_ =  false;
+                    }
+                    o_ += p.length() + 1;
+                }
+                String res_;
+                if (ok_) {
+                    res_ = AnaTemplates.getRealClassName(allTypes_.first(), j_);
+                } else {
+                    res_ = _classes.getStandards().getAliasObject();
+                }
+                s_ = new AnaResultPartType(res_,null);
+            } else if (index_ < 0){
+                s_ = new AnaResultPartType(s,null);
+            } else {
+                int off_ = StringList.getFirstPrintableCharIndex(s);
+                s_ = ResolvingSuperTypes.resolveTypeInherits(_classes, s, this, off_+index_, getSuperTypesParts());
+                results.add(s_);
+            }
             i_++;
             String base_ = StringExpUtil.getIdFromAllTypes(s_.getResult());
             RootBlock r_ = _classes.getAnalyzing().getAnaClassBody(base_);
-            if (_exec instanceof ExecAnnotationBlock||r_ instanceof InterfaceBlock) {
-                _exec.getImportedDirectGenericSuperInterfaces().add(s_.getResult());
+            if (this instanceof AnnotationBlock||r_ instanceof InterfaceBlock) {
+                importedDirectSuperInterfaces.add(s_.getResult());
             } else {
-                _exec.setImportedDirectSuperClass(s_.getResult());
                 importedDirectSuperClass = s_.getResult();
             }
             if (r_ != null) {
                 importedDirectSuperTypes.add(new AnaFormattedRootBlock(r_, s_.getResult()));
             }
         }
-        if (_exec.getImportedDirectGenericSuperClass().isEmpty()) {
-            _exec.setImportedDirectSuperClass(_classes.getStandards().getAliasObject());
+        if (importedDirectSuperClass.isEmpty()) {
             importedDirectSuperClass = _classes.getStandards().getAliasObject();
 
         }
@@ -1301,7 +1327,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
     }
 
-    public final void checkCompatibility(ContextEl _context,ExecRootBlock _exec) {
+    public final void checkCompatibility(ContextEl _context) {
         StringMap<StringList> vars_ = new StringMap<StringList>();
         for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
@@ -1310,7 +1336,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         ov_ = new CustList<MethodIdAncestors>();
         CustList<CustList<MethodInfo>> methods_;
         methods_ = new CustList<CustList<MethodInfo>>();
-        OperationNode.fetchParamClassAncMethods(_context,new StringList(_exec.getGenericString()),methods_);
+        OperationNode.fetchParamClassAncMethods(_context,new StringList(getGenericString()),methods_);
         for (CustList<MethodInfo> l: methods_) {
             for (MethodInfo e: l) {
                 if (e.getConstraints().getKind() != MethodAccessKind.INSTANCE) {
@@ -1322,7 +1348,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         String fullName_ = getFullName();
         lookForErrors(_context, vars_, ov_, fullName_,fullName_);
     }
-    public final void checkImplements(ContextEl _context,ExecRootBlock _exec) {
+    public final void checkImplements(ContextEl _context) {
         boolean concreteClass_ = false;
         if (mustImplement()) {
             concreteClass_ = true;
@@ -1743,6 +1769,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
     public StringList getStaticInitImportedInterfaces() {
         return staticInitImportedInterfaces;
+    }
+
+    public StringList getImportedDirectSuperInterfaces() {
+        return importedDirectSuperInterfaces;
     }
 
     public void addNameErrors(FoundErrorInterpret _error) {

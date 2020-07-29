@@ -14,38 +14,23 @@ class ExecNamePartType extends ExecLeafPartType {
 
     @Override
     void checkDynExistence(ContextEl _an, CustList<IntTreeMap<String>> _dels) {
-        CustList<String> pr_ = new CustList<String>();
-        ExecPartType curr_ = getPartType();
-        ExecPartType part_;
-        if (curr_ != null) {
-            part_ = curr_.getPreviousSibling();
-        } else {
-            part_ = null;
-        }
-        ExecPartType partRemain_ = part_;
+        ExecPartType part_ = getPreviousPartType();
         String typeName_ = getTypeName();
         typeName_ = StringExpUtil.removeDottedSpaces(typeName_);
-        pr_.add(typeName_);
-        while (part_ != null) {
-            ExecPartType c_ = getDeepFirstChild(curr_);
-            pr_.add(0,((ExecLeafPartType)c_).getPreviousSeparator());
-            ExecPartType f_ = getDeepFirstChild(part_);
-            pr_.add(0,((ExecLeafPartType)f_).exportHeader());
-            part_ = part_.getPreviousSibling();
-            curr_ = curr_.getPreviousSibling();
-        }
         String prevSep_ = getPreviousSeparator();
-        String type_ = StringList.join(pr_, "");
-        if (_an.getClassBody(type_) != null) {
+        String concat_;
+        if (part_ != null) {
+            concat_ = StringList.concat(part_.getAnalyzedType(),prevSep_,typeName_);
+        } else {
+            concat_ = typeName_;
+        }
+        String id_ = StringExpUtil.getIdFromAllTypes(concat_);
+        if (_an.getClassBody(id_) != null) {
             setImportedTypeName(typeName_);
-            if (partRemain_ != null) {
-                setAnalyzedType(StringList.concat(partRemain_.getAnalyzedType(),prevSep_,typeName_));
-            } else {
-                setAnalyzedType(typeName_);
-            }
+            setAnalyzedType(concat_);
             return;
         }
-        if (PrimitiveTypeUtil.isPrimitive(type_, _an)) {
+        if (PrimitiveTypeUtil.isPrimitive(concat_, _an)) {
             setImportedTypeName(typeName_);
             setAnalyzedType(typeName_);
             return;
@@ -62,20 +47,12 @@ class ExecNamePartType extends ExecLeafPartType {
         }
     }
 
-    private static ExecPartType getDeepFirstChild(ExecPartType _part) {
-        ExecPartType f_ = _part;
-        while (f_.getFirstChild() != null) {
-            f_ = f_.getFirstChild();
-        }
-        return f_;
-    }
-
-    private ExecPartType getPartType() {
+    private ExecPartType getPreviousPartType() {
         if (getParent() instanceof ExecInnerPartType) {
-            return this;
+            return getPreviousSibling();
         }
         if (getParent() instanceof ExecTemplatePartType && getParent().getParent() instanceof ExecInnerPartType && getIndex() == 0) {
-            return getParent();
+            return getParent().getPreviousSibling();
         }
         return null;
     }

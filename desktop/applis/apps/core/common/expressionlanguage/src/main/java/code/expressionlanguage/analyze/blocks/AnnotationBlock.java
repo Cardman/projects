@@ -26,7 +26,7 @@ public final class AnnotationBlock extends RootBlock {
     }
 
     @Override
-    public void setupBasicOverrides(ContextEl _context,ExecRootBlock _exec) {
+    public void setupBasicOverrides(ContextEl _context) {
         useSuperTypesOverrides(_context);
     }
     

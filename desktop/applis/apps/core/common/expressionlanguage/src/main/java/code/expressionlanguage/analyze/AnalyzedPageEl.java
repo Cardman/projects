@@ -42,8 +42,6 @@ public final class AnalyzedPageEl {
     private final CustList<RootBlock> listTypesNames = new CustList<RootBlock>();
     private final IdMap<RootBlock,ExecRootBlock> mapTypes = new IdMap<RootBlock,ExecRootBlock>();
     private final IdMap<InnerElementBlock,ExecInnerElementBlock> mapInnerEltTypes = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
-    private final IdMap<UniqueRootedBlock,ExecUniqueRootedBlock> mapTypesUniqType = new IdMap<UniqueRootedBlock,ExecUniqueRootedBlock>();
-    private final IdMap<RootBlock,ExecInterfacable> mapInterfaces = new IdMap<RootBlock,ExecInterfacable>();
     private final IdMap<RootBlock,Members> mapMembers = new IdMap<RootBlock,Members>();
     private final IdMap<OperatorBlock,ExecOperatorBlock> mapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
@@ -421,14 +419,6 @@ public final class AnalyzedPageEl {
 
     public IdMap<InnerElementBlock, ExecInnerElementBlock> getMapInnerEltTypes() {
         return mapInnerEltTypes;
-    }
-
-    public IdMap<UniqueRootedBlock, ExecUniqueRootedBlock> getMapTypesUniqType() {
-        return mapTypesUniqType;
-    }
-
-    public IdMap<RootBlock, ExecInterfacable> getMapInterfaces() {
-        return mapInterfaces;
     }
 
     public IdMap<RootBlock, Members> getMapMembers() {

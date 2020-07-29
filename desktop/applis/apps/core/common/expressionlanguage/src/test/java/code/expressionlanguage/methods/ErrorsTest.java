@@ -8706,9 +8706,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyCl</a>&lt;<a name=\"m23\">T</a>&gt; {\n" +
-                " <a name=\"m29\" title=\"The type pkg.MyCl is not parameterized correctly.\n" +
-                "\n" +
-                "The type pkg.MyCl is not parameterized correctly.\" class=\"e\">ONE</a>{};\n" +
+                " <a name=\"m29\" title=\"The type pkg.MyCl is not parameterized correctly.\" class=\"e\">ONE</a>{};\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
@@ -12457,7 +12455,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The part  in a type is not valid. It must be a word.\n" +
                 "\n" +
-                "The type java.lang.Object is not parameterized correctly.\n" +
+                "There must be a type.\n" +
                 "\n" +
                 "The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\n" +
                 "\n" +
@@ -12497,7 +12495,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The part  in a type is not valid. It must be a word.\n" +
                 "\n" +
-                "The type java.lang.Object is not parameterized correctly.\n" +
+                "There must be a type.\n" +
                 "\n" +
                 "The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\n" +
                 "\n" +
@@ -13644,6 +13642,22 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "$public $class <a name=\"m62\">pkg.MyCl</a>&lt;<a name=\"m71\">T</a>&gt;{\n" +
                 "}\n" +
                 "$public $class <a name=\"m92\">pkg.MyParam</a>&lt;<a name=\"m104\">S</a>&gt;{\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report642Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append(" ONE<Inexist>{}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum </a>{\n" +
+                " <a name=\"m28\" title=\"The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\" class=\"e\">ONE</a>&lt;<a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>&gt;{}\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }

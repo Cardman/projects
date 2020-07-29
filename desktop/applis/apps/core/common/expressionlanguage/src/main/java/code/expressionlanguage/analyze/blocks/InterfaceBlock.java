@@ -21,7 +21,7 @@ public final class InterfaceBlock extends RootBlock {
         return staticType;
     }
     @Override
-    public void setupBasicOverrides(ContextEl _context,ExecRootBlock _exec) {
+    public void setupBasicOverrides(ContextEl _context) {
         useSuperTypesOverrides(_context);
     }
 

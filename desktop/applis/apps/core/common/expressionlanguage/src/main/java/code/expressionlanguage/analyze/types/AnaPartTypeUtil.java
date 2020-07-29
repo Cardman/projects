@@ -133,10 +133,8 @@ public final class AnaPartTypeUtil {
         return new AnaResultPartType(analyzedType_,r_);
     }
     public static AnaResultPartType processAnalyzeHeader(String _input, boolean _rootName, String _globalType, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
-        if (_loc > -1) {
-            _an.getAnalyzing().setLocalInType(_loc);
-            _an.getAnalyzing().setRefFileName("");
-        }
+        _an.getAnalyzing().setLocalInType(_loc);
+        _an.getAnalyzing().setRefFileName("");
         AnaResultPartType res_ = processAccessAnalyze(_input, _rootName, _globalType, _an, _local, _rooted, _loc, _offs);
         String analyzedType_ = res_.getResult();
         if (analyzedType_.isEmpty()) {
@@ -144,9 +142,7 @@ public final class AnaPartTypeUtil {
         }
         AnaPartType r_ = res_.getPartType();
         checkAccess(r_,_globalType,_an);
-        if (_loc > -1) {
-            appendParts(r_,_offs,_an);
-        }
+        appendParts(r_,_offs,_an);
         return new AnaResultPartType(analyzedType_,r_);
     }
     public static AnaResultPartType processAccessAnalyze(String _input, boolean _rootName, String _globalType, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {

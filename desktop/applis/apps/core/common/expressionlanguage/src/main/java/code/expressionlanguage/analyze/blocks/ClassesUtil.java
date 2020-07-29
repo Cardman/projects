@@ -20,7 +20,6 @@ import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.files.FileResolver;
@@ -428,7 +427,7 @@ public final class ClassesUtil {
             tempOff_ += p.length() + 1;
         }
         if (_root instanceof EnumBlock) {
-            String fullNameOrig_ = ((EnumBlock)_root).getOriginalName();
+            String fullNameOrig_ = _root.getFullName();
             StringBuilder generic_ = new StringBuilder(fullNameOrig_);
             if (!_root.getParamTypes().isEmpty()) {
                 StringList vars_ = new StringList();
@@ -451,7 +450,7 @@ public final class ClassesUtil {
         if (_root instanceof InnerElementBlock) {
             InnerElementBlock i_ = (InnerElementBlock) _root;
             EnumBlock par_ = i_.getParentEnum();
-            String type_ = StringList.concat(par_.getOriginalName(),i_.getTempClass());
+            String type_ = StringList.concat(par_.getFullName(),i_.getTempClass());
             _root.getDirectSuperTypes().add(type_);
             _root.getExplicitDirectSuperTypes().put(-1, false);
             _root.getRowColDirectSuperTypes().put(-1, type_);
@@ -503,7 +502,6 @@ public final class ClassesUtil {
             e_.setFile(_exFile);
             _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            page_.getMapTypesUniqType().put((ClassBlock) _root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
@@ -513,7 +511,6 @@ public final class ClassesUtil {
             e_.setFile(_exFile);
             _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            page_.getMapTypesUniqType().put((EnumBlock) _root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
@@ -523,7 +520,6 @@ public final class ClassesUtil {
             e_.setFile(_exFile);
             _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            page_.getMapInterfaces().put(_root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
@@ -533,7 +529,6 @@ public final class ClassesUtil {
             e_.setFile(_exFile);
             _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            page_.getMapInterfaces().put(_root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
@@ -543,7 +538,7 @@ public final class ClassesUtil {
             e_.setFile(_exFile);
             _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            page_.getMapTypesUniqType().put((InnerElementBlock) _root, e_);
+            ((InnerElementBlock) _root).setNumberInner(page_.getMapInnerEltTypes().size());
             page_.getMapInnerEltTypes().put((InnerElementBlock) _root, e_);
             _context.getClasses().getClassBodiesMap().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
@@ -580,12 +575,12 @@ public final class ClassesUtil {
             mem_.getAllAnnotables().addEntry(k_,current_);
             for (Block b: getDirectChildren(k_)) {
                 if (b instanceof RootBlock) {
-                    ExecRootBlock val_ = mapTypes_.getVal((RootBlock) b);
+                    ExecRootBlock val_ = mapTypes_.getValue(((RootBlock) b).getNumberAll());
                     current_.getChildrenTypes().add(val_);
                     mem_.getAllAnnotables().addEntry((RootBlock) b,val_);
                 }
                 if (b instanceof InnerElementBlock) {
-                    ExecInnerElementBlock val_ = page_.getMapInnerEltTypes().getVal((InnerElementBlock) b);
+                    ExecInnerElementBlock val_ = page_.getMapInnerEltTypes().getValue(((InnerElementBlock) b).getNumberInner());
                     current_.appendChild(val_);
                     current_.getEnumElements().add(val_);
                     ((InfoBlock) b).setFieldNumber(mem_.getAllFields().size());
@@ -754,13 +749,12 @@ public final class ClassesUtil {
         for (RootBlock s: listTypes_) {
             page_.setCurrentBlock(s);
             page_.setCurrentAnaBlock(s);
-            ExecRootBlock val_ = page_.getMapTypes().getVal(s);
-            s.buildDirectGenericSuperTypes(_context, val_);
+            s.buildDirectGenericSuperTypes(_context);
         }
         for (RootBlock c: page_.getFoundTypes()) {
             page_.setCurrentBlock(c);
             page_.setCurrentAnaBlock(c);
-            c.buildMapParamType(_context,page_.getMapTypes().getVal(c));
+            c.buildMapParamType(_context);
         }
         for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
             e.getValue().buildMapParamType(e.getKey());
@@ -905,7 +899,17 @@ public final class ClassesUtil {
                             readyTypes_.add(f.getKey());
                         }
                     }
-                    String foundType_ = ResolvingSuperTypes.resolveBaseInherits(_context,idSuper_, r, readyTypes_);
+                    String foundType_;
+                    if (r.getExplicitDirectSuperTypes().getValue(index_)) {
+                        foundType_ = ResolvingSuperTypes.resolveBaseInherits(_context,idSuper_, r, readyTypes_);
+                    } else {
+                        InheritReadyTypes inh_ = new InheritReadyTypes(readyTypes_);
+                        if (inh_.isReady(idSuper_)) {
+                            foundType_ = idSuper_;
+                        } else {
+                            foundType_ = "";
+                        }
+                    }
                     if (foundType_.isEmpty()) {
                         ready_ = false;
                         break;
@@ -1312,7 +1316,6 @@ public final class ClassesUtil {
 
     private static void validateSingleParameterizedClasses(ContextEl _context) {
         for (RootBlock i: _context.getAnalyzing().getFoundTypes()) {
-            ExecRootBlock val_ = _context.getAnalyzing().getMapTypes().getVal(i);
             CustList<AnaFormattedRootBlock> genericSuperTypes_ = i.getAllGenericSuperTypes(_context);
             for (AnaFormattedRootBlock a: genericSuperTypes_) {
                 i.getAllGenericSuperTypes().add(a.getFormatted());
@@ -1366,9 +1369,9 @@ public final class ClassesUtil {
         IdMap<RootBlock, ExecRootBlock> mapTypes_ = page_.getMapTypes();
         for (RootBlock c: page_.getFoundTypes()) {
             ExecRootBlock type_ = mapTypes_.getVal(c);
-            page_.setGlobalClass(type_.getGenericString());
+            page_.setGlobalClass(c.getGenericString());
             page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
             c.validateIds(_context, type_,page_.getMapMembers().getVal(c));
             if (c.getNbOperators() > 0) {
@@ -1379,10 +1382,9 @@ public final class ClassesUtil {
             e.getValue().validateIds(e.getKey(),page_.getMapMembers());
         }
         for (RootBlock c: page_.getFoundTypes()) {
-            ExecRootBlock type_ = mapTypes_.getVal(c);
-            page_.setGlobalClass(type_.getGenericString());
+            page_.setGlobalClass(c.getGenericString());
             page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
             for (Block b: getDirectChildren(c)) {
                 if (b instanceof InternOverrideBlock) {
@@ -1462,15 +1464,12 @@ public final class ClassesUtil {
     }
 
     public static void validateOverridingInherit(ContextEl _context) {
-        IdMap<RootBlock, ExecRootBlock> mapTypes_ = _context.getAnalyzing().getMapTypes();
         for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
-            ExecRootBlock type_ = mapTypes_.getVal(c);
-            c.setupBasicOverrides(_context,type_);
+            c.setupBasicOverrides(_context);
         }
         for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
-            ExecRootBlock type_ = mapTypes_.getVal(c);
-            c.checkCompatibility(_context,type_);
-            c.checkImplements(_context,type_);
+            c.checkCompatibility(_context);
+            c.checkImplements(_context);
         }
         for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
             c.checkCompatibilityBounds(_context);
@@ -1560,9 +1559,8 @@ public final class ClassesUtil {
         } else {
             for (RootBlock c: page_.getFoundTypes()) {
                 Members mem_ = page_.getMapMembers().getVal(c);
-                ExecRootBlock type_ = page_.getMapTypes().getVal(c);
                 page_.setImporting(c);
-                page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+                page_.setImportingAcces(new TypeAccessor(c.getFullName()));
                 page_.setImportingTypes(c);
                 page_.getInitFields().clear();
                 page_.getAssignedDeclaredFields().clear();
@@ -1593,14 +1591,14 @@ public final class ClassesUtil {
                 }
                 for (Block b: bl_) {
                     if (b instanceof InnerTypeOrElement) {
-                        page_.setGlobalClass(type_.getGenericString());
+                        page_.setGlobalClass(c.getGenericString());
                         InnerTypeOrElement method_ = (InnerTypeOrElement) b;
                         page_.setCurrentBlock(b);
                         page_.setCurrentAnaBlock(b);
                         method_.buildExpressionLanguageReadOnly(_context,mem_.getAllElementFields().getVal(method_));
                     }
                     if (b instanceof FieldBlock) {
-                        page_.setGlobalClass(type_.getGenericString());
+                        page_.setGlobalClass(c.getGenericString());
                         FieldBlock method_ = (FieldBlock) b;
                         if (!method_.isStaticField()) {
                             continue;
@@ -1610,7 +1608,7 @@ public final class ClassesUtil {
                         method_.buildExpressionLanguageReadOnly(_context,mem_.getAllExplicitFields().getVal(method_));
                     }
                     if (b instanceof StaticBlock) {
-                        page_.setGlobalClass(type_.getGenericString());
+                        page_.setGlobalClass(c.getGenericString());
                         StaticBlock method_ = (StaticBlock) b;
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllInits().getVal(method_));
                         page_.clearAllLocalVarsReadOnly();
@@ -1620,9 +1618,8 @@ public final class ClassesUtil {
             }
             _context.setAssignedStaticFields(true);
             for (RootBlock c: page_.getFoundTypes()) {
-                ExecRootBlock type_ = page_.getMapTypes().getVal(c);
                 page_.setImporting(c);
-                page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+                page_.setImportingAcces(new TypeAccessor(c.getFullName()));
                 page_.setImportingTypes(c);
                 Members mem_ = page_.getMapMembers().getVal(c);
                 page_.getInitFields().clear();
@@ -1652,14 +1649,14 @@ public final class ClassesUtil {
                         }
                     }
                     if (b instanceof FieldBlock) {
-                        page_.setGlobalClass(type_.getGenericString());
+                        page_.setGlobalClass(c.getGenericString());
                         FieldBlock method_ = (FieldBlock) b;
                         page_.setCurrentBlock(b);
                         page_.setCurrentAnaBlock(b);
                         method_.buildExpressionLanguageReadOnly(_context,mem_.getAllExplicitFields().getVal(method_));
                     }
                     if (b instanceof InstanceBlock) {
-                        page_.setGlobalClass(type_.getGenericString());
+                        page_.setGlobalClass(c.getGenericString());
                         InstanceBlock method_ = (InstanceBlock) b;
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllInits().getVal(method_));
                     }
@@ -1669,7 +1666,7 @@ public final class ClassesUtil {
                     if (b instanceof ConstructorBlock) {
                         page_.getInitFieldsCtors().clear();
                         page_.getInitFieldsCtors().addAllElts(page_.getInitFields());
-                        page_.setGlobalClass(type_.getGenericString());
+                        page_.setGlobalClass(c.getGenericString());
                         ConstructorBlock method_ = (ConstructorBlock) b;
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
@@ -1682,9 +1679,8 @@ public final class ClassesUtil {
             }
             _context.setAssignedFields(true);
             for (RootBlock c: page_.getFoundTypes()) {
-                ExecRootBlock type_ = page_.getMapTypes().getVal(c);
                 page_.setImporting(c);
-                page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+                page_.setImportingAcces(new TypeAccessor(c.getFullName()));
                 page_.setImportingTypes(c);
                 Members mem_ = page_.getMapMembers().getVal(c);
                 String fullName_ = c.getFullName();
@@ -1695,7 +1691,7 @@ public final class ClassesUtil {
                     }
                     OverridableBlock method_ = (OverridableBlock) b;
                     if (isStdOrExplicit(method_)) {
-                        page_.setGlobalClass(type_.getGenericString());
+                        page_.setGlobalClass(c.getGenericString());
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
@@ -1703,7 +1699,7 @@ public final class ClassesUtil {
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
                         page_.clearAllLocalVarsReadOnly();
                     } else {
-                        page_.setGlobalClass(type_.getGenericString());
+                        page_.setGlobalClass(c.getGenericString());
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
@@ -1730,12 +1726,11 @@ public final class ClassesUtil {
         }
         _context.setAnnotAnalysis(true);
         for (RootBlock c: page_.getFoundTypes()) {
-            ExecRootBlock type_ = page_.getMapTypes().getVal(c);
             page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
             Members mem_ = page_.getMapMembers().getVal(c);
-            page_.setGlobalClass(type_.getGenericString());
+            page_.setGlobalClass(c.getGenericString());
             CustList<Block> annotated_ = new CustList<Block>();
             if (!(c instanceof InnerElementBlock)) {
                 annotated_.add(c);
@@ -1794,9 +1789,8 @@ public final class ClassesUtil {
         AssignedVariablesBlock assVars_ = new AssignedVariablesBlock();
         for (RootBlock c: page_.getFoundTypes()) {
             Members mem_ = page_.getMapMembers().getVal(c);
-            ExecRootBlock type_ = page_.getMapTypes().getVal(c);
             page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
             page_.getInitFields().clear();
             page_.getAssignedDeclaredFields().clear();
@@ -1835,7 +1829,7 @@ public final class ClassesUtil {
             AssBlock pr_ = null;
             for (Block b: bl_) {
                 if (b instanceof InnerTypeOrElement) {
-                    page_.setGlobalClass(type_.getGenericString());
+                    page_.setGlobalClass(c.getGenericString());
                     InnerTypeOrElement method_ = (InnerTypeOrElement) b;
                     page_.setCurrentBlock(b);
                     page_.setCurrentAnaBlock(b);
@@ -1849,7 +1843,7 @@ public final class ClassesUtil {
                     pr_ = (AssBlock) aInfo_;
                 }
                 if (b instanceof FieldBlock) {
-                    page_.setGlobalClass(type_.getGenericString());
+                    page_.setGlobalClass(c.getGenericString());
                     FieldBlock method_ = (FieldBlock) b;
                     if (!method_.isStaticField()) {
                         continue;
@@ -1867,7 +1861,7 @@ public final class ClassesUtil {
                     pr_ = (AssBlock) aInfo_;
                 }
                 if (b instanceof StaticBlock) {
-                    page_.setGlobalClass(type_.getGenericString());
+                    page_.setGlobalClass(c.getGenericString());
                     StaticBlock method_ = (StaticBlock) b;
                     AssMemberCallingsBlock res_ = AssBlockUtil.buildFctInstructions(method_,mem_.getAllInits().getVal(method_),_context,pr_,assVars_);
                     assAfter_.putAllMap(assVars_.getFinalVariables().getVal(res_).getFieldsRoot());
@@ -1896,9 +1890,8 @@ public final class ClassesUtil {
         _context.setAssignedStaticFields(true);
         for (RootBlock c: page_.getFoundTypes()) {
             Members mem_ = page_.getMapMembers().getVal(c);
-            ExecRootBlock type_ = page_.getMapTypes().getVal(c);
             page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
             page_.getInitFields().clear();
             page_.getAssignedDeclaredFields().clear();
@@ -1949,7 +1942,7 @@ public final class ClassesUtil {
                     }
                 }
                 if (b instanceof FieldBlock) {
-                    page_.setGlobalClass(type_.getGenericString());
+                    page_.setGlobalClass(c.getGenericString());
                     FieldBlock method_ = (FieldBlock) b;
                     page_.setCurrentBlock(b);
                     page_.setCurrentAnaBlock(b);
@@ -1963,7 +1956,7 @@ public final class ClassesUtil {
                     pr_ = aInfo_;
                 }
                 if (b instanceof InstanceBlock) {
-                    page_.setGlobalClass(type_.getGenericString());
+                    page_.setGlobalClass(c.getGenericString());
                     InstanceBlock method_ = (InstanceBlock) b;
                     AssMemberCallingsBlock res_ = AssBlockUtil.buildFctInstructions(method_,mem_.getAllInits().getVal(method_), _context,pr_, assVars_);
                     assAfter_.putAllMap(assVars_.getFinalVariables().getVal(res_).getFieldsRoot());
@@ -2004,7 +1997,7 @@ public final class ClassesUtil {
                 if (b instanceof ConstructorBlock) {
                     page_.getInitFieldsCtors().clear();
                     page_.getInitFieldsCtors().addAllElts(page_.getInitFields());
-                    page_.setGlobalClass(type_.getGenericString());
+                    page_.setGlobalClass(c.getGenericString());
                     ConstructorBlock method_ = (ConstructorBlock) b;
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
@@ -2042,9 +2035,8 @@ public final class ClassesUtil {
         b_.clear();
 
         for (RootBlock c: page_.getFoundTypes()) {
-            ExecRootBlock type_ = page_.getMapTypes().getVal(c);
             page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
             Members mem_ = page_.getMapMembers().getVal(c);
             String fullName_ = c.getFullName();
@@ -2055,7 +2047,7 @@ public final class ClassesUtil {
                 }
                 OverridableBlock method_ = (OverridableBlock) b;
                 if (isStdOrExplicit(method_)) {
-                    page_.setGlobalClass(type_.getGenericString());
+                    page_.setGlobalClass(c.getGenericString());
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
@@ -2063,7 +2055,7 @@ public final class ClassesUtil {
                     AssBlockUtil.buildFctInstructions(method_,mem_.getAllMethods().getVal(method_),_context,null,assVars_);
                     page_.clearAllLocalVars(assVars_);
                 } else {
-                    page_.setGlobalClass(type_.getGenericString());
+                    page_.setGlobalClass(c.getGenericString());
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
@@ -2264,9 +2256,8 @@ public final class ClassesUtil {
         }
         IdMap<ClassField,ClassFieldBlock> cstFields_ = new IdMap<ClassField,ClassFieldBlock>();
         for (RootBlock c: _context.getAnalyzing().getFoundTypes()) {
-            ExecRootBlock type_ = _context.getAnalyzing().getMapTypes().getVal(c);
             page_.setImporting(c);
-            page_.setImportingAcces(new TypeAccessor(type_.getFullName()));
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
@@ -2280,7 +2271,7 @@ public final class ClassesUtil {
                 if (!f_.isFinalField()) {
                     continue;
                 }
-                page_.setGlobalClass(type_.getGenericString());
+                page_.setGlobalClass(c.getGenericString());
                 page_.setCurrentBlock(f_);
                 page_.setCurrentAnaBlock(f_);
                 CustList<OperationNode> list_ = f_.buildExpressionLanguageQuickly(_context);
