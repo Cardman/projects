@@ -13,6 +13,7 @@ import code.util.StringMap;
 
 public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock {
 
+    private StringMap<String> mappings = new StringMap<String>();
     MemberCallingsBlock(OffsetsBlock _offset) {
         super(_offset);
     }
@@ -246,4 +247,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     public abstract  MethodAccessKind getStaticContext();
 
+    public StringMap<String> getMappings() {
+        return mappings;
+    }
 }

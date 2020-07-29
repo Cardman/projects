@@ -161,7 +161,6 @@ final class AnaNamePartType extends AnaLeafPartType {
                                        RootBlock _local) {
         String type_ = getTypeName().trim();
         RootBlock p_ = _local;
-        Classes classes_ = _an.getClasses();
         StringList allAncestors_ = new StringList();
         while (p_ != null) {
             allAncestors_.add(p_.getGenericString());

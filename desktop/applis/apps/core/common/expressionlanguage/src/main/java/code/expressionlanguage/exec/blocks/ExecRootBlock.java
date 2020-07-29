@@ -44,11 +44,13 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private final CustList<ExecFieldBlock> instanceFields = new CustList<ExecFieldBlock>();
     private final CustList<ExecAnnotationMethodBlock> annotationsFields = new CustList<ExecAnnotationMethodBlock>();
     private final CustList<ExecInnerTypeOrElement> enumElements = new CustList<ExecInnerTypeOrElement>();
+    private String suffix;
 
     ExecRootBlock(RootBlock _offset) {
         super(_offset.getOffset());
         packageName = _offset.getPackageName();
         name = _offset.getName();
+        suffix = _offset.getSuffix();
         access = _offset.getAccess();
         idRowCol = _offset.getIdRowCol();
         paramTypes = _offset.getParamTypesAsStringList();
@@ -126,13 +128,13 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         CustList<ExecRootBlock> pars_ = getSelfAndParentTypes();
         ExecRootBlock previous_ = null;
         for (ExecRootBlock r: pars_.first().getAllParentTypesReverse()) {
-            appendParts(generic_, previous_, r, "-", "..");
-            generic_.append(r.getName());
+            appendParts(generic_, previous_, r);
+            generic_.append(r.getSuffixedName());
             previous_ = r;
         }
         for (ExecRootBlock r: pars_) {
-            appendParts(generic_, previous_, r, "-", "..");
-            generic_.append(r.getName());
+            appendParts(generic_, previous_, r);
+            generic_.append(r.getSuffixedName());
             if (!r.paramTypes.isEmpty()) {
                 StringList vars_ = new StringList();
                 int count_ = r.paramTypes.size();
@@ -148,12 +150,12 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         return generic_.toString();
     }
 
-    private static void appendParts(StringBuilder generic_, ExecRootBlock previous_, ExecRootBlock r, String _sepInn, String _sep) {
+    private static void appendParts(StringBuilder generic_, ExecRootBlock previous_, ExecRootBlock r) {
         if (previous_ != null) {
             if (r instanceof ExecInnerElementBlock) {
-                generic_.append(_sepInn);
+                generic_.append("-");
             } else {
-                generic_.append(_sep);
+                generic_.append("..");
             }
         }
     }
@@ -232,13 +234,13 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         CustList<ExecRootBlock> pars_ = getSelfAndParentTypes();
         ExecRootBlock previous_ = null;
         for (ExecRootBlock r: pars_.first().getAllParentTypesReverse()) {
-            appendParts(generic_, previous_, r, "-", "..");
-            generic_.append(r.getName());
+            appendParts(generic_, previous_, r);
+            generic_.append(r.getSuffixedName());
             previous_ = r;
         }
         for (ExecRootBlock r: pars_) {
-            appendParts(generic_, previous_, r, "-", "..");
-            generic_.append(r.getName());
+            appendParts(generic_, previous_, r);
+            generic_.append(r.getSuffixedName());
             if (!r.paramTypes.isEmpty()) {
                 StringList vars_ = new StringList();
                 for (String t:r.paramTypes) {
@@ -264,6 +266,9 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         return name;
     }
 
+    public String getSuffixedName() {
+        return StringList.concat(getName(),suffix);
+    }
     @Override
     public String getPackageName() {
         return packageName;
@@ -275,18 +280,14 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     @Override
     public String getFullName() {
-        return formatName();
-    }
-
-    private String formatName() {
         CustList<ExecRootBlock> all_ = new CustList<ExecRootBlock>(this);
         all_.addAllElts(getAllParentTypes());
         ExecRootBlock p_ = null;
         StringBuilder strBuilder_ = new StringBuilder();
         RootBlock.addPkgIfNotEmpty(packageName,strBuilder_);
         for (ExecRootBlock r: all_.getReverse()) {
-            appendParts(strBuilder_,p_,r,"-","..");
-            strBuilder_.append(r.getName());
+            appendParts(strBuilder_,p_,r);
+            strBuilder_.append(r.getSuffixedName());
             p_ = r;
         }
         return strBuilder_.toString();

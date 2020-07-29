@@ -91,6 +91,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private int nbOperators;
     private int numberAll = -1;
     private StringList allSuperTypes = new StringList();
+    private StringList allReservedInners = new StringList();
+    private StringMap<Integer> counts = new StringMap<Integer>();
+    private String suffix="";
 
     RootBlock(int _idRowCol, String _name,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
@@ -427,12 +430,12 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return paramTypesConstraintsOffset;
     }
 
-    private static void appendParts(StringBuilder generic_, RootBlock previous_, RootBlock r, String _sepInn, String _sep) {
+    private static void appendParts(StringBuilder generic_, RootBlock previous_, RootBlock r) {
         if (previous_ != null) {
             if (r instanceof InnerElementBlock) {
-                generic_.append(_sepInn);
+                generic_.append("-");
             } else {
-                generic_.append(_sep);
+                generic_.append("..");
             }
         }
     }
@@ -456,6 +459,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return name;
     }
 
+    public String getSuffixedName() {
+        return StringList.concat(name,suffix);
+    }
     public String getPackageName() {
         return packageName;
     }
@@ -472,18 +478,14 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     public String getFullName() {
-        return formatName("-","..");
-    }
-
-    protected String formatName(String _sepInner, String _sep) {
         CustList<RootBlock> all_ = new CustList<RootBlock>(this);
         all_.addAllElts(getAllParentTypes());
         RootBlock p_ = null;
         StringBuilder strBuilder_ = new StringBuilder();
         addPkgIfNotEmpty(packageName,strBuilder_);
         for (RootBlock r: all_.getReverse()) {
-            appendParts(strBuilder_,p_,r,_sepInner,_sep);
-            strBuilder_.append(r.getName());
+            appendParts(strBuilder_,p_,r);
+            strBuilder_.append(r.getSuffixedName());
             p_ = r;
         }
         return strBuilder_.toString();
@@ -1846,13 +1848,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         CustList<RootBlock> pars_ = getSelfAndParentTypes();
         RootBlock previous_ = null;
         for (RootBlock r: pars_.first().getAllParentTypesReverse()) {
-            appendParts(generic_, previous_, r, "-", "..");
-            generic_.append(r.getName());
+            appendParts(generic_, previous_, r);
+            generic_.append(r.getSuffixedName());
             previous_ = r;
         }
         for (RootBlock r: pars_) {
-            appendParts(generic_, previous_, r, "-", "..");
-            generic_.append(r.getName());
+            appendParts(generic_, previous_, r);
+            generic_.append(r.getSuffixedName());
             if (!r.paramTypes.isEmpty()) {
                 StringList vars_ = new StringList();
                 int count_ = r.paramTypes.size();
@@ -1891,13 +1893,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         CustList<RootBlock> pars_ = getSelfAndParentTypes();
         RootBlock previous_ = null;
         for (RootBlock r: pars_.first().getAllParentTypesReverse()) {
-            appendParts(generic_, previous_, r, "-", "..");
-            generic_.append(r.getName());
+            appendParts(generic_, previous_, r);
+            generic_.append(r.getSuffixedName());
             previous_ = r;
         }
         for (RootBlock r: pars_) {
-            appendParts(generic_, previous_, r, "-", "..");
-            generic_.append(r.getName());
+            appendParts(generic_, previous_, r);
+            generic_.append(r.getSuffixedName());
             if (!r.paramTypes.isEmpty()) {
                 StringList vars_ = new StringList();
                 for (TypeVar t:r.paramTypes) {
@@ -1926,5 +1928,31 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<AnaFormattedRootBlock> getImportedDirectSuperTypesInfo() {
         return importedDirectSuperTypes;
+    }
+
+    public StringList getAllReservedInners() {
+        return allReservedInners;
+    }
+
+    public StringMap<Integer> getCounts() {
+        return counts;
+    }
+    public MemberCallingsBlock getOuterFuntion() {
+        Block p_ = this;
+        while (p_ != null) {
+            if (p_ instanceof MemberCallingsBlock) {
+                return (MemberCallingsBlock)p_;
+            }
+            p_ = p_.getParent();
+        }
+        return null;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
     }
 }

@@ -317,19 +317,7 @@ public final class ClassesUtil {
         StringList varTypes_ = new StringList();
         String objectClassName_ = _context.getStandards().getAliasObject();
         StringList params_ = StringExpUtil.getAllTypes(fullDef_);
-        StringList namesFromParent_ = new StringList();
-        RootBlock r_ = _root;
-        if (!r_.isStaticType()) {
-            while (true) {
-                r_ = (RootBlock) r_.getParent();
-                for (TypeVar t: r_.getParamTypes()) {
-                    namesFromParent_.add(t.getName());
-                }
-                if (r_.isStaticType()) {
-                    break;
-                }
-            }
-        }
+        StringList namesFromParent_ = getParamVarFromParent(_root);
         int tempOff_ = _root.getTemplateDefOffset() + 1;
         for (String p: params_.mid(CustList.SECOND_INDEX)) {
             int delta_ = 0;
@@ -542,6 +530,34 @@ public final class ClassesUtil {
         }
     }
 
+    private static StringList getParamVarFromParent(RootBlock _root) {
+        if (_root.isStaticType()) {
+            return new StringList();
+        }
+        return getParamVarFromAnyParent(_root);
+    }
+
+    private static StringList getParamVarFromAnyParent(RootBlock _root) {
+        StringList namesFromParent_ = new StringList();
+        boolean add_ = true;
+        RootBlock r_ = _root;
+        while (true) {
+            r_ = r_.getParentType();
+            if (r_ == null) {
+                break;
+            }
+            if (add_){
+                for (TypeVar t: r_.getParamTypes()) {
+                    namesFromParent_.add(t.getName());
+                }
+            }
+            if (r_.isStaticType()) {
+                add_ = false;
+            }
+        }
+        return namesFromParent_;
+    }
+
     private static void appendType(ExecFileBlock _exFile, RootBlock _outer, RootBlock _root, ExecRootBlock e_) {
         if (_outer == _root) {
             _exFile.appendChild(e_);
@@ -681,7 +697,6 @@ public final class ClassesUtil {
     }
 
     public static void fetchByFile(ContextEl _context, StringList _basePkgFound, StringList _pkgFound, FileBlock _anaFile, ExecFileBlock _exeFile) {
-        String fileName_ = _anaFile.getFileName();
         for (Block b: getDirectChildren(_anaFile)) {
             if (b instanceof RootBlock) {
                 RootBlock r_ = (RootBlock) b;
@@ -711,11 +726,72 @@ public final class ClassesUtil {
                     while (true) {
                         if (c_ instanceof RootBlock) {
                             RootBlock cur_ = (RootBlock) c_;
+                            for (RootBlock r:accessedClassMembers(cur_)){
+                                cur_.getAllReservedInners().add(r.getName());
+                            }
+                            for (RootBlock r:accessedInnerElements(cur_)){
+                                cur_.getAllReservedInners().add(r.getName());
+                            }
+                            RootBlock possibleParent_ = cur_.getParentType();
                             String s_ = cur_.getName();
+                            MemberCallingsBlock outerFuntion_ = cur_.getOuterFuntion();
+                            if (possibleParent_ != null) {
+                                cur_.getAllReservedInners().addAllElts(possibleParent_.getAllReservedInners());
+                                if (outerFuntion_ != null) {
+                                    if (StringList.contains(possibleParent_.getAllReservedInners(), s_)) {
+                                        FoundErrorInterpret d_ = new FoundErrorInterpret();
+                                        d_.setFileName(r_.getFile().getFileName());
+                                        d_.setIndexFile(cur_.getIdRowCol());
+                                        //s_ len
+                                        d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                                                s_);
+                                        _context.addError(d_);
+                                        cur_.addNameErrors(d_);
+                                        add_ = false;
+                                    }
+                                    StringList namesFromParent_ = getParamVarFromAnyParent(cur_);
+                                    if (StringList.contains(namesFromParent_, s_)) {
+                                        FoundErrorInterpret d_ = new FoundErrorInterpret();
+                                        d_.setFileName(r_.getFile().getFileName());
+                                        d_.setIndexFile(cur_.getIdRowCol());
+                                        //s_ len
+                                        d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                                                s_);
+                                        _context.addError(d_);
+                                        cur_.addNameErrors(d_);
+                                        add_ = false;
+                                    }
+                                    StringMap<String> mappings_ = outerFuntion_.getMappings();
+                                    String resolved_ = mappings_.getVal(s_);
+                                    if (resolved_ != null) {
+                                        FoundErrorInterpret d_ = new FoundErrorInterpret();
+                                        d_.setFileName(r_.getFile().getFileName());
+                                        d_.setIndexFile(cur_.getIdRowCol());
+                                        //s_ len
+                                        d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                                                s_);
+                                        _context.addError(d_);
+                                        cur_.addNameErrors(d_);
+                                        add_ = false;
+                                    } else {
+                                        Integer val_ = possibleParent_.getCounts().getVal(s_);
+                                        if (val_ == null) {
+                                            possibleParent_.getCounts().put(s_,1);
+                                            cur_.setSuffix("+1");
+                                        } else {
+                                            possibleParent_.getCounts().put(s_,val_+1);
+                                            cur_.setSuffix("+"+(val_+1));
+                                        }
+                                        mappings_.put(s_, cur_.getFullName());
+
+                                    }
+
+                                }
+                            }
                             if (StringList.contains(_basePkgFound, s_)||StringList.contains(simpleNames_, s_)) {
                                 //ERROR
                                 FoundErrorInterpret d_ = new FoundErrorInterpret();
-                                d_.setFileName(fileName_);
+                                d_.setFileName(r_.getFile().getFileName());
                                 d_.setIndexFile(cur_.getIdRowCol());
                                 //s_ len
                                 d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
@@ -768,6 +844,45 @@ public final class ClassesUtil {
                 _context.getClasses().getOperators().add(e_);
                 _context.getAnalyzing().getMapOperators().put(r_,e_);
                 r_.setNameNumber(_context.getAnalyzing().getMapOperators().size());
+                Block c_ = r_;
+                if (r_.getFirstChild() != null) {
+                    while (true) {
+                        if (c_ instanceof RootBlock) {
+                            RootBlock cur_ = (RootBlock) c_;
+                            String s_ = cur_.getName();
+                            FoundErrorInterpret d_ = new FoundErrorInterpret();
+                            d_.setFileName(r_.getFile().getFileName());
+                            d_.setIndexFile(cur_.getIdRowCol());
+                            //s_ len
+                            d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                                    s_);
+                            _context.addError(d_);
+                            cur_.addNameErrors(d_);
+                        }
+                        Block fc_ = c_.getFirstChild();
+                        if (fc_ != null) {
+                            c_ = fc_;
+                            continue;
+                        }
+                        boolean end_ = false;
+                        while (true) {
+                            Block n_ = c_.getNextSibling();
+                            if (n_ != null) {
+                                c_ = n_;
+                                break;
+                            }
+                            BracedBlock p_ = c_.getParent();
+                            if (p_ == r_) {
+                                end_ = true;
+                                break;
+                            }
+                            c_ = p_;
+                        }
+                        if (end_) {
+                            break;
+                        }
+                    }
+                }
             }
         }
     }
