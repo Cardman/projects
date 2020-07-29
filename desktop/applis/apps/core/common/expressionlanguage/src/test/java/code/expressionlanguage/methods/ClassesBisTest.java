@@ -105,6 +105,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $final $int a1=(5!=4?0:1);\n");
         xml_.append(" $void method(){a1=5;}\n");
+        xml_.append(" Ex(){a1=5;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl ctx_ = contextElSingleDotDefaultReadOnly();

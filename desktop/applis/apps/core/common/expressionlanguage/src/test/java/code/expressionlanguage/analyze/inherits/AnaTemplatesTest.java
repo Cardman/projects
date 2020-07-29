@@ -6,12 +6,9 @@ import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.common.DimComp;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.util.*;
@@ -6345,7 +6342,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         MethodHeaders headers_ = cont_.getAnalyzing().getHeaders();
         cont_.setAnalyzing();
         cont_.getAnalyzing().setHeaders(headers_);
-        ClassesUtil.buildPredefinedBracesBodies(cont_);
+        ProcessMethodCommon.buildPredefinedBracesBodies(cont_);
         return cont_;
     }
 }

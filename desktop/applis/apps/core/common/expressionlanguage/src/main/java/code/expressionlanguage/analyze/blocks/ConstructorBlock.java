@@ -21,6 +21,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
 
     private int leftPar;
 
+    private String ctorName = "";
+
     public ConstructorBlock(OffsetAccessInfo _access,
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
                             StringList _paramTypes, Ints _paramTypesOffset,
@@ -168,6 +170,13 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         }
     }
 
+    public String getCtorName() {
+        return ctorName;
+    }
+
+    public void setCtorName(String _ctorName) {
+        ctorName = _ctorName;
+    }
 
     public int getLeftPar() {
         return leftPar;

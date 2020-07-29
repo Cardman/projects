@@ -97,7 +97,7 @@ public final class AnalyzedPageEl {
     private AbstractBuildingConstraints buildingConstraints;
     private AbstractLocalizer localizer;
     private AbstractTokenValidation tokenValidation;
-    private final StringMap<ExecFileBlock> filesBodies = new StringMap<ExecFileBlock>();
+    private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
     private int localInType = -1;
     private String refFileName = "";
     private int indexBlock;
@@ -625,6 +625,11 @@ public final class AnalyzedPageEl {
         return headers.getPackagesFound();
     }
 
+
+    public StringList getBasePackagesFound() {
+        return headers.getBasePackagesFound();
+    }
+
     public boolean isEmptyErrors() {
         return messages.isEmptyErrors();
     }
@@ -651,13 +656,13 @@ public final class AnalyzedPageEl {
         messages.addWarning(_warning);
     }
 
-    public void putFileBlock(String _fileName, ExecFileBlock _fileBlock) {
+    public void putFileBlock(String _fileName, FileBlock _fileBlock) {
         filesBodies.put(_fileName, _fileBlock);
     }
-    public ExecFileBlock getFileBody(String _string) {
+    public FileBlock getFileBody(String _string) {
         return filesBodies.getVal(_string);
     }
-    public StringMap<ExecFileBlock> getFilesBodies() {
+    public StringMap<FileBlock> getFilesBodies() {
         return filesBodies;
     }
 

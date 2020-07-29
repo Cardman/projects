@@ -5,27 +5,27 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.analyze.util.Members;
+import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
-import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.ProcessMethod;
-import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.files.FileResolver;
+import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.*;
@@ -338,6 +338,33 @@ public abstract class ProcessMethodCommon {
 
         return InitializationLgNames.buildStdOne("en", opt_);
     }
+
+    public static void buildPredefinedBracesBodies(ContextEl _context) {
+        LgNames stds_ = _context.getStandards();
+        StringMap<String> files_ = stds_.buildFiles(_context);
+        builtTypes(files_, _context, true);
+        ValidatorStandard.buildIterable(_context);
+    }
+
+    public static void builtTypes(StringMap<String> _files, ContextEl _context, boolean _predefined) {
+        tryBuildBracedClassesBodies(_files, _context, _predefined);
+        ClassesUtil.validateInheritingClasses(_context);
+        ClassesUtil.validateIds(_context);
+        ClassesUtil.validateOverridingInherit(_context);
+        ClassesUtil.validateEl(_context);
+        AnaTypeUtil.checkInterfaces(_context);
+    }
+
+    public static void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context, boolean _predefined) {
+        StringMap<FileBlock> out_ = new StringMap<FileBlock>();
+        StringMap<ExecFileBlock> outExec_ = new StringMap<ExecFileBlock>();
+        LgNames stds_ = _context.getStandards();
+        StringMap<String> files_ = stds_.buildFiles(_context);
+        ClassesUtil.buildFilesBodies(_context,files_,true,out_,outExec_);
+        ClassesUtil.buildFilesBodies(_context,_files,false,out_,outExec_);
+        ClassesUtil.parseFiles(_context,out_,outExec_);
+    }
+
     protected void failValidate(StringMap<String> _files) {
         Options opt_ = new Options();
 
@@ -460,10 +487,120 @@ public abstract class ProcessMethodCommon {
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
-            FileResolver.parseFile(name_, content_, true, cont_);
+            parseFile(cont_, name_, true, content_);
         }
         return cont_;
     }
+
+    protected static void parseFile(StringBuilder file_, ContextEl context_, String _myFile, boolean _predefined) {
+        String content_ = file_.toString();
+        parseFile(context_, _myFile, _predefined, content_);
+    }
+
+    protected static void parseFile(ContextEl context_, String _fileName, boolean _predefined, String _file) {
+        FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
+        fileBlock_.setFileName(_fileName);
+        context_.getAnalyzing().putFileBlock(_fileName, fileBlock_);
+        context_.getCoverage().putFile(context_,fileBlock_);
+        context_.getAnalyzing().getErrors().putFile(context_,fileBlock_);
+        fileBlock_.processLinesTabsWithError(context_,_file);
+        if (fileBlock_.getBinChars().isEmpty()) {
+            FileResolver.parseFile(fileBlock_, _fileName, _file, context_);
+        }
+        StringList pkgFound_ = context_.getAnalyzing().getPackagesFound();
+        pkgFound_.addAllElts(fileBlock_.getAllPackages());
+        ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_);
+        FileBlock value_ = fileBlock_;
+        String fileName_ = value_.getFileName();
+        for (Block b: ClassesUtil.getDirectChildren(value_)) {
+            if (b instanceof RootBlock) {
+                RootBlock r_ = (RootBlock) b;
+                boolean add_ = true;
+                if (r_.getNameLength() != 0) {
+                    String fullName_ = r_.getFullName();
+                    for (String p: pkgFound_) {
+                        if (!p.startsWith(fullName_)) {
+                            continue;
+                        }
+                        //ERROR
+                        FoundErrorInterpret d_ = new FoundErrorInterpret();
+                        d_.setFileName(r_.getFile().getFileName());
+                        d_.setIndexFile(r_.getIdRowCol());
+                        //original id len
+                        d_.buildError(context_.getAnalysisMessages().getDuplicatedTypePkg(),
+                                fullName_,
+                                p);
+                        context_.addError(d_);
+                        r_.addNameErrors(d_);
+                        add_ = false;
+                    }
+                }
+                Block c_ = r_;
+                if (c_.getFirstChild() != null) {
+                    StringList simpleNames_ = new StringList();
+                    while (true) {
+                        if (c_ instanceof RootBlock) {
+                            RootBlock cur_ = (RootBlock) c_;
+                            String s_ = cur_.getName();
+                            if (StringList.contains(simpleNames_, s_)) {
+                                //ERROR
+                                FoundErrorInterpret d_ = new FoundErrorInterpret();
+                                d_.setFileName(fileName_);
+                                d_.setIndexFile(cur_.getIdRowCol());
+                                //s_ len
+                                d_.buildError(context_.getAnalysisMessages().getDuplicatedInnerType(),
+                                        s_);
+                                context_.addError(d_);
+                                cur_.addNameErrors(d_);
+                            }
+                            ClassesUtil.processBracedClass(add_,exFile_,r_,cur_, context_);
+                        }
+                        Block fc_ = c_.getFirstChild();
+                        if (fc_ != null) {
+                            if (c_ instanceof RootBlock) {
+                                String s_ = ((RootBlock)c_).getName();
+                                simpleNames_.add(s_);
+                            }
+                            c_ = fc_;
+                            continue;
+                        }
+                        boolean end_ = false;
+                        while (true) {
+                            Block n_ = c_.getNextSibling();
+                            if (n_ != null) {
+                                c_ = n_;
+                                break;
+                            }
+                            BracedBlock p_ = c_.getParent();
+                            if (p_ == r_) {
+                                end_ = true;
+                                break;
+                            }
+                            c_ = p_;
+                            if (c_ instanceof RootBlock) {
+                                simpleNames_.removeLast();
+                            }
+                        }
+                        if (end_) {
+                            break;
+                        }
+                    }
+                } else {
+                    ClassesUtil.processBracedClass(add_,exFile_,r_,r_, context_);
+                }
+            }
+            if (b instanceof OperatorBlock) {
+                OperatorBlock r_ = (OperatorBlock) b;
+                ExecOperatorBlock e_ = new ExecOperatorBlock(r_);
+                exFile_.appendChild(e_);
+                e_.setFile(exFile_);
+                context_.getClasses().getOperators().add(e_);
+                context_.getAnalyzing().getMapOperators().put(r_,e_);
+                r_.setNameNumber(context_.getAnalyzing().getMapOperators().size());
+            }
+        }
+    }
+
     protected static ContextEl simpleCtxComment() {
         Options opt_ = new Options();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
@@ -476,7 +613,7 @@ public abstract class ProcessMethodCommon {
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
-            FileResolver.parseFile(name_, content_, true, cont_);
+            parseFile(cont_, name_, true, content_);
         }
         return cont_;
     }

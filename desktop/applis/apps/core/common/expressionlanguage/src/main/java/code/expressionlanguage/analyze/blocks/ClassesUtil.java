@@ -23,6 +23,7 @@ import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.files.FileResolver;
+import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
@@ -246,21 +247,20 @@ public final class ClassesUtil {
     public static void tryBuildAllBracedClassesBodies(StringMap<String> _files, ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         StringMap<String> files_ = stds_.buildFiles(_context);
-        parseFiles(_context, files_, true);
-        parseFiles(_context, _files, false);
-        fetchExec(_context);
+        StringMap<FileBlock> out_ = new StringMap<FileBlock>();
+        StringMap<ExecFileBlock> outExec_ = new StringMap<ExecFileBlock>();
+        buildFilesBodies(_context,files_,true,out_,outExec_);
+        buildFilesBodies(_context,_files,false,out_,outExec_);
+        parseFiles(_context,out_,outExec_);
+//        parseFiles(_context, files_, true);
+//        parseFiles(_context, _files, false);
+//        fetchExec(_context);
     }
 
-    public static void buildPredefinedBracesBodies(ContextEl _context) {
-        LgNames stds_ = _context.getStandards();
-        StringMap<String> files_ = stds_.buildFiles(_context);
-        builtTypes(files_, _context, true);
-        ValidatorStandard.buildIterable(_context);
-    }
-    public static void processBracedClass(ExecFileBlock _exFile, RootBlock _outer, RootBlock _root, ContextEl _context) {
+    public static void processBracedClass(boolean _add,ExecFileBlock _exFile, RootBlock _outer, RootBlock _root, ContextEl _context) {
         String fullName_ = _root.getFullName();
         AnalyzedPageEl page_ = _context.getAnalyzing();
-        boolean ok_ = true;
+        boolean ok_ = _add;
         if (_context.getClasses().getClassBodiesMap().contains(fullName_)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_root.getFile().getFileName());
@@ -551,21 +551,7 @@ public final class ClassesUtil {
         }
     }
 
-    public static void builtTypes(StringMap<String> _files, ContextEl _context, boolean _predefined) {
-        tryBuildBracedClassesBodies(_files, _context, _predefined);
-        validateInheritingClasses(_context);
-        validateIds(_context);
-        validateOverridingInherit(_context);
-        validateEl(_context);
-        AnaTypeUtil.checkInterfaces(_context);
-    }
-
-    public static void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context, boolean _predefined) {
-        parseFiles(_context, _files, _predefined);
-        fetchExec(_context);
-    }
-
-    protected static void fetchExec(ContextEl _context) {
+    private static void innerFetchExec(ContextEl _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
         IdMap<RootBlock, ExecRootBlock> mapTypes_ = page_.getMapTypes();
         for (EntryCust<RootBlock,ExecRootBlock> e: mapTypes_.entryList()) {
@@ -652,45 +638,137 @@ public final class ClassesUtil {
             }
             page_.getMapMembers().addEntry(k_, mem_);
         }
-        StringList pkgFound_ = _context.getAnalyzing().getPackagesFound();
-        pkgFound_.addAllElts(getPackages(_context));
-        validatePkgNames(_context);
     }
 
-    private static void parseFiles(ContextEl _context, StringMap<String> _files, boolean _predefined) {
+    public static void buildFilesBodies(ContextEl _context, StringMap<String> _files, boolean _predefined, StringMap<FileBlock> _out, StringMap<ExecFileBlock> _outExec) {
         for (EntryCust<String,String> f: _files.entryList()) {
             String file_ = f.getKey();
             String content_ = f.getValue();
-            FileResolver.parseFile(file_, content_, _predefined, _context);
+            FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
+            fileBlock_.setFileName(file_);
+            _context.getAnalyzing().putFileBlock(file_, fileBlock_);
+            _context.getCoverage().putFile(_context,fileBlock_);
+            _context.getAnalyzing().getErrors().putFile(_context,fileBlock_);
+            fileBlock_.processLinesTabsWithError(_context,content_);
+            _out.addEntry(file_,fileBlock_);
+            ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_);
+            _outExec.addEntry(file_,exFile_);
         }
     }
-
-    private static void validatePkgNames(ContextEl _context) {
-        StringList pkgFound_ = _context.getAnalyzing().getPackagesFound();
-        for (RootBlock r: _context.getAnalyzing().getFoundTypes()) {
-            if (!(r.getParent() instanceof FileBlock)) {
+    public static void parseFiles(ContextEl _context, StringMap<FileBlock> _files, StringMap<ExecFileBlock> _outExec) {
+        for (EntryCust<String,FileBlock> f: _files.entryList()) {
+            String fileName_ = f.getKey();
+            FileBlock block_ = f.getValue();
+            if (!block_.getBinChars().isEmpty()) {
                 continue;
             }
-            if (r.getNameLength() == 0) {
-                continue;
-            }
-            String fullName_ = r.getFullName();
-            for (String p: pkgFound_) {
-                if (!p.startsWith(fullName_)) {
-                    continue;
-                }
-                //ERROR
-                FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(r.getFile().getFileName());
-                d_.setIndexFile(r.getIdRowCol());
-                //original id len
-                d_.buildError(_context.getAnalysisMessages().getDuplicatedTypePkg(),
-                        fullName_,
-                        p);
-                _context.addError(d_);
-                r.addNameErrors(d_);
-            }
+            String file_ = block_.getContent();
+            FileResolver.parseFile(block_, fileName_,file_, _context);
         }
+        StringList basePkgFound_ = _context.getAnalyzing().getBasePackagesFound();
+        StringList pkgFound_ = _context.getAnalyzing().getPackagesFound();
+        for (EntryCust<String,FileBlock> f: _files.entryList()) {
+            pkgFound_.addAllElts(f.getValue().getAllPackages());
+        }
+        for (EntryCust<String,FileBlock> f: _files.entryList()) {
+            basePkgFound_.addAllElts(f.getValue().getAllBasePackages());
+        }
+        int i_ = 0;
+        for (EntryCust<String,FileBlock> f: _files.entryList()) {
+            ExecFileBlock exFile_ = _outExec.getValue(i_);
+            FileBlock value_ = f.getValue();
+            String fileName_ = value_.getFileName();
+            for (Block b: getDirectChildren(value_)) {
+                if (b instanceof RootBlock) {
+                    RootBlock r_ = (RootBlock) b;
+                    boolean add_ = true;
+                    if (r_.getNameLength() != 0) {
+                        String fullName_ = r_.getFullName();
+                        for (String p: pkgFound_) {
+                            if (!p.startsWith(fullName_)) {
+                                continue;
+                            }
+                            //ERROR
+                            FoundErrorInterpret d_ = new FoundErrorInterpret();
+                            d_.setFileName(r_.getFile().getFileName());
+                            d_.setIndexFile(r_.getIdRowCol());
+                            //original id len
+                            d_.buildError(_context.getAnalysisMessages().getDuplicatedTypePkg(),
+                                    fullName_,
+                                    p);
+                            _context.addError(d_);
+                            r_.addNameErrors(d_);
+                            add_ = false;
+                        }
+                    }
+                    Block c_ = r_;
+                    if (c_.getFirstChild() != null) {
+                        StringList simpleNames_ = new StringList();
+                        while (true) {
+                            if (c_ instanceof RootBlock) {
+                                RootBlock cur_ = (RootBlock) c_;
+                                String s_ = cur_.getName();
+                                if (StringList.contains(basePkgFound_, s_)||StringList.contains(simpleNames_, s_)) {
+                                    //ERROR
+                                    FoundErrorInterpret d_ = new FoundErrorInterpret();
+                                    d_.setFileName(fileName_);
+                                    d_.setIndexFile(cur_.getIdRowCol());
+                                    //s_ len
+                                    d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                                            s_);
+                                    _context.addError(d_);
+                                    cur_.addNameErrors(d_);
+                                    add_ = false;
+                                }
+                                ClassesUtil.processBracedClass(add_,exFile_,r_,cur_, _context);
+                            }
+                            Block fc_ = c_.getFirstChild();
+                            if (fc_ != null) {
+                                if (c_ instanceof RootBlock) {
+                                    String s_ = ((RootBlock)c_).getName();
+                                    simpleNames_.add(s_);
+                                }
+                                c_ = fc_;
+                                continue;
+                            }
+                            boolean end_ = false;
+                            while (true) {
+                                Block n_ = c_.getNextSibling();
+                                if (n_ != null) {
+                                    c_ = n_;
+                                    break;
+                                }
+                                BracedBlock p_ = c_.getParent();
+                                if (p_ == r_) {
+                                    end_ = true;
+                                    break;
+                                }
+                                c_ = p_;
+                                if (c_ instanceof RootBlock) {
+                                    simpleNames_.removeLast();
+                                }
+                            }
+                            if (end_) {
+                                break;
+                            }
+                        }
+                    } else {
+                        ClassesUtil.processBracedClass(add_,exFile_,r_,r_, _context);
+                    }
+                }
+                if (b instanceof OperatorBlock) {
+                    OperatorBlock r_ = (OperatorBlock) b;
+                    ExecOperatorBlock e_ = new ExecOperatorBlock(r_);
+                    exFile_.appendChild(e_);
+                    e_.setFile(exFile_);
+                    _context.getClasses().getOperators().add(e_);
+                    _context.getAnalyzing().getMapOperators().put(r_,e_);
+                    r_.setNameNumber(_context.getAnalyzing().getMapOperators().size());
+                }
+            }
+            i_++;
+        }
+        innerFetchExec(_context);
     }
 
     public static CustList<ExecBlock> getSortedDescNodes(ExecBlock _root) {
@@ -1531,7 +1609,7 @@ public final class ClassesUtil {
     }
 
     //validate el and its possible returned type
-    private static void validateEl(ContextEl _context) {
+    public static void validateEl(ContextEl _context) {
         initStaticFields(_context);
         AnalyzedPageEl page_ = _context.getAnalyzing();
         CustList<BracedBlock> brBl_ = new CustList<BracedBlock>();
@@ -2304,21 +2382,6 @@ public final class ClassesUtil {
                 break;
             }
         }
-    }
-
-    private static StringList getPackages(ContextEl _context) {
-        StringList pkgs_ = new StringList();
-        for (RootBlock r: _context.getAnalyzing().getFoundTypes()) {
-            String pkg_ = r.getPackageName();
-            StringBuilder id_ = new StringBuilder();
-            for (String p: StringList.splitChars(pkg_, '.')) {
-                id_.append(p);
-                pkgs_.add(id_.toString());
-                id_.append('.');
-            }
-        }
-        pkgs_.removeDuplicates();
-        return pkgs_;
     }
 
 

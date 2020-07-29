@@ -40,15 +40,8 @@ public final class FileResolver {
 
     private FileResolver(){
     }
-    public static void parseFile(String _fileName, String _file, boolean _predefined, ContextEl _context) {
-        int tabWidth_ = _context.getTabWidth();
-        FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
-        fileBlock_.setFileName(_fileName);
-        Classes cls_ = _context.getClasses();
-        ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_, tabWidth_);
-        _context.getAnalyzing().putFileBlock(_fileName, exFile_);
-        _context.getCoverage().putFile(_context,fileBlock_);
-        _context.getAnalyzing().getErrors().putFile(_context,fileBlock_);
+
+    public static void parseFile(FileBlock _block, String _fileName, String _file, ContextEl _context) {
         StringList importedTypes_ = new StringList();
         StringBuilder str_ = new StringBuilder();
         KeyWords keyWords_ = _context.getKeyWords();
@@ -63,9 +56,6 @@ public final class FileResolver {
         String keyWordEnum_ = keyWords_.getKeyWordEnum();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
         String keyWordInterface_ = keyWords_.getKeyWordInterface();
-        if (fileBlock_.processLinesTabsWithError(_context,_file)) {
-            return;
-        }
         int i_ = CustList.FIRST_INDEX;
         int len_ = _file.length();
         CommentDelimiters current_ = null;
@@ -79,7 +69,7 @@ public final class FileResolver {
                 int length_ = endCom_.length();
                 if (length_ > 0) {
                     i_ += length_;
-                    appendEnd(fileBlock_, i_, endCom_);
+                    appendEnd(_block, i_, endCom_);
                     current_ = null;
                     continue;
                 }
@@ -127,7 +117,7 @@ public final class FileResolver {
                 for (CommentDelimiters c: _context.getComments()) {
                     if (_file.startsWith(c.getBegin(),i_)) {
                         current_ = c;
-                        fileBlock_.getBeginComments().add(i_);
+                        _block.getBeginComments().add(i_);
                         i_ += c.getBegin().length();
                         skip_ = true;
                         break;
@@ -158,21 +148,21 @@ public final class FileResolver {
         }
         InputTypeCreation input_ = new InputTypeCreation();
         input_.setNextIndex(i_);
-        fileBlock_.getImports().addAllElts(importedTypes_);
-        fileBlock_.getImportsOffset().addAllElts(offsetsImports_);
-        input_.setFile(fileBlock_);
+        _block.getImports().addAllElts(importedTypes_);
+        _block.getImportsOffset().addAllElts(offsetsImports_);
+        input_.setFile(_block);
         if (!badIndexes_.isEmpty()) {
             for (int i: badIndexes_) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
                 b_.setFileName(_fileName);
-                b_.setIndexFile(Math.max(0,Math.min(fileBlock_.getLength()-1,i)));
+                b_.setIndexFile(Math.max(0,Math.min(_block.getLength()-1,i)));
                 //if empty file => add underlined space
                 //else underline last char
                 b_.buildError(_context.getAnalysisMessages().getBadIndexInParser());
                 _context.addError(b_);
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
                 g_.setLength(1);
-                fileBlock_.getErrorsFiles().add(g_);
+                _block.getErrorsFiles().add(g_);
             }
             return;
         }
@@ -183,13 +173,13 @@ public final class FileResolver {
             for (int i: badIndexes_) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
                 b_.setFileName(_fileName);
-                b_.setIndexFile(Math.max(0,Math.min(fileBlock_.getLength()-1,i)));
+                b_.setIndexFile(Math.max(0,Math.min(_block.getLength()-1,i)));
                 //underline index char
                 b_.buildError(_context.getAnalysisMessages().getBadIndexInParser());
                 _context.addError(b_);
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
                 g_.setLength(1);
-                fileBlock_.getErrorsFiles().add(g_);
+                _block.getErrorsFiles().add(g_);
             }
             if (!res_.isOk()) {
                 return;
@@ -197,71 +187,12 @@ public final class FileResolver {
             if (res_ instanceof ResultTypeCreation) {
                 ResultTypeCreation restype_ = (ResultTypeCreation) res_;
                 RootBlock r_ = restype_.getType();
-                fileBlock_.appendChild(r_);
-                Block c_ = r_;
-                if (c_.getFirstChild() != null) {
-                    StringList simpleNames_ = new StringList();
-                    while (true) {
-                        if (c_ instanceof RootBlock) {
-                            RootBlock cur_ = (RootBlock) c_;
-                            String s_ = cur_.getName();
-                            if (StringList.contains(simpleNames_, s_)) {
-                                //ERROR
-                                FoundErrorInterpret d_ = new FoundErrorInterpret();
-                                d_.setFileName(_fileName);
-                                d_.setIndexFile(cur_.getIdRowCol());
-                                //s_ len
-                                d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
-                                        s_);
-                                _context.addError(d_);
-                                cur_.addNameErrors(d_);
-                            }
-                            ClassesUtil.processBracedClass(exFile_,r_,cur_, _context);
-                        }
-                        Block fc_ = c_.getFirstChild();
-                        if (fc_ != null) {
-                            if (c_ instanceof RootBlock) {
-                                String s_ = ((RootBlock)c_).getName();
-                                simpleNames_.add(s_);
-                            }
-                            c_ = fc_;
-                            continue;
-                        }
-                        boolean end_ = false;
-                        while (true) {
-                            Block n_ = c_.getNextSibling();
-                            if (n_ != null) {
-                                c_ = n_;
-                                break;
-                            }
-                            BracedBlock p_ = c_.getParent();
-                            if (p_ == r_) {
-                                end_ = true;
-                                break;
-                            }
-                            c_ = p_;
-                            if (c_ instanceof RootBlock) {
-                                simpleNames_.removeLast();
-                            }
-                        }
-                        if (end_) {
-                            break;
-                        }
-                    }
-                } else {
-                    ClassesUtil.processBracedClass(exFile_,r_,r_, _context);
-                }
+                _block.appendChild(r_);
             }
             if (res_ instanceof ResultOperatorCreation) {
                 ResultOperatorCreation restype_ = (ResultOperatorCreation) res_;
                 OperatorBlock r_ = restype_.getType();
-                fileBlock_.appendChild(r_);
-                ExecOperatorBlock e_ = new ExecOperatorBlock(r_);
-                exFile_.appendChild(e_);
-                e_.setFile(exFile_);
-                cls_.getOperators().add(e_);
-                _context.getAnalyzing().getMapOperators().put(r_,e_);
-                r_.setNameNumber(_context.getAnalyzing().getMapOperators().size());
+                _block.appendChild(r_);
             }
             i_ = res_.getNextIndex();
             boolean hasNext_ = false;
@@ -274,7 +205,7 @@ public final class FileResolver {
                     int length_ = endCom_.length();
                     if (length_ > 0) {
                         i_ += length_;
-                        appendEnd(fileBlock_, i_, endCom_);
+                        appendEnd(_block, i_, endCom_);
                         current_ = null;
                         continue;
                     }
@@ -295,7 +226,7 @@ public final class FileResolver {
                 for (CommentDelimiters c: _context.getComments()) {
                     if (_file.startsWith(c.getBegin(),i_)) {
                         current_ = c;
-                        fileBlock_.getBeginComments().add(i_);
+                        _block.getBeginComments().add(i_);
                         i_ += c.getBegin().length();
                         skip_ = true;
                         break;
@@ -308,7 +239,7 @@ public final class FileResolver {
                 i_ = i_ + 1;
             }
             if (ended_ && current_ != null) {
-                fileBlock_.getEndComments().add(len_ - 1);
+                _block.getEndComments().add(len_ - 1);
             }
             if (!hasNext_) {
                 return;
@@ -316,7 +247,6 @@ public final class FileResolver {
             input_.setNextIndex(i_);
         }
     }
-
     private static ResultCreation createType(ContextEl _context, String _file, InputTypeCreation _input) {
         KeyWords keyWords_ = _context.getKeyWords();
         ResultCreation out_ = new ResultTypeCreation();
@@ -695,6 +625,9 @@ public final class FileResolver {
             typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
             ((ResultTypeCreation) out_).setType(typeBlock_);
             currentParent_ = typeBlock_;
+            _input.getFile().getPackages().add(StringExpUtil.removeDottedSpaces(packageName_));
+            int indexDotPkg_ = Math.max(0,packageName_.indexOf('.'));
+            _input.getFile().getBasePackages().add(StringExpUtil.removeDottedSpaces(packageName_.substring(0,indexDotPkg_)));
         }
         return processOuterTypeBody(_context, _input, packageName_,nextIndex_, _file, currentParent_, braces_, enableByEndLine_, out_);
     }
@@ -1935,16 +1868,16 @@ public final class FileResolver {
             }
         }
         boolean ctor_ = false;
+        String ctorName_ = "";
         if (!field_) {
             if (trimmedAfterAccess_.startsWith("(")) {
                 ctor_ = true;
             } else {
-                String name_ = ((RootBlock) _currentParent).getName();
-                if (StringExpUtil.startsWithKeyWord(trimmedAfterAccess_,name_)){
-                    String after_ = trimmedAfterAccess_.substring(name_.length()).trim();
-                    if (after_.startsWith("(")) {
-                        ctor_ = true;
-                    }
+                int indexPar_ = Math.max(0, trimmedAfterAccess_.indexOf('('));
+                String firstPart_ = trimmedAfterAccess_.substring(0, indexPar_).trim();
+                if (StringExpUtil.isTypeLeafPart(firstPart_)) {
+                    ctorName_ = firstPart_;
+                    ctor_ = true;
                 }
             }
         }
@@ -2263,13 +2196,11 @@ public final class FileResolver {
                 ov_.setKind(kind_);
                 br_ = ov_;
             } else {
-                if (!ctor_) {
-                    ok_ = false;
-                }
                 br_ = new ConstructorBlock(new OffsetAccessInfo(accessOffest_, accessFct_),
                         new OffsetStringInfo(accessOffest_, EMPTY_STRING),
                         new OffsetStringInfo(accessOffest_, EMPTY_STRING), parametersType_, offestsTypes_,
                         parametersName_, offestsParams_,leftPar_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                ((ConstructorBlock)br_).setCtorName(ctorName_);
             }
             if (!ok_) {
                 br_.getBadIndexes().add(_i);

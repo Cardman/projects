@@ -19,6 +19,7 @@ public final class MethodHeaders {
     private final StringMap<CustList<MethodHeaderInfo>> falses = new StringMap<CustList<MethodHeaderInfo>>();
     private final StringList typesWithInnerOperators = new StringList();
     private StringList packagesFound = new StringList();
+    private StringList basePackagesFound = new StringList();
 
     public StringMap<CustList<MethodHeaderInfo>> getUnary() {
         return unary;
@@ -75,4 +76,7 @@ public final class MethodHeaders {
         return packagesFound;
     }
 
+    public StringList getBasePackagesFound() {
+        return basePackagesFound;
+    }
 }

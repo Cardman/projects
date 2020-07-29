@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.errors.custom.GraphicErrorList;
@@ -28,6 +29,9 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     private GraphicErrorList errorsFiles = new GraphicErrorList();
 
+    private String content;
+    private StringList basePackages = new StringList();
+    private StringList packages = new StringList();
     private int length;
 
     public FileBlock(OffsetsBlock _offset, boolean _predefined) {
@@ -35,6 +39,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         predefined = _predefined;
     }
     public boolean processLinesTabsWithError(ContextEl _context, String _file) {
+        content = _file;
         int i_ = CustList.FIRST_INDEX;
         int len_ = _file.length();
         length = len_;
@@ -84,6 +89,9 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return foundBinChar_;
     }
 
+    public FileMetrics getMetrics(int _tabWidth) {
+        return new FileMetrics(lineReturns,tabulations,_tabWidth);
+    }
     public GraphicErrorList getErrorsFiles() {
         return errorsFiles;
     }
@@ -120,6 +128,10 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return importsOffset;
     }
 
+    public String getContent() {
+        return content;
+    }
+
     public int getLength() {
         return length;
     }
@@ -136,4 +148,31 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return fileName+".html";
     }
 
+    public StringList getAllPackages() {
+        StringList pkgs_ = new StringList();
+        for (String r: packages) {
+            StringBuilder id_ = new StringBuilder();
+            for (String p: StringList.splitChars(r, '.')) {
+                id_.append(p);
+                pkgs_.add(id_.toString());
+                id_.append('.');
+            }
+        }
+        pkgs_.removeDuplicates();
+        return pkgs_;
+    }
+
+    public StringList getAllBasePackages() {
+        StringList pkgs_ = new StringList(basePackages);
+        pkgs_.removeDuplicates();
+        return pkgs_;
+    }
+
+    public StringList getBasePackages() {
+        return basePackages;
+    }
+
+    public StringList getPackages() {
+        return packages;
+    }
 }

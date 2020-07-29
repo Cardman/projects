@@ -714,7 +714,7 @@ public final class ExecutingUtil {
         int col;
         if (f_ != null) {
             fileName = f_.getFileName();
-            FileMetrics metrics_ = f_.getMetrics();
+            FileMetrics metrics_ = f_.getMetrics(_cont.getTabWidth());
             row = metrics_.getRowFile(indexFileType);
             col = metrics_.getColFile(indexFileType,row);
         } else {

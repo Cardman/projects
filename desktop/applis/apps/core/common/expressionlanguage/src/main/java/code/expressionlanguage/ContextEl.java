@@ -107,8 +107,8 @@ public abstract class ContextEl {
     }
 
     private String getLocationFile(String _fileName, int _sum) {
-        ExecFileBlock file_ = analyzing.getFileBody(_fileName);
-        FileMetrics metrics_ = file_.getMetrics();
+        FileBlock file_ = analyzing.getFileBody(_fileName);
+        FileMetrics metrics_ = file_.getMetrics(tabWidth);
         int r_ = metrics_.getRowFile(_sum);
         int c_ = metrics_.getColFile(_sum,r_);
         return StringList.concat( Integer.toString(r_),",",Integer.toString(c_),",",Integer.toString(_sum));

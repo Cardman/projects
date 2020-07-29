@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.*;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.ExecTypeVar;
@@ -927,6 +928,20 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
             if (method_ instanceof ConstructorBlock) {
                 method_.buildImportedTypes(_context);
+                String ctorName_ = ((ConstructorBlock) method_).getCtorName();
+                if (StringExpUtil.isTypeLeafPart(ctorName_)) {
+                    if (!StringList.quickEq(ctorName_,getName())) {
+                        int r_ = method_.getOffset().getOffsetTrim();
+                        FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setIndexFile(r_);
+                        //method name len
+                        AnalysisMessages ana_ = _context.getAnalysisMessages();
+                        badMeth_.setBuiltError(FoundErrorInterpret.buildARError(ana_.getBadMethodName(),ctorName_));
+                        _context.addError(badMeth_);
+                        method_.addNameErrors(badMeth_);
+                    }
+                }
                 ConstructorId idCt_ = ((ConstructorBlock)method_).getId();
                 for (ConstructorId m: idConstructors_) {
                     if (m.eq(idCt_)) {

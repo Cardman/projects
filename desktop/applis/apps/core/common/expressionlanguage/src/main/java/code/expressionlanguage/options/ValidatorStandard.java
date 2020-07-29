@@ -391,8 +391,11 @@ public final class ValidatorStandard {
 
     public static void setupOverrides(ContextEl _cont) {
         StringList pkgs_ = new StringList();
+        StringList pkgsBase_ = new StringList();
         for (StandardType r: _cont.getStandards().getStandards().values()) {
             String pkg_ = r.getPackageName();
+            int until_ = Math.max(0, pkg_.indexOf('.'));
+            pkgsBase_.add(pkg_.substring(0,until_));
             StringBuilder id_ = new StringBuilder();
             for (String p: StringList.splitChars(pkg_, '.')) {
                 id_.append(p);
@@ -401,8 +404,10 @@ public final class ValidatorStandard {
             }
         }
         pkgs_.removeDuplicates();
+        pkgsBase_.removeDuplicates();
         _cont.setAnalyzing();
         _cont.getAnalyzing().getHeaders().getPackagesFound().addAllElts(pkgs_);
+        _cont.getAnalyzing().getHeaders().getBasePackagesFound().addAllElts(pkgsBase_);
         buildInherits(_cont);
     }
 

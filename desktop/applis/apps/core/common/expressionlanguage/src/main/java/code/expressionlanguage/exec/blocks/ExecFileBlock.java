@@ -16,18 +16,16 @@ public final class ExecFileBlock extends ExecBracedBlock {
 
     private boolean predefined;
 
-    private int tabWidth;
-    public ExecFileBlock(FileBlock _file, int _tabWidth) {
+    public ExecFileBlock(FileBlock _file) {
         super(_file.getOffset());
         predefined = _file.isPredefined();
-        tabWidth = _tabWidth;
         lineReturns=_file.getLineReturns();
         tabulations=_file.getTabulations();
         fileName = _file.getFileName();
     }
 
-    public FileMetrics getMetrics() {
-        return new FileMetrics(lineReturns,tabulations,tabWidth);
+    public FileMetrics getMetrics(int _tabWidth) {
+        return new FileMetrics(lineReturns,tabulations,_tabWidth);
     }
 
     public boolean isPredefined() {

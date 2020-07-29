@@ -12367,7 +12367,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
-                " <a name=\"m27\" title=\"The part  in a type is not valid. It must be a word.\n" +
+                " <a name=\"m27\" title=\"The inner type simple name  is duplicated.\n" +
+                "\n" +
+                "The part  in a type is not valid. It must be a word.\n" +
                 "\n" +
                 "The field name  is not valid. It must be a word.\">(</a>){}\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
@@ -12453,7 +12455,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
-                " <a name=\"m27\" title=\"The part  in a type is not valid. It must be a word.\n" +
+                " <a name=\"m27\" title=\"The inner type simple name  is duplicated.\n" +
+                "\n" +
+                "The part  in a type is not valid. It must be a word.\n" +
                 "\n" +
                 "There must be a type.\n" +
                 "\n" +
@@ -12493,7 +12497,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
-                " <a name=\"m27\" title=\"The part  in a type is not valid. It must be a word.\n" +
+                " <a name=\"m27\" title=\"The inner type simple name  is duplicated.\n" +
+                "\n" +
+                "The part  in a type is not valid. It must be a word.\n" +
                 "\n" +
                 "There must be a type.\n" +
                 "\n" +

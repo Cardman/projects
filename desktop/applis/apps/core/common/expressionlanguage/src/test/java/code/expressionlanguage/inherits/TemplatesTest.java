@@ -4,10 +4,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -980,7 +978,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         MethodHeaders headers_ = cont_.getAnalyzing().getHeaders();
         cont_.setAnalyzing();
         cont_.getAnalyzing().setHeaders(headers_);
-        ClassesUtil.buildPredefinedBracesBodies(cont_);
+        ProcessMethodCommon.buildPredefinedBracesBodies(cont_);
         return cont_;
     }
 }
