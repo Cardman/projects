@@ -252,9 +252,6 @@ public final class ClassesUtil {
         buildFilesBodies(_context,files_,true,out_,outExec_);
         buildFilesBodies(_context,_files,false,out_,outExec_);
         parseFiles(_context,out_,outExec_);
-//        parseFiles(_context, files_, true);
-//        parseFiles(_context, _files, false);
-//        fetchExec(_context);
     }
 
     public static void processBracedClass(boolean _add,ExecFileBlock _exFile, RootBlock _outer, RootBlock _root, ContextEl _context) {
@@ -675,100 +672,104 @@ public final class ClassesUtil {
         }
         int i_ = 0;
         for (EntryCust<String,FileBlock> f: _files.entryList()) {
-            ExecFileBlock exFile_ = _outExec.getValue(i_);
             FileBlock value_ = f.getValue();
-            String fileName_ = value_.getFileName();
-            for (Block b: getDirectChildren(value_)) {
-                if (b instanceof RootBlock) {
-                    RootBlock r_ = (RootBlock) b;
-                    boolean add_ = true;
-                    if (r_.getNameLength() != 0) {
-                        String fullName_ = r_.getFullName();
-                        for (String p: pkgFound_) {
-                            if (!p.startsWith(fullName_)) {
-                                continue;
-                            }
-                            //ERROR
-                            FoundErrorInterpret d_ = new FoundErrorInterpret();
-                            d_.setFileName(r_.getFile().getFileName());
-                            d_.setIndexFile(r_.getIdRowCol());
-                            //original id len
-                            d_.buildError(_context.getAnalysisMessages().getDuplicatedTypePkg(),
-                                    fullName_,
-                                    p);
-                            _context.addError(d_);
-                            r_.addNameErrors(d_);
-                            add_ = false;
-                        }
-                    }
-                    Block c_ = r_;
-                    if (c_.getFirstChild() != null) {
-                        StringList simpleNames_ = new StringList();
-                        while (true) {
-                            if (c_ instanceof RootBlock) {
-                                RootBlock cur_ = (RootBlock) c_;
-                                String s_ = cur_.getName();
-                                if (StringList.contains(basePkgFound_, s_)||StringList.contains(simpleNames_, s_)) {
-                                    //ERROR
-                                    FoundErrorInterpret d_ = new FoundErrorInterpret();
-                                    d_.setFileName(fileName_);
-                                    d_.setIndexFile(cur_.getIdRowCol());
-                                    //s_ len
-                                    d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
-                                            s_);
-                                    _context.addError(d_);
-                                    cur_.addNameErrors(d_);
-                                    add_ = false;
-                                }
-                                ClassesUtil.processBracedClass(add_,exFile_,r_,cur_, _context);
-                            }
-                            Block fc_ = c_.getFirstChild();
-                            if (fc_ != null) {
-                                if (c_ instanceof RootBlock) {
-                                    String s_ = ((RootBlock)c_).getName();
-                                    simpleNames_.add(s_);
-                                }
-                                c_ = fc_;
-                                continue;
-                            }
-                            boolean end_ = false;
-                            while (true) {
-                                Block n_ = c_.getNextSibling();
-                                if (n_ != null) {
-                                    c_ = n_;
-                                    break;
-                                }
-                                BracedBlock p_ = c_.getParent();
-                                if (p_ == r_) {
-                                    end_ = true;
-                                    break;
-                                }
-                                c_ = p_;
-                                if (c_ instanceof RootBlock) {
-                                    simpleNames_.removeLast();
-                                }
-                            }
-                            if (end_) {
-                                break;
-                            }
-                        }
-                    } else {
-                        ClassesUtil.processBracedClass(add_,exFile_,r_,r_, _context);
-                    }
-                }
-                if (b instanceof OperatorBlock) {
-                    OperatorBlock r_ = (OperatorBlock) b;
-                    ExecOperatorBlock e_ = new ExecOperatorBlock(r_);
-                    exFile_.appendChild(e_);
-                    e_.setFile(exFile_);
-                    _context.getClasses().getOperators().add(e_);
-                    _context.getAnalyzing().getMapOperators().put(r_,e_);
-                    r_.setNameNumber(_context.getAnalyzing().getMapOperators().size());
-                }
-            }
+            ExecFileBlock exFile_ = _outExec.getValue(i_);
+            fetchByFile(_context, basePkgFound_, pkgFound_, value_, exFile_);
             i_++;
         }
         innerFetchExec(_context);
+    }
+
+    public static void fetchByFile(ContextEl _context, StringList _basePkgFound, StringList _pkgFound, FileBlock _anaFile, ExecFileBlock _exeFile) {
+        String fileName_ = _anaFile.getFileName();
+        for (Block b: getDirectChildren(_anaFile)) {
+            if (b instanceof RootBlock) {
+                RootBlock r_ = (RootBlock) b;
+                boolean add_ = true;
+                if (r_.getNameLength() != 0) {
+                    String fullName_ = r_.getFullName();
+                    for (String p: _pkgFound) {
+                        if (!p.startsWith(fullName_)) {
+                            continue;
+                        }
+                        //ERROR
+                        FoundErrorInterpret d_ = new FoundErrorInterpret();
+                        d_.setFileName(r_.getFile().getFileName());
+                        d_.setIndexFile(r_.getIdRowCol());
+                        //original id len
+                        d_.buildError(_context.getAnalysisMessages().getDuplicatedTypePkg(),
+                                fullName_,
+                                p);
+                        _context.addError(d_);
+                        r_.addNameErrors(d_);
+                        add_ = false;
+                    }
+                }
+                Block c_ = r_;
+                if (c_.getFirstChild() != null) {
+                    StringList simpleNames_ = new StringList();
+                    while (true) {
+                        if (c_ instanceof RootBlock) {
+                            RootBlock cur_ = (RootBlock) c_;
+                            String s_ = cur_.getName();
+                            if (StringList.contains(_basePkgFound, s_)||StringList.contains(simpleNames_, s_)) {
+                                //ERROR
+                                FoundErrorInterpret d_ = new FoundErrorInterpret();
+                                d_.setFileName(fileName_);
+                                d_.setIndexFile(cur_.getIdRowCol());
+                                //s_ len
+                                d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                                        s_);
+                                _context.addError(d_);
+                                cur_.addNameErrors(d_);
+                                add_ = false;
+                            }
+                            ClassesUtil.processBracedClass(add_, _exeFile,r_,cur_, _context);
+                        }
+                        Block fc_ = c_.getFirstChild();
+                        if (fc_ != null) {
+                            if (c_ instanceof RootBlock) {
+                                String s_ = ((RootBlock)c_).getName();
+                                simpleNames_.add(s_);
+                            }
+                            c_ = fc_;
+                            continue;
+                        }
+                        boolean end_ = false;
+                        while (true) {
+                            Block n_ = c_.getNextSibling();
+                            if (n_ != null) {
+                                c_ = n_;
+                                break;
+                            }
+                            BracedBlock p_ = c_.getParent();
+                            if (p_ == r_) {
+                                end_ = true;
+                                break;
+                            }
+                            c_ = p_;
+                            if (c_ instanceof RootBlock) {
+                                simpleNames_.removeLast();
+                            }
+                        }
+                        if (end_) {
+                            break;
+                        }
+                    }
+                } else {
+                    ClassesUtil.processBracedClass(add_, _exeFile,r_,r_, _context);
+                }
+            }
+            if (b instanceof OperatorBlock) {
+                OperatorBlock r_ = (OperatorBlock) b;
+                ExecOperatorBlock e_ = new ExecOperatorBlock(r_);
+                _exeFile.appendChild(e_);
+                e_.setFile(_exeFile);
+                _context.getClasses().getOperators().add(e_);
+                _context.getAnalyzing().getMapOperators().put(r_,e_);
+                r_.setNameNumber(_context.getAnalyzing().getMapOperators().size());
+            }
+        }
     }
 
     public static CustList<ExecBlock> getSortedDescNodes(ExecBlock _root) {
