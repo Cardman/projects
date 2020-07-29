@@ -255,7 +255,7 @@ public final class ElResolver {
             }
             resKeyWords_.setNextIndex(i_);
             resKeyWords_.setCallCtor(ctorCall_);
-            processAfterInstuctionKeyWord(beginIndex_,_string, _d, resKeyWords_, _conf);
+            processAfterInstuctionKeyWord(beginIndex_,_string, _d, resKeyWords_,resOpers_, _conf);
             if (_d.getBadOffset() >= 0) {
                 return _d;
             }
@@ -348,7 +348,7 @@ public final class ElResolver {
         return j_;
     }
 
-    private static void processAfterInstuctionKeyWord(int _beginIndex,String _string,Delimiters _d, ResultAfterInstKeyWord _out, ContextEl _conf) {
+    private static void processAfterInstuctionKeyWord(int _beginIndex,String _string,Delimiters _d, ResultAfterInstKeyWord _out, ResultAfterOperators _opers,ContextEl _conf) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _conf.getKeyWords();
@@ -1116,7 +1116,7 @@ public final class ElResolver {
                 }
                 afterSuper_++;
             }
-            if (afterSuper_ < len_ && _string.charAt(afterSuper_) == PAR_LEFT) {
+            if (followedByParLeft(_string, len_, afterSuper_)) {
                 _d.getCallings().add(afterSuper_);
             } else {
                 _d.setBadOffset(afterSuper_);
@@ -1128,18 +1128,54 @@ public final class ElResolver {
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordThis_)) {
             int afterSuper_ = i_ + keyWordThis_.length();
-            while (afterSuper_ < len_) {
-                if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
-                    //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
-                    break;
-                }
-                afterSuper_++;
-            }
-            if (afterSuper_ < len_ && _string.charAt(afterSuper_) == PAR_LEFT) {
+            afterSuper_ = nextAfterWhite(afterSuper_,_string,len_);
+            if (followedByParLeft(_string, len_, afterSuper_)) {
                 _out.setCallCtor(true);
                 _d.getCallings().add(afterSuper_);
             }
             i_ = afterSuper_;
+            _out.setNextIndex(i_);
+            return;
+        }
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordValueOf_)) {
+            int afterSuper_ = i_ + keyWordValueOf_.length();
+            afterSuper_ = nextAfterWhite(afterSuper_,_string,len_);
+            if (followedByParLeft(_string, len_, afterSuper_)) {
+
+                int indexComma_ = _string.indexOf(SEP_ARG, afterSuper_);
+                int min_;
+                if (indexComma_ < 0) {
+                    min_ = _string.indexOf(PAR_RIGHT,afterSuper_);
+                } else {
+                    min_ = indexComma_;
+                }
+                if (min_ >= 0) {
+                    _d.getCallings().add(afterSuper_);
+                    IntTreeMap<Character> parsBrackets_;
+                    parsBrackets_ = _opers.getParsBrackets();
+                    parsBrackets_.put(afterSuper_, PAR_LEFT);
+                    _d.getAllowedOperatorsIndexes().add(afterSuper_);
+                    _out.setNextIndex(min_);
+                    return;
+                }
+            }
+            _d.setBadOffset(Math.min(afterSuper_,len_));
+            return;
+        }
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordValues_)) {
+            int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
+            if (indexParLeft_ < 0) {
+                _d.setBadOffset(len_);
+                return;
+            }
+            int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
+            if (indexParRight_ < 0) {
+                _d.setBadOffset(len_);
+                return;
+            }
+            _d.getDelValues().add(i_);
+            _d.getDelValues().add(indexParRight_);
+            i_ = indexParRight_ + 1;
             _out.setNextIndex(i_);
             return;
         }
@@ -1166,7 +1202,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        for (String s: StringList.wrapStringArray(keyWordFirstopt_,keyWordBool_,keyWordValueOf_,keyWordValues_,keyWordDefault_)) {
+        for (String s: StringList.wrapStringArray(keyWordFirstopt_,keyWordBool_,keyWordDefault_)) {
             if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
                 int index_ = processPredefinedMethod(_string, i_, s);
                 if (index_ < 0) {
@@ -1184,6 +1220,22 @@ public final class ElResolver {
             return;
         }
         _conf.getAnalyzing().getProcessKeyWord().processInternKeyWord(_string, i_, _out);
+    }
+
+    private static boolean followedByParLeft(String _string, int len_, int afterSuper_) {
+        return afterSuper_ < len_ && _string.charAt(afterSuper_) == PAR_LEFT;
+    }
+
+    private static int nextAfterWhite(int _i, String _string,int _len) {
+        int afterSuper_ = _i;
+        while (afterSuper_ < _len) {
+            if (!Character.isWhitespace(_string.charAt(afterSuper_))) {
+                //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
+                break;
+            }
+            afterSuper_++;
+        }
+        return afterSuper_;
     }
     private static void processWords(String _string, char _curChar,Delimiters _d, FieldRetriever _ret, ResultAfterDoubleDotted _out,ContextEl _an) {
         int len_ = _string.length();
@@ -2509,6 +2561,16 @@ public final class ElResolver {
             op_.setConstType(ConstType.ACCESS_INDEXER);
             op_.setOperators(new IntTreeMap< String>());
             op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        begin_ = _d.getDelValues().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelValues().indexOfObj(_offset + lastPrintChar_);
+        if (delimits(begin_, end_)) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.VALUES);
+            op_.setOperators(new IntTreeMap< String>());
+            op_.setValue(_string, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }

@@ -39,6 +39,7 @@ public final class Delimiters {
     private CustList<VariableInfo> variables = new CustList<VariableInfo>();
     private Ints dimsAddonIndexes = new Ints();
     private Ints delAccessIndexers = new Ints();
+    private Ints delValues = new Ints();
 
     public int getBadOffset() {
         return badOffset;
@@ -176,6 +177,10 @@ public final class Delimiters {
 
     public Ints getDelAccessIndexers() {
         return delAccessIndexers;
+    }
+
+    public Ints getDelValues() {
+        return delValues;
     }
 
     public int getLength() {

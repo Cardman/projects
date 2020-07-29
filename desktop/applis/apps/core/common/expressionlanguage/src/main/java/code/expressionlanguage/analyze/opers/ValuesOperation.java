@@ -28,18 +28,19 @@ public final class ValuesOperation extends LeafOperation {
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
         IntTreeMap< String> vs_ = getOperations().getValues();
-        vs_.removeKey(vs_.firstKey());
         className = vs_.firstValue();
         argOffset = vs_.firstKey();
-        vs_.clear();
     }
 
     @Override
     public void analyze(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+argOffset, _conf);
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
+        int leftPar_ = className.indexOf('(')+1;
+        String sub_ = className.substring(leftPar_,className.lastIndexOf(')'));
+        leftPar_ += StringList.getFirstPrintableCharIndex(sub_);
         String clName_;
-        clName_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,0,className);
+        clName_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,leftPar_,sub_);
         partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {

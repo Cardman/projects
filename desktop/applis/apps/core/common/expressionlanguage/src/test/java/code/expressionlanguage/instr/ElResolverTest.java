@@ -4820,6 +4820,42 @@ public final class ElResolverTest extends ProcessMethodCommon {
         Delimiters d_ = checkSyntax(conf_, el_);
         assertEq(9, d_.getBadOffset());
     }
+
+    @Test
+    public void checkSyntax304FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$values(MyClass";
+        Delimiters d_ = checkSyntax(conf_, el_);
+        assertEq(15, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax305FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$values";
+        Delimiters d_ = checkSyntax(conf_, el_);
+        assertEq(7, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax306FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$valueOf";
+        Delimiters d_ = checkSyntax(conf_, el_);
+        assertEq(8, d_.getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax307FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$valueOf(";
+        Delimiters d_ = checkSyntax(conf_, el_);
+        assertEq(8, d_.getBadOffset());
+    }
     @Test
     public void checkSyntax1Test() {
         ContextEl conf_ = contextEl();

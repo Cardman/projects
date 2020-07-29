@@ -219,9 +219,6 @@ public abstract class OperationNode {
             if (StringList.quickEq(fctName_, keyWordValueOf_)) {
                 return new EnumValueOfOperation(_index, _indexChild, _m, _op);
             }
-            if (StringList.quickEq(fctName_, keyWordValues_)) {
-                return new ValuesOperation(_index, _indexChild, _m, _op);
-            }
             if (StringList.quickEq(fctName_, keyWordBool_)) {
                 return new BadTernaryOperation(_index, _indexChild, _m, _op);
             }
@@ -393,6 +390,9 @@ public abstract class OperationNode {
         }
         if (ct_ == ConstType.LAMBDA) {
             return new LambdaOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.VALUES) {
+            return new ValuesOperation(_index, _indexChild, _m, _op);
         }
         if (ct_ == ConstType.CLASS_INFO) {
             return new StaticInfoOperation(_index, _indexChild, _m, _op);

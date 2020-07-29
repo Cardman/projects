@@ -13668,6 +13668,26 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void report643Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" {\n");
+        xml_.append("  $values();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum </a>{\n" +
+                " {\n" +
+                "  <a title=\"The type  is unexpected.\" class=\"e\">$values</a><a title=\"There must be a type.\" class=\"e\">(</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void reportWithoutErrorTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");
