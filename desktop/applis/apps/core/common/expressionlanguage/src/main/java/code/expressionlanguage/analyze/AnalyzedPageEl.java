@@ -87,6 +87,7 @@ public final class AnalyzedPageEl {
     private MethodHeaders headers = new MethodHeaders();
     private final ReportedMessages messages = new ReportedMessages();
 
+    private StringMap<String> mappingLocal = new StringMap<String>();
     private AbstractProcessKeyWord processKeyWord;
     private AbstractHiddenTypes hiddenTypes;
     private AbstractCurrentConstraints currentConstraints;
@@ -555,6 +556,10 @@ public final class AnalyzedPageEl {
 
     public Errors getErrors() {
         return errors;
+    }
+
+    public StringMap<String> getMappingLocal() {
+        return mappingLocal;
     }
 
     public MethodHeaders getHeaders() {

@@ -27,8 +27,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     private StringMap<ExecTypeVar> paramTypesMap = new StringMap<ExecTypeVar>();
 
-    private final StringList importedDirectBaseSuperTypes = new StringList();
-
     private int idRowCol;
 
     private StringList staticInitImportedInterfaces = new StringList();
@@ -303,10 +301,6 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
             return true;
         }
         return StringList.contains(getAllSuperTypes(),_fullName);
-    }
-
-    public StringList getImportedDirectBaseSuperTypes() {
-        return importedDirectBaseSuperTypes;
     }
 
     public final void validateIds(RootBlock _key, IdMap<RootBlock, Members> _mapMembers) {

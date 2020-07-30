@@ -533,6 +533,7 @@ public final class Configuration {
     }
 
     public void setupInts() {
+        context.getAnalyzing().getMappingLocal().clear();
         context.getAnalyzing().setCurrentRoot(null);
         context.getAnalyzing().setCurrentAnaBlock(null);
         context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));

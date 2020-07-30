@@ -94,6 +94,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private StringList allReservedInners = new StringList();
     private StringMap<Integer> counts = new StringMap<Integer>();
     private String suffix="";
+    private StringMap<String> mappings = new StringMap<String>();
 
     RootBlock(int _idRowCol, String _name,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
@@ -355,6 +356,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
     public final void buildMapParamType(ContextEl _analyze) {
         paramTypesMap = new StringMap<TypeVar>();
+        _analyze.getAnalyzing().getMappingLocal().clear();
+        _analyze.getAnalyzing().getMappingLocal().putAllMap(mappings);
         for (RootBlock r: getSelfAndParentTypes()) {
             if (r == this) {
                 int j_ = 0;
@@ -1118,6 +1121,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
         results.clear();
+        _classes.getAnalyzing().getMappingLocal().clear();
+        _classes.getAnalyzing().getMappingLocal().putAllMap(mappings);
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
             AnaResultPartType s_;
@@ -1937,16 +1942,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     public StringMap<Integer> getCounts() {
         return counts;
     }
-    public MemberCallingsBlock getOuterFuntion() {
-        Block p_ = this;
-        while (p_ != null) {
-            if (p_ instanceof MemberCallingsBlock) {
-                return (MemberCallingsBlock)p_;
-            }
-            p_ = p_.getParent();
-        }
-        return null;
-    }
 
     public String getSuffix() {
         return suffix;
@@ -1954,5 +1949,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public void setSuffix(String suffix) {
         this.suffix = suffix;
+    }
+
+    public StringMap<String> getMappings() {
+        return mappings;
     }
 }

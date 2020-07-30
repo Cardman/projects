@@ -14,6 +14,7 @@ import code.util.StringMap;
 public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock {
 
     private StringMap<String> mappings = new StringMap<String>();
+    private CustList<RootBlock> reserved = new CustList<RootBlock>();
     MemberCallingsBlock(OffsetsBlock _offset) {
         super(_offset);
     }
@@ -249,5 +250,9 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     public StringMap<String> getMappings() {
         return mappings;
+    }
+
+    public CustList<RootBlock> getReserved() {
+        return reserved;
     }
 }

@@ -153,7 +153,38 @@ public abstract class Block implements AnalyzedBlock {
         }
         return (FileBlock) b_;
     }
+    public MemberCallingsBlock getOuterFuntionInType() {
+        Block p_ = getParent();
+        return getOuterFuntionInType(p_);
+    }
+    public MemberCallingsBlock getStrictOuterFuntion() {
+        Block p_ = getParent();
+        return getOuterFuntion(p_);
+    }
 
+    public static MemberCallingsBlock getOuterFuntionInType(Block _p) {
+        Block p_ = _p;
+        while (p_ != null) {
+            if (p_ instanceof RootBlock) {
+                return null;
+            }
+            if (p_ instanceof MemberCallingsBlock) {
+                return (MemberCallingsBlock)p_;
+            }
+            p_ = p_.getParent();
+        }
+        return null;
+    }
+    public static MemberCallingsBlock getOuterFuntion(Block _p) {
+        Block p_ = _p;
+        while (p_ != null) {
+            if (p_ instanceof MemberCallingsBlock) {
+                return (MemberCallingsBlock)p_;
+            }
+            p_ = p_.getParent();
+        }
+        return null;
+    }
     public final Block getPreviousSibling() {
         return previousSibling;
     }

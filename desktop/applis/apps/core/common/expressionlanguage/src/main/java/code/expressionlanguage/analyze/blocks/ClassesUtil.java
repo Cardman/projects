@@ -693,6 +693,23 @@ public final class ClassesUtil {
             fetchByFile(_context, basePkgFound_, pkgFound_, value_, exFile_);
             i_++;
         }
+        for (RootBlock r: _context.getAnalyzing().getFoundTypes()) {
+            for (Block b: getDirectChildren(r)) {
+                if (b instanceof MemberCallingsBlock) {
+                    MemberCallingsBlock m_ = (MemberCallingsBlock) b;
+                    MemberCallingsBlock outerFuntion_ = m_.getStrictOuterFuntion();
+                    if (outerFuntion_ != null) {
+                        m_.getMappings().putAllMap(outerFuntion_.getMappings());
+                    }
+                }
+            }
+        }
+        for (RootBlock r: _context.getAnalyzing().getFoundTypes()) {
+            MemberCallingsBlock outerFuntion_ = r.getStrictOuterFuntion();
+            if (outerFuntion_ != null) {
+                r.getMappings().putAllMap(outerFuntion_.getMappings());
+            }
+        }
         innerFetchExec(_context);
     }
 
@@ -700,6 +717,7 @@ public final class ClassesUtil {
         for (Block b: getDirectChildren(_anaFile)) {
             if (b instanceof RootBlock) {
                 RootBlock r_ = (RootBlock) b;
+                StringList allReservedInnersRoot_ = new StringList(r_.getAllReservedInners());
                 boolean add_ = true;
                 if (r_.getNameLength() != 0) {
                     String fullName_ = r_.getFullName();
@@ -724,6 +742,10 @@ public final class ClassesUtil {
                 if (c_.getFirstChild() != null) {
                     StringList simpleNames_ = new StringList();
                     while (true) {
+                        if (c_ instanceof MemberCallingsBlock) {
+                            MemberCallingsBlock cur_ = (MemberCallingsBlock) c_;
+                            cur_.getReserved().addAllElts(inners(cur_));
+                        }
                         if (c_ instanceof RootBlock) {
                             RootBlock cur_ = (RootBlock) c_;
                             for (RootBlock r:accessedClassMembers(cur_)){
@@ -734,10 +756,14 @@ public final class ClassesUtil {
                             }
                             RootBlock possibleParent_ = cur_.getParentType();
                             String s_ = cur_.getName();
-                            MemberCallingsBlock outerFuntion_ = cur_.getOuterFuntion();
+                            MemberCallingsBlock outerFuntion_ = cur_.getOuterFuntionInType();
+                            cur_.getAllReservedInners().addAllElts(allReservedInnersRoot_);
                             if (possibleParent_ != null) {
                                 cur_.getAllReservedInners().addAllElts(possibleParent_.getAllReservedInners());
                                 if (outerFuntion_ != null) {
+                                    for (RootBlock o:outerFuntion_.getReserved()) {
+                                        cur_.getAllReservedInners().add(o.getName());
+                                    }
                                     if (StringList.contains(possibleParent_.getAllReservedInners(), s_)) {
                                         FoundErrorInterpret d_ = new FoundErrorInterpret();
                                         d_.setFileName(r_.getFile().getFileName());
@@ -885,6 +911,43 @@ public final class ClassesUtil {
                 }
             }
         }
+    }
+
+    private static CustList<RootBlock> inners(MemberCallingsBlock _caller) {
+        CustList<RootBlock> list_ = new CustList<RootBlock>();
+        Block c_ = _caller;
+        if (_caller.getFirstChild() != null) {
+            while (true) {
+                if (c_ instanceof RootBlock) {
+                    RootBlock cur_ = (RootBlock) c_;
+                    list_.add(cur_);
+                } else {
+                    Block fc_ = c_.getFirstChild();
+                    if (fc_ != null) {
+                        c_ = fc_;
+                        continue;
+                    }
+                }
+                boolean end_ = false;
+                while (true) {
+                    Block n_ = c_.getNextSibling();
+                    if (n_ != null) {
+                        c_ = n_;
+                        break;
+                    }
+                    BracedBlock p_ = c_.getParent();
+                    if (p_ == _caller) {
+                        end_ = true;
+                        break;
+                    }
+                    c_ = p_;
+                }
+                if (end_) {
+                    break;
+                }
+            }
+        }
+        return list_;
     }
 
     public static CustList<ExecBlock> getSortedDescNodes(ExecBlock _root) {
@@ -1178,7 +1241,6 @@ public final class ClassesUtil {
                     int ind_ = e.getValue();
                     if (r instanceof AnnotationBlock) {
                         r.getImportedDirectBaseSuperTypes().put(ind_,k_);
-                        exec_.getImportedDirectBaseSuperTypes().add(k_);
                         continue;
                     }
                     RootBlock s_ =_context.getAnalyzing().getAnaClassBody(k_);
@@ -1230,12 +1292,10 @@ public final class ClassesUtil {
                             r.addNameErrors(enum_);
                         }
                         r.getImportedDirectBaseSuperTypes().put(ind_,k_);
-                        exec_.getImportedDirectBaseSuperTypes().add(k_);
                         continue;
                     }
                     if (r instanceof InnerTypeOrElement) {
                         r.getImportedDirectBaseSuperTypes().put(ind_,k_);
-                        exec_.getImportedDirectBaseSuperTypes().add(k_);
                         continue;
                     }
                     if (ContextUtil.isFinalType(s_)) {
@@ -1250,7 +1310,6 @@ public final class ClassesUtil {
                         r.addNameErrors(enum_);
                     }
                     r.getImportedDirectBaseSuperTypes().put(ind_,k_);
-                    exec_.getImportedDirectBaseSuperTypes().add(k_);
                 }
                 if (nbDirectSuperClass_ > 1) {
                     FoundErrorInterpret enum_;
@@ -1567,6 +1626,8 @@ public final class ClassesUtil {
             page_.setImporting(c);
             page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
+            page_.getMappingLocal().clear();
+            page_.getMappingLocal().putAllMap(c.getMappings());
             c.validateIds(_context, type_,page_.getMapMembers().getVal(c));
             if (c.getNbOperators() > 0) {
                 _context.getAnalyzing().getTypesWithInnerOperators().add(c.getFullName());
@@ -1580,6 +1641,8 @@ public final class ClassesUtil {
             page_.setImporting(c);
             page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
+            page_.getMappingLocal().clear();
+            page_.getMappingLocal().putAllMap(c.getMappings());
             for (Block b: getDirectChildren(c)) {
                 if (b instanceof InternOverrideBlock) {
                     ((InternOverrideBlock)b).buildTypes(c,_context);
@@ -1596,6 +1659,7 @@ public final class ClassesUtil {
             page_.setImporting(e.getKey());
             page_.setImportingAcces(new OperatorAccessor());
             page_.setImportingTypes(e.getKey());
+            page_.getMappingLocal().clear();
             e.getKey().buildImportedTypes(_context);
             e.getValue().buildImportedTypes(e.getKey());
             if (!StringExpUtil.isOper(name_)) {
@@ -1789,6 +1853,8 @@ public final class ClassesUtil {
                         InnerTypeOrElement method_ = (InnerTypeOrElement) b;
                         page_.setCurrentBlock(b);
                         page_.setCurrentAnaBlock(b);
+                        page_.getMappingLocal().clear();
+                        page_.getMappingLocal().putAllMap(c.getMappings());
                         method_.buildExpressionLanguageReadOnly(_context,mem_.getAllElementFields().getVal(method_));
                     }
                     if (b instanceof FieldBlock) {
@@ -1799,11 +1865,15 @@ public final class ClassesUtil {
                         }
                         page_.setCurrentBlock(b);
                         page_.setCurrentAnaBlock(b);
+                        page_.getMappingLocal().clear();
+                        page_.getMappingLocal().putAllMap(c.getMappings());
                         method_.buildExpressionLanguageReadOnly(_context,mem_.getAllExplicitFields().getVal(method_));
                     }
                     if (b instanceof StaticBlock) {
                         page_.setGlobalClass(c.getGenericString());
                         StaticBlock method_ = (StaticBlock) b;
+                        page_.getMappingLocal().clear();
+                        page_.getMappingLocal().putAllMap(method_.getMappings());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllInits().getVal(method_));
                         page_.clearAllLocalVarsReadOnly();
                     }
@@ -1847,11 +1917,15 @@ public final class ClassesUtil {
                         FieldBlock method_ = (FieldBlock) b;
                         page_.setCurrentBlock(b);
                         page_.setCurrentAnaBlock(b);
+                        page_.getMappingLocal().clear();
+                        page_.getMappingLocal().putAllMap(c.getMappings());
                         method_.buildExpressionLanguageReadOnly(_context,mem_.getAllExplicitFields().getVal(method_));
                     }
                     if (b instanceof InstanceBlock) {
                         page_.setGlobalClass(c.getGenericString());
                         InstanceBlock method_ = (InstanceBlock) b;
+                        page_.getMappingLocal().clear();
+                        page_.getMappingLocal().putAllMap(method_.getMappings());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllInits().getVal(method_));
                     }
                 }
@@ -1866,6 +1940,8 @@ public final class ClassesUtil {
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
                         prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
+                        page_.getMappingLocal().clear();
+                        page_.getMappingLocal().putAllMap(method_.getMappings());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllCtors().getVal(method_));
                         page_.clearAllLocalVarsReadOnly();
                     }
@@ -1890,6 +1966,8 @@ public final class ClassesUtil {
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
                         prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
+                        page_.getMappingLocal().clear();
+                        page_.getMappingLocal().putAllMap(method_.getMappings());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
                         page_.clearAllLocalVarsReadOnly();
                     } else {
@@ -1899,6 +1977,8 @@ public final class ClassesUtil {
                         StringList types_ = method_.getImportedParametersTypes();
                         prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                         processValueParam(_context, page_, c, method_);
+                        page_.getMappingLocal().clear();
+                        page_.getMappingLocal().putAllMap(method_.getMappings());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
                         page_.clearAllLocalVarsReadOnly();
                     }
@@ -1914,6 +1994,7 @@ public final class ClassesUtil {
                 StringList params_ = e.getKey().getParametersNames();
                 StringList types_ = e.getKey().getImportedParametersTypes();
                 prepareParams(page_, e.getKey().getParametersNamesOffset(),e.getKey().getParamErrors(),params_, types_, e.getKey().isVarargs());
+                page_.getMappingLocal().clear();
                 e.getKey().buildFctInstructionsReadOnly(_context,e.getValue());
                 page_.clearAllLocalVarsReadOnly();
             }
@@ -1931,6 +2012,8 @@ public final class ClassesUtil {
             }
             annotated_.addAllElts(getDirectChildren(c));
             _context.getCoverage().putBlockOperations(_context,page_.getMapTypes().getVal(c),c);
+            page_.getMappingLocal().clear();
+            page_.getMappingLocal().putAllMap(c.getMappings());
             for (Block b:annotated_) {
                 page_.setCurrentBlock(b);
                 page_.setCurrentAnaBlock(b);
@@ -1967,7 +2050,8 @@ public final class ClassesUtil {
             page_.setCurrentBlock(e.getKey());
             page_.setCurrentAnaBlock(e.getKey());
             _context.setAnnotAnalysisField(false);
-            _context.getCoverage().putBlockOperationsField(_context,e.getKey());
+             _context.getCoverage().putBlockOperationsField(_context,e.getKey());
+            page_.getMappingLocal().clear();
             e.getKey().buildAnnotations(_context,e.getValue());
             e.getKey().buildAnnotationsParameters(_context,e.getValue());
         }
@@ -2027,6 +2111,8 @@ public final class ClassesUtil {
                     InnerTypeOrElement method_ = (InnerTypeOrElement) b;
                     page_.setCurrentBlock(b);
                     page_.setCurrentAnaBlock(b);
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(c.getMappings());
                     ExecInnerTypeOrElement val_ = mem_.getAllElementFields().getVal(method_);
                     method_.buildExpressionLanguageReadOnly(_context, val_);
                     AssInfoBlock aInfo_ = new AssElementBlock(val_);
@@ -2044,6 +2130,8 @@ public final class ClassesUtil {
                     }
                     page_.setCurrentBlock(b);
                     page_.setCurrentAnaBlock(b);
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(c.getMappings());
                     ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
                     method_.buildExpressionLanguageReadOnly(_context, exp_);
                     AssInfoBlock aInfo_;
@@ -2057,6 +2145,8 @@ public final class ClassesUtil {
                 if (b instanceof StaticBlock) {
                     page_.setGlobalClass(c.getGenericString());
                     StaticBlock method_ = (StaticBlock) b;
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(method_.getMappings());
                     AssMemberCallingsBlock res_ = AssBlockUtil.buildFctInstructions(method_,mem_.getAllInits().getVal(method_),_context,pr_,assVars_);
                     assAfter_.putAllMap(assVars_.getFinalVariables().getVal(res_).getFieldsRoot());
                     page_.clearAllLocalVars(assVars_);
@@ -2140,6 +2230,8 @@ public final class ClassesUtil {
                     FieldBlock method_ = (FieldBlock) b;
                     page_.setCurrentBlock(b);
                     page_.setCurrentAnaBlock(b);
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(c.getMappings());
                     ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
                     method_.buildExpressionLanguageReadOnly(_context, exp_);
                     AssFieldBlock aInfo_ = new AssFieldBlock(exp_);
@@ -2152,6 +2244,8 @@ public final class ClassesUtil {
                 if (b instanceof InstanceBlock) {
                     page_.setGlobalClass(c.getGenericString());
                     InstanceBlock method_ = (InstanceBlock) b;
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(method_.getMappings());
                     AssMemberCallingsBlock res_ = AssBlockUtil.buildFctInstructions(method_,mem_.getAllInits().getVal(method_), _context,pr_, assVars_);
                     assAfter_.putAllMap(assVars_.getFinalVariables().getVal(res_).getFieldsRoot());
                     page_.clearAllLocalVars(assVars_);
@@ -2197,6 +2291,8 @@ public final class ClassesUtil {
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(method_.getMappings());
                     AssMemberCallingsBlock met_ = AssBlockUtil.buildFctInstructions(method_,mem_.getAllCtors().getVal(method_), _context,null, assVars_);
                     IdMap<AssBlock, AssignedVariables> id_ = assVars_.getFinalVariables();
                     AssignedVariables assTar_ = id_.getVal(met_);
@@ -2246,6 +2342,8 @@ public final class ClassesUtil {
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(page_,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, types_, method_.isVarargs());
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(method_.getMappings());
                     AssBlockUtil.buildFctInstructions(method_,mem_.getAllMethods().getVal(method_),_context,null,assVars_);
                     page_.clearAllLocalVars(assVars_);
                 } else {
@@ -2255,6 +2353,8 @@ public final class ClassesUtil {
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
                     processValueParam(_context, page_, c, method_);
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(method_.getMappings());
                     AssBlockUtil.buildFctInstructions(method_,mem_.getAllMethods().getVal(method_),_context,null,assVars_);
                     page_.clearAllLocalVars(assVars_);
                 }
@@ -2270,6 +2370,7 @@ public final class ClassesUtil {
             StringList params_ = e.getKey().getParametersNames();
             StringList types_ = e.getKey().getImportedParametersTypes();
             prepareParams(page_,e.getKey().getParametersNamesOffset(),e.getKey().getParamErrors(), params_, types_, e.getKey().isVarargs());
+            page_.getMappingLocal().clear();
             AssBlockUtil.buildFctInstructions(e.getKey(),e.getValue(),_context,null,assVars_);
             page_.clearAllLocalVars(assVars_);
         }
@@ -2468,6 +2569,8 @@ public final class ClassesUtil {
                 page_.setGlobalClass(c.getGenericString());
                 page_.setCurrentBlock(f_);
                 page_.setCurrentAnaBlock(f_);
+                page_.getMappingLocal().clear();
+                page_.getMappingLocal().putAllMap(c.getMappings());
                 CustList<OperationNode> list_ = f_.buildExpressionLanguageQuickly(_context);
                 String cl_ = c.getFullName();
                 for (String f: f_.getFieldName()) {

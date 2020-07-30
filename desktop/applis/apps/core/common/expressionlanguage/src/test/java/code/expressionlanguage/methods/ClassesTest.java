@@ -7956,4 +7956,92 @@ public final class ClassesTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
+    @Test
+    public void validateEl189FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" {$return;$return;}\n");
+        xml_.append(" $public $void outer(){$public $static $class Inn{}\n");
+        xml_.append(" $public $static $class Inn2{}}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void validateEl190FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" {$return;$return;}\n");
+        xml_.append(" $public $void outer(){$public $static $class Inn{\n");
+        xml_.append(" $public $void outer(){$public $static $class Inn2{\n");
+        xml_.append(" }}}}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void validateEl191FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" {$return;$return;}\n");
+        xml_.append(" $public $void outer(){$public $static $class Inn{\n");
+        xml_.append(" $public $void outer(){$public $static $class Inn2{\n");
+        xml_.append(" $public $static $class Inn3{\n");
+        xml_.append(" }}}}}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void validateEl192FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" {$return;$return;}\n");
+        xml_.append(" $public $void outer(){$public $static $class Inn{\n");
+        xml_.append(" $public $void outer(){$public $static $class Inn2{\n");
+        xml_.append(" $public $static $class Inn3{\n");
+        xml_.append(" $public $void outer(){$public $static $class Inn4{\n");
+        xml_.append(" }}\n");
+        xml_.append(" }}}}}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void validateEl193FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" {$return;$return;}\n");
+        xml_.append(" $public $void outer(){$public $static $class Inn{\n");
+        xml_.append(" $public $void outer(){$public $static $class Inn2{\n");
+        xml_.append(" $public $static $class Inn3{\n");
+        xml_.append(" $public $void outer(){$public $static $class Inn4{\n");
+        xml_.append(" }}\n");
+        xml_.append(" }}}}\n");
+        xml_.append(" $public $static $class Inn5{\n");
+        xml_.append(" }}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
 }
