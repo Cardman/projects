@@ -135,6 +135,9 @@ public abstract class Block implements AnalyzedBlock {
             _cont.getCoverage().putBlockOperations(_cont, exec_,_block);
             return true;
         }
+        if (_block instanceof RootBlock) {
+            return false;
+        }
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         un_.setFileName(_block.getFile().getFileName());
         un_.setIndexFile(_block.getOffset().getOffsetTrim());

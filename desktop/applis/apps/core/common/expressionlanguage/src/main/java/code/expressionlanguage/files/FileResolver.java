@@ -9,6 +9,7 @@ import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.KeyWords;
 import code.util.*;
@@ -1440,7 +1441,14 @@ public final class FileResolver {
                     //fields, constructors or methods
                     if (_declType) {
                         //Inner types
-                        RootBlock built_ = processTypeHeader(_context, _pkgName,false,
+                        boolean defStatic_;
+                        MemberCallingsBlock outerFuntion_ = Block.getOuterFuntionInType(currentParent_);
+                        if (outerFuntion_ != null) {
+                            defStatic_ = outerFuntion_.getStaticContext() != MethodAccessKind.INSTANCE;
+                        } else {
+                            defStatic_ = false;
+                        }
+                        RootBlock built_ = processTypeHeader(_context, _pkgName,defStatic_,
                                 _file,
                                 instructionLocation_, instructionRealLocation_,
                                 found_,

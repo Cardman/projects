@@ -150,6 +150,13 @@ final class AnaNamePartType extends AnaLeafPartType {
     private void tryAnalyzeInnerParts(ContextEl _an,
                                       AccessedBlock _local,
                                       AccessedBlock _rooted) {
+        String type_ = getTypeName().trim();
+        String resolved_ = _an.getAnalyzing().getMappingLocal().getVal(type_);
+        if (resolved_ != null) {
+            setAnalyzedType(resolved_);
+            checkAccessLoop = true;
+            return;
+        }
         if (_local instanceof RootBlock) {
             if (skipGenericImports(_an, (RootBlock)_local)) {
                 return;
@@ -197,6 +204,13 @@ final class AnaNamePartType extends AnaLeafPartType {
                                           ReadyTypes _ready,
                                           AccessedBlock _local,
                                           AccessedBlock _rooted) {
+        String type_ = getTypeName().trim();
+        String resolved_ = _an.getAnalyzing().getMappingLocal().getVal(type_);
+        if (resolved_ != null) {
+            setAnalyzedType(resolved_);
+            checkAccessLoop = true;
+            return;
+        }
         if (_local instanceof RootBlock) {
             if (skipImports(_an,_ready,(RootBlock)_local)) {
                 return;

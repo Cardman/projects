@@ -15732,6 +15732,114 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage391Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" int extField;\n");
+        xml_.append(" void m(){\n");
+        xml_.append("  class Loc{\n");
+        xml_.append("   int field;\n");
+        xml_.append("  }\n");
+        xml_.append("  Loc l = new Loc();\n");
+        xml_.append("  l.field = 2;\n");
+        xml_.append("  extField = l.field;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Ext e = new Ext();\n");
+        xml_.append("  e.m();\n");
+        xml_.append("  return e.extField;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Ext </a>{\n" +
+                " int <span class=\"f\"><a name=\"m21\">extField</a></span>;\n" +
+                " void <a name=\"m37\">m</a>(){\n" +
+                "  class <a name=\"m50\">Loc</a>{\n" +
+                "   int <span class=\"f\"><a name=\"m62\">field</a></span>;\n" +
+                "  }\n" +
+                "  <a title=\"pkg.Ext..Loc+1\" href=\"#m50\">Loc</a> <span class=\"f\"><span class=\"f\"><a name=\"m79\">l</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ext..Loc+1\" href=\"#m50\">Loc</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m79\">l</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Loc+1.field\" href=\"#m62\">field</a> </span></span>=<span class=\"f\"> 2</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext.extField\" href=\"#m21\">extField</a> </span>=<span class=\"f\"><span class=\"f\"> <a href=\"#m79\">l</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Loc+1.field\" href=\"#m62\">field</a></span></span></span>;\n" +
+                " }\n" +
+                " static int <a name=\"m146\">m</a>(){\n" +
+                "  <a title=\"pkg.Ext\" href=\"#m6\">Ext</a> <span class=\"f\"><span class=\"f\"><a name=\"m157\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m157\">e</a></span>.<span class=\"f\"><a title=\"pkg.Ext.m()\" href=\"#m37\">m</a>()</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m157\">e</a></span>.<span class=\"f\"><a title=\"pkg.Ext.extField\" href=\"#m21\">extField</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage392Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" int extField;\n");
+        xml_.append(" void m(){\n");
+        xml_.append("  interface Super{\n");
+        xml_.append("   int superField;\n");
+        xml_.append("   Super(int p){\n");
+        xml_.append("    superField = p;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  class Loc:Super{\n");
+        xml_.append("   int field;\n");
+        xml_.append("   Loc(int p, int q){\n");
+        xml_.append("    interfaces(Super)(p);\n");
+        xml_.append("    field = q;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  Loc l = new Loc(2,4);\n");
+        xml_.append("  extField = l.field+l.superField;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Ext e = new Ext();\n");
+        xml_.append("  e.m();\n");
+        xml_.append("  return e.extField;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Ext </a>{\n" +
+                " int <span class=\"f\"><a name=\"m21\">extField</a></span>;\n" +
+                " void <a name=\"m37\">m</a>(){\n" +
+                "  interface <a name=\"m54\">Super</a>{\n" +
+                "   int <span class=\"f\"><a name=\"m68\">superField</a></span>;\n" +
+                "   <a name=\"m83\">Super(</a>int <a name=\"m93\">p</a>){\n" +
+                "    <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext..Super+1.superField\" href=\"#m68\">superField</a> </span>=<span class=\"f\"> <a href=\"#m93\">p</a></span></span>;\n" +
+                "   }\n" +
+                "  }\n" +
+                "  class <a name=\"m134\">Loc</a>:<a title=\"pkg.Ext..Super+1\" href=\"#m54\">Super</a>{\n" +
+                "   int <span class=\"f\"><a name=\"m152\">field</a></span>;\n" +
+                "   <a name=\"m162\">Loc(</a>int <a name=\"m170\">p</a>, int <a name=\"m177\">q</a>){\n" +
+                "    <span class=\"f\"><a title=\"pkg.Ext..Super+1.pkg.Ext..Super+1(int)\" href=\"#m83\">interfaces</a>(<a title=\"pkg.Ext..Super+1\" href=\"#m54\">Super</a>)(<span class=\"f\"><a href=\"#m170\">p</a></span>)</span>;\n" +
+                "    <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext..Loc+1.field\" href=\"#m152\">field</a> </span>=<span class=\"f\"> <a href=\"#m177\">q</a></span></span>;\n" +
+                "   }\n" +
+                "  }\n" +
+                "  <a title=\"pkg.Ext..Loc+1\" href=\"#m134\">Loc</a> <span class=\"f\"><span class=\"f\"><a name=\"m237\">l</a> </span>=<span class=\"f\"> <a title=\"pkg.Ext..Loc+1.pkg.Ext..Loc+1(int,int)\" href=\"#m162\">new</a> <a title=\"pkg.Ext..Loc+1\" href=\"#m134\">Loc</a>(<span class=\"f\">2</span>,<span class=\"f\">4</span>)</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext.extField\" href=\"#m21\">extField</a> </span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m237\">l</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Loc+1.field\" href=\"#m152\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m237\">l</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Super+1.superField\" href=\"#m68\">superField</a></span></span></span></span>;\n" +
+                " }\n" +
+                " static int <a name=\"m305\">m</a>(){\n" +
+                "  <a title=\"pkg.Ext\" href=\"#m6\">Ext</a> <span class=\"f\"><span class=\"f\"><a name=\"m316\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m316\">e</a></span>.<span class=\"f\"><a title=\"pkg.Ext.m()\" href=\"#m37\">m</a>()</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m316\">e</a></span>.<span class=\"f\"><a title=\"pkg.Ext.extField\" href=\"#m21\">extField</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

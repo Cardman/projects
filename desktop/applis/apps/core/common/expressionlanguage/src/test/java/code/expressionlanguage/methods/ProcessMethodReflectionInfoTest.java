@@ -9207,4 +9207,27 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("pkg.ExParam<java.lang.Long>..ExInner<java.lang.Integer>",getString(out_));
     }
+    @Test
+    public void calculate227Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst;\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $Class.forName(\"pkg.ExParam<java.lang.Long>..ExInner<>\",$false).getName();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExParam<T:Number> {\n");
+        xml_.append(" $public $class ExInner<S:Number> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateError("pkg.ExTwo", id_, args_, cont_);
+    }
 }

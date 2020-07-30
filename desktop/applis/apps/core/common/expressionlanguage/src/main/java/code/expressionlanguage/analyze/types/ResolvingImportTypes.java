@@ -313,24 +313,30 @@ public final class ResolvingImportTypes {
                 partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc+1));
                 return "";
             }
-            String id_ = lookupImportType(_analyzable,base_,r_, new AlwaysReadyTypes());
-            if (id_.isEmpty()) {
-                FoundErrorInterpret undef_;
-                undef_ = new FoundErrorInterpret();
-                undef_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
-                undef_.setIndexFile(rc_);
-                //_in len
-                undef_.buildError(_analyzable.getAnalysisMessages().getUnknownType(),
-                        _in);
-                _analyzable.getAnalyzing().getLocalizer().addError(undef_);
-                String err_ = undef_.getBuiltError();
-                String pref_ = "<a title=\""+err_+"\" class=\"e\">";
-                partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
-                partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc + base_.length()));
-                return "";
+            String resolved_ = _analyzable.getAnalyzing().getMappingLocal().getVal(base_);
+            if (resolved_ != null) {
+                ContextUtil.appendParts(_analyzable,firstOff_+_loc,firstOff_+_loc + base_.length(),resolved_,partOffsets_);
+                res_ = resolved_;
+            } else {
+                String id_ = lookupImportType(_analyzable,base_,r_, new AlwaysReadyTypes());
+                if (id_.isEmpty()) {
+                    FoundErrorInterpret undef_;
+                    undef_ = new FoundErrorInterpret();
+                    undef_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
+                    undef_.setIndexFile(rc_);
+                    //_in len
+                    undef_.buildError(_analyzable.getAnalysisMessages().getUnknownType(),
+                            _in);
+                    _analyzable.getAnalyzing().getLocalizer().addError(undef_);
+                    String err_ = undef_.getBuiltError();
+                    String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+                    partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
+                    partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc + base_.length()));
+                    return "";
+                }
+                ContextUtil.appendParts(_analyzable,firstOff_+_loc,firstOff_+_loc + base_.length(),id_,partOffsets_);
+                res_ = id_;
             }
-            ContextUtil.appendParts(_analyzable,firstOff_+_loc,firstOff_+_loc + base_.length(),id_,partOffsets_);
-            res_ = id_;
         } else {
             ContextUtil.appendParts(_analyzable,firstOff_+_loc,firstOff_+_loc + res_.length(),res_,partOffsets_);
         }

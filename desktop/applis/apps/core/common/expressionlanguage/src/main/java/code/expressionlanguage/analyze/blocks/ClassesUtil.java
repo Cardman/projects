@@ -1021,6 +1021,12 @@ public final class ClassesUtil {
                 continue;
             }
             StringList allPossibleDirectSuperTypes_ = new StringList();
+            MemberCallingsBlock outerFct_ = c.getOuterFuntionInType();
+            if (outerFct_ != null) {
+                for (RootBlock r:outerFct_.getReserved()) {
+                    allPossibleDirectSuperTypes_.add(r.getFullName());
+                }
+            }
             StringList allDirectSuperTypes_ = new StringList();
             CustList<RootBlock> allAncestors_ = new CustList<RootBlock>();
             RootBlock p_ = c.getParentType();

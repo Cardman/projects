@@ -857,11 +857,33 @@ public final class StringExpUtil {
         }
         return true;
     }
+    public static boolean isTypeLeafExec(String _string) {
+        for (String p : StringList.splitChars(_string, SEP_CLASS_CHAR)) {
+            if (!isTypeLeafPartExec(p.trim())) {
+                return false;
+            }
+        }
+        return true;
+    }
     public static boolean isTypeLeafPart(String _string) {
         if (_string.trim().isEmpty()) {
             return false;
         }
         for (char c: _string.toCharArray()) {
+            if (!isTypeLeafChar(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public static boolean isTypeLeafPartExec(String _string) {
+        if (_string.trim().isEmpty()) {
+            return false;
+        }
+        for (char c: _string.toCharArray()) {
+            if (c == '+') {
+                continue;
+            }
             if (!isTypeLeafChar(c)) {
                 return false;
             }

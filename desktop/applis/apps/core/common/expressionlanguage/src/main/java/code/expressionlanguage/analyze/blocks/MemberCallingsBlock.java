@@ -177,7 +177,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     }
 
     private void processUnreachable(ContextEl _cont, AnalyzingEl _anEl, Block _en) {
-        if (!_anEl.isReachable(_en)) {
+        if (!(_en instanceof RootBlock)&&!_anEl.isReachable(_en)) {
             //error
             FoundErrorInterpret deadCode_ = new FoundErrorInterpret();
             deadCode_.setFileName(getFile().getFileName());

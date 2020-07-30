@@ -269,6 +269,8 @@ public final class AnaTypeUtil {
                 page_.setCurrentAnaBlock(c);
                 page_.setGlobalOffset(offset_);
                 page_.setOffset(0);
+                page_.getMappingLocal().clear();
+                page_.getMappingLocal().putAllMap(c.getMappings());
                 base_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,base_);
                 c.getPartsStaticInitInterfacesOffset().addAllElts(page_.getCurrentParts());
                 RootBlock r_ = page_.getAnaClassBody(base_);

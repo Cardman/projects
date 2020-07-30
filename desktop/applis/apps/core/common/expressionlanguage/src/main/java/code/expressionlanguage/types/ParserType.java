@@ -244,7 +244,7 @@ public final class ParserType {
             a_.setupValueExec(_string);
             return a_;
         }
-        if (StringExpUtil.isTypeLeaf(_string)) {
+        if (StringExpUtil.isTypeLeafExec(_string)) {
             a_.setKind(KindPartType.TYPE_NAME);
             a_.setupValueExec(_string);
             return a_;
