@@ -33,18 +33,9 @@ public class LaunchingCards extends SoftApplicationCore {
     @Override
     protected void launch(String _language, StringMap<Object> _args) {
         increment();
-        MainWindow window_;
         installer();
         TopLeftFrame coordonnees_=loadCoords(getTempFolder(), FileConst.COORDS);
-        window_ = new MainWindow(_language);
-
-        SoftApplicationCore.setLocation(window_, coordonnees_);
-        window_.pack();
-        window_.setVisible(true);
-
-        if (!_args.isEmpty()) {
-            window_.loadGameBegin(_args.getKeys().first(), _args.values().first());
-        }
+        CustComponent.invokeLater(new LaunchingGame(_args, _language,coordonnees_));
     }
 
     protected static void loadLaungage(String[] _args) {
@@ -107,7 +98,7 @@ public class LaunchingCards extends SoftApplicationCore {
 
     @Override
     public void launchWithoutLanguage(String _language, StringMap<Object> _args) {
-        CustComponent.invokeLater(new LaunchingGame(this, _args, _language));
+        launch(_language,_args);
     }
 
     public static String getTempFolderSl() {
