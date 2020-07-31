@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.opers.InvokingOperation;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
@@ -359,7 +358,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     }
                     Initializer in_ = _cont.getInit();
                     String genStr_ = type_.getGenericString();
-                    String form_ = Templates.quickFormat(className_, genStr_, _cont);
+                    String form_ = ExecTemplates.quickFormat(className_, genStr_, _cont);
                     par_ = in_.processInit(_cont, par_, form_, EMPTY_STRING, 0);
                     Argument a_ = new Argument();
                     a_.setStruct(par_);
@@ -388,7 +387,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 Initializer in_ = _cont.getInit();
                 for (GeneType r: need_.mid(start_)) {
                     String genStr_ = r.getGenericString();
-                    String form_ = Templates.quickFormat(className_, genStr_, _cont);
+                    String form_ = ExecTemplates.quickFormat(className_, genStr_, _cont);
                     parent_ = in_.processInit(_cont, parent_, form_, EMPTY_STRING, 0);
                 }
                 Argument a_ = new Argument();
@@ -1065,7 +1064,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         classNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, classNameFound_, _conf);
         String fieldType_;
         fieldType_ = _returnType;
-        fieldType_ = Templates.quickFormat(classNameFound_, fieldType_, _conf);
+        fieldType_ = ExecTemplates.quickFormat(classNameFound_, fieldType_, _conf);
         if (!ExecTemplates.checkQuick(fieldType_, _right, _conf)) {
             return Argument.createVoid();
         }

@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.AccessibleBlock;
@@ -41,8 +42,10 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
             page_.setAccessStaticContext(MethodAccessKind.INSTANCE);
             String clName_ = _cont.getBeansInfos().getVal(beanName).getResolvedClassName();
             page_.setGlobalClass(clName_);
+            page_.setGlobalType(page_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(clName_)));
         } else {
             page_.setGlobalClass("");
+            page_.setGlobalType(null);
         }
         RendBlock root_ = this;
         RendBlock en_ = this;

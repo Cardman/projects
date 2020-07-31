@@ -3,9 +3,9 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -69,7 +69,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             getErrs().add(call_.getBuiltError());
             return null;
         }
-        String superClass_ = Templates.getOverridingFullTypeByBases(className_, cl_, _conf);
+        String superClass_ = AnaTemplates.getOverridingFullTypeByBases(sub_,className_, cl_, _conf);
         if (superClass_.isEmpty()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());

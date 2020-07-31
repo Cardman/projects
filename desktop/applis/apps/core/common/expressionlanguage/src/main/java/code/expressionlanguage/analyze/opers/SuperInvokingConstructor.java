@@ -3,13 +3,10 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.blocks.UniqueRootedBlock;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.blocks.ExecUniqueRootedBlock;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 
 public final class SuperInvokingConstructor extends AbstractInvokingConstructor {
@@ -35,7 +32,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
             return null;
         }
         UniqueRootedBlock unique_ =(UniqueRootedBlock) clBody_;
-        String superClass_ = Templates.quickFormat(clCurName_, unique_.getImportedDirectGenericSuperClass(), _conf);
+        String superClass_ = AnaTemplates.quickFormat(clBody_,clCurName_, unique_.getImportedDirectGenericSuperClass(), _conf);
         return new ClassArgumentMatching(superClass_);
     }
 

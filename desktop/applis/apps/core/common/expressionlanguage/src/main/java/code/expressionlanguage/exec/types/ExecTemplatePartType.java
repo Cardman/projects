@@ -84,7 +84,7 @@ final class ExecTemplatePartType extends ExecBinaryType {
             StringList bounds_ = new StringList();
             bounds_.add(comp_);
             for (String e: t) {
-                String param_ = Templates.format(tempClFull_, e, _an);
+                String param_ = ExecTemplates.format(tempClFull_, e, _an);
                 if (!ExecTemplates.isCorrectExecute(comp_, param_, _an)) {
                     return false;
                 }

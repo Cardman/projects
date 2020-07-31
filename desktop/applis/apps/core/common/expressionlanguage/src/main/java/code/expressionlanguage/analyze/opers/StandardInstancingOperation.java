@@ -120,7 +120,8 @@ public final class StandardInstancingOperation extends
                 return;
             }
             sup_ = ownersMap_.values().first();
-            vars_ = Templates.getVarTypes(sup_,_an);
+            RootBlock root_ = _an.getAnalyzing().getAnaClassBody(sup_);
+            vars_ = AnaTemplates.getVarTypes(root_,sup_,_an);
         } else {
             setStaticAccess(_an.getAnalyzing().getStaticContext());
         }

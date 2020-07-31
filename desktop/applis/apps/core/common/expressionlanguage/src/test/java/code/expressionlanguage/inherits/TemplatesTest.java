@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.util.StringList;
@@ -322,7 +323,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number,java.lang.Number>";
         String second_ = "#S";
-        assertEq("S",Templates.quickFormat(first_, second_, context_));
+        assertEq("S", ExecTemplates.quickFormat(first_, second_, context_));
     }
     @Test
     public void quickFormat0Test() {
@@ -333,14 +334,14 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "java.lang.String";
-        assertEq(second_,Templates.quickFormat(first_, second_, context_));
+        assertEq(second_, ExecTemplates.quickFormat(first_, second_, context_));
     }
     @Test
     public void quickFormat1Test() {
         ContextEl context_ = simpleContextEl();
         String first_ = context_.getStandards().getAliasString();
         String second_ = context_.getStandards().getAliasInteger();
-        assertEq(second_,Templates.quickFormat(first_, second_, context_));
+        assertEq(second_, ExecTemplates.quickFormat(first_, second_, context_));
     }
     @Test
     public void quickFormat2Test() {
@@ -351,7 +352,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "java.lang.String";
-        assertEq("java.lang.String",Templates.quickFormat(first_, second_, cont_));
+        assertEq("java.lang.String", ExecTemplates.quickFormat(first_, second_, cont_));
     }
 
     @Test
@@ -363,7 +364,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "#T";
-        assertEq("java.lang.Number",Templates.quickFormat(first_, second_, cont_));
+        assertEq("java.lang.Number", ExecTemplates.quickFormat(first_, second_, cont_));
     }
 
     @Test
@@ -375,14 +376,14 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
-        assertEq("#E",Templates.quickFormat(first_, second_, cont_));
+        assertEq("#E", ExecTemplates.quickFormat(first_, second_, cont_));
     }
     @Test
     public void format1Test() {
         ContextEl context_ = simpleContextEl();
         String first_ = context_.getStandards().getAliasString();
         String second_ = context_.getStandards().getAliasInteger();
-        assertEq(second_,Templates.format(first_, second_, context_));
+        assertEq(second_, ExecTemplates.format(first_, second_, context_));
     }
 
     @Test
@@ -394,7 +395,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number,java.lang.Number,java.lang.Number,java.lang.Number>";
         String second_ = "#W";
-        assertEq("java.lang.Number",Templates.format(first_, second_, cont_));
+        assertEq("java.lang.Number", ExecTemplates.format(first_, second_, cont_));
     }
 
 
@@ -409,7 +410,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "?#W";
-        assertEq("?java.lang.Number",Templates.format(first_, second_, cont_));
+        assertEq("?java.lang.Number", ExecTemplates.format(first_, second_, cont_));
     }
 
 
@@ -422,7 +423,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "!#W";
-        assertEq("!java.lang.Number",Templates.format(first_, second_, cont_));
+        assertEq("!java.lang.Number", ExecTemplates.format(first_, second_, cont_));
     }
 
 
@@ -432,7 +433,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "$int";
         String second_ = "java.lang.Number";
-        assertEq("java.lang.Number",Templates.format(first_, second_, cont_));
+        assertEq("java.lang.Number", ExecTemplates.format(first_, second_, cont_));
     }
 
     @Test
@@ -444,7 +445,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "#W";
-        assertEq("?java.lang.Number",Templates.format(first_, second_, cont_));
+        assertEq("?java.lang.Number", ExecTemplates.format(first_, second_, cont_));
     }
 
 
@@ -457,7 +458,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "?#W";
-        assertEq("?java.lang.Number",Templates.format(first_, second_, cont_));
+        assertEq("?java.lang.Number", ExecTemplates.format(first_, second_, cont_));
     }
 
 
@@ -520,7 +521,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "java.lang.String";
-        assertEq("java.lang.String",Templates.format(first_, second_, cont_));
+        assertEq("java.lang.String", ExecTemplates.format(first_, second_, cont_));
     }
     
     @Test
@@ -532,7 +533,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<#E>";
         String second_ = "java.lang.String";
-        assertEq("java.lang.String",Templates.format(first_, second_, cont_));
+        assertEq("java.lang.String", ExecTemplates.format(first_, second_, cont_));
     }
 
     @Test
@@ -544,7 +545,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
-        assertEq("#E",Templates.format(first_, second_, cont_));
+        assertEq("#E", ExecTemplates.format(first_, second_, cont_));
     }
 
     @Test
@@ -556,7 +557,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.format(first_, second_, cont_));
+        assertEq("java.lang.String", ExecTemplates.format(first_, second_, cont_));
     }
 
     @Test
@@ -568,7 +569,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#U";
-        assertEq("java.lang.Object",Templates.format(first_, second_, cont_));
+        assertEq("java.lang.Object", ExecTemplates.format(first_, second_, cont_));
     }
 
     @Test
@@ -580,7 +581,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.format(first_, second_, cont_));
+        assertEq("java.lang.String", ExecTemplates.format(first_, second_, cont_));
     }
 
     @Test
@@ -592,7 +593,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.format(first_, second_, cont_));
+        assertEq("java.lang.String", ExecTemplates.format(first_, second_, cont_));
     }
 
     @Test
@@ -604,7 +605,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#V";
-        assertEq("#V",Templates.format(first_, second_, cont_));
+        assertEq("#V", ExecTemplates.format(first_, second_, cont_));
     }
 
     @Test
@@ -616,19 +617,19 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
-        assertEq("code.util.CustList<#V>",Templates.format(first_, second_, cont_));
+        assertEq("code.util.CustList<#V>", ExecTemplates.format(first_, second_, cont_));
     }
     @Test
     public void getGenericTypeByBases1Test() {
         ContextEl context_ = simpleContextEl();
-        String t_ = Templates.getFullTypeByBases("java.lang.String", "java.lang.Object", context_);
+        String t_ = ExecTemplates.getFullTypeByBases("java.lang.String", "java.lang.Object", context_);
         assertEq("java.lang.Object", t_);
     }
 
     @Test
     public void getGenericTypeByBases2Test() {
         ContextEl context_ = simpleContextEl();
-        String t_ = Templates.getFullTypeByBases("java.lang.Object", "java.lang.String", context_);
+        String t_ = ExecTemplates.getFullTypeByBases("java.lang.Object", "java.lang.String", context_);
         assertEq("",t_);
     }
 
@@ -651,7 +652,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void getGenericTypeByBases6Test() {
         ContextEl context_ = simpleContextEl();
-        String t_ = Templates.getFullTypeByBases("java.lang.String", "java.lang.String", context_);
+        String t_ = ExecTemplates.getFullTypeByBases("java.lang.String", "java.lang.String", context_);
         assertEq("java.lang.String", t_);
     }
 
@@ -671,7 +672,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String t_ = Templates.getFullTypeByBases("pkg.Ex", "pkg.Ex", cont_);
+        String t_ = ExecTemplates.getFullTypeByBases("pkg.Ex", "pkg.Ex", cont_);
         assertEq("pkg.Ex", t_);
     }
 
@@ -686,7 +687,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String t_ = Templates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", cont_);
+        String t_ = ExecTemplates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", cont_);
         assertEq("pkg.Ex", t_);
     }
 
@@ -701,7 +702,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String t_ = Templates.getFullTypeByBases("pkg.Ex", "pkg.ExTwo", cont_);
+        String t_ = ExecTemplates.getFullTypeByBases("pkg.Ex", "pkg.ExTwo", cont_);
         assertEq("",t_);
     }
 
@@ -724,7 +725,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String t_ = Templates.getFullTypeByBases("pkg.ExTwo<#V>", "pkg.ExFive", cont_);
+        String t_ = ExecTemplates.getFullTypeByBases("pkg.ExTwo<#V>", "pkg.ExFive", cont_);
         assertEq("pkg.ExFive<#V>", t_);
     }
 
@@ -741,7 +742,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#U> :pkg.Ex<#U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String t_ = Templates.getFullTypeByBases("pkg.ExTwo<#V>", "pkg.Ex", cont_);
+        String t_ = ExecTemplates.getFullTypeByBases("pkg.ExTwo<#V>", "pkg.Ex", cont_);
         assertEq("pkg.Ex<#V>", t_);
     }
 
@@ -756,7 +757,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex<java.lang.Number>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String t_ = Templates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", cont_);
+        String t_ = ExecTemplates.getFullTypeByBases("pkg.ExTwo", "pkg.Ex", cont_);
         assertEq("pkg.Ex<java.lang.Number>", t_);
     }
     @Test
@@ -770,7 +771,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#U> :pkg.Ex<#U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String t_ = Templates.getFullTypeByBases("pkg.Ex<#V>", "pkg.Ex", cont_);
+        String t_ = ExecTemplates.getFullTypeByBases("pkg.Ex<#V>", "pkg.Ex", cont_);
         assertEq("pkg.Ex<#V>", t_);
     }
     @Test
@@ -787,14 +788,14 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#U> :pkg.Ex<#U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String t_ = Templates.getFullTypeByBases("pkg.Ex<#V>", "pkg.ExThree", cont_);
+        String t_ = ExecTemplates.getFullTypeByBases("pkg.Ex<#V>", "pkg.ExThree", cont_);
         assertEq("pkg.ExThree<#V>", t_);
     }
     @Test
     public void correctNbParameters0Test() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertTrue(!Templates.correctNbParameters("pkg",cont_));
+        assertTrue(!ExecTemplates.correctNbParameters("pkg",cont_));
     }
     @Test
     public void correctNbParameters1Test() {
@@ -803,7 +804,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertTrue(!Templates.correctNbParameters("pkg.Ex<java.lang.Number>..Inner<java.lang.Number>",cont_));
+        assertTrue(!ExecTemplates.correctNbParameters("pkg.Ex<java.lang.Number>..Inner<java.lang.Number>",cont_));
     }
 
 
@@ -820,7 +821,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.ExTwo<?[#T>";
-        String res_ = Templates.getFullTypeByBases(first_, second_, cont_);
+        String res_ = ExecTemplates.getFullTypeByBases(first_, second_, cont_);
         assertEq("pkg.ExTwo<?[java.lang.Number>", res_);
     }
 
@@ -837,7 +838,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.ExTwo<[#T>";
-        String res_ = Templates.getFullTypeByBases(first_, second_, cont_);
+        String res_ = ExecTemplates.getFullTypeByBases(first_, second_, cont_);
         assertEq("pkg.ExTwo<?[java.lang.Number>", res_);
     }
 
@@ -855,7 +856,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.ExTwo<?[#T>";
-        String res_ = Templates.format(first_, second_, cont_);
+        String res_ = ExecTemplates.format(first_, second_, cont_);
         assertEq("pkg.ExTwo<?[java.lang.Number>",res_);
     }
 
@@ -943,14 +944,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     public void getOverridingFullTypeByBasesTest() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertEq("", Templates.getOverridingFullTypeByBases("Inex","",cont_));
-    }
-
-    @Test
-    public void getSuperInterfaceNamesTest() {
-        StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertEq(0, Templates.getSuperInterfaceNames("",cont_).size());
+        assertEq("", ExecTemplates.getOverridingFullTypeByBases("Inex","",cont_));
     }
 
     private static ContextEl unfullValidateOverridingMethodsStd(StringMap<String> _files) {

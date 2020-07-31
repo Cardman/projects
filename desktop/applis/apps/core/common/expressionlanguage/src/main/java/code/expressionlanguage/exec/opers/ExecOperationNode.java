@@ -10,9 +10,9 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -770,7 +770,7 @@ public abstract class ExecOperationNode {
         } else {
             argClassName_ = " ";
         }
-        clCall_ = Templates.getOverridingFullTypeByBases(argClassName_,clCall_,_conf);
+        clCall_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_,clCall_,_conf);
         if (clCall_.isEmpty()) {
             out_.setStruct(_conf.getStandards().getStringOfObject(_conf,struct_));
             return out_;

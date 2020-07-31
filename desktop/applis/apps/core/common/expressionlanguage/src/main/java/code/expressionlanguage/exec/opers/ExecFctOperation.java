@@ -5,7 +5,6 @@ import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.FctOperation;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -88,7 +87,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
             if (staticChoiceMethod) {
                 String argClassName_ = prev_.getObjectClassName(_conf);
                 String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
-                lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
+                lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 methodId_ = classMethodId.getConstraints();
             } else {
@@ -96,7 +95,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
                 ClassMethodId methodToCall_ = polymorph(_conf, previous_, classMethodId);
                 String argClassName_ = stds_.getStructClassName(previous_, _conf);
                 String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
-                lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
+                lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 methodId_ = methodToCall_.getConstraints();
                 classNameFound_ = methodToCall_.getClassName();

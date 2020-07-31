@@ -1552,7 +1552,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
 
     private static String getParentType(ContextEl _conf, String _converted) {
-        if (_converted.startsWith(Templates.ARR_BEG_STRING)) {
+        if (_converted.startsWith(AnaTemplates.ARR_BEG_STRING)) {
             return _conf.getStandards().getAliasObject();
         }
         StringList rs_ = ParentInstanceOperation.getParentTypeList(_conf,new StringList(_converted));

@@ -12,6 +12,18 @@ import static org.junit.Assert.assertTrue;
 
 public final class ClassesBisTest extends ProcessMethodCommon {
     @Test
+    public void calculate0FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$operator+ $int(){$interfaces(pkg.MyInt)();}\n");
+        xml_.append("$public $interface pkg.MyInt{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDotDefaultReadOnly();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(!ctx_.isEmptyErrors());
+    }
+    @Test
     public void calculate1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

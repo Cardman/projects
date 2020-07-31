@@ -1,6 +1,8 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
@@ -317,7 +319,11 @@ public final class AnaPartTypeUtil {
 
     private static boolean isNotCorrectParam(ContextEl _context, AnaPartType _current) {
         //AnaInnerPartType,AnaTemplatePartType,AnaNamePartType
-        return !skip(_current) && !Templates.correctNbParameters(_current.getAnalyzedType(), _context);
+        String analyzedType_ = _current.getAnalyzedType();
+        String idCl_ = StringExpUtil.getIdFromAllTypes(analyzedType_);
+        String compo_ = StringExpUtil.getQuickComponentBaseType(idCl_).getComponent();
+        AnaGeneType info_ = _context.getAnalyzing().getAnaGeneType(_context,compo_);
+        return !skip(_current) && !AnaTemplates.correctNbParameters(info_,analyzedType_, _context);
     }
 
     private static boolean skip(AnaPartType _current) {

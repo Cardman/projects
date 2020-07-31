@@ -275,8 +275,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                     String retInt_ = supInt_.getImportedReturnType();
                     String retBase_ = supCl_.getImportedReturnType();
-                    String formattedRetDer_ = Templates.quickFormat(nameCl_, retBase_, _context);
-                    String formattedRetBase_ = Templates.quickFormat(name_, retInt_, _context);
+                    String formattedRetDer_ = AnaTemplates.quickFormat(c.getType(),nameCl_, retBase_, _context);
+                    String formattedRetBase_ = AnaTemplates.quickFormat(i.getType(),name_, retInt_, _context);
                     if (supCl_.getKind() != MethodKind.STD_METHOD) {
                         if (!StringList.quickEq(formattedRetBase_, formattedRetDer_)) {
                             FoundErrorInterpret err_;
@@ -1180,9 +1180,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         while (true) {
             CustList<AnaFormattedRootBlock> next_ = new CustList<AnaFormattedRootBlock>();
             for (AnaFormattedRootBlock c: current_) {
-                CustList<AnaFormattedRootBlock> superTypes_ = c.getRootBlock().getImportedDirectSuperTypesInfo();
+                RootBlock rootBlock_ = c.getRootBlock();
+                CustList<AnaFormattedRootBlock> superTypes_ = rootBlock_.getImportedDirectSuperTypesInfo();
                 for (AnaFormattedRootBlock t: superTypes_) {
-                    String format_ = Templates.quickFormat(c.getFormatted(), t.getFormatted(), _classes);
+                    String format_ = AnaTemplates.quickFormat(rootBlock_,c.getFormatted(), t.getFormatted(), _classes);
                     AnaFormattedRootBlock a_ = new AnaFormattedRootBlock(t.getRootBlock(), format_);
                     if (!added(format_,allSeen_,a_,next_)) {
                         continue;
@@ -1214,7 +1215,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 allSeen_.add(c.getFormatted());
                 CustList<AnaFormattedRootBlock> superTypes_ = curType_.getImportedDirectSuperTypesInfo();
                 for (AnaFormattedRootBlock t: superTypes_) {
-                    String format_ = Templates.quickFormat(c.getFormatted(), t.getFormatted(), _classes);
+                    String format_ = AnaTemplates.quickFormat(curType_,c.getFormatted(), t.getFormatted(), _classes);
                     AnaFormattedRootBlock a_ = new AnaFormattedRootBlock(t.getRootBlock(), format_);
                     added(format_,allSeen_, a_, next_);
                 }
@@ -1908,7 +1909,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (!r.paramTypes.isEmpty()) {
                 StringList vars_ = new StringList();
                 for (TypeVar t:r.paramTypes) {
-                    vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
+                    vars_.add(StringList.concat(AnaTemplates.PREFIX_VAR_TYPE,t.getName()));
                 }
                 generic_.append(Templates.TEMPLATE_BEGIN);
                 generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
@@ -1918,7 +1919,28 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         return generic_.toString();
     }
-
+    public StringList getParamTypesValues() {
+        StringList l_ = new StringList();
+        for (RootBlock r: getSelfAndParentTypes()) {
+            for (TypeVar t: r.paramTypes) {
+                l_.add(t.getName());
+            }
+        }
+        return l_;
+    }
+    public Ints getTypeVarCounts() {
+        Ints generic_ = new Ints();
+        CustList<RootBlock> pars_ = getSelfAndParentTypes();
+        CustList<RootBlock> stPars_ = pars_.first().getAllParentTypesReverse();
+        int len_ = stPars_.size();
+        for (int i = 0; i < len_; i++) {
+            generic_.add(0);
+        }
+        for (RootBlock r: pars_) {
+            generic_.add(r.paramTypes.size());
+        }
+        return generic_;
+    }
     public int getNumberAll() {
         return numberAll;
     }

@@ -3,7 +3,6 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SuperFctOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -66,7 +65,7 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
             String argClassName_ = prev_.getObjectClassName(_conf.getContext());
             String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
-            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
+            lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = classMethodId.getConstraints();
         } else {

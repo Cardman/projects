@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -69,6 +70,7 @@ public abstract class CommonRender {
         }
         _configuration.setupInts();
         _configuration.getContext().getAnalyzing().setGlobalClass(globalClass_);
+        _configuration.getContext().getAnalyzing().setGlobalType(_configuration.getContext().getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(globalClass_)));
         for (EntryCust<String,LocalVariable> e: _configuration.getLastPage().getValueVars().entryList()) {
             AnaLocalVariable a_ = new AnaLocalVariable();
             a_.setClassName(e.getValue().getClassName());

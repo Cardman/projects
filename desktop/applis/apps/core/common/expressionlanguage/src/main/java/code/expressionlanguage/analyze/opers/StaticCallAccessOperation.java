@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
@@ -36,7 +37,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             classStr_ = glClass_;
             partOffsets = new CustList<PartOffset>();
         }
-        if (classStr_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+        if (classStr_.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -46,7 +47,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             _conf.getAnalyzing().getLocalizer().addError(badAccess_);
             getErrs().add(badAccess_.getBuiltError());
         }
-        if (classStr_.startsWith(Templates.ARR_BEG_STRING)) {
+        if (classStr_.startsWith(AnaTemplates.ARR_BEG_STRING)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());

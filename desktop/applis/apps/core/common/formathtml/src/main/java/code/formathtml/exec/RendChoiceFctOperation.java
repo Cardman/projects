@@ -3,7 +3,6 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -71,7 +70,7 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
                 return a_;
             }
             String argClassName_ = prev_.getObjectClassName(_conf.getContext());
-            classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf.getContext());
+            classNameFound_ = ExecTemplates.quickFormat(argClassName_, classNameFound_, _conf.getContext());
             if (!ExecTemplates.isCorrectExecute(argClassName_, classNameFound_, _conf.getContext())) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                 _conf.setException(new ErrorStruct(_conf.getContext(), StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
@@ -80,7 +79,7 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
             }
             String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
-            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
+            lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = realId;
         } else {

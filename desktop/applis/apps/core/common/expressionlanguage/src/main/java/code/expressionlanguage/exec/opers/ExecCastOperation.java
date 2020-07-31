@@ -2,8 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -84,16 +82,16 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         String geneStr_ = r_.getGenericString();
                         MethodId idMeth_ = realId_.quickFormat(geneStr_, _conf);
                         String gene_ = clRealId_.getClassName();
-                        String geneFor_ = Templates.quickFormat(_className,gene_,_conf);
+                        String geneFor_ = ExecTemplates.quickFormat(_className,gene_,_conf);
                         String ret_ = ExecBlock.getDeepMethodBodiesById(_conf,gene_, realId_).first().getImportedReturnType();
-                        ret_ = Templates.quickFormat(geneStr_,ret_,_conf);
+                        ret_ = ExecTemplates.quickFormat(geneStr_,ret_,_conf);
                         ClassMethodIdReturn parmMe_ = new ClassMethodIdReturn(true);
                         parmMe_.setId(new ClassMethodId(clRealId_.getClassName(),idMeth_));
                         parmMe_.setRealId(realId_);
                         parmMe_.setReturnType(ret_);
                         parmMe_.setRealClass(gene_);
                         String fctParam_ = formatReturn(EMPTY_STRING,_conf, parmMe_, false);
-                        fctParam_ = Templates.quickFormat(geneFor_,fctParam_,_conf);
+                        fctParam_ = ExecTemplates.quickFormat(geneFor_,fctParam_,_conf);
                         String argCl_ = _objArg.getObjectClassName(_conf);
                         if (ExecTemplates.isCorrectExecute(argCl_,fctParam_,_conf)) {
                             if (_full) {

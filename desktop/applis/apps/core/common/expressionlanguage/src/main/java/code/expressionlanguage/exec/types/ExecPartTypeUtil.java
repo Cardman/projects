@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.types.AnalyzingType;
 import code.expressionlanguage.types.ParserType;
 import code.util.*;
@@ -95,7 +95,7 @@ public final class ExecPartTypeUtil {
     }
 
     private static boolean isNotCorrectParam(ContextEl _context, ExecPartType _current) {
-        return !skip(_current) && !Templates.correctNbParameters(_current.getAnalyzedType(), _context);
+        return !skip(_current) && !ExecTemplates.correctNbParameters(_current.getAnalyzedType(), _context);
     }
 
     private static boolean skip(ExecPartType _current) {

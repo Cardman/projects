@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.inherits.Templates;
@@ -32,10 +33,10 @@ final class AnaVariablePartType extends AnaLeafPartType {
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
         String trim_ = type_.trim();
-        if (trim_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-            type_ = trim_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+        if (trim_.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
+            type_ = trim_.substring(AnaTemplates.PREFIX_VAR_TYPE.length()).trim();
         } else {
-            t_ = StringList.concat(Templates.PREFIX_VAR_TYPE,t_);
+            t_ = StringList.concat(AnaTemplates.PREFIX_VAR_TYPE,t_);
         }
         type_ = StringExpUtil.removeDottedSpaces(type_);
         if (!_an.getAnalyzing().getAvailableVariables().contains(type_)) {
@@ -54,10 +55,10 @@ final class AnaVariablePartType extends AnaLeafPartType {
         }
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
-        if (type_.trim().startsWith(Templates.PREFIX_VAR_TYPE)) {
-            type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length());
+        if (type_.trim().startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
+            type_ = type_.trim().substring(AnaTemplates.PREFIX_VAR_TYPE.length());
         } else {
-            t_ = StringList.concat(Templates.PREFIX_VAR_TYPE,t_);
+            t_ = StringList.concat(AnaTemplates.PREFIX_VAR_TYPE,t_);
         }
         type_ = type_.trim();
         type_ = StringExpUtil.removeDottedSpaces(type_);

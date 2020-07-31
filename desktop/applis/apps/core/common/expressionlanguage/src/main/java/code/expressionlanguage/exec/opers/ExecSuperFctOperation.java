@@ -6,7 +6,6 @@ import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SuperFctOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -67,7 +66,7 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
             String argClassName_ = prev_.getObjectClassName(_conf);
             String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
-            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
+            lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = classMethodId.getConstraints();
         } else {

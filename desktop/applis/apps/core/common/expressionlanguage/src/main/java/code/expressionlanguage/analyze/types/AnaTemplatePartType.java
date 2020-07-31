@@ -4,7 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.DimComp;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
@@ -105,7 +104,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
             String comp_ = arg_;
             DimComp dimCompArg_ = StringExpUtil.getQuickComponentBaseType(comp_);
             comp_ = dimCompArg_.getComponent();
-            boolean lookInInherit_ = comp_.startsWith(Templates.PREFIX_VAR_TYPE);
+            boolean lookInInherit_ = comp_.startsWith(AnaTemplates.PREFIX_VAR_TYPE);
             StringList bounds_ = new StringList();
             if (lookInInherit_) {
                 bounds_.addAllElts(_inherit.getVal(comp_.substring(1)));
@@ -114,7 +113,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
             }
             for (String e: t) {
                 Mapping m_ = new Mapping();
-                String param_ = Templates.format(tempClFull_, e, _an);
+                String param_ = AnaTemplates.format(type_,tempClFull_, e, _an);
                 m_.setParam(param_);
                 boolean ok_ = false;
                 for (String v: bounds_) {

@@ -2,8 +2,8 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -12,7 +12,6 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -124,7 +123,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         uniq_ = new ClassMethodId(className,new MethodId(MethodAccessKind.STATIC,exp_,new StringList(midType_,lastType_)));
         ClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
-        ClassArgumentMatching virtual_ = new ClassArgumentMatching(Templates.quickFormat(className, midType_, _conf));
+        ClassArgumentMatching virtual_ = new ClassArgumentMatching(AnaTemplates.quickFormat(geneType_,className, midType_, _conf));
         CustList<ClassArgumentMatching> args_ = new CustList<ClassArgumentMatching>(virtual_);
         args_.add(resultClass_);
         ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);

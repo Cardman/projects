@@ -3,7 +3,6 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.InterfaceFctConstructor;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
@@ -70,7 +69,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         CustList<Argument> firstArgs_;
         String superClass_ = _conf.getPageEl().formatVarType(classFromName,_conf.getContext());
         String lastType_ = getLastType();
-        lastType_ = Templates.quickFormat(superClass_, lastType_, _conf.getContext());
+        lastType_ = ExecTemplates.quickFormat(superClass_, lastType_, _conf.getContext());
         int natvararg_ = getNaturalVararg();
         ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments.mid(1));

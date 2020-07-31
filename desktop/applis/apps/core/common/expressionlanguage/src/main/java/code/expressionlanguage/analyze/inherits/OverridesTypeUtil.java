@@ -14,7 +14,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.FormattedMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ComparingByTypeList;
-import code.expressionlanguage.inherits.Templates;
 import code.util.*;
 
 public final class OverridesTypeUtil {
@@ -28,11 +27,11 @@ public final class OverridesTypeUtil {
         for (EntryCust<RootBlock, Members> e: _conf.getAnalyzing().getMapMembers().entryList()) {
             RootBlock c = e.getKey();
             String name_ = c.getFullName();
-            String baseCond_ = Templates.getOverridingFullTypeByBases(c, baseClassFound_, _conf);
+            String baseCond_ = AnaTemplates.getOverridingFullTypeByBases(c, baseClassFound_, _conf);
             if (baseCond_.isEmpty()) {
                 continue;
             }
-            ClassMethodId f_ = tryGetUniqueId(baseClassFound_, c, _realId, _conf);
+            ClassMethodId f_ = tryGetUniqueId(baseClassFound_,_type, c, _realId, _conf);
             if (f_ != null) {
                 eq_.put(name_, f_);
                 continue;
@@ -47,12 +46,12 @@ public final class OverridesTypeUtil {
                 if (!(r_ instanceof InterfaceBlock)) {
                     continue;
                 }
-                String v_ = Templates.getOverridingFullTypeByBases(r_, baseClassFound_, _conf);
+                String v_ = AnaTemplates.getOverridingFullTypeByBases(r_, baseClassFound_, _conf);
                 if (v_.isEmpty()) {
                     continue;
                 }
                 //r_, as super interface of c, is a sub type of type input
-                FormattedMethodId l_ = _realId.quickOverrideFormat(v_, _conf);
+                FormattedMethodId l_ = _realId.quickOverrideFormat(_type,v_, _conf);
                 CustList<OverridingMethodDto> ov_ = r_.getAllOverridingMethods();
                 //r_ inherit the formatted method
                 CustList<GeneStringOverridable> foundSuperClasses_ = new CustList<GeneStringOverridable>();
@@ -82,7 +81,7 @@ public final class OverridesTypeUtil {
             }
             finalMethods_ = new CustList<GeneStringOverridable>();
             methods_ = new CustList<GeneStringOverridable>();
-            FormattedMethodId l_ = _realId.quickOverrideFormat(baseCond_, _conf);
+            FormattedMethodId l_ = _realId.quickOverrideFormat(_type,baseCond_, _conf);
             CustList<OverridingMethodDto> ov_ = c.getAllOverridingMethods();
             //r_ inherit the formatted method
             CustList<GeneStringOverridable> foundSuperClasses_ = new CustList<GeneStringOverridable>();
@@ -147,16 +146,16 @@ public final class OverridesTypeUtil {
         return null;
     }
 
-    private static ClassMethodId tryGetUniqueId(String _subTypeName, RootBlock _type, MethodId _realId, ContextEl _conf) {
+    private static ClassMethodId tryGetUniqueId(String _subTypeName, AnaGeneType _toFind, RootBlock _type, MethodId _realId, ContextEl _conf) {
         //c is a concrete sub type of type input
         for (AnaFormattedRootBlock s: _type.getAllGenericClassesInfo()) {
             RootBlock r_ = s.getRootBlock();
-            String v_ = Templates.getOverridingFullTypeByBases(r_, _subTypeName, _conf);
+            String v_ = AnaTemplates.getOverridingFullTypeByBases(r_, _subTypeName, _conf);
             if (v_.isEmpty()) {
                 continue;
             }
             //r_, as super class of c, is a sub type of type input
-            FormattedMethodId l_ = _realId.quickOverrideFormat(v_, _conf);
+            FormattedMethodId l_ = _realId.quickOverrideFormat(_toFind,v_, _conf);
             CustList<OverridingMethodDto> ov_ = r_.getAllOverridingMethods();
             //r_ inherit the formatted method
             boolean found_ = false;

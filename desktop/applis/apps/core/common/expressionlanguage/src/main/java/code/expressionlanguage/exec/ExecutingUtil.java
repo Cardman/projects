@@ -8,6 +8,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -503,8 +504,8 @@ public final class ExecutingUtil {
         String format_;
         if (par_ != null) {
             String gene_ = par_.getGenericString();
-            if (Templates.correctNbParameters(_name, _context)) {
-                format_ = Templates.quickFormat(_name, gene_, _context);
+            if (ExecTemplates.correctNbParameters(_name, _context)) {
+                format_ = ExecTemplates.quickFormat(_name, gene_, _context);
             } else {
                 format_ = par_.getFullName();
             }
@@ -548,7 +549,7 @@ public final class ExecutingUtil {
 
     public static ConstructorId tryFormatId(String _name, ContextEl _context, ConstructorId _id) {
         ConstructorId fid_;
-        if (Templates.correctNbParameters(_name, _context)) {
+        if (ExecTemplates.correctNbParameters(_name, _context)) {
             fid_ = _id.reflectFormat(_name, _context);
         } else {
             fid_ = _id;
@@ -558,7 +559,7 @@ public final class ExecutingUtil {
 
     public static String tryFormatType(String _idType, String _name, ContextEl _context) {
         String formCl_ = _idType;
-        if (Templates.correctNbParameters(_name, _context)) {
+        if (ExecTemplates.correctNbParameters(_name, _context)) {
             formCl_ = _name;
         }
         return formCl_;
@@ -566,7 +567,7 @@ public final class ExecutingUtil {
 
     public static MethodId tryFormatId(String _name, ContextEl _context, MethodId _id) {
         MethodId fid_;
-        if (Templates.correctNbParameters(_name, _context)) {
+        if (ExecTemplates.correctNbParameters(_name, _context)) {
             fid_ = _id.reflectFormat(_name, _context);
         } else {
             fid_ = _id;

@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -25,7 +26,7 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
         StringList converted_ = new StringList();
         if (isIntermediateDottedOperation()) {
             for (String p:previousResultClass.getNames()) {
-                if (p.startsWith(Templates.ARR_BEG_STRING)) {
+                if (p.startsWith(AnaTemplates.ARR_BEG_STRING)) {
                     continue;
                 }
                 converted_.addAllElts(InvokingOperation.getBounds(p,_conf));

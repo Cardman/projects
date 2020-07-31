@@ -1,7 +1,8 @@
 package code.expressionlanguage.functionid;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.ints.Equallable;
@@ -123,8 +124,13 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         return new MethodId(kind, name, pTypes_, isVararg());
     }
 
-    public FormattedMethodId quickOverrideFormat(String _genericClass, ContextEl _context) {
-        StringList pTypes_ = getFormattedTypes(_genericClass, _context);
+    public MethodId quickFormat(AnaGeneType _root, String _genericClass, ContextEl _context) {
+        StringList pTypes_ = getFormattedTypes(_root,_genericClass, _context);
+        return new MethodId(kind, name, pTypes_, isVararg());
+    }
+
+    public FormattedMethodId quickOverrideFormat(AnaGeneType _root, String _genericClass, ContextEl _context) {
+        StringList pTypes_ = getFormattedTypes(_root,_genericClass, _context);
         return new FormattedMethodId(name, pTypes_, isVararg());
     }
 
@@ -133,7 +139,18 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = classNames.get(i);
-            String formatted_ = Templates.quickFormat(_genericClass, n_, _context);
+            String formatted_ = ExecTemplates.quickFormat(_genericClass, n_, _context);
+            pTypes_.add(formatted_);
+        }
+        return pTypes_;
+    }
+
+    private StringList getFormattedTypes(AnaGeneType _root, String _genericClass, ContextEl _context) {
+        int len_ = classNames.size();
+        StringList pTypes_ = new StringList();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            String n_ = classNames.get(i);
+            String formatted_ = AnaTemplates.quickFormat(_root,_genericClass, n_, _context);
             pTypes_.add(formatted_);
         }
         return pTypes_;

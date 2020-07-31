@@ -2,6 +2,7 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
+import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.exec.Classes;
@@ -1333,7 +1334,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
-        StringList types_ = ((ExecInterfaceBlock) context_.getClassBody("pkg.Outer..InnerTwo")).getImportedDirectGenericSuperInterfaces();
+        StringList types_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer..InnerTwo").getImportedDirectSuperInterfaces();
         assertTrue(StringList.contains(types_, "pkg.OuterThree..InnerThree"));
     }
     @Test

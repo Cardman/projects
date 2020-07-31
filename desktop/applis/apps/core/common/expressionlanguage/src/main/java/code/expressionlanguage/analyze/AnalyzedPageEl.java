@@ -27,6 +27,7 @@ public final class AnalyzedPageEl {
     private AnalyzedBlock currentAnaBlock;
 
     private String globalClass = "";
+    private RootBlock globalType;
 
     private final CustList<StringMap<AnaLoopVariable>> mutableVars = new CustList<StringMap<AnaLoopVariable>>();
 
@@ -130,6 +131,14 @@ public final class AnalyzedPageEl {
 
     public void setGlobalClass(String _globalClass) {
         globalClass = _globalClass;
+    }
+
+    public RootBlock getGlobalType() {
+        return globalType;
+    }
+
+    public void setGlobalType(RootBlock _globalType) {
+        globalType = _globalType;
     }
 
     public void initMutableLoopVars() {

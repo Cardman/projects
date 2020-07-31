@@ -105,8 +105,8 @@ public final class AnaTypeUtil {
                 } else {
                     String retBase_ = supId_.getBlock().getImportedReturnType();
                     String retDerive_ = subId_.getBlock().getImportedReturnType();
-                    String formattedRetDer_ = Templates.quickFormat(subId_.getGeneString(), retDerive_, _context);
-                    String formattedRetBase_ = Templates.quickFormat(supId_.getGeneString(), retBase_, _context);
+                    String formattedRetDer_ = AnaTemplates.quickFormat(subId_.getType(),subId_.getGeneString(), retDerive_, _context);
+                    String formattedRetBase_ = AnaTemplates.quickFormat(supId_.getType(),supId_.getGeneString(), retBase_, _context);
                     if (supId_.getBlock().isFinalMethod()) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
@@ -199,7 +199,7 @@ public final class AnaTypeUtil {
                 if (b.hiddenInstance()) {
                     continue;
                 }
-                addDtoClass(map_, b.getId().quickOverrideFormat(s.getFormatted(), _classes),b_, b,s.getFormatted());
+                addDtoClass(map_, b.getId().quickOverrideFormat(b_,s.getFormatted(), _classes),b_, b,s.getFormatted());
             }
         }
         return map_;
@@ -248,6 +248,7 @@ public final class AnaTypeUtil {
             page_.setCurrentBlock(c);
             page_.setCurrentAnaBlock(c);
             page_.setGlobalClass(c.getGenericString());
+            page_.setGlobalType(c);
             String d_ = c.getFile().getFileName();
             StringList ints_ = c.getStaticInitInterfaces();
             int len_ = ints_.size();
@@ -297,6 +298,7 @@ public final class AnaTypeUtil {
                 page_.setCurrentBlock(c);
                 page_.setCurrentAnaBlock(c);
                 page_.setGlobalClass(c.getGenericString());
+                page_.setGlobalType(c);
                 page_.setGlobalOffset(offsetSup_);
                 page_.setOffset(0);
                 sup_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sup_);
@@ -311,6 +313,7 @@ public final class AnaTypeUtil {
                     page_.setCurrentBlock(c);
                     page_.setCurrentAnaBlock(c);
                     page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
                     page_.setGlobalOffset(offsetSub_);
                     page_.setOffset(0);
                     sub_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sub_);
@@ -474,7 +477,7 @@ public final class AnaTypeUtil {
                     continue;
                 }
                 added(_innerName, false, owners_, s, g_);
-                if (!Templates.correctNbParameters(s,_an)) {
+                if (!AnaTemplates.correctNbParameters(g_,s,_an)) {
                     for (AnaFormattedRootBlock t: g_.getImportedDirectSuperTypesInfo()) {
                         String format_ = StringExpUtil.getIdFromAllTypes(t.getFormatted());
                         addIfNotFound(visited_, new_, format_);
@@ -482,7 +485,7 @@ public final class AnaTypeUtil {
                     continue;
                 }
                 for (AnaFormattedRootBlock t: g_.getImportedDirectSuperTypesInfo()) {
-                    String format_ = Templates.quickFormat(s, t.getFormatted(), _an);
+                    String format_ = AnaTemplates.quickFormat(g_,s, t.getFormatted(), _an);
                     addIfNotFound(visited_, new_, format_);
                 }
             }

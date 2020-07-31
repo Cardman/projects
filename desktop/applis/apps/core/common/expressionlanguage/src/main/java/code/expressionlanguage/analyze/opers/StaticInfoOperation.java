@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -50,7 +51,7 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
         setArg(this, _conf, className);
     }
     private static void setArg(OperationNode _current, ContextEl _conf,String _className) {
-        if (_className.contains(Templates.PREFIX_VAR_TYPE)) {
+        if (_className.contains(AnaTemplates.PREFIX_VAR_TYPE)) {
             return;
         }
         Argument a_ = new Argument();

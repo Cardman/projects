@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.inherits;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.MethodHeaders;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.common.DimComp;
@@ -389,6 +390,22 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String inferred_ = AnaTemplates.tryInfer("java.lang.$Fct",new StringMap<String>(), "java.lang.$Fct<java.lang.Number>", cont_);
         assertEq("java.lang.$Fct<java.lang.Number>", inferred_);
+    }
+
+    @Test
+    public void tryInfer16Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<X> {\n");
+        xml_.append("$public $class Inner<Y> {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        RootBlock root_ = cont_.getAnalyzing().getAnaClassBody("pkg.Ex");
+        StringMap<String> vars_ = AnaTemplates.getVarTypes(root_,"pkg.Ex<java.lang.Number>",cont_);
+        String inferred_ = AnaTemplates.tryInfer("pkg.Ex..Inner",vars_, "pkg.Ex<java.lang.Number>..Inner<java.lang.Number>", cont_);
+        assertEq("pkg.Ex<java.lang.Number>..Inner<java.lang.Number>", inferred_);
     }
     @Test
     public void getInferForm1Test() {

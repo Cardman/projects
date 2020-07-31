@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -30,7 +30,7 @@ public abstract class PageEl {
         if (globalArgument.isNull()) {
             return _varType;
         }
-        return Templates.quickFormat(globalClass, _varType, _cont);
+        return ExecTemplates.quickFormat(globalClass, _varType, _cont);
     }
 
     public Argument getGlobalArgument() {

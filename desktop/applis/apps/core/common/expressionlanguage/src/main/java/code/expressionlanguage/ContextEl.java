@@ -238,6 +238,7 @@ public abstract class ContextEl {
 
     public void setGlobalClass(String _globalClass) {
         analyzing.setGlobalClass(_globalClass);
+        analyzing.setGlobalType(analyzing.getAnaClassBody(StringExpUtil.getIdFromAllTypes(_globalClass)));
     }
 
     public void setOffset(int _offset) {

@@ -5,7 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.calls.PageEl;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -67,7 +67,7 @@ public final class ExecStandardInstancingOperation extends
                 return Argument.createVoid();
             }
         }
-        String lastType_ = Templates.quickFormat(className_, lastType, _conf);
+        String lastType_ = ExecTemplates.quickFormat(className_, lastType, _conf);
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments);
         return instancePrepareFormat(_conf.getLastPage(),_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex);
     }

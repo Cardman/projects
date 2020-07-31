@@ -3,7 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.PageEl;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -71,7 +71,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         if (_conf.hasToExit(base_)) {
             return Argument.createVoid();
         }
-        String lastType_ = Templates.quickFormat(className_, lastType, _conf.getContext());
+        String lastType_ = ExecTemplates.quickFormat(className_, lastType, _conf.getContext());
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments);
         return ExecInvokingOperation.instancePrepareFormat(_conf.getPageEl(),_conf.getContext(), className_, getConstId(), _previous, firstArgs_, fieldName, blockIndex);
     }

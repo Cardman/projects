@@ -693,7 +693,7 @@ public abstract class OperationNode {
         if (staticField_) {
             formatted_ = _cl;
         } else {
-            formatted_ = Templates.quickFormat(_cl,genericString_,_conf);
+            formatted_ = AnaTemplates.quickFormat(_root,_cl,genericString_,_conf);
         }
         String realType_ = fi_.getType();
         boolean finalField_ = fi_.isFinalField();
@@ -1774,7 +1774,7 @@ public abstract class OperationNode {
         StringList allClasses_ = new StringList(r_.getGenericString());
         allClasses_.addAllElts(r_.getAllGenericSuperTypes());
         for (String s: allClasses_) {
-            String formatted_ = Templates.quickFormat(_id,s,_conf);
+            String formatted_ = AnaTemplates.quickFormat(r_,_id,s,_conf);
             String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
             superTypesBaseAncBis_.addEntry(supId_,supId_);
@@ -1806,7 +1806,7 @@ public abstract class OperationNode {
                 StringList allClasses_ = new StringList(r_.getGenericString());
                 allClasses_.addAllElts(r_.getAllGenericSuperTypes());
                 for (String s: allClasses_) {
-                    String formatted_ = Templates.quickFormat(_first,s,_conf);
+                    String formatted_ = AnaTemplates.quickFormat(r_,_first,s,_conf);
                     String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
                     CustList<MethodHeaderInfo> binaryFirst_ = _conf.getAnalyzing().getBinaryFirst().getVal(supId_);
                     CustList<MethodHeaderInfo> binaryAll_ = _conf.getAnalyzing().getBinaryAll().getVal(supId_);
@@ -1822,7 +1822,7 @@ public abstract class OperationNode {
                 StringList allClasses_ = new StringList(r_.getGenericString());
                 allClasses_.addAllElts(r_.getAllGenericSuperTypes());
                 for (String s: allClasses_) {
-                    String formatted_ = Templates.quickFormat(_second,s,_conf);
+                    String formatted_ = AnaTemplates.quickFormat(r_,_second,s,_conf);
                     String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
                     CustList<MethodHeaderInfo> binarySecond_ = _conf.getAnalyzing().getBinarySecond().getVal(supId_);
                     CustList<MethodHeaderInfo> binaryAll_ = _conf.getAnalyzing().getBinaryAll().getVal(supId_);
@@ -1844,7 +1844,7 @@ public abstract class OperationNode {
         StringList allClasses_ = new StringList(r_.getGenericString());
         allClasses_.addAllElts(r_.getAllGenericSuperTypes());
         for (String s: allClasses_) {
-            String formatted_ = Templates.quickFormat(_id,s,_conf);
+            String formatted_ = AnaTemplates.quickFormat(r_,_id,s,_conf);
             String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
             CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getUnary().getVal(supId_);
             fetchImproveOperators(_conf, methods_,formatted_, castsFrom_);
@@ -1881,7 +1881,7 @@ public abstract class OperationNode {
         allClasses_.addAllElts(r_.getAllGenericSuperTypes());
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
         for (String s: allClasses_) {
-            String formatted_ = Templates.quickFormat(_id,s,_conf);
+            String formatted_ = AnaTemplates.quickFormat(r_,_id,s,_conf);
             String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
             superTypesBaseAncBis_.addEntry(supId_,supId_);
@@ -1903,7 +1903,7 @@ public abstract class OperationNode {
         allClasses_.addAllElts(r_.getAllGenericSuperTypes());
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
         for (String s: allClasses_) {
-            String formatted_ = Templates.quickFormat(_id,s,_conf);
+            String formatted_ = AnaTemplates.quickFormat(r_,_id,s,_conf);
             String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
             StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
             superTypesBaseAncBis_.addEntry(supId_,supId_);
@@ -1997,9 +1997,9 @@ public abstract class OperationNode {
                 continue;
             }
             String gene_ = root_.getGenericString();
-            addToList(_conf,typeInfos_,_staticContext,s,gene_,0,true);
+            addToList(_conf,typeInfos_,_staticContext,root_,s,gene_,0,true);
             for (String m : root_.getAllGenericSuperTypes()) {
-                addToList(_conf,typeInfos_,_staticContext,s,m,0,false);
+                addToList(_conf,typeInfos_,_staticContext,root_,s,m,0,false);
             }
         }
         typeInfosMap_.put(0,typeInfos_);
@@ -2036,9 +2036,9 @@ public abstract class OperationNode {
                     scope_ = MethodAccessKind.STATIC;
                 }
                 String gene_ = p.getGenericString();
-                addToList(_conf,typeInfosInt_,scope_,f_,gene_,anc_,true);
+                addToList(_conf,typeInfosInt_,scope_,root_,f_,gene_,anc_,true);
                 for (String m : p.getAllGenericSuperTypes()) {
-                    addToList(_conf,typeInfosInt_,scope_,f_,m,anc_,false);
+                    addToList(_conf,typeInfosInt_,scope_,root_,f_,m,anc_,false);
                 }
                 if (p.isStaticType()) {
                     add_ = false;
@@ -2048,8 +2048,8 @@ public abstract class OperationNode {
         }
         return typeInfosMap_.values();
     }
-    private static void addToList(ContextEl _conf, CustList<TypeInfo> _list, MethodAccessKind _k, String _first, String _second, int _anc, boolean _base) {
-        TypeInfo t_ = newTypeInfo(_conf, _k, _first, _second, _anc);
+    private static void addToList(ContextEl _conf, CustList<TypeInfo> _list, MethodAccessKind _k, AnaGeneType _firstType, String _first, String _second, int _anc, boolean _base) {
+        TypeInfo t_ = newTypeInfo(_conf, _k, _firstType,_first, _second, _anc);
         String f_ = t_.getType();
         String id_ = StringExpUtil.getIdFromAllTypes(f_);
         for (TypeInfo t: _list) {
@@ -2063,11 +2063,11 @@ public abstract class OperationNode {
         _list.add(t_);
     }
 
-    private static TypeInfo newTypeInfo(ContextEl _conf, MethodAccessKind _k, String _first, String _second, int _anc) {
+    private static TypeInfo newTypeInfo(ContextEl _conf, MethodAccessKind _k, AnaGeneType _firstType, String _first, String _second, int _anc) {
         MethodAccessKind k_ = _k;
         String type_ = _second;
-        if (Templates.correctNbParameters(_first,_conf)) {
-            type_ = Templates.format(_first, _second, _conf);
+        if (AnaTemplates.correctNbParameters(_firstType,_first,_conf)) {
+            type_ = AnaTemplates.format(_firstType,_first, _second, _conf);
         } else {
             k_ = MethodAccessKind.STATIC;
         }

@@ -612,7 +612,7 @@ public final class AliasReflection {
                 FieldMetaInfo field_ = NumParsers.getField(_struct);
                 String owner_ = field_.getDeclaringClass();
                 String typeField_ = field_.getType();
-                if (Templates.correctNbParameters(owner_,_cont)) {
+                if (ExecTemplates.correctNbParameters(owner_,_cont)) {
                     typeField_ = ExecTemplates.reflectFormat(owner_, typeField_, _cont);
                 }
                 result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeField_,owner_));
@@ -736,7 +736,7 @@ public final class AliasReflection {
                 MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                 String owner_ = method_.getFormClassName();
                 String typeMethod_ = method_.getReturnType();
-                if (Templates.correctNbParameters(owner_,_cont)) {
+                if (ExecTemplates.correctNbParameters(owner_,_cont)) {
                     typeMethod_ = ExecTemplates.reflectFormat(owner_, typeMethod_, _cont);
                 }
                 result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_,owner_));
@@ -1046,7 +1046,7 @@ public final class AliasReflection {
                 CustList<ConstructorMetaInfo> candidates_;
                 candidates_ = new CustList<ConstructorMetaInfo>();
                 String instClassName_ = cl_.getName();
-                if (Templates.correctNbParameters(instClassName_,_cont)) {
+                if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
                     for (EntryCust<ConstructorId, ConstructorMetaInfo> e: ctors_.entryList()) {
                         ConstructorId id_ = e.getKey();
                         if (eq(id_.reflectFormat(instClassName_, _cont), NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, args_[0],args_[1])) {
@@ -1090,7 +1090,7 @@ public final class AliasReflection {
                 CustList<MethodMetaInfo> candidates_;
                 candidates_ = new CustList<MethodMetaInfo>();
                 String instClassName_ = cl_.getName();
-                if (Templates.correctNbParameters(instClassName_,_cont)) {
+                if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
                     for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
                         MethodId id_ = e.getKey();
                         if (eq(id_.reflectFormat(instClassName_, _cont),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
@@ -1134,7 +1134,7 @@ public final class AliasReflection {
                 CustList<MethodMetaInfo> candidates_;
                 candidates_ = new CustList<MethodMetaInfo>();
                 String instClassName_ = cl_.getName();
-                if (Templates.correctNbParameters(instClassName_,_cont)) {
+                if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
                     for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
                         MethodId id_ = e.getKey();
                         if (eq(id_.reflectFormat(instClassName_, _cont),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,args_[0])) {
@@ -1242,7 +1242,7 @@ public final class AliasReflection {
                 CustList<MethodMetaInfo> candidates_;
                 candidates_ = new CustList<MethodMetaInfo>();
                 String instClassName_ = cl_.getName();
-                if (Templates.correctNbParameters(instClassName_,_cont)) {
+                if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
                     for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
                         MethodId id_ = e.getKey();
                         if (eq(id_.reflectFormat(instClassName_, _cont),args_[0],args_[1],args_[2],args_[3])) {
@@ -1299,7 +1299,7 @@ public final class AliasReflection {
                 CustList<MethodMetaInfo> candidates_;
                 candidates_ = new CustList<MethodMetaInfo>();
                 String instClassName_ = cl_.getName();
-                if (Templates.correctNbParameters(instClassName_,_cont)) {
+                if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
                     for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
                         MethodId id_ = e.getKey();
                         if (eqType(id_.reflectFormat(instClassName_, _cont),args_[0],args_[1],args_[2],args_[3])) {
@@ -1361,7 +1361,7 @@ public final class AliasReflection {
                     return result_;
                 }
                 String nameType_ = cl_.getName();
-                if (Templates.correctNbParameters(nameType_,_cont)) {
+                if (ExecTemplates.correctNbParameters(nameType_,_cont)) {
                     genericSuperClassName_ = ExecTemplates.reflectFormat(nameType_, genericSuperClassName_, _cont);
                 }
                 ClassMetaInfo superCl_ = ExecutingUtil.getExtendedClassMetaInfo(_cont,genericSuperClassName_,cl_.getVariableOwner());
@@ -1386,7 +1386,7 @@ public final class AliasReflection {
                 String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
                 String nameType_ = cl_.getName();
                 Struct[] superInts_ = new Struct[len_];
-                if (Templates.correctNbParameters(nameType_,_cont)) {
+                if (ExecTemplates.correctNbParameters(nameType_,_cont)) {
                     for (int i = 0; i < len_; i++) {
                         String int_ = geneInterfaces_.get(i);
                         int_ = ExecTemplates.reflectFormat(nameType_, int_, _cont);
@@ -1429,7 +1429,7 @@ public final class AliasReflection {
                     return result_;
                 }
                 Struct[] superInts_ = new Struct[len_];
-                if (Templates.correctNbParameters(clName_,_cont)) {
+                if (ExecTemplates.correctNbParameters(clName_,_cont)) {
                     for (int i = 0; i < len_; i++) {
                         String int_ = geneInterfaces_.get(i);
                         int_ = ExecTemplates.reflectFormat(clName_, int_, _cont);
@@ -1458,7 +1458,7 @@ public final class AliasReflection {
                     return result_;
                 }
                 Struct[] superInts_ = new Struct[len_];
-                if (Templates.correctNbParameters(clName_,_cont)) {
+                if (ExecTemplates.correctNbParameters(clName_,_cont)) {
                     for (int i = 0; i < len_; i++) {
                         String int_ = geneInterfaces_.get(i);
                         int_ = ExecTemplates.reflectFormat(clName_, int_, _cont);
@@ -1546,7 +1546,7 @@ public final class AliasReflection {
                     return result_;
                 }
                 Struct[] superInts_ = new Struct[len_];
-                if (Templates.correctNbParameters(clName_,_cont)) {
+                if (ExecTemplates.correctNbParameters(clName_,_cont)) {
                     for (int i = 0; i < len_; i++) {
                         String nameVar_ = list_.get(i).getName();
                         nameVar_ = ExecTemplates.reflectFormat(clName_, nameVar_, _cont);
@@ -1643,7 +1643,7 @@ public final class AliasReflection {
                     result_.setError(lgNames_.getAliasClassNotFoundError());
                     return result_;
                 }
-                if (!Templates.correctNbParameters(clDyn_,_cont)) {
+                if (!ExecTemplates.correctNbParameters(clDyn_,_cont)) {
                     result_.setErrorMessage(clDyn_);
                     result_.setError(lgNames_.getAliasIllegalArg());
                     return result_;
@@ -1794,7 +1794,7 @@ public final class AliasReflection {
                 ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
                 String owner_ = method_.getFormClassName();
                 String typeMethod_ = method_.getReturnType();
-                if (Templates.correctNbParameters(owner_,_cont)) {
+                if (ExecTemplates.correctNbParameters(owner_,_cont)) {
                     typeMethod_ = ExecTemplates.reflectFormat(owner_, typeMethod_, _cont);
                 }
                 result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeMethod_,owner_));
@@ -1821,7 +1821,7 @@ public final class AliasReflection {
 
     private static String getReturnTypeClone(ContextEl _cont, String _instClass, String _idCl) {
         String ret_;
-        if (Templates.correctNbParameters(_instClass, _cont)) {
+        if (ExecTemplates.correctNbParameters(_instClass, _cont)) {
             DimComp dc_ = StringExpUtil.getQuickComponentBaseType(_idCl);
             String compo_ = dc_.getComponent();
             String geneForm_ = _cont.getClassBody(StringExpUtil.getIdFromAllTypes(compo_)).getGenericString();

@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.accessing.OperatorAccessor;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -322,9 +323,9 @@ public final class ClassesUtil {
         for (String p: params_.mid(CustList.SECOND_INDEX)) {
             int delta_ = 0;
             String name_;
-            if (p.startsWith(Templates.PREFIX_VAR_TYPE)) {
+            if (p.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
                 delta_++;
-                name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
+                name_ = p.substring(AnaTemplates.PREFIX_VAR_TYPE.length());
             } else {
                 name_ = p;
             }
@@ -417,7 +418,7 @@ public final class ClassesUtil {
             if (!_root.getParamTypes().isEmpty()) {
                 StringList vars_ = new StringList();
                 for (TypeVar t:_root.getParamTypes()) {
-                    vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
+                    vars_.add(StringList.concat(AnaTemplates.PREFIX_VAR_TYPE,t.getName()));
                 }
                 generic_.append(Templates.TEMPLATE_BEGIN);
                 generic_.append(StringList.join(vars_, Templates.TEMPLATE_SEP));
@@ -1631,6 +1632,7 @@ public final class ClassesUtil {
         for (RootBlock c: page_.getFoundTypes()) {
             ExecRootBlock type_ = mapTypes_.getVal(c);
             page_.setGlobalClass(c.getGenericString());
+            page_.setGlobalType(c);
             page_.setImporting(c);
             page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
@@ -1646,6 +1648,7 @@ public final class ClassesUtil {
         }
         for (RootBlock c: page_.getFoundTypes()) {
             page_.setGlobalClass(c.getGenericString());
+            page_.setGlobalType(c);
             page_.setImporting(c);
             page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
@@ -1662,6 +1665,7 @@ public final class ClassesUtil {
         }
         CustList<MethodId> idMethods_ = new CustList<MethodId>();
         page_.setGlobalClass("");
+        page_.setGlobalType(null);
         for (EntryCust<OperatorBlock,ExecOperatorBlock> e: page_.getMapOperators().entryList()) {
             String name_ = e.getKey().getName();
             page_.setImporting(e.getKey());
@@ -1858,6 +1862,7 @@ public final class ClassesUtil {
                 for (Block b: bl_) {
                     if (b instanceof InnerTypeOrElement) {
                         page_.setGlobalClass(c.getGenericString());
+                        page_.setGlobalType(c);
                         InnerTypeOrElement method_ = (InnerTypeOrElement) b;
                         page_.setCurrentBlock(b);
                         page_.setCurrentAnaBlock(b);
@@ -1867,6 +1872,7 @@ public final class ClassesUtil {
                     }
                     if (b instanceof FieldBlock) {
                         page_.setGlobalClass(c.getGenericString());
+                        page_.setGlobalType(c);
                         FieldBlock method_ = (FieldBlock) b;
                         if (!method_.isStaticField()) {
                             continue;
@@ -1879,6 +1885,7 @@ public final class ClassesUtil {
                     }
                     if (b instanceof StaticBlock) {
                         page_.setGlobalClass(c.getGenericString());
+                        page_.setGlobalType(c);
                         StaticBlock method_ = (StaticBlock) b;
                         page_.getMappingLocal().clear();
                         page_.getMappingLocal().putAllMap(method_.getMappings());
@@ -1922,6 +1929,7 @@ public final class ClassesUtil {
                     }
                     if (b instanceof FieldBlock) {
                         page_.setGlobalClass(c.getGenericString());
+                        page_.setGlobalType(c);
                         FieldBlock method_ = (FieldBlock) b;
                         page_.setCurrentBlock(b);
                         page_.setCurrentAnaBlock(b);
@@ -1931,6 +1939,7 @@ public final class ClassesUtil {
                     }
                     if (b instanceof InstanceBlock) {
                         page_.setGlobalClass(c.getGenericString());
+                        page_.setGlobalType(c);
                         InstanceBlock method_ = (InstanceBlock) b;
                         page_.getMappingLocal().clear();
                         page_.getMappingLocal().putAllMap(method_.getMappings());
@@ -1943,6 +1952,7 @@ public final class ClassesUtil {
                         page_.getInitFieldsCtors().clear();
                         page_.getInitFieldsCtors().addAllElts(page_.getInitFields());
                         page_.setGlobalClass(c.getGenericString());
+                        page_.setGlobalType(c);
                         ConstructorBlock method_ = (ConstructorBlock) b;
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
@@ -1970,6 +1980,7 @@ public final class ClassesUtil {
                     OverridableBlock method_ = (OverridableBlock) b;
                     if (isStdOrExplicit(method_)) {
                         page_.setGlobalClass(c.getGenericString());
+                        page_.setGlobalType(c);
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
@@ -1980,6 +1991,7 @@ public final class ClassesUtil {
                         page_.clearAllLocalVarsReadOnly();
                     } else {
                         page_.setGlobalClass(c.getGenericString());
+                        page_.setGlobalType(c);
                         _context.getCoverage().putCalls(_context,fullName_,method_);
                         StringList params_ = method_.getParametersNames();
                         StringList types_ = method_.getImportedParametersTypes();
@@ -1993,6 +2005,7 @@ public final class ClassesUtil {
                 }
             }
             page_.setGlobalClass("");
+            page_.setGlobalType(null);
             _context.getCoverage().putCalls(_context,"");
             for (EntryCust<OperatorBlock,ExecOperatorBlock> e: page_.getMapOperators().entryList()) {
                 page_.setImporting(e.getKey());
@@ -2014,6 +2027,7 @@ public final class ClassesUtil {
             page_.setImportingTypes(c);
             Members mem_ = page_.getMapMembers().getVal(c);
             page_.setGlobalClass(c.getGenericString());
+            page_.setGlobalType(c);
             CustList<Block> annotated_ = new CustList<Block>();
             if (!(c instanceof InnerElementBlock)) {
                 annotated_.add(c);
@@ -2051,6 +2065,7 @@ public final class ClassesUtil {
             }
         }
         page_.setGlobalClass("");
+        page_.setGlobalType(null);
         for (EntryCust<OperatorBlock,ExecOperatorBlock> e: page_.getMapOperators().entryList()) {
             page_.setImporting(e.getKey());
             page_.setImportingAcces(new OperatorAccessor());
@@ -2116,6 +2131,7 @@ public final class ClassesUtil {
             for (Block b: bl_) {
                 if (b instanceof InnerTypeOrElement) {
                     page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
                     InnerTypeOrElement method_ = (InnerTypeOrElement) b;
                     page_.setCurrentBlock(b);
                     page_.setCurrentAnaBlock(b);
@@ -2132,6 +2148,7 @@ public final class ClassesUtil {
                 }
                 if (b instanceof FieldBlock) {
                     page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
                     FieldBlock method_ = (FieldBlock) b;
                     if (!method_.isStaticField()) {
                         continue;
@@ -2152,6 +2169,7 @@ public final class ClassesUtil {
                 }
                 if (b instanceof StaticBlock) {
                     page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
                     StaticBlock method_ = (StaticBlock) b;
                     page_.getMappingLocal().clear();
                     page_.getMappingLocal().putAllMap(method_.getMappings());
@@ -2235,6 +2253,7 @@ public final class ClassesUtil {
                 }
                 if (b instanceof FieldBlock) {
                     page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
                     FieldBlock method_ = (FieldBlock) b;
                     page_.setCurrentBlock(b);
                     page_.setCurrentAnaBlock(b);
@@ -2251,6 +2270,7 @@ public final class ClassesUtil {
                 }
                 if (b instanceof InstanceBlock) {
                     page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
                     InstanceBlock method_ = (InstanceBlock) b;
                     page_.getMappingLocal().clear();
                     page_.getMappingLocal().putAllMap(method_.getMappings());
@@ -2294,6 +2314,7 @@ public final class ClassesUtil {
                     page_.getInitFieldsCtors().clear();
                     page_.getInitFieldsCtors().addAllElts(page_.getInitFields());
                     page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
                     ConstructorBlock method_ = (ConstructorBlock) b;
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
@@ -2346,6 +2367,7 @@ public final class ClassesUtil {
                 OverridableBlock method_ = (OverridableBlock) b;
                 if (isStdOrExplicit(method_)) {
                     page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
@@ -2356,6 +2378,7 @@ public final class ClassesUtil {
                     page_.clearAllLocalVars(assVars_);
                 } else {
                     page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
                     _context.getCoverage().putCalls(_context,fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
@@ -2369,6 +2392,7 @@ public final class ClassesUtil {
             }
         }
         page_.setGlobalClass("");
+        page_.setGlobalType(null);
         _context.getCoverage().putCalls(_context,"");
         for (EntryCust<OperatorBlock,ExecOperatorBlock> e: page_.getMapOperators().entryList()) {
             page_.setImporting(e.getKey());
@@ -2575,6 +2599,7 @@ public final class ClassesUtil {
                     continue;
                 }
                 page_.setGlobalClass(c.getGenericString());
+                page_.setGlobalType(c);
                 page_.setCurrentBlock(f_);
                 page_.setCurrentAnaBlock(f_);
                 page_.getMappingLocal().clear();

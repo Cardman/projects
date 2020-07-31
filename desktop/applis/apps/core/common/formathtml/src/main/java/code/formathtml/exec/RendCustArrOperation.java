@@ -8,7 +8,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ArrOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -147,7 +146,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
         if (staticChoiceMethod) {
             String argClassName_ = prev_.getObjectClassName(_conf.getContext());
-            classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf.getContext());
+            classNameFound_ = ExecTemplates.quickFormat(argClassName_, classNameFound_, _conf.getContext());
             if (!ExecTemplates.isCorrectExecute(argClassName_, classNameFound_, _conf.getContext())) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                 String cast_;
@@ -156,7 +155,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
                 return new Argument();
             }
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
-            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
+            lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = classMethodId.getConstraints();
         } else {
@@ -165,7 +164,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             ClassMethodId methodToCall_ = ExecInvokingOperation.polymorph(context_, previous_, classMethodId);
             String argClassName_ = stds_.getStructClassName(previous_, context_);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
-            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
+            lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = methodToCall_.getConstraints();
             classNameFound_ = methodToCall_.getClassName();

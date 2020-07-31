@@ -327,7 +327,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         LgNames stds_ = _conf.getStandards();
         String objectClassName_ = stds_.getAliasObject();
         StringList bounds_ = new StringList();
-        if (_cl.startsWith(Templates.PREFIX_VAR_TYPE)) {
+        if (_cl.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
             String glClass_ = _conf.getAnalyzing().getGlobalClass();
             String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
             AnaGeneType gl_ = _conf.getAnalyzing().getAnaGeneType(_conf,curClassBase_);

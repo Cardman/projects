@@ -1,7 +1,6 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
-import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.util.CallingState;
@@ -18,7 +17,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultFullStack;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -1211,7 +1209,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             if (_rend.isStaticChoiceMethod()) {
                 String argClassName_ = prev_.getObjectClassName(_conf.getContext());
                 String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
-                lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
+                lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
                 firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 methodId_ = _rend.getClassMethodId().getConstraints();
             } else {
@@ -1220,7 +1218,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 ClassMethodId methodToCall_ = ExecInvokingOperation.polymorph(context_, previous_, _rend.getClassMethodId());
                 String argClassName_ = stds_.getStructClassName(previous_, context_);
                 String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
-                lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
+                lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
                 firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
                 methodId_ = methodToCall_.getConstraints();
                 classNameFound_ = methodToCall_.getClassName();

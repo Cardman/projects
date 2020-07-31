@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
-import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.opers.SuperInvokingConstructor;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
@@ -27,7 +27,7 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
         String calledCtorTemp_;
         String superClass_ = page_.formatVarType(getClassFromName(), _conf);
         String lastType_ = getLastType();
-        lastType_ = Templates.quickFormat(superClass_, lastType_, _conf);
+        lastType_ = ExecTemplates.quickFormat(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();
         ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments);

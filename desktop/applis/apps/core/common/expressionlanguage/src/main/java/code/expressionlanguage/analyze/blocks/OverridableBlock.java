@@ -2,8 +2,8 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
-import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.common.ExtractedParts;
 import code.expressionlanguage.common.GeneCustStaticMethod;
@@ -217,7 +217,8 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
             String clDest_ = ResolvingImportTypes.resolveAccessibleIdType(_context,off_+firstPar_+1,fromType_);
             CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
             superPartOffsets_.addAllElts(analyzing_.getCurrentParts());
-            String formattedDest_ = Templates.getOverridingFullTypeByBases(root_, clDest_, _context);
+            String formattedDest_ = AnaTemplates.getOverridingFullTypeByBases(root_, clDest_, _context);
+            RootBlock formattedDestType_ = analyzing_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(formattedDest_));
             if (formattedDest_.isEmpty()) {
                 allInternParts.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
@@ -232,8 +233,8 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
             CustList<PartOffset> partMethods_ = new CustList<PartOffset>();
             RootBlock rootSuper_ = analyzing_.getAnaClassBody(clDest_);
             CustList<OverridableBlock> methods_ = ClassesUtil.getMethodExecBlocks(rootSuper_);
-            String formattedDeclaring_ = Templates.getOverridingFullTypeByBases(root_, _root.getFullName(), _context);
-            if (!getId().quickOverrideFormat(formattedDeclaring_,_context).eqPartial(MethodId.to(methodIdDest_.quickFormat(formattedDest_,_context)))) {
+            String formattedDeclaring_ = AnaTemplates.getOverridingFullTypeByBases(root_, _root.getFullName(), _context);
+            if (!getId().quickOverrideFormat(_root,formattedDeclaring_,_context).eqPartial(MethodId.to(methodIdDest_.quickFormat(formattedDestType_,formattedDest_,_context)))) {
                 allInternParts.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
                 continue;

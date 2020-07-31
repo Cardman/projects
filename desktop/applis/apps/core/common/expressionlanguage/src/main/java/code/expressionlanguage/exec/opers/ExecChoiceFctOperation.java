@@ -6,7 +6,6 @@ import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -70,7 +69,7 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
                 return new Argument();
             }
             String argClassName_ = prev_.getStruct().getClassName(_conf);
-            classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
+            classNameFound_ = ExecTemplates.quickFormat(argClassName_, classNameFound_, _conf);
             if (!ExecTemplates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                 _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
@@ -78,7 +77,7 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
             }
             String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
-            lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
+            lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = realId;
         } else {

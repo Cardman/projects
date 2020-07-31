@@ -2,28 +2,24 @@ package code.expressionlanguage.analyze.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.AnnotationBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.InferenceConstraints;
 import code.expressionlanguage.inherits.MappingPairs;
 import code.expressionlanguage.inherits.Matching;
 import code.expressionlanguage.inherits.MatchingEnum;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.structs.IntStruct;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class AnaTemplates {
 
@@ -339,7 +335,7 @@ public final class AnaTemplates {
             String id_ = StringExpUtil.getIdFromAllTypes(base_);
             AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,id_);
             for (String t: g_.getAllGenericSuperTypes()) {
-                String f_ = Templates.format(base_, t, _conf);
+                String f_ = format(g_,base_, t, _conf);
                 superTypes_.add(StringExpUtil.getPrettyArrayType(f_, d_));
             }
             for (int d = 1; d <= d_; d++) {
@@ -613,7 +609,7 @@ public final class AnaTemplates {
             for (String b:b_) {
                 Mapping mapp_ = new Mapping();
                 mapp_.setArg(_parts.get(i));
-                String param_ = Templates.format(_realClassName, b, _context);
+                String param_ = format(g_,_realClassName, b, _context);
                 mapp_.setParam(param_);
                 mapp_.setMapping(_inherit);
                 if (!isCorrect(mapp_,_context)){
@@ -867,13 +863,19 @@ public final class AnaTemplates {
             StringMap<StringList> mapping_ = map_.getMapping();
             for (String c: Mapping.getAllUpperBounds(mapping_,baseArrayArg_.substring(PREFIX_VAR_TYPE.length()), objType_)) {
                 String arr_ = StringExpUtil.getPrettyArrayType(c,dArg_.getDim());
-                generic_ = Templates.getFullTypeByBases(arr_, _param, _context);
+                String idCl_ = StringExpUtil.getIdFromAllTypes(arr_);
+                String compo_ = StringExpUtil.getQuickComponentBaseType(idCl_).getComponent();
+                AnaGeneType info_ = _context.getAnalyzing().getAnaGeneType(_context,compo_);
+                generic_ = getFullTypeByBases(info_,arr_, _param, _context);
                 if (!generic_.isEmpty()) {
                     break;
                 }
             }
         } else {
-            generic_ = Templates.getFullTypeByBases(_arg, _param, _context);
+            String idCl_ = StringExpUtil.getIdFromAllTypes(_arg);
+            String compo_ = StringExpUtil.getQuickComponentBaseType(idCl_).getComponent();
+            AnaGeneType info_ = _context.getAnalyzing().getAnaGeneType(_context,compo_);
+            generic_ = getFullTypeByBases(info_,_arg, _param, _context);
         }
         return generic_;
     }
@@ -930,5 +932,149 @@ public final class AnaTemplates {
             return null;
         }
         return StringExpUtil.newMappingPairs(generic_, typesParam_);
+    }
+
+    public static String getFullTypeByBases(AnaGeneType _typeSub,String _subType, String _superType, ContextEl _context) {
+        if (!correctNbParameters(_typeSub,_subType,_context)) {
+            return "";
+        }
+        String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
+        String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
+        if (StringList.quickEq(idArg_,idSuperType_)) {
+            return _subType;
+        }
+        DimComp dBaseParam_ = StringExpUtil.getQuickComponentBaseType(idSuperType_);
+        int dim_ = dBaseParam_.getDim();
+        String classParam_ = dBaseParam_.getComponent();
+        DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
+        String baseArr_ = dBaseArg_.getComponent();
+        if (StringList.quickEq(classParam_, _context.getStandards().getAliasObject())) {
+            if (dBaseArg_.getDim() < dim_) {
+                return "";
+            }
+            return _superType;
+        }
+        if (dBaseArg_.getDim() != dim_) {
+            return "";
+        }
+        if (PrimitiveTypeUtil.isPrimitive(baseArr_,_context)) {
+            PrimitiveType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArr_);
+            if (StringList.contains(pr_.getAllSuperType(_context), classParam_)) {
+                return _superType;
+            }
+            return "";
+        }
+        if (StringList.quickEq(_subType, _context.getStandards().getAliasVoid())) {
+            return "";
+        }
+        if (StringList.quickEq(_superType, _context.getStandards().getAliasVoid())) {
+            return "";
+        }
+        String generic_ = getSuperGeneric(_typeSub,_context, dim_, classParam_);
+        return format(_typeSub,_subType, generic_, _context);
+    }
+
+    public static String getOverridingFullTypeByBases(AnaGeneType _typSub, String _subType, String _superType, ContextEl _context) {
+        String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
+        String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
+        if (StringList.quickEq(idArg_,idSuperType_)) {
+            return _subType;
+        }
+        if (_typSub == null) {
+            return "";
+        }
+        String generic_ = getSuperGeneric(_typSub,_context, 0, idSuperType_);
+        return quickFormat(_typSub,_subType, generic_, _context);
+    }
+
+    public static String getOverridingFullTypeByBases(AnaGeneType _subType, String _superType, ContextEl _context) {
+        String geneSubType_ = _subType.getGenericString();
+        return getInternOverriding(_subType,_superType, _context, geneSubType_);
+    }
+
+    private static String getInternOverriding(AnaGeneType _subType, String _superType, ContextEl _context, String _geneSubType) {
+        String idArg_ = StringExpUtil.getIdFromAllTypes(_geneSubType);
+        String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
+        if (StringList.quickEq(idArg_,idSuperType_)) {
+            return _geneSubType;
+        }
+        String generic_ = getSuperGeneric(_subType,_context, 0, idSuperType_);
+        return quickFormat(_subType,_geneSubType, generic_, _context);
+    }
+
+    public static String getSuperGeneric(AnaGeneType _subType, ContextEl _context, int _dim, String _classParam) {
+        String generic_ = "";
+        String param_ = StringExpUtil.getIdFromAllTypes(_classParam);
+        if (_subType instanceof AnnotationBlock) {
+            if (StringList.quickEq(param_,_context.getStandards().getAliasAnnotationType())) {
+                return StringExpUtil.getPrettyArrayType(param_,_dim);
+            }
+        }
+        for (String g: _subType.getAllGenericSuperTypes()) {
+            if (StringList.quickEq(StringExpUtil.getIdFromAllTypes(g),param_)) {
+                generic_ = g;
+                break;
+            }
+        }
+        if (generic_.isEmpty()) {
+            return "";
+        }
+        return StringExpUtil.getPrettyArrayType(generic_,_dim);
+    }
+
+    public static String format(AnaGeneType _root, String _first, String _second, ContextEl _context) {
+        StringMap<String> varTypes_ = getVarTypes(_root,_first, _context);
+        return StringExpUtil.getFormattedType(_second, varTypes_);
+    }
+
+    public static String quickFormat(AnaGeneType _root, String _first, String _second, ContextEl _context) {
+        StringMap<String> varTypes_ = getVarTypes(_root,_first, _context);
+        return StringExpUtil.getQuickFormattedType(_second, varTypes_);
+    }
+
+    public static StringMap<String> getVarTypes(AnaGeneType _root, String _className, ContextEl _context) {
+        StringList types_ = StringExpUtil.getAllTypes(_className);
+        StringMap<String> varTypes_ = new StringMap<String>();
+        if (_root == null) {
+            return varTypes_;
+        }
+        int i_ = CustList.FIRST_INDEX;
+        for (String t: _root.getParamTypesValues()) {
+            i_++;
+            if (!types_.isValidIndex(i_)) {
+                return varTypes_;
+            }
+            String arg_ = types_.get(i_);
+            varTypes_.put(t, arg_);
+        }
+        return varTypes_;
+    }
+
+    public static boolean correctNbParameters(AnaGeneType _info, String _genericClass, ContextEl _context) {
+        //From analyze
+        String idCl_ = StringExpUtil.getIdFromAllTypes(_genericClass);
+        String compo_ = StringExpUtil.getQuickComponentBaseType(idCl_).getComponent();
+        if (_info == null) {
+            if (PrimitiveTypeUtil.isPrimitive(compo_,_context)) {
+                return true;
+            }
+            return StringList.quickEq(compo_, _context.getStandards().getAliasVoid());
+        }
+        String fct_ = _context.getStandards().getAliasFct();
+        Ints rep_ = _info.getTypeVarCounts();
+        StringList inners_ = StringExpUtil.getAllInnerTypes(_genericClass);
+        int len_ = inners_.size();
+        if (!StringList.quickEq(compo_, fct_)) {
+            for (int i = 0; i < len_; i++) {
+                String i_ = inners_.get(i);
+                int req_ = rep_.get(i);
+                StringList params_ = StringExpUtil.getAllTypes(i_);
+                int nbParams_ = params_.size() - 1;
+                if (req_ != nbParams_) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

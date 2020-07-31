@@ -2,9 +2,9 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 
@@ -40,7 +40,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             return null;
         }
         String clCurName_ = _conf.getAnalyzing().getGlobalClass();
-        String superClass_ = Templates.getOverridingFullTypeByBases(clCurName_, cl_, _conf);
+        RootBlock clCurType_ = _conf.getAnalyzing().getGlobalType();
+        String superClass_ = AnaTemplates.getOverridingFullTypeByBases(clCurType_,clCurName_, cl_, _conf);
         if (superClass_.isEmpty()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());

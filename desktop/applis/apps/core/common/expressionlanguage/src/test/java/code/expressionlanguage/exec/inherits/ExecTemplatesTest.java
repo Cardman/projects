@@ -368,8 +368,75 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         assertEq("",t_);
     }
 
+    @Test
+    public void getGenericTypeByBases18Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        xml_.append("$public $annotation pkg.ExAnnot {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.ExAnnot";
+        String second_ = "pkg.Ex";
+        String t_ = ExecTemplates.getSuperGeneric(first_, second_, context_);
+        assertEq("",t_);
+    }
 
+    @Test
+    public void getGenericTypeByBases19Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        xml_.append("$public $annotation pkg.ExAnnot {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "$void";
+        String second_ = "pkg.Ex";
+        String t_ = ExecTemplates.getFullTypeByBases(first_, second_, context_);
+        assertEq("",t_);
+    }
 
+    @Test
+    public void getGenericTypeByBases20Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        xml_.append("$public $annotation pkg.ExAnnot {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex";
+        String second_ = "$void";
+        String t_ = ExecTemplates.getFullTypeByBases(first_, second_, context_);
+        assertEq("",t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases21Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        xml_.append("$public $annotation pkg.ExAnnot {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex";
+        String second_ = "[java.lang.Object";
+        String t_ = ExecTemplates.getFullTypeByBases(first_, second_, context_);
+        assertEq("",t_);
+    }
+
+    @Test
+    public void getGenericTypeByBases22Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        xml_.append("$public $annotation pkg.ExAnnot {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "";
+        String second_ = "";
+        String t_ = ExecTemplates.getFullTypeByBases(first_, second_, context_);
+        assertEq("",t_);
+    }
     @Test
     public void setCheckedElements1Test() {
         StringMap<String> files_ = new StringMap<String>();

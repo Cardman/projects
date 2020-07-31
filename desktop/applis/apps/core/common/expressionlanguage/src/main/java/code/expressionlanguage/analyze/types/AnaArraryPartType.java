@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
 import code.util.IntTreeMap;
@@ -13,7 +14,7 @@ final class AnaArraryPartType extends AnaParentPartType {
     }
 
     String getBegin() {
-        return Templates.ARR_BEG_STRING;
+        return AnaTemplates.ARR_BEG_STRING;
     }
 
     @Override
