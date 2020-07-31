@@ -138,7 +138,7 @@ public final class ApplyCoreMethodUtil {
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
-            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,((GeneCustModifierMethod)meth_).getId(),argsToPass_,null));
+            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,meth_.getId(),argsToPass_,null));
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
@@ -173,7 +173,7 @@ public final class ApplyCoreMethodUtil {
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
-            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,((GeneCustModifierMethod)meth_).getId(),argsToPass_,null));
+            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,meth_.getId(),argsToPass_,null));
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

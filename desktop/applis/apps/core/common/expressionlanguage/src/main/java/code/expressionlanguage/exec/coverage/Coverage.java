@@ -2,15 +2,13 @@ package code.expressionlanguage.exec.coverage;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.ReflectAnnotationPageEl;
 import code.expressionlanguage.exec.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
-import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.FileBlock;
-import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
 import code.expressionlanguage.analyze.opers.NullSafeOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -23,6 +21,8 @@ import code.util.StringMap;
 
 public final class Coverage {
     private CustList<FileBlock> files = new CustList<FileBlock>();
+    private final CustList<RootBlock> refFoundTypes = new CustList<RootBlock>();
+    private final CustList<OperatorBlock> refOperators = new CustList<OperatorBlock>();
     private IdMap<Block,AbstractCoverageResult> coversConditions = new IdMap<Block,AbstractCoverageResult>();
     private IdMap<Block,IdMap<OperationNode,AbstractCoverageResult>> covers = new IdMap<Block,IdMap<OperationNode,AbstractCoverageResult>>();
     private IdMap<Block,BooleanCoverageResult> coverLoops = new IdMap<Block,BooleanCoverageResult>();
@@ -40,6 +40,20 @@ public final class Coverage {
             return;
         }
         files.add(_file);
+    }
+
+    public void putType(ContextEl _context, RootBlock _type) {
+        if (!_context.isCovering()) {
+            return;
+        }
+        refFoundTypes.add(_type);
+    }
+
+    public void putOperator(ContextEl _context, OperatorBlock _type) {
+        if (!_context.isCovering()) {
+            return;
+        }
+        refOperators.add(_type);
     }
     public void putBlockOperationsLoops(ContextEl _context, Block _block) {
         if (!_context.isCovering()) {
@@ -305,4 +319,11 @@ public final class Coverage {
         return coverLoops.getVal(_bl);
     }
 
+    public CustList<RootBlock> getRefFoundTypes() {
+        return refFoundTypes;
+    }
+
+    public CustList<OperatorBlock> getRefOperators() {
+        return refOperators;
+    }
 }

@@ -14,11 +14,8 @@ public final class ExecFileBlock extends ExecBracedBlock {
 
     private final String fileName;
 
-    private boolean predefined;
-
     public ExecFileBlock(FileBlock _file) {
         super(_file.getOffset());
-        predefined = _file.isPredefined();
         lineReturns=_file.getLineReturns();
         tabulations=_file.getTabulations();
         fileName = _file.getFileName();
@@ -28,16 +25,8 @@ public final class ExecFileBlock extends ExecBracedBlock {
         return new FileMetrics(lineReturns,tabulations,_tabWidth);
     }
 
-    public boolean isPredefined() {
-        return predefined;
-    }
-
     public String getFileName() {
         return fileName;
-    }
-
-    public String getRenderFileName() {
-        return fileName+".html";
     }
 
     public static StringMap<String> errors(ContextEl _cont) {

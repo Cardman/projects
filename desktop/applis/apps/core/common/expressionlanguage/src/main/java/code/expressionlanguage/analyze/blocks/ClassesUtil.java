@@ -471,6 +471,7 @@ public final class ClassesUtil {
         page_.getFoundTypes().add(_root);
         if (ok_) {
             page_.getRefFoundTypes().add(_root);
+            _context.getCoverage().putType(_context,_root);
         }
         RootBlock parentType_ = _root.getParentType();
         int index_ = -1;
@@ -869,6 +870,7 @@ public final class ClassesUtil {
                 e_.setFile(_exeFile);
                 _context.getClasses().getOperators().add(e_);
                 _context.getAnalyzing().getMapOperators().put(r_,e_);
+                _context.getCoverage().putOperator(_context,r_);
                 r_.setNameNumber(_context.getAnalyzing().getMapOperators().size());
                 Block c_ = r_;
                 if (r_.getFirstChild() != null) {

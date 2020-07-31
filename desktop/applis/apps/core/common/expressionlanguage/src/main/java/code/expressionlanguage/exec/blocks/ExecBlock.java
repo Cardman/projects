@@ -233,9 +233,6 @@ public abstract class ExecBlock {
             if (b instanceof ExecOverridableBlock) {
                 methods_.add((ExecNamedFunctionBlock) b);
             }
-            if (b instanceof ExecAnnotationMethodBlock) {
-                methods_.add((ExecAnnotationMethodBlock) b);
-            }
         }
         return methods_;
     }

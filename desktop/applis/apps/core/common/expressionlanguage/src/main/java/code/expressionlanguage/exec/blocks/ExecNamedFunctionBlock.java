@@ -14,8 +14,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private final String name;
 
-    private int nameOffset;
-
     private String importedReturnType;
 
     private StringList importedParametersTypes;
@@ -32,7 +30,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         super(_offset.getOffset());
         importedParametersTypes = new StringList();
         name = _offset.getName();
-        nameOffset = _offset.getNameOffset();
         varargs = _offset.isVarargs();
         access = _offset.getAccess();
         parametersNames = _offset.getParametersNames();
@@ -68,10 +65,6 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
     @Override
     public CustList<CustList<CustList<ExecOperationNode>>> getAnnotationsOpsParams() {
         return annotationsOpsParams;
-    }
-
-    public int getNameOffset() {
-        return nameOffset;
     }
 
     public String getName() {

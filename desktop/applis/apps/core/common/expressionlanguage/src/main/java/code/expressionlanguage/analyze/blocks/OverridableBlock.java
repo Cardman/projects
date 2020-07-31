@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -174,12 +175,13 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
     }
     public void buildTypes(RootBlock _root, ContextEl _context) {
         int indexDefOv_ = definition.indexOf('(');
-        _context.getAnalyzing().setGlobalOffset(definitionOffset+indexDefOv_+1);
+        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
+        analyzing_.setGlobalOffset(definitionOffset+indexDefOv_+1);
         ExtractedParts extractedParts_ = StringExpUtil.tryToExtract(definition, '(', ')');
         StringList overrideList_ = StringList.splitChar(extractedParts_.getSecond(), ';');
         int sum_ = 0;
         for (String o: overrideList_) {
-            _context.getAnalyzing().setOffset(sum_);
+            analyzing_.setOffset(sum_);
             int indexDef_ = o.indexOf(Templates.EXTENDS_DEF);
             StringList parts_ = StringList.splitInTwo(o, indexDef_);
             if (parts_.size() <= 1) {
@@ -189,8 +191,8 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
             String key_ = parts_.first();
             int off_ = StringList.getFirstPrintableCharIndex(key_);
             String clKey_ = ResolvingImportTypes.resolveAccessibleIdType(_context,off_,key_);
-            allInternParts.addAllElts(_context.getAnalyzing().getCurrentParts());
-            RootBlock root_ = _context.getAnalyzing().getAnaClassBody(clKey_);
+            allInternParts.addAllElts(analyzing_.getCurrentParts());
+            RootBlock root_ = analyzing_.getAnaClassBody(clKey_);
             if (root_ == null) {
                 sum_ += o.length()+1;
                 continue;
@@ -206,7 +208,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 sum_ += o.length() + 1;
                 continue;
             }
-            _context.getAnalyzing().setOffset(sum_+indexDef_+1);
+            analyzing_.setOffset(sum_+indexDef_+1);
             StringList args_ = StringExpUtil.getAllSepCommaTypes(extr_.getSecond());
             String firstFull_ = args_.first();
             off_ = StringList.getFirstPrintableCharIndex(firstFull_);
@@ -214,7 +216,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
             int firstPar_ = extr_.getFirst().length();
             String clDest_ = ResolvingImportTypes.resolveAccessibleIdType(_context,off_+firstPar_+1,fromType_);
             CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
-            superPartOffsets_.addAllElts(_context.getAnalyzing().getCurrentParts());
+            superPartOffsets_.addAllElts(analyzing_.getCurrentParts());
             String formattedDest_ = Templates.getOverridingFullTypeByBases(root_, clDest_, _context);
             if (formattedDest_.isEmpty()) {
                 allInternParts.addAllElts(superPartOffsets_);
@@ -228,7 +230,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 continue;
             }
             CustList<PartOffset> partMethods_ = new CustList<PartOffset>();
-            RootBlock rootSuper_ = _context.getAnalyzing().getAnaClassBody(clDest_);
+            RootBlock rootSuper_ = analyzing_.getAnaClassBody(clDest_);
             CustList<OverridableBlock> methods_ = ClassesUtil.getMethodExecBlocks(rootSuper_);
             String formattedDeclaring_ = Templates.getOverridingFullTypeByBases(root_, _root.getFullName(), _context);
             if (!getId().quickOverrideFormat(formattedDeclaring_,_context).eqPartial(MethodId.to(methodIdDest_.quickFormat(formattedDest_,_context)))) {
@@ -245,7 +247,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                     ClassMethodId ref_ = new ClassMethodId(clDest_,m.getId());
                     CustList<PartOffset> partMethod_ = new CustList<PartOffset>();
                     StringList l_ = new StringList();
-                    LinkageUtil.addParts(_context,_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
+                    LinkageUtil.addParts(_context,analyzing_.getRefFoundTypes(),_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
                     partMethods_.addAllElts(partMethod_);
                     overrides.put(clKey_,new ClassMethodId(formattedDest_,methodIdDest_));
                     break;

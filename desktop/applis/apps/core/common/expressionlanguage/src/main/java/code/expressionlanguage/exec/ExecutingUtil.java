@@ -150,12 +150,12 @@ public final class ExecutingUtil {
         _context.setCallingState(null);
         ExecNamedFunctionBlock methodLoc_;
         CustList<ExecOverridableBlock> methods_ = ExecBlock.getDeepMethodBodiesById(_context, _class, _method);
+        CustList<ExecNamedFunctionBlock> opers_ = ExecBlock.getOperatorsBodiesById(_context, _method);
         if (!methods_.isEmpty()) {
             methodLoc_ = methods_.first();
             String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
             _context.getCoverage().passCalls(_context,idCl_,methodLoc_);
         } else {
-            CustList<ExecNamedFunctionBlock> opers_ = ExecBlock.getOperatorsBodiesById(_context, _method);
             methodLoc_ = opers_.first();
             _context.getCoverage().passCalls(_context,"",methodLoc_);
         }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
@@ -41,11 +42,12 @@ public final class InternOverrideBlock extends Leaf {
             setReachableError(true);
             getErrorsBlock().add(b_.getBuiltError());
         }
-        _context.getAnalyzing().setGlobalOffset(definitionOffset);
+        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
+        analyzing_.setGlobalOffset(definitionOffset);
         StringList overrideList_ = StringList.splitChar(definition, ';');
         int sum_ = 0;
         for (String o: overrideList_) {
-            _context.getAnalyzing().setOffset(sum_);
+            analyzing_.setOffset(sum_);
             int indexDef_ = o.indexOf(Templates.EXTENDS_DEF);
             StringList parts_ = StringList.splitInTwo(o, indexDef_);
             StringList superMethods_ = new StringList();
@@ -82,7 +84,7 @@ public final class InternOverrideBlock extends Leaf {
                     localSum_ += s.length()+1;
                     continue;
                 }
-                _context.getAnalyzing().setOffset(sum_+localSum_);
+                analyzing_.setOffset(sum_+localSum_);
                 StringList args_ = StringExpUtil.getAllSepCommaTypes(extValue_.getSecond());
                 String firstFull_ = args_.first();
                 int off_ = StringList.getFirstPrintableCharIndex(firstFull_);
@@ -90,7 +92,7 @@ public final class InternOverrideBlock extends Leaf {
                 CustList<PartOffset> superPartOffsets_ = new CustList<PartOffset>();
                 int firstPar_ = extValue_.getFirst().length();
                 String cl_ = ResolvingImportTypes.resolveAccessibleIdType(_context,off_+firstPar_+1,fromType_);
-                superPartOffsets_.addAllElts(_context.getAnalyzing().getCurrentParts());
+                superPartOffsets_.addAllElts(analyzing_.getCurrentParts());
                 String formatted_ = Templates.getOverridingFullTypeByBases(_root, cl_, _context);
                 if (formatted_.isEmpty()) {
                     allParts.addAllElts(superPartOffsets_);
@@ -109,7 +111,7 @@ public final class InternOverrideBlock extends Leaf {
                     continue;
                 }
                 CustList<PartOffset> partMethods_ = new CustList<PartOffset>();
-                RootBlock root_ = _context.getAnalyzing().getAnaClassBody(cl_);
+                RootBlock root_ = analyzing_.getAnaClassBody(cl_);
                 CustList<OverridableBlock> methods_ = ClassesUtil.getMethodExecBlocks(root_);
                 CustList<GeneStringOverridable> list_ = new CustList<GeneStringOverridable>();
                 int rc_ = _context.getCurrentLocationIndex();
@@ -118,7 +120,7 @@ public final class InternOverrideBlock extends Leaf {
                         ClassMethodId ref_ = new ClassMethodId(cl_,m.getId());
                         CustList<PartOffset> partMethod_ = new CustList<PartOffset>();
                         StringList l_ = new StringList();
-                        LinkageUtil.addParts(_context,_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
+                        LinkageUtil.addParts(_context,analyzing_.getRefFoundTypes(),_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
                         partMethods_.addAllElts(partMethod_);
                         GeneStringOverridable g_ = new GeneStringOverridable(formatted_,root_,m);
                         list_.add(g_);
