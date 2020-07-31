@@ -391,7 +391,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         String inferred_ = AnaTemplates.tryInfer("java.lang.$Fct",new StringMap<String>(), "java.lang.$Fct<java.lang.Number>", cont_);
         assertEq("java.lang.$Fct<java.lang.Number>", inferred_);
     }
-
+    @Test
+    public void getVarTypes() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<String> vars_ = AnaTemplates.getVarTypes(null,"",cont_);
+        assertEq(0, vars_.size());
+    }
     @Test
     public void tryInfer16Test() {
         StringMap<String> files_ = new StringMap<String>();
