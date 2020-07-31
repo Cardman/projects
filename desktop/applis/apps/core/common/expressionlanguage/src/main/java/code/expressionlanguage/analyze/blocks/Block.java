@@ -87,15 +87,6 @@ public abstract class Block implements AnalyzedBlock {
         }
     }
 
-    public final Block getOuter() {
-        Block t = this;
-        Block o = this;
-        while (!(t instanceof FileBlock)) {
-            o = t;
-            t = t.getParent();
-        }
-        return o;
-    }
     public void reach(ContextEl _an, AnalyzingEl _anEl) {
         Block prev_ = getPreviousSibling();
         if (_anEl.canCompleteNormallyGroup(prev_)) {

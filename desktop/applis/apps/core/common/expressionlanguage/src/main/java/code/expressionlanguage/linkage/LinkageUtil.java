@@ -145,156 +145,158 @@ public final class LinkageUtil {
         vars_.setRefFoundTypes(_refFound);
         vars_.setRefOperators(_refOperators);
         vars_.setCurrentFileName(_fileExp);
+        if (_ex.getFirstChild() == null || !_ex.getErrorsFiles().isEmpty()) {
+            processFileBlockError(_ex,list_);
+            return list_;
+        }
         Block child_ = _ex;
-        while (true) {
+        while (child_ != null) {
             if (child_ instanceof FileBlock) {
-                processFileBlockError((FileBlock)child_,list_);
+                processFileBlockReport((FileBlock)child_,list_);
             }
-            if (child_.getFile().getErrorsFiles().isEmpty()) {
-                if (child_ instanceof FileBlock) {
-                    processFileBlockReport((FileBlock)child_,list_);
-                }
-                if (child_ instanceof RootBlock) {
-                    processGlobalRootBlockError((RootBlock) child_, list_);
-                }
-                Block parType_ = child_.getOuter();
-                if (parType_.getBadIndexes().isEmpty()) {
-                    if (child_.isReachableError()) {
-                        if (!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof EmptyInstruction)&&!(child_ instanceof RootBlock)) {
-                            String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
-                            int off_ = child_.getBegin();
-                            int l_ = child_.getLengthHeader();
-                            list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
-                            list_.add(new PartOffset("</a>",off_+l_));
-                        }
-                    }
-                    if (child_ instanceof RootBlock) {
-                        if (child_ instanceof InnerElementBlock) {
-                            processInnerElementBlockError(vars_,(InnerElementBlock)child_,_cont,list_);
-                        } else {
-                            processRootBlockError(vars_, (RootBlock) child_, _cont, list_);
-                        }
-                    }
-                    if (child_ instanceof InternOverrideBlock) {
-                        list_.addAllElts(((InternOverrideBlock)child_).getAllParts());
-                    }
-                    if (child_ instanceof OperatorBlock) {
-                        processOperatorBlockError(vars_,(OperatorBlock)child_,_cont,list_);
-                    }
-                    if (child_ instanceof ConstructorBlock) {
-                        processConstructorBlockError(vars_,(ConstructorBlock)child_,_cont,list_);
-                    }
-                    if (child_ instanceof OverridableBlock) {
-                        processOverridableBlockError(vars_,(OverridableBlock)child_,_cont,list_);
-                    }
-                    if (child_ instanceof AnnotationMethodBlock) {
-                        processAnnotationMethodBlockError(vars_,(AnnotationMethodBlock)child_,_cont,list_);
-                    }
-                    if (child_ instanceof ElementBlock) {
-                        processElementBlockError(vars_,(ElementBlock)child_,_cont,list_);
-                    }
-                    if (child_ instanceof FieldBlock) {
-                        processFieldBlockError(vars_,(FieldBlock)child_,_cont,list_);
-                    }
-                    if (child_ instanceof WhileCondition) {
-                        processWhileConditionError(vars_,(WhileCondition)child_,_cont,list_);
-                    }
-                    if (child_ instanceof IfCondition) {
-                        processIfConditionError(vars_,(IfCondition)child_,_cont,list_);
-                    }
-                    if (child_ instanceof ElseIfCondition) {
-                        processConditionError((ElseIfCondition)child_, vars_,_cont,list_);
-                        processTestCondition(vars_, (ElseIfCondition)child_, _cont, list_);
-                    }
-                    if (child_ instanceof DoBlock) {
-                        processDoBlockError((DoBlock)child_,list_);
-                    }
-                    if (child_ instanceof DoWhileCondition) {
-                        processConditionError((DoWhileCondition)child_, vars_,_cont,list_);
-                        processTestCondition(vars_, (DoWhileCondition)child_, _cont, list_);
-                    }
-                    if (child_ instanceof SwitchBlock) {
-                        processSwitchBlockError(vars_,(SwitchBlock)child_,_cont,list_);
-                    }
-                    if (child_ instanceof CaseCondition) {
-                        processCaseConditionError(vars_,(CaseCondition)child_,_cont,list_);
-                    }
-                    if (child_ instanceof DefaultCondition) {
-                        processDefaultConditionError((DefaultCondition)child_,_cont,list_);
-                    }
-                    if (child_ instanceof TryEval) {
-                        processTryEvalError((TryEval)child_,list_);
-                    }
-                    if (child_ instanceof CatchEval) {
-                        processCatchEvalError(vars_,(CatchEval)child_,_cont,list_);
-                    }
-                    if (child_ instanceof DeclareVariable) {
-                        processDeclareVariableError((DeclareVariable)child_,_cont,list_);
-                    }
-                    if (child_ instanceof Line) {
-                        processLineError(vars_,(Line)child_,_cont,list_);
-                    }
-                    if (child_ instanceof ForIterativeLoop) {
-                        processForIterativeLoopError(vars_,(ForIterativeLoop)child_,_cont,list_);
-                    }
-                    if (child_ instanceof ForEachLoop) {
-                        processForEachLoopError(vars_,(ForEachLoop)child_,_cont,list_);
-                    }
-                    if (child_ instanceof ForEachTable) {
-                        processForEachTableError(vars_,(ForEachTable)child_,_cont,list_);
-                    }
-                    if (child_ instanceof ForMutableIterativeLoop) {
-                        processForMutableIterativeLoopError(vars_,(ForMutableIterativeLoop)child_,_cont,list_);
-                    }
-                    if (child_ instanceof ReturnMethod) {
-                        processReturnMethodError(vars_,(ReturnMethod)child_,_cont,list_);
-                    }
-                    if (child_ instanceof Throwing) {
-                        processThrowingError(vars_,(Throwing)child_,_cont,list_);
-                    }
-                    if (child_ instanceof BreakBlock) {
-                        processBreakBlockError((BreakBlock)child_,list_);
-                    }
-                    if (child_ instanceof ContinueBlock) {
-                        processContinueBlockError((ContinueBlock)child_,list_);
-                    }
-                    if (child_.isReachableError()) {
-                        if (child_ instanceof Line) {
-                            String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
-                            int off_ = child_.getBegin();
-                            int l_ = child_.getLengthHeader();
-                            list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
-                            list_.add(new PartOffset("</a>",off_+l_));
-                        }
+            if (child_ instanceof RootBlock) {
+                processGlobalRootBlockError((RootBlock) child_, list_);
+                if (child_.getParent() instanceof FileBlock) {
+                    if (!((RootBlock) child_).getGlobalErrorsPars().isEmpty()) {
+                        child_ = nextSkip(child_, _ex);
+                        continue;
                     }
                 }
             }
-            Block firstChild_ = child_.getFirstChild();
-            if (firstChild_ != null) {
-                child_ = firstChild_;
-                continue;
-            }
-            boolean stop_ = false;
-            while (true) {
-                Block nextSibling_ = child_.getNextSibling();
-                if (nextSibling_ != null) {
-                    child_ = nextSibling_;
-                    break;
+            if (child_.isReachableError()) {
+                if (!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof EmptyInstruction)&&!(child_ instanceof RootBlock)) {
+                    String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
+                    int off_ = child_.getBegin();
+                    int l_ = child_.getLengthHeader();
+                    list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
+                    list_.add(new PartOffset("</a>",off_+l_));
                 }
-                BracedBlock parent_ = child_.getParent();
-                if (parent_ == _ex || parent_ == null) {
-                    stop_ = true;
-                    break;
+            }
+            if (child_ instanceof RootBlock) {
+                if (child_ instanceof InnerElementBlock) {
+                    processInnerElementBlockError(vars_,(InnerElementBlock)child_,_cont,list_);
+                } else {
+                    processRootBlockError(vars_, (RootBlock) child_, _cont, list_);
                 }
-                child_ = parent_;
             }
-            if (stop_) {
-                break;
+            if (child_ instanceof InternOverrideBlock) {
+                list_.addAllElts(((InternOverrideBlock)child_).getAllParts());
             }
+            if (child_ instanceof OperatorBlock) {
+                processOperatorBlockError(vars_,(OperatorBlock)child_,_cont,list_);
+            }
+            if (child_ instanceof ConstructorBlock) {
+                processConstructorBlockError(vars_,(ConstructorBlock)child_,_cont,list_);
+            }
+            if (child_ instanceof OverridableBlock) {
+                processOverridableBlockError(vars_,(OverridableBlock)child_,_cont,list_);
+            }
+            if (child_ instanceof AnnotationMethodBlock) {
+                processAnnotationMethodBlockError(vars_,(AnnotationMethodBlock)child_,_cont,list_);
+            }
+            if (child_ instanceof ElementBlock) {
+                processElementBlockError(vars_,(ElementBlock)child_,_cont,list_);
+            }
+            if (child_ instanceof FieldBlock) {
+                processFieldBlockError(vars_,(FieldBlock)child_,_cont,list_);
+            }
+            if (child_ instanceof WhileCondition) {
+                processWhileConditionError(vars_,(WhileCondition)child_,_cont,list_);
+            }
+            if (child_ instanceof IfCondition) {
+                processIfConditionError(vars_,(IfCondition)child_,_cont,list_);
+            }
+            if (child_ instanceof ElseIfCondition) {
+                processConditionError((ElseIfCondition)child_, vars_,_cont,list_);
+                processTestCondition(vars_, (ElseIfCondition)child_, _cont, list_);
+            }
+            if (child_ instanceof DoBlock) {
+                processDoBlockError((DoBlock)child_,list_);
+            }
+            if (child_ instanceof DoWhileCondition) {
+                processConditionError((DoWhileCondition)child_, vars_,_cont,list_);
+                processTestCondition(vars_, (DoWhileCondition)child_, _cont, list_);
+            }
+            if (child_ instanceof SwitchBlock) {
+                processSwitchBlockError(vars_,(SwitchBlock)child_,_cont,list_);
+            }
+            if (child_ instanceof CaseCondition) {
+                processCaseConditionError(vars_,(CaseCondition)child_,_cont,list_);
+            }
+            if (child_ instanceof DefaultCondition) {
+                processDefaultConditionError((DefaultCondition)child_,_cont,list_);
+            }
+            if (child_ instanceof TryEval) {
+                processTryEvalError((TryEval)child_,list_);
+            }
+            if (child_ instanceof CatchEval) {
+                processCatchEvalError(vars_,(CatchEval)child_,_cont,list_);
+            }
+            if (child_ instanceof DeclareVariable) {
+                processDeclareVariableError((DeclareVariable)child_,_cont,list_);
+            }
+            if (child_ instanceof Line) {
+                processLineError(vars_,(Line)child_,_cont,list_);
+            }
+            if (child_ instanceof ForIterativeLoop) {
+                processForIterativeLoopError(vars_,(ForIterativeLoop)child_,_cont,list_);
+            }
+            if (child_ instanceof ForEachLoop) {
+                processForEachLoopError(vars_,(ForEachLoop)child_,_cont,list_);
+            }
+            if (child_ instanceof ForEachTable) {
+                processForEachTableError(vars_,(ForEachTable)child_,_cont,list_);
+            }
+            if (child_ instanceof ForMutableIterativeLoop) {
+                processForMutableIterativeLoopError(vars_,(ForMutableIterativeLoop)child_,_cont,list_);
+            }
+            if (child_ instanceof ReturnMethod) {
+                processReturnMethodError(vars_,(ReturnMethod)child_,_cont,list_);
+            }
+            if (child_ instanceof Throwing) {
+                processThrowingError(vars_,(Throwing)child_,_cont,list_);
+            }
+            if (child_ instanceof BreakBlock) {
+                processBreakBlockError((BreakBlock)child_,list_);
+            }
+            if (child_ instanceof ContinueBlock) {
+                processContinueBlockError((ContinueBlock)child_,list_);
+            }
+            if (child_.isReachableError()) {
+                if (child_ instanceof Line) {
+                    String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
+                    int off_ = child_.getBegin();
+                    int l_ = child_.getLengthHeader();
+                    list_.add(new PartOffset("<a title=\""+err_+"\" class=\"e\">",off_));
+                    list_.add(new PartOffset("</a>",off_+l_));
+                }
+            }
+            child_ = next(child_, _ex);
         }
         return list_;
     }
 
+    private static Block next(Block _current, Block _ex) {
+        Block firstChild_ = _current.getFirstChild();
+        if (firstChild_ != null) {
+            return firstChild_;
+        }
+        return nextSkip(_current,_ex);
+    }
+    private static Block nextSkip(Block _current, Block _ex) {
+        Block child_ = _current;
+        while (true) {
+            Block nextSibling_ = child_.getNextSibling();
+            if (nextSibling_ != null) {
+                return nextSibling_;
+            }
+            BracedBlock parent_ = child_.getParent();
+            if (parent_ == _ex) {
+                return null;
+            }
+            child_ = parent_;
+        }
+    }
     private static void processFileBlockError(FileBlock _cond, CustList<PartOffset> _parts) {
         for (GraphicErrorInterpret g: _cond.getErrorsFiles()) {
             int index_ = g.getIndexFile();
@@ -316,7 +318,7 @@ public final class LinkageUtil {
         vars_.setRefOperators(_refOperators);
         vars_.setCurrentFileName(_fileExp);
         Block child_ = _ex;
-        while (true) {
+        while (child_ != null) {
             if (child_ instanceof IfCondition) {
                 processIfConditionReport(vars_,(IfCondition)child_,_cont,list_);
             }
@@ -411,28 +413,7 @@ public final class LinkageUtil {
             if (child_ instanceof FileBlock) {
                 processFileBlockReport((FileBlock)child_,list_);
             }
-            Block firstChild_ = child_.getFirstChild();
-            if (firstChild_ != null) {
-                child_ = firstChild_;
-                continue;
-            }
-            boolean stop_ = false;
-            while (true) {
-                Block nextSibling_ = child_.getNextSibling();
-                if (nextSibling_ != null) {
-                    child_ = nextSibling_;
-                    break;
-                }
-                BracedBlock parent_ = child_.getParent();
-                if (parent_ == _ex) {
-                    stop_ = true;
-                    break;
-                }
-                child_ = parent_;
-            }
-            if (stop_) {
-                break;
-            }
+            child_ = next(child_, _ex);
         }
         return list_;
     }
